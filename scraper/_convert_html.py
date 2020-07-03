@@ -26,17 +26,17 @@ for ii, url in enumerate(urls):
     if os.path.exists(source):
         print('converting %s of %s...' % (str(ii), str(len(urls))), end='\r')
         
-        fpath = ['docs/_files'] + url.split("/")[4:]
+        fpath = ['docs', '_files'] + url.split("/")[5:]
         for ii in range(1,len(fpath)):
             subdir = '/'.join(fpath[:ii])
             if not os.path.isdir(subdir):
                 os.mkdir(subdir)
         dest = '/'.join(fpath) + '.rst'
-        #os.system('pandoc --toc %s -f html -t ipynb -s -o %s' % (source, dest))
-        os.system('pandoc --toc %s -f html -t rst -s -o %s' % (source, dest))
+        #os.system('pandoc %s -f html -t ipynb -s -o %s' % (source, dest))
+        os.system('pandoc %s -f html -t rst -s -o %s' % (source, dest))
         
         # add each file to the toctree of the parent folder
-        if len(fpath) > 1:
+        if len(fpath) > 2:
             fname = '/'.join(fpath[:-1])+'.rst'
             if not os.path.exists(fname):  # if the parent folder doesn't have its own page
                 with open(fname, 'w') as fid:
@@ -52,15 +52,8 @@ for ii, url in enumerate(urls):
                         fid.write('\n   %s' % ('/'.join(fpath[-2:])))
                 
 
-# now we just need to create .rst files in the root of each subdirectory to hold the toctrees
-#for dir,subdirs,files in os.walk('docs/_files'):
-#    rst_body = '%s\n===================================\n\n%s' % (dir.split('/')[-1], body)
-#    if len(files) > 0:
-#        fs = [file.split('.')[0] for file in files if file != 'index.rst']
-#        rst_body = rst_body + "\n   ".join(fs) + "\n   "
-#    if len(subdirs) > 0:
-#        rst_body = rst_body + "/index.rst\n   ".join(subdirs) + "/index.rst\n"
-#    with open(dir+'/index.rst', 'w') as fid:
-#        fid.write(rst_body)
+# make the root level file the index
+os.system("mv docs/_files.rst docs/index.rst")
 
+print('')
 print('done')

@@ -71,7 +71,7 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = '_files/stable'
+master_doc = 'index'
 
 # point to CNGI docs location to automatically pull them in
 intersphinx_mapping = {'cngilatest': ('https://cngi-prototype.readthedocs.io/en/latest', None)}
