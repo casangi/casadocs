@@ -1,0 +1,85 @@
+.. contents::
+   :depth: 3
+..
+
+.. container::
+   :name: viewlet-above-content-title
+
+Printing from the Viewer
+========================
+
+.. container::
+   :name: viewlet-below-content-title
+
+.. container:: documentDescription description
+
+   Printing to a file directly from the Viewer
+
+.. container:: section
+   :name: viewlet-above-content-body
+
+.. container:: section
+   :name: content-core
+
+   .. container::
+      :name: parent-fieldname-text
+
+      You can select Data:Print from the drop down menu or click the
+      printer icon in the Main Toolbar to bring up the Viewer Print
+      Manager. From this panel, you can "Print" the contents of Display
+      Panel to a hardcopy or "Save" them as an image in a format
+      selected from the drop-down menu at the bottom left of the window.
+
+      .. container:: info-box
+
+         **NOTE**: The save feature will overwrite the file in question
+         without prompting.
+
+      The Viewer Print Manager allows you to adjust the DPI,
+      orientation, and page format (Output Media) for Postscript or PDF
+      files and to scale the image to a desired pixel size for other
+      images.
+
+      To achieve the best output it is usually advisable to adjust the
+      settings in the Viewer Print Manager (printer icon in the Main
+      Toolbar), Data Display Options (Data:Adjust Data Display), and
+      Viewer Canvas Manager (wrench+"P" icon in the Main Toolbar). For
+      PDF and Postscript output, turning the DPI up all the way yields
+      the best-looking results. For other images, a white background
+      often makes for better looking images than the default black. It
+      is often necessary to increase the Line Width in the Axis Label
+      Properties (in the Data Display Options panel) to ensure that the
+      labels will be visible when printed. Increasing from the default
+      of 1.4 to a value around 2 often works well.
+
+      `Printing to a File <#FigPrintingImage>`__ shows an example of
+      printing to a file while adjusting the Data Display Options and
+      Viewer Canvas Manager to improve the appearance of the plot.
+
+      --------------
+
+      .. figure:: ../../../../docs/cookbook/casa_cookbook099.png
+         :alt: TypeFigure
+         IDViewer Print Manager
+         CaptionPrinting to a File: From the Viewer Print Manager, shown
+         here in top right and accessed by the printer icon in the Main
+         Toolbar or from the Data drop down menu, you can use the "Save"
+         button to save an image or "Print" directly to a printer. To
+         achieve the best results, it is often helpful to adjust the
+         settings in the Data Display Options and Viewer Canvas Manager,
+         shown at left.
+
+         TypeFigure
+         IDViewer Print Manager
+         CaptionPrinting to a File: From the Viewer Print Manager, shown
+         here in top right and accessed by the printer icon in the Main
+         Toolbar or from the Data drop down menu, you can use the "Save"
+         button to save an image or "Print" directly to a printer. To
+         achieve the best results, it is often helpful to adjust the
+         settings in the Data Display Options and Viewer Canvas Manager,
+         shown at left.
+
+       
+
+.. container:: section
+   :name: viewlet-below-content-body

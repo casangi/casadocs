@@ -1,0 +1,17 @@
+.wy-nav-side {
+    background: #ffffff;
+}
+
+.wy-nav-content {
+   max-width: none;
+}
+
+
+.wy-menu-vertical a {
+  color: black;
+}
+
+
+.wy-menu-vertical a:hover {
+  background-color: #e6e6e6;
+}
