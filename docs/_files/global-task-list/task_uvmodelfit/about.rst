@@ -34,8 +34,9 @@ Description
 
          **INFO:** The Nordic ALMA Regional Center Node has developed
          tools for fitting multiple components of any shape to the
-         visibilities. Their versatile uvmultifit `[1] <#cit>`__ package
-         is provided on their `software
+         visibilities. Their versatile
+         uvmultifit `[1] <#cit1>`__ package is provided on their
+         `software
          tools <https://www.oso.nordic-alma.se/software-tools.php>`__
          page.  
 
@@ -254,6 +255,19 @@ Description
       |                 | (`arX                                             |
       |                 | iv:1401.4984 <http://arxiv.org/abs/1401.4984>`__) |
       +-----------------+---------------------------------------------------+
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Marti-Vidal et al. 2014, A&A 563, 136
+         (`\ `arXiv:1401.4984 <http://arxiv.org/abs/1401.4984>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

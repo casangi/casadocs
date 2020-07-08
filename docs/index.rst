@@ -1,9 +1,6 @@
 .. container::
    :name: viewlet-above-content-title
 
-CASA pre-release
-================
-
 .. container::
    :name: viewlet-below-content-title
 
@@ -52,6 +49,7 @@ CASA pre-release
          bandpass, and fringefit tasks to permit more control of
          flagging subsets of correlations.
       -  The fringefit task now includes support for dispersive delays.
+      -  The CASA simulator now uses tclean instead of clean.
       -  The ability to correct for heterogeneous antenna pointing
          offsets stored in the POINTING sub-table of the MS has been
          added to tclean (gridder='awproject').

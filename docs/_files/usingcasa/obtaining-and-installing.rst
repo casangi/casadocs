@@ -180,8 +180,8 @@ Obtaining and Installing
       already be installed on your machine.
 
       With the pip installation, CASA may be used in a standard Pythonic
-      manner. Examples can be found in `this Jupyter
-      Notebook <https://colab.research.google.com/github/casangi/examples/blob/master/casa6/CASA6_demo.ipynb>`__.
+      manner. Examples can be found in\ `this Jupyter
+      Notebook <https://colab.research.google.com/github/casangi/examples/blob/master/casa6/CASA6_demo.ipynb>`__\ .
 
       .. container:: alert-box
 

@@ -28,13 +28,6 @@ Release Notes CASA 5.7 / 6.1
       .. rubric:: Highlights (details below)
          :name: highlights-details-below
 
-      -  CAS-9386, cube refactor: don't forget to include if it goes
-         into 6.1
-      -  Add CAS-12502: simulator now uses tclean. Also check CAS-11127
-         (simanalyze does not produce PB-corrected images)
-      -  check CAS-12669
-      -  act on CAS-4969
-      -  CAS-12720
       -  A new task sdintimaging is available for jont deconvolution of
          Single Dish and Interfermeter data.
       -  A new task sdtimeaverage is available for averaging single-dish
@@ -45,6 +38,7 @@ Release Notes CASA 5.7 / 6.1
          bandpass, and fringefit tasks to permit more control of
          flagging subsets of correlations.
       -  The fringefit task now includes support for dispersive delays.
+      -  The CASA simulator now uses tclean instead of clean.
       -  The ability to correct for heterogeneous antenna pointing
          offsets stored in the POINTING sub-table of the MS has been
          added to tclean (gridder='awproject').

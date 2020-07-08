@@ -34,9 +34,9 @@ Description
       simulated observation and the original model data, and generate a
       "fidelity image". Fidelity is defined as:
 
-      | \\begin{equation}
-      | \\frac{I}{|I-T|}
-      | \\end{equation}
+      I\|I−T\|\ 
+
+      .. math:: \begin{equation} \frac{I}{|I-T|} \end{equation}
 
       where I is the observed image intensity and T is the true image
       intensity, given in this case by the sky model (see `ALMA memo
@@ -379,8 +379,7 @@ Description
       Displays the fidelity image. The fidelity image is defined by the
       following equation:
 
-      $fidelity = \\frac{\| input \|}{max[\| input-output \| 
-      0.7*rms(output)]}$
+      fidelity=\|input\|max[\|input−output\|0.7∗rms(output)]\ :math:`fidelity = \frac{| input |}{max[| input-output |  0.7*rms(output)]}`
 
       .. container:: info-box
 

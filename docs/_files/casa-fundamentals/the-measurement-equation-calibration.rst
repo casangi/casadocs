@@ -40,8 +40,8 @@ Measurement Equation
       The relationship between the observed and ideal (desired)
       visibilities on the baseline between antennas i and j may be
       expressed by the Hamaker-Bregman-Sault *Measurement Equation*
-      Hamaker, Bregman, & Sault (1996) `[1] <#cit>`__ and Sault,
-      Hamaker, Bregman (1996) `[2] <#cit>`__ .
+      Hamaker, Bregman, & Sault (1996) `[1] <#cit1>`__ and Sault,
+      Hamaker, Bregman (1996) `[2] <#cit2>`__ .
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 1                                                 |
@@ -61,77 +61,82 @@ Measurement Equation
       |                 | adsabs.harvard.edu/abs/1996A%26AS..117..149S>`__) |
       +-----------------+---------------------------------------------------+
 
-      | \\begin{eqnarray}
-      | \\vec{V}_{ij}~=~J_{ij}~\vec{V}_{ij}^{\mathrm{~IDEAL}}
-      | \\end{eqnarray}
+      →Vij = Jij →V IDEALij\ 
 
-      | where$\vec{V}_{ij}$ represents the observed visibility, a
-        complex number representing the amplitude and phase of the
-        correlated data from a pair of antennas in each sample time, per
-        spectral channel. $\vec{V}_{ij}^{\mathrm{~IDEAL}}$ represents
-        the corresponding ideal visibilities, and $J_{ij}$ represents
-        the accumulation of all corruptions affecting baseline $ij$. The
-        visibilities are indicated as vectors spanning the four
-        correlation combinations which can be formed from
-        dual-polarization signals. These four correlations are related
-        directly to the Stokes parameters which fully describe the
-        radiation. The $J_{ij}$ term is therefore a 4$\times$4 matrix.
-      | Most of the effects contained in $J_{ij}$ (indeed, the most
-        important of them) are antenna-based, i.e., they arise from
-        measurable physical properties of (or above) individual antenna
-        elements in a synthesis array. Thus, adequate calibration of an
-        array of $N_{ant}$ antennas forming $N_{ant} (N_{ant}-1)/2$
-        baseline visibilities is usually achieved through the
-        determination of only $N_{ant}$ factors, such that $J_{ij} = J_i
-        \\otimes J_j^{*}$.  For the rest of this chapter, we will
-        usually assume that $J_{ij}$ is factorable in this way, unless
-        otherwise noted.
+      .. math:: \begin{eqnarray} \vec{V}_{ij}~=~J_{ij}~\vec{V}_{ij}^{\mathrm{~IDEAL}} \end{eqnarray}
 
-      As implied above, $J_{ij}$ may also be factored into the sequence
-      of specific corrupting effects, each having their own particular
-      (relative) importance and physical origin, which determines their
-      unique algebra. Including the most commonly considered effects,
-      the Measurement Equation can be written:
+      | where→Vij\ :math:`\vec{V}_{ij}` represents the observed
+        visibility, a complex number representing the amplitude and
+        phase of the correlated data from a pair of antennas in each
+        sample time, per spectral channel.
+        →V IDEALij\ :math:`\vec{V}_{ij}^{\mathrm{~IDEAL}}` represents
+        the corresponding ideal visibilities, and Jij\ :math:`J_{ij}`
+        represents the accumulation of all corruptions affecting
+        baseline ij\ :math:`ij`. The visibilities are indicated as
+        vectors spanning the four correlation combinations which can be
+        formed from dual-polarization signals. These four correlations
+        are related directly to the Stokes parameters which fully
+        describe the radiation. The Jij\ :math:`J_{ij}` term is
+        therefore a 4×\ :math:`\times`\ 4 matrix.
+      | Most of the effects contained in Jij\ :math:`J_{ij}` (indeed,
+        the most important of them) are antenna-based, i.e., they arise
+        from measurable physical properties of (or above) individual
+        antenna elements in a synthesis array. Thus, adequate
+        calibration of an array of Nant\ :math:`N_{ant}` antennas
+        forming Nant(Nant−1)/2\ :math:`N_{ant} (N_{ant}-1)/2` baseline
+        visibilities is usually achieved through the determination of
+        only Nant\ :math:`N_{ant}` factors, such that
+        Jij=Ji⊗J∗j\ :math:`J_{ij} = J_i \otimes J_j^{*}`.  For the rest
+        of this chapter, we will usually assume that Jij\ :math:`J_{ij}`
+        is factorable in this way, unless otherwise noted.
 
-      | \\begin{eqnarray}
-      | \\vec{V}_{ij}~=~M_{ij}~B_{ij}~G_{ij}~D_{ij}~E_{ij}~P_{ij}~T_{ij}~\vec{V}_{ij}^{\mathrm{~IDEAL}}  
-      | \\end{eqnarray}
+      As implied above, Jij\ :math:`J_{ij}` may also be factored into
+      the sequence of specific corrupting effects, each having their own
+      particular (relative) importance and physical origin, which
+      determines their unique algebra. Including the most commonly
+      considered effects, the Measurement Equation can be written:
+
+      →Vij = Mij Bij Gij Dij Eij Pij Tij →V IDEALij\ 
+
+      .. math:: \begin{eqnarray} \vec{V}_{ij}~=~M_{ij}~B_{ij}~G_{ij}~D_{ij}~E_{ij}~P_{ij}~T_{ij}~\vec{V}_{ij}^{\mathrm{~IDEAL}}    \end{eqnarray}
 
       | 
       | where:
 
-      -  $T_{ij}~=~$ Polarization-independent multiplicative effects
-         introduced by the troposphere, such as opacity and path-length
-         variation.
-      -  $P_{ij}~=~$ Parallactic angle, which describes the orientation
-         of the polarization coordinates on the plane of the sky. This
-         term varies according to the type of the antenna mount.
-      -  $E_{ij}~=~$ Effects introduced by properties of the optical
-         components of the telescopes, such as the collecting area's
-         dependence on elevation.
-      -  $D_{ij}~=~$ Instrumental polarization response. "D-terms"
-         describe the polarization leakage between feeds (e.g. how much
-         the R-polarized feed picked up L-polarized emission, and vice
-         versa).
-      -  $G_{ij}~=~$ Electronic gain response due to components in the
-         signal path between the feed and the correlator. This complex
-         gain term $G_{ij}$ includes the scale factor for absolute flux
-         density calibration, and may include phase and amplitude
-         corrections due to changes in the atmosphere (in lieu of
-         $T_{ij}$). These gains are polarization-dependent.
-      -  $B_{ij}~=~$ Bandpass (frequency-dependent) response, such as
-         that introduced by spectral filters in the electronic
-         transmission system
-      -  $M_{ij}~=~$ Baseline-based correlator (non-closing) errors. By
-         definition, these are not factorable into antenna-based parts.
-          
+      -  Tij = \ :math:`T_{ij}~=~` Polarization-independent
+         multiplicative effects introduced by the troposphere, such as
+         opacity and path-length variation.
+      -  Pij = \ :math:`P_{ij}~=~` Parallactic angle, which describes
+         the orientation of the polarization coordinates on the plane of
+         the sky. This term varies according to the type of the antenna
+         mount.
+      -  Eij = \ :math:`E_{ij}~=~` Effects introduced by properties of
+         the optical components of the telescopes, such as the
+         collecting area's dependence on elevation.
+      -  Dij = \ :math:`D_{ij}~=~` Instrumental polarization response.
+         "D-terms" describe the polarization leakage between feeds (e.g.
+         how much the R-polarized feed picked up L-polarized emission,
+         and vice versa).
+      -  Gij = \ :math:`G_{ij}~=~` Electronic gain response due to
+         components in the signal path between the feed and the
+         correlator. This complex gain term Gij\ :math:`G_{ij}` includes
+         the scale factor for absolute flux density calibration, and may
+         include phase and amplitude corrections due to changes in the
+         atmosphere (in lieu of Tij\ :math:`T_{ij}`). These gains are
+         polarization-dependent.
+      -  Bij = \ :math:`B_{ij}~=~` Bandpass (frequency-dependent)
+         response, such as that introduced by spectral filters in the
+         electronic transmission system
+      -  Mij = \ :math:`M_{ij}~=~` Baseline-based correlator
+         (non-closing) errors. By definition, these are not factorable
+         into antenna-based parts.  
 
       | Note that the terms are listed in the order in which they affect
-        the incoming wavefront ($G$ and $B$ represent an arbitrary
-        sequence of such terms depending upon the details of the
-        particular electronic system). Note that $M$ differs from all of
-        the rest in that it is not antenna-based, and thus not
-        factorable into terms for each antenna.
+        the incoming wavefront (G\ :math:`G` and B\ :math:`B` represent
+        an arbitrary sequence of such terms depending upon the details
+        of the particular electronic system). Note that M\ :math:`M`
+        differs from all of the rest in that it is not antenna-based,
+        and thus not factorable into terms for each antenna.
       | As written above, the measurement equation is very general; not
         all observations will require treatment of all effects,
         depending upon the desired dynamic range. E.g., instrumental
@@ -149,23 +154,25 @@ Measurement Equation
         too changeable. Instead, the calibration is achieved by making
         observations of calibrator sources on the appropriate timescales
         for the relevant effects, and solving the measurement equation
-        for them using the fact that we have $N_{ant}(N_{ant}-1)/2$
-        measurements and only $N_{ant}$ factors to determine (except for
-        $M$ which is only sparingly used). Note: By partitioning the
-        calibration factors into a series of consecutive effects, it
-        might appear that the number of free parameters is some multiple
-        of $N_{ant}$, but the relative algebra and timescales of the
-        different effects, as well as the  multiplicity of observed
-        polarizations and channels compensate, and it can be shown that
-        the problem remains  well-determined until, perhaps, the effects
-        are direction-dependent within the field of view. Limited
-        solvers for such effects are under study; the **calibrater**
-        tool currently only handles effects which may be assumed
-        constant within the field of view. Corrections for the primary
-        beam are handled in the **imager** tool.  Once determined, these
-        terms are used to correct the visibilities measured for the
-        scientific target. This procedure is known as cross-calibration
-        (when only phase is considered, it is called phase-referencing).
+        for them using the fact that we have
+        Nant(Nant−1)/2\ :math:`N_{ant}(N_{ant}-1)/2` measurements and
+        only Nant\ :math:`N_{ant}` factors to determine (except for
+        M\ :math:`M` which is only sparingly used). Note: By
+        partitioning the calibration factors into a series of
+        consecutive effects, it might appear that the number of free
+        parameters is some multiple of Nant\ :math:`N_{ant}`, but the
+        relative algebra and timescales of the different effects, as
+        well as the  multiplicity of observed polarizations and channels
+        compensate, and it can be shown that the problem remains 
+        well-determined until, perhaps, the effects are
+        direction-dependent within the field of view. Limited solvers
+        for such effects are under study; the **calibrater** tool
+        currently only handles effects which may be assumed constant
+        within the field of view. Corrections for the primary beam are
+        handled in the **imager** tool.  Once determined, these terms
+        are used to correct the visibilities measured for the scientific
+        target. This procedure is known as cross-calibration (when only
+        phase is considered, it is called phase-referencing).
 
       | The best calibrators are point sources at the phase center
         (constant visibility amplitude, zero phase), with sufficient
@@ -191,27 +198,30 @@ Measurement Equation
         thus better isolating them. This idea is a generalization of the
         traditional concept of self-calibration, where initial imaging
         of the target source supplies the visibility model for a
-        re-solve of the gain calibration ($G$ or $T$). Iteration tends
-        toward convergence to a statistically optimal image. In general,
-        the quality of each calibration and of the source model are
-        mutually dependent. In principle, as long as the solution for
-        any calibration component (or the source model itself) is likely
-        to improve substantially through the use of new information
-        (provided by other improved solutions), it is worthwhile to
-        continue this process.
+        re-solve of the gain calibration (G\ :math:`G` or T\ :math:`T`).
+        Iteration tends toward convergence to a statistically optimal
+        image. In general, the quality of each calibration and of the
+        source model are mutually dependent. In principle, as long as
+        the solution for any calibration component (or the source model
+        itself) is likely to improve substantially through the use of
+        new information (provided by other improved solutions), it is
+        worthwhile to continue this process.
       | In practice, these concepts motivate certain patterns of
         calibration for different types of observation, and the
         **calibrater** tool in CASA is designed to accommodate these
         patterns in a general and flexible manner. For a spectral line
         total intensity observation, the pattern is usually:
 
-      #. Solve for $G$ on the bandpass calibrator
-      #. Solve for $B$ on the bandpass calibrator, using $G$
-      #. Solve for $G$ on the primary gain (near-target) and flux
-         density calibrators, using $B$ solutions just obtained
-      #. Scale $G$ solutions for the primary gain calibrator according
-         to the flux density calibrator solutions
-      #. Apply $G$ and $B$ solutions to the target data
+      #. Solve for G\ :math:`G` on the bandpass calibrator
+      #. Solve for B\ :math:`B` on the bandpass calibrator, using
+         G\ :math:`G`
+      #. Solve for G\ :math:`G` on the primary gain (near-target) and
+         flux density calibrators, using B\ :math:`B` solutions just
+         obtained
+      #. Scale G\ :math:`G` solutions for the primary gain calibrator
+         according to the flux density calibrator solutions
+      #. Apply G\ :math:`G` and B\ :math:`B` solutions to the target
+         data
       #. Image the calibrated target data
 
       If opacity and gain curve information are relevant and available,
@@ -219,30 +229,33 @@ Measurement Equation
       actual solve for opacity from appropriate data may be folded into
       this process):
 
-      #. Solve for $G$ on the bandpass calibrator, using $T$ (opacity)
-         and $E$ (gain curve) solutions already derived.
-      #. Solve for $B$ on the bandpass calibrator, using $G$, $T$
-         (opacity), and $E$ (gain curve) solutions.
-      #. Solve for $G$ on primary gain (near-target) and flux density
-         calibrators, using $B$, $T$ (opacity), and $E$ (gain curve)
-         solutions.
-      #. Scale $G$ solutions for the primary gain calibrator according
-         to the flux density calibrator solutions
-      #. Apply $T$ (opacity), $E$ (gain curve), $G$, and $B$ solutions
-         to the target data
+      #. Solve for G\ :math:`G` on the bandpass calibrator, using
+         T\ :math:`T` (opacity) and E\ :math:`E` (gain curve) solutions
+         already derived.
+      #. Solve for B\ :math:`B` on the bandpass calibrator, using
+         G\ :math:`G`, T\ :math:`T` (opacity), and E\ :math:`E` (gain
+         curve) solutions.
+      #. Solve for G\ :math:`G` on primary gain (near-target) and flux
+         density calibrators, using B\ :math:`B`, T\ :math:`T`
+         (opacity), and E\ :math:`E` (gain curve) solutions.
+      #. Scale G\ :math:`G` solutions for the primary gain calibrator
+         according to the flux density calibrator solutions
+      #. Apply T\ :math:`T` (opacity), E\ :math:`E` (gain curve),
+         G\ :math:`G`, and B\ :math:`B` solutions to the target data
       #. Image the calibrated target data
 
       For continuum polarimetry, the typical pattern is:
 
-      #. Solve for $G$ on the polarization calibrator, using
-         (analytical) $P$ solutions.
-      #. Solve for $D$ on the polarization calibrator, using $P$ and $G$
-         solutions.
-      #. Solve for $G$ on primary gain and flux density calibrators,
-         using $P$ and $D$ solutions.
-      #. Scale $G$ solutions for the primary gain calibrator according
-         to the flux density calibrator solutions.
-      #. Apply $P$, $D$, and $G$ solutions to target data.
+      #. Solve for G\ :math:`G` on the polarization calibrator, using
+         (analytical) P\ :math:`P` solutions.
+      #. Solve for D\ :math:`D` on the polarization calibrator, using
+         P\ :math:`P` and G\ :math:`G` solutions.
+      #. Solve for G\ :math:`G` on primary gain and flux density
+         calibrators, using P\ :math:`P` and D\ :math:`D` solutions.
+      #. Scale G\ :math:`G` solutions for the primary gain calibrator
+         according to the flux density calibrator solutions.
+      #. Apply P\ :math:`P`, D\ :math:`D`, and G\ :math:`G` solutions to
+         target data.
       #. Image the calibrated target data.
 
       | For a spectro-polarimetry observation, these two examples would
@@ -284,6 +297,26 @@ Measurement Equation
       (e.g., D solutions require data taken over a sufficient range of
       parallactic angle in order to separate the source polarization
       contribution from the instrumental polarization).
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Hamaker, J.P., Bregman, J.D. & Sault, R.J. 1996, A&AS,
+         117, 137
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1996A%26AS..117..137H>`__\ :sup:`).`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2. Sault, R. J.; Hamaker, J. P.; Bregman, J. D. 1996,
+         A&AS, 117, 149
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1996A%26AS..117..149S>`__\ :sup:`)`\ `↩ <#ref-cit2>`__
 
 .. container:: section
    :name: viewlet-below-content-body

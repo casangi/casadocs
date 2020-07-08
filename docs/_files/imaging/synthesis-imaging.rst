@@ -1,8 +1,8 @@
 .. container::
    :name: viewlet-above-content-title
 
-Overview
-========
+Synthesis Imaging
+=================
 
 .. container::
    :name: viewlet-below-content-title

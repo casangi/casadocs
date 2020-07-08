@@ -34,7 +34,7 @@ Description
       by utilizing the feature that spectral lines in the two sidebands
       shift in different amounts between observations with different LO
       offsets. The algorithm used in the task is analogous to that of
-      Emerson, Klein, & Haslam (1979) `[1] <#cit>`__ with shifts in the
+      Emerson, Klein, & Haslam (1979) `[1] <#cit1>`__ with shifts in the
       frequency domain instead of spatial one as described in the paper.
       The details of algorithm is also discussed in the section, `Brief
       description of the mathematics behind the
@@ -170,59 +170,61 @@ Description
          sinusoidal wave whose frequency is equal to the amount of the
          frequency shift.
 
-      Suppose that $h$ is an output spectrum of DSB system and $f$,
-      $g$ represent contributions from signal and image sidebands,
-      respectively. Then, 
+      Suppose that h\ :math:`h` is an output spectrum of DSB system and
+      f\ :math:`f`, g\ :math:`g` represent contributions from signal and
+      image sidebands, respectively. Then, 
 
-      $h_{\rm k} = f_{\rm k} + g_{\rm k}$,    $k=0,1,2,...,N-1$,
+      hk=fk+gk\ :math:`h_{\rm k} = f_{\rm k} + g_{\rm k}`,  
+       k=0,1,2,...,N−1\ :math:`k=0,1,2,...,N-1`,
 
-      where $k$ denotes channel index and $N$ is a number of spectral
-      channels. If LO frequency shift by x causes $f_{\rm k}$ and
-      $g_{\rm k}$ to shift by $\Delta^{\rm x}_{\rm f}$ and $\Delta^{\rm
-      x}_{\rm g}$ with respect to its original spectra, respectively,
-      output spectrum with shift is wrtten as,
+      where k\ :math:`k` denotes channel index and N\ :math:`N` is a
+      number of spectral channels. If LO frequency shift by x causes
+      fk\ :math:`f_{\rm k}` and gk\ :math:`g_{\rm k}` to shift by
+      Δxf\ :math:`\Delta^{\rm x}_{\rm f}` and
+      Δxg\ :math:`\Delta^{\rm x}_{\rm g}` with respect to its original
+      spectra, respectively, output spectrum with shift is wrtten as,
 
-      $h^{\rm x}_{\rm k} = f_{\rm k - \\Delta^x_f} + g_{\rm k -
-      \\Delta^x_g}$.
+      hxk=fk−Δxf+gk−Δxg\ :math:`h^{\rm x}_{\rm k} = f_{\rm k - \Delta^x_f} + g_{\rm k - \Delta^x_g}`.
 
-      We can shift $h^{\rm x}_{\rm k}$ as if the contribution from image
-      sideband, $g$, is being unshifted. By shifting $h^{\rm x}_{\rm k}$
-      by $-\Delta^{\rm x}_{\rm g}$, we can construct such spectrum,
+      We can shift hxk\ :math:`h^{\rm x}_{\rm k}` as if the contribution
+      from image sideband, g\ :math:`g`, is being unshifted. By
+      shifting hxk\ :math:`h^{\rm x}_{\rm k}`
+      by −Δxg\ :math:`-\Delta^{\rm x}_{\rm g}`, we can construct such
+      spectrum,
 
-      $h^{\rm x,imag}_{\rm k} = f_{\rm k - \\Delta^x} + g_{\rm k}$,
+      hx,imagk=fk−Δx+gk\ :math:`h^{\rm x,imag}_{\rm k} = f_{\rm k - \Delta^x} + g_{\rm k}`,
 
-      where $\Delta^{\rm x} = \\Delta^{\rm x}_{\rm f} - \\Delta^{\rm
-      x}_{\rm g}$. Channel shift in the signal sideband is represented
-      as a modulation in Fourier (time) domain. Thus, Fourier transform
-      of the above is written as,
+      where
+      Δx=Δxf−Δxg\ :math:`\Delta^{\rm x} = \Delta^{\rm x}_{\rm f} - \Delta^{\rm x}_{\rm g}`.
+      Channel shift in the signal sideband is represented as a
+      modulation in Fourier (time) domain. Thus, Fourier transform of
+      the above is written as,
 
-      $H^{\rm x,imag}_{\rm t} = F_{\rm t} \\exp(-i\frac{2\pi t
-      \\Delta^{\rm x}}{N}) + G_{\rm t}$,
+      Hx,imagt=Ftexp(−i2πtΔxN)+Gt\ :math:`H^{\rm x,imag}_{\rm t} = F_{\rm t} \exp(-i\frac{2\pi t \Delta^{\rm x}}{N}) + G_{\rm t}`,
 
-      where $H^{\rm x,imag}_{\rm t}$, $F_{\rm t}$, and $G_{\rm t}$ are
-      Fourier transform of $h^{\rm x,imag}_{\rm k}$, $f_{\rm k}$, and
-      $g_{\rm k}$, respectively. Applying similar procedure for the
-      different LO frequency offset, y, we can obtain another result:
+      where Hx,imagt\ :math:`H^{\rm x,imag}_{\rm t}`,
+      Ft\ :math:`F_{\rm t}`, and Gt\ :math:`G_{\rm t}` are Fourier
+      transform of hx,imagk\ :math:`h^{\rm x,imag}_{\rm k}`,
+      fk\ :math:`f_{\rm k}`, and gk\ :math:`g_{\rm k}`, respectively.
+      Applying similar procedure for the different LO frequency offset,
+      y, we can obtain another result:
 
-      $H^{\rm y,imag}_{\rm t} = F_{\rm t} \\exp(-i\frac{2\pi t
-      \\Delta^{\rm y}}{N}) + G_{\rm t}$.
+      Hy,imagt=Ftexp(−i2πtΔyN)+Gt\ :math:`H^{\rm y,imag}_{\rm t} = F_{\rm t} \exp(-i\frac{2\pi t \Delta^{\rm y}}{N}) + G_{\rm t}`.
 
-      we can obtain $G_{\rm t}$, Fourier transform of the contribution
-      from image sideband, $g_{\rm k}$, from the above two results,
+      we can obtain Gt\ :math:`G_{\rm t}`, Fourier transform of the
+      contribution from image sideband, gk\ :math:`g_{\rm k}`, from the
+      above two results,
 
-      $G_{\rm t} = \\frac{1}{2} (H^{\rm x,imag}_{\rm t} + H^{\rm
-      y,imag}_{\rm t}) + \\frac{1}{2} \\frac{\cos\theta}{i\sin\theta}
-      (H^{\rm x,imag}_{\rm t} - H^{\rm y,imag}_{\rm t})$,
+      Gt=12(Hx,imagt+Hy,imagt)+12cosθisinθ(Hx,imagt−Hy,imagt)\ :math:`G_{\rm t} = \frac{1}{2} (H^{\rm x,imag}_{\rm t} + H^{\rm y,imag}_{\rm t}) + \frac{1}{2} \frac{\cos\theta}{i\sin\theta} (H^{\rm x,imag}_{\rm t} - H^{\rm y,imag}_{\rm t})`,
 
-      where $\theta = 2\pi t (\Delta^{\rm x} - \\Delta^{\rm y}) / N$. 
+      where
+      θ=2πt(Δx−Δy)/N\ :math:`\theta = 2\pi t (\Delta^{\rm x} - \Delta^{\rm y}) / N`. 
 
       There are two ways to obtain the contribution from signal
       sideband. One is to solve signal sideband exactly same procedure
       with the above. By doing that, we obtain,
 
-      $F_{\rm t} = \\frac{1}{2} (H^{\rm x,sig}_{\rm t} + H^{\rm
-      y,sig}_{\rm t}) - \\frac{1}{2} \\frac{\cos\theta}{i\sin\theta}
-      (H^{\rm x,sig}_{\rm t} - H^{\rm y,sig}_{\rm t})$,
+      Ft=12(Hx,sigt+Hy,sigt)−12cosθisinθ(Hx,sigt−Hy,sigt)\ :math:`F_{\rm t} = \frac{1}{2} (H^{\rm x,sig}_{\rm t} + H^{\rm y,sig}_{\rm t}) - \frac{1}{2} \frac{\cos\theta}{i\sin\theta} (H^{\rm x,sig}_{\rm t} - H^{\rm y,sig}_{\rm t})`,
 
       where the quantity with superscript "sig" corresponds to the
       shifted spectrum so that contribution from the signal sideband
@@ -234,17 +236,19 @@ Description
       In principle, the task can split contributions from signal and
       image sidebands if only two images with different LO shifts are
       given. However, the task accepts more than two images to obtain
-      better result. If $m$ images are given and all images are based on
-      independent LO shifts, there are $m(m-1)/2$ combinations to obtain
-      the solution of splitted spectra. In that case, the task takes
-      average of those solutions to get a final solution. 
+      better result. If m\ :math:`m` images are given and all images are
+      based on independent LO shifts, there are
+      m(m−1)/2\ :math:`m(m-1)/2` combinations to obtain the solution of
+      splitted spectra. In that case, the task takes average of those
+      solutions to get a final solution. 
 
-      Note that, when $\Delta^{\rm x}$ and $\Delta^{\rm y}$ are so close
-      that $\theta$ becomes almost zero, the above solution could
-      diverge. Such a solution must be avoided to obtain a finite
-      result. The parameter *threshold* is introduced for this purpose.
-      It should range from 0.0 to 1.0.  The solution will be excluded
-      from the process if $|\sin(\theta)|$ is less than *threshold*. 
+      Note that, when Δx\ :math:`\Delta^{\rm x}` and
+      Δy\ :math:`\Delta^{\rm y}` are so close that θ\ :math:`\theta`
+      becomes almost zero, the above solution could diverge. Such a
+      solution must be avoided to obtain a finite result. The parameter
+      *threshold* is introduced for this purpose. It should range from
+      0.0 to 1.0.  The solution will be excluded from the process if
+      \|sin(θ)\|\ :math:`|\sin(\theta)|` is less than *threshold*. 
 
        
 
@@ -255,6 +259,19 @@ Description
       |                 | (`ADS <http://                                    |
       |                 | adsabs.harvard.edu/abs/1979A%26A....76...92E>`__) |
       +-----------------+---------------------------------------------------+
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Emerson, Klein, & Haslam 1979, A&A, 76, 92
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1979A%26A....76...92E>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

@@ -32,8 +32,8 @@ for ii, url in enumerate(urls):
             if not os.path.isdir(subdir):
                 os.mkdir(subdir)
         dest = '/'.join(fpath) + '.rst'
-        #os.system('pandoc %s -f html -t ipynb -s -o %s' % (source, dest))
-        os.system('pandoc %s -f html -t rst -s -o %s' % (source, dest))
+        #os.system('pandoc %s -f html -t ipynb -o %s' % (source, dest))
+        os.system('pandoc %s -f html -t rst -o %s' % (source, dest))
         
         # add each file to the toctree of the parent folder
         if len(fpath) > 2:

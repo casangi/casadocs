@@ -61,20 +61,20 @@ Description
 
       "Stokes" mode computes Stokes I as:
 
-      $I = (XX + YY) / 2.$
+      :math:`I = (XX + YY) / 2.`
 
       and the associated weight as:
 
-      $w_I = 4 / ( 1/w_{XX} + 1/w_{YY} )$
+      :math:`w_I = 4 / ( 1/w_{XX} + 1/w_{YY} )`
 
       "Geometric" mode implements the computation of Stokes I by folding
       in weights for XX and YY as follows:
 
-      $I = (XX \* w_{XX} + YY \* w_{YY}) / (w_{XX} + w_{YY})$
+      :math:`I = (XX * w_{XX} + YY * w_{YY}) / (w_{XX} + w_{YY})`
 
       And the associated weight as:
 
-      $w_I = w_{XX} + w_{YY}$
+      :math:`w_I = w_{XX} + w_{YY}`
 
       "Geometric" mode is consistent with the historical implementation
       of computing Stokes I, though it is not formally correct since it

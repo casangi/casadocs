@@ -103,8 +103,9 @@ Description
       -  'var' - variance
       -  'xmadm' - median absolute deviation from the median converted
          to an RMS-equivalent value. Result is MADM multipied by x,
-         where x is the reciprocal of $Phi^{-1}*(3/4)$ and $Phi^{-1}$ is
-         the reciprocal of the quantile function. Numerically, x =
+         where x is the reciprocal of
+         Phi−1∗(3/4)\ :math:`Phi^{-1}*(3/4)` and Phi−1\ :math:`Phi^{-1}`
+         is the reciprocal of the quantile function. Numerically, x =
          1.482602218505602. See
          `here <https://en.wikipedia.org/wiki/Median_absolute_deviation#Relation_to_standard_deviation>`__
          for an example.

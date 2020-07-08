@@ -36,7 +36,7 @@ Water Vapor Radiometers
       University of Cambridge as part of EU FP6 ALMA Enhancement
       program. CASA 5 contains version 2.1 of wvrgcal. The algorithmic
       core of wvrgcal is described in three ALMA memos (number 587
-      `[1] <#cit>`__, 588  `[2] <#cit>`__, and 593 `[3] <#cit>`__ )
+      `[1] <#cit1>`__, 588  `[2] <#cit2>`__, and 593 `[3] <#cit3>`__ )
       which describe the algorithms implemented in the software.
 
       The CASA task interface to wvrgcal follows closely the interface
@@ -114,7 +114,7 @@ Water Vapor Radiometers
       more details on the WVR Phase correction, see also the the ALMA
       Memo “Quality Control of WVR Phase Correction Based on Differences
       Between WVR Channels” by B. Nikolic, R. C. Bolton & J. S. Richer
-      `[4] <#cit>`__ , see also ALMA memo 593 `[3] <#cit>`__.
+      `[4] <#cit4>`__ , see also ALMA memo 593 `[3] <#cit3>`__.
 
       .. rubric:: 
          Statistical parameters shown in the logger output of wvrgcal
@@ -247,6 +247,35 @@ Water Vapor Radiometers
        
 
        
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1.`\ `ALMA Memo
+         587 <http://library.nrao.edu/public/memos/alma/memo587.pdf>`__\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2.`\ `ALMA Memo
+         588 <http://library.nrao.edu/public/memos/alma/memo588.pdf>`__\ `↩ <#ref-cit2>`__
+
+      .. container::
+
+         :sup:`3.`\ `ALMA Memo
+         593 <http://library.nrao.edu/public/memos/alma/memo593.pdf>`__\ `↩ <#ref-cit3>`__
+
+      .. container::
+
+         :sup:`4.`\ `ALMA Memo “Quality Control of WVR Phase Correction
+         Based on Differences Between WVR
+         Channels” <https://casa.nrao.edu/Memos/memoqachannels.pdf>`__\ `↩ <#ref-cit4>`__
 
 .. container:: section
    :name: viewlet-below-content-body

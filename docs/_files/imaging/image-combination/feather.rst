@@ -31,13 +31,14 @@ Feather & CASAfeather
         frequencies of the single dish and interferometric data
         partially overlap. The subject of interferometric and single
         dish data combination has a long history. See the introduction
-        of Koda et al 2011 (and references therein)\ `[1] <#cit>`__\ for
-        a concise review, and Vogel et al 1984\ `[2] <#cit>`__\ ,
-        Stanimirovic et al 1999\ `[3] <#cit>`__\ , Stanimirovic
-        2002\ `[4] <#cit>`__\ , Helfer et al 2003\ `[5] <#cit>`__\ , and
-        Weiss et al 2001\ `[6] <#cit>`__\ , among other referenced
-        papers, for other methods and discussions concerning
-        the combination of single dish and interferometric data.
+        of Koda et al 2011 (and references
+        therein)\ `[1] <#cit1>`__\ for a concise review, and Vogel et al
+        1984\ `[2] <#cit2>`__\ , Stanimirovic et al
+        1999\ `[3] <#cit3>`__\ , Stanimirovic 2002\ `[4] <#cit4>`__\ ,
+        Helfer et al 2003\ `[5] <#cit5>`__\ , and Weiss et al
+        2001\ `[6] <#cit6>`__\ , among other referenced papers, for
+        other methods and discussions concerning the combination of
+        single dish and interferometric data.
       | The feathering algorithm implemented in CASA is as follows:
 
       #. Regrid the single dish image to match the coordinate system,
@@ -53,9 +54,10 @@ Feather & CASAfeather
          the beam corresponding to the major and minor axes of the
          Gaussian.
       #. Add the Fourier-transformed data from the  high-resolution
-         image, scaled by $(1-wt)$ where $wt$ is the Fourier transform
-         of the 'clean beam' defined in the low-resolution image, to the
-         scaled low resolution image from step 3.
+         image, scaled by (1−wt)\ :math:`(1-wt)` where wt\ :math:`wt` is
+         the Fourier transform of the 'clean beam' defined in the
+         low-resolution image, to the scaled low resolution image from
+         step 3.
       #. Transform back to the image plane.
 
       The input images for feather must have the following
@@ -343,6 +345,44 @@ Feather & CASAfeather
        
 
        
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Koda et al 2011
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2011ApJS..193...19K>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2. Vogel et al 1984
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1984ApJ...283..655V>`__\ :sup:`)`\ `↩ <#ref-cit2>`__
+
+      .. container::
+
+         :sup:`3. Stanimirovic et al 1999
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1999MNRAS.302..417S>`__\ :sup:`)`\ `↩ <#ref-cit3>`__
+
+      .. container::
+
+         :sup:`4. Stanimirovic et al 2002
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2002ASPC..278..375S>`__\ :sup:`)`\ `↩ <#ref-cit4>`__
+
+      .. container::
+
+         :sup:`5. Helfer et al 2003
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2003ApJS..145..259H>`__\ :sup:`)`\ `↩ <#ref-cit5>`__
+
+      .. container::
+
+         :sup:`6. Weiss et al 2001
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2001A%26A...365..571W>`__\ :sup:`)`\ `↩ <#ref-cit6>`__
 
 .. container:: section
    :name: viewlet-below-content-body

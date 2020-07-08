@@ -53,7 +53,7 @@ Channel average
          propagation that apply to a weighted average, which result in
          an output weight equals to the sum of the input weights. For a
          detailed reference see, *Data Reduction and Error Analysis*
-         `[1] <#cit>`__.
+         `[1] <#cit1>`__.
       -  Both **mstransform** / **split** drop the last output channel
          bin when there are not enough contributors to fully populate
          it. For instance, if the input SPW has 128 channels and
@@ -79,6 +79,19 @@ Channel average
       Citation Number 1
       Citation Text   Bevington & Robinson, 3rd Ed., McGraw Hill, 2003
       =============== ================================================
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Bevington & Robinson, 3rd Ed., McGraw Hill,
+         2003`\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

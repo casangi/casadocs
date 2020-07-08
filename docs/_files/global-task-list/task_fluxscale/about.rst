@@ -70,13 +70,12 @@ Description
       spectral index and (for nspw>2) curvature are also reported. The
       fit is done for
 
-      $log(S_\nu) = a_o + a_1*(log(\nu/\nu_0)) +
-      a_2*(log(\nu/\nu_0))**2$.
+      :math:`log(S_\nu) = a_o + a_1*(log(\nu/\nu_0)) + a_2*(log(\nu/\nu_0))**2`.
 
-      The reference frequency, $\nu_0$ (the mean of $log(\nu)$) is
-      reported in the logger along with the flux density at that
-      frequency. The fit results are also reported in the returned
-      Python dictionary which takes the form:
+      The reference frequency, :math:`\nu_0` (the mean of
+      :math:`log(\nu)`) is reported in the logger along with the flux
+      density at that frequency. The fit results are also reported in
+      the returned Python dictionary which takes the form:
 
       .. container:: casa-output-box
 
@@ -97,11 +96,12 @@ Description
          |  'spwName': list of spw names}
 
       where fieldIdstr and spwIdstr are field Id and spw Id in string
-      type, respectively. The 'spidx' coefficients, $a_0$, $a_1$, and
-      $a_2$ are the $log(S_{\nu=\nu0})$, the spectral index, and the
-      curvature, respectively. If only a single spectral window is
-      present, no fitting is performed but fitFluxd and fitRefFreq are
-      filled with the values from fluxd and freq, respectively.
+      type, respectively. The 'spidx' coefficients, :math:`a_0`,
+      :math:`a_1`, and :math:`a_2` are the :math:`log(S_{\nu=\nu0})`,
+      the spectral index, and the curvature, respectively. If only a
+      single spectral window is present, no fitting is performed but
+      fitFluxd and fitRefFreq are filled with the values from fluxd and
+      freq, respectively.
 
       The calibrator models are currently not revised within the MS to
       reflect the flux densities derived by **fluxscale**. Use **setjy**

@@ -24,8 +24,8 @@ Description
       **sdgaincal** computes and removes a time-dependent gain variation
       in single-dish data on a per-spectral-window and per-antenna
       basis. Presently the task operates only on data taken with the
-      ALMA fast-mapped, double-circle observation modes `[1] <#cit>`__ .
-      This task exploits the fact that the double-circle mode observes
+      ALMA fast-mapped, double-circle observation modes `[1] <#cit1>`__
+      . This task exploits the fact that the double-circle mode observes
       the same position in the center of the mapped field, approximately
       circular every sub-cycle, and normalizes the gains throughout the
       entire dataset, relative to the measured brightness at the center
@@ -34,13 +34,14 @@ Description
       .. container:: info-box
 
          Info: This gain calibration task is done independently of, and
-         following, the atmosphere (i.e. $T_{sys}$) and sky calibration
-         steps applied through the sdcal task. Alternative way to apply
-         these caltables is to utilize pre-application capability of
-         sdgaincal task. This can be done by feeding caltables into the
-         task using applytable parameter. You can specify spw mapping
-         and interpolation method via spwmap and interp, respectively.
-         Usage for these parameters are exactly same as applycal.
+         following, the atmosphere (i.e.\ :math:`T_{sys}`) and sky
+         calibration steps applied through the **sdcal** task.
+         Alternative way to apply these caltables is to utilize
+         pre-application capability of **sdgaincal** task. This can be
+         done by feeding caltables into the task using *applytable*
+         parameter. You can specify spw mapping and interpolation method
+         via *spwmap* and *interp*, respectively. Usage for these
+         parameters are exactly same as **applycal**.
 
       .. rubric:: Configurable inputs control the calibration mode,
          selection parameters, and output behavior:
@@ -72,6 +73,20 @@ Description
       |                 | 5ASPC..499..347P&amp;data_type=PDF_HIGH&amp;whole |
       |                 | _paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__ |
       +-----------------+---------------------------------------------------+
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Phillips et al, 2015. Fast Single-Dish Scans of the
+         Sun Using
+         ALMA.`\ `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?2015ASPC..499..347P&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

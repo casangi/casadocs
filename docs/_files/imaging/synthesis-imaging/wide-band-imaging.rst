@@ -44,20 +44,16 @@ Wide Band Imaging
       The continuum imaging sensitivity offered by a broad band receiver
       is given by
 
-      | \\begin{eqnarray}
-      | \\sigma_{continuum} \\propto \\frac{T_{sys}}{\sqrt{
-        N_{ant}(N_{ant}-1) ~ N_{chan}\Delta\nu~ \\Delta\tau}}=
-        \\frac{\sigma_{chan}}{\sqrt{N_{chan}} }
-      | \\end{eqnarray}
+      .. math:: \begin{eqnarray} \sigma_{continuum} \propto \frac{T_{sys}}{\sqrt{ N_{ant}(N_{ant}-1) ~ N_{chan}\Delta\nu~ \Delta\tau}}= \frac{\sigma_{chan}}{\sqrt{N_{chan}} } \end{eqnarray}
 
-      where $T_{sys}$ is the instrumental system temperature,
-      $\Delta\nu$ is the bandwidth of each channel, $\Delta\tau$ is the
-      integration time, $N_{chan}$ is the number of frequency channels,
-      and $\sigma_{continuum}$ and $\sigma_{chan}$ are theoretical
-      wideband and narrowband image noise levels.  Note that this
-      calculation is for an ideal system whose gain is flat across the
-      band with equally weighted channels (i.e. at the center of the
-      primary beam). 
+      where :math:`T_{sys}` is the instrumental system temperature,
+      :math:`\Delta\nu` is the bandwidth of each channel,
+      :math:`\Delta\tau` is the integration time, :math:`N_{chan}` is
+      the number of frequency channels, and :math:`\sigma_{continuum}`
+      and :math:`\sigma_{chan}` are theoretical wideband and narrowband
+      image noise levels.  Note that this calculation is for an ideal
+      system whose gain is flat across the band with equally weighted
+      channels (i.e. at the center of the primary beam). 
 
       To take full advantage of this broadband imaging sensitivity,
       image re-construction algorithms need to be sensitive to the
@@ -75,36 +71,35 @@ Wide Band Imaging
          :name: uv-coverage
 
       Projected baseline lengths are measured in units of the observed
-      wavelength. Therefore the $uv$ coverage and the imaging properties
-      of an interferometer change with frequency. As the observing
-      frequency increases, the angular resolution for a given
+      wavelength. Therefore the :math:`uv` coverage and the imaging
+      properties of an interferometer change with frequency. As the
+      observing frequency increases, the angular resolution for a given
       distribution of antennas increases (or, conversely the width of
-      the point spread function given by $\theta_{\nu} = 1/{u}_{max}$
-      radians, decreases). In addition, at higher observing frequencies,
-      the sensitivity to large spatial scales for a given distribution
-      of antennas decreases. 
+      the point spread function given by
+      :math:`\theta_{\nu} = 1/{u}_{max}` radians, decreases). In
+      addition, at higher observing frequencies, the sensitivity to
+      large spatial scales for a given distribution of antennas
+      decreases. 
 
       .. rubric:: Bandwidth Smearing (limits of channel averaging)
          :name: bandwidth-smearing-limits-of-channel-averaging
 
       | The choice of frequency resolution (or channel width) at which
         visibilities must be measured (or can be averaged up to) for
-        synthesis imaging depends on the $uv$ grid cell size to be used
-        during imaging, which in turn depends on the observed frequency
-        and the desired field of view in the image. The following
-        condition ensures that within a field of view chosen as the half
-        power beam width of the antenna primary beam, the image-domain
-        bandwidth smearing is smaller than the angular resolution of the
-        instrument:
-      | \\begin{eqnarray}
-      | \\frac{\Delta \\nu}{\nu_0} < \\frac{Resolution}{FoV} =
-        \\frac{\lambda/b_{max}}{\lambda/D} = \\frac{D}{b_{max}} ~~~~~
-        \\Rightarrow ~~~~~ {\Delta \\nu} < {\nu_0} \\frac{D}{b_{max}}
-      | \\end{eqnarray}
+        synthesis imaging depends on the :math:`uv` grid cell size to be
+        used during imaging, which in turn depends on the
+        observed frequency and the desired field of view in the image.
+        The following condition ensures that within a field of view
+        chosen as the half power beam width of the antenna primary beam,
+        the image-domain bandwidth smearing is smaller than the angular
+        resolution of the instrument:
+      | 
+
+        .. math:: \begin{eqnarray} \frac{\Delta \nu}{\nu_0} < \frac{Resolution}{FoV} = \frac{\lambda/b_{max}}{\lambda/D} = \frac{D}{b_{max}} ~~~~~ \Rightarrow ~~~~~ {\Delta \nu} < {\nu_0} \frac{D}{b_{max}}  \end{eqnarray}
 
       For broad-band receivers, this limit will change across the band,
       and the channel width should be chosen as the bandwidth smearing
-      limit computed for $\nu_{min}$.
+      limit computed for :math:`\nu_{min}`.
 
        
 
@@ -116,8 +111,8 @@ Wide Band Imaging
       functional form with curvature, steepening and turnovers at
       various locations in the spectrum. Power laws and polynomials are
       typically used to model such sky spectra. With the MT-MFS wideband
-      imaging algorithm, a Taylor polynomial in $I$ vs $\nu$ space is
-      fitted to the data per flux component, and the resulting
+      imaging algorithm, a Taylor polynomial in :math:`I` vs :math:`\nu`
+      space is fitted to the data per flux component, and the resulting
       coefficients used to calculate the spectral index that a power law
       model would provide. 
 
@@ -137,14 +132,13 @@ Wide Band Imaging
       view.  In general, the frequency dependence of the primary beam
       can be approximated by a power law.
 
-      | If $\theta$ is the angular distance from the pointing center and
-        $\theta_0$ is the primary beam FWHM at the reference frequency,
-        then the frequency dependence of the primary beam is equivalent
-        to a spectral index of
-      | \\begin{eqnarray}
-      | \\alpha_{\rm E}
-        &=&-8\log(2)\left(\frac{\theta}{\theta_0}\right)^2\left(\frac{\nu}{\nu_0}\right)^2
-      | \\end{eqnarray}
+      | If :math:`\theta` is the angular distance from the pointing
+        center and :math:`\theta_0` is the primary beam FWHM at the
+        reference frequency, then the frequency dependence of the
+        primary beam is equivalent to a spectral index of
+      | 
+
+        .. math:: \begin{eqnarray} \alpha_{\rm E} &=&-8\log(2)\left(\frac{\theta}{\theta_0}\right)^2\left(\frac{\nu}{\nu_0}\right)^2 \end{eqnarray}
 
       This corresponds to an effective spectral index of -1.4 at the
       half power point and reference frequency.
@@ -189,7 +183,7 @@ Wide Band Imaging
       will not self-correct during deconvolution.  For the VLA at
       L-Band, for example, a 1.0 Jy source with spectral index of -1.0
       across the 1-2 GHz band will produce spectral artifacts at the
-      $5\times10^{-3}$ level. Therefore, sources requiring dynamic
+      :math:`5\times10^{-3}` level. Therefore, sources requiring dynamic
       ranges (peak brightness / thermal noise) less than a few hundred
       will not see any of these artifacts and basic MFS imaging will
       suffice. Detection experiments in otherwise empty fields are a
@@ -204,7 +198,7 @@ Wide Band Imaging
       reconstruct the broad-band sky brightness distribution correctly,
       a spectral model must be folded into the reconstruction process.
       The advantages of such an image reconstruction are that the
-      combined $uv$ coverage (from all channels) is used, flux
+      combined :math:`uv` coverage (from all channels) is used, flux
       components are 'tied' across frequency by the use of an explicit
       spectral model or physically motivated constraints, and the
       angular resolution of the resulting intensity and spectral index
@@ -219,25 +213,21 @@ Wide Band Imaging
       the results.
 
       | The MTMFS algorithm models the spectrum of each flux component
-        by a Taylor series expansion about $\nu_0$ .
-      | \\begin{eqnarray}
-      | \\vec{I}^{m}_{\nu} = \\sum_{t=0}^{N_t -1} {w_{\nu}^{t}}
-        \\vec{I}^{sky}_{t} ~~~\mathrm{where}~~~ w_{\nu}^{t}&=&{ \\left(
-        \\frac{\nu - \\nu_0}{\nu_0} \\right) }^t
-      | \\end{eqnarray}
-      | where $I^{sky}_t$ represents a multi-scale Taylor coefficient
-        image,and $N_t$ is the order of the Taylor series expansion.
+        by a Taylor series expansion about :math:`\nu_0` .
+      | 
+
+        .. math:: \begin{eqnarray} \vec{I}^{m}_{\nu} = \sum_{t=0}^{N_t -1} {w_{\nu}^{t}} \vec{I}^{sky}_{t} ~~~\mathrm{where}~~~ w_{\nu}^{t}&=&{ \left( \frac{\nu - \nu_0}{\nu_0} \right) }^t  \end{eqnarray}
+      | where :math:`I^{sky}_t` represents a multi-scale Taylor
+        coefficient image,and :math:`N_t` is the order of the Taylor
+        series expansion.
 
       | A Taylor expansion of a power law yields the following
         expressions for the first three coefficients from which the
-        spectral index $I^{sky}_{\alpha}$ and curvature
-        $I^{sky}_{\beta}$ images can be computed algebraically.
-      | \\begin{equation}
-      | I^m_0 = I^{sky}_{\nu_0} ~~;~~ I^m_1 = I^{sky}_{\alpha}
-        I^{sky}_{\nu_0} ~~;~~ I^m_2 =
-        \\left(\frac{I^{sky}_{\alpha}(I^{sky}_{\alpha}-1)}{2} +
-        I^{sky}_{\beta}\right) I^{sky}_{\nu_0}
-      | \\end{equation}
+        spectral index :math:`I^{sky}_{\alpha}` and curvature
+        :math:`I^{sky}_{\beta}` images can be computed algebraically.
+      | 
+
+        .. math:: \begin{equation} I^m_0 = I^{sky}_{\nu_0} ~~;~~ I^m_1 = I^{sky}_{\alpha} I^{sky}_{\nu_0} ~~;~~ I^m_2 = \left(\frac{I^{sky}_{\alpha}(I^{sky}_{\alpha}-1)}{2} + I^{sky}_{\beta}\right) I^{sky}_{\nu_0} \end{equation}
       | Note that with this choice of parameterization, we are using a
         polynomial to model a power-law.
 
@@ -280,9 +270,9 @@ Wide Band Imaging
 
       The signal-to-noise ratio of the source must also be considered
       when choosing nterms. Note that the Taylor polynomial is in I vs
-      $\nu$ space. This means that even for a pure power law, one may
-      need nterms=3 or 4 in order to properly fit the data if there is
-      adequate signal to see more spectral variation than a straight
+      :math:`\nu` space. This means that even for a pure power law, one
+      may need nterms=3 or 4 in order to properly fit the data if there
+      is adequate signal to see more spectral variation than a straight
       line. One should avoid trying to fit a high-order polynomial to
       low signal-to-noise data. 
 
@@ -296,11 +286,12 @@ Wide Band Imaging
       .. rubric:: Taylor Coefficient Images
          :name: taylor-coefficient-images
 
-      The basic products of the MT-MFS algorithm are a set of $N+1$
-      (multi-scale) Taylor coefficient images that describe the spectrum
-      of the sky brightness at each pixel (coefficients of an
-      $N^{th}$-order polynomial). The $0^{th}$-order coefficient image
-      is the Stokes I intensity image at the reference frequency.
+      The basic products of the MT-MFS algorithm are a set of
+      :math:`N+1` (multi-scale) Taylor coefficient images that describe
+      the spectrum of the sky brightness at each pixel (coefficients of
+      an :math:`N^{th}`-order polynomial). The :math:`0^{th}`-order
+      coefficient image is the Stokes I intensity image at the reference
+      frequency.
 
       .. rubric:: Multi-Term Restoration
          :name: multi-term-restoration
@@ -326,15 +317,16 @@ Wide Band Imaging
       .. rubric:: Calculating Spectral Index
          :name: calculating-spectral-index
 
-      Spectral index is computed as $I^{sky}_{\alpha} =  I^m_1 / 
-      I^m_0$, for all pixels above a threshold applied to the $I^m_0$.
-      Other pixels are zeroed out and a mask is applied.  Currently this
-      threshold is automatically calculated to be 5 x max( peak
-      residual, user threshold ).  Right now, the spectral index
-      calculation can be modified  in two ways (a) perform the above
-      division oneself in a python script or (b) use the widebandpbcor
-      task with action='calcalpha'.   The ability to control this within
-      tclean itself will be added in the future.
+      Spectral index is computed as
+      :math:`I^{sky}_{\alpha} =  I^m_1 /  I^m_0`, for all pixels above a
+      threshold applied to the :math:`I^m_0`. Other pixels are zeroed
+      out and a mask is applied.  Currently this threshold is
+      automatically calculated to be 5 x max( peak residual, user
+      threshold ).  Right now, the spectral index calculation can be
+      modified  in two ways (a) perform the above division oneself in a
+      python script or (b) use the widebandpbcor task with
+      action='calcalpha'.   The ability to control this within tclean
+      itself will be added in the future.
 
       Spectral curvature (when possible) is also computed from the
       Taylor coefficients.
@@ -359,12 +351,13 @@ Wide Band Imaging
       components) with slightly different settings of scale sizes and
       iteration controls, to see what is true signal and what can be
       attributed to reconstruction uncertainty.  For high
-      signal-to-noise compact sources, error limits of $\pm 0.05$ can be
-      achieved. For complicated extended emission at about SNR=100 or
-      less, typical errors are about $\pm 0.2$.  These errors are highly
-      correlated with how appropriately the scale sizes are chosen, with
-      errors ranging from $\pm 0.1$ or less up to $\pm 0.5$ in the limit
-      of using delta functions to try to model extended emission.
+      signal-to-noise compact sources, error limits of :math:`\pm 0.05`
+      can be achieved. For complicated extended emission at about
+      SNR=100 or less, typical errors are about :math:`\pm 0.2`.  These
+      errors are highly correlated with how appropriately the scale
+      sizes are chosen, with errors ranging from :math:`\pm 0.1` or less
+      up to :math:`\pm 0.5` in the limit of using delta functions to try
+      to model extended emission.
 
       Errors on spectral curvature are much higher than for spectral
       index. In one example where the M87 galaxy was imaged at L-Band,
@@ -384,8 +377,8 @@ Wide Band Imaging
       model. The main disadvantage is that the angular resolution of all
       higher frequency channels must be degraded to that of the lowest
       frequency before any combined analysis can be done. Also, in case
-      of complicated spatial structure, each frequency's $uv$ coverage
-      may be insufficient to guarantee reconstructions that are
+      of complicated spatial structure, each frequency's :math:`uv`
+      coverage may be insufficient to guarantee reconstructions that are
       consistent with each other across the band.
 
       .. rubric:: Comparison of different wideband imaging methods
@@ -684,6 +677,19 @@ Wide Band Imaging
        
 
        
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Rau & Cornwell (2011), A&A 532, A71
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2011A%26A...532A..71R>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

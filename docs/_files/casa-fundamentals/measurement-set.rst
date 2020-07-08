@@ -14,16 +14,40 @@ MeasurementSet v2
 .. container:: section
    :name: viewlet-above-content-body
 
-.. container:: section
+.. container:: section active
    :name: content-core
 
    .. container:: pat-autotoc
       :name: parent-fieldname-text
 
+      `Introduction <#autotoc-item-autotoc-0>`__\ `MS v2.0
+      Layout <#autotoc-item-autotoc-1>`__\ `MAIN table: Data,
+      Coordinates and Flags <#autotoc-item-autotoc-2>`__\ `ANTENNA:
+      Antenna
+      Characteristics <#autotoc-item-autotoc-3>`__\ `DATA_DESCRIPTION:
+      Data Description Table <#autotoc-item-autotoc-4>`__\ `DOPPLER:
+      Doppler Tracking Information <#autotoc-item-autotoc-5>`__\ `FEED:
+      Feed Characteristics <#autotoc-item-autotoc-6>`__\ `FIELD: Field
+      Positions for Each Source <#autotoc-item-autotoc-7>`__\ `FLAG_CMD:
+      Flag Commands <#autotoc-item-autotoc-8>`__\ `FREQ_OFFSET:
+      Frequency Offset
+      Information <#autotoc-item-autotoc-9>`__\ `HISTORY: History
+      Information <#autotoc-item-autotoc-10>`__\ `OBSERVATION:
+      Observation Information <#autotoc-item-autotoc-11>`__\ `POINTING:
+      Antenna Pointing
+      Information <#autotoc-item-autotoc-12>`__\ `POLARIZATION:
+      Polarization Setup
+      Information <#autotoc-item-autotoc-13>`__\ `PROCESSOR: Processor
+      Information <#autotoc-item-autotoc-14>`__\ `SOURCE: Source
+      Information <#autotoc-item-autotoc-15>`__\ `SPECTRAL_WINDOW:
+      Spectral Window Description <#autotoc-item-autotoc-16>`__\ `STATE:
+      State Information <#autotoc-item-autotoc-17>`__\ `SYSCAL: System
+      Calibration <#autotoc-item-autotoc-18>`__\ `WEATHER: Weather
+      Station Information <#autotoc-item-autotoc-19>`__
       .. rubric:: Introduction
          :name: introduction
 
-      The MeasurementSet version 2 `[1] <#cit>`__ , is a database
+      The MeasurementSet version 2 `[1] <#cit1>`__ , is a database
       designed to hold radioastronomical data to be calibrated following
       the MeasurementEquation approach by Hamaker, Bregman, and Sault
       (1996).
@@ -684,12 +708,14 @@ The row flag 
     
 **MS_VERSION**
    The MeasurementSet format revision number, expressed
-   as ${major}_{revision}$ ${minor}_{revision}$. This version is 2.0. 
+   as majorrevision\ :math:`{major}_{revision}`
+   minorrevision\ :math:`{minor}_{revision}`. This version is 2.0. 
 **SORT_COLUMNS**
-   Sort indices, in the form ${index}_1$ ${index}_2$ $\cdots$, for the
-   underlying MS. A string containing "NONE" reflects no sort order. An
-   example might be *SORT_COLUMNS="TIME ANTENNA1 ANTENNA2"*, to indicate
-   sorting in in time-baseline order.
+   Sort indices, in the form index1\ :math:`{index}_1`
+   index2\ :math:`{index}_2` ⋯\ :math:`\cdots`, for the underlying MS. A
+   string containing "NONE" reflects no sort order. An example might be
+   *SORT_COLUMNS="TIME ANTENNA1 ANTENNA2"*, to indicate sorting in in
+   time-baseline order.
 **SORT_ORDER**
    Sort order as either "ASCENDING" or "DESCENDING".
 **TIME**
@@ -1355,8 +1381,8 @@ The reference angle for polarization.
    polarization combiners.
 **POL_RESPONSE**
    Polarization response at the center of the beam for this feed.
-   Expressed in a linearly polarized basis ($ \\bf\vec e_x$, $ \\bf\vec
-   e_y$) using the IEEE convention.
+   Expressed in a linearly polarized basis (→ex\ :math:` \bf\vec e_x`,
+   →ey\ :math:` \bf\vec e_y`) using the IEEE convention.
 **POSITION**
    Offset of feed relative to the feed reference position for this
    antenna (see ANTENNA sub-table).
@@ -3286,7 +3312,7 @@ Float(*N*\ :sub:`r`) 
 
  
 
-$ {{T_{ant}}\over{T_{sys}}}$
+TantTsys\ :math:` {{T_{ant}}\over{T_{sys}}}`
 
 *(TCAL_SPECTRUM)*
 
@@ -3346,7 +3372,7 @@ Float (*N*\ :sub:`r`,\ *N*\ :sub:`f`) 
 
  
 
-$ {{T_{ant}}\over{T_{sys}}}$ spectrum
+TantTsys\ :math:` {{T_{ant}}\over{T_{sys}}}` spectrum
 
 *Flags*
 
@@ -3418,7 +3444,7 @@ Bool 
 
  
 
-Flag for ${{T_{ant}}\over{T_{sys}}}$
+Flag for TantTsys\ :math:`{{T_{ant}}\over{T_{sys}}}`
 
 **Notes:**
    This table contains time-variable calibration measurements for each
@@ -3752,6 +3778,19 @@ Flag for WIND_SPEED 
 +-----------------+---------------------------------------------------+
 
  
+
+.. container::
+   :name: citation-container
+
+   .. container::
+      :name: citation-title
+
+      Bibliography
+
+   .. container::
+
+      :sup:`1.`\ `Kemball & Wieringa
+      2000 <https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/229.pdf>`__\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

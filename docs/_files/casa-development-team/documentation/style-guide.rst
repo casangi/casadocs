@@ -228,8 +228,8 @@ Style Guide
       .. rubric:: **Inserting a formula with MathJax**
          :name: inserting-a-formula-with-mathjax
 
-      Our local version of MathJax uses  $\$ ...\$$ as a delimiter to
-      signal an equation.
+      Our local version of MathJax uses  :math:`\$ ...\$` as a delimiter
+      to signal an equation.
 
       ::
 
@@ -240,12 +240,12 @@ Style Guide
 
       will lead to 
 
-      $a^2 + b^2 = c^2$. 
+      :math:`a^2 + b^2 = c^2`. 
 
       Other characters, such as "&" can occasionally cause formatting
       issues when placed inside a MathJax formula. This can be fixed by
       replacing the "&" with its hexidecimal unicode: \unicode{x26}, or
-      placing it outside the $\$ ...\$$
+      placing it outside the :math:`\$ ...\$`
 
       delimiters to prevent it from rendering in MathJax.  
 
@@ -524,7 +524,8 @@ Style Guide
       Footnotes are not automatically numbered, so please take care
       about the numbering. First, insert a footnote marker template
       "Insert->Insert Template->Link to Footnote". Insert a
-      footnotemarker that is unique for the given page.\ `[a] <#fn>`__  
+      footnotemarker that is unique for the given page.\ `[a] <#fna>`__
+       
 
       Then create the footnote itself. Insert a "Footnote" template
       ("Insert->Insert Template->Footnote") and a box will be created
@@ -557,15 +558,15 @@ Style Guide
 
       for two-author papers:
 
-      Pan & Doe (1999) `[1] <#cit>`__
+      Pan & Doe (1999) `[1] <#cit1>`__
 
       three-author papers:
 
-      Pan, Doe, & Kern (2000) `[2] <#cit>`__
+      Pan, Doe, & Kern (2000) `[2] <#cit2>`__
 
       more than three authors: 
 
-      Pan et al. (2001) `[3] <#cit>`__
+      Pan et al. (2001) `[3] <#cit3>`__
 
       If there are more than one paper per year with the same authors,
       they shall be appended with letters in the year, e.g. 2000a,
@@ -573,11 +574,11 @@ Style Guide
 
       In parentheses the citations look like: 
 
-      (Pan & Doe 1999) `[1] <#cit>`__
+      (Pan & Doe 1999) `[1] <#cit1>`__
 
       more than one citation: 
 
-      (Pan & Doe 1999; Pan et al. 2001) `[1] <#cit>`__  `[3] <#cit>`__
+      (Pan & Doe 1999; Pan et al. 2001) `[1] <#cit1>`__  `[3] <#cit3>`__
 
        
 
@@ -617,6 +618,42 @@ Style Guide
       |                 | eds. E. Hobble, Kluver, Dodrecht, p23             |
       |                 | (`arxiv <https://arxiv.org/abs/1601.07988>`__)    |
       +-----------------+---------------------------------------------------+
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Pan & Doe 1999, ApJ, 123, 666
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2017ApJ...834...39P>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2. Pan, Doe, & Kern 2000, A&A, 99, L1
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2016ApJ...817...72P>`__\ :sup:`)`\ `↩ <#ref-cit2>`__
+
+      .. container::
+
+         :sup:`3. Pan et al., 2001, in "Happy Edits in CASAplone", eds.
+         E. Hobble, Kluver, Dodrecht, p23
+         (`\ `arxiv <https://arxiv.org/abs/1601.07988>`__\ :sup:`) `\ `↩ <#ref-cit3>`__
+
+   .. container::
+      :name: footnotes-container
+
+      .. container::
+         :name: footnote-title
+
+         Footnote(s)
+
+      .. container::
+
+         :sup:`a. This is a footnote text.`\ `↩ <#refa>`__
 
 .. container:: section
    :name: viewlet-below-content-body

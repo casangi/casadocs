@@ -65,7 +65,7 @@ Fit Gaussians to Visibilities
          **ALERT**: This task currently only fits a single component. 
          For multiple, arbitrary shaped component fitting, we refer to
          the `uvmultifit <https://launchpad.net/uvmultifit>`__
-         `[1] <#cit>`__ software that was developed by the Nordic `ALMA
+         `[1] <#cit1>`__ software that was developed by the Nordic `ALMA
          Regional Center
          Node <https://www.oso.nordic-alma.se/software-tools.php>`__.  
 
@@ -185,7 +185,7 @@ Fit Gaussians to Visibilities
          powerful tools for visibility modelling. See the `Nordic ARC
          software
          page <http://www.oso.nordic-alma.se/software-tools.php>`__ and
-         Marti-Vidal et al. (2014)  `[1] <#cit>`__ for details.
+         Marti-Vidal et al. (2014)  `[1] <#cit1>`__ for details.
 
          +-----------------+---------------------------------------------------+
          | Citation Number | 1                                                 |
@@ -232,6 +232,25 @@ Fit Gaussians to Visibilities
                |                 | (`arX                                             |
                |                 | iv:1401.4984 <http://arxiv.org/abs/1401.4984>`__) |
                +-----------------+---------------------------------------------------+
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Marti-Vidal, I., Vlemmings, W.~H.~T., Muller, S., &
+         Casey, S. 2014, A&A, 563, A136
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2014A%26A...563A.136M>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`1. Marti-Vidal et al. 2014, A&A 563, 136
+         (`\ `arXiv:1401.4984 <http://arxiv.org/abs/1401.4984>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

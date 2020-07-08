@@ -22,7 +22,7 @@ Theoretical Description
       :name: parent-fieldname-text
 
       For single-dish observations, ALMA uses on-the-fly mapping.  The
-      technique is described in Mangum et al. (2007) `[1] <#cit>`__.
+      technique is described in Mangum et al. (2007) `[1] <#cit1>`__.
 
       Converting single-dish observations into an image or cube is done
       almost entirely in the image domain. After taking and calibrating
@@ -50,7 +50,8 @@ Theoretical Description
       the width of the primary beam.
 
       For example, a 30" telescope beam with a 6" sky sampling function
-      has an effective FWHM of $\sim \\sqrt{(30^2+6^2)}\simeq$ 30.6".
+      has an effective FWHM of
+      ∼√(302+62)≃\ :math:`\sim \sqrt{(30^2+6^2)}\simeq` 30.6".
       Therefore, computing an image pixel size that is 30"/3 = 10", is
       appropriately oversampling the effective beam FWHM and sampling
       interval.
@@ -80,6 +81,19 @@ Theoretical Description
       |                 | (`ADS <http://www.aan                             |
       |                 | da.org/articles/aa/pdf/2007/41/aa7811-07.pdf>`__) |
       +-----------------+---------------------------------------------------+
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Mangum, et al. 2007, A&A, 474, 679-687
+         (`\ `ADS <http://www.aanda.org/articles/aa/pdf/2007/41/aa7811-07.pdf>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

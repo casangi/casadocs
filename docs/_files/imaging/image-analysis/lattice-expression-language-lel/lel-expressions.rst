@@ -28,17 +28,15 @@ LEL Expressions
       an expression can be lattices, constants, functions, and condition
       masks. 
 
-         $lat1 + 10$
+         lat1+10\ :math:`lat1 + 10`
 
-         $lat1 + 2 \* max(lat2,1)$
+         lat1+2∗max(lat2,1)\ :math:`lat1 + 2 * max(lat2,1)`
 
-         $amp(lat1, lat2)$
+         amp(lat1,lat2)\ :math:`amp(lat1, lat2)`
 
-         $lat1 + mean(img[region1])$
+         lat1+mean(img[region1])\ :math:`lat1 + mean(img[region1])`
 
-         $lat1 + mean(lat2[lat2>5
-         \\unicode{x20}\unicode{x20}\unicode{x26}\unicode{x26}\unicode{x20}\unicode{x20}
-         lat2<10])$
+         lat1+mean(lat2[lat2>5&&lat2<10])\ :math:`lat1 + mean(lat2[lat2>5 \unicode{x20}\unicode{x20}\unicode{x26}\unicode{x26}\unicode{x20}\unicode{x20} lat2<10])`
 
       The last example shows how a boolean expression can be used to
       form a mask on a lattice. Only the pixels fulfilling the boolean
@@ -90,11 +88,11 @@ LEL Expressions
 
       ..
 
-         $3$
+         3\ :math:`3`
 
-         $3.14$
+         3.14\ :math:`3.14`
 
-         $3.14e-2$
+         3.14e−2\ :math:`3.14e-2`
 
       -  A Double constant is a floating-point number using a D for the
          exponent. One can also use the ``DOUBLE`` function. For
@@ -102,11 +100,11 @@ LEL Expressions
 
       ..
 
-         $1d2$
+         1d2\ :math:`1d2`
 
-         $3.14d-2$
+         3.14d−2\ :math:`3.14d-2`
 
-         $double(2)$
+         double(2)\ :math:`double(2)`
 
       -  The imaginary part of a Complex or DComplex constant is formed
          by a Float or Double constant immediately followed by a
@@ -115,15 +113,15 @@ LEL Expressions
 
       ..
 
-         $1.5 + 2i$
+         1.5+2i\ :math:`1.5 + 2i`
 
-         $2i+1.5$ is identical
+         2i+1.5\ :math:`2i+1.5` is identical
 
       Note that a full complex constant has to be enclosed in
       parentheses when, say, a multiplication is performed on it. For
       example:
 
-         $2 \* (1.5+2i)$
+         2∗(1.5+2i)\ :math:`2 * (1.5+2i)`
 
       The functions ``pi()`` and ``e()`` should be used to specify the
       constants pi and e. Note that they form a Double constant, so when
@@ -357,74 +355,74 @@ LEL Expressions
 
       The result of these functions is a scalar.
 
-         ``double $NELEMENTS(anytype)$``
+         ``double NELEMENTS(anytype)``\ :math:`NELEMENTS(anytype)`
 
       ..
 
          Return number of elements in a lattice (1 for a scalar).
 
-         ``double $NDIM(anytype)$``
+         ``double NDIM(anytype)``\ :math:`NDIM(anytype)`
 
       ..
 
          Return dimensionality of a lattice (0 for a scalar).
 
-         ``double $LENGTH(anytype, real axis)$``
+         ``double LENGTH(anytype,realaxis)``\ :math:`LENGTH(anytype, real axis)`
 
       ..
 
          Return length of a lattice axis (returns 1 for a scalar or if
          axis exceeds number of axes). Axis number is 1-relative.
 
-         ``Bool $ANY(Bool)$``
+         ``Bool ANY(Bool)``\ :math:`ANY(Bool)`
 
       ..
 
          Is any element true?
 
-         ``Bool $ALL(Bool)$``
+         ``Bool ALL(Bool)``\ :math:`ALL(Bool)`
 
       ..
 
          Are all elements true?
 
-         ``Double $NTRUE(Bool)$``
+         ``Double NTRUE(Bool)``\ :math:`NTRUE(Bool)`
 
       ..
 
          Number of true elements.
 
-         ``Double $NFALSE(Bool)$``
+         ``Double NFALSE(Bool)``\ :math:`NFALSE(Bool)`
 
       ..
 
          Number of false elements.
 
-         ``numeric $SUM(numeric)$``
+         ``numeric SUM(numeric)``\ :math:`SUM(numeric)`
 
       ..
 
          Return sum of all elements.
 
-         ``numeric $MIN(numeric)$``
+         ``numeric MIN(numeric)``\ :math:`MIN(numeric)`
 
       ..
 
          Return minimum of all elements.
 
-         ``numeric $MAX(numeric)$``
+         ``numeric MAX(numeric)``\ :math:`MAX(numeric)`
 
          Return maximum of all elements.
 
       ..
 
-         ``real $MEDIAN(real)$``
+         ``real MEDIAN(real)``\ :math:`MEDIAN(real)`
 
          Return median of a lattice. For smallish lattices (max. 512*512
          elements) the median can be found in 1 pass. Other lattices
          usually require 2 passes.
 
-         ``real $FRACTILE(real,float)$``
+         ``real FRACTILE(real,float)``\ :math:`FRACTILE(real,float)`
 
       ..
 
@@ -434,7 +432,7 @@ LEL Expressions
          (max. 512*512 elements) the fractile can be found in 1 pass.
          Other lattices usually require 2 passes.
 
-         ``real $FRACTILERANGE(real,float,float)$``
+         ``real FRACTILERANGE(real,float,float)``\ :math:`FRACTILERANGE(real,float,float)`
 
       ..
 
@@ -444,13 +442,13 @@ LEL Expressions
          first one. The second fraction is optional and defaults to
          ``1-fraction1``. Thus:
 
-         $FRACTILERANGE(lat, 0.1)$
+         FRACTILERANGE(lat,0.1)\ :math:`FRACTILERANGE(lat, 0.1)`
 
       ..
 
-         ``$FRACTILERANGE(lat, 0.1, 0.9)$``
+         ``FRACTILERANGE(lat,0.1,0.9)``\ :math:`FRACTILERANGE(lat, 0.1, 0.9)`
 
-         ``$FRACTILE(lat,0.9) - FRACTILE(lat,0.1)$``
+         ``FRACTILE(lat,0.9)−FRACTILE(lat,0.1)``\ :math:`FRACTILE(lat,0.9) - FRACTILE(lat,0.1)`
 
       ..
 
@@ -494,7 +492,7 @@ LEL Expressions
       .. rubric:: Miscellaneous functions
          :name: miscellaneous-functions
 
-         ``numeric $REBIN(numeric,[f1,f2,...])$``
+         ``numeric REBIN(numeric,[f1,f2,...])``\ :math:`REBIN(numeric,[f1,f2,...])`
 
       ..
 
@@ -508,38 +506,39 @@ LEL Expressions
          also be any expression resulting in a real scalar value. For
          instance, for a 3-dimensional image:
 
-         $rebin(lat,[2,2,1])$
+         rebin(lat,[2,2,1])\ :math:`rebin(lat,[2,2,1])`
 
          will halve the size of axis 1 and 2.
 
-         ``real $AMP(real,real)$``
+         ``real AMP(real,real)``\ :math:`AMP(real,real)`
 
       ..
 
          It returns the square root of the quadrature sum of the two
          arguments. Thus:
 
-         $amp(lat1,lat2)$
+         amp(lat1,lat2)\ :math:`amp(lat1,lat2)`
 
       ..
 
-         gives $\sqrt{{lat}_1^2 + {lat}_2^2}$
+         gives √lat21+lat22\ :math:`\sqrt{{lat}_1^2 + {lat}_2^2}`
 
          This can be used to form, for example, (biased) polarized
          intensity images when lat1 and lat2 are Stokes Q and U images.
 
       ..
 
-         ``real $PA(real,real)$``
+         ``real PA(real,real)``\ :math:`PA(real,real)`
 
          It returns a \``position angle'' (in degrees) from the two
          lattices. That is,
 
       ..
 
-         $pa(lat1,lat2)$
+         pa(lat1,lat2)\ :math:`pa(lat1,lat2)`
 
-         gives $180/\pi*atan2(lat1, lat2)/2$
+         gives
+         180/π∗atan2(lat1,lat2)/2\ :math:`180/\pi*atan2(lat1, lat2)/2`
 
       ..
 
@@ -547,14 +546,14 @@ LEL Expressions
          position angle images when lat1 and lat2 are Stokes Q and U
          images, respectively.
 
-         ``real $SPECTRALINDEX(real,real)$``
+         ``real SPECTRALINDEX(real,real)``\ :math:`SPECTRALINDEX(real,real)`
 
       ..
 
          It returns a the spectral index made from the two lattices.
          That is,
 
-         $log(s1/s2) / log(f1/f2)$
+         log(s1/s2)/log(f1/f2)\ :math:`log(s1/s2) / log(f1/f2)`
 
       ..
 
@@ -564,7 +563,7 @@ LEL Expressions
          to have the same shape. One can be extended/stretched as
          needed.
 
-         ``anytype $VALUE(anytype)$``
+         ``anytype VALUE(anytype)``\ :math:`VALUE(anytype)`
 
       ..
 
@@ -573,7 +572,7 @@ LEL Expressions
          handling <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/lattice-expression-language-lel/lel-masks>`__
          discusses it in more detail.
 
-         ``Bool $MASK(anytype)$``
+         ``Bool MASK(anytype)``\ :math:`MASK(anytype)`
 
       ..
 
@@ -581,7 +580,7 @@ LEL Expressions
          handling <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/lattice-expression-language-lel/lel-masks>`__
          discusses it in more detail.
 
-         ``Bool $ISNAN(anytype)$``
+         ``Bool ISNAN(anytype)``\ :math:`ISNAN(anytype)`
 
       ..
 
@@ -600,15 +599,15 @@ LEL Expressions
          the second argument. The result's mask is a copy of the mask of
          the first argument.
 
-         $replace (lat1, 0)$
+         replace(lat1,0)\ :math:`replace (lat1, 0)`
 
-         $replace (lat1, lat2)$
+         replace(lat1,lat2)\ :math:`replace (lat1, lat2)`
 
          The first example replaces each masked-off element in ``lat1``
          by 0. The second example replaces it by the corresponding
          element in ``lat2``. A possible mask of ``lat2`` is not used.
 
-         ``$anytype IIF(Bool, anytype, anytype)$``
+         ``anytypeIIF(Bool,anytype,anytype)``\ :math:`anytype IIF(Bool, anytype, anytype)`
 
       ..
 
@@ -617,11 +616,12 @@ LEL Expressions
          taken, otherwise from the third argument. It is similar to the
          ternary ``?:`` construct in C++. E.g.
 
-         $iif (lat1>0, lat1, 0)$ same as $max(lat1,0)$
+         iif(lat1>0,lat1,0)\ :math:`iif (lat1>0, lat1, 0)` same as
+         max(lat1,0)\ :math:`max(lat1,0)`
 
       ..
 
-         $iif (sum(lat1)>0, lat1, lat2)$
+         iif(sum(lat1)>0,lat1,lat2)\ :math:`iif (sum(lat1)>0, lat1, lat2)`
 
          The examples shows that scalars and lattices can be freely
          mixed. When all arguments are scalars, the result is a scalar.
@@ -632,7 +632,7 @@ LEL Expressions
 
       ..
 
-         ``$Bool INDEXIN(real axis, set indices)$``
+         ``BoolINDEXIN(realaxis,setindices)``\ :math:`Bool INDEXIN(real axis, set indices)`
 
          The first argument is a 1-relative axis number. The second
          argument is a set of indices. It returns a Bool array telling
@@ -648,7 +648,7 @@ LEL Expressions
          ``start:end:stride``. The elements do not need to be ordered,
          but in a range start must be < = end. For example:
 
-         $image[indexin(2, [3,4:8,10:20:2])]$
+         image[indexin(2,[3,4:8,10:20:2])]\ :math:`image[indexin(2, [3,4:8,10:20:2])]`
 
       ..
 
@@ -660,53 +660,53 @@ LEL Expressions
 
       ..
 
-         $INDEXi IN set$
+         INDEXiINset\ :math:`INDEXi IN set`
 
          where ``i`` is the axis number. So the example above can also
          be written as:
 
       ..
 
-         $image[index2 in [3,4:8,10:20:2]]$
+         image[index2in[3,4:8,10:20:2]]\ :math:`image[index2 in [3,4:8,10:20:2]]`
 
          Negated versions of this function exist as:
 
       ..
 
-         $INDEXNOTIN(axis, set)$
+         INDEXNOTIN(axis,set)\ :math:`INDEXNOTIN(axis, set)`
 
-         $INDEXi NOT IN set$
+         INDEXiNOTINset\ :math:`INDEXi NOT IN set`
 
       .. rubric:: Conversion functions
          :name: conversion-functions
 
-         ``$Float FLOAT(real)$``
+         ``FloatFLOAT(real)``\ :math:`Float FLOAT(real)`
 
       ..
 
          Convert to single precision.
 
-         ``$Double DOUBLE(real)$``
+         ``DoubleDOUBLE(real)``\ :math:`Double DOUBLE(real)`
 
       ..
 
          Convert to double precision.
 
-         ``$Complex COMPLEX(numeric)$``
+         ``ComplexCOMPLEX(numeric)``\ :math:`Complex COMPLEX(numeric)`
 
       ..
 
          Convert to single precision complex. If the argument is real,
          the imaginary part is set to 0.
 
-         ``$DComplex DCOMPLEX(numeric)$``
+         ``DComplexDCOMPLEX(numeric)``\ :math:`DComplex DCOMPLEX(numeric)`
 
       ..
 
          Convert to double precision complex. If the argument is real,
          the imaginary part is set to 0.
 
-         ``$Bool BOOLEAN(region)$``
+         ``BoolBOOLEAN(region)``\ :math:`Bool BOOLEAN(region)`
 
       ..
 

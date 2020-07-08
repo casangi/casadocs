@@ -187,7 +187,7 @@ them to the default directory “mmsdir”.
    ph.convertoToMMS(inpdir=’$CASADATA/regressions/unittest/bandpass’)
 
 Create Multi-MSs manually using partition
------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Run task **partition** manually to create Multi-MSs by hand inside CASA
 and have more control on the parameters of the task. See help

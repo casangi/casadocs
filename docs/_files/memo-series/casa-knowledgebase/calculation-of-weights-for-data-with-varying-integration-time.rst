@@ -57,8 +57,8 @@ Calculation of Weights for Data with Varying Integration Time
       | integration time, and this complicates the calculation. It is
       | necessary to determine a weighted variance per unit inverse
       | integration time, wherein the sample weights for the variance
-      | calculation are the per-visibility integration times, e$_i$. If
-        the only
+      | calculation are the per-visibility integration times,
+        e\ :math:`_i`. If the only
       | reason the underlying variance differs among samples is the
         variable
       | integration time, then a uniform normalized variance estimate of
@@ -75,41 +75,49 @@ Calculation of Weights for Data with Varying Integration Time
         of this
       | rescaled sample is, in effect, the variance per unit inverse
       | integration time.
-      | For visibilities V$_i$, with integration times e$_i$:
-      | <var$_{norm}$> = Sum (e$_i$ (V$_i$ - <V>)$^2$ / N    [1]
-      | where <V> = Sum (w$_i$ V$_i$) / Sum (w$_i$)       [1a]
-      | and w$_i$ are the nominal data weights presumably proportional
-        to
+      | For visibilities V\ :math:`_i`, with integration times
+        e\ :math:`_i`:
+      | <var\ :math:`_{norm}`> = Sum (e\ :math:`_i` (V\ :math:`_i` -
+        <V>)\ :math:`^2` / N    [1]
+      | where <V> = Sum (w\ :math:`_i` V\ :math:`_i`) / Sum
+        (w\ :math:`_i`)       [1a]
+      | and w\ :math:`_i` are the nominal data weights presumably
+        proportional to
       | integration time and other relevant factors. In practice, we
         could
-      | probably just use w$_i$ = e$_i$ in equation [1a] since all of
-        the other
-      | relevant factors witin w$_i$ are assumed constant within the
-      | sample. Note that the units of <var$_{norm}$> are in squared
-        visibility
-      | amplitude (Jy$^2$, presumably) times seconds. Note also that
-        <var$_{norm}$>
+      | probably just use w\ :math:`_i` = e\ :math:`_i` in equation [1a]
+        since all of the other
+      | relevant factors witin w\ :math:`_i` are assumed constant within
+        the
+      | sample. Note that the units of <var\ :math:`_{norm}`> are in
+        squared visibility
+      | amplitude (Jy\ :math:`^2`, presumably) times seconds. Note also
+        that <var\ :math:`_{norm}`>
       | is essentially the simple variance of the ensemble
-        [sqrt(e$_i$).dV$_i$]
-      | (where dV$_i$ is (V$_i$-<V>)), i.e., of the residual
-        visibilities scaled
+        [sqrt(e\ :math:`_i`).dV\ :math:`_i`]
+      | (where dV\ :math:`_i` is (V\ :math:`_i`-<V>)), i.e., of the
+        residual visibilities scaled
       | so that their noise is independent of integration time.
       | The normalized weight-per-unit-integration time is thus the
         inverse of
-      | <var$_{norm}$>:
-      | W$_{norm}$ = 1/<var$_{norm}$>                      [2]
+      | <var\ :math:`_{norm}`>:
+      | W\ :math:`_{norm}` =
+        1/<var\ :math:`_{norm}`>                      [2]
       | and per-datum revised weights may be calculated as:
-      | W$_i$ = W$_{norm}$ \* e$_i$                         [3]
+      | W\ :math:`_i` = W\ :math:`_{norm}` \* e\ :math:`_i` 
+                               [3]
       | Another way of arriving at this result is to calculate a
         weighted
       | variance:
-      | <var> = Sum (e$_i$ (V$_i$ - <V>)$^2$) / Sum(e$_i$)   [4]
+      | <var> = Sum (e\ :math:`_i` (V\ :math:`_i` - <V>)\ :math:`^2`) /
+        Sum(e\ :math:`_i`)   [4]
       | which corresponds to the (simple) mean exposure time, which is:
-      | <e> = Sum(e$_i$) / N                         [5]
-      | The product of these yields <var$_{norm}$>, as above in [1]:
-      | <var$_{norm}$> = <var><e>                      [6]
-      | and W$_{norm}$ may be formed and applied as in [2] and [3]
-        above.
+      | <e> = Sum(e\ :math:`_i`) / N                         [5]
+      | The product of these yields <var\ :math:`_{norm}`>, as above in
+        [1]:
+      | <var\ :math:`_{norm}`> = <var><e>                      [6]
+      | and W\ :math:`_{norm}` may be formed and applied as in [2] and
+        [3] above.
       | This calculation should be done for both real and imaginary
         parts of
       | the visibility sample and averaged, or for both parts jointly,
@@ -131,12 +139,12 @@ Calculation of Weights for Data with Varying Integration Time
       | may be appropriate to consider a more carefully weighted
         calculation
       | for the N/(N-1) factor. The required factor is:
-      | D = 1 - ( Sum(w$_i$^2) / Sum(w$_i$)^2 ) [9]
-      | where w$_i$ are the a priori nominal weights used in [1a] above.
-        This
+      | D = 1 - ( Sum(w\ :math:`_i`\ ^2) / Sum(w\ :math:`_i`)^2 ) [9]
+      | where w\ :math:`_i` are the a priori nominal weights used in
+        [1a] above. This
       | factor can be shown to equal (N-1)/N and so should be *divided*
         into
-      | the <var$_{norm}$> result.
+      | the <var\ :math:`_{norm}`> result.
       | However, since the nominal error in the variance (and thus the
       | weights) will be <10% (an accuracy we are unlikely to achieve in
       | general anyway) for N>10, and will be uniform over many sample

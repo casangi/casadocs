@@ -26,7 +26,7 @@ Time average
       resulting sub-parameters of *timeaverage.* Additionally,
       **mstransform** is able to perform a baseline dependent time
       average as described in the paper Effects of Baseline Dependent
-      Time Averaging of UV Data by W.D. Cotton `[1] <#cit>`__ .
+      Time Averaging of UV Data by W.D. Cotton `[1] <#cit1>`__ .
 
       .. container:: casa-input-box
 
@@ -78,7 +78,7 @@ Time average
          propagation that apply to a weighted average, which result in
          an output weight equals to the sum of the input weights. For a
          detailed reference see, Data Reduction and Error Analysis by
-         Bevington & Robinson `[2] <#cit>`__.
+         Bevington & Robinson `[2] <#cit2>`__.
 
       -  When **mstransform** and **split** process an ALMA MS and
          *timebin* is greater than 30s, timespan is automatically set to
@@ -113,6 +113,25 @@ Time average
       | Citation Text   | Data Reduction and Error Analysis by Bevington &  |
       |                 | Robinson (3rd Ed., McGraw Hill, 2003)             |
       +-----------------+---------------------------------------------------+
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Effects of Baseline Dependent Time Averaging of UV
+         Data by W.D. Cotton (OBIT No. 13,
+         2008).`\ `PDF <ftp://ftp.cv.nrao.edu/NRAO-staff/bcotton/Obit/BLAverage.pdf>`__\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2. Data Reduction and Error Analysis by Bevington &
+         Robinson (3rd Ed., McGraw Hill, 2003)`\ `↩ <#ref-cit2>`__
 
 .. container:: section
    :name: viewlet-below-content-body

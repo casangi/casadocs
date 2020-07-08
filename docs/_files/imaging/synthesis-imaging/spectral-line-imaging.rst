@@ -73,9 +73,10 @@ Spectral Line Imaging
       In addition, a velocity definition (*veltype* parameter, sometimes
       referred to as Doppler type) is required. This parameter is
       typically either RADIO (CASA default) or OPTICAL. Note that
-      those definitions are identical at $v=0$ but increasingly differ
-       at larger velocity values. A full list of supported velocitiy
-      definitions is given in the Reference material section "`Spectral
+      those definitions are identical at v=0\ :math:`v=0` but
+      increasingly differ  at larger velocity values. A full list of
+      supported velocitiy definitions is given in the Reference material
+      section "`Spectral
       Frames <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material/spectral-frames>`__".
 
       .. rubric:: Mapping between Data Channels and Image Channels
@@ -319,18 +320,18 @@ Spectral Line Imaging
 
       Velocity option in which to interpret start if units are 'km/s' : 
 
-      -  RADIO: velocity in 'radio definition': $\frac{v_{rad}}{c} = 1 -
-         \\frac{f}{f_{0}} = \\frac{z}{1+z}$
-      -  OPTICAL: velocity in 'optical definition': $\frac{v_{opt}}{c} =
-         \\frac{f_{0}}{f} - 1 = z$
+      -  RADIO: velocity in 'radio definition':
+         vradc=1−ff0=z1+z\ :math:`\frac{v_{rad}}{c} = 1 - \frac{f}{f_{0}} = \frac{z}{1+z}`
+      -  OPTICAL: velocity in 'optical definition':
+         voptc=f0f−1=z\ :math:`\frac{v_{opt}}{c} = \frac{f_{0}}{f} - 1 = z`
       -  Z:  the same as OPTICAL
-      -  RATIO: $\frac{v}{c}=\frac{f}{f_{0}}$  \* This is accepted but
-         there will be no real interpretation of the velocity of this
-         type.
+      -  RATIO: vc=ff0\ :math:`\frac{v}{c}=\frac{f}{f_{0}}`  \* This is
+         accepted but there will be no real interpretation of the
+         velocity of this type.
       -  BETA: relativistic definition:
-         $\frac{v}{c}=\frac{1-\left(\frac{f}{f_{0}}\right)^2}{1+\left(\frac{f}{f_{0}}\right)^2}$
-      -  GAMMA: $ \\frac{v}{c}=\frac{1}{\sqrt{1-BETA^2}} = 1 -
-         \\frac{1+\left(\frac{f}{f_{0}}\right)^2}{2\frac{f}{f_{0}}}$ \*
+         vc=1−(ff0)21+(ff0)2\ :math:`\frac{v}{c}=\frac{1-\left(\frac{f}{f_{0}}\right)^2}{1+\left(\frac{f}{f_{0}}\right)^2}`
+      -  GAMMA:
+         vc=1√1−BETA2=1−1+(ff0)22ff0\ :math:` \frac{v}{c}=\frac{1}{\sqrt{1-BETA^2}} = 1 - \frac{1+\left(\frac{f}{f_{0}}\right)^2}{2\frac{f}{f_{0}}}` \*
          This is accepted but there will be no real interpretation of
          the velocity of this type.
 

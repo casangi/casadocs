@@ -54,12 +54,13 @@ Description
       The basic principles at work here are:
 
       #. Imaging = fitting a polynomial to a noisy spectrum (with
-         weights). The polynomial represents $I_{\nu}$ x $P_{\nu}$,
-         where $I_{\nu}$ is the intensity and $P_{\nu}$ the primary beam
-         (PB) at frequency $\nu$.
+         weights). The polynomial represents Iν\ :math:`I_{\nu}` x
+         Pν\ :math:`P_{\nu}`, where Iν\ :math:`I_{\nu}` is the intensity
+         and Pν\ :math:`P_{\nu}` the primary beam (PB) at frequency
+         ν\ :math:`\nu`.
       #. PB model = fitting a polynomial to a collection of PBs at
          different frequencies (with weights). The polynomial represents
-         the primary beam $P_{\nu}$.
+         the primary beam Pν\ :math:`P_{\nu}`.
       #. Dividing the two polynomials via their coefficients.
 
       Steps (1) and (2) need to be consistent with each other (with

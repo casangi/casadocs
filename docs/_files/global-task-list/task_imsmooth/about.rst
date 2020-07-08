@@ -24,28 +24,26 @@ Description
       direction plane of an image. Smoothing is typically performed in
       order to reduce the noise in an image.
 
-      | A deconvolved image $\bf{I}$ can be smoothed to a target
-        resolution by convolving it with a `Gaussian
+      | A deconvolved image I\ :math:`\bf{I}` can be smoothed to a
+        target resolution by convolving it with a `Gaussian
         beam <https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/definition_synthesized_beam>`__
-        $\bf{B}_{\rm tar}$. If the image is already convolved with
-        another smaller beam $\bf{B}_{\rm cur}$ a correcting beam 
-        $\bf{B}_{\rm cor}$ can be calculated so that
-      | \\begin{align}
-      | \\bf{B}_{\rm tar} \* \\bf{I} = \\bf{B}_{\rm cor} \* (\bf{B}_{\rm
-        cur} \* \\bf{I}),
-      | \\end{align}
-      | where $*$ is the convolution operator.  The Fourier transform of
-        the above equation is
-      | \\begin{align}
-      | \\bf{B}_{\rm tar}^f  \\bf{I}^f = \\bf{B}_{\rm cor}^f 
-        (\bf{B}_{\rm cur}^f  \\bf{I}^f),
-      | \\end{align}
-      | where the superscript $f$ indicates the Fourier transform. The
-        correcting beam can then be obtained by
-      | \\begin{align}
-      | \\bf{B}_{\rm cor} = \\mathcal{F}^{-1} \\left( \\frac{\bf{B}_{\rm
-        tar}^f}{\bf{B}_{\rm cur}^f} \\right).
-      | \\end{align}
+        Btar\ :math:`\bf{B}_{\rm tar}`. If the image is already
+        convolved with another smaller beam
+        Bcur\ :math:`\bf{B}_{\rm cur}` a correcting beam 
+        Bcor\ :math:`\bf{B}_{\rm cor}` can be calculated so that
+      | Btar∗I=Bcor∗(Bcur∗I),\ 
+
+        .. math:: \begin{align} \bf{B}_{\rm tar} * \bf{I} = \bf{B}_{\rm cor} * (\bf{B}_{\rm cur} * \bf{I}),  \end{align}
+      | where ∗\ :math:`*` is the convolution operator.  The Fourier
+        transform of the above equation is
+      | BftarIf=Bfcor(BfcurIf),\ 
+
+        .. math:: \begin{align} \bf{B}_{\rm tar}^f  \bf{I}^f = \bf{B}_{\rm cor}^f  (\bf{B}_{\rm cur}^f  \bf{I}^f), \end{align}
+      | where the superscript f\ :math:`f` indicates the Fourier
+        transform. The correcting beam can then be obtained by
+      | Bcor=F−1(BftarBfcur).\ 
+
+        .. math:: \begin{align} \bf{B}_{\rm cor} = \mathcal{F}^{-1} \left( \frac{\bf{B}_{\rm tar}^f}{\bf{B}_{\rm cur}^f} \right). \end{align}
 
        
 

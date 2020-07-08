@@ -22,7 +22,15 @@ Parameters
 
       .. container:: parsed-parameters
 
-          
+         .. container:: param
+
+            .. container:: parameters2
+
+               fitsfile : string
+
+            Name of input fits file
+
+Example
 
 .. container:: section
    :name: viewlet-below-content-body

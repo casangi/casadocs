@@ -93,13 +93,14 @@ simutil
       *diam* (optional - knows diameters for arrays above), e.g., "12m",
       *epsilon* = RMS surface accuracy in microns (also optional - this
       method contains the engineering specification values for each
-      telescope). The outputs produced $\eta_p$ phase efficiency (from
-      Ruze formula), $\eta_s$ spill (main beam) efficiency\ **,**
-      $\eta_b$ geometrical blockage efficiency, $\eta_t$ taper
-      efficiency, $\eta_q$ correlator efficiency including quantization,
-      $t_{rx}$ receiver temperature. Where the total antenna efficiency
-      can be calculated from these outputs as such: $\epsilon = \\eta_p
-      \* \\eta_s \* \\eta_b \* \\eta_t$.
+      telescope). The outputs produced ηp\ :math:`\eta_p` phase
+      efficiency (from Ruze formula), ηs\ :math:`\eta_s` spill (main
+      beam) efficiency\ **,** ηb\ :math:`\eta_b` geometrical blockage
+      efficiency, ηt\ :math:`\eta_t` taper efficiency,
+      ηq\ :math:`\eta_q` correlator efficiency including quantization,
+      trx\ :math:`t_{rx}` receiver temperature. Where the total antenna
+      efficiency can be calculated from these outputs as such:
+      ϵ=ηp∗ηs∗ηb∗ηt\ :math:`\epsilon = \eta_p * \eta_s * \eta_b * \eta_t`.
 
       .. container:: info-box
 

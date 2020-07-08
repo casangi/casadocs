@@ -65,18 +65,19 @@ Imaging Algorithms
       For *weighting='natural'*, visibilities are weighted only by the
       data weights, which are calculated during filling and calibration
       and should be equal to the inverse noise variance on that
-      visibility. Imaging weight $w_i$ of sample $\dot\imath$is given
-      by:
+      visibility. Imaging weight wi\ :math:`w_i` of
+      sample ˙ı\ :math:`\dot\imath` is given by:
 
-      $w_i = \\omega_i = \\frac{1}{{\sigma_i}^2}$
+      wi=ωi=1σi2\ :math:`w_i = \omega_i = \frac{1}{{\sigma_i}^2}`
 
-      where the data weight $\omega_i$ is determined from $\sigma_i$,
-      the rms noise on visibility $\dot\imath$. When data is gridded
-      into the same uv-cell for imaging, the weights are summed, and
-      thus a higher uv density results in higher imaging weights. No
-      sub-parameters are linked to this mode choice. It is the default
-      imaging weight mode, and it should produce “optimum” image with
-      with the lowest noise (highest signal-to-noise ratio).
+      where the data weight ωi\ :math:`\omega_i` is determined from
+      σi\ :math:`\sigma_i`, the rms noise on visibility
+      ˙ı\ :math:`\dot\imath`. When data is gridded into the same uv-cell
+      for imaging, the weights are summed, and thus a higher uv density
+      results in higher imaging weights. No sub-parameters are linked to
+      this mode choice. It is the default imaging weight mode, and it
+      should produce “optimum” image with with the lowest noise (highest
+      signal-to-noise ratio).
 
       .. container:: info-box
 
@@ -116,12 +117,13 @@ Imaging Algorithms
       sub-parameters are linked to this mode choice.
 
       For uniform weighting, we first grid the inverse variance
-      $\omega_i$ for all selected data onto a grid with uv cell-size
-      given by 2 ∕ FOV,where FOVis the specified field of view (defaults
-      to the image field of view). This forms the gridded weights $W_k$.
-      The weight of the $\dot\imath$-th sample is then:
+      ωi\ :math:`\omega_i` for all selected data onto a grid with uv
+      cell-size given by 2 ∕ FOV,where FOVis the specified field of view
+      (defaults to the image field of view). This forms the gridded
+      weights Wk\ :math:`W_k`. The weight of the
+      ˙ı\ :math:`\dot\imath`-th sample is then:
 
-      $w_i = \\frac{\omega_i}{W_k}$
+      wi=ωiWk\ :math:`w_i = \frac{\omega_i}{W_k}`
 
       .. rubric::  
          :name: section-1
@@ -131,13 +133,13 @@ Imaging Algorithms
          :name: briggs-weighting
          :class: noindent
 
-      *Summary:* Briggs or Robust weighting `[1] <#cit>`__ creates a PSF
-      that smoothly varies between natural and uniform weighting based
-      on the signal-to-noise ratio of the measurements and a tunable
-      parameter that defines a noise threshold. High signal-to-noise
-      samples are weighted by sample density to optimize for PSF shape,
-      and low signal-to-noise data are naturally weighted to optimize
-      for sensitivity.
+      *Summary:* Briggs or Robust weighting `[1] <#cit1>`__ creates a
+      PSF that smoothly varies between natural and uniform weighting
+      based on the signal-to-noise ratio of the measurements and a
+      tunable parameter that defines a noise threshold. High
+      signal-to-noise samples are weighted by sample density to optimize
+      for PSF shape, and low signal-to-noise data are naturally weighted
+      to optimize for sensitivity.
 
       The *weighting='briggs'*\ mode is an implementation of the
       flexible weighting scheme developed by Dan Briggs in his PhD
@@ -156,22 +158,24 @@ Imaging Algorithms
 
       The actual weighting scheme used is:
 
-      $w_i = \\frac{\omega_i}{1 + W_k f^2}$
+      wi=ωi1+Wkf2\ :math:`w_i = \frac{\omega_i}{1 + W_k f^2}`
 
       where
 
-      $w_i$ is the image weight for a given visibility point $i$;
+      wi\ :math:`w_i` is the image weight for a given visibility point
+      i\ :math:`i`;
 
-      $\omega_i$ is the visibility weight of baseline $i$;
+      ωi\ :math:`\omega_i` is the visibility weight of baseline
+      i\ :math:`i`;
 
-      $W_k = \\Sigma_{cell=k}\,\omega_{k}$ is the weight density of a
-      given cell $k$ (with $\omega_{k}$ the weight of a uv point that
-      falls in cell $k$). When using *npixels > 0* then
-      $\Sigma_{\omega_{k}}$ is over all weights that fall in cells in
-      range *k ± npixels*
+      Wk=Σcell=kωk\ :math:`W_k = \Sigma_{cell=k}\,\omega_{k}` is the
+      weight density of a given cell k\ :math:`k` (with
+      ωk\ :math:`\omega_{k}` the weight of a uv point that falls in cell
+      k\ :math:`k`). When using *npixels > 0* then
+      Σωk\ :math:`\Sigma_{\omega_{k}}` is over all weights that fall in
+      cells in range *k ± npixels*
 
-      $f^2 = \\frac{(5 \\times 10^{-\text{R}})^2}{\frac{\Sigma_k
-      W_k^2}{\Sigma_i \\omega_i}}$;
+      f2=(5×10−R)2ΣkW2kΣiωi\ :math:`f^2 = \frac{(5 \times 10^{-\text{R}})^2}{\frac{\Sigma_k W_k^2}{\Sigma_i \omega_i}}`;
 
       R is the robust sub-parameter.
 
@@ -209,11 +213,11 @@ Imaging Algorithms
       For *weighting='briggsabs'*, a slightly different Briggs weighting
       is used, with:
 
-      $w_i = \\frac{\omega_i}{W_k \\text{R}^2 + 2\sigma_\text{i}^2}$
+      wi=ωiWkR2+2σ2i\ :math:`w_i = \frac{\omega_i}{W_k \text{R}^2 + 2\sigma_\text{i}^2}`
 
-      where Ris the *robust* parameter and $\sigma_\text{i}$ is the
-      *noise*\ parameter. In this case, R makes sense for −2.0 ≤ R ≤ 0.0
-      (R = 1.0 will give the same result as R = −1.0)
+      where Ris the *robust* parameter and σi\ :math:`\sigma_\text{i}`
+      is the *noise*\ parameter. In this case, R makes sense for −2.0 ≤
+      R ≤ 0.0 (R = 1.0 will give the same result as R = −1.0)
 
       This choice brings up the sub-parameters:
 
@@ -255,7 +259,7 @@ Imaging Algorithms
       The *weighting='radial'*\ mode is a seldom-used option that
       increases the weight by the radius in the uv-plane, i.e.:
 
-      $w_i = \\omega_i \\times \\sqrt{u_i^2 + v_i^2}$
+      wi=ωi×√u2i+v2i\ :math:`w_i = \omega_i \times \sqrt{u_i^2 + v_i^2}`
 
       Technically, this would be called an inverse uv-taper, since it
       depends on uv-coordinates and not on the data per-se. Its effect
@@ -601,8 +605,8 @@ Imaging Algorithms
       .. rubric:: Flat-noise
          :name: flat-noise
 
-      The dirty image represents $I^{dirty} = I^{psf} \\star \\left(
-      I^{PB} \\cdot I^{sky} \\right)$
+      The dirty image represents
+      Idirty=Ipsf⋆(IPB⋅Isky)\ :math:`I^{dirty} = I^{psf} \star \left( I^{PB} \cdot I^{sky} \right)`
 
       Primary-beam correction is not done before the minor cycle
       deconvolution. The dirty image is the instrument's response to the
@@ -624,9 +628,8 @@ Imaging Algorithms
       .. rubric:: Flat-sky
          :name: flat-sky
 
-      The dirty image represents $I^{dirty} = \\frac{1}{I^{PB}} \\cdot
-      \\left[I^{psf} \\star \\left( I^{PB} \\cdot I^{sky} \\right)
-      \\right]$
+      The dirty image represents
+      Idirty=1IPB⋅[Ipsf⋆(IPB⋅Isky)]\ :math:`I^{dirty} = \frac{1}{I^{PB}} \cdot \left[I^{psf} \star \left( I^{PB} \cdot I^{sky} \right) \right]`
 
       Approximate Primary-beam correction is done on the dirty image,
       before the minor cycle iterations. The amplitude of the flux
@@ -651,8 +654,8 @@ Imaging Algorithms
       .. rubric:: PB-square normalization
          :name: pb-square-normalization
 
-      The dirty image represents $I^{dirty} = I^{PB} \\cdot \\left[
-      I^{psf} \\star \\left( I^{PB} \\cdot I^{sky} \\right) \\right]$
+      The dirty image represents
+      Idirty=IPB⋅[Ipsf⋆(IPB⋅Isky)]\ :math:`I^{dirty} = I^{PB} \cdot \left[ I^{psf} \star \left( I^{PB} \cdot I^{sky} \right) \right]`
 
       This third option (not currenly available for use, but supported
       internally) is to not do any PB-based divisions after the gridding
@@ -666,6 +669,25 @@ Imaging Algorithms
        
 
        
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1.`
+
+         .. container::
+
+            Briggs D., 1995, PhD Thesis, New Mexico Institude of Mining
+            and Technology
+
+         `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

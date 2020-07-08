@@ -12,6 +12,7 @@ pytz==2019.3
 PyYAML==5.1.2
 requests==2.22.0
 Scrapy==2.2.0
+scrapy-splash==0.7.2
 Sphinx==2.2.0
 sphinx-automodapi==0.12
 sphinx-rtd-theme==0.4.3

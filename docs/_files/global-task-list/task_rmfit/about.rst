@@ -37,10 +37,10 @@ Description
 
       Rotation measure algorithms that work robustly are few. The main
       problem is in trying to account for the n-pi ambiguity
-      `[1] <#cit>`__ .
+      `[1] <#cit1>`__ .
 
       This task uses the algorithm published in Appendix A.1 of Leahy et
-      al. `[1] <#cit>`__ But as in all these algorithms, the basic
+      al. `[1] <#cit1>`__ But as in all these algorithms, the basic
       process is that for each spatial pixel, the position angle vs
       frequency data is fit to determine the rotation measure and the
       position angle at zero wavelength (and associated errors). An
@@ -93,6 +93,19 @@ Description
       |                 | `(ADS) <http://                                   |
       |                 | adsabs.harvard.edu/full/1986A%26A...156..234L>`__ |
       +-----------------+---------------------------------------------------+
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Leahy et al. 1986, Astronomy & Astrophysics, 156,
+         234`\ `(ADS) <http://adsabs.harvard.edu/full/1986A%26A...156..234L>`__\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

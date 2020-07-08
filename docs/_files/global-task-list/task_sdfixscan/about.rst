@@ -23,11 +23,11 @@ Description
       Task **sdfixscan** is used to remove a striping pattern generated
       along the scan direction in raster scan data. By default, the
       scanning noise is removed using the FFT-based 'Basket-Weaving'
-      method `[1] <#cit>`__ that requires multiple images observed over
+      method `[1] <#cit1>`__ that requires multiple images observed over
       exactly the same area with a different scanning direction. When
       doing 'Basket-Weaving', you can mask small structures and protect
       them using the *maskwidth* parameter. If only one image is
-      available, the 'Pressed-out' method `[2] <#cit>`__ can be used to
+      available, the 'Pressed-out' method `[2] <#cit2>`__ can be used to
       remove the scanning effect.
 
       For 'Basket-Weaving', scans must have been conducted in at least
@@ -105,6 +105,24 @@ Description
       |                 | 26AS...38..251S&amp;data_type=PDF_HIGH&amp;whole_ |
       |                 | paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__) |
       +-----------------+---------------------------------------------------+
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1.  Emerson & Grave 1988
+         (`\ `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1988A%26A...190..353E&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2. Sofue & Reich 1979
+         (`\ `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1979A%26AS...38..251S&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__\ :sup:`)`\ `↩ <#ref-cit2>`__
 
 .. container:: section
    :name: viewlet-below-content-body

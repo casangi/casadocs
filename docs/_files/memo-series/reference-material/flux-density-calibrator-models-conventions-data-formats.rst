@@ -34,15 +34,15 @@ Flux Calibrator Models - Data Formats
 
       | The spectral flux density models are expressed in a polynomial
         in the form
-      | \\begin{equation}
-      | log S[Jy] = a + b*log\nu + c*log^2\nu + …
-      | \\end{equation}
-      | where $\nu$ is a frequency either in MHz or GHz depending on the
-        standard. In setjy, the point source model is constructed as a
-        *componentlist* scaled by the spectral flux density model. For
-        the standards, Baars, Perley 90, Perley-Taylor 95, Perley-Taylor
-        99, Perley-Butler 2010, and Stevens-Reynolds 2016,the polynomial
-        coefficients are hard-coded in the code.
+      | 
+
+        .. math:: \begin{equation} log S[Jy] = a + b*log\nu + c*log^2\nu + … \end{equation}
+      | where :math:`\nu` is a frequency either in MHz or GHz depending
+        on the standard. In setjy, the point source model is constructed
+        as a *componentlist* scaled by the spectral flux density model.
+        For the standards, Baars, Perley 90, Perley-Taylor 95,
+        Perley-Taylor 99, Perley-Butler 2010, and Stevens-Reynolds
+        2016,the polynomial coefficients are hard-coded in the code.
 
       For Perley-Butler 2013 and Scaife-Heald 2012, the coefficients are
       stored in CASA tables called PerleyButler2013Coeffs and

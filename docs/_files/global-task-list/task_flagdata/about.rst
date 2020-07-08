@@ -599,9 +599,10 @@ Description
       corresponding diameters) will be considered for shadow-flag
       calculations. For a given timestep, an antenna is flagged if any
       of its baselines (projected onto the uv-plane) is shorter than 
-      radius$_{1}$ $+$ radius$_{2}$ $-$ tolerance. The value of 'w' is
-      used to determine which antenna is behind the other. The
-      phase-reference center is used for antenna-pointing direction.
+      radius1\ :math:`_{1}` +\ :math:`+` radius2\ :math:`_{2}`
+      −\ :math:`-` tolerance. The value of 'w' is used to determine
+      which antenna is behind the other. The phase-reference center is
+      used for antenna-pointing direction.
 
       .. rubric:: *tolerance*
          :name: tolerance
@@ -609,8 +610,8 @@ Description
       Amount of shadowing allowed (or tolerated), in meters. A positive
       number allows antennas to overlap in projection. A negative number
       forces antennas apart in projection. Zero implies a distance of
-      radius$_{1}$ $+$ radius$_{2}$ between antenna centers. Default:
-      0.0
+      radius1\ :math:`_{1}` +\ :math:`+` radius2\ :math:`_{2}` between
+      antenna centers. Default: 0.0
 
       .. rubric:: *addantenna*
          :name: addantenna
@@ -803,7 +804,7 @@ Description
 
       The 'sum' option chooses to flag a point, if the mean-value in a
       window centered on that point deviates from the fit by more than
-      N-stddev $/ 2.0$.
+      N-stddev /2.0\ :math:`/ 2.0`.
 
       .. container:: info-box
 
@@ -816,10 +817,10 @@ Description
 
       The 'std' option chooses to flag a point, if the 'local' stddev
       calculated in a window centered on that point is larger than
-      N-stddev $/2.0$. This option is an attempt to catch noisy RFI that
-      is not excluded in the polynomial fits, and which increases the
-      global stddev, and results in fewer flags (based on the N-stddev
-      threshold).
+      N-stddev /2.0\ :math:`/2.0`. This option is an attempt to catch
+      noisy RFI that is not excluded in the polynomial fits, and which
+      increases the global stddev, and results in fewer flags (based on
+      the N-stddev threshold).
 
       .. rubric:: *halfwin*
          :name: halfwin
@@ -857,7 +858,7 @@ Description
       .. rubric:: *mode='rflag'* expandable parameters
          :name: moderflag-expandable-parameters
 
-      Detect outliers based on the RFlag algorithm `[1] <#cit>`__. The
+      Detect outliers based on the RFlag algorithm `[1] <#cit1>`__. The
       polarization expression is given by the *correlation* parameter.
       Iterate through the data in chunks of time. For each chunk,
       calculate local statistics, and apply flags based on user supplied
@@ -869,8 +870,8 @@ Description
             within a sliding time window
          -  calculate the median RMS across time windows, deviations of
             local RMS from this median, and the median deviation
-         -  flag if local RMS is larger than *timedevscale* $x$
-            (medianRMS $+$ medianDev)
+         -  flag if local RMS is larger than *timedevscale* x\ :math:`x`
+            (medianRMS +\ :math:`+` medianDev)
 
       -  Spectral analysis (for each time):
 
@@ -878,7 +879,7 @@ Description
             RMS across channels
          -  calculate the deviation of each channel from this avg, and
             the median-deviation
-         -  flag if deviation is larger than *freqdevscale* $x$
+         -  flag if deviation is larger than *freqdevscale* x\ :math:`x`
             medianDev
 
       It is recommended to extend the flags after running this
@@ -945,7 +946,7 @@ Description
       .. container:: info-box
 
          | **NOTE1**: The RFlag algorithm was originally developed by
-           Eric Greisen in AIPS `[1] <#cit>`__ .
+           Eric Greisen in AIPS `[1] <#cit1>`__ .
          | **NOTE2**: Since this algorithm operates with two passes
            through each chunk of data (time and freq axes), some data
            points get flagged twice. This can affect the flag-percentage
@@ -1017,19 +1018,19 @@ Description
          :name: timedevscale
 
       For Step 1 (time analysis), flag a point if local RMS around it is
-      larger than *timedevscale* $x$ *timedev* (fparm(0) in AIPS). This
-      scale parameter is only applied when flagging (*action='apply'*)
-      and displaying reports (display option). It is not used when the
-      thresholds are simply calculated and saved into files
-      (*action='calculate'*, as in the two-passes usage pattern of
+      larger than *timedevscale* x\ :math:`x` *timedev* (fparm(0) in
+      AIPS). This scale parameter is only applied when flagging
+      (*action='apply'*) and displaying reports (display option). It is
+      not used when the thresholds are simply calculated and saved into
+      files (*action='calculate'*, as in the two-passes usage pattern of
       AIPS). Default: 5.0
 
       .. rubric:: *freqdevscale*
          :name: freqdevscale
 
       For Step 2 (spectral analysis), flag a point if local rms around
-      it is larger than *freqdevscale* $x$ *freqdev* (fparm(10) in
-      AIPS). Similarly as with timedevscale, freqdevscale is not used
+      it is larger than *freqdevscale* x\ :math:`x` *freqdev* (fparm(10)
+      in AIPS). Similarly as with timedevscale, freqdevscale is not used
       when the thresholds are simply calculated and saved into files
       (*action='calculate',* as in the two-passes usage pattern of
       AIPS). Default: 5.0
@@ -1424,6 +1425,21 @@ Description
       |                 | and imaging in AIPS,                              |
       |                 | http://www.aips.nrao.edu/cook.html#CEE )          |
       +-----------------+---------------------------------------------------+
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Greisen, Eric, Dec 31, 2011. AIPS documentation:
+         Section E.5 of the AIPS cookbook (Appendix E: Special
+         Considerations for EVLA data calibration and imaging in
+         AIPS,`\ http://www.aips.nrao.edu/cook.html#CEE\ :sup:`)`\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

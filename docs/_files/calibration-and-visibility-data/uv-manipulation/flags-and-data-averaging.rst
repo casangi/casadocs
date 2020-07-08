@@ -106,14 +106,16 @@ Flags and data-averaging
          :name: the-and-rule-of-propagation-of-flags-to-the-averaged-data
 
       | The logical "AND" rule can be formulated as follows. Let us
-        consider a bin size $n$, and original data $d_i, i=0,... n-1$,
-        with associated flags, $f_i$. Every subindex $_i$ corresponds to
-        a value of the data column for a given baseline, time and
-        channel. As a convention, $f_i = 1$ when the flag is set, and
-        $f_i = 0$ when the flag is not set.
-      | For every data point produced in the averaged data, $d_{avg}$,
-        its flag, $f_{avg}$, is calculated as:
-      | $f_{avg} = \\prod_{i=0}^{n-1} f_i$
+        consider a bin size n\ :math:`n`, and original data
+        di,i=0,...n−1\ :math:`d_i, i=0,... n-1`, with associated flags,
+        fi\ :math:`f_i`. Every subindex i\ :math:`_i` corresponds to a
+        value of the data column for a given baseline, time and channel.
+        As a convention, fi=1\ :math:`f_i = 1` when the flag is set, and
+        fi=0\ :math:`f_i = 0` when the flag is not set.
+      | For every data point produced in the averaged data,
+        davg\ :math:`d_{avg}`, its flag, favg\ :math:`f_{avg}`, is
+        calculated as:
+      | favg=∏n−1i=0fi\ :math:`f_{avg} = \prod_{i=0}^{n-1} f_i`
       | That is, the value of the averaged flag is defined as the
         product of the values of the flags in the input bin.
 
@@ -145,16 +147,14 @@ Flags and data-averaging
       -  averaged flag: set
 
       | To define an equation of data averaging with flags, let us now
-        consider the data weights. A bin of $n$ data points $d_i,
-        i=0,...n-1$, with flags $f_i$, are averaged into an average data
-        point $d_{avg}$ with flag $f_{avg}$. The $d_i$ are the
-        visibility data and the $w_i$ are their respective weights. CASA
-        calculates the averaged data, $d_{avg}$ as:
-      | $d_{avg}= f_{avg} \\times \\sum_{i=0}^{n-1} w_i d_i  +
-        (1-f_{avg}) \\times \\sum_{i=0}^{n-1} (1-f_i) w_i d_i =
-        \\prod_{i=0}^{n-1} f_i \\times \\sum_{i=0}^{n-1} w_i d_i  + 
-        (1-\prod_{i=0}^{n-1} f_i) \\times \\sum_{i=0}^{n-1} (1-f_i) w_i
-        d_i $
+        consider the data weights. A bin of n\ :math:`n` data points
+        di,i=0,...n−1\ :math:`d_i, i=0,...n-1`, with flags
+        fi\ :math:`f_i`, are averaged into an average data point
+        davg\ :math:`d_{avg}` with flag favg\ :math:`f_{avg}`. The
+        di\ :math:`d_i` are the visibility data and the wi\ :math:`w_i`
+        are their respective weights. CASA calculates the averaged data,
+        davg\ :math:`d_{avg}` as:
+      | davg=favg×∑n−1i=0widi+(1−favg)×∑n−1i=0(1−fi)widi=∏n−1i=0fi×∑n−1i=0widi+(1−∏n−1i=0fi)×∑n−1i=0(1−fi)widi\ :math:`d_{avg}= f_{avg} \times \sum_{i=0}^{n-1} w_i d_i  + (1-f_{avg}) \times \sum_{i=0}^{n-1} (1-f_i) w_i d_i = \prod_{i=0}^{n-1} f_i \times \sum_{i=0}^{n-1} w_i d_i  +  (1-\prod_{i=0}^{n-1} f_i) \times \sum_{i=0}^{n-1} (1-f_i) w_i d_i `
 
       There are two terms, and they are mutually exclusive
 

@@ -46,11 +46,12 @@ Procedure SD Imaging
 
       The default parameter choices for imaging are selected as follows:
       the image pixel size is 1/3 the primary beam, the primary beam
-      itself is computed based on the standard $\frac{\lambda}{D}$, with
-      some empirically-validated tapering applied. The image dimensions
-      are determined by the spatial extent of the mapped area in the
-      observation, and by default, all channels and all spectral windows
-      are imaged, along with all antennas and all polarizations.
+      itself is computed based on the standard
+      :math:`\frac{\lambda}{D}`, with some empirically-validated
+      tapering applied. The image dimensions are determined by the
+      spatial extent of the mapped area in the observation, and by
+      default, all channels and all spectral windows are imaged, along
+      with all antennas and all polarizations.
 
       .. rubric:: Customized operation
          :name: customized-operation
@@ -62,7 +63,8 @@ Procedure SD Imaging
       cellsize in arcsec) is determined from the rest frequency of the
       0th spectral window so that there are three pixel elements across
       the beam, the beam being calculated with
-      $b\times\frac{\lambda}{D}$.  See information here about tapering:
+      :math:`b\times\frac{\lambda}{D}`.  See information here about
+      tapering:
       `PrimaryBeamArcsec <https://safe.nrao.edu/wiki/bin/view/ALMA/PrimaryBeamArcsec>`__.
       The image extent is computed by default so that the sampled area
       is completely encompassed in a single rectangle, and the pixel
@@ -186,7 +188,7 @@ Procedure SD Imaging
       units of pixels, defaulting to 3 pixels.  However, the recommended
       value for ALMA data is convsupport=6 (see
       `sdimaging <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdimaging>`__
-      and Mangum et al. 2007 `[1] <#cit>`__ for more details on these
+      and Mangum et al. 2007 `[1] <#cit1>`__ for more details on these
       parameters).
 
       The parameter *stokes* specifies the stokes product. At present,
@@ -250,6 +252,19 @@ Procedure SD Imaging
       +-----------------+---------------------------------------------------+
 
        
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Mangum, et al. 2007, A&A, 474, 679-687
+         (`\ `ADS <http://www.aanda.org/articles/aa/pdf/2007/41/aa7811-07.pdf>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

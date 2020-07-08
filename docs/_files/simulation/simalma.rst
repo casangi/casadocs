@@ -161,9 +161,9 @@ ALMA simulations
         visibilities, and both data sets are concatenated before
         imaging. The relative weight of ACA 7-m visibilities is defined
         in proportion to the ratio of beam areas squared, i.e.,
-        $(7/12)^{4} = 0.11$. This is because **simalma** uses a
-        bandwidth and an integration time common to both ALMA 12-m and
-        ACA 7-m simulations.
+        (7/12)4=0.11\ :math:`(7/12)^{4} = 0.11`. This is because
+        **simalma** uses a bandwidth and an integration time common to
+        both ALMA 12-m and ACA 7-m simulations.
 
       The interferometer and total power images are combined using
       **feather** task when total power observations are included. The

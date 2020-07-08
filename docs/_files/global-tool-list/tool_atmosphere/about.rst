@@ -280,5 +280,121 @@ Description
       |                 | Meteorology and Climatology, 47/5, 1337           |
       +-----------------+---------------------------------------------------+
 
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Pardo et al. 1995, J. Quant. Spectr. and Radiat.
+         Transfer, 54, N6, 931`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2. Pardo et al. 1996, Journal of Geophysical Research,
+         101, D22, 28723`\ `↩ <#ref-cit2>`__
+
+      .. container::
+
+         :sup:`3. Pardo et al. 1998, Journal of Geophysical Research,
+         103, D6, 6189`\ `↩ <#ref-cit3>`__
+
+      .. container::
+
+         :sup:`4. Serabyn et al. 1998, Applied Optics, 37, 12,
+         2185`\ `↩ <#ref-cit4>`__
+
+      .. container::
+
+         :sup:`5. Pardo et al. 1998, J. Quant. Spectr. and Radiat.
+         Transfer, 60, N4, 559`\ `↩ <#ref-cit5>`__
+
+      .. container::
+
+         :sup:`6. Matsushita et al. 1999, Publ. Astron. Soc. Japan 51,
+         603`\ `↩ <#ref-cit6>`__
+
+      .. container::
+
+         :sup:`7. Pardo et al. 2000, J. Quant. Spectr. and Radiat.
+         Transfer, 67, 2, 169`\ `↩ <#ref-cit7>`__
+
+      .. container::
+
+         :sup:`8. Pardo, Serabyn and  Cernicharo 2001, J. Quant. Spectr.
+         and Radiat. Transfer, 68/4, 419`\ `↩ <#ref-cit8>`__
+
+      .. container::
+
+         :sup:`9. Garand et al. 2001, Journal of Geophysical Research,
+         106, 24017`\ `↩ <#ref-cit9>`__
+
+      .. container::
+
+         :sup:`10. Prigent et al. 2001, Journal of Geophysical Research,
+         106, 28243`\ `↩ <#ref-cit10>`__
+
+      .. container::
+
+         :sup:`11. Pardo, Cernicharo, and Serabyn 2001, Canadian Journal
+         of Physics, 80(4), 455`\ `↩ <#ref-cit11>`__
+
+      .. container::
+
+         :sup:`12. Pardo et al. 2001, Canadian Journal of Physics,
+         80(4), 443`\ `↩ <#ref-cit12>`__
+
+      .. container::
+
+         :sup:`13. Wiedner et al. 2004, Journal of Geophysical Research,
+         109, D6, 06214`\ `↩ <#ref-cit13>`__
+
+      .. container::
+
+         :sup:`14. Pardo et al. 2004, ApJS, 153,
+         363`\ `↩ <#ref-cit14>`__
+
+      .. container::
+
+         :sup:`15. Pardo et al. 2005, J. Quant. Spec. and Radiat.
+         Transfer 96/3-4, 537`\ `↩ <#ref-cit15>`__
+
+      .. container::
+
+         :sup:`16. Prigent et al. 2005, Geophysical Journal Letters 42,
+         L04810`\ `↩ <#ref-cit16>`__
+
+      .. container::
+
+         :sup:`17. Rosenkranz et al. 2006, Chapter 2 in "Thermal
+         Microwave Radiation - Applications for Remote Sensing", IEE
+         Electromagnetic Waves Series`\ `↩ <#ref-cit17>`__
+
+      .. container::
+
+         :sup:`18. Battaglia et al. 2006, Chapter 3 in "Thermal
+         Microwave Radiation - Applications for Remote Sensing", IEE
+         Electromagnetic Waves Series`\ `↩ <#ref-cit18>`__
+
+      .. container::
+
+         :sup:`19. Prigent, J.R. Pardo, W.B. Rossow 2006, Journal of
+         Applied Meteorology and Climatology, 45,
+         1622`\ `↩ <#ref-cit19>`__
+
+      .. container::
+
+         :sup:`20. Meirold-Mautner et al. 2007, Journal of the
+         Atmospheric Sciences, 64/5, 1550`\ `↩ <#ref-cit20>`__
+
+      .. container::
+
+         :sup:`21. Chaboureau et al. 2007, Journal of Applied
+         Meteorology and Climatology, 47/5, 1337`\ `↩ <#ref-cit21>`__
+
 .. container:: section
    :name: viewlet-below-content-body

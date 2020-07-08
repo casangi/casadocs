@@ -94,9 +94,9 @@ Description
       Sets the frequency interval for the predicted visibilities.
       Examples: *minfreq='230GHz' maxfreqs='265GHz' nfreqs=5*, the
       predicted visibilities will be determined for frequencies of equal
-      interval determined by the equation $(maxfreqs - minfreqs) /
-      nfreqs$ (in this case, for frequencies 230, 239, 248, 256, and 265
-      GHz).
+      interval determined by the equation
+      :math:`(maxfreqs - minfreqs) / nfreqs` (in this case, for
+      frequencies 230, 239, 248, 256, and 265 GHz).
 
       .. rubric:: *prefix*
          :name: prefix

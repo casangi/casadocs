@@ -204,12 +204,12 @@ Viewing Images and Cubes
 
       Note that in the statistics window, the brightness units are
       specified and the beam area is defined as the volume of the
-      elliptical Gaussian $\frac{Π}{4ln(2)} \* FWHM_{major} \*
-      FWHM_{minor}$, where ln() is the natural logarithm and
-      $FWHM_{major}$ and $FWHM_{minor}$ are the major and minor FWHM
-      axes of the beam, respectively. The flux density is the mean
-      intensity multiplied by the number of beams included in the
-      selected region.
+      elliptical Gaussian
+      :math:`\frac{Π}{4ln(2)} * FWHM_{major} * FWHM_{minor}`, where ln()
+      is the natural logarithm and :math:`FWHM_{major}` and
+      :math:`FWHM_{minor}` are the major and minor FWHM axes of the
+      beam, respectively. The flux density is the mean intensity
+      multiplied by the number of beams included in the selected region.
 
       .. rubric:: Region Statistics
          :name: region-statistics

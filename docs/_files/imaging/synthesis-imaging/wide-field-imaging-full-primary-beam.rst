@@ -60,7 +60,7 @@ Wide-Field Imaging
       facet). This deconvolution is not affected by emission that
       crosses facet boundaries, unlike in image-domain faceting, which
       is an older approach where small facet images are deconvolved
-      separately before being stitched together. `[1] <#cit>`__
+      separately before being stitched together. `[1] <#cit1>`__
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 1                                                 |
@@ -86,7 +86,8 @@ Wide-Field Imaging
       distance of w wavelengths. In practice, GCFs are computed for a
       finite set of w-values (wprojplanes) and applied during gridding.
       W-projection is roughly an order of magnitude faster than faceted
-      imaging because it grids each visibility only once `[2]. <#cit>`__
+      imaging because it grids each visibility only once
+      `[2]. <#cit2.>`__
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 2                                                 |
@@ -123,15 +124,13 @@ Wide-Field Imaging
       The formula that CASA uses to calculate the number of plans when
       *wprojplanes=-1* is:
 
-      $N_\mathrm{wprojplanes} = 0.5\times
-      \\frac{W_\mathrm{max}}{\lambda} \\times
-      \\frac{\mathrm{imsize}}{\mathrm{(radians)}}$
+      :math:`N_\mathrm{wprojplanes} = 0.5\times \frac{W_\mathrm{max}}{\lambda} \times \frac{\mathrm{imsize}}{\mathrm{(radians)}}`
 
-      where $W_\mathrm{max}$ is the maximum $w$ in your $uvw$ data and
-      imsize is the largest linear size of your image. This formula is
-      somewhat conservative and it is possible to achieve good results
-      by using a smaller number of planes, which can also save on speed
-      and memory.
+      where :math:`W_\mathrm{max}` is the maximum :math:`w` in your
+      :math:`uvw` data and imsize is the largest linear size of your
+      image. This formula is somewhat conservative and it is possible to
+      achieve good results by using a smaller number of planes, which
+      can also save on speed and memory.
 
       .. container:: alert-box
 
@@ -202,7 +201,7 @@ Wide-Field Imaging
       represents the sky multiplied by the primary beam). The advantage
       of this method is that known time and baseline variability can be
       accounted for, both during gridding as well as de-gridding
-      `[3] <#cit>`__.
+      `[3] <#cit3>`__.
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 3                                                 |
@@ -213,19 +212,19 @@ Wide-Field Imaging
       +-----------------+---------------------------------------------------+
 
       Different primary beam effects cause artifacts at different levels
-      in the image `[4] <#cit>`__. Depending on the available
+      in the image `[4] <#cit4>`__. Depending on the available
       sensitivity of an observation or desired dynamic range, one can
       choose to leave out some corrections and save on computing time. 
       In general, the varying dish size in a heterogenous array is the
       dominant source of errors causing a dynamic range limit of a few
       100. Next come large pointing offsets (such as beam squint or
-      illumination offsets) and at a higher dynamic ranges ($10^4$ and
-      beyond) are other factors such as the details about feed leg
+      illumination offsets) and at a higher dynamic ranges (:math:`10^4`
+      and beyond) are other factors such as the details about feed leg
       structures. On its own, parallactic angle rotation causes
-      artifacts only at a dynamic range of around $10^5$ but if any of
-      the other large effects (pointing offset or illumination pattern
-      errors) are not azimuthally symmetric, then parallactic angle
-      rotation will have an effect at much lower dynamic ranges.
+      artifacts only at a dynamic range of around :math:`10^5` but if
+      any of the other large effects (pointing offset or illumination
+      pattern errors) are not azimuthally symmetric, then parallactic
+      angle rotation will have an effect at much lower dynamic ranges.
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 4                                                 |
@@ -440,7 +439,7 @@ Wide-Field Imaging
       Default PB models :
 
       VLA: PB polynomial fit model (`Napier and Rots,
-      1982)  <https://library.nrao.edu/public/memos/vla/test/VLAT_134.pdf>`__\ `[5] <#cit>`__
+      1982)  <https://library.nrao.edu/public/memos/vla/test/VLAT_134.pdf>`__\ `[5] <#cit5>`__
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 5                                                 |
@@ -452,7 +451,7 @@ Wide-Field Imaging
 
       EVLA: New EVLA beam models (`Perley
       2016 <https://library.nrao.edu/public/memos/evla/EVLAM_195.pdf>`__)
-      `[6] <#cit>`__
+      `[6] <#cit6>`__
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 6                                                 |
@@ -504,7 +503,7 @@ Wide-Field Imaging
       VLA / EVLA : Uses ray traced models (VLA and EVLA) including feed
       leg and subreflector shadows, off-axis feed location (for beam
       squint and other polarization effects), and a Gaussian fit for the
-      feed beams `[7]. <#cit>`__
+      feed beams `[7]. <#cit7.>`__
 
       The following figure shows an example of the ray-traced PB
       models.  Image on the left shows the instantaneous narrow-band PB
@@ -607,6 +606,49 @@ Wide-Field Imaging
         article <https://casa.nrao.edu/casadocs-devel/stable/memo-series/casa-knowledgebase/wideband-mosaic-imaging-and-pointing-corrections-for-the-vla-sky-survey>`__.
 
        
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1.`\ `Sault et al,
+         1999 <https://ui.adsabs.harvard.edu/#abs/1999A&AS..139..387S/abstract>`__\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2.`\ `Cornwell et al,
+         2008 <https://ui.adsabs.harvard.edu/#abs/2008ISTSP...2..647C/abstract>`__\ `↩ <#ref-cit2>`__
+
+      .. container::
+
+         :sup:`3.`\ `Bhatnagar et al,
+         2008 <https://ui.adsabs.harvard.edu/#abs/2008A&A...487..419B/abstract>`__\ `↩ <#ref-cit3>`__
+
+      .. container::
+
+         :sup:`4.`\ `Kundert et al
+         2016 <http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7762834&tag=1>`__\ `↩ <#ref-cit4>`__
+
+      .. container::
+
+         :sup:`5.`\ `Napier and Rots,
+         1982 <https://library.nrao.edu/public/memos/vla/test/VLAT_134.pdf>`__\ `↩ <#ref-cit5>`__
+
+      .. container::
+
+         :sup:`6.`\ `Perley
+         2016 <https://library.nrao.edu/public/memos/evla/EVLAM_195.pdf>`__\ `↩ <#ref-cit6>`__
+
+      .. container::
+
+         :sup:`7.`\ `Brisken
+         2009 <https://ui.adsabs.harvard.edu/#abs/2009nsem.confE..21B/abstract>`__\ `↩ <#ref-cit7>`__
 
 .. container:: section
    :name: viewlet-below-content-body

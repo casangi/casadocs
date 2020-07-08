@@ -27,8 +27,8 @@ Description
       Data Interchange (IDI) format to CASA MeasurementSets.
 
       It permits CASA users to process visibility data provided in the
-      FITS-IDI standard `[1] <#cit>`__. If several files are given, they
-      will be concatenated into one MS.
+      FITS-IDI standard `[1] <#cit1>`__. If several files are given,
+      they will be concatenated into one MS.
 
       For data correlated with the DiFX correlator (such as the VLBA
       correlator), importfitsidi will apply the necessary digital
@@ -112,6 +112,20 @@ Description
       |                 | memo <http://www.aips.nrao.edu/aipsmemo.html>`__  |
       |                 | 114, revised version                              |
       +-----------------+---------------------------------------------------+
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. E. Greisen,`\ `AIPS
+         memo <http://www.aips.nrao.edu/aipsmemo.html>`__\ :sup:`114,
+         revised version`\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

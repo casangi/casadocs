@@ -26,33 +26,33 @@ UV Continuum Subraction
       After general calibration is done and if there is significant
       continuum emission present in what is intended as a spectral line
       observation, continuum subtraction may be desirable. You can
-      estimate and subtract continuum emission in the $uv$-plane prior
-      to imaging or wait and subtract an estimate of it in the
+      estimate and subtract continuum emission in the :math:`uv`-plane
+      prior to imaging or wait and subtract an estimate of it in the
       image-plane. Note that neither method is ideal, and the choice
       depends primarily upon the distribution and strength of the
-      continuum emission. Subtraction in the $uv$-plane is desirable if
-      continuum emission dominates the source, since deconvolution of
-      the line emission will be more robust if it not subject to the
-      deconvolution errors of the brighter continuum. There is also a
-      performance benefit since the continuum is nearly the same in each
-      channel of the observation, and it is desirable to avoid repeating
-      its deconvolution in each channel. However, doing the continuum
-      estimation in the $uv$-plane has the serious drawback that
-      interpolating visibilities between channels is only a good
-      approximation for emission from near the phase center. Thus,
-      $uv$-plane based continuum subtraction will do an increasingly
-      poor job for emission distributed further from the phase center.
-      If the continuum emission is relatively weak, it is usually
-      adequate to subtract it in the image plane; this is described in
-      the Image Analysis section of this document. Here, we describe how
-      to do continuum subtraction in the $uv$-plane.
+      continuum emission. Subtraction in the :math:`uv`-plane is
+      desirable if continuum emission dominates the source, since
+      deconvolution of the line emission will be more robust if it not
+      subject to the deconvolution errors of the brighter continuum.
+      There is also a performance benefit since the continuum is nearly
+      the same in each channel of the observation, and it is desirable
+      to avoid repeating its deconvolution in each channel. However,
+      doing the continuum estimation in the :math:`uv`-plane has the
+      serious drawback that interpolating visibilities between channels
+      is only a good approximation for emission from near the phase
+      center. Thus, :math:`uv`-plane based continuum subtraction will do
+      an increasingly poor job for emission distributed further from the
+      phase center. If the continuum emission is relatively weak, it is
+      usually adequate to subtract it in the image plane; this is
+      described in the Image Analysis section of this document. Here, we
+      describe how to do continuum subtraction in the :math:`uv`-plane.
 
       .. rubric:: Basic Concept
          :name: basic-concept
 
       A good review of different approaches to the subtraction of the
       continuum emission is found in Cornwell, Uson & Haddad (1992)
-      `[1]. <#cit>`__
+      `[1]. <#cit1.>`__
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 1                                                 |
@@ -71,16 +71,16 @@ UV Continuum Subraction
       |                 | adsabs.harvard.edu/abs/1994A%26AS..107...55S>`__) |
       +-----------------+---------------------------------------------------+
 
-      Sault (1994) `[2] <#cit>`__ gives the detailed analysis of the
-      $uv$-plane based algorithms. We assume here that the sky
-      brightness $I_\nu$ at a sky position $(l,m)$ is composed of the
-      continuum (C) and line (L) emission such that
-      $I_\nu(l,m)=C_\nu(l,m)+L_\nu(l,m)$. The continuum is estimated
-      from fitting a polynomial selecting only "line-free" channels. The
-      fitting of the visibiity spectrum is generally done for each
-      sampling and separately for real and imaginary parts to make it a 
-      linear process. Then the polynomial continuum model is subtracted
-      from all channels.
+      Sault (1994) `[2] <#cit2>`__ gives the detailed analysis of the
+      :math:`uv`-plane based algorithms. We assume here that the sky
+      brightness :math:`I_\nu` at a sky position :math:`(l,m)` is
+      composed of the continuum (C) and line (L) emission such that
+      :math:`I_\nu(l,m)=C_\nu(l,m)+L_\nu(l,m)`. The continuum is
+      estimated from fitting a polynomial selecting only "line-free"
+      channels. The fitting of the visibiity spectrum is generally done
+      for each sampling and separately for real and imaginary parts to
+      make it a  linear process. Then the polynomial continuum model is
+      subtracted from all channels.
 
       This technique is known to work well when the dominant continuum
       source is at or near phase center. Its effectiveness tends to
@@ -88,19 +88,19 @@ UV Continuum Subraction
       phase center increases and thus residual continuum left in the
       subtracted data increases. The effectiveness which has the same
       expression as in bandwidth smearing, can be parameterized as
-      $\eta=\frac{\Delta\nu}{\nu}\frac{l_{0}}{\theta_{synth}}$ in terms
-      of the the distance in the synthesized beam
-      ($l_{0}/\theta_{synth}$) from the phase center,  where $\nu$ and
-      2$\Delta\nu$ are the observing frequency and the bandwidth,
-      respectively. In order to the method to work well, $\eta<<1$ must
-      be met. If the brightest continuum emission lies beyond
-      $\frac{\nu}{\Delta\nu}$ beams from the phase center the source
-      need to be shifted before fitting.
+      :math:`\eta=\frac{\Delta\nu}{\nu}\frac{l_{0}}{\theta_{synth}}` in
+      terms of the the distance in the synthesized beam
+      (:math:`l_{0}/\theta_{synth}`) from the phase center,  where
+      :math:`\nu` and 2\ :math:`\Delta\nu` are the observing frequency
+      and the bandwidth, respectively. In order to the method to work
+      well, :math:`\eta<<1` must be met. If the brightest continuum
+      emission lies beyond :math:`\frac{\nu}{\Delta\nu}` beams from the
+      phase center the source need to be shifted before fitting.
 
       .. rubric:: CASA implementations
          :name: casa-implementations
 
-      | Currently tasks to do $uv$-plane continuum subtraction are
+      | Currently tasks to do :math:`uv`-plane continuum subtraction are
         available in uvcontsub, uvcontsub3 and mstransform. All of these
         tasks are based on the same basic concept described above and
         achieve essentially the same output but are based on different
@@ -131,7 +131,7 @@ UV Continuum Subraction
          :name: the-recommended-procedures
 
       The general recommended procuedures are described below.  For
-      detailed examples on how to use the $uv$-plane continuum
+      detailed examples on how to use the :math:`uv`-plane continuum
       subtraction tasks, please refer  to the sections for each
       individual task. 
 
@@ -295,6 +295,25 @@ UV Continuum Subraction
       new **uvcontusb** task that uses **mstransform** under the hood.
 
        
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Cornwell, T. J., Uson, J. M., & Haddad, N. 1992, A&A,
+         258, 583
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1992A%26A...258..583C>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2. Sault, R. J. 1994, A&AS, 107, 55
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1994A%26AS..107...55S>`__\ :sup:`)`\ `↩ <#ref-cit2>`__
 
 .. container:: section
    :name: viewlet-below-content-body

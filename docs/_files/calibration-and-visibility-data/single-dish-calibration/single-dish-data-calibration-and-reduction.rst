@@ -24,12 +24,12 @@ Calibration & Reduction
          :name: single-dish-data-calibration-and-reduction
 
       Generally, the calibration of ALMA single-dish data requires
-      essentially only two steps - the application of the $T_{sys}$
-      calibration, and the application of the "sky" calibration (i.e.
-      OFF). With just these steps, the product is $T_A^*$ in units of
-      Kelvin. While the steps are described in detail here, an example
-      of the full single-dish calibration process can be found in the
-      `M100 Band 3 Single Dish
+      essentially only two steps - the application of the
+      Tsys\ :math:`T_{sys}` calibration, and the application of the
+      "sky" calibration (i.e. OFF). With just these steps, the product
+      is T∗A\ :math:`T_A^*` in units of Kelvin. While the steps are
+      described in detail here, an example of the full single-dish
+      calibration process can be found in the `M100 Band 3 Single Dish
       CASAguide <https://casaguides.nrao.edu/index.php/M100_Band3_SingleDish_4.3>`__.
 
       In the following description, we refer to data in the ALMA-native
@@ -43,7 +43,7 @@ Calibration & Reduction
       #. **listobs** - List observation parameters
       #. **flagdata** and **flagcmd** - A priori flagging
       #. **gencal**, **applycal**, and **sdcal**- Generate and apply the
-         $T_{sys}$ and sky calibration tables
+         Tsys\ :math:`T_{sys}` and sky calibration tables
       #. **flagdata** - Do initial flagging
       #. **applycal** -  Calibrate the data into Kelvins
       #. **sdbaseline** - Subtract the baseline
@@ -72,21 +72,22 @@ Calibration & Reduction
 
       **listobs** works for single dish observations in the same way as
       for interferometry, and will detail the calibration scans.  It
-      identifies pointing, $T_{sys}$, and target scans, the science
-      target and OFF scans and their cadence, the correlator frequencies
-      and configuration, and the antennas used in the observations.
-      Unique to the single-dish data is the #OFF_SOURCE intent. This
-      task is used to identify which spectral windows are used for
-      $T_{sys}$ observations.  This information is critical for those
-      who wish to build their own calibrations.
+      identifies pointing, Tsys\ :math:`T_{sys}`, and target scans, the
+      science target and OFF scans and their cadence, the correlator
+      frequencies and configuration, and the antennas used in the
+      observations. Unique to the single-dish data is the #OFF_SOURCE
+      intent. This task is used to identify which spectral windows are
+      used for Tsys\ :math:`T_{sys}` observations.  This information is
+      critical for those who wish to build their own calibrations.
 
       .. container:: casa-input-box
 
          listobs(sd_ms)
 
       produces feedback in the logger (or optionally, to a file) from
-      which we can determine which spectral windows are $T_{sys}$
-      observations and which are science observations.
+      which we can determine which spectral windows are
+      Tsys\ :math:`T_{sys}` observations and which are science
+      observations.
 
       .. container:: casa-output-box
 
@@ -171,8 +172,8 @@ Calibration & Reduction
            4  XX  YY
 
       From this output, we see the science spectral windows are 17, 19,
-      21 and 23, and have 4096 channels, while the $T_{sys}$ spectral
-      windows at 5, 7, 9 and 11 have 128 channels.
+      21 and 23, and have 4096 channels, while the Tsys\ :math:`T_{sys}`
+      spectral windows at 5, 7, 9 and 11 have 128 channels.
 
        
 
@@ -197,15 +198,15 @@ Calibration & Reduction
       Users should examine their spectra using **plotms**, and ensure
       any atmospheric lines are properly accounted for. This is
       particularly true for Band 5 which has a strong atmospheric
-      absorption line at $\sim$183 GHz. There is no real way to remove
-      the signature of the atmospheric lines in position-switched data,
-      since the elevations of the ON (science target) and OFF
-      (sky-calibration position) are almost always different, and
-      therefore have different air masses. The most effective approach
-      in this case is to complete the normal calibrations as described
-      here, then apply a judiciously-selected bandpass correction
-      polynomial and spectral window channel range, as described by the
-      **sdbaseline** step below.
+      absorption line at ∼\ :math:`\sim`\ 183 GHz. There is no real way
+      to remove the signature of the atmospheric lines in
+      position-switched data, since the elevations of the ON (science
+      target) and OFF (sky-calibration position) are almost always
+      different, and therefore have different air masses. The most
+      effective approach in this case is to complete the normal
+      calibrations as described here, then apply a judiciously-selected
+      bandpass correction polynomial and spectral window channel range,
+      as described by the **sdbaseline** step below.
 
       .. container:: casa-input-box
 
@@ -219,29 +220,31 @@ Calibration & Reduction
 
        
 
-      **4. Generation of the $T_{sys}$ and $T_{sky}$ calibration
-      tables: gencal, sdcal and applycal**
+      **4. Generation of the Tsys**\ :math:`T_{sys}` and
+      Tsky\ :math:`T_{sky}` calibration tables: *gencal, sdcal and
+      applycal*
 
       There are two ways to proceed in CASA when computing and applying
       calibration tables for single dish observations.
 
-      #. Build the $T_{sys}$ calibration tables with **gencal**, build
-         the sky calibration tables with **sdcal,** and apply them with
-         **applycal**
-      #. Build and apply both the $T_{sys}$ and sky calibration tables
-         with **sdcal**
+      #. Build the Tsys\ :math:`T_{sys}` calibration tables with
+         **gencal**, build the sky calibration tables with **sdcal,**
+         and apply them with **applycal**
+      #. Build and apply both the Tsys\ :math:`T_{sys}` and sky
+         calibration tables with **sdcal**
 
       The second option is faster, but users familar with the **gencal**
       and **applycal** tasks may prefer the first option.
 
-      In either case, the mapping between the $T_{sys}$ scans and
-      science scans must be determined either by examination of the
-      output of **listobs**, or by running the **sdcal** and specifying
-      the method to be used to obtain the OFF position. Usually ALMA
-      will take position-switched observations via *mode=*'*ps*', though
-      other alternatives exist which do not need any OFF positions to be
-      explicitly observed. The OFF can be obtained from the source data
-      itself via *mode=*'*otfraster*' or *mode=*'*off*'.
+      In either case, the mapping between the Tsys\ :math:`T_{sys}`
+      scans and science scans must be determined either by examination
+      of the output of **listobs**, or by running the **sdcal** and
+      specifying the method to be used to obtain the OFF position.
+      Usually ALMA will take position-switched observations via
+      *mode=*'*ps*', though other alternatives exist which do not need
+      any OFF positions to be explicitly observed. The OFF can be
+      obtained from the source data itself via *mode=*'*otfraster*' or
+      *mode=*'*off*'.
 
        
 
@@ -270,12 +273,13 @@ Calibration & Reduction
 
          sdcal(infile=sd_ms, calmode='ps,tsys,apply')
 
-      Note that we didn't specify the $T_{sys}$ spectral windows in the
-      call to **sdcal. ** For ALMA single-dish data from Cycle 3 onward,
-      this is okay since the $T_{sys}$ and science data share the same
-      spectral window.   Alternatively, the mapping between the
-      $T_{sys}$ and science spectral windows can be explicitly set
-      with *spwmap* and *spw.* In this case, we would use:
+      Note that we didn't specify the Tsys\ :math:`T_{sys}` spectral
+      windows in the call to **sdcal. ** For ALMA single-dish data from
+      Cycle 3 onward, this is okay since the Tsys\ :math:`T_{sys}` and
+      science data share the same spectral window.   Alternatively, the
+      mapping between the Tsys\ :math:`T_{sys}` and science spectral
+      windows can be explicitly set with *spwmap* and *spw.* In this
+      case, we would use:
 
       .. container:: casa-input-box
 
@@ -286,15 +290,16 @@ Calibration & Reduction
       0],....,Tsys spw n: [science spw n]} for 0 to n spectral windows.
 
       **gencal** applied at this stage builds (and optionally applies)
-      the $T_{sys}$ calibration tables. These calibrations are an
-      intrinsic part of the ASDM. There are no re-computations applied
-      to the $T_{sys}$ data by CASA. Ultimately, the $T_{sys}$
-      calibration tables will be applied in the **applycal** step,
-      consistent with the descriptions of calibrations given in the
-      sections above. We point out that the $T_{sys}$ calibrations are a
-      multiplicative factor, so the order of the application of
-      the $T_{sys}$ cal tables relative to the application of
-      the $T_{sky}$ calibrations is immaterial.
+      the Tsys\ :math:`T_{sys}` calibration tables. These calibrations
+      are an intrinsic part of the ASDM. There are no re-computations
+      applied to the Tsys\ :math:`T_{sys}` data by CASA. Ultimately,
+      the Tsys\ :math:`T_{sys}` calibration tables will be applied in
+      the **applycal** step, consistent with the descriptions of
+      calibrations given in the sections above. We point out that
+      the Tsys\ :math:`T_{sys}` calibrations are a multiplicative
+      factor, so the order of the application of
+      the Tsys\ :math:`T_{sys}` cal tables relative to the application
+      of the Tsky\ :math:`T_{sky}` calibrations is immaterial.
 
       **8. Subtracting the baseline: sdbaseline**
 
@@ -352,7 +357,7 @@ Calibration & Reduction
         their own data.
       | In this example, we remove a 1st order polynomial from spectral
         windows 17, 19, 21 & 23, automatically finding and masking out
-        any lines brighter than 5 $\sigma$, and referencing the
+        any lines brighter than 5 σ\ :math:`\sigma`, and referencing the
         "corrected" (i.e. calibrated) data column.
 
       .. container:: casa-input-box
@@ -365,20 +370,20 @@ Calibration & Reduction
 
       Note that at this point, the product dataset (sd_ms+'.cal) has
       only four spectral windows. These are (if all is going well) the
-      science observations which are $T_{sys}$ and sky calibrated, and
-      are now bandpass-corrected.
+      science observations which are Tsys\ :math:`T_{sys}` and sky
+      calibrated, and are now bandpass-corrected.
 
        
 
       **9. Convert the Science Target Units from Kelvin to Jansky:
       scaleAutocorr**
 
-      To convert the units of the single-dish observations from $T_A^*$
-      (K) into Janskys and to prepare for combination with
-      interferometer data, we need to obtain the empirically-determined
-      Jy-to-K conversion data. These data already take into account any
-      correlator non-linearities and also factor in the various
-      subsystem efficiencies. 
+      To convert the units of the single-dish observations from
+      T∗A\ :math:`T_A^*` (K) into Janskys and to prepare for combination
+      with interferometer data, we need to obtain the
+      empirically-determined Jy-to-K conversion data. These data already
+      take into account any correlator non-linearities and also factor
+      in the various subsystem efficiencies. 
 
       The easiest way to obtain this is simply with a call to a
       specialized CASA task that obtains the Jy-to-K factors that
@@ -399,13 +404,13 @@ Calibration & Reduction
 
        
 
-      **scaleAutocorr** simply applies the scaling from $T_A^*$ to
-      Jy/beam. The scaling factors are determined empirically, as part
-      of the QA2-level calibrations provided by ALMA. The scaling
-      factors are to be provided to **scaleAutocorr** as a float, but
-      are most conveniently applied in calls that iterate through
-      antenna and spectral window, where the Jy-per-K factors are
-      retained as a list with the format:
+      **scaleAutocorr** simply applies the scaling from
+      T∗A\ :math:`T_A^*` to Jy/beam. The scaling factors are determined
+      empirically, as part of the QA2-level calibrations provided by
+      ALMA. The scaling factors are to be provided to **scaleAutocorr**
+      as a float, but are most conveniently applied in calls that
+      iterate through antenna and spectral window, where the Jy-per-K
+      factors are retained as a list with the format:
 
       .. container:: alert-info
 

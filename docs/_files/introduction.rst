@@ -20,30 +20,6 @@ Release Information
    .. container:: plain
       :name: parent-fieldname-text
 
-   .. container:: entries
-
-      `Release Notes CASA 5.7 /
-      6.1 <https://casa.nrao.edu/casadocs-devel/stable/introduction/release-notes-610>`__
-
-      .. container:: documentByLine
-
-         — by `Jared Anand
-         Crossley <https://casa.nrao.edu/casadocs-devel/author/jcrossle>`__
-         — last modified Jul 02, 2020 12:42 PM
-
-      Summary of new features in this release of CASA
-
-      `Known
-      Issues <https://casa.nrao.edu/casadocs-devel/stable/introduction/known-issues>`__
-
-      .. container:: documentByLine
-
-         — by `Jeff
-         Kern <https://casa.nrao.edu/casadocs-devel/author/jkern>`__ —
-         last modified Jun 24, 2020 12:51 PM
-
-      Important information concerning this version of CASA
-
 .. container:: section
    :name: viewlet-below-content-body
 

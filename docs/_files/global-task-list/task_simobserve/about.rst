@@ -385,8 +385,9 @@ Description
          :name: pointingspacing
 
       Spacing in between primary beams. "0.25PB" to use 1/4 of the
-      primary beam FWHM, "nyquist" will use $\lambda/d/2$, '' will use
-      $\lambda/d/\sqrt(3)$ for INT, $\lambda/d/3$ for SD.
+      primary beam FWHM, "nyquist" will use λ/d/2\ :math:`\lambda/d/2`,
+      '' will use λ/d/√(3)\ :math:`\lambda/d/\sqrt(3)` for INT,
+      λ/d/3\ :math:`\lambda/d/3` for SD.
 
       .. rubric:: *setpointings=False* expandable parameters
          :name: setpointingsfalse-expandable-parameters

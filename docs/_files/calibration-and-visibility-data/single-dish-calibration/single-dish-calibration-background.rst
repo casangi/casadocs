@@ -24,24 +24,24 @@ Background SD Calibration
 
          Like any single-dish telescope, ALMA's single dish antennas
          (nominally, four 12m antennas) detect and quantify brightness
-         temperature ($T_B$, in Kelvin). In the Rayleigh-Jeans
+         temperature (:math:`T_B`, in Kelvin). In the Rayleigh-Jeans
          approximation, the Planck blackbody law reduces to
-         $T_B=\frac{B\lambda^2}{2k}$.  
+         :math:`T_B=\frac{B\lambda^2}{2k}`.  
 
          An ALMA single-dish observation includes contributions from sky
          targets in the beam, the telescope surface and receiver
          equipment, the ground (through reflections), the atmosphere and
          cosmic background, and any other electronics (necessarily
          noisy) following the receiver front end. Observations made with
-         a single dish towards a target ($T_{ON}$) are calibrated using
-         an additional observation towards blank sky (i.e. sky at a
-         similar elevation, absent of any target emission at the
-         frequencies of interest to the observer ($T_{OFF}$)).
+         a single dish towards a target (:math:`T_{ON}`) are calibrated
+         using an additional observation towards blank sky (i.e. sky at
+         a similar elevation, absent of any target emission at the
+         frequencies of interest to the observer (:math:`T_{OFF}`)).
 
          To determine the signal from the target, we can compute:
 
-         $\frac{T_{targ}}{T_{sys}}=\frac{T_{ON}-T_{OFF}}{T_{OFF}}$.  
-         (In CASA, this is accomplished during the "sky calibration"
+         :math:`\frac{T_{targ}}{T_{sys}}=\frac{T_{ON}-T_{OFF}}{T_{OFF}}`.
+           (In CASA, this is accomplished during the "sky calibration"
          step).
 
          The position of the OFF is made as close as possible (in az/el)
@@ -55,31 +55,33 @@ Background SD Calibration
          temperature of the target.
 
          To calibrate single dish data, we require a measurement of
-         $T_{sys}$, which is done though $T_{atm}$ (i.e. "atmosphere")
-         measurements at the start of each scheduling block.  (In CASA,
-         this is applied through the $T_{sys}$ calibration step.) 
-         $T_{sys}$ determination includes separate observations of the
-         sky, and two "loads" of different, known temperatures.
+         :math:`T_{sys}`, which is done though :math:`T_{atm}` (i.e.
+         "atmosphere") measurements at the start of each scheduling
+         block.  (In CASA, this is applied through the :math:`T_{sys}`
+         calibration step.)  :math:`T_{sys}` determination includes
+         separate observations of the sky, and two "loads" of different,
+         known temperatures.
 
-         Note that $T_{sys}(\nu)$ measurements are spectral; that is,
-         they determine $T_{sys}$ as function of frequency. Since they
-         incorporate an observation of the sky, they may include
-         atmospheric features such as the water absorption line in Band
-         5 at $\sim$183 GHz. So the calibration of the entire band must
-         be done in the frequency domain.
+         Note that :math:`T_{sys}(\nu)` measurements are spectral; that
+         is, they determine :math:`T_{sys}` as function of frequency.
+         Since they incorporate an observation of the sky, they may
+         include atmospheric features such as the water absorption line
+         in Band 5 at :math:`\sim`\ 183 GHz. So the calibration of the
+         entire band must be done in the frequency domain.
 
          It is policy that ALMA single-dish data must only be observed
          to supplement and be combined with interferometer observations.
          Therefore, the single-dish data needs to be converted from its
-         native units of brightness temperature ($T_A^*$) to flux
+         native units of brightness temperature (:math:`T_A^*`) to flux
          density units (Jy/beam) before combination with the
-         interferometric data. The conversion from $T_A^*$ to Jy/beam is
-         done empirically, and incorporates a factor for forward beam
-         efficiency. The empirical conversion (Jy to K) is computed
-         through mapping observations (done recently in time) of a
-         standard target - either a planet or a quasar - and the scaling
-         from $T_A^*$ to Jy/beam is then made simply and directly from
-         the calibrator map and applied to the science target map. 
+         interferometric data. The conversion from :math:`T_A^*` to
+         Jy/beam is done empirically, and incorporates a factor for
+         forward beam efficiency. The empirical conversion (Jy to K) is
+         computed through mapping observations (done recently in time)
+         of a standard target - either a planet or a quasar - and the
+         scaling from :math:`T_A^*` to Jy/beam is then made simply and
+         directly from the calibrator map and applied to the science
+         target map. 
 
          +-----------------+---------------------------------------------------+
          | Citation Number | 1                                                 |
@@ -107,6 +109,30 @@ Background SD Calibration
       .. container:: content5
 
           
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. O'Neil, 2002 in "The NAIC/NRAO School on Single Dish
+         Radio Astronomy" C. Salter, et.al eds.
+         (`\ `arxiv <https://arxiv.org/pdf/astro-ph/0203001.pdf>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2. PdBI mm astro summer school notes (Dutrey, Dutrey &
+         Neri; Guélin)`\ `↩ <#ref-cit2>`__
+
+      .. container::
+
+         :sup:`3. Unpublished ALMA memo: Robert Lucas,
+         2005`\ `↩ <#ref-cit3>`__
 
 .. container:: section
    :name: viewlet-below-content-body

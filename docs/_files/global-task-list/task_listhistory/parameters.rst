@@ -22,7 +22,15 @@ Parameters
 
       .. container:: parsed-parameters
 
-          
+         .. container:: param
+
+            .. container:: parameters2
+
+               vis : string
+
+            Name of input visibility file (MS)
+
+Example
 
 .. container:: section
    :name: viewlet-below-content-body

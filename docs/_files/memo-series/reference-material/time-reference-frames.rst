@@ -39,31 +39,34 @@ Time Reference Frames
       +-----------------------+-----------------------+-----------------------+
       | GAST                  | Greenwich Apparent    |  The Greenwich hour   |
       |                       | Sidereal Time         | angle of the true     |
-      |                       |                       | equinox `[1] <#fn>`__ |
-      |                       |                       | of date.              |
+      |                       |                       | equinox               |
+      |                       |                       | `[1] <#fn1>`__ of     |
+      |                       |                       | date.                 |
       +-----------------------+-----------------------+-----------------------+
       | GMST                  | Greenwich Mean        | The Greenwich hour    |
       |                       | Sidereal Time         | angle of the mean     |
-      |                       |                       | equinox `[1] <#fn>`__ |
-      |                       |                       | of date, defined as   |
-      |                       |                       | the angular distance  |
-      |                       |                       | on the celestial      |
-      |                       |                       | sphere measured       |
-      |                       |                       | westward along the    |
-      |                       |                       | celestial equator     |
-      |                       |                       | from the Greenwich    |
-      |                       |                       | meridian to the hour  |
-      |                       |                       | circle that passes    |
-      |                       |                       | through a celestial   |
-      |                       |                       | object or point.      |
+      |                       |                       | equinox               |
+      |                       |                       | `[1] <#fn1>`__ of     |
+      |                       |                       | date, defined as the  |
+      |                       |                       | angular distance on   |
+      |                       |                       | the celestial sphere  |
+      |                       |                       | measured westward     |
+      |                       |                       | along the celestial   |
+      |                       |                       | equator from the      |
+      |                       |                       | Greenwich meridian to |
+      |                       |                       | the hour circle that  |
+      |                       |                       | passes through a      |
+      |                       |                       | celestial object or   |
+      |                       |                       | point.                |
       |                       |                       |                       |
       |                       |                       | | GMST (in seconds at |
       |                       |                       |   UT1=0) =            |
       |                       |                       |   24110.54841 +       |
       |                       |                       |   8640184.812866 \* T |
-      |                       |                       | | + 0.093104 \* T$^2$ |
-      |                       |                       |   - 0.0000062 \*      |
-      |                       |                       |   T$^3$               |
+      |                       |                       | | + 0.093104 \*       |
+      |                       |                       |   T\ :math:`^2` -     |
+      |                       |                       |   0.0000062 \*        |
+      |                       |                       |   T\ :math:`^3`       |
       |                       |                       | | where T is in       |
       |                       |                       |   Julian centuries    |
       |                       |                       |   from 2000 Jan. 1    |
@@ -89,15 +92,15 @@ Time Reference Frames
       |                       |                       | countries. The        |
       |                       |                       | fundamental unit of   |
       |                       |                       | TAI is the SI second  |
-      |                       |                       | `[2] <#fn>`__ on the  |
-      |                       |                       | geoid `[3] <#fn>`__ , |
-      |                       |                       | and the epoch is 1958 |
-      |                       |                       | January 1.            |
+      |                       |                       | `[2] <#fn2>`__ on the |
+      |                       |                       | geoid `[3] <#fn3>`__  |
+      |                       |                       | , and the epoch is    |
+      |                       |                       | 1958 January 1.       |
       +-----------------------+-----------------------+-----------------------+
       | LAST                  | Local Apparent        | LAST is derived from  |
       |                       | Sidereal Time         | LMST by applying the  |
       |                       |                       | equation of equinoxes |
-      |                       |                       | `[1] <#fn>`__ or      |
+      |                       |                       | `[1] <#fn1>`__ or     |
       |                       |                       | nutation of the mean  |
       |                       |                       | pole of the Earth     |
       |                       |                       | from mean to true     |
@@ -160,11 +163,11 @@ Time Reference Frames
       |                       |                       | Celestial Reference   |
       |                       |                       | System (BCRS), which  |
       |                       |                       | advances by SI        |
-      |                       |                       | seconds `[2] <#fn>`__ |
-      |                       |                       | within that system.   |
-      |                       |                       | TCB is related to TCG |
-      |                       |                       | and TT by             |
-      |                       |                       | relativistic          |
+      |                       |                       | seconds               |
+      |                       |                       | `[2] <#fn2>`__ within |
+      |                       |                       | that system. TCB is   |
+      |                       |                       | related to TCG and TT |
+      |                       |                       | by relativistic       |
       |                       |                       | transformations that  |
       |                       |                       | include a secular     |
       |                       |                       | term.                 |
@@ -215,7 +218,7 @@ Time Reference Frames
       |                       |                       | 32s.184. TT thus      |
       |                       |                       | advances by SI        |
       |                       |                       | seconds on the geoid  |
-      |                       |                       | `[3] <#fn>`__         |
+      |                       |                       | `[3] <#fn3>`__        |
       +-----------------------+-----------------------+-----------------------+
       | UT                    | Universal Time        |  Loosely, mean solar  |
       |                       |                       | time on the Greenwich |
@@ -248,8 +251,9 @@ Time Reference Frames
       |                       |                       | broadcast services    |
       |                       |                       | kept their time       |
       |                       |                       | signals within 0.1    |
-      |                       |                       | seconds `[2] <#fn>`__ |
-      |                       |                       | of UT2, which is UT1  |
+      |                       |                       | seconds               |
+      |                       |                       | `[2] <#fn2>`__ of     |
+      |                       |                       | UT2, which is UT1     |
       |                       |                       | with annual and       |
       |                       |                       | semiannual variations |
       |                       |                       | in the earth's        |
@@ -358,6 +362,47 @@ Time Reference Frames
       |                                   |                                   |
       |                                   |                                   |
       +-----------------------------------+-----------------------------------+
+
+   .. container::
+      :name: footnotes-container
+
+      .. container::
+         :name: footnote-title
+
+         Footnote(s)
+
+      .. container::
+
+         :sup:`1. mean equator and equinox v. true equator and equinox:
+         The mean equator and equinox are used for the celestial
+         coordinate system defined by the orientation of the Earth's
+         equatorial plane on some specified date together with the
+         direction of the dynamical equinox on that date, neglecting
+         nutation. Thus, the mean equator and equinox moves in response
+         only to precession. Positions in a star catalog have
+         traditionally been referred to a catalog equator and equinox
+         that approximate the mean equator and equinox of a standard
+         epoch. The true equator and equinox are affected by both
+         precession and nutation. The Equation of the Equinoxes is the
+         difference (apparent sidereal time minus mean sidereal time).
+         Equivalently, the difference between the right ascensions of
+         the true and mean equinoxes, expressed in time units.    
+          `\ `↩ <#ref1>`__
+
+      .. container::
+
+         :sup:`2.  The Systeme International (SI) second is defined as
+         the duration of 9,192,631,770 cycles of radiation corresponding
+         to the transition between two hyperfine levels of the ground
+         state of caesium 133.  `\ `↩ <#ref2>`__
+
+      .. container::
+
+         :sup:`3. The geoid is an equipotential surface that coincides
+         with mean sea level in the open ocean. On land it is the level
+         surface that would be assumed by water in an imaginary network
+         of frictionless channels connected to the ocean.  
+          `\ `↩ <#ref3>`__
 
 .. container:: section
    :name: viewlet-below-content-body

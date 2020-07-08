@@ -22,7 +22,59 @@ Parameters
 
       .. container:: parsed-parameters
 
-          
+         .. container:: param
+
+            .. container:: parameters2
+
+               vis : string
+
+            Name of input visibility file (MS)
+
+Example
+
+.. container:: param
+
+   .. container:: parameters2
+
+      tablein : string
+
+   Input calibration table
+
+Example
+
+.. container:: param
+
+   .. container:: parameters2
+
+      caltable : string
+
+   Output calibration table (overwrite tablein if unspecified)
+
+Example
+
+.. container:: param
+
+   .. container:: parameters2
+
+      refantmode : string = flex
+
+   Refant algorithm to use
+
+Allowed Value(s)
+
+flex strict
+
+Example
+
+.. container:: param
+
+   .. container:: parameters2
+
+      refant : string
+
+   Reference antenna name(s)
+
+Example
 
 .. container:: section
    :name: viewlet-below-content-body

@@ -130,10 +130,10 @@ Cal Library Syntax
          |          spwmap=[[0,1,1,3],[0,0,0,0]],calwt=[True,False])
 
       Comment lines may be included in the cal library file by starting
-      a line with the $#$ character.  (Partial line comments are *not*
-      supported, as yet.)  Existing cal library lines can be turned off
-      (for experimentation purposes) by making those lines comments with
-      $#$.
+      a line with the #\ :math:`#` character.  (Partial line comments
+      are *not* supported, as yet.)  Existing cal library lines can be
+      turned off (for experimentation purposes) by making those lines
+      comments with #\ :math:`#`.
 
       .. rubric:: More advanced Cal Library Usage
          :name: more-advanced-cal-library-usage
@@ -306,9 +306,10 @@ Cal Library Syntax
          caltable; there is currently no internal checking for
          redundancy, and only the last calibration instructions for a
          particular MS selection will be invoked
-      -  Full-line comments are supported by inserting the $#$ character
-         as the first non-whitespace character in the line.  This
-         mechanism can be used to turn off ordinary cal library lines.
+      -  Full-line comments are supported by inserting the #\ :math:`#`
+         character as the first non-whitespace character in the line. 
+         This mechanism can be used to turn off ordinary cal library
+         lines.
       -  When quoted items within a selection string are used, e.g.
          field='"B0007+106; J0010+109",GRB021004', the string must have
          double quotation marks enclosing single quotation marks or

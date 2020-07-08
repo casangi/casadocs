@@ -726,7 +726,9 @@ Visibility Data Selection
       wavelengths (such as \ ’lambda’, ’klambda’\  and \ ’Mlambda’\  and
       are true uv-plane radii
 
-      $$UVDIST=\sqrt{u^2+v^2}$$
+      UVDIST=√u2+v2\ 
+
+      .. math:: UVDIST=\sqrt{u^2+v^2}
 
        
 

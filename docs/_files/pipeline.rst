@@ -1,8 +1,8 @@
 .. container::
    :name: viewlet-above-content-title
 
-ALMA and VLA Pipelines
-======================
+Pipeline
+========
 
 .. container::
    :name: viewlet-below-content-title

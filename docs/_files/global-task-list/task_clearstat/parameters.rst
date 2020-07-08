@@ -22,7 +22,5 @@ Parameters
 
       .. container:: parsed-parameters
 
-          
-
 .. container:: section
    :name: viewlet-below-content-body

@@ -96,21 +96,25 @@ Description
       |                                   | coordinates instead of pixels     |
       +-----------------------------------+-----------------------------------+
       | sum                               | the sum of the pixel values:      |
-      |                                   | $\sum I_i$                        |
+      |                                   | ∑Ii\ :math:`\sum I_i`             |
       +-----------------------------------+-----------------------------------+
       | sumsq                             | the sum of the squares of the     |
-      |                                   | pixel values: $\sum I_i^2$        |
+      |                                   | pixel values:                     |
+      |                                   | ∑I2i\ :math:`\sum I_i^2`          |
       +-----------------------------------+-----------------------------------+
       | mean                              | the mean of pixel values:         |
-      |                                   | $\bar{I} = \sum I_i / n$          |
+      |                                   | ˉI=∑Ii/                           |
+      |                                   | n\ :math:`\bar{I} = \sum I_i / n` |
       +-----------------------------------+-----------------------------------+
       | sigma                             | the standard deviation about the  |
       |                                   | mean:                             |
-      |                                   | $\sigma^2                         |
-      |                                   | = (\sum I_i - \bar{I})^2 / (n-1)$ |
+      |                                   | σ2=                               |
+      |                                   | (∑Ii−ˉI)2/(n−1)\ :math:`\sigma^2  |
+      |                                   | = (\sum I_i - \bar{I})^2 / (n-1)` |
       +-----------------------------------+-----------------------------------+
       | rms                               | the root mean square:             |
-      |                                   | $\sqrt {\sum I_i^2 / n}$          |
+      |                                   | √∑I2i/                            |
+      |                                   | n\ :math:`\sqrt {\sum I_i^2 / n}` |
       +-----------------------------------+-----------------------------------+
       | median                            | the median pixel value            |
       +-----------------------------------+-----------------------------------+
@@ -232,16 +236,17 @@ Description
          :name: hinges-fences
 
       This algorithm calculates statistics by including data in a range
-      between $Q1 - f*D$ and $Q3 + f*D$, inclusive, where Q1 is the
-      first quartile of the distribution of unmasked data, subject to
-      any specified pixel ranges, Q3 is the third quartile, $D = Q3 -
-      Q1$ (the inner quartile range), and f is the user-specified fence
-      factor. Negative values of f indicate that the full distribution
-      is to be used (i.e., the classic algorithm is used). Sufficiently
-      large values of f will also be equivalent to using the "CLASSIC"
-      algorithm. For f = 0, only data in the inner quartile range is
-      used for computing statistics. The value of fence is silently
-      ignored if algorithm is not "HINGES-FENCES".
+      between Q1−f∗D\ :math:`Q1 - f*D` and Q3+f∗D\ :math:`Q3 + f*D`,
+      inclusive, where Q1 is the first quartile of the distribution of
+      unmasked data, subject to any specified pixel ranges, Q3 is the
+      third quartile, D=Q3−Q1\ :math:`D = Q3 - Q1` (the inner quartile
+      range), and f is the user-specified fence factor. Negative values
+      of f indicate that the full distribution is to be used (i.e., the
+      classic algorithm is used). Sufficiently large values of f will
+      also be equivalent to using the "CLASSIC" algorithm. For f = 0,
+      only data in the inner quartile range is used for computing
+      statistics. The value of fence is silently ignored if algorithm is
+      not "HINGES-FENCES".
 
       .. rubric:: CHAUVENET
          :name: chauvenet
@@ -268,7 +273,7 @@ Description
       a function of (only) the number of points in the distribution and
       is given by
 
-      npts = 0.5/erfc(z\ :sub:`max`/$\sqrt{2}$)
+      npts = 0.5/erfc(z\ :sub:`max`/√2\ :math:`\sqrt{2}`)
 
       where erfc() is the complementary error function. As iterating
       proceeds, the number of remaining points decreases as outliers are
@@ -307,83 +312,101 @@ Description
       width (i.e., "scale") of the distribution. These quantities are
       analogous to the mean and the standard deviation for a standard
       normal distribution. Our implementation is based on the equations
-      in Beers 1990  `[1] <#cit>`__ and Iglewicz 1983 `[2] <#cit>`__ .
+      in Beers 1990  `[1] <#cit1>`__ and Iglewicz 1983 `[2] <#cit2>`__ .
 
       The data weights in this algorithm are
 
-      $$w_i = (1 - u_i^2)$$
+      wi=(1−u2i)\ 
 
-      | where $u_i$ is defined as
-      | $$u_i = \\frac{ x_i - c_{bi} } { c s_{bi} }  $$    
+      .. math:: w_i = (1 - u_i^2)
 
-      | The variable $x_i$ is the data values, $c_{bi}$ is the biweight
-        location, $s_{bi}$ is the biweight scale, and $c$ is a constant.
-        We adopt a value for $c$ of 6, which gives zero weight to
-        observations more than 4 standard deviations from the median.
-        For the initial computation of the $u_i$ values, $c_{bi}$ is set
-        equal to the median of the distribution and $s_{bi}$ is set
-        equal to the normalized MAD (median of the absolute deviation
-        about the median), assuming a Gaussian distribution. This value
-        is the MAD multiplied by 1.4826, i.e., the value of the probit
-        function at 0.75.
+      | where ui\ :math:`u_i` is defined as
+      | ui=xi−cbicsbi\ 
+
+        .. math:: u_i = \frac{ x_i - c_{bi} } { c s_{bi} }  
+
+           
+
+      | The variable xi\ :math:`x_i` is the data values,
+        cbi\ :math:`c_{bi}` is the biweight location,
+        sbi\ :math:`s_{bi}` is the biweight scale, and c\ :math:`c` is a
+        constant. We adopt a value for c\ :math:`c` of 6, which gives
+        zero weight to observations more than 4 standard deviations from
+        the median. For the initial computation of the ui\ :math:`u_i`
+        values, cbi\ :math:`c_{bi}` is set equal to the median of the
+        distribution and sbi\ :math:`s_{bi}` is set equal to the
+        normalized MAD (median of the absolute deviation about the
+        median), assuming a Gaussian distribution. This value is the MAD
+        multiplied by 1.4826, i.e., the value of the probit function at
+        0.75.
       |      
-      | The location, $c_{bi}$, is then computed from
+      | The location, cbi\ :math:`c_{bi}`, is then computed from
 
-      $$c_{bi} = \\frac{ \\sum_{w_i > 0} x_i  w_i^2 } { \\sum_{w_i > 0}
-      w_i^2  }   $$
+      cbi=∑wi>0xiw2i∑wi>0w2i\ 
 
-      where only values of $u_i$ which satisfy $|u_i\| < 1$ ($w_i >0$)
-      are included in the sums. Note that the weights are zero, not
-      undefined, for points beyond 4 sigma.
+      .. math:: c_{bi} = \frac{ \sum_{w_i > 0} x_i  w_i^2 } { \sum_{w_i > 0} w_i^2  }   
+
+      where only values of ui\ :math:`u_i` which satisfy
+      \|ui\|<1\ :math:`|u_i| < 1` (wi>0\ :math:`w_i >0`) are included in
+      the sums. Note that the weights are zero, not undefined, for
+      points beyond 4 sigma.
 
       The scale value is computed using
 
-      $$s_{bi}^2 = \\frac{ n \\sum_{w_i > 0} (x_i - c_{bi})^2 w_i^4} {p
-      \\max(1,p-1)}$$
+      s2bi=n∑wi>0(xi−cbi)2w4ipmax(1,p−1)\ 
+
+      .. math:: s_{bi}^2 = \frac{ n \sum_{w_i > 0} (x_i - c_{bi})^2 w_i^4} {p \max(1,p-1)}
 
       where
 
-      $$p = \| \\sum_{w_i > 0} w_i (5w_i - 4) \| $$
+      p=\|∑wi>0wi(5wi−4)\|\ 
 
-      Again, the above sum includes only data for which $ \| u_i \|  <
-      1$ ($w_i >0$). The variable n is the number of points for the
-      entire distribution, since points beyond 4 standard deviations are
-      downweights, not removed.
+      .. math:: p = | \sum_{w_i > 0} w_i (5w_i - 4) | 
+
+      Again, the above sum includes only data for which
+      \|ui\|<1\ :math:` | u_i |  < 1` (wi>0\ :math:`w_i >0`). The
+      variable n is the number of points for the entire distribution,
+      since points beyond 4 standard deviations are downweights, not
+      removed.
 
       | The algorithm proceeds as follows.
-      |     1. Compute initial $u_i$ values (and hence $w_i$ values)
-        from the above equation, setting $c_{bi}$ equal to the median of
-        the distribution and $s_{bi}$ equal to the normalized MAD.
-      |     2. Compute the initial value of the scale using the $w_i$
-        values computed in step 1 using the equation for $s_{bi}$.
-      |     3. Recompute $u_i$ and $w_i$ values using the most recent
-        previous scale and location values.
-      |     4. Compute the location using the $u_i$ and $w_i$ values
-        from step 3 and the equation for $c_{bi}$.
-      |     5. Recompute $u_i$ and $w_i$ values using the most recent
-        previous scale and location values.
-      |     6. Compute the new scale value using the the $u_i$ and $w_i$
-        values computed in step 5 and the value of the location computed
-        in step 4.
+      |     1. Compute initial ui\ :math:`u_i` values (and hence
+        wi\ :math:`w_i` values) from the above equation, setting
+        cbi\ :math:`c_{bi}` equal to the median of the distribution and
+        sbi\ :math:`s_{bi}` equal to the normalized MAD.
+      |     2. Compute the initial value of the scale using the
+        wi\ :math:`w_i` values computed in step 1 using the equation for
+        sbi\ :math:`s_{bi}`.
+      |     3. Recompute ui\ :math:`u_i` and wi\ :math:`w_i` values
+        using the most recent previous scale and location values.
+      |     4. Compute the location using the ui\ :math:`u_i` and
+        wi\ :math:`w_i` values from step 3 and the equation for
+        cbi\ :math:`c_{bi}`.
+      |     5. Recompute ui\ :math:`u_i` and wi\ :math:`w_i` values
+        using the most recent previous scale and location values.
+      |     6. Compute the new scale value using the the ui\ :math:`u_i`
+        and wi\ :math:`w_i` values computed in step 5 and the value of
+        the location computed in step 4.
       |     7. Steps 3 - 6 are repeated until convergence occurs or the
         maximum number of iterations (specified in the *niter*
         parameter) is reached. The convergence criterion is given by
 
-               $$\| (s_{bi} - s_{bi,prev})/s_{bi,prev} \| < 0.03 
-      \\sqrt{ \\frac{0.5}{n - 1}}$$
+               \|(sbi−sbi,prev)/sbi,prev\|<0.03√0.5n−1\ 
 
-             where $s_{bi,prev}$ is the value of the scale computed in
-      the previous iteration.
+      .. math:: | (s_{bi} - s_{bi,prev})/s_{bi,prev} | < 0.03  \sqrt{ \frac{0.5}{n - 1}}
+
+             where sbi,prev\ :math:`s_{bi,prev}` is the value of the
+      scale computed in the previous iteration.
 
       In the special case where *niter* is specified to be negative, the
       scale and location will be computed directly with no iteration.
 
-      |     1. Compute $u_i$ and $w_i$ values using the median for the
-        location and the normalized MAD as the scale.
+      |     1. Compute ui\ :math:`u_i` and wi\ :math:`w_i` values using
+        the median for the location and the normalized MAD as the scale.
       |     2. Compute the location and scale (which can be carried out
-        simultaneously) using the $u_i$ and $w_i$ values computed in
-        step 1. The value of the location used in the scale computation
-        is just the median.
+        simultaneously) using the ui\ :math:`u_i` and wi\ :math:`w_i`
+        values computed in step 1. The value of the location used in the
+        scale computation is just the median.
 
       The only keys present in the returned dictionary are 'mean'
       (location), 'sigma' (scale), 'npts', 'min', and 'max' to maximize
@@ -423,7 +446,7 @@ Description
       #. There are no direction axes in the cursor axes that are used
       #. If the (specified region of the) image has a non-degenerate
          spectral axis, and the image has a tabular spectral axis (axis
-         with varying increments) `[a] <#fn>`__
+         with varying increments) `[a] <#fna>`__
       #. Any axis that is not a direction nor a spectral axis that is
          included in the cursor axes is not degenerate within in
          specified region
@@ -457,11 +480,12 @@ Description
       elliptical Gaussian defined by the synthesized beam, divided by
       the maximum of that function, which is equivalent to
 
-      $\frac {π}{4 ln(2)} \* FWHM_{major} \* FWHM_{minor} $
+      π4ln(2)∗FWHMmajor∗FWHMminor\ :math:`\frac {π}{4 ln(2)} * FWHM_{major} * FWHM_{minor} `
 
-      where ln() is the natural logarithm and $FWHM_{major}$ and
-      $FWHM_{minor}$ are the major and minor full width at half maximum
-      (FWHM) axes of the beam, respectively.
+      where ln() is the natural logarithm and
+      FWHMmajor\ :math:`FWHM_{major}` and
+      FWHMminor\ :math:`FWHM_{minor}` are the major and minor full width
+      at half maximum (FWHM) axes of the beam, respectively.
 
        
 
@@ -577,6 +601,39 @@ Description
       Footnote Number a
       Footnote Text   May be removed in the future.
       =============== =============================
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Beers, T., Flynn, K., and Gebhardt, K. 1990. AJ, 100,
+         1, 32.`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2. Iglewicz, Boris. 1983. “Robust Scale Estimators and
+         Confidence Intervals for Location” in Understanding Robust and
+         Exploratory Data Analysis, eds. Hoaglin, David; Mosteller,
+         Frederick; and Tukey, John W., John Wiley and Sons,
+         Inc.`\ `↩ <#ref-cit2>`__
+
+   .. container::
+      :name: footnotes-container
+
+      .. container::
+         :name: footnote-title
+
+         Footnote(s)
+
+      .. container::
+
+         :sup:`a. May be removed in the future.`\ `↩ <#refa>`__
 
 .. container:: section
    :name: viewlet-below-content-body

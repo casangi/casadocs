@@ -34,9 +34,9 @@ Description
       | Of particular note is the discrepancy statistic (Disc): high
         values (> a few hundred microns) may indicate some levels of
         cloud contamination and the effect of applying the **wvrgcal**
-        correction should be checked; values > 1000 $\mu$m in all
-        antennas have currently been found to indicate that **wvrgcal**
-        correction should not be used.
+        correction should be checked; values > 1000 :math:`\mu`\ m in
+        all antennas have currently been found to indicate that
+        **wvrgcal** correction should not be used.
 
        
 

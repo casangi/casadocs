@@ -32,8 +32,8 @@ Example
       To compute a gaintable and subsequently apply it using
       **applycal**:
 
-      #. Generate the $T_{sky}$ and $T_{sys}$ calibration tables, and
-         apply them (**sdcal**)
+      #. Generate the :math:`T_{sky}` and :math:`T_{sys}` calibration
+         tables, and apply them (**sdcal**)
       #. Split out the corrected column data (**split**)
       #. Generate the double-circle gaincal calibration tables
          (**sdgaincal**)
@@ -61,11 +61,11 @@ Example
          To compute a gaintable and subsequently apply it using
          **applycal**:
 
-         #. Generate the $T_{sky}$ and $T_{sys}$ calibration tables
-            (**sdcal**)
+         #. Generate the :math:`T_{sky}` and :math:`T_{sys}` calibration
+            tables (**sdcal**)
          #. Generate the double-circle gaincal calibration tables by
-            applying $T_{sky}$ and $T_{sys}$ calibration tables
-            on-the-fly (**sdgaincal**)
+            applying :math:`T_{sky}` and :math:`T_{sys}` calibration
+            tables on-the-fly (**sdgaincal**)
 
             -  You can set *spwmap* and *interp* for each
                pre-application caltable if necessary

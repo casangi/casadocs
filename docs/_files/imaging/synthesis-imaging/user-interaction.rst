@@ -37,12 +37,12 @@ Iteration Control
 
       For each component selected in the CLEAN minor cycle, the response
       of only a fraction of the flux is subtracted out at each step.
-      This is controlled by a loop gain $\gamma$ which is multiplied
-      with the amplitude of the latest flux component before the
-      residual image is updated. This fraction represents a step size
-      used in steepest descent algorithms to counter the effect of
+      This is controlled by a loop gain :math:`\gamma` which is
+      multiplied with the amplitude of the latest flux component before
+      the residual image is updated. This fraction represents a step
+      size used in steepest descent algorithms to counter the effect of
       imperfect update directions. For a point source, the residual left
-      on the dirty image is $(1-\gamma)^{N_{CL}}$.
+      on the dirty image is :math:`(1-\gamma)^{N_{CL}}`.
 
       Loop gain is typically set at a default of 0.1. As a general rule
       of thumb, if the sky model being fitted to the data is a good
@@ -75,7 +75,7 @@ Iteration Control
       brightness in the residual image. When artifacts do not dominate
       the residuals, such a threshold is a robust way of terminating a
       run. A global stopping threshold is usually related to the
-      theoretically expected rms (typically $5\sigma$). A stopping
+      theoretically expected rms (typically :math:`5\sigma`). A stopping
       threshold to trigger a major cycle is usually related to the
       height of the strongest sidelobe of the strongest source. The
       rationale behind this choice is to expect errors in the

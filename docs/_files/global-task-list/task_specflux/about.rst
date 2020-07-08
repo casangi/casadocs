@@ -36,15 +36,17 @@ Description
       The task uses the brightness units that are specified in the image
       header (e.g., Jy/beam or K). When 'flux density' is calculated,
       the resulting spectra are in units of Jy for cube units of Jy/beam
-      and $K*arcsec^2$ for cube units of K. 
+      and K∗arcsec2\ :math:`K*arcsec^2` for cube units of K. 
 
       The spectral integral that **specflux** calculates is the sum of
       the spectrum multiplied by the channel width. The units are
       updated accordingly. 
 
-      If the units are $K*arcsec^2$, multiply the reported value by
-      $2.3504\times10^{-8}\times d^2$, where $d$ is in pc, to convert
-      from units of $K*arcsec^2$ to units of $K*pc^2$.
+      If the units are K∗arcsec2\ :math:`K*arcsec^2`, multiply the
+      reported value by
+      2.3504×10−8×d2\ :math:`2.3504\times10^{-8}\times d^2`, where
+      d\ :math:`d` is in pc, to convert from units of
+      K∗arcsec2\ :math:`K*arcsec^2` to units of K∗pc2\ :math:`K*pc^2`.
 
       If provided, *major* and *minor* will be used to compute the beam
       size, and hence the per channel flux densities (if *function="flux
@@ -128,8 +130,8 @@ Description
 
       Unit to use for the spectral flux calculation. Must be conformant
       with a typical spectral axis unit. Velocity units may only be used
-      if the spectral coordinate has a rest frequency and if it is $>
-      0$.
+      if the spectral coordinate has a rest frequency and if it is
+      >0\ :math:`> 0`.
 
       .. rubric:: *major*
          :name: major

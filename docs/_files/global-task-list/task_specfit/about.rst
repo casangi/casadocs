@@ -26,7 +26,7 @@ Description
       one or more Lorentzian singlets, one or more Gaussian multiplets,
       and/or a polynomial to one dimensional spectral profiles. A
       description of the fitting algorithm may be found in AIPS++ Note
-      224 `[1] <#cit>`__ and in Numerical Recipes `[2] <#cit>`__ . A
+      224 `[1] <#cit1>`__ and in Numerical Recipes `[2] <#cit2>`__ . A
       Gaussian/Lorentzian singlet is a Gaussian/Lorentzian function
       whose parameters (amplitude, center position, and width) are all
       independent from any other parameters that may be simultaneously
@@ -84,7 +84,7 @@ Description
       The *ngauss* parameter specifies the maximum number of Gaussian
       singlets to be fitted, if no estimates are specified by the
       profile's initial parameter estimates pampest, pcenterest and
-      pfwhmest (the so-called *p*est* parameters)\ `[a] <#fn>`__ or by
+      pfwhmest (the so-called *p*est* parameters)\ `[a] <#fna>`__ or by
       an estimates file, and if gmncomps=0 or is empty. The initial
       estimates of the parameters for these Gaussians will be
       determined automatically in this case. If it deems it appropriate,
@@ -235,7 +235,7 @@ Description
 
       Initial estimates of all Gaussians in all multiplets are specified
       via gmampest, gmcenterest, and gmfwhmest (the so-called *gm*est*
-      parameters) `[b] <#fn>`__ parameters, which must be arrays of
+      parameters) `[b] <#fnb>`__ parameters, which must be arrays of
       numbers. The input order starts with the zeroth component of the
       zeroth multiplet to the last component of the zeroth multiplet,
       then the zeroth component of the first multiplet to the last
@@ -421,7 +421,7 @@ Description
       is noisier than pixel B and will receive a lower weight when the
       fit is done. The weight of a pixel is the usual:
 
-      weight = $\frac{1}{\sigma^2}$
+      weight = :math:`\frac{1}{\sigma^2}`
 
       In the case of *multifit=F*, the sigma values at each pixel along
       the fit axis in the hyperplane perpendicular to the fit axis which
@@ -568,6 +568,42 @@ Description
       | Footnote Text   | gm*est refers to the various task parameters      |
       |                 | *gmampest*, *gmcenterest*, and *gmfwhmest*        |
       +-----------------+---------------------------------------------------+
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. [Brouw, Wim, 1999
+         (`\ `Web <http://www.astron.nl/casacore/trunk/casacore/doc/notes/224.html>`__\ :sup:`)]`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2. W.H. Press et al 1988., Cambridge University
+         Press`\ `↩ <#ref-cit2>`__
+
+   .. container::
+      :name: footnotes-container
+
+      .. container::
+         :name: footnote-title
+
+         Footnote(s)
+
+      .. container::
+
+         :sup:`a. p*est refers to the various task parameters pampest,
+         pcenterest, and pfwhmest`\ `↩ <#refa>`__
+
+      .. container::
+
+         :sup:`b. gm*est refers to the various task parameters gmampest,
+         gmcenterest, and gmfwhmest`\ `↩ <#refb>`__
 
 .. container:: section
    :name: viewlet-below-content-body

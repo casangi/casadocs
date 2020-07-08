@@ -124,12 +124,12 @@ Types of images
       Algorithms <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/deconvolution-algorithms>`__
       section for more information) during deconvolution to obtain
       Taylor Coefficients per component (to represent sky spectra as
-      polynomials in $I$ vs $\nu$). This option is accessed via "
-      *specmode='mfs'* and *deconvolver*\ ='mtmfs', *nterms=2.* " For
-      the same data size as standard MFS (*nterms=1*), Multi-Term MFS
-      will have $N_t$ times the gridding cost and number of images
-      stored in memory.  Parallelization is again done only for the
-      major cycle via data partitioning.
+      polynomials in :math:`I` vs :math:`\nu`). This option is accessed
+      via " *specmode='mfs'* and *deconvolver*\ ='mtmfs', *nterms=2.* "
+      For the same data size as standard MFS (*nterms=1*), Multi-Term
+      MFS will have :math:`N_t` times the gridding cost and number of
+      images stored in memory.  Parallelization is again done only for
+      the major cycle via data partitioning.
 
        |image3|
 

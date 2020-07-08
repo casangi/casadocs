@@ -57,8 +57,8 @@ Description
       (convolution kernel) for imaging. Currently, the task supports
       'BOX' (boxcar), 'SF' (Prolate Spheroidal Wave Function), 'GAUSS'
       (Gaussian), 'GJINC' (Gaussian*Jinc), where Jinc(x) =
-      $J_1(π*x/c)/(π*x/c)$ with a first order Bessel function J_1, and
-      'PB' (Primary Beam).
+      :math:`J_1(π*x/c)/(π*x/c)` with a first order Bessel function J_1,
+      and 'PB' (Primary Beam).
 
       | There are four subparameters for *gridfunction*: *convsupport,
         truncate, gwidth*, and *jwidth*. The *convsupport* parameter is
@@ -78,12 +78,12 @@ Description
         *gwidth* and *jwidth* allow integer, float, or string values,
         where the string would be a number plus unit.  The default
         values for *gwidth* and *jwidth* are taken from Mangum, et al.
-        2007 `[1] <#cit>`__ . The formula for 'GAUSS' and 'GJINC' are
+        2007 `[1] <#cit1>`__ . The formula for 'GAUSS' and 'GJINC' are
         taken from Table 1 in the paper, and are written as follows
         using *gwidth* and *jwidth*:
-      |    GAUSS: $\exp[-\log(2)*(|r|/gwidth)^2]$
-      |    GJINC: $J_1(π*|r|/jwidth)/(π*|r|/jwidth)\*
-        \\exp[-\log(2)*(|r|/gwidth)^2]$
+      |    GAUSS: :math:`\exp[-\log(2)*(|r|/gwidth)^2]`
+      |    GJINC:
+        :math:`J_1(π*|r|/jwidth)/(π*|r|/jwidth)* \exp[-\log(2)*(|r|/gwidth)^2]`
 
       The *imagename* should be unique. Clean will stop with an
       Exception error (e.g. Exception: Unable to open lattice) if
@@ -123,6 +123,19 @@ Description
       |                 | `(A&A) <http://www.aa                             |
       |                 | nda.org/articles/aa/pdf/2007/41/aa7811-07.pdf>`__ |
       +-----------------+---------------------------------------------------+
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Mangum, et al. 2007, A&A, 474,
+         679-687`\ `(A&A) <http://www.aanda.org/articles/aa/pdf/2007/41/aa7811-07.pdf>`__\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

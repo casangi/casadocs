@@ -24,10 +24,10 @@ Overview
 
          This section describes imaging single-dish data.
 
-         The data should already be T$_{sys}$ and T$_{sky}$ calibrated
-         (at least into antenna temperature units, $T_A^*$ [K]) ,
-         according to the process described in the single-dish
-         calibration pages.
+         The data should already be Tsys\ :math:`_{sys}` and
+         Tsky\ :math:`_{sky}` calibrated (at least into antenna
+         temperature units, T∗A\ :math:`T_A^*` [K]) , according to the
+         process described in the single-dish calibration pages.
 
          The CASA task used for imaging single-dish data is
          `sdimaging <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdimaging>`__. 

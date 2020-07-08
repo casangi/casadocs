@@ -46,8 +46,9 @@ Description
       #. Scale the low-resolution image (uv-grid) by the ratio of the
          volumes of the two 'clean beams' (high-res/low-res).
       #. Add to this, the uv-grid of the high-resolution image, scaled
-         by (1-$\omega$t) where '$\omega$t' is the Fourier transform of
-         the 'clean beam' defined in the low-resolution image.
+         by (1-:math:`\omega`\ t) where ':math:`\omega`\ t' is the
+         Fourier transform of the 'clean beam' defined in the
+         low-resolution image.
       #. Transform back to the image plane.
 
       One commonly used option for feather is sdfactor, which can be

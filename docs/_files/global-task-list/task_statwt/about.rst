@@ -43,19 +43,21 @@ Description
          the other set is composed solely of the imaginary part of the
          data values.
       #. Compute the weighted (by exposure time) variance of each of
-         these sets, v$_r$ and v$_i$. The weighted variance per unit
-         inverse exposure time, v, is computed using v = sum(e$_i$ \*
-         (V$_i$ - <V>)$^2$)/N, where e$_i$ is the exposure time for
-         real/imaginary part of  visibility V$_i$ and <V> = sum(e$_i$ \*
-         V$_i$)/sum(e$_i$) is the weighted mean of all the visibilities
-         in the set, and N is the number of (unflagged) visibilities
-         (see also this\ `Knowledgebase
-         Article) <https://casa.nrao.edu/casadocs-devel/stable/memo-series/casa-knowledgebase/calculation-of-weights-for-data-with-varying-integration-time>`__\ 
-      #. Compute v$_{eq}$ $=$ (v$_{r}$ $+$ v$_{i}$)$/$2.
-      #. The associated weight of visibility V$_i$  is  e$_i$ / Veq
-         (see\ `Knowledgebase
-         Article) <https://casa.nrao.edu/casadocs-devel/stable/memo-series/casa-knowledgebase/calculation-of-weights-for-data-with-varying-integration-time>`__\ .
-         The weight will have unit of (data unit)−2, e.g., Jy−2. The
+         these sets, vr\ :math:`_r` and vi\ :math:`_i`. The weighted
+         variance per unit inverse exposure time, v, is computed using v
+         = sum(ei\ :math:`_i` \* (Vi\ :math:`_i` - <V>)2\ :math:`^2`)/N,
+         where ei\ :math:`_i` is the exposure time for real/imaginary
+         part of  visibility Vi\ :math:`_i` and <V> = sum(ei\ :math:`_i`
+         \* Vi\ :math:`_i`)/sum(ei\ :math:`_i`) is the weighted mean of
+         all the visibilities in the set, and N is the number of
+         (unflagged) visibilities (see also this `Knowledgebase
+         Article) <https://casa.nrao.edu/casadocs-devel/stable/memo-series/casa-knowledgebase/calculation-of-weights-for-data-with-varying-integration-time>`__
+      #. Compute veq\ :math:`_{eq}` =\ :math:`=` (vr\ :math:`_{r}`
+         +\ :math:`+` vi\ :math:`_{i}`)/\ :math:`/`\ 2.
+      #. The associated weight of visibility Vi\ :math:`_i`  is 
+         ei\ :math:`_i` / V (see `Knowledgebase
+         Article) <https://casa.nrao.edu/casadocs-devel/stable/memo-series/casa-knowledgebase/calculation-of-weights-for-data-with-varying-integration-time>`__.
+         The weight will have unit of (data unit), e.g., Jy. The
          visibility weights are what this application computes and
          writes.
 
@@ -127,18 +129,19 @@ Description
       #. If datacolumn='data' or 'residual_data' and the CORRECTED_DATA
          column does not exist, then values are written to the WEIGHT
          and WEIGHT_SPECTRUM (if applicable) columns and values in the
-         SIGMA and SIGMA_SPECTRUM are set to 1/$\sqrt{\rm
-         {newly\,computed\,weight}}$. If a weight value is 0, the
-         corresponding sigma value is -1.
+         SIGMA and SIGMA_SPECTRUM are set to
+         1/√newlycomputedweight\ :math:`\sqrt{\rm {newly\,computed\,weight}}`.
+         If a weight value is 0, the corresponding sigma value is -1.
       #. If datacolumn='data' or 'residual_data' and the CORRECTED_DATA
          column does exist, then the WEIGHT and WEIGHT_SPECTRUM columns
          are not updated and values in the SIGMA and SIGMA_SPECTRUM are
-         set to 1/$\sqrt{\rm {newly\,computed\,weight}}$. If a weight
-         value is 0, the corresponding sigma value is -1. In this case,
-         you should either split out the DATA column and run statwt, or
-         run with datacolumn='corrected' or 'residual' to update
-         WEIGHT/WEIGHT_SPECTRUM. Otherwise the data are internally not
-         consistent.
+         set to
+         1/√newlycomputedweight\ :math:`\sqrt{\rm {newly\,computed\,weight}}`.
+         If a weight value is 0, the corresponding sigma value is -1. In
+         this case, you should either split out the DATA column and run
+         **statwt**, or run with *datacolumn='corrected'* or
+         *'residual'* to update WEIGHT/WEIGHT_SPECTRUM. Otherwise the
+         data are internally not consistent.
 
       .. container:: info-box
 
@@ -206,7 +209,7 @@ Description
 
       In the sliding time window case, in the case where timebin is a
       time quantity, the time window is always centered on the timestamp
-      of the row in question and extends ± timebin\ /2 around that
+      of the row in question and extends timebin\ 2 around that
       timestamp, subject the the time block boundaries. In the case
       where timebin is an integer, there are two cases to consider:
 

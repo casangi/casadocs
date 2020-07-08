@@ -29,16 +29,18 @@ Description
       the Levenberg-Marquardt algorithm of either a power logarithmic
       polynomial or a logarithmic tranformed polynomial to pixel values
       along a specified axis of an image or images. A description of the
-      fitting algorithm may be found in AIPS++ Note 224 `[1] <#cit>`__
-      and in Numerical Recipes `[2] <#cit>`__. These functions are most
+      fitting algorithm may be found in AIPS++ Note 224 `[1] <#cit1>`__
+      and in Numerical Recipes `[2] <#cit2>`__. These functions are most
       often used for fitting the spectral index and higher order terms
       of a spectrum. A power logarithmic polynomial (plp) has the form
 
       y = c\ :sub:`0`\ \*(x/div)\ :sup:`[c\ 1 + c\ 2\ \*ln(x/div) +
-      c\ 3\ \*ln(x/div)$^2$ + ... + c\ n\ \*ln(x/div)$^{(n-1)}$]`
+      c\ 3\ \*ln(x/div)`\ :math:`^2` + ... +
+      c\ :sub:`n`\ \*ln(x/div)\ :math:`^{(n-1)}`]
 
       In the case of fitting a spectral index, which is traditionally
-      represented as $\alpha$, the $\alpha$ is equal to c\ :sub:`1`.
+      represented as :math:`\alpha`, the :math:`\alpha` is equal to
+      c\ :sub:`1`.
 
       A logarithmic transformed polynomial (ltp) is simply the result of
       this equation after taking the natural log of both sides so that
@@ -63,7 +65,7 @@ Description
       A value of 0 (the default) indicates that the application should
       determine a reasonable value for div, which is determined via
 
-      div = 10\ :sup:`$int[log_{10}\sqrt{min(x)*max(x)}]$`
+      div = 10\ :math:`int[log_{10}\sqrt{min(x)*max(x)}]`
 
       where min(x) and max(x) are the minimum and maximum abscissa
       values, respectively.
@@ -71,10 +73,10 @@ Description
       The number of values specified in the *spxest* array indicate the
       number of coefficients for which to solve. If *multifit=True*, the
       values provided in the *spxest* array are used as initial
-      estimates at every pixel. So, for example, if S($\nu$) is
-      proportional to $\nu^{\alpha}$ and you expect alpha to be near
-      -0.8 and the value of S($\nu$) is 1.5 at 10$^9$ Hz and your
-      image(s) have spectral units of Hz, you would specify
+      estimates at every pixel. So, for example, if S(:math:`\nu`) is
+      proportional to :math:`\nu^{\alpha}` and you expect alpha to be
+      near -0.8 and the value of S(:math:`\nu`) is 1.5 at 10\ :math:`^9`
+      Hz and your image(s) have spectral units of Hz, you would specify
       *spxest=[1.5, -0.8]* and *div=1e9* when fitting a plp function, or
       *spxest=[0.405, -0.8]* and *div=1e9* if fitting an ltp function
       close to ln(1.5) - 0.8*ln(x/div).
@@ -150,7 +152,7 @@ Description
       is noisier than pixel B and will receive a lower weight when the
       fit is done. The weight of a pixel is the usual
 
-      weight = $\frac{1}{\sigma^2}$
+      weight = :math:`\frac{1}{\sigma^2}`
 
       In the case of *multifit=F*, the sigma values at each pixel along
       the fit axis in the hyperplane perpendicular to the fit axis which
@@ -371,6 +373,24 @@ Description
       is empty.
 
        
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Brouw, Wim, 1999
+         (`\ `Web <http://www.astron.nl/casacore/trunk/casacore/doc/notes/224.html>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2. W.H. Press et al. 1988, Cambridge University Press
+         (`\ `PDF <http://www2.units.it/ipl/students_area/imm2/files/Numerical_Recipes.pdf>`__\ :sup:`)`\ `↩ <#ref-cit2>`__
 
 .. container:: section
    :name: viewlet-below-content-body

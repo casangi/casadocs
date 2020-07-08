@@ -47,11 +47,14 @@ Description
         weights will be used for imaging sensitivity estimates.
       | There are two EXPERIMENTAL modes, *wtmode='tsys'* and
         *'tinttsys'*. In the modes, SIGMA and WEIGHT will be initialized
-        according to $T_{sys}$, bandwidth $\Delta\nu$, and integration
-        time $t_{int}$ (used only in '*tinttsys*'), i.e.:
+        according to Tsys\ :math:`T_{sys}`, bandwidth
+        Δν\ :math:`\Delta\nu`, and integration time
+        tint\ :math:`t_{int}` (used only in '*tinttsys*'), i.e.:
 
-      -  *tsys* : $weight=\frac{\Delta\nu}{T_{sys}^2}$
-      -  *tinttsys*: $weight=\frac{\Delta\nu \\, t_{int}}{T_{sys}^2}$
+      -  *tsys* :
+         weight=ΔνT2sys\ :math:`weight=\frac{\Delta\nu}{T_{sys}^2}`
+      -  *tinttsys*:
+         weight=ΔνtintT2sys\ :math:`weight=\frac{\Delta\nu \, t_{int}}{T_{sys}^2}`
 
       These modes use Tsys values to calculate weight as is done in Tsys
       calibration. Tsys values are taken from a Tsys calibration table

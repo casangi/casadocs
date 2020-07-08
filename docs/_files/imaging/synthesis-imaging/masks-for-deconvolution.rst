@@ -100,7 +100,7 @@ Masks for Deconvolution
       emission to mask. It also have functionality to remove ("prune")
       small mask regions that are unlikely to be real astronomical
       emission. A more detailed description of the algorithm are given
-      below and in `[1] <#cit>`__ .
+      below and in `[1] <#cit1>`__ .
 
       .. rubric:: *"*\ auto-multithresh"
          :name: auto-multithresh
@@ -318,7 +318,7 @@ Masks for Deconvolution
       case where emission covers a significant fraction of the field of
       view. The procedure is as follows. If there is no mask,
       remove pixels from the noise distribution via Chauvenet's
-      criterion `[2] <#cit>`__  `[3] <#cit>`__ and then estimate the
+      criterion `[2] <#cit2>`__  `[3] <#cit3>`__ and then estimate the
       noise using the remaining pixels via the median absolute
       deviation. If there is a mask, then calculate the noise from the
       pixels outside the clean mask and inside the primary beam mask,
@@ -387,6 +387,36 @@ Masks for Deconvolution
          +-----------------------------------+-----------------------------------+
 
          | 
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Kepley et al. 2020, Publications of the Astronomical
+         Society of the Pacific, 132, 024505`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2.  Peirce, B. 1852, The Astronomical Journal, 2,
+         161.`\ `↩ <#ref-cit2>`__
+
+      .. container::
+
+         :sup:`3.`
+
+         .. container::
+
+            Chauvenet, W. A Manual of Spherical and Practical Astronomy,
+            Volume II (London, UK: Dover; reprinted in 1960 based on
+            fifth revised and corrected edition 1891), 558–566
+
+         `↩ <#ref-cit3>`__
 
 .. container:: section
    :name: viewlet-below-content-body

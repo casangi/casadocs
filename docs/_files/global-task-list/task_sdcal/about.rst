@@ -24,14 +24,14 @@ Description
         similar to that of interferometry, i.e., generate calibration
         tables (caltables) and apply them. Available calibration modes
         (*calmode*) are 'ps', 'otfraster', and 'otf' for sky (reference)
-        calibration; and 'tsys' for $T_{\rm sys}$ calibration. Caltables
-        can be applied to the data with *calmode*\ ='apply'. Each mode
-        generates a caltable except for *calmode*\ ='apply'. A
+        calibration; and 'tsys' for :math:`T_{\rm sys}` calibration.
+        Caltables can be applied to the data with *calmode*\ ='apply'.
+        Each mode generates a caltable except for *calmode*\ ='apply'. A
         combination of mode keywords is also supported, e.g.,
-        *calmode*\ ='ps,tsys,apply' to calibrate sky and $T_{\rm sys}$
-        on-the-fly. Calibration is available even for fast-moving
-        sources like the Moon (see the note relating to the 'otf' mode
-        below).
+        *calmode*\ ='ps,tsys,apply' to calibrate sky and
+        :math:`T_{\rm sys}` on-the-fly. Calibration is available even
+        for fast-moving sources like the Moon (see the note relating to
+        the 'otf' mode below).
       | The calibration mode must be set in accordance with the
         observing mode of the data. The modes are as follows: 
 
@@ -81,14 +81,14 @@ Description
       either ends of each raster row for 'otfraster' mode. Spectra are
       calibrated by:
 
-      $T_{\rm sys}  \frac{ ON - OFF } { OFF }$.
+      :math:`T_{\rm sys}  \frac{ ON - OFF } { OFF }`.
 
       .. container:: info-box
 
          **NOTE**: If *outfile* is unset and *calmode* doesn't include
          "apply", a default names of calibration tables are generated
          based on the *infile* and a predefined suffix  ('_sky' for sky,
-         '_tsys' for $T_{\rm sys}$).
+         '_tsys' for :math:`T_{\rm sys}`).
 
        
 

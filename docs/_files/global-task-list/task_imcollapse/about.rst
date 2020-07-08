@@ -58,8 +58,9 @@ Description
       from the median), 'max', 'mean', 'median', 'min', 'npts', 'rms',
       'stddev', 'sum', 'variance' and 'xmadm' (median absolute deviation
       from the median multipied by x, where x is the reciprocal of
-      $\Phi^{-1}$(3/4), where $\Phi^{-1}$ is the reciprocal of the
-      quantile function. Numerically, x = 1.482602218505602. See e.g.
+      Φ−1\ :math:`\Phi^{-1}`\ (3/4), where Φ−1\ :math:`\Phi^{-1}` is the
+      reciprocal of the quantile function. Numerically, x =
+      1.482602218505602. See e.g.
       `here <https://en.wikipedia.org/wiki/Median_absolute_deviation#Relation_to_standard_deviation>`__).
       Minimal unique matching is supported for the *function* parameter
       (e.g. *function = 'r'* will compute the rms of the pixel values,

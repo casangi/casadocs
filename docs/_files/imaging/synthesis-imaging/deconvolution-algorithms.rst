@@ -42,7 +42,7 @@ Deconvolution Algorithms
       +---------+-----------------------------------------------------------+
 
       The image reconstruction framework is based on Cotton-Schwab
-      major/minor cycles `[1] <#cit>`__. Within this system, the minor
+      major/minor cycles `[1] <#cit1>`__. Within this system, the minor
       cycle algorithm operates largely in the image domain starting with
       a PSF and a residual image (i.e. the gradient of chi-square or the
       right hand side of the normal equations). The output is an
@@ -103,7 +103,7 @@ Deconvolution Algorithms
          .. rubric:: Hogbom
             :name: title1
 
-         Hogbom CLEAN `[2] <#cit>`__ operates with a point-source model
+         Hogbom CLEAN `[2] <#cit2>`__ operates with a point-source model
          of the sky brightness distribution. The minor cycle searches
          for the location and amplitude of components and then subtracts
          a scaled and shifted version of the full PSF to update the
@@ -135,7 +135,7 @@ Deconvolution Algorithms
          .. rubric:: Clark
             :name: title2
 
-         Clark CLEAN `[3] <#cit>`__ also operates only in the
+         Clark CLEAN `[3] <#cit3>`__ also operates only in the
          image-domain, and uses a point-source model. There are two main
          differences from the Hogbom algorithm. The first is that it
          does its residual image updates using only a small patch of the
@@ -166,9 +166,9 @@ Deconvolution Algorithms
 
          For polarization imaging, Clark searches for the peak in
 
-         $I^2 + Q^2 + U^2 + V^2$
+         I2+Q2+U2+V2\ :math:`I^2 + Q^2 + U^2 + V^2`
 
-         $I^2 + Q^2 + U^2 + V^2$
+         I2+Q2+U2+V2\ :math:`I^2 + Q^2 + U^2 + V^2`
 
           
 
@@ -189,17 +189,17 @@ Deconvolution Algorithms
          .. rubric:: Multi-Scale
             :name: title3
 
-         Cornwell-Holdaway Multi-Scale CLEAN (CH-MSCLEAN) `[4] <#cit>`__
-         is a scale-sensitive deconvolution algorithm designed for
-         images with complicated spatial structure. It parameterizes the
-         image into a collection of inverted tapered paraboloids. The
-         minor cycle iterations use a matched-filtering technique to
-         measure the location, amplitude and scale of the dominant flux
-         component in each iteration, and take into account the
-         non-orthogonality of the scale basis functions while performing
-         updates. In other words, the minor cycle iterations consider
-         all scales together and model components are chosen in the
-         order of decreasing integrated flux.
+         Cornwell-Holdaway Multi-Scale CLEAN (CH-MSCLEAN)
+         `[4] <#cit4>`__ is a scale-sensitive deconvolution algorithm
+         designed for images with complicated spatial structure. It
+         parameterizes the image into a collection of inverted tapered
+         paraboloids. The minor cycle iterations use a matched-filtering
+         technique to measure the location, amplitude and scale of the
+         dominant flux component in each iteration, and take into
+         account the non-orthogonality of the scale basis functions
+         while performing updates. In other words, the minor cycle
+         iterations consider all scales together and model components
+         are chosen in the order of decreasing integrated flux.
 
          MS-CLEAN can be formulated as a chi-square minimization applied
          to a sky model that parameterizes the sky brightness as a
@@ -333,8 +333,8 @@ Deconvolution Algorithms
          .. rubric:: Multi-Term (with Multi-Scale)
             :name: title4
 
-         Multi-Scale Multi-Frequency synthesis (MSMFS) `[5] <#cit>`__ is
-         a wide-band imaging algorithm that models the wide-band sky
+         Multi-Scale Multi-Frequency synthesis (MSMFS) `[5] <#cit5>`__
+         is a wide-band imaging algorithm that models the wide-band sky
          brightness distribution as a collection of inverted, tapered
          paraboloids of different scale sizes, whose amplitudes follow a
          polynomial in frequency. A linear-least squares approach is
@@ -489,17 +489,18 @@ Deconvolution Algorithms
             collection of point-sources and uses a prior image along
             with an entropy-based penalty function to bias the solution
             of pixel amplitudes. The Maximum Entropy method (MEM)
-            `[6] <#cit>`__ `[7] <#cit>`__ is a pixel-based deconvolution
-            algorithm that performs a rigorously-constrained
-            optimization in a basis of pixel amplitudes. MEM uses the
-            Bayesian formulation of chi-square minimization, and applies
-            a penalty function based on relative image entropy. This
-            choice of penalty function biases the estimate of the true
-            sky brightness towards a known prior image. If a flat image
-            is chosen as the prior, the solution is biased towards being
-            smooth, and produces a more realistic reconstruction of
-            extended emission. Positivity and emptiness constraints can
-            be applied on the image pixels via a penalty function.
+            `[6] <#cit6>`__ `[7] <#cit7>`__ is a pixel-based
+            deconvolution algorithm that performs a
+            rigorously-constrained optimization in a basis of pixel
+            amplitudes. MEM uses the Bayesian formulation of chi-square
+            minimization, and applies a penalty function based on
+            relative image entropy. This choice of penalty function
+            biases the estimate of the true sky brightness towards a
+            known prior image. If a flat image is chosen as the prior,
+            the solution is biased towards being smooth, and produces a
+            more realistic reconstruction of extended emission.
+            Positivity and emptiness constraints can be applied on the
+            image pixels via a penalty function.
 
             The MEM implementation in CASA's imager is unstable, and is
             unlikely to get attention as there are better methods
@@ -508,7 +509,7 @@ Deconvolution Algorithms
             .. rubric:: ASP
                :name: asp
 
-            The Adaptive Scale Pixel (ASP) `[8] <#cit>`__ deconvolution
+            The Adaptive Scale Pixel (ASP) `[8] <#cit8>`__ deconvolution
             algorithm parameterizes the sky brightness distribution into
             a collection of Gaussians and does a formal constrained
             optimization on their parameters. In the major cycle,
@@ -679,6 +680,46 @@ Deconvolution Algorithms
             =============== ===========================
 
              
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Schwab and Cotton 1983`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2. Hogbom 1974`\ `↩ <#ref-cit2>`__
+
+      .. container::
+
+         :sup:`3. Clark 1980`\ `↩ <#ref-cit3>`__
+
+      .. container::
+
+         :sup:`4. Cornwell 2008`\ `↩ <#ref-cit4>`__
+
+      .. container::
+
+         :sup:`5. Rau & Cornwell 2011`\ `↩ <#ref-cit5>`__
+
+      .. container::
+
+         :sup:`6. Cornwell and Evans 1985`\ `↩ <#ref-cit6>`__
+
+      .. container::
+
+         :sup:`7. Narayan and Nityananda 1986`\ `↩ <#ref-cit7>`__
+
+      .. container::
+
+         :sup:`8. Bhatnagar and Cornwell 2004`\ `↩ <#ref-cit8>`__
 
 .. container:: section
    :name: viewlet-below-content-body

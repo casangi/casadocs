@@ -126,7 +126,7 @@ Spectral Analysis
       into a moment image by taking a linear combination of the
       individual planes:
 
-      $M_m(x_i,y_i) = \\sum_k^N w_m(x_i,y_i,v_k)\,I(x_i,y_i,v_k)$
+      Mm(xi,yi)=∑Nkwm(xi,yi,vk)I(xi,yi,vk)\ :math:`M_m(x_i,y_i) = \sum_k^N w_m(x_i,y_i,v_k)\,I(x_i,y_i,v_k)`
 
       | for pixel i and channel k in the cube I. There are a number of
         choices to form the moment-m, usually approximating some
@@ -837,8 +837,8 @@ Spectral Analysis
       **rmfit** is an image domain task that accepts an input cube image
       containing Stokes Q and U axes and will generate the rotation
       measure by performing a least square fit in the image domain to
-      obtain the best fit to the equation  $\chi = \\chi_0 + RM\times
-      \\lambda^2$.
+      obtain the best fit to the equation
+       χ=χ0+RM×λ2\ :math:`\chi = \chi_0 + RM\times \lambda^2`.
 
       The inputs to **rmfit** are:
 
@@ -900,8 +900,9 @@ Spectral Analysis
         See also the i\ **magepol.fourierrotationmeasure** function for
         a new Fourier-based approach.
       | Rotation measure algorithms that work robustly are few. The main
-        problem is in trying to account for the $n- \\pi$ ambiguity (see
-        Leahy et al.1986 - Appendix A.1) `[1] <#cit>`__ and the `MIRIAD
+        problem is in trying to account for the n−π\ :math:`n- \pi`
+        ambiguity (see Leahy et al.1986 - Appendix A.1) `[1] <#cit1>`__
+        and the `MIRIAD
         manual <http://www.cfa.harvard.edu/sma/miriad/manuals/SMAuguide/smauserhtml/imrm.html>`__.
 
       +-----------------+---------------------------------------------------+
@@ -917,16 +918,16 @@ Spectral Analysis
       spatial pixel, the position angle vs frequency data is fit to
       determine the rotation measure and the position angle at zero
       wavelength (and associated errors). An image containing the number
-      of $n- \\pi$ turns that were added to the data at each spatial
-      pixel and for which the best fit was found can be written. The
-      reduced $\chi^2$ image for the fits can also be written. Any
-      combination of output images can be written.
+      of n−π\ :math:`n- \pi` turns that were added to the data at each
+      spatial pixel and for which the best fit was found can be written.
+      The reduced χ2\ :math:`\chi^2` image for the fits can also be
+      written. Any combination of output images can be written.
 
       .. container:: info-box
 
          **NOTE**: No assessment of curvature (i.e. deviation from the
-         simple linear position angle - $\lambda^2$ functional form) is
-         made.
+         simple linear position angle - λ2\ :math:`\lambda^2` functional
+         form) is made.
 
       | The parameter *sigma* gives the thermal noise in Stokes Q and U.
         By default it is determined automatically using the image data.
@@ -970,31 +971,30 @@ Spectral Analysis
       often used for fitting the spectral index and higher order terms
       of a spectrum. A power logarithmic polynomial has the form
 
-      $y = \\frac{c_0 x}{D^{(c_1 + c_2 \\ln(x/D) + c_3 \\ln(x/D)^2 + c_n
-      \\ln(x/D)^{(n - 1)})}}$
+      y=c0xD(c1+c2ln(x/D)+c3ln(x/D)2+cnln(x/D)(n−1))\ :math:`y = \frac{c_0 x}{D^{(c_1 + c_2 \ln(x/D) + c_3 \ln(x/D)^2 + c_n \ln(x/D)^{(n - 1)})}}`
 
       and a logarithmic transformed polynomial is simply the result of
       this equation after taking the natural log of both sides so that
       it has the form
 
-      $\ln(y) = c_0 + c_1 \\ln(x) + c_2 \\ln(x/D)^2 +  ... + c_n
-      \\ln(x/D)^n$
+      ln(y)=c0+c1ln(x)+c2ln(x/D)2+...+cnln(x/D)n\ :math:`\ln(y) = c_0 + c_1 \ln(x) + c_2 \ln(x/D)^2 +  ... + c_n \ln(x/D)^n`
 
       | Because the logarithm of the ordinate values must be taken
         before fitting a logarithmic transformed polynomial, all
         non-positive pixel values are effectively masked for the
         purposes of fitting. The coefficients of the two forms are equal
         to each other except that c0 in the second equation is equal
-        to $\ln(c_0)$ of the first. In the case of fitting a spectral
-        index, which is traditionally represented as $\alpha$, is equal
-        to $c_1$. In both cases, $D$ is a normalization constant used so
-        that abscissa values are closer to unity when they are sent to
-        the fitter. This generally improves the probability that the fit
-        will converge. This parameter may be specified via the *div*
+        to ln(c0)\ :math:`\ln(c_0)` of the first. In the case of fitting
+        a spectral index, which is traditionally represented as
+        α\ :math:`\alpha`, is equal to c1\ :math:`c_1`. In both cases,
+        D\ :math:`D` is a normalization constant used so that abscissa
+        values are closer to unity when they are sent to the fitter.
+        This generally improves the probability that the fit will
+        converge. This parameter may be specified via the *div*
         parameter. A value of 0 (the default) indicates that the
-        application should determine a reasonable value for $D$, which
-        is determined via
-      | $D = 10^{\int(\log10(\sqrt(\min(x)*\max(x)))}$
+        application should determine a reasonable value for
+        D\ :math:`D`, which is determined via
+      | D=10∫(log10(√(min(x)∗max(x)))\ :math:`D = 10^{\int(\log10(\sqrt(\min(x)*\max(x)))}`
       | where *min(x)* and *max(x)* are the minimum and maximum abscissa
         values, respectively.
       | The inputs are:
@@ -1221,7 +1221,8 @@ Spectral Analysis
       |     *qns*                      Resolved quantum numbers to
         search for.
       |     *intensity*               CDMS/JPL intensity range.
-      |     *smu2*                   $S\mu^{2}$ range in Debye$^2$.
+      |     *smu2*                   Sμ2\ :math:`S\mu^{2}` range in
+        Debye2\ :math:`^2`.
       |     *loga*                      log(A) (Einstein coefficient)
         range.
       |     *el*                          Lower energy state range in
@@ -1234,8 +1235,8 @@ Spectral Analysis
 
       | Notation is as found in the Splatalogue catalog.
       | Example:
-      | Search for all lines of the species HOCN and HOCO$^+$ in the
-        200-300GHz range:
+      | Search for all lines of the species HOCN and HOCO+\ :math:`^+`
+        in the 200-300GHz range:
 
       .. container:: casa-input-box
 
@@ -1286,6 +1287,20 @@ Spectral Analysis
        
 
        
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Leahy, J.~P., Pooley, G.~G., & Jagers, W.~J. 1986,
+         A&A, 156, 234
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1986A%26A...156..234L>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

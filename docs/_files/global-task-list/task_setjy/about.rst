@@ -115,24 +115,21 @@ Description
 
       The *spix* subparamter can accept a list of values to include the
       spectral index of Stokes I in higher order terms, using the
-      definition of the flux density at a frequency, $\nu$,
-      $S(\nu)=fluxdensity[0]*\frac{\nu}{reffreq}^{spix[0]+spix[1]*log(\nu/reffreq)+..}$
+      definition of the flux density at a frequency, ν\ :math:`\nu`,
+      S(ν)=fluxdensity[0]∗νreffreqspix[0]+spix[1]∗log(ν/reffreq)+..\ :math:`S(\nu)=fluxdensity[0]*\frac{\nu}{reffreq}^{spix[0]+spix[1]*log(\nu/reffreq)+..}`
       . The *reffreq* is given by a string including the unit (e.g.
       '10GHz', note that there is no space between the value and the
       unit). The *polindex* takes a list of coefficents ([p0, p1,
       p2...]) using the definition of frequency-dependent polarization
       index (PI) , where
 
-      $ PI = \\frac{\sqrt{Q^2+U^2}}{I} = p0 +
-      p1*\frac{\nu-reffreq}{reffreq} +
-      p2*(\frac{\nu-reffreq}{reffreq})^2 + ... $.
+      PI=√Q2+U2I=p0+p1∗ν−reffreqreffreq+p2∗(ν−reffreqreffreq)2+...\ :math:` PI = \frac{\sqrt{Q^2+U^2}}{I} = p0 + p1*\frac{\nu-reffreq}{reffreq} + p2*(\frac{\nu-reffreq}{reffreq})^2 + ... `.
 
       Similarly, the *polangle* subparameter takes a list of
       coefficients ([a0,a1,a2, ..]) using the definition of polarization
-      angle ($\chi$), where
+      angle (χ\ :math:`\chi`), where
 
-      $\chi = 0.5arctan\frac{U}{Q} = a0 + a1*\frac{\nu-reffreq}{reffreq}
-      + a2*(\frac{freq-reffreq}{reffreq})^2 + .. $.
+      χ=0.5arctanUQ=a0+a1∗ν−reffreqreffreq+a2∗(freq−reffreqreffreq)2+..\ :math:`\chi = 0.5arctan\frac{U}{Q} = a0 + a1*\frac{\nu-reffreq}{reffreq} + a2*(\frac{freq-reffreq}{reffreq})^2 + .. `.
 
       .. container:: info-box
 
@@ -186,7 +183,7 @@ Description
       *standard=’Butler-JPL-Horizons 2012’* (for more information on the
       implemented models, see `Flux Calibrator
       Models <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material/flux-calibrator-models>`__
-      page and also ALMA Memo 594  `[1] <#cit>`__.) option of **setjy**
+      page and also ALMA Memo 594  `[1] <#cit1>`__.) option of **setjy**
       includes flux density calibration using Solar System objects.
 
       For ’Butler-JPL-Horizons 2012’ CASA currently supports the objects
@@ -401,6 +398,19 @@ Description
       see the VLA Calibration Manual at:
       https://science.nrao.edu/facilities/vla/observing/callist for
       details on the use of standard calibrators for the VLA.
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Butler 2012,`\ `ALMA Memo
+         #594 <https://science.nrao.edu/facilities/alma/aboutALMA/Technology/ALMA_Memo_Series/alma594/abs594>`__\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body

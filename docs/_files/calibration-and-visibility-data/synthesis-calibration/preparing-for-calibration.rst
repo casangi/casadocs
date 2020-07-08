@@ -67,29 +67,30 @@ Preparing for Calibration
 
       CASA 4.3 introduced initial experimental support for spectral
       weights.  At this time, this is mainly relevant to ALMA processing
-      for which *spectral* $T_{sys}$ corrections, which faithfully
-      reflect spectral sensitivity, are available.  In most other cases,
-      sensitivity is, to a very good approximation, channel-independent
-      after bandpass calibration (and often also before), except perhaps
-      at the very edges of spectral windows (and for which analytic
-      expressions of the sensitivity loss are generally unavailable). 
-      Averaging of data with channel-dependent flagging which varies on
-      sufficiently short timescales will also generate channel-dependent
-      net weights (see **split** or **mstransform** for more details).
+      for which *spectral* Tsys\ :math:`T_{sys}` corrections, which
+      faithfully reflect spectral sensitivity, are available.  In most
+      other cases, sensitivity is, to a very good approximation,
+      channel-independent after bandpass calibration (and often also
+      before), except perhaps at the very edges of spectral windows (and
+      for which analytic expressions of the sensitivity loss are
+      generally unavailable).  Averaging of data with channel-dependent
+      flagging which varies on sufficiently short timescales will also
+      generate channel-dependent net weights (see **split** or
+      **mstransform** for more details).
 
       By default, CASA's weight accounting scheme maintains
       unchannelized weight information that is appropriately updated
       when calibration is applied.  In the case of spectral calibrations
-      ($T_{sys}$ and bandpass), an appropriate spectral average is used
-      for the weight update.  This spectral average is formally correct
-      for weight update by bandpass.  For $T_{sys}$, traditional
-      treatments used a single measurement per spectral window; ALMA has
-      implemented spectral $T_{sys}$ to better track sensitivity as a
-      function of channel, and so should benefit from *spectral* weight
-      accounting as described here, especially where atmospheric
-      emmission lines occur.  If spectral weight accounting is desired,
-      users must re-initialize the spectral weights using the
-      **initweights** task:
+      (Tsys\ :math:`T_{sys}` and bandpass), an appropriate spectral
+      average is used for the weight update.  This spectral average is
+      formally correct for weight update by bandpass.  For
+      Tsys\ :math:`T_{sys}`, traditional treatments used a single
+      measurement per spectral window; ALMA has implemented spectral
+      Tsys\ :math:`T_{sys}` to better track sensitivity as a function of
+      channel, and so should benefit from *spectral* weight accounting
+      as described here, especially where atmospheric emmission lines
+      occur.  If spectral weight accounting is desired, users must
+      re-initialize the spectral weights using the **initweights** task:
 
        
 
@@ -226,23 +227,23 @@ Preparing for Calibration
          :name: atmospheric-optical-depth-correction
 
       The troposphere is not completely transparent.  At high radio
-      frequencies ($>$15 GHz), water vapor and molecular oxygen begin to
-      have a substantial effect on radio observations. According to the
-      physics of radiative transmission, the effect is threefold. 
-      First, radio waves from astronomical sources are absorbed (and
-      therefore attenuated) before reaching the antenna.  Second, since
-      a good absorber is also a good emitter, significant noise-like
-      power will be added to the overall system noise, and thus further
-      decreasing the *fraction* of correlated signal from astrophysical
-      sources.  Finally, the optical path length through the troposphere
-      introduces a time-dependent phase error.  In all cases, the
-      effects become worse at lower elevations due to the increased air
-      mass through which the antenna is looking.  In CASA, the opacity
-      correction described here compensates only for the first of these
-      effects, tropospheric attenuation, using a plane-parallel
-      approximation for the troposphere to estimate the elevation
-      dependence.  (Gain solutions solved for later will account for the
-      other two effects.)
+      frequencies (>\ :math:`>`\ 15 GHz), water vapor and molecular
+      oxygen begin to have a substantial effect on radio observations.
+      According to the physics of radiative transmission, the effect is
+      threefold.  First, radio waves from astronomical sources are
+      absorbed (and therefore attenuated) before reaching the antenna. 
+      Second, since a good absorber is also a good emitter, significant
+      noise-like power will be added to the overall system noise, and
+      thus further decreasing the *fraction* of correlated signal from
+      astrophysical sources.  Finally, the optical path length through
+      the troposphere introduces a time-dependent phase error.  In all
+      cases, the effects become worse at lower elevations due to the
+      increased air mass through which the antenna is looking.  In CASA,
+      the opacity correction described here compensates only for the
+      first of these effects, tropospheric attenuation, using a
+      plane-parallel approximation for the troposphere to estimate the
+      elevation dependence.  (Gain solutions solved for later will
+      account for the other two effects.)
 
       To make opacity corrections in CASA, an estimate of the zenith
       opacity is required (see observatory-specific chapters for how to
@@ -267,7 +268,7 @@ Preparing for Calibration
       calibrator is at the same elevation as your target at
       approximately the same time). As noted above, there are no
       facilities yet to estimate this from the data (e.g. by plotting
-      $T_{sys}$ vs. elevation).
+      Tsys\ :math:`T_{sys}` vs. elevation).
 
       The resulting calibration table should then be used in all
       subsequent processing the requires the specification of prior
@@ -413,24 +414,25 @@ Preparing for Calibration
       CASA 4.3 introduced initial support for on-axis ionospheric
       corrections, using time- and direction-dependent total electron
       content (TEC) information obtained from the internet.  The
-      correction includes the dispersive delay ($\propto \\nu^{-1}$)
-      delay and Faraday rotation ($\propto \\nu^{-2}$) terms.  These
-      corrections are most relevant at observing frequencies less than
-      $\sim$5 GHz.  When relevant, the ionosphere correction table
-      should be generated at the beginning of a reduction along with
-      other calibration priors (antenna position errors, gain curve,
-      opacity, etc.), and carried through all subsequent calibration
-      steps.  Formally, the idea is that the ionospheric effects (as a
-      function of time and on-axis direction) will be nominally
-      accounted for by this calibration table, and thus not spuriously
-      leak into gain and bandpass solves, etc.  In practice, the quality
-      of the ionospheric correction is limited by the relatively sparse
-      sampling (in time and direction) of the available TEC
-      information.  Especially active ionospheric conditions may not be
-      corrected very well.  Also, direction-dependent (*within the
-      instantaneous field-of-view*) ionosphere corrections are not yet
-      supported.  Various improvements are under study for future
-      releases.
+      correction includes the dispersive delay
+      (∝ν−1\ :math:`\propto \nu^{-1}`) delay and Faraday rotation
+      (∝ν−2\ :math:`\propto \nu^{-2}`) terms.  These corrections are
+      most relevant at observing frequencies less than
+      ∼\ :math:`\sim`\ 5 GHz.  When relevant, the ionosphere correction
+      table should be generated at the beginning of a reduction along
+      with other calibration priors (antenna position errors, gain
+      curve, opacity, etc.), and carried through all subsequent
+      calibration steps.  Formally, the idea is that the ionospheric
+      effects (as a function of time and on-axis direction) will be
+      nominally accounted for by this calibration table, and thus not
+      spuriously leak into gain and bandpass solves, etc.  In practice,
+      the quality of the ionospheric correction is limited by the
+      relatively sparse sampling (in time and direction) of the
+      available TEC information.  Especially active ionospheric
+      conditions may not be corrected very well.  Also,
+      direction-dependent (*within the instantaneous field-of-view*)
+      ionosphere corrections are not yet supported.  Various
+      improvements are under study for future releases.
 
       To generate the ionosphere correction table, first import a helper
       function from the casapy recipes repository:
@@ -533,11 +535,11 @@ Preparing for Calibration
       .. rubric:: System Temperature (ALMA)
          :name: system-temperature-alma
 
-      ALMA routinely measures $T_{sys}$ while observing, and these
-      measurements are used to reverse the online normalization of the
-      correlation coefficients and render the data in units of nominal
-      K.  To generate a $T_{sys}$ calibration table, run **gencal** as
-      follows:
+      ALMA routinely measures Tsys\ :math:`T_{sys}` while observing, and
+      these measurements are used to reverse the online normalization of
+      the correlation coefficients and render the data in units of
+      nominal K.  To generate a Tsys\ :math:`T_{sys}` calibration table,
+      run **gencal** as follows:
 
       .. container:: casa-input-box
 

@@ -182,7 +182,7 @@ Description
       FFT-based convolution. This algorithm is reasonably fast. Also,
       for polarization imaging, Clark searches for the peak in
 
-      $I^2 + Q^2 + U^2 + V^2$.
+      I2+Q2+U2+V2\ :math:`I^2 + Q^2 + U^2 + V^2`.
 
       The '*hogbom*' algorithm is the “Classic” image-plane CLEAN, where
       model pixels are found iteratively by searching for the peak. Each
@@ -223,18 +223,19 @@ Description
       For *weighting='natural'*, visibilities are weighted only by the
       data weights, which are calculated during filling and calibration
       and should be equal to the inverse noise variance on that
-      visibility. Imaging weight $w_i$ of sample $\dot\imath$is given
-      by:
+      visibility. Imaging weight wi\ :math:`w_i` of
+      sample ˙ı\ :math:`\dot\imath` is given by:
 
-      $w_i = \\omega_i = \\frac{1}{{\sigma_i}^2}$
+      wi=ωi=1σi2\ :math:`w_i = \omega_i = \frac{1}{{\sigma_i}^2}`
 
-      where the data weight $\omega_i$ is determined from $\sigma_i$,
-      the rms noise on visibility $\dot\imath$. When data is gridded
-      into the same uv-cell for imaging, the weights are summed, and
-      thus a higher uv density results in higher imaging weights. No
-      sub-parameters are linked to this mode choice. It is the default
-      imaging weight mode, and it should produce “optimum” image with
-      with the lowest noise (highest signal-to-noise ratio).
+      where the data weight ωi\ :math:`\omega_i` is determined from
+      σi\ :math:`\sigma_i`, the rms noise on visibility
+      ˙ı\ :math:`\dot\imath`. When data is gridded into the same uv-cell
+      for imaging, the weights are summed, and thus a higher uv density
+      results in higher imaging weights. No sub-parameters are linked to
+      this mode choice. It is the default imaging weight mode, and it
+      should produce “optimum” image with with the lowest noise (highest
+      signal-to-noise ratio).
 
       .. container:: info-box
 
@@ -257,12 +258,13 @@ Description
       sub-parameters are linked to this mode choice.
 
       For uniform weighting, we first grid the inverse variance
-      $\omega_i$ for all selected data onto a grid with uv cell-size
-      given by 2 ∕ FOV,where FOVis the specified field of view (defaults
-      to the image field of view). This forms the gridded weights $W_k$.
-      The weight of the $\dot\imath$-th sample is then:
+      ωi\ :math:`\omega_i` for all selected data onto a grid with uv
+      cell-size given by 2 ∕ FOV,where FOVis the specified field of view
+      (defaults to the image field of view). This forms the gridded
+      weights Wk\ :math:`W_k`. The weight of the
+      ˙ı\ :math:`\dot\imath`-th sample is then:
 
-      $w_i = \\frac{w_i}{W_k}$
+      wi=wiWk\ :math:`w_i = \frac{w_i}{W_k}`
 
       .. rubric:: Briggs weighting
          :name: briggs-weighting
@@ -285,13 +287,12 @@ Description
 
       The actual weighting scheme used is:
 
-      $w_i = \\frac{\omega_i}{1 + W_k f^2}$
+      wi=ωi1+Wkf2\ :math:`w_i = \frac{\omega_i}{1 + W_k f^2}`
 
-       where $W_k$ is defined as in 'uniform'and
+       where Wk\ :math:`W_k` is defined as in 'uniform'and
       'superuniform'weighting, and
 
-      $f^2 = \\frac{(5 \\times 10^{-\text{R}})^2}{\frac{\Sigma_k
-      W_k^2}{\Sigma_i \\omega_i}}$
+      f2=(5×10−R)2ΣkW2kΣiωi\ :math:`f^2 = \frac{(5 \times 10^{-\text{R}})^2}{\frac{\Sigma_k W_k^2}{\Sigma_i \omega_i}}`
 
       and Ris the *robust* sub-parameter.
 
@@ -322,10 +323,10 @@ Description
       For *weighting='briggsabs'*, a slightly different Briggs weighting
       is used, with:
 
-      $w_i = \\frac{\omega_i}{W_k \\text{R}^2 + 2\sigma_\text{R}^2}$
+      wi=ωiWkR2+2σ2R\ :math:`w_i = \frac{\omega_i}{W_k \text{R}^2 + 2\sigma_\text{R}^2}`
 
-      where Ris the *robust* parameter and $\sigma_\text{R}$ is the
-      *noise*\ parameter.
+      where Ris the *robust* parameter and σR\ :math:`\sigma_\text{R}`
+      is the *noise*\ parameter.
 
       This choice brings up the sub-parameters:
 
@@ -347,7 +348,7 @@ Description
       The *weighting='radial'*\ mode is a seldom-used option that
       increases the weight by the radius in the uv-plane, i.e.:
 
-      $w_i = \\omega_i \\times \\sqrt{u_i^2 + v_i^2}$
+      wi=ωi×√u2i+v2i\ :math:`w_i = \omega_i \times \sqrt{u_i^2 + v_i^2}`
 
       Technically, this would be called an inverse uv-taper, since it
       depends on uv-coordinates and not on the data per-se. Its effect
@@ -585,7 +586,7 @@ Description
       spectral index map is also computed as the ratio of the first two
       terms, following this convention:
 
-      $I(\nu) = I(ref_\nu) \\times  (\nu/\nu_0)^\alpha$
+      I(ν)=I(refν)×(ν/ν0)α\ :math:`I(\nu) = I(ref_\nu) \times  (\nu/\nu_0)^\alpha`
 
       .. container:: info-box
 
@@ -603,7 +604,7 @@ Description
       error. For more details about this algorithm, please refer to the
       paper titled "A multi-scale multi-frequency deconvolution
       algorithm for synthesis imaging in radio interferometry"
-      `[1] <#cit>`__ .
+      `[1] <#cit1>`__ .
 
       .. container:: info-box
 
@@ -982,7 +983,8 @@ Description
       images represent taylor-coefficients of the sky spectrum (images
       with file-name extensions of tt0,tt1,etc). A spectral index map is
       also computed as the ratio of the first two terms (following the
-      convention of $I(nu) = I(ref_nu) x (nu/nu_0)^\alpha$).
+      convention of
+      I(nu)=I(refnu)x(nu/nu0)α\ :math:`I(nu) = I(ref_nu) x (nu/nu_0)^\alpha`).
       Additionally, a spectral-index error image is made by treating
       taylor-coefficient residuals as errors, and propagating them
       through the division used to compute spectral-index. It is meant
@@ -1277,7 +1279,7 @@ Description
          :name: gridmodewidefield-expandable-parameters
 
           Apply corrections for non-coplanar effects during imaging
-      using the W-Projection algorithm `[2] <#cit>`__ or faceting or a
+      using the W-Projection algorithm `[2] <#cit2>`__ or faceting or a
       combination of the two.
 
       .. rubric::     *wprojplanes*
@@ -1302,7 +1304,7 @@ Description
 
           Corrects for the (E)VLA time-varying PB effects including
       polarization squint using the A-Projection algorithm
-      `[3] <#cit>`__. This can optinally include w-projection also.
+      `[3] <#cit3>`__. This can optinally include w-projection also.
 
       .. rubric::     *wprojplanes*
          :name: wprojplanes-1
@@ -1707,6 +1709,29 @@ Description
       |                 | (`A&A <http://www.aanda.org/artic                 |
       |                 | les/aa/full/2008/31/aa9284-07/aa9284-07.html>`__) |
       +-----------------+---------------------------------------------------+
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Rau and Cornwell, AA, Volume 532, 2011
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2011A%26A...532A..71R>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2. Cornwell et al. IEEE JSTSP, 2008
+         (`\ `IEEE <http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4703511>`__\ :sup:`)`\ `↩ <#ref-cit2>`__
+
+      .. container::
+
+         :sup:`3. Bhatnagar et al., AandA, 487, 419, 2008
+         (`\ `A&A <http://www.aanda.org/articles/aa/full/2008/31/aa9284-07/aa9284-07.html>`__\ :sup:`)`\ `↩ <#ref-cit3>`__
 
 .. container:: section
    :name: viewlet-below-content-body

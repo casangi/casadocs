@@ -165,8 +165,8 @@ Flux Calibrator Models
       The models are second order polynomials in log(ν), valid between
       408 MHz and 15 GHz.
 
-      Reference: Baars et al. (1977) `[1] <#cit>`__ with a commentary by
-      Kellermann, K. I. (1999) `[2] <#cit>`__
+      Reference: Baars et al. (1977) `[1] <#cit1>`__ with a commentary
+      by Kellermann, K. I. (1999) `[2] <#cit2>`__
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 1                                                 |
@@ -190,7 +190,7 @@ Flux Calibrator Models
          :class: subsubsection
 
       This standard also includes 1934-638 from Reynolds (7/94) and
-      3C138 from Baars et al. (1977) `[1] <#cit>`__ .
+      3C138 from Baars et al. (1977) `[1] <#cit1>`__ .
 
       Details can be found at
       http://www.vla.nrao.edu/astro/calib/manual/baars.html\ .
@@ -216,7 +216,7 @@ Flux Calibrator Models
 
       A preliminary version of Perley-Butler 2013. This version also has
       coefficients for sources that showed some degree of variability
-      (see Perley & Butler (2013) `[3] <#cit>`__) but they are treated
+      (see Perley & Butler (2013) `[3] <#cit3>`__) but they are treated
       as the steady sources (i.e. no time dependent models are used).
 
       +-----------------+---------------------------------------------------+
@@ -234,7 +234,7 @@ Flux Calibrator Models
       Flux scale for the constant flux sources 3C123, 3C196, 3C286, and
       3C295 as well as variable sources (3C48, 3C138, and 3C147). The
       models for the variable sources are time-dependent.
-      Reference: Perley & Butler (2013)  `[3] <#cit>`__ .
+      Reference: Perley & Butler (2013)  `[3] <#cit3>`__ .
 
       .. rubric:: Scaife-Heald 2012
          :name: scaife-heald-2012
@@ -242,7 +242,7 @@ Flux Calibrator Models
       Low frequency, 30-300MHz, calibrators 3C48, 3C147, 3C196, 3C286,
       3C295, and 3C380.
 
-      Reference: Scaife & Heald (2012)  `[4] <#cit>`__
+      Reference: Scaife & Heald (2012)  `[4] <#cit4>`__
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 4                                                 |
@@ -259,7 +259,7 @@ Flux Calibrator Models
       Low frequency (<11GHz) polynomial from Reynolds and updated high
       frequecy polynomial from Stevens.
 
-      Reference: Partridge et al. (2016)  `[5] <#cit>`__
+      Reference: Partridge et al. (2016)  `[5] <#cit5>`__
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 5                                                 |
@@ -312,7 +312,7 @@ Flux Calibrator Models
 
       \* The corrected frequency range for 3C380 is noted here based on 
       B. J.  Butler 2018, private comunication (CAS-9538)
-      Reference: Perley & Butler (2017)  `[7] <#cit>`__
+      Reference: Perley & Butler (2017)  `[7] <#cit7%20>`__
 
        
 
@@ -362,7 +362,7 @@ Flux Calibrator Models
       The model spans the frequencies from ~300MHz to 1THz. No
       atmospheric lines such as CO,H\ :sub:`2`\ O\ :sub:`,` HDO, and etc
       are included. Modeled based on Clancy et al. (2012)
-       `[6] <#cit>`__.
+       `[6] <#cit6>`__.
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 6                                                 |
@@ -376,7 +376,7 @@ Flux Calibrator Models
          :name: mars
 
       Full implementation of the model of Rudy et al. (1987)
-      `[7] <#cit>`__, tabulated as a function of time and frequency
+      `[7] <#cit7>`__, tabulated as a function of time and frequency
       (30-1000GHz). No atmospheric lines are included.
 
       +-----------------+---------------------------------------------------+
@@ -441,7 +441,7 @@ Flux Calibrator Models
       N2-­CH4 Collision-­Induced Absorption (CIA), and lines from minor
       species CO, :sup:`13`\ CO, C\ :sup:`18`\ O, HCN, H\ :sup:`13`\ CN
       and HC\ :sup:`15`\ N. See, e.g., Gurwell & Muhleman (2000)
-      `[8] <#cit>`__; Gurwell (2004) `[9] <#cit>`__.
+      `[8] <#cit8>`__; Gurwell (2004) `[9] <#cit9>`__.
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 8                                                 |
@@ -482,12 +482,12 @@ Flux Calibrator Models
       .. rubric:: Ceres
          :name: ceres
 
-      Model with a constant $T_b$ = 185K over frequencies (Moullet et
-      al. 2010 `[10] <#cit>`__, Muller & Lagerros 2002 `[11] <#cit>`__,
-      Redman et al. 1998 `[12] <#cit>`__, Altenhoff et al. 1996
-      `[13] <#cit>`__) if time of the observations took place
-      ($t_{obs}$) is before 2015.01.01, 0:00 UT, TPM if $t_{obs}$ $\ge$
-      2015.01.01, 0:00 UT.
+      Model with a constant :math:`T_b` = 185K over frequencies (Moullet
+      et al. 2010 `[10] <#cit10>`__, Muller & Lagerros 2002
+      `[11] <#cit11>`__, Redman et al. 1998 `[12] <#cit12>`__, Altenhoff
+      et al. 1996 `[13] <#cit13>`__) if time of the observations took
+      place (:math:`t_{obs}`) is before 2015.01.01, 0:00 UT, TPM if
+      :math:`t_{obs}` :math:`\ge` 2015.01.01, 0:00 UT.
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 10                                                |
@@ -525,10 +525,10 @@ Flux Calibrator Models
       .. rubric:: Pallas
          :name: pallas
 
-      Model with a constant $T_b$ = 189K (Chamberlain et al. 2009
-      `[14] <#cit>`__, Altenhoff et al. 1994 `[15] <#cit>`__) for
-      $t_{obs}$ $\lt$ 2015.01.01, 0:00 UT, and TPM for $t_{obs}$ $\ge$
-      2015.01.01, 0:00 UT
+      Model with a constant :math:`T_b` = 189K (Chamberlain et al. 2009
+      `[14] <#cit14>`__, Altenhoff et al. 1994 `[15] <#cit15>`__) for
+      :math:`t_{obs}` :math:`\lt` 2015.01.01, 0:00 UT, and TPM for
+      :math:`t_{obs}` :math:`\ge` 2015.01.01, 0:00 UT
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 14                                                |
@@ -549,11 +549,12 @@ Flux Calibrator Models
       .. rubric:: Vesta
          :name: vesta
 
-      Model with a constant $T_b$ = 155K (Leyrat et al. 2012
-      `[16] <#cit>`__, Chamberlain et al. 2009 `[14] <#cit>`__, Redman
-      et al. 1998 `[12] <#cit>`__, Altenhoff et al. 1994
-      `[15] <#cit>`__) for $t_{obs}$ $\lt$ 2015.01.01, 0:00 UT, and TPM
-      for $t_{obs}$ $\ge$ 2015.01.01, 0:00 UT
+      Model with a constant :math:`T_b` = 155K (Leyrat et al. 2012
+      `[16] <#cit16>`__, Chamberlain et al. 2009 `[14] <#cit14>`__,
+      Redman et al. 1998 `[12] <#cit12>`__, Altenhoff et al. 1994
+      `[15] <#cit15>`__) for :math:`t_{obs}` :math:`\lt` 2015.01.01,
+      0:00 UT, and TPM for :math:`t_{obs}` :math:`\ge` 2015.01.01, 0:00
+      UT
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 16                                                |
@@ -566,10 +567,103 @@ Flux Calibrator Models
       .. rubric:: Juno
          :name: juno
 
-      Model with a constant $T_b$ = 153K (Chamberlain et al. 2009
+      Model with a constant :math:`T_b` = 153K (Chamberlain et al. 2009
       `[14] <#cit>`__, Altenhoff et al. 1994 `[15] <#cit>`__)
 
        
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Baars, J. W. M. et al. 1977, A&A, 61, 99
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1977A%26A....61...99B>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2. Kellermann, K. I. 2009\ , A&A 500, 143
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2009A%26A...500..143K>`__\ :sup:`) `\ `↩ <#ref-cit2>`__
+
+      .. container::
+
+         :sup:`3. Perley, R. A., & Butler, B. J. 2013, ApJS, 204, 19
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2013ApJS..204...19P>`__\ :sup:`)`\ `↩ <#ref-cit3>`__
+
+      .. container::
+
+         :sup:`4. Scaife, A. M., & Heald, G. H. 2012, MNRAS, 423, 30
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2012MNRAS.423L..30S>`__\ :sup:`)`\ `↩ <#ref-cit4>`__
+
+      .. container::
+
+         :sup:`5. Partridge et al. 2016, ApJ 821,1
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2016ApJ...821...61P>`__\ :sup:`)`\ `↩ <#ref-cit5>`__
+
+      .. container::
+
+         :sup:`6. Clancy, R.T. et al. 2012, Icarus, 217, 779
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2012Icar..217..779C>`__\ :sup:`)`\ `↩ <#ref-cit6>`__
+
+      .. container::
+
+         :sup:`7. Perley, R. A. & Butler, B. J. 2017, ApJS,
+         230,7(`\ `ADS <http://adsabs.harvard.edu/abs/2017ApJS..230....7P>`__\ :sup:`)`\ `↩ <#ref-cit7>`__
+
+      .. container::
+
+         :sup:`7. Rudy, D.J. et al. 1987, Icarus, 71, 159
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1987Icar...71..159R>`__\ :sup:`)`\ `↩ <#ref-cit7>`__
+
+      .. container::
+
+         :sup:`8. Gurwell, M.A. & D.O. Muhleman 2000, Icarus, 145, 65w
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2000Icar..145..653G>`__\ :sup:`)`\ `↩ <#ref-cit8>`__
+
+      .. container::
+
+         :sup:`9. Gurwell, M.A. 2004, ApJ, 616, L7
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2004ApJ...616L...7G>`__\ :sup:`)`\ `↩ <#ref-cit9>`__
+
+      .. container::
+
+         :sup:`10. Moullet, A. et al. 2010, A&A, 516, L10
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2010A%26A...516L..10M>`__\ :sup:`)`\ `↩ <#ref-cit10>`__
+
+      .. container::
+
+         :sup:`11. Muller, T.G. & J.S.V. Lagerros 2002, A&A, 381, 324
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2002A%26A...381..324M>`__\ :sup:`)`\ `↩ <#ref-cit11>`__
+
+      .. container::
+
+         :sup:`12. Redman, R.O. et al. 1998, AJ, 116, 1478
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1998AJ....116.1478R>`__\ :sup:`)`\ `↩ <#ref-cit12>`__
+
+      .. container::
+
+         :sup:`13. Altenhoff, W.J. et al. 1996, A&A, 309, 953
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1996A%26A...309..953A>`__\ :sup:`)`\ `↩ <#ref-cit13>`__
+
+      .. container::
+
+         :sup:`14. Chamberlain, M.A. et al. 2009, Icarus, 202, 487
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2009Icar..202..487C>`__\ :sup:`)`\ `↩ <#ref-cit14>`__
+
+      .. container::
+
+         :sup:`15. Altenhoff, W.J. et al. 1994, A&A, 287, 641
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1994A%26A...287..641A>`__\ :sup:`)`\ `↩ <#ref-cit15>`__
+
+      .. container::
+
+         :sup:`16. Leyrat, C. et al. 2012, A&A, 539, A154
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2012A%26A...539A.154L>`__\ :sup:`)`\ `↩ <#ref-cit16>`__
 
 .. container:: section
    :name: viewlet-below-content-body

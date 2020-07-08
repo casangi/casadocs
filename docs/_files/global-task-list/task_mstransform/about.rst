@@ -63,8 +63,9 @@ Description
       available, it will use the values from the *WEIGHT* column. Each
       output channel is calculated using the following equation:
 
-      $$outputChannel_{j} = \\frac{\sum
-      (inputChannel_{i}*contributionFraction_{i}*inputWeightSpectrum_{i})}{\sum(contributionFraction_{i}*inputWeightSpectrum_{i})}$$
+      outputChannelj=∑(inputChanneli∗contributionFractioni∗inputWeightSpectrumi)∑(contributionFractioni∗inputWeightSpectrumi)\ 
+
+      .. math:: outputChannel_{j} = \frac{\sum (inputChannel_{i}*contributionFraction_{i}*inputWeightSpectrum_{i})}{\sum(contributionFraction_{i}*inputWeightSpectrum_{i})}
 
       .. container:: alert-box
 
@@ -98,12 +99,16 @@ Description
 
       #. When WEIGHT_SPECTRUM/SIGMA_SPECTRUM are not present:
 
-      $$Average = \\frac{\sum(Chan_{i}*Flag_{i})}{\sum(Flag_{i})}$$
+      Average=∑(Chani∗Flagi)∑(Flagi)\ 
+
+      .. math:: Average = \frac{\sum(Chan_{i}*Flag_{i})}{\sum(Flag_{i})}
 
       #. When WEIGHT_SPECTRUM/SIGMA_SPECTRUM are present:
 
-               $$Average = \\sum(Chan_i*Flag_i*WeightSpectrum_i)
-      \\sum(Flag_i*WeightSpectrum_i)$$
+              
+      Average=∑(Chani∗Flagi∗WeightSpectrumi)∑(Flagi∗WeightSpectrumi)\ 
+
+      .. math:: Average = \sum(Chan_i*Flag_i*WeightSpectrum_i) \sum(Flag_i*WeightSpectrum_i)
 
        
 

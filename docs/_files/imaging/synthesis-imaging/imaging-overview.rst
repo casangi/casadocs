@@ -10,8 +10,8 @@ Introduction
 .. container:: documentDescription description
 
    Introduction to Synthesis Imaging: Measurement Equation, Iterative
-   $\chi^2$ minimization, Major and Minor cycles, Algorithm Options,
-   etc.
+   χ2\ :math:`\chi^2` minimization, Major and Minor cycles, Algorithm
+   Options, etc.
 
 .. container:: section
    :name: viewlet-above-content-body
@@ -29,21 +29,24 @@ Introduction
          :name: concept
 
       Image reconstruction in radio interferometry is the process of
-      solving the linear system of equations $\vec{V} = [A] \\vec{I}$,
-      where $\vec{V}$ represents visibilities calibrated for direction
-      independent effects, $\vec{I}$ is a list of parameters that model
+      solving the linear system of equations
+      →V=[A]→I\ :math:`\vec{V} = [A] \vec{I}`, where →V\ :math:`\vec{V}`
+      represents visibilities calibrated for direction independent
+      effects, →I\ :math:`\vec{I}` is a list of parameters that model
       the sky brightness distribution (for example, a image of pixels)
-      and $[A]$ is the measurement operator that encodes the process of
-      how visibilities are generated when a telescope observes a sky
-      brightness $\vec{I}$.  $[A]$ is generally given by $[S_{dd}][F]$
-      where $[F]$ represents a 2D Fourier transform, and $[S_{dd}]$
-      represents a 2D spatial frequency sampling function that can
-      include direction-dependent instrumental effects. For a practical
-      interferometer with a finite number of array elements, $[A]$ is
-      non-invertible because of unsampled regions of the $uv$ plane.
-      Therefore, this system of equations must be solved iteratively,
-      applying constraints via various choices of image
-      parameterizations and instrumental models.
+      and [A]\ :math:`[A]` is the measurement operator that encodes the
+      process of how visibilities are generated when a telescope
+      observes a sky brightness →I\ :math:`\vec{I}`.  [A]\ :math:`[A]`
+      is generally given by [Sdd][F]\ :math:`[S_{dd}][F]` where
+      [F]\ :math:`[F]` represents a 2D Fourier transform, and
+      [Sdd]\ :math:`[S_{dd}]` represents a 2D spatial frequency sampling
+      function that can include direction-dependent instrumental
+      effects. For a practical interferometer with a finite number of
+      array elements, [A]\ :math:`[A]` is non-invertible because of
+      unsampled regions of the uv\ :math:`uv` plane. Therefore, this
+      system of equations must be solved iteratively, applying
+      constraints via various choices of image parameterizations and
+      instrumental models.
 
        
 
@@ -54,8 +57,8 @@ Introduction
       cycles* and an inner loop of *minor cycles*. The major cycle
       implements transforms between the data and image spaces and the
       minor cycle operates purely in the image domain. Together, they
-      implement an iterative weighted $\chi^2$ minimization process that
-      solves the measurement equation.
+      implement an iterative weighted χ2\ :math:`\chi^2` minimization
+      process that solves the measurement equation.
 
        
 
@@ -70,10 +73,10 @@ Introduction
        
 
       The data to image transform is called the *imaging* step in which
-      a pseudo inverse of $[S_{dd}][F]$ is computed and applied to the
-      visibilities. Operationally, weighted visibilities are
-      convolutionally resampled onto a grid of spatial-frequency cells,
-      inverse Fourier transformed, and normalized. This step is
+      a pseudo inverse of [Sdd][F]\ :math:`[S_{dd}][F]` is computed and
+      applied to the visibilities. Operationally, weighted visibilities
+      are convolutionally resampled onto a grid of spatial-frequency
+      cells, inverse Fourier transformed, and normalized. This step is
       equivalent to calculating the normal equations as part of a least
       squares solution. The image to data transform is called the
       *prediction* step and it evaluates the measurement equation to
@@ -147,25 +150,25 @@ Introduction
       images. One or more sub images may be defined to cover a wide
       field of view without incurring the computational expense of very
       large images. The iterative framework described above is based on
-      the Cotton-Schwab Clean algorithm `[3] <#cit>`__, but variants
-      like Hogbom Clean `[1] <#cit>`__ and Clark Clean `[2] <#cit>`__
+      the Cotton-Schwab Clean algorithm `[3] <#cit3>`__, but variants
+      like Hogbom Clean `[1] <#cit1>`__ and Clark Clean `[2] <#cit2>`__
       are available as subsets of this framework. The major cycle allows
-      controls over different data weighting schemes `[10] <#cit>`__ and
-      convolution functions that account for wide-field
+      controls over different data weighting schemes `[10] <#cit10>`__
+      and convolution functions that account for wide-field
       direction-dependent effects during imaging and prediction
-      [`[6] <#cit>`__, `[7] <#cit>`__ , `[8] <#cit>`__]. Deconvolution
-      options include the use of point source vs multi-scale image
-      models `[4] <#cit>`__ , narrow-band or wide-band models
-      `[5] <#cit>`__, controls on iteration step size and stopping
-      criteria, and external constraints such as interactive and
-      non-interactive image masks. Mosaics may be made with data from
-      multiple pointings, either with each pointing imaged and
-      deconvolved separately before being combined in a final step, or
-      via a joint imaging and deconvolution `[9] <#cit>`__. Options to
-      combine single dish and interferometer data during imaging also
-      exist. More details about these algorithms can be obtained from
-      [`[10] <#cit>`__, `[11] <#cit>`__, `[12] <#cit>`__,
-      `[13] <#cit>`__] 
+      [`[6] <#cit6>`__, `[7] <#cit7>`__ , `[8] <#cit8>`__].
+      Deconvolution options include the use of point source vs
+      multi-scale image models `[4] <#cit4>`__ , narrow-band or
+      wide-band models `[5] <#cit5>`__, controls on iteration step size
+      and stopping criteria, and external constraints such as
+      interactive and non-interactive image masks. Mosaics may be made
+      with data from multiple pointings, either with each pointing
+      imaged and deconvolved separately before being combined in a final
+      step, or via a joint imaging and deconvolution `[9] <#cit9>`__.
+      Options to combine single dish and interferometer data during
+      imaging also exist. More details about these algorithms can be
+      obtained from [`[10] <#cit10>`__, `[11] <#cit11>`__,
+      `[12] <#cit12>`__, `[13] <#cit13>`__] 
 
        
 
@@ -278,6 +281,79 @@ Introduction
       +-----------------+---------------------------------------------------+
 
        
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. J. A. Hogbom 1974
+         (`\ `ADS <http://adsabs.harvard.edu/full/1974A%26AS...15..417H>`__\ :sup:`)`\ `↩ <#ref-cit1>`__
+
+      .. container::
+
+         :sup:`2. B. G. Clark 1980
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1980A%26A....89..377C>`__\ :sup:`)`\ `↩ <#ref-cit2>`__
+
+      .. container::
+
+         :sup:`3. F. R. Schwab, 1984
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1984AJ.....89.1076S>`__\ :sup:`)`\ `↩ <#ref-cit3>`__
+
+      .. container::
+
+         :sup:`4. T. J. Cornwell, 2008
+         (`\ `IEEE <http://ieeexplore.ieee.org/document/4703304/>`__\ :sup:`)`\ `↩ <#ref-cit4>`__
+
+      .. container::
+
+         :sup:`5. U.Rau, 2011 (`\ `Astronomy and
+         Astrophysics) <https://www.aanda.org/articles/aa/abs/2011/08/aa17104-11/aa17104-11.html>`__\ `↩ <#ref-cit5>`__
+
+      .. container::
+
+         :sup:`6. T. J. Cornwell, 2008
+         (`\ `IEEE <http://ieeexplore.ieee.org/document/4703511/>`__\ :sup:`)`\ `↩ <#ref-cit6>`__
+
+      .. container::
+
+         :sup:`7. S. Bhatnagar, 2008
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2008A&A...487..419B>`__\ :sup:`)`\ `↩ <#ref-cit7>`__
+
+      .. container::
+
+         :sup:`8. S.Bhatnagar, 2013
+         (`\ `ADS <http://adsabs.harvard.edu/abs/2013ApJ...770...91B>`__\ :sup:`)`\ `↩ <#ref-cit8>`__
+
+      .. container::
+
+         :sup:`9. T. J. Cornwell, 1988
+         (`\ `ADS <http://adsabs.harvard.edu/abs/1988A%26A...202..316C>`__\ :sup:`)`\ `↩ <#ref-cit9>`__
+
+      .. container::
+
+         :sup:`10. Briggs D.S. 1999 (`\ `Astron. Soc. Pac. Conf.
+         Ser. <http://www.aspbooks.org/publications/180/127.pdf>`__\ :sup:`)`\ `↩ <#ref-cit10>`__
+
+      .. container::
+
+         :sup:`11. Cornwell, T.J 1999 (`\ `Astron. Soc. Pac. Conf.
+         Ser. <http://www.aspbooks.org/publications/180/151.pdf>`__\ :sup:`)`\ `↩ <#ref-cit11>`__
+
+      .. container::
+
+         :sup:`12. Cornwell, T.J., "The Generic Interferometer: II Image
+         Solvers'', Aips++ note 184. Aug 1995`\ `↩ <#ref-cit12>`__
+
+      .. container::
+
+         :sup:`13. U.Rau, 2009
+         (`\ `IEEE <http://ieeexplore.ieee.org/document/5109712/>`__\ :sup:`)`\ `↩ <#ref-cit13>`__
 
 .. container:: section
    :name: viewlet-below-content-body

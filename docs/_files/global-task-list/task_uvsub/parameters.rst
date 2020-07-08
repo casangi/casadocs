@@ -22,7 +22,27 @@ Parameters
 
       .. container:: parsed-parameters
 
-          
+         .. container:: param
+
+            .. container:: parameters2
+
+               vis : string
+
+            Name of input visibility file (MS)
+
+Example
+
+vis='ngc5921.ms'
+
+.. container:: param
+
+   .. container:: parameters2
+
+      reverse : bool = False
+
+   reverse the operation (add rather than subtract)
+
+Example
 
 .. container:: section
    :name: viewlet-below-content-body

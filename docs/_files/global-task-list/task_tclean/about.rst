@@ -48,8 +48,8 @@ Description
       *major cycles* and an inner loop of *minor cycles*. The major
       cycle implements transforms between the data and image domains and
       the minor cycle operates purely in the image domain. Together,
-      they implement an iterative weighted $\chi^2$ minimization that
-      `solves the measurement
+      they implement an iterative weighted χ2\ :math:`\chi^2`
+      minimization that `solves the measurement
       equation <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/imaging-overview>`__.
       Minor cycle algorithms can have their own (different) optimization
       schemes and the imaging framework and task interface allow for

@@ -181,14 +181,16 @@ Description
       To convert to units of K*beam, determine the area of the
       appropriate beam, which is given by
 
-      \\begin{equation} \\frac{\pi}{4 \\rm{ln} 2} \\, b_{\rm maj}
-      \\,b_{\rm min} \\end{equation}
+      π4ln2bmajbmin\ 
 
-      where$ b_{\rm maj}$ and $b_{\rm min}$ are the major and minor axes
-      of the beam, and convert to steradians (=rad*rad). This value is
-      included in the beam portion of the component subdictionary (key
-      '*beamster*'). Then divide the numerical value of the logged flux
-      density by the beam area in steradians. So, for example
+      .. math:: \begin{equation} \frac{\pi}{4 \rm{ln} 2} \, b_{\rm maj} \,b_{\rm min} \end{equation}
+
+      wherebmaj\ :math:` b_{\rm maj}` and bmin\ :math:`b_{\rm min}` are
+      the major and minor axes of the beam, and convert to steradians
+      (=rad*rad). This value is included in the beam portion of the
+      component subdictionary (key '*beamster*'). Then divide the
+      numerical value of the logged flux density by the beam area in
+      steradians. So, for example
 
       .. container:: casa-input-box
 
@@ -282,7 +284,7 @@ Description
        
 
       Error estimates are based on the work of  Condon (1997)  `[1]
-      . <#cit>`__
+      . <#cit1%20.>`__
 
       +-----------------+---------------------------------------------------+
       | Citation Number | 1                                                 |
@@ -324,59 +326,57 @@ Description
 
       In the case of uncorrelated noise, the equations used are
 
-      \\begin{equation} \\frac{\sigma(A)}{A} = \\frac{\sigma(I)}{I} =
-      \\frac{\sigma(\theta_M)}{\theta_M} =
-      \\frac{\sigma(\theta_m)}{\theta_m} = \\sqrt{8ln2}
-      \\frac{\sigma(x_0)}{\theta_M} =
-      \\sqrt{8ln2}\frac{\sigma(y_0)}{\theta_m} =
-      \\frac{\sigma(\phi)}{\sqrt{2}}(\frac{\theta_M^2-\theta_m^2}{\theta_M\theta_m})
-      = \\frac{\sqrt{2}}{\rho}\end{equation}
+      σ(A)A=σ(I)I=σ(θM)θM=σ(θm)θm=√8ln2σ(x0)θM=√8ln2σ(y0)θm=σ(ϕ)√2(θ2M−θ2mθMθm)=√2ρ\ 
 
-      where $\sigma(z)$ is the uncertainty associated with parameter
-      $z$, $A$ is the peak intensity, $I$ is the flux density,
-      $\theta_M$ and $\theta_m$ are the FWHM major and minor axes,
-      $\phi$ is the position angle of the component, $x_0$ and $y_0$ are
-      the direction uncertainties of the component measured along the
-      major and minor axes; the resulting uncertainties measured along
-      the principle axes of the image direction coordinate are
-      calculated by propagation of errors using the 2D rotation matrix
-      which enacts the rotation through the position angle plus 90
-      degrees. $\rho$ is the overall signal to noise ratio of the
+      .. math:: \begin{equation} \frac{\sigma(A)}{A} = \frac{\sigma(I)}{I} = \frac{\sigma(\theta_M)}{\theta_M} = \frac{\sigma(\theta_m)}{\theta_m} = \sqrt{8ln2} \frac{\sigma(x_0)}{\theta_M} = \sqrt{8ln2}\frac{\sigma(y_0)}{\theta_m} = \frac{\sigma(\phi)}{\sqrt{2}}(\frac{\theta_M^2-\theta_m^2}{\theta_M\theta_m}) = \frac{\sqrt{2}}{\rho}\end{equation}
+
+      where σ(z)\ :math:`\sigma(z)` is the uncertainty associated with
+      parameter z\ :math:`z`, A\ :math:`A` is the peak intensity,
+      I\ :math:`I` is the flux density, θM\ :math:`\theta_M` and
+      θm\ :math:`\theta_m` are the FWHM major and minor axes,
+      ϕ\ :math:`\phi` is the position angle of the component,
+      x0\ :math:`x_0` and y0\ :math:`y_0` are the direction
+      uncertainties of the component measured along the major and minor
+      axes; the resulting uncertainties measured along the principle
+      axes of the image direction coordinate are calculated by
+      propagation of errors using the 2D rotation matrix which enacts
+      the rotation through the position angle plus 90 degrees.
+      ρ\ :math:`\rho` is the overall signal to noise ratio of the
       component, which, for the uncorrelated noise case, is given by
 
-      \\begin{equation} \\rho =
-      \\frac{A}{h\mu}\sqrt{\frac{\pi\theta_M\theta_m}{8ln2}}
-      \\end{equation}
+      ρ=Ahμ√πθMθm8ln2\ 
 
-      where $h$ is the pixel width of the direction coordinate and $\mu$
-      is the rms noise (see the discussion above for the rules governing
-      how the value of $\mu$ is determined).
+      .. math:: \begin{equation} \rho = \frac{A}{h\mu}\sqrt{\frac{\pi\theta_M\theta_m}{8ln2}} \end{equation}
+
+      where h\ :math:`h` is the pixel width of the direction coordinate
+      and μ\ :math:`\mu` is the rms noise (see the discussion above for
+      the rules governing how the value of μ\ :math:`\mu` is
+      determined).
 
       For the correlated noise case, the same equations are used to
       determine the uncertainties as in the uncorrelated noise case,
-      except for the uncertainty in $I$ (see below). However, $\rho$ is
-      given by
+      except for the uncertainty in I\ :math:`I` (see below). However,
+      ρ\ :math:`\rho` is given by
 
-      \\begin{equation} \\rho =
-      \\frac{A}{\mu}\frac{\sqrt{\theta_M\theta_m}}{2\theta_N}\left(1 +
-      \\left(\frac{\theta_N}{\theta_M}\right)^2\right)^{\alpha_M/2}\left(1
-      + \\left(\frac{\theta_N}{\theta_m}\right)^2\right)^{\alpha_m/2}
-      \\end{equation}
+      ρ=Aμ√θMθm2θN(1+(θNθM)2)αM/2(1+(θNθm)2)αm/2\ 
 
-      where $\theta_N$ is the noise-correlation beam FWHM (see
+      .. math:: \begin{equation} \rho = \frac{A}{\mu}\frac{\sqrt{\theta_M\theta_m}}{2\theta_N}\left(1 + \left(\frac{\theta_N}{\theta_M}\right)^2\right)^{\alpha_M/2}\left(1 + \left(\frac{\theta_N}{\theta_m}\right)^2\right)^{\alpha_m/2} \end{equation}
+
+      where θN\ :math:`\theta_N` is the noise-correlation beam FWHM (see
       discussion of the *noisefwhm* parameter for rules governing how
-      this value is determined). Variables $\alpha_M$ and $\alpha_m$
-      depend on which uncertainty is being calculated. For $\sigma(A)$,
-      $\alpha_M$ = $\alpha_m$ = 3/2. For $\sigma_M$ and $x_0$,
-      $\alpha_M$ = 5/2 and $\alpha_m$ = 1/2. For $\theta_m$, $y_0$, and
-      $\phi$, $\alpha_M$ = 1/2 and $\alpha_m$ = 5/2. $\sigma(I)$ is
+      this value is determined). Variables αM\ :math:`\alpha_M` and
+      αm\ :math:`\alpha_m` depend on which uncertainty is being
+      calculated. For σ(A)\ :math:`\sigma(A)`, αM\ :math:`\alpha_M` =
+      αm\ :math:`\alpha_m` = 3/2. For σM\ :math:`\sigma_M` and
+      x0\ :math:`x_0`, αM\ :math:`\alpha_M` = 5/2 and
+      αm\ :math:`\alpha_m` = 1/2. For θm\ :math:`\theta_m`,
+      y0\ :math:`y_0`, and ϕ\ :math:`\phi`, αM\ :math:`\alpha_M` = 1/2
+      and αm\ :math:`\alpha_m` = 5/2. σ(I)\ :math:`\sigma(I)` is
       calculated in the correlated noise case according to
 
-      \\begin{equation} \\frac{\sigma(I)}{I} = \\sqrt{
-      \\left(\frac{\sigma(A)}{A}\right)^2 +
-      \\left(\frac{\theta_N^2}{\theta_M\theta_m}\right)\left[\left(\frac{\sigma(\theta_M)}{\theta_M}\right)^2
-      + \left(\frac{\sigma(\theta_m)}{\theta_m}\right)^2 \\right] }
-      \\end{equation}
+      σ(I)I=√(σ(A)A)2+(θ2NθMθm)[(σ(θM)θM)2+(σ(θm)θm)2]\ 
+
+      .. math:: \begin{equation} \frac{\sigma(I)}{I} = \sqrt{ \left(\frac{\sigma(A)}{A}\right)^2 + \left(\frac{\theta_N^2}{\theta_M\theta_m}\right)\left[\left(\frac{\sigma(\theta_M)}{\theta_M}\right)^2 + \left(\frac{\sigma(\theta_m)}{\theta_m}\right)^2 \right] } \end{equation}
 
       Note well the following caveats:
 
@@ -391,20 +391,20 @@ Description
       -  If the fitted region is not considerably larger than the
          largest component that is fit, parameter uncertainties may be
          mis-estimated.
-      -  An accurate rms noise measurement, $\mu$, for the region in
-         question must be supplied. Alternatively, a sufficiently large
-         signal-free region must be present in the selected region (at
-         least about 25 noise beams in area) to auto-derive such an
-         estimate.
+      -  An accurate rms noise measurement, μ\ :math:`\mu`, for the
+         region in question must be supplied. Alternatively, a
+         sufficiently large signal-free region must be present in the
+         selected region (at least about 25 noise beams in area) to
+         auto-derive such an estimate.
       -  If the image noise is not statistically independent from pixel
          to pixel, a reasonably accurate noise correlation scale,
-         $\theta$$_N$, must be provided. If the noise correlation
-         function is not approximately Gaussian, the correlation length
-         can be estimated using
+         θ\ :math:`\theta`\ N\ :math:`_N`, must be provided. If the
+         noise correlation function is not approximately Gaussian, the
+         correlation length can be estimated using
 
-      \\begin{equation} \\theta_N = \\sqrt{ \\frac{2 \\ln (2)}{\pi} }
-      \\, \\frac{  \\iint C(x,y) \\mathrm{d}x \\mathrm{d}y} { \\sqrt{
-      \\iint C(x,y)^2 \\mathrm{d}x \\mathrm{d}y}   } \\end{equation}
+      θN=√2ln(2)π∬C(x,y)dxdy√∬C(x,y)2dxdy\ 
+
+      .. math:: \begin{equation} \theta_N = \sqrt{ \frac{2 \ln (2)}{\pi} } \, \frac{  \iint C(x,y) \mathrm{d}x \mathrm{d}y} { \sqrt{ \iint C(x,y)^2 \mathrm{d}x \mathrm{d}y}   } \end{equation}
 
       where C(x,y) is the associated noise-smoothing function.
 
@@ -555,6 +555,19 @@ Description
        
 
        
+
+   .. container::
+      :name: citation-container
+
+      .. container::
+         :name: citation-title
+
+         Bibliography
+
+      .. container::
+
+         :sup:`1. Condon
+         (1997) `\ http://adsabs.harvard.edu/abs/1997PASP..109..166C\ `↩ <#ref-cit1>`__
 
 .. container:: section
    :name: viewlet-below-content-body
