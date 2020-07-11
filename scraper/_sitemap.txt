@@ -764,8 +764,6 @@ https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_wvrgcal/change
 https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_wvrgcal/examples
 https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_wvrgcal/developer
 https://casa.nrao.edu/casadocs-devel/stable/global-tool-list
-https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_atmosphere
-https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_atmosphere/about
 https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_ms
 https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_ms/about
 https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_ms/methods
