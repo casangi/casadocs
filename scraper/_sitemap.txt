@@ -837,7 +837,6 @@ https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data
 https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/advanced-information-on-flagdata
 https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/flagging-based-on-a-list-of-commands-flagcmd
 https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/managing-flag-versions-flagmanager
-https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/2-d-visualization-of-visibility-data-msview
 https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/uv-manipulation
 https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/uv-manipulation/manipulating-visibilities-with-mstransform
 https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/uv-manipulation/manipulation-of-spectral-windows
