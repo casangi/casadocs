@@ -30,6 +30,11 @@ with open('scraper/_sitemap.txt') as fid:
 # we will execute pandoc on each of these files to convert their format
 for ii, url in enumerate(urls):
     fpath = ['html'] + url.split("/")[4:]
+
+    # dont process extra task and tool pages for now
+    if ('global-task-list' in fpath) and (('changelog' in fpath) or ('developer' in fpath) or ('parameters' in fpath)): continue
+    if ('global-tool-list' in fpath) and (('changelog' in fpath) or ('developer' in fpath) or ('methods' in fpath)): continue
+
     source = '/'.join(fpath) + '.html'
     if os.path.exists(source):
         print('converting %s of %s...' % (str(ii), str(len(urls))), end='\r')
@@ -42,7 +47,7 @@ for ii, url in enumerate(urls):
         dest = '/'.join(fpath) + '.ipynb'
         
         # use pandoc to convert html to markdown
-        os.system('pandoc %s -s -f html -t ipynb -o %s --atx-headers --extract-media=%s --ascii' % (source, dest, '/'.join(fpath[:-1])))
+        os.system('pandoc %s -s -f html -t ipynb -o %s --atx-headers --extract-media=%s --ascii' % (source, dest, 'media')) # '/'.join(fpath[:-1])))
         #os.system('pandoc %s -f html -t rst -o %s' % (source, dest+'.rst'))
         #os.system('pandoc %s -f rst -t ipynb -o %s' % (dest+'.rst', dest+'.ipynb'))
         
@@ -54,9 +59,10 @@ for ii, url in enumerate(urls):
         md = re.sub('<span(.|\n)*?>','', md)
         md = re.sub('</span>', '', md)
         
-        # fix image links to work properly
+        # fix image links to work properly from notebooks
         md = re.sub('<img src="(.+?)" .+?/>', r'![\1](\1)', md)
-        md = re.sub('attachment:%s/' % '/'.join(fpath[:-1]), '', md)
+        #md = re.sub('attachment:%s/' % '/'.join(fpath[:-1]), '', md)
+        md = re.sub('attachment:media/', 'https://raw.githubusercontent.com/', md)
         
         # split sections in to separate cells at appropriate level
         splits = re.split(r'(#+\s)', md)[1:]
