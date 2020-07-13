@@ -19,7 +19,7 @@ with open('scraper/_sitemap.txt') as fid:
     urls = fid.read().splitlines()
 #urls = ['https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/wide-band-imaging']
 #urls = ['https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging']
-#urls = ['https://casa.nrao.edu/casadocs-devel/stable/global-task-list']
+#urls = ['https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_tclean']
 #url = urls[0]
 
 # each page in casadocs should have already been downloaded by the scrapy spider to an html file
@@ -30,8 +30,8 @@ for ii, url in enumerate(urls):
     folder = os.path.isdir('/'.join(fpath))  # turn folders in to rst files with toctrees
 
     # dont process extra task and tool pages for now
-    if ('global-task-list' in fpath) and (('changelog' in fpath) or ('developer' in fpath) or ('parameters' in fpath)): continue
-    if ('global-tool-list' in fpath) and (('changelog' in fpath) or ('developer' in fpath) or ('methods' in fpath)): continue
+    if ('global-task-list' in fpath) and (('planning' in fpath) or ('developer' in fpath) or ('about' in fpath)): continue
+    if ('global-tool-list' in fpath) and (('planning' in fpath) or ('developer' in fpath) or ('about' in fpath)): continue
 
     source = '/'.join(fpath) + '.html'
     if os.path.exists(source):
@@ -46,16 +46,30 @@ for ii, url in enumerate(urls):
         
         # use pandoc to convert html to either ipynb or rst format
         # rst is used for folders to hold toctrees
-        if folder:
+        if folder or ('global-task-list' in fpath) or ('global-tool-list' in fpath):
             os.system('pandoc %s -f html -t rst -o %s --extract-media=%s' % (source, dest+'.rst', '/'.join(spath[:-1])))
 
-            with open(dest+'.rst', 'a') as fid:
-                fid.write(toctree)
-                subdirs = [uu.split('/')[-1] for uu in urls if re.search('%s/[^/]+$'%fpath[-1], uu)]
+            with open(dest+'.rst', 'r') as fid:
+                rst = fid.read()
+
+            # cleanup some conversion messiness
+            rst = rst.replace('\\ ', ' ')
+            rst = rst.replace('.. container::\n   :name: viewlet-above-content-title\n\n', '')
+            rst = rst.replace('.. container::\n   :name: viewlet-below-content-title\n\n', '')
+            rst = rst.replace('.. container:: section\n   :name: viewlet-above-content-body\n\n', '')
+            rst = rst.replace('.. container:: section\n   :name: viewlet-below-content-body\n\n', '')
+            rst = rst.replace('/'.join(spath[:-1])+'/', '')
+
+            subdirs = [uu.split('/')[-1] for uu in urls if re.search('%s/[^/]+$'%fpath[-1], uu)]
+            if len(subdirs) > 0:
+                rst += toctree
                 for entry in subdirs:
-                    if ('global-task-list' in fpath) and (entry in ['changelog', 'developer', 'parameters']): continue
-                    if ('global-tool-list' in fpath) and (entry in ['changelog', 'developer', 'methods']): continue
-                    fid.write("   %s/%s\n" % (spath[-1], entry))
+                    if ('global-task-list' in fpath) and (entry in ['about', 'planning', 'developer']): continue
+                    if ('global-tool-list' in fpath) and (entry in ['about', 'planning', 'developer']): continue
+                    rst += "   %s/%s\n" % (spath[-1], entry)
+
+            with open(dest + '.rst', 'w') as fid:
+                fid.write(rst)
 
         # otherwise use ipynb format for easier content editing later on
         else:

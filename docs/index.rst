@@ -1,12 +1,3 @@
-.. container::
-   :name: viewlet-above-content-title
-
-.. container::
-   :name: viewlet-below-content-title
-
-.. container:: section
-   :name: viewlet-above-content-body
-
 .. container:: section
    :name: content-core
 
@@ -63,7 +54,7 @@
          data easier.
       -  The fldmap parameter within the cal library will now support
          multiple fields
-      -  `CARTA <https://casa.nrao.edu/casadocs-devel/stable/imaging/carta>`__\ v.1.3
+      -  `CARTA <https://casa.nrao.edu/casadocs-devel/stable/imaging/carta>`__ v.1.3
          with limited features is now available for users who wish to
          visualize their data outside the CASA Viewer.
       -  VLA P-band models have been made available in CASA for several
