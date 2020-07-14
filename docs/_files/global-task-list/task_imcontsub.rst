@@ -64,6 +64,5 @@ imcontsub
    :hidden:
    :maxdepth: 3
 
-   task_imcontsub/parameters
    task_imcontsub/changelog
    task_imcontsub/examples

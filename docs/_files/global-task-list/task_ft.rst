@@ -74,6 +74,5 @@ ft
    :hidden:
    :maxdepth: 3
 
-   task_ft/parameters
    task_ft/changelog
    task_ft/examples

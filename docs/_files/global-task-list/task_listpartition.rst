@@ -93,6 +93,5 @@ listpartition
    :hidden:
    :maxdepth: 3
 
-   task_listpartition/parameters
    task_listpartition/changelog
    task_listpartition/examples

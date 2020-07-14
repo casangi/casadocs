@@ -58,6 +58,5 @@ accor
    :hidden:
    :maxdepth: 3
 
-   task_accor/parameters
    task_accor/changelog
    task_accor/examples

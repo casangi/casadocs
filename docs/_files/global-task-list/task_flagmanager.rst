@@ -113,6 +113,5 @@ flagmanager
    :hidden:
    :maxdepth: 3
 
-   task_flagmanager/parameters
    task_flagmanager/changelog
    task_flagmanager/examples

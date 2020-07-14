@@ -120,6 +120,5 @@ deconvolve
    :hidden:
    :maxdepth: 3
 
-   task_deconvolve/parameters
    task_deconvolve/changelog
    task_deconvolve/examples

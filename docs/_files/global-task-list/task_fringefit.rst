@@ -241,6 +241,5 @@ fringefit
    :hidden:
    :maxdepth: 3
 
-   task_fringefit/parameters
    task_fringefit/changelog
    task_fringefit/examples

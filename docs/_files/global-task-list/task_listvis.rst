@@ -191,6 +191,5 @@ listvis
    :hidden:
    :maxdepth: 3
 
-   task_listvis/parameters
    task_listvis/changelog
    task_listvis/examples

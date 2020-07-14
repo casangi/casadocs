@@ -27,6 +27,5 @@ importgmrt
    :hidden:
    :maxdepth: 3
 
-   task_importgmrt/parameters
    task_importgmrt/changelog
    task_importgmrt/examples

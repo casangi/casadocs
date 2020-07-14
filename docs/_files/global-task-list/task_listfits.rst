@@ -26,6 +26,5 @@ listfits
    :hidden:
    :maxdepth: 3
 
-   task_listfits/parameters
    task_listfits/changelog
    task_listfits/examples

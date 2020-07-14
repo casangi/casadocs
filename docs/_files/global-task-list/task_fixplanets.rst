@@ -169,6 +169,5 @@ fixplanets
    :hidden:
    :maxdepth: 3
 
-   task_fixplanets/parameters
    task_fixplanets/changelog
    task_fixplanets/examples

@@ -68,6 +68,5 @@ delmod
    :hidden:
    :maxdepth: 3
 
-   task_delmod/parameters
    task_delmod/changelog
    task_delmod/examples

@@ -126,6 +126,5 @@ feather
    :hidden:
    :maxdepth: 3
 
-   task_feather/parameters
    task_feather/changelog
    task_feather/examples

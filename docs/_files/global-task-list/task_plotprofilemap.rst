@@ -83,6 +83,5 @@ plotprofilemap
    :hidden:
    :maxdepth: 3
 
-   task_plotprofilemap/parameters
    task_plotprofilemap/changelog
    task_plotprofilemap/examples

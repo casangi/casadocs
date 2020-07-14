@@ -33,6 +33,5 @@ sdpolaverage
    :hidden:
    :maxdepth: 3
 
-   task_sdpolaverage/parameters
    task_sdpolaverage/changelog
    task_sdpolaverage/examples

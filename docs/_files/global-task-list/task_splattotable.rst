@@ -91,6 +91,5 @@ splattotable
    :hidden:
    :maxdepth: 3
 
-   task_splattotable/parameters
    task_splattotable/changelog
    task_splattotable/examples

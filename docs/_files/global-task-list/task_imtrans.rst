@@ -58,6 +58,5 @@ imtrans
    :hidden:
    :maxdepth: 3
 
-   task_imtrans/parameters
    task_imtrans/changelog
    task_imtrans/examples

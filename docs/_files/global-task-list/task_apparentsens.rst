@@ -104,6 +104,5 @@ apparentsens
    :hidden:
    :maxdepth: 3
 
-   task_apparentsens/parameters
    task_apparentsens/changelog
    task_apparentsens/examples

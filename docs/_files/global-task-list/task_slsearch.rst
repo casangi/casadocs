@@ -169,6 +169,5 @@ slsearch
    :hidden:
    :maxdepth: 3
 
-   task_slsearch/parameters
    task_slsearch/changelog
    task_slsearch/examples

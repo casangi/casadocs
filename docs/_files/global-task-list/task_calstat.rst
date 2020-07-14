@@ -67,6 +67,5 @@ calstat
    :hidden:
    :maxdepth: 3
 
-   task_calstat/parameters
    task_calstat/changelog
    task_calstat/examples

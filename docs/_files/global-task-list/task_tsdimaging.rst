@@ -198,6 +198,5 @@ tsdimaging
    :hidden:
    :maxdepth: 3
 
-   task_tsdimaging/parameters
    task_tsdimaging/changelog
    task_tsdimaging/examples

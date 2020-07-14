@@ -83,6 +83,5 @@ imreframe
    :hidden:
    :maxdepth: 3
 
-   task_imreframe/parameters
    task_imreframe/changelog
    task_imreframe/examples

@@ -452,6 +452,5 @@ sdintimaging
    :hidden:
    :maxdepth: 3
 
-   task_sdintimaging/parameters
    task_sdintimaging/changelog
    task_sdintimaging/examples

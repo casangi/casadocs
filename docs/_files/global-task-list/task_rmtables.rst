@@ -39,6 +39,5 @@ rmtables
    :hidden:
    :maxdepth: 3
 
-   task_rmtables/parameters
    task_rmtables/changelog
    task_rmtables/examples

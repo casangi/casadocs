@@ -25,6 +25,5 @@ listhistory
    :hidden:
    :maxdepth: 3
 
-   task_listhistory/parameters
    task_listhistory/changelog
    task_listhistory/examples

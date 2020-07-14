@@ -552,6 +552,5 @@ imfit
    :hidden:
    :maxdepth: 3
 
-   task_imfit/parameters
    task_imfit/changelog
    task_imfit/examples

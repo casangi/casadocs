@@ -1541,6 +1541,5 @@ plotms
    :hidden:
    :maxdepth: 3
 
-   task_plotms/parameters
    task_plotms/changelog
    task_plotms/examples

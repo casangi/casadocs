@@ -44,6 +44,5 @@ impbcor
    :hidden:
    :maxdepth: 3
 
-   task_impbcor/parameters
    task_impbcor/changelog
    task_impbcor/examples

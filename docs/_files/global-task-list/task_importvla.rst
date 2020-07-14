@@ -291,6 +291,5 @@ importvla
    :hidden:
    :maxdepth: 3
 
-   task_importvla/parameters
    task_importvla/changelog
    task_importvla/examples

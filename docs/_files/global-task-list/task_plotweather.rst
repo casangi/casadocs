@@ -47,6 +47,5 @@ plotweather
    :hidden:
    :maxdepth: 3
 
-   task_plotweather/parameters
    task_plotweather/changelog
    task_plotweather/examples

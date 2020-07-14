@@ -163,6 +163,5 @@ fluxscale
    :hidden:
    :maxdepth: 3
 
-   task_fluxscale/parameters
    task_fluxscale/changelog
    task_fluxscale/examples

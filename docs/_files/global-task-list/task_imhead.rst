@@ -685,6 +685,5 @@ imhead
    :hidden:
    :maxdepth: 3
 
-   task_imhead/parameters
    task_imhead/changelog
    task_imhead/examples

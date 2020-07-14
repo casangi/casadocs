@@ -58,6 +58,12 @@ add_module_names = False
 numpy_show_class_members = False
 nbsphinx_codecell_lexer = 'python3'
 
+nbsphinx_epilog = """
+Open in Colab: https://colab.research.google.com/github/casangi/casadocs/blob/master/docs/{{ env.doc2path(env.docname, base=None) }}
+
+----
+"""
+
 #List of imports to mock (this ensures readthedocs works)
 autodoc_mock_imports = ['numcodecs','os','numpy','time','xarray','numba','itertools','zarr']
 

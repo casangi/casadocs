@@ -1730,6 +1730,5 @@ clean
    :hidden:
    :maxdepth: 3
 
-   task_clean/parameters
    task_clean/changelog
    task_clean/examples

@@ -114,6 +114,5 @@ initweights
    :hidden:
    :maxdepth: 3
 
-   task_initweights/parameters
    task_initweights/changelog
    task_initweights/examples

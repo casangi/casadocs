@@ -55,6 +55,5 @@ imrebin
    :hidden:
    :maxdepth: 3
 
-   task_imrebin/parameters
    task_imrebin/changelog
    task_imrebin/examples

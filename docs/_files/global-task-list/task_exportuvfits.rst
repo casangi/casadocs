@@ -106,6 +106,5 @@ exportuvfits
    :hidden:
    :maxdepth: 3
 
-   task_exportuvfits/parameters
    task_exportuvfits/changelog
    task_exportuvfits/examples

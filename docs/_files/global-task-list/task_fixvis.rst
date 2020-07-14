@@ -114,6 +114,5 @@ fixvis
    :hidden:
    :maxdepth: 3
 
-   task_fixvis/parameters
    task_fixvis/changelog
    task_fixvis/examples

@@ -162,6 +162,5 @@ split
    :hidden:
    :maxdepth: 3
 
-   task_split/parameters
    task_split/changelog
    task_split/examples

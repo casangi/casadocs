@@ -625,6 +625,5 @@ simobserve
    :hidden:
    :maxdepth: 3
 
-   task_simobserve/parameters
    task_simobserve/changelog
    task_simobserve/examples

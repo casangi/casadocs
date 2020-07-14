@@ -305,6 +305,5 @@ immath
    :hidden:
    :maxdepth: 3
 
-   task_immath/parameters
    task_immath/changelog
    task_immath/examples

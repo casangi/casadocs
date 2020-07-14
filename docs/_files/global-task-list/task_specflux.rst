@@ -154,6 +154,5 @@ specflux
    :hidden:
    :maxdepth: 3
 
-   task_specflux/parameters
    task_specflux/changelog
    task_specflux/examples

@@ -105,6 +105,5 @@ rmfit
    :hidden:
    :maxdepth: 3
 
-   task_rmfit/parameters
    task_rmfit/changelog
    task_rmfit/examples

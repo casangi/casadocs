@@ -110,6 +110,5 @@ listcal
    :hidden:
    :maxdepth: 3
 
-   task_listcal/parameters
    task_listcal/changelog
    task_listcal/examples

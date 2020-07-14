@@ -73,6 +73,5 @@ importmiriad
    :hidden:
    :maxdepth: 3
 
-   task_importmiriad/parameters
    task_importmiriad/changelog
    task_importmiriad/examples

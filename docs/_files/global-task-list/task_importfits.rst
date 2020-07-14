@@ -92,6 +92,5 @@ importfits
    :hidden:
    :maxdepth: 3
 
-   task_importfits/parameters
    task_importfits/changelog
    task_importfits/examples

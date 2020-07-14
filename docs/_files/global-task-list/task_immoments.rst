@@ -87,6 +87,5 @@ immoments
    :hidden:
    :maxdepth: 3
 
-   task_immoments/parameters
    task_immoments/changelog
    task_immoments/examples

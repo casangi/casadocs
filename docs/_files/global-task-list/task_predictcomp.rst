@@ -159,6 +159,5 @@ predictcomp
    :hidden:
    :maxdepth: 3
 
-   task_predictcomp/parameters
    task_predictcomp/changelog
    task_predictcomp/examples

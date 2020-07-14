@@ -77,6 +77,5 @@ uvsub
    :hidden:
    :maxdepth: 3
 
-   task_uvsub/parameters
    task_uvsub/changelog
    task_uvsub/examples

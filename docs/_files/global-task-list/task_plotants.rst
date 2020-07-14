@@ -79,6 +79,5 @@ plotants
    :hidden:
    :maxdepth: 3
 
-   task_plotants/parameters
    task_plotants/changelog
    task_plotants/examples

@@ -152,6 +152,5 @@ importatca
    :hidden:
    :maxdepth: 3
 
-   task_importatca/parameters
    task_importatca/changelog
    task_importatca/examples

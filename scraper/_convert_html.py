@@ -18,7 +18,7 @@ blank_meta = {"colab": {"provenance": [],"collapsed_sections": [], "toc_visible"
 with open('scraper/_sitemap.txt') as fid:
     urls = fid.read().splitlines()
 #urls = ['https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/wide-band-imaging']
-#urls = ['https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging']
+#urls = ['https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/using-plotms-to-plot-and-edit-visibilities-and-calibration-tables']
 #urls = ['https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_tclean']
 #url = urls[0]
 
@@ -30,8 +30,8 @@ for ii, url in enumerate(urls):
     folder = os.path.isdir('/'.join(fpath))  # turn folders in to rst files with toctrees
 
     # dont process extra task and tool pages for now
-    if ('global-task-list' in fpath) and (('planning' in fpath) or ('developer' in fpath) or ('about' in fpath)): continue
-    if ('global-tool-list' in fpath) and (('planning' in fpath) or ('developer' in fpath) or ('about' in fpath)): continue
+    if ('global-task-list' in fpath) and (('parameters' in fpath) or ('planning' in fpath) or ('developer' in fpath) or ('about' in fpath)): continue
+    if ('global-tool-list' in fpath) and (('parameters' in fpath) or ('planning' in fpath) or ('developer' in fpath) or ('about' in fpath)): continue
 
     source = '/'.join(fpath) + '.html'
     if os.path.exists(source):
@@ -64,8 +64,8 @@ for ii, url in enumerate(urls):
             if len(subdirs) > 0:
                 rst += toctree
                 for entry in subdirs:
-                    if ('global-task-list' in fpath) and (entry in ['about', 'planning', 'developer']): continue
-                    if ('global-tool-list' in fpath) and (entry in ['about', 'planning', 'developer']): continue
+                    if ('global-task-list' in fpath) and (entry in ['about', 'parameters', 'planning', 'developer']): continue
+                    if ('global-tool-list' in fpath) and (entry in ['about', 'parameters', 'planning', 'developer']): continue
                     rst += "   %s/%s\n" % (spath[-1], entry)
 
             with open(dest + '.rst', 'w') as fid:
@@ -88,12 +88,10 @@ for ii, url in enumerate(urls):
             md = re.sub('attachment:%s/'%'/'.join(spath[:-1]), '', md)
 
             # split sections in to separate cells at appropriate level
-            splits = re.split(r'(#+\s)', md)[1:]
-            for ii in range(0, len(splits), 2):
-                if ii == 0:
-                    nb.cells[0] = nbformat.v4.new_markdown_cell(splits[0]+splits[1])
-                else:
-                    nb.cells += [nbformat.v4.new_markdown_cell('#'+splits[ii]+splits[ii+1])]
+            splits = re.split(r'((?<=\n)#+\s)', md)
+            nb.cells[0] = nbformat.v4.new_markdown_cell(splits[0])
+            for ii in range(1, len(splits), 2):
+                nb.cells += [nbformat.v4.new_markdown_cell('#'+splits[ii]+splits[ii+1])]
 
             nbformat.write(nb, dest+'.ipynb', nbformat.NO_CONVERT)
 

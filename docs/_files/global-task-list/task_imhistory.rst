@@ -31,6 +31,5 @@ imhistory
    :hidden:
    :maxdepth: 3
 
-   task_imhistory/parameters
    task_imhistory/changelog
    task_imhistory/examples

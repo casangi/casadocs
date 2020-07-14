@@ -32,6 +32,5 @@ clearstat
    :hidden:
    :maxdepth: 3
 
-   task_clearstat/parameters
    task_clearstat/changelog
    task_clearstat/examples

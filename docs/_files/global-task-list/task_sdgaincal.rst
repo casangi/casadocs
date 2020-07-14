@@ -86,6 +86,5 @@ sdgaincal
    :hidden:
    :maxdepth: 3
 
-   task_sdgaincal/parameters
    task_sdgaincal/changelog
    task_sdgaincal/examples

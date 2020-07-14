@@ -196,6 +196,5 @@ wvrgcal
    :hidden:
    :maxdepth: 3
 
-   task_wvrgcal/parameters
    task_wvrgcal/changelog
    task_wvrgcal/examples

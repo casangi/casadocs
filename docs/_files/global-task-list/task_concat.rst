@@ -126,6 +126,5 @@ concat
    :hidden:
    :maxdepth: 3
 
-   task_concat/parameters
    task_concat/changelog
    task_concat/examples

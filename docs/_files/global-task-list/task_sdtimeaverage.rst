@@ -122,6 +122,5 @@ sdtimeaverage
    :hidden:
    :maxdepth: 3
 
-   task_sdtimeaverage/parameters
    task_sdtimeaverage/changelog
    task_sdtimeaverage/examples

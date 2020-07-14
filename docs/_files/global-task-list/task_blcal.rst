@@ -64,6 +64,5 @@ blcal
    :hidden:
    :maxdepth: 3
 
-   task_blcal/parameters
    task_blcal/changelog
    task_blcal/examples

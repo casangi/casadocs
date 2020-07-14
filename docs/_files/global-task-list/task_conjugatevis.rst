@@ -52,6 +52,5 @@ conjugatevis
    :hidden:
    :maxdepth: 3
 
-   task_conjugatevis/parameters
    task_conjugatevis/changelog
    task_conjugatevis/examples

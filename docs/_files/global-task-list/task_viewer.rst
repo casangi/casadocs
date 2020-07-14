@@ -55,6 +55,5 @@ viewer
    :hidden:
    :maxdepth: 3
 
-   task_viewer/parameters
    task_viewer/changelog
    task_viewer/examples

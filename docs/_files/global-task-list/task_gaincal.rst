@@ -303,7 +303,6 @@ gaincal
    :hidden:
    :maxdepth: 3
 
-   task_gaincal/parameters
    task_gaincal/changelog
    task_gaincal/examples
    task_gaincal/author-notes

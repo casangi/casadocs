@@ -65,6 +65,5 @@ smoothcal
    :hidden:
    :maxdepth: 3
 
-   task_smoothcal/parameters
    task_smoothcal/changelog
    task_smoothcal/examples

@@ -271,6 +271,5 @@ sdsidebandsplit
    :hidden:
    :maxdepth: 3
 
-   task_sdsidebandsplit/parameters
    task_sdsidebandsplit/changelog
    task_sdsidebandsplit/examples

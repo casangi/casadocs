@@ -275,6 +275,5 @@ bandpass
    :hidden:
    :maxdepth: 3
 
-   task_bandpass/parameters
    task_bandpass/changelog
    task_bandpass/examples

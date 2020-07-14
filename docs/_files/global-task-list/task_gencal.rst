@@ -171,6 +171,5 @@ gencal
    :hidden:
    :maxdepth: 3
 
-   task_gencal/parameters
    task_gencal/changelog
    task_gencal/examples

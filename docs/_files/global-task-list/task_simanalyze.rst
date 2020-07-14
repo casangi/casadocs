@@ -419,6 +419,5 @@ simanalyze
    :hidden:
    :maxdepth: 3
 
-   task_simanalyze/parameters
    task_simanalyze/changelog
    task_simanalyze/examples

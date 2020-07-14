@@ -182,6 +182,5 @@ specsmooth
    :hidden:
    :maxdepth: 3
 
-   task_specsmooth/parameters
    task_specsmooth/changelog
    task_specsmooth/examples

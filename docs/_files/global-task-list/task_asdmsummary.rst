@@ -36,6 +36,5 @@ asdmsummary
    :hidden:
    :maxdepth: 3
 
-   task_asdmsummary/parameters
    task_asdmsummary/changelog
    task_asdmsummary/examples

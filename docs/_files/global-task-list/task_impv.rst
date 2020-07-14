@@ -102,6 +102,5 @@ impv
    :hidden:
    :maxdepth: 3
 
-   task_impv/parameters
    task_impv/changelog
    task_impv/examples

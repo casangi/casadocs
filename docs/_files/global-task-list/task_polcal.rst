@@ -120,6 +120,5 @@ polcal
    :hidden:
    :maxdepth: 3
 
-   task_polcal/parameters
    task_polcal/changelog
    task_polcal/examples

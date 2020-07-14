@@ -243,6 +243,5 @@ oldstatwt
    :hidden:
    :maxdepth: 3
 
-   task_oldstatwt/parameters
    task_oldstatwt/changelog
    task_oldstatwt/examples

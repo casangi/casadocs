@@ -170,6 +170,5 @@ makemask
    :hidden:
    :maxdepth: 3
 
-   task_makemask/parameters
    task_makemask/changelog
    task_makemask/examples

@@ -70,6 +70,5 @@ clearcal
    :hidden:
    :maxdepth: 3
 
-   task_clearcal/parameters
    task_clearcal/changelog
    task_clearcal/examples

@@ -133,6 +133,5 @@ virtualconcat
    :hidden:
    :maxdepth: 3
 
-   task_virtualconcat/parameters
    task_virtualconcat/changelog
    task_virtualconcat/examples

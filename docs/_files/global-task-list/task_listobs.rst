@@ -148,6 +148,5 @@ listobs
    :hidden:
    :maxdepth: 3
 
-   task_listobs/parameters
    task_listobs/changelog
    task_listobs/examples

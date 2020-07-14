@@ -112,6 +112,5 @@ sdbaseline
    :hidden:
    :maxdepth: 3
 
-   task_sdbaseline/parameters
    task_sdbaseline/changelog
    task_sdbaseline/examples

@@ -1439,6 +1439,5 @@ flagdata
    :hidden:
    :maxdepth: 3
 
-   task_flagdata/parameters
    task_flagdata/changelog
    task_flagdata/examples

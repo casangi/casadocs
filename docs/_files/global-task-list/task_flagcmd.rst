@@ -91,6 +91,5 @@ flagcmd
    :hidden:
    :maxdepth: 3
 
-   task_flagcmd/parameters
    task_flagcmd/changelog
    task_flagcmd/examples

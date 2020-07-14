@@ -355,6 +355,5 @@ simalma
    :hidden:
    :maxdepth: 3
 
-   task_simalma/parameters
    task_simalma/changelog
    task_simalma/examples

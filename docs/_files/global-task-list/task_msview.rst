@@ -54,6 +54,5 @@ msview
    :hidden:
    :maxdepth: 3
 
-   task_msview/parameters
    task_msview/changelog
    task_msview/examples

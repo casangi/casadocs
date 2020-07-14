@@ -267,6 +267,5 @@ uvmodelfit
    :hidden:
    :maxdepth: 3
 
-   task_uvmodelfit/parameters
    task_uvmodelfit/changelog
    task_uvmodelfit/examples

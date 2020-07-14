@@ -158,6 +158,5 @@ imsmooth
    :hidden:
    :maxdepth: 3
 
-   task_imsmooth/parameters
    task_imsmooth/changelog
    task_imsmooth/examples

@@ -613,6 +613,5 @@ tclean
    :hidden:
    :maxdepth: 3
 
-   task_tclean/parameters
    task_tclean/changelog
    task_tclean/examples

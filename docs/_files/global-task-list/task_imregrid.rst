@@ -349,6 +349,5 @@ imregrid
    :hidden:
    :maxdepth: 3
 
-   task_imregrid/parameters
    task_imregrid/changelog
    task_imregrid/examples

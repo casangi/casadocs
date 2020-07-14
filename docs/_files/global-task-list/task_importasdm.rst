@@ -229,6 +229,5 @@ importasdm
    :hidden:
    :maxdepth: 3
 
-   task_importasdm/parameters
    task_importasdm/changelog
    task_importasdm/examples

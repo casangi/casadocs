@@ -107,6 +107,5 @@ imval
    :hidden:
    :maxdepth: 3
 
-   task_imval/parameters
    task_imval/changelog
    task_imval/examples

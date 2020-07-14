@@ -65,6 +65,5 @@ caltabconvert
    :hidden:
    :maxdepth: 3
 
-   task_caltabconvert/parameters
    task_caltabconvert/changelog
    task_caltabconvert/examples

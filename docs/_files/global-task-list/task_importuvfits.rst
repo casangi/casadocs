@@ -48,6 +48,5 @@ importuvfits
    :hidden:
    :maxdepth: 3
 
-   task_importuvfits/parameters
    task_importuvfits/changelog
    task_importuvfits/examples

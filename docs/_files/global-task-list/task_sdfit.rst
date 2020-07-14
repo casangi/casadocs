@@ -122,7 +122,6 @@ sdfit
    :hidden:
    :maxdepth: 3
 
-   task_sdfit/parameters
    task_sdfit/changelog
    task_sdfit/examples
    task_sdfit/planning-1

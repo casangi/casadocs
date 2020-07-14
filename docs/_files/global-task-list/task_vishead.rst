@@ -61,6 +61,5 @@ vishead
    :hidden:
    :maxdepth: 3
 
-   task_vishead/parameters
    task_vishead/changelog
    task_vishead/examples

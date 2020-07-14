@@ -141,6 +141,5 @@ msuvbin
    :hidden:
    :maxdepth: 3
 
-   task_msuvbin/parameters
    task_msuvbin/changelog
    task_msuvbin/examples

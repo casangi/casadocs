@@ -30,6 +30,5 @@ importasap
    :hidden:
    :maxdepth: 3
 
-   task_importasap/parameters
    task_importasap/changelog
    task_importasap/examples

@@ -390,6 +390,5 @@ spxfit
    :hidden:
    :maxdepth: 3
 
-   task_spxfit/parameters
    task_spxfit/changelog
    task_spxfit/examples

@@ -108,6 +108,5 @@ applycal
    :hidden:
    :maxdepth: 3
 
-   task_applycal/parameters
    task_applycal/changelog
    task_applycal/examples

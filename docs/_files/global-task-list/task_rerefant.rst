@@ -111,6 +111,5 @@ rerefant
    :hidden:
    :maxdepth: 3
 
-   task_rerefant/parameters
    task_rerefant/changelog
    task_rerefant/examples

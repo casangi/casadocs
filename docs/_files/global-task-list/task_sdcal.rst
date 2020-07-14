@@ -92,6 +92,5 @@ sdcal
    :hidden:
    :maxdepth: 3
 
-   task_sdcal/parameters
    task_sdcal/changelog
    task_sdcal/examples

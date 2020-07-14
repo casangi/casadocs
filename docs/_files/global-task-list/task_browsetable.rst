@@ -87,6 +87,5 @@ browsetable
    :hidden:
    :maxdepth: 3
 
-   task_browsetable/parameters
    task_browsetable/changelog
    task_browsetable/examples

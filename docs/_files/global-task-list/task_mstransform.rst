@@ -279,6 +279,5 @@ mstransform
    :hidden:
    :maxdepth: 3
 
-   task_mstransform/parameters
    task_mstransform/changelog
    task_mstransform/examples

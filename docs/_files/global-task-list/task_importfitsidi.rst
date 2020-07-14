@@ -125,6 +125,5 @@ importfitsidi
    :hidden:
    :maxdepth: 3
 
-   task_importfitsidi/parameters
    task_importfitsidi/changelog
    task_importfitsidi/examples

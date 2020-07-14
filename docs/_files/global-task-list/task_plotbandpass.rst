@@ -343,6 +343,5 @@ plotbandpass
    :hidden:
    :maxdepth: 3
 
-   task_plotbandpass/parameters
    task_plotbandpass/changelog
    task_plotbandpass/examples

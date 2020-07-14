@@ -134,6 +134,5 @@ partition
    :hidden:
    :maxdepth: 3
 
-   task_partition/parameters
    task_partition/changelog
    task_partition/examples

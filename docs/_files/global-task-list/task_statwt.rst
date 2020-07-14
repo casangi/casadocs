@@ -437,6 +437,5 @@ statwt
    :hidden:
    :maxdepth: 3
 
-   task_statwt/parameters
    task_statwt/changelog
    task_statwt/examples

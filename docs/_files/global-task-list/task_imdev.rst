@@ -238,6 +238,5 @@ imdev
    :hidden:
    :maxdepth: 3
 
-   task_imdev/parameters
    task_imdev/changelog
    task_imdev/examples

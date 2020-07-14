@@ -68,6 +68,5 @@ imsubimage
    :hidden:
    :maxdepth: 3
 
-   task_imsubimage/parameters
    task_imsubimage/changelog
    task_imsubimage/examples

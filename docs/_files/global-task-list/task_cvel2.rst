@@ -165,6 +165,5 @@ cvel2
    :hidden:
    :maxdepth: 3
 
-   task_cvel2/parameters
    task_cvel2/changelog
    task_cvel2/examples
