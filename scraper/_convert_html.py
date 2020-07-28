@@ -17,7 +17,7 @@ blank_meta = {"colab": {"provenance": [],"collapsed_sections": [], "toc_visible"
 # grab the list of all pages in casadocs
 with open('scraper/_sitemap.txt') as fid:
     urls = fid.read().splitlines()
-#urls = ['https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/wide-band-imaging']
+#urls = ['https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/wide-field-imaging-full-primary-beam']
 #urls = ['https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/using-plotms-to-plot-and-edit-visibilities-and-calibration-tables']
 #urls = ['https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_tclean']
 #url = urls[0]
@@ -73,28 +73,57 @@ for ii, url in enumerate(urls):
 
         # otherwise use ipynb format for easier content editing later on
         else:
-            os.system('pandoc %s -s -f html -t ipynb -o %s --atx-headers --extract-media=%s' % (source, dest+'.ipynb', '/'.join(spath[:-1])))
-
+            #os.system('pandoc %s -s -f html -t ipynb -o %s --atx-headers --extract-media=%s' % (source, dest+'.ipynb', '/'.join(spath[:-1])))
+            os.system('pandoc %s -f html -t markdown-grid_tables -o %s --atx-headers --extract-media=%s' % (source, dest + '.md', '/'.join(spath[:-1])))
+            
             # now we need to manually fix the notebook to conform to nbsphinx conversion limitations
-            nb = nbformat.read(dest+'.ipynb', nbformat.NO_CONVERT)
-            md = nb.cells[0]['source']
-
+            #nb = nbformat.read(dest+'.ipynb', nbformat.NO_CONVERT)
+            #md = nb.cells[0]['source']
+            nb = nbformat.v4.new_notebook()
+            with open(dest+'.md', 'r') as fid:
+                md = fid.read()
+            
+            # clean up citations
+            md = re.sub('\(#cit.*?\){.*?}', '(#Bibliography)', md)
+            md = re.sub(' +\-{17} \-+.*?\-{17} \-+', '', md, flags=re.DOTALL)
+            bib = re.search('::: {#citation-title}\s*Bibliography\s*:::.*?:::\s*:::', md, flags=re.DOTALL)
+            if bib:
+                txt = bib.group(0).replace('Bibliography', "# Bibliography").replace('\n</div>', '')
+                txt = re.sub(r'\s<div>\s*\\\s\^(.*?)\\', r'\1', txt)
+                txt = re.sub('(\[.*?\]\(.*?\))(.*?)\^', r'\1', txt)
+                md = md.replace(bib.group(0), txt)
+                
+            # convert the various text boxes
+            md = re.sub('::: {.info-box}(.*?):::', r'<div class="alert alert-info">\1</div>', md, flags=re.DOTALL)
+            md = re.sub('::: {.alert-box}(.*?):::', r'<div class="alert alert-warning">\1</div>', md, flags=re.DOTALL)
+            md = re.sub('::: {.casa-input-box}(.*?):::', r'```\1```', md, flags=re.DOTALL)
+            md = re.sub('::: {.terminal-box}(.*?):::', r'```\1```', md, flags=re.DOTALL)
+            md = re.sub('::: {.casa-output-box}(.*?):::', r'```python\1```', md, flags=re.DOTALL)
+            md = re.sub(':::.*', '', md)
+            
+            # get rid of weird style tags
+            md = re.sub('\[(.*?)\]{style.*?}', r'\1', md, flags=re.DOTALL)
+            
             # get rid of extraneous span tags
-            md = re.sub('<span(.|\n)*?>','', md)
-            md = re.sub('</span>', '', md)
+            #md = re.sub('<span.*?>','', md, flags=re.DOTALL)
+            #md = re.sub('</span>', '', md)
 
             # fix image links to work properly from notebooks
-            md = re.sub('<img src="(.+?)" .+?/>', r'![\1](\1)', md)
-            md = re.sub('attachment:%s/'%'/'.join(spath[:-1]), '', md)
-
+            #md = re.sub('<img src="(.+?)" .+?/>', r'![\1](\1)', md)
+            #md = re.sub('attachment:%s/'%'/'.join(spath[:-1]), '', md)
+            md = re.sub('!\[(.+?)\]\(%s/(.+?) ".+?"\){.+?}' % '/'.join(spath[:-1]), r'![\1](\2)', md, flags=re.DOTALL)
+            md = re.sub('!\[\]\(%s/(.+?) ".+?"\){.+?}' % '/'.join(spath[:-1]), r'![\1](\1)', md, flags=re.DOTALL)
+            
             # split sections in to separate cells at appropriate level
-            splits = re.split(r'((?<=\n)#+\s)', md)
-            nb.cells[0] = nbformat.v4.new_markdown_cell(splits[0])
+            #splits = re.split(r'((?<=\n)#+\s)', md)
+            splits = re.split(r'((?<=\n)#+\s)', md.strip())
+            nb.cells += [nbformat.v4.new_markdown_cell(splits[0])]
             for ii in range(1, len(splits), 2):
                 nb.cells += [nbformat.v4.new_markdown_cell('#'+splits[ii]+splits[ii+1])]
 
             nbformat.write(nb, dest+'.ipynb', nbformat.NO_CONVERT)
-
+            os.system('rm %s' % dest+'.md')
+            
         # we need to extract the proper title
         # with open(source, 'r') as fid:
         #     lines = fid.read()

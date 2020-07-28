@@ -79,6 +79,9 @@
       Science (CSIRO/CASS), and the Netherlands Institute for Radio
       Astronomy (ASTRON), under the guidance of NRAO. *
 
+.. container:: section
+   :name: viewlet-below-content-body
+
 .. toctree::
    :hidden:
    :maxdepth: 3
