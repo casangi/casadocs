@@ -1,3 +1,6 @@
+CASA
+====
+
 .. container:: section
    :name: content-core
 
@@ -83,19 +86,18 @@
    :name: viewlet-below-content-body
 
 .. toctree::
-   :hidden:
    :maxdepth: 3
 
    _files/introduction
    _files/usingcasa
-   _files/global-task-list
-   _files/global-tool-list
    _files/casa-fundamentals
    _files/external-data
    _files/calibration-and-visibility-data
    _files/imaging
    _files/pipeline
    _files/simulation
+   task_api
+   tool_api
    _files/parallel-processing
    _files/memo-series
    _files/casa-development-team
