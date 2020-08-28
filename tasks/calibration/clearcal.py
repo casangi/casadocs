@@ -3,46 +3,18 @@
 #
 
 def clearcal(vis, field='', spw='', intent='', addmodel=False):
-    """
+    r"""
 Re-initializes the calibration for a visibility data set
 
-| Clearcal reinitializes the calibration columns in a measurement
-|set. Specificially, it will set the MODEL_DATA column (if present) to
-|unity in total intensity and zero in polarization, and it will set the
-|CORRECTED_DATA column to the original (observed) DATA in the DATA
-|column.  Use the field and spw parameters to select which data to
-|initialize.  If the dataset does not yet have the scratch columns,
-|they will be created (MODEL_DATA only if addmodel=True) and initilized
-|for the whole dataset (field, spw, and intent will be ignored in this
-|case).
-
 Parameters
-----------
-vis : string
-   Name of input visibility file (MS)
-field : string
-   Select field using field id(s) or field name(s)
-spw : string
-   Select spectral window/channels
-intent : string
-   Select observing intent
-addmodel : bool
-   Add MODEL_DATA scratch column
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (string) - Name of input visibility file (MS)
+   - **field** (string) - Select field using field id(s) or field name(s)
+   - **spw** (string) - Select spectral window/channels
+   - **intent** (string) - Select observing intent
+   - **addmodel** (bool) - Add MODEL_DATA scratch column
 
 
-
-
-
-   re-initializes the calibration for a visibility data set
-
-
-
+Description
       Re-initializes the calibration columns in a MeasurementSet.
       Specificially, it will set the MODEL_DATA column (if present) to
       unity in total intensity and zero in polarization, and it will set

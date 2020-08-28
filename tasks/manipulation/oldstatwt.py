@@ -3,64 +3,36 @@
 #
 
 def oldstatwt(vis, dorms=False, byantenna=False, sepacs=True, fitspw='', fitcorr='', combine='', timebin='0s', minsamp=2, field='', spw='', antenna='', timerange='', scan='', intent='', array='', correlation='', observation='', datacolumn='corrected'):
-    """
+    r"""
  Reweight visibilities according to their scatter (Experimental)
 
 Parameters
-----------
-vis : string
-   
-dorms : bool
-   
-byantenna : bool
-   
-fitspw : string, stringArray, int, intArray
-   
-fitcorr : string, stringArray, int, intArray
-   
-combine : string, stringArray
-   
-timebin : string
-   
-minsamp : int
-   
-field : string, stringArray, int, intArray
-   
-spw : string, stringArray, int, intArray
-   
-antenna : string, stringArray, int, intArray
-   
-timerange : string
-   
-scan : string
-   
-intent : string
-   
-array : string
-   
-correlation : string, stringArray
-   
-observation : string, int
-   
-datacolumn : string
-   
+   - **vis** (string) - 
+   - **dorms** (bool) - 
+   - **byantenna** (bool) - 
+   - **fitspw** (string, stringArray, int, intArray) - 
+   - **fitcorr** (string, stringArray, int, intArray) - 
+   - **combine** (string, stringArray) - 
+   - **timebin** (string) - 
+   - **minsamp** (int) - 
+   - **field** (string, stringArray, int, intArray) - 
+   - **spw** (string, stringArray, int, intArray) - 
+   - **antenna** (string, stringArray, int, intArray) - 
+   - **timerange** (string) - 
+   - **scan** (string) - 
+   - **intent** (string) - 
+   - **array** (string) - 
+   - **correlation** (string, stringArray) - 
+   - **observation** (string, int) - 
+   - **datacolumn** (string) - 
 
-Other Parameters
-----------
-sepacs : bool
-   
+Subparameters
+   *byantenna = True*
 
-Notes
------
+   - **sepacs** (bool=True) - 
 
 
-
-
-
-   task description
-
-
-
+Description
       .. note:: **WARNING** *:* The task **oldstatwt** is identical to the
          task statwt in previous CASA versions, given that the current
          statwt underwent significant development for CASA 5.4.

@@ -3,65 +3,28 @@
 #
 
 def msuvbin(vis, field='', spw='', taql='', outvis='', phasecenter='', nx=1000, ny=1000, cell='1arcsec', ncorr=1, nchan=1, fstart='1GHz', fstep='1kHz', wproject=False, memfrac=0.5):
-    """
+    r"""
 grid the visibility data onto a defined uniform grid (in the form of an ms); multiple MS\'s can be done onto the same grid
 
-| msuvbin is a uv gridding task. The use is for large volumes
-|          of data (from multiple epochs) that needs to be imaged into
-|          one image.  One way of proceeding is to image the epochs and
-|          average them after wards. Rather than doing this averaging
-|          the visibilities on a common uv grid has several convenience
-|          advantages like easily doing the proper weighted averaging and imaging.
-|          If an output grid already exists and a second ms is gridded on the grid
-|          then the output grid parameters is ignored but the existant grid is used.
-
 Parameters
-----------
-vis : string
-   
-field : string
-   
-spw : string
-   
-taql : string
-   
-outvis : string
-   
-phasecenter : string
-   
-nx : int
-   
-ny : int
-   
-cell : string
-   
-ncorr : int
-   
-nchan : int
-   
-fstart : string
-   
-fstep : string
-   
-wproject : bool
-   
-memfrac : double
-   
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (string) - 
+   - **field** (string) - 
+   - **spw** (string) - 
+   - **taql** (string) - 
+   - **outvis** (string) - 
+   - **phasecenter** (string) - 
+   - **nx** (int) - 
+   - **ny** (int) - 
+   - **cell** (string) - 
+   - **ncorr** (int) - 
+   - **nchan** (int) - 
+   - **fstart** (string) - 
+   - **fstep** (string) - 
+   - **wproject** (bool) - 
+   - **memfrac** (double) - 
 
 
-
-
-
-   task description
-
-
-
+Description
       .. note:: **WARNING**: This task is currently experimental.
 
       .. rubric:: Summary

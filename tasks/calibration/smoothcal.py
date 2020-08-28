@@ -3,42 +3,19 @@
 #
 
 def smoothcal(vis, tablein, caltable='', field=[''], smoothtype='median', smoothtime=60.0):
-    """
+    r"""
 Smooth calibration solution(s) derived from one or more sources:
 
-| A G- or T-type gain calibration can be smoothed.  Amplitude and
-|        phase are currently smoothed with the same time.  Calibration values
-|        will be smoothed over all fields.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file (MS)
-tablein : string
-   Input calibration table
-caltable : string
-   Output calibration table (overwrite tablein if unspecified)
-field : stringArray
-   Field name list
-smoothtype : string
-   Smoothing filter to use
-smoothtime : double, int
-   Smoothing time (sec)
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (string) - Name of input visibility file (MS)
+   - **tablein** (string) - Input calibration table
+   - **caltable** (string) - Output calibration table (overwrite tablein if unspecified)
+   - **field** (stringArray) - Field name list
+   - **smoothtype** (string) - Smoothing filter to use
+   - **smoothtime** (double, int) - Smoothing time (sec)
 
 
-
-
-
-   task description
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

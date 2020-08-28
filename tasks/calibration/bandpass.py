@@ -3,105 +3,64 @@
 #
 
 def bandpass(vis, caltable='', field='', spw='', intent='', selectdata=True, timerange='', uvrange='', antenna='', scan='', observation='', msselect='', solint='inf', combine='scan', refant='', minblperant=4, minsnr=3.0, solnorm=False, bandtype='B', smodel=[''], corrdepflags=False, append=False, fillgaps=0, degamp=3, degphase=3, visnorm=False, maskcenter=0, maskedge=5, docallib=False, callib='', gaintable=[''], gainfield=[''], interp=[''], spwmap=[''], parang=False):
-    """
+    r"""
 Calculates a bandpass calibration solution
 
-| Determines the amplitude and phase as a function of frequency for each
-|spectral window containing more than one channel.  Strong sources (or
-|many observations of moderately strong sources) are needed to obtain
-|accurate bandpass functions.  The two solution choices are: Individual
-|antenna/based channel solutions 'B'; and a polynomial fit over the
-|channels 'BPOLY'.  The 'B' solutions can determined at any specified
-|time interval, and is recommended if each channel has good
-|signal-to-noise.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-caltable : string
-   Name of output bandpass calibration table
-field : string
-   Select field using field id(s) or field name(s)
-spw : string
-   Select spectral window/channels
-intent : string
-   Select observing intent
-selectdata : bool
-   Other data selection parameters
-solint : variant
-   Solution interval in time[,freq]
-combine : string
-   Data axes which to combine for solve (obs, scan, spw, and/or field)
-refant : string
-   Reference antenna name(s)
-minblperant : int
-   Minimum baselines _per antenna_ required for solve
-minsnr : double
-   Reject solutions below this SNR (only applies for bandtype = B)
-solnorm : bool
-   Normalize average solution amplitudes to 1.0 
-bandtype : string
-   Type of bandpass solution (B or BPOLY)
-smodel : doubleArray
-   Point source Stokes parameters for source model.
-corrdepflags : bool
-   Respect correlation-dependent flags
-append : bool
-   Append solutions to the (existing) table
-docallib : bool
-   Use callib or traditional cal apply parameters
-parang : bool
-   Apply parallactic angle correction
+   - **vis** (string) - Name of input visibility file
+   - **caltable** (string) - Name of output bandpass calibration table
+   - **field** (string) - Select field using field id(s) or field name(s)
+   - **spw** (string) - Select spectral window/channels
+   - **intent** (string) - Select observing intent
+   - **selectdata** (bool) - Other data selection parameters
+   - **solint** (variant) - Solution interval in time[,freq]
+   - **combine** (string) - Data axes which to combine for solve (obs, scan, spw, and/or field)
+   - **refant** (string) - Reference antenna name(s)
+   - **minblperant** (int) - Minimum baselines _per antenna_ required for solve
+   - **minsnr** (double) - Reject solutions below this SNR (only applies for bandtype = B)
+   - **solnorm** (bool) - Normalize average solution amplitudes to 1.0 
+   - **bandtype** (string) - Type of bandpass solution (B or BPOLY)
+   - **smodel** (doubleArray) - Point source Stokes parameters for source model.
+   - **corrdepflags** (bool) - Respect correlation-dependent flags
+   - **append** (bool) - Append solutions to the (existing) table
+   - **docallib** (bool) - Use callib or traditional cal apply parameters
+   - **parang** (bool) - Apply parallactic angle correction
 
-Other Parameters
-----------
-timerange : string
-   Select data based on time range
-uvrange : variant
-   Select data within uvrange (default units meters)
-antenna : string
-   Select data based on antenna/baseline
-scan : string
-   Scan number range
-observation : string, int
-   Select by observation ID(s)
-msselect : string
-   Optional complex data selection (ignore for now)
-fillgaps : int
-   Fill flagged solution channels by interpolation
-degamp : int
-   Polynomial degree for BPOLY amplitude solution
-degphase : int
-   Polynomial degree for BPOLY phase solution
-visnorm : bool
-   Normalize data prior to BPOLY solution
-maskcenter : int
-   Number of channels to avoid in center of each band
-maskedge : int
-   Fraction of channels to avoid at each band edge (in %)
-callib : string
-   Cal Library filename
-gaintable : stringArray
-   Gain calibration table(s) to apply on the fly
-gainfield : stringArray
-   Select a subset of calibrators from gaintable(s)
-interp : stringArray
-   Interpolation parameters for each gaintable, as a list
-spwmap : intArray
-   Spectral window mappings to form for gaintable(s)
+Subparameters
+   *selectdata = True*
 
-Notes
------
+   - **timerange** (string='') - Select data based on time range
+   - **uvrange** (variant='') - Select data within uvrange (default units meters)
+   - **antenna** (string='') - Select data based on antenna/baseline
+   - **scan** (string='') - Scan number range
+   - **observation** (string='', int) - Select by observation ID(s)
+   - **msselect** (string='') - Optional complex data selection (ignore for now)
+
+   *bandtype = B*
+
+   - **fillgaps** (int=0) - Fill flagged solution channels by interpolation
+
+   *bandtype = BPOLY*
+
+   - **degamp** (int=3) - Polynomial degree for BPOLY amplitude solution
+   - **degphase** (int=3) - Polynomial degree for BPOLY phase solution
+   - **visnorm** (bool=False) - Normalize data prior to BPOLY solution
+   - **maskcenter** (int=0) - Number of channels to avoid in center of each band
+   - **maskedge** (int=0) - Fraction of channels to avoid at each band edge (in %)
+
+   *docallib = False*
+
+   - **gaintable** (stringArray='') - Gain calibration table(s) to apply on the fly
+   - **gainfield** (stringArray='') - Select a subset of calibrators from gaintable(s)
+   - **interp** (stringArray='') - Interpolation parameters for each gaintable, as a list
+   - **spwmap** (intArray='') - Spectral window mappings to form for gaintable(s)
+
+   *docallib = True*
+
+   - **callib** (string='') - Cal Library filename
 
 
-
-
-
-   calculates a bandpass calibration solution
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

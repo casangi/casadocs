@@ -3,50 +3,29 @@
 #
 
 def imrebin(imagename, outfile='', factor='', region='', box='', chans='', stokes='', mask='', dropdeg=False, overwrite=False, stretch=False, crop=True):
-    """
+    r"""
 Rebin an image by the specified integer factors
 
 Parameters
-----------
-imagename : string
-   Name of the input image
-outfile : string
-   Output image name.
-factor : intArray
-   Binning factors for each axis. Use imhead or ia.summary to determine axis ordering.
-region : variant
-   Region selection. Default is to use the full image.
-box : string
-   Rectangular region to select in direction plane. Default is to use the entire direction plane.
-chans : string
-   Channels to use. Default is to use all channels.
-stokes : string
-   Stokes planes to use. Default is to use all Stokes planes. Stokes planes cannot be rebinned.
-mask : string
-   Mask to use. Default is none.
-dropdeg : bool
-   Drop degenerate axes?
-overwrite : bool
-   Overwrite the output if it exists? Default False
-crop : bool
-   Remove pixels from the end of an axis to be rebinned if there are not enough to form an integral bin?
+   - **imagename** (string) - Name of the input image
+   - **outfile** (string) - Output image name.
+   - **factor** (intArray) - Binning factors for each axis. Use imhead or ia.summary to determine axis ordering.
+   - **region** (variant) - Region selection. Default is to use the full image.
+   - **box** (string) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **chans** (string) - Channels to use. Default is to use all channels.
+   - **stokes** (string) - Stokes planes to use. Default is to use all Stokes planes. Stokes planes cannot be rebinned.
+   - **mask** (string) - Mask to use. Default is none.
+   - **dropdeg** (bool) - Drop degenerate axes?
+   - **overwrite** (bool) - Overwrite the output if it exists? Default False
+   - **crop** (bool) - Remove pixels from the end of an axis to be rebinned if there are not enough to form an integral bin?
 
-Other Parameters
-----------
-stretch : bool
-   Stretch the mask if necessary and possible? 
+Subparameters
+   *mask != ''*
 
-Notes
------
+   - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
 
 
-
-
-
-   imrebin task: Rebin an image by the specified integer factors
-
-
-
+Description
       This application rebins the specified image by the specified
       integer binning factors for each axis. It supports both float
       valued and complex valued images. The corresponding output pixel

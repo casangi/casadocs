@@ -3,177 +3,196 @@
 #
 
 def tclean2(vis, selectdata=True, field='', spw='', timerange='', uvrange='', antenna='', scan='', observation='', intent='', datacolumn='corrected', imagename='', imsize=100, cell='"1arcsec"', phasecenter='', stokes='I', projection='SIN', startmodel='', specmode='mfs', reffreq='', nchan=-1, start='', width='', outframe='LSRK', veltype='radio', restfreq=[''], interpolation='linear', gridder='standard', facets=1, chanchunks=1, wprojplanes=1, aterm=True, psterm=False, wbawp=True, conjbeams=True, cfcache='', computepastep=360.0, rotatepastep=360.0, pblimit=0.2, normtype='flatnoise', deconvolver='hogbom', scales=[''], nterms=2, scalebias=0.6, restoringbeam='', outlierfile='', weighting='natural', robust=0.5, npixels=0, uvtaper=[''], niter=0, gain=0.1, threshold=0.0, cycleniter=-1, cyclefactor=1.0, minpsffraction=0.05, maxpsffraction=0.8, interactive=False, usemask='user', mask='', pbmask=0.0, maskthreshold='', maskresolution='', restart=True, savemodel='none', makeimages='auto', calcres=True, calcpsf=True, restoremodel='auto', writepb='auto', ranks=''):
-    """
+    r"""
 Radio Interferometric Image Reconstruction
 
-| Form images from visibilities and reconstruct a sky model.
-|                This task handles continuum images and spectral line cubes,
-|                supports outlier fields, contains standard clean based algorithms
-|                along with algorithms for multi-scale and wideband image
-|                reconstruction, widefield imaging correcting for the w-term,
-|                full primary-beam imaging and joint mosaic imaging (with
-|                heterogeneous array support for ALMA).
-
 Parameters
-----------
-vis : string, stringArray
-   Name of input visibility file(s)
-selectdata : bool
-   Enable data selection parameters
-datacolumn : string
-   Data column to image(data,corrected)
-imagename : int, string, stringArray
-   Pre-name of output images
-imsize : int, intArray
-   Number of pixels
-cell : int, double, intArray, doubleArray, string, stringArray
-   Cell size
-phasecenter : int, string
-   Phase center of the image
-stokes : string
-   Stokes Planes to make
-projection : string
-   Coordinate projection (SIN, HPX)
-startmodel : string
-   Name of starting model image
-specmode : string
-   Spectral definition mode (mfs,cube,cubedata)
-gridder : string
-   Gridding options (standard, wproject, widefield, mosaic, awproject)
-deconvolver : string
-   Minor cycle algorithm (hogbom,clark,multiscale,mtmfs,mem,clarkstokes)
-outlierfile : string
-   Name of outlier-field image definitions
-weighting : string
-   Weighting scheme (natural,uniform,briggs)
-niter : int
-   Maximum number of iterations
-usemask : string
-   Type of mask(s) for deconvolution (user,pb,auto-thresh)
-restart : bool
-   True : Re-use existing images. False : Increment imagename
-savemodel : string
-   Options to save model visibilities (none, virtual, modelcolumn)
-makeimages : string
-   List of output images (auto,choose)
-ranks : intarray
-   List of participating ranks
+   - **vis** (string, stringArray) - Name of input visibility file(s)
+   - **selectdata** (bool) - Enable data selection parameters
+   - **datacolumn** (string) - Data column to image(data,corrected)
+   - **imagename** (int, string, stringArray) - Pre-name of output images
+   - **imsize** (int, intArray) - Number of pixels
+   - **cell** (int, double, intArray, doubleArray, string, stringArray) - Cell size
+   - **phasecenter** (int, string) - Phase center of the image
+   - **stokes** (string) - Stokes Planes to make
+   - **projection** (string) - Coordinate projection (SIN, HPX)
+   - **startmodel** (string) - Name of starting model image
+   - **specmode** (string) - Spectral definition mode (mfs,cube,cubedata)
+   - **gridder** (string) - Gridding options (standard, wproject, widefield, mosaic, awproject)
+   - **deconvolver** (string) - Minor cycle algorithm (hogbom,clark,multiscale,mtmfs,mem,clarkstokes)
+   - **outlierfile** (string) - Name of outlier-field image definitions
+   - **weighting** (string) - Weighting scheme (natural,uniform,briggs)
+   - **niter** (int) - Maximum number of iterations
+   - **usemask** (string) - Type of mask(s) for deconvolution (user,pb,auto-thresh)
+   - **restart** (bool) - True : Re-use existing images. False : Increment imagename
+   - **savemodel** (string) - Options to save model visibilities (none, virtual, modelcolumn)
+   - **makeimages** (string) - List of output images (auto,choose)
+   - **ranks** (intarray) - List of participating ranks
 
-Other Parameters
-----------
-field : string, stringArray
-   field(s) to select
-spw : string, stringArray
-   spw(s)/channels to select
-timerange : string, stringArray
-   Range of time to select from data
-uvrange : string, stringArray
-   Select data within uvrange
-antenna : string, stringArray
-   Select data based on antenna/baseline
-scan : string, stringArray
-   Scan number range
-observation : string, int
-   Observation ID range
-intent : string, stringArray
-   Scan Intent(s)
-reffreq : string
-   Reference frequency
-nchan : int
-   Number of channels in the output image
-start : string
-   First channel (e.g. start=3,start=\'1.1GHz\',start=\'15343km/s\')
-width : string
-   Channel width (e.g. width=2,width=\'0.1MHz\',width=\'10km/s\')
-outframe : string
-   Spectral reference frame in which to interpret \'start\' and \'width\'
-veltype : string
-   Velocity type (radio, z, ratio, beta, gamma, optical)
-restfreq : stringArray
-   List of rest frequencies
-interpolation : string
-   Spectral interpolation (nearest,linear,cubic)
-facets : int
-   Number of facets on a side
-chanchunks : int
-   Number of channel chunks
-wprojplanes : int
-   Number of distinct w-values for convolution functions
-aterm : bool
-   Use aperture illumination functions during gridding
-psterm : bool
-   Use prolate spheroidal during gridding
-wbawp : bool
-   Use wideband A-terms
-conjbeams : bool
-   Use conjugate frequency for wideband A-terms
-cfcache : string
-   >Convolution function cache directory name
-computepastep : double
-   At what parallactic angle interval to recompute AIFs (deg)
-rotatepastep : double
-   At what parallactic angle interval to rotate nearest AIF (deg) 
-pblimit : double
-   >PB gain level at which to cut off normalizations 
-normtype : string
-   Normalization type (flatnoise, flatsky)
-scales : intArray, floatArray
-   List of scale sizes (in pixels) for multi-scale algorithms
-nterms : int
-   Number of Taylor coefficients in the spectral model
-scalebias : double
-   A bias towards smaller scale sizes
-restoringbeam : string, stringArray
-   Restoring beam shape to use. Default is the PSF main lobe
-robust : double
-   Robustness parameter
-npixels : int
-   Number of pixels to determine uv-cell size (0 : -/+ 3 pixels)
-uvtaper : stringArray
-   uv-taper on outer baselines in uv-plane
-gain : double
-   Loop gain
-threshold : double
-   Stopping threshold 
-cycleniter : int
-   Maximum number of minor-cycle iterations
-cyclefactor : double
-   Scaling on PSF sidelobe level to compute the minor-cycle stopping threshold.
-minpsffraction : double
-   PSF fraction that marks the max depth of cleaning in the minor cycle
-maxpsffraction : double
-   PSF fraction that marks the minimum depth of cleaning in the minor cycle 
-interactive : bool, int
-   Modify masks and parameters at runtime
-mask : string, stringArray
-   Mask (a list of image name(s) or region file(s) or region string(s) )
-pbmask : double
-   primary beam mask
-maskthreshold : string
-   threshold for automasking (string with unit, e.g. "1.0mJy", sigma,  or fraction of peak ,e.g. 0.1)
-maskresolution : string
-   resolution for automasking (string, e.g. "10arcsec")
-calcres : bool
-   Calculate initial residual image
-calcpsf : bool
-   Calculate PSF
-restoremodel : string
-   Restore the model image
-writepb : string
-   Make a primary beam image
+Subparameters
+   *selectdata = True*
 
-Notes
------
+   - **field** (string="", stringArray) - field(s) to select
+   - **spw** (string="", stringArray) - spw(s)/channels to select
+   - **timerange** (string="", stringArray) - Range of time to select from data
+   - **uvrange** (string="", stringArray) - Select data within uvrange
+   - **antenna** (string="", stringArray) - Select data based on antenna/baseline
+   - **scan** (string="", stringArray) - Scan number range
+   - **observation** (string="", int) - Observation ID range
+   - **intent** (string="", stringArray) - Scan Intent(s)
+
+   *specmode = mfs*
+
+   - **reffreq** (string="") - Reference frequency
+
+   *specmode = cube*
+
+   - **nchan** (int=-1) - Number of channels in the output image
+   - **start** (string="") - First channel (e.g. start=3,start=\'1.1GHz\',start=\'15343km/s\')
+   - **width** (string="") - Channel width (e.g. width=2,width=\'0.1MHz\',width=\'10km/s\')
+   - **outframe** (string="") - Spectral reference frame in which to interpret \'start\' and \'width\'
+   - **veltype** (string="radio") - Velocity type (radio, z, ratio, beta, gamma, optical)
+   - **restfreq** (stringArray=[]) - List of rest frequencies
+   - **interpolation** (string="linear") - Spectral interpolation (nearest,linear,cubic)
+   - **chanchunks** (int=1) - Number of channel chunks
+
+   *specmode = cubedata*
+
+   - **nchan** (int=-1) - Number of channels in the output image
+   - **start** (string="") - First channel (e.g. start=3,start=\'1.1GHz\',start=\'15343km/s\')
+   - **width** (string="") - Channel width (e.g. width=2,width=\'0.1MHz\',width=\'10km/s\')
+   - **veltype** (string="radio") - Velocity type (radio, z, ratio, beta, gamma, optical)
+   - **restfreq** (stringArray=[]) - List of rest frequencies
+   - **interpolation** (string="linear") - Spectral interpolation (nearest,linear,cubic)
+   - **chanchunks** (int=1) - Number of channel chunks
+
+   *gridder = widefield*
+
+   - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
+   - **facets** (int=1) - Number of facets on a side
+
+   *gridder = wproject*
+
+   - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
+
+   *gridder = wprojectft*
+
+   - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
+
+   *gridder = mosaic*
+
+   - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
+   - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
+
+   *gridder = mosaicft*
+
+   - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
+   - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
+
+   *gridder = ftmosaic*
+
+   - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
+   - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
+
+   *gridder = imagemosaic*
+
+   - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
+   - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
+   - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
+
+   *gridder = awproject*
+
+   - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
+   - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
+   - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
+   - **psterm** (bool=False) - Use prolate spheroidal during gridding
+   - **aterm** (bool=True) - Use aperture illumination functions during gridding
+   - **cfcache** (string="") - >Convolution function cache directory name
+   - **computepastep** (double=360.0) - At what parallactic angle interval to recompute AIFs (deg)
+   - **rotatepastep** (double=360.0) - At what parallactic angle interval to rotate nearest AIF (deg) 
+   - **wbawp** (bool=False) - Use wideband A-terms
+   - **conjbeams** (bool=False) - Use conjugate frequency for wideband A-terms
+
+   *gridder = awprojectft*
+
+   - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
+   - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
+   - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
+   - **psterm** (bool=False) - Use prolate spheroidal during gridding
+   - **aterm** (bool=True) - Use aperture illumination functions during gridding
+   - **cfcache** (string="") - >Convolution function cache directory name
+   - **computepastep** (double=360.0) - At what parallactic angle interval to recompute AIFs (deg)
+   - **rotatepastep** (double=360.0) - At what parallactic angle interval to rotate nearest AIF (deg) 
+   - **wbawp** (bool=False) - Use wideband A-terms
+   - **conjbeams** (bool=False) - Use conjugate frequency for wideband A-terms
+
+   *weighting = natural*
+
+   - **uvtaper** (stringArray=[]) - uv-taper on outer baselines in uv-plane
+
+   *weighting = briggs*
+
+   - **robust** (double=0.5) - Robustness parameter
+   - **npixels** (int=0) - Number of pixels to determine uv-cell size (0 : -/+ 3 pixels)
+   - **uvtaper** (stringArray=[]) - uv-taper on outer baselines in uv-plane
+
+   *deconvolver = hogbom*
+
+   - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
+
+   *deconvolver = clark*
+
+   - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
+
+   *deconvolver = multiscale*
+
+   - **scales** (intArray='', floatArray) - List of scale sizes (in pixels) for multi-scale algorithms
+   - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
+
+   *deconvolver = mtmfs*
+
+   - **scales** (intArray='', floatArray) - List of scale sizes (in pixels) for multi-scale algorithms
+   - **nterms** (int=2) - Number of Taylor coefficients in the spectral model
+   - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
+
+   *deconvolver = aasp*
+
+   - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
+
+   *niter != 0*
+
+   - **gain** (double=0.1) - Loop gain
+   - **threshold** (double=0.0) - Stopping threshold 
+   - **cycleniter** (int=-1) - Maximum number of minor-cycle iterations
+   - **cyclefactor** (double=1.0) - Scaling on PSF sidelobe level to compute the minor-cycle stopping threshold.
+   - **minpsffraction** (double=0.05) - PSF fraction that marks the max depth of cleaning in the minor cycle
+   - **maxpsffraction** (double=0.8) - PSF fraction that marks the minimum depth of cleaning in the minor cycle 
+   - **interactive** (bool=False, int) - Modify masks and parameters at runtime
+
+   *usemask = user*
+
+   - **mask** (string="", stringArray) - Mask (a list of image name(s) or region file(s) or region string(s) )
+   - **pbmask** (double=0.0) - primary beam mask
+
+   *usemask = pb*
+
+   - **pbmask** (double=0.2) - primary beam mask
+
+   *usemask = auto-thresh*
+
+   - **pbmask** (double=0.0) - primary beam mask
+   - **maskthreshold** (string="") - threshold for automasking (string with unit, e.g. "1.0mJy", sigma,  or fraction of peak ,e.g. 0.1)
+   - **maskresolution** (string="") - resolution for automasking (string, e.g. "10arcsec")
+
+   *makeimages = choose*
+
+   - **calcres** (bool=True) - Calculate initial residual image
+   - **calcpsf** (bool=True) - Calculate PSF
+   - **restoremodel** (string=auto) - Restore the model image
+   - **writepb** (string=auto) - Make a primary beam image
 
 
-tclean
-======
-
-
-   task tclean description
-
-
-
+Description
       .. rubric:: Overview
          :name: overview
 

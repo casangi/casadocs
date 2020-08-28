@@ -3,37 +3,18 @@
 #
 
 def testconcat(vis, testconcatvis='', freqtol='', dirtol='', copypointing=True):
-    """
+    r"""
 Concatenate the subtables of several visibility data sets, not the MAIN bulk data.
 
 Parameters
-----------
-vis : stringArray
-   
-testconcatvis : string
-   
-freqtol : variant
-   
-dirtol : variant
-   
-copypointing : bool
-   
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (stringArray) - 
+   - **testconcatvis** (string) - 
+   - **freqtol** (variant) - 
+   - **dirtol** (variant) - 
+   - **copypointing** (bool) - 
 
 
-tclean
-======
-
-
-   task tclean description
-
-
-
+Description
       .. rubric:: Overview
          :name: overview
 

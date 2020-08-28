@@ -3,36 +3,18 @@
 #
 
 def imval(imagename, region='', box='', chans='', stokes=''):
-    """
+    r"""
 Get the data value(s) and/or mask value in an image.
 
 Parameters
-----------
-imagename : string
-   Name of the input image
-region : variant
-   Region selection. Empty string (default) means use rules for box/chans/stokes specification.
-box : string
-   Rectangular region(s) to select in direction plane. Empty string (default) means use the reference pixel.
-chans : string
-   Channels to use. Default is to use all channels.
-stokes : string
-   Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
-
-Other Parameters
-----------
-
-Notes
------
+   - **imagename** (string) - Name of the input image
+   - **region** (variant) - Region selection. Empty string (default) means use rules for box/chans/stokes specification.
+   - **box** (string) - Rectangular region(s) to select in direction plane. Empty string (default) means use the reference pixel.
+   - **chans** (string) - Channels to use. Default is to use all channels.
+   - **stokes** (string) - Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
 
 
-
-
-
-   imval task: Get the data value(s) and/or mask value in an image.
-
-
-
+Description
       Get the data value(s) and/or mask value in an image.
 
       | The data point(s) to be retrieved are those found in the

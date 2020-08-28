@@ -3,40 +3,22 @@
 #
 
 def browsetable(tablename='', mightedit=False, sortlist='', taql='', skipcols=''):
-    """
+    r"""
 Browse a table (MS, calibration table, image)
 
-| This task brings up a browser that can open and display any CASA
-|table. The tablename can be specified at startup, or any table can be
-|loaded after the browser comes up.
-
 Parameters
-----------
-tablename : string
-   Name of input table
+   - **tablename** (string) - Name of input table
 
-Other Parameters
-----------
-mightedit : bool
-   Warning: the GUI seems to ignore whether the table tool is opened read-only. Just be careful, esp. if filtering.
-sortlist : string, stringArray
-   Columns to sort by (ascending)
-taql : string
-   TaQL query string for prefiltering the table.
-skipcols : string, stringArray
-   Columns to omit
+Subparameters
+   *tablename != ''*
 
-Notes
------
+   - **mightedit** (bool=False) - Warning: the GUI seems to ignore whether the table tool is opened read-only. Just be careful, esp. if filtering.
+   - **sortlist** (string='', stringArray) - Columns to sort by (ascending)
+   - **taql** (string='') - TaQL query string for prefiltering the table.
+   - **skipcols** (string='', stringArray) - Columns to omit
 
 
-
-
-
-   browse a table (MS, calibration table, image)
-
-
-
+Description
       Brings up a browser that can open and display any CASA table (MS,
       calibration table, image). The *tablename* can be specified at
       startup, or any table can be loaded after the browser comes up. It

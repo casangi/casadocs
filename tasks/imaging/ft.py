@@ -3,55 +3,26 @@
 #
 
 def ft(vis, field='', spw='', model='', nterms=1, reffreq='', complist='', incremental=False, usescratch=False):
-    """
+    r"""
 Insert a source model as a visibility set
 
-| A source model (souce.model image) or components list is converted
-|into model visibilities that is inserted into the MODEL_DATA column or
-|alternatively is stored  in the header of the MS to be served on the
-|fly when requested. 
-|
-|Setjy will automatically make this ft step on the sources currently
-|available, which are 3C48, 3C138, 3C147, 3C286 at 1.4, 5.0, 8.4, 15,
-|22, 43 GHz.  Their location is site dependent.  In Charlottesville and
-|Socorro, the models are in
-|/usr/lib(lib64)/casapy/data/nrao/VLA/CalModels.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-field : string
-   Select field using field id(s) or field name(s)
-spw : string
-   Select spectral window/channels
-model : variant
-   Name of input model image(s)
-nterms : int
-   Number of terms used to model the sky frequency dependence
-complist : string
-   Name of component list
-incremental : bool
-   Add to the existing model visibility?
-usescratch : bool
-   If True, predicted  visibility  is stored in MODEL_DATA column
+   - **vis** (string) - Name of input visibility file
+   - **field** (string) - Select field using field id(s) or field name(s)
+   - **spw** (string) - Select spectral window/channels
+   - **model** (variant) - Name of input model image(s)
+   - **nterms** (int) - Number of terms used to model the sky frequency dependence
+   - **complist** (string) - Name of component list
+   - **incremental** (bool) - Add to the existing model visibility?
+   - **usescratch** (bool) - If True, predicted  visibility  is stored in MODEL_DATA column
 
-Other Parameters
-----------
-reffreq : string
-   Reference frequency (e.g. \'1.5e+9\' or \'1.5GHz\')
+Subparameters
+   *nterms != 1*
 
-Notes
------
+   - **reffreq** (string='') - Reference frequency (e.g. \'1.5e+9\' or \'1.5GHz\')
 
 
-
-
-
-   task description
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

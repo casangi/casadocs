@@ -3,80 +3,44 @@
 #
 
 def applycal(vis, field='', spw='', intent='', selectdata=True, timerange='', uvrange='', antenna='', scan='', observation='', msselect='', docallib=False, callib='', gaintable=[''], gainfield=[''], interp=[''], spwmap=[''], calwt=[True], parang=False, applymode='', flagbackup=True):
-    """
+    r"""
 Apply calibrations solutions(s) to data
 
-| Applycal reads the specified gain calibration tables or cal library,
-|applies them to the (raw) data column (with the specified selection),
-|and writes the calibrated results into the corrected column. This is
-|done in one step, so all available calibration tables must be
-|specified.
-|
-|Applycal will overwrite existing corrected data, and will flag data
-|for which there is no calibration available.
-|
-|Standard data selection is supported.  See help par.selectdata for
-|more information.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-field : string
-   Select field using field id(s) or field name(s)
-spw : string
-   Select spectral window/channels
-intent : string
-   Select observing intent
-selectdata : bool
-   Other data selection parameters
-docallib : bool
-   Use callib or traditional cal apply parameters
-parang : bool
-   Apply parallactic angle correction
-applymode : string
-   Calibration mode: ""="calflag","calflagstrict","trial","flagonly","flagonlystrict", or "calonly"
-flagbackup : bool
-   Automatically back up the state of flags before the run?
+   - **vis** (string) - Name of input visibility file
+   - **field** (string) - Select field using field id(s) or field name(s)
+   - **spw** (string) - Select spectral window/channels
+   - **intent** (string) - Select observing intent
+   - **selectdata** (bool) - Other data selection parameters
+   - **docallib** (bool) - Use callib or traditional cal apply parameters
+   - **parang** (bool) - Apply parallactic angle correction
+   - **applymode** (string) - Calibration mode: ""="calflag","calflagstrict","trial","flagonly","flagonlystrict", or "calonly"
+   - **flagbackup** (bool) - Automatically back up the state of flags before the run?
 
-Other Parameters
-----------
-timerange : string
-   Select data based on time range
-uvrange : variant
-   Select data within uvrange (default units meters)
-antenna : string
-   Select data based on antenna/baseline
-scan : string
-   Scan number range
-observation : string, int
-   Select by observation ID(s)
-msselect : string
-   Optional complex data selection (ignore for now)
-callib : string
-   Cal Library filename
-gaintable : stringArray
-   Gain calibration table(s) to apply on the fly
-gainfield : stringArray
-   Select a subset of calibrators from gaintable(s)
-interp : stringArray
-   Interpolation parameters for each gaintable, as a list
-spwmap : intArray
-   Spectral windows combinations to form for gaintables(s)
-calwt : boolArray
-   Calibrate data weights per gaintable.
+Subparameters
+   *selectdata = True*
 
-Notes
------
+   - **timerange** (string='') - Select data based on time range
+   - **uvrange** (variant='') - Select data within uvrange (default units meters)
+   - **antenna** (string='') - Select data based on antenna/baseline
+   - **scan** (string='') - Scan number range
+   - **observation** (string='', int) - Select by observation ID(s)
+   - **msselect** (string='') - Optional complex data selection (ignore for now)
+
+   *docallib = False*
+
+   - **gaintable** (stringArray='') - Gain calibration table(s) to apply on the fly
+   - **gainfield** (stringArray='') - Select a subset of calibrators from gaintable(s)
+   - **interp** (stringArray='') - Interpolation parameters for each gaintable, as a list
+   - **spwmap** (intArray='') - Spectral windows combinations to form for gaintables(s)
+   - **calwt** (boolArray=True) - Calibrate data weights per gaintable.
+
+   *docallib = True*
+
+   - **callib** (string='') - Cal Library filename
 
 
-
-
-
-   apply calibrations solutions(s) to data
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

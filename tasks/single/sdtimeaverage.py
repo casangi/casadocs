@@ -3,49 +3,23 @@
 #
 
 def sdtimeaverage(infile, datacolumn='float_data', field='', spw='', timerange='', scan='', antenna='', timebin='all', timespan='scan', outfile=''):
-    """
+    r"""
 Average SD data, perform time averaging
 
-| The task sdtimeaverage is an SD task for averaging spectral data
-|    over specified time range.
-
 Parameters
-----------
-infile : string
-   name of input SD dataset
-datacolumn : string
-   name of data column to be used ["data", "float_data", or "corrected_data"]
-field : string
-   select data by field IDs and names, e.g. "3C2*" (""=all)
-spw : string
-   select data by spectral windows and channels, e.g. "3,5,7" (""=all)
-timerange : string
-   select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help)
-scan : string
-   select data by scan numbers, e.g. "21~23" (""=all)
-antenna : string
-   antenna IDs to be averaged over, e.g. "PM03" (""=all)
-timebin : string
-   bin width for time averaging.
-timespan : string
-   span across scan, state or both.
-outfile : string
-   name of output file
-
-Other Parameters
-----------
-
-Notes
------
+   - **infile** (string) - name of input SD dataset
+   - **datacolumn** (string) - name of data column to be used ["data", "float_data", or "corrected_data"]
+   - **field** (string) - select data by field IDs and names, e.g. "3C2*" (""=all)
+   - **spw** (string) - select data by spectral windows and channels, e.g. "3,5,7" (""=all)
+   - **timerange** (string) - select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help)
+   - **scan** (string) - select data by scan numbers, e.g. "21~23" (""=all)
+   - **antenna** (string) - antenna IDs to be averaged over, e.g. "PM03" (""=all)
+   - **timebin** (string) - bin width for time averaging.
+   - **timespan** (string) - span across scan, state or both.
+   - **outfile** (string) - name of output file
 
 
-
-
-
-   sdtimeaverage averages SD spectral data over specified time.
-
-
-
+Description
 
 
 

@@ -3,84 +3,50 @@
 #
 
 def polcal(vis, caltable='', field='', spw='', intent='', selectdata=True, timerange='', uvrange='', antenna='', scan='', observation='', msselect='', solint='inf', combine='obs,scan', preavg=300.0, refant='', minblperant=4, minsnr=3.0, poltype='D+QU', smodel=[''], append=False, docallib=False, callib='', gaintable=[''], gainfield=[''], interp=[''], spwmap=['']):
-    """
+    r"""
 Determine instrumental polarization calibrations
 
-| The complex instrumental polarization factors (D-terms) for each antenna/spwid 
-|are determined from the data for the specified calibrator sources. Previous 
-|calibrations can be applied on the fly.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-caltable : string
-   Name of output gain calibration table
-field : string
-   Select field using field id(s) or field name(s)
-spw : string
-   Select spectral window/channels
-intent : string
-   Select observing intent
-selectdata : bool
-   Other data selection parameters
-solint : variant
-   Solution interval
-combine : string
-   Data axes which to combine for solve (obs, scan, spw, and/or field)
-preavg : double
-   Pre-averaging interval (sec)
-refant : string
-   Reference antenna name(s)
-minblperant : int
-   Minimum baselines _per antenna_ required for solve
-minsnr : double
-   Reject solutions below this SNR
-poltype : string
-   Type of instrumental polarization solution (see help)
-smodel : doubleArray
-   Point source Stokes parameters for source model.
-append : bool
-   Append solutions to the (existing) table
-docallib : bool
-   Use callib or traditional cal apply parameters
+   - **vis** (string) - Name of input visibility file
+   - **caltable** (string) - Name of output gain calibration table
+   - **field** (string) - Select field using field id(s) or field name(s)
+   - **spw** (string) - Select spectral window/channels
+   - **intent** (string) - Select observing intent
+   - **selectdata** (bool) - Other data selection parameters
+   - **solint** (variant) - Solution interval
+   - **combine** (string) - Data axes which to combine for solve (obs, scan, spw, and/or field)
+   - **preavg** (double) - Pre-averaging interval (sec)
+   - **refant** (string) - Reference antenna name(s)
+   - **minblperant** (int) - Minimum baselines _per antenna_ required for solve
+   - **minsnr** (double) - Reject solutions below this SNR
+   - **poltype** (string) - Type of instrumental polarization solution (see help)
+   - **smodel** (doubleArray) - Point source Stokes parameters for source model.
+   - **append** (bool) - Append solutions to the (existing) table
+   - **docallib** (bool) - Use callib or traditional cal apply parameters
 
-Other Parameters
-----------
-timerange : string
-   Select data based on time range
-uvrange : variant
-   Select data within uvrange (default units meters)
-antenna : string
-   Select data based on antenna/baseline
-scan : string
-   Scan number range
-observation : string, int
-   Select by observation ID(s)
-msselect : string
-   Optional complex data selection (ignore for now)
-callib : string
-   Cal Library filename
-gaintable : stringArray
-   Gain calibration table(s) to apply
-gainfield : stringArray
-   Select a subset of calibrators from gaintable(s)
-interp : stringArray
-   Interpolation mode (in time) to use for each gaintable
-spwmap : intArray
-   Spectral window mappings to form for gaintable(s)
+Subparameters
+   *selectdata = True*
 
-Notes
------
+   - **timerange** (string='') - Select data based on time range
+   - **uvrange** (variant='') - Select data within uvrange (default units meters)
+   - **antenna** (string='') - Select data based on antenna/baseline
+   - **scan** (string='') - Scan number range
+   - **observation** (string='', int) - Select by observation ID(s)
+   - **msselect** (string='') - Optional complex data selection (ignore for now)
+
+   *docallib = False*
+
+   - **gaintable** (stringArray='') - Gain calibration table(s) to apply
+   - **gainfield** (stringArray='') - Select a subset of calibrators from gaintable(s)
+   - **interp** (stringArray='') - Interpolation mode (in time) to use for each gaintable
+   - **spwmap** (intArray='') - Spectral window mappings to form for gaintable(s)
+
+   *docallib = True*
+
+   - **callib** (string='') - Cal Library filename
 
 
-
-
-
-   task description
-
-
-
+Description
       The **polcal** task supports solving for systematic calibration
       relating to the linear and circular polarization sensitivity of
       synthesis observations, namely, the instrumental polarization and

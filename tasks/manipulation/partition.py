@@ -3,117 +3,47 @@
 #
 
 def partition(vis, outputvis='', createmms=True, separationaxis='auto', numsubms='auto', flagbackup=True, datacolumn='all', field='', spw='', scan='', antenna='', correlation='', timerange='', intent='', array='', uvrange='', observation='', feed='', disableparallel=False, ddistart=-1, taql=''):
-    """
+    r"""
 Task to produce Multi-MSs using parallelism
 
-| Partition is a task to create a Multi-MS out of an MS. General selection
-|    parameters are included, and one or all of the various data columns
-|    (DATA, LAG_DATA and/or FLOAT_DATA, and possibly MODEL_DATA and/or
-|    CORRECTED_DATA) can be selected.
-|    
-|    The partition task creates a Multi-MS in parallel, using the CASA MPI framework.
-|    The user should start CASA as follows in order to run it in parallel.
-|    
-|    1) Start CASA on a single node with 8 engines. The first engine will be used as the
-|       MPIClient, where the user will see the CASA prompt. All other engines will be used
-|       as MPIServers and will process the data in parallel.
-|           mpicasa -n 8 casa --nogui --log2term
-|           partition(.....)
-|        
-|    2) Running on a group of nodes in a cluster.
-|           mpicasa -hostfile user_hostfile casa ....
-|           partition(.....)
-|            
-|        where user_hostfile contains the names of the nodes and the number of engines to use 
-|        in each one of them. Example:
-|            pc001234a, slots=5
-|            pc001234b, slots=4
-|     
-|    If CASA is started without mpicasa, it is still possible to create an MMS, but
-|    the processing will be done in sequential.
-|
-|    A multi-MS is structured to have a reference MS on the top directory and a
-|    sub-directory called SUBMSS, which contain each partitioned sub-MS. The
-|    reference MS contains links to the sub-tables of the first sub-MS. The other
-|    sub-MSs contain a copy of the sub-tables each. A multi-MS looks like this in disk.
-|
-|    ls ngc5921.mms
-|    ANTENNA           FLAG_CMD     POLARIZATION  SPECTRAL_WINDOW  table.dat
-|    DATA_DESCRIPTION  HISTORY      PROCESSOR     STATE            table.info
-|    FEED              OBSERVATION  SORTED_TABLE  SUBMSS           WEATHER
-|    FIELD             POINTING     SOURCE        SYSCAL
-|
-|    ls ngc5921.mms/SUBMSS/
-|    ngc5921.0000.ms/  ngc5921.0002.ms/  ngc5921.0004.ms/  ngc5921.0006.ms/
-|    ngc5921.0001.ms/  ngc5921.0003.ms/  ngc5921.0005.ms/
-|
-|    Inside casapy, one can use the task listpartition to list the information
-|    from a multi-MS.
-|    
-|    When partition processes an MMS in parallel, each sub-MS is processed independently in an engine.
-|    The log messages of the engines are identified by the string MPIServer-#, where # gives the number
-|    of the engine running that process. When the task runs sequentially, it shows the MPIClient text
-|    in the origin of the log messages or does not show anything.
-
 Parameters
-----------
-vis : string
-   Name of input measurement set
-outputvis : string
-   Name of output measurement set
-createmms : bool
-   Should this create a multi-MS output
-datacolumn : string
-   Which data column(s) to process.
-field : string, stringArray, int, intArray
-   Select field using ID(s) or name(s).
-spw : string, stringArray, int, intArray
-   Select spectral window/channels.
-scan : string, stringArray, int, intArray
-   Select data by scan numbers.
-antenna : string, stringArray, int, intArray
-   Select data based on antenna/baseline.
-correlation : string, stringArray
-   Correlation: '' ==> all, correlation="XX,YY".
-timerange : string, stringArray, int, intArray
-   Select data by time range.
-intent : string, stringArray, int, intArray
-   Select data by scan intent.
-array : string, stringArray, int, intArray
-   Select (sub)array(s) by array ID number.
-uvrange : string, stringArray, int, intArray
-   Select data by baseline length.
-observation : string, stringArray, int, intArray
-   Select by observation ID(s).
-feed : string, stringArray, int, intArray
-   Multi-feed numbers: Not yet implemented.
+   - **vis** (string) - Name of input measurement set
+   - **outputvis** (string) - Name of output measurement set
+   - **createmms** (bool) - Should this create a multi-MS output
+   - **datacolumn** (string) - Which data column(s) to process.
+   - **field** (string, stringArray, int, intArray) - Select field using ID(s) or name(s).
+   - **spw** (string, stringArray, int, intArray) - Select spectral window/channels.
+   - **scan** (string, stringArray, int, intArray) - Select data by scan numbers.
+   - **antenna** (string, stringArray, int, intArray) - Select data based on antenna/baseline.
+   - **correlation** (string, stringArray) - Correlation: '' ==> all, correlation="XX,YY".
+   - **timerange** (string, stringArray, int, intArray) - Select data by time range.
+   - **intent** (string, stringArray, int, intArray) - Select data by scan intent.
+   - **array** (string, stringArray, int, intArray) - Select (sub)array(s) by array ID number.
+   - **uvrange** (string, stringArray, int, intArray) - Select data by baseline length.
+   - **observation** (string, stringArray, int, intArray) - Select by observation ID(s).
+   - **feed** (string, stringArray, int, intArray) - Multi-feed numbers: Not yet implemented.
 
-Other Parameters
-----------
-separationaxis : string
-   Axis to do parallelization across(scan, spw, baseline, auto)
-numsubms : string, int
-   The number of SubMSs to create (auto or any number)
-flagbackup : bool
-   Create a backup of the FLAG column in the MMS.
-disableparallel : bool
-   Create a multi-MS in parallel.
-ddistart : int
-   Do not change this parameter. For internal use only.
-taql : string
-   Table query for nested selections
+Subparameters
+   *createmms = True*
 
-Notes
------
+   - **separationaxis** (string=auto) - Axis to do parallelization across(scan, spw, baseline, auto)
+   - **numsubms** (string=auto, int) - The number of SubMSs to create (auto or any number)
+   - **flagbackup** (bool=True) - Create a backup of the FLAG column in the MMS.
+   - **disableparallel** (bool=False) - Create a multi-MS in parallel.
+   - **ddistart** (int=-1) - Do not change this parameter. For internal use only.
+   - **taql** (string='') - Table query for nested selections
+
+   *createmms = False*
+
+   - **separationaxis** (string=auto) - Axis to do parallelization across(scan, spw, baseline, auto)
+   - **numsubms** (string=auto, int) - The number of SubMSs to create (auto or any number)
+   - **flagbackup** (bool=True) - Create a backup of the FLAG column in the MMS.
+   - **disableparallel** (bool=False) - Create a multi-MS in parallel.
+   - **ddistart** (int=-1) - Do not change this parameter. For internal use only.
+   - **taql** (string='') - Table query for nested selections
 
 
-
-
-
-   task description
-
-
-
+Description
       partition is a task that creates
       a `Multi-MS <https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/the-multi-ms>`__ out
       of a MeasurementSet. General selection parameters are included,

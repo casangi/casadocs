@@ -3,40 +3,41 @@
 #
 
 def calstat(caltable, axis='amplitude', datacolumn='gain', useflags=True):
-    """
+    r"""
 Displays statistical information on a calibration table
 
-| This task returns statistical information about a column in a
-|calibration table. The following values are computed: mean value, sum
-|of values, sum of squared values, median, median absolute deviation,
-|quartile, minimum, maximum, variance, standard deviation, root mean
-|square.
-
 Parameters
-----------
-caltable : string
-   Name of input calibration table
-axis : string
-   Which values to use
-useflags : bool
-   Take flagging into account? (not implemented)
+   - **caltable** (string) - Name of input calibration table
+   - **axis** (string) - Which values to use
+   - **useflags** (bool) - Take flagging into account? (not implemented)
 
-Other Parameters
-----------
-datacolumn : string
-   Which data column to use
+Subparameters
+   *axis = amp*
 
-Notes
------
+   - **datacolumn** (string=gain) - Which data column to use
+
+   *axis = amplitude*
+
+   - **datacolumn** (string=gain) - Which data column to use
+
+   *axis = phase*
+
+   - **datacolumn** (string=gain) - Which data column to use
+
+   *axis = real*
+
+   - **datacolumn** (string=gain) - Which data column to use
+
+   *axis = imag*
+
+   - **datacolumn** (string=gain) - Which data column to use
+
+   *axis = imaginary*
+
+   - **datacolumn** (string=gain) - Which data column to use
 
 
-
-
-
-   displays statistical information on a calibration table
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

@@ -3,39 +3,19 @@
 #
 
 def importoldasdm(asdm, corr_mode='all', srt='all', time_sampling='all', ocorr_mode='co', compression=False):
-    """
+    r"""
 Convert an ALMA Science Data Model observation into a CASA visibility file
 
 Parameters
-----------
-asdm : string
-   
-corr_mode : string
-   
-srt : string
-   
-time_sampling : string
-   
-ocorr_mode : string
-   
-compression : bool
-   
-
-Other Parameters
-----------
-
-Notes
------
+   - **asdm** (string) - 
+   - **corr_mode** (string) - 
+   - **srt** (string) - 
+   - **time_sampling** (string) - 
+   - **ocorr_mode** (string) - 
+   - **compression** (bool) - 
 
 
-importnro
-=========
-
-
-   task description
-
-
-
+Description
       | Task **importnro** enables one to convert the data obtained with
         the NRO45m telescope into the CASA MS2 format. Usage of this
         task is very simple. Set *infile* and *outputvis*, then run the

@@ -3,77 +3,50 @@
 #
 
 def spxfit(imagename='', box='', region='', chans='', stokes='', axis=-1, mask='', minpts=1, multifit=False, spxtype='plp', spxest=[''], spxfix=[''], div='0', spxsol='', spxerr='', model='', residual='', wantreturn=True, stretch=False, logresults=True, logfile='', append=True, sigma='', outsigma=''):
-    """
+    r"""
 Fit a 1-dimensional model(s) to an image(s) or region for determination of spectral index.
 
-| 
-
 Parameters
-----------
-imagename : variant
-   Name of the input image(s)
-box : string
-   Rectangular region to select in direction plane. Default is to use the entire direction plane.
-region : string
-   Region selection. Default is to use the full image.
-chans : string
-   Channels to use. Default is to use all channels.
-stokes : string
-   Stokes planes to use. Default is to use all Stokes planes.
-axis : int
-   The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
-mask : string
-   Mask to use. Default is none.
-minpts : int
-   Minimum number of unmasked points necessary to attempt fit.
-multifit : bool
-   If true, fit a profile along the desired axis at each pixel in the specified region. If false, average the non-fit axis pixels and do a single fit to that average profile. Default False.
-spxtype : string
-   Type of function to fit. "plp" = power logarithmic polynomial, "ltp" = logarithmic transformed polynomial.
-spxest : doubleArray
-   REQUIRED. Initial estimates as array of numerical values for the spectral index function coefficients. eg [1.5, -0.8] if fitting a plp function thought to be close to 1.5*(x/div)**(-0.8) or [0.4055, -0.8] if fitting an lpt function thought to be close to ln(1.5) - 0.8*ln(x/div).
-spxfix : boolArray
-   Fix the corresponding spectral index function coefficients during the fit. True means hold fixed.
-div : variant
-   Divisor (numerical value or quantity) to use in the logarithmic terms of the plp or ltp function. 0 means calculate a useful value on the fly.
-wantreturn : bool
-   Should a record summarizing the results be returned?
-logresults : bool
-   Output results to logger?
-logfile : string
-   File in which to log results. Default is not to write a logfile.
-sigma : string, stringArray, doubleArray, intArray
-   Standard deviation array or image name(s).
+   - **imagename** (variant) - Name of the input image(s)
+   - **box** (string) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **region** (string) - Region selection. Default is to use the full image.
+   - **chans** (string) - Channels to use. Default is to use all channels.
+   - **stokes** (string) - Stokes planes to use. Default is to use all Stokes planes.
+   - **axis** (int) - The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
+   - **mask** (string) - Mask to use. Default is none.
+   - **minpts** (int) - Minimum number of unmasked points necessary to attempt fit.
+   - **multifit** (bool) - If true, fit a profile along the desired axis at each pixel in the specified region. If false, average the non-fit axis pixels and do a single fit to that average profile. Default False.
+   - **spxtype** (string) - Type of function to fit. "plp" = power logarithmic polynomial, "ltp" = logarithmic transformed polynomial.
+   - **spxest** (doubleArray) - REQUIRED. Initial estimates as array of numerical values for the spectral index function coefficients. eg [1.5, -0.8] if fitting a plp function thought to be close to 1.5*(x/div)**(-0.8) or [0.4055, -0.8] if fitting an lpt function thought to be close to ln(1.5) - 0.8*ln(x/div).
+   - **spxfix** (boolArray) - Fix the corresponding spectral index function coefficients during the fit. True means hold fixed.
+   - **div** (variant) - Divisor (numerical value or quantity) to use in the logarithmic terms of the plp or ltp function. 0 means calculate a useful value on the fly.
+   - **wantreturn** (bool) - Should a record summarizing the results be returned?
+   - **logresults** (bool) - Output results to logger?
+   - **logfile** (string) - File in which to log results. Default is not to write a logfile.
+   - **sigma** (string, stringArray, doubleArray, intArray) - Standard deviation array or image name(s).
 
-Other Parameters
-----------
-spxsol : string
-   Name of the spectral index function coefficient solution image to write.
-spxerr : string
-   Name of the spectral index function coefficient error image to write.
-model : string
-   Name of model image. Default: do not write the model image ("").
-residual : string
-   Name of residual image. Default: do not write the residual image ("").
-stretch : bool
-   Stretch the mask if necessary and possible? 
-append : bool
-   Append results to logfile? Logfile must be specified. Default is to append. False means overwrite existing file if it exists.
-outsigma : string
-   Name of output image used for standard deviation. Ignored if sigma is empty.
+Subparameters
+   *mask != ''*
 
-Notes
------
+   - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
+
+   *multifit = True*
+
+   - **spxsol** (string="") - Name of the spectral index function coefficient solution image to write.
+   - **spxerr** (string="") - Name of the spectral index function coefficient error image to write.
+   - **model** (string="") - Name of model image. Default: do not write the model image ("").
+   - **residual** (string="") - Name of residual image. Default: do not write the residual image ("").
+
+   *logfile != ''*
+
+   - **append** (bool=True) - Append results to logfile? Logfile must be specified. Default is to append. False means overwrite existing file if it exists.
+
+   *sigma != ''*
+
+   - **outsigma** (string='') - Name of output image used for standard deviation. Ignored if sigma is empty.
 
 
-
-
-
-   spxfit task: Fit a 1-dimensional model(s) to an image(s) or region
-   for determination of spectral index.
-
-
-
+Description
       This task fits a power logarithmic polynomial or a logarithmic
       tranformed polynomial to one-dimensional profiles for
       determination of spectral indices.
@@ -301,24 +274,7 @@ Notes
       regions. A conservative mask could be created such that only high
       S/N areas are fit, but this could hinder many science objectives.
 
-       
 
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 1                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | Brouw, Wim, 1999                                  |
-      |                 | (`Web <http://www.astron.n                        |
-      |                 | l/casacore/trunk/casacore/doc/notes/224.html>`__) |
-      +-----------------+---------------------------------------------------+
-
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 2                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | W.H. Press et al. 1988, Cambridge University      |
-      |                 | Press                                             |
-      |                 | (`PDF <http://www2.units.it/ipl/st                |
-      |                 | udents_area/imm2/files/Numerical_Recipes.pdf>`__) |
-      +-----------------+---------------------------------------------------+
 
        
 
@@ -426,13 +382,12 @@ Notes
       is empty.
 
 
-         Bibliography
-
+   Bibliography
          :sup:`1. Brouw, Wim, 1999
-         (` `Web <http://www.astron.nl/casacore/trunk/casacore/doc/notes/224.html>`__ :sup:`)` `↩ <#ref-cit1>`__
+         (` `Web <http://www.astron.nl/casacore/trunk/casacore/doc/notes/224.html>`__ :sup:`)` `<#ref-cit1>`__
 
          :sup:`2. W.H. Press et al. 1988, Cambridge University Press
-         (` `PDF <http://www2.units.it/ipl/students_area/imm2/files/Numerical_Recipes.pdf>`__ :sup:`)` `↩ <#ref-cit2>`__
+         (` `PDF <http://www2.units.it/ipl/students_area/imm2/files/Numerical_Recipes.pdf>`__ :sup:`)` `<#ref-cit2>`__
 
     """
     pass

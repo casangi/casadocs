@@ -3,42 +3,43 @@
 #
 
 def makemask(mode='list', inpimage='', inpmask='', output='', overwrite=False, inpfreqs='', outfreqs=''):
-    """
+    r"""
 Makes and manipulates image masks
 
-| Construct masks based on various criteria, convert between mask-types, and generate a mask for clean
-
 Parameters
-----------
-mode : string
-   Mask method (list, copy,expand,delete,setdefaultmask)
+   - **mode** (string) - Mask method (list, copy,expand,delete,setdefaultmask)
 
-Other Parameters
-----------
-inpimage : string, stringArray
-   Name of input image.
-inpmask : string, stringArray
-   mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode)
-output : string
-   Name of output mask (imagename or imagename:internal_maskname)
-overwrite : bool
-   overwrite output if exists?
-inpfreqs : string, intArray
-   List of chans/freqs (in inpmask) to read masks from 
-outfreqs : string, intArray
-   List of chans/freqs (in output) on which to expand the mask
+Subparameters
+   *mode = list*
 
-Notes
------
+   - **inpimage** (string='', stringArray) - Name of input image.
+
+   *mode = copy*
+
+   - **inpimage** (string='', stringArray) - Name of input image.
+   - **inpmask** (string='', stringArray) - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode)
+   - **output** (string='') - Name of output mask (imagename or imagename:internal_maskname)
+   - **overwrite** (bool=False) - overwrite output if exists?
+
+   *mode = expand*
+
+   - **inpimage** (string='', stringArray) - Name of input image.
+   - **inpmask** (string='', stringArray) - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode)
+   - **inpfreqs** (string='', intArray) - List of chans/freqs (in inpmask) to read masks from 
+   - **outfreqs** (string='', intArray) - List of chans/freqs (in output) on which to expand the mask
+   - **output** (string='') - Name of output mask (imagename or imagename:internal_maskname)
+   - **overwrite** (bool=False) - overwrite output if exists?
+
+   *mode = delete*
+
+   - **inpmask** (string='', stringArray) - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode)
+
+   *mode = setdefaultmask*
+
+   - **inpmask** (string='', stringArray) - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode)
 
 
-
-
-
-   task description
-
-
-
+Description
       makemask manages Boolean masks in an image, converts and regrids
       Boolean to value-based masks (and vice versa), stretches
       single-plane masks to cubes, and generates masks from CASA region

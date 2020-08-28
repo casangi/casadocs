@@ -3,66 +3,30 @@
 #
 
 def exportuvfits(vis, fitsfile='', datacolumn='corrected', field='', spw='', antenna='', timerange='', writesyscal=False, multisource=True, combinespw=True, writestation=True, padwithflags=False, overwrite=False):
-    """
+    r"""
 Convert a CASA visibility data set to a UVFITS file:
 
-| This task writes a UVFITS file, a general format data set used to
-| transfer data between different software systems. It is written in
-| floating point format.  Different programs have different
-| restrictions on what forms of UVFITS files they will use, especially
-| whether they will accept multiple sources and/or spectral windows in
-| the same file.  See the spw, multisource, and combinespw descriptions
-| below.
-|
-|IMPORTANT NOTE: In general, some of the data averaging features of
-|this task have never worked properly. In general, users should run
-|mstransform to select and average data prior to running
-|exportuvfits. The associated input parameters are being slowly
-|deprecated and removed.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-fitsfile : string
-   Name of output UV FITS file
-datacolumn : string
-   Visibility file data column
-field : string, stringArray, int, intArray
-   Select field using field id(s) or field name(s)
-spw : string
-   Select spectral window/channels
-antenna : string
-   Select data based on antenna/baseline
-timerange : string
-   Select data based on time range
-writesyscal : bool
-   Write GC and TY tables (not yet available)
-multisource : bool
-   Write in multi-source format?
-combinespw : bool
-   Export the spectral windows as IFs
-writestation : bool
-   Write station name instead of antenna name
-overwrite : bool
-   Overwrite output file if it exists?
+   - **vis** (string) - Name of input visibility file
+   - **fitsfile** (string) - Name of output UV FITS file
+   - **datacolumn** (string) - Visibility file data column
+   - **field** (string, stringArray, int, intArray) - Select field using field id(s) or field name(s)
+   - **spw** (string) - Select spectral window/channels
+   - **antenna** (string) - Select data based on antenna/baseline
+   - **timerange** (string) - Select data based on time range
+   - **writesyscal** (bool) - Write GC and TY tables (not yet available)
+   - **multisource** (bool) - Write in multi-source format?
+   - **combinespw** (bool) - Export the spectral windows as IFs
+   - **writestation** (bool) - Write station name instead of antenna name
+   - **overwrite** (bool) - Overwrite output file if it exists?
 
-Other Parameters
-----------
-padwithflags : bool
-   Fill in missing data with flags to fit IFs
+Subparameters
+   *combinespw = True*
 
-Notes
------
+   - **padwithflags** (bool=True) - Fill in missing data with flags to fit IFs
 
 
-
-
-
-   Convert a CASA visibility data set to a UVFITS file
-
-
-
+Description
       The task **exportuvfits** takes a MeasurementSet and exports it to
       a UVFITS format file.
 

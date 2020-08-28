@@ -3,67 +3,37 @@
 #
 
 def gencal(vis, caltable='', caltype='', infile='', spw='', antenna='', pol='', parameter=[''], uniform=True):
-    """
+    r"""
 Specify Calibration Values of Various Types
 
-| The gencal task provides a means of specifying antenna-based
-|calibration values manually.  The values are put in designated tables
-|and applied to the data using applycal. Several specialized
-|calibrations are also generated with gencal.
-|
-|Current antenna-based gencal options (caltype) are:
-|* 'amp'= amplitude correction
-|* 'ph' = phase correction
-|* 'sbd'= single-band delay (phase-frequency slope for each spw)
-|* 'mbd'= multi-band delay (phase-frequency slope over all spw)
-|* 'antpos' = ITRF antenna position corrections
-|* 'antposvla' = VLA-centric antenna position corrections 
-|* 'tsys' = Tsys from the SYSCAL table (ALMA)
-|* 'swpow' = EVLA switched-power gains (experimental)
-|* 'evlagain' (='swpow') (this syntax will deprecate)
-|* 'rq' = EVLA requantizer gains _only_
-|* 'swp/rq' = EVLA switched-power gains divided by requantizer gain
-|* 'opac' = Tropospheric opacity
-|* 'gc' = Gain curve (zenith-angle-dependent gain) (VLA only)
-|* 'eff' = Antenna efficiency (sqrt(K/Jy)) (VLA only)
-|* 'gceff' = Gain curve and efficiency (VLA only)
-|* 'tecim' = Time-dep TEC image specified in infile
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-caltable : string
-   Name of input calibration table
-caltype : string
-   The calibration type: (amp, ph, sbd, mbd, antpos, antposvla, tsys, evlagain, opac, gc, gceff, eff, tecim)
-spw : string
-   Select spectral window/channels
-antenna : string
-   Select data based on antenna/baseline
-pol : string
-   Calibration polarizations(s) selection
-parameter : doubleArray
-   The calibration values
+   - **vis** (string) - Name of input visibility file
+   - **caltable** (string) - Name of input calibration table
+   - **caltype** (string) - The calibration type: (amp, ph, sbd, mbd, antpos, antposvla, tsys, evlagain, opac, gc, gceff, eff, tecim)
+   - **spw** (string) - Select spectral window/channels
+   - **antenna** (string) - Select data based on antenna/baseline
+   - **pol** (string) - Calibration polarizations(s) selection
+   - **parameter** (doubleArray) - The calibration values
 
-Other Parameters
-----------
-infile : string
-   Input ancilliary file
-uniform : bool
-   Assume uniform calibration values across the array
+Subparameters
+   *caltype = tecim*
 
-Notes
------
+   - **infile** (string='') - Input ancilliary file
 
+   *caltype = gc*
+
+   - **infile** (string='') - Input ancilliary file
+
+   *caltype = gceff*
+
+   - **infile** (string='') - Input ancilliary file
+
+   *caltype = tsys*
+
+   - **uniform** (bool=True) - Assume uniform calibration values across the array
 
 
-
-
-   task description
-
-
-
+Description
       The **gencal** task provides a means of specifying antenna-based
       calibration values manually. The values are put in designated
       tables and applied to the data using other tasks (**applycal**,

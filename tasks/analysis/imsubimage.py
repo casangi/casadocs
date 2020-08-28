@@ -3,50 +3,35 @@
 #
 
 def imsubimage(imagename, outfile='', box='', region='', chans='', stokes='', mask='', dropdeg=False, overwrite=False, verbose=True, stretch=False, keepaxes=['']):
-    """
+    r"""
 Create a (sub)image from a region of the image
 
 Parameters
-----------
-imagename : string
-   Input image name.  Default is unset.
-outfile : string
-   Output image name.  Default is unset.
-box : string
-   Rectangular region to select in direction plane. Default is to use the entire direction plane.
-region : string
-   Region selection. Default is to use the full image.
-chans : string
-   Channels to use. Default is to use all channels.
-stokes : string
-   Stokes planes to use. Default is to use all Stokes planes.
-mask : variant
-   Mask to use. Default is none.
-dropdeg : bool
-   Drop degenerate axes
-verbose : bool
-   Post additional informative messages to the logger
+   - **imagename** (string) - Input image name.  Default is unset.
+   - **outfile** (string) - Output image name.  Default is unset.
+   - **box** (string) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **region** (string) - Region selection. Default is to use the full image.
+   - **chans** (string) - Channels to use. Default is to use all channels.
+   - **stokes** (string) - Stokes planes to use. Default is to use all Stokes planes.
+   - **mask** (variant) - Mask to use. Default is none.
+   - **dropdeg** (bool) - Drop degenerate axes
+   - **verbose** (bool) - Post additional informative messages to the logger
 
-Other Parameters
-----------
-overwrite : bool
-   Overwrite (unprompted) pre-existing output file?
-stretch : bool
-   Stretch the mask if necessary and possible? 
-keepaxes : intArray
-   If dropdeg=True, these are the degenerate axes to keep. Nondegenerate axes are implicitly always kept.
+Subparameters
+   *mask != ''*
 
-Notes
------
+   - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
+
+   *outfile != ''*
+
+   - **overwrite** (bool=False) - Overwrite (unprompted) pre-existing output file?
+
+   *dropdeg = True*
+
+   - **keepaxes** (intArray=[]) - If dropdeg=True, these are the degenerate axes to keep. Nondegenerate axes are implicitly always kept.
 
 
-
-
-
-   imsubimage task: Create a (sub)image from a region of the image
-
-
-
+Description
       This task copies all or part of the image to a new image specified
       by *outfile*. Both float and complex valued images are supported.
 

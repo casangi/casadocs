@@ -34,6 +34,8 @@ for task in tasknames:
     if troot.find(nps+'input') is not None:
         iroot = troot.find(nps+'input')
         td['params'] = {}
+        td['subparams'] = {}
+        
         for param in iroot.findall(nps + 'param'):
             pd = param.attrib
             pd['shortdescription'] = '' if param.find(nps+'shortdescription') is None else param.find(nps+'shortdescription').text
@@ -58,7 +60,20 @@ for task in tasknames:
                     pd['value'] = '[' + pd['value'] + ']' if pd['value'] is not None else '[\'\']'
             # store parameter dictionary under key equal to parameter name
             td['params'][param.attrib['name']] = pd
-    
+        
+        # subparameter constraints
+        if iroot.find(nps + 'constraints') is not None:
+            for parent in list(iroot.find(nps + 'constraints')):
+                param = parent.attrib['param']
+                for condition in list(parent):   # equals, notequals
+                    condstr = condition.tag.replace(nps,'').replace('notequals','!=').replace('equals','=')
+                    paramstr = "%s %s %s" % (param, condstr, condition.attrib['value'] if len(condition.attrib['value']) > 0 else '\'\'')
+                    cd = {}  # condition dictionary
+                    for sub in list(condition):
+                        if sub.tag.replace(nps,'') == 'description': continue
+                        cd[sub.attrib['param']] = ['' if ee.text is None else ee.text for ee in sub.findall(nps+'value')]
+                    td['subparams'][paramstr] = cd
+                
     tasklist += [td]
 
 
@@ -79,15 +94,21 @@ for task in tasklist:
     os.system('pandoc %s -f html -t rst -o %s --ascii --extract-media=%s' % (source, 'tasks/temp.rst', 'docs/_media'))
     with open('tasks/temp.rst', 'r') as fid:
         rst = fid.read()
+        
+    # remove preamble and create heading
+    # clean up the conversion mess
+    if '..rubric' in rst:
+        rst = re.sub('.*?\.\. rubric::.*?:name:.*?\n+', 'Description\n', rst, 1, flags=re.DOTALL)
+    else:
+        rst = re.sub('.*?parent-fieldname-text\n*', 'Description\n', rst, 1, flags=re.DOTALL)
+    #rst = re.sub('\n   ', '\n', rst, flags=re.DOTALL)  # de-indent
     rst = re.sub('(\s*).. container:: \S*-box\s*', r'\1.. note:: ', rst, flags=re.DOTALL)  # change alert boxes
     rst = re.sub('\s*.. container::(\s*\S*)*?\n(\s*:name: \S*\n)?', '\n', rst, flags=re.DOTALL)  # remove container sections
-    #rst = re.sub('\n   ', '\n', rst, flags=re.DOTALL)  # de-indent
-    rst = re.sub(task['name']+'\n=+', '', rst, flags=re.DOTALL)  # remove major heading
-    rst = re.sub('task ' + task['name'] + ' description\n', '\n', rst, flags=re.DOTALL)  # remove minor heading
-    #rst = re.sub('\s*.. rubric::\s*?([^\n]*)\n(\s*:name:\s*\S*\n)?', r'\n\n\1\n', rst, flags=re.DOTALL)  # remove rubric sections
-    #rst = re.sub('(\n\s*\|\s*)', r'\n\1', rst, flags=re.DOTALL)  # fix weird block symbols
-    rst = re.sub('(\.\. \|.*?\| image:: )docs/(\S*)', r'\1../../\2', rst, flags=re.DOTALL)
-    rst = rst.replace(' ', ' ').replace('\\ ', ' ')  # weird ascii thing
+    rst = re.sub('(\.\. \|.*?\| image:: )docs/(\S*)', r'\1../../\2', rst, flags=re.DOTALL)  # fix image links
+    rst = rst.replace(' ', ' ').replace('\\ ', ' ').replace('↩ ', '')  # weird ascii things
+    rst = re.sub('(:math:\s*`[^\n]+) `', r'\1`', rst, flags=re.DOTALL)  # fix math equations with trailing space before `
+    rst = re.sub('\s*[\+\-]+\n\s*\| Citation.*?\n\n', '\n\n', rst, flags=re.DOTALL)  # remove citation tables
+    rst = re.sub('\n\s+Bibliography\s*\n', '\n\n\n   Bibliography\n', rst, flags=re.DOTALL)  # fix bibliography indent
 
     # add this task to the __init__.py
     with open('tasks/'+task['category']+'/'+'__init__.py', 'a') as fid:
@@ -111,42 +132,47 @@ for task in tasklist:
                     proto += param + '=' + task['params'][param]['value'].strip() + ', '
             else:
                 proto += param + "='', "
-        fid.write('def %s(%s):\n    """\n' % (task['name'], proto[:-2]))
+        fid.write('def %s(%s):\n    r"""\n' % (task['name'], proto[:-2]))
         
         # populate function description
         if 'shortdescription' in task.keys():
             fid.write(task['shortdescription']+'\n\n')
-        if 'description' in task.keys():
-            fid.write('| '+task['description'].strip().replace('\n','\n|') + '\n\n')
+        #if 'description' in task.keys():
+        #    fid.write('Summary\n   | '+task['description'].strip().replace('\n','\n   | ') + '\n\n')
         
         # populate function parameters
-        fid.write('Parameters\n----------\n')
+        fid.write('Parameters\n')
         for param in task['params'].keys():
             # skip subparameters for now, they will go in "other parameters" section later
             if ('subparam' in task['params'][param]) and (task['params'][param]['subparam'].lower() == 'true'):
                 continue
             pd = task['params'][param]  # param dictionary
-            fid.write('%s : %s\n' % (param, pd['type']))
+            fid.write('   - **%s** (%s)' % (param, pd['type']))
             if ('shortdescription' in pd.keys()) and (pd['shortdescription'] is not None):
-                fid.write('   %s' % pd['shortdescription'])
+                fid.write(' - %s' % pd['shortdescription'])
             fid.write('\n')
 
         # populate function subparameters
-        fid.write('\nOther Parameters\n----------\n')
-        for param in task['params'].keys():
-            # skip normal parameters already handled in previous section
-            if ('subparam' not in task['params'][param]) or (task['params'][param]['subparam'].lower() == 'false'):
-                continue
-            pd = task['params'][param]  # param dictionary
-            fid.write('%s : %s\n' % (param, pd['type']))
-            if ('shortdescription' in pd.keys()) and (pd['shortdescription'] is not None):
-                fid.write('   %s' % pd['shortdescription'])
-            #elif ('description' in pd.keys()) and (pd['description'] is not None):
-            #    fid.write('   %s' % re.sub('\n\s*', '  ', pd['description'].strip(), flags=re.DOTALL))
-            fid.write('\n')
-
+        if len(task['subparams']) > 0:
+            fid.write('\nSubparameters')
+        for paramstr in task['subparams'].keys():
+            spd = task['subparams'][paramstr]  # subparam dictionary
+            if len(spd) > 0:
+                fid.write('\n   *%s*\n\n' % paramstr)
+            # grab each subparam from the main param section and write it out
+            for subparam in spd.keys():
+                if subparam not in task['params']: continue
+                pd = task['params'][subparam]  # param dictionary
+                val = spd[subparam] if len(spd[subparam]) > 1 else spd[subparam][0]
+                val = '\'\'' if len(val) == 0 else val
+                dtype = ', '.join([vv+'='+val if ii==0 else vv for ii,vv in enumerate(pd['type'].split(', '))])
+                fid.write('   - **%s** (%s)' % (subparam, dtype))
+                if ('shortdescription' in pd.keys()) and (pd['shortdescription'] is not None):
+                    fid.write(' - %s' % pd['shortdescription'])
+                fid.write('\n')
+        
         # marry up the Plone content to the bottom Notes section
-        fid.write('\nNotes\n-----\n' + rst)
+        fid.write('\n\n' + rst)
         fid.write('\n    """\n    pass\n')
 
 os.system('rm tasks/temp.rst')

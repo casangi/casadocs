@@ -3,42 +3,17 @@
 #
 
 def caltabconvert(caltabold='', vis='', ptype='complex', caltabnew=''):
-    """
+    r"""
 Convert old-style caltables into new-style caltables.
 
-| This task converts old-style (up to CASA 3.3.0) caltables into
-|new-style (CASA 3.4.0 and later) caltables. It is provided as a
-|convenience and is strictly temporary.  The information transferred
-|should be enough for most calibration purposes.  BPOLY and GSPLINE
-|versions are not supported. Only simple bugs will be fixed. If there
-|are other issues, it is suggested that a new-style caltable be created
-|directly.
-
 Parameters
-----------
-caltabold : string
-   Name of the old-style caltable
-vis : string
-   Name of the visibility file (MS) associated with the old-style caltable.
-ptype : string
-   Type of data in the new-format caltable ("complex" or "float"; default is "complex").
-caltabnew : string
-   Name of the new-style caltable.  If not specified, the suffix ".new" is appended to the name of old-style caltable.
-
-Other Parameters
-----------
-
-Notes
------
+   - **caltabold** (string) - Name of the old-style caltable
+   - **vis** (string) - Name of the visibility file (MS) associated with the old-style caltable.
+   - **ptype** (string) - Type of data in the new-format caltable ("complex" or "float"; default is "complex").
+   - **caltabnew** (string) - Name of the new-style caltable.  If not specified, the suffix ".new" is appended to the name of old-style caltable.
 
 
-
-
-
-   convert old-style caltables into new-style caltables.
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

@@ -3,92 +3,53 @@
 #
 
 def fringefit(vis, caltable='', field='', spw='', intent='', selectdata=True, timerange='', antenna='', scan='', observation='', msselect='', solint='inf', combine='', refant='', minsnr=3.0, zerorates=False, globalsolve=True, niter=100, delaywindow=[''], ratewindow=[''], append=False, corrdepflags=False, docallib=False, callib='', gaintable=[''], gainfield=[''], interp=[''], spwmap=[''], paramactive=[''], parang=False):
-    """
+    r"""
 Fringe fit delay and rates
 
-| Phase offsets, groups delays and delay rates are calculated with
-|respect to a specified referance antenna by a two-dimensional FFT and
-|subsequent least-squares optimisation.
-|
-|Previous calibrations should be applied on the fly.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-caltable : string
-   Name of output gain calibration table
-field : string
-   Select field using field id(s) or field name(s)
-spw : string
-   Select spectral window/channels
-intent : string
-   Select observing intent
-selectdata : bool
-   Other data selection parameters
-solint : variant
-   Solution interval: egs. \'inf\', \'60s\' (see help)
-combine : string
-   Data axes which to combine for solve (obs, scan, spw, and/or field)
-refant : string
-   Reference antenna name(s)
-minsnr : double
-   Reject solutions below this signal-to-noise ratio (at the FFT stage)
-zerorates : bool
-   Zero delay-rates in solution table
-globalsolve : bool
-   Refine estimates of delay and rate with global least-squares solver
-niter : int
-   Maximum number of iterations for least-squares solver
-delaywindow : doubleArray
-   Constrain FFT delay search to a window
-ratewindow : doubleArray
-   Constrain FFT rate search to a window
-append : bool
-   Append solutions to the (existing) table
-corrdepflags : bool
-   Respect correlation-dependent flags
-docallib : bool
-   Use callib or traditional cal apply parameters
-paramactive : boolArray
-   Control which parameters are solved for
-parang : bool
-   Apply parallactic angle correction on the fly
+   - **vis** (string) - Name of input visibility file
+   - **caltable** (string) - Name of output gain calibration table
+   - **field** (string) - Select field using field id(s) or field name(s)
+   - **spw** (string) - Select spectral window/channels
+   - **intent** (string) - Select observing intent
+   - **selectdata** (bool) - Other data selection parameters
+   - **solint** (variant) - Solution interval: egs. \'inf\', \'60s\' (see help)
+   - **combine** (string) - Data axes which to combine for solve (obs, scan, spw, and/or field)
+   - **refant** (string) - Reference antenna name(s)
+   - **minsnr** (double) - Reject solutions below this signal-to-noise ratio (at the FFT stage)
+   - **zerorates** (bool) - Zero delay-rates in solution table
+   - **globalsolve** (bool) - Refine estimates of delay and rate with global least-squares solver
+   - **niter** (int) - Maximum number of iterations for least-squares solver
+   - **delaywindow** (doubleArray) - Constrain FFT delay search to a window
+   - **ratewindow** (doubleArray) - Constrain FFT rate search to a window
+   - **append** (bool) - Append solutions to the (existing) table
+   - **corrdepflags** (bool) - Respect correlation-dependent flags
+   - **docallib** (bool) - Use callib or traditional cal apply parameters
+   - **paramactive** (boolArray) - Control which parameters are solved for
+   - **parang** (bool) - Apply parallactic angle correction on the fly
 
-Other Parameters
-----------
-timerange : string
-   Select data based on time range
-antenna : string
-   Select data based on antenna/baseline
-scan : string
-   Scan number range
-observation : string, int
-   Select by observation ID(s)
-msselect : string
-   Optional complex data selection (ignore for now)
-callib : string
-   Cal Library filename
-gaintable : stringArray
-   Gain calibration table(s) to apply on the fly
-gainfield : stringArray
-   Select a subset of calibrators from gaintable(s)
-interp : stringArray
-   Temporal interpolation for each gaintable (''=linear)
-spwmap : intArray
-   Spectral window mappings to form for gaintable(s)
+Subparameters
+   *selectdata = True*
 
-Notes
------
+   - **timerange** (string='') - Select data based on time range
+   - **antenna** (string='') - Select data based on antenna/baseline
+   - **scan** (string='') - Scan number range
+   - **observation** (string='', int) - Select by observation ID(s)
+   - **msselect** (string='') - Optional complex data selection (ignore for now)
+
+   *docallib = False*
+
+   - **gaintable** (stringArray='') - Gain calibration table(s) to apply on the fly
+   - **gainfield** (stringArray='') - Select a subset of calibrators from gaintable(s)
+   - **interp** (stringArray='') - Temporal interpolation for each gaintable (''=linear)
+   - **spwmap** (intArray='') - Spectral window mappings to form for gaintable(s)
+
+   *docallib = True*
+
+   - **callib** (string='') - Cal Library filename
 
 
-
-
-
-   calculates a fringe-fitting (phase/delay/rate) solution
-
-
-
+Description
       .. note:: **WARNING: fringefit** is currently an experimental task. Use
          with care and report issues back to the CASA team via the `NRAO
          helpdesk <http://help.nrao.edu/>`__. Note that calibration

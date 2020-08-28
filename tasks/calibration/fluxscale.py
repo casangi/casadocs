@@ -3,58 +3,32 @@
 #
 
 def fluxscale(vis, caltable='', fluxtable='', reference=[''], transfer=[''], listfile='', append=False, refspwmap=[-1], gainthreshold=-1.0, antenna='', timerange='', scan='', incremental=False, fitorder=1, display=False):
-    """
+    r"""
 Bootstrap the flux density scale from standard calibrators
 
-| Bootstrap the flux density scale from standard calibrators.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-caltable : string
-   Name of input calibration table
-fluxtable : string
-   Name of output, flux-scaled calibration table (required)
-reference : stringArray
-   Reference field name(s) (transfer flux scale FROM)
-transfer : stringArray
-   Transfer field name(s) (transfer flux scale TO), \'\' -> all
-listfile : string
-   Name of listfile that contains the fit information.  Default is '' (no file).
-append : bool
-   Append solutions?
-refspwmap : intArray
-   Scale across spectral window boundaries
-gainthreshold : double
-   Threshold (fractional deviation from the median) on gain amplitudes to be used in the flux scale calculation
-antenna : string
-   Select data based on antenna/baseline
-incremental : bool
-   Incremental caltable
-fitorder : int
-   Order of spectral fitting
-display : bool
-   Display some statistics of flux scaling
+   - **vis** (string) - Name of input visibility file
+   - **caltable** (string) - Name of input calibration table
+   - **fluxtable** (string) - Name of output, flux-scaled calibration table (required)
+   - **reference** (stringArray) - Reference field name(s) (transfer flux scale FROM)
+   - **transfer** (stringArray) - Transfer field name(s) (transfer flux scale TO), \'\' -> all
+   - **listfile** (string) - Name of listfile that contains the fit information.  Default is '' (no file).
+   - **append** (bool) - Append solutions?
+   - **refspwmap** (intArray) - Scale across spectral window boundaries
+   - **gainthreshold** (double) - Threshold (fractional deviation from the median) on gain amplitudes to be used in the flux scale calculation
+   - **antenna** (string) - Select data based on antenna/baseline
+   - **incremental** (bool) - Incremental caltable
+   - **fitorder** (int) - Order of spectral fitting
+   - **display** (bool) - Display some statistics of flux scaling
 
-Other Parameters
-----------
-timerange : string
-   Select data based on time range
-scan : string
-   Scan number range
+Subparameters
+   *antenna != ''*
 
-Notes
------
+   - **timerange** (string='') - Select data based on time range
+   - **scan** (string='') - Scan number range
 
 
-
-
-
-   Bootstrap the flux density scale from standard calibrators.
-
-
-
+Description
       Summary:  The *'G'* or *'T'* solutions obtained by **gaincal** for
       calibrators for which the flux density was unknown and assumed to
       be 1 Jansky are correct in a time- and antenna- relative sense,

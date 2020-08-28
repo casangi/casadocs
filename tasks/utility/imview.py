@@ -3,57 +3,18 @@
 #
 
 def imview(raster='', contour='', zoom='1', axes='', out=''):
-    """
+    r"""
 View an image
 
-| The imview task will display images in raster, contour, vector or
-|        marker form.  Images can be blinked, and movies are available
-|        for spectral-line image cubes.
-|
-|        Executing the imview task will bring up a display panel
-|        window, which can be resized.  If no data file was specified,
-|        a Load Data window will also appear. Click on the desired data
-|        file and choose the display type; the rendered data should appear
-|        on the display panel.
-|
-|        A Data Display Options window will also appear.  It has drop-down
-|        subsections for related options, most of which are self-explanatory.
-|
-|        The state of the imview task -- loaded data and related display
-|        options -- can be saved in a 'restore' file for later use.
-|        You can provide the restore filename on the command line or
-|        select it from the Load Data window.
-|
-|        It is possible to use the viewer GUI tool to perform image manipulation
-|        and analysis tasks that are not available from the command-line start.
-
 Parameters
-----------
-raster : string, record
-   
-contour : string, record
-   
-zoom : int, string, record
-   
-axes : string, record
-   
-out : string, record
-   
-
-Other Parameters
-----------
-
-Notes
------
+   - **raster** (string, record) - 
+   - **contour** (string, record) - 
+   - **zoom** (int, string, record) - 
+   - **axes** (string, record) - 
+   - **out** (string, record) - 
 
 
-
-
-
-   imval task: Get the data value(s) and/or mask value in an image.
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

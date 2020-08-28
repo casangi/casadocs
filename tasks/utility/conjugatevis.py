@@ -3,36 +3,17 @@
 #
 
 def conjugatevis(vis, spwlist='""', outputvis='', overwrite=False):
-    """
+    r"""
 Change the sign of the phases in all visibility columns.
 
-| Change the sign of the phases in all visibility columns.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-spwlist : variant
-   Spectral window selection
-outputvis : string
-   Name of output visibility file
-overwrite : bool
-   Overwrite the outputvis if it exists?
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (string) - Name of input visibility file
+   - **spwlist** (variant) - Spectral window selection
+   - **outputvis** (string) - Name of output visibility file
+   - **overwrite** (bool) - Overwrite the outputvis if it exists?
 
 
-
-
-
-   change the sign of the phases in all visibility columns
-
-
-
+Description
       This task changes the sign of the phases in all visibility
       columns, thus creating the complex conjugate values. A complex
       number and its complex conjugate have equal real parts and

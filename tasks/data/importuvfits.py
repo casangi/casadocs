@@ -3,35 +3,16 @@
 #
 
 def importuvfits(fitsfile, vis='', antnamescheme='old'):
-    """
+    r"""
 Convert a UVFITS file to a CASA visibility data set
 
-| Convert a UVITS file to a CASA visiblity data set.
-|                Don\'t forget to flag autocorrelations using taskname flagdata, autocorr = true
-
 Parameters
-----------
-fitsfile : string
-   Name of input UV FITS file
-vis : string
-   Name of output visibility file (MS)
-antnamescheme : string
-   VLA/EVLA/CARMA only; \'new\' or \'old\'; \'VA04\' or \'04\' for VLA ant 4
-
-Other Parameters
-----------
-
-Notes
------
+   - **fitsfile** (string) - Name of input UV FITS file
+   - **vis** (string) - Name of output visibility file (MS)
+   - **antnamescheme** (string) - VLA/EVLA/CARMA only; \'new\' or \'old\'; \'VA04\' or \'04\' for VLA ant 4
 
 
-
-
-
-   importuvfits task: Convert a UVFITS file to a CASA measurement set
-
-
-
+Description
       Convert a UVFITS file to a CASA visibility data set.
 
       This is primarily designed for importing AIPS data into CASA, but

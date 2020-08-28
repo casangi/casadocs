@@ -3,60 +3,37 @@
 #
 
 def slsearch(tablename='', outfile='', freqrange=[84, 90], species=[''], reconly=False, chemnames=[''], qns=[''], intensity=[-1], smu2=[-1], loga=[-1], el=[-1], eu=[-1], rrlinclude=True, rrlonly=False, verbose=False, logfile='""', append=False):
-    """
+    r"""
 Search a spectral line table.
 
 Parameters
-----------
-tablename : string
-   Input spectral line table name to search. If not specified, use the default table in the system.
-outfile : string
-   Results table name. Blank means do not write the table to disk.
-freqrange : doubleArray
-   Frequency range in GHz.
-species : stringArray
-   Species to search for.
-reconly : bool
-   List only NRAO recommended frequencies.
-chemnames : stringArray
-   Chemical names to search for.
-qns : stringArray
-   Resolved quantum numbers to search for.
-rrlinclude : bool
-   Include RRLs in the result set?
-rrlonly : bool
-   Include only RRLs in the result set?
-verbose : bool
-   List result set to logger (and optionally logfile)?
+   - **tablename** (string) - Input spectral line table name to search. If not specified, use the default table in the system.
+   - **outfile** (string) - Results table name. Blank means do not write the table to disk.
+   - **freqrange** (doubleArray) - Frequency range in GHz.
+   - **species** (stringArray) - Species to search for.
+   - **reconly** (bool) - List only NRAO recommended frequencies.
+   - **chemnames** (stringArray) - Chemical names to search for.
+   - **qns** (stringArray) - Resolved quantum numbers to search for.
+   - **rrlinclude** (bool) - Include RRLs in the result set?
+   - **rrlonly** (bool) - Include only RRLs in the result set?
+   - **verbose** (bool) - List result set to logger (and optionally logfile)?
 
-Other Parameters
-----------
-intensity : doubleArray
-   CDMS/JPL intensity range. -1 -> do not use an intensity range.
-smu2 : doubleArray
-   Quantum mechanical line strength. -1 -> do not use a smu2 range.
-loga : doubleArray
-   log(A) (Einstein coefficient) range. -1 -> do not use a loga range.
-el : doubleArray
-   Lower energy state range in Kelvin. -1 -> do not use an el range.
-eu : doubleArray
-   Upper energy state range in Kelvin. -1 -> do not use an eu range.
-logfile : string
-   List result set to this logfile (only used if verbose=True).
-append : bool
-   If true, append to logfile if it already exists, if false overwrite logfile it it exists. Only used if verbose=True and logfile not blank.
+Subparameters
+   *verbose = True*
 
-Notes
------
+   - **logfile** (string="") - List result set to this logfile (only used if verbose=True).
+   - **append** (bool=True) - If true, append to logfile if it already exists, if false overwrite logfile it it exists. Only used if verbose=True and logfile not blank.
+
+   *rrlonly = False*
+
+   - **intensity** (doubleArray=-1) - CDMS/JPL intensity range. -1 -> do not use an intensity range.
+   - **smu2** (doubleArray=-1) - Quantum mechanical line strength. -1 -> do not use a smu2 range.
+   - **loga** (doubleArray=-1) - log(A) (Einstein coefficient) range. -1 -> do not use a loga range.
+   - **eu** (doubleArray=-1) - Upper energy state range in Kelvin. -1 -> do not use an eu range.
+   - **el** (doubleArray=-1) - Lower energy state range in Kelvin. -1 -> do not use an el range.
 
 
-
-
-
-   task description
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

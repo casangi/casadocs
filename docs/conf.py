@@ -46,7 +46,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.coverage',
     'sphinx.ext.githubpages',
-    'sphinx.ext.napoleon',
+    #'sphinx.ext.napoleon',
     'sphinx_automodapi.automodapi',
     'm2r'
 ]
@@ -56,6 +56,9 @@ todo_include_todos = True
 add_module_names = False
 numpy_show_class_members = False
 nbsphinx_codecell_lexer = 'python3'
+
+#napoleon_google_docstring = False
+#napoleon_numpy_docstring = False
 
 nbsphinx_epilog = """
 Open in Colab: https://colab.research.google.com/github/casangi/casadocs/blob/master/docs/{{ env.doc2path(env.docname, base=None) }}

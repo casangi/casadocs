@@ -3,76 +3,51 @@
 #
 
 def statwt(vis, selectdata=True, field='', spw='', intent='', array='', observation='', scan='', combine='', timebin='1', slidetimebin=False, chanbin='spw', minsamp=2, statalg='classic', fence=-1, center='mean', lside=True, zscore=-1, maxiter=-1, fitspw='', excludechans=False, wtrange=[''], flagbackup=True, preview=False, datacolumn='corrected'):
-    """
+    r"""
 Compute and set weights based on variance of data.
 
 Parameters
-----------
-vis : string
-   Name of measurement set
-selectdata : bool
-   Enable data selection parameters
-combine : string
-   Ignore changes in these columns (scan, field, and/or state) when aggregating samples to compute weights. The value "corr" is also supported to aggregate samples across correlations.
-timebin : string, int
-   Length for binning in time to determine statistics. Can either be integer to be multiplied by the representative integration time, a quantity (string) in time units
-slidetimebin : bool
-   Use a sliding window for time binning, as opposed to time block processing?
-chanbin : string, int
-   Channel bin width for computing weights. Can either be integer, in which case it is interpreted as number of channels to include in each bin, or a string "spw" or quantity with frequency units.
-minsamp : int
-   Minimum number of unflagged visibilities required for computing weights in a sample. Must be >= 2.
-statalg : string
-   Statistics algorithm to use for computing variances. Supported values are "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported, although the full string must be specified for the subparameters to appear in the inputs list.
-fitspw : string
-   Channels to include in the computation of weights. Specified as an MS select channel selection string.
-excludechans : bool
-   If True: invert the channel selection in fitspw and exclude the fitspw selection from the computation of the weights.
-wtrange : doubleArray
-   Range of acceptable weights. Data with weights outside this range will be flagged. Empty array (default) means all weights are good.
-flagbackup : bool
-   Back up the state of flags before the run?
-preview : bool
-   Preview mode. If True, no data is changed, although the amount of data that would have been flagged is reported.
-datacolumn : string
-   Data column to use to compute weights. Supported values are "data", "corrected", "residual", and "residual_data" (case insensitive, minimum match supported).
+   - **vis** (string) - Name of measurement set
+   - **selectdata** (bool) - Enable data selection parameters
+   - **combine** (string) - Ignore changes in these columns (scan, field, and/or state) when aggregating samples to compute weights. The value "corr" is also supported to aggregate samples across correlations.
+   - **timebin** (string, int) - Length for binning in time to determine statistics. Can either be integer to be multiplied by the representative integration time, a quantity (string) in time units
+   - **slidetimebin** (bool) - Use a sliding window for time binning, as opposed to time block processing?
+   - **chanbin** (string, int) - Channel bin width for computing weights. Can either be integer, in which case it is interpreted as number of channels to include in each bin, or a string "spw" or quantity with frequency units.
+   - **minsamp** (int) - Minimum number of unflagged visibilities required for computing weights in a sample. Must be >= 2.
+   - **statalg** (string) - Statistics algorithm to use for computing variances. Supported values are "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported, although the full string must be specified for the subparameters to appear in the inputs list.
+   - **fitspw** (string) - Channels to include in the computation of weights. Specified as an MS select channel selection string.
+   - **excludechans** (bool) - If True: invert the channel selection in fitspw and exclude the fitspw selection from the computation of the weights.
+   - **wtrange** (doubleArray) - Range of acceptable weights. Data with weights outside this range will be flagged. Empty array (default) means all weights are good.
+   - **flagbackup** (bool) - Back up the state of flags before the run?
+   - **preview** (bool) - Preview mode. If True, no data is changed, although the amount of data that would have been flagged is reported.
+   - **datacolumn** (string) - Data column to use to compute weights. Supported values are "data", "corrected", "residual", and "residual_data" (case insensitive, minimum match supported).
 
-Other Parameters
-----------
-field : string
-   Selection based on field names or field index numbers. Default is all.
-spw : string
-   Selection based on spectral windows:channels. Default is all.
-intent : string
-   Selection based on intents. Default is all.
-array : string
-   Selection based on array IDs. Default is all.
-observation : string
-   Selection based on observation IDs. Default is all.
-scan : string
-   Select data by scan numbers.
-fence : double
-   Fence value for statalg="hinges-fences". A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if statalg is not "hinges-fences".
-center : string
-   Center to use for statalg="fit-half". Valid choices are "mean", "median", and "zero". Ignored if statalg is not "fit-half".
-lside : bool
-   For statalg="fit-half", real data are <=; center? If false, real data are >= center. Ignored if statalg is not "fit-half".
-zscore : double
-   For statalg="chauvenet", this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet\'s criterion. Ignored if statalg is not "chauvenet".
-maxiter : int
-   For statalg="chauvenet", this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if statalg is not "chauvenet".
+Subparameters
+   *selectdata = True*
 
-Notes
------
+   - **field** (string="") - Selection based on field names or field index numbers. Default is all.
+   - **spw** (string="") - Selection based on spectral windows:channels. Default is all.
+   - **observation** (string="") - Selection based on observation IDs. Default is all.
+   - **intent** (string="") - Selection based on intents. Default is all.
+   - **array** (string="") - Selection based on array IDs. Default is all.
+   - **scan** (string="") - Select data by scan numbers.
+
+   *statalg = hinges-fences*
+
+   - **fence** (double=-1) - Fence value for statalg="hinges-fences". A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if statalg is not "hinges-fences".
+
+   *statalg = fit-half*
+
+   - **center** (string=mean) - Center to use for statalg="fit-half". Valid choices are "mean", "median", and "zero". Ignored if statalg is not "fit-half".
+   - **lside** (bool=True) - For statalg="fit-half", real data are <=; center? If false, real data are >= center. Ignored if statalg is not "fit-half".
+
+   *statalg = chauvenet*
+
+   - **zscore** (double=-1) - For statalg="chauvenet", this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet\'s criterion. Ignored if statalg is not "chauvenet".
+   - **maxiter** (int=-1) - For statalg="chauvenet", this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if statalg is not "chauvenet".
 
 
-
-
-
-   statwt
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 
@@ -106,7 +81,7 @@ Notes
       #. Compute v :math:`_{eq}` :math:`=` (v :math:`_{r}` :math:`+`
          v :math:`_{i}`) :math:`/` 2.
       #. The associated weight of visibility V :math:`_i`  is 
-         e :math:`_i` / V (see `Knowledgebase
+         e :math:`_i` / V (see`Knowledgebase
          Article) <https://casa.nrao.edu/casadocs-devel/stable/memo-series/casa-knowledgebase/calculation-of-weights-for-data-with-varying-integration-time>`__.
          The weight will have unit of (data unit), e.g., Jy. The
          visibility weights are what this application computes and

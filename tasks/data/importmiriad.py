@@ -3,45 +3,21 @@
 #
 
 def importmiriad(mirfile, vis='', tsys=False, spw=[-1], vel='', linecal=False, wide=[''], debug=0):
-    """
+    r"""
 Convert a Miriad visibility file into a CASA MeasurementSet
 
-| Convert a Miriad visibility file into a CASA MeasurementSet with
-|optional selection of spectral windows and weighting scheme
-
 Parameters
-----------
-mirfile : string
-   Name of input Miriad visibility file
-vis : string
-   Name of output MeasurementSet
-tsys : bool
-   Use the Tsys to set the visibility weights
-spw : intArray
-   Select spectral window/channels
-vel : string
-   Select velocity reference (TOPO,LSRK,LSRD)
-linecal : bool
-   (CARMA) Apply line calibration
-wide : intArray
-   (CARMA) Select wide window averages
-debug : int
-   Display increasingly verbose debug messages
-
-Other Parameters
-----------
-
-Notes
------
+   - **mirfile** (string) - Name of input Miriad visibility file
+   - **vis** (string) - Name of output MeasurementSet
+   - **tsys** (bool) - Use the Tsys to set the visibility weights
+   - **spw** (intArray) - Select spectral window/channels
+   - **vel** (string) - Select velocity reference (TOPO,LSRK,LSRD)
+   - **linecal** (bool) - (CARMA) Apply line calibration
+   - **wide** (intArray) - (CARMA) Select wide window averages
+   - **debug** (int) - Display increasingly verbose debug messages
 
 
-
-
-
-   Convert a Miriad visibility dataset into a CASA MeasurementSet
-
-
-
+Description
       The task **importmiriad** allows one to import visibilities in the
       MIRIAD data format to be converted to a MeasurementSet. The task
       has mainly been tested on data from the ATCA and CARMA telescopes

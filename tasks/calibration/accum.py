@@ -3,59 +3,26 @@
 #
 
 def accum(vis, tablein='', incrtable='', caltable='', field=[''], calfield=[''], interp='linear', accumtime=1.0, spwmap=[-1]):
-    """
+    r"""
 Accumulate incremental calibration solutions into a calibration table (NB: ACCUM WILL BE REMOVED IN CASA 5.8/6.2)
 
-| NOTE: THIS TASK HAS BEEN DEPRECATED, AND WILL BE REMOVED IN CASA 5.8/6.2.
-|
-|Accum will interpolate and extrapolate a calibration table onto a new
-|table that has a regularly-space time grid.
-|
-|The first run of accum defines the time grid and fills this table with
-|the results from the input table.
-|
-|Subsequent use of accum will combine additional calibration tables
-|onto the same grid of the initial accum table to obtain an output
-|accum table.  See below for concrete examples.
-|
-|Accum tables are similar to CL tables in AIPS. Incremental tables are
-|similar to SN tables in AIPS.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-tablein : string
-   Input cumulative calibration table; use \'\' on first run
-incrtable : string
-   Input incremental calibration table to add
-caltable : string
-   Output (cumulative) calibration table
-field : stringArray
+   - **vis** (string) - Name of input visibility file
+   - **tablein** (string) - Input cumulative calibration table; use \'\' on first run
+   - **incrtable** (string) - Input incremental calibration table to add
+   - **caltable** (string) - Output (cumulative) calibration table
+   - **field** (stringArray)
+   - **calfield** (stringArray) - List of field names to use from incrtable.
+   - **interp** (string) - Interpolation mode to use for resampling incrtable solutions
+   - **spwmap** (intArray) - Spectral window combinations to apply
 
-calfield : stringArray
-   List of field names to use from incrtable.
-interp : string
-   Interpolation mode to use for resampling incrtable solutions
-spwmap : intArray
-   Spectral window combinations to apply
+Subparameters
+   *tablein = ''*
 
-Other Parameters
-----------
-accumtime : double, int
-   Time-interval when create cumulative table
-
-Notes
------
+   - **accumtime** (double=1.0, int) - Time-interval when create cumulative table
 
 
-
-
-
-   
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

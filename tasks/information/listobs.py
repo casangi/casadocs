@@ -3,71 +3,38 @@
 #
 
 def listobs(vis, selectdata=True, spw='', field='', antenna='', uvrange='', timerange='', correlation='', scan='', intent='', feed='', array='', observation='', verbose=True, listfile='', listunfl=False, cachesize=50, overwrite=False):
-    """
+    r"""
 List the summary of a data set in the logger or in a file
 
-| List the summary information of a data set in the logger or in a file, based on
-|       a data selection. Only rows can be selected and printed. No in-row selection is
-|       possible (channel or correlation).
-|
-|       Lists the following properties of a measurement set:
-|       scan list, field list, spectral window list with
-|       correlators, antenna locations, ms table information.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file (MS)
-selectdata : bool
-   Data selection parameters
-verbose : bool
-   Controls level of information detail reported. True reports more than False.
-listfile : string
-   Name of disk file to write output. Default is none (output is written to logger only).
-listunfl : bool
-   List unflagged row counts? If true, it can have significant negative performance impact.
-cachesize : double
-   EXPERIMENTAL. Maximum size in megabytes of cache in which data structures can be held.
+   - **vis** (string) - Name of input visibility file (MS)
+   - **selectdata** (bool) - Data selection parameters
+   - **verbose** (bool) - Controls level of information detail reported. True reports more than False.
+   - **listfile** (string) - Name of disk file to write output. Default is none (output is written to logger only).
+   - **listunfl** (bool) - List unflagged row counts? If true, it can have significant negative performance impact.
+   - **cachesize** (double) - EXPERIMENTAL. Maximum size in megabytes of cache in which data structures can be held.
 
-Other Parameters
-----------
-spw : string, stringArray
-   Selection based on spectral-window/frequency/channel.
-field : string, stringArray
-   Selection based on field names or field index numbers. Default is all.
-antenna : string, stringArray
-   Selection based on antenna/baselines. Default is all.
-uvrange : string, stringArray
-   Selection based on uv range. Default: entire range. Default units: meters.
-timerange : string, stringArray
-   Selection based on time range. Default is entire range.
-correlation : string, stringArray
-   Selection based on correlation. Default is all.
-scan : string, stringArray
-   Selection based on scan numbers. Default is all.
-intent : string, stringArray
-   Selection based on observation intent. Default is all.
-feed : string, stringArray
-   Selection based on multi-feed numbers: Not yet implemented
-array : string, stringArray
-   Selection based on (sub)array numbers. Default is all.
-observation : string, int
-   Selection based on observation ID. Default is all.
-overwrite : bool
-   If True, tacitly overwrite listfile if it exists.
+Subparameters
+   *selectdata = True*
 
-Notes
------
+   - **field** (string='', stringArray) - Selection based on field names or field index numbers. Default is all.
+   - **spw** (string='', stringArray) - Selection based on spectral-window/frequency/channel.
+   - **antenna** (string='', stringArray) - Selection based on antenna/baselines. Default is all.
+   - **timerange** (string='', stringArray) - Selection based on time range. Default is entire range.
+   - **correlation** (string='', stringArray) - Selection based on correlation. Default is all.
+   - **scan** (string='', stringArray) - Selection based on scan numbers. Default is all.
+   - **intent** (string='', stringArray) - Selection based on observation intent. Default is all.
+   - **feed** (string='', stringArray) - Selection based on multi-feed numbers: Not yet implemented
+   - **array** (string='', stringArray) - Selection based on (sub)array numbers. Default is all.
+   - **uvrange** (string='', stringArray) - Selection based on uv range. Default: entire range. Default units: meters.
+   - **observation** (string='', int) - Selection based on observation ID. Default is all.
+
+   *listfile != ''*
+
+   - **overwrite** (bool=False) - If True, tacitly overwrite listfile if it exists.
 
 
-
-
-
-   listobs task: List the summary of a data set in the logger or in a
-   file
-
-
-
+Description
       This application reports various metadata related to an MS. The
       listing is sent to the logger or can be saved to a file. Standard
       MS selection parameters can be used to limit the listing (see

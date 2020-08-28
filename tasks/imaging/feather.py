@@ -3,47 +3,19 @@
 #
 
 def feather(highres, lowres, imagename='', sdfactor=1.0, effdishdiam=-1.0, lowpassfiltersd=False):
-    """
+    r"""
 Combine two images using their Fourier transforms
 
-| This task can be used as one method of combining single-dish and
-|interferometric images after they have been separately made.
-|
-|The algorithm converts each image to the gridded visibility plane,
-|combines them, and reconverts them into an combined image.  Each image
-|must include a well-defined beam shape (clean beam) in order for
-|feathering to work well.  The two images must have the same flux
-|density normalization scale.
-
 Parameters
-----------
-imagename : string
-   Name of output feathered image
-highres : string
-   Name of high resolution (interferometer) image
-lowres : string
-   Name of low resolution (single dish) image
-sdfactor : double
-   Scale factor to apply to Single Dish image
-effdishdiam : double
-   New effective SingleDish diameter to use in m
-lowpassfiltersd : bool
-   Filter out the high spatial frequencies of the SD image
-
-Other Parameters
-----------
-
-Notes
------
+   - **imagename** (string) - Name of output feathered image
+   - **highres** (string) - Name of high resolution (interferometer) image
+   - **lowres** (string) - Name of low resolution (single dish) image
+   - **sdfactor** (double) - Scale factor to apply to Single Dish image
+   - **effdishdiam** (double) - New effective SingleDish diameter to use in m
+   - **lowpassfiltersd** (bool) - Filter out the high spatial frequencies of the SD image
 
 
-
-
-
-   combine two images using their Fourier transforms
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

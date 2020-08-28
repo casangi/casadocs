@@ -3,50 +3,28 @@
 #
 
 def widebandpbcor(vis, imagename='', nterms=2, threshold='', action='pbcor', reffreq='', pbmin=0.2, field='', spwlist=[''], chanlist=[''], weightlist=['']):
-    """
+    r"""
 Wideband PB-correction on the output of the MS-MFS algorithm
 
-| WideBand Primary-beam correction. It computes a set of PBs at the specified frequencies, calculates Taylor-coefficient images that represent the PB spectrum, performs a polynomial division to PB-correct the output Taylor-coefficient images from clean(nterms>1), and recompute spectral index (and curvature) using the PB-corrected Taylor-coefficient images
-
 Parameters
-----------
-vis : string
-   Name of measurement set. 
-imagename : string
-   Name-prefix of multi-termimages to operate on. 
-nterms : int
-   Number of taylor terms to use
-threshold : string
-   Intensity above which to re-calculate spectral index 
-action : string
-   PB-correction (pbcor) or only calc spectral-index (calcalpha)
+   - **vis** (string) - Name of measurement set. 
+   - **imagename** (string) - Name-prefix of multi-termimages to operate on. 
+   - **nterms** (int) - Number of taylor terms to use
+   - **threshold** (string) - Intensity above which to re-calculate spectral index 
+   - **action** (string) - PB-correction (pbcor) or only calc spectral-index (calcalpha)
 
-Other Parameters
-----------
-reffreq : string
-   Reference frequency (if specified in clean)
-pbmin : double
-   PB threshold below which to not correct
-field : string
-   Fields to include in the PB calculation
-spwlist : intArray
-   List of N spw ids
-chanlist : intArray
-   List of N channel ids
-weightlist : doubleArray
-   List of N weights (relative)
+Subparameters
+   *action = pbcor*
 
-Notes
------
+   - **reffreq** (string='') - Reference frequency (if specified in clean)
+   - **pbmin** (double=0.2) - PB threshold below which to not correct
+   - **field** (string='') - Fields to include in the PB calculation
+   - **spwlist** (intArray='') - List of N spw ids
+   - **chanlist** (intArray='') - List of N channel ids
+   - **weightlist** (doubleArray='') - List of N weights (relative)
 
 
-
-
-
-   
-
-
-
+Description
       The task **widebandpbcor** performs a WideBand Primary-beam
       correction. It computes a set of PBs at the specified frequencies,
       calculates Taylor-coefficient images that represent the PB

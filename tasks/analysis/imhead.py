@@ -3,49 +3,41 @@
 #
 
 def imhead(imagename, mode='summary', hdkey='', hdvalue='', verbose=False):
-    """
+    r"""
 List, get and put image header parameters
 
-| List, get and put image header parameters.
-|
-|This task allows the user to manipulate metadata associated with a
-|CASA image. Both float and complex valued images are fully supported.
-|
-|For measurement sets, the task vishead should be used.
-
 Parameters
-----------
-imagename : string
-   Name of the input spectral line image
-mode : string
+   - **imagename** (string) - Name of the input spectral line image
+   - **mode** (string)
+   - **hdkey** (string) - The associated keyword for modes "add", "del", "get", or "put". Only "get" will work if the image is read-only (eg, a FITS image).
+   - **hdvalue** (variant) - Value of keyword for modes add or put.
+   - **verbose** (bool) - Give a full listing of beams or just a short summary? Only used when the image has multiple beams and mode="summary".
 
-hdkey : string
-   The associated keyword for modes "add", "del", "get", or "put". Only "get" will work if the image is read-only (eg, a FITS image).
-hdvalue : variant
-   Value of keyword for modes add or put.
-verbose : bool
-   Give a full listing of beams or just a short summary? Only used when the image has multiple beams and mode="summary".
+Subparameters
+   *mode = summary*
 
-Other Parameters
-----------
-hdkey : string
-   The associated keyword for modes "add", "del", "get", or "put". Only "get" will work if the image is read-only (eg, a FITS image).
-hdvalue : variant
-   Value of keyword for modes add or put.
-verbose : bool
-   Give a full listing of beams or just a short summary? Only used when the image has multiple beams and mode="summary".
+   - **verbose** (bool=False) - Give a full listing of beams or just a short summary? Only used when the image has multiple beams and mode="summary".
 
-Notes
------
+   *mode = put*
 
+   - **hdkey** (string='') - The associated keyword for modes "add", "del", "get", or "put". Only "get" will work if the image is read-only (eg, a FITS image).
+   - **hdvalue** (variant='') - Value of keyword for modes add or put.
 
+   *mode = add*
 
+   - **hdkey** (string='') - The associated keyword for modes "add", "del", "get", or "put". Only "get" will work if the image is read-only (eg, a FITS image).
+   - **hdvalue** (variant='') - Value of keyword for modes add or put.
 
+   *mode = get*
 
-   imhead task: List, get and put image header parameters.
+   - **hdkey** (string='') - The associated keyword for modes "add", "del", "get", or "put". Only "get" will work if the image is read-only (eg, a FITS image).
 
+   *mode = del*
+
+   - **hdkey** (string='') - The associated keyword for modes "add", "del", "get", or "put". Only "get" will work if the image is read-only (eg, a FITS image).
 
 
+Description
       This task allows the user to manipulate metadata associated with a
       CASA image. Both float and complex valued images are fully
       supported.

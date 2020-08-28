@@ -3,89 +3,61 @@
 #
 
 def cvel(vis, outputvis='', passall=False, field='', spw='', selectdata=True, antenna='', timerange='', scan='', array='', mode='channel', nchan=-1, start='0', width='1', interpolation='linear', phasecenter='', restfreq='', outframe='', veltype='radio', hanning=False):
-    """
+    r"""
 regrid an MS to a new spectral window / channel structure or frame
 
-| The intent of cvel is to transform channel labels and the 
-|visibilities to a spectral reference frame which is appropriate
-|for the science analysis, e.g. from TOPO to LSRK to correct for 
-|Doppler shifts throughout the time of the observation. Naturally, 
-|this will change the shape of the spectral feature to some extent. 
-|According to the Nyquist theorem you should oversample a spectrum 
-|with twice the numbers of channels to retain the shape. Based on 
-|some tests, however, we recommend to observe with at least 
-|3-4 times the number of channels for each significant spectral 
-|feature (like 3-4 times the linewidth). This will minimize 
-|regridding artifacts in cvel.
-|
-|If cvel has already established the grid that is desired for the
-|imaging, clean should be run with exactly the same frequency/velocity 
-|parameters as used in cvel in order to avoid additional regridding in 
-|clean.
-|
-|Hanning smoothing is optionally offered in cvel, but tests have 
-|shown that already the regridding process itself, if it involved 
-|a transformation from TOPO to a non-terrestrial reference frame, 
-|implies some smoothing (due to channel interpolation) such that 
-|Hanning smoothing may not be necessary.
-
 Parameters
-----------
-vis : string
-   Name of input measurement set
-outputvis : string
-   Name of output measurement set
-passall : bool
-   Pass through (write to output MS) non-selected data with no change
-field : string, stringArray, int, intArray
-   Select field using field id(s) or field name(s)
-spw : string, stringArray, int, intArray
-   Select spectral window/channels
-selectdata : bool
-   Other data selection parameters
-mode : string
-    Regridding mode 
-phasecenter : variant
-   Phase center direction to be used for the spectral coordinate transformation: direction measure or field index
-restfreq : string
-   rest frequency (see help)
-outframe : string
-   Output frame (not case-sensitive, \'\'=keep input frame)
-veltype : string
-   velocity definition
-hanning : bool
-    If true, Hanning smooth data before regridding to remove Gibbs ringing.
+   - **vis** (string) - Name of input measurement set
+   - **outputvis** (string) - Name of output measurement set
+   - **passall** (bool) - Pass through (write to output MS) non-selected data with no change
+   - **field** (string, stringArray, int, intArray) - Select field using field id(s) or field name(s)
+   - **spw** (string, stringArray, int, intArray) - Select spectral window/channels
+   - **selectdata** (bool) - Other data selection parameters
+   - **mode** (string) -  Regridding mode 
+   - **phasecenter** (variant) - Phase center direction to be used for the spectral coordinate transformation: direction measure or field index
+   - **restfreq** (string) - rest frequency (see help)
+   - **outframe** (string) - Output frame (not case-sensitive, \'\'=keep input frame)
+   - **veltype** (string) - velocity definition
+   - **hanning** (bool) -  If true, Hanning smooth data before regridding to remove Gibbs ringing.
 
-Other Parameters
-----------
-antenna : string
-   Select data based on antenna/baseline
-timerange : string
-   Range of time to select from data
-scan : string
-   scan number range
-array : string
-   (sub)array indices
-nchan : int
-   Number of channels in output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
-start : variant
-   Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
-width : variant
-   Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
-interpolation : string
-   Spectral interpolation method
+Subparameters
+   *selectdata = True*
 
-Notes
------
+   - **timerange** (string='') - Range of time to select from data
+   - **array** (string='') - (sub)array indices
+   - **antenna** (string='') - Select data based on antenna/baseline
+   - **scan** (string='') - scan number range
 
+   *mode = channel*
 
+   - **nchan** (int=-1) - Number of channels in output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
+   - **start** (variant=0) - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
+   - **width** (variant=1) - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
+   - **interpolation** (string=linear) - Spectral interpolation method
 
+   *mode = channel_b*
+
+   - **nchan** (int=-1) - Number of channels in output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
+   - **start** (variant=0) - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
+   - **width** (variant=1) - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
+   - **interpolation** (string=linear) - Spectral interpolation method
+
+   *mode = velocity*
+
+   - **nchan** (int=-1) - Number of channels in output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
+   - **start** (variant='') - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
+   - **width** (variant='') - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
+   - **interpolation** (string=linear) - Spectral interpolation method
+
+   *mode = frequency*
+
+   - **nchan** (int=-1) - Number of channels in output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
+   - **start** (variant='') - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
+   - **width** (variant='') - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
+   - **interpolation** (string=linear) - Spectral interpolation method
 
 
-   regrid an MS to a new spectral window / channel structure or frame
-
-
-
+Description
       .. note:: **ALERT: ** The task **cvel** will soon be replaced by the
          functionality (and underlying code) currently offered by
          **cvel2. cvel2** is using the mstransform framework for optimal

@@ -3,76 +3,39 @@
 #
 
 def blcal(vis, caltable='', field='', spw='', intent='', selectdata=True, timerange='', uvrange='', antenna='', scan='', observation='', msselect='', solint='inf', combine='scan', freqdep=False, calmode='ap', solnorm=False, gaintable=[''], gainfield=[''], interp=[''], spwmap=[''], parang=False):
-    """
+    r"""
 Calculate a baseline-based calibration solution (gain or bandpass)
 
-| This task determines a baseline by baseline gain (time) or bandpass
-|(freq) for all baseline pairs in the data set. For the usual
-|antenna-based calibration of interferometric data, this task gaincal
-|is recommended, even with only one to three baselines.  For arrays
-|with closure errors, use blcal.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-caltable : string
-   Name of output gain calibration table
-field : string
-   Select field using field id(s) or field name(s)
-spw : string
-   Select spectral window/channels
-intent : string
-   Select observing intent
-selectdata : bool
-   Other data selection parameters
-solint : variant
-   Solution interval
-combine : string
-   Data axes which to combine for solve (obs, scan, spw, and/or field)
-freqdep : bool
-   Solve for frequency dependent solutions
-calmode : string
-   Type of solution" (\'ap\', \'p\', \'a\')
-solnorm : bool
-   Normalize average solution amplitudes to 1.0
-gaintable : stringArray
-   Gain calibration table(s) to apply on the fly
-gainfield : stringArray
-   Select a subset of calibrators from gaintable(s)
-interp : stringArray
-   Interpolation parameters for each gaintable, as a list
-spwmap : intArray
-   Spectral window mappings to form for gaintable(s)
-parang : bool
-   Apply parallactic angle correction
+   - **vis** (string) - Name of input visibility file
+   - **caltable** (string) - Name of output gain calibration table
+   - **field** (string) - Select field using field id(s) or field name(s)
+   - **spw** (string) - Select spectral window/channels
+   - **intent** (string) - Select observing intent
+   - **selectdata** (bool) - Other data selection parameters
+   - **solint** (variant) - Solution interval
+   - **combine** (string) - Data axes which to combine for solve (obs, scan, spw, and/or field)
+   - **freqdep** (bool) - Solve for frequency dependent solutions
+   - **calmode** (string) - Type of solution" (\'ap\', \'p\', \'a\')
+   - **solnorm** (bool) - Normalize average solution amplitudes to 1.0
+   - **gaintable** (stringArray) - Gain calibration table(s) to apply on the fly
+   - **gainfield** (stringArray) - Select a subset of calibrators from gaintable(s)
+   - **interp** (stringArray) - Interpolation parameters for each gaintable, as a list
+   - **spwmap** (intArray) - Spectral window mappings to form for gaintable(s)
+   - **parang** (bool) - Apply parallactic angle correction
 
-Other Parameters
-----------
-timerange : string
-   Select data based on time range
-uvrange : variant
-   Select data by baseline length.
-antenna : string
-   Select data based on antenna/baseline
-scan : string
-   Scan number range
-observation : string, int
-   Select by observation ID(s)
-msselect : string
-   Optional complex data selection (ignore for now)
+Subparameters
+   *selectdata = True*
 
-Notes
------
+   - **timerange** (string='') - Select data based on time range
+   - **uvrange** (variant='') - Select data by baseline length.
+   - **antenna** (string='') - Select data based on antenna/baseline
+   - **scan** (string='') - Scan number range
+   - **observation** (string='', int) - Select by observation ID(s)
+   - **msselect** (string='') - Optional complex data selection (ignore for now)
 
 
-
-
-
-   Calculate a baseline-based calibration solution (gain or bandpass)
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

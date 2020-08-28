@@ -3,36 +3,16 @@
 #
 
 def listpartition(vis, createdict=False, listfile=''):
-    """
+    r"""
 List the summary of a multi-MS data set in the logger or in a file
 
-| Lists the following properties of a multi-measurement set:
-|       sub-MS name, scan list, spw list, list of number of channels per spw, 
-|       number of rows for all scans.
-
 Parameters
-----------
-vis : string
-   Name of Multi-MS or normal MS.
-createdict : bool
-   Create and return a dictionary with Sub-MS information
-listfile : string
-   Name of ASCII file to save output: ''==>to terminal
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (string) - Name of Multi-MS or normal MS.
+   - **createdict** (bool) - Create and return a dictionary with Sub-MS information
+   - **listfile** (string) - Name of ASCII file to save output: ''==>to terminal
 
 
-
-
-
-   task description
-
-
-
+Description
       Lists the contents of a
       `Multi-MS <https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/the-multi-ms>`__
       according to the way it has been partitioned. The list will show

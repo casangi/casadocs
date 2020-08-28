@@ -3,37 +3,21 @@
 #
 
 def delmod(vis, otf=True, field='', scr=False):
-    """
+    r"""
 Deletes model representations in the MS
 
-| This utility task is to be used to delete the model visibility data
-|representations in the MS.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file (MS)
-otf : bool
-   Delete the on-the-fly model data keywords
-scr : bool
-   Delete the MODEL_DATA scr col (if it exists)
+   - **vis** (string) - Name of input visibility file (MS)
+   - **otf** (bool) - Delete the on-the-fly model data keywords
+   - **scr** (bool) - Delete the MODEL_DATA scr col (if it exists)
 
-Other Parameters
-----------
-field : string
-   Select field using field id(s) or field name(s)
+Subparameters
+   *otf = True*
 
-Notes
------
+   - **field** (string='') - Select field using field id(s) or field name(s)
 
 
-
-
-
-   deletes stored MODELs in the MS
-
-
-
+Description
       **delmod** is a task to remove MODEL data from MeasurementSets.
 
       The MODEL can be either the scratch-less virtual model (stored in

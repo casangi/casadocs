@@ -3,34 +3,17 @@
 #
 
 def plotweather(vis, seasonal_weight=0.5, doPlot=True, plotName=''):
-    """
+    r"""
 Plot elements of the weather table; estimate opacity.
 
 Parameters
-----------
-vis : string
-   MS name
-seasonal_weight : double
-   weight of the seasonal model
-doPlot : bool
-   set this to True to create a plot
-plotName : string
-   (Optional) the name of the plot file
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (string) - MS name
+   - **seasonal_weight** (double) - weight of the seasonal model
+   - **doPlot** (bool) - set this to True to create a plot
+   - **plotName** (string) - (Optional) the name of the plot file
 
 
-
-
-
-   task description
-
-
-
+Description
       This task is intended for VLA use only. Plots elements of the
       weather table; estimates opacity.
 

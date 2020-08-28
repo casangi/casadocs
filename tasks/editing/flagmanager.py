@@ -3,43 +3,37 @@
 #
 
 def flagmanager(vis, mode='list', versionname='', oldname='', comment='', merge='replace'):
-    """
+    r"""
 Enable list, save, restore, delete and rename flag version files.
 
-| These flag version files are copies of the flag column for a
-|        measurement set.  They can be restored to the data set to get
-|        back to a previous flag version.  On running importvla, a flag
-|        version call 'Original' is automatically produced.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file (MS)
-mode : string
-   Operation: list, save, restore, delete, rename
+   - **vis** (string) - Name of input visibility file (MS)
+   - **mode** (string) - Operation: list, save, restore, delete, rename
 
-Other Parameters
-----------
-versionname : string
-   Flag version name
-oldname : string
-   Flag version to rename
-comment : string
-   Short description of a versionname
-merge : string
-   Merge option: replace will save or over-write the flags
+Subparameters
+   *mode = save*
 
-Notes
------
+   - **versionname** (string='') - Flag version name
+   - **comment** (string='') - Short description of a versionname
+   - **merge** (string=replace) - Merge option: replace will save or over-write the flags
 
+   *mode = restore*
 
+   - **versionname** (string='') - Flag version name
+   - **merge** (string=replace) - Merge option: replace will save or over-write the flags
 
+   *mode = delete*
 
+   - **versionname** (string='') - Flag version name
 
-   task description
+   *mode = rename*
 
+   - **oldname** (string='') - Flag version to rename
+   - **versionname** (string='') - Flag version name
+   - **comment** (string='') - Short description of a versionname
 
 
+Description
       This task can manage flag backups of a MeasurementSet.
       flag backups (or versions) are copies of the FLAG column of a
       MeasurementSet, which are saved as a directory on disk with the

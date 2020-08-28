@@ -3,52 +3,21 @@
 #
 
 def imcontsub(imagename, linefile='', contfile='', fitorder=0, region='', box='', chans='', stokes=''):
-    """
+    r"""
 Estimates and subtracts continuum emission from an image cube
 
-| Estimates and subtracts continuum emission from an image cube
-|
-|For each direction pixel (x, y) column in imagename (or a subset
-|selected by region and/or box), this estimates the continuum by
-|fitting a polynomial to one or more subsets of the channels.  The
-|continuum estimate is saved in contfile, and subtracted from imagename
-|(or its subset) to make a spectral line estimate, which is saved in
-|linefile.
-
 Parameters
-----------
-imagename : string
-   Name of the input spectral line image
-linefile : string
-   Output continuum-subtracted image file name
-contfile : string
-   Output continuum image file name
-fitorder : int
-   Polynomial order for the continuum estimation
-region : string
-   Region selection.
-box : string, intArray, stringArray
-   Rectangular region to select in direction plane. Default is to use the entire direction plane.
-chans : string
-   Channels to use.
-stokes : string
-   Stokes planes to use.
-
-Other Parameters
-----------
-
-Notes
------
+   - **imagename** (string) - Name of the input spectral line image
+   - **linefile** (string) - Output continuum-subtracted image file name
+   - **contfile** (string) - Output continuum image file name
+   - **fitorder** (int) - Polynomial order for the continuum estimation
+   - **region** (string) - Region selection.
+   - **box** (string, intArray, stringArray) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **chans** (string) - Channels to use.
+   - **stokes** (string) - Stokes planes to use.
 
 
-
-
-
-   imcontsub task: Estimates and subtracts continuum emission from an
-   image cube
-
-
-
+Description
       For each direction pixel in an image (or a subset selected by
       *region* and/or *box*), this task estimates the continuum by
       fitting a polynomial to one or more subsets of the channels. In

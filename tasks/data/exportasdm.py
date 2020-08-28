@@ -3,51 +3,24 @@
 #
 
 def exportasdm(vis, asdm='', datacolumn='data', archiveid='S0', rangeid='X1', subscanduration='24h', sbduration='2700s', apcorrected=False, verbose=True, showversion=True, useversion='v3'):
-    """
+    r"""
 Convert a CASA visibility file (MS) into an ALMA or EVLA Science Data Model
 
-| Convert a CASA visibility file (MS) into an ALMA or EVLA Science Data Model
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-asdm : string
-   >Name of output ASDM directory (on disk)
-datacolumn : string
-   Which data column(s) to process.
-archiveid : string
-   The X0 in uid://X0/X1/X2
-rangeid : string
-   The X1 in uid://X0/X1/X2
-subscanduration : string
-   Maximum duration of a subscan in the output ASDM
-sbduration : string
-   Maximum duration of a scheduling block (and therefore exec block) in the output ASDM
-apcorrected : bool
-   Data to be marked as having atmospheric phase correction
-verbose : bool
-   Produce log output
-showversion : bool
-   Report the version of ASDM class set being used
-useversion : string
-   Selects the version of MS2asdm to be used
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (string) - Name of input visibility file
+   - **asdm** (string) - >Name of output ASDM directory (on disk)
+   - **datacolumn** (string) - Which data column(s) to process.
+   - **archiveid** (string) - The X0 in uid://X0/X1/X2
+   - **rangeid** (string) - The X1 in uid://X0/X1/X2
+   - **subscanduration** (string) - Maximum duration of a subscan in the output ASDM
+   - **sbduration** (string) - Maximum duration of a scheduling block (and therefore exec block) in the output ASDM
+   - **apcorrected** (bool) - Data to be marked as having atmospheric phase correction
+   - **verbose** (bool) - Produce log output
+   - **showversion** (bool) - Report the version of ASDM class set being used
+   - **useversion** (string) - Selects the version of MS2asdm to be used
 
 
-
-
-
-   convert a CASA visibility file (MS) into an ALMA or EVLA Science Data
-   Model
-
-
-
+Description
       This task serves to convert a CASA visibility file (MS) into an
       ALMA or EVLA `Science Data
       Model <https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/the-science-data-model>`__

@@ -3,56 +3,31 @@
 #
 
 def uvmodelfit(vis, field='', spw='', selectdata=True, timerange='', uvrange='', antenna='', scan='', msselect='', niter=5, comptype='P', sourcepar=[1.0, 0.0, 0.0], varypar=[''], outfile=''):
-    """
+    r"""
 Fit a single component source model to the uv data
 
-| Fit a single component source model to the uv data
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-field : string
-   Select field using field id(s) or field name(s)
-spw : string
-   Select spectral window/channels
-selectdata : bool
-   Other data selection parameters
-niter : int
-   Number of fitting iterations to execute
-comptype : string
-   component model type: P(oint), G(aussian), or D(isk)
-sourcepar : doubleArray
-   Starting guess for component parameters (3 values for type P, 5 for G and D)
-varypar : boolArray
-   Control which parameters to let vary in the fit
-outfile : string
-   Optional output component list table
+   - **vis** (string) - Name of input visibility file
+   - **field** (string) - Select field using field id(s) or field name(s)
+   - **spw** (string) - Select spectral window/channels
+   - **selectdata** (bool) - Other data selection parameters
+   - **niter** (int) - Number of fitting iterations to execute
+   - **comptype** (string) - component model type: P(oint), G(aussian), or D(isk)
+   - **sourcepar** (doubleArray) - Starting guess for component parameters (3 values for type P, 5 for G and D)
+   - **varypar** (boolArray) - Control which parameters to let vary in the fit
+   - **outfile** (string) - Optional output component list table
 
-Other Parameters
-----------
-timerange : string
-   Select data based on time range
-uvrange : variant
-   Select data within uvrange (default units meters)
-antenna : string
-   Select data based on antenna/baseline
-scan : string
-   Scan number range
-msselect : string
-   Optional complex data selection (ignore for now)
+Subparameters
+   *selectdata = True*
 
-Notes
------
+   - **timerange** (string='') - Select data based on time range
+   - **uvrange** (variant='') - Select data within uvrange (default units meters)
+   - **antenna** (string='') - Select data based on antenna/baseline
+   - **scan** (string='') - Scan number range
+   - **msselect** (string='') - Optional complex data selection (ignore for now)
 
 
-
-
-
-   
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 
@@ -247,23 +222,12 @@ Notes
             axis
 
             bmin = fit['shape']['minoraxis']['value']     #to get minor
-            axis 
-
-       
-
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 1                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | Marti-Vidal et al. 2014, A&A 563, 136             |
-      |                 | (`arX                                             |
-      |                 | iv:1401.4984 <http://arxiv.org/abs/1401.4984>`__) |
-      +-----------------+---------------------------------------------------+
+            axis
 
 
-         Bibliography
-
+   Bibliography
          :sup:`1. Marti-Vidal et al. 2014, A&A 563, 136
-         (` `arXiv:1401.4984 <http://arxiv.org/abs/1401.4984>`__ :sup:`)` `↩ <#ref-cit1>`__
+         (` `arXiv:1401.4984 <http://arxiv.org/abs/1401.4984>`__ :sup:`)` `<#ref-cit1>`__
 
     """
     pass

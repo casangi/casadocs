@@ -3,133 +3,92 @@
 #
 
 def plotbandpass(caltable, antenna='', field='', spw='', yaxis='amp', xaxis='chan', figfile='', plotrange=[0,0,0,0], caltable2='', overlay='', showflagged=False, timeranges='', buildpdf=False, caltable3='', markersize=3, density=108, interactive=True, showpoints='auto', showlines='auto', subplot='22', zoom='', poln='['']', showatm=False, pwv='auto', gs='gs', convert='convert', chanrange='', solutionTimeThresholdSeconds=30.0, debug=False, phase='['']', vis='', showtsky=False, showfdm=False, showatmfield='', lo1='', showimage=False, showatmpoints=False, parentms='', pdftk='pdftk', channeldiff=False, edge=8, resample=1, platformingThreshold=10.0, platformingSigma=10.0, basebands='', showBasebandNumber=False, scans='', figfileSequential=False, chanrangeSetXrange=False):
-    """
+    r"""
 Makes detailed plots of Tsys and bandpass solutions.
 
-| Developed at the NAASC, this is a generic task to display CASA 
-|  Tsys and bandpass solution tables with options to overlay them in various
-|  combinations, and/or with an atmospheric transmission or sky temperature
-|  model.  It works with both the 'new' (casa 3.4) and 'old' calibration
-|  table formats, and allows for mixed mode spws (e.g. TDM and FDM for ALMA).
-|  It uses the new msmd tool to access the information about an ms.  This
-|  task is still being developed as new ALMA observing modes are commissioned.
-|  So if you encounter problems, please report them.
-
 Parameters
-----------
-caltable : string
-   Input table name, either a bandpass solution or a Tsys solution
-antenna : string, int, stringArray, intArray
-   A comma-delimited string list of antennas (either names or integer indices) for which to display solutions.  Default = all antennas.
-field : string, int, stringArray, intArray
-   A comma-delimited string list of fields (either names or integer indices) for which to display solutions.  Default = all fields.
-spw : string, int, stringArray, intArray
-   A comma-delimited string list of spws for which to display solutions.  Default = all spws.
-yaxis : string
-   The quantity to plot on the y-axis ("amp", "phase", "both", "tsys", append "db" for dB).
-xaxis : string
-   The quantity to plot on the x-axis ("chan" or "freq").
-figfile : string
-   The name of the plot file to produce.
-plotrange : doubleArray
-   The axes limits to use [x0,x1,y0,y1].
-caltable2 : string
-   A second cal table, of type BPOLY or B, to overlay on a B table
-overlay : string
-   Show multiple solutions in same frame in different colors (time, antenna, spw, baseband, or time,antenna)
-showflagged : bool
-   Show the values of the solution, even if flagged
-timeranges : string
-   Show only these timeranges, the first timerange being 0
-markersize : int
-   Size of points
-interactive : bool
-   if False, then run to completion automatically without pause
-showpoints : string, bool
-   Draw points for the data (default=F for amp, T for phase)
-showlines : string, bool
-   Draw lines connecting the data (default=T for amp, F for phase)
-subplot : string, int
-   11..81,22,32 or 42 for RowsxColumns (default=22), any 3rd digit is ignored
-poln : stringArray, string
-   Polarizations to plot: "" = all, or "RR","RL","LR","LL","XX","XY","YX","YY","RR,LL","XX,YY"
-showatm : bool
-   Compute and overlay the atmospheric transmission curve
-solutionTimeThresholdSeconds : double
-   Consider 2 solutions simultaneous if within this interval in seconds
-debug : bool
-   Print verbose messages for debugging purposes
-vis : string
-   name of the ms for this table, in case it does not match the string in the caltable
-showtsky : bool
-   Compute and overlay the sky temperature curve instead of transmission
-channeldiff : bool, double
-   Set to a value > 0 (sigma) to plot derivatives of the solutions
-basebands : int, string, intArray
-   A baseband number or list of baseband numbers for which to display solutions.  Default = all.
-showBasebandNumber : bool
-   Put the baseband converter number (BBC_NO) in the title of each plot
-scans : int, string, intArray
-   A scan or list of scans for which to display solutions.  Default = all. Does not work with overlay="time".
-figfileSequential : bool
-   naming scheme for pngs: False: name by spw/antenna (default), True: figfile.000.png, figfile.001.png, etc.
+   - **caltable** (string) - Input table name, either a bandpass solution or a Tsys solution
+   - **antenna** (string, int, stringArray, intArray) - A comma-delimited string list of antennas (either names or integer indices) for which to display solutions.  Default = all antennas.
+   - **field** (string, int, stringArray, intArray) - A comma-delimited string list of fields (either names or integer indices) for which to display solutions.  Default = all fields.
+   - **spw** (string, int, stringArray, intArray) - A comma-delimited string list of spws for which to display solutions.  Default = all spws.
+   - **yaxis** (string) - The quantity to plot on the y-axis ("amp", "phase", "both", "tsys", append "db" for dB).
+   - **xaxis** (string) - The quantity to plot on the x-axis ("chan" or "freq").
+   - **figfile** (string) - The name of the plot file to produce.
+   - **plotrange** (doubleArray) - The axes limits to use [x0,x1,y0,y1].
+   - **caltable2** (string) - A second cal table, of type BPOLY or B, to overlay on a B table
+   - **overlay** (string) - Show multiple solutions in same frame in different colors (time, antenna, spw, baseband, or time,antenna)
+   - **showflagged** (bool) - Show the values of the solution, even if flagged
+   - **timeranges** (string) - Show only these timeranges, the first timerange being 0
+   - **markersize** (int) - Size of points
+   - **interactive** (bool) - if False, then run to completion automatically without pause
+   - **showpoints** (string, bool) - Draw points for the data (default=F for amp, T for phase)
+   - **showlines** (string, bool) - Draw lines connecting the data (default=T for amp, F for phase)
+   - **subplot** (string, int) - 11..81,22,32 or 42 for RowsxColumns (default=22), any 3rd digit is ignored
+   - **poln** (stringArray, string) - Polarizations to plot: "" = all, or "RR","RL","LR","LL","XX","XY","YX","YY","RR,LL","XX,YY"
+   - **showatm** (bool) - Compute and overlay the atmospheric transmission curve
+   - **solutionTimeThresholdSeconds** (double) - Consider 2 solutions simultaneous if within this interval in seconds
+   - **debug** (bool) - Print verbose messages for debugging purposes
+   - **vis** (string) - name of the ms for this table, in case it does not match the string in the caltable
+   - **showtsky** (bool) - Compute and overlay the sky temperature curve instead of transmission
+   - **channeldiff** (bool, double) - Set to a value > 0 (sigma) to plot derivatives of the solutions
+   - **basebands** (int, string, intArray) - A baseband number or list of baseband numbers for which to display solutions.  Default = all.
+   - **showBasebandNumber** (bool) - Put the baseband converter number (BBC_NO) in the title of each plot
+   - **scans** (int, string, intArray) - A scan or list of scans for which to display solutions.  Default = all. Does not work with overlay="time".
+   - **figfileSequential** (bool) - naming scheme for pngs: False: name by spw/antenna (default), True: figfile.000.png, figfile.001.png, etc.
 
-Other Parameters
-----------
-buildpdf : bool
-   If True, assemble all the pngs into a pdf
-caltable3 : string
-   A third cal table, of type BPOLY, to overlay on the first two tables
-density : int
-   dpi to use in creating PNGs and PDFs (default=108)
-zoom : string
-   "intersect" will zoom to overlap region of caltable with caltable2
-pwv : double, string
-   Define the pwv to use for the showatm option: "auto" or value in mm
-gs : string
-   For buildpdf=T, full path for ghostscript command (in case it is not found)
-convert : string
-   For buildpdf=T, full path for the ImageMagick convert command (in case it is not found)
-chanrange : string, intArray
-   Set xrange ("5~100") over which to autoscale y-axis for xaxis="freq"
-phase : intArray, string
-   The y-axis limits to use for phase plots when yaxis="both"
-showfdm : bool
-   when showing TDM spws, draw the locations of the corresponding FDM spws
-showatmfield : int, string
-   for overlay="time", use first observation of this fieldID or name
-lo1 : string, double
-   specify the LO1 setting (in GHz) for the observation ('' = automatic)
-showimage : bool
-   also show the atmospheric curve for the image sideband (in black)
-showatmpoints : bool
-   Draw atmospheric curve with points instead of a line
-parentms : string
-   if showimage=T, name of the parent ms (only needed if the ms has been previously split)
-pdftk : string
-   For buildpdf=T, full path for pdftk command (in case it is not found)
-edge : int
-   The number of edge channels to ignore in finding outliers (for channeldiff>0)
-resample : int
-   The channel expansion factor to use when computing MAD of derivative (for channeldiff>0)
-platformingThreshold : double
-   if platformingSigma=0, then declare platforming if the amplitude derivative exceeds this percentage of the median
-platformingSigma : double
-   declare platforming if the amplitude derivative exceeds this many times the MAD
-chanrangeSetXrange : bool
-   If True, then chanrange also sets the xrange to display
+Subparameters
+   *figfile != ''*
 
-Notes
------
+   - **density** (int=108) - dpi to use in creating PNGs and PDFs (default=108)
+   - **buildpdf** (bool=False) - If True, assemble all the pngs into a pdf
+   - **convert** (string=convert) - For buildpdf=T, full path for the ImageMagick convert command (in case it is not found)
+   - **gs** (string=gs) - For buildpdf=T, full path for ghostscript command (in case it is not found)
+   - **pdftk** (string=pdftk) - For buildpdf=T, full path for pdftk command (in case it is not found)
+
+   *showatm != False*
+
+   - **pwv** (double=auto, string) - Define the pwv to use for the showatm option: "auto" or value in mm
+   - **showimage** (bool=False) - also show the atmospheric curve for the image sideband (in black)
+   - **parentms** (string='') - if showimage=T, name of the parent ms (only needed if the ms has been previously split)
+   - **lo1** (string='', double) - specify the LO1 setting (in GHz) for the observation ('' = automatic)
+   - **showatmpoints** (bool=False) - Draw atmospheric curve with points instead of a line
+
+   *showtsky != False*
+
+   - **pwv** (double=auto, string) - Define the pwv to use for the showatm option: "auto" or value in mm
+   - **showimage** (bool=False) - also show the atmospheric curve for the image sideband (in black)
+   - **parentms** (string='') - if showimage=T, name of the parent ms (only needed if the ms has been previously split)
+   - **lo1** (string='', double) - specify the LO1 setting (in GHz) for the observation ('' = automatic)
+   - **showatmpoints** (bool=False) - Draw atmospheric curve with points instead of a line
+
+   *xaxis = freq*
+
+   - **chanrange** (string='', intArray) - Set xrange ("5~100") over which to autoscale y-axis for xaxis="freq"
+   - **showfdm** (bool=False) - when showing TDM spws, draw the locations of the corresponding FDM spws
+   - **chanrangeSetXrange** (bool=False) - If True, then chanrange also sets the xrange to display
+
+   *yaxis = both*
+
+   - **phase** (intArray='', string) - The y-axis limits to use for phase plots when yaxis="both"
+
+   *overlay = time*
+
+   - **showatmfield** (int='', string) - for overlay="time", use first observation of this fieldID or name
+
+   *channeldiff != False*
+
+   - **edge** (int=8) - The number of edge channels to ignore in finding outliers (for channeldiff>0)
+   - **resample** (int=1) - The channel expansion factor to use when computing MAD of derivative (for channeldiff>0)
+   - **platformingSigma** (double=5.0) - declare platforming if the amplitude derivative exceeds this many times the MAD
+   - **platformingThreshold** (double=10.0) - if platformingSigma=0, then declare platforming if the amplitude derivative exceeds this percentage of the median
+
+   *caltable2 != ''*
+
+   - **zoom** (string='') - "intersect" will zoom to overlap region of caltable with caltable2
+   - **caltable3** (string='') - A third cal table, of type BPOLY, to overlay on the first two tables
 
 
-
-
-
-   task description
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
          :class: p1

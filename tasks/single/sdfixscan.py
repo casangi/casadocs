@@ -3,59 +3,32 @@
 #
 
 def sdfixscan(infiles, mode='fft_mask', numpoly=2, beamsize='0.0', smoothsize='2.0', direction='', maskwidth='1.0', tmax=0.0, tmin=0.0, outfile='', overwrite=False):
-    """
+    r"""
 Task for single-dish image processing
 
-| Task sdfixscan is used to remove a scanning noise that appears 
-|as a striped noise pattern along the scan direction in a raster 
-|scan data. 
-|
-|By default, the scanning noise is removed by using the 
-|FFT-based 'Basket-Weaving' method (Emerson \& Grave 1988) that
-|requires multiple images that observed exactly the same area with
-|different scanning direction. If only one image is available, the
-|'Pressed-out' method (Sofue \& Reich 1979) can be used to remove
-|the scanning effect.
-
 Parameters
-----------
-infiles : variant
-   list of name of input SD images (FITS or CASA image)
-mode : string
-   image processing mode ["fft_mask", "model"]
-tmax : double
-   maximum threshold value for processing
-tmin : double
-   minimum threshold value for processing
-outfile : string
-   name of output file
-overwrite : bool
-   overwrite the output file if already exists [True, False]
+   - **infiles** (variant) - list of name of input SD images (FITS or CASA image)
+   - **mode** (string) - image processing mode ["fft_mask", "model"]
+   - **tmax** (double) - maximum threshold value for processing
+   - **tmin** (double) - minimum threshold value for processing
+   - **outfile** (string) - name of output file
+   - **overwrite** (bool) - overwrite the output file if already exists [True, False]
 
-Other Parameters
-----------
-numpoly : int
-   order of polynomial fit for Pressed-out method
-beamsize : variant
-   beam size for Pressed-out method
-smoothsize : variant
-   size of smoothing beam for Pressed-out method
-direction : variant
-   scan direction (p.a.) counterclockwise from the horizontal axis in unit of degree
-maskwidth : variant
-   mask width for Basket-Weaving (on percentage)
+Subparameters
+   *mode = fft_mask*
 
-Notes
------
+   - **direction** (variant='') - scan direction (p.a.) counterclockwise from the horizontal axis in unit of degree
+   - **maskwidth** (variant=1.0) - mask width for Basket-Weaving (on percentage)
+
+   *mode = model*
+
+   - **numpoly** (int=2) - order of polynomial fit for Pressed-out method
+   - **beamsize** (variant=0.0) - beam size for Pressed-out method
+   - **smoothsize** (variant=2.0) - size of smoothing beam for Pressed-out method
+   - **direction** (variant=0.0) - scan direction (p.a.) counterclockwise from the horizontal axis in unit of degree
 
 
-
-
-
-   remove artefacts in raster-scanned SD images
-
-
-
+Description
       Task **sdfixscan** is used to remove a striping pattern generated
       along the scan direction in raster scan data. By default, the
       scanning noise is removed using the FFT-based 'Basket-Weaving'
@@ -120,34 +93,13 @@ Notes
       output CASA image name. If *outfile* is empty, the default name
       ('sdfixscan.out.im') will be used.
 
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 1                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   |  Emerson & Grave 1988                             |
-      |                 | (`PDF <http://articles.ads                        |
-      |                 | abs.harvard.edu/cgi-bin/nph-iarticle_query?1988A% |
-      |                 | 26A...190..353E&amp;data_type=PDF_HIGH&amp;whole_ |
-      |                 | paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__) |
-      +-----------------+---------------------------------------------------+
 
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 2                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | Sofue & Reich 1979                                |
-      |                 | (`PDF <http://articles.ads                        |
-      |                 | abs.harvard.edu/cgi-bin/nph-iarticle_query?1979A% |
-      |                 | 26AS...38..251S&amp;data_type=PDF_HIGH&amp;whole_ |
-      |                 | paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__) |
-      +-----------------+---------------------------------------------------+
-
-
-         Bibliography
-
+   Bibliography
          :sup:`1.  Emerson & Grave 1988
-         (` `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1988A%26A...190..353E&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__ :sup:`)` `↩ <#ref-cit1>`__
+         (` `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1988A%26A...190..353E&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__ :sup:`)` `<#ref-cit1>`__
 
          :sup:`2. Sofue & Reich 1979
-         (` `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1979A%26AS...38..251S&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__ :sup:`)` `↩ <#ref-cit2>`__
+         (` `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1979A%26AS...38..251S&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__ :sup:`)` `<#ref-cit2>`__
 
     """
     pass

@@ -3,74 +3,43 @@
 #
 
 def accor(vis, caltable='', field='', spw='', intent='', selectdata=True, timerange='', antenna='', scan='', observation='', msselect='', solint='inf', combine='', append=False, docallib=False, callib='', gaintable=[''], gainfield=[''], interp=[''], spwmap=['']):
-    """
+    r"""
 Normalize visibilities based on auto-correlations
 
-| Determines the amplitude corrections neede due to errors in sampler
-|thresholds using measurements of auto-correlation spectra. This
-|correction is typically requiered for data correlated with the DiFX
-|correlator (such as VLBA data).  Other correlators (such as the SFXC
-|correlator used to correlate EVN data at JIVE) already apply this
-|correction at the correlator.  In this case, running this task is not
-|necessary.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-caltable : string
-   Name of output gain calibration table
-field : string
-   Select field using field id(s) or field name(s)
-spw : string
-   Select spectral window/channels
-intent : string
-   Select observing intent
-selectdata : bool
-   Other data selection parameters
-solint : variant
-   Solution interval: egs. \'inf\', \'60s\' (see help)
-combine : string
-   Data axes which to combine for solve (obs, scan, spw, and/or field)
-append : bool
-   Append solutions to the (existing) table
-docallib : bool
-   Use callib or traditional cal apply parameters
+   - **vis** (string) - Name of input visibility file
+   - **caltable** (string) - Name of output gain calibration table
+   - **field** (string) - Select field using field id(s) or field name(s)
+   - **spw** (string) - Select spectral window/channels
+   - **intent** (string) - Select observing intent
+   - **selectdata** (bool) - Other data selection parameters
+   - **solint** (variant) - Solution interval: egs. \'inf\', \'60s\' (see help)
+   - **combine** (string) - Data axes which to combine for solve (obs, scan, spw, and/or field)
+   - **append** (bool) - Append solutions to the (existing) table
+   - **docallib** (bool) - Use callib or traditional cal apply parameters
 
-Other Parameters
-----------
-timerange : string
-   Select data based on time range
-antenna : string
-   Select data based on antenna/baseline
-scan : string
-   Scan number range
-observation : string, int
-   Select by observation ID(s)
-msselect : string
-   Optional complex data selection (ignore for now)
-callib : string
-   Cal Library filename
-gaintable : stringArray
-   Gain calibration table(s) to apply on the fly
-gainfield : stringArray
-   Select a subset of calibrators from gaintable(s)
-interp : stringArray
-   Interpolation parameters for each gaintable, as a list
-spwmap : intArray
-   Spectral windows combinations to form for gaintables(s)
+Subparameters
+   *selectdata = True*
 
-Notes
------
+   - **timerange** (string='') - Select data based on time range
+   - **antenna** (string='') - Select data based on antenna/baseline
+   - **scan** (string='') - Scan number range
+   - **observation** (string='', int) - Select by observation ID(s)
+   - **msselect** (string='') - Optional complex data selection (ignore for now)
+
+   *docallib = False*
+
+   - **gaintable** (stringArray='') - Gain calibration table(s) to apply on the fly
+   - **gainfield** (stringArray='') - Select a subset of calibrators from gaintable(s)
+   - **interp** (stringArray='') - Interpolation parameters for each gaintable, as a list
+   - **spwmap** (intArray='') - Spectral windows combinations to form for gaintables(s)
+
+   *docallib = True*
+
+   - **callib** (string='') - Cal Library filename
 
 
-
-
-
-   Determine amplitude calibration from auto-correlations
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

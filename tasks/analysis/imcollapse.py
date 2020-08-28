@@ -3,65 +3,32 @@
 #
 
 def imcollapse(imagename, function='', axes='[0]', outfile='', box='', region='', chans='', stokes='', mask='', overwrite=False, stretch=False):
-    """
+    r"""
 Collapse image along one axis, aggregating pixel values along that axis.
 
-| This task collapses an image along a specified axis or set of axes of
-|N pixels to a single pixel on each specified axis. Both float valued
-|and complex valued images are supported. It computes the specified
-|aggregate function for pixel values along the specified axes and
-|places those values in the single remaining plane of those axes in the
-|output image. 
-|
-|The reference pixel of the collapsed axis is set to 0 and its
-|reference value is set to the mean of the the first and last values of
-|that axis in the specified region of the input image. Convolution to a
-|common beam is not performed automatically as part of the
-|preprocessing before the collapse operation occurs. Therefore, if the
-|input image has per-plane beams, then the user should consider first
-|smoothing the data to have the same resolution, and use the resulting
-|image as the input for imcollapse.
-
 Parameters
-----------
-imagename : string
-   Name of the input image
-function : string
-   Aggregate function to apply. This can be set one of flux, madm, max, mean, median, min, npts, rms, stddev, sum, variance, xmadm. Must be specified.
-axes : variant
-   Zero-based axis number(s) or minimal match strings to collapse.
-outfile : string
-   Name of output CASA image. Must be specified.
-box : string
-   Rectangular region to select in direction plane. Default is to use the entire direction plane.
-region : string
-   Region selection. Default is to use the full image.
-chans : string
-   Channels to use. Default is to use all channels.
-stokes : string
-   Stokes planes to use. Default is to use all Stokes planes.
-mask : string
-   Mask to use. Default is none.
-stretch : bool
-   Stretch the mask if necessary and possible?
+   - **imagename** (string) - Name of the input image
+   - **function** (string) - Aggregate function to apply. This can be set one of flux, madm, max, mean, median, min, npts, rms, stddev, sum, variance, xmadm. Must be specified.
+   - **axes** (variant) - Zero-based axis number(s) or minimal match strings to collapse.
+   - **outfile** (string) - Name of output CASA image. Must be specified.
+   - **box** (string) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **region** (string) - Region selection. Default is to use the full image.
+   - **chans** (string) - Channels to use. Default is to use all channels.
+   - **stokes** (string) - Stokes planes to use. Default is to use all Stokes planes.
+   - **mask** (string) - Mask to use. Default is none.
+   - **stretch** (bool) - Stretch the mask if necessary and possible?
 
-Other Parameters
-----------
-overwrite : bool
-   Overwrite output image if it exists?
+Subparameters
+   *outfile != ''*
 
-Notes
------
+   - **overwrite** (bool=False) - Overwrite output image if it exists?
+
+   *mask != ''*
+
+   - **stretch** (bool=False) - Stretch the mask if necessary and possible?
 
 
-
-
-
-   imcollapse task: Collapse image along one axis, aggregating pixel
-   values along that axis.
-
-
-
+Description
       The **imcollapse** task collapses an image along a specified axis
       or set of axes of N pixels into a single pixel on each specified
       axis. Images with float precision and complex-float precision

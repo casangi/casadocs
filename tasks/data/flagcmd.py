@@ -3,87 +3,58 @@
 #
 
 def flagcmd(vis, inpmode='table', inpfile='', tablerows=[''], reason='any', useapplied=False, tbuff=0.0, ants='', action='apply', flagbackup=True, clearall=False, rowlist=[''], plotfile='', savepars=False, outfile='', overwrite=True):
-    """
+    r"""
 Flagging task based on batches of flag-commands
 
-| The flagcmd task will flag the visibility data or calibration
-|    table based on several batch-operations using flag commands. 
-|
-|    Flag commands follow the mode and parameter names from the
-|    flagdata task.
-|
-|    The flagcmd task will flag data based on the commands input on
-|    inpmode:
-|        table = input from FLAG_CMD table in MS
-|        list  = input from text file or list of strings from inpfile
-|        xml   = input from Flag.xml in the MS given by vis
-|
-|    Batch operations include : apply/unapply/list/plot/clear/extract
-|
-|    IMPORTANT: If you use other ways to flag such as interactive
-|    flagging in plotms, the FLAG_CMD will NOT be updated! 
-|               
-|    NOTE on flagging calibration tables.
-|    -----------------------------------    
-|    We recommend using the flagdata task for flagging cal tabels. When
-|    using flagcmd to flag cal tables, only the 'apply' and 'list'
-|    actions are supported. Because cal tables do not have a FLAG_CMD
-|    sub-table, the default inpmode='table' can only be used if an MS
-|    is given in the 'inpfile' parameter so that flags from the MS are
-|    applied to the cal table. Otherwise, the flag commands must be
-|    given using inpmode='list', either from a file(s) or from a list
-|    of strings. Data selection for calibration tables is limited to
-|    field, scan, antenna, time, spw and observation.
-
 Parameters
-----------
-vis : string
-   Name of MS file or calibration table to flag
-inpmode : string
-   Input mode for flag commands(table/list/xml)
-action : string
-   Action to perform in MS and/or in inpfile (apply/unapply/list/plot/clear/extract)
-savepars : bool
-   Save flag commands to the MS or file
+   - **vis** (string) - Name of MS file or calibration table to flag
+   - **inpmode** (string) - Input mode for flag commands(table/list/xml)
+   - **action** (string) - Action to perform in MS and/or in inpfile (apply/unapply/list/plot/clear/extract)
+   - **savepars** (bool) - Save flag commands to the MS or file
 
-Other Parameters
-----------
-inpfile : string, stringArray
-   Source of flag commands
-tablerows : intArray
-   Rows of inpfile to read
-reason : string, stringArray
-   Select by REASON types
-useapplied : bool
-   Select commands whose rows have APPLIED column set to True
-tbuff : double
-   Time buffer (sec) to pad flags
-ants : string
-   Allowed flag antenna names to select by
-flagbackup : bool
-   Automatically backup the FLAG column before execution
-clearall : bool
-   Delete all rows from FLAG_CMD
-rowlist : intArray
-   FLAG_CMD rows to clear
-plotfile : string
-   Name of output file to save plot
-outfile : string
-   Name of output file to save commands
-overwrite : bool
-   Overwrite an existing file to save the flag commands
+Subparameters
+   *inpmode = table*
 
-Notes
------
+   - **inpfile** (string='', stringArray) - Source of flag commands
+   - **tablerows** (intArray='') - Rows of inpfile to read
+   - **reason** (string=any, stringArray) - Select by REASON types
+   - **useapplied** (bool=False) - Select commands whose rows have APPLIED column set to True
+
+   *inpmode = list*
+
+   - **inpfile** (string='', stringArray) - Source of flag commands
+   - **reason** (string=any, stringArray) - Select by REASON types
+
+   *inpmode = xml*
+
+   - **tbuff** (double=0.0) - Time buffer (sec) to pad flags
+   - **ants** (string='') - Allowed flag antenna names to select by
+   - **reason** (string=any, stringArray) - Select by REASON types
+
+   *action = apply*
+
+   - **flagbackup** (bool=True) - Automatically backup the FLAG column before execution
+
+   *action = unapply*
+
+   - **flagbackup** (bool=True) - Automatically backup the FLAG column before execution
+
+   *action = plot*
+
+   - **plotfile** (string='') - Name of output file to save plot
+
+   *action = clear*
+
+   - **clearall** (bool=False) - Delete all rows from FLAG_CMD
+   - **rowlist** (intArray='') - FLAG_CMD rows to clear
+
+   *savepars = True*
+
+   - **outfile** (string='') - Name of output file to save commands
+   - **overwrite** (bool=True) - Overwrite an existing file to save the flag commands
 
 
-
-
-
-   
-
-
-
+Description
       The **flagcmd** task will flag the visibility data or the
       calibration table based on several batch-operations using flag
       commands. There is an extensive and detailed description of this

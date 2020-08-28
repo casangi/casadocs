@@ -3,48 +3,23 @@
 #
 
 def uvcontsub3(vis, fitspw='', combine='', fitorder=0, field='', spw='', scan='', intent='', correlation='', observation=''):
-    """
+    r"""
 An experimental clone of uvcontsub
 
-| 
-
 Parameters
-----------
-vis : string
-   
-fitspw : string
-   
-combine : string
-   
-fitorder : int
-   
-field : string, stringArray, int, intArray
-   
-spw : string
-   
-scan : string
-   
-intent : string
-   
-correlation : string, stringArray
-   
-observation : string, int
-   
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (string) - 
+   - **fitspw** (string) - 
+   - **combine** (string) - 
+   - **fitorder** (int) - 
+   - **field** (string, stringArray, int, intArray) - 
+   - **spw** (string) - 
+   - **scan** (string) - 
+   - **intent** (string) - 
+   - **correlation** (string, stringArray) - 
+   - **observation** (string, int) - 
 
 
-
-
-
-   task description
-
-
-
+Description
 
 
          .. note:: **ALERT: uvcontsub3** is an experimental task and will

@@ -3,32 +3,16 @@
 #
 
 def imtrans(imagename, outfile='', order=''):
-    """
+    r"""
 Reorder image axes
 
 Parameters
-----------
-imagename : string
-   Name of the input image which must be specified.
-outfile : string
-   Name of output CASA image.
-order : variant
-   New zero-based axes order.
-
-Other Parameters
-----------
-
-Notes
------
+   - **imagename** (string) - Name of the input image which must be specified.
+   - **outfile** (string) - Name of output CASA image.
+   - **order** (variant) - New zero-based axes order.
 
 
-
-
-
-   imtrans task: Reorder image axes
-
-
-
+Description
       This task reorders (transposes) the axes in the input image to the
       specified order. The associated pixel values and coordinate system
       are transposed.

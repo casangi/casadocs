@@ -3,54 +3,36 @@
 #
 
 def specsmooth(imagename, outfile='', box='', chans='', stokes='', region='', mask='', overwrite=False, stretch=False, axis=-1, function='boxcar', width=2, dmethod='copy'):
-    """
+    r"""
 Smooth an image region in one dimension
 
-| 
-
 Parameters
-----------
-imagename : string
-   Name of the input image
-outfile : string
-   Output image name.
-box : string
-   Rectangular region to select in direction plane. Default is to use the entire direction plane.
-chans : string
-   Channels to use. Channels must be contiguous. Default is to use all channels.
-stokes : string
-   Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
-region : variant
-   Region selection. Default is to use the full image.
-mask : string
-   Mask to use. Default is none..
-axis : int
-   The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
-function : string
-   Convolution function. hanning and boxcar are supported functions. Minimum match is supported.
-dmethod : string
-   Decimation method. "" means no decimation, "copy" and "mean" are also supported (minimum match).
+   - **imagename** (string) - Name of the input image
+   - **outfile** (string) - Output image name.
+   - **box** (string) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **chans** (string) - Channels to use. Channels must be contiguous. Default is to use all channels.
+   - **stokes** (string) - Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
+   - **region** (variant) - Region selection. Default is to use the full image.
+   - **mask** (string) - Mask to use. Default is none..
+   - **axis** (int) - The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
+   - **function** (string) - Convolution function. hanning and boxcar are supported functions. Minimum match is supported.
+   - **dmethod** (string) - Decimation method. "" means no decimation, "copy" and "mean" are also supported (minimum match).
 
-Other Parameters
-----------
-overwrite : bool
-   Overwrite the output if it exists?
-stretch : bool
-   Stretch the mask if necessary and possible? Default False
-width : int
-   Width of boxcar, in pixels.
+Subparameters
+   *outfile != ''*
 
-Notes
------
+   - **overwrite** (bool=False) - Overwrite the output if it exists?
+
+   *mask != ''*
+
+   - **stretch** (bool=False) - Stretch the mask if necessary and possible? Default False
+
+   *function != hanning*
+
+   - **width** (int=2) - Width of boxcar, in pixels.
 
 
-
-
-
-   task description
-
-
-
+Description
       This application performs one dimensional convolution along a
       specified axis of an image or selected region of an image. Hanning
       smoothing and boxcar smoothing are supported. Both float valued

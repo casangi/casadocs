@@ -3,72 +3,49 @@
 #
 
 def imfit(imagename, box='', region='', chans='', stokes='', mask='', includepix=[''], excludepix=[''], residual='', model='', estimates='', logfile='', append=True, newestimates='', complist='', overwrite=False, dooff=False, offset=0.0, fixoffset=False, stretch=False, rms='-1', noisefwhm='', summary=''):
-    """
+    r"""
 Fit one or more elliptical Gaussian components on an image region(s)
 
 Parameters
-----------
-imagename : string
-   Name of the input image
-box : string
-   Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
-region : variant
-   Region selection. Default is to use the full image.
-chans : variant
-   Channels to use. Default is to use all channels.
-stokes : string
-   Stokes planes to use. Default is to use first Stokes plane.
-mask : string
-   Mask to use. Default is none.
-includepix : intArray
-   Range of pixel values to include for fitting.
-excludepix : intArray
-   Range of pixel values to exclude for fitting.
-residual : string
-   Name of output residual image.
-model : string
-   Name of output model image.
-estimates : string
-   Name of file containing initial estimates of component parameters.
-logfile : string
-   Name of file to write fit results.
-newestimates : string
-   File to write fit results which can be used as initial estimates for next run.
-complist : string
-   Name of output component list table.
-dooff : bool
-   Also fit a zero level offset? Default is False
-rms : int, double, record, string
-   RMS to use in calculation of uncertainties. Numeric or valid quantity (record or string). If numeric, it is given units of the input image. If quantity, units must conform to image units. If not positive, the rms of the residual image, in the region of the fit, is used.
-noisefwhm : int, double, record, string
-   Noise correlation beam FWHM. If numeric value, interpreted as pixel widths. If quantity (dictionary, string), it must have angular units.
-summary : string
-   File name to which to write table of fit parameters.
+   - **imagename** (string) - Name of the input image
+   - **box** (string) - Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
+   - **region** (variant) - Region selection. Default is to use the full image.
+   - **chans** (variant) - Channels to use. Default is to use all channels.
+   - **stokes** (string) - Stokes planes to use. Default is to use first Stokes plane.
+   - **mask** (string) - Mask to use. Default is none.
+   - **includepix** (intArray) - Range of pixel values to include for fitting.
+   - **excludepix** (intArray) - Range of pixel values to exclude for fitting.
+   - **residual** (string) - Name of output residual image.
+   - **model** (string) - Name of output model image.
+   - **estimates** (string) - Name of file containing initial estimates of component parameters.
+   - **logfile** (string) - Name of file to write fit results.
+   - **newestimates** (string) - File to write fit results which can be used as initial estimates for next run.
+   - **complist** (string) - Name of output component list table.
+   - **dooff** (bool) - Also fit a zero level offset? Default is False
+   - **rms** (int, double, record, string) - RMS to use in calculation of uncertainties. Numeric or valid quantity (record or string). If numeric, it is given units of the input image. If quantity, units must conform to image units. If not positive, the rms of the residual image, in the region of the fit, is used.
+   - **noisefwhm** (int, double, record, string) - Noise correlation beam FWHM. If numeric value, interpreted as pixel widths. If quantity (dictionary, string), it must have angular units.
+   - **summary** (string) - File name to which to write table of fit parameters.
 
-Other Parameters
-----------
-append : bool
-   If logfile exists, append to it if True or overwrite it if False
-overwrite : bool
-   Overwrite component list table if it exists?
-offset : double
-   Initial estimate of zero-level offset. Only used if doff is True. Default is 0.0
-fixoffset : bool
-   Keep the zero level offset fixed during fit? Default is False 
-stretch : bool
-   Stretch the mask if necessary and possible? 
+Subparameters
+   *mask != ''*
 
-Notes
------
+   - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
+
+   *logfile != ''*
+
+   - **append** (bool=True) - If logfile exists, append to it if True or overwrite it if False
+
+   *complist != ''*
+
+   - **overwrite** (bool=False) - Overwrite component list table if it exists?
+
+   *dooff != False*
+
+   - **offset** (double=0.0) - Initial estimate of zero-level offset. Only used if doff is True. Default is 0.0
+   - **fixoffset** (bool=False) - Keep the zero level offset fixed during fit? Default is False 
 
 
-
-
-
-   Fit one or more elliptical Gaussian components on an image region(s)
-
-
-
+Description
       .. rubric:: OVERVIEW
          :name: overview
 
@@ -327,13 +304,6 @@ Notes
       Error estimates are based on the work of  Condon (1997)  `[1]
       . <#cit1%20.>`__
 
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 1                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | Condon (1997)                                     |
-      |                 | http://adsabs.harvard.edu/abs/1997PASP..109..166C |
-      +-----------------+---------------------------------------------------+
-
        
 
         Key assumptions made are:
@@ -579,10 +549,9 @@ Notes
       not be written.
 
 
-         Bibliography
-
+   Bibliography
          :sup:`1. Condon
-         (1997) ` http://adsabs.harvard.edu/abs/1997PASP..109..166C `↩ <#ref-cit1>`__
+         (1997) ` http://adsabs.harvard.edu/abs/1997PASP..109..166C `<#ref-cit1>`__
 
     """
     pass

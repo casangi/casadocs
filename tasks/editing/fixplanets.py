@@ -3,44 +3,19 @@
 #
 
 def fixplanets(vis, field='""', fixuvw=False, direction='', refant='0', reftime='first'):
-    """
+    r"""
 Changes FIELD and SOURCE table entries based on user-provided direction or POINTING table, optionally fixes the UVW coordinates
 
-| This task's main purpose is to correct observations which were
-|performed with correct pointing and correlation but for which
-|incorrect direction information was entered in the FIELD and SOURCE
-|table of the MS. If you actually want to change the phase center of
-|the visibilties in an MS, you should use task fixvis.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-field : variant
-   Select field using field id(s) or field name(s)
-fixuvw : bool
-   Recalculate Fourier-plane u,v,w coordinates
-direction : variant
-   If set, do not use pointing table but set direction to this value
-refant : variant
-   Reference antenna name(s)
-reftime : string
-   If using pointing table information, use it from this timestamp
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (string) - Name of input visibility file
+   - **field** (variant) - Select field using field id(s) or field name(s)
+   - **fixuvw** (bool) - Recalculate Fourier-plane u,v,w coordinates
+   - **direction** (variant) - If set, do not use pointing table but set direction to this value
+   - **refant** (variant) - Reference antenna name(s)
+   - **reftime** (string) - If using pointing table information, use it from this timestamp
 
 
-
-
-
-   
-
-
-
+Description
       The main purpose of this task is to correct observations which
       were performed with correct pointing and correlation but for which
       incorrect direction information was entered in the FIELD and

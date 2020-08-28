@@ -3,72 +3,48 @@
 #
 
 def sdfit(infile, datacolumn='data', antenna='', field='', spw='', timerange='', scan='', pol='', intent='', timebin='', timespan='', polaverage='', fitfunc='gaussian', fitmode='list', nfit=[0], thresh=5.0, avg_limit=4, minwidth=4, edge=[0, 0], outfile='', overwrite=False):
-    """
+    r"""
 Fit a spectral line
 
-| Task sdfit is a basic line-fitter for single-dish spectra.
-|It assumes that the spectra have been calibrated in tsdcal
-|or sdreduce.
-
 Parameters
-----------
-infile : string
-   name of input SD dataset
-datacolumn : string
-   name of data column to be used ["data", "float_data", or "corrected_data"]
-antenna : string
-   select data by antenna name or ID, e.g. "PM03"
-field : string
-   select data by field IDs and names, e.g. "3C2*" (""=all)
-spw : string
-   select data by IF IDs (spectral windows), e.g. "3,5,7" (""=all)
-timerange : string
-   select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help)
-scan : string
-   select data by scan numbers, e.g. "21~23" (""=all)
-pol : string
-   select data by polarization IDs, e.g. "XX,YY" (""=all)
-intent : string
-   select data by observational intent, e.g. "*ON_SOURCE*" (""=all)
-timebin : string
-   bin width for time averaging
-polaverage : string
-   polarization averaging mode ("", "stokes" or "geometric").
-fitfunc : string
-   function for fitting ["gaussian", "lorentzian"]
-fitmode : string
-   mode for setting additional channel masks. "list" and "auto" are available now.
-outfile : string
-   name of output file
-overwrite : bool
-   overwrite the output file if already exists [True, False]
+   - **infile** (string) - name of input SD dataset
+   - **datacolumn** (string) - name of data column to be used ["data", "float_data", or "corrected_data"]
+   - **antenna** (string) - select data by antenna name or ID, e.g. "PM03"
+   - **field** (string) - select data by field IDs and names, e.g. "3C2*" (""=all)
+   - **spw** (string) - select data by IF IDs (spectral windows), e.g. "3,5,7" (""=all)
+   - **timerange** (string) - select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help)
+   - **scan** (string) - select data by scan numbers, e.g. "21~23" (""=all)
+   - **pol** (string) - select data by polarization IDs, e.g. "XX,YY" (""=all)
+   - **intent** (string) - select data by observational intent, e.g. "*ON_SOURCE*" (""=all)
+   - **timebin** (string) - bin width for time averaging
+   - **polaverage** (string) - polarization averaging mode ("", "stokes" or "geometric").
+   - **fitfunc** (string) - function for fitting ["gaussian", "lorentzian"]
+   - **fitmode** (string) - mode for setting additional channel masks. "list" and "auto" are available now.
+   - **outfile** (string) - name of output file
+   - **overwrite** (bool) - overwrite the output file if already exists [True, False]
 
-Other Parameters
-----------
-timespan : string
-   span the timebin across "scan", "state", "field", or a combination of them (e.g., "scan,state")
-nfit : intArray
-   list of number of lines to fit in maskline region.
-thresh : double
-   S/N threshold for linefinder
-avg_limit : int
-   channel averaging for broad lines
-minwidth : int
-   the minimum channel width to detect as a line
-edge : intArray
-   channels to drop at beginning and end of spectrum
+Subparameters
+   *timebin != ''*
 
-Notes
------
+   - **timespan** (string='') - span the timebin across "scan", "state", "field", or a combination of them (e.g., "scan,state")
+
+   *fitmode = list*
+
+   - **nfit** (intArray='') - list of number of lines to fit in maskline region.
+
+   *fitmode = auto*
+
+   - **thresh** (double=5.0) - S/N threshold for linefinder
+   - **avg_limit** (int=4) - channel averaging for broad lines
+   - **minwidth** (int=4) - the minimum channel width to detect as a line
+   - **edge** (intArray='') - channels to drop at beginning and end of spectrum
+
+   *fitmode = interact*
+
+   - **nfit** (intArray='') - list of number of lines to fit in maskline region.
 
 
-
-
-
-   Basic line fitter for single-dish spectra
-
-
-
+Description
       Task **sdfit** is a basic line fitter for single-dish spectra.
       While it's possible to run **sdfit** on uncalibrated data, the
       structure of the raw bandpass is likely to return complicated

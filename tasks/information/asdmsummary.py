@@ -3,32 +3,14 @@
 #
 
 def asdmsummary(asdm):
-    """
+    r"""
 Summarized description of an ASDM dataset.
 
-| Given an ASDM directory, this task will print, to the CASA log,
-|information about the content of the dataset contained in that
-|directory (down to the level of a subscan).
-
 Parameters
-----------
-asdm : string
-   Name of input ASDM directory
-
-Other Parameters
-----------
-
-Notes
------
+   - **asdm** (string) - Name of input ASDM directory
 
 
-
-
-
-   summarized description of an ASDM dataset
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

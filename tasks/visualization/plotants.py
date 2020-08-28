@@ -3,45 +3,21 @@
 #
 
 def plotants(vis, figfile='', antindex=False, logpos=False, exclude='', checkbaselines=False, title='', showgui=True):
-    """
+    r"""
 Plot the antenna distribution in the local reference frame:
 
-| The location of the antennas in the MS will be plotted with
-|       X-toward local east; Y-toward local north.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file (MS)
-figfile : string
-   Save the plotted figure to this file
-antindex : bool
-   Label antennas with name and antenna ID
-logpos : bool
-   Whether to plot logarithmic positions
-exclude : string
-   Antenna name/id selection to exclude from plot
-checkbaselines : bool
-   Whether to check baselines in the main table.
-title : string
-   Title for the plot
-showgui : bool
-   Show plot on gui.
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (string) - Name of input visibility file (MS)
+   - **figfile** (string) - Save the plotted figure to this file
+   - **antindex** (bool) - Label antennas with name and antenna ID
+   - **logpos** (bool) - Whether to plot logarithmic positions
+   - **exclude** (string) - Antenna name/id selection to exclude from plot
+   - **checkbaselines** (bool) - Whether to check baselines in the main table.
+   - **title** (string) - Title for the plot
+   - **showgui** (bool) - Show plot on gui.
 
 
-
-
-
-   Simple plotter of antenna positions
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

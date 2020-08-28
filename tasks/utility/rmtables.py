@@ -3,32 +3,14 @@
 #
 
 def rmtables(tablenames=['']):
-    """
+    r"""
 Remove tables cleanly, use this instead of rm -rf
 
-| This task removes tables if they are not being currently accessed via
-|                the casapy process. Note: if you have multiple sessions running bad things
-|                could happen if you remove a table being accessed by another process.
-
 Parameters
-----------
-tablenames : stringArray
-   Name of the tables
-
-Other Parameters
-----------
-
-Notes
------
+   - **tablenames** (stringArray) - Name of the tables
 
 
-
-
-
-   task description
-
-
-
+Description
       This task removes tables (MS, caltables, images) cleanly.
 
       rmtables is preferred over rm -rf for removing tables because it

@@ -3,32 +3,14 @@
 #
 
 def listhistory(vis):
-    """
+    r"""
 List the processing history of a dataset:
 
-| List the processing history of a dataset:
-|        The list of all task processing steps will be
-|        given in the logger.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file (MS)
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (string) - Name of input visibility file (MS)
 
 
-
-
-
-   task description
-
-
-
+Description
       Lists the processing history of a MeasurementSet.
 
       The list of all tasks and processing steps of a MeasurementSet

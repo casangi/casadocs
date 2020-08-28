@@ -4,71 +4,33 @@
 
 def plotcal(caltable, xaxis='', yaxis='', poln='', field='', antenna='', spw='', timerange='', subplot=111, overplot=False, clearpanel='Auto', iteration='', plotrange=[
             ], showflags=False, plotsymbol='o', plotcolor='blue', markersize=5.0, fontsize=10.0, showgui=True, figfile=''):
-    """
+    r"""
 An all-purpose plotter for calibration results 
 
-| An all-purpose plotter for calibration results.  The values for all
-|calibration solutions (G, T, GSPLINE, B, BPOLY, D) can be displayed
-|for a variety of polarization combinations and calibrations.  The
-|solutions may be iterated through antennas/spw/fields during one execution.
-
 Parameters
-----------
-caltable : string
-   
-xaxis : string
-   
-yaxis : string
-   
-poln : string
-   
-field : string
-   
-antenna : string
-   
-spw : string
-   
-timerange : string
-   
-subplot : int
-   
-overplot : bool
-   
-clearpanel : string
-   
-iteration : string
-   
-plotrange : doubleArray
-   
-showflags : bool
-   
-plotsymbol : string
-   
-plotcolor : string
-   
-markersize : double
-   
-fontsize : double
-   
-showgui : bool
-   
-figfile : string
-   
-
-Other Parameters
-----------
-
-Notes
------
+   - **caltable** (string) - 
+   - **xaxis** (string) - 
+   - **yaxis** (string) - 
+   - **poln** (string) - 
+   - **field** (string) - 
+   - **antenna** (string) - 
+   - **spw** (string) - 
+   - **timerange** (string) - 
+   - **subplot** (int) - 
+   - **overplot** (bool) - 
+   - **clearpanel** (string) - 
+   - **iteration** (string) - 
+   - **plotrange** (doubleArray) - 
+   - **showflags** (bool) - 
+   - **plotsymbol** (string) - 
+   - **plotcolor** (string) - 
+   - **markersize** (double) - 
+   - **fontsize** (double) - 
+   - **showgui** (bool) - 
+   - **figfile** (string) - 
 
 
-
-
-
-   plot calibration solutions
-
-
-
+Description
       .. rubric:: Most of the functionality of plotcal is now
          implemented in plotms.
          :name: most-of-the-functionality-of-plotcal-is-now-implemented-in-plotms.

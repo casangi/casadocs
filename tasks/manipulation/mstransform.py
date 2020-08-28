@@ -3,202 +3,135 @@
 #
 
 def mstransform(vis, outputvis='', createmms=False, separationaxis='auto', numsubms='auto', tileshape=[0], field='', spw='', scan='', antenna='', correlation='', timerange='', intent='', array='', uvrange='', observation='', feed='', datacolumn='corrected', realmodelcol=False, keepflags=True, usewtspectrum=False, combinespws=False, chanaverage=False, chanbin=1, hanning=False, regridms=False, mode='channel', nchan=-1, start='0', width='1', nspw=1, interpolation='linear', phasecenter='', restfreq='', outframe='', veltype='radio', preaverage=False, timeaverage=False, timebin='0s', timespan='', maxuvwdistance=0.0, docallib=False, callib='', douvcontsub=False, fitspw='', fitorder=0, want_cont=False, denoising_lib=True, nthreads=1, niter=1, disableparallel=False, ddistart=-1, taql='', monolithic_processing=False, reindex=True):
-    """
+    r"""
 Split the MS, combine/separate/regrid spws and do channel and time averaging
 
-| The task mstransform can do the same functionalities available
-|    in cvel, partition, hanningsmooth and split without the need to read and write
-|    the output to disk multiple times. The main features of this task
-|    are:
-|    
-|    * take an input MS or Multi-MS (MMS)
-|    * ability to create an output MS or MMS
-|    * spw combination and separation
-|    * channel averaging taking flags and weights into account
-|    * time averaging taking flags and weights into account
-|    * reference frame transformation
-|    * Hanning smoothing
-|    
-|    All these transformations will be applied on the fly without any writing to
-|    disk to optimize I/O. The user can ask to create a Multi-MS in parallel using CASA's 
-|    cluster infrastructure using the parameter createmms. See MPIInterface 
-|    for more information on the cluster infrastructure.
-|
-|    This task is implemented in a modular way to preserve the functionalities
-|    available in the replaced tasks. One can choose which functionality to apply
-|    or apply all of them by setting the corresponding parameters to True. Note 
-|    that there is an order in which the transformations are applied to the data that 
-|    makes logical sense on the point of view of the data analysis. 
-|
-|    This task can create a multi-MS as the output. General selection
-|    parameters are included, and one or all of the various data columns
-|    (DATA, LAG_DATA and/or FLOAT_DATA, and possibly MODEL_DATA and/or
-|    CORRECTED_DATA) can be selected. It can also be used to create a normal
-|    MS, split-based on the given data selection parameters.
-|
-|    The mstransform task creates a Multi-MS in parallel, using the CASA MPI framework.
-|    The user should start CASA as follows in order to run it in parallel.
-|    
-|    1) Start CASA on a single node with 8 engines. The first engine will be used as the
-|       MPIClient, where the user will see the CASA prompt. All other engines will be used
-|       as MPIServers and will process the data in parallel.
-|           mpicasa -n 8 casa --nogui --log2term
-|           mstransform(.....)
-|        
-|    2) Running on a group of nodes in a cluster.
-|           mpicasa -hostfile user_hostfile casa ....
-|           mstransform(.....)
-|            
-|        where user_hostfile contains the names of the nodes and the number of engines to use 
-|        in each one of them. Example:
-|            pc001234a, slots=5
-|            pc001234b, slots=4
-|     
-|    If CASA is started without mpicasa, it is still possible to create an MMS, but
-|    the processing will be done in sequential.
-|
-|    The resulting WEIGHT_SPECTRUM produced by mstransform is in the statistical
-|    sense correct for the simple cases of channel average and time average, but not for
-|    the general re-gridding case, in which the error propagation formulas applicable for 
-|    WEIGHT_SPECTRUM are yet to be defined. Currently, as in cvel and in the imager,
-|    WEIGHT_SPECTRUM is transformed in the same way as the other data columns.
-|    Notice that this is not formally correct from the statistical point of view, 
-|    but is a good approximation at this stage.
-|        
-|    NOTE: the input/output in mstransform have a one-to-one relation.
-|          input MS  --  output MS
-|          input MMS --  output MMS
-|    
-|       unless the user sets the parameter createmms to True to create the following:
-|          input MS  --  output MMS
-
 Parameters
-----------
-vis : string
-   Name of input Measurement set or Multi-MS.
-outputvis : string
-   Name of output Measurement Set or Multi-MS.
-createmms : bool
-   Create a multi-MS output from an input MS.
-tileshape : intArray
-   List with 1 or 3 elements giving the tile shape of the disk data columns.
-field : string, stringArray, int, intArray
-   Select field using ID(s) or name(s).
-spw : string, stringArray, int, intArray
-   Select spectral window/channels.
-scan : string, stringArray, int, intArray
-   Select data by scan numbers.
-antenna : string, stringArray, int, intArray
-   Select data based on antenna/baseline.
-correlation : string, stringArray
-   Correlation: '' ==> all, correlation="XX,YY".
-timerange : string, stringArray, int, intArray
-   Select data by time range.
-intent : string, stringArray, int, intArray
-   Select data by scan intent.
-array : string, stringArray, int, intArray
-   Select (sub)array(s) by array ID number.
-uvrange : string, stringArray, int, intArray
-   Select data by baseline length.
-observation : string, stringArray, int, intArray
-   Select by observation ID(s).
-feed : string, stringArray, int, intArray
-   Multi-feed numbers: Not yet implemented.
-datacolumn : string
-   Which data column(s) to process.
-keepflags : bool
-   Keep *completely flagged rows* or drop them from the output.
-usewtspectrum : bool
-   Force creation of the columns WEIGHT_SPECTRUM and SIGMA_SPECTRUM in the output MS, even if not present in the input MS.
-combinespws : bool
-   Combine the input spws into a new output spw. Only supported when the number of channels is the same for all the spws.
-chanaverage : bool
-   Average data in channels.
-hanning : bool
-   Hanning smooth data to remove Gibbs ringing.
-regridms : bool
-   Transform channel labels and visibilities to a different spectral reference frame. Notice that u,v,w data is not transformed. 
-preaverage : bool
-   Pre-average channels before regridding, when the ratio between the output and and input widths is greater than 2.
-timeaverage : bool
-   Average data in time.
-docallib : bool
-   Enable on-the-fly (OTF) calibration as in task applycal
-douvcontsub : bool
-   Enable continuum subtraction as in task uvcontsub
+   - **vis** (string) - Name of input Measurement set or Multi-MS.
+   - **outputvis** (string) - Name of output Measurement Set or Multi-MS.
+   - **createmms** (bool) - Create a multi-MS output from an input MS.
+   - **tileshape** (intArray) - List with 1 or 3 elements giving the tile shape of the disk data columns.
+   - **field** (string, stringArray, int, intArray) - Select field using ID(s) or name(s).
+   - **spw** (string, stringArray, int, intArray) - Select spectral window/channels.
+   - **scan** (string, stringArray, int, intArray) - Select data by scan numbers.
+   - **antenna** (string, stringArray, int, intArray) - Select data based on antenna/baseline.
+   - **correlation** (string, stringArray) - Correlation: '' ==> all, correlation="XX,YY".
+   - **timerange** (string, stringArray, int, intArray) - Select data by time range.
+   - **intent** (string, stringArray, int, intArray) - Select data by scan intent.
+   - **array** (string, stringArray, int, intArray) - Select (sub)array(s) by array ID number.
+   - **uvrange** (string, stringArray, int, intArray) - Select data by baseline length.
+   - **observation** (string, stringArray, int, intArray) - Select by observation ID(s).
+   - **feed** (string, stringArray, int, intArray) - Multi-feed numbers: Not yet implemented.
+   - **datacolumn** (string) - Which data column(s) to process.
+   - **keepflags** (bool) - Keep *completely flagged rows* or drop them from the output.
+   - **usewtspectrum** (bool) - Force creation of the columns WEIGHT_SPECTRUM and SIGMA_SPECTRUM in the output MS, even if not present in the input MS.
+   - **combinespws** (bool) - Combine the input spws into a new output spw. Only supported when the number of channels is the same for all the spws.
+   - **chanaverage** (bool) - Average data in channels.
+   - **hanning** (bool) - Hanning smooth data to remove Gibbs ringing.
+   - **regridms** (bool) - Transform channel labels and visibilities to a different spectral reference frame. Notice that u,v,w data is not transformed. 
+   - **preaverage** (bool) - Pre-average channels before regridding, when the ratio between the output and and input widths is greater than 2.
+   - **timeaverage** (bool) - Average data in time.
+   - **docallib** (bool) - Enable on-the-fly (OTF) calibration as in task applycal
+   - **douvcontsub** (bool) - Enable continuum subtraction as in task uvcontsub
 
-Other Parameters
-----------
-separationaxis : string
-   Axis to do parallelization across(scan,spw,auto,baseline).
-numsubms : string, int
-   The number of Sub-MSs to create (auto or any number)
-realmodelcol : bool
-   Make real a virtual MODEL column.
-chanbin : int, intArray
-   Width (bin) of input channels to average to form an output channel.
-mode : string
-   Regridding mode (channel/velocity/frequency/channel_b).
-nchan : int
-   Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
-start : variant
-   Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
-width : variant
-   Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
-nspw : int
-   Number of output spws to create in output MS.
-interpolation : string
-   Spectral interpolation method.
-phasecenter : variant
-   Phase center direction to be used for the spectral coordinate transformation: direction measure or field index
-restfreq : string
-   Rest frequency to use for output.
-outframe : string
-   Output reference frame (''=keep input frame).
-veltype : string
-   Velocity definition.
-timebin : string
-   Bin width for time averaging.
-timespan : string, stringArray
-   Span the timebin across scan, state or both.
-maxuvwdistance : double
-   Maximum separation of start-to-end baselines that can be included in an average. (meters)
-callib : string
-   Path to calibration library file
-fitspw : string
-   Spectral window:channel selection for fitting the continuum
-fitorder : int
-   Polynomial order for the fits
-want_cont : bool
-   Produce continuum estimate instead of continuum subtracted data
-denoising_lib : bool
-   Use new denoising library (based on GSL) instead of casacore fitting routines
-nthreads : int
-   Number of OMP threads to use (currently maximum limited by number of polarizations)
-niter : int
-   Number of iterations for re-weighted linear fit
-disableparallel : bool
-   Hidden parameter for internal use only. Do not change it!
-ddistart : int
-   Hidden parameter for internal use only. Do not change it!
-taql : string
-   Table query for nested selections
-monolithic_processing : bool
-   Hidden parameter for internal use only. Do not change it!
-reindex : bool
-   Hidden parameter for use in the pipeline context only
+Subparameters
+   *createmms = False*
 
-Notes
------
+   - **separationaxis** (string=auto) - Axis to do parallelization across(scan,spw,auto,baseline).
+   - **numsubms** (string=auto, int) - The number of Sub-MSs to create (auto or any number)
+   - **disableparallel** (bool=False) - Hidden parameter for internal use only. Do not change it!
+   - **ddistart** (int=-1) - Hidden parameter for internal use only. Do not change it!
+   - **taql** (string='') - Table query for nested selections
+   - **reindex** (bool=True) - Hidden parameter for use in the pipeline context only
 
+   *createmms = True*
 
+   - **separationaxis** (string=auto) - Axis to do parallelization across(scan,spw,auto,baseline).
+   - **numsubms** (string=auto, int) - The number of Sub-MSs to create (auto or any number)
+   - **disableparallel** (bool=False) - Hidden parameter for internal use only. Do not change it!
+   - **ddistart** (int=-1) - Hidden parameter for internal use only. Do not change it!
+   - **taql** (string='') - Table query for nested selections
+   - **reindex** (bool=True) - Hidden parameter for use in the pipeline context only
 
+   *datacolumn = model*
 
+   - **realmodelcol** (bool=False) - Make real a virtual MODEL column.
 
-   task description
+   *datacolumn = all*
 
+   - **realmodelcol** (bool=False) - Make real a virtual MODEL column.
+
+   *datacolumn = data,model,corrected*
+
+   - **realmodelcol** (bool=False) - Make real a virtual MODEL column.
+
+   *chanaverage = True*
+
+   - **chanbin** (int=1, intArray) - Width (bin) of input channels to average to form an output channel.
+
+   *regridms = True*
+
+   - **mode** (string=channel) - Regridding mode (channel/velocity/frequency/channel_b).
+   - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
+   - **start** (variant=0) - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
+   - **width** (variant=1) - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
+   - **nspw** (int=1) - Number of output spws to create in output MS.
+   - **interpolation** (string=linear) - Spectral interpolation method.
+   - **phasecenter** (variant='') - Phase center direction to be used for the spectral coordinate transformation: direction measure or field index
+   - **restfreq** (string='') - Rest frequency to use for output.
+   - **outframe** (string='') - Output reference frame (''=keep input frame).
+   - **veltype** (string=radio) - Velocity definition.
+   - **preaverage** (bool=False) - Pre-average channels before regridding, when the ratio between the output and and input widths is greater than 2.
+
+   *timeaverage = True*
+
+   - **timebin** (string=0s) - Bin width for time averaging.
+   - **timespan** (string='', stringArray) - Span the timebin across scan, state or both.
+   - **maxuvwdistance** (double=0.0) - Maximum separation of start-to-end baselines that can be included in an average. (meters)
+
+   *docallib = True*
+
+   - **callib** (string='') - Path to calibration library file
+
+   *douvcontsub = True*
+
+   - **fitspw** (string='') - Spectral window:channel selection for fitting the continuum
+   - **fitorder** (int=0) - Polynomial order for the fits
+   - **want_cont** (bool=False) - Produce continuum estimate instead of continuum subtracted data
+   - **denoising_lib** (bool=True) - Use new denoising library (based on GSL) instead of casacore fitting routines
+   - **nthreads** (int=1) - Number of OMP threads to use (currently maximum limited by number of polarizations)
+   - **niter** (int=1) - Number of iterations for re-weighted linear fit
+
+   *mode = channel*
+
+   - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
+   - **start** (variant=0) - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
+   - **width** (variant=1) - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
+   - **interpolation** (string=linear) - Spectral interpolation method.
+
+   *mode = channel_b*
+
+   - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
+   - **start** (variant=0) - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
+   - **width** (variant=1) - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
+   - **interpolation** (string=linear) - Spectral interpolation method.
+
+   *mode = velocity*
+
+   - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
+   - **start** (variant='') - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
+   - **width** (variant='') - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
+   - **interpolation** (string=linear) - Spectral interpolation method.
+
+   *mode = frequency*
+
+   - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
+   - **start** (variant='') - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
+   - **width** (variant='') - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
+   - **interpolation** (string=linear) - Spectral interpolation method.
 
 
+Description
       **mstransform** is a multipurpose task that provides all the
       functionality of
       `split <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_split>`__,

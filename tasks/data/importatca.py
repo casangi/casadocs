@@ -3,50 +3,22 @@
 #
 
 def importatca(files=[''], vis='', options='', spw=[-1], nscans=[0,0], lowfreq=0.1, highfreq=999, fields=[''], edge=8):
-    """
+    r"""
 Import ATCA RPFITS file(s) to a measurement set
 
-| Imports an arbitrary number of ATCA RPFITS format data sets into a
-|casa measurement set.  If more than one band is present, they will be
-|put in the same measurement set but in a separate spectral window.
-|The task will handle both old ATCA and new CABB (after April 2009)
-|archive data.
-
 Parameters
-----------
-files : stringArray
-   Name of input ATCA RPFits file(s)
-vis : string
-   Name of output MeasurementSet
-options : string
-   Processing options: birdie, reweight, noxycorr, fastmosaic, hires, noac (comma separated list)
-spw : intArray
-   Select spectral window/channels
-nscans : intArray
-   Number of scans to skip followed by number of scans to read
-lowfreq : double
-   Lowest reference frequency to select
-highfreq : double
-   Highest reference frequency to select
-fields : stringArray
-   List of field names to select
-edge : double
-   Percentage of edge channels to flag. For combined zooms, this specifies the percentage for a single zoom window
-
-Other Parameters
-----------
-
-Notes
------
+   - **files** (stringArray) - Name of input ATCA RPFits file(s)
+   - **vis** (string) - Name of output MeasurementSet
+   - **options** (string) - Processing options: birdie, reweight, noxycorr, fastmosaic, hires, noac (comma separated list)
+   - **spw** (intArray) - Select spectral window/channels
+   - **nscans** (intArray) - Number of scans to skip followed by number of scans to read
+   - **lowfreq** (double) - Lowest reference frequency to select
+   - **highfreq** (double) - Highest reference frequency to select
+   - **fields** (stringArray) - List of field names to select
+   - **edge** (double) - Percentage of edge channels to flag. For combined zooms, this specifies the percentage for a single zoom window
 
 
-
-
-
-   Import ATCA RPFITS files into a MeasurementSet
-
-
-
+Description
       The data from the ATCA is available from the archive using the
       RPFITS file format. These files can be imported into CASA with the
       **importatca** task. 

@@ -3,31 +3,14 @@
 #
 
 def listsdm(sdm):
-    """
+    r"""
 Lists observation information present in an SDM directory.
 
-| Given an SDM directory, this task will print observation information to the logger and return a dictionary keyed by scan.
-
 Parameters
-----------
-sdm : string
-   Name of input SDM directory
-
-Other Parameters
-----------
-
-Notes
------
+   - **sdm** (string) - Name of input SDM directory
 
 
-listpartition
-=============
-
-
-   task description
-
-
-
+Description
       Lists the contents of a
       `Multi-MS <https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/the-multi-ms>`__
       according to the way it has been partitioned. The list will show

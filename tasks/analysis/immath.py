@@ -3,58 +3,49 @@
 #
 
 def immath(imagename='', mode='evalexpr', outfile='immath_results.im', expr='IM0', varnames='', sigma='0.0mJy/beam', polithresh='', mask='', region='', box='', chans='', stokes='', stretch=False, imagemd='', prec='float'):
-    """
+    r"""
 Perform math operations on images
 
-| math on images
-
 Parameters
-----------
-imagename : variant
-   a list of input images 
-mode : string
-   mode for math operation (evalexpr, spix, pola, poli, lpoli, tpoli)
-outfile : string
-   File where the output is saved
-mask : string
-   Mask to use. Default is none.
-region : string
-   Region selection. Default is to use the full image.
-box : string
-   Rectangular region to select in direction plane. Default is to use the entire direction plane.
-chans : string
-   Channels to use. Default is to use all channels.
-stokes : string
-   Stokes planes to use. Default is to use all Stokes planes.
-imagemd : string
-   An image name from which metadata should be copied. The input can be either an image listed under imagename or any other image on disk. Leaving this parameter unset may copy header metadata from any of the input images, which one is not guaranteed. 
-prec : string
-   Precision for the output image pixels if mode="evalexpr" or "spix". "float" or "double" (minimum match supported)
+   - **imagename** (variant) - a list of input images 
+   - **mode** (string) - mode for math operation (evalexpr, spix, pola, poli, lpoli, tpoli)
+   - **outfile** (string) - File where the output is saved
+   - **mask** (string) - Mask to use. Default is none.
+   - **region** (string) - Region selection. Default is to use the full image.
+   - **box** (string) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **chans** (string) - Channels to use. Default is to use all channels.
+   - **stokes** (string) - Stokes planes to use. Default is to use all Stokes planes.
+   - **imagemd** (string) - An image name from which metadata should be copied. The input can be either an image listed under imagename or any other image on disk. Leaving this parameter unset may copy header metadata from any of the input images, which one is not guaranteed. 
+   - **prec** (string) - Precision for the output image pixels if mode="evalexpr" or "spix". "float" or "double" (minimum match supported)
 
-Other Parameters
-----------
-expr : string
-   Mathematical expression using images
-varnames : variant
-   a list of variable names to use with the image files
-sigma : string
-   standard deviation of noise for debiasing
-polithresh : string
-   Threshold in linear polarization intensity image below which to mask pixels.
-stretch : bool
-   Stretch the mask if necessary and possible? See help stretch.par 
+Subparameters
+   *mode = evalexpr*
 
-Notes
------
+   - **expr** (string="") - Mathematical expression using images
+   - **varnames** (variant="") - a list of variable names to use with the image files
 
+   *mode = poli*
+
+   - **sigma** (string="0.0mJy/beam") - standard deviation of noise for debiasing
+
+   *mode = lpoli*
+
+   - **sigma** (string="0.0mJy/beam") - standard deviation of noise for debiasing
+
+   *mode = tpoli*
+
+   - **sigma** (string="0.0mJy/beam") - standard deviation of noise for debiasing
+
+   *mode = pola*
+
+   - **polithresh** (string="") - Threshold in linear polarization intensity image below which to mask pixels.
+
+   *mask != ''*
+
+   - **stretch** (bool=False) - Stretch the mask if necessary and possible? See help stretch.par 
 
 
-
-
-   immath task: Perform math operations on images
-
-
-
+Description
       This task evaluates mathematical expressions involving existing
       image files. The results of the calculations are stored in the 
       designated output file. The available options are 1) specify a

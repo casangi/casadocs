@@ -3,99 +3,64 @@
 #
 
 def setjy(vis='', field='', spw='', selectdata=False, timerange='', scan='', intent='', observation='', scalebychan=True, standard='Perley-Butler 2017', model='', modimage='', listmodels=False, fluxdensity=-1, spix=0.0, reffreq='1GHz', polindex=[''], polangle=[''], rotmeas=0.0, fluxdict='', useephemdir=False, interpolation='nearest', usescratch=False, ismms=False):
-    """
+    r"""
 Fills the model column with the visibilities of a calibrator
 
-| This task places the model visibility amp and phase associated with a
-|specified clean components image into the model column of the data
-|set.  The flux density (I,Q,U,V) for a point source calibrator can be
-|entered explicitly.
-|
-|setjy need only be run on the calibrator sources with a known flux
-|density and/or model.
-|
-|Models are available in CASA for 3C48, 3C138, 3C286, and 3C147 between 230 MHz 
-|and 43 GHz.  In addition, P-band models for the frequency range between 230 - 
-|470 MHz are available in CASA for 3C123, 3C196, 3C295, and 3C380.
-|These models are scaled to the precise frequency of the data.  Only I models are
-|presently available.
-|
-|For Solar System Objects, model determination was updated and it is
-|available via the 'Butler-JPL-Horizons 2012' standard. Currently they
-|are modeled as uniformtemperature disks based on their ephemeris at
-|the time of observation (note that this may oversimplify objects, in
-|particular asteroids). Specify the name of the object in the 'field'
-|parameter.
-|
-|The location of the models is system dependent:  At the AOC, the
-|models are in the directory::/usr/lib/casapy/data/nrao/VLA/CalModels/
-|3C286_L.im (egs).
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-field : string
-   Select field using field id(s) or field name(s)
-spw : string
-   Select spectral window/channels
-selectdata : bool
-   Other data selection parameters
-scalebychan : bool
-   Scale the flux density on a per channel basis or else on a per spw basis
-standard : string
-   Flux density standard
-usescratch : bool
-   Will create if necessary and use the MODEL_DATA 
+   - **vis** (string) - Name of input visibility file
+   - **field** (string) - Select field using field id(s) or field name(s)
+   - **spw** (string) - Select spectral window/channels
+   - **selectdata** (bool) - Other data selection parameters
+   - **scalebychan** (bool) - Scale the flux density on a per channel basis or else on a per spw basis
+   - **standard** (string) - Flux density standard
+   - **usescratch** (bool) - Will create if necessary and use the MODEL_DATA 
 
-Other Parameters
-----------
-timerange : string, stringArray
-   Select data based on time range
-scan : string, stringArray
-   Scan number range
-intent : string
-   Select observing intent
-observation : string, int
-   Select by observation ID(s)
-model : string
-   File location for field model
-modimage : string
-   File location for field model (deprecated)
-listmodels : bool
-   List the available models for VLA calibrators or Tb models for Solar System objects
-fluxdensity : int, intArray, doubleArray
-   Specified flux density in Jy [I,Q,U,V]; (-1 will lookup values)
-spix : double, doubleArray
-   Spectral index (including higher terms) of I fluxdensity
-reffreq : string
-   Reference frequency for spix
-polindex : doubleArray
-   Coefficients of an expansion of frequency-dependent linear polarization fraction expression
-polangle : doubleArray
-   Coefficients of an expansion of frequency-dependent polarization angle expression (in radians)
-rotmeas : double
-   Rotation measure (in rad/m^2)
-fluxdict : record
-   Output dictionary from fluxscale
-useephemdir : bool
-   Use directions in the ephemeris table
-interpolation : string
-   Method to be used to interpolate in time
-ismms : bool
-   to be used internally for MMS
+Subparameters
+   *selectdata = True*
 
-Notes
------
+   - **timerange** (string='', stringArray) - Select data based on time range
+   - **scan** (string='', stringArray) - Scan number range
+   - **intent** (string='') - Select observing intent
+   - **observation** (string='', int) - Select by observation ID(s)
+
+   *standard = Perley-Butler 2017*
+
+   - **model** (string='') - File location for field model
+   - **listmodels** (bool=False) - List the available models for VLA calibrators or Tb models for Solar System objects
+   - **interpolation** (string=nearest) - Method to be used to interpolate in time
+
+   *standard = Perley-Butler 2013*
+
+   - **model** (string='') - File location for field model
+   - **listmodels** (bool=False) - List the available models for VLA calibrators or Tb models for Solar System objects
+   - **interpolation** (string=nearest) - Method to be used to interpolate in time
+
+   *standard = Perley-Butler 2010*
+
+   - **model** (string='') - File location for field model
+   - **listmodels** (bool=False) - List the available models for VLA calibrators or Tb models for Solar System objects
+
+   *standard = Butler-JPL-Horizons 2012*
+
+   - **listmodels** (bool=False) - List the available models for VLA calibrators or Tb models for Solar System objects
+   - **useephemdir** (bool=False) - Use directions in the ephemeris table
+
+   *standard = manual*
+
+   - **fluxdensity** (int=
+                           , intArray, doubleArray) - Specified flux density in Jy [I,Q,U,V]; (-1 will lookup values)
+   - **spix** (double='', doubleArray) - Spectral index (including higher terms) of I fluxdensity
+   - **reffreq** (string=1GHz) - Reference frequency for spix
+   - **polindex** (doubleArray='') - Coefficients of an expansion of frequency-dependent linear polarization fraction expression
+   - **polangle** (doubleArray='') - Coefficients of an expansion of frequency-dependent polarization angle expression (in radians)
+   - **rotmeas** (double=0.0) - Rotation measure (in rad/m^2)
+
+   *standard = fluxscale*
+
+   - **fluxdict** (record='') - Output dictionary from fluxscale
 
 
-
-
-
-   setjy task: Set the model of a calibrator in the Measurement Set
-
-
-
+Description
       The **setjy** task sets the model visibility amplitude and phase
       associated with a flux density scale and a specified clean
       components image into the model column of the MS data set. The
@@ -195,13 +160,13 @@ Notes
       p2...]) using the definition of frequency-dependent polarization
       index (PI) , where
 
-      :math:` PI = \frac{\sqrt{Q^2+U^2}}{I} = p0 + p1*\frac{\nu-reffreq}{reffreq} + p2*(\frac{\nu-reffreq}{reffreq})^2 + ... `.
+      :math:` PI = \frac{\sqrt{Q^2+U^2}}{I} = p0 + p1*\frac{\nu-reffreq}{reffreq} + p2*(\frac{\nu-reffreq}{reffreq})^2 + ...`.
 
       Similarly, the *polangle* subparameter takes a list of
       coefficients ([a0,a1,a2, ..]) using the definition of polarization
       angle (:math:`\chi`), where
 
-      :math:`\chi = 0.5arctan\frac{U}{Q} = a0 + a1*\frac{\nu-reffreq}{reffreq} + a2*(\frac{freq-reffreq}{reffreq})^2 + .. `.
+      :math:`\chi = 0.5arctan\frac{U}{Q} = a0 + a1*\frac{\nu-reffreq}{reffreq} + a2*(\frac{freq-reffreq}{reffreq})^2 + ..`.
 
       .. note:: The note on some logics how these subparameters are used to
          determine flux densities:
@@ -276,16 +241,7 @@ Notes
       for Mars. For Mars, the model temperatures are tabulated in time
       and frequency (see `Flux Calibrator Models - Conventions, Data
       Formats <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material/flux-density-calibrator-models-conventions-data-formats>`__
-      for more details). 
-
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 1                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | Butler 2012, `ALMA Memo                           |
-      |                 | #594                                              |
-      |                 | <https://science.nrao.edu/facilities/alma/aboutAL |
-      |                 | MA/Technology/ALMA_Memo_Series/alma594/abs594>`__ |
-      +-----------------+---------------------------------------------------+
+      for more details).
 
       For selected asteroids, time variable models are available based
       on thermophysical modeling by T. Mueller (private communication)
@@ -462,10 +418,9 @@ Notes
       details on the use of standard calibrators for the VLA.
 
 
-         Bibliography
-
+   Bibliography
          :sup:`1. Butler 2012,` `ALMA Memo
-         #594 <https://science.nrao.edu/facilities/alma/aboutALMA/Technology/ALMA_Memo_Series/alma594/abs594>`__ `↩ <#ref-cit1>`__
+         #594 <https://science.nrao.edu/facilities/alma/aboutALMA/Technology/ALMA_Memo_Series/alma594/abs594>`__ `<#ref-cit1>`__
 
     """
     pass

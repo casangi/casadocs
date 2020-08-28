@@ -3,59 +3,45 @@
 #
 
 def impv(imagename, outfile='', mode='coords', start='', end='', center='', length='', pa='', width='1', unit='arcsec', overwrite=False, region='""', chans='', stokes='', mask='', stretch=False):
-    """
+    r"""
 Construct a position-velocity image by choosing two points in the direction plane.
 
 Parameters
-----------
-imagename : string
-   Name of the input image
-outfile : string
-   Output image name. If empty, no image is written.
-mode : string
-   If "coords", use start and end values. If "length", use center, length, and pa values.
-width : string, int, record
-   Width of slice for averaging pixels perpendicular to the slice. Must be an odd positive integer or valid quantity. See help for details.
-unit : string
-   Unit for the offset axis in the resulting image. Must be a unit of angular measure.
-chans : string
-   Channels to use.  Channels must be contiguous. Default is to use all channels.
-stokes : string
-   Stokes planes to use. Planes must be contiguous. Default is to use all stokes.
-mask : variant
-   Mask to use. Default is none.
+   - **imagename** (string) - Name of the input image
+   - **outfile** (string) - Output image name. If empty, no image is written.
+   - **mode** (string) - If "coords", use start and end values. If "length", use center, length, and pa values.
+   - **width** (string, int, record) - Width of slice for averaging pixels perpendicular to the slice. Must be an odd positive integer or valid quantity. See help for details.
+   - **unit** (string) - Unit for the offset axis in the resulting image. Must be a unit of angular measure.
+   - **chans** (string) - Channels to use.  Channels must be contiguous. Default is to use all channels.
+   - **stokes** (string) - Stokes planes to use. Planes must be contiguous. Default is to use all stokes.
+   - **mask** (variant) - Mask to use. Default is none.
 
-Other Parameters
-----------
-start : string, stringArray, intArray, doubleArray
-   The starting pixel in the direction plane (array of two values).
-end : string, stringArray, intArray, doubleArray
-   The ending pixel in the direction plane (array of two values).
-center : string, stringArray, intArray, doubleArray
-   The center point in the direction plane (array of two values). If specified, length and pa must also be specified and neither of start nor end may be specified.
-length : string, int, double, stringArray, record
-   The length of the segment in the direction plane. If specified, center and pa must also be specified and neither of start nor end may be specified.
-pa : string, record
-   The position angle of the segment in the direction plane, measured from north through east. If specified, center and length must also be specified and neither of start nor end may be specified.
-overwrite : bool
-   Overwrite the output if it exists?
-region : string, record
-   Region selection. Default is entire image. No selection is permitted in the direction plane.
-stretch : bool
-   Stretch the mask if necessary and possible? Default False
+Subparameters
+   *outfile != ''*
 
-Notes
------
+   - **overwrite** (bool=False) - Overwrite the output if it exists?
+
+   *mask != ''*
+
+   - **stretch** (bool=False) - Stretch the mask if necessary and possible? Default False
+
+   *chans = ''*
+
+   - **region** (string="", record) - Region selection. Default is entire image. No selection is permitted in the direction plane.
+
+   *mode = coords*
+
+   - **start** (string="", stringArray, intArray, doubleArray) - The starting pixel in the direction plane (array of two values).
+   - **end** (string="", stringArray, intArray, doubleArray) - The ending pixel in the direction plane (array of two values).
+
+   *mode = length*
+
+   - **center** (string="", stringArray, intArray, doubleArray) - The center point in the direction plane (array of two values). If specified, length and pa must also be specified and neither of start nor end may be specified.
+   - **length** (string="", int, double, stringArray, record) - The length of the segment in the direction plane. If specified, center and pa must also be specified and neither of start nor end may be specified.
+   - **pa** (string="", record) - The position angle of the segment in the direction plane, measured from north through east. If specified, center and length must also be specified and neither of start nor end may be specified.
 
 
-
-
-
-   impv task: Construct a position-velocity image by choosing two points
-   in the direction plane.
-
-
-
+Description
       Create a position-velocity image. The way the slice is specified
       is controlled by the *mode* parameter. When *mode="coords"*, start
       and end are used to specify the points between which slice is

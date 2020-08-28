@@ -3,112 +3,67 @@
 #
 
 def gaincal(vis, caltable='', field='', spw='', intent='', selectdata=True, timerange='', uvrange='', antenna='', scan='', observation='', msselect='', solint='inf', combine='', preavg=-1.0, refant='', refantmode='flex', minblperant=4, minsnr=3.0, solnorm=False, normtype='mean', gaintype='G', smodel=[''], calmode='ap', solmode='', rmsthresh=[''], corrdepflags=False, append=False, splinetime=3600.0, npointaver=3, phasewrap=180.0, docallib=False, callib='', gaintable=[''], gainfield=[''], interp=[''], spwmap=[''], parang=False):
-    """
+    r"""
 Determine temporal gains from calibrator observations
 
-| The complex gains for each antenna/spwid are determined from the data
-|column (raw data) divided by the model column. The gains can be
-|obtained for a specified solution interval, spw combination and field
-|combination. The GSPLINE spline (smooth) option is still under
-|development.
-|
-|Previous calibrations (egs, bandpass, opacity, parallactic angle) can
-|be applied on the fly. At present with dual-polarized data, both
-|polarizations must be unflagged for any solution to be obtained.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-caltable : string
-   Name of output gain calibration table
-field : string
-   Select field using field id(s) or field name(s)
-spw : string
-   Select spectral window/channels
-intent : string
-   Select observing intent
-selectdata : bool
-   Other data selection parameters
-solint : variant
-   Solution interval
-combine : string
-   Data axes which to combine for solve (obs, scan, spw, and/or field)
-preavg : double
-   Pre-averaging interval (sec) (rarely needed)
-refant : string
-   Reference antenna name(s)
-refantmode : string
-   Reference antenna mode
-minblperant : int
-   Minimum baselines _per antenna_ required for solve
-minsnr : double
-   Reject solutions below this SNR
-solnorm : bool
-   Normalize (squared) solution amplitudes (G, T only)
-gaintype : string
-   Type of gain solution (G,T,GSPLINE,K,KCROSS)
-smodel : doubleArray
-   Point source Stokes parameters for source model.
-calmode : string
-   Type of solution" (\'ap\', \'p\', \'a\')
-solmode : string
-   Robust solving mode: (\'\', \'L1\', \'R\',\'L1R\')
-rmsthresh : doubleArray
-   RMS Threshold sequence (for solmode=\'R\' or \'L1R\'; see help)
-corrdepflags : bool
-   Respect correlation-dependent flags
-append : bool
-   Append solutions to the (existing) table
-docallib : bool
-   Use callib or traditional cal apply parameters
-parang : bool
-   Apply parallactic angle correction
+   - **vis** (string) - Name of input visibility file
+   - **caltable** (string) - Name of output gain calibration table
+   - **field** (string) - Select field using field id(s) or field name(s)
+   - **spw** (string) - Select spectral window/channels
+   - **intent** (string) - Select observing intent
+   - **selectdata** (bool) - Other data selection parameters
+   - **solint** (variant) - Solution interval
+   - **combine** (string) - Data axes which to combine for solve (obs, scan, spw, and/or field)
+   - **preavg** (double) - Pre-averaging interval (sec) (rarely needed)
+   - **refant** (string) - Reference antenna name(s)
+   - **refantmode** (string) - Reference antenna mode
+   - **minblperant** (int) - Minimum baselines _per antenna_ required for solve
+   - **minsnr** (double) - Reject solutions below this SNR
+   - **solnorm** (bool) - Normalize (squared) solution amplitudes (G, T only)
+   - **gaintype** (string) - Type of gain solution (G,T,GSPLINE,K,KCROSS)
+   - **smodel** (doubleArray) - Point source Stokes parameters for source model.
+   - **calmode** (string) - Type of solution" (\'ap\', \'p\', \'a\')
+   - **solmode** (string) - Robust solving mode: (\'\', \'L1\', \'R\',\'L1R\')
+   - **rmsthresh** (doubleArray) - RMS Threshold sequence (for solmode=\'R\' or \'L1R\'; see help)
+   - **corrdepflags** (bool) - Respect correlation-dependent flags
+   - **append** (bool) - Append solutions to the (existing) table
+   - **docallib** (bool) - Use callib or traditional cal apply parameters
+   - **parang** (bool) - Apply parallactic angle correction
 
-Other Parameters
-----------
-timerange : string
-   Select data based on time range
-uvrange : variant
-   Select data by baseline length.
-antenna : string
-   Select data based on antenna/baseline
-scan : string
-   Scan number range
-observation : string, int
-   Select by observation ID(s)
-msselect : string
-   Optional complex data selection (ignore for now)
-normtype : string
-   Solution normalization calculation type: mean or median
-splinetime : double
-   Spline timescale(sec); All spw\'s are first averaged.
-npointaver : int
-   The phase-unwrapping algorithm
-phasewrap : double
-   Wrap the phase for jumps greater than this value (degrees)
-callib : string
-   Cal Library filename
-gaintable : stringArray
-   Gain calibration table(s) to apply on the fly
-gainfield : stringArray
-   Select a subset of calibrators from gaintable(s)
-interp : stringArray
-   Interpolation parameters for each gaintable, as a list
-spwmap : intArray
-   Spectral window mappings to form for gaintable(s)
+Subparameters
+   *selectdata = True*
 
-Notes
------
+   - **timerange** (string='') - Select data based on time range
+   - **uvrange** (variant='') - Select data by baseline length.
+   - **antenna** (string='') - Select data based on antenna/baseline
+   - **scan** (string='') - Scan number range
+   - **observation** (string='', int) - Select by observation ID(s)
+   - **msselect** (string='') - Optional complex data selection (ignore for now)
+
+   *gaintype = GSPLINE*
+
+   - **splinetime** (double=3600.0) - Spline timescale(sec); All spw\'s are first averaged.
+   - **npointaver** (int=3) - The phase-unwrapping algorithm
+   - **phasewrap** (double=180.0) - Wrap the phase for jumps greater than this value (degrees)
+
+   *solnorm = True*
+
+   - **normtype** (string=mean) - Solution normalization calculation type: mean or median
+
+   *docallib = False*
+
+   - **gaintable** (stringArray='') - Gain calibration table(s) to apply on the fly
+   - **gainfield** (stringArray='') - Select a subset of calibrators from gaintable(s)
+   - **interp** (stringArray='') - Interpolation parameters for each gaintable, as a list
+   - **spwmap** (intArray='') - Spectral window mappings to form for gaintable(s)
+
+   *docallib = True*
+
+   - **callib** (string='') - Cal Library filename
 
 
-
-
-
-   task description
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

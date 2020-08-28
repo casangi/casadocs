@@ -3,46 +3,26 @@
 #
 
 def uvcontsub(vis, field='', fitspw='', excludechans=False, combine='', solint='int', fitorder=0, spw='', want_cont=False):
-    """
+    r"""
 Continuum fitting and subtraction in the uv plane
 
-| 
-
 Parameters
-----------
-vis : string
-   Name of input MS.  Output goes to vis + ".contsub" (will be overwritten if already exists)
-field : string, stringArray, int, intArray
-   Select field(s) using id(s) or name(s)
-fitspw : string
-   Spectral window:channel selection for fitting the continuum
-combine : string
-   Data axes to combine for the continuum estimation (none, or spw and/or scan)
-solint : variant
-   Continuum fit timescale (int recommended!)
-fitorder : int
-   Polynomial order for the fits
-spw : string
-   Spectral window selection for output
-want_cont : bool
-   Create vis + ".cont" to hold the continuum estimate.
+   - **vis** (string) - Name of input MS.  Output goes to vis + ".contsub" (will be overwritten if already exists)
+   - **field** (string, stringArray, int, intArray) - Select field(s) using id(s) or name(s)
+   - **fitspw** (string) - Spectral window:channel selection for fitting the continuum
+   - **combine** (string) - Data axes to combine for the continuum estimation (none, or spw and/or scan)
+   - **solint** (variant) - Continuum fit timescale (int recommended!)
+   - **fitorder** (int) - Polynomial order for the fits
+   - **spw** (string) - Spectral window selection for output
+   - **want_cont** (bool) - Create vis + ".cont" to hold the continuum estimate.
 
-Other Parameters
-----------
-excludechans : bool
-   exclude Spectral window:channel selection in fitspw for fitting
+Subparameters
+   *fitspw != ''*
 
-Notes
------
+   - **excludechans** (bool=False) - exclude Spectral window:channel selection in fitspw for fitting
 
 
-
-
-
-   task description
-
-
-
+Description
 
 
          **uvcontsub** is a task to perform continuum fitting and

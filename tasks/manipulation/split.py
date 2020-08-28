@@ -3,78 +3,36 @@
 #
 
 def split(vis, outputvis='', keepmms=True, field='', spw='', scan='', antenna='', correlation='', timerange='', intent='', array='', uvrange='', observation='', feed='', datacolumn='corrected', keepflags=True, width='1', timebin='0s', combine=''):
-    """
+    r"""
 Create a visibility subset from an existing visibility set
 
-| Split is the general purpose program to make a new data set that is a
-|subset or averaged form of an existing data set. General selection
-|parameters are included, and one or all of the various data columns
-|(DATA, LAG_DATA and/or FLOAT_DATA, MODEL_DATA and/or CORRECTED_DATA)
-|can be selected.
-|
-|Split is often used after the initial calibration of the data to make
-|a smaller Measurement Set with only the data that will be used in
-|further flagging, imaging and/or self-calibration. Split can average
-|over frequency (channels) and time (integrations).
-|
-|The split task uses the MSTransform framework underneath. Split also
-|supports the Multi-MS (MMS) format as input.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-outputvis : string
-   Name of output visibility file
-keepmms : bool
-   If the input is a Multi-MS the output will also be a Multi-MS.
-field : string, stringArray, int, intArray
-   Select field using field id(s) or field name(s)
-spw : string, stringArray, int, intArray
-   Select spectral window/channels
-scan : string, stringArray, int, intArray
-   Scan number range
-antenna : string, stringArray, int, intArray
-   Select data based on antenna/baseline
-correlation : string, stringArray
-   Select data based on correlation
-timerange : string, stringArray, int, intArray
-   Select data based on time range
-intent : string, stringArray, int, intArray
-   Select observing intent
-array : string, stringArray, int, intArray
-   Select (sub)array(s) by array ID number.
-uvrange : string, stringArray, int, intArray
-   Select data by baseline length.
-observation : string, stringArray, int, intArray
-   Select by observation ID(s)
-feed : string, stringArray, int, intArray
-   Multi-feed numbers: Not yet implemented.
-datacolumn : string
-   Which data column(s) to process.
-keepflags : bool
+   - **vis** (string) - Name of input visibility file
+   - **outputvis** (string) - Name of output visibility file
+   - **keepmms** (bool) - If the input is a Multi-MS the output will also be a Multi-MS.
+   - **field** (string, stringArray, int, intArray) - Select field using field id(s) or field name(s)
+   - **spw** (string, stringArray, int, intArray) - Select spectral window/channels
+   - **scan** (string, stringArray, int, intArray) - Scan number range
+   - **antenna** (string, stringArray, int, intArray) - Select data based on antenna/baseline
+   - **correlation** (string, stringArray) - Select data based on correlation
+   - **timerange** (string, stringArray, int, intArray) - Select data based on time range
+   - **intent** (string, stringArray, int, intArray) - Select observing intent
+   - **array** (string, stringArray, int, intArray) - Select (sub)array(s) by array ID number.
+   - **uvrange** (string, stringArray, int, intArray) - Select data by baseline length.
+   - **observation** (string, stringArray, int, intArray) - Select by observation ID(s)
+   - **feed** (string, stringArray, int, intArray) - Multi-feed numbers: Not yet implemented.
+   - **datacolumn** (string) - Which data column(s) to process.
+   - **keepflags** (bool)
+   - **width** (string, stringArray, int, intArray) - Number of channels to average to form one output channel
+   - **timebin** (string) - Bin width for time averaging
 
-width : string, stringArray, int, intArray
-   Number of channels to average to form one output channel
-timebin : string
-   Bin width for time averaging
+Subparameters
+   *timebin != 0s*
 
-Other Parameters
-----------
-combine : string, stringArray
-   Span the timebin across scan, state or both
-
-Notes
------
+   - **combine** (string='', stringArray) - Span the timebin across scan, state or both
 
 
-
-
-
-   task description
-
-
-
+Description
       .. note:: **NOTE**: This is the new implementation of **split**.  The old
          implementation is available for a short time as oldsplit.
 

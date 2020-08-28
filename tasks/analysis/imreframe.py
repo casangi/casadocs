@@ -3,34 +3,34 @@
 #
 
 def imreframe(imagename, output='', outframe='lsrk', epoch='', restfreq=''):
-    """
+    r"""
 Change the frame in which the image reports its spectral values
 
 Parameters
-----------
-imagename : string
-   Name of the input image
-output : string
-   Name of the output image
-outframe : string
-   Spectral frame in which the frequency or velocity values will be reported by default
-restfreq : string
-   restfrequency to use for velocity values (e.g "1.420GHz" for the HI line)
+   - **imagename** (string) - Name of the input image
+   - **output** (string) - Name of the output image
+   - **outframe** (string) - Spectral frame in which the frequency or velocity values will be reported by default
+   - **restfreq** (string) - restfrequency to use for velocity values (e.g "1.420GHz" for the HI line)
 
-Other Parameters
-----------
-epoch : string
-   Epoch to be associated with this image
+Subparameters
+   *outframe = topo*
 
-Notes
------
+   - **epoch** (string='') - Epoch to be associated with this image
+
+   *outframe = TOPO*
+
+   - **epoch** (string='') - Epoch to be associated with this image
+
+   *outframe = geo*
+
+   - **epoch** (string='') - Epoch to be associated with this image
+
+   *outframe = GEO*
+
+   - **epoch** (string='') - Epoch to be associated with this image
 
 
-
-
-
-
-
+Description
       Changes the spectral reference frame of an image (cube).
 
       The spectral values assigned to an object depend on the spectral

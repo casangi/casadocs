@@ -3,67 +3,33 @@
 #
 
 def predictcomp(objname='', standard='Butler-JPL-Horizons 2010', epoch='', minfreq='', maxfreq='', nfreqs=2, prefix='', antennalist='', showplot=False, savefig='', symb='.', include0amp=False, include0bl=False, blunit='', showbl0flux=False):
-    """
+    r"""
 Make a component list for a known calibrator
 
-| Writes a component list named clist to disk and returns a dict of
-|          {'clist': clist,
-|           'objname': objname,
-|           'standard': standard,
-|           'epoch': epoch,
-|           'freqs': pl.array of frequencies, in GHz,
-|           'antennalist': a simdata type configuration file,
-|           'amps':  pl.array of predicted visibility amplitudes, in Jy,
-|           'savedfig': False or, if made, the filename of a plot.}
-|          or False on error.
-
 Parameters
-----------
-objname : string
-   Object name
-standard : string
-   Flux density standard
-epoch : string
-   Epoch
-minfreq : string
-   Minimum frequency
-maxfreq : string
-   Maximum frequency
-nfreqs : int
-   Number of frequencies
-prefix : string
-   Prefix for the component list directory name.
-antennalist : string
-   Plot for this configuration
-symb : string
-   A matplotlib plot symbol code
+   - **objname** (string) - Object name
+   - **standard** (string) - Flux density standard
+   - **epoch** (string) - Epoch
+   - **minfreq** (string) - Minimum frequency
+   - **maxfreq** (string) - Maximum frequency
+   - **nfreqs** (int) - Number of frequencies
+   - **prefix** (string) - Prefix for the component list directory name.
+   - **antennalist** (string) - Plot for this configuration
+   - **symb** (string) - A matplotlib plot symbol code
 
-Other Parameters
-----------
-showplot : bool
-   Plot S vs |u| to the screen?
-savefig : string
-   Save a plot of S vs |u| to this filename
-include0amp : bool
-   Force the amplitude axis to start at 0?
-include0bl : bool
-   Force the baseline axis to start at 0?
-blunit : string
-   unit of the baseline axis
-showbl0flux : bool
-   Print the zero baseline flux ?
+Subparameters
+   *antennalist != ''*
 
-Notes
------
+   - **showplot** (bool=True) - Plot S vs |u| to the screen?
+   - **savefig** (string='') - Save a plot of S vs |u| to this filename
+   - **symb** (string=.) - A matplotlib plot symbol code
+   - **include0amp** (bool=False) - Force the amplitude axis to start at 0?
+   - **include0bl** (bool=False) - Force the baseline axis to start at 0?
+   - **blunit** (string='') - unit of the baseline axis
+   - **showbl0flux** (bool=False) - Print the zero baseline flux ?
 
 
-
-
-
-   task description
-
-
-
+Description
       This task makes a flux model as a component list from one of the
       flux calibrator standards used by the setjy task. It also returns
       a Python dictionary of the predicted model and optionally plots

@@ -3,112 +3,84 @@
 #
 
 def sdbaseline(infile, datacolumn='data', antenna='', field='', spw='', timerange='', scan='', pol='', intent='', reindex=True, maskmode='list', thresh=5.0, avg_limit=4, minwidth=4, edge=[0, 0], blmode='fit', dosubtract=True, blformat='text', bloutput='', bltable='', blfunc='poly', order=5, npiece=2, applyfft=True, fftmethod='fft', fftthresh=3.0, addwn=[0], rejwn=[''], clipthresh=3.0, clipniter=0, blparam='', verbose=False, showprogress=False, minnrow=1000, outfile='', overwrite=False):
-    """
+    r"""
 Fit/subtract a spectral baseline 
 
-| Task sdbaseline fits and/or subtracts baseline from single-dish spectra.
-|Given baseline parameters (baseline type, order, etc.), sdbaseline 
-|computes the best-fit baseline for each spectrum by least-square fitting 
-|method and, if you want, subtracts it. The best-fit baseline parameters 
-|(including baseline type, coefficients of basis functions, etc.) and 
-|other values such as residual rms can be saved in various formats 
-|including ascii text (in human-readable format or CSV format) or baseline 
-|table (a CASA table).
-|Sdbaseline has another mode to 'apply' a baseline table to a MS data; 
-|for each spectrum in MS, the best-fit baseline is reproduced from the 
-|baseline parameters stored in the given baseline table and subtracted. 
-|Putting 'fit' and 'subtract' into separate processes can be useful for 
-|pipeline processing for huge dataset.
-
 Parameters
-----------
-infile : string
-   name of input SD dataset
-datacolumn : string
-   name of data column to be used ["data", "float_data", or "corrected"]
-antenna : string
-   select data by antenna name or ID, e.g. "PM03"
-field : string
-   select data by field IDs and names, e.g. "3C2*" (""=all)
-spw : string
-   select data by IF IDs (spectral windows), e.g. "3,5,7" (""=all)
-timerange : string
-   select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help)
-scan : string
-   select data by scan numbers, e.g. "21~23" (""=all)
-pol : string
-   select data by polarization IDs, e.g. "XX,YY" (""=all)
-intent : string
-   select data by observational intent, e.g. "*ON_SOURCE*" (""=all)
-reindex : bool
-   Re-index indices in subtables based on data selection
-maskmode : string
-   mode of setting additional channel masks
-blmode : string
-   baselining mode ["fit" or "apply"]
-blfunc : string
-   baseline model function
-showprogress : bool
-   (NOT SUPPORTED YET) show progress status for large data [True, False] (NOT SUPPORTED YET)
-outfile : string
-   name of output file
-overwrite : bool
-   overwrite the output file if already exists [True, False] 
+   - **infile** (string) - name of input SD dataset
+   - **datacolumn** (string) - name of data column to be used ["data", "float_data", or "corrected"]
+   - **antenna** (string) - select data by antenna name or ID, e.g. "PM03"
+   - **field** (string) - select data by field IDs and names, e.g. "3C2*" (""=all)
+   - **spw** (string) - select data by IF IDs (spectral windows), e.g. "3,5,7" (""=all)
+   - **timerange** (string) - select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help)
+   - **scan** (string) - select data by scan numbers, e.g. "21~23" (""=all)
+   - **pol** (string) - select data by polarization IDs, e.g. "XX,YY" (""=all)
+   - **intent** (string) - select data by observational intent, e.g. "*ON_SOURCE*" (""=all)
+   - **reindex** (bool) - Re-index indices in subtables based on data selection
+   - **maskmode** (string) - mode of setting additional channel masks
+   - **blmode** (string) - baselining mode ["fit" or "apply"]
+   - **blfunc** (string) - baseline model function
+   - **showprogress** (bool) - (NOT SUPPORTED YET) show progress status for large data [True, False] (NOT SUPPORTED YET)
+   - **outfile** (string) - name of output file
+   - **overwrite** (bool) - overwrite the output file if already exists [True, False] 
 
-Other Parameters
-----------
-thresh : double
-   S/N threshold for linefinder
-avg_limit : int
-   channel averaging for broad lines
-minwidth : int
-   the minimum channel width to detect as a line
-edge : intArray
-   channels to drop at beginning and end of spectrum
-dosubtract : bool
-   subtract baseline from input data [True, False] 
-blformat : string, stringArray
-   format(s) of file(s) in which best-fit parameters are written
-bloutput : string, stringArray
-   name(s) of file(s) in which best-fit parameters are written
-bltable : string
-   name of baseline table to apply
-order : int
-   order of baseline model function
-npiece : int
-   number of element polynomials for cubic spline curve
-applyfft : bool
-   automatically set wave numbers of sinusoids
-fftmethod : string
-   method for automatically set wave numbers of sinusoids ["fft"]
-fftthresh : double
-   threshold to select wave numbers of sinusoids
-addwn : intArray
-   additional wave numbers to use
-rejwn : intArray
-   wave numbers NOT to use
-clipthresh : double
-   clipping threshold for iterative fitting
-clipniter : int
-   maximum iteration number for iterative fitting
-blparam : string
-   text file that stores per spectrum fit parameters
-verbose : bool
-   output fitting parameters to logger [True, False]
-minnrow : int
-   (NOT SUPPORTED YET) minimum number of input spectra to show progress status
+Subparameters
+   *maskmode = auto*
 
-Notes
------
+   - **thresh** (double=5.0) - S/N threshold for linefinder
+   - **avg_limit** (int=4) - channel averaging for broad lines
+   - **minwidth** (int=4) - the minimum channel width to detect as a line
+   - **edge** (intArray='') - channels to drop at beginning and end of spectrum
+
+   *blmode = fit*
+
+   - **dosubtract** (bool=True) - subtract baseline from input data [True, False] 
+   - **blformat** (string=text, stringArray) - format(s) of file(s) in which best-fit parameters are written
+   - **bloutput** (string='', stringArray) - name(s) of file(s) in which best-fit parameters are written
+
+   *blmode = apply*
+
+   - **bltable** (string='') - name of baseline table to apply
+
+   *blfunc = poly*
+
+   - **order** (int=5) - order of baseline model function
+   - **clipthresh** (double=3.0) - clipping threshold for iterative fitting
+   - **clipniter** (int=0) - maximum iteration number for iterative fitting
+
+   *blfunc = chebyshev*
+
+   - **order** (int=5) - order of baseline model function
+   - **clipthresh** (double=3.0) - clipping threshold for iterative fitting
+   - **clipniter** (int=0) - maximum iteration number for iterative fitting
+
+   *blfunc = cspline*
+
+   - **npiece** (int=2) - number of element polynomials for cubic spline curve
+   - **clipthresh** (double=3.0) - clipping threshold for iterative fitting
+   - **clipniter** (int=0) - maximum iteration number for iterative fitting
+
+   *blfunc = sinusoid*
+
+   - **applyfft** (bool=True) - automatically set wave numbers of sinusoids
+   - **fftmethod** (string=fft) - method for automatically set wave numbers of sinusoids ["fft"]
+   - **fftthresh** (double=3.0) - threshold to select wave numbers of sinusoids
+   - **addwn** (intArray='') - additional wave numbers to use
+   - **rejwn** (intArray='') - wave numbers NOT to use
+   - **clipthresh** (double=3.0) - clipping threshold for iterative fitting
+   - **clipniter** (int=0) - maximum iteration number for iterative fitting
+
+   *blfunc = variable*
+
+   - **blparam** (string='') - text file that stores per spectrum fit parameters
+   - **verbose** (bool=False) - output fitting parameters to logger [True, False]
+
+   *showprogress = True*
+
+   - **minnrow** (int=1000) - (NOT SUPPORTED YET) minimum number of input spectra to show progress status
 
 
-
-
-
-   task description
-
-
-
+Description
       Task **sdbaseline** fits and/or subtracts a baseline from
       single-dish spectra in MS format. Given parameters that define the
       baseline to be fit (function type, order or the polynomial, etc.),

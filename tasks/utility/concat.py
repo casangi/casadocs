@@ -3,67 +3,22 @@
 #
 
 def concat(vis, concatvis='', freqtol='', dirtol='', respectname=False, timesort=False, copypointing=True, visweightscale=[''], forcesingleephemfield=''):
-    """
+    r"""
 Concatenate several visibility data sets.
 
-| The list of data sets given in the vis argument are chronologically
-|concatenated into an output data set in concatvis, i.e. the data sets
-|in vis are first ordered by the time of their earliest integration and
-|then concatenated. If concatvis already exists (e.g., it is the same
-|as the first input data set), then the other input data sets will be
-|appended to the concatvis data set.There is no limit to the number of
-|input data sets.
-|   
-|If there are fields whose direction agrees within the direction will
-|be the one from the chronologically first input MS. Spectral windows
-|for each data set with the same chanelization, and within a specified
-|frequency tolerance of another data set will be combined into one
-|spectral window.
-|
-|If none of the input data sets have any scratch columns (model and
-|corrected columns), none are created in the concatvis.  Otherwise
-|these columns are created on output and initialized to their default
-|value (1 in model column, data in corrected column) for those data
-|with no input columns.
-|
-|Each appended dataset is assigned a new observation id (provided the
-|entries in the observation table are indeed different).
-
 Parameters
-----------
-vis : stringArray
-   Name of input visibility file
-concatvis : string
-   Name of output visibility file
-freqtol : variant
-   Frequency shift tolerance for considering data as the same spwid
-dirtol : variant
-   Direction shift tolerance for considering data as the same field
-respectname : bool
-   If true, fields with a different name are not merged even if their direction agrees
-timesort : bool
-   If true, sort by TIME in ascending order
-copypointing : bool
-   Copy all rows of the POINTING table.
-visweightscale : doubleArray
-   List of the weight scaling factors to be applied to the individual MSs
-forcesingleephemfield : variant
-   Make sure that there is only one joint ephemeris for every field in this list
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (stringArray) - Name of input visibility file
+   - **concatvis** (string) - Name of output visibility file
+   - **freqtol** (variant) - Frequency shift tolerance for considering data as the same spwid
+   - **dirtol** (variant) - Direction shift tolerance for considering data as the same field
+   - **respectname** (bool) - If true, fields with a different name are not merged even if their direction agrees
+   - **timesort** (bool) - If true, sort by TIME in ascending order
+   - **copypointing** (bool) - Copy all rows of the POINTING table.
+   - **visweightscale** (doubleArray) - List of the weight scaling factors to be applied to the individual MSs
+   - **forcesingleephemfield** (variant) - Make sure that there is only one joint ephemeris for every field in this list
 
 
-
-
-
-   concatenate several visibility data sets.
-
-
-
+Description
       This task concatenates several visibility data sets into a single
       MeasurementSet (MS).
 

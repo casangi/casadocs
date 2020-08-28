@@ -3,249 +3,217 @@
 #
 
 def plotms(vis='', gridrows=1, gridcols=1, rowindex=0, colindex=0, plotindex=0, xaxis='', xdatacolumn='', xframe='', xinterp='', yaxis='', ydatacolumn='', yframe='', yinterp='', yaxislocation='', selectdata=True, field='', spw='', timerange='', uvrange='', antenna='', scan='', correlation='', array='', observation='', intent='', feed='', msselect='', averagedata=True, avgchannel='', avgtime='', avgscan=False, avgfield=False, avgbaseline=False, avgantenna=False, avgspw=False, scalar=False, transform=True, freqframe='', restfreq='', veldef='RADIO', shift=[0.0, 0.0], extendflag=False, extcorr=False, extchannel=False, iteraxis='', xselfscale=False, yselfscale=False, xsharedaxis=False, ysharedaxis=False, customsymbol='False', symbolshape='autoscaling', symbolsize='2', symbolcolor='0000ff', symbolfill='fill', symboloutline='False', coloraxis='', customflaggedsymbol='False', flaggedsymbolshape='circle', flaggedsymbolsize='2', flaggedsymbolcolor='ff0000', flaggedsymbolfill='fill', flaggedsymboloutline='False', xconnector='', timeconnector=False, plotrange=[''], title='', titlefont=0, xlabel='', xaxisfont=0, ylabel='', yaxisfont=0, showmajorgrid=False, majorwidth=1, majorstyle='', majorcolor='B0B0B0', showminorgrid=False, minorwidth=1, minorstyle='', minorcolor='D0D0D0', showlegend=False, legendposition='', plotfile='', expformat='', verbose=True, exprange='', highres=False, dpi=-1, width=-1, height=-1, overwrite=False, showgui=True, clearplots=True, callib=[''], headeritems='', showatm=False, showtsky=False, showimage=False):
-    """
+    r"""
 A plotter/interactive flagger for visibility data.
 
-| Task for plotting and interacting with visibility data and
-|                calibration tables.
-|
-|                Plotms provides a variety of axis choices (including data column)
-|                along with selection, averaging, and transformation options for
-|                MeasurementSets.  Flag extension parameters are also available for
-|                interactive flagging operations in the plotter.
-|        
-|                All of the provided parameters can also be set using the GUI once
-|                the application has been launched or through the plotms tool (pm).
-|
-|                Most of the basic plotms functions will work for calibration tables.
-|                The correlation selection string may be used to select polarization
-|                in a cal table, including ratio plots ("/").  The antenna selection
-|                string is used to select antenna1 only, rather than baselines as in
-|                an MS. When plotting parameterized CalTables, such as delays, antpos,
-|                gaincurve, or opacity, plotms will currently just plot the simple
-|                parameters contained in the table, not the effective amplitudes or
-|                phases sampled at observing times, frequencies etc.  BPOLY and
-|                GSPLINE tables are supported but interactive flagging is not allowed.
-|                Features currently unsupported for CalTables include averaging,
-|                transformations (velocity conversions, etc.), and some axis and
-|                selection options which do not exist in these tables. In the plotms
-|                GUI, many options irrelevant for CalTables are not hidden when
-|                interacting with a CalTable, and such settings will be ignored (when
-|                benign) or cause an error message.
-
 Parameters
-----------
-vis : string
-   Input MS or CalTable (blank for none)
-gridrows : int
-   Number of subplot rows
-gridcols : int
-   Number of subplot columns
-rowindex : int
-   Row location of the plot (0-based)
-colindex : int
-   Column location of the plot (0-based)
-plotindex : int
-   Index to address a subplot (0-based)
-xaxis : string
-   Plot x-axis (blank for default/current)
-yaxis : variant
-   Plot y-axis (blank for default/current)
-yaxislocation : variant
-   Location of the y-axis (blank for default: left)
-selectdata : bool
-   Enable data selection parameters
-averagedata : bool
-   Enable data averaging parameters
-transform : bool
-   Enable data transformations
-extendflag : bool
-   Extend flagging to other data points not plotted
-iteraxis : string
-   The axis over which to iterate
-customsymbol : variant
-   Enable custom symbol(s) for unflagged points
-coloraxis : string
-   Selects data axis for colorizing
-customflaggedsymbol : variant
-   Enable custom symbol(s) for flagged points
-xconnector : string
-   Set connector for data points (blank="none"; "line","step")
-plotrange : doubleArray
-   Plot axes ranges: [xmin,xmax,ymin,ymax]
-title : string
-   Title at top of plot
-titlefont : int
-   Font size for plot title
-xlabel : string
-   Text for horizontal x-axis. Blank for default.
-xaxisfont : int
-   Font size for x-axis label
-ylabel : string
-   Text for vertical y-axis. Blank for default.
-yaxisfont : int
-   Font size for y-axis label
-showmajorgrid : bool
-   Show major grid lines
-showminorgrid : bool
-   Show minor grid lines
-showlegend : bool
-   Show a legend on the plot.
-plotfile : string
-   Name of plot file to save automatically
-showgui : bool
-   Show GUI
-callib : stringArray
-   Calibration library string or filename for on-the-fly calibration.
-headeritems : string
-   Comma-separated list of pre-defined page header items.
-showatm : bool
-   Compute and overlay the atmospheric transmission curve
-showtsky : bool
-   Compute and overlay the sky temperature curve
-showimage : bool
-   Compute and overlay the image sideband curve
+   - **vis** (string) - Input MS or CalTable (blank for none)
+   - **gridrows** (int) - Number of subplot rows
+   - **gridcols** (int) - Number of subplot columns
+   - **rowindex** (int) - Row location of the plot (0-based)
+   - **colindex** (int) - Column location of the plot (0-based)
+   - **plotindex** (int) - Index to address a subplot (0-based)
+   - **xaxis** (string) - Plot x-axis (blank for default/current)
+   - **yaxis** (variant) - Plot y-axis (blank for default/current)
+   - **yaxislocation** (variant) - Location of the y-axis (blank for default: left)
+   - **selectdata** (bool) - Enable data selection parameters
+   - **averagedata** (bool) - Enable data averaging parameters
+   - **transform** (bool) - Enable data transformations
+   - **extendflag** (bool) - Extend flagging to other data points not plotted
+   - **iteraxis** (string) - The axis over which to iterate
+   - **customsymbol** (variant) - Enable custom symbol(s) for unflagged points
+   - **coloraxis** (string) - Selects data axis for colorizing
+   - **customflaggedsymbol** (variant) - Enable custom symbol(s) for flagged points
+   - **xconnector** (string) - Set connector for data points (blank="none"; "line","step")
+   - **plotrange** (doubleArray) - Plot axes ranges: [xmin,xmax,ymin,ymax]
+   - **title** (string) - Title at top of plot
+   - **titlefont** (int) - Font size for plot title
+   - **xlabel** (string) - Text for horizontal x-axis. Blank for default.
+   - **xaxisfont** (int) - Font size for x-axis label
+   - **ylabel** (string) - Text for vertical y-axis. Blank for default.
+   - **yaxisfont** (int) - Font size for y-axis label
+   - **showmajorgrid** (bool) - Show major grid lines
+   - **showminorgrid** (bool) - Show minor grid lines
+   - **showlegend** (bool) - Show a legend on the plot.
+   - **plotfile** (string) - Name of plot file to save automatically
+   - **showgui** (bool) - Show GUI
+   - **callib** (stringArray) - Calibration library string or filename for on-the-fly calibration.
+   - **headeritems** (string) - Comma-separated list of pre-defined page header items.
+   - **showatm** (bool) - Compute and overlay the atmospheric transmission curve
+   - **showtsky** (bool) - Compute and overlay the sky temperature curve
+   - **showimage** (bool) - Compute and overlay the image sideband curve
 
-Other Parameters
-----------
-xdatacolumn : string
-   Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.
-xframe : string
-   Coordinate frame to use for x-axis
-xinterp : string
-   Interpolation method for x-axis
-ydatacolumn : variant
-   Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.
-yframe : variant
-   Coordinate frame to use for y-axis
-yinterp : variant
-   Interpolation method for y-axis
-field : string
-   Field names or ids (blank for all)
-spw : string
-   Spectral windows:channels (blank for all)
-timerange : string
-   Time range (blank for all)
-uvrange : string
-   UV range (blank for all)
-antenna : string
-   Baseline/antenna names or ids (blank for all)
-scan : string
-   Scan numbers (blank for all)
-correlation : string
-   Correlations/polarizations (blank for all)
-array : string
-   (Sub)array numbers (blank for all)
-observation : string
-   Observation IDs (blank for all)
-intent : string
-   Observing intent (blank for all)
-feed : string
-   Feed numbers (blank for all)
-msselect : string
-   MSSelection TaQL string (blank for none)
-avgchannel : string
-   Average over channel (blank = False, otherwise value in channels)
-avgtime : string
-   Average over time (blank = False, otherwise value in seconds)
-avgscan : bool
-   Average over scans. Only valid with time averaging
-avgfield : bool
-   Average over fields. Only valid with time averaging
-avgbaseline : bool
-   Average over all baselines (mutually exclusive with avgantenna)
-avgantenna : bool
-   Average per antenna (mutually exclusive with avgbaseline)
-avgspw : bool
-   Average over all spectral windows
-scalar : bool
-   Scalar averaging (False=vector averaging)
-freqframe : string
-   The frame in which to render frequency and velocity axes
-restfreq : string
-   Rest frequency to use for velocity conversions 
-veldef : string
-   The definition in which to render velocity 
-shift : doubleArray
-   Adjust phases by this approximate phase center shift [dx,dy] (arcsec)
-extcorr : bool
-   Extend flags based on correlation 
-extchannel : bool
-   Extend flags based on channel
-xselfscale : bool
-   When True, iterated plots have a common x-axis range (scale).
-yselfscale : bool
-   When True, iterated plots have a common y-axis range (scale).
-xsharedaxis : bool
-   Iterated plots on a grid share a common external x-axis per column. Must also set xselfscale=True and gridrows>1.
-ysharedaxis : bool
-   Iterated plots on a grid share a common external y-axis per row. Must also set yselfscale=True and gridcols>1.
-symbolshape : variant
-   Shape of plotted unflagged symbols
-symbolsize : variant
-   Size of plotted unflagged symbols
-symbolcolor : variant
-   Color (name or hex code) of plotted unflagged symbols
-symbolfill : variant
-   Fill type of plotted unflagged symbols
-symboloutline : variant
-   Outline plotted unflagged symbols
-flaggedsymbolshape : variant
-   Shape of plotted flagged symbols
-flaggedsymbolsize : variant
-   Size of plotted flagged symbols
-flaggedsymbolcolor : variant
-   Color (name or hex code) of plotted flagged symbols
-flaggedsymbolfill : variant
-   Fill type of plotted flagged symbols
-flaggedsymboloutline : variant
-   Outline plotted flagged symbols
-timeconnector : bool
-   Connect points by time rather than x-axis
-majorwidth : int
-   Line width in pixels of major grid lines
-majorstyle : string
-   Major grid line style
-majorcolor : string
-   Color (name or hex code) of major grid lines
-minorwidth : int
-   Line width in pixels of minor grid lines
-minorstyle : string
-   Minor grid line style
-minorcolor : string
-   Color (name or hex code) of minor grid lines
-legendposition : string
-   Legend position, default upperRight.
-expformat : string
-   Export format type. If not provided, plotfile extension will be used to determine type.
-verbose : bool
-   Include metadata in text export
-exprange : string
-   Range of iteration plots to export, one plotfile per page.  Multipage pdf exports are not supported.
-highres : bool
-   Use high resolution
-dpi : int
-   DPI of exported plot
-width : int
-   Width in pixels of exported plot
-height : int
-   Height in pixels of exported plot
-overwrite : bool
-   Overwrite plot file if it already exists
-clearplots : bool
-   Remove any existing plots so new ones can replace them.
+Subparameters
+   *xaxis = amp*
 
-Notes
------
+   - **xdatacolumn** (string='') - Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.
 
+   *xaxis = amplitude*
 
+   - **xdatacolumn** (string='') - Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.
 
+   *xaxis = phase*
+
+   - **xdatacolumn** (string='') - Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.
+
+   *xaxis = real*
+
+   - **xdatacolumn** (string='') - Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.
+
+   *xaxis = imag*
+
+   - **xdatacolumn** (string='') - Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.
+
+   *xaxis = imaginary*
+
+   - **xdatacolumn** (string='') - Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.
+
+   *xaxis = ant-ra*
+
+   - **xframe** (string='') - Coordinate frame to use for x-axis
+   - **xinterp** (string='') - Interpolation method for x-axis
+
+   *xaxis = ant-dec*
+
+   - **xframe** (string='') - Coordinate frame to use for x-axis
+   - **xinterp** (string='') - Interpolation method for x-axis
+
+   *yaxis = amp*
+
+   - **ydatacolumn** (variant='') - Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.
+
+   *yaxis = amplitude*
+
+   - **ydatacolumn** (variant='') - Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.
+
+   *yaxis = phase*
+
+   - **ydatacolumn** (variant='') - Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.
+
+   *yaxis = real*
+
+   - **ydatacolumn** (variant='') - Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.
+
+   *yaxis = imag*
+
+   - **ydatacolumn** (variant='') - Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.
+
+   *yaxis = imaginary*
+
+   - **ydatacolumn** (variant='') - Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.
+
+   *yaxis = ant-ra*
+
+   - **yframe** (variant='') - Coordinate frame to use for y-axis
+   - **yinterp** (variant='') - Interpolation method for y-axis
+
+   *yaxis = ant-dec*
+
+   - **yframe** (variant='') - Coordinate frame to use for y-axis
+   - **yinterp** (variant='') - Interpolation method for y-axis
+
+   *selectdata = True*
+
+   - **field** (string='') - Field names or ids (blank for all)
+   - **spw** (string='') - Spectral windows:channels (blank for all)
+   - **timerange** (string='') - Time range (blank for all)
+   - **uvrange** (string='') - UV range (blank for all)
+   - **antenna** (string='') - Baseline/antenna names or ids (blank for all)
+   - **scan** (string='') - Scan numbers (blank for all)
+   - **correlation** (string='') - Correlations/polarizations (blank for all)
+   - **array** (string='') - (Sub)array numbers (blank for all)
+   - **observation** (string='') - Observation IDs (blank for all)
+   - **intent** (string='') - Observing intent (blank for all)
+   - **feed** (string='') - Feed numbers (blank for all)
+   - **msselect** (string='') - MSSelection TaQL string (blank for none)
+
+   *averagedata = True*
+
+   - **avgchannel** (string='') - Average over channel (blank = False, otherwise value in channels)
+   - **avgtime** (string='') - Average over time (blank = False, otherwise value in seconds)
+   - **avgscan** (bool=False) - Average over scans. Only valid with time averaging
+   - **avgfield** (bool=False) - Average over fields. Only valid with time averaging
+   - **avgbaseline** (bool=False) - Average over all baselines (mutually exclusive with avgantenna)
+   - **avgantenna** (bool=False) - Average per antenna (mutually exclusive with avgbaseline)
+   - **avgspw** (bool=False) - Average over all spectral windows
+   - **scalar** (bool=False) - Scalar averaging (False=vector averaging)
+
+   *transform = True*
+
+   - **freqframe** (string='') - The frame in which to render frequency and velocity axes
+   - **restfreq** (string='') - Rest frequency to use for velocity conversions 
+   - **veldef** (string=RADIO) - The definition in which to render velocity 
+   - **shift** (doubleArray='') - Adjust phases by this approximate phase center shift [dx,dy] (arcsec)
+
+   *extendflag = True*
+
+   - **extcorr** (bool=False) - Extend flags based on correlation 
+   - **extchannel** (bool=False) - Extend flags based on channel
+
+   *iteraxis != ''*
+
+   - **xselfscale** (bool=False) - When True, iterated plots have a common x-axis range (scale).
+   - **yselfscale** (bool=False) - When True, iterated plots have a common y-axis range (scale).
+   - **xsharedaxis** (bool=False) - Iterated plots on a grid share a common external x-axis per column. Must also set xselfscale=True and gridrows>1.
+   - **ysharedaxis** (bool=False) - Iterated plots on a grid share a common external y-axis per row. Must also set yselfscale=True and gridcols>1.
+
+   *customsymbol = True*
+
+   - **symbolshape** (variant=autoscaling) - Shape of plotted unflagged symbols
+   - **symbolsize** (variant=2) - Size of plotted unflagged symbols
+   - **symbolcolor** (variant=0000ff) - Color (name or hex code) of plotted unflagged symbols
+   - **symbolfill** (variant=fill) - Fill type of plotted unflagged symbols
+   - **symboloutline** (variant=False) - Outline plotted unflagged symbols
+
+   *customflaggedsymbol = True*
+
+   - **flaggedsymbolshape** (variant=nosymbol) - Shape of plotted flagged symbols
+   - **flaggedsymbolsize** (variant=2) - Size of plotted flagged symbols
+   - **flaggedsymbolcolor** (variant=ff0000) - Color (name or hex code) of plotted flagged symbols
+   - **flaggedsymbolfill** (variant=fill) - Fill type of plotted flagged symbols
+   - **flaggedsymboloutline** (variant=False) - Outline plotted flagged symbols
+
+   *plotfile != ''*
+
+   - **expformat** (string='') - Export format type. If not provided, plotfile extension will be used to determine type.
+   - **verbose** (bool=True) - Include metadata in text export
+   - **exprange** (string='') - Range of iteration plots to export, one plotfile per page.  Multipage pdf exports are not supported.
+   - **highres** (bool=False) - Use high resolution
+   - **dpi** (int=-1) - DPI of exported plot
+   - **width** (int=-1) - Width in pixels of exported plot
+   - **height** (int=-1) - Height in pixels of exported plot
+   - **overwrite** (bool=False) - Overwrite plot file if it already exists
+
+   *showgui = True*
+
+   - **clearplots** (bool=True) - Remove any existing plots so new ones can replace them.
+
+   *showgui = False*
+
+   - **clearplots** (bool=True) - Remove any existing plots so new ones can replace them.
+
+   *showmajorgrid = True*
+
+   - **majorwidth** (int=0) - Line width in pixels of major grid lines
+   - **majorstyle** (string='') - Major grid line style
+   - **majorcolor** (string='') - Color (name or hex code) of major grid lines
+
+   *showminorgrid = True*
+
+   - **minorwidth** (int=0) - Line width in pixels of minor grid lines
+   - **minorstyle** (string='') - Minor grid line style
+   - **minorcolor** (string='') - Color (name or hex code) of minor grid lines
+
+   *xconnector = line*
+
+   - **timeconnector** (bool=False) - Connect points by time rather than x-axis
+
+   *xconnector = step*
+
+   - **timeconnector** (bool=False) - Connect points by time rather than x-axis
 
 
-   plotms task: A plotter/interactive flagger for visibility data.
-
-
-
+Description
       **plotms** is a task for plotting and interacting with visibility
       data. A variety of axes choices (including data column) along with
       MS selection and averaging options are provided.  All of the

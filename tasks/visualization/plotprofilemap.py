@@ -3,69 +3,50 @@
 #
 
 def plotprofilemap(imagename, figfile='', overwrite=False, transparent=False, pol=0, spectralaxis='', restfreq='', plotrange='', title='', linecolor='b', linestyle='-', linewidth=0.2, separatepanel=True, plotmasked='empty', maskedcolor='gray', showaxislabel=False, showtick=False, showticklabel=False, figsize='', numpanels=''):
-    """
+    r"""
 Makes profile map.
 
-| The plotprofilemap makes spectral profile map from specified image. 
-|  The task accepts both CASA image and FITS cube as an input.
-
 Parameters
-----------
-imagename : string
-   Input image name (CASA image or FITS)
-figfile : string
-   Output figure name
-pol : int
-   Polarization component to be plotted
-spectralaxis : string
-   Type of spectral axis
-plotrange : string
-   Spectral axis range to plot
-title : string
-   Title of the plot
-linecolor : string
-   Line color
-linestyle : string
-   Line style
-linewidth : double
-   Line width in points
-separatepanel : bool
-   Separate plots
-plotmasked : string
-   Masked data handling
-showaxislabel : bool
-   Show axis labels on the bottom left panel
-showtick : bool
-   Show axis ticks
-figsize : string
-   Size of the figure
-numpanels : string
-   Number of panels
+   - **imagename** (string) - Input image name (CASA image or FITS)
+   - **figfile** (string) - Output figure name
+   - **pol** (int) - Polarization component to be plotted
+   - **spectralaxis** (string) - Type of spectral axis
+   - **plotrange** (string) - Spectral axis range to plot
+   - **title** (string) - Title of the plot
+   - **linecolor** (string) - Line color
+   - **linestyle** (string) - Line style
+   - **linewidth** (double) - Line width in points
+   - **separatepanel** (bool) - Separate plots
+   - **plotmasked** (string) - Masked data handling
+   - **showaxislabel** (bool) - Show axis labels on the bottom left panel
+   - **showtick** (bool) - Show axis ticks
+   - **figsize** (string) - Size of the figure
+   - **numpanels** (string) - Number of panels
 
-Other Parameters
-----------
-overwrite : bool
-   Overwrite existing figfile
-transparent : bool
-   Output transparent figure
-restfreq : string
-   Rest frequency
-maskedcolor : string
-   Line color for masked data
-showticklabel : bool
-   Show axis tick labels on the bottom left panel
+Subparameters
+   *figfile != ''*
 
-Notes
------
+   - **overwrite** (bool=False) - Overwrite existing figfile
+   - **transparent** (bool=False) - Output transparent figure
+
+   *spectralaxis = velocity*
+
+   - **restfreq** (string='') - Rest frequency
+
+   *plotmasked = plot*
+
+   - **maskedcolor** (string=gray) - Line color for masked data
+
+   *plotmasked = zero*
+
+   - **maskedcolor** (string=gray) - Line color for masked data
+
+   *showtick = True*
+
+   - **showticklabel** (bool=False) - Show axis tick labels on the bottom left panel
 
 
-
-
-
-   task description
-
-
-
+Description
       The **plotprofilemap** makes a spectral profile map from a
       specified image. The task accepts both a CASA image or a FITS cube
       as an input. Output is to the screen, or to image file (specified

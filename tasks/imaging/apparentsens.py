@@ -3,66 +3,42 @@
 #
 
 def apparentsens(vis, field='', spw='', intent='', selectdata=True, timerange='', uvrange='', antenna='', scan='', observation='', imsize=100, cell='"1arcsec"', stokes='I', specmode='mfs', weighting='natural', robust=0.5, npixels=0, uvtaper=['']):
-    """
+    r"""
 Imaging sensitivity estimataion
 
-| Estimates the expected imaging sensitivity as a function of the
-|               visibility weights and imaging parameters.
-
 Parameters
-----------
-vis : string, stringArray
-   Name of input visibility file(s)
-selectdata : bool
-   Enable data selection parameters
-imsize : int, intArray
-   Number of pixels
-cell : int, double, intArray, doubleArray, string, stringArray
-   Cell size
-stokes : string
-   Stokes Planes to make (I only, for now)
-specmode : string
-   Spectral definition mode (mfs only, for now)
-weighting : string
-   Weighting scheme (natural,uniform,briggs)
+   - **vis** (string, stringArray) - Name of input visibility file(s)
+   - **selectdata** (bool) - Enable data selection parameters
+   - **imsize** (int, intArray) - Number of pixels
+   - **cell** (int, double, intArray, doubleArray, string, stringArray) - Cell size
+   - **stokes** (string) - Stokes Planes to make (I only, for now)
+   - **specmode** (string) - Spectral definition mode (mfs only, for now)
+   - **weighting** (string) - Weighting scheme (natural,uniform,briggs)
 
-Other Parameters
-----------
-field : string, stringArray
-   field(s) to select
-spw : string, stringArray
-   spw(s)/channels to select
-intent : string, stringArray
-   Scan Intent(s)
-timerange : string, stringArray
-   Range of time to select from data
-uvrange : string, stringArray
-   Select data within uvrange
-antenna : string, stringArray
-   Select data based on antenna/baseline
-scan : string, stringArray
-   Scan number range
-observation : string, int
-   Observation ID range
-robust : double
-   Robustness parameter
-npixels : int
-   Number of pixels to determine uv-cell size (0 : -/+ 3 pixels)
-uvtaper : stringArray
-   uv-taper on outer baselines in uv-plane
+Subparameters
+   *selectdata = True*
 
-Notes
------
+   - **field** (string="", stringArray) - field(s) to select
+   - **spw** (string="", stringArray) - spw(s)/channels to select
+   - **timerange** (string="", stringArray) - Range of time to select from data
+   - **uvrange** (string="", stringArray) - Select data within uvrange
+   - **antenna** (string="", stringArray) - Select data based on antenna/baseline
+   - **scan** (string="", stringArray) - Scan number range
+   - **observation** (string="", int) - Observation ID range
+   - **intent** (string="", stringArray) - Scan Intent(s)
+
+   *weighting = natural*
+
+   - **uvtaper** (stringArray=[]) - uv-taper on outer baselines in uv-plane
+
+   *weighting = briggs*
+
+   - **robust** (double=0.5) - Robustness parameter
+   - **npixels** (int=0) - Number of pixels to determine uv-cell size (0 : -/+ 3 pixels)
+   - **uvtaper** (stringArray=[]) - uv-taper on outer baselines in uv-plane
 
 
-
-
-
-   Estimate imaging sensitivity from visibility weights and imaging
-   parameters
-
-
-
+Description
       The **apparentsens** task calculates the point source sensitivity
       for the specified selected data, and according to the desired
       imaging geometry and uv grid weighting. The calculation is

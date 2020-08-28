@@ -3,57 +3,33 @@
 #
 
 def sdgaincal(infile, calmode='doublecircle', radius='', smooth=True, antenna='', field='', spw='', scan='', intent='', applytable='', interp='', spwmap=[''], outfile='', overwrite=False):
-    """
+    r"""
  MS SD gain calibration task
 
-| 
-
 Parameters
-----------
-infile : string
-   name of input SD dataset (must be MS)
-calmode : string
-   gain calibration mode ("doublecircle")
-antenna : string
-   select data by antenna name or ID, e.g. "PM03"
-field : string
-   select data by field IDs and names, e.g. "3C2*" ("" = all)
-spw : string
-   select data by spw IDs (spectral windows), e.g., "3,5,7" ("" = all)
-scan : string
-   select data by scan numbers, e.g. "21~23" (""=all)
-applytable : variant
-   (List of) sky and/or tsys tables for pre-application
-outfile : string
-   name of output caltable
-overwrite : bool
-   overwrite the output file if already exists [True, False]
+   - **infile** (string) - name of input SD dataset (must be MS)
+   - **calmode** (string) - gain calibration mode ("doublecircle")
+   - **antenna** (string) - select data by antenna name or ID, e.g. "PM03"
+   - **field** (string) - select data by field IDs and names, e.g. "3C2*" ("" = all)
+   - **spw** (string) - select data by spw IDs (spectral windows), e.g., "3,5,7" ("" = all)
+   - **scan** (string) - select data by scan numbers, e.g. "21~23" (""=all)
+   - **applytable** (variant) - (List of) sky and/or tsys tables for pre-application
+   - **outfile** (string) - name of output caltable
+   - **overwrite** (bool) - overwrite the output file if already exists [True, False]
 
-Other Parameters
-----------
-radius : variant
-   radius of central region to be used for calibration
-smooth : bool
-   smooth data or not
-intent : string
-   select data by observation intent, e.g. "OBSERVE_TARGET#ON_SOURCE" (""=all)
-interp : variant
-   Interp type in time[,freq], per gaintable. default==linear,linear
-spwmap : intArray
-   Spectral window mappings to form for applytable(s)
+Subparameters
+   *calmode = doublecircle*
 
-Notes
------
+   - **radius** (variant='') - radius of central region to be used for calibration
+   - **smooth** (bool=True) - smooth data or not
+
+   *applytable != ''*
+
+   - **interp** (variant='') - Interp type in time[,freq], per gaintable. default==linear,linear
+   - **spwmap** (intArray=-1) - Spectral window mappings to form for applytable(s)
 
 
-
-
-
-   Computes the gain variation in ALMA single-dish data taken with the
-   double-circle, fast-mapped observing mode
-
-
-
+Description
       **sdgaincal** computes and removes a time-dependent gain variation
       in single-dish data on a per-spectral-window and per-antenna
       basis. Presently the task operates only on data taken with the
@@ -92,25 +68,13 @@ Notes
       output with the '*outfile*' parameter.
 
       | 
-      |  
-
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 1                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | Phillips et al, 2015. Fast Single-Dish Scans of   |
-      |                 | the Sun Using ALMA.                               |
-      |                 | `PDF <http://articles.                            |
-      |                 | adsabs.harvard.edu/cgi-bin/nph-iarticle_query?201 |
-      |                 | 5ASPC..499..347P&amp;data_type=PDF_HIGH&amp;whole |
-      |                 | _paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__ |
-      +-----------------+---------------------------------------------------+
+      |
 
 
-         Bibliography
-
+   Bibliography
          :sup:`1. Phillips et al, 2015. Fast Single-Dish Scans of the
          Sun Using
-         ALMA.` `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?2015ASPC..499..347P&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__ `↩ <#ref-cit1>`__
+         ALMA.` `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?2015ASPC..499..347P&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__ `<#ref-cit1>`__
 
     """
     pass

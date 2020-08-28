@@ -3,52 +3,29 @@
 #
 
 def immoments(imagename, moments=[0], axis='spectral', region='', box='', chans='', stokes='', mask='', includepix=-1, excludepix=-1, outfile='', stretch=False):
-    """
+    r"""
 Compute moments from an image
 
-| 
-
 Parameters
-----------
-imagename : string
-   Name of the input image
-moments : intArray
-   List of moments you would like to compute
-axis : string, int
-   The momement axis: ra, dec, lat, long, spectral, or stokes
-region : string, stringArray
-   Region selection. Default is to use the full image.
-box : string
-   Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
-chans : string
-   Channels to use. Default is to use all channels.
-stokes : string
-   Stokes planes to use. Default is to use all Stokes planes.
-mask : variant
-   Mask to use. Default is none.
-includepix : int, doubleArray, intArray
-   Range of pixel values to include
-excludepix : int, doubleArray, intArray
-   Range of pixel values to exclude
-outfile : string
-   Output image file name (or root for multiple moments) 
+   - **imagename** (string) - Name of the input image
+   - **moments** (intArray) - List of moments you would like to compute
+   - **axis** (string, int) - The momement axis: ra, dec, lat, long, spectral, or stokes
+   - **region** (string, stringArray) - Region selection. Default is to use the full image.
+   - **box** (string) - Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
+   - **chans** (string) - Channels to use. Default is to use all channels.
+   - **stokes** (string) - Stokes planes to use. Default is to use all Stokes planes.
+   - **mask** (variant) - Mask to use. Default is none.
+   - **includepix** (int, doubleArray, intArray) - Range of pixel values to include
+   - **excludepix** (int, doubleArray, intArray) - Range of pixel values to exclude
+   - **outfile** (string) - Output image file name (or root for multiple moments) 
 
-Other Parameters
-----------
-stretch : bool
-   Stretch the mask if necessary and possible? 
+Subparameters
+   *mask != ''*
 
-Notes
------
+   - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
 
 
-
-
-
-   immoments task: Compute moments from an image
-
-
-
+Description
       The spectral moment distributions at each pixel are
       determined. The main control of the calculation is given by the
       parameter *moments*:

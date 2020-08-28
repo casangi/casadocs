@@ -3,56 +3,25 @@
 #
 
 def exportfits(imagename, fitsimage='', velocity=False, optical=False, bitpix=-32, minpix=0, maxpix=-1, overwrite=False, dropstokes=False, stokeslast=True, history=True, dropdeg=False):
-    """
+    r"""
 Convert a CASA image to a FITS file
 
-| CASA-produced images can be exported as FITS files for transporting to
-|other software packages or publication.  
-|No subimaging of the fits image can be made with this task.
-|The spectral reference frame can be changed prior to export using the
-|task imreframe.
-
 Parameters
-----------
-imagename : string
-   Name of input CASA image
-fitsimage : string
-   Name of output image FITS file
-velocity : bool
-   Use velocity (rather than frequency) as spectral axis
-optical : bool
-   Use the optical (rather than radio) velocity convention
-bitpix : int
-   Bits per pixel
-minpix : int, double
-   Minimum pixel value (if minpix > maxpix, value is automatically determined)
-maxpix : int, double
-   Maximum pixel value (if minpix > maxpix, value is automatically determined)
-overwrite : bool
-   Overwrite output file if it exists?
-dropstokes : bool
-   Drop the Stokes axis?
-stokeslast : bool
-   Put Stokes axis last in header?
-history : bool
-   Write history to the FITS image?
-dropdeg : bool
-   Drop all degenerate axes (e.g. Stokes and/or Frequency)?
-
-Other Parameters
-----------
-
-Notes
------
+   - **imagename** (string) - Name of input CASA image
+   - **fitsimage** (string) - Name of output image FITS file
+   - **velocity** (bool) - Use velocity (rather than frequency) as spectral axis
+   - **optical** (bool) - Use the optical (rather than radio) velocity convention
+   - **bitpix** (int) - Bits per pixel
+   - **minpix** (int, double) - Minimum pixel value (if minpix > maxpix, value is automatically determined)
+   - **maxpix** (int, double) - Maximum pixel value (if minpix > maxpix, value is automatically determined)
+   - **overwrite** (bool) - Overwrite output file if it exists?
+   - **dropstokes** (bool) - Drop the Stokes axis?
+   - **stokeslast** (bool) - Put Stokes axis last in header?
+   - **history** (bool) - Write history to the FITS image?
+   - **dropdeg** (bool) - Drop all degenerate axes (e.g. Stokes and/or Frequency)?
 
 
-
-
-
-   Convert a CASA image to a FITS file
-
-
-
+Description
       The exportfits task exports CASA-produced images as FITS files for
       transporting to other software packages or publication. 
 

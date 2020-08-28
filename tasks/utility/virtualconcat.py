@@ -3,42 +3,21 @@
 #
 
 def virtualconcat(vis, concatvis='', freqtol='', dirtol='', respectname=True, visweightscale=[''], keepcopy=False, copypointing=True):
-    """
+    r"""
 Concatenate several visibility data sets into a multi-MS
 
 Parameters
-----------
-vis : stringArray
-   List of names of input visibility files to be concatenated
-concatvis : string
-   Name of the output visibility file (a multi-MS)
-freqtol : variant
-   Frequency shift tolerance for considering data as the same spwid
-dirtol : variant
-   Direction shift tolerance for considering data as the same field
-respectname : bool
-   If true, fields with a different name are not merged even if their direction agrees
-visweightscale : doubleArray
-   List of the weight scaling factors to be applied to the individual MSs
-keepcopy : bool
-   If true, a copy of the input MSs is kept in their original place.
-copypointing : bool
-   If true, keep the POINTING table information in the output MMS. If false, don\'t.
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (stringArray) - List of names of input visibility files to be concatenated
+   - **concatvis** (string) - Name of the output visibility file (a multi-MS)
+   - **freqtol** (variant) - Frequency shift tolerance for considering data as the same spwid
+   - **dirtol** (variant) - Direction shift tolerance for considering data as the same field
+   - **respectname** (bool) - If true, fields with a different name are not merged even if their direction agrees
+   - **visweightscale** (doubleArray) - List of the weight scaling factors to be applied to the individual MSs
+   - **keepcopy** (bool) - If true, a copy of the input MSs is kept in their original place.
+   - **copypointing** (bool) - If true, keep the POINTING table information in the output MMS. If false, don\'t.
 
 
-
-
-
-   task description
-
-
-
+Description
       .. note:: **NOTE**: This task behaves mostly like the task **concat**,
          except that the result is an MMS and that the original MSs
          become part of the concatenated MS (unless you set

@@ -3,111 +3,63 @@
 #
 
 def cvel2(vis, outputvis='', keepmms=True, passall=False, field='', spw='', scan='', antenna='', correlation='', timerange='', intent='', array='', uvrange='', observation='', feed='', datacolumn='all', mode='channel', nchan=-1, start='0', width='1', interpolation='linear', phasecenter='', restfreq='', outframe='', veltype='radio', hanning=False):
-    """
+    r"""
 Regrid an MS or MMS to a new spectral window, channel structure or frame
 
-| The intent of cvel2 is to transform channel labels and the
-|visibilities to a spectral reference frame which is appropriate for
-|the science analysis, e.g. from TOPO to LSRK to correct for Doppler
-|shifts throughout the time of the observation. Naturally, this will
-|change the shape of the spectral feature to some extent. According to
-|the Nyquist theorem you should oversample a spectrum with twice the
-|numbers of channels to retain the shape. Based on some tests, however,
-|we recommend to observe with at least 3-4 times the number of channels
-|for each significant spectral feature (like 3-4 times the
-|linewidth). This will minimize regridding artifacts in cvel2.
-|
-|If cvel2 has already established the grid that is desired for the
-|imaging, tclean should be run with exactly the same frequency/velocity
-|parameters as used in cvel2 in order to avoid additional regridding in
-|clean.
-|
-|Hanning smoothing is optionally offered in cvel2, but tests have shown
-|that already the regridding process itself, if it involved a
-|transformation from TOPO to a non-terrestrial reference frame, implies
-|some smoothing (due to channel interpolation) such that Hanning
-|smoothing may not be necessary.
-|   
-|This version of cvel2 also supports Multi-MS input, in which case it
-|will create an output Multi-MS too.
-|
-|    NOTE:
-|    The parameter passall is not supported in cvel2. The user may
-|    achieve the same results of passall=True by splitting out the data
-|    that will not be regridded with cvel2 and concatenate regridded
-|    and non-regridded sets at the end. In the case of Multi-MS input,
-|    the user should use virtualconcat to achieve a concatenated MMS.
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-outputvis : string
-   Name of output visibility file
-keepmms : bool
-   Create a Multi-MS as the output if the input is a Multi-MS
-field : string, stringArray, int, intArray
-   Select field using field id(s) or field name(s)
-spw : string, stringArray, int, intArray
-   Select spectral window/channels
-scan : string, stringArray, int, intArray
-   Scan number range
-antenna : string, stringArray, int, intArray
-   Select data based on antenna/baseline
-correlation : string, stringArray
-   Select data based on correlation
-timerange : string, stringArray, int, intArray
-   Select data based on time range
-intent : string, stringArray, int, intArray
-   Select observing intent
-array : string, stringArray, int, intArray
-   Select (sub)array(s) by array ID number.
-uvrange : string, stringArray, int, intArray
-   Select data by baseline length.
-observation : string, stringArray, int, intArray
-   Select by observation ID(s)
-feed : string, stringArray, int, intArray
-   Multi-feed numbers: Not yet implemented.
-datacolumn : string
-   Data column(s) to process.
-mode : string
-   Regridding mode (channel/velocity/frequency/channel_b).
-phasecenter : variant
-   Phase center direction to be used for the spectral coordinate transformation: direction measure or field index
-restfreq : string
-   Rest frequency to use for output.
-outframe : string
-   Output reference frame.
-veltype : string
-   Velocity definition.
-hanning : bool
-   Hanning smooth data to remove Gibbs ringing.
+   - **vis** (string) - Name of input visibility file
+   - **outputvis** (string) - Name of output visibility file
+   - **keepmms** (bool) - Create a Multi-MS as the output if the input is a Multi-MS
+   - **field** (string, stringArray, int, intArray) - Select field using field id(s) or field name(s)
+   - **spw** (string, stringArray, int, intArray) - Select spectral window/channels
+   - **scan** (string, stringArray, int, intArray) - Scan number range
+   - **antenna** (string, stringArray, int, intArray) - Select data based on antenna/baseline
+   - **correlation** (string, stringArray) - Select data based on correlation
+   - **timerange** (string, stringArray, int, intArray) - Select data based on time range
+   - **intent** (string, stringArray, int, intArray) - Select observing intent
+   - **array** (string, stringArray, int, intArray) - Select (sub)array(s) by array ID number.
+   - **uvrange** (string, stringArray, int, intArray) - Select data by baseline length.
+   - **observation** (string, stringArray, int, intArray) - Select by observation ID(s)
+   - **feed** (string, stringArray, int, intArray) - Multi-feed numbers: Not yet implemented.
+   - **datacolumn** (string) - Data column(s) to process.
+   - **mode** (string) - Regridding mode (channel/velocity/frequency/channel_b).
+   - **phasecenter** (variant) - Phase center direction to be used for the spectral coordinate transformation: direction measure or field index
+   - **restfreq** (string) - Rest frequency to use for output.
+   - **outframe** (string) - Output reference frame.
+   - **veltype** (string) - Velocity definition.
+   - **hanning** (bool) - Hanning smooth data to remove Gibbs ringing.
 
-Other Parameters
-----------
-passall : bool
-   Hidden parameter
-nchan : int
-   Number of channels in the output spw
-start : variant
-   First input channel to use
-width : variant
-   Channel width of the output visibilities.
-interpolation : string
-   Spectral interpolation method
+Subparameters
+   *mode = channel*
 
-Notes
------
+   - **nchan** (int=-1) - Number of channels in the output spw
+   - **start** (variant=0) - First input channel to use
+   - **width** (variant=1) - Channel width of the output visibilities.
+   - **interpolation** (string=linear) - Spectral interpolation method
+
+   *mode = channel_b*
+
+   - **nchan** (int=-1) - Number of channels in the output spw
+   - **start** (variant=0) - First input channel to use
+   - **width** (variant=1) - Channel width of the output visibilities.
+   - **interpolation** (string=linear) - Spectral interpolation method
+
+   *mode = velocity*
+
+   - **nchan** (int=-1) - Number of channels in the output spw
+   - **start** (variant='') - First input channel to use
+   - **width** (variant='') - Channel width of the output visibilities.
+   - **interpolation** (string=linear) - Spectral interpolation method
+
+   *mode = frequency*
+
+   - **nchan** (int=-1) - Number of channels in the output spw
+   - **start** (variant='') - First input channel to use
+   - **width** (variant='') - Channel width of the output visibilities.
+   - **interpolation** (string=linear) - Spectral interpolation method
 
 
-
-
-
-   regrid an MS or MMS to a new spectral window, channel structure or
-   frame
-
-
-
+Description
       .. note:: ALERT: **cvel2** is currently an experimental task and will
          replace the current **cvel** in the near future. We will then
          remove current **cvel** and rename **cvel2** to **cvel**.

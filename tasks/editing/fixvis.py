@@ -3,49 +3,21 @@
 #
 
 def fixvis(vis, outputvis='', field='""', refcode='', reuse=True, phasecenter='', distances='""', datacolumn='all'):
-    """
+    r"""
 Recalculates (u, v, w) and/or changes Phase Center 
 
-| Recalculates (u, v, w) and/or changes Phase Center.
-|
-|       If the phase center is changed, the corresponding modifications
-|       are applied to the visibility columns given by the parameter
-|       "datacolumn" which is by default set to "all" (DATA, CORRECTED,
-|       and MODEL).
-
 Parameters
-----------
-vis : string
-   Name of input visibility file
-outputvis : string
-   Name of output visibility file
-field : variant
-   Select field using field id(s) or field name(s)
-refcode : string
-   reference frame to convert UVW coordinates to
-reuse : bool
-   base UVW calculation on the old values?
-phasecenter : string
-   use this direction as phase center
-distances : variant
-   (experimental) List of the distances (as quanta) of the fields selected by field.
-datacolumn : string
-   when applying a phase center shift, modify visibilities only in this/these column(s)
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (string) - Name of input visibility file
+   - **outputvis** (string) - Name of output visibility file
+   - **field** (variant) - Select field using field id(s) or field name(s)
+   - **refcode** (string) - reference frame to convert UVW coordinates to
+   - **reuse** (bool) - base UVW calculation on the old values?
+   - **phasecenter** (string) - use this direction as phase center
+   - **distances** (variant) - (experimental) List of the distances (as quanta) of the fields selected by field.
+   - **datacolumn** (string) - when applying a phase center shift, modify visibilities only in this/these column(s)
 
 
-
-
-
-   
-
-
-
+Description
       **fixvis** recalculates (u, v, w) in an MS based on antenna
       positions, time and source position. **fixvis** can also change
       the phase center of visibilities.

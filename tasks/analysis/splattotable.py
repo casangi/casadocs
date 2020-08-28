@@ -3,34 +3,15 @@
 #
 
 def splattotable(filenames, table=''):
-    """
+    r"""
 Convert a downloaded Splatalogue spectral line list to a casa table.
 
-| This task reads a spectral line list(s) downloaded from Splatalogue
-|(www.splatalogue.net) and loads it into a CASA table which can be
-|queried via eg the slsearch task.
-
 Parameters
-----------
-filenames : stringArray
-   Files containing Splatalogue lists.
-table : string
-   Output table name. Must be specified.
-
-Other Parameters
-----------
-
-Notes
------
+   - **filenames** (stringArray) - Files containing Splatalogue lists.
+   - **table** (string) - Output table name. Must be specified.
 
 
-
-
-
-   task description
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
          :class: p1

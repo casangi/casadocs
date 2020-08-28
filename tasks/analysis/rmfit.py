@@ -3,48 +3,24 @@
 #
 
 def rmfit(imagename, rm='', rmerr='', pa0='', pa0err='', nturns='', chisq='', sigma=-1, rmfg=0.0, rmmax=0.0, maxpaerr=1e30):
-    """
+    r"""
 Calculate rotation measure.
 
 Parameters
-----------
-imagename : variant
-   Name(s) of the input image(s). Must be specified.
-rm : string
-   Output rotation measure image name. If not specified, no image is written.
-rmerr : string
-   Output rotation measure error image name. If not specified, no image is written.
-pa0 : string
-   Output position angle (degrees) at zero wavelength image name. If not specified, no image is written.
-pa0err : string
-   Output position angle (degrees) at zero wavelength error image name. If not specified, no image is written.
-nturns : string
-   Output number of turns image name. If not specified, no image is written.
-chisq : string
-   Output reduced chi squared image name. If not specified, no image is written.
-sigma : double
-   Estimate of the thermal noise.  A value less than 0 means auto estimate.
-rmfg : double
-   Foreground rotation measure in rad/m/m to subtract.
-rmmax : double
-   Maximum rotation measure in rad/m/m for which to solve. IMPORTANT TO SPECIFY.
-maxpaerr : double
-   Maximum input position angle error in degrees to allow in solution determination.
-
-Other Parameters
-----------
-
-Notes
------
+   - **imagename** (variant) - Name(s) of the input image(s). Must be specified.
+   - **rm** (string) - Output rotation measure image name. If not specified, no image is written.
+   - **rmerr** (string) - Output rotation measure error image name. If not specified, no image is written.
+   - **pa0** (string) - Output position angle (degrees) at zero wavelength image name. If not specified, no image is written.
+   - **pa0err** (string) - Output position angle (degrees) at zero wavelength error image name. If not specified, no image is written.
+   - **nturns** (string) - Output number of turns image name. If not specified, no image is written.
+   - **chisq** (string) - Output reduced chi squared image name. If not specified, no image is written.
+   - **sigma** (double) - Estimate of the thermal noise.  A value less than 0 means auto estimate.
+   - **rmfg** (double) - Foreground rotation measure in rad/m/m to subtract.
+   - **rmmax** (double) - Maximum rotation measure in rad/m/m for which to solve. IMPORTANT TO SPECIFY.
+   - **maxpaerr** (double) - Maximum input position angle error in degrees to allow in solution determination.
 
 
-
-
-
-   rmfit task: Calculate rotation measure.
-
-
-
+Description
       This task generates the rotation measure (RM) image from stokes Q
       and U measurements at several different frequencies. You are
       required to specify the name of at least one image with a
@@ -110,20 +86,10 @@ Notes
       some apriori information should be supplied; this is the basic
       problem with rotation measure algorithms.
 
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 1                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | Leahy et al. 1986, Astronomy & Astrophysics, 156, |
-      |                 | 234                                               |
-      |                 | `(ADS) <http://                                   |
-      |                 | adsabs.harvard.edu/full/1986A%26A...156..234L>`__ |
-      +-----------------+---------------------------------------------------+
 
-
-         Bibliography
-
+   Bibliography
          :sup:`1. Leahy et al. 1986, Astronomy & Astrophysics, 156,
-         234` `(ADS) <http://adsabs.harvard.edu/full/1986A%26A...156..234L>`__ `↩ <#ref-cit1>`__
+         234` `(ADS) <http://adsabs.harvard.edu/full/1986A%26A...156..234L>`__ `<#ref-cit1>`__
 
     """
     pass

@@ -3,175 +3,156 @@
 #
 
 def clean(vis, imagename='', outlierfile='', field='', spw='', selectdata=True, timerange='', uvrange='', antenna='', scan='', observation='', intent='', mode='mfs', resmooth=False, gridmode='', wprojplanes=-1, facets=1, cfcache='cfcache.dir', rotpainc=5.0, painc=360.0, aterm=True, psterm=False, mterm=True, wbawp=False, conjbeams=True, epjtable='', interpolation='linear', niter=500, gain=0.1, threshold=0.0, psfmode='clark', imagermode='csclean', ftmachine='mosaic', mosweight=False, scaletype='SAULT', multiscale=[0], negcomponent=-1, smallscalebias=0.6, interactive=False, mask='', nchan=-1, start='0', width='1', outframe='', veltype='radio', imsize=[256, 256], cell=[1.0], phasecenter='', restfreq='', stokes='I', weighting='natural', robust=0.0, uvtaper=False, outertaper=[''], innertaper=[1.0], modelimage='', restoringbeam=[''], pbcor=False, minpb=0.2, usescratch=False, noise='1.0Jy', npixels=0, npercycle=100, cyclefactor=1.5, cyclespeedup=-1, nterms=1, reffreq='', chaniter=False, flatnoise=True, allowchunk=False):
-    """
+    r"""
 Invert and deconvolve images with selected algorithm
 
-| CLEAN WILL BE DEPRECATED IN THE NEAR FUTURE - PLEASE USE TCLEAN
-|INSTEAD. 
-|
-|All major functionality of clean is present in tclean via a modified
-|interface along with additional algorithmic options.
-|
-|Task description: Form images from visibilities. Handles continuum and
-|spectral line cubes.
-
 Parameters
-----------
-vis : string, stringArray
-   
-imagename : string, stringArray
-   
-outlierfile : string
-   
-field : string, stringArray
-   
-spw : string, stringArray
-   
-selectdata : bool
-   
-mode : string
-   
-gridmode : string
-   
-niter : int
-   
-gain : double
-   
-threshold : double
-   
-psfmode : string
-   
-imagermode : string
-   
-multiscale : intArray
-   
-interactive : bool
-   
-mask : variant
-   
-imsize : intArray
-   
-cell : doubleArray
-   
-phasecenter : variant
-   
-restfreq : string
-   
-stokes : string
-   
-weighting : string
-   
-uvtaper : bool
-   
-modelimage : variant
-   
-restoringbeam : stringArray
-   
-pbcor : bool
-   
-minpb : double
-   
-usescratch : bool
-   
-allowchunk : bool
-   
+   - **vis** (string, stringArray) - 
+   - **imagename** (string, stringArray) - 
+   - **outlierfile** (string) - 
+   - **field** (string, stringArray) - 
+   - **spw** (string, stringArray) - 
+   - **selectdata** (bool) - 
+   - **mode** (string) - 
+   - **gridmode** (string) - 
+   - **niter** (int) - 
+   - **gain** (double) - 
+   - **threshold** (double) - 
+   - **psfmode** (string) - 
+   - **imagermode** (string) - 
+   - **multiscale** (intArray) - 
+   - **interactive** (bool) - 
+   - **mask** (variant) - 
+   - **imsize** (intArray) - 
+   - **cell** (doubleArray) - 
+   - **phasecenter** (variant) - 
+   - **restfreq** (string) - 
+   - **stokes** (string) - 
+   - **weighting** (string) - 
+   - **uvtaper** (bool) - 
+   - **modelimage** (variant) - 
+   - **restoringbeam** (stringArray) - 
+   - **pbcor** (bool) - 
+   - **minpb** (double) - 
+   - **usescratch** (bool) - 
+   - **allowchunk** (bool) - 
 
-Other Parameters
-----------
-timerange : string, stringArray
-   
-uvrange : string, stringArray
-   
-antenna : string, stringArray
-   
-scan : string, stringArray
-   
-observation : string, int
-   
-intent : string, stringArray
-   
-resmooth : bool
-   
-wprojplanes : int
-   
-facets : int
-   
-cfcache : string
-   
-rotpainc : double
-   
-painc : double
-   
-aterm : bool
-   
-psterm : bool
-   
-mterm : bool
-   
-wbawp : bool
-   
-conjbeams : bool
-   
-epjtable : string
-   
-interpolation : string
-   
-ftmachine : string
-   
-mosweight : bool
-   
-scaletype : string
-   
-negcomponent : int
-   
-smallscalebias : double
-   
-nchan : int
-   
-start : variant
-   
-width : variant
-   
-outframe : string
-   
-veltype : string
-   
-robust : double
-   
-outertaper : stringArray
-   
-innertaper : stringArray
-   
-noise : variant
-   
-npixels : int
-   
-npercycle : int
-   
-cyclefactor : double
-   
-cyclespeedup : int
-   
-nterms : int
-   
-reffreq : string
-   
-chaniter : bool
-   
-flatnoise : bool
-   
+Subparameters
+   *selectdata = True*
 
-Notes
------
+   - **timerange** (string='', stringArray) - 
+   - **uvrange** (string='', stringArray) - 
+   - **antenna** (string='', stringArray) - 
+   - **scan** (string='', stringArray) - 
+   - **observation** (string='', int) - 
+   - **intent** (string='', stringArray) - 
+
+   *multiscale != []*
+
+   - **negcomponent** (int=-1) - 
+   - **smallscalebias** (double=0.6) - 
+
+   *gridmode = widefield*
+
+   - **wprojplanes** (int=-1) - 
+   - **facets** (int=1) - 
+
+   *gridmode = aprojection*
+
+   - **wprojplanes** (int=1) - 
+   - **cfcache** (string=cfcache.dir) - 
+   - **rotpainc** (double=5.0) - 
+   - **painc** (double=360.0) - 
+
+   *gridmode = advancedaprojection*
+
+   - **wprojplanes** (int=1) - 
+   - **cfcache** (string=cfcache.dir) - 
+   - **rotpainc** (double=5.0) - 
+   - **painc** (double=360.0) - 
+   - **wbawp** (bool=False) - 
+   - **conjbeams** (bool=True) - 
+   - **aterm** (bool=True) - 
+   - **psterm** (bool=True) - 
+   - **mterm** (bool=True) - 
+   - **epjtable** (string='') - 
+
+   *mode = mfs*
+
+   - **nterms** (int=1) - 
+   - **reffreq** (string='') - 
+
+   *mode = channel*
+
+   - **nchan** (int=-1) - 
+   - **start** (variant='') - 
+   - **width** (variant=1) - 
+   - **interpolation** (string=linear) - 
+   - **resmooth** (bool=False) - 
+   - **chaniter** (bool=False) - 
+   - **outframe** (string='') - 
+
+   *mode = velocity*
+
+   - **nchan** (int=-1) - 
+   - **start** (variant='') - 
+   - **width** (variant='') - 
+   - **interpolation** (string=linear) - 
+   - **resmooth** (bool=False) - 
+   - **chaniter** (bool=False) - 
+   - **outframe** (string='') - 
+   - **veltype** (string=radio) - 
+
+   *mode = frequency*
+
+   - **nchan** (int=-1) - 
+   - **start** (variant='') - 
+   - **width** (variant='') - 
+   - **interpolation** (string=linear) - 
+   - **resmooth** (bool=False) - 
+   - **chaniter** (bool=False) - 
+   - **outframe** (string='') - 
+
+   *weighting = briggs*
+
+   - **robust** (double=0.0) - 
+   - **npixels** (int=0) - 
+
+   *weighting = briggsabs*
+
+   - **robust** (double=0.0) - 
+   - **noise** (variant=1.0Jy) - 
+   - **npixels** (int=0) - 
+
+   *weighting = superuniform*
+
+   - **npixels** (int=0) - 
+
+   *uvtaper = True*
+
+   - **outertaper** (stringArray='') - 
+   - **innertaper** (stringArray='') - 
+
+   *interactive = True*
+
+   - **npercycle** (int=100) - 
+
+   *imagermode = csclean*
+
+   - **cyclefactor** (double=1.5) - 
+   - **cyclespeedup** (int=-1) - 
+
+   *imagermode = mosaic*
+
+   - **mosweight** (bool=False) - 
+   - **ftmachine** (string=mosaic) - 
+   - **scaletype** (string=SAULT) - 
+   - **cyclefactor** (double=1.5) - 
+   - **cyclespeedup** (int=-1) - 
+   - **flatnoise** (bool=True) - 
 
 
-
-
-
-   Invert and deconvolve images with selected algorithm
-
-
-
+Description
       .. rubric:: The 'clean' task will be deprecated in the near future
          - please use tclean instead!
          :name: the-clean-task-will-be-deprecated-in-the-near-future---please-use-tclean-instead
@@ -1755,41 +1736,16 @@ Notes
 
       Run asynchronously. default = False; do not run asychronously
 
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 1                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | Rau and Cornwell, AA, Volume 532, 2011            |
-      |                 | (`ADS <http://                                    |
-      |                 | adsabs.harvard.edu/abs/2011A%26A...532A..71R>`__) |
-      +-----------------+---------------------------------------------------+
 
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 2                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | Cornwell et al. IEEE JSTSP, 2008                  |
-      |                 | (`IEEE <http://ieeexplo                           |
-      |                 | re.ieee.org/stamp/stamp.jsp?arnumber=4703511>`__) |
-      +-----------------+---------------------------------------------------+
-
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 3                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | Bhatnagar et al., AandA, 487, 419, 2008           |
-      |                 | (`A&A <http://www.aanda.org/artic                 |
-      |                 | les/aa/full/2008/31/aa9284-07/aa9284-07.html>`__) |
-      +-----------------+---------------------------------------------------+
-
-
-         Bibliography
-
+   Bibliography
          :sup:`1. Rau and Cornwell, AA, Volume 532, 2011
-         (` `ADS <http://adsabs.harvard.edu/abs/2011A%26A...532A..71R>`__ :sup:`)` `↩ <#ref-cit1>`__
+         (` `ADS <http://adsabs.harvard.edu/abs/2011A%26A...532A..71R>`__ :sup:`)` `<#ref-cit1>`__
 
          :sup:`2. Cornwell et al. IEEE JSTSP, 2008
-         (` `IEEE <http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4703511>`__ :sup:`)` `↩ <#ref-cit2>`__
+         (` `IEEE <http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4703511>`__ :sup:`)` `<#ref-cit2>`__
 
          :sup:`3. Bhatnagar et al., AandA, 487, 419, 2008
-         (` `A&A <http://www.aanda.org/articles/aa/full/2008/31/aa9284-07/aa9284-07.html>`__ :sup:`)` `↩ <#ref-cit3>`__
+         (` `A&A <http://www.aanda.org/articles/aa/full/2008/31/aa9284-07/aa9284-07.html>`__ :sup:`)` `<#ref-cit3>`__
 
     """
     pass

@@ -3,39 +3,18 @@
 #
 
 def importfitsidi(fitsidifile, vis='', constobsid=False, scanreindexgap_s=0., specframe='GEO'):
-    """
+    r"""
 Convert a FITS-IDI file to a CASA visibility data set
 
-| Convert a FITS-IDI file to a CASA visiblity data set.
-|If several files are given, they will be concatenated into one MS.
-
 Parameters
-----------
-fitsidifile : stringArray
-   Name(s) of input FITS-IDI file(s)
-vis : string
-   Name of output visibility file
-constobsid : bool
-   If True, give constant obs ID==0 to the data from all input fitsidi files (False = separate obs id for each file)
-scanreindexgap_s : double
-   Min time gap (seconds) between integrations to start a new scan
-specframe : string
-   Spectral reference frame for all spectral windows in the output MS
-
-Other Parameters
-----------
-
-Notes
------
+   - **fitsidifile** (stringArray) - Name(s) of input FITS-IDI file(s)
+   - **vis** (string) - Name of output visibility file
+   - **constobsid** (bool) - If True, give constant obs ID==0 to the data from all input fitsidi files (False = separate obs id for each file)
+   - **scanreindexgap_s** (double) - Min time gap (seconds) between integrations to start a new scan
+   - **specframe** (string) - Spectral reference frame for all spectral windows in the output MS
 
 
-
-
-
-   Convert a FITS-IDI file to a CASA MeasurementSet
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 
@@ -115,24 +94,11 @@ Notes
       table in the CASA data repository for the given name of the
       observatory.
 
-       
 
-       
-
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 1                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | E. Greisen, `AIPS                                 |
-      |                 | memo <http://www.aips.nrao.edu/aipsmemo.html>`__  |
-      |                 | 114, revised version                              |
-      +-----------------+---------------------------------------------------+
-
-
-         Bibliography
-
+   Bibliography
          :sup:`1. E. Greisen,` `AIPS
          memo <http://www.aips.nrao.edu/aipsmemo.html>`__ :sup:`114,
-         revised version` `↩ <#ref-cit1>`__
+         revised version` `<#ref-cit1>`__
 
     """
     pass

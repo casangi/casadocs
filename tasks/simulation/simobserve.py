@@ -3,120 +3,88 @@
 #
 
 def simobserve(project='sim', skymodel='', inbright='', indirection='', incell='', incenter='', inwidth='', complist='', compwidth='"8GHz"', comp_nchan=1, setpointings=True, ptgfile='$project.ptg.txt', integration='10s', direction=[''], mapsize=['', ''], maptype='hexagonal', pointingspacing='', caldirection='', calflux='1Jy', obsmode='int', refdate='2014/01/01', hourangle='transit', totaltime='7200s', antennalist='', sdantlist='aca.tp.cfg', sdant=0, outframe='LSRK', thermalnoise='tsys-atm', user_pwv=0.5, t_ground=270., t_sky=260., tau0=0.1, seed=11111, leakage=0.0, graphics='both', verbose=False, overwrite=True):
-    """
+    r"""
 visibility simulation task
 
-| This task simulates interferometric or total power measurment sets. It
-|is currently optimized for JVLA and ALMA, although many observatories
-|are included, and adding your own is simply a matter of providing an
-|antenna location file (see below).
-|    
-|simobserve is meant to work in conjunction with the simanalyze
-|task. Calling simobserve one more times will produce simulated
-|measurement set(s), which are then gridded, inverted and deconvolved
-|into output simulated images using simanalyze.
-|    
-|ALMA users are encouraged to use the simalma task, which provides
-|additional information on the multiple simobserve and simanalyze calls
-|required to simulate an ALMA observation which may consist of 12m
-|interferometric, 7m interferometric, and 12m total power data.
-|    
-|More information and examples are availible at 
-|http://casaguides.nrao.edu/index.php?title=Simulating_Observations_in_CASA
-|Please contact the Helpdesk with any questions (see
-|https://casa.nrao.edu/help_desk_all.shtml)
-
 Parameters
-----------
-project : string
-   Root prefix for output file names
-skymodel : string
-   model image to observe
-complist : string
-   Componentlist to observe
-setpointings : bool
-   Calculate a map of pointings?
-obsmode : string
-   Observation mode to simulate [int(interferometer)|sd(singledish)|(none)]
-outframe : string
-   Spectral frame of MS to create
-thermalnoise : string
-   add thermal noise: [tsys-atm|tsys-manual|(none)]
-leakage : double
-   Cross polarization (interferometer only)
-graphics : string
-   Display graphics at each stage to [screen|file|both|none]
-verbose : bool
-   Print extra information to the logger and terminal
-overwrite : bool
-   Overwrite existing files in the project subdirectory
+   - **project** (string) - Root prefix for output file names
+   - **skymodel** (string) - model image to observe
+   - **complist** (string) - Componentlist to observe
+   - **setpointings** (bool) - Calculate a map of pointings?
+   - **obsmode** (string) - Observation mode to simulate [int(interferometer)|sd(singledish)|(none)]
+   - **outframe** (string) - Spectral frame of MS to create
+   - **thermalnoise** (string) - add thermal noise: [tsys-atm|tsys-manual|(none)]
+   - **leakage** (double) - Cross polarization (interferometer only)
+   - **graphics** (string) - Display graphics at each stage to [screen|file|both|none]
+   - **verbose** (bool) - Print extra information to the logger and terminal
+   - **overwrite** (bool) - Overwrite existing files in the project subdirectory
 
-Other Parameters
-----------
-inbright : string
-   Peak brightness to scale the image to in Jy/pixel
-indirection : string
-   Set new direction, e.g. J2000 19h00m00 -40d00m00
-incell : string
-   Set new cell/pixel size, e.g. 0.1arcsec
-incenter : string
-   Set new frequency of center channel e.g. 89GHz (required even for 2D model)
-inwidth : string
-   Set new channel width, e.g. "10MHz" (required even for 2D model)
-compwidth : string
-   Bandwidth of components
-comp_nchan : int
-   Channelization of components
-ptgfile : string
-   List of pointing positions
-integration : string
-   Integration (sampling) time
-direction : stringArray
-   Mosaic center direction, e.g J2000 19h00m00 -40d00m00
-mapsize : stringArray
-   Angular size of mosaic map to simulate.
-maptype : string
-   how to calculate the pointings for the mosaic observation: hexagonal, square (raster), ALMA, etc.
-pointingspacing : string
-   Spacing in between pointings e.g. 0.25PB. ALMA default: INT=lambda/D/sqrt(3), SD=lambda/D/3 
-caldirection : string
-   pt source calibrator [experimental]
-calflux : string
-   pt source calibrator flux [experimental]
-refdate : string
-   Date of observation. Not critical unless concatting simulations
-hourangle : string
-   Hour angle of observation center, e.g. -3:00:00, 5h
-totaltime : string
-   Total time of observation or number of repetitions
-antennalist : string
-   Interferometer antenna position file
-sdantlist : string
-   Single dish antenna position file
-sdant : int
-   Single dish antenna index in file
-user_pwv : double
-   Precipitable Water Vapor in mm
-t_ground : double
-   Ground/spillover ambient temperature in K
-t_sky : double
-   Atmospheric temperatur in K
-tau0 : double
-   Zenith opacity
-seed : int
-   Random number seed
+Subparameters
+   *skymodel != ''*
 
-Notes
------
+   - **inbright** (string='') - Peak brightness to scale the image to in Jy/pixel
+   - **indirection** (string='') - Set new direction, e.g. J2000 19h00m00 -40d00m00
+   - **incell** (string='') - Set new cell/pixel size, e.g. 0.1arcsec
+   - **incenter** (string='') - Set new frequency of center channel e.g. 89GHz (required even for 2D model)
+   - **inwidth** (string='') - Set new channel width, e.g. "10MHz" (required even for 2D model)
+
+   *complist != ''*
+
+   - **compwidth** (string=8GHz) - Bandwidth of components
+   - **comp_nchan** (int=1) - Channelization of components
+
+   *setpointings = True*
+
+   - **integration** (string=10s) - Integration (sampling) time
+   - **direction** (stringArray='') - Mosaic center direction, e.g J2000 19h00m00 -40d00m00
+   - **mapsize** (stringArray=
+        ) - Angular size of mosaic map to simulate.
+   - **maptype** (string=ALMA) - how to calculate the pointings for the mosaic observation: hexagonal, square (raster), ALMA, etc.
+   - **pointingspacing** (string='') - Spacing in between pointings e.g. 0.25PB. ALMA default: INT=lambda/D/sqrt(3), SD=lambda/D/3 
+
+   *setpointings = False*
+
+   - **ptgfile** (string=$project.ptg.txt) - List of pointing positions
+   - **integration** (string=10s) - Integration (sampling) time
+
+   *obsmode = int*
+
+   - **antennalist** (string=alma.out10.cfg) - Interferometer antenna position file
+   - **refdate** (string=2014/05/21) - Date of observation. Not critical unless concatting simulations
+   - **hourangle** (string=transit) - Hour angle of observation center, e.g. -3:00:00, 5h
+   - **totaltime** (string="7200s") - Total time of observation or number of repetitions
+   - **caldirection** (string='') - pt source calibrator [experimental]
+   - **calflux** (string=1Jy) - pt source calibrator flux [experimental]
+
+   *obsmode = sd*
+
+   - **sdantlist** (string=aca.tp.cfg) - Single dish antenna position file
+   - **sdant** (int=0) - Single dish antenna index in file
+   - **refdate** (string=2014/05/21) - Date of observation. Not critical unless concatting simulations
+   - **hourangle** (string=transit) - Hour angle of observation center, e.g. -3:00:00, 5h
+   - **totaltime** (string="7200s") - Total time of observation or number of repetitions
+
+   *obsmode = ''*
+
+   - **antennalist** (string='') - Interferometer antenna position file
+   - **sdantlist** (string='') - Single dish antenna position file
+   - **sdant** (int=0) - Single dish antenna index in file
+
+   *thermalnoise = tsys-atm*
+
+   - **user_pwv** (double=0.5) - Precipitable Water Vapor in mm
+   - **t_ground** (double=269.) - Ground/spillover ambient temperature in K
+   - **seed** (int=11111) - Random number seed
+
+   *thermalnoise = tsys-manual*
+
+   - **t_ground** (double=269.) - Ground/spillover ambient temperature in K
+   - **t_sky** (double=263.) - Atmospheric temperatur in K
+   - **tau0** (double=0.1) - Zenith opacity
+   - **seed** (int=11111) - Random number seed
 
 
-
-
-
-   task description
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 

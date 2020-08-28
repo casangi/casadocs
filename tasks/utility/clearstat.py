@@ -3,33 +3,13 @@
 #
 
 def clearstat():
-    """
+    r"""
 Clear all autolock locks
 
-| This task is useful if another task that is running indicates
-|that it is trying to obtain a lock on a file.
-|
-|Typing 'go clearstat()'  will not change the current task being scrutinized
-|Typing 'clearstat()'     will change the current task assignment to clearpstat
-|                         which is generally not what is desired.
-
 Parameters
-----------
-
-Other Parameters
-----------
-
-Notes
------
 
 
-
-
-
-   clear all autolock locks
-
-
-
+Description
       Clears all autolocking file locks.
 
       Some tasks (e.g., **browsetable**) need to obtain table locks in

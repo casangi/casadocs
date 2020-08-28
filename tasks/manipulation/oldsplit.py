@@ -3,72 +3,35 @@
 #
 
 def oldsplit(vis, outputvis='', datacolumn='corrected', field='', spw='', width='1', antenna='', timebin='0s', timerange='', array='', uvrange='', scan='', intent='', correlation='', observation='', combine='', keepflags=True, keepmms=False):
-    """
+    r"""
 Create a visibility subset from an existing visibility set
 
-| T H I S   T A S K   I S    D E P R E C A T E D
-|    I T   W I L L   B E   R E M O V E D   S O O N
-|
-|Oldsplit is the general purpose program to make a new data set that is a
-|subset or averaged form of an existing data set. Oldsplit is often used after the initial calibration of the data to make a
-|smaller measurement set with only the data that will be used in
-|further flagging, imaging and/or self-calibration. Oldsplit includes
-|general selection parameters and can average over frequency (channels) and time (integrations).
-
 Parameters
-----------
-vis : string
-   Name of input measurement set
-outputvis : string
-   Name of output measurement set
-datacolumn : string
-   Data column(s) to Oldsplit out
-field : string, stringArray, int, intArray
-   Select field using ID(s) or name(s)
-spw : string, stringArray, int, intArray
-   Select spectral window/channels
-width : string, stringArray, int, intArray
-   Number of channels to average to form one output channel
-antenna : string, stringArray, int, intArray
-   Select data based on antenna/baseline
-timebin : string
-   Interval for time averaging
-timerange : string
-   Select data by time range
-array : string
-   Select (sub)array(s) by array ID number
-uvrange : string
-   Select data by baseline length (default units meters)
-scan : string
-   Select data by scan numbers
-intent : string
-   Select data by scan intents
-correlation : string, stringArray
-   Select correlations
-observation : string, int
-   Select by observation ID(s)
-keepflags : bool
-   If practical, keep *completely flagged rows* instead of dropping them.
-keepmms : bool
-   If the input is a multi-MS, make the output one,too.
+   - **vis** (string) - Name of input measurement set
+   - **outputvis** (string) - Name of output measurement set
+   - **datacolumn** (string) - Data column(s) to Oldsplit out
+   - **field** (string, stringArray, int, intArray) - Select field using ID(s) or name(s)
+   - **spw** (string, stringArray, int, intArray) - Select spectral window/channels
+   - **width** (string, stringArray, int, intArray) - Number of channels to average to form one output channel
+   - **antenna** (string, stringArray, int, intArray) - Select data based on antenna/baseline
+   - **timebin** (string) - Interval for time averaging
+   - **timerange** (string) - Select data by time range
+   - **array** (string) - Select (sub)array(s) by array ID number
+   - **uvrange** (string) - Select data by baseline length (default units meters)
+   - **scan** (string) - Select data by scan numbers
+   - **intent** (string) - Select data by scan intents
+   - **correlation** (string, stringArray) - Select correlations
+   - **observation** (string, int) - Select by observation ID(s)
+   - **keepflags** (bool) - If practical, keep *completely flagged rows* instead of dropping them.
+   - **keepmms** (bool) - If the input is a multi-MS, make the output one,too.
 
-Other Parameters
-----------
-combine : string, stringArray
-   Let time bins span changes in scan and/or stat
+Subparameters
+   *timebin != 0s*
 
-Notes
------
+   - **combine** (string='', stringArray) - Let time bins span changes in scan and/or stat
 
 
-msview
-======
-
-
-   task description
-
-
-
+Description
       The msview task will display a MeasurementSet in raster form. Many
       display and editing options are available. Executing the
       **msview** task will bring up a display panel window, which can be

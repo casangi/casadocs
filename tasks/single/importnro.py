@@ -3,41 +3,17 @@
 #
 
 def importnro(infile, outputvis='', overwrite=False, parallel=False):
-    """
+    r"""
 Convert NOSTAR data into a CASA visibility file (MS)
 
-| Task importnro enables one to convert the data obtained with the
-|NRO45m telescope into the CASA MS2 format. At this moment, only the
-|OTF data (NOSTAR data) obtained with the SAM45 spectrometer is
-|supported, and the OTF data obtained with the other spectrometers
-|(e.g., AOS) and the PSW data (NEWSTAR data) are outside of scope
-|(Jan./25/2017)
-
 Parameters
-----------
-infile : string
-   Name of input NOSTAR data
-outputvis : string
-   Root name of the ms to be created. Note the .ms is NOT added 
-overwrite : bool
-   Over write an existing MS(s)
-parallel : bool
-   Turn on parallel execution
-
-Other Parameters
-----------
-
-Notes
------
+   - **infile** (string) - Name of input NOSTAR data
+   - **outputvis** (string) - Root name of the ms to be created. Note the .ms is NOT added 
+   - **overwrite** (bool) - Over write an existing MS(s)
+   - **parallel** (bool) - Turn on parallel execution
 
 
-
-
-
-   task description
-
-
-
+Description
       | Task **importnro** enables one to convert the data obtained with
         the NRO45m telescope into the CASA MS2 format. Usage of this
         task is very simple. Set *infile* and *outputvis*, then run the

@@ -3,75 +3,63 @@
 #
 
 def visstat(vis, axis='amplitude', datacolumn='data', useflags=True, spw='', field='', selectdata=True, antenna='', uvrange='', timerange='', correlation='', scan='', array='', observation='', timeaverage=False, timebin='0s', timespan='', maxuvwdistance=0.0, disableparallel=False, ddistart=-1, taql='', monolithic_processing=False, intent='', reportingaxes='ddid'):
-    """
+    r"""
 Displays statistical information from a MeasurementSet, or from a Multi-MS
 
 Parameters
-----------
-vis : string
-   Name of MeasurementSet or Multi-MS
-axis : string
-   Values on which to compute statistics
-useflags : bool
-   Take flagging into account?
-spw : string
-   spectral-window/frequency/channel
-field : string
-   Field names or field index numbers: \'\'==>all, field=\'0~2,3C286\'
-selectdata : bool
-   More data selection parameters (antenna, timerange etc)
-timeaverage : bool
-   Average data in time.
-intent : string, stringArray, int, intArray
-   Select data by scan intent.
-reportingaxes : string
-   Which reporting axis to use (ddid, field, integration)
+   - **vis** (string) - Name of MeasurementSet or Multi-MS
+   - **axis** (string) - Values on which to compute statistics
+   - **useflags** (bool) - Take flagging into account?
+   - **spw** (string) - spectral-window/frequency/channel
+   - **field** (string) - Field names or field index numbers: \'\'==>all, field=\'0~2,3C286\'
+   - **selectdata** (bool) - More data selection parameters (antenna, timerange etc)
+   - **timeaverage** (bool) - Average data in time.
+   - **intent** (string, stringArray, int, intArray) - Select data by scan intent.
+   - **reportingaxes** (string) - Which reporting axis to use (ddid, field, integration)
 
-Other Parameters
-----------
-datacolumn : string
-   Which data column to use (data, corrected, model, float_data)
-antenna : string
-   antenna/baselines: \'\'==>all, antenna = \'3,VA04\'
-uvrange : string
-   uv range: \'\'==>all; uvrange = \'0~100klambda\', default units=meters
-timerange : string
-   time range: \'\'==>all, timerange=\'09:14:0~09:54:0\'
-correlation : string
-   Select data based on correlation
-scan : string
-   scan numbers: \'\'==>all
-array : string
-   (sub)array numbers: \'\'==>all
-observation : string, int
-   observation ID number(s): \'\' = all
-timebin : string
-   Bin width for time averaging.
-timespan : string, stringArray
-   Span the timebin across scan, state or both.
-maxuvwdistance : double
-   Maximum separation of start-to-end baselines that can be included in an average. (meters)
-disableparallel : bool
-   Hidden parameter for internal use only. Do not change it!
-ddistart : int
-   Hidden parameter for internal use only. Do not change it!
-taql : string
-   Table query for nested selections
-monolithic_processing : bool
-   Hidden parameter for internal use only. Do not change it!
+Subparameters
+   *axis = amp*
 
-Notes
------
+   - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
+
+   *axis = amplitude*
+
+   - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
+
+   *axis = phase*
+
+   - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
+
+   *axis = real*
+
+   - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
+
+   *axis = imag*
+
+   - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
+
+   *axis = imaginary*
+
+   - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
+
+   *selectdata = True*
+
+   - **antenna** (string='') - antenna/baselines: \'\'==>all, antenna = \'3,VA04\'
+   - **timerange** (string='') - time range: \'\'==>all, timerange=\'09:14:0~09:54:0\'
+   - **correlation** (string='') - Select data based on correlation
+   - **scan** (string='') - scan numbers: \'\'==>all
+   - **array** (string='') - (sub)array numbers: \'\'==>all
+   - **observation** (string='', int) - observation ID number(s): \'\' = all
+   - **uvrange** (string='') - uv range: \'\'==>all; uvrange = \'0~100klambda\', default units=meters
+
+   *timeaverage = True*
+
+   - **timebin** (string=0s) - Bin width for time averaging.
+   - **timespan** (string='', stringArray) - Span the timebin across scan, state or both.
+   - **maxuvwdistance** (double=0.0) - Maximum separation of start-to-end baselines that can be included in an average. (meters)
 
 
-
-
-
-   display statistical information from a Measurement Set, or from a
-   Multi-MS
-
-
-
+Description
       This task returns a dictionary with statistical information about
       data in a MeasurementSet or Multi-MS.
 

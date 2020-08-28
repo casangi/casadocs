@@ -3,57 +3,33 @@
 #
 
 def deconvolve(imagename, model='', psf=[''], alg='clark', niter=10, gain=0.1, threshold=0.0, mask='', scales=[0, 3, 10], sigma=0.0, targetflux=1.0, prior=''):
-    """
+    r"""
 Image based deconvolver
 
-| Several algorithms are available to deconvolve an image with a
-|known psf (dirty beam), or a Gaussian beam.  The algorithms
-|available are clark and hogbom clean, a multiscale clean and a
-|mem clean.
-|
-|NOTE: Recommend using taskname=clean if psf is a dirty beam
-
 Parameters
-----------
-imagename : string
-   
-model : string
-   
-psf : stringArray
-   
-alg : string
-   
-niter : int
-   
-gain : double
-   
-threshold : double
-   
-mask : string
-   
+   - **imagename** (string) - 
+   - **model** (string) - 
+   - **psf** (stringArray) - 
+   - **alg** (string) - 
+   - **niter** (int) - 
+   - **gain** (double) - 
+   - **threshold** (double) - 
+   - **mask** (string) - 
 
-Other Parameters
-----------
-scales : intArray
-   
-sigma : double
-   
-targetflux : double
-   
-prior : string
-   
+Subparameters
+   *alg = multiscale*
 
-Notes
------
+   - **scales** (intArray=
+                        ) - 
+
+   *alg = mem*
+
+   - **sigma** (double=1.0) - 
+   - **targetflux** (double=1.0) - 
+   - **prior** (string='') - 
 
 
-
-
-
-   image based deconvolver
-
-
-
+Description
       **deconvolve** performs minor cycle deconvolution directly on a
       dirty image. No MS is required. 
 

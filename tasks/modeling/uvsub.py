@@ -3,36 +3,15 @@
 #
 
 def uvsub(vis, reverse=False):
-    """
+    r"""
 Subtract/add model from/to the corrected visibility data.
 
-| This function subtracts model visibility data (MODEL_DATA column) from corrected visibility
-|        data (CORRECTED_DATA column) leaving the residuals in the corrected data column.  If the
-|        parameter 'reverse' is set true, the process is reversed. Note the DATA column is left untouched.
-|        If the ms has no CORRECTED _DATA column, one is made, copying DATA column, ahead of doing the 
-|        uvsub process
-
 Parameters
-----------
-vis : string
-   Name of input visibility file (MS)
-reverse : bool
-   reverse the operation (add rather than subtract)
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (string) - Name of input visibility file (MS)
+   - **reverse** (bool) - reverse the operation (add rather than subtract)
 
 
-
-
-
-   
-
-
-
+Description
       Subtracts model visibilities from the corrected visibility data in
       a MeasurementSet.
 

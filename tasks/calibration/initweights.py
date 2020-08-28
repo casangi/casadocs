@@ -3,40 +3,31 @@
 #
 
 def initweights(vis, wtmode='nyq', tsystable='', gainfield='', interp='', spwmap=[''], dowtsp=False):
-    """
+    r"""
 Initializes weight information in the MS
 
 Parameters
-----------
-vis : string
-   Name of input visibility file (MS)
-wtmode : string
-   Initialization mode
-dowtsp : bool
-   Initialize the WEIGHT_SPECTRUM column
+   - **vis** (string) - Name of input visibility file (MS)
+   - **wtmode** (string) - Initialization mode
+   - **dowtsp** (bool) - Initialize the WEIGHT_SPECTRUM column
 
-Other Parameters
-----------
-tsystable : string
-   Tsys calibration table to apply on the fly
-gainfield : string
-   Select a subset of calibrators from Tsys table
-interp : string
-   Interpolation type in time[,freq]. default==\'linear,linear\'
-spwmap : intArray
-   Spectral windows combinations to form for gaintable(s)
+Subparameters
+   *wtmode = tsys*
 
-Notes
------
+   - **tsystable** (string='') - Tsys calibration table to apply on the fly
+   - **gainfield** (string='') - Select a subset of calibrators from Tsys table
+   - **interp** (string='') - Interpolation type in time[,freq]. default==\'linear,linear\'
+   - **spwmap** (intArray='') - Spectral windows combinations to form for gaintable(s)
+
+   *wtmode = tinttsys*
+
+   - **tsystable** (string='') - Tsys calibration table to apply on the fly
+   - **gainfield** (string='') - Select a subset of calibrators from Tsys table
+   - **interp** (string='') - Interpolation type in time[,freq]. default==\'linear,linear\'
+   - **spwmap** (intArray='') - Spectral windows combinations to form for gaintable(s)
 
 
-
-
-
-   task description
-
-
-
+Description
       This task provides for initialization of the weight information in
       the MS. An overview on weights in CASA is provided in the `Data
       Weights <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-weights>`__

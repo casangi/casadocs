@@ -3,124 +3,88 @@
 #
 
 def tsdimaging(infiles, outfile='', overwrite=False, field='', spw='', antenna='', scan='', intent='OBSERVE_TARGET#ON_SOURCE', mode='channel', nchan=-1, start='0', width='1', veltype='radio', specmode='cube', outframe='', gridfunction='BOX', convsupport=-1, truncate='-1', gwidth='-1', jwidth='-1', imsize=[''], cell='', phasecenter='', projection='SIN', pointingcolumn='direction', restfreq='', stokes='I', minweight=0.1, brightnessunit='', clipminmax=False):
-    """
+    r"""
 SD task: imaging for total power and spectral data
 
-| Task sdimaging creates an image from input single-dish data sets.
-|The input can be either total power and spectral data. 
-|
-|The coordinate of output image is defined by four axes, i.e., two
-|spatial axes, frequency and polarization axes.\n
-|By default, spatial coordinate of image is defined so that the all
-|pointing directions in POINTING tables of input data sets are covered
-|with the cell size, 1/3 of FWHM of primary beam of antennas in the
-|first MS. Therefore, it is often easiest to leave spatial definitions
-|at the default values. It is also possible to define spatial axes of
-|the image by specifying the image center direction (phasecenter),
-|number of image pixel (imsize) and size of the pixel (cell).\n
-|The frequency coordinate of image is defined by three parameters,
-|the number of channels (nchan), the channel id/frequency/velocity of
-|the first channel (start), and channel width (width).There are three
-|modes available to define unit of start and width, i.e., 'channel' (use
-|channel indices), 'frequency' (use frequency unit, e.g., 'GHz'),
-|and 'velocity' (use velocity unit, e.g., 'km/s'). By default, nchan,
-|start, and width are defined so that all selected spectral windows are
-|covered with the channel width equal to separation of first two
-|channels selected.\n
-|Finally, polarizations of image is defined by stokes parameter or
-|polarization. For example, stokes='XXYY' produces an image cube with
-|each plane contains the image of one of the polarizations, while
-|stokes='I' produces a 'total intensity' or Stokes I image.
-|The stokes parameter has a special option, 'pseudoI'. The option is 
-|introduced to support imaging of partially flagged correlations. 
-|Main difference between 'I' and 'pseudoI' is that the former only takes 
-|into account the data whose correlations are all valid (this is the 
-|Stokes I in the strict sense) while the latter accumulates partially 
-|flagged data in addition. Note that the 'pseudoI' option is compatible 
-|with 'I' for sdimaging task. 
-|
-|The task also supports various grid function (convolution kernel) to
-|weight spectra as well as an option to remove the most extreme minimum 
-|and maximum (unweighted) values prior to computing the gridded pixel 
-|values. See description below for details of gridfunction available.
-
 Parameters
-----------
-infiles : stringArray
-   a list of names of input SD Measurementsets (only MS is allowed for this task)
-outfile : string
-   prefix of output images (.image, .weight, .sumwt, .psf)
-overwrite : bool
-   overwrite the output file if already exists [True, False]
-field : string, stringArray
-   select data by field IDs and names, e.g. \'3C2*\' (\'\'=all)
-spw : string, stringArray
-   select data by IF IDs (spectral windows), e.g. \'3,5,7\' (\'\'=all)
-antenna : string, stringArray
-   select data by antenna names or IDs, e.g, \'PM03\' (\'\' = all antennas)
-scan : string, stringArray
-   select data by scan numbers, e.g. \'21~23\' (\'\'=all)
-intent : string, stringArray
-   select data by observational intent, e.g. \'*ON_SOURCE*\' (\'\'=all)
-mode : string
-   spectral gridding type [\'channel\', \'frequency\', \'velocity\']
-specmode : string
-   Spectral definition mode (cube, cubedata, cubesource)
-gridfunction : string
-   gridding function for imaging [\'BOX\', \'SF\', \'PB\', \'GAUSS\' or \'GJINC\'] (see description in help)
-imsize : intArray, doubleArray
-   x and y image size in pixels, e.g., [64,64]. Single value: same for both spatial axes ([] = number of pixels to cover whole pointings in MSes)
-cell : string, stringArray, doubleArray
-   x and y cell size, (e.g., [\'8arcsec\',\'8arcsec\']. default unit arcmin. ('' = 1/3 of FWHM of primary beam)
-phasecenter : variant
-   image center direction: position or field index or ephemeris source info, e.g., \'J2000 17:30:15.0 -25.30.00.0\', \'MARS\'. (\'\' = the center of pointing directions in MSes)
-projection : string
-   map projection type
-pointingcolumn : string
-   pointing data column to use [\'direction\', \'target\', \'pointing_offset\', \'source_offset\' or \'encoder\']
-restfreq : string, double
-   rest frequency to assign to image, e.g., \'114.5GHz\'
-stokes : string
-   stokes parameters or polarization types to image, e.g. \'I\', \'XX\'
-minweight : double
-   Minimum weight ratio to use
-brightnessunit : string
-   Overwrite the brightness unit in image (\'\' = respect the unit in MS) [\'K\' or \'Jy/beam\']
-clipminmax : bool
-   Clip minimum and maximum value from each pixel
+   - **infiles** (stringArray) - a list of names of input SD Measurementsets (only MS is allowed for this task)
+   - **outfile** (string) - prefix of output images (.image, .weight, .sumwt, .psf)
+   - **overwrite** (bool) - overwrite the output file if already exists [True, False]
+   - **field** (string, stringArray) - select data by field IDs and names, e.g. \'3C2*\' (\'\'=all)
+   - **spw** (string, stringArray) - select data by IF IDs (spectral windows), e.g. \'3,5,7\' (\'\'=all)
+   - **antenna** (string, stringArray) - select data by antenna names or IDs, e.g, \'PM03\' (\'\' = all antennas)
+   - **scan** (string, stringArray) - select data by scan numbers, e.g. \'21~23\' (\'\'=all)
+   - **intent** (string, stringArray) - select data by observational intent, e.g. \'*ON_SOURCE*\' (\'\'=all)
+   - **mode** (string) - spectral gridding type [\'channel\', \'frequency\', \'velocity\']
+   - **specmode** (string) - Spectral definition mode (cube, cubedata, cubesource)
+   - **gridfunction** (string) - gridding function for imaging [\'BOX\', \'SF\', \'PB\', \'GAUSS\' or \'GJINC\'] (see description in help)
+   - **imsize** (intArray, doubleArray) - x and y image size in pixels, e.g., [64,64]. Single value: same for both spatial axes ([] = number of pixels to cover whole pointings in MSes)
+   - **cell** (string, stringArray, doubleArray) - x and y cell size, (e.g., [\'8arcsec\',\'8arcsec\']. default unit arcmin. ('' = 1/3 of FWHM of primary beam)
+   - **phasecenter** (variant) - image center direction: position or field index or ephemeris source info, e.g., \'J2000 17:30:15.0 -25.30.00.0\', \'MARS\'. (\'\' = the center of pointing directions in MSes)
+   - **projection** (string) - map projection type
+   - **pointingcolumn** (string) - pointing data column to use [\'direction\', \'target\', \'pointing_offset\', \'source_offset\' or \'encoder\']
+   - **restfreq** (string, double) - rest frequency to assign to image, e.g., \'114.5GHz\'
+   - **stokes** (string) - stokes parameters or polarization types to image, e.g. \'I\', \'XX\'
+   - **minweight** (double) - Minimum weight ratio to use
+   - **brightnessunit** (string) - Overwrite the brightness unit in image (\'\' = respect the unit in MS) [\'K\' or \'Jy/beam\']
+   - **clipminmax** (bool) - Clip minimum and maximum value from each pixel
 
-Other Parameters
-----------
-nchan : int
-    number of channels (planes) in output image (-1=all)
-start : string, int
-   start of output spectral dimension, e.g. \'0\', \'110GHz\', \'-20km/s\'
-width : string, int
-   width of output spectral channels
-veltype : string
-   velocity definition [\'radio\', \'optical\', \'true\' or \'relativistic\'] 
-outframe : string
-   velocity frame of output image [\'lsrk\', \'lsrd\', \'bary\', \'geo\', \'topo\', \'galacto\', \'lgroup\', \'cmb\'] (\'\'=current frame or LSRK for multiple-MS inputs) 
-convsupport : int
-   convolution support for gridding
-truncate : string, int, double
-   truncation radius for gridding
-gwidth : string, int, double
-   HWHM for gaussian
-jwidth : string, int, double
-   c-parameter for jinc function
+Subparameters
+   *mode = channel*
 
-Notes
------
+   - **nchan** (int=-1) -  number of channels (planes) in output image (-1=all)
+   - **start** (string='', int) - start of output spectral dimension, e.g. \'0\', \'110GHz\', \'-20km/s\'
+   - **width** (string='', int) - width of output spectral channels
+
+   *mode = frequency*
+
+   - **nchan** (int=-1) -  number of channels (planes) in output image (-1=all)
+   - **start** (string='', int) - start of output spectral dimension, e.g. \'0\', \'110GHz\', \'-20km/s\'
+   - **width** (string='', int) - width of output spectral channels
+
+   *mode = velocity*
+
+   - **nchan** (int=-1) -  number of channels (planes) in output image (-1=all)
+   - **start** (string='', int) - start of output spectral dimension, e.g. \'0\', \'110GHz\', \'-20km/s\'
+   - **width** (string='', int) - width of output spectral channels
+   - **veltype** (string=radio) - velocity definition [\'radio\', \'optical\', \'true\' or \'relativistic\'] 
+
+   *specmode = cube*
+
+   - **outframe** (string='') - velocity frame of output image [\'lsrk\', \'lsrd\', \'bary\', \'geo\', \'topo\', \'galacto\', \'lgroup\', \'cmb\'] (\'\'=current frame or LSRK for multiple-MS inputs) 
+
+   *gridfunction = SF*
+
+   - **convsupport** (int=-1) - convolution support for gridding
+
+   *gridfunction = sf*
+
+   - **convsupport** (int=-1) - convolution support for gridding
+
+   *gridfunction = GAUSS*
+
+   - **truncate** (string=-1, int, double) - truncation radius for gridding
+   - **gwidth** (string=-1, int, double) - HWHM for gaussian
+
+   *gridfunction = gauss*
+
+   - **truncate** (string=-1, int, double) - truncation radius for gridding
+   - **gwidth** (string=-1, int, double) - HWHM for gaussian
+
+   *gridfunction = GJINC*
+
+   - **truncate** (string=-1, int, double) - truncation radius for gridding
+   - **gwidth** (string=-1, int, double) - HWHM for gaussian
+   - **jwidth** (string=-1, int, double) - c-parameter for jinc function
+
+   *gridfunction = gjinc*
+
+   - **truncate** (string=-1, int, double) - truncation radius for gridding
+   - **gwidth** (string=-1, int, double) - HWHM for gaussian
+   - **jwidth** (string=-1, int, double) - c-parameter for jinc function
 
 
-
-
-
-   SD task: imaging for total power and spectral data.
-
-
-
+Description
       The **tsdimaging** task grids/images total power and spectral data
       according to a specified gridding kernel. The input data should be
       calibrated and bandpass corrected (where necessary), and the
@@ -278,19 +242,10 @@ Notes
       underway to make **tsdimaging** compatible with **sdimaging** and
       convert it to a "regular" (non-experimental) task.
 
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 1                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | Mangum, et al. 2007, A&A, 474, 679-687            |
-      |                 | `(A&A) <http://www.aa                             |
-      |                 | nda.org/articles/aa/pdf/2007/41/aa7811-07.pdf>`__ |
-      +-----------------+---------------------------------------------------+
 
-
-         Bibliography
-
+   Bibliography
          :sup:`1. Mangum, et al. 2007, A&A, 474,
-         679-687` `(A&A) <http://www.aanda.org/articles/aa/pdf/2007/41/aa7811-07.pdf>`__ `↩ <#ref-cit1>`__
+         679-687` `(A&A) <http://www.aanda.org/articles/aa/pdf/2007/41/aa7811-07.pdf>`__ `<#ref-cit1>`__
 
     """
     pass

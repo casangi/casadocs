@@ -3,67 +3,55 @@
 #
 
 def imstat(imagename, axes='-1', region='', box='', chans='', stokes='', listit=True, verbose=True, mask='', stretch=False, logfile='', append=True, algorithm='classic', fence=-1, center='mean', lside=True, zscore=-1, maxiter=-1, clmethod='auto', niter=3):
-    """
+    r"""
 Displays statistical information from an image or image region
 
 Parameters
-----------
-imagename : string
-   Name of the input image
-axes : variant
-   List of axes to evaluate statistics over. Default is all axes.
-region : string
-   Region selection. Default is to use the full image.
-box : string
-   Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
-chans : string
-   Channels to use. Default is to use all channels.
-stokes : string
-   Stokes planes to use. Default is to use all Stokes planes.
-listit : bool
-   Print stats and bounding box to logger?
-verbose : bool
-   Print additional messages to logger?
-mask : string
-   Mask to use. Default is none.
-logfile : string
-   Name of file to write fit results.
-algorithm : string
-   Algorithm to use. Supported values are "biweight", "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported.
+   - **imagename** (string) - Name of the input image
+   - **axes** (variant) - List of axes to evaluate statistics over. Default is all axes.
+   - **region** (string) - Region selection. Default is to use the full image.
+   - **box** (string) - Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
+   - **chans** (string) - Channels to use. Default is to use all channels.
+   - **stokes** (string) - Stokes planes to use. Default is to use all Stokes planes.
+   - **listit** (bool) - Print stats and bounding box to logger?
+   - **verbose** (bool) - Print additional messages to logger?
+   - **mask** (string) - Mask to use. Default is none.
+   - **logfile** (string) - Name of file to write fit results.
+   - **algorithm** (string) - Algorithm to use. Supported values are "biweight", "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported.
 
-Other Parameters
-----------
-stretch : bool
-   Stretch the mask if necessary and possible? 
-append : bool
-   If logfile exists, append to it if True or overwrite it if False
-fence : double
-   Fence value for hinges-fences. A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if algorithm is not "hinges-fences".
-center : string
-   Center to use for fit-half. Valid choices are "mean", "median", and "zero". Ignored if algorithm is not "fit-half".
-lside : bool
-   For fit-half, use values <= center for real data if True? If False, use values >= center as real data. Ignored if algorithm is not "fit-half".
-zscore : double
-   For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet"s criterion. Ignored if algorithm is not "chauvenet".
-maxiter : int
-   For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algorithm is not "chauvenet".
-clmethod : string
-   Method to use for calculating classical statistics. Supported methods are "auto", "tiled", and "framework". Ignored if algorithm is not "classic".
-niter : int
-   For biweight, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, do a fast, simple computation (see description). Ignored if the algorithm is not "biweight".
+Subparameters
+   *mask != ''*
 
-Notes
------
+   - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
+
+   *logfile != ''*
+
+   - **append** (bool=True) - If logfile exists, append to it if True or overwrite it if False
+
+   *algorithm = classic*
+
+   - **clmethod** (string=auto) - Method to use for calculating classical statistics. Supported methods are "auto", "tiled", and "framework". Ignored if algorithm is not "classic".
+
+   *algorithm = hinges-fences*
+
+   - **fence** (double=-1) - Fence value for hinges-fences. A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if algorithm is not "hinges-fences".
+
+   *algorithm = fit-half*
+
+   - **center** (string=mean) - Center to use for fit-half. Valid choices are "mean", "median", and "zero". Ignored if algorithm is not "fit-half".
+   - **lside** (bool=True) - For fit-half, use values <= center for real data if True? If False, use values >= center as real data. Ignored if algorithm is not "fit-half".
+
+   *algorithm = chauvenet*
+
+   - **zscore** (double=-1) - For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet"s criterion. Ignored if algorithm is not "chauvenet".
+   - **maxiter** (int=-1) - For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algorithm is not "chauvenet".
+
+   *algorithm = biweight*
+
+   - **niter** (int=3) - For biweight, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, do a fast, simple computation (see description). Ignored if the algorithm is not "biweight".
 
 
-
-
-
-   imstat task: Displays statistical information from an image or image
-   region
-
-
-
+Description
       Many parameters are determined from the specified region of an
       image. The region can be specified by a set of `rectangular pixel
       coordinates, the channel ranges and the
@@ -498,7 +486,7 @@ Notes
       elliptical Gaussian defined by the synthesized beam, divided by
       the maximum of that function, which is equivalent to
 
-      :math:`\frac {π}{4 ln(2)} * FWHM_{major} * FWHM_{minor} `
+      :math:`\frac {π}{4 ln(2)} * FWHM_{major} * FWHM_{minor}`
 
       where ln() is the natural logarithm and :math:`FWHM_{major}` and
       :math:`FWHM_{minor}` are the major and minor full width at half
@@ -592,27 +580,7 @@ Notes
       computation (see description). Ignored if the algorithm is not
       "biweight".
 
-       
 
-       
-
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 1                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | Beers, T., Flynn, K., and Gebhardt, K. 1990. AJ,  |
-      |                 | 100, 1, 32.                                       |
-      +-----------------+---------------------------------------------------+
-
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 2                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | Iglewicz, Boris. 1983. “Robust Scale Estimators   |
-      |                 | and Confidence Intervals for Location” in         |
-      |                 | Understanding Robust and Exploratory Data         |
-      |                 | Analysis, eds. Hoaglin, David; Mosteller,         |
-      |                 | Frederick; and Tukey, John W., John Wiley and     |
-      |                 | Sons, Inc.                                        |
-      +-----------------+---------------------------------------------------+
 
       =============== =============================
       Footnote Number a
@@ -620,21 +588,20 @@ Notes
       =============== =============================
 
 
-         Bibliography
-
+   Bibliography
          :sup:`1. Beers, T., Flynn, K., and Gebhardt, K. 1990. AJ, 100,
-         1, 32.` `↩ <#ref-cit1>`__
+         1, 32.` `<#ref-cit1>`__
 
          :sup:`2. Iglewicz, Boris. 1983. “Robust Scale Estimators and
          Confidence Intervals for Location” in Understanding Robust and
          Exploratory Data Analysis, eds. Hoaglin, David; Mosteller,
          Frederick; and Tukey, John W., John Wiley and Sons,
-         Inc.` `↩ <#ref-cit2>`__
+         Inc.` `<#ref-cit2>`__
 
 
          Footnote(s)
 
-         :sup:`a. May be removed in the future.` `↩ <#refa>`__
+         :sup:`a. May be removed in the future.` `<#refa>`__
 
     """
     pass

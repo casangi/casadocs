@@ -3,76 +3,83 @@
 #
 
 def imsmooth(imagename, kernel='gauss', major='', minor='', pa='', targetres=False, kimage='', scale=-1.0, region='', box='', chans='', stokes='', mask='', outfile='', stretch=False, overwrite=False, beam=''):
-    """
+    r"""
 Smooth an image or portion of an image
 
-| 
-
 Parameters
-----------
-imagename : string
-   Name of the input image. Must be specified.
-kernel : string
-   Type of kernel to use. Acceptable values are "b", "box", or "boxcar" for a boxcar kernel, "g", "gauss", or "gaussian" for a gaussian kernel, "c", "common", or "commonbeam" to use the common beam of an image with multiple beams as the gaussian to which to convolve all the planes, "i" or "image" to use an image as the kernel.
-major : variant
-   Major axis for the kernels. Standard quantity representation. Must be specified for kernel="boxcar".
-minor : variant
-   Minor axis. Standard quantity representation. Must be specified for kernel="boxcar".
-pa : variant
-   Position angle used only for gaussian kernel. Standard quantity representation.
-targetres : bool
-   If gaussian kernel, specified parameters are to be resolution of output image (True) or parameters of gaussian to convolve with input image (False).
-kimage : string
-   Kernel image name. Only used if kernel="i" or "image".
-scale : double
-   Scale factor. -1.0 means auto-scale. Only used if kernel="i" or "image".
-region : variant
-   Region selection. Default is to use the full image.
-box : string
-   Rectangular region to select in direction plane. Default is to use the entire direction plane.
-chans : string
-   Channels to use. Default is to use all channels.
-stokes : string
-   Stokes planes to use. Default is to use all Stokes planes.
-mask : string
-   Mask to use. Default is none.
-outfile : string
-   Output image name. Must be specified.
-overwrite : bool
-   If true, overwrite (unprompted) pre-existing output file.
-beam : variant
-   Alternate way of describing a Gaussian. If specified, must be a dictionary with keys "major", "minor", and "pa" (or "positionangle"). Do not specify beam if specifying major, minor, and pa.
+   - **imagename** (string) - Name of the input image. Must be specified.
+   - **kernel** (string) - Type of kernel to use. Acceptable values are "b", "box", or "boxcar" for a boxcar kernel, "g", "gauss", or "gaussian" for a gaussian kernel, "c", "common", or "commonbeam" to use the common beam of an image with multiple beams as the gaussian to which to convolve all the planes, "i" or "image" to use an image as the kernel.
+   - **major** (variant) - Major axis for the kernels. Standard quantity representation. Must be specified for kernel="boxcar".
+   - **minor** (variant) - Minor axis. Standard quantity representation. Must be specified for kernel="boxcar".
+   - **pa** (variant) - Position angle used only for gaussian kernel. Standard quantity representation.
+   - **targetres** (bool) - If gaussian kernel, specified parameters are to be resolution of output image (True) or parameters of gaussian to convolve with input image (False).
+   - **kimage** (string) - Kernel image name. Only used if kernel="i" or "image".
+   - **scale** (double) - Scale factor. -1.0 means auto-scale. Only used if kernel="i" or "image".
+   - **region** (variant) - Region selection. Default is to use the full image.
+   - **box** (string) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **chans** (string) - Channels to use. Default is to use all channels.
+   - **stokes** (string) - Stokes planes to use. Default is to use all Stokes planes.
+   - **mask** (string) - Mask to use. Default is none.
+   - **outfile** (string) - Output image name. Must be specified.
+   - **overwrite** (bool) - If true, overwrite (unprompted) pre-existing output file.
+   - **beam** (variant) - Alternate way of describing a Gaussian. If specified, must be a dictionary with keys "major", "minor", and "pa" (or "positionangle"). Do not specify beam if specifying major, minor, and pa.
 
-Other Parameters
-----------
-major : variant
-   Major axis for the kernels. Standard quantity representation. Must be specified for kernel="boxcar".
-minor : variant
-   Minor axis. Standard quantity representation. Must be specified for kernel="boxcar".
-pa : variant
-   Position angle used only for gaussian kernel. Standard quantity representation.
-targetres : bool
-   If gaussian kernel, specified parameters are to be resolution of output image (True) or parameters of gaussian to convolve with input image (False).
-kimage : string
-   Kernel image name. Only used if kernel="i" or "image".
-scale : double
-   Scale factor. -1.0 means auto-scale. Only used if kernel="i" or "image".
-stretch : bool
-   If true, stretch the mask if necessary and possible.
-beam : variant
-   Alternate way of describing a Gaussian. If specified, must be a dictionary with keys "major", "minor", and "pa" (or "positionangle"). Do not specify beam if specifying major, minor, and pa.
+Subparameters
+   *kernel = gauss*
 
-Notes
------
+   - **beam** (variant='') - Alternate way of describing a Gaussian. If specified, must be a dictionary with keys "major", "minor", and "pa" (or "positionangle"). Do not specify beam if specifying major, minor, and pa.
+   - **targetres** (bool=False) - If gaussian kernel, specified parameters are to be resolution of output image (True) or parameters of gaussian to convolve with input image (False).
+   - **major** (variant='') - Major axis for the kernels. Standard quantity representation. Must be specified for kernel="boxcar".
+   - **minor** (variant='') - Minor axis. Standard quantity representation. Must be specified for kernel="boxcar".
+   - **pa** (variant='') - Position angle used only for gaussian kernel. Standard quantity representation.
+
+   *kernel = gaussian*
+
+   - **beam** (variant='') - Alternate way of describing a Gaussian. If specified, must be a dictionary with keys "major", "minor", and "pa" (or "positionangle"). Do not specify beam if specifying major, minor, and pa.
+   - **targetres** (bool=False) - If gaussian kernel, specified parameters are to be resolution of output image (True) or parameters of gaussian to convolve with input image (False).
+   - **major** (variant='') - Major axis for the kernels. Standard quantity representation. Must be specified for kernel="boxcar".
+   - **minor** (variant='') - Minor axis. Standard quantity representation. Must be specified for kernel="boxcar".
+   - **pa** (variant='') - Position angle used only for gaussian kernel. Standard quantity representation.
+
+   *kernel = g*
+
+   - **beam** (variant='') - Alternate way of describing a Gaussian. If specified, must be a dictionary with keys "major", "minor", and "pa" (or "positionangle"). Do not specify beam if specifying major, minor, and pa.
+   - **targetres** (bool=False) - If gaussian kernel, specified parameters are to be resolution of output image (True) or parameters of gaussian to convolve with input image (False).
+   - **major** (variant='') - Major axis for the kernels. Standard quantity representation. Must be specified for kernel="boxcar".
+   - **minor** (variant='') - Minor axis. Standard quantity representation. Must be specified for kernel="boxcar".
+   - **pa** (variant='') - Position angle used only for gaussian kernel. Standard quantity representation.
+
+   *kernel = box*
+
+   - **major** (variant='') - Major axis for the kernels. Standard quantity representation. Must be specified for kernel="boxcar".
+   - **minor** (variant='') - Minor axis. Standard quantity representation. Must be specified for kernel="boxcar".
+
+   *kernel = boxcar*
+
+   - **major** (variant='') - Major axis for the kernels. Standard quantity representation. Must be specified for kernel="boxcar".
+   - **minor** (variant='') - Minor axis. Standard quantity representation. Must be specified for kernel="boxcar".
+
+   *kernel = b*
+
+   - **major** (variant='') - Major axis for the kernels. Standard quantity representation. Must be specified for kernel="boxcar".
+   - **minor** (variant='') - Minor axis. Standard quantity representation. Must be specified for kernel="boxcar".
+
+   *kernel = image*
+
+   - **kimage** (string='') - Kernel image name. Only used if kernel="i" or "image".
+   - **scale** (double=-1.0) - Scale factor. -1.0 means auto-scale. Only used if kernel="i" or "image".
+
+   *kernel = i*
+
+   - **kimage** (string='') - Kernel image name. Only used if kernel="i" or "image".
+   - **scale** (double=-1.0) - Scale factor. -1.0 means auto-scale. Only used if kernel="i" or "image".
+
+   *mask != ''*
+
+   - **stretch** (bool=False) - If true, stretch the mask if necessary and possible.
 
 
-
-
-
-   imsmooth task: Smooth an image or portion of an image
-
-
-
+Description
       This task performs a Fourier-based convolution to 'smooth' the
       direction plane of an image. Smoothing is typically performed in
       order to reduce the noise in an image.

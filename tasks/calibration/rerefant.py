@@ -3,38 +3,18 @@
 #
 
 def rerefant(vis, tablein, caltable='', refantmode='flex', refant=''):
-    """
+    r"""
 Re-apply refant to a caltable
 
-| TBD
-
 Parameters
-----------
-vis : string
-   Name of input visibility file (MS)
-tablein : string
-   Input calibration table
-caltable : string
-   Output calibration table (overwrite tablein if unspecified)
-refantmode : string
-   Refant algorithm to use
-refant : string
-   Reference antenna name(s)
-
-Other Parameters
-----------
-
-Notes
------
+   - **vis** (string) - Name of input visibility file (MS)
+   - **tablein** (string) - Input calibration table
+   - **caltable** (string) - Output calibration table (overwrite tablein if unspecified)
+   - **refantmode** (string) - Refant algorithm to use
+   - **refant** (string) - Reference antenna name(s)
 
 
-
-
-
-   task description
-
-
-
+Description
       .. rubric:: Summary:
          :name: summary
 

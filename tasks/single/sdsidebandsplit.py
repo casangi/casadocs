@@ -3,49 +3,27 @@
 #
 
 def sdsidebandsplit(imagename=[''], outfile='', overwrite=False, signalshift=[''], imageshift=[''], getbothside=False, refchan=0.0, refval='', otherside=False, threshold=0.2):
-    """
+    r"""
 [EXPERIMENTAL] invoke sideband separation using FFT
 
-| [EXPERIMENTAL] SD sideband separation and supression task:
-|        Invoke sideband separation / supression using FFT
-
 Parameters
-----------
-imagename : stringArray
-   a list of names of input images
-outfile : string
-   Prefix of output image name
-overwrite : bool
-   overwrite option
-signalshift : doubleArray
-   a list of channel number shifts in signal side band
-imageshift : doubleArray
-   a list of channel number shifts in image side band
-getbothside : bool
-   sideband separation (True) or supression (False)
-otherside : bool
-   solve the solution of the other side band side and subtract the solution
-threshold : double
-   Rejection limit of solution
+   - **imagename** (stringArray) - a list of names of input images
+   - **outfile** (string) - Prefix of output image name
+   - **overwrite** (bool) - overwrite option
+   - **signalshift** (doubleArray) - a list of channel number shifts in signal side band
+   - **imageshift** (doubleArray) - a list of channel number shifts in image side band
+   - **getbothside** (bool) - sideband separation (True) or supression (False)
+   - **otherside** (bool) - solve the solution of the other side band side and subtract the solution
+   - **threshold** (double) - Rejection limit of solution
 
-Other Parameters
-----------
-refchan : double
-   reference channel of spectral axis in image sideband
-refval : string
-   frequency at the reference channel of spectral axis in image sideband (e.g., "100GHz")
+Subparameters
+   *getbothside = True*
 
-Notes
------
+   - **refchan** (double=0.0) - reference channel of spectral axis in image sideband
+   - **refval** (string='') - frequency at the reference channel of spectral axis in image sideband (e.g., "100GHz")
 
 
-
-
-
-   Perform sideband separation using FFT
-
-
-
+Description
       .. rubric:: Summary
          :name: summary
 
@@ -270,23 +248,12 @@ Notes
       a finite result. The parameter *threshold* is introduced for this
       purpose. It should range from 0.0 to 1.0.  The solution will be
       excluded from the process if :math:`|\sin(\theta)|` is less than
-      *threshold*. 
-
-       
-
-      +-----------------+---------------------------------------------------+
-      | Citation Number | 1                                                 |
-      +-----------------+---------------------------------------------------+
-      | Citation Text   | Emerson, Klein, & Haslam 1979, A&A, 76, 92        |
-      |                 | (`ADS <http://                                    |
-      |                 | adsabs.harvard.edu/abs/1979A%26A....76...92E>`__) |
-      +-----------------+---------------------------------------------------+
+      *threshold*.
 
 
-         Bibliography
-
+   Bibliography
          :sup:`1. Emerson, Klein, & Haslam 1979, A&A, 76, 92
-         (` `ADS <http://adsabs.harvard.edu/abs/1979A%26A....76...92E>`__ :sup:`)` `↩ <#ref-cit1>`__
+         (` `ADS <http://adsabs.harvard.edu/abs/1979A%26A....76...92E>`__ :sup:`)` `<#ref-cit1>`__
 
     """
     pass
