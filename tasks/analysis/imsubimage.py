@@ -18,17 +18,35 @@ Parameters
    - **verbose** (bool) - Post additional informative messages to the logger
 
 Subparameters
-   *mask != ''*
+   .. raw:: html
+
+      <details><summary><i> mask != '' </i></summary>
 
    - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
 
-   *outfile != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> outfile != '' </i></summary>
 
    - **overwrite** (bool=False) - Overwrite (unprompted) pre-existing output file?
 
-   *dropdeg = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> dropdeg = True </i></summary>
 
    - **keepaxes** (intArray=[]) - If dropdeg=True, these are the degenerate axes to keep. Nondegenerate axes are implicitly always kept.
+
+   .. raw:: html
+
+      </details>
 
 
 Description

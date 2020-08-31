@@ -20,9 +20,15 @@ Parameters
    - **outfile** (string) - Output image file name (or root for multiple moments) 
 
 Subparameters
-   *mask != ''*
+   .. raw:: html
+
+      <details><summary><i> mask != '' </i></summary>
 
    - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
+
+   .. raw:: html
+
+      </details>
 
 
 Description

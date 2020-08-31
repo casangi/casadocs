@@ -22,10 +22,16 @@ Parameters
    - **display** (bool) - Display some statistics of flux scaling
 
 Subparameters
-   *antenna != ''*
+   .. raw:: html
+
+      <details><summary><i> antenna != '' </i></summary>
 
    - **timerange** (string='') - Select data based on time range
    - **scan** (string='') - Scan number range
+
+   .. raw:: html
+
+      </details>
 
 
 Description

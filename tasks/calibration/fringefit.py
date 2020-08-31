@@ -29,7 +29,9 @@ Parameters
    - **parang** (bool) - Apply parallactic angle correction on the fly
 
 Subparameters
-   *selectdata = True*
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **timerange** (string='') - Select data based on time range
    - **antenna** (string='') - Select data based on antenna/baseline
@@ -37,16 +39,32 @@ Subparameters
    - **observation** (string='', int) - Select by observation ID(s)
    - **msselect** (string='') - Optional complex data selection (ignore for now)
 
-   *docallib = False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> docallib = False </i></summary>
 
    - **gaintable** (stringArray='') - Gain calibration table(s) to apply on the fly
    - **gainfield** (stringArray='') - Select a subset of calibrators from gaintable(s)
    - **interp** (stringArray='') - Temporal interpolation for each gaintable (''=linear)
    - **spwmap** (intArray='') - Spectral window mappings to form for gaintable(s)
 
-   *docallib = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> docallib = True </i></summary>
 
    - **callib** (string='') - Cal Library filename
+
+   .. raw:: html
+
+      </details>
 
 
 Description

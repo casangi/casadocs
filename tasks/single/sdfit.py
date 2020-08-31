@@ -24,24 +24,48 @@ Parameters
    - **overwrite** (bool) - overwrite the output file if already exists [True, False]
 
 Subparameters
-   *timebin != ''*
+   .. raw:: html
+
+      <details><summary><i> timebin != '' </i></summary>
 
    - **timespan** (string='') - span the timebin across "scan", "state", "field", or a combination of them (e.g., "scan,state")
 
-   *fitmode = list*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> fitmode = list </i></summary>
 
    - **nfit** (intArray='') - list of number of lines to fit in maskline region.
 
-   *fitmode = auto*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> fitmode = auto </i></summary>
 
    - **thresh** (double=5.0) - S/N threshold for linefinder
    - **avg_limit** (int=4) - channel averaging for broad lines
    - **minwidth** (int=4) - the minimum channel width to detect as a line
    - **edge** (intArray='') - channels to drop at beginning and end of spectrum
 
-   *fitmode = interact*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> fitmode = interact </i></summary>
 
    - **nfit** (intArray='') - list of number of lines to fit in maskline region.
+
+   .. raw:: html
+
+      </details>
 
 
 Description

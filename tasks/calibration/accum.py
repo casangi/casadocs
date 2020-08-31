@@ -17,9 +17,15 @@ Parameters
    - **spwmap** (intArray) - Spectral window combinations to apply
 
 Subparameters
-   *tablein = ''*
+   .. raw:: html
+
+      <details><summary><i> tablein = '' </i></summary>
 
    - **accumtime** (double=1.0, int) - Time-interval when create cumulative table
+
+   .. raw:: html
+
+      </details>
 
 
 Description

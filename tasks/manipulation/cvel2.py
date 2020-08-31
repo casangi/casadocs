@@ -30,33 +30,57 @@ Parameters
    - **hanning** (bool) - Hanning smooth data to remove Gibbs ringing.
 
 Subparameters
-   *mode = channel*
+   .. raw:: html
+
+      <details><summary><i> mode = channel </i></summary>
 
    - **nchan** (int=-1) - Number of channels in the output spw
    - **start** (variant=0) - First input channel to use
    - **width** (variant=1) - Channel width of the output visibilities.
    - **interpolation** (string=linear) - Spectral interpolation method
 
-   *mode = channel_b*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = channel_b </i></summary>
 
    - **nchan** (int=-1) - Number of channels in the output spw
    - **start** (variant=0) - First input channel to use
    - **width** (variant=1) - Channel width of the output visibilities.
    - **interpolation** (string=linear) - Spectral interpolation method
 
-   *mode = velocity*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = velocity </i></summary>
 
    - **nchan** (int=-1) - Number of channels in the output spw
    - **start** (variant='') - First input channel to use
    - **width** (variant='') - Channel width of the output visibilities.
    - **interpolation** (string=linear) - Spectral interpolation method
 
-   *mode = frequency*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = frequency </i></summary>
 
    - **nchan** (int=-1) - Number of channels in the output spw
    - **start** (variant='') - First input channel to use
    - **width** (variant='') - Channel width of the output visibilities.
    - **interpolation** (string=linear) - Spectral interpolation method
+
+   .. raw:: html
+
+      </details>
 
 
 Description

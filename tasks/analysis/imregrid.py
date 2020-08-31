@@ -18,9 +18,15 @@ Parameters
    - **overwrite** (bool) - Overwrite (unprompted) pre-existing output file?
 
 Subparameters
-   *template != get*
+   .. raw:: html
+
+      <details><summary><i> template != get </i></summary>
 
    - **shape** (intArray='') - Shape of the output image. Only used if template is an image. If not specified (-1), the output image shape will be the same as the template image shape along the axes that are regridded and the same as input image shape along the axes which are not regridded.
+
+   .. raw:: html
+
+      </details>
 
 
 Description

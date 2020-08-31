@@ -37,11 +37,19 @@ Parameters
    - **sigma** (string, doubleArray, intArray) - Standard deviation array or image name.
 
 Subparameters
-   *mask != ''*
+   .. raw:: html
+
+      <details><summary><i> mask != '' </i></summary>
 
    - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
 
-   *estimates = ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> estimates = '' </i></summary>
 
    - **ngauss** (int=1) - Number of Gaussian elements.  Default: 1.
    - **pampest** (string='', double, doubleArray, int, intArray) - Initial estimate of PCF profile (gaussian or lorentzian) amplitudes.
@@ -50,7 +58,13 @@ Subparameters
    - **pfix** (string='', stringArray) - PCF profile parameters to fix during fit.
    - **pfunc** (string='', stringArray) - PCF singlet functions to fit. "gaussian" or "lorentzian" (minimal match supported). Unspecified means all gaussians.
 
-   *multifit = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> multifit = True </i></summary>
 
    - **amp** (string="") - Name of amplitude solution image. Default: do not write the image ("").
    - **amperr** (string="") - Name of amplitude solution error image. Default: do not write the image ("").
@@ -61,7 +75,13 @@ Subparameters
    - **integral** (string="") - Prefix of ame of integral solution image. Name of image will have gaussian component number appended.  Default: do not write the image ("").
    - **integralerr** (string="") - Prefix of name of integral error solution image. Name of image will have gaussian component number appended.  Default: do not write the image ("").
 
-   *gmncomps != 0*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gmncomps != 0 </i></summary>
 
    - **gmampcon** (string='', double, doubleArray, int, intArray) - The amplitude ratio constraints for non-reference components to reference component in gaussian multiplets.
    - **gmcentercon** (string='', double, doubleArray, int, intArray) - The center offset constraints (in pixels) for non-reference components to reference component in gaussian multiplets.
@@ -71,13 +91,29 @@ Subparameters
    - **gmfwhmest** (doubleArray='') - Initial estimate of individual gaussian FWHMss in gaussian multiplets, in pixels.
    - **gmfix** (string='', stringArray) - Parameters of individual gaussians in gaussian multiplets to fix during fit.
 
-   *logfile != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> logfile != '' </i></summary>
 
    - **append** (bool=True) - Append results to logfile? Logfile must be specified. Default is to append. False means overwrite existing file if it exists.
 
-   *sigma != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> sigma != '' </i></summary>
 
    - **outsigma** (string='') - Name of output image used for standard deviation. Ignored if sigma is empty.
+
+   .. raw:: html
+
+      </details>
 
 
 Description

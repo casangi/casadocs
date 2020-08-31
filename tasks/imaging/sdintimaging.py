@@ -40,21 +40,35 @@ Parameters
    - **parallel** (bool) - Run major cycles in parallel
 
 Subparameters
-   *usedata = sd*
+   .. raw:: html
+
+      <details><summary><i> usedata = sd </i></summary>
 
    - **sdimage** (string="") - Input single dish image
    - **sdpsf** (string="") - Input single dish PSF image
    - **sdgain** (double=1.0) - A factor or gain to adjust single dish flux scale
    - **dishdia** (double=100.0) - Effective dish diameter
 
-   *usedata = sdint*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> usedata = sdint </i></summary>
 
    - **sdimage** (string="") - Input single dish image
    - **sdpsf** (string="") - Input single dish PSF image
    - **sdgain** (double=1.0) - A factor or gain to adjust single dish flux scale
    - **dishdia** (double=100.0) - Effective dish diameter
 
-   *selectdata = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **field** (string="", stringArray) - field(s) to select
    - **spw** (string="", stringArray) - spw(s)/channels to select
@@ -65,35 +79,71 @@ Subparameters
    - **observation** (string="", int) - Observation ID range
    - **intent** (string="", stringArray) - Scan Intent(s)
 
-   *specmode = mfs*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> specmode = mfs </i></summary>
 
    - **reffreq** (string="") - Reference frequency
 
-   *gridder = standard*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = standard </i></summary>
 
    - **vptable** (string="") - Name of Voltage Pattern table
    - **pblimit** (double=0.2) - PB gain level at which to cut off normalizations 
 
-   *gridder = widefield*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = widefield </i></summary>
 
    - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
    - **facets** (int=1) - Number of facets on a side
    - **vptable** (string="") - Name of Voltage Pattern table
    - **pblimit** (double=0.2) - PB gain level at which to cut off normalizations 
 
-   *gridder = wproject*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = wproject </i></summary>
 
    - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
    - **vptable** (string="") - Name of Voltage Pattern table
    - **pblimit** (double=0.2) - PB gain level at which to cut off normalizations 
 
-   *gridder = wprojectft*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = wprojectft </i></summary>
 
    - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
    - **vptable** (string="") - Name of Voltage Pattern table
    - **pblimit** (double=0.2) - PB gain level at which to cut off normalizations 
 
-   *gridder = mosaic*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = mosaic </i></summary>
 
    - **vptable** (string="") - Name of Voltage Pattern table
    - **usepointing** (bool=False) - The parameter makes the gridder utilize the pointing table phase directions while computing the residual image.
@@ -101,27 +151,51 @@ Subparameters
    - **pblimit** (double=0.2) - PB gain level at which to cut off normalizations 
    - **psfphasecenter** (int="", string) - optional direction to calculate psf for mosaic (default is image phasecenter)
 
-   *gridder = mosaicft*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = mosaicft </i></summary>
 
    - **vptable** (string="") - Name of Voltage Pattern table
    - **usepointing** (bool=False) - The parameter makes the gridder utilize the pointing table phase directions while computing the residual image.
    - **pblimit** (double=0.2) - PB gain level at which to cut off normalizations 
    - **psfphasecenter** (int="", string) - optional direction to calculate psf for mosaic (default is image phasecenter)
 
-   *gridder = ftmosaic*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = ftmosaic </i></summary>
 
    - **vptable** (string="") - Name of Voltage Pattern table
    - **usepointing** (bool=False) - The parameter makes the gridder utilize the pointing table phase directions while computing the residual image.
    - **mosweight** (bool=True) - Indepently weight each field in a mosaic
    - **pblimit** (double=0.2) - PB gain level at which to cut off normalizations 
 
-   *gridder = imagemosaic*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = imagemosaic </i></summary>
 
    - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
    - **vptable** (string="") - Name of Voltage Pattern table
    - **pblimit** (double=0.2) - PB gain level at which to cut off normalizations 
 
-   *gridder = awproject*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = awproject </i></summary>
 
    - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
    - **psterm** (bool=False) - Use prolate spheroidal during gridding
@@ -135,7 +209,13 @@ Subparameters
    - **pblimit** (double=0.2) - PB gain level at which to cut off normalizations 
    - **usepointing** (bool=False) - The parameter makes the gridder utilize the pointing table phase directions while computing the residual image.
 
-   *gridder = awprojectft*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = awprojectft </i></summary>
 
    - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
    - **psterm** (bool=False) - Use prolate spheroidal during gridding
@@ -149,40 +229,82 @@ Subparameters
    - **pblimit** (double=0.2) - PB gain level at which to cut off normalizations 
    - **usepointing** (bool=False) - The parameter makes the gridder utilize the pointing table phase directions while computing the residual image.
 
-   *weighting = natural*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> weighting = natural </i></summary>
 
    - **uvtaper** (stringArray=[]) - uv-taper on outer baselines in uv-plane
 
-   *weighting = briggs*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> weighting = briggs </i></summary>
 
    - **robust** (double=0.5) - Robustness parameter
    - **npixels** (int=0) - Number of pixels to determine uv-cell size 
    - **uvtaper** (stringArray=[]) - uv-taper on outer baselines in uv-plane
 
-   *weighting = briggsabs*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> weighting = briggsabs </i></summary>
 
    - **robust** (double=0.5) - Robustness parameter
    - **noise** (variant="1.0Jy") - 
    - **npixels** (int=0) - Number of pixels to determine uv-cell size 
    - **uvtaper** (stringArray=[]) - uv-taper on outer baselines in uv-plane
 
-   *deconvolver = multiscale*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> deconvolver = multiscale </i></summary>
 
    - **scales** (intArray='', floatArray) - List of scale sizes (in pixels) for multi-scale algorithms
    - **smallscalebias** (double=0.0) - Biases the scale selection when using multi-scale or mtmfs deconvolvers 
 
-   *deconvolver = mtmfs*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> deconvolver = mtmfs </i></summary>
 
    - **scales** (intArray='', floatArray) - List of scale sizes (in pixels) for multi-scale algorithms
    - **nterms** (int=2) - Number of Taylor coefficients in the spectral model
    - **smallscalebias** (double=0.0) - Biases the scale selection when using multi-scale or mtmfs deconvolvers 
 
-   *restoration = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> restoration = True </i></summary>
 
    - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
    - **pbcor** (bool=False) - Apply PB correction on the output restored image
 
-   *niter != 0*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> niter != 0 </i></summary>
 
    - **gain** (double=0.1) - Loop gain
    - **threshold** (double=0.0) - Stopping threshold 
@@ -193,16 +315,34 @@ Subparameters
    - **maxpsffraction** (double=0.8) - PSF fraction that marks the minimum depth of cleaning in the minor cycle 
    - **interactive** (bool=False, int) - Modify masks and parameters at runtime
 
-   *usemask = user*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> usemask = user </i></summary>
 
    - **mask** (string="", stringArray) - Mask (a list of image name(s) or region file(s) or region string(s) )
    - **pbmask** (double=0.0) - primary beam mask
 
-   *usemask = pb*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> usemask = pb </i></summary>
 
    - **pbmask** (double=0.2) - primary beam mask
 
-   *usemask = auto-multithresh*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> usemask = auto-multithresh </i></summary>
 
    - **pbmask** (double=0.2) - primary beam mask
    - **sidelobethreshold** (double=3.0) - sidelobethreshold *  the max sidelobe level * peak residual
@@ -216,6 +356,10 @@ Subparameters
    - **dogrowprune** (bool=True) - Do pruning on the grow mask
    - **minpercentchange** (double=-1.0) - minimum percentage change in mask size (per channel plane) to trigger updating of mask by automask 
    - **verbose** (bool=False) - True: print more automasking information in the logger
+
+   .. raw:: html
+
+      </details>
 
 
 Description

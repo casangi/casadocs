@@ -25,7 +25,9 @@ Parameters
    - **beam** (variant) - Alternate way of describing a Gaussian. If specified, must be a dictionary with keys "major", "minor", and "pa" (or "positionangle"). Do not specify beam if specifying major, minor, and pa.
 
 Subparameters
-   *kernel = gauss*
+   .. raw:: html
+
+      <details><summary><i> kernel = gauss </i></summary>
 
    - **beam** (variant='') - Alternate way of describing a Gaussian. If specified, must be a dictionary with keys "major", "minor", and "pa" (or "positionangle"). Do not specify beam if specifying major, minor, and pa.
    - **targetres** (bool=False) - If gaussian kernel, specified parameters are to be resolution of output image (True) or parameters of gaussian to convolve with input image (False).
@@ -33,7 +35,13 @@ Subparameters
    - **minor** (variant='') - Minor axis. Standard quantity representation. Must be specified for kernel="boxcar".
    - **pa** (variant='') - Position angle used only for gaussian kernel. Standard quantity representation.
 
-   *kernel = gaussian*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> kernel = gaussian </i></summary>
 
    - **beam** (variant='') - Alternate way of describing a Gaussian. If specified, must be a dictionary with keys "major", "minor", and "pa" (or "positionangle"). Do not specify beam if specifying major, minor, and pa.
    - **targetres** (bool=False) - If gaussian kernel, specified parameters are to be resolution of output image (True) or parameters of gaussian to convolve with input image (False).
@@ -41,7 +49,13 @@ Subparameters
    - **minor** (variant='') - Minor axis. Standard quantity representation. Must be specified for kernel="boxcar".
    - **pa** (variant='') - Position angle used only for gaussian kernel. Standard quantity representation.
 
-   *kernel = g*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> kernel = g </i></summary>
 
    - **beam** (variant='') - Alternate way of describing a Gaussian. If specified, must be a dictionary with keys "major", "minor", and "pa" (or "positionangle"). Do not specify beam if specifying major, minor, and pa.
    - **targetres** (bool=False) - If gaussian kernel, specified parameters are to be resolution of output image (True) or parameters of gaussian to convolve with input image (False).
@@ -49,34 +63,74 @@ Subparameters
    - **minor** (variant='') - Minor axis. Standard quantity representation. Must be specified for kernel="boxcar".
    - **pa** (variant='') - Position angle used only for gaussian kernel. Standard quantity representation.
 
-   *kernel = box*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> kernel = box </i></summary>
 
    - **major** (variant='') - Major axis for the kernels. Standard quantity representation. Must be specified for kernel="boxcar".
    - **minor** (variant='') - Minor axis. Standard quantity representation. Must be specified for kernel="boxcar".
 
-   *kernel = boxcar*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> kernel = boxcar </i></summary>
 
    - **major** (variant='') - Major axis for the kernels. Standard quantity representation. Must be specified for kernel="boxcar".
    - **minor** (variant='') - Minor axis. Standard quantity representation. Must be specified for kernel="boxcar".
 
-   *kernel = b*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> kernel = b </i></summary>
 
    - **major** (variant='') - Major axis for the kernels. Standard quantity representation. Must be specified for kernel="boxcar".
    - **minor** (variant='') - Minor axis. Standard quantity representation. Must be specified for kernel="boxcar".
 
-   *kernel = image*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> kernel = image </i></summary>
 
    - **kimage** (string='') - Kernel image name. Only used if kernel="i" or "image".
    - **scale** (double=-1.0) - Scale factor. -1.0 means auto-scale. Only used if kernel="i" or "image".
 
-   *kernel = i*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> kernel = i </i></summary>
 
    - **kimage** (string='') - Kernel image name. Only used if kernel="i" or "image".
    - **scale** (double=-1.0) - Scale factor. -1.0 means auto-scale. Only used if kernel="i" or "image".
 
-   *mask != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mask != '' </i></summary>
 
    - **stretch** (bool=False) - If true, stretch the mask if necessary and possible.
+
+   .. raw:: html
+
+      </details>
 
 
 Description

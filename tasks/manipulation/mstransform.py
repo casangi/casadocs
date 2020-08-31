@@ -35,7 +35,9 @@ Parameters
    - **douvcontsub** (bool) - Enable continuum subtraction as in task uvcontsub
 
 Subparameters
-   *createmms = False*
+   .. raw:: html
+
+      <details><summary><i> createmms = False </i></summary>
 
    - **separationaxis** (string=auto) - Axis to do parallelization across(scan,spw,auto,baseline).
    - **numsubms** (string=auto, int) - The number of Sub-MSs to create (auto or any number)
@@ -44,7 +46,13 @@ Subparameters
    - **taql** (string='') - Table query for nested selections
    - **reindex** (bool=True) - Hidden parameter for use in the pipeline context only
 
-   *createmms = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> createmms = True </i></summary>
 
    - **separationaxis** (string=auto) - Axis to do parallelization across(scan,spw,auto,baseline).
    - **numsubms** (string=auto, int) - The number of Sub-MSs to create (auto or any number)
@@ -53,23 +61,53 @@ Subparameters
    - **taql** (string='') - Table query for nested selections
    - **reindex** (bool=True) - Hidden parameter for use in the pipeline context only
 
-   *datacolumn = model*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> datacolumn = model </i></summary>
 
    - **realmodelcol** (bool=False) - Make real a virtual MODEL column.
 
-   *datacolumn = all*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> datacolumn = all </i></summary>
 
    - **realmodelcol** (bool=False) - Make real a virtual MODEL column.
 
-   *datacolumn = data,model,corrected*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> datacolumn = data,model,corrected </i></summary>
 
    - **realmodelcol** (bool=False) - Make real a virtual MODEL column.
 
-   *chanaverage = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> chanaverage = True </i></summary>
 
    - **chanbin** (int=1, intArray) - Width (bin) of input channels to average to form an output channel.
 
-   *regridms = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> regridms = True </i></summary>
 
    - **mode** (string=channel) - Regridding mode (channel/velocity/frequency/channel_b).
    - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
@@ -83,17 +121,35 @@ Subparameters
    - **veltype** (string=radio) - Velocity definition.
    - **preaverage** (bool=False) - Pre-average channels before regridding, when the ratio between the output and and input widths is greater than 2.
 
-   *timeaverage = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> timeaverage = True </i></summary>
 
    - **timebin** (string=0s) - Bin width for time averaging.
    - **timespan** (string='', stringArray) - Span the timebin across scan, state or both.
    - **maxuvwdistance** (double=0.0) - Maximum separation of start-to-end baselines that can be included in an average. (meters)
 
-   *docallib = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> docallib = True </i></summary>
 
    - **callib** (string='') - Path to calibration library file
 
-   *douvcontsub = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> douvcontsub = True </i></summary>
 
    - **fitspw** (string='') - Spectral window:channel selection for fitting the continuum
    - **fitorder** (int=0) - Polynomial order for the fits
@@ -102,33 +158,61 @@ Subparameters
    - **nthreads** (int=1) - Number of OMP threads to use (currently maximum limited by number of polarizations)
    - **niter** (int=1) - Number of iterations for re-weighted linear fit
 
-   *mode = channel*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = channel </i></summary>
 
    - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
    - **start** (variant=0) - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
    - **width** (variant=1) - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
    - **interpolation** (string=linear) - Spectral interpolation method.
 
-   *mode = channel_b*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = channel_b </i></summary>
 
    - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
    - **start** (variant=0) - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
    - **width** (variant=1) - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
    - **interpolation** (string=linear) - Spectral interpolation method.
 
-   *mode = velocity*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = velocity </i></summary>
 
    - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
    - **start** (variant='') - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
    - **width** (variant='') - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
    - **interpolation** (string=linear) - Spectral interpolation method.
 
-   *mode = frequency*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = frequency </i></summary>
 
    - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
    - **start** (variant='') - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
    - **width** (variant='') - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
    - **interpolation** (string=linear) - Spectral interpolation method.
+
+   .. raw:: html
+
+      </details>
 
 
 Description

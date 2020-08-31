@@ -17,7 +17,9 @@ Parameters
    - **logfile** (string) - user-defined log file
 
 Subparameters
-   *image = True*
+   .. raw:: html
+
+      <details><summary><i> image = True </i></summary>
 
    - **vis** (string=default) - Measurement Set(s) to image
    - **modelimage** (string='') - image to use as clean prior
@@ -34,12 +36,24 @@ Subparameters
    - **stokes** (string=I) - Stokes parameterss to image
    - **featherimage** (string='') - image to feather with new image
 
-   *image = False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> image = False </i></summary>
 
    - **imagename** (string=default) - simulation output image to analyze
    - **skymodel** (string='') - skymodel image to analyze
 
-   *analyze = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> analyze = True </i></summary>
 
    - **showuv** (bool=True) - display uv coverage
    - **showpsf** (bool=True) - display synthesized beam
@@ -49,6 +63,10 @@ Subparameters
    - **showresidual** (bool=False) - display the clean residual image
    - **showdifference** (bool=True) - display difference between cleaned output and convolved model input
    - **showfidelity** (bool=True) - display fidelity image
+
+   .. raw:: html
+
+      </details>
 
 
 Description

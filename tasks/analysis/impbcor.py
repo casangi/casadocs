@@ -19,13 +19,25 @@ Parameters
    - **cutoff** (double) - PB cutoff. If mode is "d", all values less than this will be masked. If "m", all values greater will be masked. Less than 0, no cutoff.
 
 Subparameters
-   *outfile != ''*
+   .. raw:: html
+
+      <details><summary><i> outfile != '' </i></summary>
 
    - **overwrite** (bool=False) - Overwrite the output if it exists?
 
-   *mask != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mask != '' </i></summary>
 
    - **stretch** (bool=False) - Stretch the mask if necessary and possible?
+
+   .. raw:: html
+
+      </details>
 
 
 Description

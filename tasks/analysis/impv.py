@@ -17,28 +17,58 @@ Parameters
    - **mask** (variant) - Mask to use. Default is none.
 
 Subparameters
-   *outfile != ''*
+   .. raw:: html
+
+      <details><summary><i> outfile != '' </i></summary>
 
    - **overwrite** (bool=False) - Overwrite the output if it exists?
 
-   *mask != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mask != '' </i></summary>
 
    - **stretch** (bool=False) - Stretch the mask if necessary and possible? Default False
 
-   *chans = ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> chans = '' </i></summary>
 
    - **region** (string="", record) - Region selection. Default is entire image. No selection is permitted in the direction plane.
 
-   *mode = coords*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = coords </i></summary>
 
    - **start** (string="", stringArray, intArray, doubleArray) - The starting pixel in the direction plane (array of two values).
    - **end** (string="", stringArray, intArray, doubleArray) - The ending pixel in the direction plane (array of two values).
 
-   *mode = length*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = length </i></summary>
 
    - **center** (string="", stringArray, intArray, doubleArray) - The center point in the direction plane (array of two values). If specified, length and pa must also be specified and neither of start nor end may be specified.
    - **length** (string="", int, double, stringArray, record) - The length of the segment in the direction plane. If specified, center and pa must also be specified and neither of start nor end may be specified.
    - **pa** (string="", record) - The position angle of the segment in the direction plane, measured from north through east. If specified, center and length must also be specified and neither of start nor end may be specified.
+
+   .. raw:: html
+
+      </details>
 
 
 Description

@@ -17,9 +17,15 @@ Parameters
    - **want_cont** (bool) - Create vis + ".cont" to hold the continuum estimate.
 
 Subparameters
-   *fitspw != ''*
+   .. raw:: html
+
+      <details><summary><i> fitspw != '' </i></summary>
 
    - **excludechans** (bool=False) - exclude Spectral window:channel selection in fitspw for fitting
+
+   .. raw:: html
+
+      </details>
 
 
 Description

@@ -19,30 +19,66 @@ Parameters
    - **prec** (string) - Precision for the output image pixels if mode="evalexpr" or "spix". "float" or "double" (minimum match supported)
 
 Subparameters
-   *mode = evalexpr*
+   .. raw:: html
+
+      <details><summary><i> mode = evalexpr </i></summary>
 
    - **expr** (string="") - Mathematical expression using images
    - **varnames** (variant="") - a list of variable names to use with the image files
 
-   *mode = poli*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = poli </i></summary>
 
    - **sigma** (string="0.0mJy/beam") - standard deviation of noise for debiasing
 
-   *mode = lpoli*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = lpoli </i></summary>
 
    - **sigma** (string="0.0mJy/beam") - standard deviation of noise for debiasing
 
-   *mode = tpoli*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = tpoli </i></summary>
 
    - **sigma** (string="0.0mJy/beam") - standard deviation of noise for debiasing
 
-   *mode = pola*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = pola </i></summary>
 
    - **polithresh** (string="") - Threshold in linear polarization intensity image below which to mask pixels.
 
-   *mask != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mask != '' </i></summary>
 
    - **stretch** (bool=False) - Stretch the mask if necessary and possible? See help stretch.par 
+
+   .. raw:: html
+
+      </details>
 
 
 Description

@@ -19,7 +19,9 @@ Parameters
    - **docallib** (bool) - Use callib or traditional cal apply parameters
 
 Subparameters
-   *selectdata = True*
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **timerange** (string='') - Select data based on time range
    - **antenna** (string='') - Select data based on antenna/baseline
@@ -27,16 +29,32 @@ Subparameters
    - **observation** (string='', int) - Select by observation ID(s)
    - **msselect** (string='') - Optional complex data selection (ignore for now)
 
-   *docallib = False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> docallib = False </i></summary>
 
    - **gaintable** (stringArray='') - Gain calibration table(s) to apply on the fly
    - **gainfield** (stringArray='') - Select a subset of calibrators from gaintable(s)
    - **interp** (stringArray='') - Interpolation parameters for each gaintable, as a list
    - **spwmap** (intArray='') - Spectral windows combinations to form for gaintables(s)
 
-   *docallib = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> docallib = True </i></summary>
 
    - **callib** (string='') - Cal Library filename
+
+   .. raw:: html
+
+      </details>
 
 
 Description

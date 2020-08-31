@@ -19,13 +19,25 @@ Parameters
    - **stretch** (bool) - Stretch the mask if necessary and possible?
 
 Subparameters
-   *outfile != ''*
+   .. raw:: html
+
+      <details><summary><i> outfile != '' </i></summary>
 
    - **overwrite** (bool=False) - Overwrite output image if it exists?
 
-   *mask != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mask != '' </i></summary>
 
    - **stretch** (bool=False) - Stretch the mask if necessary and possible?
+
+   .. raw:: html
+
+      </details>
 
 
 Description

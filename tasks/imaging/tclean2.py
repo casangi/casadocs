@@ -30,7 +30,9 @@ Parameters
    - **ranks** (intarray) - List of participating ranks
 
 Subparameters
-   *selectdata = True*
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **field** (string="", stringArray) - field(s) to select
    - **spw** (string="", stringArray) - spw(s)/channels to select
@@ -41,11 +43,23 @@ Subparameters
    - **observation** (string="", int) - Observation ID range
    - **intent** (string="", stringArray) - Scan Intent(s)
 
-   *specmode = mfs*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> specmode = mfs </i></summary>
 
    - **reffreq** (string="") - Reference frequency
 
-   *specmode = cube*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> specmode = cube </i></summary>
 
    - **nchan** (int=-1) - Number of channels in the output image
    - **start** (string="") - First channel (e.g. start=3,start=\'1.1GHz\',start=\'15343km/s\')
@@ -56,7 +70,13 @@ Subparameters
    - **interpolation** (string="linear") - Spectral interpolation (nearest,linear,cubic)
    - **chanchunks** (int=1) - Number of channel chunks
 
-   *specmode = cubedata*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> specmode = cubedata </i></summary>
 
    - **nchan** (int=-1) - Number of channels in the output image
    - **start** (string="") - First channel (e.g. start=3,start=\'1.1GHz\',start=\'15343km/s\')
@@ -66,41 +86,89 @@ Subparameters
    - **interpolation** (string="linear") - Spectral interpolation (nearest,linear,cubic)
    - **chanchunks** (int=1) - Number of channel chunks
 
-   *gridder = widefield*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = widefield </i></summary>
 
    - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
    - **facets** (int=1) - Number of facets on a side
 
-   *gridder = wproject*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = wproject </i></summary>
 
    - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
 
-   *gridder = wprojectft*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = wprojectft </i></summary>
 
    - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
 
-   *gridder = mosaic*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = mosaic </i></summary>
 
    - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
    - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
 
-   *gridder = mosaicft*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = mosaicft </i></summary>
 
    - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
    - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
 
-   *gridder = ftmosaic*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = ftmosaic </i></summary>
 
    - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
    - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
 
-   *gridder = imagemosaic*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = imagemosaic </i></summary>
 
    - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
    - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
    - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
 
-   *gridder = awproject*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = awproject </i></summary>
 
    - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
    - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
@@ -113,7 +181,13 @@ Subparameters
    - **wbawp** (bool=False) - Use wideband A-terms
    - **conjbeams** (bool=False) - Use conjugate frequency for wideband A-terms
 
-   *gridder = awprojectft*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridder = awprojectft </i></summary>
 
    - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
    - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
@@ -126,40 +200,88 @@ Subparameters
    - **wbawp** (bool=False) - Use wideband A-terms
    - **conjbeams** (bool=False) - Use conjugate frequency for wideband A-terms
 
-   *weighting = natural*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> weighting = natural </i></summary>
 
    - **uvtaper** (stringArray=[]) - uv-taper on outer baselines in uv-plane
 
-   *weighting = briggs*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> weighting = briggs </i></summary>
 
    - **robust** (double=0.5) - Robustness parameter
    - **npixels** (int=0) - Number of pixels to determine uv-cell size (0 : -/+ 3 pixels)
    - **uvtaper** (stringArray=[]) - uv-taper on outer baselines in uv-plane
 
-   *deconvolver = hogbom*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> deconvolver = hogbom </i></summary>
 
    - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
 
-   *deconvolver = clark*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> deconvolver = clark </i></summary>
 
    - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
 
-   *deconvolver = multiscale*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> deconvolver = multiscale </i></summary>
 
    - **scales** (intArray='', floatArray) - List of scale sizes (in pixels) for multi-scale algorithms
    - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
 
-   *deconvolver = mtmfs*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> deconvolver = mtmfs </i></summary>
 
    - **scales** (intArray='', floatArray) - List of scale sizes (in pixels) for multi-scale algorithms
    - **nterms** (int=2) - Number of Taylor coefficients in the spectral model
    - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
 
-   *deconvolver = aasp*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> deconvolver = aasp </i></summary>
 
    - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
 
-   *niter != 0*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> niter != 0 </i></summary>
 
    - **gain** (double=0.1) - Loop gain
    - **threshold** (double=0.0) - Stopping threshold 
@@ -169,27 +291,55 @@ Subparameters
    - **maxpsffraction** (double=0.8) - PSF fraction that marks the minimum depth of cleaning in the minor cycle 
    - **interactive** (bool=False, int) - Modify masks and parameters at runtime
 
-   *usemask = user*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> usemask = user </i></summary>
 
    - **mask** (string="", stringArray) - Mask (a list of image name(s) or region file(s) or region string(s) )
    - **pbmask** (double=0.0) - primary beam mask
 
-   *usemask = pb*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> usemask = pb </i></summary>
 
    - **pbmask** (double=0.2) - primary beam mask
 
-   *usemask = auto-thresh*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> usemask = auto-thresh </i></summary>
 
    - **pbmask** (double=0.0) - primary beam mask
    - **maskthreshold** (string="") - threshold for automasking (string with unit, e.g. "1.0mJy", sigma,  or fraction of peak ,e.g. 0.1)
    - **maskresolution** (string="") - resolution for automasking (string, e.g. "10arcsec")
 
-   *makeimages = choose*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> makeimages = choose </i></summary>
 
    - **calcres** (bool=True) - Calculate initial residual image
    - **calcpsf** (bool=True) - Calculate PSF
    - **restoremodel** (string=auto) - Restore the model image
    - **writepb** (string=auto) - Make a primary beam image
+
+   .. raw:: html
+
+      </details>
 
 
 Description

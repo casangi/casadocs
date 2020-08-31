@@ -37,7 +37,9 @@ Parameters
    - **figfileSequential** (bool) - naming scheme for pngs: False: name by spw/antenna (default), True: figfile.000.png, figfile.001.png, etc.
 
 Subparameters
-   *figfile != ''*
+   .. raw:: html
+
+      <details><summary><i> figfile != '' </i></summary>
 
    - **density** (int=108) - dpi to use in creating PNGs and PDFs (default=108)
    - **buildpdf** (bool=False) - If True, assemble all the pngs into a pdf
@@ -45,7 +47,13 @@ Subparameters
    - **gs** (string=gs) - For buildpdf=T, full path for ghostscript command (in case it is not found)
    - **pdftk** (string=pdftk) - For buildpdf=T, full path for pdftk command (in case it is not found)
 
-   *showatm != False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> showatm != False </i></summary>
 
    - **pwv** (double=auto, string) - Define the pwv to use for the showatm option: "auto" or value in mm
    - **showimage** (bool=False) - also show the atmospheric curve for the image sideband (in black)
@@ -53,7 +61,13 @@ Subparameters
    - **lo1** (string='', double) - specify the LO1 setting (in GHz) for the observation ('' = automatic)
    - **showatmpoints** (bool=False) - Draw atmospheric curve with points instead of a line
 
-   *showtsky != False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> showtsky != False </i></summary>
 
    - **pwv** (double=auto, string) - Define the pwv to use for the showatm option: "auto" or value in mm
    - **showimage** (bool=False) - also show the atmospheric curve for the image sideband (in black)
@@ -61,31 +75,65 @@ Subparameters
    - **lo1** (string='', double) - specify the LO1 setting (in GHz) for the observation ('' = automatic)
    - **showatmpoints** (bool=False) - Draw atmospheric curve with points instead of a line
 
-   *xaxis = freq*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> xaxis = freq </i></summary>
 
    - **chanrange** (string='', intArray) - Set xrange ("5~100") over which to autoscale y-axis for xaxis="freq"
    - **showfdm** (bool=False) - when showing TDM spws, draw the locations of the corresponding FDM spws
    - **chanrangeSetXrange** (bool=False) - If True, then chanrange also sets the xrange to display
 
-   *yaxis = both*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> yaxis = both </i></summary>
 
    - **phase** (intArray='', string) - The y-axis limits to use for phase plots when yaxis="both"
 
-   *overlay = time*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> overlay = time </i></summary>
 
    - **showatmfield** (int='', string) - for overlay="time", use first observation of this fieldID or name
 
-   *channeldiff != False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> channeldiff != False </i></summary>
 
    - **edge** (int=8) - The number of edge channels to ignore in finding outliers (for channeldiff>0)
    - **resample** (int=1) - The channel expansion factor to use when computing MAD of derivative (for channeldiff>0)
    - **platformingSigma** (double=5.0) - declare platforming if the amplitude derivative exceeds this many times the MAD
    - **platformingThreshold** (double=10.0) - if platformingSigma=0, then declare platforming if the amplitude derivative exceeds this percentage of the median
 
-   *caltable2 != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> caltable2 != '' </i></summary>
 
    - **zoom** (string='') - "intersect" will zoom to overlap region of caltable with caltable2
    - **caltable3** (string='') - A third cal table, of type BPOLY, to overlay on the first two tables
+
+   .. raw:: html
+
+      </details>
 
 
 Description

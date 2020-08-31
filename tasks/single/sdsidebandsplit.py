@@ -17,10 +17,16 @@ Parameters
    - **threshold** (double) - Rejection limit of solution
 
 Subparameters
-   *getbothside = True*
+   .. raw:: html
+
+      <details><summary><i> getbothside = True </i></summary>
 
    - **refchan** (double=0.0) - reference channel of spectral axis in image sideband
    - **refval** (string='') - frequency at the reference channel of spectral axis in image sideband (e.g., "100GHz")
+
+   .. raw:: html
+
+      </details>
 
 
 Description

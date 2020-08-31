@@ -14,12 +14,20 @@ Parameters
    - **scan** (string) - select data by scan numbers, e.g. "21~23" (""=all)
 
 Subparameters
-   *calmode = ps*
+   .. raw:: html
+
+      <details><summary><i> calmode = ps </i></summary>
 
    - **outfile** (string='') - name of output file (See a WARNING in help)
    - **overwrite** (bool=False) - overwrite the output file if already exists [True, False]
 
-   *calmode = otfraster*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> calmode = otfraster </i></summary>
 
    - **fraction** (variant=10%) - fraction of the OFF data to mark
    - **noff** (int=-1) - number of the OFF data to mark
@@ -27,43 +35,85 @@ Subparameters
    - **overwrite** (bool=False) - overwrite the output file if already exists [True, False]
    - **intent** (string=OBSERVE_TARGET#ON_SOURCE) - select data by observation intent, e.g. "OBSERVE_TARGET#ON_SOURCE" (""=all)
 
-   *calmode = otf*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> calmode = otf </i></summary>
 
    - **fraction** (variant=10%) - fraction of the OFF data to mark
    - **outfile** (string='') - name of output file (See a WARNING in help)
    - **overwrite** (bool=False) - overwrite the output file if already exists [True, False]
    - **intent** (string=OBSERVE_TARGET#ON_SOURCE) - select data by observation intent, e.g. "OBSERVE_TARGET#ON_SOURCE" (""=all)
 
-   *calmode = tsys*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> calmode = tsys </i></summary>
 
    - **outfile** (string='') - name of output file (See a WARNING in help)
    - **overwrite** (bool=False) - overwrite the output file if already exists [True, False]
 
-   *calmode = apply*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> calmode = apply </i></summary>
 
    - **applytable** (variant='') - (List of) sky and/or tsys tables
    - **interp** (string='') - Interpolation type in time[,freq]. Valid options for time are "nearest", "linear", and "cubic", while valid options for frequency include "nearest", "linear", "cspline", or any numeric string that indicates an order of polynomial interpolation. You can specify interpolation type for time and frequency separately by joining two of the above options by comma (e.g., "linear,cspline").
    - **spwmap** (variant='') - A dictionary indicating spw combinations to apply Tsys calibration to target. The key should be spw for Tsys calibration and its associated value must be a list of science spws to be applied.
 
-   *calmode = ps,apply*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> calmode = ps,apply </i></summary>
 
    - **applytable** (variant='') - (List of) sky and/or tsys tables
    - **interp** (string='') - Interpolation type in time[,freq]. Valid options for time are "nearest", "linear", and "cubic", while valid options for frequency include "nearest", "linear", "cspline", or any numeric string that indicates an order of polynomial interpolation. You can specify interpolation type for time and frequency separately by joining two of the above options by comma (e.g., "linear,cspline").
    - **spwmap** (variant='') - A dictionary indicating spw combinations to apply Tsys calibration to target. The key should be spw for Tsys calibration and its associated value must be a list of science spws to be applied.
 
-   *calmode = tsys,apply*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> calmode = tsys,apply </i></summary>
 
    - **applytable** (variant='') - (List of) sky and/or tsys tables
    - **interp** (string='') - Interpolation type in time[,freq]. Valid options for time are "nearest", "linear", and "cubic", while valid options for frequency include "nearest", "linear", "cspline", or any numeric string that indicates an order of polynomial interpolation. You can specify interpolation type for time and frequency separately by joining two of the above options by comma (e.g., "linear,cspline").
    - **spwmap** (variant='') - A dictionary indicating spw combinations to apply Tsys calibration to target. The key should be spw for Tsys calibration and its associated value must be a list of science spws to be applied.
 
-   *calmode = ps,tsys,apply*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> calmode = ps,tsys,apply </i></summary>
 
    - **applytable** (variant='') - (List of) sky and/or tsys tables
    - **interp** (string='') - Interpolation type in time[,freq]. Valid options for time are "nearest", "linear", and "cubic", while valid options for frequency include "nearest", "linear", "cspline", or any numeric string that indicates an order of polynomial interpolation. You can specify interpolation type for time and frequency separately by joining two of the above options by comma (e.g., "linear,cspline").
    - **spwmap** (variant='') - A dictionary indicating spw combinations to apply Tsys calibration to target. The key should be spw for Tsys calibration and its associated value must be a list of science spws to be applied.
 
-   *calmode = otfraster,apply*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> calmode = otfraster,apply </i></summary>
 
    - **fraction** (variant=10%) - fraction of the OFF data to mark
    - **noff** (int=-1) - number of the OFF data to mark
@@ -72,7 +122,13 @@ Subparameters
    - **spwmap** (variant='') - A dictionary indicating spw combinations to apply Tsys calibration to target. The key should be spw for Tsys calibration and its associated value must be a list of science spws to be applied.
    - **intent** (string=OBSERVE_TARGET#ON_SOURCE) - select data by observation intent, e.g. "OBSERVE_TARGET#ON_SOURCE" (""=all)
 
-   *calmode = otfraster,tsys,apply*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> calmode = otfraster,tsys,apply </i></summary>
 
    - **fraction** (variant=10%) - fraction of the OFF data to mark
    - **noff** (int=-1) - number of the OFF data to mark
@@ -80,7 +136,13 @@ Subparameters
    - **interp** (string='') - Interpolation type in time[,freq]. Valid options for time are "nearest", "linear", and "cubic", while valid options for frequency include "nearest", "linear", "cspline", or any numeric string that indicates an order of polynomial interpolation. You can specify interpolation type for time and frequency separately by joining two of the above options by comma (e.g., "linear,cspline").
    - **spwmap** (variant='') - A dictionary indicating spw combinations to apply Tsys calibration to target. The key should be spw for Tsys calibration and its associated value must be a list of science spws to be applied.
 
-   *calmode = otf,apply*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> calmode = otf,apply </i></summary>
 
    - **fraction** (variant=10%) - fraction of the OFF data to mark
    - **applytable** (variant='') - (List of) sky and/or tsys tables
@@ -88,12 +150,22 @@ Subparameters
    - **spwmap** (variant='') - A dictionary indicating spw combinations to apply Tsys calibration to target. The key should be spw for Tsys calibration and its associated value must be a list of science spws to be applied.
    - **intent** (string=OBSERVE_TARGET#ON_SOURCE) - select data by observation intent, e.g. "OBSERVE_TARGET#ON_SOURCE" (""=all)
 
-   *calmode = otf,tsys,apply*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> calmode = otf,tsys,apply </i></summary>
 
    - **fraction** (variant=10%) - fraction of the OFF data to mark
    - **applytable** (variant='') - (List of) sky and/or tsys tables
    - **interp** (string='') - Interpolation type in time[,freq]. Valid options for time are "nearest", "linear", and "cubic", while valid options for frequency include "nearest", "linear", "cspline", or any numeric string that indicates an order of polynomial interpolation. You can specify interpolation type for time and frequency separately by joining two of the above options by comma (e.g., "linear,cspline").
    - **spwmap** (variant='') - A dictionary indicating spw combinations to apply Tsys calibration to target. The key should be spw for Tsys calibration and its associated value must be a list of science spws to be applied.
+
+   .. raw:: html
+
+      </details>
 
 
 Description

@@ -24,7 +24,9 @@ Parameters
    - **feed** (string, stringArray, int, intArray) - Multi-feed numbers: Not yet implemented.
 
 Subparameters
-   *createmms = True*
+   .. raw:: html
+
+      <details><summary><i> createmms = True </i></summary>
 
    - **separationaxis** (string=auto) - Axis to do parallelization across(scan, spw, baseline, auto)
    - **numsubms** (string=auto, int) - The number of SubMSs to create (auto or any number)
@@ -33,7 +35,13 @@ Subparameters
    - **ddistart** (int=-1) - Do not change this parameter. For internal use only.
    - **taql** (string='') - Table query for nested selections
 
-   *createmms = False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> createmms = False </i></summary>
 
    - **separationaxis** (string=auto) - Axis to do parallelization across(scan, spw, baseline, auto)
    - **numsubms** (string=auto, int) - The number of SubMSs to create (auto or any number)
@@ -41,6 +49,10 @@ Subparameters
    - **disableparallel** (bool=False) - Create a multi-MS in parallel.
    - **ddistart** (int=-1) - Do not change this parameter. For internal use only.
    - **taql** (string='') - Table query for nested selections
+
+   .. raw:: html
+
+      </details>
 
 
 Description

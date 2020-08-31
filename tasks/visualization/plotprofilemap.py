@@ -24,26 +24,56 @@ Parameters
    - **numpanels** (string) - Number of panels
 
 Subparameters
-   *figfile != ''*
+   .. raw:: html
+
+      <details><summary><i> figfile != '' </i></summary>
 
    - **overwrite** (bool=False) - Overwrite existing figfile
    - **transparent** (bool=False) - Output transparent figure
 
-   *spectralaxis = velocity*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> spectralaxis = velocity </i></summary>
 
    - **restfreq** (string='') - Rest frequency
 
-   *plotmasked = plot*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> plotmasked = plot </i></summary>
 
    - **maskedcolor** (string=gray) - Line color for masked data
 
-   *plotmasked = zero*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> plotmasked = zero </i></summary>
 
    - **maskedcolor** (string=gray) - Line color for masked data
 
-   *showtick = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> showtick = True </i></summary>
 
    - **showticklabel** (bool=False) - Show axis tick labels on the bottom left panel
+
+   .. raw:: html
+
+      </details>
 
 
 Description

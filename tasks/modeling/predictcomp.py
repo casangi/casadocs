@@ -18,7 +18,9 @@ Parameters
    - **symb** (string) - A matplotlib plot symbol code
 
 Subparameters
-   *antennalist != ''*
+   .. raw:: html
+
+      <details><summary><i> antennalist != '' </i></summary>
 
    - **showplot** (bool=True) - Plot S vs |u| to the screen?
    - **savefig** (string='') - Save a plot of S vs |u| to this filename
@@ -27,6 +29,10 @@ Subparameters
    - **include0bl** (bool=False) - Force the baseline axis to start at 0?
    - **blunit** (string='') - unit of the baseline axis
    - **showbl0flux** (bool=False) - Print the zero baseline flux ?
+
+   .. raw:: html
+
+      </details>
 
 
 Description

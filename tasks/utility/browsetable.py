@@ -10,12 +10,18 @@ Parameters
    - **tablename** (string) - Name of input table
 
 Subparameters
-   *tablename != ''*
+   .. raw:: html
+
+      <details><summary><i> tablename != '' </i></summary>
 
    - **mightedit** (bool=False) - Warning: the GUI seems to ignore whether the table tool is opened read-only. Just be careful, esp. if filtering.
    - **sortlist** (string='', stringArray) - Columns to sort by (ascending)
    - **taql** (string='') - TaQL query string for prefiltering the table.
    - **skipcols** (string='', stringArray) - Columns to omit
+
+   .. raw:: html
+
+      </details>
 
 
 Description

@@ -17,16 +17,28 @@ Parameters
    - **mask** (string) - 
 
 Subparameters
-   *alg = multiscale*
+   .. raw:: html
+
+      <details><summary><i> alg = multiscale </i></summary>
 
    - **scales** (intArray=
                         ) - 
 
-   *alg = mem*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> alg = mem </i></summary>
 
    - **sigma** (double=1.0) - 
    - **targetflux** (double=1.0) - 
    - **prior** (string='') - 
+
+   .. raw:: html
+
+      </details>
 
 
 Description

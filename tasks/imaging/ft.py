@@ -17,9 +17,15 @@ Parameters
    - **usescratch** (bool) - If True, predicted  visibility  is stored in MODEL_DATA column
 
 Subparameters
-   *nterms != 1*
+   .. raw:: html
+
+      <details><summary><i> nterms != 1 </i></summary>
 
    - **reffreq** (string='') - Reference frequency (e.g. \'1.5e+9\' or \'1.5GHz\')
+
+   .. raw:: html
+
+      </details>
 
 
 Description

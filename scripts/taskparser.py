@@ -158,7 +158,7 @@ for task in tasklist:
         for paramstr in task['subparams'].keys():
             spd = task['subparams'][paramstr]  # subparam dictionary
             if len(spd) > 0:
-                fid.write('\n   *%s*\n\n' % paramstr)
+                fid.write('\n   .. raw:: html\n\n      <details><summary><i> %s </i></summary>\n\n' % paramstr)
             # grab each subparam from the main param section and write it out
             for subparam in spd.keys():
                 if subparam not in task['params']: continue
@@ -170,7 +170,9 @@ for task in tasklist:
                 if ('shortdescription' in pd.keys()) and (pd['shortdescription'] is not None):
                     fid.write(' - %s' % pd['shortdescription'])
                 fid.write('\n')
-        
+            if len(spd) > 0:
+                fid.write('\n   .. raw:: html\n\n      </details>\n')
+
         # marry up the Plone content to the bottom Notes section
         fid.write('\n\n' + rst)
         fid.write('\n    """\n    pass\n')

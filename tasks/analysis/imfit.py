@@ -27,22 +27,46 @@ Parameters
    - **summary** (string) - File name to which to write table of fit parameters.
 
 Subparameters
-   *mask != ''*
+   .. raw:: html
+
+      <details><summary><i> mask != '' </i></summary>
 
    - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
 
-   *logfile != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> logfile != '' </i></summary>
 
    - **append** (bool=True) - If logfile exists, append to it if True or overwrite it if False
 
-   *complist != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> complist != '' </i></summary>
 
    - **overwrite** (bool=False) - Overwrite component list table if it exists?
 
-   *dooff != False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> dooff != False </i></summary>
 
    - **offset** (double=0.0) - Initial estimate of zero-level offset. Only used if doff is True. Default is 0.0
    - **fixoffset** (bool=False) - Keep the zero level offset fixed during fit? Default is False 
+
+   .. raw:: html
+
+      </details>
 
 
 Description

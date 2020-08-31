@@ -18,15 +18,27 @@ Parameters
    - **overwrite** (bool) - overwrite the output file if already exists [True, False]
 
 Subparameters
-   *calmode = doublecircle*
+   .. raw:: html
+
+      <details><summary><i> calmode = doublecircle </i></summary>
 
    - **radius** (variant='') - radius of central region to be used for calibration
    - **smooth** (bool=True) - smooth data or not
 
-   *applytable != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> applytable != '' </i></summary>
 
    - **interp** (variant='') - Interp type in time[,freq], per gaintable. default==linear,linear
    - **spwmap** (intArray=-1) - Spectral window mappings to form for applytable(s)
+
+   .. raw:: html
+
+      </details>
 
 
 Description

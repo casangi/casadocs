@@ -38,7 +38,9 @@ Parameters
    - **allowchunk** (bool) - 
 
 Subparameters
-   *selectdata = True*
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **timerange** (string='', stringArray) - 
    - **uvrange** (string='', stringArray) - 
@@ -47,24 +49,48 @@ Subparameters
    - **observation** (string='', int) - 
    - **intent** (string='', stringArray) - 
 
-   *multiscale != []*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> multiscale != [] </i></summary>
 
    - **negcomponent** (int=-1) - 
    - **smallscalebias** (double=0.6) - 
 
-   *gridmode = widefield*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridmode = widefield </i></summary>
 
    - **wprojplanes** (int=-1) - 
    - **facets** (int=1) - 
 
-   *gridmode = aprojection*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridmode = aprojection </i></summary>
 
    - **wprojplanes** (int=1) - 
    - **cfcache** (string=cfcache.dir) - 
    - **rotpainc** (double=5.0) - 
    - **painc** (double=360.0) - 
 
-   *gridmode = advancedaprojection*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridmode = advancedaprojection </i></summary>
 
    - **wprojplanes** (int=1) - 
    - **cfcache** (string=cfcache.dir) - 
@@ -77,12 +103,24 @@ Subparameters
    - **mterm** (bool=True) - 
    - **epjtable** (string='') - 
 
-   *mode = mfs*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = mfs </i></summary>
 
    - **nterms** (int=1) - 
    - **reffreq** (string='') - 
 
-   *mode = channel*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = channel </i></summary>
 
    - **nchan** (int=-1) - 
    - **start** (variant='') - 
@@ -92,7 +130,13 @@ Subparameters
    - **chaniter** (bool=False) - 
    - **outframe** (string='') - 
 
-   *mode = velocity*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = velocity </i></summary>
 
    - **nchan** (int=-1) - 
    - **start** (variant='') - 
@@ -103,7 +147,13 @@ Subparameters
    - **outframe** (string='') - 
    - **veltype** (string=radio) - 
 
-   *mode = frequency*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = frequency </i></summary>
 
    - **nchan** (int=-1) - 
    - **start** (variant='') - 
@@ -113,36 +163,78 @@ Subparameters
    - **chaniter** (bool=False) - 
    - **outframe** (string='') - 
 
-   *weighting = briggs*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> weighting = briggs </i></summary>
 
    - **robust** (double=0.0) - 
    - **npixels** (int=0) - 
 
-   *weighting = briggsabs*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> weighting = briggsabs </i></summary>
 
    - **robust** (double=0.0) - 
    - **noise** (variant=1.0Jy) - 
    - **npixels** (int=0) - 
 
-   *weighting = superuniform*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> weighting = superuniform </i></summary>
 
    - **npixels** (int=0) - 
 
-   *uvtaper = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> uvtaper = True </i></summary>
 
    - **outertaper** (stringArray='') - 
    - **innertaper** (stringArray='') - 
 
-   *interactive = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> interactive = True </i></summary>
 
    - **npercycle** (int=100) - 
 
-   *imagermode = csclean*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> imagermode = csclean </i></summary>
 
    - **cyclefactor** (double=1.5) - 
    - **cyclespeedup** (int=-1) - 
 
-   *imagermode = mosaic*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> imagermode = mosaic </i></summary>
 
    - **mosweight** (bool=False) - 
    - **ftmachine** (string=mosaic) - 
@@ -150,6 +242,10 @@ Subparameters
    - **cyclefactor** (double=1.5) - 
    - **cyclespeedup** (int=-1) - 
    - **flatnoise** (bool=True) - 
+
+   .. raw:: html
+
+      </details>
 
 
 Description

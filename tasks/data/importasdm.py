@@ -35,17 +35,29 @@ Parameters
    - **polyephem_tabtimestep** (double) - Timestep (days) for the tabulation of polynomial ephemerides. A value <= 0 disables tabulation.
 
 Subparameters
-   *createmms = True*
+   .. raw:: html
+
+      <details><summary><i> createmms = True </i></summary>
 
    - **separationaxis** (string=auto) - Axis to do parallelization across (scan, spw, baseline, auto)
    - **numsubms** (string=auto, int) - The number of SubMSs to create (auto or any number)
 
-   *process_flags = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> process_flags = True </i></summary>
 
    - **tbuff** (double=0.0) - Time padding buffer (seconds)
    - **applyflags** (bool=False) - Apply the flags to the MS.
    - **savecmds** (bool=False) - Save flag commands to an ASCII file
    - **outfile** (string='', stringArray) - Name of ASCII file to save flag commands
+
+   .. raw:: html
+
+      </details>
 
 
 Description

@@ -15,7 +15,9 @@ Parameters
    - **cachesize** (double) - EXPERIMENTAL. Maximum size in megabytes of cache in which data structures can be held.
 
 Subparameters
-   *selectdata = True*
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **field** (string='', stringArray) - Selection based on field names or field index numbers. Default is all.
    - **spw** (string='', stringArray) - Selection based on spectral-window/frequency/channel.
@@ -29,9 +31,19 @@ Subparameters
    - **uvrange** (string='', stringArray) - Selection based on uv range. Default: entire range. Default units: meters.
    - **observation** (string='', int) - Selection based on observation ID. Default is all.
 
-   *listfile != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> listfile != '' </i></summary>
 
    - **overwrite** (bool=False) - If True, tacitly overwrite listfile if it exists.
+
+   .. raw:: html
+
+      </details>
 
 
 Description

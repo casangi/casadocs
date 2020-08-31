@@ -15,17 +15,29 @@ Parameters
    - **overwrite** (bool) - overwrite the output file if already exists [True, False]
 
 Subparameters
-   *mode = fft_mask*
+   .. raw:: html
+
+      <details><summary><i> mode = fft_mask </i></summary>
 
    - **direction** (variant='') - scan direction (p.a.) counterclockwise from the horizontal axis in unit of degree
    - **maskwidth** (variant=1.0) - mask width for Basket-Weaving (on percentage)
 
-   *mode = model*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = model </i></summary>
 
    - **numpoly** (int=2) - order of polynomial fit for Pressed-out method
    - **beamsize** (variant=0.0) - beam size for Pressed-out method
    - **smoothsize** (variant=2.0) - size of smoothing beam for Pressed-out method
    - **direction** (variant=0.0) - scan direction (p.a.) counterclockwise from the horizontal axis in unit of degree
+
+   .. raw:: html
+
+      </details>
 
 
 Description

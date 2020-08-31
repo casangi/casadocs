@@ -23,7 +23,9 @@ Parameters
    - **datacolumn** (string) - Data column to use to compute weights. Supported values are "data", "corrected", "residual", and "residual_data" (case insensitive, minimum match supported).
 
 Subparameters
-   *selectdata = True*
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **field** (string="") - Selection based on field names or field index numbers. Default is all.
    - **spw** (string="") - Selection based on spectral windows:channels. Default is all.
@@ -32,19 +34,41 @@ Subparameters
    - **array** (string="") - Selection based on array IDs. Default is all.
    - **scan** (string="") - Select data by scan numbers.
 
-   *statalg = hinges-fences*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> statalg = hinges-fences </i></summary>
 
    - **fence** (double=-1) - Fence value for statalg="hinges-fences". A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if statalg is not "hinges-fences".
 
-   *statalg = fit-half*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> statalg = fit-half </i></summary>
 
    - **center** (string=mean) - Center to use for statalg="fit-half". Valid choices are "mean", "median", and "zero". Ignored if statalg is not "fit-half".
    - **lside** (bool=True) - For statalg="fit-half", real data are <=; center? If false, real data are >= center. Ignored if statalg is not "fit-half".
 
-   *statalg = chauvenet*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> statalg = chauvenet </i></summary>
 
    - **zscore** (double=-1) - For statalg="chauvenet", this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet\'s criterion. Ignored if statalg is not "chauvenet".
    - **maxiter** (int=-1) - For statalg="chauvenet", this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if statalg is not "chauvenet".
+
+   .. raw:: html
+
+      </details>
 
 
 Description

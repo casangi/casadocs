@@ -20,7 +20,9 @@ Parameters
    - **overwrite** (bool) - Overwrite existing files in the project subdirectory
 
 Subparameters
-   *skymodel != ''*
+   .. raw:: html
+
+      <details><summary><i> skymodel != '' </i></summary>
 
    - **inbright** (string='') - Peak brightness to scale the image to in Jy/pixel
    - **indirection** (string='') - Set new direction, e.g. J2000 19h00m00 -40d00m00
@@ -28,12 +30,24 @@ Subparameters
    - **incenter** (string='') - Set new frequency of center channel e.g. 89GHz (required even for 2D model)
    - **inwidth** (string='') - Set new channel width, e.g. "10MHz" (required even for 2D model)
 
-   *complist != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> complist != '' </i></summary>
 
    - **compwidth** (string=8GHz) - Bandwidth of components
    - **comp_nchan** (int=1) - Channelization of components
 
-   *setpointings = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> setpointings = True </i></summary>
 
    - **integration** (string=10s) - Integration (sampling) time
    - **direction** (stringArray='') - Mosaic center direction, e.g J2000 19h00m00 -40d00m00
@@ -42,12 +56,24 @@ Subparameters
    - **maptype** (string=ALMA) - how to calculate the pointings for the mosaic observation: hexagonal, square (raster), ALMA, etc.
    - **pointingspacing** (string='') - Spacing in between pointings e.g. 0.25PB. ALMA default: INT=lambda/D/sqrt(3), SD=lambda/D/3 
 
-   *setpointings = False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> setpointings = False </i></summary>
 
    - **ptgfile** (string=$project.ptg.txt) - List of pointing positions
    - **integration** (string=10s) - Integration (sampling) time
 
-   *obsmode = int*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> obsmode = int </i></summary>
 
    - **antennalist** (string=alma.out10.cfg) - Interferometer antenna position file
    - **refdate** (string=2014/05/21) - Date of observation. Not critical unless concatting simulations
@@ -56,7 +82,13 @@ Subparameters
    - **caldirection** (string='') - pt source calibrator [experimental]
    - **calflux** (string=1Jy) - pt source calibrator flux [experimental]
 
-   *obsmode = sd*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> obsmode = sd </i></summary>
 
    - **sdantlist** (string=aca.tp.cfg) - Single dish antenna position file
    - **sdant** (int=0) - Single dish antenna index in file
@@ -64,24 +96,46 @@ Subparameters
    - **hourangle** (string=transit) - Hour angle of observation center, e.g. -3:00:00, 5h
    - **totaltime** (string="7200s") - Total time of observation or number of repetitions
 
-   *obsmode = ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> obsmode = '' </i></summary>
 
    - **antennalist** (string='') - Interferometer antenna position file
    - **sdantlist** (string='') - Single dish antenna position file
    - **sdant** (int=0) - Single dish antenna index in file
 
-   *thermalnoise = tsys-atm*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> thermalnoise = tsys-atm </i></summary>
 
    - **user_pwv** (double=0.5) - Precipitable Water Vapor in mm
    - **t_ground** (double=269.) - Ground/spillover ambient temperature in K
    - **seed** (int=11111) - Random number seed
 
-   *thermalnoise = tsys-manual*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> thermalnoise = tsys-manual </i></summary>
 
    - **t_ground** (double=269.) - Ground/spillover ambient temperature in K
    - **t_sky** (double=263.) - Atmospheric temperatur in K
    - **tau0** (double=0.1) - Zenith opacity
    - **seed** (int=11111) - Random number seed
+
+   .. raw:: html
+
+      </details>
 
 
 Description

@@ -27,9 +27,15 @@ Parameters
    - **datacolumn** (string) - 
 
 Subparameters
-   *byantenna = True*
+   .. raw:: html
+
+      <details><summary><i> byantenna = True </i></summary>
 
    - **sepacs** (bool=True) - 
+
+   .. raw:: html
+
+      </details>
 
 
 Description

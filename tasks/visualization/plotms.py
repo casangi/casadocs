@@ -44,75 +44,173 @@ Parameters
    - **showimage** (bool) - Compute and overlay the image sideband curve
 
 Subparameters
-   *xaxis = amp*
+   .. raw:: html
+
+      <details><summary><i> xaxis = amp </i></summary>
 
    - **xdatacolumn** (string='') - Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.
 
-   *xaxis = amplitude*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> xaxis = amplitude </i></summary>
 
    - **xdatacolumn** (string='') - Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.
 
-   *xaxis = phase*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> xaxis = phase </i></summary>
 
    - **xdatacolumn** (string='') - Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.
 
-   *xaxis = real*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> xaxis = real </i></summary>
 
    - **xdatacolumn** (string='') - Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.
 
-   *xaxis = imag*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> xaxis = imag </i></summary>
 
    - **xdatacolumn** (string='') - Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.
 
-   *xaxis = imaginary*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> xaxis = imaginary </i></summary>
 
    - **xdatacolumn** (string='') - Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.
 
-   *xaxis = ant-ra*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> xaxis = ant-ra </i></summary>
 
    - **xframe** (string='') - Coordinate frame to use for x-axis
    - **xinterp** (string='') - Interpolation method for x-axis
 
-   *xaxis = ant-dec*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> xaxis = ant-dec </i></summary>
 
    - **xframe** (string='') - Coordinate frame to use for x-axis
    - **xinterp** (string='') - Interpolation method for x-axis
 
-   *yaxis = amp*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> yaxis = amp </i></summary>
 
    - **ydatacolumn** (variant='') - Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.
 
-   *yaxis = amplitude*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> yaxis = amplitude </i></summary>
 
    - **ydatacolumn** (variant='') - Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.
 
-   *yaxis = phase*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> yaxis = phase </i></summary>
 
    - **ydatacolumn** (variant='') - Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.
 
-   *yaxis = real*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> yaxis = real </i></summary>
 
    - **ydatacolumn** (variant='') - Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.
 
-   *yaxis = imag*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> yaxis = imag </i></summary>
 
    - **ydatacolumn** (variant='') - Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.
 
-   *yaxis = imaginary*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> yaxis = imaginary </i></summary>
 
    - **ydatacolumn** (variant='') - Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.
 
-   *yaxis = ant-ra*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> yaxis = ant-ra </i></summary>
 
    - **yframe** (variant='') - Coordinate frame to use for y-axis
    - **yinterp** (variant='') - Interpolation method for y-axis
 
-   *yaxis = ant-dec*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> yaxis = ant-dec </i></summary>
 
    - **yframe** (variant='') - Coordinate frame to use for y-axis
    - **yinterp** (variant='') - Interpolation method for y-axis
 
-   *selectdata = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **field** (string='') - Field names or ids (blank for all)
    - **spw** (string='') - Spectral windows:channels (blank for all)
@@ -127,7 +225,13 @@ Subparameters
    - **feed** (string='') - Feed numbers (blank for all)
    - **msselect** (string='') - MSSelection TaQL string (blank for none)
 
-   *averagedata = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> averagedata = True </i></summary>
 
    - **avgchannel** (string='') - Average over channel (blank = False, otherwise value in channels)
    - **avgtime** (string='') - Average over time (blank = False, otherwise value in seconds)
@@ -138,26 +242,50 @@ Subparameters
    - **avgspw** (bool=False) - Average over all spectral windows
    - **scalar** (bool=False) - Scalar averaging (False=vector averaging)
 
-   *transform = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> transform = True </i></summary>
 
    - **freqframe** (string='') - The frame in which to render frequency and velocity axes
    - **restfreq** (string='') - Rest frequency to use for velocity conversions 
    - **veldef** (string=RADIO) - The definition in which to render velocity 
    - **shift** (doubleArray='') - Adjust phases by this approximate phase center shift [dx,dy] (arcsec)
 
-   *extendflag = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> extendflag = True </i></summary>
 
    - **extcorr** (bool=False) - Extend flags based on correlation 
    - **extchannel** (bool=False) - Extend flags based on channel
 
-   *iteraxis != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> iteraxis != '' </i></summary>
 
    - **xselfscale** (bool=False) - When True, iterated plots have a common x-axis range (scale).
    - **yselfscale** (bool=False) - When True, iterated plots have a common y-axis range (scale).
    - **xsharedaxis** (bool=False) - Iterated plots on a grid share a common external x-axis per column. Must also set xselfscale=True and gridrows>1.
    - **ysharedaxis** (bool=False) - Iterated plots on a grid share a common external y-axis per row. Must also set yselfscale=True and gridcols>1.
 
-   *customsymbol = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> customsymbol = True </i></summary>
 
    - **symbolshape** (variant=autoscaling) - Shape of plotted unflagged symbols
    - **symbolsize** (variant=2) - Size of plotted unflagged symbols
@@ -165,7 +293,13 @@ Subparameters
    - **symbolfill** (variant=fill) - Fill type of plotted unflagged symbols
    - **symboloutline** (variant=False) - Outline plotted unflagged symbols
 
-   *customflaggedsymbol = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> customflaggedsymbol = True </i></summary>
 
    - **flaggedsymbolshape** (variant=nosymbol) - Shape of plotted flagged symbols
    - **flaggedsymbolsize** (variant=2) - Size of plotted flagged symbols
@@ -173,7 +307,13 @@ Subparameters
    - **flaggedsymbolfill** (variant=fill) - Fill type of plotted flagged symbols
    - **flaggedsymboloutline** (variant=False) - Outline plotted flagged symbols
 
-   *plotfile != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> plotfile != '' </i></summary>
 
    - **expformat** (string='') - Export format type. If not provided, plotfile extension will be used to determine type.
    - **verbose** (bool=True) - Include metadata in text export
@@ -184,33 +324,73 @@ Subparameters
    - **height** (int=-1) - Height in pixels of exported plot
    - **overwrite** (bool=False) - Overwrite plot file if it already exists
 
-   *showgui = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> showgui = True </i></summary>
 
    - **clearplots** (bool=True) - Remove any existing plots so new ones can replace them.
 
-   *showgui = False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> showgui = False </i></summary>
 
    - **clearplots** (bool=True) - Remove any existing plots so new ones can replace them.
 
-   *showmajorgrid = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> showmajorgrid = True </i></summary>
 
    - **majorwidth** (int=0) - Line width in pixels of major grid lines
    - **majorstyle** (string='') - Major grid line style
    - **majorcolor** (string='') - Color (name or hex code) of major grid lines
 
-   *showminorgrid = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> showminorgrid = True </i></summary>
 
    - **minorwidth** (int=0) - Line width in pixels of minor grid lines
    - **minorstyle** (string='') - Minor grid line style
    - **minorcolor** (string='') - Color (name or hex code) of minor grid lines
 
-   *xconnector = line*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> xconnector = line </i></summary>
 
    - **timeconnector** (bool=False) - Connect points by time rather than x-axis
 
-   *xconnector = step*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> xconnector = step </i></summary>
 
    - **timeconnector** (bool=False) - Connect points by time rather than x-axis
+
+   .. raw:: html
+
+      </details>
 
 
 Description

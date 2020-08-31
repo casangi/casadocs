@@ -23,7 +23,9 @@ Parameters
    - **overwrite** (bool) - overwrite files starting with $project
 
 Subparameters
-   *skymodel != ''*
+   .. raw:: html
+
+      <details><summary><i> skymodel != '' </i></summary>
 
    - **inbright** (string='') - scale surface brightness of brightest pixel e.g. "1.2Jy/pixel"
    - **indirection** (string='') - set new direction e.g. "J2000 19h00m00 -40d00m00"
@@ -31,33 +33,67 @@ Subparameters
    - **incenter** (string='') - set new frequency of center channel e.g. "89GHz" (required even for 2D model)
    - **inwidth** (string='') - set new channel width e.g. "10MHz" (required even for 2D model)
 
-   *complist != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> complist != '' </i></summary>
 
    - **compwidth** (string=8GHz) - bandwidth of components
 
-   *setpointings = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> setpointings = True </i></summary>
 
    - **integration** (string=10s) - integration (sampling) time
    - **direction** (stringArray='') - "J2000 19h00m00 -40d00m00" or "" to center on model
    - **mapsize** (stringArray=
         ) - angular size of map or "" to cover model
 
-   *setpointings = False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> setpointings = False </i></summary>
 
    - **ptgfile** (string=$project.ptg.txt) - list of pointing positions
    - **integration** (string=10s) - integration (sampling) time
 
-   *tpnant != 0*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> tpnant != 0 </i></summary>
 
    - **tptime** (string=0s) - total observation time for total power
 
-   *image = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> image = True </i></summary>
 
    - **imsize** (intArray=0) - output image size in pixels (x,y) or 0 to match model
    - **imdirection** (string='') - set output image direction, (otherwise center on the model)
    - **cell** (string='') - cell size with units or "" to equal model
    - **niter** (int=0) - maximum number of iterations (0 for dirty image)
    - **threshold** (string=0.1mJy) - flux level (+units) to stop cleaning
+
+   .. raw:: html
+
+      </details>
 
 
 Description

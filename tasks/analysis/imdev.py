@@ -24,14 +24,26 @@ Parameters
    - **statalg** (string) - Statistics computation algorithm to use. Supported values are "chauvenet" and "classic", Minimum match is supported.
 
 Subparameters
-   *mask != ''*
+   .. raw:: html
+
+      <details><summary><i> mask != '' </i></summary>
 
    - **stretch** (bool=False) - Stretch the mask if necessary and possible? Default value is False.
 
-   *statalg = chauvenet*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> statalg = chauvenet </i></summary>
 
    - **zscore** (double=-1) - For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet"s criterion. Ignored if algorithm is not "chauvenet".
    - **maxiter** (int=-1) - For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algortihm is not "chauvenet".
+
+   .. raw:: html
+
+      </details>
 
 
 Description

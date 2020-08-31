@@ -25,7 +25,9 @@ Parameters
    - **docallib** (bool) - Use callib or traditional cal apply parameters
 
 Subparameters
-   *selectdata = True*
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **timerange** (string='') - Select data based on time range
    - **uvrange** (variant='') - Select data within uvrange (default units meters)
@@ -34,16 +36,32 @@ Subparameters
    - **observation** (string='', int) - Select by observation ID(s)
    - **msselect** (string='') - Optional complex data selection (ignore for now)
 
-   *docallib = False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> docallib = False </i></summary>
 
    - **gaintable** (stringArray='') - Gain calibration table(s) to apply
    - **gainfield** (stringArray='') - Select a subset of calibrators from gaintable(s)
    - **interp** (stringArray='') - Interpolation mode (in time) to use for each gaintable
    - **spwmap** (intArray='') - Spectral window mappings to form for gaintable(s)
 
-   *docallib = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> docallib = True </i></summary>
 
    - **callib** (string='') - Cal Library filename
+
+   .. raw:: html
+
+      </details>
 
 
 Description

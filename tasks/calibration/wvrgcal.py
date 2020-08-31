@@ -29,14 +29,26 @@ Parameters
    - **offsetstable** (string) - 
 
 Subparameters
-   *segsource = True*
+   .. raw:: html
+
+      <details><summary><i> segsource = True </i></summary>
 
    - **tie** (stringArray='') - 
    - **sourceflag** (stringArray='') - 
 
-   *segsource = False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> segsource = False </i></summary>
 
    - **nsol** (int=1) - 
+
+   .. raw:: html
+
+      </details>
 
 
 Description

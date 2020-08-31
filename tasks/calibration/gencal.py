@@ -16,21 +16,45 @@ Parameters
    - **parameter** (doubleArray) - The calibration values
 
 Subparameters
-   *caltype = tecim*
+   .. raw:: html
+
+      <details><summary><i> caltype = tecim </i></summary>
 
    - **infile** (string='') - Input ancilliary file
 
-   *caltype = gc*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> caltype = gc </i></summary>
 
    - **infile** (string='') - Input ancilliary file
 
-   *caltype = gceff*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> caltype = gceff </i></summary>
 
    - **infile** (string='') - Input ancilliary file
 
-   *caltype = tsys*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> caltype = tsys </i></summary>
 
    - **uniform** (bool=True) - Assume uniform calibration values across the array
+
+   .. raw:: html
+
+      </details>
 
 
 Description

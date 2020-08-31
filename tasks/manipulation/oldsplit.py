@@ -26,9 +26,15 @@ Parameters
    - **keepmms** (bool) - If the input is a multi-MS, make the output one,too.
 
 Subparameters
-   *timebin != 0s*
+   .. raw:: html
+
+      <details><summary><i> timebin != 0s </i></summary>
 
    - **combine** (string='', stringArray) - Let time bins span changes in scan and/or stat
+
+   .. raw:: html
+
+      </details>
 
 
 Description

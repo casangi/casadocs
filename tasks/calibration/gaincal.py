@@ -32,7 +32,9 @@ Parameters
    - **parang** (bool) - Apply parallactic angle correction
 
 Subparameters
-   *selectdata = True*
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **timerange** (string='') - Select data based on time range
    - **uvrange** (variant='') - Select data by baseline length.
@@ -41,26 +43,54 @@ Subparameters
    - **observation** (string='', int) - Select by observation ID(s)
    - **msselect** (string='') - Optional complex data selection (ignore for now)
 
-   *gaintype = GSPLINE*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gaintype = GSPLINE </i></summary>
 
    - **splinetime** (double=3600.0) - Spline timescale(sec); All spw\'s are first averaged.
    - **npointaver** (int=3) - The phase-unwrapping algorithm
    - **phasewrap** (double=180.0) - Wrap the phase for jumps greater than this value (degrees)
 
-   *solnorm = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> solnorm = True </i></summary>
 
    - **normtype** (string=mean) - Solution normalization calculation type: mean or median
 
-   *docallib = False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> docallib = False </i></summary>
 
    - **gaintable** (stringArray='') - Gain calibration table(s) to apply on the fly
    - **gainfield** (stringArray='') - Select a subset of calibrators from gaintable(s)
    - **interp** (stringArray='') - Interpolation parameters for each gaintable, as a list
    - **spwmap** (intArray='') - Spectral window mappings to form for gaintable(s)
 
-   *docallib = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> docallib = True </i></summary>
 
    - **callib** (string='') - Cal Library filename
+
+   .. raw:: html
+
+      </details>
 
 
 Description

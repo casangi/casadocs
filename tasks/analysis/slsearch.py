@@ -19,18 +19,30 @@ Parameters
    - **verbose** (bool) - List result set to logger (and optionally logfile)?
 
 Subparameters
-   *verbose = True*
+   .. raw:: html
+
+      <details><summary><i> verbose = True </i></summary>
 
    - **logfile** (string="") - List result set to this logfile (only used if verbose=True).
    - **append** (bool=True) - If true, append to logfile if it already exists, if false overwrite logfile it it exists. Only used if verbose=True and logfile not blank.
 
-   *rrlonly = False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> rrlonly = False </i></summary>
 
    - **intensity** (doubleArray=-1) - CDMS/JPL intensity range. -1 -> do not use an intensity range.
    - **smu2** (doubleArray=-1) - Quantum mechanical line strength. -1 -> do not use a smu2 range.
    - **loga** (doubleArray=-1) - log(A) (Einstein coefficient) range. -1 -> do not use a loga range.
    - **eu** (doubleArray=-1) - Upper energy state range in Kelvin. -1 -> do not use an eu range.
    - **el** (doubleArray=-1) - Lower energy state range in Kelvin. -1 -> do not use an el range.
+
+   .. raw:: html
+
+      </details>
 
 
 Description

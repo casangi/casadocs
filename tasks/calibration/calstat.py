@@ -12,29 +12,65 @@ Parameters
    - **useflags** (bool) - Take flagging into account? (not implemented)
 
 Subparameters
-   *axis = amp*
+   .. raw:: html
+
+      <details><summary><i> axis = amp </i></summary>
 
    - **datacolumn** (string=gain) - Which data column to use
 
-   *axis = amplitude*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> axis = amplitude </i></summary>
 
    - **datacolumn** (string=gain) - Which data column to use
 
-   *axis = phase*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> axis = phase </i></summary>
 
    - **datacolumn** (string=gain) - Which data column to use
 
-   *axis = real*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> axis = real </i></summary>
 
    - **datacolumn** (string=gain) - Which data column to use
 
-   *axis = imag*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> axis = imag </i></summary>
 
    - **datacolumn** (string=gain) - Which data column to use
 
-   *axis = imaginary*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> axis = imaginary </i></summary>
 
    - **datacolumn** (string=gain) - Which data column to use
+
+   .. raw:: html
+
+      </details>
 
 
 Description

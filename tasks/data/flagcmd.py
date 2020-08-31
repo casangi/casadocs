@@ -13,45 +13,93 @@ Parameters
    - **savepars** (bool) - Save flag commands to the MS or file
 
 Subparameters
-   *inpmode = table*
+   .. raw:: html
+
+      <details><summary><i> inpmode = table </i></summary>
 
    - **inpfile** (string='', stringArray) - Source of flag commands
    - **tablerows** (intArray='') - Rows of inpfile to read
    - **reason** (string=any, stringArray) - Select by REASON types
    - **useapplied** (bool=False) - Select commands whose rows have APPLIED column set to True
 
-   *inpmode = list*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> inpmode = list </i></summary>
 
    - **inpfile** (string='', stringArray) - Source of flag commands
    - **reason** (string=any, stringArray) - Select by REASON types
 
-   *inpmode = xml*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> inpmode = xml </i></summary>
 
    - **tbuff** (double=0.0) - Time buffer (sec) to pad flags
    - **ants** (string='') - Allowed flag antenna names to select by
    - **reason** (string=any, stringArray) - Select by REASON types
 
-   *action = apply*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> action = apply </i></summary>
 
    - **flagbackup** (bool=True) - Automatically backup the FLAG column before execution
 
-   *action = unapply*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> action = unapply </i></summary>
 
    - **flagbackup** (bool=True) - Automatically backup the FLAG column before execution
 
-   *action = plot*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> action = plot </i></summary>
 
    - **plotfile** (string='') - Name of output file to save plot
 
-   *action = clear*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> action = clear </i></summary>
 
    - **clearall** (bool=False) - Delete all rows from FLAG_CMD
    - **rowlist** (intArray='') - FLAG_CMD rows to clear
 
-   *savepars = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> savepars = True </i></summary>
 
    - **outfile** (string='') - Name of output file to save commands
    - **overwrite** (bool=True) - Overwrite an existing file to save the flag commands
+
+   .. raw:: html
+
+      </details>
 
 
 Description

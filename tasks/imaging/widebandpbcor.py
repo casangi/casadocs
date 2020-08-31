@@ -14,7 +14,9 @@ Parameters
    - **action** (string) - PB-correction (pbcor) or only calc spectral-index (calcalpha)
 
 Subparameters
-   *action = pbcor*
+   .. raw:: html
+
+      <details><summary><i> action = pbcor </i></summary>
 
    - **reffreq** (string='') - Reference frequency (if specified in clean)
    - **pbmin** (double=0.2) - PB threshold below which to not correct
@@ -22,6 +24,10 @@ Subparameters
    - **spwlist** (intArray='') - List of N spw ids
    - **chanlist** (intArray='') - List of N channel ids
    - **weightlist** (doubleArray='') - List of N weights (relative)
+
+   .. raw:: html
+
+      </details>
 
 
 Description

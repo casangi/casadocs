@@ -11,21 +11,39 @@ Parameters
    - **mode** (string) - Mode of operation for vishead
 
 Subparameters
-   *mode = list*
+   .. raw:: html
+
+      <details><summary><i> mode = list </i></summary>
 
    - **listitems** (stringArray=
            ) - Keyword items to list. This parameter is only relevant in list mode. Note that the default list is a subset of the possible keywords. To get all the keywords set listitems=[]
 
-   *mode = get*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = get </i></summary>
 
    - **hdkey** (string='') - Keyword to get/put
    - **hdindex** (string='') - Index (counting from 0) if keyword is an array (used in get/put mode only). The empty string means all elements
 
-   *mode = put*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = put </i></summary>
 
    - **hdkey** (string='') - Keyword to get/put
    - **hdindex** (string='') - Index (counting from 0) if keyword is an array (used in get/put mode only). The empty string means all elements
    - **hdvalue** (variant='') - Value of the keywords to be put in the MS (used in put mode only)
+
+   .. raw:: html
+
+      </details>
 
 
 Description

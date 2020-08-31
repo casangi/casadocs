@@ -30,58 +30,118 @@ Parameters
    - **clipminmax** (bool) - Clip minimum and maximum value from each pixel
 
 Subparameters
-   *mode = channel*
+   .. raw:: html
+
+      <details><summary><i> mode = channel </i></summary>
 
    - **nchan** (int=-1) -  number of channels (planes) in output image (-1=all)
    - **start** (string='', int) - start of output spectral dimension, e.g. \'0\', \'110GHz\', \'-20km/s\'
    - **width** (string='', int) - width of output spectral channels
 
-   *mode = frequency*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = frequency </i></summary>
 
    - **nchan** (int=-1) -  number of channels (planes) in output image (-1=all)
    - **start** (string='', int) - start of output spectral dimension, e.g. \'0\', \'110GHz\', \'-20km/s\'
    - **width** (string='', int) - width of output spectral channels
 
-   *mode = velocity*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = velocity </i></summary>
 
    - **nchan** (int=-1) -  number of channels (planes) in output image (-1=all)
    - **start** (string='', int) - start of output spectral dimension, e.g. \'0\', \'110GHz\', \'-20km/s\'
    - **width** (string='', int) - width of output spectral channels
    - **veltype** (string=radio) - velocity definition [\'radio\', \'optical\', \'true\' or \'relativistic\'] 
 
-   *specmode = cube*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> specmode = cube </i></summary>
 
    - **outframe** (string='') - velocity frame of output image [\'lsrk\', \'lsrd\', \'bary\', \'geo\', \'topo\', \'galacto\', \'lgroup\', \'cmb\'] (\'\'=current frame or LSRK for multiple-MS inputs) 
 
-   *gridfunction = SF*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridfunction = SF </i></summary>
 
    - **convsupport** (int=-1) - convolution support for gridding
 
-   *gridfunction = sf*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridfunction = sf </i></summary>
 
    - **convsupport** (int=-1) - convolution support for gridding
 
-   *gridfunction = GAUSS*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridfunction = GAUSS </i></summary>
 
    - **truncate** (string=-1, int, double) - truncation radius for gridding
    - **gwidth** (string=-1, int, double) - HWHM for gaussian
 
-   *gridfunction = gauss*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridfunction = gauss </i></summary>
 
    - **truncate** (string=-1, int, double) - truncation radius for gridding
    - **gwidth** (string=-1, int, double) - HWHM for gaussian
 
-   *gridfunction = GJINC*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridfunction = GJINC </i></summary>
 
    - **truncate** (string=-1, int, double) - truncation radius for gridding
    - **gwidth** (string=-1, int, double) - HWHM for gaussian
    - **jwidth** (string=-1, int, double) - c-parameter for jinc function
 
-   *gridfunction = gjinc*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> gridfunction = gjinc </i></summary>
 
    - **truncate** (string=-1, int, double) - truncation radius for gridding
    - **gwidth** (string=-1, int, double) - HWHM for gaussian
    - **jwidth** (string=-1, int, double) - c-parameter for jinc function
+
+   .. raw:: html
+
+      </details>
 
 
 Description

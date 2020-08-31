@@ -18,13 +18,19 @@ Parameters
    - **outfile** (string) - Optional output component list table
 
 Subparameters
-   *selectdata = True*
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **timerange** (string='') - Select data based on time range
    - **uvrange** (variant='') - Select data within uvrange (default units meters)
    - **antenna** (string='') - Select data based on antenna/baseline
    - **scan** (string='') - Scan number range
    - **msselect** (string='') - Optional complex data selection (ignore for now)
+
+   .. raw:: html
+
+      </details>
 
 
 Description

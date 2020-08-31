@@ -11,14 +11,26 @@ Parameters
    - **mode** (string) - Mode to run in, "list" to retrieve history, "append" to append a record to history.
 
 Subparameters
-   *mode = list*
+   .. raw:: html
+
+      <details><summary><i> mode = list </i></summary>
 
    - **verbose** (bool=True) - Write history to logger if mode="list"?
 
-   *mode = append*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = append </i></summary>
 
    - **origin** (string=imhistory) - Origin of appended message. Only used for mode="append".
    - **message** (string='') - Message to append. Only used of mode="append".
+
+   .. raw:: html
+
+      </details>
 
 
 Description

@@ -25,7 +25,9 @@ Parameters
    - **parang** (bool) - Apply parallactic angle correction
 
 Subparameters
-   *selectdata = True*
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **timerange** (string='') - Select data based on time range
    - **uvrange** (variant='') - Select data by baseline length.
@@ -33,6 +35,10 @@ Subparameters
    - **scan** (string='') - Scan number range
    - **observation** (string='', int) - Select by observation ID(s)
    - **msselect** (string='') - Optional complex data selection (ignore for now)
+
+   .. raw:: html
+
+      </details>
 
 
 Description

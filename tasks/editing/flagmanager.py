@@ -11,26 +11,50 @@ Parameters
    - **mode** (string) - Operation: list, save, restore, delete, rename
 
 Subparameters
-   *mode = save*
+   .. raw:: html
+
+      <details><summary><i> mode = save </i></summary>
 
    - **versionname** (string='') - Flag version name
    - **comment** (string='') - Short description of a versionname
    - **merge** (string=replace) - Merge option: replace will save or over-write the flags
 
-   *mode = restore*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = restore </i></summary>
 
    - **versionname** (string='') - Flag version name
    - **merge** (string=replace) - Merge option: replace will save or over-write the flags
 
-   *mode = delete*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = delete </i></summary>
 
    - **versionname** (string='') - Flag version name
 
-   *mode = rename*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = rename </i></summary>
 
    - **oldname** (string='') - Flag version to rename
    - **versionname** (string='') - Flag version name
    - **comment** (string='') - Short description of a versionname
+
+   .. raw:: html
+
+      </details>
 
 
 Description

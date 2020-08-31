@@ -10,18 +10,32 @@ Parameters
    - **mode** (string) - Mask method (list, copy,expand,delete,setdefaultmask)
 
 Subparameters
-   *mode = list*
+   .. raw:: html
+
+      <details><summary><i> mode = list </i></summary>
 
    - **inpimage** (string='', stringArray) - Name of input image.
 
-   *mode = copy*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = copy </i></summary>
 
    - **inpimage** (string='', stringArray) - Name of input image.
    - **inpmask** (string='', stringArray) - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode)
    - **output** (string='') - Name of output mask (imagename or imagename:internal_maskname)
    - **overwrite** (bool=False) - overwrite output if exists?
 
-   *mode = expand*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = expand </i></summary>
 
    - **inpimage** (string='', stringArray) - Name of input image.
    - **inpmask** (string='', stringArray) - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode)
@@ -30,13 +44,29 @@ Subparameters
    - **output** (string='') - Name of output mask (imagename or imagename:internal_maskname)
    - **overwrite** (bool=False) - overwrite output if exists?
 
-   *mode = delete*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = delete </i></summary>
 
    - **inpmask** (string='', stringArray) - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode)
 
-   *mode = setdefaultmask*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = setdefaultmask </i></summary>
 
    - **inpmask** (string='', stringArray) - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode)
+
+   .. raw:: html
+
+      </details>
 
 
 Description

@@ -13,7 +13,9 @@ Parameters
    - **savepars** (bool) - Save the current parameters to the FLAG_CMD table or to a file
 
 Subparameters
-   *mode = manual*
+   .. raw:: html
+
+      <details><summary><i> mode = manual </i></summary>
 
    - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
    - **spw** (string='', stringArray) - Select spectral window/channels
@@ -28,7 +30,13 @@ Subparameters
    - **feed** (string='', stringArray) - Multi-feed numbers: Not yet implemented
    - **autocorr** (bool=False) - Flag only the auto-correlations?
 
-   *mode = manualflag*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = manualflag </i></summary>
 
    - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
    - **spw** (string='', stringArray) - Select spectral window/channels
@@ -43,13 +51,25 @@ Subparameters
    - **feed** (string='', stringArray) - Multi-feed numbers: Not yet implemented
    - **autocorr** (bool=False) - Flag only the auto-correlations?
 
-   *mode = list*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = list </i></summary>
 
    - **inpfile** (string='', stringArray) - Input ASCII file, list of files or Python list of strings with flag commands.
    - **reason** (string=any, stringArray) - Select by REASON types
    - **tbuff** (double=0.0, doubleArray) - List of time buffers (sec) to pad timerange in flag commands
 
-   *mode = clip*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = clip </i></summary>
 
    - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
    - **spw** (string='', stringArray) - Select spectral window/channels
@@ -71,7 +91,13 @@ Subparameters
    - **timebin** (string='') - Bin width for time average in seconds
    - **clipzeros** (bool=False) - Clip zero-value data
 
-   *mode = quack*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = quack </i></summary>
 
    - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
    - **spw** (string='', stringArray) - Select spectral window/channels
@@ -88,7 +114,13 @@ Subparameters
    - **quackmode** (string=beg, stringArray) - Quack mode. Flag intervals of the scan according to given mode.
    - **quackincrement** (bool=False, boolArray) - Increment quack flagging in time taking into account flagged data or not.
 
-   *mode = shadow*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = shadow </i></summary>
 
    - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
    - **spw** (string='', stringArray) - Select spectral window/channels
@@ -104,7 +136,13 @@ Subparameters
    - **tolerance** (double=0.0) - Amount of shadow allowed (in meters)
    - **addantenna** (string='', record) - File name or dictionary with additional antenna names, positions and diameters
 
-   *mode = elevation*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = elevation </i></summary>
 
    - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
    - **spw** (string='', stringArray) - Select spectral window/channels
@@ -120,7 +158,13 @@ Subparameters
    - **lowerlimit** (double=0.0) - Lower limiting elevation (in degrees)
    - **upperlimit** (double=90.0) - Upper limiting elevation (in degrees)
 
-   *mode = tfcrop*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = tfcrop </i></summary>
 
    - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
    - **spw** (string='', stringArray) - Select spectral window/channels
@@ -150,7 +194,13 @@ Subparameters
    - **timeavg** (bool=False, boolArray) - Pre-average data across time before analyzing visibilities for flagging.
    - **timebin** (string='') - Bin width for time average in seconds
 
-   *mode = rflag*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = rflag </i></summary>
 
    - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
    - **spw** (string='', stringArray) - Select spectral window/channels
@@ -179,7 +229,13 @@ Subparameters
    - **timeavg** (bool=False, boolArray) - Pre-average data across time before analyzing visibilities for flagging.
    - **timebin** (string='') - Bin width for time average in seconds
 
-   *mode = antint*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = antint </i></summary>
 
    - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
    - **spw** (string='', stringArray) - Select spectral window/channels
@@ -189,7 +245,13 @@ Subparameters
    - **minchanfrac** (double=.6) - Minimum fraction of flagged channels required for a baseline to be deemed as flagged
    - **verbose** (bool=False) - Print timestamps of flagged integrations to the log
 
-   *mode = extend*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = extend </i></summary>
 
    - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
    - **spw** (string='', stringArray) - Select spectral window/channels
@@ -211,7 +273,13 @@ Subparameters
    - **flagneartime** (bool=False) - Flag one timestep before and after a flagged one (True/False)
    - **flagnearfreq** (bool=False) - Flag one channel before and after a flagged one (True/False)
 
-   *mode = unflag*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = unflag </i></summary>
 
    - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
    - **spw** (string='', stringArray) - Select spectral window/channels
@@ -225,7 +293,13 @@ Subparameters
    - **observation** (string='', int) - Select by observation ID(s)
    - **feed** (string='', stringArray) - Multi-feed numbers: Not yet implemented
 
-   *mode = summary*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mode = summary </i></summary>
 
    - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
    - **spw** (string='', stringArray) - Select spectral window/channels
@@ -248,20 +322,42 @@ Subparameters
    - **fieldcnt** (bool=False) - Produce a separated breakdown for each field
    - **name** (string=Summary) - Name of this summary report (key in summary dictionary)
 
-   *action = apply*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> action = apply </i></summary>
 
    - **display** (string='') - Display data and/or end-of-MS reports at runtime (data/report/both).
    - **flagbackup** (bool=True) - Back up the state of flags before the run
 
-   *action = calculate*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> action = calculate </i></summary>
 
    - **display** (string='') - Display data and/or end-of-MS reports at runtime (data/report/both).
 
-   *savepars = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> savepars = True </i></summary>
 
    - **cmdreason** (string='') - Reason to save to output file or to FLAG_CMD table.
    - **outfile** (string='') - Name of output file to save current parameters. If empty, save to FLAG_CMD
    - **overwrite** (bool=True) - Overwrite an existing file to save the flag commands
+
+   .. raw:: html
+
+      </details>
 
 
 Description

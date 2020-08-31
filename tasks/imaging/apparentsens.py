@@ -16,7 +16,9 @@ Parameters
    - **weighting** (string) - Weighting scheme (natural,uniform,briggs)
 
 Subparameters
-   *selectdata = True*
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **field** (string="", stringArray) - field(s) to select
    - **spw** (string="", stringArray) - spw(s)/channels to select
@@ -27,15 +29,31 @@ Subparameters
    - **observation** (string="", int) - Observation ID range
    - **intent** (string="", stringArray) - Scan Intent(s)
 
-   *weighting = natural*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> weighting = natural </i></summary>
 
    - **uvtaper** (stringArray=[]) - uv-taper on outer baselines in uv-plane
 
-   *weighting = briggs*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> weighting = briggs </i></summary>
 
    - **robust** (double=0.5) - Robustness parameter
    - **npixels** (int=0) - Number of pixels to determine uv-cell size (0 : -/+ 3 pixels)
    - **uvtaper** (stringArray=[]) - uv-taper on outer baselines in uv-plane
+
+   .. raw:: html
+
+      </details>
 
 
 Description

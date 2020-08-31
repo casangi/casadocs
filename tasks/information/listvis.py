@@ -20,7 +20,9 @@ Parameters
    - **listfile** (string) - Output file
 
 Subparameters
-   *selectdata = True*
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **antenna** (string='') - Antenna/baselines
    - **timerange** (string='') - Time range
@@ -30,6 +32,10 @@ Subparameters
    - **array** (string='') - Array numbers (Not yet implemented)
    - **observation** (string='', int) - Select by observation ID(s)
    - **uvrange** (string='') - uv range
+
+   .. raw:: html
+
+      </details>
 
 
 Description

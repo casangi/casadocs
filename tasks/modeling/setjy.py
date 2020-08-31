@@ -16,36 +16,68 @@ Parameters
    - **usescratch** (bool) - Will create if necessary and use the MODEL_DATA 
 
 Subparameters
-   *selectdata = True*
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **timerange** (string='', stringArray) - Select data based on time range
    - **scan** (string='', stringArray) - Scan number range
    - **intent** (string='') - Select observing intent
    - **observation** (string='', int) - Select by observation ID(s)
 
-   *standard = Perley-Butler 2017*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> standard = Perley-Butler 2017 </i></summary>
 
    - **model** (string='') - File location for field model
    - **listmodels** (bool=False) - List the available models for VLA calibrators or Tb models for Solar System objects
    - **interpolation** (string=nearest) - Method to be used to interpolate in time
 
-   *standard = Perley-Butler 2013*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> standard = Perley-Butler 2013 </i></summary>
 
    - **model** (string='') - File location for field model
    - **listmodels** (bool=False) - List the available models for VLA calibrators or Tb models for Solar System objects
    - **interpolation** (string=nearest) - Method to be used to interpolate in time
 
-   *standard = Perley-Butler 2010*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> standard = Perley-Butler 2010 </i></summary>
 
    - **model** (string='') - File location for field model
    - **listmodels** (bool=False) - List the available models for VLA calibrators or Tb models for Solar System objects
 
-   *standard = Butler-JPL-Horizons 2012*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> standard = Butler-JPL-Horizons 2012 </i></summary>
 
    - **listmodels** (bool=False) - List the available models for VLA calibrators or Tb models for Solar System objects
    - **useephemdir** (bool=False) - Use directions in the ephemeris table
 
-   *standard = manual*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> standard = manual </i></summary>
 
    - **fluxdensity** (int=
                            , intArray, doubleArray) - Specified flux density in Jy [I,Q,U,V]; (-1 will lookup values)
@@ -55,9 +87,19 @@ Subparameters
    - **polangle** (doubleArray='') - Coefficients of an expansion of frequency-dependent polarization angle expression (in radians)
    - **rotmeas** (double=0.0) - Rotation measure (in rad/m^2)
 
-   *standard = fluxscale*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> standard = fluxscale </i></summary>
 
    - **fluxdict** (record='') - Output dictionary from fluxscale
+
+   .. raw:: html
+
+      </details>
 
 
 Description

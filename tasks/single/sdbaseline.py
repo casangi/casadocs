@@ -25,42 +25,80 @@ Parameters
    - **overwrite** (bool) - overwrite the output file if already exists [True, False] 
 
 Subparameters
-   *maskmode = auto*
+   .. raw:: html
+
+      <details><summary><i> maskmode = auto </i></summary>
 
    - **thresh** (double=5.0) - S/N threshold for linefinder
    - **avg_limit** (int=4) - channel averaging for broad lines
    - **minwidth** (int=4) - the minimum channel width to detect as a line
    - **edge** (intArray='') - channels to drop at beginning and end of spectrum
 
-   *blmode = fit*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> blmode = fit </i></summary>
 
    - **dosubtract** (bool=True) - subtract baseline from input data [True, False] 
    - **blformat** (string=text, stringArray) - format(s) of file(s) in which best-fit parameters are written
    - **bloutput** (string='', stringArray) - name(s) of file(s) in which best-fit parameters are written
 
-   *blmode = apply*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> blmode = apply </i></summary>
 
    - **bltable** (string='') - name of baseline table to apply
 
-   *blfunc = poly*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> blfunc = poly </i></summary>
 
    - **order** (int=5) - order of baseline model function
    - **clipthresh** (double=3.0) - clipping threshold for iterative fitting
    - **clipniter** (int=0) - maximum iteration number for iterative fitting
 
-   *blfunc = chebyshev*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> blfunc = chebyshev </i></summary>
 
    - **order** (int=5) - order of baseline model function
    - **clipthresh** (double=3.0) - clipping threshold for iterative fitting
    - **clipniter** (int=0) - maximum iteration number for iterative fitting
 
-   *blfunc = cspline*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> blfunc = cspline </i></summary>
 
    - **npiece** (int=2) - number of element polynomials for cubic spline curve
    - **clipthresh** (double=3.0) - clipping threshold for iterative fitting
    - **clipniter** (int=0) - maximum iteration number for iterative fitting
 
-   *blfunc = sinusoid*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> blfunc = sinusoid </i></summary>
 
    - **applyfft** (bool=True) - automatically set wave numbers of sinusoids
    - **fftmethod** (string=fft) - method for automatically set wave numbers of sinusoids ["fft"]
@@ -70,14 +108,30 @@ Subparameters
    - **clipthresh** (double=3.0) - clipping threshold for iterative fitting
    - **clipniter** (int=0) - maximum iteration number for iterative fitting
 
-   *blfunc = variable*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> blfunc = variable </i></summary>
 
    - **blparam** (string='') - text file that stores per spectrum fit parameters
    - **verbose** (bool=False) - output fitting parameters to logger [True, False]
 
-   *showprogress = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> showprogress = True </i></summary>
 
    - **minnrow** (int=1000) - (NOT SUPPORTED YET) minimum number of input spectra to show progress status
+
+   .. raw:: html
+
+      </details>
 
 
 Description

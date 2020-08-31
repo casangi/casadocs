@@ -22,13 +22,25 @@ Parameters
    - **overwrite** (bool) - overwrite the output file if already exists [True, False] 
 
 Subparameters
-   *kernel = gaussian*
+   .. raw:: html
+
+      <details><summary><i> kernel = gaussian </i></summary>
 
    - **kwidth** (int=5) - smoothing kernel width in channel
 
-   *kernel = boxcar*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> kernel = boxcar </i></summary>
 
    - **kwidth** (int=5) - smoothing kernel width in channel
+
+   .. raw:: html
+
+      </details>
 
 
 Description

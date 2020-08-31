@@ -20,9 +20,15 @@ Parameters
    - **crop** (bool) - Remove pixels from the end of an axis to be rebinned if there are not enough to form an integral bin?
 
 Subparameters
-   *mask != ''*
+   .. raw:: html
+
+      <details><summary><i> mask != '' </i></summary>
 
    - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
+
+   .. raw:: html
+
+      </details>
 
 
 Description

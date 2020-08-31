@@ -18,31 +18,69 @@ Parameters
    - **reportingaxes** (string) - Which reporting axis to use (ddid, field, integration)
 
 Subparameters
-   *axis = amp*
+   .. raw:: html
+
+      <details><summary><i> axis = amp </i></summary>
 
    - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
 
-   *axis = amplitude*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> axis = amplitude </i></summary>
 
    - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
 
-   *axis = phase*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> axis = phase </i></summary>
 
    - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
 
-   *axis = real*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> axis = real </i></summary>
 
    - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
 
-   *axis = imag*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> axis = imag </i></summary>
 
    - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
 
-   *axis = imaginary*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> axis = imaginary </i></summary>
 
    - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
 
-   *selectdata = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **antenna** (string='') - antenna/baselines: \'\'==>all, antenna = \'3,VA04\'
    - **timerange** (string='') - time range: \'\'==>all, timerange=\'09:14:0~09:54:0\'
@@ -52,11 +90,21 @@ Subparameters
    - **observation** (string='', int) - observation ID number(s): \'\' = all
    - **uvrange** (string='') - uv range: \'\'==>all; uvrange = \'0~100klambda\', default units=meters
 
-   *timeaverage = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> timeaverage = True </i></summary>
 
    - **timebin** (string=0s) - Bin width for time averaging.
    - **timespan** (string='', stringArray) - Span the timebin across scan, state or both.
    - **maxuvwdistance** (double=0.0) - Maximum separation of start-to-end baselines that can be included in an average. (meters)
+
+   .. raw:: html
+
+      </details>
 
 
 Description

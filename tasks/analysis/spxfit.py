@@ -26,24 +26,48 @@ Parameters
    - **sigma** (string, stringArray, doubleArray, intArray) - Standard deviation array or image name(s).
 
 Subparameters
-   *mask != ''*
+   .. raw:: html
+
+      <details><summary><i> mask != '' </i></summary>
 
    - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
 
-   *multifit = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> multifit = True </i></summary>
 
    - **spxsol** (string="") - Name of the spectral index function coefficient solution image to write.
    - **spxerr** (string="") - Name of the spectral index function coefficient error image to write.
    - **model** (string="") - Name of model image. Default: do not write the model image ("").
    - **residual** (string="") - Name of residual image. Default: do not write the residual image ("").
 
-   *logfile != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> logfile != '' </i></summary>
 
    - **append** (bool=True) - Append results to logfile? Logfile must be specified. Default is to append. False means overwrite existing file if it exists.
 
-   *sigma != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> sigma != '' </i></summary>
 
    - **outsigma** (string='') - Name of output image used for standard deviation. Ignored if sigma is empty.
+
+   .. raw:: html
+
+      </details>
 
 
 Description

@@ -27,9 +27,15 @@ Parameters
    - **timebin** (string) - Bin width for time averaging
 
 Subparameters
-   *timebin != 0s*
+   .. raw:: html
+
+      <details><summary><i> timebin != 0s </i></summary>
 
    - **combine** (string='', stringArray) - Span the timebin across scan, state or both
+
+   .. raw:: html
+
+      </details>
 
 
 Description

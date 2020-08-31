@@ -19,17 +19,35 @@ Parameters
    - **dmethod** (string) - Decimation method. "" means no decimation, "copy" and "mean" are also supported (minimum match).
 
 Subparameters
-   *outfile != ''*
+   .. raw:: html
+
+      <details><summary><i> outfile != '' </i></summary>
 
    - **overwrite** (bool=False) - Overwrite the output if it exists?
 
-   *mask != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mask != '' </i></summary>
 
    - **stretch** (bool=False) - Stretch the mask if necessary and possible? Default False
 
-   *function != hanning*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> function != hanning </i></summary>
 
    - **width** (int=2) - Width of boxcar, in pixels.
+
+   .. raw:: html
+
+      </details>
 
 
 Description

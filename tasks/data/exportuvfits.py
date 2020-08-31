@@ -21,9 +21,15 @@ Parameters
    - **overwrite** (bool) - Overwrite output file if it exists?
 
 Subparameters
-   *combinespw = True*
+   .. raw:: html
+
+      <details><summary><i> combinespw = True </i></summary>
 
    - **padwithflags** (bool=True) - Fill in missing data with flags to fit IFs
+
+   .. raw:: html
+
+      </details>
 
 
 Description

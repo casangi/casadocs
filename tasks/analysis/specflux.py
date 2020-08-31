@@ -20,13 +20,25 @@ Parameters
    - **logfile** (string) - File which to write details. Default is to not write to a file.
 
 Subparameters
-   *logfile != ''*
+   .. raw:: html
+
+      <details><summary><i> logfile != '' </i></summary>
 
    - **overwrite** (bool=False) - Overwrite exisitng ouput file if it exists?
 
-   *mask != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> mask != '' </i></summary>
 
    - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
+
+   .. raw:: html
+
+      </details>
 
 
 Description

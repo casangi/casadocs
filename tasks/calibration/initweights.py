@@ -12,19 +12,31 @@ Parameters
    - **dowtsp** (bool) - Initialize the WEIGHT_SPECTRUM column
 
 Subparameters
-   *wtmode = tsys*
+   .. raw:: html
+
+      <details><summary><i> wtmode = tsys </i></summary>
 
    - **tsystable** (string='') - Tsys calibration table to apply on the fly
    - **gainfield** (string='') - Select a subset of calibrators from Tsys table
    - **interp** (string='') - Interpolation type in time[,freq]. default==\'linear,linear\'
    - **spwmap** (intArray='') - Spectral windows combinations to form for gaintable(s)
 
-   *wtmode = tinttsys*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> wtmode = tinttsys </i></summary>
 
    - **tsystable** (string='') - Tsys calibration table to apply on the fly
    - **gainfield** (string='') - Select a subset of calibrators from Tsys table
    - **interp** (string='') - Interpolation type in time[,freq]. default==\'linear,linear\'
    - **spwmap** (intArray='') - Spectral windows combinations to form for gaintable(s)
+
+   .. raw:: html
+
+      </details>
 
 
 Description

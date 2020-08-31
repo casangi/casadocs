@@ -27,7 +27,9 @@ Parameters
    - **parang** (bool) - Apply parallactic angle correction
 
 Subparameters
-   *selectdata = True*
+   .. raw:: html
+
+      <details><summary><i> selectdata = True </i></summary>
 
    - **timerange** (string='') - Select data based on time range
    - **uvrange** (variant='') - Select data within uvrange (default units meters)
@@ -36,11 +38,23 @@ Subparameters
    - **observation** (string='', int) - Select by observation ID(s)
    - **msselect** (string='') - Optional complex data selection (ignore for now)
 
-   *bandtype = B*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> bandtype = B </i></summary>
 
    - **fillgaps** (int=0) - Fill flagged solution channels by interpolation
 
-   *bandtype = BPOLY*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> bandtype = BPOLY </i></summary>
 
    - **degamp** (int=3) - Polynomial degree for BPOLY amplitude solution
    - **degphase** (int=3) - Polynomial degree for BPOLY phase solution
@@ -48,16 +62,32 @@ Subparameters
    - **maskcenter** (int=0) - Number of channels to avoid in center of each band
    - **maskedge** (int=0) - Fraction of channels to avoid at each band edge (in %)
 
-   *docallib = False*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> docallib = False </i></summary>
 
    - **gaintable** (stringArray='') - Gain calibration table(s) to apply on the fly
    - **gainfield** (stringArray='') - Select a subset of calibrators from gaintable(s)
    - **interp** (stringArray='') - Interpolation parameters for each gaintable, as a list
    - **spwmap** (intArray='') - Spectral window mappings to form for gaintable(s)
 
-   *docallib = True*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> docallib = True </i></summary>
 
    - **callib** (string='') - Cal Library filename
+
+   .. raw:: html
+
+      </details>
 
 
 Description

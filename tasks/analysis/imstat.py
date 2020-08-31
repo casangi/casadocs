@@ -20,35 +20,77 @@ Parameters
    - **algorithm** (string) - Algorithm to use. Supported values are "biweight", "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported.
 
 Subparameters
-   *mask != ''*
+   .. raw:: html
+
+      <details><summary><i> mask != '' </i></summary>
 
    - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
 
-   *logfile != ''*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> logfile != '' </i></summary>
 
    - **append** (bool=True) - If logfile exists, append to it if True or overwrite it if False
 
-   *algorithm = classic*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> algorithm = classic </i></summary>
 
    - **clmethod** (string=auto) - Method to use for calculating classical statistics. Supported methods are "auto", "tiled", and "framework". Ignored if algorithm is not "classic".
 
-   *algorithm = hinges-fences*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> algorithm = hinges-fences </i></summary>
 
    - **fence** (double=-1) - Fence value for hinges-fences. A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if algorithm is not "hinges-fences".
 
-   *algorithm = fit-half*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> algorithm = fit-half </i></summary>
 
    - **center** (string=mean) - Center to use for fit-half. Valid choices are "mean", "median", and "zero". Ignored if algorithm is not "fit-half".
    - **lside** (bool=True) - For fit-half, use values <= center for real data if True? If False, use values >= center as real data. Ignored if algorithm is not "fit-half".
 
-   *algorithm = chauvenet*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> algorithm = chauvenet </i></summary>
 
    - **zscore** (double=-1) - For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet"s criterion. Ignored if algorithm is not "chauvenet".
    - **maxiter** (int=-1) - For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algorithm is not "chauvenet".
 
-   *algorithm = biweight*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> algorithm = biweight </i></summary>
 
    - **niter** (int=3) - For biweight, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, do a fast, simple computation (see description). Ignored if the algorithm is not "biweight".
+
+   .. raw:: html
+
+      </details>
 
 
 Description

@@ -12,9 +12,15 @@ Parameters
    - **scr** (bool) - Delete the MODEL_DATA scr col (if it exists)
 
 Subparameters
-   *otf = True*
+   .. raw:: html
+
+      <details><summary><i> otf = True </i></summary>
 
    - **field** (string='') - Select field using field id(s) or field name(s)
+
+   .. raw:: html
+
+      </details>
 
 
 Description

@@ -13,21 +13,45 @@ Parameters
    - **restfreq** (string) - restfrequency to use for velocity values (e.g "1.420GHz" for the HI line)
 
 Subparameters
-   *outframe = topo*
+   .. raw:: html
+
+      <details><summary><i> outframe = topo </i></summary>
 
    - **epoch** (string='') - Epoch to be associated with this image
 
-   *outframe = TOPO*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> outframe = TOPO </i></summary>
 
    - **epoch** (string='') - Epoch to be associated with this image
 
-   *outframe = geo*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> outframe = geo </i></summary>
 
    - **epoch** (string='') - Epoch to be associated with this image
 
-   *outframe = GEO*
+   .. raw:: html
+
+      </details>
+
+   .. raw:: html
+
+      <details><summary><i> outframe = GEO </i></summary>
 
    - **epoch** (string='') - Epoch to be associated with this image
+
+   .. raw:: html
+
+      </details>
 
 
 Description
