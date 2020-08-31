@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/xmlcasa/xml/casa.xsd">
+
+
+<!-- This is the task interface for impbcor        -->
+<!--                                                          -->
+
+<task type="function" name="impbcor" category="analysis">
+<shortdescription>Construct a primary beam corrected image from an image and a primary beam pattern.</shortdescription>
+<description>
+Correct an image for primary beam attenuation using an image of the
+primary beam pattern. The primary beam pattern can be provided as an
+image, in which case 1. it must have the same shape as the input image
+and its coordinate system must be the same, or 2. it must be a 2-D
+image in which case its coordinate system must consist of a (2-D)
+direction coordinate which is the same as the direction coordinate in
+the input image and its direction plane must be the same shape as that
+of the input image. Alternatively, pbimage can be an array of pixel
+values in which case the same dimensionality and shape constraints
+apply.
+
+One can choose between dividing the image by the primary beam pattern
+(mode="divide") or multiplying the image by the primary beam pattern
+(mode="multiply"). One can also choose to specify a cutoff limit for
+the primary beam pattern. For mode="divide", for all pixels below this
+cutoff in the primary beam pattern, the output image will be
+masked. In the case of mode="multiply", all pixels in the output will
+be masked corresponding to pixels with values greater than the cutoff
+in the primary beam pattern. A negative value for cutoff means that no
+cutoff will be applied, which is the default.
+</description>
+    <input>
+        <param type="string" name="imagename" mustexist="true">
+<shortdescription>Name of the input image</shortdescription>
+<description>Name of the input (CASA, FITS, MIRIAD) image
+</description>
+            <value/>
+            <example>imagename='ngc5921.im'</example>
+        </param>
+
+        <param type="any" direction="in" name="pbimage">
+            <any type="variant"/>
+<shortdescription>Name of the primary beam image which must exist or array of values for the pb response.</shortdescription>
+<description>Name of the image (CASA, FITS, MIRIAD) of the primary
+beam pattern or an array of pixel values.
+                     Default: ''
+</description>
+            <value>""</value>
+        </param>
+        <param type="string" direction="in" name="outfile">
+<shortdescription>Output image name. If empty, no image is written.</shortdescription>
+<description>Name of output CASA image. 
+                     Default: none. Must be specified.
+</description>
+            <value/>
+        </param>
+
+        <param type="bool" direction="in" name="overwrite" subparam="true">
+<shortdescription>Overwrite the output if it exists?</shortdescription>
+<description>If output file is specified, controls if an already
+existing file by the same name can be overwritten. 
+                     Default: True
+                     Options: True|False
+
+                     If true, the user is not prompted, the file if it
+                     exists is automatically overwritten.
+</description>
+            <value>False</value>
+        </param>
+
+        <param type="string" direction="in" name="box">
+            <value/>
+<shortdescription>Rectangular region to select in direction plane. Default is to use the entire direction plane.</shortdescription>
+<description>Rectangular region to select in direction plane.
+                     Default: '' (use the entire direction plane)
+</description>
+        </param>
+
+        <param type="any" direction="in" name="region">
+            <any type="variant"/>
+<shortdescription>Region selection.</shortdescription>
+<description>Region selection. 
+                     Default: '' (use the full image)
+</description>
+            <value type="string"/>
+        </param>
+        <param type="string" direction="in" name="chans">
+<shortdescription>Channels to use.</shortdescription>
+<description>Channels to use. 
+                     Default: '' (use all channels)
+</description>
+            <value/>
+        </param>
+        
+        <param type="string" direction="in" name="stokes">
+<shortdescription>Stokes planes to use.</shortdescription>
+<description>Stokes planes to use.
+                     Default: '' (use all Stokes planes)
+</description>
+            <value/>
+        </param>
+
+        <param type="string" direction="in" name="mask">
+<shortdescription>Mask to use.</shortdescription>
+<description>Mask to use.
+                     Default: none
+</description>
+            <value/>
+        </param>
+
+        <param type="string" direction="in" name="mode">
+<shortdescription>Divide or multiply the image by the primary beam image. Minimal match supported.</shortdescription>
+<description>Divide or multiply the image by the primary beam image. 
+                     Default: 'divide'
+
+                     Minimal match supported.
+</description>
+            <value>divide</value>
+        </param>
+        <param type="double" direction="in" name="cutoff">
+<shortdescription>PB cutoff. If mode is "d", all values less than this will be masked. If "m", all values greater will be masked. Less than 0, no cutoff.</shortdescription>
+<description>Primary beam cutoff.
+                     Default: -1.0 (no cutoff)
+
+                     If mode is "d", all values less than this will be
+                     masked. If "m", all values greater will be
+                     masked. Less than 0, no cutoff (default)
+</description>
+            <value>-1.0</value>
+        </param>
+
+        <param type="bool" direction="in" name="stretch" subparam="true">
+<shortdescription>Stretch the mask if necessary and possible?</shortdescription>
+<description>Stretch the mask if necessary and possible? 
+                     Default: False
+                     Options: False|True
+</description>
+            <value>False</value>
+        </param>
+        <constraints>
+            <when param="outfile">
+                <notequals type="string" value="">
+                    <default param="overwrite">
+                        <value>False</value>
+                    </default>
+                </notequals>
+            </when>
+            <when param="mask">
+                <notequals type="string" value="">
+                   <default param="stretch"><value type="bool">False</value></default>
+             </notequals>
+         </when>
+        </constraints>
+    </input>
+    <returns type="bool"/>
+    <example>
+FOR MORE INFORMATION, SEE THE TASK PAGES OF IMPBCOR IN CASA DOCS:
+https://casa.nrao.edu/casadocs/
+    </example>
+</task>
+</casaxml>

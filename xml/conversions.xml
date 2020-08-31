@@ -1,0 +1,330 @@
+<setup>
+
+    <!-- this enables output of the defaults & documentation to dbxml
+        <output type="defaults" />
+    -->
+    <macro name="USING_NUMPY_ARRAYS" value="1" />
+    <substitute  interface="casatable" as="table" in="table" />
+    <substitute  interface="casasdtable" as="sdtable" in="sdtable" />
+    <substitute  interface="casasdtable" as="sdtable" in="sdmath" />
+    <substitute  interface="casameasures" as="measures" in="coordsys" />
+    <substitute  interface="casacoordsys" as="coordsys" in="coordsys" />
+    <substitute  interface="casameasures" as="measures" in="measures" />
+    <substitute  interface="casameasures" as="measures" in="image" />
+    <substitute  interface="casacoordsys" as="coordsys" in="image" />
+    <substitute  interface="casafunctional" as="functional" in="functional" />
+    <substitute  interface="casaimage" as="image" in="image" />
+    <substitute  interface="casaquanta" as="quanta" in="quanta" />
+    <substitute  interface="casacomponentlist" as="componentlist" in="componentlist" />
+    <substitute  interface="casaimagepol" as="imagepol" in="imagepol" />
+    <substitute  interface="casaimage" as="image" in="imagepol" />
+    <substitute  interface="casatable" as="table" in="ms" />
+    <substitute  interface="casatable" as="table" in="spectralline" />
+    <substitute  interface="casaspectralline" as="spectralline" in="spectralline" />
+
+    <conversion type="complex">
+        <target name="python">
+	    <include use="convert">xmlcasa/conversions_python.h</include>
+            <to>
+                <check>PyComplex_Check</check>
+                <func>::casac::convert_idl_complex_from_python_complex</func>
+            </to>
+            <from>
+                <func>convert_idl_complex_to_python_complex</func>
+            </from>
+        </target>
+	<target name="coda">
+	    <include use="convert">xmlcasa/conversions.h</include>
+	    <include use="type">complex</include>
+	    <type>std::complex&lt;double&gt;</type>
+	    <to>
+		<func>convert_idl_complex_from_cplus_complex</func>
+	    </to>
+	    <from style="reference">
+		<func>convert_idl_complex_to_cplus_complex</func>
+	    </from>
+	</target>
+    </conversion>
+
+    <conversion type="BoolAry">
+        <target name="python">
+	    <include use="convert">xmlcasa/conversions_python.h</include>
+            <to>
+                <check>::casac::python_BoolAry_check</check>
+                <func>::casac::convert_idl_BoolAry_from_python_BoolAry</func>
+            </to>
+            <from>
+                <func>convert_idl_BoolAry_to_python_BoolAry</func>
+            </from>
+        </target>
+	<target name="coda">
+	    <include use="convert">xmlcasa/conversions.h</include>
+	    <include use="type">xmlcasa/array.h</include>
+	    <type>::casac::array&lt;int&gt;</type>
+	    <to>
+		<func>convert_idl_BoolAry_from_cplus_BoolAry</func>
+	    </to>
+	    <from style="reference">
+		<func>convert_idl_BoolAry_to_cplus_BoolAry</func>
+	    </from>
+	</target>
+    </conversion>
+
+    <conversion type="IntAry">
+        <target name="python">
+	    <include use="convert">xmlcasa/conversions_python.h</include>
+            <to>
+                <check>::casac::python_IntAry_check</check>
+                <func>::casac::convert_idl_IntAry_from_python_IntAry</func>
+            </to>
+            <from>
+                <func>convert_idl_IntAry_to_python_IntAry</func>
+            </from>
+        </target>
+	<target name="coda">
+	    <include use="convert">xmlcasa/conversions.h</include>
+	    <include use="type">xmlcasa/array.h</include>
+	    <type>::casac::array&lt;int&gt;</type>
+	    <to>
+		<func>convert_idl_IntAry_from_cplus_IntAry</func>
+	    </to>
+	    <from style="reference">
+		<func>convert_idl_IntAry_to_cplus_IntAry</func>
+	    </from>
+	</target>
+    </conversion>
+
+    <conversion type="DoubleAry">
+        <target name="python">
+	    <include use="convert">xmlcasa/conversions_python.h</include>
+            <to>
+                <check>::casac::python_DoubleAry_check</check>
+                <func>::casac::convert_idl_DoubleAry_from_python_DoubleAry</func>
+            </to>
+            <from>
+                <func>convert_idl_DoubleAry_to_python_DoubleAry</func>
+            </from>
+        </target>
+	<target name="coda">
+	    <include use="convert">xmlcasa/conversions.h</include>
+	    <include use="type">xmlcasa/array.h</include>
+	    <type>::casac::array&lt;int&gt;</type>
+	    <to>
+		<func>convert_idl_DoubleAry_from_cplus_DoubleAry</func>
+	    </to>
+	    <from style="reference">
+		<func>convert_idl_DoubleAry_to_cplus_DoubleAry</func>
+	    </from>
+	</target>
+    </conversion>
+
+    <conversion type="ComplexAry">
+        <target name="python">
+	    <include use="convert">xmlcasa/conversions_python.h</include>
+            <to>
+                <check>::casac::python_ComplexAry_check</check>
+                <func>::casac::convert_idl_ComplexAry_from_python_ComplexAry</func>
+            </to>
+            <from>
+                <func>convert_idl_ComplexAry_to_python_ComplexAry</func>
+            </from>
+        </target>
+	<target name="coda">
+	    <include use="convert">xmlcasa/conversions.h</include>
+	    <include use="type">xmlcasa/array.h</include>
+	    <type>::casac::array&lt;std::complex&lt;double&gt; &gt;</type>
+	    <to>
+		<func>convert_idl_ComplexAry_from_cplus_ComplexAry</func>
+	    </to>
+	    <from style="reference">
+		<func>convert_idl_ComplexAry_to_cplus_ComplexAry</func>
+	    </from>
+	</target>
+    </conversion>
+
+    <conversion type="StringAry">
+        <target name="python">
+	    <include use="convert">xmlcasa/conversions_python.h</include>
+            <to>
+                <check>::casac::python_StringAry_check</check>
+                <func>::casac::convert_idl_StringAry_from_python_StringAry</func>
+            </to>
+            <from>
+                <func>convert_idl_StringAry_to_python_StringAry</func>
+            </from>
+        </target>
+	<target name="coda">
+	    <include use="convert">xmlcasa/conversions.h</include>
+	    <include use="type">xmlcasa/array.h</include>
+	    <type>::casac::array&lt;std::string&gt;</type>
+	    <to>
+		<func>convert_idl_StringAry_from_cplus_StringAry</func>
+	    </to>
+	    <from style="reference">
+		<func>convert_idl_StringAry_to_cplus_StringAry</func>
+	    </from>
+	</target>
+    </conversion>
+
+    <any type="record">
+	<target name="python">
+	    <include use="convert">xmlcasa/conversions_python.h</include>
+            <to>
+                <check>python_record_check</check>
+                <func>::casac::convert_record_value_from_python_dict</func>
+            </to>
+            <from>
+                <func>::casac::convert_record_value_to_python_dict</func>
+            </from>
+	    <init>
+	        <func>::casac::initialize_python_record</func>
+	    </init>
+        </target>
+	<target name="coda">
+	    <include use="convert">xmlcasa/conversions.h</include>
+	    <include use="all">xmlcasa/record.h</include>
+	    <include use="type">xmlcasa/conversions.h</include>
+	    <type>::casac::record</type>
+	    <to>
+		<func>convert_record_value_from_record</func>
+	    </to>
+	    <from style="pointer">
+		<func>::casac::convert_record_value_to_record</func>
+	    </from>
+	    <init>
+	        <func>::casac::initialize_record</func>
+	    </init>
+	</target>
+    </any>
+
+    <any type="variant">
+	<target name="python">
+	    <include use="convert">xmlcasa/conversions_python.h</include>
+            <to>
+                <check>python_variant_check</check>
+                <func>::casac::convert_variant_value_from_python_obj</func>
+            </to>
+            <from>
+                <func>::casac::convert_variant_value_to_python_obj</func>
+            </from>
+	    <init>
+	        <func>::casac::initialize_python_variant</func>
+	    </init>
+        </target>
+	<target name="coda">
+	    <include use="convert">xmlcasa/conversions.h</include>
+            <include use="all">xmlcasa/variant.h</include>
+            <include use="type">xmlcasa/conversions.h</include>
+            <type>::casac::variant</type>
+	    <to>
+		<func>convert_variant_value_from_variant</func>
+	    </to>
+	    <from style="pointer">
+		<func>::casac::convert_variant_value_to_variant</func>
+	    </from>
+	    <init>
+	        <func>::casac::initialize_variant</func>
+	    </init>
+	</target>
+    </any>
+
+
+    <export type="Quantity" name="quantity" />
+
+    <polymorph type="DoubleVec">
+        <target name="python">
+            <include>CCM_Python/BasicTypes.h</include>
+            <to>
+                <check>is_double_compatible_single</check>
+                <func>convert_doublevec_from_double_compatible_single</func>
+           </to>
+           <from>
+                <check>is_doublevec_singleton</check>
+                <func>convert_doublevec_to_python_single</func>
+           </from>
+        </target>
+        <target name="python">
+            <include>CCM_Python/BasicTypes.h</include>
+            <to>
+                <check>is_double_compatible_sequence</check>
+                <func>convert_doublevec_from_double_compatible_sequence</func>
+           </to>
+        </target>
+    </polymorph>
+    <polymorph type="IntVec">
+        <target name="python">
+            <include>CCM_Python/BasicTypes.h</include>
+            <to>
+                <check>is_int_compatible_single</check>
+                <func>convert_intvec_from_int_compatible_single</func>
+           </to>
+           <from>
+                <check>is_intvec_singleton</check>
+                <func>convert_intvec_to_python_single</func>
+           </from>
+        </target>
+        <target name="python">
+            <include>CCM_Python/BasicTypes.h</include>
+	    <include>xmlcasa/conversions_python.h</include>
+            <to>
+                <check>is_int_compatible_sequence</check>
+                <func>convert_intvec_from_int_compatible_sequence</func>
+           </to>
+	   <to>
+		<check>::casac::is_intvec_compatible_numpy_array</check>
+		<func>::casac::convert_intvec_from_compatible_numpy_array</func>
+	   </to>
+        </target>
+    </polymorph>
+    <polymorph type="StringVec">
+        <target name="python">
+            <include>CCM_Python/BasicTypes.h</include>
+            <to>
+                <check>is_string_compatible_single</check>
+                <func>convert_stringvec_from_string_compatible_single</func>
+           </to>
+           <from>
+                <check>is_stringvec_singleton</check>
+                <func>convert_stringvec_to_python_single</func>
+           </from>
+        </target>
+        <target name="python">
+            <include>CCM_Python/BasicTypes.h</include>
+            <to>
+                <check>is_string_compatible_sequence</check>
+                <func>convert_stringvec_from_string_compatible_sequence</func>
+           </to>
+        </target>
+    </polymorph>
+
+    <implement>
+        <catch>
+	    <include>casa/Exceptions/Error.h</include>
+	    <code>
+	        catch( casa::AipsError &amp;ae ) { throw LocalComponents::CCMException( ae.what() ); }
+	    </code>
+	</catch>
+    </implement>
+
+    <python>
+	<include>xmlcasa/interrupt.h</include>
+	<prereturn>
+	    void (*old_handler)(int) = signal(SIGINT, casa::signal_handler);
+	    if ( sigsetjmp(casa::jmp_buf,1) ) {
+		casa::longjmp_ok = false;
+		signal(SIGINT, old_handler);
+		if ( old_handler != 0 &amp;&amp; old_handler != SIG_IGN )
+		    (*old_handler)(SIGINT);
+		else
+		    PyErr_SetString( PyExc_StandardError, "Control-C typed..." );
+		return NULL;
+	    }
+	    casa::longjmp_ok = true;
+	</prereturn>
+	<postreturn>
+	    casa::longjmp_ok = false;
+	    signal(SIGINT, old_handler);
+	</postreturn>
+    </python>
+
+</setup>

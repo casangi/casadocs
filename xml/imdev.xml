@@ -1,0 +1,191 @@
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd file:///opt/casa/code/xmlcasa/xml/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
+
+<task category="analysis" name="imdev" type="function">
+
+<shortdescription>Create an image that can represent the statistical deviations of the input image.</shortdescription>
+
+<input>
+    <param mustexist="true" name="imagename" type="string"><shortdescription>Input image name</shortdescription><description>Input image name</description>
+        
+        <value/>
+    </param>
+    <param name="outfile" type="string"><shortdescription>Output image file name. If left blank (the default), no image is written but a new image tool referencing the collapsed image is returned.</shortdescription><description>Output image file name. If left blank (the default), no image is written but a new image tool referencing the collapsed image is returned.</description>
+        
+        <value/>
+    </param>
+    <param name="region" direction="in" type="any"><shortdescription>Region selection. Default is to use the full image.</shortdescription><description>Region selection. Default is to use the full image.</description>
+        <any limittypes="string record" type="variant"/>
+        
+        <value type="string"/>
+    </param>
+    <param name="box" type="string"><shortdescription>Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.</shortdescription><description>Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.</description>
+        
+        <value/>
+    </param>
+    <param name="chans" type="string"><shortdescription>Channels to use. Default is to use all channels.</shortdescription><description>Channels to use. Default is to use all channels.</description>
+        
+        <value/>
+    </param>
+    <param name="stokes" type="string"><shortdescription>Stokes planes to use. Default is to use all Stokes planes.</shortdescription><description>Stokes planes to use. Default is to use all Stokes planes.</description>
+        
+        <value/>
+        <example>stokes=&quot;IQ&quot;</example>
+        <example>stokes=&quot;RR,LL&quot;</example>
+    </param>
+    <param name="mask" type="string"><shortdescription>Mask to use. Default setting is none. </shortdescription><description>Mask to use. Default setting is none. </description>
+        
+        <value type="string"/>
+    </param>
+    <param name="overwrite" type="bool"><shortdescription>Overwrite (unprompted) pre-existing output file? Ignored if &quot;outfile&quot; is left blank. </shortdescription><description>Overwrite (unprompted) pre-existing output file? Ignored if &quot;outfile&quot; is left blank. </description>
+        
+        <value>False</value>
+    </param>
+    <param subparam="true" name="stretch" type="bool"><shortdescription>Stretch the mask if necessary and possible? Default value is False.</shortdescription><description>Stretch the mask if necessary and possible? Default value is False.</description>
+        
+        <value>False</value>
+    </param>
+    <param name="grid" type="intArray"><shortdescription>x,y grid spacing. Array of exactly two positive integers.</shortdescription><description>x,y grid spacing. Array of exactly two positive integers.</description>
+        
+        <value type="vector">
+            <value>1</value><value>1</value>
+        </value>
+    </param>
+    <param name="anchor" type="variant"><shortdescription>x,y anchor pixel location. Either &quot;ref&quot; to use the image reference pixel, or an array of exactly two integers.</shortdescription><description>x,y anchor pixel location. Either &quot;ref&quot; to use the image reference pixel, or an array of exactly two integers.</description>
+        <any limittypes="string intArray" type="variant"/>
+        
+        
+        <value type="string">ref</value>
+    </param>
+    <param name="xlength" type="variant"><shortdescription>Either x coordinate length of box, or diameter of circle. Circle is used if ylength is empty string.</shortdescription><description>Either x coordinate length of box, or diameter of circle. Circle is used if ylength is empty string.</description>
+        <any limittypes="string int" type="variant"/>
+        
+        <value type="string">1pix</value>
+    </param>
+    <param name="ylength" type="variant"><shortdescription>y coordinate length of box. Use a circle if ylength is empty string.</shortdescription><description>y coordinate length of box. Use a circle if ylength is empty string.</description>
+        <any limittypes="string int" type="variant"/>
+        
+        <value type="string">1pix</value>
+    </param>
+    <param name="interp" type="string"><shortdescription>Interpolation algorithm to use. One of &quot;nearest&quot;, &quot;linear&quot;, &quot;cubic&quot;, or &quot;lanczos&quot;. Minimum match supported.</shortdescription><description>Interpolation algorithm to use. One of &quot;nearest&quot;, &quot;linear&quot;, &quot;cubic&quot;, or &quot;lanczos&quot;. Minimum match supported.</description>
+        
+        <value>cubic</value>
+    </param>
+    <param name="stattype" type="string"><shortdescription>Statistic to compute. See full description for supported statistics.</shortdescription><description>Statistic to compute. See full description for supported statistics.</description>
+        
+        <value>sigma</value>
+    </param>
+    <param name="statalg" type="string"><shortdescription>Statistics computation algorithm to use. Supported values are &quot;chauvenet&quot; and &quot;classic&quot;, Minimum match is supported.</shortdescription><description>Statistics computation algorithm to use. Supported values are &quot;chauvenet&quot; and &quot;classic&quot;, Minimum match is supported.</description>
+        
+        <value>classic</value>
+    </param>
+    <param subparam="true" name="zscore" type="double"><shortdescription>For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet&quot;s criterion. Ignored if algorithm is not &quot;chauvenet&quot;.</shortdescription><description>For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet&quot;s criterion. Ignored if algorithm is not &quot;chauvenet&quot;.</description>
+        
+        <value>-1</value>
+    </param>
+    <param subparam="true" name="maxiter" type="int"><shortdescription>For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algortihm is not &quot;chauvenet&quot;.</shortdescription><description>For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algortihm is not &quot;chauvenet&quot;.</description>
+        
+        <value>-1</value>
+    </param>
+    <constraints>
+        <when param="mask">
+            <notequals value="" type="string">
+                <default param="stretch"><value type="bool">False</value></default>
+            </notequals>
+        </when>
+        <when param="statalg">
+            <equals value="classic" type="string">
+            </equals>
+            <equals value="chauvenet" type="string">
+                <default param="zscore">
+                    <value>-1</value>
+                </default>
+                <default param="maxiter">
+                    <value>-1</value>
+                </default>
+            </equals>
+        </when>
+
+    </constraints>
+</input>
+<returns type="bool"/>
+
+<example>
+    This application creates an image that reflects the statistics of the input image. The output image has
+    the same dimensions and coordinate system as the (selected region in) input image. The grid parameter
+    describes how many pixels apart &quot;grid&quot; pixels are. Statistics are computed around each grid pixel. Grid
+    pixels are limited to the direction plane only; independent statistics are computed for each direction plane
+    (ie at each frequency/stokes pixel should the input image happen to have such additional axes). Using the
+    xlength and ylength parameters, one may specify either a rectangular or circular region around each grid
+    point that defines which surrounding pixels are used in the statistic computation for individual grid points.
+    If the ylength parameter is the empty string, then a circle of diameter provided by xlength centered on
+    the grid point is used. If ylength is not empty, then a rectangular box of dimensions xlength x ylength centered
+    on the grid pixel is used. These two parameters may be specified in pixels, using either numerical values or
+    valid quantities with &quot;pix&quot; as the unit (eg &quot;4pix&quot;). Otherwise, they must be specified as valid angular
+    quantities, with recognized units (eg &quot;4arcsec&quot;). As with other region selections in CASA, full pixels are
+    included in the computation even if the specified region includes only a fraction of that pixel. BEWARE OF
+    MACHINE PRECISION ISSUES, because you may get a smaller number of pixels included in a region than you
+    expect if you specify, eg, an integer number of pixels. In such cases, you probably want to specify that
+    number plus a small epsilon value (eg &quot;2.0001pix&quot; rather than &quot;2pix&quot;) to mitigate machine precision issues
+    when computing region extents.
+
+    The output image is formed by putting the statistics calculated at each grid point at the corresponding
+    grid point in the output image. Interpolation of these output values is then used to compute values at
+    non-grid-point pixels. The user may specify which interpolation algorithm to use for this computation
+    using the interp parameter.
+    
+    The input image pixel mask is copied to the output image. If interpolation is performed, output pixels are
+    masked where the interpolation fails.
+
+    ANCHORING THE GRID
+
+    The user may choose at which pixel to &quot;anchor&quot; the grid. For example, if one specifies grid=[4,4] and
+    anchor=[0,0], grid points will be located at pixels [0,0], [0,4], [0,8] ... [4,0], [4,4], etc. This
+    is exactly the same grid that would be produced if the user specified anchor=[4,4] or anchor=[20,44].
+    If the user specifies anchor=[1, 2] and grid=[4,4], then the grid points will be at pixels [1,2], [5,2],
+    [9,2]... [5,2], [5,6], etc. and the resulting grid is the same as it would be if the user specified eg
+    anchor=[9,10] or anchor=[21, 18]. The value &quot;ref&quot;, which is the default, indicates that the reference
+    pixel of the input image should be used to anchor the grid. The x and y values of this pixel will be
+    rounded to the nearest integer if necessary.
+
+    SUPPORTED STATISTICS AND STATISTICS ALGORITHMS
+
+    One may specify which statistic should be represented using the stattype parameter. The following values
+    are recognized (minimum match supported):
+
+    iqr                   inner quartile range (q3 - q1)
+    max                   maximum
+    mean                  mean
+    medabsdevmed, madm    median absolute deviation from the median
+    median                median
+    min                   minimum
+    npts                  number of points
+    q1                    first quartile
+    q3                    third quartile
+    rms                   rms
+    sigma, std            standard deviation
+    sumsq                 sum of squares
+    sum                   sum
+    var                   variance
+    xmadm                 median absolute deviation from the median multipied by x, where x is the reciprocal of Phi^-1(3/4),
+                          where Phi^-1 is the reciprocal of the quantile function. Numerically, x = 1.482602218505602. See, eg,
+                          https://en.wikipedia.org/wiki/Median_absolute_deviation#Relation_to_standard_deviation
+
+    Using the statalg parameter, one may also select whether to use the Classical or Chauvenet/ZScore statistics algorithm to
+    compute the desired statistic (see the help for ia.statistics() or imstat for a full description of these algorithms).
+
+    # compute standard deviations in circles of diameter 10arcsec around
+    # grid pixels spaced every 4 x 5 pixels and anchored at pixel [30, 40],
+    # and use linear interpolation to compute values at non-grid-pixels
+    imdev(&quot;my.im&quot;, &quot;sigma.im&quot;, grid=[4, 5], anchor=[30, 40], xlength=&quot;10arcsec&quot;, stattype=&quot;sigma&quot;, interp=&quot;lin&quot;, statalg=&quot;cl&quot;)
+
+    # compute median of the absolute deviations from the median values using
+    # the z-score/Chauvenet algorithm, by fixing the maximum z-score to determine outliers to 5.
+    # Use cubic interpolation to compute values for non-grid-point pixels. Use a rectangular region
+    # of dimensions 5arcsec x 20arcsec centered on each grid point as the region in which to include
+    # pixels for the computation of stats for that grid point.
+    imdev(&quot;my.im&quot;, &quot;madm.im&quot;, grid=[4, 5], anchor=[30, 40], xlength=&quot;5arcsec&quot;, ylength=&quot;20arcsec, stattype=&quot;madm&quot;, interp=&quot;cub&quot;, statalg=&quot;ch&quot;, zscore=5)
+</example>
+
+</task>
+
+</casaxml>

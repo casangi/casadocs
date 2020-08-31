@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+      file:///opt/casa/code/xmlcasa/xml/casa.xsd">
+
+<task type="function" name="imview" category="utility, visualization" async="never">
+    <shortdescription>View an image</shortdescription>
+    <description>
+        The imview task will display images in raster, contour, vector or
+        marker form.  Images can be blinked, and movies are available
+        for spectral-line image cubes.
+
+        Executing the imview task will bring up a display panel
+        window, which can be resized.  If no data file was specified,
+        a Load Data window will also appear. Click on the desired data
+        file and choose the display type; the rendered data should appear
+        on the display panel.
+
+        A Data Display Options window will also appear.  It has drop-down
+        subsections for related options, most of which are self-explanatory.
+
+        The state of the imview task -- loaded data and related display
+        options -- can be saved in a 'restore' file for later use.
+        You can provide the restore filename on the command line or
+        select it from the Load Data window.
+
+        It is possible to use the viewer GUI tool to perform image manipulation
+        and analysis tasks that are not available from the command-line start.
+    </description>
+    <input>
+    <param type="any" name="raster">
+        <description>(Optional)  Raster filename (string) or complete raster config dictionary. The allowed dictionary keys are file (string), scaling (numeric), range (2 element numeric vector), colormap (string), and colorwedge (bool).</description>
+        <any type="variant" limittypes="string record"/>
+            <value type="record"></value>
+    </param>
+
+    <param type="any" name="contour">
+        <description>(Optional)  Contour filename (string) or complete contour config dictionary. The allowed dictionary keys are file (string), levels (numeric vector), unit (float), and base (float).</description>
+        <any type="variant" limittypes="string record"/>
+        <value type="record"></value>
+    </param>
+
+    <param type="any" name="zoom">
+        <description>(Optional)  zoom can specify intermental zoom (integer), zoom region read from a file (string) or dictionary specifying the zoom region. The dictionary can have two forms. It can be either a simple region specified with blc (2 element vector) and trc (2 element vector) [along with an optional coord key ("pixel" or "world"; pixel is the default) or a complete region rectangle e.g. loaded with "rg.fromfiletorecord( )". The dictionary can also contain a channel (integer) field which indicates which channel should be displayed.</description>
+            <any type="variant" limittypes="int string record"/>
+            <value type="int">1</value>
+        </param>
+
+        <param type="any" name="axes">
+            <description>(Optional)  this can either be a three element vector (string) where each element describes what should be found on each of the x, y, and z axes or a dictionary containing fields "x", "y" and "z" (string).</description>
+            <any type="variant" limittypes="string record"/>
+            <value type="record"></value>
+        </param>
+
+        <param type="any" name="out">
+            <description>(Optional)  Output filename or complete output config dictionary. If a string is passed, the file extension is used to determine the output type (jpg, pdf, eps, ps, png, xbm, xpm, or ppm). If a dictionary is passed, it can contain the fields, file (string), scale (float), dpi (int), or orient (landscape or portrait). The scale field is used for the bitmap formats (i.e. not ps or pdf) and the dpi parameter is used for scalable formats (pdf or ps).</description>
+            <any type="variant" limittypes="string record"/>
+            <value type="string"></value>
+        </param>
+
+                <constraints>
+                </constraints>
+    </input>
+    <returns type="void"/>
+
+    <example>
+        The imview task provides access to a subset of all of the configuration
+        options for loading and configuring the display of images in the casaviewer.
+        This interface will evolve and eventually provide access to nearly all of 
+        the image options available in the casaviewer.
+
+        To simply create a casaviewer to set up interactively, you can use:
+
+            imview
+
+        To open a particular image:
+
+            imview "ngc5921.clean.image"
+
+        to open an image and overlay a contour:
+
+            imview "ngc5921.clean.image", "ngc5921.clean.image"
+
+        or equivalently:
+
+            imview( raster="ngc5921.clean.image", contour="ngc5921.clean.image" )
+
+        to output an image:
+
+            imview( raster="ngc5921.clean.image", out="ngc5921-01.png" )    
+            
+
+        There are five optional parameters for imview -- raster, contour, zoom,
+        axes, and out. Each of these parameters can take a few different forms and 
+        are treated as python dictionaries:
+
+        raster  -- (string) image file to open
+                   (dict)   file (string)     => image file to open
+                            scaling (float)   => scaling power cycles
+                            range (float*2)   => data range
+                            colormap (string) => name of colormap
+                            colorwedge (bool) => show color wedge?
+        contour -- (string) file to load as a contour
+                   (dict)   file (string)     => file to load
+                            levels (float*N)  => relative levels
+                            base (numeric)    => zero in relative levels
+                            unit (numeric)    => one in the relative levels
+        zoom    -- (int)    integral zoom level
+                   (string) region file to load as the zoom region
+                   (dict)   blc (numeric*2)   => bottom left corner
+                            trc (numeric*2)   => top right corner
+                            coord (string)    => pixel or world
+                            channel (int)     => chanel to display
+                   (dict)   &lt;region record&gt;   => record loaded
+                                                 e.g. rg.fromfiletorecord( )
+        axes    -- (string*3) demension to display on the x, y, and z axes
+                   (dict)     x               => dimension for x-axes
+                              y               => dimension for y-axes
+                              z               => dimension for z-axes
+        out     -- (string) file with a supported extension
+                            [jpg, pdf, eps, ps, png, xbm, xpm, ppm]
+                    (dict)    file (string)   => filename
+                              format (string) => valid ext (filename ext overrides)
+                              scale (numeric) => scale for non-eps, non-ps output
+                              dpi (numeric)   => dpi for eps or ps output
+                              orient (string) => portrait or landscape
+
+        Examples: 
+
+        1)  A subset (zoom) of a raster image. Note the notation of curly brackets:
+
+            imview(raster="ngc5921.clean.image", out="ngc5921-02.png",
+                   zoom={'channel': 10, 'blc': [113,109], 'trc': [141,136]} )
+
+
+        2) An overlay of a raster image, ngc5921.clean.image, with a
+        contour map of the same image ngc5921.clean.image. Data ranges
+        are selected, as well as the colormap and the scaling cycles
+        of the raster image. Contours are autogenerated and The x-axis
+        will be Declination. The image is written out to a file named 
+        myout.png in the png format.
+
+        imview(raster={'file': 'ngc5921.clean.image',
+                       'range': [-0.01,0.03],
+                       'colormap': 'Hot Metal 2',
+                       'scaling': -1},
+               contour={'file': 'ngc5921.clean.image'},
+               axes={'x':'Declination'} ,
+               zoom={'channel': 7, 'blc': [75,75], 'trc': [175,175],
+                     'coord': 'pixel'},
+               out='myout.png')
+
+        3) As example (2) but with an integral zoom level and no output to a file
+
+        imview(raster={'file': 'ngc5921.clean.image', 
+                       'range': [-0.01,0.03], 
+                       'colormap': 'Hot Metal 2'}, 
+               contour={'file': 'ngc5921.clean.image'}, 
+               axes={'x':'Declination'} , 
+               zoom=2)
+
+        4) Now, the contour levels are explicitely given, a region file is used
+        to define the zoom area
+
+        imview(raster={'file': 'ngc5921.clean.image',
+                       'range': [-0.01,0.03],
+                       'colormap': 'Hot Metal 2'},
+               contour={'file': 'ngc5921.clean.image',
+                        'levels': [-0.2, 0.2, 0.25, 0.3, 0.35, 0.4, 0.6, 0.8] },
+               zoom='myregion.rgn')
+
+        specifying "zoom={'file': 'myregion.rgn', 'channel': 10}" would result
+        in the same level of zoom and would display channel number 10 from
+        the cube.
+
+
+    </example>
+</task>
+</casaxml>

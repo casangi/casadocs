@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+      file:///opt/casa/code/xmlcasa/xml/casa.xsd">
+
+<task type="function" name="msview" category="utility, visualization, editing" async="never">
+    <shortdescription>View a visibility data set</shortdescription>
+    <description>
+        The msview task will display measurements in raster form.
+        Many display and editing options are available.
+
+        Executing the msview task will bring up a display panel
+        window, which can be resized.  If no data file was specified,
+        a Load Data window will also appear. Click on the desired measurement
+        set,and the rendered data should appear on the display panel.
+
+        A Data Display Options window will also appear.  It has drop-down
+        subsections for related options, most of which are self-explanatory.
+
+        The state of the msview task -- loaded data and related display
+        options -- can be saved in a 'restore' file for later use.
+        You can provide the restore filename on the command line or
+        select it from the Load Data window.
+
+        See the cookbook for more details on using the msview task.
+
+    </description>
+    <input>
+        <param type="string" name="infile" mustexist="true" allowblank='true'>
+            <description> (Optional)  Name of file to visualize.</description>
+            <value></value>
+        </param>
+
+        <param type="string" name="displaytype">
+            <description> (Optional)  Type of visual rendering (raster, contour, vector or marker).  lel  if an lel expression is given for infile  (advanced).</description>
+            <value>raster</value>
+        </param>
+
+        <param type="int" name="channel">
+            <description> (Optional)  access a specific channel in the image cube</description>
+            <value>0</value>
+        </param>
+
+        <param type="int" name="zoom">
+            <description> (Optional)  zoom in/out by increments</description>
+            <value>1</value>
+        </param>
+
+        <param type="string" name="outfile">
+            <description> (Optional)  name of the output file to generate</description>
+            <value></value>
+        </param>
+
+        <param type="double" name="outscale">
+            <description> (Optional)  amount to scale output bitmap formats (non-PS, non-PDF)</description>
+            <value>1.0</value>
+        </param>
+
+        <param type="int" name="outdpi">
+            <description> (Optional)  output DPI for PS/PDF</description>
+            <value>300</value>
+        </param>
+
+        <param type="string" name="outformat">
+            <description> (Optional)  format of the output e.g. jpg or pdf (this is overridden by the output files extension</description>
+            <value>jpg</value>
+        </param>
+
+        <param type="bool" name="outlandscape">
+            <description> (Optional)  should the output mode be landscape (PS or PDF)</description>
+            <value>False</value>
+        </param>
+
+        <param type="bool" name="gui">
+            <description> (Optional)  Display the panel in a GUI.</description>
+            <value>True</value>
+        </param>
+
+                <constraints>
+                </constraints>
+    </input>
+    <returns type="void"/>
+
+    <example>
+
+        examples of usage:
+
+        msview
+        msview "mymeasurementset.ms"
+        msview "myrestorefile.rstr"
+        
+        Keyword arguments:
+        infile -- Name of file to visualize
+                default: ''
+                example: infile='my.ms'
+                If no infile is specified the Load Data window
+                will appear for selecting data.
+        displaytype -- (optional): method of rendering data
+                visually (raster, contour, vector or marker).  
+                You can also set this parameter to 'lel' and
+                provide an lel expression for infile (advanced).
+                default: 'raster'
+
+        Note: there is no longer a filetype parameter; typing of
+        data files is now done automatically.
+                example:  msview infile='my.ms'
+                obsolete: msview infile='my.ms', filetype='ms'
+
+    </example>
+</task>
+</casaxml>

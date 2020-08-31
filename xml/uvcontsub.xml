@@ -1,0 +1,166 @@
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd file:///opt/casa/code/xmlcasa/xml/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
+
+<task category="modeling, manipulation" name="uvcontsub" type="function">
+<shortdescription>Continuum fitting and subtraction in the uv plane</shortdescription>
+<description>
+
+</description>
+<input>
+        <param mustexist="true" name="vis" type="string"><shortdescription>Name of input MS.  Output goes to vis + &quot;.contsub&quot; (will be overwritten if already exists)</shortdescription><description>Name of input MS.  Output goes to vis + &quot;.contsub&quot; (will be overwritten if already exists)</description>
+                
+                <value/>
+        </param>
+
+        <param name="field" type="any"><shortdescription>Select field(s) using id(s) or name(s)</shortdescription><description>Select field(s) using id(s) or name(s)</description>
+                
+                <any limittypes="string stringArray int intArray" type="variant"/>
+                <value type="string"/>
+        </param>
+
+        <param name="fitspw" type="string"><shortdescription>Spectral window:channel selection for fitting the continuum</shortdescription><description>Spectral window:channel selection for fitting the continuum</description>
+                
+                <value/>
+        </param>
+
+        <param subparam="true" name="excludechans" type="bool"><shortdescription>exclude Spectral window:channel selection in fitspw for fitting</shortdescription><description>exclude Spectral window:channel selection in fitspw for fitting</description>
+                
+                <value>False</value>
+        </param>
+        
+
+        <param name="combine" type="string"><shortdescription>Data axes to combine for the continuum estimation (none, or spw and/or scan)</shortdescription><description>Data axes to combine for the continuum estimation (none, or spw and/or scan)</description>
+                
+                <value/>
+        </param>
+
+        <param name="solint" type="any"><shortdescription>Continuum fit timescale (int recommended!)</shortdescription><description>Continuum fit timescale (int recommended!)</description>
+                
+                <any type="variant"/>
+                <value type="string">int</value>
+        </param>
+
+        <param name="fitorder" type="int"><shortdescription>Polynomial order for the fits</shortdescription><description>Polynomial order for the fits</description>
+                
+                <value>0</value>
+        </param>
+
+        <param name="spw" type="string"><shortdescription>Spectral window selection for output</shortdescription><description>Spectral window selection for output</description>
+                
+                <value/>
+        </param>
+
+        <param name="want_cont" type="bool"><shortdescription>Create vis + &quot;.cont&quot; to hold the continuum estimate.</shortdescription><description>Create vis + &quot;.cont&quot; to hold the continuum estimate.</description>
+                
+                <value>False</value>
+        </param>
+        
+  <constraints>
+            <when param="fitspw">
+                  <notequals value="" type="string">
+                    <default param="excludechans"><value type="bool">False</value>
+                    </default>
+                  </notequals>
+            </when>
+  </constraints>
+</input>
+<example>
+
+        Continuum fitting and subtraction in the uv plane:
+            
+        This task estimates the continuum emission by fitting polynomials to
+        the real and imaginary parts of the spectral windows and channels
+        selected by fitspw.  This fit represents a model of the continuum in 
+        all channels.
+
+        The fitted continuum spectrum is subtracted from all channels 
+        selected in spw, and the result (presumably only line emission)
+        is stored in a <em>new</em> MS (vis + &quot;.contsub&quot;). If an MS  
+        with the output name already exists, it will be overwritten.
+        It will read from the CORRECTED_DATA column of vis if it is present,
+        or DATA if it is not.  Whichever column is read is presumed to have
+        already been calibrated.
+
+        If want_cont is True, the continuum fit is placed in a second new MS
+        (vis + '.cont', also overwritten if it already exists).  
+        N.B. because the continuum model is necessarily a
+        smoothed fit, images made with it are liable to have their field of
+        view reduced in some strange way.  Images of the continuum should be
+        made by simply excluding the line channels (and probably averaging the
+        remaining ones) in clean.
+
+        Keyword arguments:
+        vis -- Name of input visibility file
+                default: none; example: vis='ngc5921.ms'
+        field -- Field selection for continuum estimation and subtraction.
+                 The estimation and subtraction is done for each selected field
+                 in turn.  (Run listobs to get lists of the ID and names.)
+                default: field = '' means select all fields
+                field = 1 # will get field_id=1 (if you give it an 
+                        integer, it will retrieve the source with that index.
+                field = '1328+307'  specifies source '1328+307'
+                field = '13*' will retrieve '1328+307' and any other fields
+                   beginning with '13'
+        fitspw -- Selection of spectral windows and channels to use in the
+                  fit for the continuum, using general spw:chan syntax.
+                  The ranges of channels also can be specified by frequencies as in
+                  the MS selection syntax (spw ids are required but '*' can be 
+                  used, see the example below).
+                  See the note under combine.
+                default: '' (all)
+                example: fitspw='0:5~30;40~55'
+                                 --&gt; select the ranges by channels in the spw id 0 
+                         fitspw='0:5~30;40~55,1:10~25;45~58,2'
+                                 --&gt; select channel ranges 5-30 and 40-55 for the spw id 0, 
+                                        10-25 and 45-58 for spwid 1, and use all channels for the spw id 2
+                         fitspw='0:113.767~114.528GHz;114.744~115.447GHz'
+                                 --&gt; select the ranges by frequencies in the spw id 0 
+                         fitspw='0:113.767~114.528GHz;114.744~115.447GHz,1:111.892~112.654GHz;112.868~113.025GHz'
+                                 --&gt; select the different ranges by frequencies for the spw ids 0 and 1 
+                         fitspw='*:113.767~114.528GHz;114.744~115.447GHz'
+                                 --&gt; select the same frequency ranges for all the relevant spws 
+         &gt;&gt;&gt; expandable parameter for fitspw 
+          excludechans - if True, it will exclude the spws:channels specified in fitspw
+                         for the fit
+                default: False (use fitspw for the fit) 
+                example: fitspw='0:114.528GHz~114.744GHz'; excludechans=True
+                         --&gt; exclude the frequency range, 114.528GHz - 114.744GHz in the spw id 0
+        combine -- Data axes to combine for the continuum estimate.
+                It must include 'spw' if spw contains spws that are not in
+                fitspw!
+                default: '' --&gt; solutions will break at scan, field, and spw
+                      boundaries according to solint
+              Options: '', 'spw'', 'scan', or 'spw, scan'
+              example: combine='spw' --&gt; form spw-merged continuum estimate
+        solint -- Timescale for per-baseline fit (units optional)
+                default (recommended): 'int' --&gt; no time averaging, do a
+                                       fit for each integration and let the
+                                       noisy fits average out in the image.
+
+                example: solint='10s'  --&gt; average to 10s before fitting
+                         10 or '10' --&gt; '10s' (unitless: assumes seconds)
+                options: 'int' --&gt; per integration
+                         'inf' --&gt; per scan
+
+                If solint is longer than 'int', the continuum estimate can be
+                corrupted by time smearing!
+
+        fitorder -- Polynomial order for the fits of the continuum w.r.t.
+                    frequency.  fitorders &gt; 1 are strongly discouraged
+                    because high order polynomials have more flexibility, may
+                    absorb line emission, and tend go wild at the edges of
+                    fitspw, which is not what you want.
+
+                default: 0 (constant); example: fitorder=1
+
+        spw -- Optional per spectral window selection of channels to include
+               in the output.  See the note under combine.
+
+               The spectral windows will be renumbered to start from 0, as in
+               split.
+        want_cont -- Create vis + '.cont' to hold the continuum estimate.
+                default: 'False'; example: want_cont=True
+                The continuum estimate will be placed in vis + '.cont'
+
+</example> 
+</task>
+</casaxml>

@@ -1,0 +1,219 @@
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd file:///opt/casa/code/xmlcasa/xml/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+ 
+ 
+
+<task category="analysis, information, manipulation" name="imhead" type="function">
+<shortdescription>List, get and put image header parameters</shortdescription>
+<description>
+List, get and put image header parameters.
+
+This task allows the user to manipulate metadata associated with a
+CASA image. Both float and complex valued images are fully supported.
+
+For measurement sets, the task vishead should be used.
+</description>
+
+<input>
+    <param mustexist="true" name="imagename" type="string">
+<shortdescription>Name of the input spectral line image</shortdescription>
+<description>Input image cube.
+                     Default: none
+
+                        Example: imagename='ngc5921_task.image'
+</description>
+        <value/>
+        <example>imagename='ngc5921_task.image'</example>
+    </param>
+
+    <param name="mode" type="string">
+<shortdescription/>
+<description>Mode of operation.
+                     Default: summary
+                     Options: &quot;add&quot;, &quot;del&quot;, &quot;get&quot;, &quot;history&quot;, &quot;list&quot;,
+                     &quot;put&quot;, or &quot;summary&quot;.
+
+                     * add: Add a new metadata value to the image. The
+                       behavior of mode=&quot;add&quot; depends on the
+                       keyword. In general, the return value will be
+                       True if the operation succeeds, or False if it
+                       fails or is not supported. If unsuccessful or
+                       not supported, a message is normally logged
+                       which describes the failure. In most cases, you
+                       probably want to use mode='put' rather than
+                       mode='add'. We continue to support mode='add'
+                       mainly for backward compatibility.
+                     * del: Delete a key or reset its value to a
+                       fidicual value if possible. Ignores all but
+                       imagename, mode, and hdkey parameters. In
+                       general, the return value will be True if the
+                       operation succeeds, or False if it fails or is
+                       not supported. If unsuccessful or not
+                       supported, a warning message is normally logged
+                       which describes the failure.
+                     * get: Return the specified keyword
+                       value. Ignores all but imagename, mode, and
+                       hdkey parameters.
+                     * history: Log image history. Ignores all but
+                       imagename and mode parameters.
+                     * list: Show supported keywords and their
+                       values. Ignores all but imagename and mode
+                       parameters.
+                       put: Modify the specified value associated with
+                       the keyword. True is returned if the metadatum
+                       was successfully modified, False
+                       otherwise. Normally, a diagnostic message is
+                       logged if there is a failure. Only the
+                       parameter specified is modified; eg, no
+                       modification of reference direction occurs to
+                       implicitly account for precession to a new
+                       reference frame.
+                     * summary: Log a summary of the image and return
+                       a dictionary of various metadata
+                       values. Ignores all but imagename and mode
+                       parameters.
+
+                     IMPORTANT: Lists of keywords for the various
+                     modes of operation are given in the imhead task
+                     pages of CASA Docs
+                     (https://casa.nrao.edu/casadocs/). 
+
+                     The behavior of mode='add|del|get depends on the
+                     keyword. Modes &quot;add&quot;, &quot;del&quot;, and &quot;put&quot; will not
+                     work if the image is read-only (eg a FITS
+                     image). 
+
+                     NOTE: Only limited checking is implemented to
+                     ensure modifying a specific value will leave the
+                     image metadata in a consistent state, so, if one
+                     is not careful, one could end up with an image
+                     that has an inconsistent set of metadata and is
+                     therefore, nonsensical and useless That is,
+                     PROCEED AT YOUR OWN RISK when using modes add,
+                     del, or put.
+</description>
+    <allowed kind="enum">
+        <value>list</value>
+        <value>history</value>
+        <value>get</value>
+        <value>put</value>
+        <value>add</value>
+        <value>del</value>
+        <value>summary</value>
+        </allowed>
+        <value>summary</value>
+    </param>
+    <param subparam="yes" name="hdkey" type="string">
+<shortdescription>The associated keyword for modes &quot;add&quot;, &quot;del&quot;, &quot;get&quot;, or &quot;put&quot;. Only &quot;get&quot; will work if the image is read-only (eg, a FITS image).</shortdescription>
+<description>Keyword to use with get, put, add, or del.
+                     Subparameter of mode=get|put|add|del
+
+                     Only &quot;get&quot; will work if the image is read-only
+                     (eg, a FITS image).
+
+                        Example: hdkey='telescope'
+</description>
+        <value/>
+        <example>hdkey='telescope'</example>
+    </param>
+
+    <param subparam="yes" name="hdvalue" type="any">
+    <any type="variant"/>
+<shortdescription>Value of keyword for modes add or put.</shortdescription>
+<description>Keyword value used for modes 'put' and 'add'. 
+                     Subparameter of mode='put|add' ('del')
+
+                     Also used for mode=&quot;del&quot; when hdvalue=&quot;masks. 
+
+                        Example: hdvalue='VLA'
+</description>
+        <value type="string"/>
+        <example>hdvalue='VLA'</example>
+    </param>
+    
+    <param subparam="yes" name="verbose" type="bool"><shortdescription>Give a full listing of beams or just a short summary? Only used when the image has multiple beams and mode=&quot;summary&quot;.</shortdescription><description>Give a full listing of beams or just a short summary? Only used when the image has multiple beams and mode=&quot;summary&quot;.</description>
+        
+        <value>False</value>
+    </param>
+
+    <constraints>
+    <when param="mode">
+        <equals value="summary">
+            <default param="verbose"><value>False</value></default>
+        </equals>
+        <equals value="list"/>
+        <equals value="history"/>
+
+        <equals value="put">
+        <default param="hdkey"><value type="string"/></default>
+        <default param="hdvalue"><value type="string"/></default>
+        </equals>
+        <equals value="add">
+        <default param="hdkey"><value type="string"/></default>
+        <default param="hdvalue"><value type="string"/></default>
+        </equals>
+
+        <equals value="get">
+        <default param="hdkey"><value type="string"/></default>
+        </equals>
+
+        <equals value="del">
+        <default param="hdkey"><value type="string"/></default>
+        </equals>
+    </when>
+    </constraints>
+</input>
+
+<returns type="variant"/>
+
+<example>
+FOR MORE INFORMATION, SEE THE TASK PAGES OF IMHEAD IN CASA DOCS:
+https://casa.nrao.edu/casadocs/    
+</example>
+
+</task>
+
+</casaxml>

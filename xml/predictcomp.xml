@@ -1,0 +1,177 @@
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd       file:///opt/casa/code/xmlcasa/xml/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
+
+<task category="modeling, calibration" name="predictcomp" type="function">
+  <shortdescription>Make a component list for a known calibrator</shortdescription>
+  <description>
+          Writes a component list named clist to disk and returns a dict of
+          {'clist': clist,
+           'objname': objname,
+           'standard': standard,
+           'epoch': epoch,
+           'freqs': pl.array of frequencies, in GHz,
+           'antennalist': a simdata type configuration file,
+           'amps':  pl.array of predicted visibility amplitudes, in Jy,
+           'savedfig': False or, if made, the filename of a plot.}
+          or False on error.
+  </description>
+  <input>
+    <param name="objname" type="string"><shortdescription>Object name</shortdescription><description>Object name</description>
+      
+      <value/>
+    </param>
+    <param name="standard" type="string"><shortdescription>Flux density standard</shortdescription><description>Flux density standard</description>
+      
+      <value>Butler-JPL-Horizons 2010</value>
+      <allowed kind="enum">
+        <value>Perley-Butler 2017</value>
+        <value>Perley-Butler 2013</value>
+        <value>Perley-Butler 2010</value>
+        <value>Perley-Taylor 99</value>
+        <value>Baars</value>
+        <value>Perley 90</value>
+        <value>Perley-Taylor 95</value>
+        <value>Butler-JPL-Horizons 2010</value>
+        <value>Butler-JPL-Horizons 2012</value>
+      </allowed>
+    </param>
+    
+    <param name="epoch" type="string"><shortdescription>Epoch</shortdescription><description>Epoch</description>
+      
+      <value/>
+    </param>
+    <param name="minfreq" type="string"><shortdescription>Minimum frequency</shortdescription><description>Minimum frequency</description>
+      
+      <value/>
+    </param>
+    <param name="maxfreq" type="string"><shortdescription>Maximum frequency</shortdescription><description>Maximum frequency</description>
+      
+      <value/>
+    </param>
+    <param name="nfreqs" type="int"><shortdescription>Number of frequencies</shortdescription><description>Number of frequencies</description>
+      
+      <value>2</value>
+    </param>
+    <param mustexist="false" name="prefix" type="string"><shortdescription>Prefix for the component list directory name.</shortdescription><description>Prefix for the component list directory name.</description>
+      
+      <value/>
+    </param>
+    <param name="antennalist" type="string"><shortdescription>Plot for this configuration</shortdescription><description>Plot for this configuration</description>
+      
+      <value/>
+    </param>
+    <param subparam="True" name="showplot" type="bool"><shortdescription>Plot S vs |u| to the screen?</shortdescription><description>Plot S vs |u| to the screen?</description>
+      
+      <value>False</value>
+    </param>
+    <param subparam="true" name="savefig" type="string"><shortdescription>Save a plot of S vs |u| to this filename</shortdescription><description>Save a plot of S vs |u| to this filename</description>
+      
+      <value/>
+    </param>
+          <param name="symb" type="string"><shortdescription>A matplotlib plot symbol code</shortdescription><description>A matplotlib plot symbol code</description>
+      
+      <value>.</value>
+          </param>
+    <param subparam="True" name="include0amp" type="bool"><shortdescription>Force the amplitude axis to start at 0?</shortdescription><description>Force the amplitude axis to start at 0?</description>
+      
+      <value>False</value>
+    </param>
+    <param subparam="True" name="include0bl" type="bool"><shortdescription>Force the baseline axis to start at 0?</shortdescription><description>Force the baseline axis to start at 0?</description>
+      
+      <value>False</value>
+    </param>
+    <param subparam="True" name="blunit" type="string"><shortdescription>unit of the baseline axis</shortdescription><description>unit of the baseline axis</description>
+      
+      <value/>
+      <allowed kind="enum">
+      <value/>
+      <value>klambda</value>
+      </allowed>
+    </param>
+    <param subparam="True" name="showbl0flux" type="bool"><shortdescription>Print the zero baseline flux ?</shortdescription><description>Print the zero baseline flux ?</description>
+      
+      <value>False</value>
+    </param>
+
+    <constraints>
+      <when param="antennalist">
+        <notequals value="">
+    <default param="showplot"><value>True</value></default>
+    <default param="savefig"><value type="string"/></default>
+                <default param="symb"><value type="string">.</value></default>
+    <default param="include0amp"><value>False</value></default>
+    <default param="include0bl"><value>False</value></default>
+    <default param="blunit"><value type="string"/></default>
+    <default param="showbl0flux"><value>False</value></default>
+        </notequals>
+      </when>
+    </constraints>
+  </input>
+<returns type="record"/>
+
+<example>
+
+    Writes a component list to disk and returns a dict of
+    {'clist': filename of the component list,
+     'objname': objname,
+     'angdiam': angular diameter in radians (if used in clist),
+     'standard': standard,
+     'epoch': epoch,
+     'freqs': pl.array of frequencies, in GHz,
+     'antennalist': pl.array of baseline lengths, in m,
+     'amps':  pl.array of predicted visibility amplitudes, in Jy,
+     'savedfig': False or, if made, the filename of a plot.}
+    or False on error.
+
+    objname: An object supported by standard.
+    standard: A standard for calculating flux densities, as in setjy.
+              Default: 'Butler-JPL-Horizons 2010'
+    epoch: The epoch to use for the calculations.   Irrelevant for
+           extrasolar standards. (Uses UTC)
+           Examples: '2011-12-31/5:34:12', '2011-12-31-5:34:12'
+    minfreq: The minimum frequency to use.
+             Example: '342.0GHz'
+    maxfreq: The maximum frequency to use.
+             Default: minfreq
+             Example: '346.0GHz'
+             Example: '', anything &lt;= 0, or None: use minfreq.
+    nfreqs:  The number of frequencies to use.
+             Default: 1 if minfreq == maxfreq,
+                      2 otherwise.
+    prefix: The component list will be saved to
+               prefix + 'spw0_&lt;objname&gt;_&lt;minfreq&gt;&lt;epoch&gt;.cl'
+            Default: '' 
+            Example: &quot;Bands3to7_&quot;
+                     (which could produce 'Bands3to7_Uranus_spw0_100GHz55877d.cl',
+                      depending on the other parameters)
+    antennalist: 'Observe' and plot the visibility amplitudes for this
+                 antenna configuration.  The file should be in a format usable
+                 by simdata.  The search path is:
+                     .:casa['dirs']['data'] + '/alma/simmos/'
+             Default: '' (None, just make clist.)
+             Example: 'alma.cycle0.extended.cfg'
+
+    Subparameters of antennalist:
+    showplot: Whether or not to show a plot of S vs. |u| on screen.
+              Subparameter of antennalist.
+              Default: Necessarily False if antennalist is not specified.
+                       True otherwise.
+    savefig: Filename for saving a plot of S vs. |u|.
+             Subparameter of antennalist.
+             Default: '' 
+             Examples: ''           (do not save the plot)
+                       'myplot.png' (save to myplot.png)
+    symb: One of matplotlib's codes for plot symbols: .:,o^v&lt;&gt;s+xDd234hH|_
+          Default: '.'
+    include0amp: Force the amplitude axis to start at 0?
+                 Default: False
+    include0bl: Force the baseline axis to start at 0?
+                Default: False
+    blunit: unit of the baseline axis ('' or 'klambda')
+            Default:''=use a unit in the data
+    showbl0flux: Print the zero baseline flux? 
+                 Default: False 
+
+     
+</example>
+</task>
+</casaxml>

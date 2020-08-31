@@ -1,0 +1,49 @@
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd       file:///opt/casa/code/xmlcasa/xml/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
+
+<task category="modeling, calibration" name="uvsub" type="function">
+        <shortdescription>Subtract/add model from/to the corrected visibility data.</shortdescription>
+        <description>
+        This function subtracts model visibility data (MODEL_DATA column) from corrected visibility
+        data (CORRECTED_DATA column) leaving the residuals in the corrected data column.  If the
+        parameter 'reverse' is set true, the process is reversed. Note the DATA column is left untouched.
+        If the ms has no CORRECTED _DATA column, one is made, copying DATA column, ahead of doing the 
+        uvsub process
+        </description>
+        <input>
+                <param mustexist="true" name="vis" type="string"><shortdescription>Name of input visibility file (MS)</shortdescription><description>Name of input visibility file (MS)</description>
+                        
+                        <value/>
+                        <example>vis='ngc5921.ms'</example>
+                </param>
+
+                <param name="reverse" type="bool"><shortdescription>reverse the operation (add rather than subtract)</shortdescription><description>reverse the operation (add rather than subtract)</description>
+                        
+                        <value>False</value>
+                </param>
+
+                <constraints>
+                </constraints>
+        </input>
+<returns type="void"/>
+
+<example>
+        Help for uvsub task
+
+        This function subtracts model visibility data from corrected visibility
+        data leaving the residuals in the corrected data column.  If the
+        parameter 'reverse' is set true, the process is reversed.
+        Please note the model visibility used is the one that has been saved in the MODEL_DATA of the MS and the 
+        CORRECTED_DATA column is the one that is modified. If no CORRECTED_DATA column exists in the MS, one will be created and 
+        a copy of the DATA column is saved in it  before the uvsub operation selected is performed. uvsub does not modify the DATA column.
+
+        Keyword arguments:
+        vis -- Name of input visibility file (MS)
+                default: none; example: vis='ngc5921.ms'
+        reverse -- Reverse the operation (add rather than subtract)
+                default: False; example: reverse=true
+
+        uvsub(vis='ngc5921.ms', reverse=False)
+
+ </example>
+ </task>
+ </casaxml>

@@ -1,0 +1,157 @@
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd file:///opt/casa/code/xmlcasa/xml/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
+
+
+
+
+<task category="analysis" name="slsearch" type="function">
+
+<shortdescription>Search a spectral line table.</shortdescription>
+
+<input>
+        <param mustexist="" name="tablename" type="string"><shortdescription>Input spectral line table name to search. If not specified, use the default table in the system.</shortdescription><description>Input spectral line table name to search. If not specified, use the default table in the system.</description>
+            
+            <value/>
+        </param>
+        <param name="outfile" type="string"><shortdescription>Results table name. Blank means do not write the table to disk.</shortdescription><description>Results table name. Blank means do not write the table to disk.</description>
+            
+            <value/>
+        </param>
+        <param name="freqrange" type="doubleArray"><shortdescription>Frequency range in GHz.</shortdescription><description>Frequency range in GHz.</description>
+            
+            <value>
+              <value>84</value>
+              <value>90</value>
+            </value>
+        </param>
+        <param name="species" type="stringArray"><shortdescription>Species to search for.</shortdescription><description>Species to search for.</description>
+            
+            <value/>
+        </param>
+        <param name="reconly" type="bool"><shortdescription>List only NRAO recommended frequencies.</shortdescription><description>List only NRAO recommended frequencies.</description>
+            
+            <value>False</value>
+        </param>
+        <param name="chemnames" type="stringArray"><shortdescription>Chemical names to search for.</shortdescription><description>Chemical names to search for.</description>
+            
+            <value/>
+        </param>
+        <param name="qns" type="stringArray"><shortdescription>Resolved quantum numbers to search for.</shortdescription><description>Resolved quantum numbers to search for.</description>
+            
+            <value/>
+        </param>
+        <param subparam="true" name="intensity" type="doubleArray"><shortdescription>CDMS/JPL intensity range. -1 -&gt; do not use an intensity range.</shortdescription><description>CDMS/JPL intensity range. -1 -&gt; do not use an intensity range.</description>
+            
+            <value>-1</value>
+        </param>
+        <param subparam="true" name="smu2" type="doubleArray"><shortdescription>Quantum mechanical line strength. -1 -&gt; do not use a smu2 range.</shortdescription><description>Quantum mechanical line strength. -1 -&gt; do not use a smu2 range.</description>
+            
+            <value>-1</value>
+        </param>
+        <param subparam="true" name="loga" type="doubleArray"><shortdescription>log(A) (Einstein coefficient) range. -1 -&gt; do not use a loga range.</shortdescription><description>log(A) (Einstein coefficient) range. -1 -&gt; do not use a loga range.</description>
+            
+            <value>-1</value>
+        </param>
+        <param subparam="true" name="el" type="doubleArray"><shortdescription>Lower energy state range in Kelvin. -1 -&gt; do not use an el range.</shortdescription><description>Lower energy state range in Kelvin. -1 -&gt; do not use an el range.</description>
+            
+            <value>-1</value>
+        </param>
+        <param subparam="true" name="eu" type="doubleArray"><shortdescription>Upper energy state range in Kelvin. -1 -&gt; do not use an eu range.</shortdescription><description>Upper energy state range in Kelvin. -1 -&gt; do not use an eu range.</description>
+            
+            <value>-1</value>
+        </param>
+        <param name="rrlinclude" type="bool"><shortdescription>Include RRLs in the result set?</shortdescription><description>Include RRLs in the result set?</description>
+            
+            <value>True</value>
+        </param>
+        <param name="rrlonly" type="bool"><shortdescription>Include only RRLs in the result set?</shortdescription><description>Include only RRLs in the result set?</description>
+            
+            <value>False</value>
+        </param>
+        <param name="verbose" type="bool"><shortdescription>List result set to logger (and optionally logfile)?</shortdescription><description>List result set to logger (and optionally logfile)?</description>
+            
+            <value>False</value>
+        </param>
+        <param subparam="true" name="logfile" type="string"><shortdescription>List result set to this logfile (only used if verbose=True).</shortdescription><description>List result set to this logfile (only used if verbose=True).</description>
+            
+            <value>&quot;&quot;</value>
+        </param>
+        <param subparam="true" name="append" type="bool"><shortdescription>If true, append to logfile if it already exists, if false overwrite logfile it it exists. Only used if verbose=True and logfile not blank.</shortdescription><description>If true, append to logfile if it already exists, if false overwrite logfile it it exists. Only used if verbose=True and logfile not blank.</description>
+            
+            <value>False</value>
+        </param>
+
+    <constraints>
+        <when param="verbose">
+            <equals value="True" type="bool">
+                <default param="logfile">
+                    <value>&quot;&quot;</value>
+                </default>
+                <default param="append">
+                    <value>True</value>
+                </default>
+            </equals>
+        </when>
+        <when param="rrlonly">
+            <equals value="False" type="bool">
+                <default param="intensity">
+                    <value>-1</value>
+                </default>
+                <default param="smu2">
+                    <value>-1</value>
+                </default>
+                <default param="loga">
+                    <value>-1</value>
+                </default>
+                <default param="eu">
+                    <value>-1</value>
+                </default>
+                <default param="el">
+                    <value>-1</value>
+                </default>
+            </equals>
+        </when>
+                    
+    </constraints>
+
+
+</input>
+<returns type="bool"/>
+
+<example>
+
+PARAMETER SUMMARY
+
+tablename      Input spectral line table name to search. If not specified, use the default table in the system.
+outfile        Results table name. Blank means do not write the table to disk.
+freqrange      Frequency range in GHz.
+species        Species to search for.
+reconly        List only NRAO recommended frequencies.
+chemnames      Chemical names to search for.
+qns            Resolved quantum numbers to search for.
+intensity      CDMS/JPL intensity range. -1 -&gt; do not use an intensity range.
+smu2           S*mu*mu range in Debye**2. -1 -&gt; do not use an S*mu*mu range.
+loga           log(A) (Einstein coefficient) range. -1 -&gt; do not use a loga range.
+el             Lower energy state range in Kelvin. -1 -&gt; do not use an el range.
+eu             Upper energy state range in Kelvin. -1 -&gt; do not use an eu range.
+rrlinclude     Include RRLs in the result set?
+rrlonly        Include only RRLs in the result set?
+verbose        List result set to logger (and optionally logfile)?
+logfile        List result set to this logfile (only used if verbose=True).
+append         If true, append to logfile if it already exists, if false overwrite logfile it it exists. Only used if verbose=True and logfile not blank.
+
+    Search the specfied spectral line table. The results table can be written to disk by specifying its name in the outfile parameter.
+    If outfile is not specified (ie outfile=&quot;&quot;), no table is created. Because Splatalogue does not have values for intensity, smu2,
+    loga, eu, and el for radio recombination lines (rrls), one must specify to include RRLs in the specified frequency range in the
+    output. In this case, RRLs will be included ignoring any filters on intensity, smu2, loga, eu, and el. One can also specify to
+    list only RRLs. One can specify to list the search results to the logger via the verbose parameter. If verbose is False, no
+    logger output is listed. If verbose=True, one can also specify that the results be listed to a logfile and if this file already
+    exists, one can specify that the results be appended to it or to overwrite it with the results.
+    
+    # put search results in a table but do not list to the logger
+    slsearch(&quot;myspectrallines.tbl&quot;, verbose=False)
+
+</example>
+
+</task>
+
+</casaxml>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/xmlcasa/xml/casa.xsd">
+
+
+<!-- This is the task interface for sl.splattocasa        -->
+<!--                                                          -->
+
+<task type="function" name="splattotable" category="analysis">
+<shortdescription>Convert a downloaded Splatalogue spectral line list to a casa table.</shortdescription>
+<description>
+This task reads a spectral line list(s) downloaded from Splatalogue
+(www.splatalogue.net) and loads it into a CASA table which can be
+queried via eg the slsearch task.
+</description>
+
+
+<input>
+        <param type="stringArray" direction="in" name="filenames" mustexist="true">
+<shortdescription>Files containing Splatalogue lists.</shortdescription>
+<description>Files containing Splatalogue lists.
+
+                     The downloaded files must be in a specific format
+                     for this task to succeed. Fro details, see the splattotable
+                     task pages on CASA Docs
+                     (https://casa.nrao.edu/casadocs/)
+</description>
+            <value/>
+            <example>["mysplat1.txt", "mysplat2,txt"]</example>
+        </param>
+
+        <param type="string" direction="in" name="table">
+<shortdescription>Output table name. Must be specified.</shortdescription>
+<description>Output table name. Must be specified.</description>
+            <value/>
+            <example>"mysplat.tbl"</example>
+        </param>
+</input>
+<returns type="bool"/>
+
+<example>
+For more information, see the task pages of splattotable in CASA Docs:
+
+https://casa.nrao.edu/casadocs/
+</example>
+
+</task>
+
+</casaxml>

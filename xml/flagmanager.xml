@@ -1,0 +1,116 @@
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd       file:///opt/casa/code/xmlcasa/xml/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
+
+<task category="editing" name="flagmanager" type="function">
+        <shortdescription>Enable list, save, restore, delete and rename flag version files.</shortdescription>
+        <description>
+        These flag version files are copies of the flag column for a
+        measurement set.  They can be restored to the data set to get
+        back to a previous flag version.  On running importvla, a flag
+        version call 'Original' is automatically produced.
+        </description>
+        <input>
+                <param mustexist="true" name="vis" type="string"><shortdescription>Name of input visibility file (MS)</shortdescription><description>Name of input visibility file (MS)</description>
+                        
+                        <value/>
+                        <example>vis='ngc5921.ms'</example>
+                </param>
+
+                <param name="mode" type="string"><shortdescription>Operation: list, save, restore, delete, rename</shortdescription><description>Operation: list, save, restore, delete, rename</description>
+                        
+                        <value>list</value>
+                        <allowed kind="enum">
+                                <value>list</value>
+                                <value>save</value>
+                                <value>restore</value>
+                                <value>delete</value>
+                                <value>rename</value>
+                        </allowed>
+                </param>
+                <param subparam="true" name="versionname" type="string"><shortdescription>Flag version name</shortdescription><description>Flag version name</description>
+                        
+                        <value/>
+                </param>
+                <param subparam="true" name="oldname" type="string"><shortdescription>Flag version to rename</shortdescription><description>Flag version to rename</description>
+                        
+                        <value/>
+                </param>
+                <param subparam="true" name="comment" type="string"><shortdescription>Short description of a versionname</shortdescription><description>Short description of a versionname</description>
+                        
+                        <value/>
+                </param>
+                <param subparam="true" name="merge" type="string"><shortdescription>Merge option: replace will save or over-write the flags</shortdescription><description>Merge option: replace will save or over-write the flags</description>
+                        
+                        <value>replace</value>
+                </param>
+                <constraints>
+                        <when param="mode">
+                                <equals value="list"/>
+                                <equals value="save">
+                                        <default param="versionname"><value type="string"/></default>
+                                        <default param="comment"><value type="string"/></default>
+                                        <default param="merge"><value type="string">replace</value></default>
+                                </equals>
+                                <equals value="restore">
+                                        <default param="versionname"><value type="string"/></default>
+                                        <default param="merge"><value type="string">replace</value></default>
+                                </equals>
+                                <equals value="delete">
+                                        <default param="versionname"><value type="string"/></default>
+                                </equals>
+                                <equals value="rename">
+                                        <default param="oldname"><value type="string"/></default>
+                                        <default param="versionname"><value type="string"/></default>
+                                        <default param="comment"><value type="string"/></default>
+                                </equals>
+                        </when>
+                </constraints>
+        </input>
+<returns type="void"/>
+
+<example>
+
+
+        The flag version files are copies of the FLAG column of a
+        Measurement Set. They can be restored to the data set to obtain
+        a previous flag version.  On running importasdm, a flag
+        version called 'Original' is produced by default.  It is recommended to
+        save a flagversion at the beginning or after serious editing.    
+
+        Keyword arguments:
+        vis -- Name of input visibility file
+                default: none. example: vis='ngc5921.ms'
+
+        mode -- Flag version operation
+                default: 'list': it will list in the logger the existing flag versions of the MS.
+                                 This option will also return by default a dictionary containing the
+                                 name of the MS, the name of the flag version and the comment. This 
+                                 information is taken from the FLAG_VERSION_LIST file inside the
+                                 .flagversions directory.
+
+                'save': will save the FLAG column from vis to a specified flag file. If the name given
+                        in versionname already exists, the task will give a warning and rename it 
+                        to a name with a suffix '.old.timestamp'. The respective entry in FLAG_VERSION_LIST 
+                        will also be updated.
+
+                'restore': will place the specified flag file into vis
+
+                'delete': will delete specified flag file
+
+                'rename': will rename a specified flag file
+
+        versionname -- Flag version name
+                default: none; example: versionname='original_data'
+                No imbedded blanks in the versionname
+
+        comment -- Short description of a versionname, when mode is 'save' or 'rename'
+                default: ''; example: comment='Clip above 1.85'
+                comment = versionname
+
+        oldname -- When mode='rename', the flag file to rename
+
+        merge -- Merge operation
+                Options: 'or','and', but not recommended for now.
+
+ </example>
+ </task>
+ </casaxml>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/xmlcasa/xml/casa.xsd">
+
+
+<task type="function" name="clearstat" category="utility">
+
+        <shortdescription>Clear all autolock locks</shortdescription>
+<description>
+This task is useful if another task that is running indicates
+that it is trying to obtain a lock on a file.
+
+Typing 'go clearstat()'  will not change the current task being scrutinized
+Typing 'clearstat()'     will change the current task assignment to clearpstat
+                         which is generally not what is desired.
+</description>
+  <input>
+  </input>
+
+  <returns type="void"/>
+
+  <example>
+
+For more information, see the task pages of clearstat in CASA Docs:
+
+https://casa.nrao.edu/casadocs/
+
+  </example>
+
+</task>
+
+</casaxml>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/xmlcasa/xml/casa.xsd">
+
+
+<!-- This is the param set for clean -->
+<!-- This does the equivalent of -->
+<!-- imgr:=imager('anyfile.ms'); -->
+<!-- imgr.setdata(mode='channel',nchan=100,start=1,step=1,fieldid=1) -->
+<!-- imgr.setimage(nx=512,ny=,cellx='1arcsec',celly='1arcsec',stokes='I',-->
+<!--               mode='channel',start=35,step=1,nchan=40, -->
+<!--               fieldid=[1]) -->
+<!-- imgr.weight('natural'); -->
+<!-- imgr.clean(algorithm='csclean',niter=500,model='field1') -->
+
+<task type="function" name="deconvolve" category="imaging">
+
+  <shortdescription>Image based deconvolver</shortdescription>
+
+  <description>
+Several algorithms are available to deconvolve an image with a
+known psf (dirty beam), or a Gaussian beam.  The algorithms
+available are clark and hogbom clean, a multiscale clean and a
+mem clean.
+
+NOTE: Recommend using taskname=clean if psf is a dirty beam
+
+
+  </description>
+
+  <input>
+
+    <param type="string" name="imagename" mustexist="true">
+        <description>Input image to deconvolve</description>
+        <value></value>
+    </param>
+
+    <param type="string" name="model">
+        <description>Output image containing deconvolved point model</description>
+        <value></value>
+    </param>
+
+    <param type="stringArray" name="psf">
+        <description>Point spread function (dirty beam)</description>
+        <value></value>
+    </param>
+
+    <param type="string" name="alg">
+    <description>Algorithm to use (clark, hogbom, multiscale, mem) </description>
+    <value>clark</value>
+    <allowed kind="enum">
+        <value>clark</value>
+        <value>hogbom</value>
+        <value>mem</value>
+        <value>multiscale</value>
+    </allowed>
+    </param>
+
+    <param type="int" name="niter">
+    <description>number of iteration in deconvolution process</description>
+    <value>10</value>
+    <allowed kind="range"><value range="min">0</value></allowed>
+    </param>
+
+    <param type="double" name="gain">
+        <description>CLEAN gain parameter</description>
+        <value>0.1</value>
+        <allowed kind="range"><value range="min"> 0</value><value range="max">1.0</value></allowed>
+    </param>
+
+    <param type="double" name="threshold" units="mJy">
+        <description>level below which sources will not be deconvolved</description>
+        <value>0.0</value>
+    </param>
+
+    <param type="string" name="mask">
+        <description>image mask to limit region of deconvolution</description>
+        <value></value>
+    </param>
+
+    <param type="intArray" name="scales" subparam="true">
+        <description>scale sizes (pixels) to deconvolve</description>
+        <value type="vector">
+            <value>0</value><value>3</value><value>10</value>
+        </value>
+    </param>
+
+    <param type="double" name="sigma" units="mJy" subparam="true">
+        <description>mem parameter: Expected noise in image</description>
+        <value>0.0</value>
+    </param>
+
+    <param type="double" name="targetflux" units="Jy" subparam="true">
+        <description>mem parameter: Estimated total flux in image</description>
+        <value>1.0</value>
+    </param>
+
+    <param type="string" name="prior" subparam="true">
+        <description>mem parameter: prior image for mem search</description>
+        <value></value>
+    </param>
+
+
+    <constraints>
+        <when param="alg">
+            <equals value="clark"/>
+            <equals value="hogbom"/>
+            <equals value="multiscale">
+               <default param="scales">
+               <value type="vector">
+                        <value>0</value>
+                        <value>3</value>
+                        <value>10</value>
+               </value>
+               </default>
+            </equals>
+            <equals value="mem">
+            <default param="sigma"><value>1.0</value></default>
+                <default param="targetflux"><value>1.0</value></default>
+                <default param="prior"><value type="string"></value></default>
+            </equals>
+        </when>
+    </constraints>
+
+    </input>
+
+  <returns type="void"/>
+
+  <example>
+
+        Several algorithms are available to deconvolve an image with a
+        known psf (dirty beam), or a Gaussian beam.  The algorithms
+        available are clark and hogbom clean, a multiscale clean and a
+        mem clean.  For more deconvolution control, use clean.
+
+        Keyword arguments:
+        imagename -- Name of input image to be deconvolved
+        model     -- Name of output image containing the clean components
+        psf       -- Name of psf image (dirty beam) to use
+                     example: psf='casaxmlf.image' .
+                     If the psf has 3 parameter, then a Gaussian
+                     psf is assumed with the values representing
+                     the major , minor and position angle  values
+                     e.g  psf=['3arcsec', '2.5arcsec', '10deg']
+        alg       -- algorithm to use: default = 'clark'
+                       options: clark, hogbom, multiscale or mem.
+        niter     -- Maximum number of iterations
+        gain      -- CLEAN gain parameter; fraction to remove from peak
+        threshold -- Halt deconvolution if the maximum residual image is
+                     below this threshold.
+                     default = '0.0Jy'
+        mask      -- mask image (same shape as image and psf) to limit region
+                     where deconvoltion is to occur
+
+        ------parameters useful for multiscale only
+        scales     -- in pixel numbers; the size of component to deconvolve.
+                      default value [0,3,10]
+                      recommended sizes are 0 (point), 3 (points per clean beam), and
+                      10 (about a factor of three lower resolution)
+        ------parameters useful for mem only
+        sigma      -- Estimated noise for image
+        targetflux -- Target total flux in image 
+        prior      -- Prior image to guide mem
+
+
+  </example>
+
+</task>
+
+</casaxml>

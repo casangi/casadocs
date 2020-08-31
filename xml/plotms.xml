@@ -1,0 +1,1856 @@
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
+
+<task async="never" category="visualization, information,editing, manipulation, utility" name="plotms" type="function">
+<shortdescription>A plotter/interactive flagger for visibility data.</shortdescription>
+
+<returns type="void"/>
+
+<description>
+
+                Task for plotting and interacting with visibility data and
+                calibration tables.
+
+                Plotms provides a variety of axis choices (including data column)
+                along with selection, averaging, and transformation options for
+                MeasurementSets.  Flag extension parameters are also available for
+                interactive flagging operations in the plotter.
+        
+                All of the provided parameters can also be set using the GUI once
+                the application has been launched or through the plotms tool (pm).
+
+                Most of the basic plotms functions will work for calibration tables.
+                The correlation selection string may be used to select polarization
+                in a cal table, including ratio plots (&quot;/&quot;).  The antenna selection
+                string is used to select antenna1 only, rather than baselines as in
+                an MS. When plotting parameterized CalTables, such as delays, antpos,
+                gaincurve, or opacity, plotms will currently just plot the simple
+                parameters contained in the table, not the effective amplitudes or
+                phases sampled at observing times, frequencies etc.  BPOLY and
+                GSPLINE tables are supported but interactive flagging is not allowed.
+                Features currently unsupported for CalTables include averaging,
+                transformations (velocity conversions, etc.), and some axis and
+                selection options which do not exist in these tables. In the plotms
+                GUI, many options irrelevant for CalTables are not hidden when
+                interacting with a CalTable, and such settings will be ignored (when
+                benign) or cause an error message.
+        
+</description>
+
+<input>
+
+
+  <param kind="ms" name="vis" type="string"><shortdescription>Input MS or CalTable (blank for none)</shortdescription><description>Input MS or CalTable (blank for none)</description>
+    
+    <value/>
+  </param>
+  
+  
+  
+  <param name="gridrows" type="int"><shortdescription>Number of subplot rows</shortdescription><description>Number of subplot rows</description>
+    
+    <value>1</value>
+  </param>
+  
+  <param name="gridcols" type="int"><shortdescription>Number of subplot columns</shortdescription><description>Number of subplot columns</description>
+    
+    <value>1</value>
+  </param>
+  
+   <param name="rowindex" type="int"><shortdescription>Row location of the plot (0-based)</shortdescription><description>Row location of the plot (0-based)</description>
+       
+       <value>0</value>
+   </param>
+
+   <param name="colindex" type="int"><shortdescription>Column location of the plot (0-based)</shortdescription><description>Column location of the plot (0-based)</description>
+       
+       <value>0</value>
+   </param>
+  
+   <param name="plotindex" type="int"><shortdescription>Index to address a subplot (0-based)</shortdescription><description>Index to address a subplot (0-based)</description>
+       
+       <value>0</value>
+   </param>
+
+
+  <param name="xaxis" type="string"><shortdescription>Plot x-axis (blank for default/current)</shortdescription><description>Plot x-axis (blank for default/current)</description>
+    
+    <value/>
+    <allowed kind="enum">
+      <value/>
+      <value>scan</value>
+      <value>Scan</value>
+      <value>field</value>
+      <value>Field</value>
+      <value>time</value>
+      <value>Time</value>
+      <value>interval</value>
+      <value>time_interval</value>
+      <value>timeinterval</value>
+      <value>timeint</value>
+      <value>Interval</value>
+      <value>spw</value>
+      <value>Spw</value>
+      <value>channel</value>
+      <value>chan</value>
+      <value>Channel</value>
+      <value>frequency</value>
+      <value>freq</value>
+      <value>Frequency</value>
+      <value>correlation</value>
+      <value>corr</value>
+      <value>Corr</value>
+      <value>antenna1</value>
+      <value>ant1</value>
+      <value>Antenna1</value>
+      <value>antenna2</value>
+      <value>ant2</value>
+      <value>Antenna2</value>
+      <value>baseline</value>
+      <value>Baseline</value>
+      <value>row</value>
+      <value>Row</value>
+      <value>observation</value>
+      <value>Observation</value>
+      <value>intent</value>
+      <value>Intent</value>
+      <value>feed1</value>
+      <value>Feed1</value>
+      <value>feed2</value>
+      <value>Feed2</value>
+      <value>uvdist</value>
+      <value>UVdist</value>
+      <value>uvwave</value>
+      <value>uvdist_l</value>
+      <value>uvdistl</value>
+      <value>UVwave</value>
+      <value>u</value>
+      <value>U</value>
+      <value>v</value>
+      <value>V</value>
+      <value>w</value>
+      <value>W</value>
+      <value>uwave</value>
+      <value>Uwave</value>
+      <value>vwave</value>
+      <value>Vwave</value>
+      <value>wwave</value>
+      <value>Wwave</value>
+      <value>velocity</value>
+      <value>vel</value>
+      <value>Velocity</value>
+      <value>amp</value>
+      <value>amplitude</value>
+      <value>Amp</value>
+      <value>phase</value>
+      <value>Phase</value>
+      <value>real</value>
+      <value>Real</value>
+      <value>imag</value>
+      <value>imaginary</value>
+      <value>Imag</value>
+      <value>wt</value>
+      <value>Wt</value>
+      <value>weight</value>
+      <value>wt*amp</value>
+      <value>Wt*Amp</value>
+      <value>wtsp</value>
+      <value>WtSp</value>
+      <value>weightspectrum</value>
+      <value>WeightSpectrum</value>
+      <value>sigma</value>
+      <value>Sigma</value>
+      <value>sigmasp</value>
+      <value>SigmaSp</value>
+      <value>sigmaspectrum</value>
+      <value>SigmaSpectrum</value>
+      <value>flag</value>
+      <value>Flag</value>
+      <value>azimuth</value>
+      <value>Azimuth</value>
+      <value>elevation</value>
+      <value>Elevation</value>
+      <value>hourang</value>
+      <value>hourangle</value>
+      <value>HourAngle</value>
+      <value>parang</value>
+      <value>parangle</value>
+      <value>parallacticangle</value>
+      <value>ParAngle</value>
+      <value>antenna</value>
+      <value>ant</value>
+      <value>Antenna</value>
+      <value>ant-azimuth</value>
+      <value>Ant-Azimuth</value>
+      <value>ant-elevation</value>
+      <value>Ant-Elevation</value>
+      <value>ant-ra</value>
+      <value>Ant-RA</value>
+      <value>ant-dec</value>
+      <value>Ant-DEC</value>
+      <value>ant-parang</value>
+      <value>ant-parangle</value>
+      <value>ant-parallacticangle</value>
+      <value>Ant-Parangle</value>
+      <value>flagrow</value>
+      <value>FlagRow</value>
+      <value>gainamp</value>
+      <value>gamp</value>
+      <value>GainAmp</value>
+      <value>gainphase</value>
+      <value>gphase</value>
+      <value>GainPhase</value>
+      <value>gainreal</value>
+      <value>greal</value>
+      <value>GainReal</value>
+      <value>gainimag</value>
+      <value>gimag</value>
+      <value>GainImag</value>
+      <value>delay</value>
+      <value>del</value>
+      <value>Delay</value>
+      <value>swp</value>
+      <value>swpower</value>
+      <value>switchedpower</value>
+      <value>SwPower</value>
+      <value>spgain</value>
+      <value>tsys</value>
+      <value>Tsys</value>
+      <value>opac</value>
+      <value>opacity</value>
+      <value>Opac</value>
+      <value>snr</value>
+      <value>SNR</value>
+      <value>tec</value>
+      <value>TEC</value>
+      <value>antpos</value>
+      <value>Antenna Positions</value>
+      <value>antenna positions</value>
+      <value>radialvelocity</value>
+      <value>Radial Velocity</value>
+      <value>rho</value>
+      <value>Distance</value>
+    </allowed>
+  </param>
+  
+    <param subparam="true" name="xdatacolumn" type="string"><shortdescription>Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.</shortdescription><description>Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.</description>
+      
+      <value/>
+      <allowed kind="enum">
+        <value/>
+        <value>data</value>
+        <value>corrected</value>
+        <value>model</value>
+        <value>float</value>
+        <value>residual</value>
+        <value>corrected-model</value>
+        <value>corrected-model_vector</value>
+        <value>corrected-model_scalar</value>
+        <value>data-model</value>
+        <value>data-model_vector</value>
+        <value>data-model_scalar</value>
+        <value>corrected/model</value>
+        <value>corrected/model_vector</value>
+        <value>corrected/model_scalar</value>
+        <value>data/model</value>
+        <value>data/model_vector</value>
+        <value>data/model_scalar</value>
+      </allowed>
+    </param>
+    
+    <param subparam="true" name="xframe" type="string"><shortdescription>Coordinate frame to use for x-axis</shortdescription><description>Coordinate frame to use for x-axis</description>
+      
+      <value/>
+      <allowed kind="enum">
+        <value/>
+        <value>icrs</value>
+        <value>j2000</value>
+        <value>b1950</value>
+        <value>galactic</value>
+        <value>azelgeo</value>
+      </allowed>
+    </param>
+    
+    <param subparam="true" name="xinterp" type="string"><shortdescription>Interpolation method for x-axis</shortdescription><description>Interpolation method for x-axis</description>
+      
+      <value/>
+      <allowed kind="enum">
+        <value/>
+        <value>nearest</value>
+        <value>cubic spline</value>
+        
+        <value>spline</value>
+      </allowed>
+    </param>
+    
+    
+  <param name="yaxis" type="any"><shortdescription>Plot y-axis (blank for default/current)</shortdescription><description>Plot y-axis (blank for default/current)</description>
+  
+  <any limittype="string stringArray" type="variant"/>
+   <value type="string"/>
+   <value type="stringArray"><value/></value>
+   <allowed kind="enum">
+      <value/>
+      <value>scan</value>
+      <value>Scan</value>
+      <value>field</value>
+      <value>Field</value>
+      <value>time</value>
+      <value>Time</value>
+      <value>interval</value>
+      <value>time_interval</value>
+      <value>timeinterval</value>
+      <value>timeint</value>
+      <value>Interval</value>
+      <value>spw</value>
+      <value>Spw</value>
+      <value>channel</value>
+      <value>chan</value>
+      <value>Channel</value>
+      <value>frequency</value>
+      <value>freq</value>
+      <value>Frequency</value>
+      <value>correlation</value>
+      <value>corr</value>
+      <value>Corr</value>
+      <value>antenna1</value>
+      <value>ant1</value>
+      <value>Antenna1</value>
+      <value>antenna2</value>
+      <value>ant2</value>
+      <value>Antenna2</value>
+      <value>baseline</value>
+      <value>Baseline</value>
+      <value>row</value>
+      <value>Row</value>
+      <value>observation</value>
+      <value>Observation</value>
+      <value>intent</value>
+      <value>Intent</value>
+      <value>feed1</value>
+      <value>Feed1</value>
+      <value>feed2</value>
+      <value>Feed2</value>
+      <value>uvdist</value>
+      <value>UVdist</value>
+      <value>uvwave</value>
+      <value>uvdist_l</value>
+      <value>uvdistl</value>
+      <value>UVwave</value>
+      <value>u</value>
+      <value>U</value>
+      <value>v</value>
+      <value>V</value>
+      <value>w</value>
+      <value>W</value>
+      <value>uwave</value>
+      <value>Uwave</value>
+      <value>vwave</value>
+      <value>Vwave</value>
+      <value>wwave</value>
+      <value>Wwave</value>
+      <value>velocity</value>
+      <value>vel</value>
+      <value>Velocity</value>
+      <value>amp</value>
+      <value>amplitude</value>
+      <value>Amp</value>
+      <value>phase</value>
+      <value>Phase</value>
+      <value>real</value>
+      <value>Real</value>
+      <value>imag</value>
+      <value>imaginary</value>
+      <value>Imag</value>
+      <value>wt</value>
+      <value>Wt</value>
+      <value>weight</value>
+      <value>wt*amp</value>
+      <value>Wt*Amp</value>
+      <value>wtsp</value>
+      <value>WtSp</value>
+      <value>weightspectrum</value>
+      <value>WeightSpectrum</value>
+      <value>sigma</value>
+      <value>Sigma</value>
+      <value>sigmasp</value>
+      <value>SigmaSp</value>
+      <value>sigmaspectrum</value>
+      <value>SigmaSpectrum</value>
+      <value>flag</value>
+      <value>Flag</value>
+      <value>azimuth</value>
+      <value>Azimuth</value>
+      <value>elevation</value>
+      <value>Elevation</value>
+      <value>hourang</value>
+      <value>hourangle</value>
+      <value>HourAngle</value>
+      <value>parang</value>
+      <value>parangle</value>
+      <value>parallacticangle</value>
+      <value>ParAngle</value>
+      <value>antenna</value>
+      <value>ant</value>
+      <value>Antenna</value>
+      <value>ant-azimuth</value>
+      <value>Ant-Azimuth</value>
+      <value>ant-elevation</value>
+      <value>Ant-Elevation</value>
+      <value>ant-ra</value>
+      <value>Ant-RA</value>
+      <value>ant-dec</value>
+      <value>Ant-DEC</value>
+      <value>ant-parang</value>
+      <value>ant-parangle</value>
+      <value>ant-parallacticangle</value>
+      <value>Ant-Parangle</value>
+      <value>flagrow</value>
+      <value>FlagRow</value>
+      <value>gainamp</value>
+      <value>gamp</value>
+      <value>GainAmp</value>
+      <value>gainphase</value>
+      <value>gphase</value>
+      <value>GainPhase</value>
+      <value>gainreal</value>
+      <value>greal</value>
+      <value>GainReal</value>
+      <value>gainimag</value>
+      <value>gimag</value>
+      <value>GainImag</value>
+      <value>delay</value>
+      <value>del</value>
+      <value>Delay</value>
+      <value>swp</value>
+      <value>swpower</value>
+      <value>switchedpower</value>
+      <value>SwPower</value>
+      <value>spgain</value>
+      <value>tsys</value>
+      <value>Tsys</value>
+      <value>opac</value>
+      <value>opacity</value>
+      <value>Opac</value>
+      <value>snr</value>
+      <value>SNR</value>
+      <value>tec</value>
+      <value>TEC</value>
+      <value>antpos</value>
+      <value>Antenna Positions</value>
+      <value>antenna positions</value>
+      <value>radialvelocity</value>
+      <value>Radial Velocity</value>
+      <value>rho</value>
+      <value>Distance</value>
+      <value>ra</value>
+      <value>RA</value>
+      <value>Right Ascension</value>
+    </allowed>
+    </param>
+    
+    <param subparam="true" name="ydatacolumn" type="any"><shortdescription>Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.</shortdescription><description>Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.</description>
+      
+      <any limittype="string stringArray" type="variant"/>
+      <value type="string"/>
+      <allowed type="string" kind="enum">
+        <value/>
+        <value>data</value>
+        <value>corrected</value>
+        <value>model</value>
+        <value>float</value>
+        <value>residual</value>
+        <value>corrected-model</value>
+        <value>corrected-model_vector</value>
+        <value>corrected-model_scalar</value>
+        <value>data-model</value>
+        <value>data-model_vector</value>
+        <value>data-model_scalar</value>
+        <value>corrected/model</value>
+        <value>corrected/model_vector</value>
+        <value>corrected/model_scalar</value>
+        <value>data/model</value>
+        <value>data/model_vector</value>
+        <value>data/model_scalar</value>
+      </allowed>
+    </param>
+    
+    <param subparam="true" name="yframe" type="any"><shortdescription>Coordinate frame to use for y-axis</shortdescription><description>Coordinate frame to use for y-axis</description>
+      
+      <any limittype="string stringArray" type="variant"/>
+      <value type="string"/>
+      <allowed type="string" kind="enum">
+        <value/>
+        <value>icrs</value>
+        <value>j2000</value>
+        <value>b1950</value>
+        <value>galactic</value>
+        <value>azelgeo</value>
+      </allowed>
+    </param>
+    
+    <param subparam="true" name="yinterp" type="any"><shortdescription>Interpolation method for y-axis</shortdescription><description>Interpolation method for y-axis</description>
+      
+      <any limittype="string stringArray" type="variant"/>
+      <value type="string"/>
+      <allowed type="string" kind="enum">
+        <value/>
+        <value>nearest</value>
+        <value>cubic spline</value>
+        
+        <value>spline</value>
+      </allowed>
+    </param>
+    
+    
+    <param subparam="false" name="yaxislocation" type="any"><shortdescription>Location of the y-axis (blank for default: left)</shortdescription><description>Location of the y-axis (blank for default: left)</description>
+      
+      <any limittype="string stringArray" type="variant"/>
+      <value type="string"/>
+      <allowed type="string" kind="enum">
+        <value/>
+        <value>left</value>
+        <value>right</value>
+      </allowed>
+    </param>
+    
+  
+
+
+  <param name="selectdata" type="bool"><shortdescription>Enable data selection parameters</shortdescription><description>Enable data selection parameters</description>
+    
+    <value>True</value>
+  </param>
+  
+    <param subparam="true" name="field" type="string"><shortdescription>Field names or ids (blank for all)</shortdescription><description>Field names or ids (blank for all)</description>
+      
+      <value/>
+    </param>
+    
+    <param subparam="true" name="spw" type="string"><shortdescription>Spectral windows:channels (blank for all)</shortdescription><description>Spectral windows:channels (blank for all)</description>
+      
+      <value/>
+    </param>
+    
+    <param subparam="true" name="timerange" type="string"><shortdescription>Time range (blank for all)</shortdescription><description>Time range (blank for all)</description>
+      
+      <value/>
+    </param>
+    
+    <param subparam="true" name="uvrange" type="string"><shortdescription>UV range (blank for all)</shortdescription><description>UV range (blank for all)</description>
+      
+      <value/>
+    </param>
+    
+    <param subparam="true" name="antenna" type="string"><shortdescription>Baseline/antenna names or ids (blank for all)</shortdescription><description>Baseline/antenna names or ids (blank for all)</description>
+      
+      <value/>
+    </param>
+    
+    <param subparam="true" name="scan" type="string"><shortdescription>Scan numbers (blank for all)</shortdescription><description>Scan numbers (blank for all)</description>
+      
+      <value/>
+    </param>
+    
+    <param subparam="true" name="correlation" type="string"><shortdescription>Correlations/polarizations (blank for all)</shortdescription><description>Correlations/polarizations (blank for all)</description>
+      
+      <value/>
+    </param>
+    
+    <param subparam="true" name="array" type="string"><shortdescription>(Sub)array numbers (blank for all)</shortdescription><description>(Sub)array numbers (blank for all)</description>
+      
+      <value/>
+    </param>
+    
+    <param subparam="true" name="observation" type="string"><shortdescription>Observation IDs (blank for all)</shortdescription><description>Observation IDs (blank for all)</description>
+      
+      <value/>
+    </param>
+
+    <param subparam="true" name="intent" type="string"><shortdescription>Observing intent (blank for all)</shortdescription><description>Observing intent (blank for all)</description>
+      
+      <value/>
+    </param>
+
+    <param subparam="true" name="feed" type="string"><shortdescription>Feed numbers (blank for all)</shortdescription><description>Feed numbers (blank for all)</description>
+      
+      <value/>
+    </param>
+
+    <param subparam="true" name="msselect" type="string"><shortdescription>MSSelection TaQL string (blank for none)</shortdescription><description>MSSelection TaQL string (blank for none)</description>
+      
+      <value/>
+    </param>
+
+
+
+
+  <param name="averagedata" type="bool"><shortdescription>Enable data averaging parameters</shortdescription><description>Enable data averaging parameters</description>
+    
+    <value>True</value>
+  </param>
+  
+    <param subparam="true" name="avgchannel" type="string"><shortdescription>Average over channel (blank = False, otherwise value in channels)</shortdescription><description>Average over channel (blank = False, otherwise value in channels)</description>
+      
+      <value/>
+    </param>
+    
+    <param subparam="true" name="avgtime" type="string"><shortdescription>Average over time (blank = False, otherwise value in seconds)</shortdescription><description>Average over time (blank = False, otherwise value in seconds)</description>
+      
+      <value/>
+    </param>
+    
+    <param subparam="true" name="avgscan" type="bool"><shortdescription>Average over scans. Only valid with time averaging</shortdescription><description>Average over scans. Only valid with time averaging</description>
+      
+      <value>False</value>
+    </param>
+    
+    <param subparam="true" name="avgfield" type="bool"><shortdescription>Average over fields. Only valid with time averaging</shortdescription><description>Average over fields. Only valid with time averaging</description>
+      
+      <value>False</value>
+    </param>
+    
+    <param subparam="true" name="avgbaseline" type="bool"><shortdescription>Average over all baselines (mutually exclusive with avgantenna)</shortdescription><description>Average over all baselines (mutually exclusive with avgantenna)</description>
+      
+      <value>False</value>
+    </param>
+    
+    <param subparam="true" name="avgantenna" type="bool"><shortdescription>Average per antenna (mutually exclusive with avgbaseline)</shortdescription><description>Average per antenna (mutually exclusive with avgbaseline)</description>
+      
+      <value>False</value>
+    </param>
+    
+    <param subparam="true" name="avgspw" type="bool"><shortdescription>Average over all spectral windows</shortdescription><description>Average over all spectral windows</description>
+      
+      <value>False</value>
+    </param>
+
+    <param subparam="true" name="scalar" type="bool"><shortdescription>Scalar averaging (False=vector averaging)</shortdescription><description>Scalar averaging (False=vector averaging)</description>
+      
+      <value>False</value>
+    </param>
+
+
+
+
+  <param name="transform" type="bool"><shortdescription>Enable data transformations</shortdescription><description>Enable data transformations</description>
+    
+    <value>True</value>
+  </param>
+
+    <param subparam="true" name="freqframe" type="string"><shortdescription>The frame in which to render frequency and velocity axes</shortdescription><description>The frame in which to render frequency and velocity axes</description>
+      
+      <value/>
+      <allowed kind="enum">
+        <value/>
+        <value>LSRK</value>
+        <value>LSRD</value>
+        <value>BARY</value>
+        <value>GEO</value>
+        <value>TOPO</value>
+        <value>GALACTO</value>
+        <value>LGROUP</value>
+        <value>CMB</value>
+      </allowed>
+    </param>
+
+   <param subparam="true" name="restfreq" type="string"><shortdescription>Rest frequency to use for velocity conversions </shortdescription><description>Rest frequency to use for velocity conversions </description>
+       
+       <value/>
+    </param>
+
+    <param subparam="true" name="veldef" type="string"><shortdescription>The definition in which to render velocity </shortdescription><description>The definition in which to render velocity </description>
+      
+      <value>RADIO</value>
+      <allowed kind="enum">
+        <value>RADIO</value>
+        <value>OPTICAL</value>
+        <value>TRUE</value>
+      </allowed>
+    </param>
+
+   <param subparam="true" name="shift" type="doubleArray"><shortdescription>Adjust phases by this approximate phase center shift [dx,dy] (arcsec)</shortdescription><description>Adjust phases by this approximate phase center shift [dx,dy] (arcsec)</description>
+       
+       <value type="doubleArray">
+           <value>0.0</value>
+           <value>0.0</value>
+       </value>
+    </param>
+
+
+
+
+
+
+  <param name="extendflag" type="bool"><shortdescription>Extend flagging to other data points not plotted</shortdescription><description>Extend flagging to other data points not plotted</description>
+    
+    <value>False</value>
+  </param>
+    
+    <param subparam="true" name="extcorr" type="bool"><shortdescription>Extend flags based on correlation </shortdescription><description>Extend flags based on correlation </description>
+      
+      <value>False</value>
+    </param>
+
+    
+    <param subparam="true" name="extchannel" type="bool"><shortdescription>Extend flags based on channel</shortdescription><description>Extend flags based on channel</description>
+      
+      <value>False</value>
+    </param>
+
+
+
+
+
+   <param name="iteraxis" type="string"><shortdescription>The axis over which to iterate</shortdescription><description>The axis over which to iterate</description>
+      
+      <value/>
+      <allowed kind="enum">
+        <value/>
+        <value>scan</value>
+        <value>Scan</value>
+        <value>field</value>
+        <value>Field</value>
+        <value>spw</value>
+        <value>Spw</value>
+        <value>baseline</value>
+        <value>Baseline</value>
+        <value>antenna</value>
+        <value>Antenna</value>
+        <value>time</value>
+        <value>Time</value>
+        <value>corr</value>
+        <value>Corr</value>
+      </allowed>
+   </param>
+
+   <param subparam="true" name="xselfscale" type="bool"><shortdescription>When True, iterated plots have a common x-axis range (scale).</shortdescription><description>When True, iterated plots have a common x-axis range (scale).</description>
+       
+       <value>False</value>
+   </param>
+
+   <param subparam="true" name="yselfscale" type="bool"><shortdescription>When True, iterated plots have a common y-axis range (scale).</shortdescription><description>When True, iterated plots have a common y-axis range (scale).</description>
+       
+       <value>False</value>
+   </param>
+   
+   <param subparam="true" name="xsharedaxis" type="bool"><shortdescription>Iterated plots on a grid share a common external x-axis per column. Must also set xselfscale=True and gridrows&gt;1.</shortdescription><description>Iterated plots on a grid share a common external x-axis per column. Must also set xselfscale=True and gridrows&gt;1.</description>
+       
+       <value>False</value>
+   </param>
+
+   <param subparam="true" name="ysharedaxis" type="bool"><shortdescription>Iterated plots on a grid share a common external y-axis per row. Must also set yselfscale=True and gridcols&gt;1.</shortdescription><description>Iterated plots on a grid share a common external y-axis per row. Must also set yselfscale=True and gridcols&gt;1.</description>
+       
+       <value>False</value>
+   </param>
+
+ 
+
+   
+    
+    <param name="customsymbol" type="any"><shortdescription>Enable custom symbol(s) for unflagged points</shortdescription><description>Enable custom symbol(s) for unflagged points</description>
+        
+         <any limittype="bool boolArray" type="variant"/>
+        <value>False</value>
+    </param>
+
+    <param subparam="true" name="symbolshape" type="any"><shortdescription>Shape of plotted unflagged symbols</shortdescription><description>Shape of plotted unflagged symbols</description>
+        
+        <any limittype="string stringArray" type="variant"/>
+        <value type="string">autoscaling</value>
+        <allowed type="string" kind="enum">
+            <value>nosymbol</value>
+            <value>autoscaling</value>
+            <value>circle</value>
+            <value>square</value>
+            <value>diamond</value>
+            <value>pixel</value>
+        </allowed>
+    </param>
+
+    <param subparam="true" name="symbolsize" type="any"><shortdescription>Size of plotted unflagged symbols</shortdescription><description>Size of plotted unflagged symbols</description>
+        
+         <any limittype="int intArray" type="variant"/>
+        <value type="int">2</value>
+    </param>
+
+    <param subparam="true" name="symbolcolor" type="any"><shortdescription>Color (name or hex code) of plotted unflagged symbols</shortdescription><description>Color (name or hex code) of plotted unflagged symbols</description>
+        
+         <any limittype="string stringArray" type="variant"/>
+        <value type="string">0000ff</value>
+    </param>
+
+    <param subparam="true" name="symbolfill" type="any"><shortdescription>Fill type of plotted unflagged symbols</shortdescription><description>Fill type of plotted unflagged symbols</description>
+        
+        <any limittype="string stringArray" type="variant"/>
+        <value type="string">fill</value>
+        <allowed type="string" kind="enum">
+            <value>fill</value>
+            <value>mesh1</value>
+            <value>mesh2</value>
+            <value>mesh3</value>
+            <value>nofill</value>
+        </allowed>
+    </param>
+
+    <param subparam="true" name="symboloutline" type="any"><shortdescription>Outline plotted unflagged symbols</shortdescription><description>Outline plotted unflagged symbols</description>
+        
+         <any limittype="bool boolArray" type="variant"/>
+        <value type="bool">False</value>
+    </param>
+
+    <param name="coloraxis" type="string"><shortdescription>Selects data axis for colorizing</shortdescription><description>Selects data axis for colorizing</description>
+        
+        <value/>
+        <allowed kind="enum">
+            <value/>
+            <value>scan</value>
+            <value>Scan</value>
+            <value>field</value>
+            <value>Field</value>
+            <value>spw</value>
+            <value>Spw</value>
+            <value>antenna1</value>
+            <value>ant1</value>
+            <value>Antenna1</value>
+            <value>antenna2</value>
+            <value>ant2</value>
+            <value>Antenna2</value>
+            <value>baseline</value>
+            <value>Baseline</value>
+            <value>channel</value>
+            <value>chan</value>
+            <value>Channel</value>
+            <value>corr</value>
+            <value>Corr</value>
+            <value>time</value>
+            <value>Time</value>
+            <value>observation</value>
+            <value>Observation</value>
+            <value>intent</value>
+            <value>Intent</value>
+        </allowed>
+    </param>
+
+    <param name="customflaggedsymbol" type="any"><shortdescription>Enable custom symbol(s) for flagged points</shortdescription><description>Enable custom symbol(s) for flagged points</description>
+        
+        <any limittype="bool boolArray" type="variant"/>
+        <value type="bool">False</value>
+    </param>
+
+    <param subparam="true" name="flaggedsymbolshape" type="any"><shortdescription>Shape of plotted flagged symbols</shortdescription><description>Shape of plotted flagged symbols</description>
+        
+        <any limittype="string stringArray" type="variant"/>
+        <value type="string">circle</value>
+        <allowed type="string" kind="enum">
+            <value>nosymbol</value>
+            <value>autoscaling</value>
+            <value>circle</value>
+            <value>square</value>
+            <value>diamond</value>
+            <value>pixel</value>
+        </allowed>
+    </param>
+
+    <param subparam="true" name="flaggedsymbolsize" type="any"><shortdescription>Size of plotted flagged symbols</shortdescription><description>Size of plotted flagged symbols</description>
+        
+        <any limittype="int intArray" type="variant"/>
+        <value type="int">2</value>
+    </param>
+
+    <param subparam="true" name="flaggedsymbolcolor" type="any"><shortdescription>Color (name or hex code) of plotted flagged symbols</shortdescription><description>Color (name or hex code) of plotted flagged symbols</description>
+        
+        <any limittype="string stringArray" type="variant"/>
+        <value type="string">ff0000</value>
+    </param>
+
+    <param subparam="true" name="flaggedsymbolfill" type="any"><shortdescription>Fill type of plotted flagged symbols</shortdescription><description>Fill type of plotted flagged symbols</description>
+        
+        <any limittype="string stringArray" type="variant"/>
+        <value type="string">fill</value>
+        <allowed type="string" kind="enum">
+            <value>fill</value>
+            <value>mesh1</value>
+            <value>mesh2</value>
+            <value>mesh3</value>
+            <value>nofill</value>
+        </allowed>
+    </param>
+
+    <param subparam="true" name="flaggedsymboloutline" type="any"><shortdescription>Outline plotted flagged symbols</shortdescription><description>Outline plotted flagged symbols</description>
+        
+        <any limittype="bool boolArray" type="variant"/>
+        <value type="bool">False</value>
+    </param>
+
+    <param name="xconnector" type="string"><shortdescription>Set connector for data points (blank=&quot;none&quot;; &quot;line&quot;,&quot;step&quot;)</shortdescription><description>Set connector for data points (blank=&quot;none&quot;; &quot;line&quot;,&quot;step&quot;)</description>
+        
+        <value/>
+    <allowed kind="enum">
+      <value/>
+            <value>none</value>
+            <value>line</value>
+            <value>step</value>
+        </allowed>
+    </param>
+    <param subparam="true" name="timeconnector" type="bool"><shortdescription>Connect points by time rather than x-axis</shortdescription><description>Connect points by time rather than x-axis</description>
+        
+        <value>False</value>
+    </param>
+
+
+
+
+    <param name="plotrange" type="doubleArray"><shortdescription>Plot axes ranges: [xmin,xmax,ymin,ymax]</shortdescription><description>Plot axes ranges: [xmin,xmax,ymin,ymax]</description>
+        
+        <value/>
+    </param>
+
+
+
+  <param name="title" type="string"><shortdescription>Title at top of plot</shortdescription><description>Title at top of plot</description>    
+    
+    <value/>
+  </param>
+  
+  <param name="titlefont" type="int"><shortdescription>Font size for plot title</shortdescription><description>Font size for plot title</description>
+    
+    <value>0</value>
+  </param>
+
+  <param name="xlabel" type="string"><shortdescription>Text for horizontal x-axis. Blank for default.</shortdescription><description>Text for horizontal x-axis. Blank for default.</description>    
+    
+    <value/>
+  </param>
+  
+  <param name="xaxisfont" type="int"><shortdescription>Font size for x-axis label</shortdescription><description>Font size for x-axis label</description>
+    
+    <value>0</value>
+  </param>
+
+  <param name="ylabel" type="string"><shortdescription>Text for vertical y-axis. Blank for default.</shortdescription><description>Text for vertical y-axis. Blank for default.</description>    
+    
+    <value/>
+  </param>
+
+  <param name="yaxisfont" type="int"><shortdescription>Font size for y-axis label</shortdescription><description>Font size for y-axis label</description>
+    
+    <value>0</value>
+  </param>
+
+
+
+
+
+<param subparam="false" name="showmajorgrid" type="bool"><shortdescription>Show major grid lines</shortdescription><description>Show major grid lines</description>
+    
+    <value>False</value>
+</param>
+
+<param subparam="true" name="majorwidth" type="int"><shortdescription>Line width in pixels of major grid lines</shortdescription><description>Line width in pixels of major grid lines</description>
+    
+    <value>1</value>
+</param>
+
+<param subparam="true" name="majorstyle" type="string"><shortdescription>Major grid line style</shortdescription><description>Major grid line style</description>
+    
+    <allowed kind="enum">
+        <value/>
+        <value>solid</value>
+        <value>dash</value>
+        <value>dot</value>
+        <value>none</value>
+    </allowed>
+</param>
+
+<param subparam="true" name="majorcolor" type="string"><shortdescription>Color (name or hex code) of major grid lines</shortdescription><description>Color (name or hex code) of major grid lines</description>
+    
+    <value>B0B0B0</value>
+</param>
+
+
+
+<param subparam="false" name="showminorgrid" type="bool"><shortdescription>Show minor grid lines</shortdescription><description>Show minor grid lines</description>
+    
+    <value>False</value>
+</param>
+
+<param subparam="true" name="minorwidth" type="int"><shortdescription>Line width in pixels of minor grid lines</shortdescription><description>Line width in pixels of minor grid lines</description>
+    
+    <value>1</value>
+</param>
+
+<param subparam="true" name="minorstyle" type="string"><shortdescription>Minor grid line style</shortdescription><description>Minor grid line style</description>
+    
+    <allowed kind="enum">
+        <value/>
+        <value>solid</value>
+        <value>dash</value>
+        <value>dot</value>
+        <value>none</value>
+    </allowed>
+</param>
+
+<param subparam="true" name="minorcolor" type="string"><shortdescription>Color (name or hex code) of minor grid lines</shortdescription><description>Color (name or hex code) of minor grid lines</description>
+    
+    <value>D0D0D0</value>
+</param>
+
+
+<param subparam="false" name="showlegend" type="bool"><shortdescription>Show a legend on the plot.</shortdescription><description>Show a legend on the plot.</description>
+    
+    <value>False</value>
+</param>
+
+<param subparam="true" name="legendposition" type="string"><shortdescription>Legend position, default upperRight.</shortdescription><description>Legend position, default upperRight.</description>
+    
+    <value/>
+    <allowed kind="enum">
+        <value/>
+        <value>upperRight</value>
+        <value>upperLeft</value>
+        <value>lowerRight</value>
+        <value>lowerLeft</value>
+        <value>exteriorRight</value>
+        <value>exteriorLeft</value>
+        <value>exteriorTop</value>
+        <value>exteriorBottom</value>
+    </allowed>
+</param>
+
+
+
+
+
+    <param name="plotfile" type="string"><shortdescription>Name of plot file to save automatically</shortdescription><description>Name of plot file to save automatically</description>
+      
+    </param>
+
+    <param subparam="true" name="expformat" type="string"><shortdescription>Export format type. If not provided, plotfile extension will be used to determine type.</shortdescription><description>Export format type. If not provided, plotfile extension will be used to determine type.</description>
+        
+        <allowed kind="enum">
+            <value/>
+            <value>jpg</value>
+            <value>png</value>
+            <value>pdf</value>
+            <value>ps</value>
+            <value>txt</value>
+        </allowed>
+    </param>
+
+     <param subparam="true" name="verbose" type="bool"><shortdescription>Include metadata in text export</shortdescription><description>Include metadata in text export</description>
+         
+         <value>True</value>
+     </param>
+
+    <param subparam="true" name="exprange" type="string"><shortdescription>Range of iteration plots to export, one plotfile per page.  Multipage pdf exports are not supported.</shortdescription><description>Range of iteration plots to export, one plotfile per page.  Multipage pdf exports are not supported.</description>
+        
+        <allowed kind="enum">
+            <value/>
+            <value>current</value>
+            <value>all</value>
+        </allowed>
+    </param>
+
+     <param subparam="true" name="highres" type="bool"><shortdescription>Use high resolution</shortdescription><description>Use high resolution</description>
+         
+         <value>False</value>
+     </param>
+     <param subparam="true" name="dpi" type="int"><shortdescription>DPI of exported plot</shortdescription><description>DPI of exported plot</description>
+         
+         <value>-1</value>
+     </param>
+     <param subparam="true" name="width" type="int"><shortdescription>Width in pixels of exported plot</shortdescription><description>Width in pixels of exported plot</description>
+         
+         <value>-1</value>
+     </param>
+     <param subparam="true" name="height" type="int"><shortdescription>Height in pixels of exported plot</shortdescription><description>Height in pixels of exported plot</description>
+         
+         <value>-1</value>
+     </param>
+     <param subparam="true" name="overwrite" type="bool"><shortdescription>Overwrite plot file if it already exists</shortdescription><description>Overwrite plot file if it already exists</description>
+         
+         <value>False</value>
+     </param>
+
+     <param name="showgui" type="bool"><shortdescription>Show GUI</shortdescription><description>Show GUI</description>
+        
+        <value>True</value>
+     </param>
+     
+     <param subparam="true" name="clearplots" type="bool"><shortdescription>Remove any existing plots so new ones can replace them.</shortdescription><description>Remove any existing plots so new ones can replace them.</description>
+        
+        <value>True</value>
+     </param>
+     
+     <param name="callib" type="stringArray"><shortdescription>Calibration library string or filename for on-the-fly calibration.</shortdescription><description>Calibration library string or filename for on-the-fly calibration.</description>
+        
+        <value/>
+     </param>
+     
+     <param name="headeritems" type="string"><shortdescription>Comma-separated list of pre-defined page header items.</shortdescription><description>Comma-separated list of pre-defined page header items.</description>
+        
+        <value/>
+     </param>
+
+     <param name="showatm" type="bool"><shortdescription>Compute and overlay the atmospheric transmission curve</shortdescription><description>Compute and overlay the atmospheric transmission curve</description>
+        
+        <value>False</value>
+     </param>
+     
+     <param name="showtsky" type="bool"><shortdescription>Compute and overlay the sky temperature curve</shortdescription><description>Compute and overlay the sky temperature curve</description>
+        
+        <value>False</value>
+     </param>
+     
+     <param name="showimage" type="bool"><shortdescription>Compute and overlay the image sideband curve</shortdescription><description>Compute and overlay the image sideband curve</description>
+        
+        <value>False</value>
+     </param>
+  
+
+
+
+
+
+
+
+  <constraints>
+  
+    <when param="xaxis">
+      <equals value="" type="string"/>
+      <equals value="amp" type="string">
+        <default param="xdatacolumn"><value type="string"/></default>
+      </equals>
+      <equals value="amplitude" type="string">
+        <default param="xdatacolumn"><value type="string"/></default>
+      </equals>
+      <equals value="phase" type="string">
+        <default param="xdatacolumn"><value type="string"/></default>
+      </equals>
+      <equals value="real" type="string">
+        <default param="xdatacolumn"><value type="string"/></default>
+      </equals>
+      <equals value="imag" type="string">
+        <default param="xdatacolumn"><value type="string"/></default>
+      </equals>
+      <equals value="imaginary" type="string">
+        <default param="xdatacolumn"><value type="string"/></default>
+      </equals>
+      <equals value="ant-ra" type="string">
+        <default param="xframe"><value type="string"/></default>
+        <default param="xinterp"><value type="string"/></default>
+      </equals>
+      <equals value="ant-dec" type="string">
+        <default param="xframe"><value type="string"/></default>
+        <default param="xinterp"><value type="string"/></default>
+      </equals>
+      <equals value="scan"/>
+       <equals value="Scan"/>
+      <equals value="field"/>
+      <equals value="time"/>
+      <equals value="time_interval"/>
+       <equals value="timeinterval"/>
+       <equals value="timeint"/>
+      <equals value="spw"/>
+      <equals value="channel"/>
+       <equals value="chan"/>
+      <equals value="frequency"/>
+       <equals value="freq"/>
+      <equals value="correlation"/>
+      <equals value="corr"/>
+      <equals value="antenna1"/>
+       <equals value="ant1"/>
+      <equals value="antenna2"/>
+       <equals value="ant2"/>
+      <equals value="baseline"/>
+      <equals value="uvdist"/>
+      <equals value="uvwave"/>
+       <equals value="uvdist_l"/>
+       <equals value="uvdistl"/>
+      <equals value="u"/>
+      <equals value="v"/>
+      <equals value="w"/>
+      <equals value="uwave"/>
+      <equals value="vwave"/>
+      <equals value="wwave"/>
+      <equals value="velocity"/>
+       <equals value="vel"/>
+      <equals value="wt"/>
+      <equals value="wtsp"/>
+       <equals value="weight"/>
+       <equals value="weightspectrum"/>
+       <equals value="sigma"/>
+       <equals value="sigmasp"/>
+       <equals value="sigmaspectrum"/>
+      <equals value="imwt"/>
+      <equals value="flag"/>
+      <equals value="azimuth"/>
+      <equals value="elevation"/>
+      <equals value="hourang"/>
+       <equals value="hourangle"/>
+      <equals value="parang"/>
+       <equals value="parangle"/>
+       <equals value="parallacticangle"/>
+      <equals value="antenna"/>
+       <equals value="ant"/>
+      <equals value="ant-azimuth"/>
+      <equals value="ant-elevation"/>
+      <equals value="ant-hourang"/>
+       <equals value="ant-hourangle"/>
+      <equals value="ant-parang"/>
+       <equals value="ant-parangle"/>
+       <equals value="ant-parallacticangle"/>
+      <equals value="row"/>
+      <equals value="flagrow"/>
+      <equals value="observation"/>
+      <equals value="intent"/>
+      <equals value="feed"/>
+      <equals value="ra"/>
+    </when>
+
+    
+    <when param="yaxis">
+      <equals value="" type="string"/>
+      <equals value="amp" type="string">
+        <default param="ydatacolumn"><value type="string"/></default>
+      </equals>
+      <equals value="amplitude" type="string">
+        <default param="ydatacolumn"><value type="string"/></default>
+      </equals>
+      <equals value="phase" type="string">
+        <default param="ydatacolumn"><value type="string"/></default>
+      </equals>
+      <equals value="real" type="string">
+        <default param="ydatacolumn"><value type="string"/></default>
+      </equals>
+      <equals value="imag" type="string">
+        <default param="ydatacolumn"><value type="string"/></default>
+      </equals>
+      <equals value="imaginary" type="string">
+        <default param="ydatacolumn"><value type="string"/></default>
+      </equals>
+      <equals value="ant-ra" type="string">
+        <default param="yframe"><value type="string"/></default>
+        <default param="yinterp"><value type="string"/></default>
+      </equals>
+      <equals value="ant-dec" type="string">
+        <default param="yframe"><value type="string"/></default>
+        <default param="yinterp"><value type="string"/></default>
+      </equals>
+      <equals value="scan"/>
+       <equals value="Scan"/>
+      <equals value="field"/>
+      <equals value="time"/>
+      <equals value="time_interval"/>
+       <equals value="timeinterval"/>
+       <equals value="timeint"/>
+      <equals value="spw"/>
+      <equals value="channel"/>
+       <equals value="chan"/>
+      <equals value="frequency"/>
+       <equals value="freq"/>
+      <equals value="correlation"/>
+      <equals value="corr"/>
+      <equals value="antenna1"/>
+       <equals value="ant1"/>
+      <equals value="antenna2"/>
+       <equals value="ant2"/>
+      <equals value="baseline"/>
+      <equals value="uvdist"/>
+      <equals value="uvwave"/>
+       <equals value="uvdist_l"/>
+       <equals value="uvdistl"/>
+      <equals value="u"/>
+      <equals value="v"/>
+      <equals value="w"/>
+      <equals value="uwave"/>
+      <equals value="vwave"/>
+      <equals value="wwave"/>
+      <equals value="velocity"/>
+       <equals value="vel"/>
+      <equals value="wt"/>
+      <equals value="wtsp"/>
+       <equals value="weight"/>
+       <equals value="weightspectrum"/>
+       <equals value="sigma"/>
+       <equals value="sigmasp"/>
+       <equals value="sigmaspectrum"/>
+      <equals value="imwt"/>
+      <equals value="flag"/>
+      <equals value="azimuth"/>
+      <equals value="elevation"/>
+      <equals value="hourang"/>
+       <equals value="hourangle"/>
+      <equals value="parang"/>
+       <equals value="parangle"/>
+       <equals value="parallacticangle"/>
+      <equals value="antenna"/>
+       <equals value="ant"/>
+      <equals value="ant-azimuth"/>
+      <equals value="ant-elevation"/>
+      <equals value="ant-hourang"/>
+       <equals value="ant-hourangle"/>
+      <equals value="ant-parang"/>
+       <equals value="ant-parangle"/>
+       <equals value="ant-parallacticangle"/>
+      <equals value="row"/>
+      <equals value="flagrow"/>
+      <equals value="observation"/>
+      <equals value="intent"/>
+      <equals value="feed"/>
+    </when>
+    
+    <when param="selectdata">
+      <equals value="True" type="bool">
+        <default param="field"><value type="string"/></default>
+        <default param="spw"><value type="string"/></default>
+        <default param="timerange"><value type="string"/></default>
+        <default param="uvrange"><value type="string"/></default>
+        <default param="antenna"><value type="string"/></default>
+        <default param="scan"><value type="string"/></default>
+        <default param="correlation"><value type="string"/></default>
+        <default param="array"><value type="string"/></default>
+        <default param="observation"><value type="string"/></default>
+        <default param="intent"><value type="string"/></default>
+        <default param="feed"><value type="string"/></default>
+        <default param="msselect"><value type="string"/></default>
+      </equals>
+      <equals value="False" type="bool"/>
+    </when>
+    
+    <when param="averagedata">
+      <equals value="True" type="bool">
+        <default param="avgchannel"><value type="string"/></default>
+        <default param="avgtime"><value type="string"/></default>
+        <default param="avgscan"><value type="bool">False</value></default>
+        <default param="avgfield"><value type="bool">False</value></default>
+        <default param="avgbaseline"><value type="bool">False</value></default>
+        <default param="avgantenna"><value type="bool">False</value></default>
+        <default param="avgspw"><value type="bool">False</value></default>
+        <default param="scalar"><value type="bool">False</value></default>
+      </equals>
+      <equals value="False" type="bool"/>
+    </when>
+    <when param="transform">
+      <equals value="False" type="bool"/>
+      <equals value="True" type="bool">
+        <default param="freqframe"><value type="string"/></default>
+        <default param="restfreq"><value type="string"/></default>
+        <default param="veldef"><value type="string">RADIO</value></default>
+        <default param="shift"><value type="doubleArray"><value>0.0</value><value>0.0</value></value></default>
+      </equals>
+    </when>
+    <when param="extendflag">
+      <equals value="False" type="bool"/>
+      <equals value="True" type="bool">
+        <default param="extcorr"><value type="bool">False</value></default>
+        <default param="extchannel"><value type="bool">False</value></default>
+
+      </equals>
+    </when>
+    <when param="iteraxis">
+        <notequals value="" type="string">
+            <default param="xselfscale"><value>False</value></default>
+            <default param="yselfscale"><value>False</value></default>
+            <default param="xsharedaxis"><value>False</value></default>
+            <default param="ysharedaxis"><value>False</value></default>
+        </notequals>
+    </when>
+    
+    <when param="customsymbol">
+        <equals value="False" type="bool"/>
+        <equals value="True" type="bool">
+            <default param="symbolshape">
+                <value type="string">autoscaling</value>
+            </default>
+            <default param="symbolsize">
+                <value type="int">2</value>
+            </default>
+            <default param="symbolcolor">
+                <value type="string">0000ff</value>
+            </default>
+            <default param="symbolfill">
+                <value type="string">fill</value>
+            </default>
+            <default param="symboloutline">
+                <value type="bool">False</value>
+            </default>
+        </equals>    
+    </when>
+
+    <when param="customflaggedsymbol">
+        <equals value="False" type="bool"/>
+        <equals value="True" type="bool">
+            <default param="flaggedsymbolshape">
+                <value type="string">nosymbol</value>
+            </default>
+            <default param="flaggedsymbolsize">
+                <value type="int">2</value>
+            </default>
+            <default param="flaggedsymbolcolor">
+                <value type="string">ff0000</value>
+            </default>
+            <default param="flaggedsymbolfill">
+                <value type="string">fill</value>
+            </default>
+            <default param="flaggedsymboloutline">
+                <value type="bool">False</value>
+            </default>
+        </equals>
+    </when>
+
+    <when param="plotfile">
+        <notequals value="" type="string">
+            <default param="expformat"><value type="string"/></default>
+            <default param="verbose"><value type="bool">True</value></default>
+            <default param="exprange"><value type="string"/></default>
+            <default param="highres"><value type="bool">False</value></default>
+            <default param="dpi"><value type="int">-1</value></default>
+            <default param="width"><value type="int">-1</value></default>
+            <default param="height"><value type="int">-1</value></default>
+            <default param="overwrite"><value type="bool">False</value></default>
+        </notequals>
+    </when>
+    
+    <when param="showgui">
+        <equals value="True" type="bool">
+            <default param="clearplots"><value type="bool">True</value></default>
+        </equals>
+        <equals value="False" type="bool">
+            <default param="clearplots"><value type="bool">True</value></default>
+        </equals>
+    </when>    
+
+    <when param="showmajorgrid">
+      <equals value="False" type="bool"/>
+      <equals value="True" type="bool">
+        <default param="majorwidth"><value type="int">0</value></default>
+        <default param="majorstyle"><value type="string"/></default>
+        <default param="majorcolor"><value type="string"/></default>
+      </equals>
+    </when>
+
+    <when param="showminorgrid">
+      <equals value="False" type="bool"/>
+      <equals value="True" type="bool">
+        <default param="minorwidth"><value type="int">0</value></default>
+        <default param="minorstyle"><value type="string"/></default>
+        <default param="minorcolor"><value type="string"/></default>
+      </equals>
+    </when>
+
+    <when param="xconnector">
+      <equals value="" type="string"/>
+      <equals value="none" type="string"/>
+      <equals value="line" type="string">
+        <default param="timeconnector"><value type="bool">False</value></default>
+      </equals>
+      <equals value="step" type="string">
+        <default param="timeconnector"><value type="bool">False</value></default>
+      </equals>
+    </when>
+
+    
+
+
+  </constraints>
+</input>
+
+<example>
+
+        Task for plotting and interacting with visibility
+        data.  Limited support for caltable plotting is also
+        included as of CASA v4.1.
+
+        A variety of axes choices (including data column) along 
+        with MS selection and averaging options are provided for data 
+        selection.  Flag extension parameters are also available for
+        flagging operations in the plotter.
+        
+        All of the provided parameters can also be set using the GUI once
+        the application has been launched.  Additional and more specific
+        operations are available through the GUI and/or through the plotms
+        tool (pm).
+
+        Most basic functions (plotting, iteration, locate, flagging)
+        will work for most CalTables. Parameterized CalTables
+        (delays, antpos, gaincurve, opacity), will, at best, currently 
+        just plot the simple parameters contained in the
+        table, not the effective amplitudes or phases sampled at
+        observing times, frequencies etc.  BPOLY and GSPLINE tables
+        are not yet supported.   Features currently unsupported for
+        CalTables include Averaging, Transformations (velocity 
+        conversions, etc.), and some details of selection (channel and 
+        polarization selection are not yet enabled) and axes choices 
+        (geometry options are not yet enabled).  In the plotms gui,
+        many options irrelevant for CalTables are not yet hidden when
+        interacting with a CalTable, and such settings will be ignored
+        (when benign) or cause an error message.
+
+    Keyword arguments:
+    vis -- input MS or CalTable
+           default: ''  (will merely launch the gui)
+    gridrows -- Number of subplot rows
+                    default: 1 
+    gridcols -- Number of subplot columns
+                    default: 1
+    rowindex -- Row location of the subplot (0-based).
+                    default: 0
+    colindex -- Column location of the subplot (0-based).
+                    default: 0
+    plotindex -- Index to address a subplot (0-based). 
+                    default: 0                         
+    xaxis, yaxis -- what to plot on the two axes
+                    default: '' (defaults are xaxis='time',
+                                 yaxis='amp' on first execution;
+                                 thereafter the most recent
+                                 settings are used)
+              valid options (=indicates valid synonyms): 
+               MS Ids and other meta info:
+                 'scan'   (number)
+                 'field'  (index)
+                 'time',  
+                 'interval'='timeint'='timeinterval'='time_interval'
+                 'spw'    (index)
+                 'chan'='channel'    (index)  
+                 'freq'='frequency'  (GHz)
+                 'vel'='velocity'   (km/s)
+                 'corr'='correlation'  (index)
+                 'ant1'='antenna1'   (index)
+                 'ant2'='antenna2'   (index)
+                 'baseline'  (a baseline index) 
+                 'row'   (absoute row Id from the MS)
+                 'observation' (index)
+                 'intent'      (index)
+                 'feed1'       (index)
+                 'feed2'       (index)
+               Visibility values, flags:
+                 'amp'='amplitude'
+                 'phase'  (deg)
+                 'real'  
+                 'imag'='imaginary'
+                 'wt'='weight'  (unchannelized)
+                 'wtsp'='weightspectrum'
+                 'flag'
+                 'flagrow'
+               Observational geometry:
+                 'uvdist'  (meters)
+                 'uvwave'='uvdistl'='uvdist_l'  (wavelengths, per channel)
+                 'u'  (meters)
+                 'v'  (meters)
+                 'w'  (meters)
+                 'uwave'  ('u' in wavelengths, per channel)
+                 'vwave'  ('v' in wavelengths, per channel)
+                 'wwave'  ('w' in wavelengths, per channel)
+                 'azimuth'  (at array reference; degrees)
+                 'elevation'  (at array reference; degrees)
+                 'hourang'='hourangle'  (at array reference; hours)
+                 'parang'='parangle'='parallacticangle'  (at array reference; degrees)
+               Antenna-based (only works vs. data Ids):
+                 'ant'='antenna'
+                 'ant-azimuth' 
+                 'ant-elevation'
+                 'ant-ra'
+                 'ant-dec'
+                 'ant-parang'='ant-parangle'
+               Calibration:
+                 'gainamp'='gamp'
+                 'gainphase'='gphase'
+                 'gainreal'='greal'
+                 'gainimag'='gimag'
+                 'delay'='del'
+                 'opacity'='opac'
+                 'swpower'='swp'='switchedpower'='spgain'
+
+
+      &gt;&gt;&gt; xaxis, yaxis expandable parameters
+        xdatacolumn, 
+        ydatacolumn  -- data column to use for Visibility values:
+                        default: '' ('data' on first execution;
+                                     thereafter the most recent
+                                     setting is used)
+                        valid options:  'data'      (observed)
+                                        'corrected'='corr'
+                                        'model'
+                                        'residual'  (aliases 'corrected-model')
+                                        'corrected-model'
+                                        'data-model'
+                                        'data/model'
+                                        'corected/model'
+                                        'float'
+                        Note that residuals are complex (vector) differences or ratios.
+    
+    selectdata -- data selection parameters flag
+                  default: True  (reveals data selection parameters
+                                  described below)
+                  Consult listobs output for data selection values,
+                  and see help par.selectdata for more detailed 
+                  information on syntax; also, visit
+                  http://casa.nrao.edu/other_doc.shtml and click
+                  on &quot;Measurement Set selection syntax&quot; for more
+                  tips on using data selection parameters in CASA)
+
+      &gt;&gt;&gt; selectdata expandable parameters:
+
+      field -- Select field using field id(s) or field name(s).
+              default: ''=all fields
+              If field string is a non-negative integer, it is assumed a
+                field index,  otherwise, it is assumed a field name
+              field='0~2'; field ids 0,1,2
+              field='0,4,5~7'; field ids 0,4,5,6,7
+              field='3C286,3C295'; field named 3C286 and 3C295
+              field = '3,4C*'; field id 3, all names starting with 4C
+      spw -- Select spectral window/channels
+               type 'help par.selection' for more examples.
+             spw='0~2,4'; spectral windows 0,1,2,4 (all channels)
+             spw='&lt;2';  spectral windows less than 2 (i.e. 0,1)
+             spw='0:5~61'; spw 0, channels 5 to 61, INCLUSIVE
+             spw='*:5~61'; all spw with channels 5 to 61
+             spw='0,10,3:3~45'; spw 0,10 all channels, spw 3, channels 3 to 45.
+             spw='0~2:2~6'; spw 0,1,2 with channels 2 through 6 in each.
+             spw='0:0~10;15~60'; spectral window 0 with channels 0-10,15-60
+                       NOTE ';' to separate channel selections
+
+      timerange  -- Select data based on time range:
+              default = '' (all); examples,
+              timerange = 'YYYY/MM/DD/hh:mm:ss~YYYY/MM/DD/hh:mm:ss'
+              Note: if YYYY/MM/DD is missing date defaults to first day in data set
+              timerange='09:14:0~09:54:0' picks 40 min on first day
+              timerange= '25:00:00~27:30:00' picks 1 hr to 3 hr 30min on NEXT day
+              timerange='09:44:00' pick data within one integration of time
+              timerange='&gt;10:24:00' data after this time
+      uvrange -- Select data within uvrange (default units meters)
+              default: '' (all); example:
+              uvrange='0~1000klambda'; uvrange from 0-1000 kilo-lambda
+              uvrange='&gt;4klambda';uvranges greater than 4 kilo lambda
+
+      antenna -- Select data based on antenna/baseline
+              default: '' (all, including auto-correlations, if present)
+              If antenna string is a non-negative integer, it is assumed an
+                antenna index, otherwise, it is assumed as an antenna name
+              antenna='5&amp;6'; baseline between antenna index 5 and index 6.
+              antenna='!ea02'; exclude EVLA antenna 2.
+              antenna='ea13;!ea22'; EVLA antenna 13, excluding antenna 22.
+              antenna='VA05&amp;VA06'; baseline between VLA antenna 5 and 6.
+              antenna='5&amp;6;7&amp;8'; baselines with indices 5-6 and 7-8
+              antenna='5'; all baselines with antenna index 5
+              antenna='05'; all baselines with antenna number 05 (VLA old name)
+              antenna='5,6,10'; all baselines with antennas 5,6,10 index numbers
+              NB: For explicit selections, use a single ampersand (&amp;) to
+              select only cross-correlations among the specified antennas, 
+              double ampersands (&amp;&amp;) to select cross- and
+              auto-correlations among the specified antennas, and
+              triple ampersands (&amp;&amp;&amp;) to select only
+              auto-correlations.  E.g.:
+              antenna='*&amp;'; selects all cross-correlation baseline
+                            (excludes all auto-correlations)
+              antenna='*&amp;&amp;&amp;'; selects all auto-correlation baselines
+                              (excludes all cross-correlations)
+              antenna='1&amp;&amp;1,2,3'; selects baselines 1-1 (auto), 1-2,1-3 (cross)
+              antenna='VA05&amp;&amp;&amp;'; selects the VA05 autocorrelation
+              See the link noted above for more information.
+      scan -- Scan numbers or ranges.
+              default: ''  (all scans)
+              scan='1,2,6,43'; scans 1, 2, 6, and 43
+              scan='3~14'; scans 3 through 14, inclusive
+      correlation -- Select by correlation (polarization when plotting cal tables)
+                default: ''  (all correlations/polarizations)
+                For measurement sets: 'RR','RL','LR','LL','XX','XY','YX','YY'
+                For cal tables: 'R','L','RL','X','Y','XY','/' (for ratio plots)
+                or any comma-separated combination;
+                use basis (R/L or X/Y) appropriate to the table
+      array -- Select the array id
+               default: ''  (all array ids)
+      observation -- Select by observation ID(s).
+                     default: ''--&gt;all;
+                     observation='0' (select obsID 0)
+      intent -- Select observing intent  
+                default: ''  (no selection by intent)  
+                intent='*BANDPASS*'  (selects data labelled with  
+                    BANDPASS intent)
+      feed -- Select by feed IDs
+              default: '' (all feeds)
+              feed='1~2'
+      msselect -- Optional TaQL data selection
+
+    averagedata -- data averaging parameters flag
+                   default: True   (reveals expandable parameters
+                                    described below)
+      &gt;&gt;&gt; averagedata expandable parameters
+        avgchannel -- average over channel?  either blank for none, or a value
+                      in channels.
+                      default: '' (no channel averaging).
+        avgtime -- average over time?  either blank for none, or a value in
+                   seconds.
+                   default: '' (no time averaging).
+        avgscan -- average over scans?  only valid if time averaging is turned
+                   on.
+                   default: False.
+        avgfield -- average over fields?  only valid if time averaging is
+                    turned on.
+                    default: False.
+        avgbaseline -- average over selected baselines; mutually 
+                       exclusive with avgantenna.
+                       default: False.  (no averaging over baseline)
+        avgantenna -- form per-antenna averages; mutually exclusive with
+                      avgbaseline.
+                      default: False.   (no per-antenna averaging)
+        avgspw -- average over selected spectral windows?
+                  default: False.  (no average of spectral windows)
+        scalar -- scalar averaging?
+                  default: False  (i.e., do vector averaging)
+    
+    transform -- apply various transformations on data for plotting
+                 default: True
+      &gt;&gt;&gt; transform expandable parameters
+        freqframe -- the coordinate frame in which to render frequency and velocity axes
+                 default: ''  (unspecified: will use frame in which data were taken)
+                 options: LSRK, LSRD, BARY, GEO, TOPO, GALACTO, LGROUP, CMB
+        restfreq -- the rest frequency to use in velocity conversions (MHz)
+                 default: '' (use spw central frequency and show relative velocity)
+                 example: '22235.08MHz'
+        veldef -- the velocity definition to use
+                 default: 'RADIO'
+                 options: 'RADIO','OPT','TRUE'
+        shift -- adjust phase according to a phase center shift [dx,dy] (arcsec)
+                 NB: the phase shift in plotms is an approximate transformation
+                 default: [0,0]  (no shift)
+
+    extendflag -- have flagging extend to other data points?
+                  default: False.
+      &gt;&gt;&gt; extendflag expandable parameters
+        extcorr -- extend flags based on correlation? 
+                   default: False.
+        extchannel -- extend flags based on channel?
+
+    iteraxis -- axis upon which iterate plots (one plot per page, for now)
+                default: '' (no iteration)
+                options: 'scan','field','spw','baseline','antenna','time','corr',''
+      &gt;&gt;&gt; iteraxis expandable parameters
+        xselfscale -- When True, iterated plots have a common x-axis range (scale).
+        yselfscale -- When True, iterated plots have a common y-axis range (scale).
+                      default: false, which will scale all plots individually
+        xsharedaxis -- Iterated plots on a grid share a common external x-axis per column (must also set xselfscale=True and gridcols&gt;1) 
+                      default: false, each plot will have its own x-axis.
+        ysharedaxis -- Iterated plots on a grid share a common external y-axis per row (must also set yselfscale=True and gridrows&gt;1)
+                      default: false, each plot will have its own y-axis.              
+
+    customsymbol -- If true, use a custom symbol for drawing unflagged points
+                    default: False
+      &gt;&gt;&gt; customsymbol expandable parameters
+        symbolshape -- If true, use a custom shape to draw unflagged symbols
+                       default: 'autoscaling' (ignores symbolsize)
+                       options: 'autoscaling', 'circle', 'square', 'diamond', 'pixel', 'nosymbol'
+        symbolsize -- size of the unflagged symbols in pixels
+                      default: 2
+        symbolcolor -- color to use for unflagged symbols; can be a RGB hex code or a color name
+                       default: '0000ff'
+                       example: 'purple'
+        symbolfill -- type of fill to use for unflagged symbols
+                      default: 'fill'
+                      options: 'fill', 'mesh1', 'mesh2', 'mesh3', 'nofill'
+        symboloutline -- If true, outline unflagged symbols in black
+
+    coloraxis -- axis upon which to colorize the plotted points
+                options (= indicates synonyms):
+                    'scan',  'field',  'spw',  'antenna1'='ant1',  'antenna2'='ant2',
+                    'baseline',  'channel'='chan',  'corr'='correlation', 'time', 
+                    'observation', 'intent'
+                default: ''  (use a single color for all points)
+
+    customflaggedsymbol -- If true, use a custom symbol for drawing flagged points
+                           default: False
+      &gt;&gt;&gt; customflaggedsymbol expandable parameters
+        symbolshape -- If true, use a custom shape to draw flagged symbols
+                       default: 'nosymbol'
+                       options: 'autoscaling', 'circle', 'square', 'diamond', 'pixel', 'nosymbol'
+        symbolsize -- size of the flagged symbols in pixels
+                      default: 2
+        symbolcolor -- color to use for flagged symbols; can be a RGB hex code or a color name
+                       default: '0000ff'
+                       example: 'purple'
+        symbolfill -- type of fill to use for flagged symbols
+                      default: 'fill'
+                      options: 'fill', 'mesh1', 'mesh2', 'mesh3', 'nofill'
+        symboloutline -- If true, outline flagged symbols in black
+
+    plotrange -- manual plot axis ranges: [xmin,xmax,ymin,ymax]
+                 Does not affect data selection.
+                 default: []; both axes will be autoscaled according
+                 to the ranges found in the selected data
+                 If xmin=xmax (or ymin=ymax) then that axis will
+                 be autoscaled, e.g.:
+                 [0,0,-2.0,14.0]; autoscale the xaxis, and use 
+                                  ymin=-2.0, ymax=14.0
+
+    title  -- title along top of plot (called &quot;canvas&quot; in some places)
+    titlefont -- plot title font size
+                 default: 0 (autosize depending on grid)
+    xlabel -- text to label horizontal axis, with formatting using '%%'
+    xaxisfont -- x-axis font size
+                 default: 0 (autosize)
+    ylabel -- text to label horizontal axis, with formatting using '%%' 
+    yaxisfont -- y-axis font size
+                 default: 0 (autosize)
+    
+    
+    showmajorgrid  -- show major grid lines 
+                  default: False
+      &gt;&gt;&gt;  showmajorgrid expandable parameters
+        majorwidth  -- line width in pixels of major grid lines
+        majorstyle  -- major grid line style: solid dash dot none
+        majorcolor  -- color in hex code of major grid lines
+
+    showminorgrid  -- show minor grid lines
+                  default: False
+      &gt;&gt;&gt;  showminorgrid expandable parameters
+        minorwidth  --  line width in pixels of minor grid lines
+        minorstyle  --  minor grid line style: solid dash dot none
+        minorcolor  --  color in hex code of minor grid lines
+
+    plotfile -- name of plot file to save automatically
+                default: ''  (i.e., draw an interactive plot in the gui)
+      &gt;&gt;&gt; plotfile expandable parameters
+        expformat -- export format type; if 'txt' is used an ASCII dump of the plotted points is generated (also available in the export tab)
+                     default:  ''   (plotfile extension will be used)
+                     options: 'jpg', 'png', 'ps', 'pdf', 'txt'
+        verbose -- when export format is 'txt', print metadata for x and y values
+                   default: True 
+        exprange -- pages to export for iteration plots
+                    default:   ''
+                    options: 'current', 'all'             
+        highres -- use high resolution in exported plot 
+                   default: False (use screen resolution)
+        dpi -- DPI of exported plot
+               default: -1 (not set)
+        width -- width of exported plot
+                 default: -1 (not set)
+        height -- height of exported plot
+                  default: -1 (not set)
+        overwrite -- overwrite plot file if it already exists
+                     default: False
+      
+    callib -- calibration library string, list of strings, or filename
+              default: '' 
+    
+    showgui - Whether or not to display the plotting GUI
+              default: True
+              
+    headeritems -- append header items specific to this plot to the current list
+                of page header items.
+                Comma-separated string of header item selection keywords.
+                Allowed keywords: 'obsdate','obstime','filename','projid',
+                                  'targname','targdir','telescope','observer',
+                                  'ycolumn'
+                default: ''
+                example: 'filename,projid,targname'
+
+
+
+</example>
+
+</task>
+
+
+
+</casaxml>

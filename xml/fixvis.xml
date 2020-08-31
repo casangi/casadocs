@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/xmlcasa/xml/casa.xsd">
+
+<!-- Documentation here.                                                -->
+
+<task type="function" name="fixvis" category="editing, manipulation" >
+
+<shortdescription>Recalculates (u, v, w) and/or changes Phase Center </shortdescription>
+<description>
+       Recalculates (u, v, w) and/or changes Phase Center.
+
+       If the phase center is changed, the corresponding modifications
+       are applied to the visibility columns given by the parameter
+       "datacolumn" which is by default set to "all" (DATA, CORRECTED,
+       and MODEL).
+</description>
+
+<input>
+    <param type="string" name="vis" kind="ms" mustexist="true">
+<shortdescription>Name of input visibility file</shortdescription>
+<description>Name of input visibility file
+                     Default: none
+
+                        Example: vis='ngc5921.ms'
+</description>
+        <value></value>
+        <example>vis='ngc5921.ms'</example>
+    </param>
+
+    <param type="string" name="outputvis" kind="ms">
+<shortdescription>Name of output visibility file</shortdescription>
+<description>Name of output visibility file
+                     Default: '' (same as vis)
+
+                        Example: outputvis='ngc5921_out.ms'
+</description>
+        <value></value>
+        <example>vis='ngc5921fixedvis.ms'</example>
+    </param>
+
+    <param type="any" direction="in" name="field">
+<shortdescription>Select field using field id(s) or field name(s)</shortdescription>
+<description>Select field using field id(s) or field name(s)
+                     Default: '' (all fields)
+                     
+                     Use 'go listobs' to obtain the list id's or
+                     names. If field string is a non-negative integer,
+                     it is assumed a field index,  otherwise, it is
+                     assumed a field name.
+
+                        Examples:
+                        field='0~2'; field ids 0,1,2
+                        field='0,4,5~7'; field ids 0,4,5,6,7
+                        field='3C286,3C295'; field named 3C286 and
+                        3C295
+                        field = '3,4C*'; field id 3, all names
+                        starting with 4C
+</description>
+      <any type="variant"/>
+      <value>""</value>
+    </param>
+<!--    <param type="any" direction="in" name="observation">
+      <description>Observation ID(s) to operate on.  '' = all.</description>
+      <any type="string int"/>
+      <value type="string"></value>
+    </param> -->
+    <param type="string" name="refcode">
+<shortdescription>reference frame to convert UVW coordinates to</shortdescription>
+<description>Reference frame to convert UVW coordinates to
+                     Default: '' (refcode of PHASE_DIR in the FIELD
+                     table)
+
+                        Example: refcode='B1950'
+</description>
+      <value></value>
+    </param>
+
+    <param type="bool" name="reuse">
+<shortdescription>base UVW calculation on the old values?</shortdescription>
+      <description>Base UVW calculation on the old values?
+                     Default: True
+                     Options: True|False
+
+                     Note: ignored if parameter 'phasecenter' is set
+</description>
+      <value>True</value>
+    </param>
+
+    <param type="string" name="phasecenter">
+<shortdescription>use this direction as phase center</shortdescription>
+<description>If set to a valid direction: change the phase center for
+the given field to this value
+                     If given without the equinox, e.g. '0h01m00s
+                     +00d12m00s', the parameter is interpreted as a
+                     pair of offsets in RA and DEC to the present
+                     phasecenter.
+
+                        Example: phasecenter='J2000 9h25m00s
+                        -05d12m00s'
+
+                     Note: The RA offset can be given in units of time
+                     or angle. If given as a time (i.e. as a single
+                     number with a time unit as in, e.g., 12s or in
+                     the XXhXXmXXs or XX:XX:XX.XXX formats), it is
+                     applied as is. If given as an angle (e.g.,
+                     0.01deg), it is divided by the cos(DEC) before it
+                     is applied.
+</description>
+      <value></value>
+    </param>
+
+    <param type="any" name="distances">
+<shortdescription>(experimental) List of the distances (as quanta) of the fields selected by field.</shortdescription>
+<description>(experimental) List of the distances (as quanta) of the
+fields selected by field.
+                     Default: [] (the distances of all fields are
+                     assumed to be infinity.)
+
+                     If not a list but just a single value is given,
+                     this is applied to all fields.
+
+                        Examples: 
+                        distances=['2E6km', '3E6km']   
+                        distances='15au'
+</description>
+      <any type="variant"/>
+      <value>""</value>
+    </param>
+
+    <param type="string" name="datacolumn">
+<shortdescription>when applying a phase center shift, modify visibilities only in this/these column(s)</shortdescription>
+<description>when applying a phase center shift, modify visibilities
+only in this/these column(s)
+                     Default: 'all' (DATA, CORRECTED, and MODEL)
+
+                        Example: datacolumn='DATA,CORRECTED' (will not
+                        modify MODEL)
+</description>
+      <value>all</value>
+    </param>
+
+</input>
+
+<example>
+
+For more information, see the task pages of fixvis in CASA Docs:
+
+https://casa.nrao.edu/casadocs/
+
+</example>
+
+</task>
+
+</casaxml>

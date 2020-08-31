@@ -1,0 +1,23 @@
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd       file:///opt/casa/code/xmlcasa/xml/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
+
+<task category="utility" name="rmtables" type="function">
+    <shortdescription>Remove tables cleanly, use this instead of rm -rf</shortdescription>
+    <description>
+                This task removes tables if they are not being currently accessed via
+                the casapy process. Note: if you have multiple sessions running bad things
+                could happen if you remove a table being accessed by another process.
+    </description>
+    <input>
+        <param name="tablenames" type="stringArray"><shortdescription>Name of the tables</shortdescription><description>Name of the tables</description>
+            
+            <value/>
+        </param>
+    </input>
+
+<example>
+        Removes tables cleanly.
+        Arguments may contain * or ?. Ranges [] are support but
+        not ~ expansion.
+ </example>
+ </task>
+ </casaxml>

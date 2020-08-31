@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/xmlcasa/xml/casa.xsd">
+
+<task type="function" name="conjugatevis" category="utility, manipulation">
+<shortdescription>Change the sign of the phases in all visibility columns.</shortdescription>
+<description>
+       Change the sign of the phases in all visibility columns.
+</description>
+
+<input>
+  <param type="string" name="vis" mustexist="true">
+<shortdescription>Name of input visibility file</shortdescription>
+<description>Name of input visibility file
+                     Default: none
+
+                        Example: vis='ngc5921.ms'
+</description>
+    <value></value>
+  </param>
+
+  <param type="any" name="spwlist">
+<shortdescription>Spectral window selection</shortdescription>
+<description>Spectral window selection
+                     Default:[] (all spws will be conjugated)
+
+                        Example: spw=[1,2]
+</description>
+    <any type="variant"/>
+    <value>""</value>
+  </param>
+
+  <param type="string" name="outputvis">
+<shortdescription>Name of output visibility file</shortdescription>
+<description>Name of output visibility file
+                     Default: 'conjugated_'+vis
+
+                        Example: outputvis='conjugated.ms'
+</description>
+    <value></value>
+  </param>
+  
+  <param type="bool" name="overwrite" >
+<shortdescription>Overwrite the outputvis if it exists?</shortdescription>
+<description>Overwrite the outputvis if it exists?
+                     Default: False
+                     Options: False|True
+</description>
+    <value>False</value>
+  </param>
+</input>
+<example>
+
+For more information, see the task pages of conjugatevis in CASA Docs:
+
+https://casa.nrao.edu/casadocs/
+
+</example> 
+
+</task>
+</casaxml>

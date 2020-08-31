@@ -1,0 +1,121 @@
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd       file:///opt/casa/code/xmlcasa/xml/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
+
+<task async="never" category="visualization" name="viewer" type="function">
+    <shortdescription>View an image or visibility data set</shortdescription>
+    <description>
+        The viewer will display images in raster, contour, vector or
+        marker form.  Images can be blinked, and movies are available
+        for spectral-line image cubes.  For measurement sets, many
+        display and editing options are available.
+
+        The viewer can be run outside of casapy by typing &lt;casaviewer&gt;.
+
+        Executing viewer &lt;viewer&gt; will bring up a display panel
+        window, which can be resized.  If no data file was specified,
+        a Load Data window will also appear. Click on the desired data
+        file and choose the display type; the rendered data should appear
+        on the display panel.
+
+        A Data Display Options window will also appear.  It has drop-down
+        subsections for related options, most of which are self-explanatory.
+          
+        The state of the viewer -- loaded data and related display
+        options -- can be saved in a 'restore' file for later use.
+        You can provide the restore filename on the command line or
+        select it from the Load Data window.
+
+        See the cookbook for more details on using the viewer.
+        
+    </description>
+    <input>
+        <param allowblank="true" mustexist="true" name="infile" type="string"><shortdescription> (Optional)  Name of file to visualize.</shortdescription><description> (Optional)  Name of file to visualize.</description>
+            
+            <value/>
+        </param>
+
+        <param name="displaytype" type="string"><shortdescription> (Optional)  Type of visual rendering (raster, contour, vector or marker).  lel  if an lel expression is given for infile  (advanced).</shortdescription><description> (Optional)  Type of visual rendering (raster, contour, vector or marker).  lel  if an lel expression is given for infile  (advanced).</description>
+            
+            <value>raster</value>
+        </param>
+
+        <param name="channel" type="int"><shortdescription> (Optional)  access a specific channel in the image cube</shortdescription><description> (Optional)  access a specific channel in the image cube</description>
+            
+            <value>0</value>
+        </param>
+
+        <param name="zoom" type="int"><shortdescription> (Optional)  zoom in/out by increments</shortdescription><description> (Optional)  zoom in/out by increments</description>
+            
+            <value>1</value>
+        </param>
+
+        <param name="outfile" type="string"><shortdescription> (Optional)  name of the output file to generate</shortdescription><description> (Optional)  name of the output file to generate</description>
+            
+            <value/>
+        </param>
+
+        <param name="outscale" type="double"><shortdescription> (Optional)  amount to scale output bitmap formats (non-PS, non-PDF)</shortdescription><description> (Optional)  amount to scale output bitmap formats (non-PS, non-PDF)</description>
+            
+            <value>1.0</value>
+        </param>
+
+        <param name="outdpi" type="int"><shortdescription> (Optional)  output DPI for PS/PDF</shortdescription><description> (Optional)  output DPI for PS/PDF</description>
+            
+            <value>300</value>
+        </param>
+
+        <param name="outformat" type="string"><shortdescription> (Optional)  format of the output e.g. jpg or pdf (this is overridden by the output files extension</shortdescription><description> (Optional)  format of the output e.g. jpg or pdf (this is overridden by the output files extension</description>
+            
+            <value>jpg</value>
+        </param>
+
+        <param name="outlandscape" type="bool"><shortdescription> (Optional)  should the output mode be landscape (PS or PDF)</shortdescription><description> (Optional)  should the output mode be landscape (PS or PDF)</description>
+            
+            <value>False</value>
+        </param>
+
+        <param name="gui" type="bool"><shortdescription> (Optional)  Display the panel in a GUI.</shortdescription><description> (Optional)  Display the panel in a GUI.</description>
+            
+            <value>True</value>
+        </param>
+
+                <constraints>
+                </constraints>
+    </input>
+    <returns type="void"/>
+
+    <example>
+
+        examples of usage:
+
+        viewer
+        viewer &quot;myimage.im&quot;
+        viewer &quot;mymeasurementset.ms&quot;
+        viewer &quot;myrestorefile.rstr&quot;
+        
+        viewer &quot;myimage.im&quot;, &quot;contour&quot;
+
+        viewer &quot;'myimage1.im' - 2 * 'myimage2.im'&quot;, &quot;lel&quot;
+        
+        
+        Keyword arguments:
+        infile -- Name of file to visualize
+                default: ''
+                example: infile='ngc5921.image'
+                If no infile is specified the Load Data window
+                will appear for selecting data.
+        displaytype -- (optional): method of rendering data
+                visually (raster, contour, vector or marker).  
+                You can also set this parameter to 'lel' and
+                provide an lel expression for infile (advanced).
+                default: 'raster'
+                example: displaytype='contour'
+
+        Note: the filetype parameter is optional; typing of
+        data files is now inferred:
+                example:  viewer infile='my.im'
+                obsolete: viewer infile='my.im', filetype='raster'
+        the filetype is still used to load contours, etc.
+
+    </example>
+</task>
+</casaxml>

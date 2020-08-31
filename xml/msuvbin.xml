@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+      file:///opt/casa/code/xmlcasa/xml/casa.xsd">
+
+<task type="function" name="msuvbin" category="calibration" visibility="experimental">
+  <shortdescription>grid the visibility data onto a defined uniform grid (in the form of an ms); multiple MS\'s can be done onto the same grid</shortdescription>
+  <description>
+          msuvbin is a uv gridding task. The use is for large volumes
+          of data (from multiple epochs) that needs to be imaged into
+          one image.  One way of proceeding is to image the epochs and
+          average them after wards. Rather than doing this averaging
+          the visibilities on a common uv grid has several convenience
+          advantages like easily doing the proper weighted averaging and imaging.
+          If an output grid already exists and a second ms is gridded on the grid
+          then the output grid parameters is ignored but the existant grid is used.
+
+  </description>
+  <input>
+    <param type="string" name="vis" mustexist="true">
+      <description>Name of input visibility file (MS)</description>
+      <value></value>
+    </param>
+
+    <param type="string" name="field">
+      <description>Field selection of input ms</description>
+      <value></value>
+    </param>
+
+    <param type="string" name="spw">
+      <description>Spw selection</description>
+      <value></value>
+    </param>
+
+    <param type="string" name="taql">
+      <description>TaQl string for data selection</description>
+      <value></value>
+    </param>
+
+    <param type="string" name="outvis">
+      <description>name of output uvgrid</description>
+      <value></value>
+    </param>
+    <param type="string" name="phasecenter">
+      <description>phase center of uv grid</description>
+      <value></value>
+    </param>
+    <param type="int" name="nx">
+      <description>Number of pixels of grid along the x-axis</description>
+      <value>1000</value>
+    </param>
+    <param type="int" name="ny">
+      <description>Number of pixels of grid along the y-axis</description>
+      <value>1000</value>
+    </param>
+    <param type="string" name="cell">
+      <description>pixel cell size defined in sky dimension</description>
+      <value>1arcsec</value>
+    </param>
+    <param type="int" name="ncorr">
+      <description>number of correlations to store in grid</description>
+      <value>1</value>
+      <allowed kind="enum">
+        <value>1</value>
+        <value>2</value>
+        <value>4</value>
+      </allowed>
+    </param>
+    <param type="int" name="nchan">
+      <description>Number of spectral channels in grid</description>
+      <value>1</value>
+    </param>
+    <param type="string" name="fstart">
+      <description>Frequency of first spectral channel</description>
+      <value>1GHz</value>
+    </param>
+    <param type="string" name="fstep">
+      <description>spectral channel width</description>
+      <value>1kHz</value>
+    </param>
+    <param type="bool" name="wproject">
+      <description>Do wprojection correction while gridding</description>
+      <value>False</value>
+    </param>
+    <param type="double" name="memfrac">
+      <description>Limit how much of memory to use</description>
+      <value>0.5</value>
+      <allowed kind="range">
+        <value range="min">0.01</value>
+        <value range="max">0.99</value>
+      </allowed>
+    </param>
+
+
+
+  </input>
+<returns type="void"/>
+
+<example>
+
+
+
+
+       Keyword arguments:
+       vis -- Name of input visibility file
+              default: none; example: vis='ngc5921.ms'
+       field -- Field name list
+               default: '' ==> all
+               field = '1328+307'  specifies source '1328+307'
+               field = '4' specified field with index 4
+       spw -- Spw selection
+               default: spw = '' (all spw)
+               spw='2'
+       taql  --TaQl expression for data selection (see http://www.astron.nl/casacore/trunk/casacore/doc/notes/199.html)
+               default taql=''
+               Example select all data where U &gt; 1 m in the ms
+               taql='UVW[0] &gt; 1'
+       outvis -- name of output grid
+               default: ''  The user has to give something here
+       phasecenter -- phasecenter of the grid
+               default= ''
+                phasecenter='J2000 18h03m04 -20d00m45.1'
+      nx  -- number of pixels along the x axis of the grid
+               default: 1000
+               nx=1200
+      ny  -- number of pixels along the y axis of the grid
+               default: 1000
+               ny=1200
+       cell -- cellsize of the grid (given in sky units)
+               default: '1arcsec'
+               cell='0.1arcsec'
+        ncorr -- number of correlation/polarization plane in uv grid (allowed 1, 2, 4)
+               default: 1
+               ncorr=4
+        nchan -- number of spectral channel
+               default: 1
+               nchan=2000
+        fstart -- frequency of the first channel
+               default: '1GHz';  User has to give something useful here
+        fstep -- spectral channel width
+               default: '1kHz'
+        wproject -- do wprojection correction while gridding
+                default: False
+                wproject=True
+        memfrac -- control how much of computer's memory is available for  gridding
+                default=0.5
+                memfrac=0.9
+
+ </example>
+ </task>
+ </casaxml>

@@ -1,0 +1,92 @@
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd file:///opt/casa/code/xmlcasa/xml/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
+
+
+
+
+<task category="analysis, information" name="imreframe" type="function">
+<shortdescription>Change the frame in which the image reports its spectral values</shortdescription>
+
+<input>
+    <param mustexist="true" kind="image" name="imagename" type="string"><shortdescription>Name of the input image</shortdescription><description>Name of the input image</description>
+        
+        <value/>
+        <example>imagename='ngc5921_task.image'</example>
+    </param>
+    <param name="output" type="string"><shortdescription>Name of the output image</shortdescription><description>Name of the output image</description>
+        
+        <value/>
+        <example>output='newframed.image'; output='' will modify input image</example>
+    </param>
+    <param ignorecase="true" name="outframe" type="string"><shortdescription>Spectral frame in which the frequency or velocity values will be reported by default</shortdescription><description>Spectral frame in which the frequency or velocity values will be reported by default</description>
+        
+        <value>lsrk</value>
+    <allowed kind="enum">
+      <value>lsrk</value>
+      <value>lsrd</value>
+      <value>bary</value>
+      <value>geo</value>
+      <value>topo</value>
+      <value>galacto</value>
+      <value>lgroup</value>
+      <value>cmb</value>
+      <value/>
+    </allowed>
+    </param>
+    <param subparam="true" name="epoch" type="string"><shortdescription>Epoch to be associated with this image</shortdescription><description>Epoch to be associated with this image</description>
+        
+        <value/>
+        <example>For example: '2000/12/25/18:30:00.10'</example>
+    </param>
+
+
+    <param name="restfreq" type="string"><shortdescription>restfrequency to use for velocity values (e.g &quot;1.420GHz&quot; for the HI line)</shortdescription><description>restfrequency to use for velocity values (e.g &quot;1.420GHz&quot; for the HI line)</description>
+        
+        <value/>
+    </param>
+
+    <constraints>
+        <when param="outframe">
+      <equals value="lsrk" type="string"/>
+            <equals value="topo" type="string">
+                <default param="epoch"><value type="string"/></default>
+            </equals>
+        <equals value="TOPO" type="string">
+                <default param="epoch"><value type="string"/></default>
+            </equals>
+        <equals value="geo" type="string">
+                <default param="epoch"><value type="string"/></default>
+            </equals>
+        <equals value="GEO" type="string">
+                <default param="epoch"><value type="string"/></default>
+            </equals>
+        </when>
+    </constraints>
+</input>
+<returns type="void"/>
+
+<example>
+
+            imagename -- name of casa image file to process on
+            output         -- name of output image  '' means modify the input image itself
+                 default: '';
+            outframe     -- new spectral frame in which the frequency or
+                                  velocity will be reported for.
+                 Options: 'lsrk','lsrd','bary','geo','topo','galacto',
+                          'lgroup','cmb'
+                 default: 'lsrk'
+            &gt;&gt;&gt;
+                 epoch    -- when outframe is 'topo' or 'geo' a time in UTC is needed
+                                 to decide when to do the frequency conversion. '' is to use
+                                 the epoch of the input image
+                       default= ''
+
+            restfreq -- Specify rest frequency to use for output image
+               default=''; '' means use the restfrequency already in input image
+               For example for
+               NH_3 (1,1) put restfreq='23.694496GHz'
+
+</example>
+
+</task>
+
+</casaxml>

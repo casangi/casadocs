@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/xmlcasa/xml/casa.xsd">
+
+<task type="function" name="uvcontsub3" category="modeling, manipulation" visibility="experimental">
+<shortdescription>An experimental clone of uvcontsub</shortdescription>
+<description>
+<!-- description is a decoy!  Use the example tag for now. -->
+</description>
+<input>
+        <param type="string" name="vis" mustexist="true">
+                <description>Name of input MS.  Output goes to vis + ".contsub"</description>
+                <value></value>
+        </param>
+
+        <param type="string" name="fitspw">
+                <description>Spectral window:channel selection for fitting the continuum</description>
+                <value></value>
+        </param>
+
+        <param type="string" name="combine">
+                <description>Data axes to combine for the continuum estimation (none ('') or spw)</description>
+                <value></value>
+        </param>
+
+        <param type="int" name="fitorder">
+                <description>Polynomial order for the fits</description>
+                <value>0</value>
+        </param>
+
+        <param type="any" name="field">
+                <description>Select field(s) using id(s) or name(s)</description>
+                <any type="variant" limittypes="string stringArray int intArray"/>
+                <value type="string"></value>
+        </param>
+
+        <param type="string" name="spw">
+                <description>Spectral window selection for output</description>
+                <value></value>
+        </param>
+        <param type="string" name="scan" >
+                <description>Select data by scan numbers</description>
+                <value></value>
+        </param>
+        <param type="string" name="intent" >
+                <description>Select data by scan intents</description>
+                <value></value>
+        </param>
+        <param type="any" name="correlation">
+                <description>Select correlations</description>
+                <any type="variant" limittypes="string stringArray"/>
+                <value type="string"></value>
+        </param>
+        <param type="any" name="observation">
+                <description>Select by observation ID(s)</description>
+                <any type="variant" limittypes="string int"/>
+                <value type="string"></value>
+        </param>
+</input>
+<example>
+  
+        uvcontsub3 is an experimental clone of uvcontsub with the goal of taking
+        less time and temporary disk space.
+
+        Continuum fitting and subtraction in the uv plane:
+        
+        This task estimates the continuum emission by fitting polynomials to
+        the real and imaginary parts of the spectral windows and channels
+        selected by fitspw.  This fit represents a model of the continuum in 
+        all channels.
+        
+        The fitted continuum spectrum is subtracted from all channels 
+        selected in spw, and the result (presumably only line emission)
+        is stored in a <em>new</em> MS (vis + ".contsub").
+        It will read from the CORRECTED_DATA column of vis if it is present,
+        or DATA if it is not.  Whichever column is read is presumed to have
+        already been calibrated.
+
+        Keyword arguments:
+        vis -- Name of input visibility file
+                default: none; example: vis='ngc5921.ms'
+
+        fitspw -- Selection of spectral windows and channels to use in the
+                  fit for the continuum, using general spw:chan syntax.
+                  See the note under combine.
+                default: '' (all)
+                example: fitspw='0:5~30;40~55'
+
+        combine -- Let the continuum estimation span multiple spectral windows.
+                   default = '' (Make separate estimates for each spw.)
+                   combine = 'spw': Necessary when one or more of the spws are
+                                    completely blanketed by lines, so the estimate
+                                    must be made in different spws.
+
+        fitorder -- Polynomial order for the fits of the continuum w.r.t.
+                    frequency.  fitorders &gt; 1 are strongly discouraged
+                    because high order polynomials have more flexibility, may
+                    absorb line emission, and tend go wild at the edges of
+                    fitspw, which is not what you want.
+
+                default: 0 (constant); example: fitorder=1
+
+        field -- Field selection for continuum estimation and subtraction.
+                 The estimation and subtraction is done for each selected field
+                 in turn.  (Run listobs to get lists of the ID and names.)
+               default: ''=all fields.  If the field string is a non-negative
+                        integer, it is assumed to be a field index
+                        otherwise, it is assumed to be a field name
+               field='0~2'; field ids 0,1,2
+               field='0,4,5~7'; field ids 0,4,5,6,7
+               field='3C286,3C295'; fields named 3C286 and 3C295
+               field = '3,4C*'; field id 3, all names starting with 4C
+
+        spw -- Select spectral windows for the output.
+               default: ''=all spectral windows
+               N.B. uvcontsub3 does not yet support exclusion by channels for
+                    the output.  Meanwhile, use split to further reduce the size
+                    of the output MS if desired.
+               spw='0~2,4'; spectral windows 0,1,2,4
+               spw='&lt;2';  spectral windows less than 2 (i.e. 0,1)
+
+        scan -- Scan number range
+            default: ''=all
+
+        intent -- Select by scan intent (state).  Case sensitive.
+            default: '' = all
+            Examples:
+            intent = 'CALIBRATE_ATMOSPHERE_REFERENCE'
+            intent = 'calibrate_atmosphere_reference'.upper() # same as above
+            # Select states that include one or both of CALIBRATE_WVR.REFERENCE
+            # or OBSERVE_TARGET_ON_SOURCE.
+            intent = 'CALIBRATE_WVR.REFERENCE, OBSERVE_TARGET_ON_SOURCE'
+
+        correlation -- Select correlations, e.g. 'rr, ll' or ['XY', 'YX'].
+                       default '' (all).
+
+        observation -- Select by observation ID(s).
+                       default: '' = all
+
+</example> 
+</task>
+</casaxml>

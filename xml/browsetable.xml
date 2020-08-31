@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+      file:///opt/casa/code/xmlcasa/xml/casa.xsd">
+
+<task type="function" name="browsetable" category="utility" async="never">
+  <shortdescription>Browse a table (MS, calibration table, image)</shortdescription>
+  <description>
+This task brings up a browser that can open and display any CASA
+table. The tablename can be specified at startup, or any table can be
+loaded after the browser comes up.
+  </description>
+  <input>
+    <param type="string" name="tablename" kind="table">
+  <shortdescription>Name of input table</shortdescription>      
+<description>Name of table file (vis, calibration table, image)
+                     Default: none
+                     
+                        Example: tablename='ngc5921.ms'
+</description>
+      <value></value>
+    </param>
+    <param type="bool" name="mightedit" subparam="true">
+  <shortdescription>Warning: the GUI seems to ignore whether the table tool is opened read-only. Just be careful, esp. if filtering.</shortdescription>      
+<description>Disable the filtering options (below) and allow editing
+the table.
+                     Default: False
+                     Options: False|True
+
+                     Warning: the GUI seems to ignore whether the
+                     table tool is opened read-only - just be careful,
+                     esp. if filtering.
+</description>
+      <value>False</value>
+    </param>
+    <param type="any" name="sortlist" subparam="true">
+  <shortdescription>Columns to sort by (ascending)</shortdescription> 
+<description>List of columns to sort by
+                     Default: none
+</description>
+      <any type="variant" limittypes="string stringArray"/>
+      <value type="string"></value>
+    </param>
+    <param type="string" name="taql" subparam="true">
+  <shortdescription>TaQL query string for prefiltering the table.</shortdescription> 
+<description>TaQL query string for prefiltering the table.
+                     Default: none
+
+                        Example: taql="ANTENNA2 &lt; 6
+</description>
+      <value></value>
+    </param>
+    <param type="any" name="skipcols" subparam="true">
+  <shortdescription>Columns to omit</shortdescription> 
+<description>Columns to NOT display.
+                     Default: none
+
+                        Example: skipcols='feed1, feed2'
+</description>
+      <any type="variant" limittypes="string stringArray"/>
+      <value type="string"></value>
+    </param>
+    <constraints>
+      <when param="tablename">
+        <notequals type="string" value="">
+          <default param="mightedit"><value type="bool">False</value></default>
+          <default param="sortlist"><value type="string"></value></default>
+          <default param="taql"><value type="string"></value></default>
+          <default param="skipcols"><value type="string"></value></default>
+        </notequals>
+      </when>
+    </constraints>
+  </input>
+<returns type="void"/>
+
+<example>
+
+For more information, see the task pages of browsetable in CASA Docs:
+
+https://casa.nrao.edu/casadocs/
+
+</example>
+ </task>
+ </casaxml>

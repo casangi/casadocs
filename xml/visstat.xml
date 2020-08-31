@@ -1,0 +1,367 @@
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd                              file:///opt/casa/code/xmlcasa/xml/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
+
+    <task category="information" name="visstat" type="function">
+        <shortdescription>Displays statistical information from a MeasurementSet, or from a Multi-MS</shortdescription>
+
+        <input>
+            <param mustexist="true" kind="ms" name="vis" type="string"><shortdescription>Name of MeasurementSet or Multi-MS</shortdescription><description>Name of MeasurementSet or Multi-MS</description>
+                
+                <value/>
+                <example>vis='ngc5921.ms'</example>
+            </param>
+
+
+            <param name="axis" type="string"><shortdescription>Values on which to compute statistics</shortdescription><description>Values on which to compute statistics</description>
+                
+                <value type="string">amplitude</value>
+                <allowed kind="enum">
+            
+            <value>flag</value>
+            
+            
+            <value>antenna1</value>
+            <value>antenna2</value>
+            <value>feed1</value>
+            <value>feed2</value>
+            <value>field_id</value>
+            <value>array_id</value>
+            <value>data_desc_id</value>
+            <value>flag_row</value>
+            <value>interval</value>
+            <value>scan</value>
+            <value>scan_number</value>
+            <value>time</value>
+            <value>weight_spectrum</value>
+            <value>amp</value>
+            <value>amplitude</value>
+            <value>phase</value>
+            <value>real</value>
+            <value>imag</value>
+            <value>imaginary</value>
+            <value>uvrange</value>
+                </allowed>
+            </param>
+
+            <param subparam="true" name="datacolumn" type="string"><shortdescription>Which data column to use (data, corrected, model, float_data)</shortdescription><description>Which data column to use (data, corrected, model, float_data)</description>
+                
+                <value type="string">data</value>
+                <allowed kind="enum">
+                    <value>data</value>
+                    <value>corrected</value>
+                    <value>model</value>
+                    <value>float_data</value>
+                </allowed>
+            </param>
+
+            <param name="useflags" type="bool"><shortdescription>Take flagging into account?</shortdescription><description>Take flagging into account?</description>
+                
+                <value>True</value>
+                <example>useflags=True</example>
+            </param>
+
+            <param name="spw" type="string"><shortdescription>spectral-window/frequency/channel</shortdescription><description>spectral-window/frequency/channel</description>
+                
+                <value type="string"/>
+            </param>
+
+            <param name="field" type="string"><shortdescription>Field names or field index numbers: \'\'==&gt;all, field=\'0~2,3C286\'</shortdescription><description>Field names or field index numbers: \'\'==&gt;all, field=\'0~2,3C286\'</description>
+                
+                <value type="string"/>
+            </param>
+
+            <param name="selectdata" type="bool"><shortdescription>More data selection parameters (antenna, timerange etc)</shortdescription><description>More data selection parameters (antenna, timerange etc)</description>
+                
+                <value>True</value>
+            </param>
+
+            <param subparam="true" name="antenna" type="string"><shortdescription>antenna/baselines: \'\'==&gt;all, antenna = \'3,VA04\'</shortdescription><description>antenna/baselines: \'\'==&gt;all, antenna = \'3,VA04\'</description>
+                
+                <value type="string"/>
+            </param>
+
+            <param subparam="true" name="uvrange" type="string"><shortdescription>uv range: \'\'==&gt;all; uvrange = \'0~100klambda\', default units=meters</shortdescription><description>uv range: \'\'==&gt;all; uvrange = \'0~100klambda\', default units=meters</description>
+                
+                <value type="string"/>
+            </param>
+
+            <param subparam="true" name="timerange" type="string"><shortdescription>time range: \'\'==&gt;all, timerange=\'09:14:0~09:54:0\'</shortdescription><description>time range: \'\'==&gt;all, timerange=\'09:14:0~09:54:0\'</description>
+                
+                <value type="string"/>
+            </param>
+
+            <param subparam="true" name="correlation" type="string"><shortdescription>Select data based on correlation</shortdescription><description>Select data based on correlation</description>
+                
+                <value type="string"/>
+            </param>
+
+            <param subparam="true" name="scan" type="string"><shortdescription>scan numbers: \'\'==&gt;all</shortdescription><description>scan numbers: \'\'==&gt;all</description>
+                
+                <value type="string"/>
+            </param>
+
+            <param subparam="true" name="array" type="string"><shortdescription>(sub)array numbers: \'\'==&gt;all</shortdescription><description>(sub)array numbers: \'\'==&gt;all</description>
+                
+                <value type="string"/>
+            </param>
+
+            <param subparam="true" name="observation" type="any"><shortdescription>observation ID number(s): \'\' = all</shortdescription><description>observation ID number(s): \'\' = all</description>
+                
+                <any limittypes="string int" type="variant"/>
+                <value type="string"/>
+            </param>
+
+            <param name="timeaverage" type="bool"><shortdescription>Average data in time.</shortdescription><description>Average data in time.</description>
+                
+                <value>False</value>
+            </param>
+
+            <param subparam="true" name="timebin" type="string"><shortdescription>Bin width for time averaging.</shortdescription><description>Bin width for time averaging.</description>
+                
+                <value type="string">0s</value>
+            </param>
+
+            <param subparam="true" name="timespan" type="any"><shortdescription>Span the timebin across scan, state or both.</shortdescription><description>Span the timebin across scan, state or both.</description>
+                
+                <any limittypes="string stringArray" type="variant"/>
+                <value type="string"/>
+            </param>
+
+            <param subparam="true" name="maxuvwdistance" type="double"><shortdescription>Maximum separation of start-to-end baselines that can be included in an average. (meters)</shortdescription><description>Maximum separation of start-to-end baselines that can be included in an average. (meters)</description>
+                
+                <value type="double">0.0</value>
+            </param>
+
+            
+            <param visibility="hidden" subparam="true" name="disableparallel" type="bool"><shortdescription>Hidden parameter for internal use only. Do not change it!</shortdescription><description>Hidden parameter for internal use only. Do not change it!</description>
+                
+                <value>False</value>
+            </param>
+            <param visibility="hidden" subparam="true" name="ddistart" type="int"><shortdescription>Hidden parameter for internal use only. Do not change it!</shortdescription><description>Hidden parameter for internal use only. Do not change it!</description>
+                
+                <value>-1</value>
+            </param>
+            <param visibility="hidden" subparam="true" name="taql" type="string"><shortdescription>Table query for nested selections</shortdescription><description>Table query for nested selections</description>
+                
+                <value type="string"/>
+            </param>
+            <param visibility="hidden" subparam="true" name="monolithic_processing" type="bool"><shortdescription>Hidden parameter for internal use only. Do not change it!</shortdescription><description>Hidden parameter for internal use only. Do not change it!</description>
+                
+                <value>False</value>
+            </param>
+
+
+            <param name="intent" type="any"><shortdescription>Select data by scan intent.</shortdescription><description>Select data by scan intent.</description>
+                
+                <any limittypes="string stringArray int intArray" type="variant"/>
+                <value type="string"/>
+            </param>
+
+
+            <param name="reportingaxes" type="string"><shortdescription>Which reporting axis to use (ddid, field, integration)</shortdescription><description>Which reporting axis to use (ddid, field, integration)</description>
+                
+                <value type="string">ddid</value>
+                <allowed kind="enum">
+                    <value>ddid</value>
+                    <value>field</value>
+                    <value>integration</value>
+                </allowed>
+            </param>
+
+
+            <constraints>
+                <when param="axis">
+                    <equals value="amp" type="string">
+                        <default param="datacolumn"><value type="string">data</value></default>
+                    </equals>
+                    <equals value="amplitude" type="string">
+                        <default param="datacolumn"><value type="string">data</value></default>
+                    </equals>
+                    <equals value="phase" type="string">
+                        <default param="datacolumn"><value type="string">data</value></default>
+                    </equals>
+                    <equals value="real" type="string">
+                        <default param="datacolumn"><value type="string">data</value></default>
+                    </equals>
+                    <equals value="imag" type="string">
+                        <default param="datacolumn"><value type="string">data</value></default>
+                    </equals>
+                    <equals value="imaginary" type="string">
+                        <default param="datacolumn"><value type="string">data</value></default>
+                    </equals>
+                </when>
+
+                <when param="selectdata">
+                    <equals value="True" type="bool">
+                        <default param="antenna"><value type="string"/></default>
+                        <default param="timerange"><value type="string"/></default>
+                        <default param="correlation"><value type="string"/></default>
+                        <default param="scan"><value type="string"/></default>
+                        <default param="array"><value type="string"/></default>
+                        <default param="observation"><value type="string"/></default>
+                        <default param="uvrange"><value type="string"/></default>
+                    </equals>
+                    <equals value="False" type="bool"/>
+                </when>
+
+                <when param="timeaverage">
+                    <equals value="False" type="bool"/>
+                    <equals value="True" type="bool">
+                        <default param="timebin"><value type="string">0s</value></default>
+                        <default param="timespan"><value type="string"/></default>
+                        <default param="maxuvwdistance"><value type="double">0.0</value></default>
+                    </equals>
+                </when>
+
+            </constraints>
+        </input>
+        <returns type="record"/>
+
+        <example>
+
+      This task returns statistical information about data in a MeasurementSet
+      or Multi-MS.
+
+      The following statistics are computed: mean value, sum of values, sum of
+      squared values, median, median absolute deviation, first and third
+      quartiles, minimum, maximum, variance, standard deviation, and root mean
+      square.
+
+      Statistics may be computed on any of the following values: flag, antenna1,
+      antenna2, feed1, feed2, field_id, array_id, data_desc_id, flag_row,
+      interval, scan_number, time, weight_spectrum, amplitude, phase, real,
+      imaginary, and uvrange (for the 'axis' parameter value, 'amp' is treated
+      as an alias for amplitude, as are 'imag' for imaginary, and 'scan' for
+      scan_number.)
+
+      The 'reportingaxes' argument is used to partition the sample set along an
+      axis. For example, setting its value to 'ddid' will result in the
+      statistics of the chosen sample values partitioned by unique values of the
+      data description id. Thus setting 'axis' to 'amp' and 'reportingaxes' to
+      'ddid' will report statistics of visibility amplitudes for each unique
+      value of data description id in the MeasurementSet.
+
+      Optionally, the statistical information can be computed based only
+      on a given subset of the MeasurementSet.
+
+      Note: If the MS consists of inhomogeneous data, for example several
+      spectral windows each having a different number of channels, it may be
+      necessary to use selection parameters to select a homogeneous subset of
+      the MS, e.g. spw='2'.
+
+      Keyword arguments:
+
+            vis  --- Name of input MeasurementSet or Multi-MS
+                  default: '', example: vis='my.ms'
+
+            axis -- Which data to analyze.
+
+                  default: 'amplitude'
+                  axis='phase'
+                  axis='imag'
+                  axis='scan_number'
+                  axis='flag'
+
+                  The phase of a complex number is in radians in the range [-pi; pi].
+
+
+            datacolumn -- Which data column to use for complex data.
+                  default: 'data'
+                  datacolumn='data'
+                  datacolumn='corrected'
+                  datacolumn='model'
+                  datacolumn='float_data'
+
+            useflags -- Take MS flags into account?
+                  default: True
+                  useflags=False
+                  useflags=True
+                  If useflags=False, flagged values are included in the statistics.
+                  If useflags=True, any flagged values are not used in the statistics.
+
+            spw -- Select data based on spectral window and channels
+                  default: '' (all); example: spw='1'
+                  spw='&lt;2' #spectral windows less than 2
+                  spw='&gt;1' #spectral windows greater than 1
+                  spw='0:0~10' # first 10 channels from spw 0
+                  spw='0:0~5;56~60' # multiple separated channel chunks.
+
+            field -- Select data based on field id(s) or name(s)
+                  default: '' (all); example: field='1'
+                  field='0~2' # field ids inclusive from 0 to 2
+                  field='3C*' # all field names starting with 3C
+
+            selectdata -- Other data selection parameters
+                  default: True
+            antenna -- Select data based on baseline
+                  default: '' (all); example: antenna='5&amp;6' baseline 5-6
+                  antenna='5&amp;6;7&amp;8' #baseline 5-6 and 7-8
+                  antenna='5' # all baselines with antenna 5
+                  antenna='5,6' # all baselines with antennas 5 and 6
+            correlation -- Correlation types
+                  default: '' (all);
+                  example: correlation='RR LL'
+            uvrange -- Select data within uvrange (default units meters)
+                  default: '' (all); example:
+                  uvrange='0~1000klambda'; uvrange from 0-1000 kilo-lambda
+                  uvrange='&gt;4klambda';uvranges greater than 4 kilo-lambda
+                  uvrange='0~1000km'; uvrange in kilometers
+            timerange  -- Select data based on time range:
+                  default = '' (all); example,
+                  timerange = 'YYYY/MM/DD/hh:mm:ss~YYYY/MM/DD/hh:mm:ss'
+                  Note: YYYY/MM/DD can be dropped as needed:
+                  timerange='09:14:0~09:54:0' # this time range
+                  timerange='09:44:00' # data within one integration of time
+                  timerange='&gt;10:24:00' # data after this time
+                  timerange='09:44:00+00:13:00' #data 13 minutes after time
+            scan -- Select data based on scan number
+                  default: '' (all); example: scan='&gt;3'
+            array -- Selection based on the antenna array
+                  observation -- Selection by observation ID(s).
+                  default: '' (all); example: observation='1~3'
+
+
+
+
+            --- Time averaging parameters ---
+            timeaverage -- Average data in time. Flagged data will be included in the
+            average calculation, unless the parameter useflags is set to True. In this
+            case only partially flagged rows will be used in the average.
+            default: False
+
+            timebin -- Bin width for time averaging.
+                  default: '0s'
+
+            timespan -- Let the timebin span across scan, state or both.
+                        State is equivalent to sub-scans. One scan may have several
+                        state ids. For ALMA MSs, the sub-scans are limited to about
+                        30s duration each. In these cases, the task will automatically
+                        add state to the timespan parameter. To see the number of states
+                        in an MS, use the msmd tool. See help msmd.
+
+                  default: '' (separate time bins by both of the above)
+                  options: 'scan', 'state', 'state,scan'
+
+                  examples:
+                        timespan = 'scan'; can be useful when the scan number
+                        goes up with each integration as in many WSRT MSs.
+                        timespan = ['scan', 'state']: disregard scan and state
+                        numbers when time averaging.
+                        timespan = 'state,scan'; same as above.
+
+            maxuvwdistance -- Provide a maximum separation of start-to-end baselines
+                              that can be included in an average. (int)
+                  default: 0.0 (given in meters)
+
+
+
+
+
+
+
+        </example>
+
+        
+
+    </task>
+
+</casaxml>

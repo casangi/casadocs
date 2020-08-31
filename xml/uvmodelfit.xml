@@ -1,0 +1,208 @@
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd file:///opt/casa/code/xmlcasa/xml/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
+
+<task category="modeling, calibration" name="uvmodelfit" type="function">
+<shortdescription>Fit a single component source model to the uv data</shortdescription>
+<description>
+        Fit a single component source model to the uv data
+</description>
+<input>
+  <param mustexist="true" name="vis" type="string"><shortdescription>Name of input visibility file</shortdescription><description>Name of input visibility file</description>
+  
+  <value/>
+  </param>
+
+  <param name="field" type="string"><shortdescription>Select field using field id(s) or field name(s)</shortdescription><description>Select field using field id(s) or field name(s)</description>
+  
+  <value/>
+  </param>
+
+  <param name="spw" type="string"><shortdescription>Select spectral window/channels</shortdescription><description>Select spectral window/channels</description>
+  
+  <value/>
+  </param>
+
+  <param name="selectdata" type="bool"><shortdescription>Other data selection parameters</shortdescription><description>Other data selection parameters</description>
+  
+  <value>True</value>
+  </param>
+
+  <param subparam="true" name="timerange" type="string"><shortdescription>Select data based on time range</shortdescription><description>Select data based on time range</description>
+  
+  <value/>
+  </param>
+
+  <param subparam="true" name="uvrange" type="any"><shortdescription>Select data within uvrange (default units meters)</shortdescription><description>Select data within uvrange (default units meters)</description>
+  
+  <any type="variant"/>
+  <value type="string"/>
+  </param>
+
+  <param subparam="true" name="antenna" type="string"><shortdescription>Select data based on antenna/baseline</shortdescription><description>Select data based on antenna/baseline</description>
+  
+  <value/>
+  </param>
+
+  <param subparam="true" name="scan" type="string"><shortdescription>Scan number range</shortdescription><description>Scan number range</description>
+  
+  <value/>
+  </param>
+
+  <param subparam="true" name="msselect" type="string"><shortdescription>Optional complex data selection (ignore for now)</shortdescription><description>Optional complex data selection (ignore for now)</description>
+  
+  <value/>
+  </param>
+
+  <param name="niter" type="int"><shortdescription>Number of fitting iterations to execute</shortdescription><description>Number of fitting iterations to execute</description>
+  
+  <value>5</value>
+  </param>
+
+  <param name="comptype" type="string"><shortdescription>component model type: P(oint), G(aussian), or D(isk)</shortdescription><description>component model type: P(oint), G(aussian), or D(isk)</description>
+  
+  <value>P</value>
+  <allowed kind="enum">
+                   <value>P</value>
+                   <value>G</value>
+                   <value>D</value>
+  </allowed>
+  </param>
+
+  <param name="sourcepar" type="doubleArray"><shortdescription>Starting guess for component parameters (3 values for type P, 5 for G and D)</shortdescription><description>Starting guess for component parameters (3 values for type P, 5 for G and D)</description>
+  
+  <value>
+                   <value>1.0</value>
+                   <value>0.0</value>
+                   <value>0.0</value>
+  </value>
+  </param>
+
+  <param name="varypar" type="boolArray"><shortdescription>Control which parameters to let vary in the fit</shortdescription><description>Control which parameters to let vary in the fit</description>
+  
+  <value/>
+  </param>
+
+  <param name="outfile" type="string"><shortdescription>Optional output component list table</shortdescription><description>Optional output component list table</description>
+  
+  <value/>
+  </param>
+   <constraints>
+  <when param="selectdata">
+    <equals value="True" type="bool">
+      <default param="timerange"><value type="string"/></default>
+      <default param="uvrange"><value type="string"/></default>
+      <default param="antenna"><value type="string"/></default>
+      <default param="scan"><value type="string"/></default>
+      <default param="msselect"><value type="string"/></default>
+    </equals>
+    <equals value="False" type="bool"/>
+  </when>
+   </constraints>
+</input>
+<example>
+
+        Fit a single component source model to the uv data.  Three models
+        are available: P=point; G=Gaussian; D=Disk.  Fitting parameters can
+        be held fixed.   The results are given in the log and placed in a
+        components file.
+
+        Keyword arguments:
+        vis -- Name of input visibility file 
+                default: none; example: vis='ngc5921.ms'
+                
+        --- Data Selection
+        field -- Select data based on field id(s) or name(s)
+                default: '' (all); example: field='1'
+                field='0~2' # field ids inclusive from 0 to 2
+                field='3C*' # all field names starting with 3C
+        spw -- Select data based on spectral window
+                default: '' (all); example: spw='1'
+                spw='&lt;2' #spectral windows less than 2
+                spw='&gt;1' #spectral windows greater than 1
+        selectdata -- Select a subset of the visibility using MSSelection
+                default: False; example: selectdata=True
+        timerange  -- Select data based on time range:
+                default = '' (all); example,
+                timerange = 'YYYY/MM/DD/hh:mm:ss~YYYY/MM/DD/hh:mm:ss'
+                Note: YYYY/MM/DD can be dropped as needed:
+                timerange='09:14:0~09:54:0' # this time range
+                timerange='09:44:00' # data within one integration of time
+                timerange='&gt;10:24:00' # data after this time
+                timerange='09:44:00+00:13:00' #data 13 minutes after time
+        uvrange -- Select data within uvrange (default units kilo-lambda)
+               default: '' (all); example:
+               uvrange='0~1000klambda'; uvrange from 0-1000 kilo-lamgda
+               uvrange='&gt;4klambda';uvranges greater than 4 kilo lambda
+               uvrange='0~1000km'; uvrange in kilometers
+        antenna -- Select data based on antenna/baseline
+                default: '' (all); example: antenna='5&amp;6' baseline 5-6
+                antenna='5&amp;6;7&amp;8' #baseline 5-6 and 7-8
+                antenna='5' # all baselines with antenna 5
+                antenna='5,6' # all baselines with antennas 5 and 6
+        scan -- Select data based on scan number - New, under developement
+                default: '' (all); example: scan='&gt;3'
+        msselect -- Optional data selection (field,spw,time,etc)
+                default:'' means select all; example:msselect='FIELD_ID==0', 
+                msselect='FIELD_ID IN [0,1,2]' means select fields 0,1 and 2
+                msselect='FIELD_ID &lt;= 1 means select fields 0, 1
+                msselect='FIELD_ID==0 &amp;&amp; ANTENNA1 IN [0] &amp;&amp; ANTENNA2 IN [2:26]'
+                   means select field 0 and antennas 0 to 26, except antenna 1.
+                Other msselect fields are: 'DATA_DESC_ID', 'SPECTRAL_WINDOW_ID',
+                'POLARIZATION_ID', 'SCAN_NUMBER', 'TIME', 'UVW'
+                See ccokbook for more details
+
+        niter -- Number of fitting iterations to execute
+                default: 5; example: niter=20
+        comptype -- component model type
+                default: 'P';
+                Options: 'P' (point source), 'G' (elliptical gaussian),
+                         'D' (elliptical disk)
+        sourcepar -- Starting guess for component parameters
+                default: [1,0,0];  (for comptype='P')
+                IF comptype = 'P' then
+                  sourcepar = [flux,xoff,yoff] where
+                    flux = Jy, xoff = offset east (arcsec), yoff = offset north (arcsec).
+                IF comptype = 'G' or 'D', then
+                  sourcepar = [flux,xoff,yoff,majax,axrat,pos] where
+                    majax = FWHM along the major axis (arcsec), axrat &lt; 1 is
+                    the ratio of minor to major axis, pos=angle in deg
+        varypar -- Control which parameters to let vary in the fit
+                default: [] (all vary);
+                example: vary=[F,T,T]
+
+        examples:
+
+             fit a point:
+                comptype = 'P'
+                sourcepar = [0.4,0.2,-0.3];
+                varypar = [T,T,T]
+
+             fit a circular Gaussian:
+                comptype = 'G'
+                sourcepar = [1.4,0.3,-0.2,0.3, 1, 0]
+                varypar    = [ T , T ,  T , T , F, F]
+                    
+
+        outfile -- Optional output component list table
+                default: ''; example: outfile='componentlist.cl'
+
+
+        How to get the output values:
+
+            cl.open('componentlist.cl')
+            fit = cl.getcompoent()             stores component information
+            fit                                to see the whole mess
+            flux = fit['flux']['value']        to store the I,Q,U,V, flux
+            print flux
+
+            ra = fit['shape']['direction']['m0']['value']
+            dec =fit['shape']['direction']['m1']['value']
+            print ra, dec
+
+            bmaj = fit['shape']['majoraxis']['value']     to get major axis
+            bmin = fit['shape']['minoraxis']['value']     to get minor axis
+            
+
+</example> 
+
+</task>
+</casaxml>
