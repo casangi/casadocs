@@ -8,54 +8,53 @@ Apply calibrations solutions(s) to data
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **field** (string) - Select field using field id(s) or field name(s)
-   - **spw** (string) - Select spectral window/channels
-   - **intent** (string) - Select observing intent
-   - **selectdata** (bool) - Other data selection parameters
-   - **docallib** (bool) - Use callib or traditional cal apply parameters
-   - **parang** (bool) - Apply parallactic angle correction
-   - **applymode** (string) - Calibration mode: ""="calflag","calflagstrict","trial","flagonly","flagonlystrict", or "calonly"
-   - **flagbackup** (bool) - Automatically back up the state of flags before the run?
+   - **field** (string='') - Select field using field id(s) or field name(s)
+   - **spw** (string='') - Select spectral window/channels
+   - **intent** (string='') - Select observing intent
+   - **selectdata** (bool=True) - Other data selection parameters
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> selectdata = True </i></summary>
+         <details><summary><i> selectdata = True </i></summary>
 
-   - **timerange** (string='') - Select data based on time range
-   - **uvrange** (variant='') - Select data within uvrange (default units meters)
-   - **antenna** (string='') - Select data based on antenna/baseline
-   - **scan** (string='') - Scan number range
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **msselect** (string='') - Optional complex data selection (ignore for now)
+      - **timerange** (string='') - Select data based on time range
+      - **uvrange** (variant='') - Select data within uvrange (default units meters)
+      - **antenna** (string='') - Select data based on antenna/baseline
+      - **scan** (string='') - Scan number range
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **msselect** (string='') - Optional complex data selection (ignore for now)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **docallib** (bool=False) - Use callib or traditional cal apply parameters
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> docallib = False </i></summary>
+         <details><summary><i> docallib = False </i></summary>
 
-   - **gaintable** (stringArray='') - Gain calibration table(s) to apply on the fly
-   - **gainfield** (stringArray='') - Select a subset of calibrators from gaintable(s)
-   - **interp** (stringArray='') - Interpolation parameters for each gaintable, as a list
-   - **spwmap** (intArray='') - Spectral windows combinations to form for gaintables(s)
-   - **calwt** (boolArray=True) - Calibrate data weights per gaintable.
+      - **gaintable** (stringArray=['']) - Gain calibration table(s) to apply on the fly
+      - **gainfield** (stringArray=['']) - Select a subset of calibrators from gaintable(s)
+      - **interp** (stringArray=['']) - Interpolation parameters for each gaintable, as a list
+      - **spwmap** (intArray=['']) - Spectral windows combinations to form for gaintables(s)
+      - **calwt** (boolArray=[True]) - Calibrate data weights per gaintable.
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> docallib = True </i></summary>
+         <details><summary><i> docallib = True </i></summary>
 
-   - **callib** (string='') - Cal Library filename
+      - **callib** (string='') - Cal Library filename
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **parang** (bool=False) - Apply parallactic angle correction
+   - **applymode** (string='') - Calibration mode: ""="calflag","calflagstrict","trial","flagonly","flagonlystrict", or "calonly"
+   - **flagbackup** (bool=True) - Automatically back up the state of flags before the run?
 
 
 Description

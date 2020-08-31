@@ -9,10 +9,10 @@ Smooth calibration solution(s) derived from one or more sources:
 Parameters
    - **vis** (string) - Name of input visibility file (MS)
    - **tablein** (string) - Input calibration table
-   - **caltable** (string) - Output calibration table (overwrite tablein if unspecified)
-   - **field** (stringArray) - Field name list
-   - **smoothtype** (string) - Smoothing filter to use
-   - **smoothtime** (double, int) - Smoothing time (sec)
+   - **caltable** (string='') - Output calibration table (overwrite tablein if unspecified)
+   - **field** (stringArray=['']) - Field name list
+   - **smoothtype** (string='median') - Smoothing filter to use
+   - **smoothtime** ({double, int}=60.0) - Smoothing time (sec)
 
 
 Description

@@ -9,25 +9,26 @@ An all-purpose plotter for calibration results
 
 Parameters
    - **caltable** (string) - 
-   - **xaxis** (string) - 
-   - **yaxis** (string) - 
-   - **poln** (string) - 
-   - **field** (string) - 
-   - **antenna** (string) - 
-   - **spw** (string) - 
-   - **timerange** (string) - 
-   - **subplot** (int) - 
-   - **overplot** (bool) - 
-   - **clearpanel** (string) - 
-   - **iteration** (string) - 
-   - **plotrange** (doubleArray) - 
-   - **showflags** (bool) - 
-   - **plotsymbol** (string) - 
-   - **plotcolor** (string) - 
-   - **markersize** (double) - 
-   - **fontsize** (double) - 
-   - **showgui** (bool) - 
-   - **figfile** (string) - 
+   - **xaxis** (string='') - 
+   - **yaxis** (string='') - 
+   - **poln** (string='') - 
+   - **field** (string='') - 
+   - **antenna** (string='') - 
+   - **spw** (string='') - 
+   - **timerange** (string='') - 
+   - **subplot** (int=111) - 
+   - **overplot** (bool=False) - 
+   - **clearpanel** (string='Auto') - 
+   - **iteration** (string='') - 
+   - **plotrange** (doubleArray=[
+            ]) - 
+   - **showflags** (bool=False) - 
+   - **plotsymbol** (string='o') - 
+   - **plotcolor** (string='blue') - 
+   - **markersize** (double=5.0) - 
+   - **fontsize** (double=10.0) - 
+   - **showgui** (bool=True) - 
+   - **figfile** (string='') - 
 
 
 Description

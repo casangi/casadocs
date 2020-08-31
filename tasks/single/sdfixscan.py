@@ -8,36 +8,35 @@ Task for single-dish image processing
 
 Parameters
    - **infiles** (variant) - list of name of input SD images (FITS or CASA image)
-   - **mode** (string) - image processing mode ["fft_mask", "model"]
-   - **tmax** (double) - maximum threshold value for processing
-   - **tmin** (double) - minimum threshold value for processing
-   - **outfile** (string) - name of output file
-   - **overwrite** (bool) - overwrite the output file if already exists [True, False]
+   - **mode** (string='fft_mask') - image processing mode ["fft_mask", "model"]
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = fft_mask </i></summary>
+         <details><summary><i> mode = fft_mask </i></summary>
 
-   - **direction** (variant='') - scan direction (p.a.) counterclockwise from the horizontal axis in unit of degree
-   - **maskwidth** (variant=1.0) - mask width for Basket-Weaving (on percentage)
+      - **direction** (variant='') - scan direction (p.a.) counterclockwise from the horizontal axis in unit of degree
+      - **maskwidth** (variant='1.0') - mask width for Basket-Weaving (on percentage)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = model </i></summary>
+         <details><summary><i> mode = model </i></summary>
 
-   - **numpoly** (int=2) - order of polynomial fit for Pressed-out method
-   - **beamsize** (variant=0.0) - beam size for Pressed-out method
-   - **smoothsize** (variant=2.0) - size of smoothing beam for Pressed-out method
-   - **direction** (variant=0.0) - scan direction (p.a.) counterclockwise from the horizontal axis in unit of degree
+      - **numpoly** (int=2) - order of polynomial fit for Pressed-out method
+      - **beamsize** (variant='0.0') - beam size for Pressed-out method
+      - **smoothsize** (variant='2.0') - size of smoothing beam for Pressed-out method
+      - **direction** (variant='') - scan direction (p.a.) counterclockwise from the horizontal axis in unit of degree
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **tmax** (double=0.0) - maximum threshold value for processing
+   - **tmin** (double=0.0) - minimum threshold value for processing
+   - **outfile** (string='') - name of output file
+   - **overwrite** (bool=False) - overwrite the output file if already exists [True, False]
 
 
 Description

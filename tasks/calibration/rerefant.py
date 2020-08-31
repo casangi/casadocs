@@ -9,9 +9,9 @@ Re-apply refant to a caltable
 Parameters
    - **vis** (string) - Name of input visibility file (MS)
    - **tablein** (string) - Input calibration table
-   - **caltable** (string) - Output calibration table (overwrite tablein if unspecified)
-   - **refantmode** (string) - Refant algorithm to use
-   - **refant** (string) - Reference antenna name(s)
+   - **caltable** (string='') - Output calibration table (overwrite tablein if unspecified)
+   - **refantmode** (string='flex') - Refant algorithm to use
+   - **refant** (string='') - Reference antenna name(s)
 
 
 Description

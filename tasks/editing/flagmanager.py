@@ -8,53 +8,52 @@ Enable list, save, restore, delete and rename flag version files.
 
 Parameters
    - **vis** (string) - Name of input visibility file (MS)
-   - **mode** (string) - Operation: list, save, restore, delete, rename
+   - **mode** (string='list') - Operation: list, save, restore, delete, rename
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = save </i></summary>
+         <details><summary><i> mode = save </i></summary>
 
-   - **versionname** (string='') - Flag version name
-   - **comment** (string='') - Short description of a versionname
-   - **merge** (string=replace) - Merge option: replace will save or over-write the flags
+      - **versionname** (string='') - Flag version name
+      - **comment** (string='') - Short description of a versionname
+      - **merge** (string='replace') - Merge option: replace will save or over-write the flags
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = restore </i></summary>
+         <details><summary><i> mode = restore </i></summary>
 
-   - **versionname** (string='') - Flag version name
-   - **merge** (string=replace) - Merge option: replace will save or over-write the flags
+      - **versionname** (string='') - Flag version name
+      - **merge** (string='replace') - Merge option: replace will save or over-write the flags
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = delete </i></summary>
+         <details><summary><i> mode = delete </i></summary>
 
-   - **versionname** (string='') - Flag version name
+      - **versionname** (string='') - Flag version name
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = rename </i></summary>
+         <details><summary><i> mode = rename </i></summary>
 
-   - **oldname** (string='') - Flag version to rename
-   - **versionname** (string='') - Flag version name
-   - **comment** (string='') - Short description of a versionname
+      - **oldname** (string='') - Flag version to rename
+      - **versionname** (string='') - Flag version name
+      - **comment** (string='') - Short description of a versionname
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
 
 Description

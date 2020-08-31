@@ -8,26 +8,25 @@ Wideband PB-correction on the output of the MS-MFS algorithm
 
 Parameters
    - **vis** (string) - Name of measurement set. 
-   - **imagename** (string) - Name-prefix of multi-termimages to operate on. 
-   - **nterms** (int) - Number of taylor terms to use
-   - **threshold** (string) - Intensity above which to re-calculate spectral index 
-   - **action** (string) - PB-correction (pbcor) or only calc spectral-index (calcalpha)
+   - **imagename** (string='') - Name-prefix of multi-termimages to operate on. 
+   - **nterms** (int=2) - Number of taylor terms to use
+   - **threshold** (string='') - Intensity above which to re-calculate spectral index 
+   - **action** (string='pbcor') - PB-correction (pbcor) or only calc spectral-index (calcalpha)
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> action = pbcor </i></summary>
+         <details><summary><i> action = pbcor </i></summary>
 
-   - **reffreq** (string='') - Reference frequency (if specified in clean)
-   - **pbmin** (double=0.2) - PB threshold below which to not correct
-   - **field** (string='') - Fields to include in the PB calculation
-   - **spwlist** (intArray='') - List of N spw ids
-   - **chanlist** (intArray='') - List of N channel ids
-   - **weightlist** (doubleArray='') - List of N weights (relative)
+      - **reffreq** (string='') - Reference frequency (if specified in clean)
+      - **pbmin** (double=0.2) - PB threshold below which to not correct
+      - **field** (string='') - Fields to include in the PB calculation
+      - **spwlist** (intArray=['']) - List of N spw ids
+      - **chanlist** (intArray=['']) - List of N channel ids
+      - **weightlist** (doubleArray=['']) - List of N weights (relative)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
 
 Description

@@ -8,72 +8,60 @@ Makes profile map.
 
 Parameters
    - **imagename** (string) - Input image name (CASA image or FITS)
-   - **figfile** (string) - Output figure name
-   - **pol** (int) - Polarization component to be plotted
-   - **spectralaxis** (string) - Type of spectral axis
-   - **plotrange** (string) - Spectral axis range to plot
-   - **title** (string) - Title of the plot
-   - **linecolor** (string) - Line color
-   - **linestyle** (string) - Line style
-   - **linewidth** (double) - Line width in points
-   - **separatepanel** (bool) - Separate plots
-   - **plotmasked** (string) - Masked data handling
-   - **showaxislabel** (bool) - Show axis labels on the bottom left panel
-   - **showtick** (bool) - Show axis ticks
-   - **figsize** (string) - Size of the figure
-   - **numpanels** (string) - Number of panels
+   - **figfile** (string='') - Output figure name
+   - **pol** (int=0) - Polarization component to be plotted
+   - **spectralaxis** (string='') - Type of spectral axis
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> figfile != '' </i></summary>
+         <details><summary><i> spectralaxis = velocity </i></summary>
 
-   - **overwrite** (bool=False) - Overwrite existing figfile
-   - **transparent** (bool=False) - Output transparent figure
+      - **restfreq** (string='') - Rest frequency
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **plotrange** (string='') - Spectral axis range to plot
+   - **title** (string='') - Title of the plot
+   - **linecolor** (string='b') - Line color
+   - **linestyle** (string='-') - Line style
+   - **linewidth** (double=0.2) - Line width in points
+   - **separatepanel** (bool=True) - Separate plots
+   - **plotmasked** (string='empty') - Masked data handling
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> spectralaxis = velocity </i></summary>
+         <details><summary><i> plotmasked = plot </i></summary>
 
-   - **restfreq** (string='') - Rest frequency
+      - **maskedcolor** (string='gray') - Line color for masked data
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> plotmasked = plot </i></summary>
+         <details><summary><i> plotmasked = zero </i></summary>
 
-   - **maskedcolor** (string=gray) - Line color for masked data
+      - **maskedcolor** (string='gray') - Line color for masked data
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **showaxislabel** (bool=False) - Show axis labels on the bottom left panel
+   - **showtick** (bool=False) - Show axis ticks
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> plotmasked = zero </i></summary>
+         <details><summary><i> showtick = True </i></summary>
 
-   - **maskedcolor** (string=gray) - Line color for masked data
+      - **showticklabel** (bool=False) - Show axis tick labels on the bottom left panel
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> showtick = True </i></summary>
-
-   - **showticklabel** (bool=False) - Show axis tick labels on the bottom left panel
-
-   .. raw:: html
-
-      </details>
+         </details>
+   - **figsize** (string='') - Size of the figure
+   - **numpanels** (string='') - Number of panels
 
 
 Description

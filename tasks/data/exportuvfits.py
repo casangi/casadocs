@@ -8,28 +8,27 @@ Convert a CASA visibility data set to a UVFITS file:
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **fitsfile** (string) - Name of output UV FITS file
-   - **datacolumn** (string) - Visibility file data column
-   - **field** (string, stringArray, int, intArray) - Select field using field id(s) or field name(s)
-   - **spw** (string) - Select spectral window/channels
-   - **antenna** (string) - Select data based on antenna/baseline
-   - **timerange** (string) - Select data based on time range
-   - **writesyscal** (bool) - Write GC and TY tables (not yet available)
-   - **multisource** (bool) - Write in multi-source format?
-   - **combinespw** (bool) - Export the spectral windows as IFs
-   - **writestation** (bool) - Write station name instead of antenna name
-   - **overwrite** (bool) - Overwrite output file if it exists?
+   - **fitsfile** (string='') - Name of output UV FITS file
+   - **datacolumn** (string='corrected') - Visibility file data column
+   - **field** ({string, stringArray, int, intArray}='') - Select field using field id(s) or field name(s)
+   - **spw** (string='') - Select spectral window/channels
+   - **antenna** (string='') - Select data based on antenna/baseline
+   - **timerange** (string='') - Select data based on time range
+   - **writesyscal** (bool=False) - Write GC and TY tables (not yet available)
+   - **multisource** (bool=True) - Write in multi-source format?
+   - **combinespw** (bool=True) - Export the spectral windows as IFs
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> combinespw = True </i></summary>
+         <details><summary><i> combinespw = True </i></summary>
 
-   - **padwithflags** (bool=True) - Fill in missing data with flags to fit IFs
+      - **padwithflags** (bool=False) - Fill in missing data with flags to fit IFs
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **writestation** (bool=True) - Write station name instead of antenna name
+   - **overwrite** (bool=False) - Overwrite output file if it exists?
 
 
 Description

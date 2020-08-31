@@ -8,16 +8,16 @@ Calculate rotation measure.
 
 Parameters
    - **imagename** (variant) - Name(s) of the input image(s). Must be specified.
-   - **rm** (string) - Output rotation measure image name. If not specified, no image is written.
-   - **rmerr** (string) - Output rotation measure error image name. If not specified, no image is written.
-   - **pa0** (string) - Output position angle (degrees) at zero wavelength image name. If not specified, no image is written.
-   - **pa0err** (string) - Output position angle (degrees) at zero wavelength error image name. If not specified, no image is written.
-   - **nturns** (string) - Output number of turns image name. If not specified, no image is written.
-   - **chisq** (string) - Output reduced chi squared image name. If not specified, no image is written.
-   - **sigma** (double) - Estimate of the thermal noise.  A value less than 0 means auto estimate.
-   - **rmfg** (double) - Foreground rotation measure in rad/m/m to subtract.
-   - **rmmax** (double) - Maximum rotation measure in rad/m/m for which to solve. IMPORTANT TO SPECIFY.
-   - **maxpaerr** (double) - Maximum input position angle error in degrees to allow in solution determination.
+   - **rm** (string='') - Output rotation measure image name. If not specified, no image is written.
+   - **rmerr** (string='') - Output rotation measure error image name. If not specified, no image is written.
+   - **pa0** (string='') - Output position angle (degrees) at zero wavelength image name. If not specified, no image is written.
+   - **pa0err** (string='') - Output position angle (degrees) at zero wavelength error image name. If not specified, no image is written.
+   - **nturns** (string='') - Output number of turns image name. If not specified, no image is written.
+   - **chisq** (string='') - Output reduced chi squared image name. If not specified, no image is written.
+   - **sigma** (double=-1) - Estimate of the thermal noise.  A value less than 0 means auto estimate.
+   - **rmfg** (double=0.0) - Foreground rotation measure in rad/m/m to subtract.
+   - **rmmax** (double=0.0) - Maximum rotation measure in rad/m/m for which to solve. IMPORTANT TO SPECIFY.
+   - **maxpaerr** (double=1e30) - Maximum input position angle error in degrees to allow in solution determination.
 
 
 Description

@@ -9,8 +9,8 @@ Derive linear polarization from gain ratio
 Parameters
    - **vis** (string) - Name of input visibility file (MS)
    - **tablein** (string) - Input calibration table
-   - **caltable** (string) - Output calibration table (forces polarization correction if specified)
-   - **paoffset** (double) - Manual position angle offset
+   - **caltable** (string='') - Output calibration table (forces polarization correction if specified)
+   - **paoffset** (double=0.0) - Manual position angle offset
 
 
 Description

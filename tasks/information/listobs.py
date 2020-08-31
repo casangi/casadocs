@@ -8,42 +8,31 @@ List the summary of a data set in the logger or in a file
 
 Parameters
    - **vis** (string) - Name of input visibility file (MS)
-   - **selectdata** (bool) - Data selection parameters
-   - **verbose** (bool) - Controls level of information detail reported. True reports more than False.
-   - **listfile** (string) - Name of disk file to write output. Default is none (output is written to logger only).
-   - **listunfl** (bool) - List unflagged row counts? If true, it can have significant negative performance impact.
-   - **cachesize** (double) - EXPERIMENTAL. Maximum size in megabytes of cache in which data structures can be held.
+   - **selectdata** (bool=True) - Data selection parameters
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> selectdata = True </i></summary>
+         <details><summary><i> selectdata = True </i></summary>
 
-   - **field** (string='', stringArray) - Selection based on field names or field index numbers. Default is all.
-   - **spw** (string='', stringArray) - Selection based on spectral-window/frequency/channel.
-   - **antenna** (string='', stringArray) - Selection based on antenna/baselines. Default is all.
-   - **timerange** (string='', stringArray) - Selection based on time range. Default is entire range.
-   - **correlation** (string='', stringArray) - Selection based on correlation. Default is all.
-   - **scan** (string='', stringArray) - Selection based on scan numbers. Default is all.
-   - **intent** (string='', stringArray) - Selection based on observation intent. Default is all.
-   - **feed** (string='', stringArray) - Selection based on multi-feed numbers: Not yet implemented
-   - **array** (string='', stringArray) - Selection based on (sub)array numbers. Default is all.
-   - **uvrange** (string='', stringArray) - Selection based on uv range. Default: entire range. Default units: meters.
-   - **observation** (string='', int) - Selection based on observation ID. Default is all.
+      - **field** ({string, stringArray}='') - Selection based on field names or field index numbers. Default is all.
+      - **spw** ({string, stringArray}='') - Selection based on spectral-window/frequency/channel.
+      - **antenna** ({string, stringArray}='') - Selection based on antenna/baselines. Default is all.
+      - **timerange** ({string, stringArray}='') - Selection based on time range. Default is entire range.
+      - **correlation** ({string, stringArray}='') - Selection based on correlation. Default is all.
+      - **scan** ({string, stringArray}='') - Selection based on scan numbers. Default is all.
+      - **intent** ({string, stringArray}='') - Selection based on observation intent. Default is all.
+      - **feed** ({string, stringArray}='') - Selection based on multi-feed numbers: Not yet implemented
+      - **array** ({string, stringArray}='') - Selection based on (sub)array numbers. Default is all.
+      - **uvrange** ({string, stringArray}='') - Selection based on uv range. Default: entire range. Default units: meters.
+      - **observation** ({string, int}='') - Selection based on observation ID. Default is all.
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> listfile != '' </i></summary>
-
-   - **overwrite** (bool=False) - If True, tacitly overwrite listfile if it exists.
-
-   .. raw:: html
-
-      </details>
+         </details>
+   - **verbose** (bool=True) - Controls level of information detail reported. True reports more than False.
+   - **listfile** (string='') - Name of disk file to write output. Default is none (output is written to logger only).
+   - **listunfl** (bool=False) - List unflagged row counts? If true, it can have significant negative performance impact.
+   - **cachesize** (double=50) - EXPERIMENTAL. Maximum size in megabytes of cache in which data structures can be held.
 
 
 Description

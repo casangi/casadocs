@@ -8,16 +8,16 @@ Convert a CASA visibility file (MS) into an ALMA or EVLA Science Data Model
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **asdm** (string) - >Name of output ASDM directory (on disk)
-   - **datacolumn** (string) - Which data column(s) to process.
-   - **archiveid** (string) - The X0 in uid://X0/X1/X2
-   - **rangeid** (string) - The X1 in uid://X0/X1/X2
-   - **subscanduration** (string) - Maximum duration of a subscan in the output ASDM
-   - **sbduration** (string) - Maximum duration of a scheduling block (and therefore exec block) in the output ASDM
-   - **apcorrected** (bool) - Data to be marked as having atmospheric phase correction
-   - **verbose** (bool) - Produce log output
-   - **showversion** (bool) - Report the version of ASDM class set being used
-   - **useversion** (string) - Selects the version of MS2asdm to be used
+   - **asdm** (string='') - >Name of output ASDM directory (on disk)
+   - **datacolumn** (string='data') - Which data column(s) to process.
+   - **archiveid** (string='S0') - The X0 in uid://X0/X1/X2
+   - **rangeid** (string='X1') - The X1 in uid://X0/X1/X2
+   - **subscanduration** (string='24h') - Maximum duration of a subscan in the output ASDM
+   - **sbduration** (string='2700s') - Maximum duration of a scheduling block (and therefore exec block) in the output ASDM
+   - **apcorrected** (bool=False) - Data to be marked as having atmospheric phase correction
+   - **verbose** (bool=True) - Produce log output
+   - **showversion** (bool=True) - Report the version of ASDM class set being used
+   - **useversion** (string='v3') - Selects the version of MS2asdm to be used
 
 
 Description

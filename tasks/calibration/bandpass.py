@@ -8,86 +8,85 @@ Calculates a bandpass calibration solution
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **caltable** (string) - Name of output bandpass calibration table
-   - **field** (string) - Select field using field id(s) or field name(s)
-   - **spw** (string) - Select spectral window/channels
-   - **intent** (string) - Select observing intent
-   - **selectdata** (bool) - Other data selection parameters
-   - **solint** (variant) - Solution interval in time[,freq]
-   - **combine** (string) - Data axes which to combine for solve (obs, scan, spw, and/or field)
-   - **refant** (string) - Reference antenna name(s)
-   - **minblperant** (int) - Minimum baselines _per antenna_ required for solve
-   - **minsnr** (double) - Reject solutions below this SNR (only applies for bandtype = B)
-   - **solnorm** (bool) - Normalize average solution amplitudes to 1.0 
-   - **bandtype** (string) - Type of bandpass solution (B or BPOLY)
-   - **smodel** (doubleArray) - Point source Stokes parameters for source model.
-   - **corrdepflags** (bool) - Respect correlation-dependent flags
-   - **append** (bool) - Append solutions to the (existing) table
-   - **docallib** (bool) - Use callib or traditional cal apply parameters
-   - **parang** (bool) - Apply parallactic angle correction
+   - **caltable** (string='') - Name of output bandpass calibration table
+   - **field** (string='') - Select field using field id(s) or field name(s)
+   - **spw** (string='') - Select spectral window/channels
+   - **intent** (string='') - Select observing intent
+   - **selectdata** (bool=True) - Other data selection parameters
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> selectdata = True </i></summary>
+         <details><summary><i> selectdata = True </i></summary>
 
-   - **timerange** (string='') - Select data based on time range
-   - **uvrange** (variant='') - Select data within uvrange (default units meters)
-   - **antenna** (string='') - Select data based on antenna/baseline
-   - **scan** (string='') - Scan number range
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **msselect** (string='') - Optional complex data selection (ignore for now)
+      - **timerange** (string='') - Select data based on time range
+      - **uvrange** (variant='') - Select data within uvrange (default units meters)
+      - **antenna** (string='') - Select data based on antenna/baseline
+      - **scan** (string='') - Scan number range
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **msselect** (string='') - Optional complex data selection (ignore for now)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **solint** (variant='inf') - Solution interval in time[,freq]
+   - **combine** (string='scan') - Data axes which to combine for solve (obs, scan, spw, and/or field)
+   - **refant** (string='') - Reference antenna name(s)
+   - **minblperant** (int=4) - Minimum baselines _per antenna_ required for solve
+   - **minsnr** (double=3.0) - Reject solutions below this SNR (only applies for bandtype = B)
+   - **solnorm** (bool=False) - Normalize average solution amplitudes to 1.0 
+   - **bandtype** (string='B') - Type of bandpass solution (B or BPOLY)
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> bandtype = B </i></summary>
+         <details><summary><i> bandtype = B </i></summary>
 
-   - **fillgaps** (int=0) - Fill flagged solution channels by interpolation
+      - **fillgaps** (int=0) - Fill flagged solution channels by interpolation
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> bandtype = BPOLY </i></summary>
+         <details><summary><i> bandtype = BPOLY </i></summary>
 
-   - **degamp** (int=3) - Polynomial degree for BPOLY amplitude solution
-   - **degphase** (int=3) - Polynomial degree for BPOLY phase solution
-   - **visnorm** (bool=False) - Normalize data prior to BPOLY solution
-   - **maskcenter** (int=0) - Number of channels to avoid in center of each band
-   - **maskedge** (int=0) - Fraction of channels to avoid at each band edge (in %)
+      - **degamp** (int=3) - Polynomial degree for BPOLY amplitude solution
+      - **degphase** (int=3) - Polynomial degree for BPOLY phase solution
+      - **visnorm** (bool=False) - Normalize data prior to BPOLY solution
+      - **maskcenter** (int=0) - Number of channels to avoid in center of each band
+      - **maskedge** (int=5) - Fraction of channels to avoid at each band edge (in %)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **smodel** (doubleArray=['']) - Point source Stokes parameters for source model.
+   - **corrdepflags** (bool=False) - Respect correlation-dependent flags
+   - **append** (bool=False) - Append solutions to the (existing) table
+   - **docallib** (bool=False) - Use callib or traditional cal apply parameters
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> docallib = False </i></summary>
+         <details><summary><i> docallib = False </i></summary>
 
-   - **gaintable** (stringArray='') - Gain calibration table(s) to apply on the fly
-   - **gainfield** (stringArray='') - Select a subset of calibrators from gaintable(s)
-   - **interp** (stringArray='') - Interpolation parameters for each gaintable, as a list
-   - **spwmap** (intArray='') - Spectral window mappings to form for gaintable(s)
+      - **gaintable** (stringArray=['']) - Gain calibration table(s) to apply on the fly
+      - **gainfield** (stringArray=['']) - Select a subset of calibrators from gaintable(s)
+      - **interp** (stringArray=['']) - Interpolation parameters for each gaintable, as a list
+      - **spwmap** (intArray=['']) - Spectral window mappings to form for gaintable(s)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> docallib = True </i></summary>
+         <details><summary><i> docallib = True </i></summary>
 
-   - **callib** (string='') - Cal Library filename
+      - **callib** (string='') - Cal Library filename
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **parang** (bool=False) - Apply parallactic angle correction
 
 
 Description

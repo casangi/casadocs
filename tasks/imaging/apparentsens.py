@@ -7,53 +7,52 @@ def apparentsens(vis, field='', spw='', intent='', selectdata=True, timerange=''
 Imaging sensitivity estimataion
 
 Parameters
-   - **vis** (string, stringArray) - Name of input visibility file(s)
-   - **selectdata** (bool) - Enable data selection parameters
-   - **imsize** (int, intArray) - Number of pixels
-   - **cell** (int, double, intArray, doubleArray, string, stringArray) - Cell size
-   - **stokes** (string) - Stokes Planes to make (I only, for now)
-   - **specmode** (string) - Spectral definition mode (mfs only, for now)
-   - **weighting** (string) - Weighting scheme (natural,uniform,briggs)
+   - **vis** ({string, stringArray}) - Name of input visibility file(s)
+   - **selectdata** (bool=True) - Enable data selection parameters
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> selectdata = True </i></summary>
+         <details><summary><i> selectdata = True </i></summary>
 
-   - **field** (string="", stringArray) - field(s) to select
-   - **spw** (string="", stringArray) - spw(s)/channels to select
-   - **timerange** (string="", stringArray) - Range of time to select from data
-   - **uvrange** (string="", stringArray) - Select data within uvrange
-   - **antenna** (string="", stringArray) - Select data based on antenna/baseline
-   - **scan** (string="", stringArray) - Scan number range
-   - **observation** (string="", int) - Observation ID range
-   - **intent** (string="", stringArray) - Scan Intent(s)
+      - **field** ({string, stringArray}='') - field(s) to select
+      - **spw** ({string, stringArray}='') - spw(s)/channels to select
+      - **timerange** ({string, stringArray}='') - Range of time to select from data
+      - **uvrange** ({string, stringArray}='') - Select data within uvrange
+      - **antenna** ({string, stringArray}='') - Select data based on antenna/baseline
+      - **scan** ({string, stringArray}='') - Scan number range
+      - **observation** ({string, int}='') - Observation ID range
+      - **intent** ({string, stringArray}='') - Scan Intent(s)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **imsize** ({int, intArray}=100) - Number of pixels
+   - **cell** ({int, double, intArray, doubleArray, string, stringArray}='"1arcsec"') - Cell size
+   - **stokes** (string='I') - Stokes Planes to make (I only, for now)
+   - **specmode** (string='mfs') - Spectral definition mode (mfs only, for now)
+   - **weighting** (string='natural') - Weighting scheme (natural,uniform,briggs)
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> weighting = natural </i></summary>
+         <details><summary><i> weighting = natural </i></summary>
 
-   - **uvtaper** (stringArray=[]) - uv-taper on outer baselines in uv-plane
+      - **uvtaper** (stringArray=['']) - uv-taper on outer baselines in uv-plane
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> weighting = briggs </i></summary>
+         <details><summary><i> weighting = briggs </i></summary>
 
-   - **robust** (double=0.5) - Robustness parameter
-   - **npixels** (int=0) - Number of pixels to determine uv-cell size (0 : -/+ 3 pixels)
-   - **uvtaper** (stringArray=[]) - uv-taper on outer baselines in uv-plane
+      - **robust** (double=0.5) - Robustness parameter
+      - **npixels** (int=0) - Number of pixels to determine uv-cell size (0 : -/+ 3 pixels)
+      - **uvtaper** (stringArray=['']) - uv-taper on outer baselines in uv-plane
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
 
 Description

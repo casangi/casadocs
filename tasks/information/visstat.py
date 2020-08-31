@@ -8,103 +8,102 @@ Displays statistical information from a MeasurementSet, or from a Multi-MS
 
 Parameters
    - **vis** (string) - Name of MeasurementSet or Multi-MS
-   - **axis** (string) - Values on which to compute statistics
-   - **useflags** (bool) - Take flagging into account?
-   - **spw** (string) - spectral-window/frequency/channel
-   - **field** (string) - Field names or field index numbers: \'\'==>all, field=\'0~2,3C286\'
-   - **selectdata** (bool) - More data selection parameters (antenna, timerange etc)
-   - **timeaverage** (bool) - Average data in time.
-   - **intent** (string, stringArray, int, intArray) - Select data by scan intent.
-   - **reportingaxes** (string) - Which reporting axis to use (ddid, field, integration)
+   - **axis** (string='amplitude') - Values on which to compute statistics
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> axis = amp </i></summary>
+         <details><summary><i> axis = amp </i></summary>
 
-   - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
+      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> axis = amplitude </i></summary>
+         <details><summary><i> axis = amplitude </i></summary>
 
-   - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
+      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> axis = phase </i></summary>
+         <details><summary><i> axis = phase </i></summary>
 
-   - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
+      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> axis = real </i></summary>
+         <details><summary><i> axis = real </i></summary>
 
-   - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
+      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> axis = imag </i></summary>
+         <details><summary><i> axis = imag </i></summary>
 
-   - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
+      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> axis = imaginary </i></summary>
+         <details><summary><i> axis = imaginary </i></summary>
 
-   - **datacolumn** (string=data) - Which data column to use (data, corrected, model, float_data)
+      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **useflags** (bool=True) - Take flagging into account?
+   - **spw** (string='') - spectral-window/frequency/channel
+   - **field** (string='') - Field names or field index numbers: \'\'==>all, field=\'0~2,3C286\'
+   - **selectdata** (bool=True) - More data selection parameters (antenna, timerange etc)
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> selectdata = True </i></summary>
+         <details><summary><i> selectdata = True </i></summary>
 
-   - **antenna** (string='') - antenna/baselines: \'\'==>all, antenna = \'3,VA04\'
-   - **timerange** (string='') - time range: \'\'==>all, timerange=\'09:14:0~09:54:0\'
-   - **correlation** (string='') - Select data based on correlation
-   - **scan** (string='') - scan numbers: \'\'==>all
-   - **array** (string='') - (sub)array numbers: \'\'==>all
-   - **observation** (string='', int) - observation ID number(s): \'\' = all
-   - **uvrange** (string='') - uv range: \'\'==>all; uvrange = \'0~100klambda\', default units=meters
+      - **antenna** (string='') - antenna/baselines: \'\'==>all, antenna = \'3,VA04\'
+      - **timerange** (string='') - time range: \'\'==>all, timerange=\'09:14:0~09:54:0\'
+      - **correlation** (string='') - Select data based on correlation
+      - **scan** (string='') - scan numbers: \'\'==>all
+      - **array** (string='') - (sub)array numbers: \'\'==>all
+      - **observation** ({string, int}='') - observation ID number(s): \'\' = all
+      - **uvrange** (string='') - uv range: \'\'==>all; uvrange = \'0~100klambda\', default units=meters
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **timeaverage** (bool=False) - Average data in time.
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> timeaverage = True </i></summary>
+         <details><summary><i> timeaverage = True </i></summary>
 
-   - **timebin** (string=0s) - Bin width for time averaging.
-   - **timespan** (string='', stringArray) - Span the timebin across scan, state or both.
-   - **maxuvwdistance** (double=0.0) - Maximum separation of start-to-end baselines that can be included in an average. (meters)
+      - **timebin** (string='0s') - Bin width for time averaging.
+      - **timespan** ({string, stringArray}='') - Span the timebin across scan, state or both.
+      - **maxuvwdistance** (double=0.0) - Maximum separation of start-to-end baselines that can be included in an average. (meters)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **intent** ({string, stringArray, int, intArray}='') - Select data by scan intent.
+   - **reportingaxes** (string='ddid') - Which reporting axis to use (ddid, field, integration)
 
 
 Description

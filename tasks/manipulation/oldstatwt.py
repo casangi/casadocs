@@ -8,34 +8,33 @@ def oldstatwt(vis, dorms=False, byantenna=False, sepacs=True, fitspw='', fitcorr
 
 Parameters
    - **vis** (string) - 
-   - **dorms** (bool) - 
-   - **byantenna** (bool) - 
-   - **fitspw** (string, stringArray, int, intArray) - 
-   - **fitcorr** (string, stringArray, int, intArray) - 
-   - **combine** (string, stringArray) - 
-   - **timebin** (string) - 
-   - **minsamp** (int) - 
-   - **field** (string, stringArray, int, intArray) - 
-   - **spw** (string, stringArray, int, intArray) - 
-   - **antenna** (string, stringArray, int, intArray) - 
-   - **timerange** (string) - 
-   - **scan** (string) - 
-   - **intent** (string) - 
-   - **array** (string) - 
-   - **correlation** (string, stringArray) - 
-   - **observation** (string, int) - 
-   - **datacolumn** (string) - 
+   - **dorms** (bool=False) - 
+   - **byantenna** (bool=False) - 
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> byantenna = True </i></summary>
+         <details><summary><i> byantenna = True </i></summary>
 
-   - **sepacs** (bool=True) - 
+      - **sepacs** (bool=True) - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **fitspw** ({string, stringArray, int, intArray}='') - 
+   - **fitcorr** ({string, stringArray, int, intArray}='') - 
+   - **combine** ({string, stringArray}='') - 
+   - **timebin** (string='0s') - 
+   - **minsamp** (int=2) - 
+   - **field** ({string, stringArray, int, intArray}='') - 
+   - **spw** ({string, stringArray, int, intArray}='') - 
+   - **antenna** ({string, stringArray, int, intArray}='') - 
+   - **timerange** (string='') - 
+   - **scan** (string='') - 
+   - **intent** (string='') - 
+   - **array** (string='') - 
+   - **correlation** ({string, stringArray}='') - 
+   - **observation** ({string, int}='') - 
+   - **datacolumn** (string='corrected') - 
 
 
 Description

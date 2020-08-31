@@ -8,9 +8,9 @@ Convert NOSTAR data into a CASA visibility file (MS)
 
 Parameters
    - **infile** (string) - Name of input NOSTAR data
-   - **outputvis** (string) - Root name of the ms to be created. Note the .ms is NOT added 
-   - **overwrite** (bool) - Over write an existing MS(s)
-   - **parallel** (bool) - Turn on parallel execution
+   - **outputvis** (string='') - Root name of the ms to be created. Note the .ms is NOT added 
+   - **overwrite** (bool=False) - Over write an existing MS(s)
+   - **parallel** (bool=False) - Turn on parallel execution
 
 
 Description

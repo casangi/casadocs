@@ -8,15 +8,15 @@ View a visibility data set
 
 Parameters
    - **infile** (string) - 
-   - **displaytype** (string) - 
-   - **channel** (int) - 
-   - **zoom** (int) - 
-   - **outfile** (string) - 
-   - **outscale** (double) - 
-   - **outdpi** (int) - 
-   - **outformat** (string) - 
-   - **outlandscape** (bool) - 
-   - **gui** (bool) - 
+   - **displaytype** (string='raster') - 
+   - **channel** (int=0) - 
+   - **zoom** (int=1) - 
+   - **outfile** (string='') - 
+   - **outscale** (double=1.0) - 
+   - **outdpi** (int=300) - 
+   - **outformat** (string='jpg') - 
+   - **outlandscape** (bool=False) - 
+   - **gui** (bool=True) - 
 
 
 Description

@@ -8,13 +8,13 @@ Estimates and subtracts continuum emission from an image cube
 
 Parameters
    - **imagename** (string) - Name of the input spectral line image
-   - **linefile** (string) - Output continuum-subtracted image file name
-   - **contfile** (string) - Output continuum image file name
-   - **fitorder** (int) - Polynomial order for the continuum estimation
-   - **region** (string) - Region selection.
-   - **box** (string, intArray, stringArray) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
-   - **chans** (string) - Channels to use.
-   - **stokes** (string) - Stokes planes to use.
+   - **linefile** (string='') - Output continuum-subtracted image file name
+   - **contfile** (string='') - Output continuum image file name
+   - **fitorder** (int=0) - Polynomial order for the continuum estimation
+   - **region** (string='') - Region selection.
+   - **box** ({string, intArray, stringArray}='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **chans** (string='') - Channels to use.
+   - **stokes** (string='') - Stokes planes to use.
 
 
 Description

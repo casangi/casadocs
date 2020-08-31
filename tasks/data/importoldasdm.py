@@ -8,11 +8,11 @@ Convert an ALMA Science Data Model observation into a CASA visibility file
 
 Parameters
    - **asdm** (string) - 
-   - **corr_mode** (string) - 
-   - **srt** (string) - 
-   - **time_sampling** (string) - 
-   - **ocorr_mode** (string) - 
-   - **compression** (bool) - 
+   - **corr_mode** (string='all') - 
+   - **srt** (string='all') - 
+   - **time_sampling** (string='all') - 
+   - **ocorr_mode** (string='co') - 
+   - **compression** (bool=False) - 
 
 
 Description

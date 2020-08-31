@@ -8,356 +8,355 @@ All-purpose flagging task based on data-selections and flagging modes/algorithms
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **mode** (string) - Flagging mode (list/manual/clip/quack/shadow/elevation/tfcrop/rflag/antint/extent/unflag/summary)
-   - **action** (string) - Action to perform in MS and/or in inpfile (none/apply/calculate)
-   - **savepars** (bool) - Save the current parameters to the FLAG_CMD table or to a file
-
-Subparameters
-   .. raw:: html
-
-      <details><summary><i> mode = manual </i></summary>
-
-   - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
-   - **spw** (string='', stringArray) - Select spectral window/channels
-   - **antenna** (string='', stringArray) - Select data based on antenna/baseline
-   - **timerange** (string='', stringArray) - Select data based on time range
-   - **correlation** (string='', stringArray) - Select data based on correlation
-   - **scan** (string='', stringArray) - Scan number range
-   - **intent** (string='', stringArray) - Select observing intent
-   - **array** (string='', stringArray) - (Sub)array numbers
-   - **uvrange** (string='', stringArray) - Select data by baseline length.
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **feed** (string='', stringArray) - Multi-feed numbers: Not yet implemented
-   - **autocorr** (bool=False) - Flag only the auto-correlations?
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = manualflag </i></summary>
-
-   - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
-   - **spw** (string='', stringArray) - Select spectral window/channels
-   - **antenna** (string='', stringArray) - Select data based on antenna/baseline
-   - **timerange** (string='', stringArray) - Select data based on time range
-   - **correlation** (string='', stringArray) - Select data based on correlation
-   - **scan** (string='', stringArray) - Scan number range
-   - **intent** (string='', stringArray) - Select observing intent
-   - **array** (string='', stringArray) - (Sub)array numbers
-   - **uvrange** (string='', stringArray) - Select data by baseline length.
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **feed** (string='', stringArray) - Multi-feed numbers: Not yet implemented
-   - **autocorr** (bool=False) - Flag only the auto-correlations?
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = list </i></summary>
-
-   - **inpfile** (string='', stringArray) - Input ASCII file, list of files or Python list of strings with flag commands.
-   - **reason** (string=any, stringArray) - Select by REASON types
-   - **tbuff** (double=0.0, doubleArray) - List of time buffers (sec) to pad timerange in flag commands
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = clip </i></summary>
-
-   - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
-   - **spw** (string='', stringArray) - Select spectral window/channels
-   - **antenna** (string='', stringArray) - Select data based on antenna/baseline
-   - **timerange** (string='', stringArray) - Select data based on time range
-   - **correlation** (string='', stringArray) - Select data based on correlation
-   - **scan** (string='', stringArray) - Scan number range
-   - **intent** (string='', stringArray) - Select observing intent
-   - **array** (string='', stringArray) - (Sub)array numbers
-   - **uvrange** (string='', stringArray) - Select data by baseline length.
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **feed** (string='', stringArray) - Multi-feed numbers: Not yet implemented
-   - **datacolumn** (string=DATA, stringArray) - Data column on which to operate
-   - **clipminmax** (doubleArray='') - Range to use for clipping
-   - **clipoutside** (bool=True, boolArray) - Clip outside the range, or within it
-   - **channelavg** (bool=False, boolArray) - Pre-average data across channels before analyzing visibilities for flagging
-   - **chanbin** (int=1, intArray) - Bin width for channel average in number of input channels
-   - **timeavg** (bool=False, boolArray) - Pre-average data across time before analyzing visibilities for flagging.
-   - **timebin** (string='') - Bin width for time average in seconds
-   - **clipzeros** (bool=False) - Clip zero-value data
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = quack </i></summary>
-
-   - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
-   - **spw** (string='', stringArray) - Select spectral window/channels
-   - **antenna** (string='', stringArray) - Select data based on antenna/baseline
-   - **timerange** (string='', stringArray) - Select data based on time range
-   - **correlation** (string='', stringArray) - Select data based on correlation
-   - **scan** (string='', stringArray) - Scan number range
-   - **intent** (string='', stringArray) - Select observing intent
-   - **array** (string='', stringArray) - (Sub)array numbers
-   - **uvrange** (string='', stringArray) - Select data by baseline length.
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **feed** (string='', stringArray) - Multi-feed numbers: Not yet implemented
-   - **quackinterval** (double=0.0, doubleArray, int, intArray) - Quack n seconds from scan beginning or end
-   - **quackmode** (string=beg, stringArray) - Quack mode. Flag intervals of the scan according to given mode.
-   - **quackincrement** (bool=False, boolArray) - Increment quack flagging in time taking into account flagged data or not.
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = shadow </i></summary>
-
-   - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
-   - **spw** (string='', stringArray) - Select spectral window/channels
-   - **antenna** (string='', stringArray) - Select data based on antenna/baseline
-   - **timerange** (string='', stringArray) - Select data based on time range
-   - **correlation** (string='', stringArray) - Select data based on correlation
-   - **scan** (string='', stringArray) - Scan number range
-   - **intent** (string='', stringArray) - Select observing intent
-   - **array** (string='', stringArray) - (Sub)array numbers
-   - **uvrange** (string='', stringArray) - Select data by baseline length.
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **feed** (string='', stringArray) - Multi-feed numbers: Not yet implemented
-   - **tolerance** (double=0.0) - Amount of shadow allowed (in meters)
-   - **addantenna** (string='', record) - File name or dictionary with additional antenna names, positions and diameters
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = elevation </i></summary>
-
-   - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
-   - **spw** (string='', stringArray) - Select spectral window/channels
-   - **antenna** (string='', stringArray) - Select data based on antenna/baseline
-   - **timerange** (string='', stringArray) - Select data based on time range
-   - **correlation** (string='', stringArray) - Select data based on correlation
-   - **scan** (string='', stringArray) - Scan number range
-   - **intent** (string='', stringArray) - Select observing intent
-   - **array** (string='', stringArray) - (Sub)array numbers
-   - **uvrange** (string='', stringArray) - Select data by baseline length.
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **feed** (string='', stringArray) - Multi-feed numbers: Not yet implemented
-   - **lowerlimit** (double=0.0) - Lower limiting elevation (in degrees)
-   - **upperlimit** (double=90.0) - Upper limiting elevation (in degrees)
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = tfcrop </i></summary>
-
-   - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
-   - **spw** (string='', stringArray) - Select spectral window/channels
-   - **antenna** (string='', stringArray) - Select data based on antenna/baseline
-   - **timerange** (string='', stringArray) - Select data based on time range
-   - **correlation** (string='', stringArray) - Select data based on correlation
-   - **scan** (string='', stringArray) - Scan number range
-   - **intent** (string='', stringArray) - Select observing intent
-   - **array** (string='', stringArray) - (Sub)array numbers
-   - **uvrange** (string='', stringArray) - Select data by baseline length.
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **feed** (string='', stringArray) - Multi-feed numbers: Not yet implemented
-   - **ntime** (double=scan, string) - Time-range to use for each chunk (in seconds or minutes)
-   - **combinescans** (bool=False) - Accumulate data across scans depending on the value of ntime.
-   - **datacolumn** (string=DATA, stringArray) - Data column on which to operate
-   - **timecutoff** (double=4.0) - Flagging thresholds in units of deviation from the fit
-   - **freqcutoff** (double=3.0) -  Flagging thresholds in units of deviation from the fit
-   - **timefit** (string=line) - Fitting function for the time direction (poly/line)
-   - **freqfit** (string=poly) - Fitting function for the frequency direction (poly/line)
-   - **maxnpieces** (int=7) - Number of pieces in the polynomial-fits (for freqfit or timefit poly)
-   - **flagdimension** (string=freqtime) - Dimensions along which to calculate fits (freq, time, freqtime, timefreq)
-   - **usewindowstats** (string=none) - Calculate additional flags using sliding window statistics (none, sum, std, both)
-   - **halfwin** (int=1) - Half-width of sliding window to use with usewindowstats (1,2,3).
-   - **extendflags** (bool=True) - Extend flags along time, frequency and correlation.
-   - **channelavg** (bool=False, boolArray) - Pre-average data across channels before analyzing visibilities for flagging
-   - **chanbin** (int=1, intArray) - Bin width for channel average in number of input channels
-   - **timeavg** (bool=False, boolArray) - Pre-average data across time before analyzing visibilities for flagging.
-   - **timebin** (string='') - Bin width for time average in seconds
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = rflag </i></summary>
-
-   - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
-   - **spw** (string='', stringArray) - Select spectral window/channels
-   - **antenna** (string='', stringArray) - Select data based on antenna/baseline
-   - **timerange** (string='', stringArray) - Select data based on time range
-   - **correlation** (string='', stringArray) - Select data based on correlation
-   - **scan** (string='', stringArray) - Scan number range
-   - **intent** (string='', stringArray) - Select observing intent
-   - **array** (string='', stringArray) - (Sub)array numbers
-   - **uvrange** (string='', stringArray) - Select data by baseline length.
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **feed** (string='', stringArray) - Multi-feed numbers: Not yet implemented
-   - **ntime** (double=scan, string) - Time-range to use for each chunk (in seconds or minutes)
-   - **combinescans** (bool=False) - Accumulate data across scans depending on the value of ntime.
-   - **datacolumn** (string=DATA, stringArray) - Data column on which to operate
-   - **winsize** (int=3) - Number of timesteps in the sliding time window
-   - **timedev** (variant='') - Time-series noise estimate
-   - **freqdev** (variant='') - Spectral noise estimate
-   - **timedevscale** (double=5.0) - Threshold scaling for timedev
-   - **freqdevscale** (double=5.0) - Threshold scaling for freqdev.
-   - **spectralmax** (double=1E6) - Flag whole spectrum if freqdev is greater than spectralmax
-   - **spectralmin** (double=0.0) - Flag whole spectrum if freqdev is less than spectralmin
-   - **extendflags** (bool=True) - Extend flags along time, frequency and correlation.
-   - **channelavg** (bool=False, boolArray) - Pre-average data across channels before analyzing visibilities for flagging
-   - **chanbin** (int=1, intArray) - Bin width for channel average in number of input channels
-   - **timeavg** (bool=False, boolArray) - Pre-average data across time before analyzing visibilities for flagging.
-   - **timebin** (string='') - Bin width for time average in seconds
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = antint </i></summary>
-
-   - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
-   - **spw** (string='', stringArray) - Select spectral window/channels
-   - **antenna** (string='', stringArray) - Select data based on antenna/baseline
-   - **datacolumn** (string=DATA, stringArray) - Data column on which to operate
-   - **antint_ref_antenna** (string='') - Antenna of interest. Baselines with this antenna will be checked for flagged channels.
-   - **minchanfrac** (double=.6) - Minimum fraction of flagged channels required for a baseline to be deemed as flagged
-   - **verbose** (bool=False) - Print timestamps of flagged integrations to the log
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = extend </i></summary>
-
-   - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
-   - **spw** (string='', stringArray) - Select spectral window/channels
-   - **antenna** (string='', stringArray) - Select data based on antenna/baseline
-   - **timerange** (string='', stringArray) - Select data based on time range
-   - **correlation** (string='', stringArray) - Select data based on correlation
-   - **scan** (string='', stringArray) - Scan number range
-   - **intent** (string='', stringArray) - Select observing intent
-   - **array** (string='', stringArray) - (Sub)array numbers
-   - **uvrange** (string='', stringArray) - Select data by baseline length.
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **feed** (string='', stringArray) - Multi-feed numbers: Not yet implemented
-   - **ntime** (double=scan, string) - Time-range to use for each chunk (in seconds or minutes)
-   - **combinescans** (bool=False) - Accumulate data across scans depending on the value of ntime.
-   - **extendpols** (bool=True) - If any correlation is flagged, flag all correlations
-   - **growtime** (double=50.0) - Flag all ntime integrations if more than X percent of the timerange is flagged (0-100)
-   - **growfreq** (double=50.0) - Flag all selected channels if more than X percent of the frequency range is flagged (0-100)
-   - **growaround** (bool=False) - Flag data based on surrounding flags
-   - **flagneartime** (bool=False) - Flag one timestep before and after a flagged one (True/False)
-   - **flagnearfreq** (bool=False) - Flag one channel before and after a flagged one (True/False)
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = unflag </i></summary>
-
-   - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
-   - **spw** (string='', stringArray) - Select spectral window/channels
-   - **antenna** (string='', stringArray) - Select data based on antenna/baseline
-   - **timerange** (string='', stringArray) - Select data based on time range
-   - **correlation** (string='', stringArray) - Select data based on correlation
-   - **scan** (string='', stringArray) - Scan number range
-   - **intent** (string='', stringArray) - Select observing intent
-   - **array** (string='', stringArray) - (Sub)array numbers
-   - **uvrange** (string='', stringArray) - Select data by baseline length.
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **feed** (string='', stringArray) - Multi-feed numbers: Not yet implemented
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = summary </i></summary>
-
-   - **field** (string='', stringArray) - Select field using field id(s) or field name(s)
-   - **spw** (string='', stringArray) - Select spectral window/channels
-   - **antenna** (string='', stringArray) - Select data based on antenna/baseline
-   - **timerange** (string='', stringArray) - Select data based on time range
-   - **correlation** (string='', stringArray) - Select data based on correlation
-   - **scan** (string='', stringArray) - Scan number range
-   - **intent** (string='', stringArray) - Select observing intent
-   - **array** (string='', stringArray) - (Sub)array numbers
-   - **uvrange** (string='', stringArray) - Select data by baseline length.
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **feed** (string='', stringArray) - Multi-feed numbers: Not yet implemented
-   - **minrel** (double=0.0) - Minimum number of flags (relative)
-   - **maxrel** (double=1.0) - Maximum number of flags (relative)
-   - **minabs** (int=0) - Minimum number of flags (absolute)
-   - **maxabs** (int=-1) - Maximum number of flags (absolute). Use a negative value to indicate infinity.
-   - **spwchan** (bool=False) - Print summary of channels per spw
-   - **spwcorr** (bool=False) - Print summary of correlation per spw
-   - **basecnt** (bool=False) - Print summary counts per baseline
-   - **fieldcnt** (bool=False) - Produce a separated breakdown for each field
-   - **name** (string=Summary) - Name of this summary report (key in summary dictionary)
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> action = apply </i></summary>
-
-   - **display** (string='') - Display data and/or end-of-MS reports at runtime (data/report/both).
-   - **flagbackup** (bool=True) - Back up the state of flags before the run
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> action = calculate </i></summary>
-
-   - **display** (string='') - Display data and/or end-of-MS reports at runtime (data/report/both).
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> savepars = True </i></summary>
-
-   - **cmdreason** (string='') - Reason to save to output file or to FLAG_CMD table.
-   - **outfile** (string='') - Name of output file to save current parameters. If empty, save to FLAG_CMD
-   - **overwrite** (bool=True) - Overwrite an existing file to save the flag commands
-
-   .. raw:: html
-
-      </details>
+   - **mode** (string='manual') - Flagging mode (list/manual/clip/quack/shadow/elevation/tfcrop/rflag/antint/extent/unflag/summary)
+
+      .. raw:: html
+
+         <details><summary><i> mode = manual </i></summary>
+
+      - **field** ({string, stringArray}='') - Select field using field id(s) or field name(s)
+      - **spw** ({string, stringArray}='') - Select spectral window/channels
+      - **antenna** ({string, stringArray}='') - Select data based on antenna/baseline
+      - **timerange** ({string, stringArray}='') - Select data based on time range
+      - **correlation** ({string, stringArray}='') - Select data based on correlation
+      - **scan** ({string, stringArray}='') - Scan number range
+      - **intent** ({string, stringArray}='') - Select observing intent
+      - **array** ({string, stringArray}='') - (Sub)array numbers
+      - **uvrange** ({string, stringArray}='') - Select data by baseline length.
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **feed** ({string, stringArray}='') - Multi-feed numbers: Not yet implemented
+      - **autocorr** (bool=False) - Flag only the auto-correlations?
+
+      .. raw:: html
+
+         </details>
+
+      .. raw:: html
+
+         <details><summary><i> mode = manualflag </i></summary>
+
+      - **field** ({string, stringArray}='') - Select field using field id(s) or field name(s)
+      - **spw** ({string, stringArray}='') - Select spectral window/channels
+      - **antenna** ({string, stringArray}='') - Select data based on antenna/baseline
+      - **timerange** ({string, stringArray}='') - Select data based on time range
+      - **correlation** ({string, stringArray}='') - Select data based on correlation
+      - **scan** ({string, stringArray}='') - Scan number range
+      - **intent** ({string, stringArray}='') - Select observing intent
+      - **array** ({string, stringArray}='') - (Sub)array numbers
+      - **uvrange** ({string, stringArray}='') - Select data by baseline length.
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **feed** ({string, stringArray}='') - Multi-feed numbers: Not yet implemented
+      - **autocorr** (bool=False) - Flag only the auto-correlations?
+
+      .. raw:: html
+
+         </details>
+
+      .. raw:: html
+
+         <details><summary><i> mode = list </i></summary>
+
+      - **inpfile** ({string, stringArray}='') - Input ASCII file, list of files or Python list of strings with flag commands.
+      - **reason** ({string, stringArray}='any') - Select by REASON types
+      - **tbuff** ({double, doubleArray}=0.0) - List of time buffers (sec) to pad timerange in flag commands
+
+      .. raw:: html
+
+         </details>
+
+      .. raw:: html
+
+         <details><summary><i> mode = clip </i></summary>
+
+      - **field** ({string, stringArray}='') - Select field using field id(s) or field name(s)
+      - **spw** ({string, stringArray}='') - Select spectral window/channels
+      - **antenna** ({string, stringArray}='') - Select data based on antenna/baseline
+      - **timerange** ({string, stringArray}='') - Select data based on time range
+      - **correlation** ({string, stringArray}='') - Select data based on correlation
+      - **scan** ({string, stringArray}='') - Scan number range
+      - **intent** ({string, stringArray}='') - Select observing intent
+      - **array** ({string, stringArray}='') - (Sub)array numbers
+      - **uvrange** ({string, stringArray}='') - Select data by baseline length.
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **feed** ({string, stringArray}='') - Multi-feed numbers: Not yet implemented
+      - **datacolumn** ({string, stringArray}='DATA') - Data column on which to operate
+      - **clipminmax** (doubleArray=['']) - Range to use for clipping
+      - **clipoutside** ({bool, boolArray}=True) - Clip outside the range, or within it
+      - **channelavg** ({bool, boolArray}=False) - Pre-average data across channels before analyzing visibilities for flagging
+      - **chanbin** ({int, intArray}=1) - Bin width for channel average in number of input channels
+      - **timeavg** ({bool, boolArray}=False) - Pre-average data across time before analyzing visibilities for flagging.
+      - **timebin** (string='0s') - Bin width for time average in seconds
+      - **clipzeros** (bool=False) - Clip zero-value data
+
+      .. raw:: html
+
+         </details>
+
+      .. raw:: html
+
+         <details><summary><i> mode = quack </i></summary>
+
+      - **field** ({string, stringArray}='') - Select field using field id(s) or field name(s)
+      - **spw** ({string, stringArray}='') - Select spectral window/channels
+      - **antenna** ({string, stringArray}='') - Select data based on antenna/baseline
+      - **timerange** ({string, stringArray}='') - Select data based on time range
+      - **correlation** ({string, stringArray}='') - Select data based on correlation
+      - **scan** ({string, stringArray}='') - Scan number range
+      - **intent** ({string, stringArray}='') - Select observing intent
+      - **array** ({string, stringArray}='') - (Sub)array numbers
+      - **uvrange** ({string, stringArray}='') - Select data by baseline length.
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **feed** ({string, stringArray}='') - Multi-feed numbers: Not yet implemented
+      - **quackinterval** ({double, doubleArray, int, intArray}=1.0) - Quack n seconds from scan beginning or end
+      - **quackmode** ({string, stringArray}='beg') - Quack mode. Flag intervals of the scan according to given mode.
+      - **quackincrement** ({bool, boolArray}=False) - Increment quack flagging in time taking into account flagged data or not.
+
+      .. raw:: html
+
+         </details>
+
+      .. raw:: html
+
+         <details><summary><i> mode = shadow </i></summary>
+
+      - **field** ({string, stringArray}='') - Select field using field id(s) or field name(s)
+      - **spw** ({string, stringArray}='') - Select spectral window/channels
+      - **antenna** ({string, stringArray}='') - Select data based on antenna/baseline
+      - **timerange** ({string, stringArray}='') - Select data based on time range
+      - **correlation** ({string, stringArray}='') - Select data based on correlation
+      - **scan** ({string, stringArray}='') - Scan number range
+      - **intent** ({string, stringArray}='') - Select observing intent
+      - **array** ({string, stringArray}='') - (Sub)array numbers
+      - **uvrange** ({string, stringArray}='') - Select data by baseline length.
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **feed** ({string, stringArray}='') - Multi-feed numbers: Not yet implemented
+      - **tolerance** (double=0.0) - Amount of shadow allowed (in meters)
+      - **addantenna** ({string, record}='') - File name or dictionary with additional antenna names, positions and diameters
+
+      .. raw:: html
+
+         </details>
+
+      .. raw:: html
+
+         <details><summary><i> mode = elevation </i></summary>
+
+      - **field** ({string, stringArray}='') - Select field using field id(s) or field name(s)
+      - **spw** ({string, stringArray}='') - Select spectral window/channels
+      - **antenna** ({string, stringArray}='') - Select data based on antenna/baseline
+      - **timerange** ({string, stringArray}='') - Select data based on time range
+      - **correlation** ({string, stringArray}='') - Select data based on correlation
+      - **scan** ({string, stringArray}='') - Scan number range
+      - **intent** ({string, stringArray}='') - Select observing intent
+      - **array** ({string, stringArray}='') - (Sub)array numbers
+      - **uvrange** ({string, stringArray}='') - Select data by baseline length.
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **feed** ({string, stringArray}='') - Multi-feed numbers: Not yet implemented
+      - **lowerlimit** (double=0.0) - Lower limiting elevation (in degrees)
+      - **upperlimit** (double=90.0) - Upper limiting elevation (in degrees)
+
+      .. raw:: html
+
+         </details>
+
+      .. raw:: html
+
+         <details><summary><i> mode = tfcrop </i></summary>
+
+      - **field** ({string, stringArray}='') - Select field using field id(s) or field name(s)
+      - **spw** ({string, stringArray}='') - Select spectral window/channels
+      - **antenna** ({string, stringArray}='') - Select data based on antenna/baseline
+      - **timerange** ({string, stringArray}='') - Select data based on time range
+      - **correlation** ({string, stringArray}='') - Select data based on correlation
+      - **scan** ({string, stringArray}='') - Scan number range
+      - **intent** ({string, stringArray}='') - Select observing intent
+      - **array** ({string, stringArray}='') - (Sub)array numbers
+      - **uvrange** ({string, stringArray}='') - Select data by baseline length.
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **feed** ({string, stringArray}='') - Multi-feed numbers: Not yet implemented
+      - **ntime** ({double, string}='scan') - Time-range to use for each chunk (in seconds or minutes)
+      - **combinescans** (bool=False) - Accumulate data across scans depending on the value of ntime.
+      - **datacolumn** ({string, stringArray}='DATA') - Data column on which to operate
+      - **timecutoff** (double=4.0) - Flagging thresholds in units of deviation from the fit
+      - **freqcutoff** (double=3.0) -  Flagging thresholds in units of deviation from the fit
+      - **timefit** (string='line') - Fitting function for the time direction (poly/line)
+      - **freqfit** (string='poly') - Fitting function for the frequency direction (poly/line)
+      - **maxnpieces** (int=7) - Number of pieces in the polynomial-fits (for freqfit or timefit poly)
+      - **flagdimension** (string='freqtime') - Dimensions along which to calculate fits (freq, time, freqtime, timefreq)
+      - **usewindowstats** (string='none') - Calculate additional flags using sliding window statistics (none, sum, std, both)
+      - **halfwin** (int=1) - Half-width of sliding window to use with usewindowstats (1,2,3).
+      - **extendflags** (bool=True) - Extend flags along time, frequency and correlation.
+      - **channelavg** ({bool, boolArray}=False) - Pre-average data across channels before analyzing visibilities for flagging
+      - **chanbin** ({int, intArray}=1) - Bin width for channel average in number of input channels
+      - **timeavg** ({bool, boolArray}=False) - Pre-average data across time before analyzing visibilities for flagging.
+      - **timebin** (string='0s') - Bin width for time average in seconds
+
+      .. raw:: html
+
+         </details>
+
+      .. raw:: html
+
+         <details><summary><i> mode = rflag </i></summary>
+
+      - **field** ({string, stringArray}='') - Select field using field id(s) or field name(s)
+      - **spw** ({string, stringArray}='') - Select spectral window/channels
+      - **antenna** ({string, stringArray}='') - Select data based on antenna/baseline
+      - **timerange** ({string, stringArray}='') - Select data based on time range
+      - **correlation** ({string, stringArray}='') - Select data based on correlation
+      - **scan** ({string, stringArray}='') - Scan number range
+      - **intent** ({string, stringArray}='') - Select observing intent
+      - **array** ({string, stringArray}='') - (Sub)array numbers
+      - **uvrange** ({string, stringArray}='') - Select data by baseline length.
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **feed** ({string, stringArray}='') - Multi-feed numbers: Not yet implemented
+      - **ntime** ({double, string}='scan') - Time-range to use for each chunk (in seconds or minutes)
+      - **combinescans** (bool=False) - Accumulate data across scans depending on the value of ntime.
+      - **datacolumn** ({string, stringArray}='DATA') - Data column on which to operate
+      - **winsize** (int=3) - Number of timesteps in the sliding time window
+      - **timedev** (variant='') - Time-series noise estimate
+      - **freqdev** (variant='') - Spectral noise estimate
+      - **timedevscale** (double=5.0) - Threshold scaling for timedev
+      - **freqdevscale** (double=5.0) - Threshold scaling for freqdev.
+      - **spectralmax** (double=1E6) - Flag whole spectrum if freqdev is greater than spectralmax
+      - **spectralmin** (double=0.0) - Flag whole spectrum if freqdev is less than spectralmin
+      - **extendflags** (bool=True) - Extend flags along time, frequency and correlation.
+      - **channelavg** ({bool, boolArray}=False) - Pre-average data across channels before analyzing visibilities for flagging
+      - **chanbin** ({int, intArray}=1) - Bin width for channel average in number of input channels
+      - **timeavg** ({bool, boolArray}=False) - Pre-average data across time before analyzing visibilities for flagging.
+      - **timebin** (string='0s') - Bin width for time average in seconds
+
+      .. raw:: html
+
+         </details>
+
+      .. raw:: html
+
+         <details><summary><i> mode = antint </i></summary>
+
+      - **field** ({string, stringArray}='') - Select field using field id(s) or field name(s)
+      - **spw** ({string, stringArray}='') - Select spectral window/channels
+      - **antenna** ({string, stringArray}='') - Select data based on antenna/baseline
+      - **datacolumn** ({string, stringArray}='DATA') - Data column on which to operate
+      - **antint_ref_antenna** (string='') - Antenna of interest. Baselines with this antenna will be checked for flagged channels.
+      - **minchanfrac** (double=0.6) - Minimum fraction of flagged channels required for a baseline to be deemed as flagged
+      - **verbose** (bool=False) - Print timestamps of flagged integrations to the log
+
+      .. raw:: html
+
+         </details>
+
+      .. raw:: html
+
+         <details><summary><i> mode = extend </i></summary>
+
+      - **field** ({string, stringArray}='') - Select field using field id(s) or field name(s)
+      - **spw** ({string, stringArray}='') - Select spectral window/channels
+      - **antenna** ({string, stringArray}='') - Select data based on antenna/baseline
+      - **timerange** ({string, stringArray}='') - Select data based on time range
+      - **correlation** ({string, stringArray}='') - Select data based on correlation
+      - **scan** ({string, stringArray}='') - Scan number range
+      - **intent** ({string, stringArray}='') - Select observing intent
+      - **array** ({string, stringArray}='') - (Sub)array numbers
+      - **uvrange** ({string, stringArray}='') - Select data by baseline length.
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **feed** ({string, stringArray}='') - Multi-feed numbers: Not yet implemented
+      - **ntime** ({double, string}='scan') - Time-range to use for each chunk (in seconds or minutes)
+      - **combinescans** (bool=False) - Accumulate data across scans depending on the value of ntime.
+      - **extendpols** (bool=True) - If any correlation is flagged, flag all correlations
+      - **growtime** (double=50.0) - Flag all ntime integrations if more than X percent of the timerange is flagged (0-100)
+      - **growfreq** (double=50.0) - Flag all selected channels if more than X percent of the frequency range is flagged (0-100)
+      - **growaround** (bool=False) - Flag data based on surrounding flags
+      - **flagneartime** (bool=False) - Flag one timestep before and after a flagged one (True/False)
+      - **flagnearfreq** (bool=False) - Flag one channel before and after a flagged one (True/False)
+
+      .. raw:: html
+
+         </details>
+
+      .. raw:: html
+
+         <details><summary><i> mode = unflag </i></summary>
+
+      - **field** ({string, stringArray}='') - Select field using field id(s) or field name(s)
+      - **spw** ({string, stringArray}='') - Select spectral window/channels
+      - **antenna** ({string, stringArray}='') - Select data based on antenna/baseline
+      - **timerange** ({string, stringArray}='') - Select data based on time range
+      - **correlation** ({string, stringArray}='') - Select data based on correlation
+      - **scan** ({string, stringArray}='') - Scan number range
+      - **intent** ({string, stringArray}='') - Select observing intent
+      - **array** ({string, stringArray}='') - (Sub)array numbers
+      - **uvrange** ({string, stringArray}='') - Select data by baseline length.
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **feed** ({string, stringArray}='') - Multi-feed numbers: Not yet implemented
+
+      .. raw:: html
+
+         </details>
+
+      .. raw:: html
+
+         <details><summary><i> mode = summary </i></summary>
+
+      - **field** ({string, stringArray}='') - Select field using field id(s) or field name(s)
+      - **spw** ({string, stringArray}='') - Select spectral window/channels
+      - **antenna** ({string, stringArray}='') - Select data based on antenna/baseline
+      - **timerange** ({string, stringArray}='') - Select data based on time range
+      - **correlation** ({string, stringArray}='') - Select data based on correlation
+      - **scan** ({string, stringArray}='') - Scan number range
+      - **intent** ({string, stringArray}='') - Select observing intent
+      - **array** ({string, stringArray}='') - (Sub)array numbers
+      - **uvrange** ({string, stringArray}='') - Select data by baseline length.
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **feed** ({string, stringArray}='') - Multi-feed numbers: Not yet implemented
+      - **minrel** (double=0.0) - Minimum number of flags (relative)
+      - **maxrel** (double=1.0) - Maximum number of flags (relative)
+      - **minabs** (int=0) - Minimum number of flags (absolute)
+      - **maxabs** (int=-1) - Maximum number of flags (absolute). Use a negative value to indicate infinity.
+      - **spwchan** (bool=False) - Print summary of channels per spw
+      - **spwcorr** (bool=False) - Print summary of correlation per spw
+      - **basecnt** (bool=False) - Print summary counts per baseline
+      - **fieldcnt** (bool=False) - Produce a separated breakdown for each field
+      - **name** (string='Summary') - Name of this summary report (key in summary dictionary)
+
+      .. raw:: html
+
+         </details>
+   - **action** (string='apply') - Action to perform in MS and/or in inpfile (none/apply/calculate)
+
+      .. raw:: html
+
+         <details><summary><i> action = apply </i></summary>
+
+      - **display** (string='') - Display data and/or end-of-MS reports at runtime (data/report/both).
+      - **flagbackup** (bool=True) - Back up the state of flags before the run
+
+      .. raw:: html
+
+         </details>
+
+      .. raw:: html
+
+         <details><summary><i> action = calculate </i></summary>
+
+      - **display** (string='') - Display data and/or end-of-MS reports at runtime (data/report/both).
+
+      .. raw:: html
+
+         </details>
+   - **savepars** (bool=False) - Save the current parameters to the FLAG_CMD table or to a file
+
+      .. raw:: html
+
+         <details><summary><i> savepars = True </i></summary>
+
+      - **cmdreason** (string='') - Reason to save to output file or to FLAG_CMD table.
+      - **outfile** (string='') - Name of output file to save current parameters. If empty, save to FLAG_CMD
+      - **overwrite** (bool=True) - Overwrite an existing file to save the flag commands
+
+      .. raw:: html
+
+         </details>
 
 
 Description

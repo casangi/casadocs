@@ -8,13 +8,13 @@ Convert a Miriad visibility file into a CASA MeasurementSet
 
 Parameters
    - **mirfile** (string) - Name of input Miriad visibility file
-   - **vis** (string) - Name of output MeasurementSet
-   - **tsys** (bool) - Use the Tsys to set the visibility weights
-   - **spw** (intArray) - Select spectral window/channels
-   - **vel** (string) - Select velocity reference (TOPO,LSRK,LSRD)
-   - **linecal** (bool) - (CARMA) Apply line calibration
-   - **wide** (intArray) - (CARMA) Select wide window averages
-   - **debug** (int) - Display increasingly verbose debug messages
+   - **vis** (string='') - Name of output MeasurementSet
+   - **tsys** (bool=False) - Use the Tsys to set the visibility weights
+   - **spw** (intArray=[-1]) - Select spectral window/channels
+   - **vel** (string='') - Select velocity reference (TOPO,LSRK,LSRD)
+   - **linecal** (bool=False) - (CARMA) Apply line calibration
+   - **wide** (intArray=['']) - (CARMA) Select wide window averages
+   - **debug** (int=0) - Display increasingly verbose debug messages
 
 
 Description

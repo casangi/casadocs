@@ -8,13 +8,13 @@ Recalculates (u, v, w) and/or changes Phase Center
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **outputvis** (string) - Name of output visibility file
-   - **field** (variant) - Select field using field id(s) or field name(s)
-   - **refcode** (string) - reference frame to convert UVW coordinates to
-   - **reuse** (bool) - base UVW calculation on the old values?
-   - **phasecenter** (string) - use this direction as phase center
-   - **distances** (variant) - (experimental) List of the distances (as quanta) of the fields selected by field.
-   - **datacolumn** (string) - when applying a phase center shift, modify visibilities only in this/these column(s)
+   - **outputvis** (string='') - Name of output visibility file
+   - **field** (variant='""') - Select field using field id(s) or field name(s)
+   - **refcode** (string='') - reference frame to convert UVW coordinates to
+   - **reuse** (bool=True) - base UVW calculation on the old values?
+   - **phasecenter** (string='') - use this direction as phase center
+   - **distances** (variant='""') - (experimental) List of the distances (as quanta) of the fields selected by field.
+   - **datacolumn** (string='all') - when applying a phase center shift, modify visibilities only in this/these column(s)
 
 
 Description

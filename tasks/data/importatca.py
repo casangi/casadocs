@@ -7,15 +7,15 @@ def importatca(files=[''], vis='', options='', spw=[-1], nscans=[0,0], lowfreq=0
 Import ATCA RPFITS file(s) to a measurement set
 
 Parameters
-   - **files** (stringArray) - Name of input ATCA RPFits file(s)
-   - **vis** (string) - Name of output MeasurementSet
-   - **options** (string) - Processing options: birdie, reweight, noxycorr, fastmosaic, hires, noac (comma separated list)
-   - **spw** (intArray) - Select spectral window/channels
-   - **nscans** (intArray) - Number of scans to skip followed by number of scans to read
-   - **lowfreq** (double) - Lowest reference frequency to select
-   - **highfreq** (double) - Highest reference frequency to select
-   - **fields** (stringArray) - List of field names to select
-   - **edge** (double) - Percentage of edge channels to flag. For combined zooms, this specifies the percentage for a single zoom window
+   - **files** (stringArray=['']) - Name of input ATCA RPFits file(s)
+   - **vis** (string='') - Name of output MeasurementSet
+   - **options** (string='') - Processing options: birdie, reweight, noxycorr, fastmosaic, hires, noac (comma separated list)
+   - **spw** (intArray=[-1]) - Select spectral window/channels
+   - **nscans** (intArray=[0,0]) - Number of scans to skip followed by number of scans to read
+   - **lowfreq** (double=0.1) - Lowest reference frequency to select
+   - **highfreq** (double=999) - Highest reference frequency to select
+   - **fields** (stringArray=['']) - List of field names to select
+   - **edge** (double=8) - Percentage of edge channels to flag. For combined zooms, this specifies the percentage for a single zoom window
 
 
 Description

@@ -8,24 +8,13 @@ Insert a source model as a visibility set
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **field** (string) - Select field using field id(s) or field name(s)
-   - **spw** (string) - Select spectral window/channels
-   - **model** (variant) - Name of input model image(s)
-   - **nterms** (int) - Number of terms used to model the sky frequency dependence
-   - **complist** (string) - Name of component list
-   - **incremental** (bool) - Add to the existing model visibility?
-   - **usescratch** (bool) - If True, predicted  visibility  is stored in MODEL_DATA column
-
-Subparameters
-   .. raw:: html
-
-      <details><summary><i> nterms != 1 </i></summary>
-
-   - **reffreq** (string='') - Reference frequency (e.g. \'1.5e+9\' or \'1.5GHz\')
-
-   .. raw:: html
-
-      </details>
+   - **field** (string='') - Select field using field id(s) or field name(s)
+   - **spw** (string='') - Select spectral window/channels
+   - **model** (variant='') - Name of input model image(s)
+   - **nterms** (int=1) - Number of terms used to model the sky frequency dependence
+   - **complist** (string='') - Name of component list
+   - **incremental** (bool=False) - Add to the existing model visibility?
+   - **usescratch** (bool=False) - If True, predicted  visibility  is stored in MODEL_DATA column
 
 
 Description

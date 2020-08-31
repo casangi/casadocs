@@ -8,20 +8,20 @@ Hanning smooth frequency channel data to remove Gibbs ringing
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **outputvis** (string) - Name of output visibility file
-   - **keepmms** (bool) - Create a Multi-MS as the output if the input is a Multi-MS.
-   - **field** (string, stringArray, int, intArray) - Select field using field id(s) or field name(s)
-   - **spw** (string, stringArray, int, intArray) - Select spectral window/channels
-   - **scan** (string, stringArray, int, intArray) - Scan number range
-   - **antenna** (string, stringArray, int, intArray) - Select data based on antenna/baseline
-   - **correlation** (string, stringArray) - Select data based on correlation
-   - **timerange** (string, stringArray, int, intArray) - Select data based on time range
-   - **intent** (string, stringArray, int, intArray) - Select observing intent
-   - **array** (string, stringArray, int, intArray) - Select (sub)array(s) by array ID number.
-   - **uvrange** (string, stringArray, int, intArray) - Select data by baseline length.
-   - **observation** (string, stringArray, int, intArray) - Select by observation ID(s)
-   - **feed** (string, stringArray, int, intArray) - Multi-feed numbers: Not yet implemented.
-   - **datacolumn** (string) - Which data column(s) to use for processing
+   - **outputvis** (string='') - Name of output visibility file
+   - **keepmms** (bool=True) - Create a Multi-MS as the output if the input is a Multi-MS.
+   - **field** ({string, stringArray, int, intArray}='') - Select field using field id(s) or field name(s)
+   - **spw** ({string, stringArray, int, intArray}='') - Select spectral window/channels
+   - **scan** ({string, stringArray, int, intArray}='') - Scan number range
+   - **antenna** ({string, stringArray, int, intArray}='') - Select data based on antenna/baseline
+   - **correlation** ({string, stringArray}='') - Select data based on correlation
+   - **timerange** ({string, stringArray, int, intArray}='') - Select data based on time range
+   - **intent** ({string, stringArray, int, intArray}='') - Select observing intent
+   - **array** ({string, stringArray, int, intArray}='') - Select (sub)array(s) by array ID number.
+   - **uvrange** ({string, stringArray, int, intArray}='') - Select data by baseline length.
+   - **observation** ({string, stringArray, int, intArray}='') - Select by observation ID(s)
+   - **feed** ({string, stringArray, int, intArray}='') - Multi-feed numbers: Not yet implemented.
+   - **datacolumn** (string='all') - Which data column(s) to use for processing
 
 
 Description

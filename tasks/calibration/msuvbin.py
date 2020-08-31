@@ -8,20 +8,20 @@ grid the visibility data onto a defined uniform grid (in the form of an ms); mul
 
 Parameters
    - **vis** (string) - 
-   - **field** (string) - 
-   - **spw** (string) - 
-   - **taql** (string) - 
-   - **outvis** (string) - 
-   - **phasecenter** (string) - 
-   - **nx** (int) - 
-   - **ny** (int) - 
-   - **cell** (string) - 
-   - **ncorr** (int) - 
-   - **nchan** (int) - 
-   - **fstart** (string) - 
-   - **fstep** (string) - 
-   - **wproject** (bool) - 
-   - **memfrac** (double) - 
+   - **field** (string='') - 
+   - **spw** (string='') - 
+   - **taql** (string='') - 
+   - **outvis** (string='') - 
+   - **phasecenter** (string='') - 
+   - **nx** (int=1000) - 
+   - **ny** (int=1000) - 
+   - **cell** (string='1arcsec') - 
+   - **ncorr** (int=1) - 
+   - **nchan** (int=1) - 
+   - **fstart** (string='1GHz') - 
+   - **fstep** (string='1kHz') - 
+   - **wproject** (bool=False) - 
+   - **memfrac** (double=0.5) - 
 
 
 Description

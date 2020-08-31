@@ -8,50 +8,49 @@ Change the frame in which the image reports its spectral values
 
 Parameters
    - **imagename** (string) - Name of the input image
-   - **output** (string) - Name of the output image
-   - **outframe** (string) - Spectral frame in which the frequency or velocity values will be reported by default
-   - **restfreq** (string) - restfrequency to use for velocity values (e.g "1.420GHz" for the HI line)
+   - **output** (string='') - Name of the output image
+   - **outframe** (string='lsrk') - Spectral frame in which the frequency or velocity values will be reported by default
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> outframe = topo </i></summary>
+         <details><summary><i> outframe = topo </i></summary>
 
-   - **epoch** (string='') - Epoch to be associated with this image
+      - **epoch** (string='') - Epoch to be associated with this image
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> outframe = TOPO </i></summary>
+         <details><summary><i> outframe = TOPO </i></summary>
 
-   - **epoch** (string='') - Epoch to be associated with this image
+      - **epoch** (string='') - Epoch to be associated with this image
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> outframe = geo </i></summary>
+         <details><summary><i> outframe = geo </i></summary>
 
-   - **epoch** (string='') - Epoch to be associated with this image
+      - **epoch** (string='') - Epoch to be associated with this image
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> outframe = GEO </i></summary>
+         <details><summary><i> outframe = GEO </i></summary>
 
-   - **epoch** (string='') - Epoch to be associated with this image
+      - **epoch** (string='') - Epoch to be associated with this image
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **restfreq** (string='') - restfrequency to use for velocity values (e.g "1.420GHz" for the HI line)
 
 
 Description

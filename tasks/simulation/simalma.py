@@ -7,93 +7,57 @@ def simalma(project='sim', dryrun=True, skymodel='', inbright='', indirection=''
 Simulation task for ALMA 
 
 Parameters
-   - **project** (string) - root prefix for output file names
-   - **dryrun** (bool) - dryrun=True will only produce the informative report, not run simobserve/analyze
-   - **skymodel** (string) - model image to observe
-   - **complist** (string) - componentlist to observe
-   - **setpointings** (bool)
-   - **antennalist** (stringArray) - antenna position files of ALMA 12m and 7m arrays
-   - **hourangle** (string) - hour angle of observation center e.g. -3:00:00, or "transit"
-   - **totaltime** (stringArray) - total time of observation; vector corresponding to antennalist
-   - **tpnant** (int) - Number of total power antennas to use (0-4)
-   - **pwv** (double) - Precipitable Water Vapor in mm. 0 for noise-free simulation
-   - **image** (bool) - image simulated data
-   - **graphics** (string) - display graphics at each stage to [screen|file|both|none]
-   - **verbose** (bool)
-   - **overwrite** (bool) - overwrite files starting with $project
+   - **project** (string='sim') - root prefix for output file names
+   - **dryrun** (bool=True) - dryrun=True will only produce the informative report, not run simobserve/analyze
+   - **skymodel** (string='') - model image to observe
+   - **complist** (string='') - componentlist to observe
+   - **setpointings** (bool=True)
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> skymodel != '' </i></summary>
+         <details><summary><i> setpointings = True </i></summary>
 
-   - **inbright** (string='') - scale surface brightness of brightest pixel e.g. "1.2Jy/pixel"
-   - **indirection** (string='') - set new direction e.g. "J2000 19h00m00 -40d00m00"
-   - **incell** (string='') - set new cell/pixel size e.g. "0.1arcsec"
-   - **incenter** (string='') - set new frequency of center channel e.g. "89GHz" (required even for 2D model)
-   - **inwidth** (string='') - set new channel width e.g. "10MHz" (required even for 2D model)
+      - **integration** (string='10s') - integration (sampling) time
+      - **direction** (stringArray=['']) - "J2000 19h00m00 -40d00m00" or "" to center on model
+      - **mapsize** (stringArray=['', '']) - angular size of map or "" to cover model
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> complist != '' </i></summary>
+         <details><summary><i> setpointings = False </i></summary>
 
-   - **compwidth** (string=8GHz) - bandwidth of components
+      - **ptgfile** (string='$project.ptg.txt') - list of pointing positions
+      - **integration** (string='10s') - integration (sampling) time
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **antennalist** (stringArray=['alma.cycle1.1.cfg', 'aca.cycle1.cfg']) - antenna position files of ALMA 12m and 7m arrays
+   - **hourangle** (string='transit') - hour angle of observation center e.g. -3:00:00, or "transit"
+   - **totaltime** (stringArray=['20min', '1h']) - total time of observation; vector corresponding to antennalist
+   - **tpnant** (int=0) - Number of total power antennas to use (0-4)
+   - **pwv** (double=0.5) - Precipitable Water Vapor in mm. 0 for noise-free simulation
+   - **image** (bool=True) - image simulated data
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> setpointings = True </i></summary>
+         <details><summary><i> image = True </i></summary>
 
-   - **integration** (string=10s) - integration (sampling) time
-   - **direction** (stringArray='') - "J2000 19h00m00 -40d00m00" or "" to center on model
-   - **mapsize** (stringArray=
-        ) - angular size of map or "" to cover model
+      - **imsize** (intArray=[128, 128]) - output image size in pixels (x,y) or 0 to match model
+      - **imdirection** (string='') - set output image direction, (otherwise center on the model)
+      - **cell** (string='') - cell size with units or "" to equal model
+      - **niter** (int=0) - maximum number of iterations (0 for dirty image)
+      - **threshold** (string='0.1mJy') - flux level (+units) to stop cleaning
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> setpointings = False </i></summary>
-
-   - **ptgfile** (string=$project.ptg.txt) - list of pointing positions
-   - **integration** (string=10s) - integration (sampling) time
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> tpnant != 0 </i></summary>
-
-   - **tptime** (string=0s) - total observation time for total power
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> image = True </i></summary>
-
-   - **imsize** (intArray=0) - output image size in pixels (x,y) or 0 to match model
-   - **imdirection** (string='') - set output image direction, (otherwise center on the model)
-   - **cell** (string='') - cell size with units or "" to equal model
-   - **niter** (int=0) - maximum number of iterations (0 for dirty image)
-   - **threshold** (string=0.1mJy) - flux level (+units) to stop cleaning
-
-   .. raw:: html
-
-      </details>
+         </details>
+   - **graphics** (string='both') - display graphics at each stage to [screen|file|both|none]
+   - **verbose** (bool=False)
+   - **overwrite** (bool=False) - overwrite files starting with $project
 
 
 Description

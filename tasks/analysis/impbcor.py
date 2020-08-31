@@ -8,36 +8,15 @@ Construct a primary beam corrected image from an image and a primary beam patter
 
 Parameters
    - **imagename** (string) - Name of the input image
-   - **pbimage** (variant) - Name of the primary beam image which must exist or array of values for the pb response.
-   - **outfile** (string) - Output image name. If empty, no image is written.
-   - **box** (string) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
-   - **region** (variant) - Region selection.
-   - **chans** (string) - Channels to use.
-   - **stokes** (string) - Stokes planes to use.
-   - **mask** (string) - Mask to use.
-   - **mode** (string) - Divide or multiply the image by the primary beam image. Minimal match supported.
-   - **cutoff** (double) - PB cutoff. If mode is "d", all values less than this will be masked. If "m", all values greater will be masked. Less than 0, no cutoff.
-
-Subparameters
-   .. raw:: html
-
-      <details><summary><i> outfile != '' </i></summary>
-
-   - **overwrite** (bool=False) - Overwrite the output if it exists?
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mask != '' </i></summary>
-
-   - **stretch** (bool=False) - Stretch the mask if necessary and possible?
-
-   .. raw:: html
-
-      </details>
+   - **pbimage** (variant='""') - Name of the primary beam image which must exist or array of values for the pb response.
+   - **outfile** (string='') - Output image name. If empty, no image is written.
+   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **region** (variant='') - Region selection.
+   - **chans** (string='') - Channels to use.
+   - **stokes** (string='') - Stokes planes to use.
+   - **mask** (string='') - Mask to use.
+   - **mode** (string='divide') - Divide or multiply the image by the primary beam image. Minimal match supported.
+   - **cutoff** (double=-1.0) - PB cutoff. If mode is "d", all values less than this will be masked. If "m", all values greater will be masked. Less than 0, no cutoff.
 
 
 Description

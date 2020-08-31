@@ -7,339 +7,322 @@ def tclean2(vis, selectdata=True, field='', spw='', timerange='', uvrange='', an
 Radio Interferometric Image Reconstruction
 
 Parameters
-   - **vis** (string, stringArray) - Name of input visibility file(s)
-   - **selectdata** (bool) - Enable data selection parameters
-   - **datacolumn** (string) - Data column to image(data,corrected)
-   - **imagename** (int, string, stringArray) - Pre-name of output images
-   - **imsize** (int, intArray) - Number of pixels
-   - **cell** (int, double, intArray, doubleArray, string, stringArray) - Cell size
-   - **phasecenter** (int, string) - Phase center of the image
-   - **stokes** (string) - Stokes Planes to make
-   - **projection** (string) - Coordinate projection (SIN, HPX)
-   - **startmodel** (string) - Name of starting model image
-   - **specmode** (string) - Spectral definition mode (mfs,cube,cubedata)
-   - **gridder** (string) - Gridding options (standard, wproject, widefield, mosaic, awproject)
-   - **deconvolver** (string) - Minor cycle algorithm (hogbom,clark,multiscale,mtmfs,mem,clarkstokes)
-   - **outlierfile** (string) - Name of outlier-field image definitions
-   - **weighting** (string) - Weighting scheme (natural,uniform,briggs)
-   - **niter** (int) - Maximum number of iterations
-   - **usemask** (string) - Type of mask(s) for deconvolution (user,pb,auto-thresh)
-   - **restart** (bool) - True : Re-use existing images. False : Increment imagename
-   - **savemodel** (string) - Options to save model visibilities (none, virtual, modelcolumn)
-   - **makeimages** (string) - List of output images (auto,choose)
-   - **ranks** (intarray) - List of participating ranks
+   - **vis** ({string, stringArray}) - Name of input visibility file(s)
+   - **selectdata** (bool=True) - Enable data selection parameters
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> selectdata = True </i></summary>
+         <details><summary><i> selectdata = True </i></summary>
 
-   - **field** (string="", stringArray) - field(s) to select
-   - **spw** (string="", stringArray) - spw(s)/channels to select
-   - **timerange** (string="", stringArray) - Range of time to select from data
-   - **uvrange** (string="", stringArray) - Select data within uvrange
-   - **antenna** (string="", stringArray) - Select data based on antenna/baseline
-   - **scan** (string="", stringArray) - Scan number range
-   - **observation** (string="", int) - Observation ID range
-   - **intent** (string="", stringArray) - Scan Intent(s)
+      - **field** ({string, stringArray}='') - field(s) to select
+      - **spw** ({string, stringArray}='') - spw(s)/channels to select
+      - **timerange** ({string, stringArray}='') - Range of time to select from data
+      - **uvrange** ({string, stringArray}='') - Select data within uvrange
+      - **antenna** ({string, stringArray}='') - Select data based on antenna/baseline
+      - **scan** ({string, stringArray}='') - Scan number range
+      - **observation** ({string, int}='') - Observation ID range
+      - **intent** ({string, stringArray}='') - Scan Intent(s)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **datacolumn** (string='corrected') - Data column to image(data,corrected)
+   - **imagename** ({int, string, stringArray}='') - Pre-name of output images
+   - **imsize** ({int, intArray}=100) - Number of pixels
+   - **cell** ({int, double, intArray, doubleArray, string, stringArray}='"1arcsec"') - Cell size
+   - **phasecenter** ({int, string}='') - Phase center of the image
+   - **stokes** (string='I') - Stokes Planes to make
+   - **projection** (string='SIN') - Coordinate projection (SIN, HPX)
+   - **startmodel** (string='') - Name of starting model image
+   - **specmode** (string='mfs') - Spectral definition mode (mfs,cube,cubedata)
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> specmode = mfs </i></summary>
+         <details><summary><i> specmode = mfs </i></summary>
 
-   - **reffreq** (string="") - Reference frequency
+      - **reffreq** (string='') - Reference frequency
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> specmode = cube </i></summary>
+         <details><summary><i> specmode = cube </i></summary>
 
-   - **nchan** (int=-1) - Number of channels in the output image
-   - **start** (string="") - First channel (e.g. start=3,start=\'1.1GHz\',start=\'15343km/s\')
-   - **width** (string="") - Channel width (e.g. width=2,width=\'0.1MHz\',width=\'10km/s\')
-   - **outframe** (string="") - Spectral reference frame in which to interpret \'start\' and \'width\'
-   - **veltype** (string="radio") - Velocity type (radio, z, ratio, beta, gamma, optical)
-   - **restfreq** (stringArray=[]) - List of rest frequencies
-   - **interpolation** (string="linear") - Spectral interpolation (nearest,linear,cubic)
-   - **chanchunks** (int=1) - Number of channel chunks
+      - **nchan** (int=-1) - Number of channels in the output image
+      - **start** (string='') - First channel (e.g. start=3,start=\'1.1GHz\',start=\'15343km/s\')
+      - **width** (string='') - Channel width (e.g. width=2,width=\'0.1MHz\',width=\'10km/s\')
+      - **outframe** (string='LSRK') - Spectral reference frame in which to interpret \'start\' and \'width\'
+      - **veltype** (string='radio') - Velocity type (radio, z, ratio, beta, gamma, optical)
+      - **restfreq** (stringArray=['']) - List of rest frequencies
+      - **interpolation** (string='linear') - Spectral interpolation (nearest,linear,cubic)
+      - **chanchunks** (int=1) - Number of channel chunks
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> specmode = cubedata </i></summary>
+         <details><summary><i> specmode = cubedata </i></summary>
 
-   - **nchan** (int=-1) - Number of channels in the output image
-   - **start** (string="") - First channel (e.g. start=3,start=\'1.1GHz\',start=\'15343km/s\')
-   - **width** (string="") - Channel width (e.g. width=2,width=\'0.1MHz\',width=\'10km/s\')
-   - **veltype** (string="radio") - Velocity type (radio, z, ratio, beta, gamma, optical)
-   - **restfreq** (stringArray=[]) - List of rest frequencies
-   - **interpolation** (string="linear") - Spectral interpolation (nearest,linear,cubic)
-   - **chanchunks** (int=1) - Number of channel chunks
+      - **nchan** (int=-1) - Number of channels in the output image
+      - **start** (string='') - First channel (e.g. start=3,start=\'1.1GHz\',start=\'15343km/s\')
+      - **width** (string='') - Channel width (e.g. width=2,width=\'0.1MHz\',width=\'10km/s\')
+      - **veltype** (string='radio') - Velocity type (radio, z, ratio, beta, gamma, optical)
+      - **restfreq** (stringArray=['']) - List of rest frequencies
+      - **interpolation** (string='linear') - Spectral interpolation (nearest,linear,cubic)
+      - **chanchunks** (int=1) - Number of channel chunks
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **gridder** (string='standard') - Gridding options (standard, wproject, widefield, mosaic, awproject)
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridder = widefield </i></summary>
+         <details><summary><i> gridder = widefield </i></summary>
 
-   - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
-   - **facets** (int=1) - Number of facets on a side
+      - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
+      - **facets** (int=1) - Number of facets on a side
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridder = wproject </i></summary>
+         <details><summary><i> gridder = wproject </i></summary>
 
-   - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
+      - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridder = wprojectft </i></summary>
+         <details><summary><i> gridder = wprojectft </i></summary>
 
-   - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
+      - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridder = mosaic </i></summary>
+         <details><summary><i> gridder = mosaic </i></summary>
 
-   - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
-   - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
+      - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
+      - **normtype** (string='flatnoise') - Normalization type (flatnoise, flatsky)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridder = mosaicft </i></summary>
+         <details><summary><i> gridder = mosaicft </i></summary>
 
-   - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
-   - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
+      - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
+      - **normtype** (string='flatnoise') - Normalization type (flatnoise, flatsky)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridder = ftmosaic </i></summary>
+         <details><summary><i> gridder = ftmosaic </i></summary>
 
-   - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
-   - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
+      - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
+      - **normtype** (string='flatnoise') - Normalization type (flatnoise, flatsky)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridder = imagemosaic </i></summary>
+         <details><summary><i> gridder = imagemosaic </i></summary>
 
-   - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
-   - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
-   - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
+      - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
+      - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
+      - **normtype** (string='flatnoise') - Normalization type (flatnoise, flatsky)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridder = awproject </i></summary>
+         <details><summary><i> gridder = awproject </i></summary>
 
-   - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
-   - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
-   - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
-   - **psterm** (bool=False) - Use prolate spheroidal during gridding
-   - **aterm** (bool=True) - Use aperture illumination functions during gridding
-   - **cfcache** (string="") - >Convolution function cache directory name
-   - **computepastep** (double=360.0) - At what parallactic angle interval to recompute AIFs (deg)
-   - **rotatepastep** (double=360.0) - At what parallactic angle interval to rotate nearest AIF (deg) 
-   - **wbawp** (bool=False) - Use wideband A-terms
-   - **conjbeams** (bool=False) - Use conjugate frequency for wideband A-terms
+      - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
+      - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
+      - **normtype** (string='flatnoise') - Normalization type (flatnoise, flatsky)
+      - **psterm** (bool=False) - Use prolate spheroidal during gridding
+      - **aterm** (bool=True) - Use aperture illumination functions during gridding
+      - **cfcache** (string='') - >Convolution function cache directory name
+      - **computepastep** (double=360.0) - At what parallactic angle interval to recompute AIFs (deg)
+      - **rotatepastep** (double=360.0) - At what parallactic angle interval to rotate nearest AIF (deg) 
+      - **wbawp** (bool=True) - Use wideband A-terms
+      - **conjbeams** (bool=True) - Use conjugate frequency for wideband A-terms
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridder = awprojectft </i></summary>
+         <details><summary><i> gridder = awprojectft </i></summary>
 
-   - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
-   - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
-   - **normtype** (string="flatnoise") - Normalization type (flatnoise, flatsky)
-   - **psterm** (bool=False) - Use prolate spheroidal during gridding
-   - **aterm** (bool=True) - Use aperture illumination functions during gridding
-   - **cfcache** (string="") - >Convolution function cache directory name
-   - **computepastep** (double=360.0) - At what parallactic angle interval to recompute AIFs (deg)
-   - **rotatepastep** (double=360.0) - At what parallactic angle interval to rotate nearest AIF (deg) 
-   - **wbawp** (bool=False) - Use wideband A-terms
-   - **conjbeams** (bool=False) - Use conjugate frequency for wideband A-terms
+      - **wprojplanes** (int=1) - Number of distinct w-values for convolution functions
+      - **pblimit** (double=0.2) - >PB gain level at which to cut off normalizations 
+      - **normtype** (string='flatnoise') - Normalization type (flatnoise, flatsky)
+      - **psterm** (bool=False) - Use prolate spheroidal during gridding
+      - **aterm** (bool=True) - Use aperture illumination functions during gridding
+      - **cfcache** (string='') - >Convolution function cache directory name
+      - **computepastep** (double=360.0) - At what parallactic angle interval to recompute AIFs (deg)
+      - **rotatepastep** (double=360.0) - At what parallactic angle interval to rotate nearest AIF (deg) 
+      - **wbawp** (bool=True) - Use wideband A-terms
+      - **conjbeams** (bool=True) - Use conjugate frequency for wideband A-terms
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **deconvolver** (string='hogbom') - Minor cycle algorithm (hogbom,clark,multiscale,mtmfs,mem,clarkstokes)
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> weighting = natural </i></summary>
+         <details><summary><i> deconvolver = hogbom </i></summary>
 
-   - **uvtaper** (stringArray=[]) - uv-taper on outer baselines in uv-plane
+      - **restoringbeam** ({string, stringArray}='') - Restoring beam shape to use. Default is the PSF main lobe
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> weighting = briggs </i></summary>
+         <details><summary><i> deconvolver = clark </i></summary>
 
-   - **robust** (double=0.5) - Robustness parameter
-   - **npixels** (int=0) - Number of pixels to determine uv-cell size (0 : -/+ 3 pixels)
-   - **uvtaper** (stringArray=[]) - uv-taper on outer baselines in uv-plane
+      - **restoringbeam** ({string, stringArray}='') - Restoring beam shape to use. Default is the PSF main lobe
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> deconvolver = hogbom </i></summary>
+         <details><summary><i> deconvolver = multiscale </i></summary>
 
-   - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
+      - **scales** ({intArray, floatArray}=['']) - List of scale sizes (in pixels) for multi-scale algorithms
+      - **restoringbeam** ({string, stringArray}='') - Restoring beam shape to use. Default is the PSF main lobe
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> deconvolver = clark </i></summary>
+         <details><summary><i> deconvolver = mtmfs </i></summary>
 
-   - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
+      - **scales** ({intArray, floatArray}=['']) - List of scale sizes (in pixels) for multi-scale algorithms
+      - **nterms** (int=2) - Number of Taylor coefficients in the spectral model
+      - **restoringbeam** ({string, stringArray}='') - Restoring beam shape to use. Default is the PSF main lobe
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> deconvolver = multiscale </i></summary>
+         <details><summary><i> deconvolver = aasp </i></summary>
 
-   - **scales** (intArray='', floatArray) - List of scale sizes (in pixels) for multi-scale algorithms
-   - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
+      - **restoringbeam** ({string, stringArray}='') - Restoring beam shape to use. Default is the PSF main lobe
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **outlierfile** (string='') - Name of outlier-field image definitions
+   - **weighting** (string='natural') - Weighting scheme (natural,uniform,briggs)
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> deconvolver = mtmfs </i></summary>
+         <details><summary><i> weighting = natural </i></summary>
 
-   - **scales** (intArray='', floatArray) - List of scale sizes (in pixels) for multi-scale algorithms
-   - **nterms** (int=2) - Number of Taylor coefficients in the spectral model
-   - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
+      - **uvtaper** (stringArray=['']) - uv-taper on outer baselines in uv-plane
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> deconvolver = aasp </i></summary>
+         <details><summary><i> weighting = briggs </i></summary>
 
-   - **restoringbeam** (string='', stringArray) - Restoring beam shape to use. Default is the PSF main lobe
+      - **robust** (double=0.5) - Robustness parameter
+      - **npixels** (int=0) - Number of pixels to determine uv-cell size (0 : -/+ 3 pixels)
+      - **uvtaper** (stringArray=['']) - uv-taper on outer baselines in uv-plane
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **niter** (int=0) - Maximum number of iterations
+   - **usemask** (string='user') - Type of mask(s) for deconvolution (user,pb,auto-thresh)
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> niter != 0 </i></summary>
+         <details><summary><i> usemask = user </i></summary>
 
-   - **gain** (double=0.1) - Loop gain
-   - **threshold** (double=0.0) - Stopping threshold 
-   - **cycleniter** (int=-1) - Maximum number of minor-cycle iterations
-   - **cyclefactor** (double=1.0) - Scaling on PSF sidelobe level to compute the minor-cycle stopping threshold.
-   - **minpsffraction** (double=0.05) - PSF fraction that marks the max depth of cleaning in the minor cycle
-   - **maxpsffraction** (double=0.8) - PSF fraction that marks the minimum depth of cleaning in the minor cycle 
-   - **interactive** (bool=False, int) - Modify masks and parameters at runtime
+      - **mask** ({string, stringArray}='') - Mask (a list of image name(s) or region file(s) or region string(s) )
+      - **pbmask** (double=0.0) - primary beam mask
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> usemask = user </i></summary>
+         <details><summary><i> usemask = pb </i></summary>
 
-   - **mask** (string="", stringArray) - Mask (a list of image name(s) or region file(s) or region string(s) )
-   - **pbmask** (double=0.0) - primary beam mask
+      - **pbmask** (double=0.0) - primary beam mask
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> usemask = pb </i></summary>
+         <details><summary><i> usemask = auto-thresh </i></summary>
 
-   - **pbmask** (double=0.2) - primary beam mask
+      - **pbmask** (double=0.0) - primary beam mask
+      - **maskthreshold** (string='') - threshold for automasking (string with unit, e.g. "1.0mJy", sigma,  or fraction of peak ,e.g. 0.1)
+      - **maskresolution** (string='') - resolution for automasking (string, e.g. "10arcsec")
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **restart** (bool=True) - True : Re-use existing images. False : Increment imagename
+   - **savemodel** (string='none') - Options to save model visibilities (none, virtual, modelcolumn)
+   - **makeimages** (string='auto') - List of output images (auto,choose)
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> usemask = auto-thresh </i></summary>
+         <details><summary><i> makeimages = choose </i></summary>
 
-   - **pbmask** (double=0.0) - primary beam mask
-   - **maskthreshold** (string="") - threshold for automasking (string with unit, e.g. "1.0mJy", sigma,  or fraction of peak ,e.g. 0.1)
-   - **maskresolution** (string="") - resolution for automasking (string, e.g. "10arcsec")
+      - **calcres** (bool=True) - Calculate initial residual image
+      - **calcpsf** (bool=True) - Calculate PSF
+      - **restoremodel** (string='auto') - Restore the model image
+      - **writepb** (string='auto') - Make a primary beam image
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> makeimages = choose </i></summary>
-
-   - **calcres** (bool=True) - Calculate initial residual image
-   - **calcpsf** (bool=True) - Calculate PSF
-   - **restoremodel** (string=auto) - Restore the model image
-   - **writepb** (string=auto) - Make a primary beam image
-
-   .. raw:: html
-
-      </details>
+         </details>
+   - **ranks** (intarray='') - List of participating ranks
 
 
 Description

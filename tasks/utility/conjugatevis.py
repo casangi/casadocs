@@ -8,9 +8,9 @@ Change the sign of the phases in all visibility columns.
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **spwlist** (variant) - Spectral window selection
-   - **outputvis** (string) - Name of output visibility file
-   - **overwrite** (bool) - Overwrite the outputvis if it exists?
+   - **spwlist** (variant='""') - Spectral window selection
+   - **outputvis** (string='') - Name of output visibility file
+   - **overwrite** (bool=False) - Overwrite the outputvis if it exists?
 
 
 Description

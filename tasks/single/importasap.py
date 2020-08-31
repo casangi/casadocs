@@ -8,10 +8,10 @@ Convert ASAP Scantable data  into a CASA visibility file (MS)
 
 Parameters
    - **infile** (string) - Name of input ASAP Scantable data
-   - **outputvis** (string) - Root name of the ms to be created. Note the .ms is NOT added.
-   - **flagbackup** (bool) - Back up flag column before applying flags.
-   - **overwrite** (bool) - Over write an existing MS(s)
-   - **parallel** (bool) - Turn on parallel execution
+   - **outputvis** (string='') - Root name of the ms to be created. Note the .ms is NOT added.
+   - **flagbackup** (bool=True) - Back up flag column before applying flags.
+   - **overwrite** (bool=False) - Over write an existing MS(s)
+   - **parallel** (bool=False) - Turn on parallel execution
 
 
 Description

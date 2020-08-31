@@ -7,10 +7,10 @@ def caltabconvert(caltabold='', vis='', ptype='complex', caltabnew=''):
 Convert old-style caltables into new-style caltables.
 
 Parameters
-   - **caltabold** (string) - Name of the old-style caltable
-   - **vis** (string) - Name of the visibility file (MS) associated with the old-style caltable.
-   - **ptype** (string) - Type of data in the new-format caltable ("complex" or "float"; default is "complex").
-   - **caltabnew** (string) - Name of the new-style caltable.  If not specified, the suffix ".new" is appended to the name of old-style caltable.
+   - **caltabold** (string='') - Name of the old-style caltable
+   - **vis** (string='') - Name of the visibility file (MS) associated with the old-style caltable.
+   - **ptype** (string='complex') - Type of data in the new-format caltable ("complex" or "float"; default is "complex").
+   - **caltabnew** (string='') - Name of the new-style caltable.  If not specified, the suffix ".new" is appended to the name of old-style caltable.
 
 
 Description

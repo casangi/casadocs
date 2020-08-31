@@ -8,30 +8,18 @@ Bootstrap the flux density scale from standard calibrators
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **caltable** (string) - Name of input calibration table
-   - **fluxtable** (string) - Name of output, flux-scaled calibration table (required)
-   - **reference** (stringArray) - Reference field name(s) (transfer flux scale FROM)
-   - **transfer** (stringArray) - Transfer field name(s) (transfer flux scale TO), \'\' -> all
-   - **listfile** (string) - Name of listfile that contains the fit information.  Default is '' (no file).
-   - **append** (bool) - Append solutions?
-   - **refspwmap** (intArray) - Scale across spectral window boundaries
-   - **gainthreshold** (double) - Threshold (fractional deviation from the median) on gain amplitudes to be used in the flux scale calculation
-   - **antenna** (string) - Select data based on antenna/baseline
-   - **incremental** (bool) - Incremental caltable
-   - **fitorder** (int) - Order of spectral fitting
-   - **display** (bool) - Display some statistics of flux scaling
-
-Subparameters
-   .. raw:: html
-
-      <details><summary><i> antenna != '' </i></summary>
-
-   - **timerange** (string='') - Select data based on time range
-   - **scan** (string='') - Scan number range
-
-   .. raw:: html
-
-      </details>
+   - **caltable** (string='') - Name of input calibration table
+   - **fluxtable** (string='') - Name of output, flux-scaled calibration table (required)
+   - **reference** (stringArray=['']) - Reference field name(s) (transfer flux scale FROM)
+   - **transfer** (stringArray=['']) - Transfer field name(s) (transfer flux scale TO), \'\' -> all
+   - **listfile** (string='') - Name of listfile that contains the fit information.  Default is '' (no file).
+   - **append** (bool=False) - Append solutions?
+   - **refspwmap** (intArray=[-1]) - Scale across spectral window boundaries
+   - **gainthreshold** (double=-1.0) - Threshold (fractional deviation from the median) on gain amplitudes to be used in the flux scale calculation
+   - **antenna** (string='') - Select data based on antenna/baseline
+   - **incremental** (bool=False) - Incremental caltable
+   - **fitorder** (int=1) - Order of spectral fitting
+   - **display** (bool=False) - Display some statistics of flux scaling
 
 
 Description

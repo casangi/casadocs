@@ -8,9 +8,9 @@ Plot elements of the weather table; estimate opacity.
 
 Parameters
    - **vis** (string) - MS name
-   - **seasonal_weight** (double) - weight of the seasonal model
-   - **doPlot** (bool) - set this to True to create a plot
-   - **plotName** (string) - (Optional) the name of the plot file
+   - **seasonal_weight** (double=0.5) - weight of the seasonal model
+   - **doPlot** (bool=True) - set this to True to create a plot
+   - **plotName** (string='') - (Optional) the name of the plot file
 
 
 Description

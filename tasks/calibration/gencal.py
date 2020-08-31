@@ -8,53 +8,52 @@ Specify Calibration Values of Various Types
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **caltable** (string) - Name of input calibration table
-   - **caltype** (string) - The calibration type: (amp, ph, sbd, mbd, antpos, antposvla, tsys, evlagain, opac, gc, gceff, eff, tecim)
-   - **spw** (string) - Select spectral window/channels
-   - **antenna** (string) - Select data based on antenna/baseline
-   - **pol** (string) - Calibration polarizations(s) selection
-   - **parameter** (doubleArray) - The calibration values
+   - **caltable** (string='') - Name of input calibration table
+   - **caltype** (string='') - The calibration type: (amp, ph, sbd, mbd, antpos, antposvla, tsys, evlagain, opac, gc, gceff, eff, tecim)
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> caltype = tecim </i></summary>
+         <details><summary><i> caltype = tecim </i></summary>
 
-   - **infile** (string='') - Input ancilliary file
+      - **infile** (string='') - Input ancilliary file
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> caltype = gc </i></summary>
+         <details><summary><i> caltype = gc </i></summary>
 
-   - **infile** (string='') - Input ancilliary file
+      - **infile** (string='') - Input ancilliary file
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> caltype = gceff </i></summary>
+         <details><summary><i> caltype = gceff </i></summary>
 
-   - **infile** (string='') - Input ancilliary file
+      - **infile** (string='') - Input ancilliary file
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> caltype = tsys </i></summary>
+         <details><summary><i> caltype = tsys </i></summary>
 
-   - **uniform** (bool=True) - Assume uniform calibration values across the array
+      - **uniform** (bool=True) - Assume uniform calibration values across the array
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **spw** (string='') - Select spectral window/channels
+   - **antenna** (string='') - Select data based on antenna/baseline
+   - **pol** (string='') - Calibration polarizations(s) selection
+   - **parameter** (doubleArray=['']) - The calibration values
 
 
 Description

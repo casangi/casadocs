@@ -8,10 +8,10 @@ Re-initializes the calibration for a visibility data set
 
 Parameters
    - **vis** (string) - Name of input visibility file (MS)
-   - **field** (string) - Select field using field id(s) or field name(s)
-   - **spw** (string) - Select spectral window/channels
-   - **intent** (string) - Select observing intent
-   - **addmodel** (bool) - Add MODEL_DATA scratch column
+   - **field** (string='') - Select field using field id(s) or field name(s)
+   - **spw** (string='') - Select spectral window/channels
+   - **intent** (string='') - Select observing intent
+   - **addmodel** (bool=False) - Add MODEL_DATA scratch column
 
 
 Description

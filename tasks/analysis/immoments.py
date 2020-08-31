@@ -8,27 +8,16 @@ Compute moments from an image
 
 Parameters
    - **imagename** (string) - Name of the input image
-   - **moments** (intArray) - List of moments you would like to compute
-   - **axis** (string, int) - The momement axis: ra, dec, lat, long, spectral, or stokes
-   - **region** (string, stringArray) - Region selection. Default is to use the full image.
-   - **box** (string) - Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
-   - **chans** (string) - Channels to use. Default is to use all channels.
-   - **stokes** (string) - Stokes planes to use. Default is to use all Stokes planes.
-   - **mask** (variant) - Mask to use. Default is none.
-   - **includepix** (int, doubleArray, intArray) - Range of pixel values to include
-   - **excludepix** (int, doubleArray, intArray) - Range of pixel values to exclude
-   - **outfile** (string) - Output image file name (or root for multiple moments) 
-
-Subparameters
-   .. raw:: html
-
-      <details><summary><i> mask != '' </i></summary>
-
-   - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
-
-   .. raw:: html
-
-      </details>
+   - **moments** (intArray=[0]) - List of moments you would like to compute
+   - **axis** ({string, int}='spectral') - The momement axis: ra, dec, lat, long, spectral, or stokes
+   - **region** ({string, stringArray}='') - Region selection. Default is to use the full image.
+   - **box** (string='') - Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
+   - **chans** (string='') - Channels to use. Default is to use all channels.
+   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes.
+   - **mask** (variant='') - Mask to use. Default is none.
+   - **includepix** ({int, doubleArray, intArray}=-1) - Range of pixel values to include
+   - **excludepix** ({int, doubleArray, intArray}=-1) - Range of pixel values to exclude
+   - **outfile** (string='') - Output image file name (or root for multiple moments) 
 
 
 Description

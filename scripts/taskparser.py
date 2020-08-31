@@ -83,6 +83,25 @@ for task in tasknames:
 # write the parameters to docstring format
 # and marry up the Plone description page to the bottom
 
+# helper function to return a string of type and default value for a given parameter
+def ParamSpec(param):
+    pd = task['params'][param]
+    ptype = '{%s}'%pd['type'] if len(pd['type'].split(', ')) > 1 else pd['type']
+    proto = '**%s** (%s=\'\')' % (param, ptype)
+    
+    # must exist params don't have default values
+    if ('mustexist' in pd) and (pd['mustexist'] == 'true'):
+        proto = '**%s** (%s)' % (param, ptype)
+    elif ('value' in task['params'][param]) and (task['params'][param]['value'] is not None):
+        if ('string' in pd['type'].split(', ')) or ('variant' in ptype):
+            proto = '**%s** (%s=\'%s\')' % (param, ptype, pd['value'].strip())
+        else:
+            proto = '**%s** (%s=%s)' % (param, ptype, pd['value'].strip())
+    
+    return proto
+
+
+
 os.system('rm -fr tasks')
 os.system('mkdir tasks')
 for task in tasklist:
@@ -123,15 +142,8 @@ for task in tasklist:
         proto = ', '.join(proto) + ', ' if len(proto) > 0 else ''
         for param in task['params'].keys():
             # must exist params don't have default values
-            if ('mustexist' in task['params'][param]) and (task['params'][param]['mustexist'] == 'true'):
-                continue
-            elif ('value' in task['params'][param]) and (task['params'][param]['value'] is not None):
-                if ('string' in task['params'][param]['type'].split(', ')) or ('variant' in task['params'][param]['type']):
-                    proto += param + '=\'' + task['params'][param]['value'].strip() + '\', '
-                else:
-                    proto += param + '=' + task['params'][param]['value'].strip() + ', '
-            else:
-                proto += param + "='', "
+            if ('mustexist' not in task['params'][param]) or (task['params'][param]['mustexist'] == 'false'):
+                proto += '%s%s, ' % (param, ParamSpec(param)[ParamSpec(param).rindex('='):-1])
         fid.write('def %s(%s):\n    r"""\n' % (task['name'], proto[:-2]))
         
         # populate function description
@@ -146,32 +158,26 @@ for task in tasklist:
             # skip subparameters for now, they will go in "other parameters" section later
             if ('subparam' in task['params'][param]) and (task['params'][param]['subparam'].lower() == 'true'):
                 continue
-            pd = task['params'][param]  # param dictionary
-            fid.write('   - **%s** (%s)' % (param, pd['type']))
-            if ('shortdescription' in pd.keys()) and (pd['shortdescription'] is not None):
-                fid.write(' - %s' % pd['shortdescription'])
+            
+            fid.write('   - %s' % ParamSpec(param))
+            if ('shortdescription' in task['params'][param].keys()) and (task['params'][param]['shortdescription'] is not None):
+                fid.write(' - %s' % task['params'][param]['shortdescription'])
             fid.write('\n')
-
-        # populate function subparameters
-        if len(task['subparams']) > 0:
-            fid.write('\nSubparameters')
-        for paramstr in task['subparams'].keys():
-            spd = task['subparams'][paramstr]  # subparam dictionary
-            if len(spd) > 0:
-                fid.write('\n   .. raw:: html\n\n      <details><summary><i> %s </i></summary>\n\n' % paramstr)
-            # grab each subparam from the main param section and write it out
-            for subparam in spd.keys():
-                if subparam not in task['params']: continue
-                pd = task['params'][subparam]  # param dictionary
-                val = spd[subparam] if len(spd[subparam]) > 1 else spd[subparam][0]
-                val = '\'\'' if len(val) == 0 else val
-                dtype = ', '.join([vv+'='+val if ii==0 else vv for ii,vv in enumerate(pd['type'].split(', '))])
-                fid.write('   - **%s** (%s)' % (subparam, dtype))
-                if ('shortdescription' in pd.keys()) and (pd['shortdescription'] is not None):
-                    fid.write(' - %s' % pd['shortdescription'])
-                fid.write('\n')
-            if len(spd) > 0:
-                fid.write('\n   .. raw:: html\n\n      </details>\n')
+            
+            # populate function subparameters (if any)
+            subparmkeys = [ee for ee in task['subparams'].keys() if ee.startswith(param + ' =')]
+            for paramstr in subparmkeys:
+                if len(task['subparams'][paramstr]) > 0:
+                    fid.write('\n      .. raw:: html\n\n         <details><summary><i> %s </i></summary>\n\n' % paramstr)
+                # grab each subparam from the main param section and write it out
+                for subparam in task['subparams'][paramstr].keys():
+                    if subparam not in task['params']: continue
+                    fid.write('      - %s' % ParamSpec(subparam))
+                    if ('shortdescription' in task['params'][subparam].keys()) and (task['params'][subparam]['shortdescription'] is not None):
+                        fid.write(' - %s' % task['params'][subparam]['shortdescription'])
+                    fid.write('\n')
+                if len(task['subparams'][paramstr]) > 0:
+                    fid.write('\n      .. raw:: html\n\n         </details>\n')
 
         # marry up the Plone content to the bottom Notes section
         fid.write('\n\n' + rst)

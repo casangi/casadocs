@@ -8,131 +8,130 @@ SD task: imaging for total power and spectral data
 
 Parameters
    - **infiles** (stringArray) - a list of names of input SD Measurementsets (only MS is allowed for this task)
-   - **outfile** (string) - name of output image
-   - **overwrite** (bool) - overwrite the output file if already exists [True, False]
-   - **field** (string, stringArray) - select data by field IDs and names, e.g. "3C2*" (""=all)
-   - **spw** (string, stringArray) - select data by IF IDs (spectral windows), e.g. "3,5,7" (""=all)
-   - **antenna** (string, stringArray) - select data by antenna names or IDs, e.g, "PM03" ("" = all antennas)
-   - **scan** (string, stringArray) - select data by scan numbers, e.g. "21~23" (""=all)
-   - **intent** (string, stringArray) - select data by observational intent, e.g. "*ON_SOURCE*" (""=all)
-   - **mode** (string) - spectral gridding type ["channel", "frequency", "velocity"]
-   - **outframe** (string) - velocity frame of output image ["lsrk", "lsrd", "bary", "geo", "topo", "galacto", "lgroup", "cmb"] (""=current frame or LSRK for multiple-MS inputs) 
-   - **gridfunction** (string) - gridding function for imaging ["BOX", "SF", "PB", "GAUSS" or "GJINC"] (see description in help)
-   - **imsize** (intArray, doubleArray) - x and y image size in pixels, e.g., [64,64]. Single value: same for both spatial axes ([] = number of pixels to cover whole pointings in MSes)
-   - **cell** (string, stringArray, doubleArray) - x and y cell size, (e.g., ["8arcsec","8arcsec"]. default unit arcmin. ("" = 1/3 of FWHM of primary beam)
-   - **phasecenter** (variant) - image center direction: position or field index, e.g., "J2000 17:30:15.0 -25.30.00.0". ("" = the center of pointing directions in MSes)
-   - **projection** (string) - map projection type
-   - **ephemsrcname** (string) - ephemeris source name, e.g. "MARS"
-   - **pointingcolumn** (string) - pointing data column to use ["direction", "target", "pointing_offset", "source_offset" or "encoder"]
-   - **restfreq** (string, double) - rest frequency to assign to image, e.g., "114.5GHz"
-   - **stokes** (string) - stokes parameters or polarization types to image, e.g. "I", "XX"
-   - **minweight** (double) - Minimum weight ratio to use
-   - **brightnessunit** (string) - Overwrite the brightness unit in image (\'\' = respect the unit in MS) [\'K\' or \'Jy/beam\']
-   - **clipminmax** (bool) - Clip minimum and maximum value from each pixel
+   - **outfile** (string='') - name of output image
+   - **overwrite** (bool=False) - overwrite the output file if already exists [True, False]
+   - **field** ({string, stringArray}='') - select data by field IDs and names, e.g. "3C2*" (""=all)
+   - **spw** ({string, stringArray}='') - select data by IF IDs (spectral windows), e.g. "3,5,7" (""=all)
+   - **antenna** ({string, stringArray}='') - select data by antenna names or IDs, e.g, "PM03" ("" = all antennas)
+   - **scan** ({string, stringArray}='') - select data by scan numbers, e.g. "21~23" (""=all)
+   - **intent** ({string, stringArray}='OBSERVE_TARGET#ON_SOURCE') - select data by observational intent, e.g. "*ON_SOURCE*" (""=all)
+   - **mode** (string='channel') - spectral gridding type ["channel", "frequency", "velocity"]
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = channel </i></summary>
+         <details><summary><i> mode = channel </i></summary>
 
-   - **nchan** (int=-1) -  number of channels (planes) in output image (-1=all)
-   - **start** (string='', int) - start of output spectral dimension, e.g. "0", "110GHz", "-20km/s"
-   - **width** (string='', int) - width of output spectral channels
+      - **nchan** (int=-1) -  number of channels (planes) in output image (-1=all)
+      - **start** ({string, int}='0') - start of output spectral dimension, e.g. "0", "110GHz", "-20km/s"
+      - **width** ({string, int}='1') - width of output spectral channels
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = frequency </i></summary>
+         <details><summary><i> mode = frequency </i></summary>
 
-   - **nchan** (int=-1) -  number of channels (planes) in output image (-1=all)
-   - **start** (string='', int) - start of output spectral dimension, e.g. "0", "110GHz", "-20km/s"
-   - **width** (string='', int) - width of output spectral channels
+      - **nchan** (int=-1) -  number of channels (planes) in output image (-1=all)
+      - **start** ({string, int}='0') - start of output spectral dimension, e.g. "0", "110GHz", "-20km/s"
+      - **width** ({string, int}='1') - width of output spectral channels
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = velocity </i></summary>
+         <details><summary><i> mode = velocity </i></summary>
 
-   - **nchan** (int=-1) -  number of channels (planes) in output image (-1=all)
-   - **start** (string='', int) - start of output spectral dimension, e.g. "0", "110GHz", "-20km/s"
-   - **width** (string='', int) - width of output spectral channels
-   - **veltype** (string=radio) - velocity definition ["radio", "optical", "true" or "relativistic"] 
+      - **nchan** (int=-1) -  number of channels (planes) in output image (-1=all)
+      - **start** ({string, int}='0') - start of output spectral dimension, e.g. "0", "110GHz", "-20km/s"
+      - **width** ({string, int}='1') - width of output spectral channels
+      - **veltype** (string='radio') - velocity definition ["radio", "optical", "true" or "relativistic"] 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **outframe** (string='') - velocity frame of output image ["lsrk", "lsrd", "bary", "geo", "topo", "galacto", "lgroup", "cmb"] (""=current frame or LSRK for multiple-MS inputs) 
+   - **gridfunction** (string='BOX') - gridding function for imaging ["BOX", "SF", "PB", "GAUSS" or "GJINC"] (see description in help)
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridfunction = SF </i></summary>
+         <details><summary><i> gridfunction = SF </i></summary>
 
-   - **convsupport** (int=-1) - convolution support for gridding
+      - **convsupport** (int=-1) - convolution support for gridding
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridfunction = sf </i></summary>
+         <details><summary><i> gridfunction = sf </i></summary>
 
-   - **convsupport** (int=-1) - convolution support for gridding
+      - **convsupport** (int=-1) - convolution support for gridding
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridfunction = GAUSS </i></summary>
+         <details><summary><i> gridfunction = GAUSS </i></summary>
 
-   - **truncate** (string=-1, int, double) - truncation radius for gridding
-   - **gwidth** (string=-1, int, double) - HWHM for gaussian
+      - **truncate** ({string, int, double}='-1') - truncation radius for gridding
+      - **gwidth** ({string, int, double}='-1') - HWHM for gaussian
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridfunction = gauss </i></summary>
+         <details><summary><i> gridfunction = gauss </i></summary>
 
-   - **truncate** (string=-1, int, double) - truncation radius for gridding
-   - **gwidth** (string=-1, int, double) - HWHM for gaussian
+      - **truncate** ({string, int, double}='-1') - truncation radius for gridding
+      - **gwidth** ({string, int, double}='-1') - HWHM for gaussian
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridfunction = GJINC </i></summary>
+         <details><summary><i> gridfunction = GJINC </i></summary>
 
-   - **truncate** (string=-1, int, double) - truncation radius for gridding
-   - **gwidth** (string=-1, int, double) - HWHM for gaussian
-   - **jwidth** (string=-1, int, double) - c-parameter for jinc function
+      - **truncate** ({string, int, double}='-1') - truncation radius for gridding
+      - **gwidth** ({string, int, double}='-1') - HWHM for gaussian
+      - **jwidth** ({string, int, double}='-1') - c-parameter for jinc function
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridfunction = gjinc </i></summary>
+         <details><summary><i> gridfunction = gjinc </i></summary>
 
-   - **truncate** (string=-1, int, double) - truncation radius for gridding
-   - **gwidth** (string=-1, int, double) - HWHM for gaussian
-   - **jwidth** (string=-1, int, double) - c-parameter for jinc function
+      - **truncate** ({string, int, double}='-1') - truncation radius for gridding
+      - **gwidth** ({string, int, double}='-1') - HWHM for gaussian
+      - **jwidth** ({string, int, double}='-1') - c-parameter for jinc function
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **imsize** ({intArray, doubleArray}=['']) - x and y image size in pixels, e.g., [64,64]. Single value: same for both spatial axes ([] = number of pixels to cover whole pointings in MSes)
+   - **cell** ({string, stringArray, doubleArray}='') - x and y cell size, (e.g., ["8arcsec","8arcsec"]. default unit arcmin. ("" = 1/3 of FWHM of primary beam)
+   - **phasecenter** (variant='') - image center direction: position or field index, e.g., "J2000 17:30:15.0 -25.30.00.0". ("" = the center of pointing directions in MSes)
+   - **projection** (string='SIN') - map projection type
+   - **ephemsrcname** (string='') - ephemeris source name, e.g. "MARS"
+   - **pointingcolumn** (string='direction') - pointing data column to use ["direction", "target", "pointing_offset", "source_offset" or "encoder"]
+   - **restfreq** ({string, double}='') - rest frequency to assign to image, e.g., "114.5GHz"
+   - **stokes** (string='') - stokes parameters or polarization types to image, e.g. "I", "XX"
+   - **minweight** (double=0.1) - Minimum weight ratio to use
+   - **brightnessunit** (string='') - Overwrite the brightness unit in image (\'\' = respect the unit in MS) [\'K\' or \'Jy/beam\']
+   - **clipminmax** (bool=False) - Clip minimum and maximum value from each pixel
 
 
 Description

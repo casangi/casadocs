@@ -8,25 +8,14 @@ regrid an image onto a template image
 
 Parameters
    - **imagename** (string) - Name of the source image
-   - **template** (variant) - A dictionary, refcode, or name of an image that provides the output shape and coordinate system
-   - **output** (string) - Name for the regridded image
-   - **asvelocity** (bool) - Regrid spectral axis in velocity space rather than frequency space?
-   - **axes** (intArray) - The pixel axes to regrid. -1 => all.
-   - **interpolation** (string) - The interpolation method.  One of "nearest", "linear", "cubic".
-   - **decimate** (int) - Decimation factor for coordinate grid computation
-   - **replicate** (bool) - Replicate image rather than regrid?
-   - **overwrite** (bool) - Overwrite (unprompted) pre-existing output file?
-
-Subparameters
-   .. raw:: html
-
-      <details><summary><i> template != get </i></summary>
-
-   - **shape** (intArray='') - Shape of the output image. Only used if template is an image. If not specified (-1), the output image shape will be the same as the template image shape along the axes that are regridded and the same as input image shape along the axes which are not regridded.
-
-   .. raw:: html
-
-      </details>
+   - **template** (variant='get') - A dictionary, refcode, or name of an image that provides the output shape and coordinate system
+   - **output** (string='') - Name for the regridded image
+   - **asvelocity** (bool=True) - Regrid spectral axis in velocity space rather than frequency space?
+   - **axes** (intArray=[-1]) - The pixel axes to regrid. -1 => all.
+   - **interpolation** (string='linear') - The interpolation method.  One of "nearest", "linear", "cubic".
+   - **decimate** (int=10) - Decimation factor for coordinate grid computation
+   - **replicate** (bool=False) - Replicate image rather than regrid?
+   - **overwrite** (bool=False) - Overwrite (unprompted) pre-existing output file?
 
 
 Description

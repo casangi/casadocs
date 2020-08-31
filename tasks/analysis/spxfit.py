@@ -7,67 +7,36 @@ def spxfit(imagename='', box='', region='', chans='', stokes='', axis=-1, mask='
 Fit a 1-dimensional model(s) to an image(s) or region for determination of spectral index.
 
 Parameters
-   - **imagename** (variant) - Name of the input image(s)
-   - **box** (string) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
-   - **region** (string) - Region selection. Default is to use the full image.
-   - **chans** (string) - Channels to use. Default is to use all channels.
-   - **stokes** (string) - Stokes planes to use. Default is to use all Stokes planes.
-   - **axis** (int) - The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
-   - **mask** (string) - Mask to use. Default is none.
-   - **minpts** (int) - Minimum number of unmasked points necessary to attempt fit.
-   - **multifit** (bool) - If true, fit a profile along the desired axis at each pixel in the specified region. If false, average the non-fit axis pixels and do a single fit to that average profile. Default False.
-   - **spxtype** (string) - Type of function to fit. "plp" = power logarithmic polynomial, "ltp" = logarithmic transformed polynomial.
-   - **spxest** (doubleArray) - REQUIRED. Initial estimates as array of numerical values for the spectral index function coefficients. eg [1.5, -0.8] if fitting a plp function thought to be close to 1.5*(x/div)**(-0.8) or [0.4055, -0.8] if fitting an lpt function thought to be close to ln(1.5) - 0.8*ln(x/div).
-   - **spxfix** (boolArray) - Fix the corresponding spectral index function coefficients during the fit. True means hold fixed.
-   - **div** (variant) - Divisor (numerical value or quantity) to use in the logarithmic terms of the plp or ltp function. 0 means calculate a useful value on the fly.
-   - **wantreturn** (bool) - Should a record summarizing the results be returned?
-   - **logresults** (bool) - Output results to logger?
-   - **logfile** (string) - File in which to log results. Default is not to write a logfile.
-   - **sigma** (string, stringArray, doubleArray, intArray) - Standard deviation array or image name(s).
+   - **imagename** (variant='') - Name of the input image(s)
+   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **region** (string='') - Region selection. Default is to use the full image.
+   - **chans** (string='') - Channels to use. Default is to use all channels.
+   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes.
+   - **axis** (int=-1) - The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
+   - **mask** (string='') - Mask to use. Default is none.
+   - **minpts** (int=1) - Minimum number of unmasked points necessary to attempt fit.
+   - **multifit** (bool=False) - If true, fit a profile along the desired axis at each pixel in the specified region. If false, average the non-fit axis pixels and do a single fit to that average profile. Default False.
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mask != '' </i></summary>
+         <details><summary><i> multifit = True </i></summary>
 
-   - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
+      - **spxsol** (string='') - Name of the spectral index function coefficient solution image to write.
+      - **spxerr** (string='') - Name of the spectral index function coefficient error image to write.
+      - **model** (string='') - Name of model image. Default: do not write the model image ("").
+      - **residual** (string='') - Name of residual image. Default: do not write the residual image ("").
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> multifit = True </i></summary>
-
-   - **spxsol** (string="") - Name of the spectral index function coefficient solution image to write.
-   - **spxerr** (string="") - Name of the spectral index function coefficient error image to write.
-   - **model** (string="") - Name of model image. Default: do not write the model image ("").
-   - **residual** (string="") - Name of residual image. Default: do not write the residual image ("").
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> logfile != '' </i></summary>
-
-   - **append** (bool=True) - Append results to logfile? Logfile must be specified. Default is to append. False means overwrite existing file if it exists.
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> sigma != '' </i></summary>
-
-   - **outsigma** (string='') - Name of output image used for standard deviation. Ignored if sigma is empty.
-
-   .. raw:: html
-
-      </details>
+         </details>
+   - **spxtype** (string='plp') - Type of function to fit. "plp" = power logarithmic polynomial, "ltp" = logarithmic transformed polynomial.
+   - **spxest** (doubleArray=['']) - REQUIRED. Initial estimates as array of numerical values for the spectral index function coefficients. eg [1.5, -0.8] if fitting a plp function thought to be close to 1.5*(x/div)**(-0.8) or [0.4055, -0.8] if fitting an lpt function thought to be close to ln(1.5) - 0.8*ln(x/div).
+   - **spxfix** (boolArray=['']) - Fix the corresponding spectral index function coefficients during the fit. True means hold fixed.
+   - **div** (variant='0') - Divisor (numerical value or quantity) to use in the logarithmic terms of the plp or ltp function. 0 means calculate a useful value on the fly.
+   - **wantreturn** (bool=True) - Should a record summarizing the results be returned?
+   - **logresults** (bool=True) - Output results to logger?
+   - **logfile** (string='') - File in which to log results. Default is not to write a logfile.
+   - **sigma** ({string, stringArray, doubleArray, intArray}='') - Standard deviation array or image name(s).
 
 
 Description

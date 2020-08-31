@@ -8,8 +8,8 @@ Convert a UVFITS file to a CASA visibility data set
 
 Parameters
    - **fitsfile** (string) - Name of input UV FITS file
-   - **vis** (string) - Name of output visibility file (MS)
-   - **antnamescheme** (string) - VLA/EVLA/CARMA only; \'new\' or \'old\'; \'VA04\' or \'04\' for VLA ant 4
+   - **vis** (string='') - Name of output visibility file (MS)
+   - **antnamescheme** (string='old') - VLA/EVLA/CARMA only; \'new\' or \'old\'; \'VA04\' or \'04\' for VLA ant 4
 
 
 Description

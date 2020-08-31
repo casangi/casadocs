@@ -8,7 +8,7 @@ Subtract/add model from/to the corrected visibility data.
 
 Parameters
    - **vis** (string) - Name of input visibility file (MS)
-   - **reverse** (bool) - reverse the operation (add rather than subtract)
+   - **reverse** (bool=False) - reverse the operation (add rather than subtract)
 
 
 Description

@@ -8,13 +8,13 @@ Plot the antenna distribution in the local reference frame:
 
 Parameters
    - **vis** (string) - Name of input visibility file (MS)
-   - **figfile** (string) - Save the plotted figure to this file
-   - **antindex** (bool) - Label antennas with name and antenna ID
-   - **logpos** (bool) - Whether to plot logarithmic positions
-   - **exclude** (string) - Antenna name/id selection to exclude from plot
-   - **checkbaselines** (bool) - Whether to check baselines in the main table.
-   - **title** (string) - Title for the plot
-   - **showgui** (bool) - Show plot on gui.
+   - **figfile** (string='') - Save the plotted figure to this file
+   - **antindex** (bool=False) - Label antennas with name and antenna ID
+   - **logpos** (bool=False) - Whether to plot logarithmic positions
+   - **exclude** (string='') - Antenna name/id selection to exclude from plot
+   - **checkbaselines** (bool=False) - Whether to check baselines in the main table.
+   - **title** (string='') - Title for the plot
+   - **showgui** (bool=True) - Show plot on gui.
 
 
 Description

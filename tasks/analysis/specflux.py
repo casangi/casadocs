@@ -8,37 +8,16 @@ Report spectral profile and calculate spectral flux over a user specified region
 
 Parameters
    - **imagename** (string) - Name of the input image
-   - **region** (variant) - Region selection. Default is to use the full image.
-   - **box** (string) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
-   - **chans** (string) - Channels to use. Default is to use all channels.
-   - **stokes** (string) - Stokes planes to use. Default is to use all Stokes planes.
-   - **mask** (string) - Mask to use. Default is none.
-   - **function** (string) - Aggregate function to use for computing per channel values. Supported values are "flux density", "mean", "median", "sum". Minimal match supported.
-   - **unit** (string) - Unit to use for the spectral flux calculation. Must be conformant with a typical spectral axis unit.
-   - **major** (variant) - Major axis of overriding restoring beam. If specified, must be a valid quantity.
-   - **minor** (variant) - Minor axis of overriding restoring beam. If specified, must be a valid quantity
-   - **logfile** (string) - File which to write details. Default is to not write to a file.
-
-Subparameters
-   .. raw:: html
-
-      <details><summary><i> logfile != '' </i></summary>
-
-   - **overwrite** (bool=False) - Overwrite exisitng ouput file if it exists?
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mask != '' </i></summary>
-
-   - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
-
-   .. raw:: html
-
-      </details>
+   - **region** (variant='') - Region selection. Default is to use the full image.
+   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **chans** (string='') - Channels to use. Default is to use all channels.
+   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes.
+   - **mask** (string='') - Mask to use. Default is none.
+   - **function** (string='flux density') - Aggregate function to use for computing per channel values. Supported values are "flux density", "mean", "median", "sum". Minimal match supported.
+   - **unit** (string='km/s') - Unit to use for the spectral flux calculation. Must be conformant with a typical spectral axis unit.
+   - **major** (variant='') - Major axis of overriding restoring beam. If specified, must be a valid quantity.
+   - **minor** (variant='') - Minor axis of overriding restoring beam. If specified, must be a valid quantity
+   - **logfile** (string='') - File which to write details. Default is to not write to a file.
 
 
 Description

@@ -8,15 +8,15 @@ View an image or visibility data set
 
 Parameters
    - **infile** (string) -  (Optional)  Name of file to visualize.
-   - **displaytype** (string) -  (Optional)  Type of visual rendering (raster, contour, vector or marker).  lel  if an lel expression is given for infile  (advanced).
-   - **channel** (int) -  (Optional)  access a specific channel in the image cube
-   - **zoom** (int) -  (Optional)  zoom in/out by increments
-   - **outfile** (string) -  (Optional)  name of the output file to generate
-   - **outscale** (double) -  (Optional)  amount to scale output bitmap formats (non-PS, non-PDF)
-   - **outdpi** (int) -  (Optional)  output DPI for PS/PDF
-   - **outformat** (string) -  (Optional)  format of the output e.g. jpg or pdf (this is overridden by the output files extension
-   - **outlandscape** (bool) -  (Optional)  should the output mode be landscape (PS or PDF)
-   - **gui** (bool) -  (Optional)  Display the panel in a GUI.
+   - **displaytype** (string='raster') -  (Optional)  Type of visual rendering (raster, contour, vector or marker).  lel  if an lel expression is given for infile  (advanced).
+   - **channel** (int=0) -  (Optional)  access a specific channel in the image cube
+   - **zoom** (int=1) -  (Optional)  zoom in/out by increments
+   - **outfile** (string='') -  (Optional)  name of the output file to generate
+   - **outscale** (double=1.0) -  (Optional)  amount to scale output bitmap formats (non-PS, non-PDF)
+   - **outdpi** (int=300) -  (Optional)  output DPI for PS/PDF
+   - **outformat** (string='jpg') -  (Optional)  format of the output e.g. jpg or pdf (this is overridden by the output files extension
+   - **outlandscape** (bool=False) -  (Optional)  should the output mode be landscape (PS or PDF)
+   - **gui** (bool=True) -  (Optional)  Display the panel in a GUI.
 
 
 Description

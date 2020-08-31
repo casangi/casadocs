@@ -8,37 +8,36 @@ Calculate a baseline-based calibration solution (gain or bandpass)
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **caltable** (string) - Name of output gain calibration table
-   - **field** (string) - Select field using field id(s) or field name(s)
-   - **spw** (string) - Select spectral window/channels
-   - **intent** (string) - Select observing intent
-   - **selectdata** (bool) - Other data selection parameters
-   - **solint** (variant) - Solution interval
-   - **combine** (string) - Data axes which to combine for solve (obs, scan, spw, and/or field)
-   - **freqdep** (bool) - Solve for frequency dependent solutions
-   - **calmode** (string) - Type of solution" (\'ap\', \'p\', \'a\')
-   - **solnorm** (bool) - Normalize average solution amplitudes to 1.0
-   - **gaintable** (stringArray) - Gain calibration table(s) to apply on the fly
-   - **gainfield** (stringArray) - Select a subset of calibrators from gaintable(s)
-   - **interp** (stringArray) - Interpolation parameters for each gaintable, as a list
-   - **spwmap** (intArray) - Spectral window mappings to form for gaintable(s)
-   - **parang** (bool) - Apply parallactic angle correction
+   - **caltable** (string='') - Name of output gain calibration table
+   - **field** (string='') - Select field using field id(s) or field name(s)
+   - **spw** (string='') - Select spectral window/channels
+   - **intent** (string='') - Select observing intent
+   - **selectdata** (bool=True) - Other data selection parameters
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> selectdata = True </i></summary>
+         <details><summary><i> selectdata = True </i></summary>
 
-   - **timerange** (string='') - Select data based on time range
-   - **uvrange** (variant='') - Select data by baseline length.
-   - **antenna** (string='') - Select data based on antenna/baseline
-   - **scan** (string='') - Scan number range
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **msselect** (string='') - Optional complex data selection (ignore for now)
+      - **timerange** (string='') - Select data based on time range
+      - **uvrange** (variant='') - Select data by baseline length.
+      - **antenna** (string='') - Select data based on antenna/baseline
+      - **scan** (string='') - Scan number range
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **msselect** (string='') - Optional complex data selection (ignore for now)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **solint** (variant='inf') - Solution interval
+   - **combine** (string='scan') - Data axes which to combine for solve (obs, scan, spw, and/or field)
+   - **freqdep** (bool=False) - Solve for frequency dependent solutions
+   - **calmode** (string='ap') - Type of solution" (\'ap\', \'p\', \'a\')
+   - **solnorm** (bool=False) - Normalize average solution amplitudes to 1.0
+   - **gaintable** (stringArray=['']) - Gain calibration table(s) to apply on the fly
+   - **gainfield** (stringArray=['']) - Select a subset of calibrators from gaintable(s)
+   - **interp** (stringArray=['']) - Interpolation parameters for each gaintable, as a list
+   - **spwmap** (intArray=['']) - Spectral window mappings to form for gaintable(s)
+   - **parang** (bool=False) - Apply parallactic angle correction
 
 
 Description

@@ -8,10 +8,10 @@ Convert a FITS-IDI file to a CASA visibility data set
 
 Parameters
    - **fitsidifile** (stringArray) - Name(s) of input FITS-IDI file(s)
-   - **vis** (string) - Name of output visibility file
-   - **constobsid** (bool) - If True, give constant obs ID==0 to the data from all input fitsidi files (False = separate obs id for each file)
-   - **scanreindexgap_s** (double) - Min time gap (seconds) between integrations to start a new scan
-   - **specframe** (string) - Spectral reference frame for all spectral windows in the output MS
+   - **vis** (string='') - Name of output visibility file
+   - **constobsid** (bool=False) - If True, give constant obs ID==0 to the data from all input fitsidi files (False = separate obs id for each file)
+   - **scanreindexgap_s** (double=0.) - Min time gap (seconds) between integrations to start a new scan
+   - **specframe** (string='GEO') - Spectral reference frame for all spectral windows in the output MS
 
 
 Description

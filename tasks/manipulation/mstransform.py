@@ -8,211 +8,158 @@ Split the MS, combine/separate/regrid spws and do channel and time averaging
 
 Parameters
    - **vis** (string) - Name of input Measurement set or Multi-MS.
-   - **outputvis** (string) - Name of output Measurement Set or Multi-MS.
-   - **createmms** (bool) - Create a multi-MS output from an input MS.
-   - **tileshape** (intArray) - List with 1 or 3 elements giving the tile shape of the disk data columns.
-   - **field** (string, stringArray, int, intArray) - Select field using ID(s) or name(s).
-   - **spw** (string, stringArray, int, intArray) - Select spectral window/channels.
-   - **scan** (string, stringArray, int, intArray) - Select data by scan numbers.
-   - **antenna** (string, stringArray, int, intArray) - Select data based on antenna/baseline.
-   - **correlation** (string, stringArray) - Correlation: '' ==> all, correlation="XX,YY".
-   - **timerange** (string, stringArray, int, intArray) - Select data by time range.
-   - **intent** (string, stringArray, int, intArray) - Select data by scan intent.
-   - **array** (string, stringArray, int, intArray) - Select (sub)array(s) by array ID number.
-   - **uvrange** (string, stringArray, int, intArray) - Select data by baseline length.
-   - **observation** (string, stringArray, int, intArray) - Select by observation ID(s).
-   - **feed** (string, stringArray, int, intArray) - Multi-feed numbers: Not yet implemented.
-   - **datacolumn** (string) - Which data column(s) to process.
-   - **keepflags** (bool) - Keep *completely flagged rows* or drop them from the output.
-   - **usewtspectrum** (bool) - Force creation of the columns WEIGHT_SPECTRUM and SIGMA_SPECTRUM in the output MS, even if not present in the input MS.
-   - **combinespws** (bool) - Combine the input spws into a new output spw. Only supported when the number of channels is the same for all the spws.
-   - **chanaverage** (bool) - Average data in channels.
-   - **hanning** (bool) - Hanning smooth data to remove Gibbs ringing.
-   - **regridms** (bool) - Transform channel labels and visibilities to a different spectral reference frame. Notice that u,v,w data is not transformed. 
-   - **preaverage** (bool) - Pre-average channels before regridding, when the ratio between the output and and input widths is greater than 2.
-   - **timeaverage** (bool) - Average data in time.
-   - **docallib** (bool) - Enable on-the-fly (OTF) calibration as in task applycal
-   - **douvcontsub** (bool) - Enable continuum subtraction as in task uvcontsub
+   - **outputvis** (string='') - Name of output Measurement Set or Multi-MS.
+   - **createmms** (bool=False) - Create a multi-MS output from an input MS.
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> createmms = False </i></summary>
+         <details><summary><i> createmms = False </i></summary>
 
-   - **separationaxis** (string=auto) - Axis to do parallelization across(scan,spw,auto,baseline).
-   - **numsubms** (string=auto, int) - The number of Sub-MSs to create (auto or any number)
-   - **disableparallel** (bool=False) - Hidden parameter for internal use only. Do not change it!
-   - **ddistart** (int=-1) - Hidden parameter for internal use only. Do not change it!
-   - **taql** (string='') - Table query for nested selections
-   - **reindex** (bool=True) - Hidden parameter for use in the pipeline context only
+      - **separationaxis** (string='auto') - Axis to do parallelization across(scan,spw,auto,baseline).
+      - **numsubms** ({string, int}='auto') - The number of Sub-MSs to create (auto or any number)
+      - **disableparallel** (bool=False) - Hidden parameter for internal use only. Do not change it!
+      - **ddistart** (int=-1) - Hidden parameter for internal use only. Do not change it!
+      - **taql** (string='') - Table query for nested selections
+      - **reindex** (bool=True) - Hidden parameter for use in the pipeline context only
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> createmms = True </i></summary>
+         <details><summary><i> createmms = True </i></summary>
 
-   - **separationaxis** (string=auto) - Axis to do parallelization across(scan,spw,auto,baseline).
-   - **numsubms** (string=auto, int) - The number of Sub-MSs to create (auto or any number)
-   - **disableparallel** (bool=False) - Hidden parameter for internal use only. Do not change it!
-   - **ddistart** (int=-1) - Hidden parameter for internal use only. Do not change it!
-   - **taql** (string='') - Table query for nested selections
-   - **reindex** (bool=True) - Hidden parameter for use in the pipeline context only
+      - **separationaxis** (string='auto') - Axis to do parallelization across(scan,spw,auto,baseline).
+      - **numsubms** ({string, int}='auto') - The number of Sub-MSs to create (auto or any number)
+      - **disableparallel** (bool=False) - Hidden parameter for internal use only. Do not change it!
+      - **ddistart** (int=-1) - Hidden parameter for internal use only. Do not change it!
+      - **taql** (string='') - Table query for nested selections
+      - **reindex** (bool=True) - Hidden parameter for use in the pipeline context only
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **tileshape** (intArray=[0]) - List with 1 or 3 elements giving the tile shape of the disk data columns.
+   - **field** ({string, stringArray, int, intArray}='') - Select field using ID(s) or name(s).
+   - **spw** ({string, stringArray, int, intArray}='') - Select spectral window/channels.
+   - **scan** ({string, stringArray, int, intArray}='') - Select data by scan numbers.
+   - **antenna** ({string, stringArray, int, intArray}='') - Select data based on antenna/baseline.
+   - **correlation** ({string, stringArray}='') - Correlation: '' ==> all, correlation="XX,YY".
+   - **timerange** ({string, stringArray, int, intArray}='') - Select data by time range.
+   - **intent** ({string, stringArray, int, intArray}='') - Select data by scan intent.
+   - **array** ({string, stringArray, int, intArray}='') - Select (sub)array(s) by array ID number.
+   - **uvrange** ({string, stringArray, int, intArray}='') - Select data by baseline length.
+   - **observation** ({string, stringArray, int, intArray}='') - Select by observation ID(s).
+   - **feed** ({string, stringArray, int, intArray}='') - Multi-feed numbers: Not yet implemented.
+   - **datacolumn** (string='corrected') - Which data column(s) to process.
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> datacolumn = model </i></summary>
+         <details><summary><i> datacolumn = model </i></summary>
 
-   - **realmodelcol** (bool=False) - Make real a virtual MODEL column.
+      - **realmodelcol** (bool=False) - Make real a virtual MODEL column.
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> datacolumn = all </i></summary>
+         <details><summary><i> datacolumn = all </i></summary>
 
-   - **realmodelcol** (bool=False) - Make real a virtual MODEL column.
+      - **realmodelcol** (bool=False) - Make real a virtual MODEL column.
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> datacolumn = data,model,corrected </i></summary>
+         <details><summary><i> datacolumn = data,model,corrected </i></summary>
 
-   - **realmodelcol** (bool=False) - Make real a virtual MODEL column.
+      - **realmodelcol** (bool=False) - Make real a virtual MODEL column.
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **keepflags** (bool=True) - Keep *completely flagged rows* or drop them from the output.
+   - **usewtspectrum** (bool=False) - Force creation of the columns WEIGHT_SPECTRUM and SIGMA_SPECTRUM in the output MS, even if not present in the input MS.
+   - **combinespws** (bool=False) - Combine the input spws into a new output spw. Only supported when the number of channels is the same for all the spws.
+   - **chanaverage** (bool=False) - Average data in channels.
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> chanaverage = True </i></summary>
+         <details><summary><i> chanaverage = True </i></summary>
 
-   - **chanbin** (int=1, intArray) - Width (bin) of input channels to average to form an output channel.
+      - **chanbin** ({int, intArray}=1) - Width (bin) of input channels to average to form an output channel.
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **hanning** (bool=False) - Hanning smooth data to remove Gibbs ringing.
+   - **regridms** (bool=False) - Transform channel labels and visibilities to a different spectral reference frame. Notice that u,v,w data is not transformed. 
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> regridms = True </i></summary>
+         <details><summary><i> regridms = True </i></summary>
 
-   - **mode** (string=channel) - Regridding mode (channel/velocity/frequency/channel_b).
-   - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
-   - **start** (variant=0) - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
-   - **width** (variant=1) - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
-   - **nspw** (int=1) - Number of output spws to create in output MS.
-   - **interpolation** (string=linear) - Spectral interpolation method.
-   - **phasecenter** (variant='') - Phase center direction to be used for the spectral coordinate transformation: direction measure or field index
-   - **restfreq** (string='') - Rest frequency to use for output.
-   - **outframe** (string='') - Output reference frame (''=keep input frame).
-   - **veltype** (string=radio) - Velocity definition.
+      - **mode** (string='channel') - Regridding mode (channel/velocity/frequency/channel_b).
+      - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
+      - **start** (variant='0') - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
+      - **width** (variant='1') - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
+      - **nspw** (int=1) - Number of output spws to create in output MS.
+      - **interpolation** (string='linear') - Spectral interpolation method.
+      - **phasecenter** (variant='') - Phase center direction to be used for the spectral coordinate transformation: direction measure or field index
+      - **restfreq** (string='') - Rest frequency to use for output.
+      - **outframe** (string='') - Output reference frame (''=keep input frame).
+      - **veltype** (string='radio') - Velocity definition.
+      - **preaverage** (bool=False) - Pre-average channels before regridding, when the ratio between the output and and input widths is greater than 2.
+
+      .. raw:: html
+
+         </details>
    - **preaverage** (bool=False) - Pre-average channels before regridding, when the ratio between the output and and input widths is greater than 2.
+   - **timeaverage** (bool=False) - Average data in time.
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         <details><summary><i> timeaverage = True </i></summary>
 
-   .. raw:: html
+      - **timebin** (string='0s') - Bin width for time averaging.
+      - **timespan** ({string, stringArray}='') - Span the timebin across scan, state or both.
+      - **maxuvwdistance** (double=0.0) - Maximum separation of start-to-end baselines that can be included in an average. (meters)
 
-      <details><summary><i> timeaverage = True </i></summary>
+      .. raw:: html
 
-   - **timebin** (string=0s) - Bin width for time averaging.
-   - **timespan** (string='', stringArray) - Span the timebin across scan, state or both.
-   - **maxuvwdistance** (double=0.0) - Maximum separation of start-to-end baselines that can be included in an average. (meters)
+         </details>
+   - **docallib** (bool=False) - Enable on-the-fly (OTF) calibration as in task applycal
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         <details><summary><i> docallib = True </i></summary>
 
-   .. raw:: html
+      - **callib** (string='') - Path to calibration library file
 
-      <details><summary><i> docallib = True </i></summary>
+      .. raw:: html
 
-   - **callib** (string='') - Path to calibration library file
+         </details>
+   - **douvcontsub** (bool=False) - Enable continuum subtraction as in task uvcontsub
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         <details><summary><i> douvcontsub = True </i></summary>
 
-   .. raw:: html
+      - **fitspw** (string='') - Spectral window:channel selection for fitting the continuum
+      - **fitorder** (int=0) - Polynomial order for the fits
+      - **want_cont** (bool=False) - Produce continuum estimate instead of continuum subtracted data
+      - **denoising_lib** (bool=True) - Use new denoising library (based on GSL) instead of casacore fitting routines
+      - **nthreads** (int=1) - Number of OMP threads to use (currently maximum limited by number of polarizations)
+      - **niter** (int=1) - Number of iterations for re-weighted linear fit
 
-      <details><summary><i> douvcontsub = True </i></summary>
+      .. raw:: html
 
-   - **fitspw** (string='') - Spectral window:channel selection for fitting the continuum
-   - **fitorder** (int=0) - Polynomial order for the fits
-   - **want_cont** (bool=False) - Produce continuum estimate instead of continuum subtracted data
-   - **denoising_lib** (bool=True) - Use new denoising library (based on GSL) instead of casacore fitting routines
-   - **nthreads** (int=1) - Number of OMP threads to use (currently maximum limited by number of polarizations)
-   - **niter** (int=1) - Number of iterations for re-weighted linear fit
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = channel </i></summary>
-
-   - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
-   - **start** (variant=0) - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
-   - **width** (variant=1) - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
-   - **interpolation** (string=linear) - Spectral interpolation method.
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = channel_b </i></summary>
-
-   - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
-   - **start** (variant=0) - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
-   - **width** (variant=1) - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
-   - **interpolation** (string=linear) - Spectral interpolation method.
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = velocity </i></summary>
-
-   - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
-   - **start** (variant='') - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
-   - **width** (variant='') - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
-   - **interpolation** (string=linear) - Spectral interpolation method.
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = frequency </i></summary>
-
-   - **nchan** (int=-1) - Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
-   - **start** (variant='') - Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
-   - **width** (variant='') - Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
-   - **interpolation** (string=linear) - Spectral interpolation method.
-
-   .. raw:: html
-
-      </details>
+         </details>
 
 
 Description

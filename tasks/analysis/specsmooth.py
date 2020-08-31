@@ -8,46 +8,15 @@ Smooth an image region in one dimension
 
 Parameters
    - **imagename** (string) - Name of the input image
-   - **outfile** (string) - Output image name.
-   - **box** (string) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
-   - **chans** (string) - Channels to use. Channels must be contiguous. Default is to use all channels.
-   - **stokes** (string) - Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
-   - **region** (variant) - Region selection. Default is to use the full image.
-   - **mask** (string) - Mask to use. Default is none..
-   - **axis** (int) - The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
-   - **function** (string) - Convolution function. hanning and boxcar are supported functions. Minimum match is supported.
-   - **dmethod** (string) - Decimation method. "" means no decimation, "copy" and "mean" are also supported (minimum match).
-
-Subparameters
-   .. raw:: html
-
-      <details><summary><i> outfile != '' </i></summary>
-
-   - **overwrite** (bool=False) - Overwrite the output if it exists?
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mask != '' </i></summary>
-
-   - **stretch** (bool=False) - Stretch the mask if necessary and possible? Default False
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> function != hanning </i></summary>
-
-   - **width** (int=2) - Width of boxcar, in pixels.
-
-   .. raw:: html
-
-      </details>
+   - **outfile** (string='') - Output image name.
+   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **chans** (string='') - Channels to use. Channels must be contiguous. Default is to use all channels.
+   - **stokes** (string='') - Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
+   - **region** (variant='') - Region selection. Default is to use the full image.
+   - **mask** (string='') - Mask to use. Default is none..
+   - **axis** (int=-1) - The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
+   - **function** (string='boxcar') - Convolution function. hanning and boxcar are supported functions. Minimum match is supported.
+   - **dmethod** (string='copy') - Decimation method. "" means no decimation, "copy" and "mean" are also supported (minimum match).
 
 
 Description

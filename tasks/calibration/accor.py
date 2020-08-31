@@ -8,53 +8,52 @@ Normalize visibilities based on auto-correlations
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **caltable** (string) - Name of output gain calibration table
-   - **field** (string) - Select field using field id(s) or field name(s)
-   - **spw** (string) - Select spectral window/channels
-   - **intent** (string) - Select observing intent
-   - **selectdata** (bool) - Other data selection parameters
-   - **solint** (variant) - Solution interval: egs. \'inf\', \'60s\' (see help)
-   - **combine** (string) - Data axes which to combine for solve (obs, scan, spw, and/or field)
-   - **append** (bool) - Append solutions to the (existing) table
-   - **docallib** (bool) - Use callib or traditional cal apply parameters
+   - **caltable** (string='') - Name of output gain calibration table
+   - **field** (string='') - Select field using field id(s) or field name(s)
+   - **spw** (string='') - Select spectral window/channels
+   - **intent** (string='') - Select observing intent
+   - **selectdata** (bool=True) - Other data selection parameters
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> selectdata = True </i></summary>
+         <details><summary><i> selectdata = True </i></summary>
 
-   - **timerange** (string='') - Select data based on time range
-   - **antenna** (string='') - Select data based on antenna/baseline
-   - **scan** (string='') - Scan number range
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **msselect** (string='') - Optional complex data selection (ignore for now)
+      - **timerange** (string='') - Select data based on time range
+      - **antenna** (string='') - Select data based on antenna/baseline
+      - **scan** (string='') - Scan number range
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **msselect** (string='') - Optional complex data selection (ignore for now)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **solint** (variant='inf') - Solution interval: egs. \'inf\', \'60s\' (see help)
+   - **combine** (string='') - Data axes which to combine for solve (obs, scan, spw, and/or field)
+   - **append** (bool=False) - Append solutions to the (existing) table
+   - **docallib** (bool=False) - Use callib or traditional cal apply parameters
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> docallib = False </i></summary>
+         <details><summary><i> docallib = False </i></summary>
 
-   - **gaintable** (stringArray='') - Gain calibration table(s) to apply on the fly
-   - **gainfield** (stringArray='') - Select a subset of calibrators from gaintable(s)
-   - **interp** (stringArray='') - Interpolation parameters for each gaintable, as a list
-   - **spwmap** (intArray='') - Spectral windows combinations to form for gaintables(s)
+      - **gaintable** (stringArray=['']) - Gain calibration table(s) to apply on the fly
+      - **gainfield** (stringArray=['']) - Select a subset of calibrators from gaintable(s)
+      - **interp** (stringArray=['']) - Interpolation parameters for each gaintable, as a list
+      - **spwmap** (intArray=['']) - Spectral windows combinations to form for gaintables(s)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> docallib = True </i></summary>
+         <details><summary><i> docallib = True </i></summary>
 
-   - **callib** (string='') - Cal Library filename
+      - **callib** (string='') - Cal Library filename
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
 
 Description

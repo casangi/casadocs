@@ -8,11 +8,11 @@ Changes FIELD and SOURCE table entries based on user-provided direction or POINT
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **field** (variant) - Select field using field id(s) or field name(s)
-   - **fixuvw** (bool) - Recalculate Fourier-plane u,v,w coordinates
-   - **direction** (variant) - If set, do not use pointing table but set direction to this value
-   - **refant** (variant) - Reference antenna name(s)
-   - **reftime** (string) - If using pointing table information, use it from this timestamp
+   - **field** (variant='""') - Select field using field id(s) or field name(s)
+   - **fixuvw** (bool=False) - Recalculate Fourier-plane u,v,w coordinates
+   - **direction** (variant='') - If set, do not use pointing table but set direction to this value
+   - **refant** (variant='0') - Reference antenna name(s)
+   - **reftime** (string='first') - If using pointing table information, use it from this timestamp
 
 
 Description

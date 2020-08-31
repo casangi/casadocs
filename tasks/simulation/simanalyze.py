@@ -7,66 +7,65 @@ def simanalyze(project='sim', image=True, imagename='default', skymodel='', vis=
 image and analyze measurement sets created with simobserve
 
 Parameters
-   - **project** (string) - root prefix for output file names
-   - **image** (bool) - (re)image $project.*.ms to $project.image
-   - **analyze** (bool) - create analytical images
-   - **graphics** (string) - where to display graphics at each stage
-   - **verbose** (bool) - report task activity
-   - **overwrite** (bool) - overwrite files starting with $project
-   - **dryrun** (bool) - only print information
-   - **logfile** (string) - user-defined log file
+   - **project** (string='sim') - root prefix for output file names
+   - **image** (bool=True) - (re)image $project.*.ms to $project.image
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> image = True </i></summary>
+         <details><summary><i> image = True </i></summary>
 
-   - **vis** (string=default) - Measurement Set(s) to image
-   - **modelimage** (string='') - image to use as clean prior
-   - **imsize** (intArray=0) - output image size in pixel units
-   - **imdirection** (string='') - set output image direction
-   - **cell** (string='') - cell size with units
-   - **interactive** (bool=False) - call tclean in interactive mode
-   - **niter** (int=0) - maximum number of iterations
-   - **threshold** (string=0.1mJy) - target flux level and units
-   - **weighting** (string=natural) - control image weighting method
-   - **mask** (variant='') - Cleanbox(es), mask image(s), region(s), or a level
-   - **outertaper** (stringArray='') - uv-taper on outer baselines in uv-plane
-   - **pbcor** (bool=True) - correct synthesis images for primary beam response?
-   - **stokes** (string=I) - Stokes parameterss to image
-   - **featherimage** (string='') - image to feather with new image
+      - **vis** (string='default') - Measurement Set(s) to image
+      - **modelimage** (string='') - image to use as clean prior
+      - **imsize** (intArray=[0, 0]) - output image size in pixel units
+      - **imdirection** (string='') - set output image direction
+      - **cell** (string='') - cell size with units
+      - **interactive** (bool=False) - call tclean in interactive mode
+      - **niter** (int=0) - maximum number of iterations
+      - **threshold** (string='0.1mJy') - target flux level and units
+      - **weighting** (string='natural') - control image weighting method
+      - **mask** (variant='') - Cleanbox(es), mask image(s), region(s), or a level
+      - **outertaper** (stringArray=['']) - uv-taper on outer baselines in uv-plane
+      - **pbcor** (bool=True) - correct synthesis images for primary beam response?
+      - **stokes** (string='I') - Stokes parameterss to image
+      - **featherimage** (string='') - image to feather with new image
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> image = False </i></summary>
+         <details><summary><i> image = False </i></summary>
 
-   - **imagename** (string=default) - simulation output image to analyze
-   - **skymodel** (string='') - skymodel image to analyze
+      - **imagename** (string='default') - simulation output image to analyze
+      - **skymodel** (string='') - skymodel image to analyze
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **analyze** (bool=False) - create analytical images
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> analyze = True </i></summary>
+         <details><summary><i> analyze = True </i></summary>
 
-   - **showuv** (bool=True) - display uv coverage
-   - **showpsf** (bool=True) - display synthesized beam
-   - **showmodel** (bool=True) - display sky model at original resolution
-   - **showconvolved** (bool=False) - display sky model convolved with output clean beam
-   - **showclean** (bool=True) - display the synthesized image
-   - **showresidual** (bool=False) - display the clean residual image
-   - **showdifference** (bool=True) - display difference between cleaned output and convolved model input
-   - **showfidelity** (bool=True) - display fidelity image
+      - **showuv** (bool=True) - display uv coverage
+      - **showpsf** (bool=True) - display synthesized beam
+      - **showmodel** (bool=True) - display sky model at original resolution
+      - **showconvolved** (bool=False) - display sky model convolved with output clean beam
+      - **showclean** (bool=True) - display the synthesized image
+      - **showresidual** (bool=False) - display the clean residual image
+      - **showdifference** (bool=True) - display difference between cleaned output and convolved model input
+      - **showfidelity** (bool=True) - display fidelity image
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **graphics** (string='both') - where to display graphics at each stage
+   - **verbose** (bool=False) - report task activity
+   - **overwrite** (bool=True) - overwrite files starting with $project
+   - **dryrun** (bool=False) - only print information
+   - **logfile** (string='') - user-defined log file
 
 
 Description

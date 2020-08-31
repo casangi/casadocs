@@ -8,98 +8,97 @@ Flagging task based on batches of flag-commands
 
 Parameters
    - **vis** (string) - Name of MS file or calibration table to flag
-   - **inpmode** (string) - Input mode for flag commands(table/list/xml)
-   - **action** (string) - Action to perform in MS and/or in inpfile (apply/unapply/list/plot/clear/extract)
-   - **savepars** (bool) - Save flag commands to the MS or file
+   - **inpmode** (string='table') - Input mode for flag commands(table/list/xml)
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> inpmode = table </i></summary>
+         <details><summary><i> inpmode = table </i></summary>
 
-   - **inpfile** (string='', stringArray) - Source of flag commands
-   - **tablerows** (intArray='') - Rows of inpfile to read
-   - **reason** (string=any, stringArray) - Select by REASON types
-   - **useapplied** (bool=False) - Select commands whose rows have APPLIED column set to True
+      - **inpfile** ({string, stringArray}='') - Source of flag commands
+      - **tablerows** (intArray=['']) - Rows of inpfile to read
+      - **reason** ({string, stringArray}='any') - Select by REASON types
+      - **useapplied** (bool=False) - Select commands whose rows have APPLIED column set to True
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> inpmode = list </i></summary>
+         <details><summary><i> inpmode = list </i></summary>
 
-   - **inpfile** (string='', stringArray) - Source of flag commands
-   - **reason** (string=any, stringArray) - Select by REASON types
+      - **inpfile** ({string, stringArray}='') - Source of flag commands
+      - **reason** ({string, stringArray}='any') - Select by REASON types
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> inpmode = xml </i></summary>
+         <details><summary><i> inpmode = xml </i></summary>
 
-   - **tbuff** (double=0.0) - Time buffer (sec) to pad flags
-   - **ants** (string='') - Allowed flag antenna names to select by
-   - **reason** (string=any, stringArray) - Select by REASON types
+      - **tbuff** (double=0.0) - Time buffer (sec) to pad flags
+      - **ants** (string='') - Allowed flag antenna names to select by
+      - **reason** ({string, stringArray}='any') - Select by REASON types
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **action** (string='apply') - Action to perform in MS and/or in inpfile (apply/unapply/list/plot/clear/extract)
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> action = apply </i></summary>
+         <details><summary><i> action = apply </i></summary>
 
-   - **flagbackup** (bool=True) - Automatically backup the FLAG column before execution
+      - **flagbackup** (bool=True) - Automatically backup the FLAG column before execution
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> action = unapply </i></summary>
+         <details><summary><i> action = unapply </i></summary>
 
-   - **flagbackup** (bool=True) - Automatically backup the FLAG column before execution
+      - **flagbackup** (bool=True) - Automatically backup the FLAG column before execution
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> action = plot </i></summary>
+         <details><summary><i> action = plot </i></summary>
 
-   - **plotfile** (string='') - Name of output file to save plot
+      - **plotfile** (string='') - Name of output file to save plot
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> action = clear </i></summary>
+         <details><summary><i> action = clear </i></summary>
 
-   - **clearall** (bool=False) - Delete all rows from FLAG_CMD
-   - **rowlist** (intArray='') - FLAG_CMD rows to clear
+      - **clearall** (bool=False) - Delete all rows from FLAG_CMD
+      - **rowlist** (intArray=['']) - FLAG_CMD rows to clear
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **savepars** (bool=False) - Save flag commands to the MS or file
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> savepars = True </i></summary>
+         <details><summary><i> savepars = True </i></summary>
 
-   - **outfile** (string='') - Name of output file to save commands
-   - **overwrite** (bool=True) - Overwrite an existing file to save the flag commands
+      - **outfile** (string='') - Name of output file to save commands
+      - **overwrite** (bool=True) - Overwrite an existing file to save the flag commands
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
 
 Description

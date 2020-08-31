@@ -8,35 +8,34 @@ Initializes weight information in the MS
 
 Parameters
    - **vis** (string) - Name of input visibility file (MS)
-   - **wtmode** (string) - Initialization mode
-   - **dowtsp** (bool) - Initialize the WEIGHT_SPECTRUM column
+   - **wtmode** (string='nyq') - Initialization mode
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> wtmode = tsys </i></summary>
+         <details><summary><i> wtmode = tsys </i></summary>
 
-   - **tsystable** (string='') - Tsys calibration table to apply on the fly
-   - **gainfield** (string='') - Select a subset of calibrators from Tsys table
-   - **interp** (string='') - Interpolation type in time[,freq]. default==\'linear,linear\'
-   - **spwmap** (intArray='') - Spectral windows combinations to form for gaintable(s)
+      - **tsystable** (string='') - Tsys calibration table to apply on the fly
+      - **gainfield** (string='') - Select a subset of calibrators from Tsys table
+      - **interp** (string='') - Interpolation type in time[,freq]. default==\'linear,linear\'
+      - **spwmap** (intArray=['']) - Spectral windows combinations to form for gaintable(s)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> wtmode = tinttsys </i></summary>
+         <details><summary><i> wtmode = tinttsys </i></summary>
 
-   - **tsystable** (string='') - Tsys calibration table to apply on the fly
-   - **gainfield** (string='') - Select a subset of calibrators from Tsys table
-   - **interp** (string='') - Interpolation type in time[,freq]. default==\'linear,linear\'
-   - **spwmap** (intArray='') - Spectral windows combinations to form for gaintable(s)
+      - **tsystable** (string='') - Tsys calibration table to apply on the fly
+      - **gainfield** (string='') - Select a subset of calibrators from Tsys table
+      - **interp** (string='') - Interpolation type in time[,freq]. default==\'linear,linear\'
+      - **spwmap** (intArray=['']) - Spectral windows combinations to form for gaintable(s)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **dowtsp** (bool=False) - Initialize the WEIGHT_SPECTRUM column
 
 
 Description

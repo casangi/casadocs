@@ -7,32 +7,15 @@ def predictcomp(objname='', standard='Butler-JPL-Horizons 2010', epoch='', minfr
 Make a component list for a known calibrator
 
 Parameters
-   - **objname** (string) - Object name
-   - **standard** (string) - Flux density standard
-   - **epoch** (string) - Epoch
-   - **minfreq** (string) - Minimum frequency
-   - **maxfreq** (string) - Maximum frequency
-   - **nfreqs** (int) - Number of frequencies
-   - **prefix** (string) - Prefix for the component list directory name.
-   - **antennalist** (string) - Plot for this configuration
-   - **symb** (string) - A matplotlib plot symbol code
-
-Subparameters
-   .. raw:: html
-
-      <details><summary><i> antennalist != '' </i></summary>
-
-   - **showplot** (bool=True) - Plot S vs |u| to the screen?
-   - **savefig** (string='') - Save a plot of S vs |u| to this filename
-   - **symb** (string=.) - A matplotlib plot symbol code
-   - **include0amp** (bool=False) - Force the amplitude axis to start at 0?
-   - **include0bl** (bool=False) - Force the baseline axis to start at 0?
-   - **blunit** (string='') - unit of the baseline axis
-   - **showbl0flux** (bool=False) - Print the zero baseline flux ?
-
-   .. raw:: html
-
-      </details>
+   - **objname** (string='') - Object name
+   - **standard** (string='Butler-JPL-Horizons 2010') - Flux density standard
+   - **epoch** (string='') - Epoch
+   - **minfreq** (string='') - Minimum frequency
+   - **maxfreq** (string='') - Maximum frequency
+   - **nfreqs** (int=2) - Number of frequencies
+   - **prefix** (string='') - Prefix for the component list directory name.
+   - **antennalist** (string='') - Plot for this configuration
+   - **symb** (string='.') - A matplotlib plot symbol code
 
 
 Description

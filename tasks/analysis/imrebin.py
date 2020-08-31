@@ -8,27 +8,16 @@ Rebin an image by the specified integer factors
 
 Parameters
    - **imagename** (string) - Name of the input image
-   - **outfile** (string) - Output image name.
-   - **factor** (intArray) - Binning factors for each axis. Use imhead or ia.summary to determine axis ordering.
-   - **region** (variant) - Region selection. Default is to use the full image.
-   - **box** (string) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
-   - **chans** (string) - Channels to use. Default is to use all channels.
-   - **stokes** (string) - Stokes planes to use. Default is to use all Stokes planes. Stokes planes cannot be rebinned.
-   - **mask** (string) - Mask to use. Default is none.
-   - **dropdeg** (bool) - Drop degenerate axes?
-   - **overwrite** (bool) - Overwrite the output if it exists? Default False
-   - **crop** (bool) - Remove pixels from the end of an axis to be rebinned if there are not enough to form an integral bin?
-
-Subparameters
-   .. raw:: html
-
-      <details><summary><i> mask != '' </i></summary>
-
-   - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
-
-   .. raw:: html
-
-      </details>
+   - **outfile** (string='') - Output image name.
+   - **factor** (intArray='') - Binning factors for each axis. Use imhead or ia.summary to determine axis ordering.
+   - **region** (variant='') - Region selection. Default is to use the full image.
+   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **chans** (string='') - Channels to use. Default is to use all channels.
+   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes. Stokes planes cannot be rebinned.
+   - **mask** (string='') - Mask to use. Default is none.
+   - **dropdeg** (bool=False) - Drop degenerate axes?
+   - **overwrite** (bool=False) - Overwrite the output if it exists? Default False
+   - **crop** (bool=True) - Remove pixels from the end of an axis to be rebinned if there are not enough to form an integral bin?
 
 
 Description

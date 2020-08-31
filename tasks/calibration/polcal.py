@@ -8,60 +8,59 @@ Determine instrumental polarization calibrations
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **caltable** (string) - Name of output gain calibration table
-   - **field** (string) - Select field using field id(s) or field name(s)
-   - **spw** (string) - Select spectral window/channels
-   - **intent** (string) - Select observing intent
-   - **selectdata** (bool) - Other data selection parameters
-   - **solint** (variant) - Solution interval
-   - **combine** (string) - Data axes which to combine for solve (obs, scan, spw, and/or field)
-   - **preavg** (double) - Pre-averaging interval (sec)
-   - **refant** (string) - Reference antenna name(s)
-   - **minblperant** (int) - Minimum baselines _per antenna_ required for solve
-   - **minsnr** (double) - Reject solutions below this SNR
-   - **poltype** (string) - Type of instrumental polarization solution (see help)
-   - **smodel** (doubleArray) - Point source Stokes parameters for source model.
-   - **append** (bool) - Append solutions to the (existing) table
-   - **docallib** (bool) - Use callib or traditional cal apply parameters
+   - **caltable** (string='') - Name of output gain calibration table
+   - **field** (string='') - Select field using field id(s) or field name(s)
+   - **spw** (string='') - Select spectral window/channels
+   - **intent** (string='') - Select observing intent
+   - **selectdata** (bool=True) - Other data selection parameters
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> selectdata = True </i></summary>
+         <details><summary><i> selectdata = True </i></summary>
 
-   - **timerange** (string='') - Select data based on time range
-   - **uvrange** (variant='') - Select data within uvrange (default units meters)
-   - **antenna** (string='') - Select data based on antenna/baseline
-   - **scan** (string='') - Scan number range
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **msselect** (string='') - Optional complex data selection (ignore for now)
+      - **timerange** (string='') - Select data based on time range
+      - **uvrange** (variant='') - Select data within uvrange (default units meters)
+      - **antenna** (string='') - Select data based on antenna/baseline
+      - **scan** (string='') - Scan number range
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **msselect** (string='') - Optional complex data selection (ignore for now)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **solint** (variant='inf') - Solution interval
+   - **combine** (string='obs,scan') - Data axes which to combine for solve (obs, scan, spw, and/or field)
+   - **preavg** (double=300.0) - Pre-averaging interval (sec)
+   - **refant** (string='') - Reference antenna name(s)
+   - **minblperant** (int=4) - Minimum baselines _per antenna_ required for solve
+   - **minsnr** (double=3.0) - Reject solutions below this SNR
+   - **poltype** (string='D+QU') - Type of instrumental polarization solution (see help)
+   - **smodel** (doubleArray=['']) - Point source Stokes parameters for source model.
+   - **append** (bool=False) - Append solutions to the (existing) table
+   - **docallib** (bool=False) - Use callib or traditional cal apply parameters
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> docallib = False </i></summary>
+         <details><summary><i> docallib = False </i></summary>
 
-   - **gaintable** (stringArray='') - Gain calibration table(s) to apply
-   - **gainfield** (stringArray='') - Select a subset of calibrators from gaintable(s)
-   - **interp** (stringArray='') - Interpolation mode (in time) to use for each gaintable
-   - **spwmap** (intArray='') - Spectral window mappings to form for gaintable(s)
+      - **gaintable** (stringArray=['']) - Gain calibration table(s) to apply
+      - **gainfield** (stringArray=['']) - Select a subset of calibrators from gaintable(s)
+      - **interp** (stringArray=['']) - Interpolation mode (in time) to use for each gaintable
+      - **spwmap** (intArray=['']) - Spectral window mappings to form for gaintable(s)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> docallib = True </i></summary>
+         <details><summary><i> docallib = True </i></summary>
 
-   - **callib** (string='') - Cal Library filename
+      - **callib** (string='') - Cal Library filename
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
 
 Description

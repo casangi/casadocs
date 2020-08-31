@@ -8,67 +8,46 @@ Construct a position-velocity image by choosing two points in the direction plan
 
 Parameters
    - **imagename** (string) - Name of the input image
-   - **outfile** (string) - Output image name. If empty, no image is written.
-   - **mode** (string) - If "coords", use start and end values. If "length", use center, length, and pa values.
-   - **width** (string, int, record) - Width of slice for averaging pixels perpendicular to the slice. Must be an odd positive integer or valid quantity. See help for details.
-   - **unit** (string) - Unit for the offset axis in the resulting image. Must be a unit of angular measure.
-   - **chans** (string) - Channels to use.  Channels must be contiguous. Default is to use all channels.
-   - **stokes** (string) - Stokes planes to use. Planes must be contiguous. Default is to use all stokes.
-   - **mask** (variant) - Mask to use. Default is none.
+   - **outfile** (string='') - Output image name. If empty, no image is written.
+   - **mode** (string='coords') - If "coords", use start and end values. If "length", use center, length, and pa values.
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> outfile != '' </i></summary>
+         <details><summary><i> mode = coords </i></summary>
 
-   - **overwrite** (bool=False) - Overwrite the output if it exists?
+      - **start** ({string, stringArray, intArray, doubleArray}='') - The starting pixel in the direction plane (array of two values).
+      - **end** ({string, stringArray, intArray, doubleArray}='') - The ending pixel in the direction plane (array of two values).
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mask != '' </i></summary>
+         <details><summary><i> mode = length </i></summary>
 
-   - **stretch** (bool=False) - Stretch the mask if necessary and possible? Default False
+      - **center** ({string, stringArray, intArray, doubleArray}='') - The center point in the direction plane (array of two values). If specified, length and pa must also be specified and neither of start nor end may be specified.
+      - **length** ({string, int, double, stringArray, record}='') - The length of the segment in the direction plane. If specified, center and pa must also be specified and neither of start nor end may be specified.
+      - **pa** ({string, record}='') - The position angle of the segment in the direction plane, measured from north through east. If specified, center and length must also be specified and neither of start nor end may be specified.
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **width** ({string, int, record}='1') - Width of slice for averaging pixels perpendicular to the slice. Must be an odd positive integer or valid quantity. See help for details.
+   - **unit** (string='arcsec') - Unit for the offset axis in the resulting image. Must be a unit of angular measure.
+   - **chans** (string='') - Channels to use.  Channels must be contiguous. Default is to use all channels.
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> chans = '' </i></summary>
+         <details><summary><i> chans = '' </i></summary>
 
-   - **region** (string="", record) - Region selection. Default is entire image. No selection is permitted in the direction plane.
+      - **region** ({string, record}='""') - Region selection. Default is entire image. No selection is permitted in the direction plane.
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = coords </i></summary>
-
-   - **start** (string="", stringArray, intArray, doubleArray) - The starting pixel in the direction plane (array of two values).
-   - **end** (string="", stringArray, intArray, doubleArray) - The ending pixel in the direction plane (array of two values).
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mode = length </i></summary>
-
-   - **center** (string="", stringArray, intArray, doubleArray) - The center point in the direction plane (array of two values). If specified, length and pa must also be specified and neither of start nor end may be specified.
-   - **length** (string="", int, double, stringArray, record) - The length of the segment in the direction plane. If specified, center and pa must also be specified and neither of start nor end may be specified.
-   - **pa** (string="", record) - The position angle of the segment in the direction plane, measured from north through east. If specified, center and length must also be specified and neither of start nor end may be specified.
-
-   .. raw:: html
-
-      </details>
+         </details>
+   - **stokes** (string='') - Stokes planes to use. Planes must be contiguous. Default is to use all stokes.
+   - **mask** (variant='') - Mask to use. Default is none.
 
 
 Description

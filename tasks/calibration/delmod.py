@@ -8,19 +8,18 @@ Deletes model representations in the MS
 
 Parameters
    - **vis** (string) - Name of input visibility file (MS)
-   - **otf** (bool) - Delete the on-the-fly model data keywords
-   - **scr** (bool) - Delete the MODEL_DATA scr col (if it exists)
+   - **otf** (bool=True) - Delete the on-the-fly model data keywords
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> otf = True </i></summary>
+         <details><summary><i> otf = True </i></summary>
 
-   - **field** (string='') - Select field using field id(s) or field name(s)
+      - **field** (string='') - Select field using field id(s) or field name(s)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **scr** (bool=False) - Delete the MODEL_DATA scr col (if it exists)
 
 
 Description

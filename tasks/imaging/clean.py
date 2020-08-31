@@ -7,245 +7,233 @@ def clean(vis, imagename='', outlierfile='', field='', spw='', selectdata=True, 
 Invert and deconvolve images with selected algorithm
 
 Parameters
-   - **vis** (string, stringArray) - 
-   - **imagename** (string, stringArray) - 
-   - **outlierfile** (string) - 
-   - **field** (string, stringArray) - 
-   - **spw** (string, stringArray) - 
-   - **selectdata** (bool) - 
-   - **mode** (string) - 
-   - **gridmode** (string) - 
-   - **niter** (int) - 
-   - **gain** (double) - 
-   - **threshold** (double) - 
-   - **psfmode** (string) - 
-   - **imagermode** (string) - 
-   - **multiscale** (intArray) - 
-   - **interactive** (bool) - 
-   - **mask** (variant) - 
-   - **imsize** (intArray) - 
-   - **cell** (doubleArray) - 
-   - **phasecenter** (variant) - 
-   - **restfreq** (string) - 
-   - **stokes** (string) - 
-   - **weighting** (string) - 
-   - **uvtaper** (bool) - 
-   - **modelimage** (variant) - 
-   - **restoringbeam** (stringArray) - 
-   - **pbcor** (bool) - 
-   - **minpb** (double) - 
-   - **usescratch** (bool) - 
-   - **allowchunk** (bool) - 
+   - **vis** ({string, stringArray}) - 
+   - **imagename** ({string, stringArray}='') - 
+   - **outlierfile** (string='') - 
+   - **field** ({string, stringArray}='') - 
+   - **spw** ({string, stringArray}='') - 
+   - **selectdata** (bool=True) - 
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> selectdata = True </i></summary>
+         <details><summary><i> selectdata = True </i></summary>
 
-   - **timerange** (string='', stringArray) - 
-   - **uvrange** (string='', stringArray) - 
-   - **antenna** (string='', stringArray) - 
-   - **scan** (string='', stringArray) - 
-   - **observation** (string='', int) - 
-   - **intent** (string='', stringArray) - 
+      - **timerange** ({string, stringArray}='') - 
+      - **uvrange** ({string, stringArray}='') - 
+      - **antenna** ({string, stringArray}='') - 
+      - **scan** ({string, stringArray}='') - 
+      - **observation** ({string, int}='') - 
+      - **intent** ({string, stringArray}='') - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **mode** (string='mfs') - 
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> multiscale != [] </i></summary>
+         <details><summary><i> mode = mfs </i></summary>
 
-   - **negcomponent** (int=-1) - 
-   - **smallscalebias** (double=0.6) - 
+      - **nterms** (int=1) - 
+      - **reffreq** (string='') - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridmode = widefield </i></summary>
+         <details><summary><i> mode = channel </i></summary>
 
-   - **wprojplanes** (int=-1) - 
-   - **facets** (int=1) - 
+      - **nchan** (int=-1) - 
+      - **start** (variant='0') - 
+      - **width** (variant='1') - 
+      - **interpolation** (string='linear') - 
+      - **resmooth** (bool=False) - 
+      - **chaniter** (bool=False) - 
+      - **outframe** (string='') - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridmode = aprojection </i></summary>
+         <details><summary><i> mode = velocity </i></summary>
 
-   - **wprojplanes** (int=1) - 
-   - **cfcache** (string=cfcache.dir) - 
-   - **rotpainc** (double=5.0) - 
-   - **painc** (double=360.0) - 
+      - **nchan** (int=-1) - 
+      - **start** (variant='0') - 
+      - **width** (variant='1') - 
+      - **interpolation** (string='linear') - 
+      - **resmooth** (bool=False) - 
+      - **chaniter** (bool=False) - 
+      - **outframe** (string='') - 
+      - **veltype** (string='radio') - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> gridmode = advancedaprojection </i></summary>
+         <details><summary><i> mode = frequency </i></summary>
 
-   - **wprojplanes** (int=1) - 
-   - **cfcache** (string=cfcache.dir) - 
-   - **rotpainc** (double=5.0) - 
-   - **painc** (double=360.0) - 
-   - **wbawp** (bool=False) - 
-   - **conjbeams** (bool=True) - 
-   - **aterm** (bool=True) - 
-   - **psterm** (bool=True) - 
-   - **mterm** (bool=True) - 
-   - **epjtable** (string='') - 
+      - **nchan** (int=-1) - 
+      - **start** (variant='0') - 
+      - **width** (variant='1') - 
+      - **interpolation** (string='linear') - 
+      - **resmooth** (bool=False) - 
+      - **chaniter** (bool=False) - 
+      - **outframe** (string='') - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **gridmode** (string='') - 
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = mfs </i></summary>
+         <details><summary><i> gridmode = widefield </i></summary>
 
-   - **nterms** (int=1) - 
-   - **reffreq** (string='') - 
+      - **wprojplanes** (int=-1) - 
+      - **facets** (int=1) - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = channel </i></summary>
+         <details><summary><i> gridmode = aprojection </i></summary>
 
-   - **nchan** (int=-1) - 
-   - **start** (variant='') - 
-   - **width** (variant=1) - 
-   - **interpolation** (string=linear) - 
-   - **resmooth** (bool=False) - 
-   - **chaniter** (bool=False) - 
-   - **outframe** (string='') - 
+      - **wprojplanes** (int=-1) - 
+      - **cfcache** (string='cfcache.dir') - 
+      - **rotpainc** (double=5.0) - 
+      - **painc** (double=360.0) - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = velocity </i></summary>
+         <details><summary><i> gridmode = advancedaprojection </i></summary>
 
-   - **nchan** (int=-1) - 
-   - **start** (variant='') - 
-   - **width** (variant='') - 
-   - **interpolation** (string=linear) - 
-   - **resmooth** (bool=False) - 
-   - **chaniter** (bool=False) - 
-   - **outframe** (string='') - 
-   - **veltype** (string=radio) - 
+      - **wprojplanes** (int=-1) - 
+      - **cfcache** (string='cfcache.dir') - 
+      - **rotpainc** (double=5.0) - 
+      - **painc** (double=360.0) - 
+      - **wbawp** (bool=False) - 
+      - **conjbeams** (bool=True) - 
+      - **aterm** (bool=True) - 
+      - **psterm** (bool=False) - 
+      - **mterm** (bool=True) - 
+      - **epjtable** (string='') - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **niter** (int=500) - 
+   - **gain** (double=0.1) - 
+   - **threshold** (double=0.0) - 
+   - **psfmode** (string='clark') - 
+   - **imagermode** (string='csclean') - 
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = frequency </i></summary>
+         <details><summary><i> imagermode = csclean </i></summary>
 
-   - **nchan** (int=-1) - 
-   - **start** (variant='') - 
-   - **width** (variant='') - 
-   - **interpolation** (string=linear) - 
-   - **resmooth** (bool=False) - 
-   - **chaniter** (bool=False) - 
-   - **outframe** (string='') - 
+      - **cyclefactor** (double=1.5) - 
+      - **cyclespeedup** (int=-1) - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> weighting = briggs </i></summary>
+         <details><summary><i> imagermode = mosaic </i></summary>
 
-   - **robust** (double=0.0) - 
-   - **npixels** (int=0) - 
+      - **mosweight** (bool=False) - 
+      - **ftmachine** (string='mosaic') - 
+      - **scaletype** (string='SAULT') - 
+      - **cyclefactor** (double=1.5) - 
+      - **cyclespeedup** (int=-1) - 
+      - **flatnoise** (bool=True) - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **multiscale** (intArray=[0]) - 
+   - **interactive** (bool=False) - 
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> weighting = briggsabs </i></summary>
+         <details><summary><i> interactive = True </i></summary>
 
-   - **robust** (double=0.0) - 
-   - **noise** (variant=1.0Jy) - 
-   - **npixels** (int=0) - 
+      - **npercycle** (int=100) - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **mask** (variant='') - 
+   - **imsize** (intArray=[256, 256]) - 
+   - **cell** (doubleArray=[1.0]) - 
+   - **phasecenter** (variant='') - 
+   - **restfreq** (string='') - 
+   - **stokes** (string='I') - 
+   - **weighting** (string='natural') - 
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> weighting = superuniform </i></summary>
+         <details><summary><i> weighting = briggs </i></summary>
 
-   - **npixels** (int=0) - 
+      - **robust** (double=0.0) - 
+      - **npixels** (int=0) - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> uvtaper = True </i></summary>
+         <details><summary><i> weighting = briggsabs </i></summary>
 
-   - **outertaper** (stringArray='') - 
-   - **innertaper** (stringArray='') - 
+      - **robust** (double=0.0) - 
+      - **noise** (variant='1.0Jy') - 
+      - **npixels** (int=0) - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> interactive = True </i></summary>
+         <details><summary><i> weighting = superuniform </i></summary>
 
-   - **npercycle** (int=100) - 
+      - **npixels** (int=0) - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **uvtaper** (bool=False) - 
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> imagermode = csclean </i></summary>
+         <details><summary><i> uvtaper = True </i></summary>
 
-   - **cyclefactor** (double=1.5) - 
-   - **cyclespeedup** (int=-1) - 
+      - **outertaper** (stringArray=['']) - 
+      - **innertaper** (stringArray=[1.0]) - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> imagermode = mosaic </i></summary>
-
-   - **mosweight** (bool=False) - 
-   - **ftmachine** (string=mosaic) - 
-   - **scaletype** (string=SAULT) - 
-   - **cyclefactor** (double=1.5) - 
-   - **cyclespeedup** (int=-1) - 
-   - **flatnoise** (bool=True) - 
-
-   .. raw:: html
-
-      </details>
+         </details>
+   - **modelimage** (variant='') - 
+   - **restoringbeam** (stringArray=['']) - 
+   - **pbcor** (bool=False) - 
+   - **minpb** (double=0.2) - 
+   - **usescratch** (bool=False) - 
+   - **allowchunk** (bool=False) - 
 
 
 Description

@@ -7,12 +7,12 @@ def feather(highres, lowres, imagename='', sdfactor=1.0, effdishdiam=-1.0, lowpa
 Combine two images using their Fourier transforms
 
 Parameters
-   - **imagename** (string) - Name of output feathered image
+   - **imagename** (string='') - Name of output feathered image
    - **highres** (string) - Name of high resolution (interferometer) image
    - **lowres** (string) - Name of low resolution (single dish) image
-   - **sdfactor** (double) - Scale factor to apply to Single Dish image
-   - **effdishdiam** (double) - New effective SingleDish diameter to use in m
-   - **lowpassfiltersd** (bool) - Filter out the high spatial frequencies of the SD image
+   - **sdfactor** (double=1.0) - Scale factor to apply to Single Dish image
+   - **effdishdiam** (double=-1.0) - New effective SingleDish diameter to use in m
+   - **lowpassfiltersd** (bool=False) - Filter out the high spatial frequencies of the SD image
 
 
 Description

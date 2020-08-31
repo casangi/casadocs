@@ -8,29 +8,28 @@ Fit a single component source model to the uv data
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **field** (string) - Select field using field id(s) or field name(s)
-   - **spw** (string) - Select spectral window/channels
-   - **selectdata** (bool) - Other data selection parameters
-   - **niter** (int) - Number of fitting iterations to execute
-   - **comptype** (string) - component model type: P(oint), G(aussian), or D(isk)
-   - **sourcepar** (doubleArray) - Starting guess for component parameters (3 values for type P, 5 for G and D)
-   - **varypar** (boolArray) - Control which parameters to let vary in the fit
-   - **outfile** (string) - Optional output component list table
+   - **field** (string='') - Select field using field id(s) or field name(s)
+   - **spw** (string='') - Select spectral window/channels
+   - **selectdata** (bool=True) - Other data selection parameters
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> selectdata = True </i></summary>
+         <details><summary><i> selectdata = True </i></summary>
 
-   - **timerange** (string='') - Select data based on time range
-   - **uvrange** (variant='') - Select data within uvrange (default units meters)
-   - **antenna** (string='') - Select data based on antenna/baseline
-   - **scan** (string='') - Scan number range
-   - **msselect** (string='') - Optional complex data selection (ignore for now)
+      - **timerange** (string='') - Select data based on time range
+      - **uvrange** (variant='') - Select data within uvrange (default units meters)
+      - **antenna** (string='') - Select data based on antenna/baseline
+      - **scan** (string='') - Scan number range
+      - **msselect** (string='') - Optional complex data selection (ignore for now)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **niter** (int=5) - Number of fitting iterations to execute
+   - **comptype** (string='P') - component model type: P(oint), G(aussian), or D(isk)
+   - **sourcepar** (doubleArray=[1.0, 0.0, 0.0]) - Starting guess for component parameters (3 values for type P, 5 for G and D)
+   - **varypar** (boolArray=['']) - Control which parameters to let vary in the fit
+   - **outfile** (string='') - Optional output component list table
 
 
 Description

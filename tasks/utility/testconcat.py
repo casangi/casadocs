@@ -8,10 +8,10 @@ Concatenate the subtables of several visibility data sets, not the MAIN bulk dat
 
 Parameters
    - **vis** (stringArray) - 
-   - **testconcatvis** (string) - 
-   - **freqtol** (variant) - 
-   - **dirtol** (variant) - 
-   - **copypointing** (bool) - 
+   - **testconcatvis** (string='') - 
+   - **freqtol** (variant='') - 
+   - **dirtol** (variant='') - 
+   - **copypointing** (bool=True) - 
 
 
 Description

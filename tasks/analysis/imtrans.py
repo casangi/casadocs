@@ -8,8 +8,8 @@ Reorder image axes
 
 Parameters
    - **imagename** (string) - Name of the input image which must be specified.
-   - **outfile** (string) - Name of output CASA image.
-   - **order** (variant) - New zero-based axes order.
+   - **outfile** (string='') - Name of output CASA image.
+   - **order** (variant='') - New zero-based axes order.
 
 
 Description

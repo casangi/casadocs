@@ -8,89 +8,68 @@ Displays statistical information from an image or image region
 
 Parameters
    - **imagename** (string) - Name of the input image
-   - **axes** (variant) - List of axes to evaluate statistics over. Default is all axes.
-   - **region** (string) - Region selection. Default is to use the full image.
-   - **box** (string) - Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
-   - **chans** (string) - Channels to use. Default is to use all channels.
-   - **stokes** (string) - Stokes planes to use. Default is to use all Stokes planes.
-   - **listit** (bool) - Print stats and bounding box to logger?
-   - **verbose** (bool) - Print additional messages to logger?
-   - **mask** (string) - Mask to use. Default is none.
-   - **logfile** (string) - Name of file to write fit results.
-   - **algorithm** (string) - Algorithm to use. Supported values are "biweight", "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported.
+   - **axes** (variant='-1') - List of axes to evaluate statistics over. Default is all axes.
+   - **region** (string='') - Region selection. Default is to use the full image.
+   - **box** (string='') - Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
+   - **chans** (string='') - Channels to use. Default is to use all channels.
+   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes.
+   - **listit** (bool=True) - Print stats and bounding box to logger?
+   - **verbose** (bool=True) - Print additional messages to logger?
+   - **mask** (string='') - Mask to use. Default is none.
+   - **logfile** (string='') - Name of file to write fit results.
+   - **algorithm** (string='classic') - Algorithm to use. Supported values are "biweight", "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported.
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mask != '' </i></summary>
+         <details><summary><i> algorithm = classic </i></summary>
 
-   - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
+      - **clmethod** (string='auto') - Method to use for calculating classical statistics. Supported methods are "auto", "tiled", and "framework". Ignored if algorithm is not "classic".
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> logfile != '' </i></summary>
+         <details><summary><i> algorithm = hinges-fences </i></summary>
 
-   - **append** (bool=True) - If logfile exists, append to it if True or overwrite it if False
+      - **fence** (double=-1) - Fence value for hinges-fences. A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if algorithm is not "hinges-fences".
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> algorithm = classic </i></summary>
+         <details><summary><i> algorithm = fit-half </i></summary>
 
-   - **clmethod** (string=auto) - Method to use for calculating classical statistics. Supported methods are "auto", "tiled", and "framework". Ignored if algorithm is not "classic".
+      - **center** (string='mean') - Center to use for fit-half. Valid choices are "mean", "median", and "zero". Ignored if algorithm is not "fit-half".
+      - **lside** (bool=True) - For fit-half, use values <= center for real data if True? If False, use values >= center as real data. Ignored if algorithm is not "fit-half".
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> algorithm = hinges-fences </i></summary>
+         <details><summary><i> algorithm = chauvenet </i></summary>
 
-   - **fence** (double=-1) - Fence value for hinges-fences. A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if algorithm is not "hinges-fences".
+      - **zscore** (double=-1) - For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet"s criterion. Ignored if algorithm is not "chauvenet".
+      - **maxiter** (int=-1) - For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algorithm is not "chauvenet".
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> algorithm = fit-half </i></summary>
+         <details><summary><i> algorithm = biweight </i></summary>
 
-   - **center** (string=mean) - Center to use for fit-half. Valid choices are "mean", "median", and "zero". Ignored if algorithm is not "fit-half".
-   - **lside** (bool=True) - For fit-half, use values <= center for real data if True? If False, use values >= center as real data. Ignored if algorithm is not "fit-half".
+      - **niter** (int=3) - For biweight, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, do a fast, simple computation (see description). Ignored if the algorithm is not "biweight".
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> algorithm = chauvenet </i></summary>
-
-   - **zscore** (double=-1) - For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet"s criterion. Ignored if algorithm is not "chauvenet".
-   - **maxiter** (int=-1) - For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algorithm is not "chauvenet".
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> algorithm = biweight </i></summary>
-
-   - **niter** (int=3) - For biweight, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, do a fast, simple computation (see description). Ignored if the algorithm is not "biweight".
-
-   .. raw:: html
-
-      </details>
+         </details>
 
 
 Description

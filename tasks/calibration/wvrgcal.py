@@ -8,47 +8,46 @@ Generate a gain table based on Water Vapour Radiometer data
 
 Parameters
    - **vis** (string) - 
-   - **caltable** (string) - 
-   - **toffset** (double) - 
-   - **segsource** (bool) - 
-   - **disperse** (bool) - 
-   - **wvrflag** (stringArray) - 
-   - **statfield** (string) - 
-   - **statsource** (string) - 
-   - **smooth** (string) - 
-   - **scale** (double) - 
-   - **spw** (intArray) - 
-   - **wvrspw** (intArray) - 
-   - **reversespw** (string) - 
-   - **cont** (bool) - 
-   - **maxdistm** (double) - 
-   - **minnumants** (int) - 
-   - **mingoodfrac** (double) - 
-   - **usefieldtab** (bool) - 
-   - **refant** (stringArray) - 
-   - **offsetstable** (string) - 
+   - **caltable** (string='') - 
+   - **toffset** (double=0) - 
+   - **segsource** (bool=True) - 
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> segsource = True </i></summary>
+         <details><summary><i> segsource = True </i></summary>
 
-   - **tie** (stringArray='') - 
-   - **sourceflag** (stringArray='') - 
+      - **tie** (stringArray=['']) - 
+      - **sourceflag** (stringArray=['']) - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> segsource = False </i></summary>
+         <details><summary><i> segsource = False </i></summary>
 
-   - **nsol** (int=1) - 
+      - **nsol** (int=1) - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **disperse** (bool=False) - 
+   - **wvrflag** (stringArray=['']) - 
+   - **statfield** (string='') - 
+   - **statsource** (string='') - 
+   - **smooth** (string='') - 
+   - **scale** (double=1.) - 
+   - **spw** (intArray=['']) - 
+   - **wvrspw** (intArray=['']) - 
+   - **reversespw** (string='') - 
+   - **cont** (bool=False) - 
+   - **maxdistm** (double=500.) - 
+   - **minnumants** (int=2) - 
+   - **mingoodfrac** (double=0.8) - 
+   - **usefieldtab** (bool=False) - 
+   - **refant** (stringArray=['']) - 
+   - **offsetstable** (string='') - 
 
 
 Description

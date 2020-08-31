@@ -8,14 +8,14 @@ Concatenate several visibility data sets.
 
 Parameters
    - **vis** (stringArray) - Name of input visibility file
-   - **concatvis** (string) - Name of output visibility file
-   - **freqtol** (variant) - Frequency shift tolerance for considering data as the same spwid
-   - **dirtol** (variant) - Direction shift tolerance for considering data as the same field
-   - **respectname** (bool) - If true, fields with a different name are not merged even if their direction agrees
-   - **timesort** (bool) - If true, sort by TIME in ascending order
-   - **copypointing** (bool) - Copy all rows of the POINTING table.
-   - **visweightscale** (doubleArray) - List of the weight scaling factors to be applied to the individual MSs
-   - **forcesingleephemfield** (variant) - Make sure that there is only one joint ephemeris for every field in this list
+   - **concatvis** (string='') - Name of output visibility file
+   - **freqtol** (variant='') - Frequency shift tolerance for considering data as the same spwid
+   - **dirtol** (variant='') - Direction shift tolerance for considering data as the same field
+   - **respectname** (bool=False) - If true, fields with a different name are not merged even if their direction agrees
+   - **timesort** (bool=False) - If true, sort by TIME in ascending order
+   - **copypointing** (bool=True) - Copy all rows of the POINTING table.
+   - **visweightscale** (doubleArray=['']) - List of the weight scaling factors to be applied to the individual MSs
+   - **forcesingleephemfield** (variant='') - Make sure that there is only one joint ephemeris for every field in this list
 
 
 Description

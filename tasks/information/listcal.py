@@ -9,11 +9,11 @@ List antenna gain solutions
 Parameters
    - **vis** (string) - Name of input visibility file
    - **caltable** (string) - Input calibration table to list
-   - **field** (string) - Field name or index
-   - **antenna** (string) - Antenna name or index
-   - **spw** (string) - Spectral window and channel
-   - **listfile** (string) - Disk file to write output
-   - **pagerows** (int) - Rows per page
+   - **field** (string='') - Field name or index
+   - **antenna** (string='') - Antenna name or index
+   - **spw** (string='') - Spectral window and channel
+   - **listfile** (string='') - Disk file to write output
+   - **pagerows** (int=50) - Rows per page
 
 
 Description

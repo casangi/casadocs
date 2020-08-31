@@ -8,42 +8,40 @@ List, summary, get, and put metadata in a measurement set
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **mode** (string) - Mode of operation for vishead
+   - **mode** (string='summary') - Mode of operation for vishead
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = list </i></summary>
+         <details><summary><i> mode = list </i></summary>
 
-   - **listitems** (stringArray=
-           ) - Keyword items to list. This parameter is only relevant in list mode. Note that the default list is a subset of the possible keywords. To get all the keywords set listitems=[]
+      - **listitems** (stringArray=['telescope', 'observer', 'project', 'field', 'freq_group_name', 'spw_name', 'schedule', 'schedule_type', 'release_date']) - Keyword items to list. This parameter is only relevant in list mode. Note that the default list is a subset of the possible keywords. To get all the keywords set listitems=[]
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = get </i></summary>
+         <details><summary><i> mode = get </i></summary>
 
-   - **hdkey** (string='') - Keyword to get/put
-   - **hdindex** (string='') - Index (counting from 0) if keyword is an array (used in get/put mode only). The empty string means all elements
+      - **hdkey** (string='') - Keyword to get/put
+      - **hdindex** (string='') - Index (counting from 0) if keyword is an array (used in get/put mode only). The empty string means all elements
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = put </i></summary>
+         <details><summary><i> mode = put </i></summary>
 
-   - **hdkey** (string='') - Keyword to get/put
-   - **hdindex** (string='') - Index (counting from 0) if keyword is an array (used in get/put mode only). The empty string means all elements
-   - **hdvalue** (variant='') - Value of the keywords to be put in the MS (used in put mode only)
+      - **hdkey** (string='') - Keyword to get/put
+      - **hdindex** (string='') - Index (counting from 0) if keyword is an array (used in get/put mode only). The empty string means all elements
+      - **hdvalue** (variant='') - Value of the keywords to be put in the MS (used in put mode only)
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
 
 Description

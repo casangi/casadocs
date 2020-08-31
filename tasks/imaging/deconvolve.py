@@ -8,37 +8,35 @@ Image based deconvolver
 
 Parameters
    - **imagename** (string) - 
-   - **model** (string) - 
-   - **psf** (stringArray) - 
-   - **alg** (string) - 
-   - **niter** (int) - 
-   - **gain** (double) - 
-   - **threshold** (double) - 
-   - **mask** (string) - 
+   - **model** (string='') - 
+   - **psf** (stringArray=['']) - 
+   - **alg** (string='clark') - 
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> alg = multiscale </i></summary>
+         <details><summary><i> alg = multiscale </i></summary>
 
-   - **scales** (intArray=
-                        ) - 
+      - **scales** (intArray=[0, 3, 10]) - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> alg = mem </i></summary>
+         <details><summary><i> alg = mem </i></summary>
 
-   - **sigma** (double=1.0) - 
-   - **targetflux** (double=1.0) - 
-   - **prior** (string='') - 
+      - **sigma** (double=0.0) - 
+      - **targetflux** (double=1.0) - 
+      - **prior** (string='') - 
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **niter** (int=10) - 
+   - **gain** (double=0.1) - 
+   - **threshold** (double=0.0) - 
+   - **mask** (string='') - 
 
 
 Description

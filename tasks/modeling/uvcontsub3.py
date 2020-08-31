@@ -8,15 +8,15 @@ An experimental clone of uvcontsub
 
 Parameters
    - **vis** (string) - 
-   - **fitspw** (string) - 
-   - **combine** (string) - 
-   - **fitorder** (int) - 
-   - **field** (string, stringArray, int, intArray) - 
-   - **spw** (string) - 
-   - **scan** (string) - 
-   - **intent** (string) - 
-   - **correlation** (string, stringArray) - 
-   - **observation** (string, int) - 
+   - **fitspw** (string='') - 
+   - **combine** (string='') - 
+   - **fitorder** (int=0) - 
+   - **field** ({string, stringArray, int, intArray}='') - 
+   - **spw** (string='') - 
+   - **scan** (string='') - 
+   - **intent** (string='') - 
+   - **correlation** ({string, stringArray}='') - 
+   - **observation** ({string, int}='') - 
 
 
 Description

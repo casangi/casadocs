@@ -8,45 +8,24 @@ Create a (sub)image from a region of the image
 
 Parameters
    - **imagename** (string) - Input image name.  Default is unset.
-   - **outfile** (string) - Output image name.  Default is unset.
-   - **box** (string) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
-   - **region** (string) - Region selection. Default is to use the full image.
-   - **chans** (string) - Channels to use. Default is to use all channels.
-   - **stokes** (string) - Stokes planes to use. Default is to use all Stokes planes.
-   - **mask** (variant) - Mask to use. Default is none.
-   - **dropdeg** (bool) - Drop degenerate axes
-   - **verbose** (bool) - Post additional informative messages to the logger
+   - **outfile** (string='') - Output image name.  Default is unset.
+   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **region** (string='') - Region selection. Default is to use the full image.
+   - **chans** (string='') - Channels to use. Default is to use all channels.
+   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes.
+   - **mask** (variant='') - Mask to use. Default is none.
+   - **dropdeg** (bool=False) - Drop degenerate axes
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mask != '' </i></summary>
+         <details><summary><i> dropdeg = True </i></summary>
 
-   - **stretch** (bool=False) - Stretch the mask if necessary and possible? 
+      - **keepaxes** (intArray=['']) - If dropdeg=True, these are the degenerate axes to keep. Nondegenerate axes are implicitly always kept.
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> outfile != '' </i></summary>
-
-   - **overwrite** (bool=False) - Overwrite (unprompted) pre-existing output file?
-
-   .. raw:: html
-
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> dropdeg = True </i></summary>
-
-   - **keepaxes** (intArray=[]) - If dropdeg=True, these are the degenerate axes to keep. Nondegenerate axes are implicitly always kept.
-
-   .. raw:: html
-
-      </details>
+         </details>
+   - **verbose** (bool=True) - Post additional informative messages to the logger
 
 
 Description

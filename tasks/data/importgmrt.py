@@ -8,8 +8,8 @@ Convert a UVFITS file to a CASA visibility data set
 
 Parameters
    - **fitsfile** (string) - Name of input UV FITS file
-   - **flagfile** (string, stringArray) - List of files containing flagging information.
-   - **vis** (string) - Name of input visibility file
+   - **flagfile** ({string, stringArray}='') - List of files containing flagging information.
+   - **vis** (string='') - Name of input visibility file
 
 
 Description

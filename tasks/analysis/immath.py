@@ -7,78 +7,67 @@ def immath(imagename='', mode='evalexpr', outfile='immath_results.im', expr='IM0
 Perform math operations on images
 
 Parameters
-   - **imagename** (variant) - a list of input images 
-   - **mode** (string) - mode for math operation (evalexpr, spix, pola, poli, lpoli, tpoli)
-   - **outfile** (string) - File where the output is saved
-   - **mask** (string) - Mask to use. Default is none.
-   - **region** (string) - Region selection. Default is to use the full image.
-   - **box** (string) - Rectangular region to select in direction plane. Default is to use the entire direction plane.
-   - **chans** (string) - Channels to use. Default is to use all channels.
-   - **stokes** (string) - Stokes planes to use. Default is to use all Stokes planes.
-   - **imagemd** (string) - An image name from which metadata should be copied. The input can be either an image listed under imagename or any other image on disk. Leaving this parameter unset may copy header metadata from any of the input images, which one is not guaranteed. 
-   - **prec** (string) - Precision for the output image pixels if mode="evalexpr" or "spix". "float" or "double" (minimum match supported)
+   - **imagename** (variant='') - a list of input images 
+   - **mode** (string='evalexpr') - mode for math operation (evalexpr, spix, pola, poli, lpoli, tpoli)
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = evalexpr </i></summary>
+         <details><summary><i> mode = evalexpr </i></summary>
 
-   - **expr** (string="") - Mathematical expression using images
-   - **varnames** (variant="") - a list of variable names to use with the image files
+      - **expr** (string='IM0') - Mathematical expression using images
+      - **varnames** (variant='') - a list of variable names to use with the image files
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = poli </i></summary>
+         <details><summary><i> mode = poli </i></summary>
 
-   - **sigma** (string="0.0mJy/beam") - standard deviation of noise for debiasing
+      - **sigma** (string='0.0mJy/beam') - standard deviation of noise for debiasing
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = lpoli </i></summary>
+         <details><summary><i> mode = lpoli </i></summary>
 
-   - **sigma** (string="0.0mJy/beam") - standard deviation of noise for debiasing
+      - **sigma** (string='0.0mJy/beam') - standard deviation of noise for debiasing
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = tpoli </i></summary>
+         <details><summary><i> mode = tpoli </i></summary>
 
-   - **sigma** (string="0.0mJy/beam") - standard deviation of noise for debiasing
+      - **sigma** (string='0.0mJy/beam') - standard deviation of noise for debiasing
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = pola </i></summary>
+         <details><summary><i> mode = pola </i></summary>
 
-   - **polithresh** (string="") - Threshold in linear polarization intensity image below which to mask pixels.
+      - **polithresh** (string='') - Threshold in linear polarization intensity image below which to mask pixels.
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> mask != '' </i></summary>
-
-   - **stretch** (bool=False) - Stretch the mask if necessary and possible? See help stretch.par 
-
-   .. raw:: html
-
-      </details>
+         </details>
+   - **outfile** (string='immath_results.im') - File where the output is saved
+   - **mask** (string='') - Mask to use. Default is none.
+   - **region** (string='') - Region selection. Default is to use the full image.
+   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - **chans** (string='') - Channels to use. Default is to use all channels.
+   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes.
+   - **imagemd** (string='') - An image name from which metadata should be copied. The input can be either an image listed under imagename or any other image on disk. Leaving this parameter unset may copy header metadata from any of the input images, which one is not guaranteed. 
+   - **prec** (string='float') - Precision for the output image pixels if mode="evalexpr" or "spix". "float" or "double" (minimum match supported)
 
 
 Description

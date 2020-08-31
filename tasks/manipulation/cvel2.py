@@ -8,79 +8,78 @@ Regrid an MS or MMS to a new spectral window, channel structure or frame
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **outputvis** (string) - Name of output visibility file
-   - **keepmms** (bool) - Create a Multi-MS as the output if the input is a Multi-MS
-   - **field** (string, stringArray, int, intArray) - Select field using field id(s) or field name(s)
-   - **spw** (string, stringArray, int, intArray) - Select spectral window/channels
-   - **scan** (string, stringArray, int, intArray) - Scan number range
-   - **antenna** (string, stringArray, int, intArray) - Select data based on antenna/baseline
-   - **correlation** (string, stringArray) - Select data based on correlation
-   - **timerange** (string, stringArray, int, intArray) - Select data based on time range
-   - **intent** (string, stringArray, int, intArray) - Select observing intent
-   - **array** (string, stringArray, int, intArray) - Select (sub)array(s) by array ID number.
-   - **uvrange** (string, stringArray, int, intArray) - Select data by baseline length.
-   - **observation** (string, stringArray, int, intArray) - Select by observation ID(s)
-   - **feed** (string, stringArray, int, intArray) - Multi-feed numbers: Not yet implemented.
-   - **datacolumn** (string) - Data column(s) to process.
-   - **mode** (string) - Regridding mode (channel/velocity/frequency/channel_b).
-   - **phasecenter** (variant) - Phase center direction to be used for the spectral coordinate transformation: direction measure or field index
-   - **restfreq** (string) - Rest frequency to use for output.
-   - **outframe** (string) - Output reference frame.
-   - **veltype** (string) - Velocity definition.
-   - **hanning** (bool) - Hanning smooth data to remove Gibbs ringing.
+   - **outputvis** (string='') - Name of output visibility file
+   - **keepmms** (bool=True) - Create a Multi-MS as the output if the input is a Multi-MS
+   - **field** ({string, stringArray, int, intArray}='') - Select field using field id(s) or field name(s)
+   - **spw** ({string, stringArray, int, intArray}='') - Select spectral window/channels
+   - **scan** ({string, stringArray, int, intArray}='') - Scan number range
+   - **antenna** ({string, stringArray, int, intArray}='') - Select data based on antenna/baseline
+   - **correlation** ({string, stringArray}='') - Select data based on correlation
+   - **timerange** ({string, stringArray, int, intArray}='') - Select data based on time range
+   - **intent** ({string, stringArray, int, intArray}='') - Select observing intent
+   - **array** ({string, stringArray, int, intArray}='') - Select (sub)array(s) by array ID number.
+   - **uvrange** ({string, stringArray, int, intArray}='') - Select data by baseline length.
+   - **observation** ({string, stringArray, int, intArray}='') - Select by observation ID(s)
+   - **feed** ({string, stringArray, int, intArray}='') - Multi-feed numbers: Not yet implemented.
+   - **datacolumn** (string='all') - Data column(s) to process.
+   - **mode** (string='channel') - Regridding mode (channel/velocity/frequency/channel_b).
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = channel </i></summary>
+         <details><summary><i> mode = channel </i></summary>
 
-   - **nchan** (int=-1) - Number of channels in the output spw
-   - **start** (variant=0) - First input channel to use
-   - **width** (variant=1) - Channel width of the output visibilities.
-   - **interpolation** (string=linear) - Spectral interpolation method
+      - **nchan** (int=-1) - Number of channels in the output spw
+      - **start** (variant='0') - First input channel to use
+      - **width** (variant='1') - Channel width of the output visibilities.
+      - **interpolation** (string='linear') - Spectral interpolation method
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = channel_b </i></summary>
+         <details><summary><i> mode = channel_b </i></summary>
 
-   - **nchan** (int=-1) - Number of channels in the output spw
-   - **start** (variant=0) - First input channel to use
-   - **width** (variant=1) - Channel width of the output visibilities.
-   - **interpolation** (string=linear) - Spectral interpolation method
+      - **nchan** (int=-1) - Number of channels in the output spw
+      - **start** (variant='0') - First input channel to use
+      - **width** (variant='1') - Channel width of the output visibilities.
+      - **interpolation** (string='linear') - Spectral interpolation method
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = velocity </i></summary>
+         <details><summary><i> mode = velocity </i></summary>
 
-   - **nchan** (int=-1) - Number of channels in the output spw
-   - **start** (variant='') - First input channel to use
-   - **width** (variant='') - Channel width of the output visibilities.
-   - **interpolation** (string=linear) - Spectral interpolation method
+      - **nchan** (int=-1) - Number of channels in the output spw
+      - **start** (variant='0') - First input channel to use
+      - **width** (variant='1') - Channel width of the output visibilities.
+      - **interpolation** (string='linear') - Spectral interpolation method
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = frequency </i></summary>
+         <details><summary><i> mode = frequency </i></summary>
 
-   - **nchan** (int=-1) - Number of channels in the output spw
-   - **start** (variant='') - First input channel to use
-   - **width** (variant='') - Channel width of the output visibilities.
-   - **interpolation** (string=linear) - Spectral interpolation method
+      - **nchan** (int=-1) - Number of channels in the output spw
+      - **start** (variant='0') - First input channel to use
+      - **width** (variant='1') - Channel width of the output visibilities.
+      - **interpolation** (string='linear') - Spectral interpolation method
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **phasecenter** (variant='') - Phase center direction to be used for the spectral coordinate transformation: direction measure or field index
+   - **restfreq** (string='') - Rest frequency to use for output.
+   - **outframe** (string='') - Output reference frame.
+   - **veltype** (string='radio') - Velocity definition.
+   - **hanning** (bool=False) - Hanning smooth data to remove Gibbs ringing.
 
 
 Description

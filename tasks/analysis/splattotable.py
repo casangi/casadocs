@@ -8,7 +8,7 @@ Convert a downloaded Splatalogue spectral line list to a casa table.
 
 Parameters
    - **filenames** (stringArray) - Files containing Splatalogue lists.
-   - **table** (string) - Output table name. Must be specified.
+   - **table** (string='') - Output table name. Must be specified.
 
 
 Description

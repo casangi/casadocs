@@ -7,11 +7,11 @@ def imview(raster='', contour='', zoom='1', axes='', out=''):
 View an image
 
 Parameters
-   - **raster** (string, record) - 
-   - **contour** (string, record) - 
-   - **zoom** (int, string, record) - 
-   - **axes** (string, record) - 
-   - **out** (string, record) - 
+   - **raster** ({string, record}='') - 
+   - **contour** ({string, record}='') - 
+   - **zoom** ({int, string, record}='1') - 
+   - **axes** ({string, record}='') - 
+   - **out** ({string, record}='') - 
 
 
 Description

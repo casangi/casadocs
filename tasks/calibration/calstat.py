@@ -8,69 +8,68 @@ Displays statistical information on a calibration table
 
 Parameters
    - **caltable** (string) - Name of input calibration table
-   - **axis** (string) - Which values to use
-   - **useflags** (bool) - Take flagging into account? (not implemented)
+   - **axis** (string='amplitude') - Which values to use
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> axis = amp </i></summary>
+         <details><summary><i> axis = amp </i></summary>
 
-   - **datacolumn** (string=gain) - Which data column to use
+      - **datacolumn** (string='gain') - Which data column to use
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> axis = amplitude </i></summary>
+         <details><summary><i> axis = amplitude </i></summary>
 
-   - **datacolumn** (string=gain) - Which data column to use
+      - **datacolumn** (string='gain') - Which data column to use
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> axis = phase </i></summary>
+         <details><summary><i> axis = phase </i></summary>
 
-   - **datacolumn** (string=gain) - Which data column to use
+      - **datacolumn** (string='gain') - Which data column to use
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> axis = real </i></summary>
+         <details><summary><i> axis = real </i></summary>
 
-   - **datacolumn** (string=gain) - Which data column to use
+      - **datacolumn** (string='gain') - Which data column to use
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> axis = imag </i></summary>
+         <details><summary><i> axis = imag </i></summary>
 
-   - **datacolumn** (string=gain) - Which data column to use
+      - **datacolumn** (string='gain') - Which data column to use
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> axis = imaginary </i></summary>
+         <details><summary><i> axis = imaginary </i></summary>
 
-   - **datacolumn** (string=gain) - Which data column to use
+      - **datacolumn** (string='gain') - Which data column to use
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **useflags** (bool=True) - Take flagging into account? (not implemented)
 
 
 Description

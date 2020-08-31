@@ -8,29 +8,28 @@ Retrieve and modify image history
 
 Parameters
    - **imagename** (string) - Name of the input spectral line image
-   - **mode** (string) - Mode to run in, "list" to retrieve history, "append" to append a record to history.
+   - **mode** (string='list') - Mode to run in, "list" to retrieve history, "append" to append a record to history.
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = list </i></summary>
+         <details><summary><i> mode = list </i></summary>
 
-   - **verbose** (bool=True) - Write history to logger if mode="list"?
+      - **verbose** (bool=True) - Write history to logger if mode="list"?
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> mode = append </i></summary>
+         <details><summary><i> mode = append </i></summary>
 
-   - **origin** (string=imhistory) - Origin of appended message. Only used for mode="append".
-   - **message** (string='') - Message to append. Only used of mode="append".
+      - **origin** (string='imhistory') - Origin of appended message. Only used for mode="append".
+      - **message** (string='') - Message to append. Only used of mode="append".
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
 
 
 Description

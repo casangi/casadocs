@@ -8,34 +8,23 @@ Create a visibility subset from an existing visibility set
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **outputvis** (string) - Name of output visibility file
-   - **keepmms** (bool) - If the input is a Multi-MS the output will also be a Multi-MS.
-   - **field** (string, stringArray, int, intArray) - Select field using field id(s) or field name(s)
-   - **spw** (string, stringArray, int, intArray) - Select spectral window/channels
-   - **scan** (string, stringArray, int, intArray) - Scan number range
-   - **antenna** (string, stringArray, int, intArray) - Select data based on antenna/baseline
-   - **correlation** (string, stringArray) - Select data based on correlation
-   - **timerange** (string, stringArray, int, intArray) - Select data based on time range
-   - **intent** (string, stringArray, int, intArray) - Select observing intent
-   - **array** (string, stringArray, int, intArray) - Select (sub)array(s) by array ID number.
-   - **uvrange** (string, stringArray, int, intArray) - Select data by baseline length.
-   - **observation** (string, stringArray, int, intArray) - Select by observation ID(s)
-   - **feed** (string, stringArray, int, intArray) - Multi-feed numbers: Not yet implemented.
-   - **datacolumn** (string) - Which data column(s) to process.
-   - **keepflags** (bool)
-   - **width** (string, stringArray, int, intArray) - Number of channels to average to form one output channel
-   - **timebin** (string) - Bin width for time averaging
-
-Subparameters
-   .. raw:: html
-
-      <details><summary><i> timebin != 0s </i></summary>
-
-   - **combine** (string='', stringArray) - Span the timebin across scan, state or both
-
-   .. raw:: html
-
-      </details>
+   - **outputvis** (string='') - Name of output visibility file
+   - **keepmms** (bool=True) - If the input is a Multi-MS the output will also be a Multi-MS.
+   - **field** ({string, stringArray, int, intArray}='') - Select field using field id(s) or field name(s)
+   - **spw** ({string, stringArray, int, intArray}='') - Select spectral window/channels
+   - **scan** ({string, stringArray, int, intArray}='') - Scan number range
+   - **antenna** ({string, stringArray, int, intArray}='') - Select data based on antenna/baseline
+   - **correlation** ({string, stringArray}='') - Select data based on correlation
+   - **timerange** ({string, stringArray, int, intArray}='') - Select data based on time range
+   - **intent** ({string, stringArray, int, intArray}='') - Select observing intent
+   - **array** ({string, stringArray, int, intArray}='') - Select (sub)array(s) by array ID number.
+   - **uvrange** ({string, stringArray, int, intArray}='') - Select data by baseline length.
+   - **observation** ({string, stringArray, int, intArray}='') - Select by observation ID(s)
+   - **feed** ({string, stringArray, int, intArray}='') - Multi-feed numbers: Not yet implemented.
+   - **datacolumn** (string='corrected') - Which data column(s) to process.
+   - **keepflags** (bool=True)
+   - **width** ({string, stringArray, int, intArray}='1') - Number of channels to average to form one output channel
+   - **timebin** (string='0s') - Bin width for time averaging
 
 
 Description

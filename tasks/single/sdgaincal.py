@@ -8,37 +8,25 @@ def sdgaincal(infile, calmode='doublecircle', radius='', smooth=True, antenna=''
 
 Parameters
    - **infile** (string) - name of input SD dataset (must be MS)
-   - **calmode** (string) - gain calibration mode ("doublecircle")
-   - **antenna** (string) - select data by antenna name or ID, e.g. "PM03"
-   - **field** (string) - select data by field IDs and names, e.g. "3C2*" ("" = all)
-   - **spw** (string) - select data by spw IDs (spectral windows), e.g., "3,5,7" ("" = all)
-   - **scan** (string) - select data by scan numbers, e.g. "21~23" (""=all)
-   - **applytable** (variant) - (List of) sky and/or tsys tables for pre-application
-   - **outfile** (string) - name of output caltable
-   - **overwrite** (bool) - overwrite the output file if already exists [True, False]
+   - **calmode** (string='doublecircle') - gain calibration mode ("doublecircle")
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> calmode = doublecircle </i></summary>
+         <details><summary><i> calmode = doublecircle </i></summary>
 
-   - **radius** (variant='') - radius of central region to be used for calibration
-   - **smooth** (bool=True) - smooth data or not
+      - **radius** (variant='') - radius of central region to be used for calibration
+      - **smooth** (bool=True) - smooth data or not
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
-
-   .. raw:: html
-
-      <details><summary><i> applytable != '' </i></summary>
-
-   - **interp** (variant='') - Interp type in time[,freq], per gaintable. default==linear,linear
-   - **spwmap** (intArray=-1) - Spectral window mappings to form for applytable(s)
-
-   .. raw:: html
-
-      </details>
+         </details>
+   - **antenna** (string='') - select data by antenna name or ID, e.g. "PM03"
+   - **field** (string='') - select data by field IDs and names, e.g. "3C2*" ("" = all)
+   - **spw** (string='') - select data by spw IDs (spectral windows), e.g., "3,5,7" ("" = all)
+   - **scan** (string='') - select data by scan numbers, e.g. "21~23" (""=all)
+   - **applytable** (variant='') - (List of) sky and/or tsys tables for pre-application
+   - **outfile** (string='') - name of output caltable
+   - **overwrite** (bool=False) - overwrite the output file if already exists [True, False]
 
 
 Description

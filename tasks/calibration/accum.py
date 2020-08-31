@@ -8,24 +8,23 @@ Accumulate incremental calibration solutions into a calibration table (NB: ACCUM
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **tablein** (string) - Input cumulative calibration table; use \'\' on first run
-   - **incrtable** (string) - Input incremental calibration table to add
-   - **caltable** (string) - Output (cumulative) calibration table
-   - **field** (stringArray)
-   - **calfield** (stringArray) - List of field names to use from incrtable.
-   - **interp** (string) - Interpolation mode to use for resampling incrtable solutions
-   - **spwmap** (intArray) - Spectral window combinations to apply
+   - **tablein** (string='') - Input cumulative calibration table; use \'\' on first run
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> tablein = '' </i></summary>
+         <details><summary><i> tablein = '' </i></summary>
 
-   - **accumtime** (double=1.0, int) - Time-interval when create cumulative table
+      - **accumtime** ({double, int}=1.0) - Time-interval when create cumulative table
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **incrtable** (string='') - Input incremental calibration table to add
+   - **caltable** (string='') - Output (cumulative) calibration table
+   - **field** (stringArray=[''])
+   - **calfield** (stringArray=['']) - List of field names to use from incrtable.
+   - **interp** (string='linear') - Interpolation mode to use for resampling incrtable solutions
+   - **spwmap** (intArray=[-1]) - Spectral window combinations to apply
 
 
 Description

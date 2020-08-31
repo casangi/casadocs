@@ -8,34 +8,33 @@ List measurement set visibilities.
 
 Parameters
    - **vis** (string) - Name of input visibility file
-   - **options** (string) - List options: ap only 
-   - **datacolumn** (string) - Column to list: data, float_data, corrected, model, residual
-   - **field** (string) - Field names or index to be listed
-   - **spw** (string) - Spectral window channels 
-   - **selectdata** (bool) - Other data selection parameters
-   - **observation** (string, int) - Select by observation ID(s)
-   - **average** (string) - Averaging mode 
-   - **showflags** (bool) - Show flagged data (Not yet implemented)
-   - **pagerows** (int) - Rows per page
-   - **listfile** (string) - Output file
+   - **options** (string='ap') - List options: ap only 
+   - **datacolumn** (string='data') - Column to list: data, float_data, corrected, model, residual
+   - **field** (string='') - Field names or index to be listed
+   - **spw** (string='*') - Spectral window channels 
+   - **selectdata** (bool=False) - Other data selection parameters
 
-Subparameters
-   .. raw:: html
+      .. raw:: html
 
-      <details><summary><i> selectdata = True </i></summary>
+         <details><summary><i> selectdata = True </i></summary>
 
-   - **antenna** (string='') - Antenna/baselines
-   - **timerange** (string='') - Time range
-   - **correlation** (string='') - Correlations
-   - **scan** (string='') - Scan numbers
-   - **feed** (string='') - Multi-feed numbers (Not yet implemented)
-   - **array** (string='') - Array numbers (Not yet implemented)
-   - **observation** (string='', int) - Select by observation ID(s)
-   - **uvrange** (string='') - uv range
+      - **antenna** (string='') - Antenna/baselines
+      - **timerange** (string='') - Time range
+      - **correlation** (string='') - Correlations
+      - **scan** (string='') - Scan numbers
+      - **feed** (string='') - Multi-feed numbers (Not yet implemented)
+      - **array** (string='') - Array numbers (Not yet implemented)
+      - **observation** ({string, int}='') - Select by observation ID(s)
+      - **uvrange** (string='') - uv range
 
-   .. raw:: html
+      .. raw:: html
 
-      </details>
+         </details>
+   - **observation** ({string, int}='') - Select by observation ID(s)
+   - **average** (string='') - Averaging mode 
+   - **showflags** (bool=False) - Show flagged data (Not yet implemented)
+   - **pagerows** (int=50) - Rows per page
+   - **listfile** (string='') - Output file
 
 
 Description

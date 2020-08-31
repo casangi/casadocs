@@ -8,17 +8,17 @@ Convert a CASA image to a FITS file
 
 Parameters
    - **imagename** (string) - Name of input CASA image
-   - **fitsimage** (string) - Name of output image FITS file
-   - **velocity** (bool) - Use velocity (rather than frequency) as spectral axis
-   - **optical** (bool) - Use the optical (rather than radio) velocity convention
-   - **bitpix** (int) - Bits per pixel
-   - **minpix** (int, double) - Minimum pixel value (if minpix > maxpix, value is automatically determined)
-   - **maxpix** (int, double) - Maximum pixel value (if minpix > maxpix, value is automatically determined)
-   - **overwrite** (bool) - Overwrite output file if it exists?
-   - **dropstokes** (bool) - Drop the Stokes axis?
-   - **stokeslast** (bool) - Put Stokes axis last in header?
-   - **history** (bool) - Write history to the FITS image?
-   - **dropdeg** (bool) - Drop all degenerate axes (e.g. Stokes and/or Frequency)?
+   - **fitsimage** (string='') - Name of output image FITS file
+   - **velocity** (bool=False) - Use velocity (rather than frequency) as spectral axis
+   - **optical** (bool=False) - Use the optical (rather than radio) velocity convention
+   - **bitpix** (int=-32) - Bits per pixel
+   - **minpix** ({int, double}=0) - Minimum pixel value (if minpix > maxpix, value is automatically determined)
+   - **maxpix** ({int, double}=-1) - Maximum pixel value (if minpix > maxpix, value is automatically determined)
+   - **overwrite** (bool=False) - Overwrite output file if it exists?
+   - **dropstokes** (bool=False) - Drop the Stokes axis?
+   - **stokeslast** (bool=True) - Put Stokes axis last in header?
+   - **history** (bool=True) - Write history to the FITS image?
+   - **dropdeg** (bool=False) - Drop all degenerate axes (e.g. Stokes and/or Frequency)?
 
 
 Description
