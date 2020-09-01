@@ -120,7 +120,7 @@ Description
       Any data outside the maximum uv distance that the SD has
       illuminated is filtered out.
 
-.. |The results of feathering ALMA 12+7m and Total Power data for M100 using three different sdfactors: 0.5 (right) 0.7 (middle) 1.3 (left). The higher sdfactor (1.3) recovers more of the faint extended emission, as it is boosting the TP signal. | image:: ../../_media/c54b9bc64427577246358518c70157487bed008a.png
+.. |The results of feathering ALMA 12+7m and Total Power data for M100 using three different sdfactors: 0.5 (right) 0.7 (middle) 1.3 (left). The higher sdfactor (1.3) recovers more of the faint extended emission, as it is boosting the TP signal. | image:: ../media/c54b9bc64427577246358518c70157487bed008a.png
    :class: image-inline
 
     """

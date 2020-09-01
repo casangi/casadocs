@@ -4,6 +4,8 @@
 
 def sdintimaging(vis, usedata='sdint', sdimage='', sdpsf='', sdgain=1.0, dishdia=100.0, selectdata=True, field='', spw='', timerange='', uvrange='', antenna='', scan='', observation='', intent='', datacolumn='corrected', imagename='', imsize=100, cell='"1arcsec"', phasecenter='', stokes='I', projection='SIN', startmodel='', specmode='mfs', reffreq='', nchan=-1, start='', width='', outframe='LSRK', veltype='radio', restfreq=[''], interpolation='linear', chanchunks=1, perchanweightdensity=True, gridder='standard', facets=1, psfphasecenter='', wprojplanes=1, vptable='', mosweight=True, aterm=True, psterm=False, wbawp=True, cfcache='', usepointing=False, computepastep=360.0, rotatepastep=360.0, pointingoffsetsigdev=[''], pblimit=0.2, deconvolver='hogbom', scales=[''], nterms=2, smallscalebias=0.0, restoration=True, restoringbeam='', pbcor=False, weighting='natural', robust=0.5, noise='1.0Jy', npixels=0, uvtaper=[''], niter=0, gain=0.1, threshold=0.0, nsigma=0.0, cycleniter=-1, cyclefactor=1.0, minpsffraction=0.05, maxpsffraction=0.8, interactive=False, usemask='user', mask='', pbmask=0.0, sidelobethreshold=3.0, noisethreshold=5.0, lownoisethreshold=1.5, negativethreshold=0.0, smoothfactor=1.0, minbeamfrac=0.3, cutthreshold=0.01, growiterations=75, dogrowprune=True, minpercentchange=-1.0, verbose=False, fastnoise=True, restart=True, savemodel='none', calcres=True, calcpsf=True, parallel=False):
     r"""
+Form images from interferometric visibilities and single dish image to reconstruct a sky model by joint deconvolution.
+
 Parameters
    - **usedata** (string='sdint') - Output image type(int, sd, sdint)
 
@@ -779,7 +781,7 @@ Description
       Single Dish and Interferometer Image
       Reconstruction <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-combination/joint-sd-and-interferometer-image-reconstruction>`__ "
 
-.. |image1| image:: ../../_media/66b05f9d215777360fc1b1ce0147ce542eeb93b5.png
+.. |image1| image:: ../media/66b05f9d215777360fc1b1ce0147ce542eeb93b5.png
    :class: image-inline
    :width: 599px
    :height: 329px

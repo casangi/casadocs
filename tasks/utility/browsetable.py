@@ -78,7 +78,7 @@ Description
       Caption CASA table browser with an MS loaded.
       ======= =====================================
 
-.. |image1| image:: ../../_media/e7b82ce6a699178fe6f43360bef6c38bb9c431bb.png
+.. |image1| image:: ../media/e7b82ce6a699178fe6f43360bef6c38bb9c431bb.png
    :class: image-inline
 
     """

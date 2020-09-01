@@ -79,7 +79,7 @@ Description
       |         | manipulate and export the plot.                           |
       +---------+-----------------------------------------------------------+
 
-.. |image1| image:: ../../_media/f05dc15d6cf9628b4e2f819d7e5530c7f27d3bd2.png
+.. |image1| image:: ../media/f05dc15d6cf9628b4e2f819d7e5530c7f27d3bd2.png
    :class: image-inline
 
     """
