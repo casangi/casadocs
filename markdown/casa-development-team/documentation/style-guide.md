@@ -2,143 +2,11 @@
 
 # Style Guide 
 
-Rules on the layout
-
-\--CASA Developer\--
-
  
 
-# **Introduction**
-
-This document describes the appropriate style to be used in adding content to the CASA Docs.  Please follow these guidelines when writing and editing documentation.
-
-# CASA Docs Organization
-
-The CASA Docs are organized first by CASA release version. You can see this by opening the CASA Docs [home page](https://casa.nrao.edu/casadocs-devel/).  The latest version of the documentation is the \"Stable\" version. Other released versions of CASA, beginning with CASA 5.0 are also available here. At the time of a CASA release, a snapshot of the stable documentation will be taken and that documentation will be frozen on the Plone server.
-
-Within each release version, the CASA documentation is divided into *topics*, which may be selected from the *directory* at the left sidebar. Each topic may have one or more *pages*, and each page may have zero or more *subpages*.  The only difference between a page and subpage is the way the item is formatted in the left sidebar directory.  Subpages are indented, whereas pages are not.  This allows authors to break long sections into multiple pages and indicate to the reader that the content is all related.  Aside from directory indentation, pages and subpages are identical.
-
-This style guide provides instructions on how to format different elements of each page. The goal is to have a rather uniform CASAdocs look and feel.  
-
-# **Page Design and Layouts**
-
-## **Headers**
-
-Content within a page can be divided into sections by using headers.  Four headers are available from the \"Formats-\>Formats-\>Headers\" pull down menu.  The highest level sections should use Header 1, followed by Header 2, 3, and 4.
-
-# Header 1 {#header-1 style="padding-left: 60px;"}
-
-## Header 2 {#header-2 style="padding-left: 60px;"}
-
-### Header 3 {#header-3 style="padding-left: 60px;"}
-
-#### Header 4 {#header-4 style="padding-left: 60px; text-align: left;"}
-
-All section headers should be left aligned. 
-
-<div class="alert alert-warning">
-When logged in, the headers appear different than when logged out (for example, colors are blue instead of grey). This is a result of a major update to the CASA Docs layout in CASA 5.5. When following the instructions on this page, the final layout will be ok.
-</div>
-
- 
-
-# Captions for Tables, Figures, Equations etc.
-
-To create a caption that can be referenced from the text, place your cursor directly underneath the table. Then select \"Insert-\>Insert Template-\>Caption\" and press ok. That will create a caption box. In the \"Type\" field, enter \"Table\" for Tables, \"Figure\" for figures, etc. and under \"ID\", create an identifier text that is unique. We recommend to use a scheme like \"pagename-fig/tab/eq/fn-identifier\' where the second word is *fig* for figures, *tab* for tables, *eq* for equations, and *fn* for footnotes. e.g. \"styleguide-fig-casalogo\" for the caption of the CASA logo [below](http://casa.nrao.edu/casadocs/stable/documentation/style-guide#figid-styleguidefigcasalogo). Under \"Caption\" enter the caption text. Save the page. In the updated page, the caption will show a little link symbol and clicking on it reveals a unique URL. This URL can then be used to refer to the table in the text. Select as \'external URL\' and add the string when the link is created in plone.
-
-See the Table and Figure captions below for examples.
-
- 
-
-# **Tables ** {#tables style="text-align: left;"}
-
-Tables are created through \"Table\"-\>\"Insert Table\". As a first step, define the numbers of rows and column on the displayed grid. 
-
-Headers can be used within tables to create heading cells for rows, columns, or the entire table.  We use a template for the property of all header cells. Place the cursor in a cell, or mark the cell or multiple content. Multiple cells can be selected. Right-click and go to \"Cell Properites\"  and switch \"Cell Type\" to \"Header Cell\".  Although little may change, setting the cell type to \"Header\" will allow the automatic application of table header templates that will propagate throughout the document.  
-
-Table captions are inserted as described [above.](#captions-for-tables--figures--equations-etc-)
-
- 
-
-   Header  Header   Header
-  -------- -------- --------
-   Header            
-   Header           stuff
-   Header  stuff     
-
-##  
-
->Your caption here.
-  
-
- 
-
-## Images
-
-Images may be added using the \"Insert/Edit Image\" button ![b13a7e6707d0317f3ff4ad58b31f559892b6c6e3](media/b13a7e6707d0317f3ff4ad58b31f559892b6c6e3.png) in the editor control bar (the little postcard symbol).  It is highly recommended to include multiple images with documentation in order to add an illustrative dimension to content. Captions should be added as described [above](#captions-for-tables--figures--equations-etc-).
-
- 
-
-![728626887397ae41bcee9b16d21d16ceeb5a879f](media/728626887397ae41bcee9b16d21d16ceeb5a879f.png)
-
- 
-
->The CASA logo.
-  
-
-## **Sizing**
-
-<div>
-
-Images may be uploaded to CASA documentation as a large resolution. However, images added with the html text editor will not automatically resize. Images can be resized with your cursor via an image transformation box that will appear when the image is clicked. Pixel dimensions are listed next to the image transformation box. We recommend though to use the \"Preview\" Size of 400x400 pixels, a number that can be set from the \"Insert/edit\" pop-up. Other sizes as appropriate, however, are also possible. 
-
-</div>
-
-<div>
-
-Note that image content is responsive, so once you decide on an ideal size for the image relative to the page content, the image will resize for smaller screens.
-
-</div>
-
-<div>
-
- 
-
-</div>
-
-### **Alignment**
-
-<div>
-
-Images, Tables, and Captions are all center aligned on a page, but content within the cells of a Table should be left justified. 
-
-</div>
-
-<div>
-
- 
-
-</div>
-
-# **Equations/Text and Math Formatting**
-
-## **LaTex/MathJax**
-
-LaTex code can be used to render math and long text documentation. This is possible through a local version of MathJax. 
-
-### **Inserting a formula with MathJax**
-
-Our local version of MathJax uses  $\$ ...\$$ as a delimiter to signal an equation.
-
-    $a^2 + b^2 = c^2$
-
-(the above was using the \"Pre\" formatting, which does not render latex, but shows text verbatim)
-
-will lead to 
-
-$a^2 + b^2 = c^2$. 
-
-Other characters, such as \"&\" can occasionally cause formatting issues when placed inside a MathJax formula. This can be fixed by replacing the \"&\" with its hexidecimal unicode: \\unicode{x26}, or placing it outside the $\$ ...\$$
+  --------- -------------------------
+  Type      Figure
+  ID        , or placing it outside the $\$ ...\$$
 
 delimiters to prevent it from rendering in MathJax.  
 
@@ -157,7 +25,6 @@ Where more than one dollar sign is used in a block of text, MathJax may be trigg
 
 Note that the span block can include more than just the dollar sign, and everything inside the span block will be excluded from MathJax interpretation.
 
-#  
 
 # **CASA Formatting**
 
@@ -194,7 +61,7 @@ MeasurementSetMulti-MSSub-MSMSMMS
 
 # **Tags and Paths**
 
-## General Tags and Alert Boxes {#general-tags-and-alert-boxes style="padding-left: 30px;"}
+## General Tags and Alert Boxes {#general-tags-and-alert-boxes 
 
 We have a number of different pre-defined boxes. 
 
@@ -210,36 +77,36 @@ interface listings will also go into a CASA input box. The CASA input and output
 #In CASA
 CASA<1>: inp listobs
 --------> inp(listobs)
-#  listobs :: List the summary of a data set in the logger or in a file
-vis                 =         ''        #  Name of input visibility file (MS)
-selectdata          =       True        #  Data selection parameters
-     field          =         ''        #  Field names or field index numbers:
-                                        #   ''==>all, field='0~2,3C286'
-     spw            =         ''        #  spectral-window/frequency/channel
-     antenna        =         ''        #  antenna/baselines: ''==>all, antenna
-                                        #   ='3,VA04'
-     timerange      =         ''        #  time range:
-                                        #   ''==>all,timerange='09:14:0~09:54:0'
-     correlation    =         ''        #  Select data based on correlation
-     scan           =         ''        #  scan numbers: ''==>all
-     intent         =         ''        #  Select data based on observation intent:
-                                        #   ''==>all
-     feed           =         ''        #  multi-feed numbers: Not yet implemented
-     array          =         ''        #  (sub)array numbers: ''==>all
-     uvrange        =         ''        #  uv range: ''==>all; uvrange
-                                        #   ='0~100klambda', default units=meters
-     observation    =         ''        #  Select data based on observation ID:
-                                        #   ''==>all
+#listobs :: List the summary of a data set in the logger or in a file
+vis                 =         ''        #Name of input visibility file (MS)
+selectdata          =       True        #Data selection parameters
+     field          =         ''        #Field names or field index numbers:
+                                        #''==>all, field='0~2,3C286'
+     spw            =         ''        #spectral-window/frequency/channel
+     antenna        =         ''        #antenna/baselines: ''==>all, antenna
+                                        #='3,VA04'
+     timerange      =         ''        #time range:
+                                        #''==>all,timerange='09:14:0~09:54:0'
+     correlation    =         ''        #Select data based on correlation
+     scan           =         ''        #scan numbers: ''==>all
+     intent         =         ''        #Select data based on observation intent:
+                                        #''==>all
+     feed           =         ''        #multi-feed numbers: Not yet implemented
+     array          =         ''        #(sub)array numbers: ''==>all
+     uvrange        =         ''        #uv range: ''==>all; uvrange
+                                        #='0~100klambda', default units=meters
+     observation    =         ''        #Select data based on observation ID:
+                                        #''==>all
 
 verbose             =       True
-listfile            =         ''        #  Name of disk file to write output: ''==>to
-                                        #   terminal
-listunfl            =      False        #  List unflagged row counts? If true, it can
-                                        #   have significant negative performance
-                                        #   impact.
-cachesize           =         50        #  EXPERIMENTAL. Maximum size in megabytes of
-                                        #   cache in which data structures can be
-                                        #   held.
+listfile            =         ''        #Name of disk file to write output: ''==>to
+                                        #terminal
+listunfl            =      False        #List unflagged row counts? If true, it can
+                                        #have significant negative performance
+                                        #impact.
+cachesize           =         50        #EXPERIMENTAL. Maximum size in megabytes of
+                                        #cache in which data structures can be
+                                        #held.
 ```
 
  
@@ -312,7 +179,6 @@ If the anchor is to a section of the current page, then mark the relevant text, 
 
 URLs shall be hidden in most cases and linked in the text appropriately. There are exceptions where the URL can be spelled out entirely (e.g. my.nrao.edu). Feel free to use the most appropriate way. 
 
-##  
 
 # Footnotes 
 
@@ -324,7 +190,6 @@ Then create the footnote itself. Insert a \"Footnote\" template (\"Insert-\>Inse
 
  
 
-#  
 
 # Citations/Bibliography
 

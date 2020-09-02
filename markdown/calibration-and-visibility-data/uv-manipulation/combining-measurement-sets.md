@@ -9,16 +9,16 @@ Once you have your data in the form of CASA MeasurementSets, you can go ahead an
 If you need to combine multiple datasets, you can use the **concat** task. The default inputs are:
 
 ```
-# concat :: Concatenate several visibility data sets.
-vis                     =   ['']    # Name of input visibility files to be concatenated
-concatvis               =    ''     # Name of output visibility file
-freqtol                 =    ''     # Frequency shift tolerance for considering data as the same spwid
-dirtol                  =    ''     # Direction shift tolerance for considering data as the same field
-respectname             =  False    # If true, fields with a different name are not merged even if their direction agrees
-timesort                =  False    # If true, sort by TIME in ascending order
-copypointing            =   True    # Copy all rows of the POINTING table.
-visweightscale          =    []     # List of the weight scaling factors to be applied to the individual MSs
-forcesingleephemfield   =    ''     # make sure that there is only one joint ephemeris for every field in this list
+#concat :: Concatenate several visibility data sets.
+vis                     =   ['']    #Name of input visibility files to be concatenated
+concatvis               =    ''     #Name of output visibility file
+freqtol                 =    ''     #Frequency shift tolerance for considering data as the same spwid
+dirtol                  =    ''     #Direction shift tolerance for considering data as the same field
+respectname             =  False    #If true, fields with a different name are not merged even if their direction agrees
+timesort                =  False    #If true, sort by TIME in ascending order
+copypointing            =   True    #Copy all rows of the POINTING table.
+visweightscale          =    []     #List of the weight scaling factors to be applied to the individual MSs
+forcesingleephemfield   =    ''     #make sure that there is only one joint ephemeris for every field in this list
 ```
 
 The *vis* parameter will take the list of MSs to combine. **concat** will presort them in time.
@@ -55,7 +55,7 @@ concat()
 combines the two days in n4826_16apr.split.ms and n4826_22apr.split.ms into a new output MS called n4826_tboth.ms, and the second MS is weighted twice the first one.
 
 <div class="alert alert-warning">
-**ALERT:** If you are concatenating MSs which use antennas which were moved between observations, the MS definition does only foresee a unique antenna ID, but not a unique name(!). The moved antenna will appear twice in the antenna list under the same name but on different stations and with two different IDs. The pair ('*NAME\@STATION*') will be the unique identifier.
+**ALERT:** If you are concatenating MSs which use antennas which were moved between observations, the MS definition does only foresee a unique antenna ID, but not a unique name(!). The moved antenna will appear twice in the antenna list under the same name but on different stations and with two different IDs. The pair ('*NAME@STATION*') will be the unique identifier.
 </div>
 
 If you would like to only concatenate the subtables of several MSs, not the bulk visibility data, you can use the task **testconcat** instead of **concat** to save time and diskspace. **testconcat** has the same parameters as **concat**. It produces an output MS with the concatenated subtables and an empty *MAIN* table.

@@ -9,15 +9,15 @@ Moments, Spectral line fitting, Continuum subtraction etc.
 One method to separate line and continuum emission in an image cube is to specify a number of line-free channels in that cube, make a linear fit to the visibilities in those channels, and subtract the fit from the whole cube. Note that the task **uvcontsub** serves a similar purpose but the subtraction is performed in visibility space (see [UV Continuum Subtraction](resolveuid/2c85a22fd1004fb194cf1890672ad94a)). The **imcontsub** task will perform a polynomial baseline fit to the specified channels from an image cube and subtract it from all channels.The default inputs are:
 
 ```
-#  imcontsub :: Continuum subtraction on images
-imagename  =      ''   #  Name of the input image
-linefile   =      ''   #  Output line image file name
-contfile   =      ''   #  Output continuum image file name
-fitorder   =       0   #  Polynomial order for the continuum estimation
-region     =      ''   #  Image region or name to process see viewer
-box        =      ''   #  Select one or more box regions
-chans      =      ''   #  Select the channel(spectral) range
-stokes     =      ''   #  Stokes params to image (I,IV,IQU,IQUV)
+#imcontsub :: Continuum subtraction on images
+imagename  =      ''   #Name of the input image
+linefile   =      ''   #Output line image file name
+contfile   =      ''   #Output continuum image file name
+fitorder   =       0   #Polynomial order for the continuum estimation
+region     =      ''   #Image region or name to process see viewer
+box        =      ''   #Select one or more box regions
+chans      =      ''   #Select the channel(spectral) range
+stokes     =      ''   #Stokes params to image (I,IV,IQU,IQUV)
 ```
 
 Area selection using *box* and *region* is detailed in the [box](#region-selection--box-) and [region](#regions--region-) sections. Image cube plane selection using *chans* and *stokes* are described in the [Plane selection](#plane-selection--chans--stokes-) section.
@@ -31,7 +31,7 @@ Area selection using *box* and *region* is detailed in the [box](#region-selecti
 For example, we first make a clean image from data in which no uv-plane continuum subtraction has been performed:
 
 ```
-# Now clean, keeping all the channels except first and last
+#Now clean, keeping all the channels except first and last
 default('clean')
 vis = 'ngc5921.demo.src.split.ms'
 imagename = 'ngc5921.demo.nouvcontsub'
@@ -51,11 +51,11 @@ mask = [108,108,148,148]
 interactive=False
 clean()
 
-# It will have made the image:
-# -----------------------------
-# ngc5921.demo.nouvcontsub.image
+#It will have made the image:
+#-----------------------------
+#ngc5921.demo.nouvcontsub.image
 
-# You can view this image
+#You can view this image
 viewer('ngc5921.demo.nouvcontsub.image')
 ```
 
@@ -83,19 +83,19 @@ $M_m(x_i,y_i) = \sum_k^N w_m(x_i,y_i,v_k)\,I(x_i,y_i,v_k)$
 for pixel i and channel k in the cube I. There are a number of choices to form the moment-m, usually approximating some polynomial expansion of the intensity distribution over velocity mean or sum, gradient, dispersion, skew, kurtosis, etc. There are other possibilities (other than a weighted sum) for calculating the image, such as median filtering, finding minima or maxima along the spectral axis, or absolute mean deviations. And the axis along which to do these calculations need not be the spectral axis (i.e. do moments along Dec for a RA-Velocity image). We will treat all of these as generalized instances of a "moment" map.The **immoments** task will compute basic moment images from a cube. The default inputs are:
 
 ```
-#  immoments :: Compute moments of an image cube:
-imagename    =         ''   #   Input image name
-moments      =        [0]   #  List of moments you would like to compute
-axis         = 'spectral'   #  The moment axis: ra, dec, lat, long, spectral, or stokes
-region       =         ''   #  Image Region.  Use viewer
-box          =         ''   #  Select one or more box regions
-chans        =         ''   #  Select the channel(spectral) range
-stokes       =         ''   #  Stokes params to image (I,IV,IQU,IQUV)
-mask         =         ''   #  mask used for selecting the area of the
-                            #   image to calculate the moments on
-includepix   =         -1   #  Range of pixel values to include
-excludepix   =         -1   #  Range of pixel values to exclude
-outfile      =         ''   #  Output image file name (or root for multiple moments)
+#immoments :: Compute moments of an image cube:
+imagename    =         ''   #Input image name
+moments      =        [0]   #List of moments you would like to compute
+axis         = 'spectral'   #The moment axis: ra, dec, lat, long, spectral, or stokes
+region       =         ''   #Image Region.  Use viewer
+box          =         ''   #Select one or more box regions
+chans        =         ''   #Select the channel(spectral) range
+stokes       =         ''   #Stokes params to image (I,IV,IQU,IQUV)
+mask         =         ''   #mask used for selecting the area of the
+                            #image to calculate the moments on
+includepix   =         -1   #Range of pixel values to include
+excludepix   =         -1   #Range of pixel values to exclude
+outfile      =         ''   #Output image file name (or root for multiple moments)
 ```
 
 This task will operate on the input file given by *imagename* and produce a new image or set of images based on the name given in *outfile*.The *moments* parameter chooses which moments are calculated. The choices for the operation mode are:
@@ -133,28 +133,28 @@ Below is an example for **immoments**:
 ```
 default('immoments')
 imagename = 'ngc5921.demo.cleanimg'
-# Do first and second spectral moments
+#Do first and second spectral moments
 axis  = 'spectral'
 chans = ''
 moments = [0,1]
-# Need to mask out noisy pixels, currently done
-# using hard global limits
+#Need to mask out noisy pixels, currently done
+#using hard global limits
 excludepix = [-100,0.009]
 outfile = 'ngc5921.demo.moments'
  
 immoments()
 
-# It will have made the images:
-# --------------------------------------
-# ngc5921.demo.moments.integrated
-# ngc5921.demo.moments.weighted_coord
+#It will have made the images:
+#--------------------------------------
+#ngc5921.demo.moments.integrated
+#ngc5921.demo.moments.weighted_coord
 ```
 
 Other examples of NGC2403 (a moment-0 image of a VLA line dataset) and NGC4826 (a moment-1 image of a BIMA CO line dataset) are shown in the Figure [below](http://casa.nrao.edu/casadocs/stable/image-analysis/dealing-with-images#figid-analysisfigmoments).
 
-![0d5fd0d2ee99bce18c9c5fcce6f3439c8f9042ce](media/0d5fd0d2ee99bce18c9c5fcce6f3439c8f9042ce.png)
+![0d5fd0d2ee99bce18c9c5fcce6f3439c8f9042ce](media/0d5fd0d2ee99bce18c9c5fcce6f3439c8f9042ce.png){.image-inline}
 
-![4e1cdd67ee0996b1a1e19225e04cb383489aabd1](media/4e1cdd67ee0996b1a1e19225e04cb383489aabd1.png)
+![4e1cdd67ee0996b1a1e19225e04cb383489aabd1](media/4e1cdd67ee0996b1a1e19225e04cb383489aabd1.png){.image-inline}
 
 >NGC2403 VLA moment zero (left) and NGC4826 BIMA moment one (right) images as shown in the viewer.
   
@@ -164,26 +164,26 @@ Other examples of NGC2403 (a moment-0 image of a VLA line dataset) and NGC4826 (
 CASA can generate position-velocity (PV) diagrams via the task **impv** or directly in the **viewer** (see [Image Cube Visualization](https://casa.nrao.edu/casadocs-devel/stable/imaging/image-cube-visualization)**)**.  The viewer application calls the task:
 
 ```
-#  impv :: Construct a position-velocity image by choosing two points in the direction plane.
-imagename           =         ''        #  Name of the input image
-outfile             =         ''        #  Output image name. If empty, no image is written.
-mode                =   'coords'        #  If 'coords', use start and end values. If 'length', use
-                                        #   center, length, and pa values.
-width               =          1        #  Width of slice for averaging pixels perpendicular to the
-                                        #   slice. Must be an odd positive integer or valid
-                                        #   quantity. See help for details.
-unit                =   'arcsec'        #  Unit for the offset axis in the resulting image. Must be
-                                        #   a unit of angular measure.
-chans               =         ''        #  Channels to use. 
-                                        #   Channels must be contiguous. Default is to use all
-                                        #   channels.
-     region         =         ''        #  Region selection. Default is entire image. No selection
-                                        #   is permitted in the direction plane. 
+#impv :: Construct a position-velocity image by choosing two points in the direction plane.
+imagename           =         ''        #Name of the input image
+outfile             =         ''        #Output image name. If empty, no image is written.
+mode                =   'coords'        #If 'coords', use start and end values. If 'length', use
+                                        #center, length, and pa values.
+width               =          1        #Width of slice for averaging pixels perpendicular to the
+                                        #slice. Must be an odd positive integer or valid
+                                        #quantity. See help for details.
+unit                =   'arcsec'        #Unit for the offset axis in the resulting image. Must be
+                                        #a unit of angular measure.
+chans               =         ''        #Channels to use. 
+                                        #Channels must be contiguous. Default is to use all
+                                        #channels.
+     region         =         ''        #Region selection. Default is entire image. No selection
+                                        #is permitted in the direction plane. 
 
-stokes              =        'I'        #  Stokes planes to use. Planes must be contiguous. Default
-                                        #   is to use all stokes.
-mask                =         []        #  Mask to use. Default is none.
-     stretch        =      False        #  Stretch the mask if necessary and possible? Default False
+stokes              =        'I'        #Stokes planes to use. Planes must be contiguous. Default
+                                        #is to use all stokes.
+mask                =         []        #Mask to use. Default is none.
+     stretch        =      False        #Stretch the mask if necessary and possible? Default False
 ```
 
 PV diagrams are generated by "slicing" a datacube through the RA/DEC planes. The "slit" can be defined either by start/end coordinates or by a length, center coordinate, and position angle. Averaged over the width of the 'slit' the image cube values are then stored in a new image with position and velocity as the two axes. The slit position is specified by a start and end pixel in the RA/DEC plane of the data cube. An angular unit can be set to define what is stored in the resulting PV image.
@@ -195,25 +195,25 @@ PV diagrams are generated by "slicing" a datacube through the RA/DEC planes. The
 To gain higher signal-to-noise of data cubes, one can smooth the data along one dimension (for 2-dimensional smoothing, see **imsmooth** [below](#2-dimensional-smoothing--image-convolution--imsmooth-)**)**. Typically this is the spectral axis. Hanning and Boxcar smoothing kernels are available in the task **specsmooth**:
 
 ```
-#  specsmooth :: Smooth an image region in one dimension
-imagename           =         ''        #  Name of the input image
-outfile             =         ''        #  Output image name.
-region              =         ''        #  Region selection. Default is to use the full
-                                        #   image.
-     box            =         ''        #  Rectangular region to select in
-                                        #   direction plane. Default is to use the entire
-                                        #   direction plane.
+#specsmooth :: Smooth an image region in one dimension
+imagename           =         ''        #Name of the input image
+outfile             =         ''        #Output image name.
+region              =         ''        #Region selection. Default is to use the full
+                                        #image.
+     box            =         ''        #Rectangular region to select in
+                                        #direction plane. Default is to use the entire
+                                        #direction plane.
 
-mask                =         ''        #  Mask to use. Default is none..
-axis                =         -1        #  The profile axis. Default: use the
-                                        #   spectral axis if one exists, axis 0
-                                        #   otherwise (<0).
-function            =  'hanning'        #  Convolution function. hanning and boxcar
-                                        #   are supported functions. Minimum match
-                                        #   is supported.
-dmethod             =     'copy'        #  Decimation method. '' means no
-                                        #   decimation, 'copy' and 'mean' are also
-                                        #   supported (minimum match).
+mask                =         ''        #Mask to use. Default is none..
+axis                =         -1        #The profile axis. Default: use the
+                                        #spectral axis if one exists, axis 0
+                                        #otherwise (<0).
+function            =  'hanning'        #Convolution function. hanning and boxcar
+                                        #are supported functions. Minimum match
+                                        #is supported.
+dmethod             =     'copy'        #Decimation method. '' means no
+                                        #decimation, 'copy' and 'mean' are also
+                                        #supported (minimum match).
 ```
 
 The parameter *dmethod=\'copy\'* allows one to only keep every nth channel, if the smoothing kernel has a width of n. Leaving this parameter empty will return the same size cube as the input and setting it to 'mean' will average planes using the kernel width.
@@ -227,105 +227,105 @@ The parameter *dmethod=\'copy\'* allows one to only keep every nth channel, if t
 **specfit** is a powerful task to perform spectral line fits in data cubes. Three types of fitting functions are currently supported, polynomials, Gaussians, and Lorentzians. **specfit** can fit these functions in two ways: over data that were averaged across a region (*multifit=False*) or on a pixel by pixel basis (*multifit=True*).
 
 ```
-#  specfit :: Fit 1-dimensional Gaussians and/or polynomial models to an image or image region
-imagename           =         ''        #  Name of the input image
-box                 =         ''        #  Rectangular box in direction coordinate
-                                        #   blc, trc. Default: entire image ('').
-region              =         ''        #  Region of interest. Default: Do
-                                        #   not use a region.
-chans               =         ''        #  Channels to use. Channels must be
-                                        #   contiguous. Default: all channels ('').
-stokes              =         ''        #  Stokes planes to use. Planes must be
-                                        #   contiguous. Default: all stokes ('').
-axis                =         -1        #  The profile axis. Default: use the
-                                        #   spectral axis if one exists, axis 0
-                                        #   otherwise (<0).
-mask                =         ''        #  Mask to use. Default is
-                                        #   none..
-poly                =         -1        #  Order of polynomial element.  Default: do
-                                        #   not fit a polynomial (<0).
-estimates           =         ''        #  Name of file containing initial estimates.
-                                        #   Default: No initial estimates ('').
-     ngauss         =          1        #  Number of Gaussian elements.  Default: 1.
-     pampest        =         ''        #  Initial estimate of PCF profile (gaussian
-                                        #   or lorentzian) amplitudes.
-     pcenterest     =         ''        #  Initial estimate PCF profile centers, in
-                                        #   pixels.
-     pfwhmest       =         ''        #  Initial estimate PCF profile FWHMs, in
-                                        #   pixels.
-     pfix           =         ''        #  PCF profile parameters to fix during fit.
-     pfunc          =         ''        #  PCF singlet functions to fit. 'gaussian'
-                                        #   or 'lorentzian' (minimal match
-                                        #   supported). Unspecified means all
-                                        #   gaussians.
+#specfit :: Fit 1-dimensional Gaussians and/or polynomial models to an image or image region
+imagename           =         ''        #Name of the input image
+box                 =         ''        #Rectangular box in direction coordinate
+                                        #blc, trc. Default: entire image ('').
+region              =         ''        #Region of interest. Default: Do
+                                        #not use a region.
+chans               =         ''        #Channels to use. Channels must be
+                                        #contiguous. Default: all channels ('').
+stokes              =         ''        #Stokes planes to use. Planes must be
+                                        #contiguous. Default: all stokes ('').
+axis                =         -1        #The profile axis. Default: use the
+                                        #spectral axis if one exists, axis 0
+                                        #otherwise (<0).
+mask                =         ''        #Mask to use. Default is
+                                        #none..
+poly                =         -1        #Order of polynomial element.  Default: do
+                                        #not fit a polynomial (<0).
+estimates           =         ''        #Name of file containing initial estimates.
+                                        #Default: No initial estimates ('').
+     ngauss         =          1        #Number of Gaussian elements.  Default: 1.
+     pampest        =         ''        #Initial estimate of PCF profile (gaussian
+                                        #or lorentzian) amplitudes.
+     pcenterest     =         ''        #Initial estimate PCF profile centers, in
+                                        #pixels.
+     pfwhmest       =         ''        #Initial estimate PCF profile FWHMs, in
+                                        #pixels.
+     pfix           =         ''        #PCF profile parameters to fix during fit.
+     pfunc          =         ''        #PCF singlet functions to fit. 'gaussian'
+                                        #or 'lorentzian' (minimal match
+                                        #supported). Unspecified means all
+                                        #gaussians.
 
-minpts              =          0        #  Minimum number of unmasked points
-                                        #   necessary to attempt fit.
-multifit            =       True        #  If true, fit a profile along the desired
-                                        #   axis at each pixel in the specified
-                                        #   region. If false, average the non-fit
-                                        #   axis pixels and do a single fit to that
-                                        #   average profile. Default False.
-     amp            =         ''        #  Name of amplitude solution image. Default:
-                                        #   do not write the image ('').
-     amperr         =         ''        #  Name of amplitude solution error image.
-                                        #   Default: do not write the image ('').
-     center         =         ''        #  Name of center solution image. Default: do
-                                        #   not write the image ('').
-     centererr      =         ''        #  Name of center solution error image.
-                                        #   Default: do not write the image ('').
-     fwhm           =         ''        #  Name of fwhm solution image. Default: do
-                                        #   not write the image ('').
-     fwhmerr        =         ''        #  Name of fwhm solution error image.
-                                        #   Default: do not write the image ('').
-     integral       =         ''        #  Prefix of name of integral solution image.
-                                        #   Name of image will have gaussian
-                                        #   component number appended.  Default: do
-                                        #   not write the image ('').
-     integralerr    =         ''        #  Prefix of name of integral error solution
-                                        #   image. Name of image will have gaussian
-                                        #   component number appended.  Default: do
-                                        #   not write the image ('').
+minpts              =          0        #Minimum number of unmasked points
+                                        #necessary to attempt fit.
+multifit            =       True        #If true, fit a profile along the desired
+                                        #axis at each pixel in the specified
+                                        #region. If false, average the non-fit
+                                        #axis pixels and do a single fit to that
+                                        #average profile. Default False.
+     amp            =         ''        #Name of amplitude solution image. Default:
+                                        #do not write the image ('').
+     amperr         =         ''        #Name of amplitude solution error image.
+                                        #Default: do not write the image ('').
+     center         =         ''        #Name of center solution image. Default: do
+                                        #not write the image ('').
+     centererr      =         ''        #Name of center solution error image.
+                                        #Default: do not write the image ('').
+     fwhm           =         ''        #Name of fwhm solution image. Default: do
+                                        #not write the image ('').
+     fwhmerr        =         ''        #Name of fwhm solution error image.
+                                        #Default: do not write the image ('').
+     integral       =         ''        #Prefix of name of integral solution image.
+                                        #Name of image will have gaussian
+                                        #component number appended.  Default: do
+                                        #not write the image ('').
+     integralerr    =         ''        #Prefix of name of integral error solution
+                                        #image. Name of image will have gaussian
+                                        #component number appended.  Default: do
+                                        #not write the image ('').
 
-model               =         ''        #  Name of model image. Default: do not write
-                                        #   the model image ('').
-residual            =         ''        #  Name of residual image. Default: do not
-                                        #   write the residual image ('').
-wantreturn          =       True        #  Should a record summarizing the results be
-                                        #   returned?
-logresults          =       True        #  Output results to logger?
-gmncomps            =          0        #  Number of components in each gaussian
-                                        #   multiplet to fit
-gmampcon            =         ''        #  The amplitude ratio constraints for non-
-                                        #   reference components to reference
-                                        #   component in gaussian multiplets.
-gmcentercon         =         ''        #  The center offset constraints (in pixels)
-                                        #   for non-reference components to reference
-                                        #   component in gaussian multiplets.
-gmfwhmcon           =         ''        #  The FWHM  ratio constraints for non-
-                                        #   reference components to reference
-                                        #   component in gaussian multiplets.
-gmampest            =      [0.0]        #  Initial estimate of individual gaussian
-                                        #   amplitudes in gaussian multiplets.
-gmcenterest         =      [0.0]        #  Initial estimate of individual gaussian
-                                        #   centers in gaussian multiplets, in
-                                        #   pixels.
-gmfwhmest           =      [0.0]        #  Initial estimate of individual gaussian
-                                        #   FWHMss in gaussian multiplets, in pixels.
-gmfix               =         ''        #  Parameters of individual gaussians in
-                                        #   gaussian multiplets to fix during fit.
-logfile             =         ''        #  File in which to log results. Default is
-                                        #   not to write a logfile.
-goodamprange        =      [0.0]        #  Acceptable amplitude solution range. [0.0]
-                                        #   => all amplitude solutions are
-                                        #   acceptable.
-goodcenterrange     =      [0.0]        #  Acceptable center solution range in pixels
-                                        #   relative to region start. [0.0] => all
-                                        #   center solutions are acceptable.
-goodfwhmrange       =      [0.0]        #  Acceptable FWHM solution range in pixels.
-                                        #   [0.0] => all FWHM solutions are
-                                        #   acceptable.
-sigma               =         ''        #  Standard deviation array or image name.
+model               =         ''        #Name of model image. Default: do not write
+                                        #the model image ('').
+residual            =         ''        #Name of residual image. Default: do not
+                                        #write the residual image ('').
+wantreturn          =       True        #Should a record summarizing the results be
+                                        #returned?
+logresults          =       True        #Output results to logger?
+gmncomps            =          0        #Number of components in each gaussian
+                                        #multiplet to fit
+gmampcon            =         ''        #The amplitude ratio constraints for non-
+                                        #reference components to reference
+                                        #component in gaussian multiplets.
+gmcentercon         =         ''        #The center offset constraints (in pixels)
+                                        #for non-reference components to reference
+                                        #component in gaussian multiplets.
+gmfwhmcon           =         ''        #The FWHM  ratio constraints for non-
+                                        #reference components to reference
+                                        #component in gaussian multiplets.
+gmampest            =      [0.0]        #Initial estimate of individual gaussian
+                                        #amplitudes in gaussian multiplets.
+gmcenterest         =      [0.0]        #Initial estimate of individual gaussian
+                                        #centers in gaussian multiplets, in
+                                        #pixels.
+gmfwhmest           =      [0.0]        #Initial estimate of individual gaussian
+                                        #FWHMss in gaussian multiplets, in pixels.
+gmfix               =         ''        #Parameters of individual gaussians in
+                                        #gaussian multiplets to fix during fit.
+logfile             =         ''        #File in which to log results. Default is
+                                        #not to write a logfile.
+goodamprange        =      [0.0]        #Acceptable amplitude solution range. [0.0]
+                                        #=> all amplitude solutions are
+                                        #acceptable.
+goodcenterrange     =      [0.0]        #Acceptable center solution range in pixels
+                                        #relative to region start. [0.0] => all
+                                        #center solutions are acceptable.
+goodfwhmrange       =      [0.0]        #Acceptable FWHM solution range in pixels.
+                                        #[0.0] => all FWHM solutions are
+                                        #acceptable.
+sigma               =         ''        #Standard deviation array or image name.
 ```
 
 ##  Polynomial Fits
@@ -413,29 +413,29 @@ As mentioned above, **specfit** can also fit spectral cubes on a pixel by pixel 
 **specflux** calculates the flux as a function of frequency and velocity over a selected spatial region. Flux densities of Jy/beam are being converted to Jy by properly integrating over the selected region.The input parameters of **specflux** are:
 
 ```
-#  specflux :: Report details of an image spectrum.
-imagename           =         ''        #  Name of the input image
-box                 =         ''        #  Rectangular region to select in
-                                        #   direction plane. Default is to use the entire
-                                        #   direction plane.
-     region         =         ''        #  Region selection.  Default is to use the full
-                                        #   image.
+#specflux :: Report details of an image spectrum.
+imagename           =         ''        #Name of the input image
+box                 =         ''        #Rectangular region to select in
+                                        #direction plane. Default is to use the entire
+                                        #direction plane.
+     region         =         ''        #Region selection.  Default is to use the full
+                                        #image.
 
-chans               =         ''        #  Channels to use.  Default is to use all
-                                        #   channels.
-stokes              =         ''        #  Stokes planes to use.  Default is to
-                                        #   use all Stokes planes.
-mask                =         ''        #  Mask to use.  Default
-                                        #   is none.
-unit                =     'km/s'        #  Unit to use for the abscissa. Must be
-                                        #   conformant with a typical spectral axis
-                                        #   unit.
-major               =         ''        #  Major axis of overriding restoring beam.
-                                        #   If specified, must be a valid quantity.
-minor               =         ''        #  Minor axis of overriding restoring beam.
-                                        #   If specified, must be a valid quantity
-logfile             =         ''        #  File which to write details. Default is
-                                        #   to not write to a file.
+chans               =         ''        #Channels to use.  Default is to use all
+                                        #channels.
+stokes              =         ''        #Stokes planes to use.  Default is to
+                                        #use all Stokes planes.
+mask                =         ''        #Mask to use.  Default
+                                        #is none.
+unit                =     'km/s'        #Unit to use for the abscissa. Must be
+                                        #conformant with a typical spectral axis
+                                        #unit.
+major               =         ''        #Major axis of overriding restoring beam.
+                                        #If specified, must be a valid quantity.
+minor               =         ''        #Minor axis of overriding restoring beam.
+                                        #If specified, must be a valid quantity
+logfile             =         ''        #File which to write details. Default is
+                                        #to not write to a file.
 ```
 
 The results can be written into a logfile to be plotted in other packages.
@@ -469,27 +469,27 @@ numpanels='8')
 The inputs to **rmfit** are:
 
 ```
-#  rmfit :: Calculate rotation measure.
-imagename           =         ''        #  Name(s) of the input image(s). Must be specified.
-rm                  =         ''        #  Output rotation measure image name. If not specified, no
-                                        #   image is written.
-rmerr               =         ''        #  Output rotation measure error image name. If not
-                                        #   specified, no image is written.
-pa0                 =         ''        #  Output position angle (degrees) at zero wavelength image
-                                        #   name. If not specified, no image is written.
-pa0err              =         ''        #  Output position angle (degrees) at zero wavelength error
-                                        #   image name. If not specified, no image is written.
-nturns              =         ''        #  Output number of turns image name. If not specified, no
-                                        #   image is written.
-chisq               =         ''        #  Output reduced chi squared image name. If not specified,
-                                        #   no image is written.
-sigma               =         ''        #  Estimate of the thermal noise.  A value less than 0 means
-                                        #   auto estimate.
-rmfg                =        0.0        #  Foreground rotation measure in rad/m/m to subtract.
-rmmax               =        0.0        #  Maximum rotation measure in rad/m/m for which to solve.
-                                        #   IMPORTANT TO SPECIFY.
-maxpaerr            =      1e+30        #  Maximum input position angle error in degrees to allow in
-                                        #   solution determination.
+#rmfit :: Calculate rotation measure.
+imagename           =         ''        #Name(s) of the input image(s). Must be specified.
+rm                  =         ''        #Output rotation measure image name. If not specified, no
+                                        #image is written.
+rmerr               =         ''        #Output rotation measure error image name. If not
+                                        #specified, no image is written.
+pa0                 =         ''        #Output position angle (degrees) at zero wavelength image
+                                        #name. If not specified, no image is written.
+pa0err              =         ''        #Output position angle (degrees) at zero wavelength error
+                                        #image name. If not specified, no image is written.
+nturns              =         ''        #Output number of turns image name. If not specified, no
+                                        #image is written.
+chisq               =         ''        #Output reduced chi squared image name. If not specified,
+                                        #no image is written.
+sigma               =         ''        #Estimate of the thermal noise.  A value less than 0 means
+                                        #auto estimate.
+rmfg                =        0.0        #Foreground rotation measure in rad/m/m to subtract.
+rmmax               =        0.0        #Maximum rotation measure in rad/m/m for which to solve.
+                                        #IMPORTANT TO SPECIFY.
+maxpaerr            =      1e+30        #Maximum input position angle error in degrees to allow in
+                                        #solution determination.
 ```
 
 This task generates the rotation measure image from stokes Q and U measurements at several different frequencies. You are required to specify the name of at least one image with a polarization axis containing stokes Q and U planes and with a frequency axis containing more than two pixels. The frequencies do not have to be equally spaced (i.e. the frequency coordinate can be a tabular coordinate). It will work out the position angle images for you. You may also specify multiple image names, in which case these images will first be concatenated along the spectral axis using **ia.imageconcat**. The requirements are that for all images, the axis order must be the same and the number of pixels along each axis must be identical, except for the spectral axis which may differ in length between images. The spectral axis need not be contiguous from one image to another. See also the i**magepol.fourierrotationmeasure** function for a new Fourier-based approach.Rotation measure algorithms that work robustly are few. The main problem is in trying to account for the $n- \pi$ ambiguity (see Leahy et al.1986 - Appendix A.1) [\[1\]](#Bibliography) and the [MIRIAD manual](http://www.cfa.harvard.edu/sma/miriad/manuals/SMAuguide/smauserhtml/imrm.html).
@@ -497,7 +497,7 @@ This task generates the rotation measure image from stokes Q and U measurements 
 But as in all these algorithms, the basic process is that for each spatial pixel, the position angle vs frequency data is fit to determine the rotation measure and the position angle at zero wavelength (and associated errors). An image containing the number of $n- \pi$ turns that were added to the data at each spatial pixel and for which the best fit was found can be written. The reduced $\chi^2$ image for the fits can also be written. Any combination of output images can be written.
 
 <div class="alert alert-info">
-**NOTE**: No assessment of curvature (i.e. deviation from the simple linear position angle - $\lambda^2$ functional form) is made.
+**NOTE**: No assessment of curvature (i.e. deviation from the simple linear position angle - $lambda^2$ functional form) is made.
 </div>
 
 The parameter *sigma* gives the thermal noise in Stokes Q and U. By default it is determined automatically using the image data. But if it proves to be inaccurate (maybe not many signal-free pixels), it may be specified. This is used for calculating the error in the position angles (via propagation of Gaussian errors).The argument *maxpaerr* specifies the maximum allowable error in the position angle that is acceptable. The default is an infinite value. From the standard propagation of errors, the error in the linearly polarized position angle is determined from the Stokes Q and U images (at each directional pixel for each frequency). If the position angle error for any pixel exceeds the specified value, the position angle at that pixel is omitted from the fit. The process generates an error for the fit and this is used to compute the errors in the output images.
@@ -521,69 +521,69 @@ $\ln(y) = c_0 + c_1 \ln(x) + c_2 \ln(x/D)^2 +  ... + c_n \ln(x/D)^n$
 Because the logarithm of the ordinate values must be taken before fitting a logarithmic transformed polynomial, all non-positive pixel values are effectively masked for the purposes of fitting. The coefficients of the two forms are equal to each other except that c0 in the second equation is equal to $\ln(c_0)$ of the first. In the case of fitting a spectral index, which is traditionally represented as $\alpha$, is equal to $c_1$. In both cases, $D$ is a normalization constant used so that abscissa values are closer to unity when they are sent to the fitter. This generally improves the probability that the fit will converge. This parameter may be specified via the *div* parameter. A value of 0 (the default) indicates that the application should determine a reasonable value for $D$, which is determined via$D = 10^{\int(\log10(\sqrt(\min(x)*\max(x)))}$where *min(x)* and *max(x)* are the minimum and maximum abscissa values, respectively.The inputs are:
 
 ```
- #  spxfit :: Fit a 1-dimensional model to an image or image region
+ #spxfit :: Fit a 1-dimensional model to an image or image region
 for determination of spectral index.
-imagename           =                   #  Name of the input image(s)
-box                 =         ''        #  Rectangular box in
-                                        #   direction coordinate blc, trc.
-                                        #   Default: entire image ('').
-region              =         ''        #  Region of interest.  Default:
-                                        #   Do not use a region.
-chans               =         ''        #  Channels to use. Channels
-                                        #   must be contiguous.  Default: all channels ('').
-stokes              =         ''        #  Stokes planes to
-                                        #   use. Planes must be contiguous. Default:
-                                        #   all stokes ('').
-axis                =         -1        #  The profile axis. Default:
-                                        #   use the spectral axis if one
-                                        #   exists, axis 0 otherwise (<0).
-mask                =         ''        #  Mask to use.  Default is none.
-minpts              =          1        #  Minimum number of unmasked
-                                        #   points necessary to attempt
-                                        #   fit.
-multifit            =       True        #  If true, fit a profile
-                                        #   along the desired axis at each
-                                        #   pixel in the specified
-                                        #   region. If false, average the
-                                        #   non-fit axis pixels and do
-                                        #   a single fit to that average
-                                        #   profile. Default False.
-     spxsol         =         ''        #  Name of the spectral index
-                                        #   function coefficient solution
-                                        #   image to write.
-     spxerr         =         ''        #  Name of the spectral index
-                                        #   function coefficient error
-                                        #   image to write.
-     model          =         ''        #  Name of model
-                                        #   image. Default: do not write the model
-                                        #   image ('').
-     residual       =         ''        #  Name of residual
-                                        #   image. Default: do not write the
-                                        #   residual image ('').
-spxtype             =      'plp'        #  Type of function to
-                                        #   fit. 'plp' => power logarithmic
-                                        #   polynomial, 'ltp' =>
-                                        #   logarithmic transformed polynomial.
-spxest              =         []        #  Initial estimates for the
-                                        #   spectral index function
-                                        #   coefficients.
-spxfix              =         []        #  Fix the corresponding spectral index function
-                                        #   coefficients during the fit. True=>hold fixed.
-div                 =          0        #  Divisor (numerical value or
-                                        #   quantity) to use in the
-                                        #   logarithmic terms of the
-                                        #   plp or ltp function. 0 =>
-                                        #   calculate a useful value on the fly.
-wantreturn          =       True        #  Should a record summarizing
-                                        #   the results be returned?
-logresults          =       True        #  Output results to logger?
-logfile             =         ''        #  File in which to log
-                                        #   results. Default is not to write a
-                                        #   logfile.
-sigma               =         -1        #  Standard deviation array or image name(s).
-     outsigma       =         ''        #  Name of output image used
-                                        #   for standard deviation. Ignored
-                                        #   if sigma is empty.
+imagename           =                   #Name of the input image(s)
+box                 =         ''        #Rectangular box in
+                                        #direction coordinate blc, trc.
+                                        #Default: entire image ('').
+region              =         ''        #Region of interest.  Default:
+                                        #Do not use a region.
+chans               =         ''        #Channels to use. Channels
+                                        #must be contiguous.  Default: all channels ('').
+stokes              =         ''        #Stokes planes to
+                                        #use. Planes must be contiguous. Default:
+                                        #all stokes ('').
+axis                =         -1        #The profile axis. Default:
+                                        #use the spectral axis if one
+                                        #exists, axis 0 otherwise (<0).
+mask                =         ''        #Mask to use.  Default is none.
+minpts              =          1        #Minimum number of unmasked
+                                        #points necessary to attempt
+                                        #fit.
+multifit            =       True        #If true, fit a profile
+                                        #along the desired axis at each
+                                        #pixel in the specified
+                                        #region. If false, average the
+                                        #non-fit axis pixels and do
+                                        #a single fit to that average
+                                        #profile. Default False.
+     spxsol         =         ''        #Name of the spectral index
+                                        #function coefficient solution
+                                        #image to write.
+     spxerr         =         ''        #Name of the spectral index
+                                        #function coefficient error
+                                        #image to write.
+     model          =         ''        #Name of model
+                                        #image. Default: do not write the model
+                                        #image ('').
+     residual       =         ''        #Name of residual
+                                        #image. Default: do not write the
+                                        #residual image ('').
+spxtype             =      'plp'        #Type of function to
+                                        #fit. 'plp' => power logarithmic
+                                        #polynomial, 'ltp' =>
+                                        #logarithmic transformed polynomial.
+spxest              =         []        #Initial estimates for the
+                                        #spectral index function
+                                        #coefficients.
+spxfix              =         []        #Fix the corresponding spectral index function
+                                        #coefficients during the fit. True=>hold fixed.
+div                 =          0        #Divisor (numerical value or
+                                        #quantity) to use in the
+                                        #logarithmic terms of the
+                                        #plp or ltp function. 0 =>
+                                        #calculate a useful value on the fly.
+wantreturn          =       True        #Should a record summarizing
+                                        #the results be returned?
+logresults          =       True        #Output results to logger?
+logfile             =         ''        #File in which to log
+                                        #results. Default is not to write a
+                                        #logfile.
+sigma               =         -1        #Standard deviation array or image name(s).
+     outsigma       =         ''        #Name of output image used
+                                        #for standard deviation. Ignored
+                                        #if sigma is empty.
 ```
 
 For more than a single input image or cube, all images must have the same dimensions along all axes other than the fit axis. *multifit* will perform a per-pixel fit, otherwise there will be a single value over the entire region.
@@ -595,43 +595,43 @@ For more than a single input image or cube, all images must have the same dimens
 The **slsearch** task allows the spectral line enthusiast to find their favorite spectral lines in subset of the [Splatalogue spectral line catalog](http://www.splatalogue.net) which is distributed with CASA. In addition, one can export custom catalogs from Splatalogue and import them to CASA using the task **splattotable** (next section) or tool method **sl.splattotable**. One can even import catalogs with lines not in Splatalogue using the same file format.The inputs to **slsearch** are as follows:
 
 ```
-#  slsearch :: Search a spectral line table.
-tablename           =         ''        #  Input spectral line table name to
-                                        #   search. If not specified, use the
-                                        #   default table in the system.
-outfile             =         ''        #  Results table name. Blank means do not
-                                        #   write the table to disk.
-freqrange           =   [84, 90]        #  Frequency range in GHz.
-species             =       ['']        #  Species to search for.
-reconly             =      False        #  List only NRAO recommended
-                                        #   frequencies.
-chemnames           =       ['']        #  Chemical names to search for.
-qns                 =       ['']        #  Resolved quantum numbers to search
-                                        #   for.
-rrlinclude          =       True        #  Include RRLs in the result set?
-rrlonly             =      False        #  Include only RRLs in the result set?
-     intensity      =         -1        #  CDMS/JPL intensity range. -1 -> do not
-                                        #   use an intensity range.
-     smu2           =         -1        #  S*mu*mu range in Debye**2. -1 -> do
-                                        #   not use an S*mu*mu range.
-     loga           =         -1        #  log(A) (Einstein coefficient) range.
-                                        #   -1 -> do not use a loga range.
-     eu             =         -1        #  Upper energy state range in Kelvin. -1
-                                        #   -> do not use an eu range.
-     el             =         -1        #  Lower energy state range in Kelvin. -1
-                                        #   -> do not use an el range.
+#slsearch :: Search a spectral line table.
+tablename           =         ''        #Input spectral line table name to
+                                        #search. If not specified, use the
+                                        #default table in the system.
+outfile             =         ''        #Results table name. Blank means do not
+                                        #write the table to disk.
+freqrange           =   [84, 90]        #Frequency range in GHz.
+species             =       ['']        #Species to search for.
+reconly             =      False        #List only NRAO recommended
+                                        #frequencies.
+chemnames           =       ['']        #Chemical names to search for.
+qns                 =       ['']        #Resolved quantum numbers to search
+                                        #for.
+rrlinclude          =       True        #Include RRLs in the result set?
+rrlonly             =      False        #Include only RRLs in the result set?
+     intensity      =         -1        #CDMS/JPL intensity range. -1 -> do not
+                                        #use an intensity range.
+     smu2           =         -1        #S*mu*mu range in Debye**2. -1 -> do
+                                        #not use an S*mu*mu range.
+     loga           =         -1        #log(A) (Einstein coefficient) range.
+                                        #-1 -> do not use a loga range.
+     eu             =         -1        #Upper energy state range in Kelvin. -1
+                                        #-> do not use an eu range.
+     el             =         -1        #Lower energy state range in Kelvin. -1
+                                        #-> do not use an el range.
 
-verbose             =       True        #  List result set to logger (and
-                                        #   optionally logfile)?
-     logfile        =         ''        #  List result set to this logfile (only
-                                        #   used if verbose=True).
-     append         =       True        #  If true, append to logfile if it
-                                        #   already exists, if false overwrite
-                                        #   logfile if it exists. Only used if
-                                        #   verbose=True and logfile not blank.
+verbose             =       True        #List result set to logger (and
+                                        #optionally logfile)?
+     logfile        =         ''        #List result set to this logfile (only
+                                        #used if verbose=True).
+     append         =       True        #If true, append to logfile if it
+                                        #already exists, if false overwrite
+                                        #logfile if it exists. Only used if
+                                        #verbose=True and logfile not blank.
 
-wantreturn          =       True        #  If true, return the spectralline tool
-                                        #   associated with the result set.
+wantreturn          =       True        #If true, return the spectralline tool
+                                        #associated with the result set.
 ```
 
 The table is provided in the *tablename* parameter but if it is blank (the default), the catalog which is included with CASA will be used. Searches can be made in a parameter space with large dimensionality:
@@ -657,10 +657,10 @@ myLines = slsearch(outfile='myresults.tbl', freqrange = [200,300],
 In some cases, the internal spectral line catalog may not contain the lines in which one is interested. In that case, one can export a catalog from [Splatalogue](http://www.splatalogue.net) or even create their own \'by hand\' (be careful to get the format exactly right though!). CASA's task **splattotable** can then be used to create a CASA table that contains these lines and can be searched:
 
 ```
-#  splattotable :: Convert a downloaded Splatalogue spectral line list to a casa table.
-filenames           =       ['']        #  Files containing Splatalogue lists.
-table               =         ''        #  Output table name.
-wantreturn          =       True        #  Do you want the task to return a spectralline tool attached to the results table?
+#splattotable :: Convert a downloaded Splatalogue spectral line list to a casa table.
+filenames           =       ['']        #Files containing Splatalogue lists.
+table               =         ''        #Output table name.
+wantreturn          =       True        #Do you want the task to return a spectralline tool attached to the results table?
 ```
 
 A search in Splatalogue will return a catalog that can be saved in a file (look for the \'Export\' section after the results on the search results page). The exported filename(s) should be entered in the *filenames* parameter of **splattotable**. The downloaded files must be in a specific format for this task to succeed. If you use the Splatalogue \'*Export CASA fields*\' feature, you should have no difficulties.

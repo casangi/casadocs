@@ -8,7 +8,7 @@ This document provide tips from users on how to install CASA on unsupported oper
 
  
 
-CASA officially supports certain versions of LINUX Redhat and Mac OSX. See the [CASA Download page](https://casa.nrao.edu/../casa_obtaining.shtml) for more information.
+[[CASA officially supports certain versions of LINUX Redhat and Mac OSX. See the [CASA Download page](https://casa.nrao.edu/../casa_obtaining.shtml) for more information.]{]{
 
 We realize that many users wish to try and run CASA on different operating systems. Below are some tips from the user community on installing CASA on unsupported platforms. CASA will not run on Windows.
 

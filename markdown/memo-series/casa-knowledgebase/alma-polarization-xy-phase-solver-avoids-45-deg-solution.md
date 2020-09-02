@@ -12,7 +12,7 @@ The gap should become smaller when either the noise decreases, or the number of 
 
 This feature should be harmless for the calibration of ALMA full-polarization data.
 
-![f48ce1a412dae937209cd7488fb13550a88d2757](media/f48ce1a412dae937209cd7488fb13550a88d2757.png)
+![f48ce1a412dae937209cd7488fb13550a88d2757](media/f48ce1a412dae937209cd7488fb13550a88d2757.png){.image-inline}
 
  
 

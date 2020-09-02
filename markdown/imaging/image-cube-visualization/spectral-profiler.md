@@ -12,14 +12,14 @@ Using the Spectral Profile GUI in the Viewer
 
 ------------------------------------------------------------------------
 
-![f460a73178b5a78ab57f1664858a899137979ef2](media/f460a73178b5a78ab57f1664858a899137979ef2.png)
+![f460a73178b5a78ab57f1664858a899137979ef2](media/f460a73178b5a78ab57f1664858a899137979ef2.png){.image-inline}
 
 ------------------------------------------------------------------------
 
 <div>
 
 <div class="alert alert-info">
-**NOTE**: Make Sure That You Use the Radio Version! This section describes the \'Radio\' version of the profiler. To be sure that you have the radio version of the tool selected (this may not be the default), click on the preferences icon (the \'gear\' fourth from the left in the Spectral Profile tool) and make sure that the \'Optical\' option is not checked. If you are using the Spectral Profile tool in the viewer for the very first time, you will also be prompted for a selection that will subsequently be kept for all future calls unless the preference is changed.
+**NOTE**: Make Sure That You Use the Radio Version! This section describes the 'Radio' version of the profiler. To be sure that you have the radio version of the tool selected (this may not be the default), click on the preferences icon (the 'gear' fourth from the left in the Spectral Profile tool) and make sure that the 'Optical' option is not checked. If you are using the Spectral Profile tool in the viewer for the very first time, you will also be prompted for a selection that will subsequently be kept for all future calls unless the preference is changed.
 </div>
 
 The Spectral Profile Tool consists of the [Spectral Profile Toolbar](#viewerSpectralProfileToolbar), a [main display area](#viewerSpectralProfile), and two associated tabs: [Spectral-Line Fitting](#viewerSpectralLineFitting) and [Line Overlays](#viewerLineOverlays).
@@ -36,7 +36,7 @@ In both the [Spectral-Line Fitting](#viewerSpectralLineFitting) and [Line Overla
 
 ------------------------------------------------------------------------
 
-![](markdown/_media/b70f90030cd7ed87f57699da695279ded944c906.png)
+![b70f90030cd7ed87f57699da695279ded944c906](media/b70f90030cd7ed87f57699da695279ded944c906.png)
 
 <div>
 
@@ -63,7 +63,7 @@ The [Spectral Profile Toolbar](#FigSpectralToolbar) is the toolbar along the top
 
 ------------------------------------------------------------------------
 
-![TypeFigure IDCreate a short, unique nameCaptionSpectral Profile Tool Preferences: Preferences options in the Spectral Profile Tool. From the gear icon in the toolbar, one can access dialogs to set overall viewer preferences, colors for plotting, how the plot legend is displayed, and spectral smoothing method and kernel width.](markdown/_media/3298dfa9eac7bb5c2b721bf9ea8613f647cb6b4c.png)
+![3298dfa9eac7bb5c2b721bf9ea8613f647cb6b4c](media/3298dfa9eac7bb5c2b721bf9ea8613f647cb6b4c.png)
 
 ------------------------------------------------------------------------
 
@@ -81,35 +81,11 @@ The [Spectral Profile Toolbar](#FigSpectralToolbar) is the toolbar along the top
 -   Toggle whether these profiles are plotted relative to the main profile (in development).
 -   Toggle the display of tooltips (in development).
 -   Toggle the plotting of a top axis.
--   Toggle between a histogram and simple line style for the plot.
--   Toggle between the radio and optical versions of the Spectral Profile tool Note: We discuss only the radio version here; this mainly impacts the Spectral Line Fitting and Collapse/Moments functionality..
--   Toggle the overplotting of a line showing the channel currently being displayed in the main Display Panel.
-
-The Color Curve Preferences dialog opened by the \'color wheel\' icon allows the user to:
-
--   Select the color of the line marking the current channel shown in the main Display Panel.
--   Select the color used to overlay molecular lines from Splatalogue.
--   Select the color to plot the initial Gaussian estimate used in spectral line fitting.
--   Select the color used for the zoom rectangle.
--   Set a queue of colors used to plot the various data sets registered in the Display Panel.
--   Set a queue of colors to plot the set of Gaussian fits.
--   Set a queue of colors to plot the synthesized curve.
-
-Two sets of preset colors, \"Traditional\" or \"Alternative\", are available or the user can define their own custom color palette.
-
-The legend options opened by the \'signpost\' icon allow the user to toggle the plotting of a legend defining the curves shown in the main Spectral Profile window. Using a drop-down dialog, the legend can be placed in the top left corner of the plot, to the right of the plot, or below the plot. Toggling the color bar causes the color of the curve to be indicated either via a short bar or using the color of the text itself. Double click the names of the files or curves to edit the text shown for that curve by hand. A legend is only available if more than a single spectrum has been loaded.
-
-The spectral smoothing option (triangle icon in the Spectral Profile toolbar) has two methods, \"Boxcar\" and \"Hanning\" with the selection of odd numbers for the smoothing kernel width in channels.
-
-</div>
-
- 
-
-### Main Spectral Profile Window {#main-spectral-profile-window style="text-align: left;"}
+-   Toggle between a histogram and simple line 
 
 ------------------------------------------------------------------------
 
-![TypeFigure IDCreate a short, unique nameCaptionSpectral Profile Window: The main panel for the Spectral Profile tool. Buttons along the bottom row allow the axes to be set. Arrow keys pan and dragging out an area with the mouse zooms. Holding CTRL and right clicking in the spectrum will jump the main Viewer Display panel to display that frequency channel.](markdown/_media/b3606599a0ccbeb166c8d7fc12e6fd80a8c7a3ed.png)
+![b3606599a0ccbeb166c8d7fc12e6fd80a8c7a3ed](media/b3606599a0ccbeb166c8d7fc12e6fd80a8c7a3ed.png)
 
 ------------------------------------------------------------------------
 
@@ -122,7 +98,7 @@ The main window shows the spectrum extracted from the active region of the image
     </div>
 -   The units for the left intensity or flux axis
     <div class="alert alert-info">
-    **NOTE**: The \"Fraction of Peak\" option allows for easy comparison of data with disparate intensity scales.
+    **NOTE**: The "Fraction of Peak" option allows for easy comparison of data with disparate intensity scales.
     </div>
 -   The velocity reference frame used if a velocity axis is chosen for the top or bottom axis.
 -   The method used to extract spectrum from the region --- a mean over all pixels in the region, a median, sum, or a sum converting units to get a flux density over the region (Jy).
@@ -140,18 +116,18 @@ In addition to these drop-down menus, the main Spectral Profile window allows th
 
  
 
-### Spectral-Line Fitting {#spectral-line-fitting style="text-align: left;"}
+### Spectral-Line Fitting {#spectral-line-fitting 
 
 ------------------------------------------------------------------------
 
-![](markdown/_media/c29793490bd0d5d69c32f5485bc256ff586fd2ab.png)
+![c29793490bd0d5d69c32f5485bc256ff586fd2ab](media/c29793490bd0d5d69c32f5485bc256ff586fd2ab.png)
 
 >Spectral Line Fitting Tab: Using the Spectral Line Fitting Tab (found at the bottom left of the Spectral Profile Tool), the user can fit a combination of a polynomial and multiple Gaussian components. The range to be fit can be specified (gray region) manually or with a shift+click+drag. Initial estimates for each component may be entered by hand or specified via an initial estimates GUI. The results are output to a dialog and text file with the fit overplotted (here in blue) on the spectrum (with the possibility to save it to disk).
   
 
 ------------------------------------------------------------------------
 
-![](markdown/_media/c648346d0ff0181b8a8984116c5357abdaed3bdf.png)
+![c648346d0ff0181b8a8984116c5357abdaed3bdf](media/c648346d0ff0181b8a8984116c5357abdaed3bdf.png)
 
 >Specifying Initial Gaussian Estimates Graphically and Fitting Output: The top panel shows the graphical specification of initial estimates for Gaussian fitting. Slider bars specify the center, FWHM, and peak intensity for the initial estimate. The bottom panel shows the verbose output of the fitting.
   
@@ -170,11 +146,11 @@ The Spectral-Line Fitting tab, shown in [Spectral Line Fitting Tab](#FigSpectral
 
  
 
-### Line Overlays {#line-overlays style="text-align: left;"}
+### Line Overlays {#line-overlays 
 
 ------------------------------------------------------------------------
 
-![](markdown/_media/4d513d4c6000fd2ea90d88b9a7b01d057d90114f.png)
+![4d513d4c6000fd2ea90d88b9a7b01d057d90114f](media/4d513d4c6000fd2ea90d88b9a7b01d057d90114f.png)
 
 >Line Overlays Tab: The Line Overlay tab (found at the bottom left of the Spectral Profile Tool) allows users to query the CASA copy of the Splatalogue spectral line database. Enter the redshift of your source (far right of the panel), select an Astronomical Filter from the drop down menu, and use shift+click+drag to select a frequency range (or enter the range manually in the boxes marked Min and Max). The \"Search\" button will bring up a separate \"Search Results\" window, which can in turn be used to graph the candidate lines in the main Spectral Profile window (here CO v=0).
   
@@ -194,13 +170,13 @@ NOTE: You will want to click \'Clear Lines\' between searches, especially if you
 
  
 
-## The Collapse/Moments Tool {#the-collapsemoments-tool style="text-align: left;"}
+## The Collapse/Moments Tool {#the-collapsemoments-tool 
 
  
 
 ------------------------------------------------------------------------
 
-![TypeFigure IDCreate a short, unique nameCaptionCollapse/Moments Tool: The Collapse/Moments tool can be accessed from the Main Toolbar (four inward pointing arrows icon) or from the Tools drop down menu. The mean spectrum from the region in the Main Display Panel appears in the top part of the tool. After selecting a range, a moment to calculate, and optionally data to exclude click collapse to calculate a new image.](markdown/_media/df2fa469ffe23c7fb70cba20c7821a5dfd3da869.png)
+![df2fa469ffe23c7fb70cba20c7821a5dfd3da869](media/df2fa469ffe23c7fb70cba20c7821a5dfd3da869.png)
 
 ------------------------------------------------------------------------
 
@@ -216,13 +192,13 @@ The tool uses the same format as the Spectral Profile tool and will show the int
 
 **NOTE**: Even if you don't save the results of the collapse to a file, you can still save the map later using the Save as\... entry in the Data pull down menu from the Main Viewer Display Panel.
 
-## Interactive Position-Velocity Diagram Creation {#interactive-position-velocity-diagram-creation style="text-align: left;"}
+## Interactive Position-Velocity Diagram Creation {#interactive-position-velocity-diagram-creation 
 
  
 
 ------------------------------------------------------------------------
 
-![TypeFigure IDCreate a short, unique nameCaptionPosition/Velocity Tool: Interactive creation of position-velocity cuts in the viewer. Use the P/V tool from the Mouse Toolbar to define a cut, then use the pV tool from the Region Manager Panel to adjust the cut (including the width). Click Generate P/V to build the position velocity cut and open it in a new Viewer Display Panel (from which it can be saved to disk).](markdown/_media/54c3e56ee2d8faacb841aa44931c419e06cf357e.png)
+![54c3e56ee2d8faacb841aa44931c419e06cf357e](media/54c3e56ee2d8faacb841aa44931c419e06cf357e.png)
 
 ------------------------------------------------------------------------
 

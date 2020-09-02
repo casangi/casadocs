@@ -17,7 +17,7 @@ This chapter explains how to calibrate interferometer data within the CASA task 
 </div>
 
 <div class="alert alert-warning">
-**Alert:** As part of continuing development of a more flexible and improved interface for specifying calibration for apply, a new parameter has been introduced in **applycal** and the solving tasks: *docallib*.  This parameter toggles between use of the traditional calibration apply parameters ( *gaintable*, *gainfield*, *interp*, *spwmap*, and *calwt*), and a new *callib* parameter which currently provides access to the *experimental* Cal Library mechanism, wherein calibration instructions are stored in a file.  The default remains *docallib=False* in CASA 4.5, and this reveals the traditional apply parameters which continue to work as always, and the remainder of this chapter is still written using *docallib=False*.  Users interested in the Cal Library mechanism\'s flexibility are encouraged to try it and report any problems; see [here](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/cal-library-syntax "Cal Library") for information on how to use it, including how to convert traditional applycal to Cal Library format.  Note also that **plotms** and **mstransform** now support use of the Cal Library to enable on-the-fly calibration when plotting and generating new MSs.
+**Alert:** As part of continuing development of a more flexible and improved interface for specifying calibration for apply, a new parameter has been introduced in **applycal** and the solving tasks: *docallib*.  This parameter toggles between use of the traditional calibration apply parameters ( *gaintable*, *gainfield*, *interp*, *spwmap*, and *calwt*), and a new *callib* parameter which currently provides access to the *experimental* Cal Library mechanism, wherein calibration instructions are stored in a file.  The default remains *docallib=False* in CASA 4.5, and this reveals the traditional apply parameters which continue to work as always, and the remainder of this chapter is still written using *docallib=False*.  Users interested in the Cal Library mechanism's flexibility are encouraged to try it and report any problems; see [here](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/cal-library-syntax "Cal Library") for information on how to use it, including how to convert traditional applycal to Cal Library format.  Note also that **plotms** and **mstransform** now support use of the Cal Library to enable on-the-fly calibration when plotting and generating new MSs.
 </div>
 
 The standard set of calibration solving tasks (to produce calibration tables) are:
@@ -46,7 +46,7 @@ There are helper tasks to create, manipulate, and explore calibration tables:
 
 A work-flow diagram for CASA calibration of interferometry data is shown in the following figure.  This should help you chart your course through the complex set of calibration steps.  In the following sections, we will detail the steps themselves and explain how to run the necessary tasks and tools.
 
-![3c104435002b3d4c72951b446504e8054d203d3b](media/3c104435002b3d4c72951b446504e8054d203d3b.png)
+![3c104435002b3d4c72951b446504e8054d203d3b](media/3c104435002b3d4c72951b446504e8054d203d3b.png){.image-inline}
 
  
 

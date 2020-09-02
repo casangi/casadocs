@@ -7,14 +7,14 @@ Channel averaging highlights using mstransform and split
 Both **mstransform** & **split** support averaging data by frequency channel.  In **split** the amount of channel averaging (if any) is set by top-level parameter *width*.
 
 ```
-width  = 1     # Number of channels to average to form one output channel
+width  = 1     #Number of channels to average to form one output channel
 ```
 
 In **mstransform** this capability is accessed by specifying *chanaverage=True* and setting the resulting sub-parameter *chanbin*, as shown here:  
 
 ```
-chanaverage = True      # Average data in channels.
-chanbin     = 1         # Width (bin) of input channels to average to form an output channel.
+chanaverage = True      #Average data in channels.
+chanbin     = 1         #Width (bin) of input channels to average to form an output channel.
 ```
 
 Some new features of split / mstransform relative to the old implementation of split are as follows

@@ -9,15 +9,15 @@ This task is a simple plotting interface to produce plots of the antenna positio
 The inputs to **plotants** are:
 
 ```
- # plotants :: Plot the antenna distribution in the local reference frame:
-vis              =   ''       # Name of input visibility file (MS)
-figfile          =   ''       # Save the plotted figure to this file
-antindex         =   False    # Label antennas with name and antenna ID
-logpos           =   False    # Whether to plot logarithmic positions
-exclude          =   ''       # Antenna name/id selection to exclude from plot
-checkbaselines   =   False    # Whether to check baselines in the main table.
-title            =   ''       # Title for the plot.
-showgui          =   True     # Show plot on gui.
+ #plotants :: Plot the antenna distribution in the local reference frame:
+vis              =   ''       #Name of input visibility file (MS)
+figfile          =   ''       #Save the plotted figure to this file
+antindex         =   False    #Label antennas with name and antenna ID
+logpos           =   False    #Whether to plot logarithmic positions
+exclude          =   ''       #Antenna name/id selection to exclude from plot
+checkbaselines   =   False    #Whether to check baselines in the main table.
+title            =   ''       #Title for the plot.
+showgui          =   True     #Show plot on gui.
 
 ```
 
@@ -27,7 +27,7 @@ Supported format extensions for the *figfile* include emf, eps, pdf, png, ps, ra
 
 Each antenna position is labeled with the antenna name. VLBA antenna plots label the positions with \"name @ station\" format, e.g. \"2\@FD\" for the Fort Davis, Texas, antenna. To add the antenna ID to the name, set *antindex=True* as shown in Figure 1.
 
-![0913b01badcfd68e003cece8d0ff8c658c936262](media/0913b01badcfd68e003cece8d0ff8c658c936262.png)
+![0913b01badcfd68e003cece8d0ff8c658c936262](media/0913b01badcfd68e003cece8d0ff8c658c936262.png){.image-inline width="638" height="480"}
 
 >ALMA antenna positions with *antindex=True*.
   
@@ -38,7 +38,7 @@ To plot only those antennas which appear in the MAIN table (e.g. after a split, 
 
 To plot logarithmic positions instead of X/Y positions, set *logpos=True* as shown in Figure 2:
 
-![5933a270bc2321a65052a7f5b39f6e0e8b0879d5](media/5933a270bc2321a65052a7f5b39f6e0e8b0879d5.png)
+![5933a270bc2321a65052a7f5b39f6e0e8b0879d5](media/5933a270bc2321a65052a7f5b39f6e0e8b0879d5.png){.image-inline width="519" height="463"}
 
 >Antenna positions with *logpos=True*
   
@@ -58,7 +58,7 @@ The antennas will be plotted in a plotter window as shown below. Several tool bu
 -   The \'Subplot-configuration\' button (sixth icon) can be used to stretch or compress the left, right, top, or bottom of the plot, as well as the ability to reset the plot to the original shape after manipulation before exiting the configuration dialog.
 -   The \'Save\' button (rightmost icon) is used to export the plot. A file save dialog is launched to select a location, name, and format (default png) for the file.
 
-![f05dc15d6cf9628b4e2f819d7e5530c7f27d3bd2](media/f05dc15d6cf9628b4e2f819d7e5530c7f27d3bd2.png)
+![f05dc15d6cf9628b4e2f819d7e5530c7f27d3bd2](media/f05dc15d6cf9628b4e2f819d7e5530c7f27d3bd2.png){.image-inline}
 
 >**plotants** GUI for a VLA dataset with *antindex=True*. Note the tool buttons at the bottom of the window.
   

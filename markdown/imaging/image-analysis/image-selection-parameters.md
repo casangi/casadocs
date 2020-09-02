@@ -15,7 +15,7 @@ Direction (e.g. RA, Dec) areal selection in the image analysis tasks is controll
 The *box* parameter selects spatial rectangular areas:
 
 ```
-box        =      ''   #  Select one or more box regions
+box        =      ''   #Select one or more box regions
 ```
 
 E.g. for right ascension and declination. Boxes are specified by their bottom-left corner (blc) and top-right corner (trc) as follows: blcx, blcy, trcx, trcy. At the moment, CASA only accepts pixel values. The default (empty string) is to select all pixels of an image.
@@ -35,7 +35,9 @@ box='10,20,30,40,100,100,150,150'
 selects two regions at a time. The first and the last four values mark the two boxes, following (blcx1, blcy1, trcx1, trcy1, blcx2, blcy2, trcx2, trcy2), with b/t = bottom/top and l/r = left/right.
 
 <div class="alert alert-warning">
-**ALERT:** Note that one should either specify a region (recommended) or any of *box*/*chans*/*stokes*. If both are specified, the following rules apply:          \* If the *region* parameter is specified as a python dictionary (e.g. such as various **rg** tool methods return), a binary region file, or a region-in-image, it is not permissible to specify any of the *box*, *chans*, or *stokes* parameters.          \* If the *region* parameter is specified to be a CRTF file name, or a CRTF region string, then the resulting *region* and *box* selection is the union of the box specification with any regions in the CRTF file/string. This is the equivalent of translating the box specification into the equivalent \"box\" CRTF specification and prepending that specification to the specified CRTF file/string in the *region* parameter.
+**ALERT:** Note that one should either specify a region (recommended) or any of *box*/*chans*/*stokes*. If both are specified, the following rules apply:
+          * If the *region* parameter is specified as a python dictionary (e.g. such as various **rg** tool methods return), a binary region file, or a region-in-image, it is not permissible to specify any of the *box*, *chans*, or *stokes* parameters.
+          * If the *region* parameter is specified to be a CRTF file name, or a CRTF region string, then the resulting *region* and *box* selection is the union of the box specification with any regions in the CRTF file/string. This is the equivalent of translating the box specification into the equivalent "box" CRTF specification and prepending that specification to the specified CRTF file/string in the *region* parameter.
 </div>
 
 ## Plane Selection (*chans*, *stokes*)
@@ -43,15 +45,15 @@ selects two regions at a time. The first and the last four values mark the two b
 The channel, frequency, or velocity plane(s) of the image is chosen using the *chans* parameter:
 
 ```
-chans      =      ''   #  Select the channel(spectral) range
+chans      =      ''   #Select the channel(spectral) range
 ```
 
 Using channel numbers, it is possible to also set ranges, e.g.**
 
 ```
-chans='0,3,4,8'          # select channels 0, 3, 4, 8
-chans='3~20;50,51'       # channels 3 to 20 and 50 and 51
-chans='<10;>=55'         # channels 0 to 9 and 55 and greater (inclusively)*
+chans='0,3,4,8'          #select channels 0, 3, 4, 8
+chans='3~20;50,51'       #channels 3 to 20 and 50 and 51
+chans='<10;>=55'         #channels 0 to 9 and 55 and greater (inclusively)*
 *
 ```
 
@@ -74,7 +76,7 @@ chans=('range=[100GHz,100.125GHz]')
 The polarization plane(s) of the image is chosen with the *stokes* parameter:
 
 ```
-stokes     =      ''   #  Stokes params to image (I,IV,IQU,IQUV)
+stokes     =      ''   #Stokes params to image (I,IV,IQU,IQUV)
 ```
 
 *stokes* parameters to image. Best practice is to separate the stokes parameters by commas, but this is not essential if no ambiguity exists. Options are: \'I\',\'Q\',\'U\',\'V\', \'I\',\'IV\',\'QU\',\'IQUV\', \'RR\',\'RL\',\'LR\',\'LL\', \'XX\',\'YX\',\'XY\',\'YY\',\...
@@ -88,7 +90,9 @@ stokes='RR,RL'
 ```
 
 <div class="alert alert-warning">
-**ALERT:** For image analysis tasks and tool methods which also accept the *region* parameter, the following rules apply if both the *chans* and *region* parameters are simultaneously specified:    \* If the *region* parameter is specified as a python dictionary (e.g. such as various **rg** tool methods return), a binary region file, or a region-in-image, it is not permissable to specify any of the *box*, *chans*, or *stokes* parameters.    \* If the *region* parameter is specified to be a CRTF file name, or a CRTF region string, it is only permissable to specify *chans* if that specification can be represented as a single contiguous channel range. In that case, the *chans* specification overrides any global or per-region range specification in the CRTF file/string, and is used as the global spectral range selection for all regions in the CRTF file/string.
+**ALERT:** For image analysis tasks and tool methods which also accept the *region* parameter, the following rules apply if both the *chans* and *region* parameters are simultaneously specified:
+    * If the *region* parameter is specified as a python dictionary (e.g. such as various **rg** tool methods return), a binary region file, or a region-in-image, it is not permissable to specify any of the *box*, *chans*, or *stokes* parameters.
+    * If the *region* parameter is specified to be a CRTF file name, or a CRTF region string, it is only permissable to specify *chans* if that specification can be represented as a single contiguous channel range. In that case, the *chans* specification overrides any global or per-region range specification in the CRTF file/string, and is used as the global spectral range selection for all regions in the CRTF file/string.
 </div>
 
  

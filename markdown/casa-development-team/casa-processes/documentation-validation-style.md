@@ -35,5 +35,4 @@ Note: Validators should plan to make minor document changes directly to the docu
 6.  Put a \"1\" in the \"Ready for Content Check\" column in the Google spreadsheet. 
 7.  You\'re done!
 
-###  
 

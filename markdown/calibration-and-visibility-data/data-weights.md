@@ -41,7 +41,6 @@ where $c_i$ and $c_j$ are the net antenna-based power calibration factors derive
   Gain                                   $||G||^2$                              $||G||^2$                         $||G||^2$
   Bandpass                   $\frac{1}{<||B||^{-1}>_{k}^{2}}$               $<||B||^{2}>_{k}$                 $<||B||^{2}>_{k}$
 
-#  
 
 # Weights in CASA 4.2.1 and Earlier
 

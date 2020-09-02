@@ -9,10 +9,10 @@ Using vishead
 The **vishead** task is provided to access keyword information in the MeasurementSet. The default inputs are:
 
 ```
-# vishead :: List, get, and put metadata in a MeasurementSet
-vis = '' # Name of input visibility file
-mode = 'list' # options: list, summary, get, put
-listitems = [] # items to list ([] for all)
+#vishead :: List, get, and put metadata in a MeasurementSet
+vis = '' #Name of input visibility file
+mode = 'list' #options: list, summary, get, put
+listitems = [] #items to list ([] for all)
 ```
 
 The *mode = 'summary'* option just gives the same output as **listobs**.
@@ -66,19 +66,19 @@ CASA <29>: vishead('ngc5921.demo.ms',mode='list',listitems=[])
 You can use *mode='get'* to retrieve the values of specific keywords, and likewise *mode='put'* to change them. The inputs are:
 
 ```
-mode           =      'get'    #  options: list, summary, get, put
-hdkey          =       ''      #  keyword to get/put
-hdindex        =       ''      #  keyword index to get/put, counting from zero. ==>all
+mode           =      'get'    #options: list, summary, get, put
+hdkey          =       ''      #keyword to get/put
+hdindex        =       ''      #keyword index to get/put, counting from zero. ==>all
 ```
 
 and
 
 ```
-#  vishead :: List, summary, get, and put metadata in a MeasurementSet
-mode           =      'put'    #  options: list, summary, get, put
-hdkey          =         ''    #  keyword to get/put
-hdindex        =         ''    #  keyword index to get/put, counting from zero. ==>all
-hdvalue        =         ''    #  value of hdkey
+#vishead :: List, summary, get, and put metadata in a MeasurementSet
+mode           =      'put'    #options: list, summary, get, put
+hdkey          =         ''    #keyword to get/put
+hdindex        =         ''    #keyword index to get/put, counting from zero. ==>all
+hdvalue        =         ''    #value of hdkey
 ```
 
 For example, a common operation is to change the Telescope name (e.g. if it is unrecognized), e.g.

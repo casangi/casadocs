@@ -40,7 +40,6 @@ The box, chans, and stokes parameters are used to select parts of an image cube 
 
 The mask parameter tells the task to operate on specific segments of the image cube, as set by a mask.  The input for the mask parameter may be a conditional statement in LEL string format (e.g. *mask = \' \"ngc5921.im \> 0.5\'*, which selects all pixels in that image that have values larger than 0.5 and zeros out all other pixels), or may be a Boolean True/False cube or an Integer zero/non-zero cube. The task will not operate on pixels that are \"masked\", or zeroed out.  See the \'[Image Masks](https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/image-masks)\' page for more detail and examples of usage.  
 
-####   {#section .western}
 
 ### *stretch* 
 

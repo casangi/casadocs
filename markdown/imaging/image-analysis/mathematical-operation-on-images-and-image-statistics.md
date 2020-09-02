@@ -11,29 +11,29 @@ Mathematical operations on images are typically completed using the CASA task [*
 The CASA task **immath** is useful for performing mathematical operations on images and on specific channels within images, including e.g. addition or subtraction of two cubes, squaring an image, computing a spectral index, and determining polarization angles and intensities. The inputs are:
 
 ```
-#  immath :: Perform math operations on images
-imagename           =         ''        #  a list of input images
-mode                = 'evalexpr'        #  mode for math operation (evalexpr, spix, pola, poli)
-     expr           =         ''        #  Mathematical expression using images
-     varnames       =         ''        #  a list of variable names to use with the image files
+#immath :: Perform math operations on images
+imagename           =         ''        #a list of input images
+mode                = 'evalexpr'        #mode for math operation (evalexpr, spix, pola, poli)
+     expr           =         ''        #Mathematical expression using images
+     varnames       =         ''        #a list of variable names to use with the image files
 
-outfile             = 'immath_results.im' #  File where the output is saved
-mask                =         ''        #  Mask to use. Default is none.
-region              =         ''        #  Region selection. 
-                                        #   Default is to use the full image.
-box                 =         ''        #  Rectangular region to
-                                        #   select in direction plane.
-                                        #    Default is to use the
-                                        #   entire direction plane.
-chans               =         ''        #  Channels to use. 
-                                        #   Default is to use all channels.
-stokes              =         ''        #  Stokes planes to use. 
-                                        #   Default is to use all Stokes planes.
-imagemd             =         ''        #  An image name from which metadata should be copied. The input
-                                        #   can be either an image listed under imagename or any other
-                                        #   image on disk. Leaving this parameter unset may copy header
-                                        #   metadata from any of the input images, which
-                                        #   one is not guaranteed.
+outfile             = 'immath_results.im' #File where the output is saved
+mask                =         ''        #Mask to use. Default is none.
+region              =         ''        #Region selection. 
+                                        #Default is to use the full image.
+box                 =         ''        #Rectangular region to
+                                        #select in direction plane.
+                                        #Default is to use the
+                                        #entire direction plane.
+chans               =         ''        #Channels to use. 
+                                        #Default is to use all channels.
+stokes              =         ''        #Stokes planes to use. 
+                                        #Default is to use all Stokes planes.
+imagemd             =         ''        #An image name from which metadata should be copied. The input
+                                        #can be either an image listed under imagename or any other
+                                        #image on disk. Leaving this parameter unset may copy header
+                                        #metadata from any of the input images, which
+                                        #one is not guaranteed.
 ```
 
 <div class="alert alert-warning">
@@ -147,7 +147,6 @@ chans = '<17,>79'
 chans = '<=16,>=80'
 ```
 
-###  
 
 ### Polarization manipulation
 
@@ -200,11 +199,11 @@ immath()
 Toolkit Tricks: The following uses the toolkit. You can make a complex linear polarization (Q+iU) image using the **imagepol** tool:
 
 ```
-  # Make an imagepol tool and open the clean image
+  #Make an imagepol tool and open the clean image
   potool = casac.homefinder.find_home_by_name('imagepolHome')
   po = potool.create()
   po.open('3C129BC.clean.image')
-  # Use complexlinpol to make a Q+iU image
+  #Use complexlinpol to make a Q+iU image
   po.complexlinpol('3C129BC.cmplxlinpol')
   po.close()
 ```
@@ -264,14 +263,14 @@ immath()
 Toolkit Tricks: Note that there are also pixel masks that can be contained in each image. These are Boolean masks, and are implicitly used in the calculation for each image in *expr*. If you want to use the mask in a different image not in *expr*, try it in *mask*:
 
 ```
-# First make a pixel mask inside ngc5921.demo.chan22.cleanimg.mask
+#First make a pixel mask inside ngc5921.demo.chan22.cleanimg.mask
 ia.open('ngc5921.demo.chan22.cleanimg.mask')
 ia.calcmask('"ngc5921.demo.chan22.cleanimg.mask">0.5')
 ia.summary()
 ia.close()
-# There is now a 'mask0' mask in this image as reported by the summary
+#There is now a 'mask0' mask in this image as reported by the summary
 
-# Now apply this pixel mask in immath
+#Now apply this pixel mask in immath
 default('immath')
 imagename='ngc5921.demo.chan22.cleanimg.image'
 expr='IM0'
@@ -283,15 +282,15 @@ immath()
 Note that nominally the axes of the mask must be congruent to the axes of the images in *expr*. However, one exception is that the image in mask can have fewer axes (but not axes that exist but are of the wrong lengths). In this case, **immath** will extend the missing axes to cover the range in the images in *expr*. Thus, you can apply a mask made from a single channel to a whole cube.
 
 ```
-# drop degenerate stokes and freq axes from mask image
+#drop degenerate stokes and freq axes from mask image
 ia.open('ngc5921.demo.chan22.cleanimg.mask')
 im2 = ia.subimage(outfile='ngc5921.demo.chan22.cleanimg.mymask',dropdeg=True)
 im2.summary()
 im2.close()
 ia.close()
-# mymask has only RA and Dec axes
+#mymask has only RA and Dec axes
 
-# Now apply this mask to the whole cube
+#Now apply this mask to the whole cube
 default('immath')
 imagename='ngc5921.demo.cleanimg.image'
 expr='IM0'
@@ -300,32 +299,31 @@ outfile='ngc5921.demo.cleanimg.imasked'
 immath()
 ```
 
-#  
 
 # Computing Image Statistics (**imstat**)
 
 The **imstat** task will calculate statistics on a region of an image and return the results as a value in a Python dictionary. The inputs are:
 
 ```
-#  imstat :: Displays statistical information from an image or image region
-imagename           =         ''        #  Name of the input image.
-axes                =         -1        #  List of axes to evaluate statistics over. Default is
-                                        #   all axes.
-region              =         ''        #  Image Region or name. Use Viewer.
-box                 =         ''        #  Select one or more box regions.
-chans               =         ''        #  Select the channel(spectral) range. 
-stokes              =         ''        #  Stokes params to image (I,IV,IQU,IQUV). Default '' =>
-                                        #   include all
-listit              =       True        #  Print stats and bounding box to logger?
-verbose             =      False        #  Print additional messages to logger?
-mask                =         ''        #  Mask to use. Default is none.
-logfile             =         ''        #  Name of file to write fit results.
-algorithm           =  'classic'        #  Algorithm to use. Supported values are 'chauvenet',
-                                        #   'classic', 'fit-half', and 'hinges-fences'. Minimum
-                                        #   match is supported.
-     clmethod       =     'auto'        #  Method to use for calculating classical statistics.
-                                        #   Supported methods are 'auto', 'tiled', and
-                                        #   'framework'. Ignored if algorithm is not 'classic'.
+#imstat :: Displays statistical information from an image or image region
+imagename           =         ''        #Name of the input image.
+axes                =         -1        #List of axes to evaluate statistics over. Default is
+                                        #all axes.
+region              =         ''        #Image Region or name. Use Viewer.
+box                 =         ''        #Select one or more box regions.
+chans               =         ''        #Select the channel(spectral) range. 
+stokes              =         ''        #Stokes params to image (I,IV,IQU,IQUV). Default '' =>
+                                        #include all
+listit              =       True        #Print stats and bounding box to logger?
+verbose             =      False        #Print additional messages to logger?
+mask                =         ''        #Mask to use. Default is none.
+logfile             =         ''        #Name of file to write fit results.
+algorithm           =  'classic'        #Algorithm to use. Supported values are 'chauvenet',
+                                        #'classic', 'fit-half', and 'hinges-fences'. Minimum
+                                        #match is supported.
+     clmethod       =     'auto'        #Method to use for calculating classical statistics.
+                                        #Supported methods are 'auto', 'tiled', and
+                                        #'framework'. Ignored if algorithm is not 'classic'.
 ```
 
 Area selection can be done using *region* and *mask* parameters. Plane selection is controlled by *chans* and *stokes*. The parameter *axes* will select the dimensions that the statistics are calculated over. Typical data cubes have axes like: RA axis 0, DEC axis 1, Velocity axis 2. So, e.g. *axes=\[0,1\]* would be the most common setting to calculate statistics per spectral channel.A typical output of **imstat** on a cube with *axes=\[0,1\]* and *algorithm=\'classic\'* (default) looks like:
@@ -347,7 +345,7 @@ Using all spectral channels.
 Using polarizations ALL
 Selected bounding box :
     [0, 0, 0, 0] to [299, 299, 0, 63]  (09:48:01.492, +13.15.40.658, I, 3.63994e+10Hz to 09:47:53.299, +13.17.40.258, I, 3.63915e+10Hz)
-#        Frequency  Frequency(Plane) Npts          Sum           Mean          Rms           Std dev       Minimum       Maximum     
+#Frequency  Frequency(Plane) Npts          Sum           Mean          Rms           Std dev       Minimum       Maximum     
   3.63993552e+10                  0  9.000000e+04  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00
   3.63992302e+10                  1  9.000000e+04  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00
   3.63991052e+10                  2  9.000000e+04  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00
@@ -373,9 +371,9 @@ will assign this to the Python variable xstat. The keys for xstat are outlined o
 
 ```
  default('imstat')
- imagename = 'ngc5921.demo.cleanimg.image'  #  The NGC5921 image cube
- box       = '108,108,148,148'              #  20 pixels around the center
- chans     = '21'                           #  channel 21
+ imagename = 'ngc5921.demo.cleanimg.image'  #The NGC5921 image cube
+ box       = '108,108,148,148'              #20 pixels around the center
+ chans     = '21'                           #channel 21
 
  xstat = imstat()
 ```
@@ -440,7 +438,7 @@ CASA <152>: xstat
 ```
 
 <div class="alert alert-warning">
-**ALERT:** The return dictionary currently includes NumPy array values, which have to be accessed by an array index to get the array value. To access these dictionary elements, use the standard Python dictionary syntax, e.g. xstat\[\<key string\>\]\[\<array index\>\]
+**ALERT:** The return dictionary currently includes NumPy array values, which have to be accessed by an array index to get the array value. To access these dictionary elements, use the standard Python dictionary syntax, e.g. [xstat[<key string>][<array index>]]{
 </div>
 
 For example, to extract the standard deviation as a number
@@ -456,24 +454,24 @@ To extract statistics for an image:
 
 ```
 xstat = imstat('b1608.demo.clean2.image')
-# Printing out some of these
+#Printing out some of these
   print 'Max   = '+str(xstat['max'][0])
   print 'Sigma = '+str(xstat['sigma'][0])
-# results:
-# Max   = 0.016796965152
-# Sigma = 0.00033631979385
+#results:
+#Max   = 0.016796965152
+#Sigma = 0.00033631979385
 ```
 
 In a box around the brightest component:
 
 ```
 xstat_A = imstat('b1608.demo.clean2.image',box='124,125,132,133')
-# Printing out some of these
+#Printing out some of these
   print 'Comp A Max Flux = '+str(xstat_A['max'][0])
   print 'Comp A Max X,Y  = ('+str(xstat_A['maxpos'][0])+','+str(xstat_A['maxpos'][1])+')'
-# results:
-# Comp A Max Flux = 0.016796965152
-# Comp A Max X,Y  = (128,129)
+#results:
+#Comp A Max Flux = 0.016796965152
+#Comp A Max X,Y  = (128,129)
 ```
 
  
@@ -483,33 +481,33 @@ xstat_A = imstat('b1608.demo.clean2.image',box='124,125,132,133')
 The **imdev** task produces an output image whose value in each pixel represents the \"error\" or \"deviation\" in the input image at the corresponding pixel. The output image has the same dimensions and coordinate system as the input image, or as the selected region of the input image. The inputs are:
 
 ```
-# imdev :: Create an image that can represent the statistical deviations of the input image.
-imagename          =          ''        # Input image name
-outfile            =          ''        # Output image file name. If left blank (the default), no
-                                        #   image is written but a new image tool referencing
-                                        #   the collapsed image is returned.
-region             =          ''        # Region selection. Default is to use the full image.
-box                =          ''        # Rectangular region(s) to select in direction plane.
-                                        #   Default is to use the entire direction plane.
-chans              =          ''        # Channels to use. Default is to use all channels.
-stokes             =          ''        # Stokes planes to use. Default is to use all Stokes planes.
-mask               =          ''        # Mask to use. Default setting is none.
-overwrite          =       False        # Overwrite (unprompted) pre-existing output file? Ignored
-                                        #   if "outfile" is left blank.
-grid               =      [1, 1]        # x,y grid spacing. Array of exactly two positive integers.
-anchor             =       'ref'        # x,y anchor pixel location. Either "ref" to use the image
-                                        # exactly two integers.
-xlength            =      '1pix'        # Either x coordinate length of box, or diameter of circle.
-                                        #   Circle is used if ylength is a reference pixel or an
-                                        #   empty string.
-ylength            =      '1pix'        # y coordinate length of box. Use a circle if ylength is
-                                        #   an empty string.
-interp             =     'cubic'        # Interpolation algorithm to use. Can be "nearest", "linear",
-                                        #   "cubic", or "lanczos". Minimum match supported.
-stattype           =     'sigma'        # Statistic to compute. See below for the list of supported
-                                        #   statistics.
-statalg            =   'classic'        # Statistics computation algorithm to use. Supported values
-                                        #   are "chauvenet" and "classic". Minimum match is supported.
+#imdev :: Create an image that can represent the statistical deviations of the input image.
+imagename          =          ''        #Input image name
+outfile            =          ''        #Output image file name. If left blank (the default), no
+                                        #image is written but a new image tool referencing
+                                        #the collapsed image is returned.
+region             =          ''        #Region selection. Default is to use the full image.
+box                =          ''        #Rectangular region(s) to select in direction plane.
+                                        #Default is to use the entire direction plane.
+chans              =          ''        #Channels to use. Default is to use all channels.
+stokes             =          ''        #Stokes planes to use. Default is to use all Stokes planes.
+mask               =          ''        #Mask to use. Default setting is none.
+overwrite          =       False        #Overwrite (unprompted) pre-existing output file? Ignored
+                                        #if "outfile" is left blank.
+grid               =      [1, 1]        #x,y grid spacing. Array of exactly two positive integers.
+anchor             =       'ref'        #x,y anchor pixel location. Either "ref" to use the image
+                                        #exactly two integers.
+xlength            =      '1pix'        #Either x coordinate length of box, or diameter of circle.
+                                        #Circle is used if ylength is a reference pixel or an
+                                        #empty string.
+ylength            =      '1pix'        #y coordinate length of box. Use a circle if ylength is
+                                        #an empty string.
+interp             =     'cubic'        #Interpolation algorithm to use. Can be "nearest", "linear",
+                                        #"cubic", or "lanczos". Minimum match supported.
+stattype           =     'sigma'        #Statistic to compute. See below for the list of supported
+                                        #statistics.
+statalg            =   'classic'        #Statistics computation algorithm to use. Supported values
+                                        #are "chauvenet" and "classic". Minimum match is supported.
 ```
 
 Area selection can be done using the *region* and *mask* parameters. Plane selection is controlled by the *chans* and *stokes* parameters. Statistics are computed spatially: a deviation image is computed independently for each channel/Stokes plane. If the *outfile* parameter is left blank, the task returns an image tool referencing the resulting image; otherwise the resulting image is written to disk.

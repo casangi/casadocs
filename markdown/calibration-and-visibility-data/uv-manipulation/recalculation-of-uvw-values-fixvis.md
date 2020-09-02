@@ -25,17 +25,17 @@ Other parameters **fixvis** accepts are as follows \--
 ```
 fixvis :: Recalculates (u, v, w) and/or changes Phase Center
 
-vis = '' # Name of the input visibility set.
+vis = '' #Name of the input visibility set.
 
-outputvis = '' # Name of the output visibility set. (Can be the same # as vis.)
+outputvis = '' #Name of the output visibility set. (Can be the same #as vis.)
 
-field = '' # Fields to operate on. = all.
+field = '' #Fields to operate on. = all.
 
-refcode = '' # reference frame to convert UVW coordinates to
+refcode = '' #reference frame to convert UVW coordinates to
 
-reuse = True # base UVW calculation on the old values?
+reuse = True #base UVW calculation on the old values?
 
-phasecenter = '' # use this direction as phase center
+phasecenter = '' #use this direction as phase center
 ```
 
  

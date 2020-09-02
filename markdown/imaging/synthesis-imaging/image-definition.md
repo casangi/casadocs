@@ -31,7 +31,7 @@ During gridding, N Data channels are binned onto M image channels using several 
 
  
 
-![7712e396f0309a7d9309a77cfa8fc6fc2f8a0be9](media/7712e396f0309a7d9309a77cfa8fc6fc2f8a0be9.png)
+![7712e396f0309a7d9309a77cfa8fc6fc2f8a0be9](media/7712e396f0309a7d9309a77cfa8fc6fc2f8a0be9.png){.image-inline width="460" height="257"}
 
  
 
@@ -43,7 +43,7 @@ Wideband imaging involves mapping data from a wide range of frequency channels o
 
 Data from all selected data channels are mapped to a single broadband uv-grid using appropriate uvw coordinates, and then imaged. This is accessed via the \" *specmode=\'mfs\'* \" option in the **tclean** task. Since there is only one uv grid and image, parallelization for continuum imagng is done only for the major cycle via data partitioning.
 
-![51885b785409ea1448f61c399eb82e53f0a54729](media/51885b785409ea1448f61c399eb82e53f0a54729.png)
+![51885b785409ea1448f61c399eb82e53f0a54729](media/51885b785409ea1448f61c399eb82e53f0a54729.png){.image-inline width="429" height="216"}
 
  
 
@@ -51,7 +51,7 @@ Data from all selected data channels are mapped to a single broadband uv-grid us
 
 An improvement to standard MFS that accounts for changes in spectral index as a function of sky position is available that uses Taylor weighted averages of data from all frequencies accumulated onto NTerms uv-grids before imaging. These Taylor-weighted residual images form the input for the minor cycle of the Multi-Term MFS deconvolution algorithm which performs a linear least squares fit (see [Deconvolution Algorithms](https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/deconvolution-algorithms) section for more information) during deconvolution to obtain Taylor Coefficients per component (to represent sky spectra as polynomials in $I$ vs $\nu$). This option is accessed via \" *specmode=\'mfs\'* and *deconvolver*=\'mtmfs\', *nterms=2.* \" For the same data size as standard MFS (*nterms=1*), Multi-Term MFS will have $N_t$ times the gridding cost and number of images stored in memory.  Parallelization is again done only for the major cycle via data partitioning.
 
- ![f068a79a636e070fea341be6847ccefc61b1c6d5](media/f068a79a636e070fea341be6847ccefc61b1c6d5.png)
+ ![f068a79a636e070fea341be6847ccefc61b1c6d5](media/f068a79a636e070fea341be6847ccefc61b1c6d5.png){.image-inline width="447" height="285"}
 
  
 
@@ -61,7 +61,7 @@ Data in the correlation basis are gridded onto separate planes per correlation, 
 
  
 
-![2505ddafc4936705143e6210e997ffee48acf231](media/2505ddafc4936705143e6210e997ffee48acf231.png)  
+![2505ddafc4936705143e6210e997ffee48acf231](media/2505ddafc4936705143e6210e997ffee48acf231.png){.image-inline width="515" height="271"}  
 
 ## Multiple Fields
 
@@ -73,7 +73,7 @@ Overlapping fields are supported when possible (i.e. when the image types are si
 
  
 
-![5c981ca63d45b330b41ebcd4e67b4607d47d47a5](media/5c981ca63d45b330b41ebcd4e67b4607d47d47a5.png)
+![5c981ca63d45b330b41ebcd4e67b4607d47d47a5](media/5c981ca63d45b330b41ebcd4e67b4607d47d47a5.png){.image-inline width="479" height="249"}
 
  
 
@@ -83,7 +83,7 @@ Faceted imaging is one way of handling the w-term effect. A list of facet-center
 
  
 
-![08fa4167833923aa5e120ade2d66c24de84c3a4a](media/08fa4167833923aa5e120ade2d66c24de84c3a4a.png)
+![08fa4167833923aa5e120ade2d66c24de84c3a4a](media/08fa4167833923aa5e120ade2d66c24de84c3a4a.png){.image-inline width="513" height="272"}
 
  
 
@@ -97,7 +97,7 @@ Data from multiple pointings can be combined to form a single large image. The c
 
 Data from multiple pointings are imaged and deconvolved separately, with the final output images being combined using a primary beam model as a weight. This is achieved by running the imaging task (**tclean**) separately per pointing, and combining them later on using the tool **im.linearmosaic**().
 
- ![64ef9fbb940c0eefc34e96c18d0ac726f56ee982](media/64ef9fbb940c0eefc34e96c18d0ac726f56ee982.png)
+ ![64ef9fbb940c0eefc34e96c18d0ac726f56ee982](media/64ef9fbb940c0eefc34e96c18d0ac726f56ee982.png){.image-inline width="467" height="226"}
 
  
 
@@ -107,7 +107,7 @@ Data taken with multiple pointings (and/or phase-reference centres) can be combi
 
  
 
-![0886eddf2dfd68343993dca5b5c02affe00ccc54](media/0886eddf2dfd68343993dca5b5c02affe00ccc54.png)
+![0886eddf2dfd68343993dca5b5c02affe00ccc54](media/0886eddf2dfd68343993dca5b5c02affe00ccc54.png){.image-inline width="448" height="218"}
 
  
 

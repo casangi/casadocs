@@ -8,7 +8,7 @@ An introduction to basic viewer features
 
 ------------------------------------------------------------------------
 
-![08fb3afec0b21c1c8afa30e15b80617972df1d4f](media/08fb3afec0b21c1c8afa30e15b80617972df1d4f.png)
+![08fb3afec0b21c1c8afa30e15b80617972df1d4f](media/08fb3afec0b21c1c8afa30e15b80617972df1d4f.png){.image-inline}
 
 >Initial Viewer Panels: The Viewer Display Panel (left) and the Data Manager Panel (right) for a regular image or data cube.
   
@@ -18,13 +18,13 @@ An introduction to basic viewer features
 Within the CASA environment, the viewer task can be used to start the CASA Viewer, displaying an image or MS. The inputs are:
 
 ```
-#  viewer :: View an image or visibility data set.
+#viewer :: View an image or visibility data set.
 
-infile        =         ''   #   (Optional)  Name of file to visualize.
-displaytype   =   'raster'   #   (Optional)  Type of visual rendering
-                             #   (raster, contour, vector or marker).
-                             #   lel  if an lel expression is given
-                             #   for infile (advanced).
+infile        =         ''   #(Optional)  Name of file to visualize.
+displaytype   =   'raster'   #(Optional)  Type of visual rendering
+                             #(raster, contour, vector or marker).
+                             #lel  if an lel expression is given
+                             #for infile (advanced).
 ```
 
 Examples of starting the CASA Viewer:
@@ -67,7 +67,6 @@ casaviewer image_filename contour &
 casaviewer '"image_filename"^2' lel &
 ```
 
-#  
 
 # The Viewer Display Panel
 
@@ -79,7 +78,7 @@ The CASA Viewer consists of a number of graphical user interface (GUI) windows. 
 
  
 
-![e8cf3cee163da8e2a22ef120a841581226610667](media/e8cf3cee163da8e2a22ef120a841581226610667.png)
+![e8cf3cee163da8e2a22ef120a841581226610667](media/e8cf3cee163da8e2a22ef120a841581226610667.png){.image-inline}
 
 ------------------------------------------------------------------------
 
@@ -123,7 +122,7 @@ At the top of the Viewer Display Panel are drop down menus:
 
  
 
-![8b57d404c74488f1107e2ebf839c0f60faeb3c71](media/8b57d404c74488f1107e2ebf839c0f60faeb3c71.png)
+![8b57d404c74488f1107e2ebf839c0f60faeb3c71](media/8b57d404c74488f1107e2ebf839c0f60faeb3c71.png){.image-inline}
 
 >Main Toolbar: The Display Panel's Main Toolbar appears directly below the menus and contains \'shortcut\' buttons for most of the frequently-used menu items.
   
@@ -158,7 +157,7 @@ Below the drop down menus is the Main Toolbar (see [Main Toolbar](#the-main-tool
 
  
 
-![aa5ec91c272ee59cd0bef0a8d695ca7872058795](media/aa5ec91c272ee59cd0bef0a8d695ca7872058795.png)
+![aa5ec91c272ee59cd0bef0a8d695ca7872058795](media/aa5ec91c272ee59cd0bef0a8d695ca7872058795.png){.image-inline}
 
 >Mouse Toolbar: The \'Mouse Tool\' Bar allows you to assign how mouse buttons behave in the image display area. Initially, zooming, color adjustment, and rectangular regions are assigned to the left, middle and right mouse buttons, respectively. Click on a tool with a mouse button to assign that tool to that mouse button.
   
@@ -178,7 +177,7 @@ Below the Main Toolbar are eleven Mouse Tool buttons (see [Mouse Toolbar](#the-m
 -   POSITION-VELOCITY DIAGRAM: Use this mouse tool to drag out a position axis that can be used to generate a position velocity diagram in a new viewer panel from the region manager dock.
 
 <div class="alert alert-info">
-**NOTE**: The \'escape\' key can be used to cancel any mouse tool operation that was begun but not completed, and to erase a region, point, or other tool showing in the display area.
+**NOTE**: The 'escape' key can be used to cancel any mouse tool operation that was begun but not completed, and to erase a region, point, or other tool showing in the display area.
 </div>
 
  
@@ -188,7 +187,7 @@ Below the Main Toolbar are eleven Mouse Tool buttons (see [Mouse Toolbar](#the-m
 The Main Display Area lies below the toolbars. This area shows the image or MeasurementSet currently loaded. Clicking the mouse inside the display area allows region or position selection according to the settings in the mouse toolbar.The Display Area may have up to three attached panels: the Animators panel, the Cursors panel, and the Regions panel. These may be displayed or hidden from the \"View\" dropdown menu in the main Viewer Display Panel. If one of these is missing from your viewer, check that it is checked \"on\" in that menu. The panels can also be turned off by clicking the \"X\" in the top right corner, in which case you will need to use the View menu to get them back.By default, the three panels appear attached to the main Viewer Display Panel on the right side of the image. They may be dragged to new positions. Each of the three panels can be attached to the left, top, right, or bottom of the main Viewer Display Panel or they can be entirely undocked and left as free-floating panels.
 
 <div class="alert alert-info">
-**NOTE**: Depending on your window manager, windows without focus, including detached panels and tools like the Spectral Profile Browser may sometimes display odd behavior. As a general rule, giving the window focus by clicking on it will correct the issue. If you seem to \"lose\" a detached panel (like the Animators Panel), then click in the main window to get it back.
+**NOTE**: Depending on your window manager, windows without focus, including detached panels and tools like the Spectral Profile Browser may sometimes display odd behavior. As a general rule, giving the window focus by clicking on it will correct the issue. If you seem to "lose" a detached panel (like the Animators Panel), then click in the main window to get it back.
 </div>
 
 <div class="alert alert-info">
@@ -199,7 +198,7 @@ A restart of the viewer will display all docks in the state of a previous viewer
 
 ------------------------------------------------------------------------
 
- ![8feaa9fb0d42d24217df66390ab85c79d44fa0bd](media/8feaa9fb0d42d24217df66390ab85c79d44fa0bd.png)
+ ![8feaa9fb0d42d24217df66390ab85c79d44fa0bd](media/8feaa9fb0d42d24217df66390ab85c79d44fa0bd.png){.image-inline}
 
 >Preference Dialog: The Preference Dialog can be used to manually change the docking and size of the viewer panel.
   
@@ -208,7 +207,7 @@ A restart of the viewer will display all docks in the state of a previous viewer
 
 ###  The Animators Panel
 
-![2cfd77b4f2ced4be1a260718e231ae8110cb6d0d](media/2cfd77b4f2ced4be1a260718e231ae8110cb6d0d.png)
+![2cfd77b4f2ced4be1a260718e231ae8110cb6d0d](media/2cfd77b4f2ced4be1a260718e231ae8110cb6d0d.png){.image-inline}
 
 >Animators Panel: The Animators Panel allows you to scroll through the z-axis of a data cube (using the Channels tape deck) or cycle among open Images. The panel can be undocked from the main display panel.
   
@@ -224,18 +223,12 @@ The Animators Panel allows you to scroll through the channels of a data cube and
 The \"Channels\" tape deck scrolls between planes of an individual image. By default, the channel tape deck scrolls among frequency planes when Right Ascension and Declination are the displayed axes (in this case, frequency is the z-axis). From outside to inside, the buttons cause the display to jump all the way to the beginning/end of the z-axis, cause the viewer to step one plane forward or backward along the z-axis, or start a movie. The limits on the z-axis can be set manually using the windows at the end of the scroll bar. The scroll bar can also be dragged or the user can jump the display to a manually entered plane by entering the plane into the text block.When you have multiple images loaded, the Images tape deck cycles through which is image is being displayed. In the movie mode, it allows you continuously click between images. Functionally, the Images tape deck works similarly to the Channels tape deck, with the ability to step, jump, or continuously scroll through images.
 
 <div class="alert alert-info">
-**NOTE**: The check boxes next to the channel and images tabs enable or disable those panels. This doesn't have much effect when the display has only a single panel, but with multiple panels (i.e., several maps at once in the main window) it changes the nature of the display. If the \"Images\" box is checked then interleaved maps from different cubes are displayed. Otherwise a series of maps from a single cube are shown.
+**NOTE**: The check boxes next to the channel and images tabs enable or disable those panels. This doesn't have much effect when the display has only a single panel, but with multiple panels (i.e., several maps at once in the main window) it changes the nature of the display. If the "Images" box is checked then interleaved maps from different cubes are displayed. Otherwise a series of maps from a single cube are shown.
 </div>
 
  
 
-## The Cursors Panel {#the-cursors-panel style="text-align: left;"}
-
-------------------------------------------------------------------------
-
- 
-
-![b58deef224d019cae4184041a4e7fd9691bfcaf6](media/b58deef224d019cae4184041a4e7fd9691bfcaf6.png)
+## The Cursors Panel 
 
 >Cursors Panel: The Cursors Panel gives information about the open data cube at the current location of the cursor. Freeze the Cursors Panel using the SPACE bar.
   
@@ -246,26 +239,7 @@ The Cursors Panel (below the Images tape deck in [Initial Viewer Panels](#FigIni
 
  
 
-### The Region Manager Panel {#the-region-manager-panel style="text-align: left;"}
-
-The Region Manager Panel becomes active when regions are created. It has a large amount of functionality, from display region statistics and histograms to creating position-velocity cuts. We discuss these in [Viewer Regions](#viewerRegions). Like the Animators and Cursors Panels, the Region Manager Panel can be moved relative to the main Viewer Display Panel or entirely undocked.
-## Saving and Restoring the Display Panel State {#saving-and-restoring-the-display-panel-state style="text-align: left;"}
-
-You can save the display panel's current state --- meaning the panel settings and the data on display --- or load a saved panel state from disk. To save the display panel state, select Save Panel State from the Display Panel drop-down menu or click the \"Save Display Panel State to File\" icon on the main toolbar (an arrow pointing from a picture to a page, see [Main Toolbar](#the-main-toolbar)). It is advisable but not required to retain the file's \'.rstr\' (\"Restore\") extension.You can restore the display panel to the saved state by loading the saved state from the Data Manager Panel, by selecting Restore Panel State from the Display Panel drop down menu, or by clicking the \"Restore Display Panel State\" icon (just to the right of the \"Save Display Panel State\" icon).It is possible to restore panel states viewing MeasurementSets, images, or panel states that have multiple layers, such as contour plots over raster images. You can also save LEL displays. You can also the save or restore the panel state with no data loaded, which is a convenient way to restore preferred initial settings such as overall panel size.Data Locations: The viewer is fairly forgiving regarding data location when restoring a saved panel state. It will find files located:
-
--   in the original location recorded in the restore file
--   in the current working directory (where you started the viewer)
--   in the restore file's directory
--   in the original location relative to the restore file
-
-This means that you can generally restore a saved panel state if you move that file together with data files. The exception to this rule is that the process is less forgiving if you save the display of an LEL expression. In this case the files must be in the locations specified in the original LEL expression. If a data file is not found, restore will attempt to proceed but results may not be ideal.Manually Editing Saved Display Panel States: The saved \"Restore\" files are in ascii (xml) format, and manual edits are possible. However, these files are long and complex. Use caution, and back up restore files before editing. If you make a mistake, the viewer may not even recognize the file as a restore file. It is easier and safer to make changes on the display panel and then save the display panel state again.
-# The Data Manager Panel --- Saving and Loading Data
-
-------------------------------------------------------------------------
-
- 
-
-![7d4cd267bbb4a3b269e1f22c908e1dc21a017b70](media/7d4cd267bbb4a3b269e1f22c908e1dc21a017b70.png)
+### The Region Manager Panel 
 
 >Data Manager Panel: The load tab of the Data Manager panel. This appears if you open the viewer without any infile specified, if you use select Open from the Data drop-down menu, or click the Open (Folder) icon. You can access the save image or save region tabs from this view or by selecting Save as\... from the Data drop down menu. The load tab shows all files in the current directory that can be loaded into the viewer --- images, MS, CASA region files, and Display Panel State files.
   
@@ -305,7 +279,7 @@ The Image Manager is used to define the master coordinate image, the sequence of
 
  
 
-![8974d9863e86c477d90bafedc2635435d5e45fbb](media/8974d9863e86c477d90bafedc2635435d5e45fbb.png)
+![8974d9863e86c477d90bafedc2635435d5e45fbb](media/8974d9863e86c477d90bafedc2635435d5e45fbb.png){.image-inline}
 
 >Image Manager
   
@@ -322,7 +296,7 @@ The Image Manager is used to define the master coordinate image, the sequence of
 
  
 
-![6635be99d7c7c01aecee67542626f14a7a4fab30](media/6635be99d7c7c01aecee67542626f14a7a4fab30.png)
+![6635be99d7c7c01aecee67542626f14a7a4fab30](media/6635be99d7c7c01aecee67542626f14a7a4fab30.png){#__mcenew .image-inline}
 
 >Save Data Panel: The Save Data panel that appears when selecting the 'Save as\...' (see [Main Toolbar](#FigMainToolbar)).
   

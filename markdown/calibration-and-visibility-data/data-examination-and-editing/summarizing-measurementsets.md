@@ -13,27 +13,27 @@ The MeasurementSet is the way CASA stores visibility data (the [MS definition](h
 An observational summary of the MS contents can be displayed with the **listobs** task. The inputs are:
 
 ```
-vis                 = 'day2_TDEM0003_10s_norx' #  Name of input visibility file (MS)
-selectdata          =       True        #  Data selection parameters
-     field          =         ''        #  Field names or field index
-                                        #  numbers: '' ==>all, field='0~2,3C286'
-     spw            =         ''        #  spectral-window/frequency/channel
-     antenna        =         ''        #  antenna/baselines: ''==>all, antenna ='3,VA04'
-     timerange      =         ''        #  time range: ''==>all,timerange='09:14:0~09:54:0'
-     correlation    =         ''        #  Select data based on correlation
-     scan           =         ''        #  scan numbers: ''==>all
-     intent         =         ''        #  Select data based on observation intent: ''==>all
-     feed           =         ''        #  multi-feed numbers: Not yet implemented
-     array          =         ''        #  (sub)array numbers: ''==>all
-     uvrange        =         ''        #  uv range: ''==>all; uvrange
-                                        #  ='0~100klambda', default units=meters
-     observation    =         ''        #  Select data based on observation ID: ''==>all
+vis                 = 'day2_TDEM0003_10s_norx' #Name of input visibility file (MS)
+selectdata          =       True        #Data selection parameters
+     field          =         ''        #Field names or field index
+                                        #numbers: '' ==>all, field='0~2,3C286'
+     spw            =         ''        #spectral-window/frequency/channel
+     antenna        =         ''        #antenna/baselines: ''==>all, antenna ='3,VA04'
+     timerange      =         ''        #time range: ''==>all,timerange='09:14:0~09:54:0'
+     correlation    =         ''        #Select data based on correlation
+     scan           =         ''        #scan numbers: ''==>all
+     intent         =         ''        #Select data based on observation intent: ''==>all
+     feed           =         ''        #multi-feed numbers: Not yet implemented
+     array          =         ''        #(sub)array numbers: ''==>all
+     uvrange        =         ''        #uv range: ''==>all; uvrange
+                                        #='0~100klambda', default units=meters
+     observation    =         ''        #Select data based on observation ID: ''==>all
 
 verbose             =       True        
-listfile            =         ''        #  Name of disk file to write output: ''==>to terminal
-listunfl            =      False        #  List unflagged row counts?
-                                        #  If true, it can have significant negative performance
-                                        #  impact
+listfile            =         ''        #Name of disk file to write output: ''==>to terminal
+listunfl            =      False        #List unflagged row counts?
+                                        #If true, it can have significant negative performance
+                                        #impact
 ```
 
 The summary (of the selected data) will be written to the logger, to the casapy-YYYYMMDD-HHMMSS.log file, and optionally to a file specified in the *listfile* parameter. For example,
@@ -126,12 +126,12 @@ Antennas: 19:
  
 
 ```
-#  listpartition :: List the summary of a Multi-MS data set in the logger or in a file
-vis                 =         ''        #  Name of Multi-MS or normal MS.
-createdict          =      False        #  Create and return a dictionary with
-                                        #   Sub-MS information
-listfile            =         ''        #  Name of ASCII file to save output:
-                                        #   ''==>to terminal
+#listpartition :: List the summary of a Multi-MS data set in the logger or in a file
+vis                 =         ''        #Name of Multi-MS or normal MS.
+createdict          =      False        #Create and return a dictionary with
+                                        #Sub-MS information
+listfile            =         ''        #Name of ASCII file to save output:
+                                        #''==>to terminal
 ```
 
 For example,
@@ -163,19 +163,19 @@ The output can also be redirected to a [python dictionary](http://casa.nrao.edu/
 The **listvis** prints a list of the visibility data in an MS to the terminal or a textfile. The inputs are:
 
 ```
-#  listvis :: List MeasurementSet visibilities.
-vis                 =         ''        #  Name of input visibility file
-options             =       'ap'        #  List options: ap only
-datacolumn          =     'data'        #  Column to list: data, float_data, corrected, model,
-                                        #   residual
-field               =         ''        #  Field names or index to be listed: ''==>all
-spw                 =        '*'        #  Spectral window:channels: '*'==>all, spw='1:5~57'
-selectdata          =      False        #  Other data selection parameters
-observation         =         ''        #  Select by observation ID(s)
-average             =         ''        #  Averaging mode: ==>none (Not yet implemented)
-showflags           =      False        #  Show flagged data (Not yet implemented)
-pagerows            =         50        #  Rows per page
-listfile            =         ''        #  Output file
+#listvis :: List MeasurementSet visibilities.
+vis                 =         ''        #Name of input visibility file
+options             =       'ap'        #List options: ap only
+datacolumn          =     'data'        #Column to list: data, float_data, corrected, model,
+                                        #residual
+field               =         ''        #Field names or index to be listed: ''==>all
+spw                 =        '*'        #Spectral window:channels: '*'==>all, spw='1:5~57'
+selectdata          =      False        #Other data selection parameters
+observation         =         ''        #Select by observation ID(s)
+average             =         ''        #Averaging mode: ==>none (Not yet implemented)
+showflags           =      False        #Show flagged data (Not yet implemented)
+pagerows            =         50        #Rows per page
+listfile            =         ''        #Output file
 ```
 
 For example,

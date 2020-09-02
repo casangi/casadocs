@@ -58,7 +58,7 @@ git config --global filter.lfs.process "git-lfs filter-process"
 
 It is also possible to set up Git LFS on a per-repository basis.
 
-## Checking Out the Data Repository {#checking-out-the-data-repository .p1}
+## Checking Out the Data Repository 
 
 The Data Repository is very large. The actual data content is 73GB, but a regular checkout (in Subversion or Git) requires a disk footprint of 153GB. Therefore the best way to start using the CASA Data Repository is to begin with a limited clone:
 
@@ -115,7 +115,7 @@ echo 'regression/unittest/*' >> .git/info/sparse-checkout
 git checkout
 ```
 
-### Entire Repository {#entire-repository .p1}
+### Entire Repository 
 
 The entire repository can be checked out (after the limited clone above) with:
 
@@ -127,7 +127,7 @@ git checkout master
 
  This checkout will likely take a long time and consume about 153GB of disk space.
 
-### Checkout LFS Internals {#checkout-lfs-internals .p1}
+### Checkout LFS Internals 
 
 You may wish to have a look at the LFS internals. Typically you won\'t, but this is the only way to confidently check to see if any binary files have crept into our LFS-based binary data repository. In either case, a way this can be done is with:
 
@@ -137,7 +137,7 @@ git -c "filter.lfs.smudge=cat" clone https://open-bitbucket.nrao.edu/scm/casa/ca
 
 Also, ignore the error message.
 
-## Committing Changes {#committing-changes .p1}
+## Committing Changes 
 
 Changes can be committed to either the distro repository, sparse clone or a complete repository clone. However, if you are using a CASA Data Repository clone that you have previously cloned, remember to run \"git pull\" prior to beginning to make changes.
 
@@ -207,7 +207,7 @@ The \"changes which should not be pushed\" comment simply refers to the fact tha
 
 When *deleting files* from the data repository, the deletions will not be listed in the \"git lfs status \--porcelain\" output. This is because when deleting files the large binary files not deleted because they are required when checking out older revisions of the data repository.
 
-## Check Before Committing {#check-before-committing .p1}
+## Check Before Committing 
 
 It is very important to check the status of your data repository clone **before** doing a commit of changed files to your local repository. Failure to do this (even should you be on a non-master branch), could lead to the need to reconstitute the CASA Data Repository on the server from scratch.
 
@@ -236,7 +236,7 @@ A  gui/3DDAT.fits 10137600
 
 When *deleting files* from the data repository, the deletions will not be listed in the \"git lfs status \--porcelain\" output.
 
-## Check Before Pushing Upstream {#check-before-pushing-upstream .p1}
+## Check Before Pushing Upstream 
 
 Double check that your files are managed by LFS. One way to do this is to use LFS ls-files. For example:
 
@@ -255,7 +255,7 @@ git lfs ls-files \|  stakeholders/alma/E2E6.1.00034.S_tclean.ms/SYSPOWER/table.d
     100644 blob c995547dd417f4def10d38d969fe94a6aff9563d     129    stakeholders/alma/E2E6.1.00020.S_tclean.ms/ASDM_RECEIVER/table.dat
      
 
-## Further Reading {#further-reading .p1}
+## Further Reading 
 
 -   [Backing Up an LFS repository](https://help.github.com/enterprise/2.8/user/articles/duplicating-a-repository/#mirroring-a-repository-that-contains-git-large-file-storage-objects)
 -   [Tips and Trick for LFS](https://shuhrat.github.io/programming/git-lfs-tips-and-tricks.html)
@@ -263,7 +263,7 @@ git lfs ls-files \|  stakeholders/alma/E2E6.1.00034.S_tclean.ms/SYSPOWER/table.d
 -   [LFS homepage](https://git-lfs.github.com)
 -   [Check if a file is managed by LFS](https://github.com/git-lfs/git-lfs/issues/2748)
 
-## Updating the Observatories table {#updating-the-observatories-table .p1}
+## Updating the Observatories table 
 
 On occasion the Observatories table needs to be updated.This can be done using the TableBrowser tool in casa. The tool can be launchedwith \"browsetable\" command in Casa.The Observatories table is under \"geodetic\" folder in the casa-data repository.In Table Browser:1) In the \"Edit\" menu, select the topmost \"Edit Table\" button. This will enable table editing.2) Click on Edit -\> Insert Rows \.... select 1 row to be appended3) A new row will appear at the bottom of the table. Add all of the required values.4) Click on File -\> close Table5) Exit casabrowser6) Rerun \"casabrowser Observatories\" or \"browsetable\" to make sure that the values you added got saved properly. Exit Casa.7) Commit the changes back to the casa-data repository.The table has the following fields.MJD: The Modified Julian Date when the Observatory position was measured. If the date of the measurements is not available the date of the update request should typically suffice.NAME: Observatory nameType: WGS84 or ITRSLong: RequiredLat: RequiredHeight: RequiredX: Optional. Default 0.Y: Optional. Default 0.Z: Optional. Default 0.Source: The name of the requestorComment:AntennaResponses:Sometimes both ITRS and WGS84 values are provided but only one or the other is used/required. The additional values will be used for reference only.Use the process described in the previous segments to push the changes to the data repository.
 Notes about conversion from Kumar:

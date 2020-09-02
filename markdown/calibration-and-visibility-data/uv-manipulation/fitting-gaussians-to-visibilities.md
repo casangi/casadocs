@@ -4,27 +4,27 @@
 
 Using uvmodelfit
 
-### UV-Plane Model Fitting (**uvmodelfit**) {#sec291}
+### UV-Plane Model Fitting (**uvmodelfit**) 
 
 It is often desirable to fit simple analytic source component models directly to visibility data. Such fitting has its origins in early interferometry, especially VLBI, where arrays consisted of only a few antennas and the calibration and deconvolution problems were poorly constrained. These methods overcame the calibration uncertainties by fitting the models to calibration-independent closure quantities and the deconvolution problem by drastically limiting the number of free parameters required to describe the visibilities. Today, even with larger and better calibrated arrays, it is still desirable to use visibility model fitting in order to extract geometric properties such as the positions and sizes of discrete components in radio sources. Fits for physically meaningful component shapes such as disks, rings, and optically-thin spheres, though idealized, enable connecting source geometry directly to the physics of the emission regions.
 
 Visibility model fitting is carried out by the **uvmodelfit** task. The inputs are:
 
 ```
-# uvmodelfit :: Fit a single component source model to the uv data:
-vis        =   ''       # Name of input visibility file
-field      =   ''       # field name or index
-spw        =   ''       # spectral window
-selectdata =  False     # Activate data selection details
-niter      =    5       # Number of fitting iterations to execute
-comptype   =   'P'      # Component type (P=pt source,G=ell. gauss,D=ell. disk)
-sourcepar  =  [1, 0, 0] # Starting guess (flux,xoff,yoff,bmajaxrat,bpa)
-varypar    =   []       # Which parameters can vary in fit
-outfile    =   ''       # Optional output component list table
+#uvmodelfit :: Fit a single component source model to the uv data:
+vis        =   ''       #Name of input visibility file
+field      =   ''       #field name or index
+spw        =   ''       #spectral window
+selectdata =  False     #Activate data selection details
+niter      =    5       #Number of fitting iterations to execute
+comptype   =   'P'      #Component type (P=pt source,G=ell. gauss,D=ell. disk)
+sourcepar  =  [1, 0, 0] #Starting guess (flux,xoff,yoff,bmajaxrat,bpa)
+varypar    =   []       #Which parameters can vary in fit
+outfile    =   ''       #Optional output component list table
 ```
 
 <div class="alert alert-warning">
-**ALERT**: This task currently only fits a single component.  For multiple, arbitrary shaped component fitting, we refer to the [uvmultifit](https://launchpad.net/uvmultifit) [\[1\]](#Bibliography) software that was developed by the Nordic [ALMA Regional Center Node](https://www.oso.nordic-alma.se/software-tools.php).  
+**ALERT**: This task currently only fits a single component.  For multiple, arbitrary shaped component fitting, we refer to the [uvmultifit](https://launchpad.net/uvmultifit) [[1]](#Bibliography) software that was developed by the Nordic [ALMA Regional Center Node](https://www.oso.nordic-alma.se/software-tools.php).  
 </div>
 
 The user specifies the number of non-linear solution iterations (*niter*), the component type (*comptype*), an initial guess for the component parameters (*sourcepar*), and optionally, a vector of Booleans selecting which component parameters should be allowed to vary (*varypar*), and a filename in which to store a CASA component list for use in other applications (*outfile*). Allowed comptypes are currently point 'P' or Gaussian 'G'.
@@ -46,22 +46,22 @@ Improvements in the works for visibility model fitting include:
 Example (see Figure 1):
 
 ```
-# # Note: It's best to channel average the data if many channels # before running a modelfit #
+##Note: It's best to channel average the data if many channels #before running a modelfit #
 split('ngc5921.ms','1445+099_avg.ms', datacolumn='corrected',field='1445*',width='63')
  
 
-# Initial guess is that it's close to the phase center
-# and has a flux of 2.0 (a priori we know it's 2.47)
-uvmodelfit('1445+099_avg.ms', # use averaged data
-           niter=5, # Do 5 iterations
-           comptype='P', # P=Point source, G=Gaussian, D=Disk
-           sourcepar=[2.0,.1,.1], # Source parameters for a point source
+#Initial guess is that it's close to the phase center
+#and has a flux of 2.0 (a priori we know it's 2.47)
+uvmodelfit('1445+099_avg.ms', #use averaged data
+           niter=5, #Do 5 iterations
+           comptype='P', #P=Point source, G=Gaussian, D=Disk
+           sourcepar=[2.0,.1,.1], #Source parameters for a point source
            spw='0',  
-           outfile='gcal.cl') # Output component list file
+           outfile='gcal.cl') #Output component list file
 ```
 
 ```python
-# Output looks like:
+#Output looks like:
  There are 19656 - 3 = 19653 degrees of freedom.
   iter=0: reduced chi2=0.0418509: I=2, dir=[0.1, 0.1] arcsec
   iter=1: reduced chi2=0.003382: I=2.48562, dir=[-0.020069, -0.0268826] arcsec
@@ -79,20 +79,20 @@ uvmodelfit('1445+099_avg.ms', # use averaged data
 ```
 
 ```
-# Fourier transform the component list to a model of the MS
+#Fourier transform the component list to a model of the MS
 ft('1445+099_avg.ms', complist='gcal.cl')
 
-# Plot data versus uv-distance
+#Plot data versus uv-distance
 plotms(vis='1445+099_avg.ms', xaxis='uvdist', datacolumn='corrected')
 
-# Plot model data versus uv-distance
+#Plot model data versus uv-distance
 plotms(vis='1445+099_avg.ms', xaxis='uvdist', datacolumn='model')
 ```
 
  
 
 <div class="alert alert-info">
-The Nordic ALMA ARC node maintains the [UVMULTIFIT](http://www.oso.nordic-alma.se/software-tools.php) package that is based on CASA and which provides  addition, powerful tools for visibility modelling. See the [Nordic ARC software page](http://www.oso.nordic-alma.se/software-tools.php) and Marti-Vidal et al. (2014)  [\[1\]](#Bibliography) for details.
+The Nordic ALMA ARC node maintains the [UVMULTIFIT](http://www.oso.nordic-alma.se/software-tools.php) package that is based on CASA and which provides  addition, powerful tools for visibility modelling. See the [Nordic ARC software page](http://www.oso.nordic-alma.se/software-tools.php) and Marti-Vidal et al. (2014)  [[1]](#Bibliography) for details.
 
 </div>
 
@@ -106,7 +106,7 @@ The Nordic ALMA ARC node maintains the [UVMULTIFIT](http://www.oso.nordic-alma.s
 >
 > <div>
 >
-> ![](markdown/_media/443dad9cdcbb6b7f6ba2b778b0137baca052e3a2.png)
+> ![443dad9cdcbb6b7f6ba2b778b0137baca052e3a2](media/443dad9cdcbb6b7f6ba2b778b0137baca052e3a2.png)
 >
 > <div>
 >

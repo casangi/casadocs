@@ -1,145 +1,149 @@
 Description
-      The main purpose of this task is to correct observations which
-      were performed with correct pointing and correlation but for which
-      incorrect direction information was entered in the FIELD and
-      SOURCE table of the MS. This may be the case if the data is old
-      and there is no ephemeris table attached to the MS (in which case,
-      use **fixplanets** with the parameter *direction* set in order to
-      attach one), if improved ephemerides have become available, or
-      if a fixed direction is needed to allow concatenation (using
-      **fixplanets** as an alternative to **concat**).
+   The main purpose of this task is to correct observations which
+   were performed with correct pointing and correlation but for which
+   incorrect direction information was entered in the FIELD and
+   SOURCE table of the MS.This may be the case if the data is old
+   andthere is no ephemeris table attached to the MS (in which case,
+   use**fixplanets** with the parameter *direction* set in order to
+   attach one), if improved ephemerides have become available, or
+   ifa fixed direction is needed to allow concatenation (using
+   **fixplanets** as an alternative to **concat**).
 
-      If you actually want to change the phase center of the visibilties
-      in an MS, you should use task **fixvis**.
+   If you actually want to change the phase center of the visibilties
+   in an MS, you should use task **fixvis**.
 
-       
+   
 
-      .. rubric:: Parameter descriptions
-         :name: parameter-descriptions
+   .. rubric:: Parameter descriptions
+      
 
-      .. rubric:: *vis*
-         :name: vis
+   .. rubric:: *vis*
+      
 
-      Name of the input visibility set.
+   Name of the input visibility set.
 
-      .. rubric:: *field*
-         :name: field
+   .. rubric:: *field*
+      
 
-      Field selection string.
+   Field selection string.
 
-      .. rubric:: *fixuvw*
-         :name: fixuvw
+   .. rubric:: *fixuvw*
+      
 
-      Recalculates the uvw coordinates (default: False).
+   Recalculates the uvw coordinates (default: False).
 
-      .. rubric:: *direction*
-         :name: direction
+   .. rubric:: *direction*
+      
 
-      If set, **fixplanets** doesn't use the pointing table but sets the
-      direction to this value.
+   If set, **fixplanets** doesn't use the pointing table but sets the
+   direction to this value.
 
-      default= '' (use pointing table); example: 'J2000 19h30m00
-      -40d00m00'.
+   default= '' (use pointing table); example: 'J2000 19h30m00
+   -40d00m00'.
 
-      The direction can either be given explicitly or as the path to a
-      JPL Horizons ephemeris text file (for an example of the format,
-      see directory data/ephemerides/JPL-Horizons/).
+   The direction can either be given explicitly or as the path to a
+   JPL Horizons ephemeris text file (for an example of the format,
+   see directory data/ephemerides/JPL-Horizons/).
 
-      Alternatively, for most sources, the ephemeris file can also be
-      provided as mime format file, i.e., a saved email as obtained via
-      the following commands:
+   Alternatively, for most sources, the ephemerisfile can also be
+   provided as mime format file, i.e., a saved email as obtained via
+   the following commands:
 
-      .. note:: | import recipes.ephemerides.request as jplreq
-         | jplreq.request_from_JPL(objnam='Mars',
-           startdate='2012-01-01', enddate='2013-12-31', date_incr='0.1
-           d', get_axis_orientation=False, 
-           get_axis_ang_orientation=True, get_sub_long=True,
-           use_apparent=False, get_sep=False,
-           return_address='YOUR_EMAIL_ADDESS', 
-           mailserver='YOUR_MAIL_SERVER_ADDRESS')
+   ::
 
-      .. note:: **NOTE**: Some mail clients may not save the JPL mail properly.
-         Confirmed to work in Thunderbird.
+      | import recipes.ephemerides.request as jplreq
+      | jplreq.request_from_JPL(objnam='Mars',
+        startdate='2012-01-01', enddate='2013-12-31', date_incr='0.1
+        d', get_axis_orientation=False,
+        get_axis_ang_orientation=True, get_sub_long=True,
+        use_apparent=False, get_sep=False,
+        return_address='YOUR_EMAIL_ADDESS',
+        mailserver='YOUR_MAIL_SERVER_ADDRESS')
 
-      In cases where the source is not included in
-      recipes.ephemerides.request, use the following set of commands to
-      get the file in mime format for all sources:
+   .. note:: **NOTE**: Some mail clients may not save the JPL mail properly.
+      Confirmed to work in Thunderbird.
 
-      -  go to the `JPL ephemerides
-         webpage <http://ssd.jpl.nasa.gov/horizons.cgi>`__ 
-      -  change the target body entry to the desired object
-      -  click on 'batch-file' data in the special options section
-      -  retrieve the command parameter, which is the 'code' for the
-         object (i.e., DES=C/2011 L4')
-      -  send an email to horizons@ssd.jpl.nasa.gov, with JOB as
-         subject, and in the body:
+   In cases where the source isnot included in
+   recipes.ephemerides.request, use the following set of commands to
+   get the file in mime format for all sources:
 
-      .. note:: !$$SOF
+   -  go to the `JPL ephemerides
+      webpage <http://ssd.jpl.nasa.gov/horizons.cgi>`__
+   -  changethe target body entry to the desired object
+   -  click on 'batch-file' data in the special options section
+   -  retrieve the command parameter, which is the 'code' for the
+      object (i.e., DES=C/2011 L4')
+   -  send an email tohorizons@ssd.jpl.nasa.gov, with JOB as
+      subject, and in the body:
 
-         COMMAND= 'DES=C/2011 L4'
+   ::
 
-         CENTER= '500@399'
+      !$$SOF
 
-         MAKE_EPHEM= 'YES'
+      COMMAND= 'DES=C/2011 L4'
 
-         TABLE_TYPE= 'OBSERVER'
+      CENTER= '500@399'
 
-         START_TIME= '2014-06-28'
+      MAKE_EPHEM= 'YES'
 
-         STOP_TIME= '2014-07-01'
+      TABLE_TYPE= 'OBSERVER'
 
-         STEP_SIZE= '1 m'
+      START_TIME= '2014-06-28'
 
-         CAL_FORMAT= 'CAL'
+      STOP_TIME= '2014-07-01'
 
-         TIME_DIGITS= 'MINUTES'
+      STEP_SIZE= '1 m'
 
-         ANG_FORMAT= 'DEG'
+      CAL_FORMAT= 'CAL'
 
-         OUT_UNITS= 'KM-S'
+      TIME_DIGITS= 'MINUTES'
 
-         RANGE_UNITS= 'AU'
+      ANG_FORMAT= 'DEG'
 
-         APPARENT= 'AIRLESS'
+      OUT_UNITS= 'KM-S'
 
-         SOLAR_ELONG= '0,180'
+      RANGE_UNITS= 'AU'
 
-         SUPPRESS_RANGE_RATE= 'NO'
+      APPARENT= 'AIRLESS'
 
-         SKIP_DAYLT= 'NO'
+      SOLAR_ELONG= '0,180'
 
-         EXTRA_PREC= 'NO'
+      SUPPRESS_RANGE_RATE= 'NO'
 
-         R_T_S_ONLY= 'NO'
+      SKIP_DAYLT= 'NO'
 
-         REF_SYSTEM= 'J2000'
+      EXTRA_PREC= 'NO'
 
-         CSV_FORMAT= 'NO'
+      R_T_S_ONLY= 'NO'
 
-         OBJ_DATA= 'YES'
+      REF_SYSTEM= 'J2000'
 
-         EMAIL_ADDR = 'amoullet@nrao.edu'
+      CSV_FORMAT= 'NO'
 
-         QUANTITIES= '1,17,19,20,24,14,15'
+      OBJ_DATA= 'YES'
 
-         !$$EOF
+      EMAIL_ADDR = 'amoullet@nrao.edu'
 
-      where COMMAND, START_TIME, STOP_TIME, STEP_SIZE and EMAIL_ADDR
-      must be adapted to the case. See the Examples tab for how to use
-      the returned ephemeris. 
+      QUANTITIES= '1,17,19,20,24,14,15'
 
-      .. rubric:: *refant*
-         :name: refant
+      !$$EOF
 
-      If using pointing table information, use it from this antenna.
-      default: 0 (antenna id 0); examples: 'DV06' (antenna with name
-      DV06); 3 (antenna id 3).
+   where COMMAND, START_TIME, STOP_TIME, STEP_SIZE and EMAIL_ADDR
+   must be adapted to the case. See the Examples tab for how to use
+   the returned ephemeris.
 
-      .. rubric:: *reftime*
-         :name: reftime
+   .. rubric:: *refant*
+      
 
-      If using pointing table information, use it from this timestamp.
-      default: 'first'; examples: 'median' will use the median timestamp
-      for the given field using only the unflagged maintable rows;
-      '2012/07/11/08:41:32' will use the given timestamp (must be within
-      the observaton time).
+   If using pointing table information, use it from this antenna.
+   default: 0 (antenna id 0); examples: 'DV06' (antenna with name
+   DV06); 3 (antenna id 3).
+
+   .. rubric:: *reftime*
+      
+
+   If using pointing table information, use it from this timestamp.
+   default: 'first'; examples: 'median' will use the median timestamp
+   for the given field using only the unflagged maintable rows;
+   '2012/07/11/08:41:32' will use the given timestamp (must be within
+   the observaton time).

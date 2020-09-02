@@ -4,36 +4,7 @@
 
 W-term, Primary Beams (models, pbcor, A-Projection)
 
-# **Widefield imaging in CASA is [experimental](https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/tasks-and-tools). Please use at own discretion.**
-
-Imaging modes with A-Projection and mosaics (*gridder=\'mosaic\'* and *\'awproject\'*) have been validated only for a few usage modes and use cases as required by the ALMA and VLASS pipelines. Please use these modes at your own discretion, and carefully read the [Known Issues](https://casa.nrao.edu/casadocs-devel/stable/introduction/known-issues) for CASA 5.6 when using AWproject.
-
- 
-
-Wide-field imaging typically refers to fields of view over which the basic 2D Fourier transform assumption of interferometric imaging does not apply and where standard on-axis calibration will not suffice.  
-
-# The non-coplanar baseline effect: W-term
-
-For wide-field imaging, sky curvature and non-coplanar baselines result in a non-zero w-term. Standard 2D imaging applied to such data will produce artifacts around sources away from the phase center. CASA has two methods to correct the w-term effect.
-
- 
-
-## Faceting
-
-In this method, visibilities are gridded multiple times onto the same uv-grid, each time with a different phase-reference center. One single dirty/residual image is constructed from the resulting grid and deconvolved using a single PSF (picked from the first facet). This deconvolution is not affected by emission that crosses facet boundaries, unlike in image-domain faceting, which is an older approach where small facet images are deconvolved separately before being stitched together. [\[1\]](#Bibliography)
-
-In **tclean**, faceting is available via *gridder=\'widefield\'* where you can specify the number of desired facets on a side.  It can be used along with W-Projection as well, for very large fields of view.
-
- 
-
-## W-projection
-
-In this method, visibilities with non-zero w-values are gridded using using a gridding convolution function (GCF) given by the Fourier transform of the Fresnel EM-wave propagator across a distance of w wavelengths. In practice, GCFs are computed for a finite set of w-values (wprojplanes) and applied during gridding. W-projection is roughly an order of magnitude faster than faceted imaging because it grids each visibility only once [\[2\].](#Bibliography)
-
-In **tclean**, w-projection is available via *gridder=\'widefield\'* or *\'wproject\'* or *\'awproject\'*.  In all cases, the \'*wprojplanes*\' parameter must be set. It represents the number of discrete w-values to be used to quantize the range of w-values present in the dataset being imaged. An appropriate value of wprojplanes depends on whether there is a bright source far from the phase center, the desired dynamic range of an image in the presence of a bright far out source, the maximum w-value in the measurements, and the desired trade off between accuracy and computing cost. As a (rough) guide, VLA L-Band D-config may require a value of 128 for a source 30arcmin away from the phase center. A-config may require 1024 or more. To converge to an appropriate value, try starting with 128 and then increasing it if artifacts persist. W-term artifacts (for the VLA) typically look like arc-shaped smears in a synthesis image or a shift in source position between images made at different times. These artifacts are more pronounced the further the source is from the phase center. There is no harm in simply always choosing a large value (say, 1024) but there will be a significant performance cost to doing so, especially for *gridder=\'awproject\'* where it is combined with A-Projection. *wprojplanes=-1* may be used with *gridder=\'widefield\'* or *\'wproject\'* to automatically compute the number of planes.
-The formula that CASA uses to calculate the number of plans when *wprojplanes=-1* is:
-
-$N_\mathrm{wprojplanes} = 0.5\times \frac{W_\mathrm{max}}{\lambda} \times \frac{\mathrm{imsize}}{\mathrm{(radians)}}$
+# **Widefield imaging in CASA is [[experimental](https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/tasks-and-tools). Please use at own discretion.] = 0.5\times \frac{W_\mathrm{max}}{\lambda} \times \frac{\mathrm{imsize}}{\mathrm{(radians)}}$
 
 where $W_\mathrm{max}$ is the maximum $w$ in your $uvw$ data and imsize is the largest linear size of your image. This formula is somewhat conservative and it is possible to achieve good results by using a smaller number of planes, which can also save on speed and memory.
 
@@ -43,7 +14,7 @@ where $W_\mathrm{max}$ is the maximum $w$ in your $uvw$ data and imsize is the l
 
  
 
-![897bc85407ab7ec0babb1e8b99481534877c8c2d](media/897bc85407ab7ec0babb1e8b99481534877c8c2d.png)
+![897bc85407ab7ec0babb1e8b99481534877c8c2d](media/897bc85407ab7ec0babb1e8b99481534877c8c2d.png){.image-inline width="513" height="193"}
 
  
 
@@ -59,7 +30,7 @@ In **tclean**, this option is available by setting *pbcor=True*.  When used with
 
 Primary Beam correction for wide bandwidth observations is discussed in the [Wideband Imaging](https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/wide-band-imaging) section.
 
-![ac1f425c3c4087e00c5de2dcda92367d7bd678e7](media/ac1f425c3c4087e00c5de2dcda92367d7bd678e7.png)
+![ac1f425c3c4087e00c5de2dcda92367d7bd678e7](media/ac1f425c3c4087e00c5de2dcda92367d7bd678e7.png){.image-inline width="522" height="246"}
 
  
 
@@ -77,21 +48,7 @@ The operations of the \'*awproject*\' gridder are controlled by three parameters
 
  
 
-<table style="height: 197px; border-color: #000000;" width="539"><colgroup><col style="width: 16%" /><col style="width: 16%" /><col style="width: 16%" /><col style="width: 16%" /><col style="width: 16%" /><col style="width: 16%" /></colgroup><tbody><tr class="odd"><td style="text-align: center;"><span style="font-size: 12pt;"><strong>Operation</strong></span></td><td style="text-align: center;"><span style="font-size: 12pt;"><strong>aterm</strong></span></td><td style="text-align: center;"><span style="font-size: 12pt;"><strong>psterm</strong></span></td><td style="text-align: center;"><span style="font-size: 12pt;"><strong>wprojplanes</strong></span></td><td style="text-align: center;"><span style="font-size: 12pt;"><strong>GCF</strong></span></td><td style="text-align: center;"><span style="font-size: 12pt;"><strong>Contents of the .pb image</strong></span></td></tr><tr class="even"><td style="text-align: center;"><strong><span style="color: #ff6600;">AW-Projection</span></strong></td><td style="text-align: center;"><strong>True</strong></td><td style="text-align: center;"><p><strong>True</strong></p><p><strong>False</strong></p></td><td style="text-align: center;"><strong> &gt;1</strong></td><td style="text-align: center;"><p><strong>PS*A*W</strong></p><p><strong>A*W</strong></p></td><td style="text-align: center;"><p><strong>FT(PS) x PB</strong></p><p><strong>PB</strong></p></td></tr><tr class="odd"><td style="text-align: center;"><strong><span style="color: #ff6600;">A-Projection</span></strong></td><td style="text-align: center;"><strong>True</strong></td><td style="text-align: center;"><p><strong>True</strong></p><p><strong>False</strong></p></td><td style="text-align: center;"><strong>1</strong></td><td style="text-align: center;"><p><strong>PS*A</strong></p><p><strong>A</strong></p></td><td style="text-align: center;"><p><strong>FT(PS) x PB</strong></p><p><strong>PB</strong></p></td></tr><tr class="even"><td style="text-align: center;"><strong><span style="color: #ff6600;">W-Projection</span></strong></td><td style="text-align: center;"><strong>False</strong></td><td style="text-align: center;"><strong>True</strong></td><td style="text-align: center;"><strong>&gt;1</strong></td><td style="text-align: center;"><strong>PS*W</strong></td><td style="text-align: center;"><strong>FT(PS)</strong></td></tr><tr class="odd"><td style="text-align: center;"><strong><span style="color: #ff6600;">Standard</span></strong></td><td style="text-align: center;"><strong>False</strong></td><td style="text-align: center;"><strong>True</strong></td><td style="text-align: center;"><strong>1</strong></td><td style="text-align: center;"><strong>PS</strong></td><td style="text-align: center;"><strong>FT(PS)</strong></td></tr></tbody></table>
-
- 
-
- 
-
-Full/Hybrid Mueller matrix support is being added into the system for full-polarization widefield imaging.  Currently, heterogenous arrays like ALMA are not supported, but it will be suitable for VLA widefield imaging. 
-
- 
-
-#### Parallel execution
-
-The computing cost of A-Projection is larger than standard imaging, and cost of AW-Projection is higher than A-Projection.  However, since the run time scales very well with parallelization, these costs can be effectively offset with the use of parallelization (using parallel=True; see the [Parallel Processing](https://casa.nrao.edu/casadocs-devel/stable/parallel-processing) section for details about running casa in parallel mode).  The runtime scales close to linear with the number of nodes used.  We have measured this scaling for up to 200 cores, but the scaling may continue further dependening on the data size, data storage (e.g., Luster vs. standard file system), image size, algorithms used, etc. The plot below shows the measured scaling for a large EVLA L-band mosaic imaging experiment. The dark and light blue curves (legends \"Make PSF + avgPB\" and \"Make Residual\" respectively) show the measurement of the steady-state runtime as a function of the number of cores used.  The lines in black associated with both these curves show the theoratical (ideal) linear scaling curves. A memo with the details of the characterization of the runtime in parallel mode can be found [here](http://www.aoc.nrao.edu/~sbhatnag/misc/Imager_Parallelization.pdf).  **Note that parallelization is not restricted to A-Projection and can be used with any combination of *gridder *and *deconolver *setting.** 
-
-![b9ac634819f43b993a5e2eadc2d190e899f9a258](media/b9ac634819f43b993a5e2eadc2d190e899f9a258.png)
+<table 
 
 There are a number of parameters to apply approximations that can reduce the computing load.
 
@@ -99,7 +56,7 @@ Note that current code does not work correctly for non-square mosaic images and 
 
  
 
-![eb12f69b90a6c3576dd2e815a3d57c8dedb40994](media/eb12f69b90a6c3576dd2e815a3d57c8dedb40994.png)
+![eb12f69b90a6c3576dd2e815a3d57c8dedb40994](media/eb12f69b90a6c3576dd2e815a3d57c8dedb40994.png){.image-inline width="583" height="349"}
 
 #### gridder=\'mosaic\'
 
@@ -119,7 +76,7 @@ When the image phase center is chosen to be different from the observation phase
 -   *gridder=\'awproject\'* reads and uses the pointing offsets for both antennas in the first baseline pair listed in the MS (per timestep) and assumes this is constant across all baselines. It applies phase gradients per timestep with the assumption that all antennas are pointed in the same direction. This has been validated on VLASS 1.2 data.
 
 <div class="alert alert-warning">
-**WARNING**: For CASA 5.6, with *\'usepointing=True\'*, the *gridder=\'mosaic\'* and *\'awproject\'* implement slightly different solutions. For CASA 5.6, only *gridder=\'awproject\'* has been validated for *usepointing=True*. A few other features are expected to be implemented post 5.6, as described in the [Known Issues](https://casa.nrao.edu/casadocs-devel/stable/introduction/known-issues).
+**WARNING**: For CASA 5.6, with *'usepointing=True'*, the *gridder='mosaic'* and *'awproject'* implement slightly different solutions. For CASA 5.6, only *gridder='awproject'* has been validated for *usepointing=True*. A few other features are expected to be implemented post 5.6, as described in the [Known Issues](https://casa.nrao.edu/casadocs-devel/stable/introduction/known-issues).
 </div>
 
  
@@ -161,7 +118,7 @@ VLA / EVLA : Uses ray traced models (VLA and EVLA) including feed leg and subref
 
 The following figure shows an example of the ray-traced PB models.  Image on the left shows the instantaneous narrow-band PB at the lowest frequency in the band while the image on the right shows the wide-band continuum beam.  Sidelobes are at a few percent level and highly azimuthally asymmetric.  This asymmetry shows up as time-varying gains across the image as the PB rotates on the sky with Parallactic Angle.
 
-![3b308b701fb8f3cf37868148b26c4bb2afcd291e](media/3b308b701fb8f3cf37868148b26c4bb2afcd291e.png)
+![3b308b701fb8f3cf37868148b26c4bb2afcd291e](media/3b308b701fb8f3cf37868148b26c4bb2afcd291e.png){.image-inline width="676" height="301"}
 
  
 
@@ -183,10 +140,10 @@ Due to the high sensitivity of EVLA and ALMA telescopes, imaging performance can
 
 **usepointing**: When set to *True*, the antenna pointing vectors are fetched from the POINTING sub-table. When set to *False* (the default), the vectors are determined from the FIELD sub-table, effectively disabling correction of antenna pointing errors.
 
-**pointingoffsetsigdev**: When correcting for pointing errors, the first value given in the *pointingoffsetsigdev* task is the size in arcsec of the bin used to discover antenna grouping for which phase gradients are computed. A compute for a new phase gradient is triggered for a bin if the length of the mean pointing vector of the antennas in the bin changes by more than the second value. The default value of this parameter is \\], due a programmatic constraint. If run with this value, it will internally pick [\[600,600\] and exercise the option of using large tolerances (10arcmin) on both axes. Please choose a setting explicitly for runs that need to use this parameter.
+**pointingoffsetsigdev**: When correcting for pointing errors, the first value given in the *pointingoffsetsigdev* task is the size in arcsec of the bin used to discover antenna grouping for which phase gradients are computed. A compute for a new phase gradient is triggered for a bin if the length of the mean pointing vector of the antennas in the bin changes by more than the second value. The default value of this parameter is \[\], due a programmatic constraint. If run with this value, it will internally pick [\[600,600\]]{.error} and exercise the option of using large tolerances (10arcmin) on both axes. Please choose a setting explicitly for runs that need to use this parameter.
 
 <div class="alert alert-warning">
-**WARNING**: Heterogeneous pointing corrections have been implemented in support of the VLA Sky Survey. This option is available only for *gridder=\'awproject\'* and has been validated primarily with VLASS on-the-fly mosaic data where POINTING subtables have been modified after the data are recorded. The use of pointing corrections is currently unverified for general VLA and ALMA data, so users should use these parameters at their discretion.
+**WARNING**: Heterogeneous pointing corrections have been implemented in support of the VLA Sky Survey. This option is available only for *gridder='awproject'* and has been validated primarily with VLASS on-the-fly mosaic data where POINTING subtables have been modified after the data are recorded. The use of pointing corrections is currently unverified for general VLA and ALMA data, so users should use these parameters at their discretion.
 </div>
 
 A description of the algorithm that handles the antenna pointing corrections for the AW-Projection algorithm in CASA can be found in [CASA memo 11](https://casa.nrao.edu/casadocs-devel/stable/memo-series/casa-memos/heterogeneous_pointing_corrections_memo11.pdf).The implementation of heterogeneous antenna pointing corrections was driven by requirements for the VLA Sky Survey (VLASS). Additional testing of Wideband Mosaic Imaging and Pointing Corrections can be found in this [Knowledgebase article](https://casa.nrao.edu/casadocs-devel/stable/memo-series/casa-knowledgebase/wideband-mosaic-imaging-and-pointing-corrections-for-the-vla-sky-survey).

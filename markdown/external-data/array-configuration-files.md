@@ -34,7 +34,7 @@ If a configuration file is not distributed with CASA but retrieved elsewhere, th
 </div>
 
 <div class="alert alert-info">
-**NOTE**: the most recent ALMA configuration files may not always be available in the most recent CASA version. ALMA configuration files for all cycles are available for download [here](https://almascience.nrao.edu/tools/casa-simulator). For the Next-Generation VLA reference design, the latest information can be found [here](https://ngvla.nrao.edu/page/tools).
+[**NOTE**: the most recent ALMA configuration files may not always be available in the most recent CASA version. ALMA configuration files for all cycles are available for download [here](https://almascience.nrao.edu/tools/casa-simulator). For the Next-Generation VLA reference design, the latest information can be found [here](https://ngvla.nrao.edu/page/tools).]{
 </div>
 
  

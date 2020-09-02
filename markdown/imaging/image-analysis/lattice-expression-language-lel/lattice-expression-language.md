@@ -6,7 +6,7 @@ Introduction to LEL
 
 # Lattice Expression Language
 
-## Introduction {#title0}
+## Introduction 
 
 The Lattice Expression Language (LEL) makes it possible to do arithmetic on lattices (in particular on images \[which are just lattices plus coordinates\]). An expression can be seen as a lattice (or image) in itself. It can be used in any operation where a normal image is used.
 

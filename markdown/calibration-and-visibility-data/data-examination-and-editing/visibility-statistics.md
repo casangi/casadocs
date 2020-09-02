@@ -4,34 +4,34 @@
 
 Using visstat
 
-### MS statistics (visstat) {#sec116 .subsection}
+### MS statistics (visstat) 
 
 The **visstat** task is provided to obtain simple statistics for a MeasurementSet, useful in regression tests.
 
 The inputs are:
 
 ```
-#  visstat :: Displays statistical information from a MeasurementSet, or from a Multi-MS
+#visstat :: Displays statistical information from a MeasurementSet, or from a Multi-MS
 
-vis            =     ''            #  Name of MeasurementSet or Multi-MS
-axis           =     'real'        #  Which values to use
-     datacolumn     =     'data'        #  Which data column to use (data, corrected, model, float_data)
+vis            =     ''            #Name of MeasurementSet or Multi-MS
+axis           =     'real'        #Which values to use
+     datacolumn     =     'data'        #Which data column to use (data, corrected, model, float_data)
 
-useflags       =      False        #  Take flagging into account?
-spw            =         ''        #  spectral-window/frequency/channel
-field          =        '1'        #  Field names or field index numbers: ''==>all, field='0~2,3C286'
-selectdata     =       True        #  More data selection parameters (antenna, timerange etc)
-     antenna        =         ''        #  antenna/baselines: ''==>all, antenna = '3,VA04'
-     timerange      =         ''        #  time range: ''==>all, timerange='09:14:0~09:54:0'
-     correlation    =       'RR'        #  Select data based on correlation
-     scan           =         ''        #  scan numbers: ''==>all
-     array          =         ''        #  (sub)array numbers: ''==>all
-     observation    =         ''        #  observation ID number(s): '' = all
-     uvrange        =         ''        #  uv range: ''==>all; uvrange = '0~100klambda', default units=meters
+useflags       =      False        #Take flagging into account?
+spw            =         ''        #spectral-window/frequency/channel
+field          =        '1'        #Field names or field index numbers: ''==>all, field='0~2,3C286'
+selectdata     =       True        #More data selection parameters (antenna, timerange etc)
+     antenna        =         ''        #antenna/baselines: ''==>all, antenna = '3,VA04'
+     timerange      =         ''        #time range: ''==>all, timerange='09:14:0~09:54:0'
+     correlation    =       'RR'        #Select data based on correlation
+     scan           =         ''        #scan numbers: ''==>all
+     array          =         ''        #(sub)array numbers: ''==>all
+     observation    =         ''        #observation ID number(s): '' = all
+     uvrange        =         ''        #uv range: ''==>all; uvrange = '0~100klambda', default units=meters
 
-timeaverage    =      False        #  Average data in time.
-intent         =         ''        #  Select data by scan intent.
-reportingaxes  =     'ddid'        #  Which reporting axis to use (ddid, field, integration)
+timeaverage    =      False        #Average data in time.
+intent         =         ''        #Select data by scan intent.
+reportingaxes  =     'ddid'        #Which reporting axis to use (ddid, field, integration)
 ```
 
  
@@ -73,7 +73,7 @@ The options for axis are:
 ```
 
 ```
-axis='amplitude' # or ('amp') axis='phase' axis='imag' (or 'imaginary') axis='real'
+axis='amplitude' #or ('amp') axis='phase' axis='imag' (or 'imaginary') axis='real'
 ```
 
 The phase of a complex number is in radians with range (−π, π).

@@ -85,7 +85,7 @@ polcal(vis='polcal_20080224.cband.all.ms',
        field='0137+331',
        refant='VA15',       
        poltype='Xf',
-       smodel=[1.0,-0.0348,-0.0217,0.0],       # the fractional Stokes for 0137+331 (3C48)
+       smodel=[1.0,-0.0348,-0.0217,0.0],       #the fractional Stokes for 0137+331 (3C48)
        gaintable=['polcal.gcal','polcal.bcal','polcal.xdelcal','polcal.pcal'])
 ```
 
@@ -116,12 +116,12 @@ Our MS in this example is called *polcal_linfeed.ms*.  We begin by assuming we a
 ```
 gaincal(vis='polcal_linfeed.ms',
         caltable='polcal.gcal',  
-        field='1',                 # the instrumental polarization calibrator
+        field='1',                 #the instrumental polarization calibrator
         solint='int',             
-        smodel=[1,0,0,0],          # assume zero polarization
+        smodel=[1,0,0,0],          #assume zero polarization
         gaintype='G',       
         gaintable=['polcal.bcal'],
-        parang=T)                  # so source poln properly rotated
+        parang=T)                  #so source poln properly rotated
 ```
 
 Since the gain calibrator was assumed unpolarized, the time-dependent gain solutions contain information about the source polarization. This can be seen by plotting the amp vs. time for this cal table using *poln=\'/\'.*  The antenna-based polarization amplitude ratios will reveal the sinusoidal (in parallactic angle) function of the source polarization. Run the utility method **qufromgain** to extract the apparent source polarization estimates for each spw:
@@ -136,14 +136,14 @@ Next we estimate both the XY-phase offset and source polarization from the cross
 
 ```
 gaincal(vis='polcal_linfeed.ms',
-        caltable='polcal.xy0amb',  # possibly with 180deg ambiguity
-        field='1',                 # the calibrator
+        caltable='polcal.xy0amb',  #possibly with 180deg ambiguity
+        field='1',                 #the calibrator
         solint='inf',   
         combine='scan',
-        preavg=200.0,              # minimal parang change
-        smodel=[1,0,1,0],          # non-zero U assumed
+        preavg=200.0,              #minimal parang change
+        smodel=[1,0,1,0],          #non-zero U assumed
         gaintype='XYf+QU',       
-        gaintable=['polcal.gcal','polcal.bcal','polcal.xdelcal])  # all prior calibration
+        gaintable=['polcal.gcal','polcal.bcal','polcal.xdelcal])  #all prior calibration
 ```
 
 Note that we imply non-zero Stokes U in *smodel*; this is to enforce the assumption of non-zero source polarization signature in the cross-hands in the ratio of data and model. This solve will report the center-channel XY-phase and apparent Q,U for each spw. The Q,U results should be recognizable in comparison to that reported by **qufromgain** above. However, since the XY-phase has a 180 degree ambiguity (you can rotate the source polarization signature to lie entirely in the visibility real part by rotating clockwise or counter-clockwise), some or all spw Q,U estimates may have the wrong sign. We correct this using the **xyamb** utility method, using the *qu* obtained from *qufromgain* above (which is not ambiguous):
@@ -161,10 +161,10 @@ gaincal(vis='polcal_linfeed.ms',
         caltable='polcal.gcal1',  
         field='1',        
         solint='int',             
-        smodel=S,                  # obtained from xyamb
+        smodel=S,                  #obtained from xyamb
         gaintype='G',       
         gaintable=['polcal.bcal'],
-        parang=T)                  # so source poln properly rotated
+        parang=T)                  #so source poln properly rotated
 ```
 
 Note that *parang=T* so that the supplied source linear polarization is properly rotated in the parallel-hand visibility model. This new gain solution can be plotted with *poln=\'/\'* as above to show that the source polarization is no longer distorting it. Also, if **qufromgain** is run on this new gain table, the reported source polarization should be statistically indistinguishable from zero.
@@ -178,8 +178,8 @@ Note that *parang=T* so that the supplied source linear polarization is properly
         solint='inf',
         combine='scan',
         preavg=200,
-        poltype='Dflls',      # freq-dep LLS solver
-        refant='',            # no reference antenna
+        poltype='Dflls',      #freq-dep LLS solver
+        refant='',            #no reference antenna
         smodel=S,
         gaintable=['polcal.gcal1','polcal.bcal','polcal.xdelcal','polcal.xy0'])
 ```

@@ -62,26 +62,26 @@ mask = "'3clean_mask.im'"
 
  
 
-# Image Mask Handling (**makemask**) {#title0}
+# Image Mask Handling (**makemask**) 
 
 **makemask** facilitates the handling of image masks in CASA. As mentioned above, there are two basic mask formats: 1) one or more Boolean masks stored internally in the image file, and 2) images with zero and non-zero image values. **makemask** looks like:
 
 ```
-#  makemask :: Makes and manipulates image masks
-mode                =     'list'        #  Mask method (list, copy,expand,delete,setdefaultmask)
-     inpimage       =         ''        #  Name of input image.
+#makemask :: Makes and manipulates image masks
+mode                =     'list'        #Mask method (list, copy,expand,delete,setdefaultmask)
+     inpimage       =         ''        #Name of input image.
 ```
 
 To distinguish between Boolean internal masks and zero/non-zero images, **makemask** uses the syntax galaxy.image:mask0 for Boolean masks within an image: in this example, the Boolean mask mask0 within the image galaxy.image*.* Without the colon separator, the image itself will be treated as a zero/non-zero mask.*mode=\'list\'* lists all the internal Boolean masks that are present in an image. The default masks can be set with *mode=\'setdefaultmask\'* and they can be deleted with the *mode=\'delete\'*. The default mask is used when an image is displayed in the viewer and is used in all analysis tasks.*mode=\'copy\'* lets a user copy a Boolean mask from one image to another image, or to write out the Boolean mask as a zero/non-zero image. The latter format is very useful when different masks are combined or manipulated. All the image analysis tools, in particular **immath** are applicable for such zero/non-zero masks as they act like normal images. **makemask** will always attempt to regrid the input mask to the output image.In addition *mode=\'copy\'* can be used to merge masks and also accepts regions. E.g. to create a mask from a CASA region file, the input would look like:
 
 ```
-#  makemask :: Makes and manipulates image masks
-mode                =     'copy'        #  Mask method (list, copy,expand,delete,setdefaultmask)
-     inpimage       = 'inputimage.im'   #  Name of input image.
-     inpmask        = 'region.crtf'    #  mask(s) to be processed: image masks,T/F internal masks
-                                        # (Need to include parent image names),regions(for copy mode)
-     output         = 'imagemask.im'    #  Name of output mask (imagename or imagename:internal_maskname)
-     overwrite      =      False        #  overwrite output if exists?
+#makemask :: Makes and manipulates image masks
+mode                =     'copy'        #Mask method (list, copy,expand,delete,setdefaultmask)
+     inpimage       = 'inputimage.im'   #Name of input image.
+     inpmask        = 'region.crtf'    #mask(s) to be processed: image masks,T/F internal masks
+                                        #(Need to include parent image names),regions(for copy mode)
+     output         = 'imagemask.im'    #Name of output mask (imagename or imagename:internal_maskname)
+     overwrite      =      False        #overwrite output if exists?
 ```
 
 *mode=\'expand\'* furthermore expands a mask in the spectral domain. It regrids first then stretches the edge channels. E.g. a one plane continuum image would be stretched to all planes of a data cube.

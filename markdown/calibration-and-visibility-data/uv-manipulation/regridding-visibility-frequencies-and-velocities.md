@@ -9,31 +9,31 @@ Although not strictly a calibration operation, spectral regridding of a MS is av
 The inputs are:
 
 ```
-#  cvel :: regrid an MS to a new spectral window / channel structure or frame
-vis                 =         ''        #  Name of input MeasurementSet
-outputvis           =         ''        #  Name of output MeasurementSet
-passall             =      False        #  Pass through (write to output MS) non-selected data with
-                                        #   no change
-field               =         ''        #  Select field using field id(s) or field name(s)
-spw                 =         ''        #  Select spectral window/channels
-selectdata          =       True        #  Other data selection parameters
-timerange           =         ''        #  Range of time to select from data
-array               =         ''        #  (sub)array indices
-antenna             =         ''        #  Select data based on antenna/baseline
-scan                =         ''        #  scan number range
+#cvel :: regrid an MS to a new spectral window / channel structure or frame
+vis                 =         ''        #Name of input MeasurementSet
+outputvis           =         ''        #Name of output MeasurementSet
+passall             =      False        #Pass through (write to output MS) non-selected data with
+                                        #no change
+field               =         ''        #Select field using field id(s) or field name(s)
+spw                 =         ''        #Select spectral window/channels
+selectdata          =       True        #Other data selection parameters
+timerange           =         ''        #Range of time to select from data
+array               =         ''        #(sub)array indices
+antenna             =         ''        #Select data based on antenna/baseline
+scan                =         ''        #scan number range
 
-mode                =  'channel'        #   Regridding mode
-nchan               =         -1        #  Number of channels in output spw (-1=all)
-start               =          0        #  first input channel to use
-width               =          1        #  Number of input channels to average
-interpolation       =   'linear'        #  Spectral interpolation method
+mode                =  'channel'        #Regridding mode
+nchan               =         -1        #Number of channels in output spw (-1=all)
+start               =          0        #first input channel to use
+width               =          1        #Number of input channels to average
+interpolation       =   'linear'        #Spectral interpolation method
 
-phasecenter         =         ''        #  Image phase center: position or field index
-restfreq            =         ''        #  rest frequency (see help)
-outframe            =         ''        #  Output frame (not case-sensitive, ''=keep input frame)
-veltype             =    'radio'        #  velocity definition
-hanning             =      False        #   If true, Hanning smooth data before regridding to remove
-                                        #   Gibbs ringing.
+phasecenter         =         ''        #Image phase center: position or field index
+restfreq            =         ''        #rest frequency (see help)
+outframe            =         ''        #Output frame (not case-sensitive, ''=keep input frame)
+veltype             =    'radio'        #velocity definition
+hanning             =      False        #If true, Hanning smooth data before regridding to remove
+                                        #Gibbs ringing.
 ```
 
 The key parameters for the operation of **cvel** are the regridding *mode*, the output reference *outframe*, *veltype*, *restfreq* and the standard selection parameters (in particular *spw* and *field*).
@@ -42,24 +42,24 @@ The syntax for mode options ('*channel*','*velocity*','*frequency*','*channel_b*
 
 ```
     spw = '0,1'; mode = 'channel'  
-       # will produce a single spw containing all channels in spw 0 and 1  
+       #will produce a single spw containing all channels in spw 0 and 1  
     spw='0:5~28^2'; mode = 'channel'  
-       # will produce a single spw made with channels (5,7,9,...,25,27)  
+       #will produce a single spw made with channels (5,7,9,...,25,27)  
     spw = '0'; mode = 'channel': nchan=3; start=5; width=4  
-       # will produce an spw with 3 output channels  
-       # new channel 1 contains data from channels (5+6+7+8)  
-       # new channel 2 contains data from channels (9+10+11+12)  
-       # new channel 3 contains data from channels (13+14+15+16)  
+       #will produce an spw with 3 output channels  
+       #new channel 1 contains data from channels (5+6+7+8)  
+       #new channel 2 contains data from channels (9+10+11+12)  
+       #new channel 3 contains data from channels (13+14+15+16)  
     spw = '0:0~63^3'; mode='channel'; nchan=21; start = 0; width = 1  
-       # will produce an spw with 21 channels  
-       # new channel 1 contains data from channel 0  
-       # new channel 2 contains data from channel 2  
-       # new channel 21 contains data from channel 61  
+       #will produce an spw with 21 channels  
+       #new channel 1 contains data from channel 0  
+       #new channel 2 contains data from channel 2  
+       #new channel 21 contains data from channel 61  
     spw = '0:0~40^2'; mode = 'channel'; nchan = 3; start = 5; width = 4  
-       # will produce an spw with three output channels  
-       # new channel 1 contains channels (5,7)  
-       # new channel 2 contains channels (13,15)  
-       # new channel 3 contains channels (21,23)
+       #will produce an spw with three output channels  
+       #new channel 1 contains channels (5,7)  
+       #new channel 2 contains channels (13,15)  
+       #new channel 3 contains channels (21,23)
 ```
 
 The simplest use of **cvel** is to shift a single spectral window into an output frame. This is done with *mode='channel'*. For example:
@@ -103,7 +103,7 @@ will transform a MS into the LSRK and BARYcenter frames respectively.
 The sign of the *width* parameter determines whether the channels run along increasing or decreasing values of frequency or velocity (i.e. if the cube is reversed or not).
 
 <div class="alert alert-info">
-**Info:** in order to permit the calculation of velocities from the internally stored frequencies, you need to provide a rest frequency in parameter *restfreq* when you operate in mode \'velocity\'. This rest frequency will not be stored with the MS (as opposed to the rest frequency which you provide to the *clean* task which is subsequently stored with the image).
+**Info:** in order to permit the calculation of velocities from the internally stored frequencies, you need to provide a rest frequency in parameter *restfreq* when you operate in mode 'velocity'. This rest frequency will not be stored with the MS (as opposed to the rest frequency which you provide to the *clean* task which is subsequently stored with the image).
 </div>
 
 The intent of **cvel** regridding is to transform channel labels and the visibilities to a spectral reference frame which is appropriate for the science analysis, e.g. from *TOPO* to *LSRK*, e.g. to correct for Doppler shifts throughout the time of the observation. Naturally, this will change the shape of the spectral features to some extent. According to the Nyquist theorem you should oversample a spectrum with twice the numbers of channels to retain the shape. Based on some tests, however, we recommend to observe with at least 3-4 times the number of channels for each significant spectral feature (like 3-4 channels per linewidth). This will minimize regridding artifacts in **cvel**.

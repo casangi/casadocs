@@ -29,9 +29,9 @@ CASA supported spectral frames:
 
  
 
-#  Doppler Types {#sec587 .subsection}
+#  Doppler Types 
 
-CASA supported Doppler types (velocity conventions) where []$f_v$ is the observed frequency and $f_0$ is the rest frame frequency of a given lineand positive velocity V is increasing away from the observer:
+CASA supported Doppler types (velocity conventions) where $f_v$ is the observed frequency and $f_0$ is the rest frame frequency of a given lineand positive velocity V is increasing away from the observer:
 
   Name           Description
   -------------- -----------------------------------------------------------------------------------------------------------------------------------

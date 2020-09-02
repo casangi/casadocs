@@ -6,7 +6,7 @@ Minor cycle algorithms (Hogbom, Clark, Multi-Scale, Multi-Term)
 
 Deconvolution refers to the process of reconstructing a model of the sky brightness distribution, given a dirty/residual image and the point-spread-function of the instrument. This process is called a deconvolution because under certain conditions, the dirty/residual image can be written as the result of a convolution of the true sky brightness and the PSF of the instrument. Deconvolution forms the minor cycle of iterative image reconstruction in CASA.
 
-![4988e07e094ae12dd994cc53a49115f279a3ce9b](media/4988e07e094ae12dd994cc53a49115f279a3ce9b.png)
+![4988e07e094ae12dd994cc53a49115f279a3ce9b](media/4988e07e094ae12dd994cc53a49115f279a3ce9b.png){.image-inline}
 
 >The observed image (left) is the result of a convolution of the PSF (middle) and the true sky brightness distribution (right).
   
@@ -15,7 +15,7 @@ The image reconstruction framework is based on Cotton-Schwab major/minor cycles 
 
  
 
-# CLEAN Algorithm {#title0}
+# CLEAN Algorithm 
 
 The CLEAN algorithm forms the basis for most deconvolution algorithms used in radio interferometry. The peak of the residual image gives the location and strength of a potential point source. The effect of the PSF is removed by subtracting a scaled PSF from the residual image at the location of each point source, and updating the model. Many such iterations of finding peaks and subtracting PSFs form the minor cycle.
 
@@ -23,7 +23,7 @@ There are several variants of the CLEAN algorithm. Some operate with a delta fun
 
  
 
-## Hogbom {#title1}
+## Hogbom 
 
 Hogbom CLEAN [\[2\]](#Bibliography) operates with a point-source model of the sky brightness distribution. The minor cycle searches for the location and amplitude of components and then subtracts a scaled and shifted version of the full PSF to update the residual image for each point source. This algorithm is efficient in that delta functions are optimal for fields of compact sources, but susceptible to errors due to inappropriate choices of imaging weights, especially if the PSF has high sidelobes. It uses the full PSF during its update step to ensure that the next residual is as accurate as possible, but this can get compute intensive.  
 
@@ -33,11 +33,11 @@ Since Hogbom CLEAN uses only delta functions, it is most appropriate for fields 
 
  
 
-## Clark {#title2}
+## Clark 
 
 Clark CLEAN [\[3\]](#Bibliography) also operates only in the image-domain, and uses a point-source model. There are two main differences from the Hogbom algorithm. The first is that it does its residual image updates using only a small patch of the PSF. This is an approximation that will result in a significant speed-up in the minor cycle, but could introduce errors in the image model if there are bright sources spread over a wide field-of-view where the flux estimate at a given location is affected by sidelobes from far-out sources. The second difference is designed to compensate for the above. The iterations are stopped when the brightest peak in the residual image is below the first sidelobe level of the brightest source in the initial residual image and the residual image is re-computed by subtracting the sources and their responses in the gridded Fourier domain (to eliminate aliasing errors). Image domain peak finding and approximate subtractions resume again. These two stages are iterated between until the chosen minor cycle exit criteria are satisfied (to trigger the next true major cycle that operates on ungridded visibilities).
 
-Since Clark CLEAN also uses only delta function, it is similar in behavior to Hogbom. The main difference is that the minor cycle is expected to be much faster (for large images) because only a small fraction of the PSF is used for image-domain updates. Typically, errors due to such a truncation are controlled by transitioning to a uv-[]{#MJXc-Node-2}]{#MJXc-Node-1}[[[[[I]{#MJXc-Node-4 .mjx-mi}]{.mjx-base style="margin-right: -0.064em;"}[[2]{#MJXc-Node-5 .mjx-mn style=""}]{.mjx-sup style="font-size: 70.7%; vertical-align: 0.513em; padding-left: 0.188em; padding-right: 0.071em;"}]{#MJXc-Node-3 .mjx-msubsup}[+]{#MJXc-Node-6 .mjx-mo .MJXc-space2}[[[Q]{#MJXc-Node-8 .mjx-mi}]{.mjx-base}[[2]{#MJXc-Node-9 .mjx-mn style=""}]{.mjx-sup style="font-size: 70.7%; vertical-align: 0.513em; padding-left: 0px; padding-right: 0.071em;"}]{#MJXc-Node-7 .mjx-msubsup .MJXc-space2}[+]{#MJXc-Node-10 .mjx-mo .MJXc-space2}[[[U]{#MJXc-Node-12 .mjx-mi}]{.mjx-base style="margin-right: -0.084em;"}[[2]{#MJXc-Node-13 .mjx-mn style=""}]{.mjx-sup style="font-size: 70.7%; vertical-align: 0.513em; padding-left: 0.225em; padding-right: 0.071em;"}]{#MJXc-Node-11 .mjx-msubsup .MJXc-space2}[+]{#MJXc-Node-14 .mjx-mo .MJXc-space2}[[[V]{#MJXc-Node-16 .mjx-mi}]{.mjx-base style="margin-right: -0.186em;"}[[2]{#MJXc-Node-17 .mjx-mn style=""}]{.mjx-sup style="font-size: 70.7%; vertical-align: 0.513em; padding-left: 0.413em; padding-right: 0.071em;"}]{#MJXc-Node-15 .mjx-msubsup .MJXc-space2}]{#MJXc-Node-2 .mjx-mrow}subtraction or a major cycle when the peak residual reaches the level of the highest sidelobe for the strongest feature.
+Since Clark CLEAN also uses only delta function, it is similar in behavior to Hogbom. The main difference is that the minor cycle is expected to be much faster (for large images) because only a small fraction of the PSF is used for image-domain updates. Typically, errors due to such a truncation are controlled by transitioning to a uv-[[[[I2]{#MJXc-Node-3 .mjx-msubsup}+[Q2]{#MJXc-Node-7 .mjx-msubsup .MJXc-space2}+[U2]{#MJXc-Node-11 .mjx-msubsup .MJXc-space2}+[V2]{#MJXc-Node-15 .mjx-msubsup .MJXc-space2}]{#MJXc-Node-2 .mjx-mrow}]{#MJXc-Node-1 .mjx-math role="math"}]{#MathJax-Element-1-Frame .MJXc-processed tabindex="0" mathml="<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mi>u</mi><mi>v</mi></math>" subtraction or a major cycle when the peak residual reaches the level of the highest sidelobe for the strongest feature.
 
 For polarization imaging, Clark searches for the peak in
 
@@ -53,13 +53,13 @@ In the \'*clarkstokes*\' algorithm, the Clark psf is used, but for polarization 
 
  
 
-## Multi-Scale {#title3}
+## Multi-Scale 
 
 Cornwell-Holdaway Multi-Scale CLEAN (CH-MSCLEAN) [\[4\]](#Bibliography) is a scale-sensitive deconvolution algorithm designed for images with complicated spatial structure. It parameterizes the image into a collection of inverted tapered paraboloids. The minor cycle iterations use a matched-filtering technique to measure the location, amplitude and scale of the dominant flux component in each iteration, and take into account the non-orthogonality of the scale basis functions while performing updates. In other words, the minor cycle iterations consider all scales together and model components are chosen in the order of decreasing integrated flux.
 
 MS-CLEAN can be formulated as a chi-square minimization applied to a sky model that parameterizes the sky brightness as a linear combination of flux components of different scale sizes. The figure below illustrates how a source with multi-scale features is represented by two scale sizes (for example) and how the problem reduces to one of finding the location and amplitudes of delta function components (something for which a CLEAN based approach is optimal). The top left and bottom left images show flux components of two different scale sizes. The images in the middle column show sets of delta functions that mark the locations and amplitudes of the flux components for each scale. The image on the far right is the sum of the convolutions of the first two columns of images. 
 
-![ae3f0711d60cf1c82efb14326ff360c221a6f8c2](media/ae3f0711d60cf1c82efb14326ff360c221a6f8c2.png)
+![ae3f0711d60cf1c82efb14326ff360c221a6f8c2](media/ae3f0711d60cf1c82efb14326ff360c221a6f8c2.png){.image-inline width="660" height="323"}
 
 >A pictorial representation of how a source with structure at multiple spatial scales is modeled in MS-CLEAN.
   
@@ -68,7 +68,7 @@ MS-CLEAN can be formulated as a chi-square minimization applied to a sky model t
 
 In practice, the user must specify a set of scale sizes for the algorithm to use (in units of the number of pixels). As of now, this can be done only manually with the user making guesses of what the appropriate scale sizes are. This figure illustrates how the scales can be chosen, for a given structure on the sky. 
 
-![eee4ed5ee088da2e6ad6378a3db5fa2719e9ae58](media/eee4ed5ee088da2e6ad6378a3db5fa2719e9ae58.png)
+![eee4ed5ee088da2e6ad6378a3db5fa2719e9ae58](media/eee4ed5ee088da2e6ad6378a3db5fa2719e9ae58.png){.image-inline}
 
 >An example set of multiscale \'scale sizes\' to choose for a given source structure.
   
@@ -87,7 +87,6 @@ In addition to this base normalization, a *smallscalebias* parameter may be used
 **NOTE**: An improved *smallscalebias* paramater was implemented in CASA 5.6 for both MultiScale and MTMFS deconvolution algorithms. Details can be found in [this CASA memo](https://casa.nrao.edu/casadocs-devel/stable/memo-series/casa-memos/casa_memo9_ms_mtmfs_clean.pdf).
 </div>
 
-###  
 
 ### Multi-Resolution CLEAN
 
@@ -95,11 +94,11 @@ A related approach, called Multi-Resolution CLEAN is available in AIPS (and not 
 
  
 
-## Multi-Term (with Multi-Scale) {#title4}
+## Multi-Term (with Multi-Scale) 
 
 Multi-Scale Multi-Frequency synthesis (MSMFS) [\[5\]](#Bibliography) is a wide-band imaging algorithm that models the wide-band sky brightness distribution as a collection of inverted, tapered paraboloids of different scale sizes, whose amplitudes follow a polynomial in frequency. A linear-least squares approach is used along with standard clean-type iterations to solve for best-fit spectral and spatial parameters. A point-source version of this algorithm can be run by specifying only one scale size corresponding to a delta-function.
 
-![b552095e2060703d930b11d1c63af3a9f32051be](media/b552095e2060703d930b11d1c63af3a9f32051be.png)
+![b552095e2060703d930b11d1c63af3a9f32051be](media/b552095e2060703d930b11d1c63af3a9f32051be.png){.image-inline}
 
 >A 2x2 system of equations to represent the fitting of a 2-term Taylor polynomial (Note that this is only a representative diagram using the same images shaded differently). In reality, the Hessian matrix contains different spectral PSFs.
   
@@ -112,9 +111,8 @@ More details about the algorithm and how to choose parameters such as the number
 
 Multiple Scales as part of the MTMFS algorithm are treated in the same way as MS-Clean (above), with the *scales* and  *smallscalebias* parameters available for choosing a range of scales and fine-tuning which ones get preference during reconstruction.
 
-#  
 
-# Restoration {#title5}
+# Restoration 
 
 ## Standard Restoration
 
@@ -128,7 +126,7 @@ Multi-term (wideband) restoration is a bit different from standard restoration i
 
  
 
-# Clean Bias {#title6}
+# Clean Bias 
 
 Clean bias, an effect noticed for decades by users of the CLEAN algorithm, is a systematic shift of reconstructed peak intensities to lower than expected values. This is usually seen in deep imaging runs with large numbers of closely-spaced weak sources, and when the PSF has sidelobes above the 0.1 level. The use of masks or clean boxes to constrain the search space alleviates the problem. A PSF with lower sidelobes (for example the PSF from MFS imaging as compared to a single channel PSF) can also prevent this type of flux bias with the CLEAN algorithm and more importantly it does so without having to invoke complicated masking procedures.
 
@@ -136,7 +134,7 @@ The clean bias effect can be explained by considering that the CLEAN algorithm i
 
  
 
-# Other Algorithms {#title7}
+# Other Algorithms 
 
 There are other options that are present in our code base, but not used much, could be experimental, coming in the near future, or simply untested. Information on how to add external algorithms is given below.
 
@@ -162,14 +160,14 @@ In the figure below, the top row of panels show the component images that illust
 
  
 
-![616ac63cbaf38d3c0b28e3970409e95713395ce3](media/616ac63cbaf38d3c0b28e3970409e95713395ce3.png) 
+![616ac63cbaf38d3c0b28e3970409e95713395ce3](media/616ac63cbaf38d3c0b28e3970409e95713395ce3.png){.image-inline width="514" height="355"} 
 
 >A comparison between point-source CLEAN, MS-CLEAN, MEM and the ASP algorithms.
   
 
  
 
-## Adding Other Deconvolution algorithms {#title8}
+## Adding Other Deconvolution algorithms 
 
 External deconvolution algorithms can be connected to our imaging framework in order to access our data I/O and gridding routines (with parallelization) and avail of the option of operating within major/minor cycle loops instead of as stand-alone methods that don't often connect to the data. The only pre-requisite is that the algorithm is able to operate in the image domain on a residual image and a PSF, and produce a model image as output. 
 

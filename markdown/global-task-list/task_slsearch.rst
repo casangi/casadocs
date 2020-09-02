@@ -1,151 +1,134 @@
 Description
-      .. rubric:: Summary
-         :name: summary
+   .. rubric:: Summary
+      
 
-      This task allows the user to search a specified spectral line
-      table. If no spectral line table is specified, the default is to
-      use a subset of the `Splatalogue spectral line
-      catalog <http://www.cv.nrao.edu/php/splat/>`__ , which is
-      distributed with CASA. One can also export custom catalogs from
-      the Splatalogue website and import them to CASA using the task
-      splattotable ,or tool method sl.splattotable. The results table
-      can be written to disk by specifying its name in the outfile
-      parameter. If outfile is not specified (i.e. outfile=''), no table
-      is created.
+   This task allows the user to search a specified spectral line
+   table. If no spectral line table is specified, the default is to
+   use a subset of the `Splatalogue spectral line
+   catalog <http://www.cv.nrao.edu/php/splat/>`__ , which is
+   distributed with CASA. One can also export custom catalogs from
+   the Splatalogue website and import them to CASA using the task
+   splattotable ,or tool method sl.splattotable. The results table
+   can be written to disk by specifying its name in the outfile
+   parameter.If outfile is not specified (i.e. outfile=''), no table
+   is created.
 
-      Because  `Splatalogue <http://www.cv.nrao.edu/php/splat/>`__  does
-      not have values forthe CDMS/JPL intensity (intensity), quantum
-      mechanical line strength (smu2), Einstein A coefficient (loga),
-      the upper state energy level (eu), or the lower state energy level
-      (el) measured in K for radio recombination lines (RRLs), one must
-      specify to include RRLs in the specified frequency range in the
-      output. In this case, RRLs will be included ignoring any filters
-      on intensity, smu2, loga, eu, and el. One can also specify to list
-      only RRLs.
+   Because  `Splatalogue <http://www.cv.nrao.edu/php/splat/>`__  does
+   not have values forthe CDMS/JPL intensity (intensity), quantum
+   mechanical line strength (smu2), Einstein A coefficient (loga),
+   the upper state energy level (eu), or the lower state energy level
+   (el) measured in K for radio recombination lines (RRLs), one must
+   specify to include RRLs in the specified frequency range in the
+   output. In this case, RRLs will be included ignoring any filters
+   on intensity, smu2, loga, eu, and el. One can also specify tolist
+   only RRLs.
 
-      One can specify to list the search results to the logger via the
-      verbose parameter. If verbose=False, no logger output is listed.
-      If verbose=True, one can also specify that the results be listed
-      to a logfile. If this file already exists, one can specify that
-      the results be appended to it, or to overwrite it with the
-      results.
+   One can specify to list the search results to the logger via the
+   verbose parameter. If verbose=False, nologger output is listed.
+   If verbose=True, one can also specify that the results be listed
+   to a logfile. If this file alreadyexists, one can specify that
+   the results be appended to it, or to overwrite it with the
+   results.
 
-       
+   
 
-      .. rubric:: Parameter descriptions
-         :name: parameter-descriptions
+   .. rubric:: Parameter descriptions
+      
 
-      .. rubric:: tablename
-         :name: tablename
-         :class: p1
+   .. rubric:: tablename
+      
 
-      Input spectral line table name to search. If not specified, use
-      the default table in the system.
+   Input spectral line table name to search. If not specified, use
+   the default table in the system.
 
-      .. rubric:: *outfile
-         *
-         :name: outfile
-         :class: p1
+   .. rubric:: *outfile
+      *
+      
 
-      Results table name. Blank means do not write the table to disk.
+   Results table name. Blank means do not write the table to disk.
 
-      .. rubric:: *freqrange*
-         :name: freqrange
-         :class: p1
+   .. rubric:: *freqrange*
+      
 
-      Frequency range in GHz.
+   Frequency range in GHz.
 
-      .. rubric:: *species
-         *
-         :name: species
-         :class: p1
+   .. rubric:: *species
+      *
+      
 
-      Species to search for.
+   Species to search for.
 
-      .. rubric:: *reconly
-         *
-         :name: reconly
-         :class: p1
+   .. rubric:: *reconly
+      *
+      
 
-      List only NRAO recommended frequencies.
+   List only NRAO recommended frequencies.
 
-      .. rubric:: *chemnames
-         *
-         :name: chemnames
-         :class: p1
+   .. rubric:: *chemnames
+      *
+      
 
-      Chemical names to search for.
+   Chemical names to search for.
 
-      .. rubric:: *qns
-         *
-         :name: qns
-         :class: p1
+   .. rubric:: *qns
+      *
+      
 
-      Resolved quantum numbers to search for.
+   Resolved quantum numbers to search for.
 
-      .. rubric:: *intensity
-         *
-         :name: intensity
-         :class: p1
+   .. rubric:: *intensity
+      *
+      
 
-      CDMS/JPL intensity range. -1 -> do not use an intensity range.
+   CDMS/JPL intensity range. -1 -> do not use an intensity range.
 
-      .. rubric:: smu2 
-         :name: smu2
-         :class: p1
+   .. rubric:: smu2 
+      
 
-      Sμ 2 range in Debye 2. -1 -> do not use an Sμ 2 range.
+   Sμ 2 range in Debye 2. -1 -> do not use an Sμ 2 range.
 
-      .. rubric:: loga 
-         :name: loga
-         :class: p1
+   .. rubric:: loga 
+      
 
-      log(A) (Einstein A coefficient) range. -1 -> do not use a loga
-      range.
+   log(A) (Einstein A coefficient) range. -1 -> do not use a loga
+   range.
 
-      .. rubric:: el 
-         :name: el
-         :class: p1
+   .. rubric:: el 
+      
 
-      Lower energy state range in Kelvin. -1 -> do not use an el range.
+   Lower energy state range in Kelvin. -1 -> do not use an el range.
 
-      .. rubric:: eu 
-         :name: eu
-         :class: p1
+   .. rubric:: eu 
+      
 
-      Upper energy state range in Kelvin. -1 -> do not use an eu range.
+   Upper energy state range in Kelvin. -1 -> do not use an eu range.
 
-      .. rubric:: rrlinclude 
-         :name: rrlinclude
-         :class: p1
+   .. rubric:: rrlinclude 
+      
 
-      Include Radio Recombination Lines (RRLs) in the result set?
+   Include Radio Recombination Lines (RRLs) in the result set?
 
-      .. rubric:: *rrlonly
-         *
-         :name: rrlonly
-         :class: p1
+   .. rubric:: *rrlonly
+      *
+      
 
-      Include only RRLs in the result set?
+   Include only RRLs in the result set?
 
-      .. rubric:: *verbose
-         *
-         :name: verbose
-         :class: p1
+   .. rubric:: *verbose
+      *
+      
 
-      List result set to logger (and optionally logfile)
+   List result set to logger (and optionally logfile)
 
-      .. rubric:: *logfile
-         *
-         :name: logfile
-         :class: p1
+   .. rubric:: *logfile
+      *
+      
 
-      List result set to this logfile (only used if verbose=True).
+   List result set to this logfile (only used if verbose=True).
 
-      .. rubric:: append 
-         :name: append
-         :class: p1
+   .. rubric:: append 
+      
 
-      If True, append to logfile if it already exists, if False
-      overwrite logfile it it exists. Only used if verbose=True and
-      logfile not blank.
+   If True, append to logfile if it already exists, if False
+   overwrite logfile it it exists. Only used if verbose=True and
+   logfile not blank.

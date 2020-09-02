@@ -72,7 +72,7 @@ When a new CASA build is created, the appropriate CASA Docs tree is copied off o
 This file contains an \<entry\> block for each task and tool.  Each entry block contains a \<visibility\> block with value \"internal\" or \"external\".  All tasks that have been made public in CASA Docs should have visibility value \"external\".  As new tasks are added to the CASA Docs, new \<entry\> blocks should be created with all relevant information.
 
 <div class="alert alert-warning">
-From CASA 5.5 onward, the CASA Docs are no longer packaged with each CASA Release, and \"doc(\'taskname\')\" will instead point to the online CASA Docs.
+From CASA 5.5 onward, the CASA Docs are no longer packaged with each CASA Release, and "doc('taskname')" will instead point to the online CASA Docs.
 </div>
 
  

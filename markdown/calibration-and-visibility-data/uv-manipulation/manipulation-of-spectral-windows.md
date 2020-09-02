@@ -25,8 +25,8 @@ A completely new feature in **mstransform** is the ability to separate an input 
 
 ```
 #In CASA
-regridms = True  # Regrid the MS to a new spw,
-    nspw = 1     # Number of output spws to create in output MS.
+regridms = True  #Regrid the MS to a new spw,
+    nspw = 1     #Number of output spws to create in output MS.
 ```
 
 Internally, the framework will combine the selected spws before separating them so that channel gaps and overlaps are taken into account. This sub-parameter will create a regular grid of spws in the output MS. If nchan is set, it will refer to the number of output channels in each of the separated spws.

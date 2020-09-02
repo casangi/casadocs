@@ -4,7 +4,7 @@
 
 Starting CASA with MPI and requirements for running CASA in parallel. The mpi4casa framework.
 
-### Requirements {#sec516 .subsection}
+### Requirements 
 
  CASA can be run in parallel on a cluster of computer nodes or on a single multi-core computer. In the multi-node case, the following requirements are necessary for all nodes to be included in the cluster. Users with access to a cluster will not need to do these settings, but it is still useful to be aware of the configuration:
 
@@ -17,11 +17,11 @@ Starting CASA with MPI and requirements for running CASA in parallel. The mpi4ca
 
  
 
-### Configuration and Start-Up {#sec517 .subsection}
+### Configuration and Start-Up 
 
- The main library used in CASA (4.4+) to achieve parallelization is the Message Passing Interface (MPI) and in particular the [OpenMPI](http://www.open-mpi.de/ "OpenMPI") implementation. MPI is already included in the CASA distribution so that users do not need to install it. The CASA distribution comes with a wrapper of the MPI executor, which is called *mpicasa*. This wrapper does several settings behind the scenes in order to properly configure the environment to run CASA in parallel.
+ [The main library used in CASA (4.4+) to achieve parallelization is the Message Passing Interface (MPI) and in particular the [OpenMPI](http://www.open-mpi.de/ "OpenMPI") implementation. MPI is already included in the CASA distribution so that users do not need to install it. The CASA distribution comes with a wrapper of the MPI executor, which is called *mpicasa*]{. This wrapper does several settings behind the scenes in order to properly configure the environment to run CASA in parallel.
 
-The collection of CASA processes which will run the jobs from parallelized tasks, is set up via *mpicasa*]. The simplest example is to run CASA in parallel on the *[localhost* using the available cores in the machine. A typical example would be to run CASA on a desktop with 16 cores such as the following example:
+The collection of CASA processes which will run the jobs from parallelized tasks, is set up via *mpicasa*. The simplest example is to run CASA in parallel on the *localhost* using the available cores in the machine. A typical example would be to run CASA on a desktop with 16 cores such as the following example:
 
 ```
 path_to_casa/mpicasa -n 16 path_to_casa/casa <casa_options>
@@ -39,12 +39,12 @@ Where:
 5.  *casa_options*: CASA options such as: *-c*, *--nogui*, *--log2term*, etc. 
 
 <div class="alert alert-info">
-NOTE: when several versions of CASA are available in the PATH, there is the risk that the executable mpicasa and other executables used by CASA, such as casaplotms or asdm2MS, would be picked from one of those different versions instead of the \"path_to_casa/casa\" version that we want to run. This is typically the case in data reduction clusters where either the default environment or user setup scripts set the PATH to point to the latest release of CASA, for example. In such cases, it is safer to make sure in advance that the first version found in the PATH is the right one, with a command like this (bash), as explained in the CASA distribution README: 
+NOTE: when several versions of CASA are available in the PATH, there is the risk that the executable mpicasa and other executables used by CASA, such as casaplotms or asdm2MS, would be picked from one of those different versions instead of the "path_to_casa/casa" version that we want to run. This is typically the case in data reduction clusters where either the default environment or user setup scripts set the PATH to point to the latest release of CASA, for example. In such cases, it is safer to make sure in advance that the first version found in the PATH is the right one, with a command like this (bash), as explained in the CASA distribution README: 
 
-*export PATH=path_to_casa/bin:\$PATH*
+*export PATH=path_to_casa/bin:$PATH*
 </div>
 
-It is also possible to use other nodes, which can form a "cluster". Following the requirements given above, replace the "*-n*" option of *mpicasa*] with a "*[-hostfile host_file*", as shown below:
+It is also possible to use other nodes, which can form a "cluster". Following the requirements given above, replace the "*-n*" option of *mpicasa* with a "*-hostfile host_file*", as shown below:
 
 ```
 mpicasa -hostfile <host_file> path_to_casa/casa <casa_options>

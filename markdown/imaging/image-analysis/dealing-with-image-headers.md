@@ -19,14 +19,14 @@ CASA can frequently read and write image FITS files directly. Nevertheless, it i
 The task **listfits** can be used to display the Header Data Unit (HDU) of a FITS image. The input includes only the name of the of the FITS file, as follows:
 
 ```
-#  listfits :: List the HDU and typical data rows of a fits file:
-fitsfile            =         ''        #  Name of input fits file
+#listfits :: List the HDU and typical data rows of a fits file:
+fitsfile            =         ''        #Name of input fits file
 ```
 
 The logger will output the full FITS HDU.  The example below shows the logger output for a Digital Sky Survey Image, which we have truncated somewhat due to the length of the output:
 
 ```python
-###### #################################### ##### Begin Task: listfits           ##### listfits(fitsfile="dss.test.fits") read fitsfile=dss.test.fits d 29: DATE-OBS= '1998-11-24T11:83:00' /Observation: Date/Time                          time. Primary Array HDU ------>>> d 156: DATAMIN =                 2701 /GetImage: Minimum returned pixel value           value has wrong data type. erted to type double. d 157: DATAMAX =                22189 /GetImage: Maximum returned pixel value           value has wrong data type. erted to type double. SIMPLE  =                      T /FITS: Compliance BITPIX  =                     16 /FITS: I*2 Data NAXIS   =                      2 /FITS: 2-D Image Data NAXIS1  =                    891 /FITS: X Dimension NAXIS2  =                    893 /FITS: Y Dimension EXTEND  =                      T /FITS: File can contain extensions DATE    = '2016-11-17' /FITS: Creation Date ORIGIN  = 'STScI/MAST' /GSSS: STScI Digitized Sky Survey SURVEY  = 'POSSII-F' /GSSS: Sky Survey REGION  = 'XP061   ' /GSSS: Region Name PLATEID = 'A2U4    ' /GSSS: Plate ID SCANNUM = '01      ' /GSSS: Scan Number DSCNDNUM= '00      ' /GSSS: Descendant Number TELESCID=                      3 /GSSS: Telescope ID BANDPASS=                     35 /GSSS: Bandpass Code COPYRGHT= 'Caltech/Palomar' /GSSS: Copyright Holder SITELAT =                 33.356 /Observatory: Latitude SITELONG=                116.863 /Observatory: Longitude TELESCOP= 'Oschin Schmidt - D' /Observatory: Telescope INSTRUME= 'Photographic Plate' /Detector: Photographic Plate EMULSION= 'IIIaF   ' /Detector: Emulsion FILTER  = 'RG610   ' /Detector: Filter PLTSCALE=                   67.2 /Detector: Plate Scale arcsec per mm PLTSIZEX=                    355 /Detector: Plate X Dimension mm PLTSIZEY=                    355 /Detector: Plate Y Dimension mm PLATERA =                144.055 /Observation: Field centre RA degrees PLATEDEC=                 69.812 /Observation: Field centre Dec degrees PLTLABEL= 'SF07740 ' /Observation: Plate Label DATE-OBS= '1998-11-24T11:83:00' /Observation: Date/Time EXPOSURE=                     50 /Observation: Exposure Minutes PLTGRADE= 'A       ' /Observation: Plate Grade OBSHA   =                1.28333 /Observation: Hour Angle OBSZD   =                37.9539 /Observation: Zenith Distance AIRMASS =                1.26743 /Observation: Airmass REFBETA =                61.7761 /Observation: Refraction Coeff REFBETAP=                 -0.082 /Observation: Refraction Coeff REFK1   =               -48616.4 /Observation: Refraction Coeff REFK2   =                -148442 /Observation: Refraction Coeff CNPIX1  =                   4993 /Scan: X Corner CNPIX2  =                  10823 /Scan: Y Corner XPIXELS =                  23040 /Scan: X Dimension YPIXELS =                  23040 /Scan: Y Dimension XPIXELSZ=                15.0295 /Scan: Pixel Size microns YPIXELSZ=                     15 /Scan: Pixel Size microns ASTRMASK= 'xp.mask ' /Astrometry: GSC2 Mask WCSAXES =                      2 /GetImage: Number WCS axes WCSNAME = 'DSS     ' /GetImage: Local WCS approximation from full plat RADESYS = 'ICRS    ' /GetImage: GSC-II calibration using ICRS system CTYPE1  = 'RA---TAN' /GetImage: RA-Gnomic projection CRPIX1  =                    446 /GetImage: X reference pixel CRVAL1  =                 148.97 /GetImage: RA of reference pixel CUNIT1  = 'deg     ' /GetImage: degrees CTYPE2  = 'DEC--TAN' /GetImage: Dec-Gnomic projection CRPIX2  =                    447 /GetImage: Y reference pixel CRVAL2  =                69.6795 /GetImage: Dec of reference pixel CUNIT2  = 'deg     ' /Getimage: degrees CD1_1   =           -0.000279458 /GetImage: rotation matrix coefficient CD1_2   =            2.15165e-05 /GetImage: rotation matrix coefficient CD2_1   =            2.14552e-05 /GetImage: rotation matrix coefficient CD2_2   =             0.00027889 /GetImage: rotation matrix coefficient OBJECT  = 'data    ' /GetImage: Requested Object Name DATAMIN =                   2701 /GetImage: Minimum returned pixel value DATAMAX =                  22189 /GetImage: Maximum returned pixel value OBJCTRA = '09 55 52.730' /GetImage: Requested Right Ascension (J2000) OBJCTDEC= '+69 40 45.80' /GetImage: Requested Declination (J2000) OBJCTX  =                5438.47 /GetImage: Requested X on plate (pixels) OBJCTY  =                11269.3 /GetImage: Requested Y on plate (pixels) END (0,0) = 4058 (0,1) = 4058
+###############################################Begin Task: listfits           #####listfits(fitsfile="dss.test.fits") read fitsfile=dss.test.fits d 29: DATE-OBS= '1998-11-24T11:83:00' /Observation: Date/Time                          time. Primary Array HDU ------>>> d 156: DATAMIN =                 2701 /GetImage: Minimum returned pixel value           value has wrong data type. erted to type double. d 157: DATAMAX =                22189 /GetImage: Maximum returned pixel value           value has wrong data type. erted to type double. SIMPLE  =                      T /FITS: Compliance BITPIX  =                     16 /FITS: I*2 Data NAXIS   =                      2 /FITS: 2-D Image Data NAXIS1  =                    891 /FITS: X Dimension NAXIS2  =                    893 /FITS: Y Dimension EXTEND  =                      T /FITS: File can contain extensions DATE    = '2016-11-17' /FITS: Creation Date ORIGIN  = 'STScI/MAST' /GSSS: STScI Digitized Sky Survey SURVEY  = 'POSSII-F' /GSSS: Sky Survey REGION  = 'XP061   ' /GSSS: Region Name PLATEID = 'A2U4    ' /GSSS: Plate ID SCANNUM = '01      ' /GSSS: Scan Number DSCNDNUM= '00      ' /GSSS: Descendant Number TELESCID=                      3 /GSSS: Telescope ID BANDPASS=                     35 /GSSS: Bandpass Code COPYRGHT= 'Caltech/Palomar' /GSSS: Copyright Holder SITELAT =                 33.356 /Observatory: Latitude SITELONG=                116.863 /Observatory: Longitude TELESCOP= 'Oschin Schmidt - D' /Observatory: Telescope INSTRUME= 'Photographic Plate' /Detector: Photographic Plate EMULSION= 'IIIaF   ' /Detector: Emulsion FILTER  = 'RG610   ' /Detector: Filter PLTSCALE=                   67.2 /Detector: Plate Scale arcsec per mm PLTSIZEX=                    355 /Detector: Plate X Dimension mm PLTSIZEY=                    355 /Detector: Plate Y Dimension mm PLATERA =                144.055 /Observation: Field centre RA degrees PLATEDEC=                 69.812 /Observation: Field centre Dec degrees PLTLABEL= 'SF07740 ' /Observation: Plate Label DATE-OBS= '1998-11-24T11:83:00' /Observation: Date/Time EXPOSURE=                     50 /Observation: Exposure Minutes PLTGRADE= 'A       ' /Observation: Plate Grade OBSHA   =                1.28333 /Observation: Hour Angle OBSZD   =                37.9539 /Observation: Zenith Distance AIRMASS =                1.26743 /Observation: Airmass REFBETA =                61.7761 /Observation: Refraction Coeff REFBETAP=                 -0.082 /Observation: Refraction Coeff REFK1   =               -48616.4 /Observation: Refraction Coeff REFK2   =                -148442 /Observation: Refraction Coeff CNPIX1  =                   4993 /Scan: X Corner CNPIX2  =                  10823 /Scan: Y Corner XPIXELS =                  23040 /Scan: X Dimension YPIXELS =                  23040 /Scan: Y Dimension XPIXELSZ=                15.0295 /Scan: Pixel Size microns YPIXELSZ=                     15 /Scan: Pixel Size microns ASTRMASK= 'xp.mask ' /Astrometry: GSC2 Mask WCSAXES =                      2 /GetImage: Number WCS axes WCSNAME = 'DSS     ' /GetImage: Local WCS approximation from full plat RADESYS = 'ICRS    ' /GetImage: GSC-II calibration using ICRS system CTYPE1  = 'RA---TAN' /GetImage: RA-Gnomic projection CRPIX1  =                    446 /GetImage: X reference pixel CRVAL1  =                 148.97 /GetImage: RA of reference pixel CUNIT1  = 'deg     ' /GetImage: degrees CTYPE2  = 'DEC--TAN' /GetImage: Dec-Gnomic projection CRPIX2  =                    447 /GetImage: Y reference pixel CRVAL2  =                69.6795 /GetImage: Dec of reference pixel CUNIT2  = 'deg     ' /Getimage: degrees CD1_1   =           -0.000279458 /GetImage: rotation matrix coefficient CD1_2   =            2.15165e-05 /GetImage: rotation matrix coefficient CD2_1   =            2.14552e-05 /GetImage: rotation matrix coefficient CD2_2   =             0.00027889 /GetImage: rotation matrix coefficient OBJECT  = 'data    ' /GetImage: Requested Object Name DATAMIN =                   2701 /GetImage: Minimum returned pixel value DATAMAX =                  22189 /GetImage: Maximum returned pixel value OBJCTRA = '09 55 52.730' /GetImage: Requested Right Ascension (J2000) OBJCTDEC= '+69 40 45.80' /GetImage: Requested Declination (J2000) OBJCTX  =                5438.47 /GetImage: Requested X on plate (pixels) OBJCTY  =                11269.3 /GetImage: Requested Y on plate (pixels) END (0,0) = 4058 (0,1) = 4058
 ```
 
  
@@ -38,14 +38,14 @@ CASA image headers can be accessed and edited with the **imhead** task. The *ima
 The default mode is *mode=\'summary\'*, which prints a summary of the image properties to the logger and terminal, and returns a dictionary containing header information. With *mode=\'summary\'*, **imhead** has the following inputs:  
 
 ```
-#  imhead :: List, get and put image header parameters
-imagename           =         ''        #  Name of the input image
-mode                =  'summary'        #  imhead options: add, del,
-                                        #   get, history, list, put, summary
-     verbose        =      False        #  Give a full listing of
-                                        #   beams or just a short summary?
-                                        #   Only used when the image has multiple beams
-                                        #   and mode='summary'.
+#imhead :: List, get and put image header parameters
+imagename           =         ''        #Name of the input image
+mode                =  'summary'        #imhead options: add, del,
+                                        #get, history, list, put, summary
+     verbose        =      False        #Give a full listing of
+                                        #beams or just a short summary?
+                                        #Only used when the image has multiple beams
+                                        #and mode='summary'.
 ```
 
 Note that to capture the dictionary, it must be assigned as a Python variable, e.g. by running: 
@@ -59,24 +59,24 @@ Setting *mode=\'list\'* prints all header keywords and values to the logger and 
 The *mode=\'get\'* setting allows the user to retrieve the value for a specified keyword *hdkey*:
 
 ```
-#  imhead :: List, get and put image header parameters
-imagename      =         ''        #  Name of the input image
-mode           =      'get'   #  imhead options: list, summary, get, put
-   hdkey       =         ''   #  The FITS keyword
+#imhead :: List, get and put image header parameters
+imagename      =         ''        #Name of the input image
+mode           =      'get'   #imhead options: list, summary, get, put
+   hdkey       =         ''   #The FITS keyword
 ```
 
 The *mode=\'put\'* setting allows the user to replace the current value for a given keyword *hdkey* with that specified in *hdvalue*. There are two sub-parameters that are opened by this option:
 
 ```
-#  imhead :: List, get and put image header parameters
-imagename      =         ''        #  Name of the input image
-mode           =      'put'   #  imhead options: list, summary, get, put
-   hdkey       =         ''   #  The FITS keyword
-   hdvalue     =         ''   #  Value of hdkey
+#imhead :: List, get and put image header parameters
+imagename      =         ''        #Name of the input image
+mode           =      'put'   #imhead options: list, summary, get, put
+   hdkey       =         ''   #The FITS keyword
+   hdvalue     =         ''   #Value of hdkey
 ```
 
 <div class="alert alert-warning">
-**Alert:** Be careful when using *mode=\'put\'.* This task does not check whether the values you specify (e.g. for the axes types) are valid, and you can render your image invalid. Make sure you know what you are doing when using this option!
+**Alert:** Be careful when using *mode='put'.* This task does not check whether the values you specify (e.g. for the axes types) are valid, and you can render your image invalid. Make sure you know what you are doing when using this option!
 </div>
 
 ##  Examples for **imhead**
@@ -90,7 +90,7 @@ CASA <51>: imhead('ngc5921.demo.cleanimg.image',mode='summary')
 The logger output is the following:
 
 ```python
-##### Begin Task: imhead             #####
+#####Begin Task: imhead             #####
   Image name       : ngc5921.demo.cleanimg.image
   Object name      : N5921_2
   Image type       : PagedImage
@@ -117,7 +117,7 @@ The logger output is the following:
   2    1     Stokes    Stokes                    1    1             I
   3    2     Spectral  Frequency                46    8   1.41279e+09     0.00 2.4414062e+04 Hz
                        Velocity                               1607.99     0.00 -5.152860e+00 km/s
-##### End Task: imhead           
+#####End Task: imhead           
 ```
 
 If the beam size per plane differs (for example, in a spectral data cube), the beam information will be displayed for the channel with the largest beam (i.e. the lowest frequency channel), the chennel with the smallest beam (i.e. the highest frequency channel), and the channel closest to the median beam size. If you set *verbose=True*, the beam information would be provided for each spectral channel (or each plane of the image).  Running **imhead** with *mode=\'summary\'* and *verbose=False* for a spectral data cube would print information on the restoring beams as follows:
@@ -210,13 +210,13 @@ CASA <58>: imhead('ngc5921.demo.cleanimg.image',mode='get',hdkey='observer')
 Image headers contain records of the operations applied to them, as CASA tasks append the image header with a record of what they did. This information can be retrieved via the **imhistory** task, and new messages can be appended using the **imhistory** task as well. The primary inputs are *imagename* and *mode*, with sub-parameters arising from the selected mode. To view the history of the image, the inputs are:
 
 ```
-#  imhistory :: Retrieve and modify image history
-imagename           =         ''        #  Name of the input image
-mode                =     'list'        #  Mode to run in, 'list' to  
-                                        #   retrieve history,'append' 
-                                        #   to append a record to history.
-     verbose        =       True        #  Write history to logger if 
-                                        #   mode='list'?
+#imhistory :: Retrieve and modify image history
+imagename           =         ''        #Name of the input image
+mode                =     'list'        #Mode to run in, 'list' to  
+                                        #retrieve history,'append' 
+                                        #to append a record to history.
+     verbose        =       True        #Write history to logger if 
+                                        #mode='list'?
 ```
 
 With *verbose=True* (default) the image history is also reported in the CASA logger.  The **imhistory** task returns the messages in a Python list that can be captured by a variable, e.g.

@@ -13,17 +13,17 @@ These tasks will allow you to write your CASA image to a FITS file that other pa
 To export your images to fits format use the **exportfits** task. The inputs are:
 
 ```
-#  exportfits :: Convert a CASA image to a FITS file
-imagename    =         ''   #  Name of input CASA image
-fitsimage    =         ''   #  Name of output image FITS file
-velocity     =      False   #  Use velocity (rather than frequency) as spectral axis
-optical      =      False   #  Use the optical (rather than radio) velocity convention
-bitpix       =        -32   #  Bits per pixel
-minpix       =          0   #  Minimum pixel value
-maxpix       =          0   #  Maximum pixel value
-overwrite    =      False   #  Overwrite pre-existing imagename
-dropstokes   =      False   #  Drop the Stokes axis?
-stokeslast   =       True   #  Put Stokes axis last in header?
+#exportfits :: Convert a CASA image to a FITS file
+imagename    =         ''   #Name of input CASA image
+fitsimage    =         ''   #Name of output image FITS file
+velocity     =      False   #Use velocity (rather than frequency) as spectral axis
+optical      =      False   #Use the optical (rather than radio) velocity convention
+bitpix       =        -32   #Bits per pixel
+minpix       =          0   #Minimum pixel value
+maxpix       =          0   #Maximum pixel value
+overwrite    =      False   #Overwrite pre-existing imagename
+dropstokes   =      False   #Drop the Stokes axis?
+stokeslast   =       True   #Put Stokes axis last in header?
 ```
 
 The *dropstokes* or *stokeslast* parameter may be needed to make the FITS image compatible with an external application.For example,
@@ -37,20 +37,20 @@ The *dropstokes* or *stokeslast* parameter may be needed to make the FITS image 
 You can also use the **importfits** task to import a FITS image into CASA image table format. Note, the CASA viewer can read fits images so you don't need to do this if you just want to look at the image. The inputs for **importfits** are:
 
 ```
-#  importfits :: Convert an image FITS file into a CASA image
-fitsimage           =         ''        #  Name of input image FITS file
-imagename           =         ''        #  Name of output CASA image
-whichrep            =          0        #  If fits image has multiple
-                                        #   coordinate reps, choose one.
-whichhdu            =          0        #  If its file contains
-                                        #    multiple images, choose one.
-zeroblanks          =       True        #  Set blanked pixels to zero (not NaN)
-overwrite           =      False        #  Overwrite pre-existing imagename
-defaultaxes         =      False        #  Add the default 4D
-                                        #   coordinate axes where they are missing
-defaultaxesvalues   =         []        #  List of values to assign to
-                                        #   added degenerate axes when
-                                        #   defaultaxes=True (ra,dec,freq,stokes)
+#importfits :: Convert an image FITS file into a CASA image
+fitsimage           =         ''        #Name of input image FITS file
+imagename           =         ''        #Name of output CASA image
+whichrep            =          0        #If fits image has multiple
+                                        #coordinate reps, choose one.
+whichhdu            =          0        #If its file contains
+                                        #multiple images, choose one.
+zeroblanks          =       True        #Set blanked pixels to zero (not NaN)
+overwrite           =      False        #Overwrite pre-existing imagename
+defaultaxes         =      False        #Add the default 4D
+                                        #coordinate axes where they are missing
+defaultaxesvalues   =         []        #List of values to assign to
+                                        #added degenerate axes when
+                                        #defaultaxes=True (ra,dec,freq,stokes)
 ```
 
 For example, we can read the above image back in
@@ -61,19 +61,18 @@ importfits('ngc5921.demo.cleanimg.image.fits','ngc5921.demo.cleanimage')
 
  
 
-#  
 
 # Extracting data from an image (**imval**)
 
 The **imval** task will extract the values of the data and mask from a specified region of an image and place in the task return value as a Python dictionary. The inputs are:
 
 ```
-#  imval :: Get the data value(s) and/or mask value in an image.
-imagename  =      ''   #  Name of the input image
-region     =      ''   #  Image Region.  Use viewer
-box        =      ''   #  Select one or more box regions
-chans      =      ''   #  Select the channel(spectral) range
-stokes     =      ''   #  Stokes params to image (I,IV,IQU,IQUV)
+#imval :: Get the data value(s) and/or mask value in an image.
+imagename  =      ''   #Name of the input image
+region     =      ''   #Image Region.  Use viewer
+box        =      ''   #Select one or more box regions
+chans      =      ''   #Select the channel(spectral) range
+stokes     =      ''   #Stokes params to image (I,IV,IQU,IQUV)
 ```
 
 Area selection using [box](#region-selection--box-) and [region](#regions--region-) is detailed above. By default, *box=\' \'* will extract the image information at the reference pixel on the direction axes. [Plane selection](#plane-selection--chans--stokes-) is controlled by *chans* and *stokes*. By default, *chans=\' \'* and *stokes=\' \'* will extract the image information in all channels and Stokes planes.For instance,

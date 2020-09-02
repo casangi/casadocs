@@ -60,7 +60,7 @@ In progress\...
 
 ###  Control Flow
 
-![55045d458766e4fad0872ad6a034931be98c7555](media/55045d458766e4fad0872ad6a034931be98c7555.png)
+![55045d458766e4fad0872ad6a034931be98c7555](media/55045d458766e4fad0872ad6a034931be98c7555.png){.image-inline}
 
 ### Performance and Optimizations
 

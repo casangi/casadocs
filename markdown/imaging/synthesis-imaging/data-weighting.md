@@ -20,7 +20,7 @@ Data weighting during imaging allows for the improvement of the dynamic range an
 
 *Summary:* The natural weighting scheme gives equal weight to all samples. Since usually, lower spatial frequencies are sampled more often than the higher ones, the inner uv-plane will have a significantly higher density of samples and hence signal-to-noise than the outer uv-plane. The resulting \"density-upweighting\" of the inner uv-plane will produce the largest angular resolution and can sometimes result in undesirable structure in the PSF which reduces the accuracy of the minor cycle. However, at the location of a source, this method preserves the natural point-source sensitivity of the instrument.
 
-For *weighting=\'natural\'*, visibilities are weighted only by the data weights, which are calculated during filling and calibration and should be equal to the inverse noise variance on that visibility. Imaging weight $w_i$ of sample []{.cmmi-10x-x-109}$\dot\imath$ is given by:
+For *weighting=\'natural\'*, visibilities are weighted only by the data weights, which are calculated during filling and calibration and should be equal to the inverse noise variance on that visibility. Imaging weight $w_i$ of sample $\dot\imath$ is given by:
 
 $w_i = \omega_i = \frac{1}{{\sigma_i}^2}$
 
@@ -30,9 +30,8 @@ where the data weight $\omega_i$ is determined from $\sigma_i$, the rms noise on
 **NOTE**: This generally produces images with the poorest angular resolution, since the density of visibilities falls radially in the uv-plane.
 </div>
 
-####   {#section .nopar}
 
-#### Uniform weighting {#uniform-weighting .nopar}
+#### Uniform weighting 
 
 *Summary:* Uniform weighting gives equal weight to each measured spatial frequency irrespective of sample density. The resulting PSF has the narrowest possible main lobe (i.e. smallest possible angular resolution) and suppressed sidelobes across the entire image and is best suited for sources with high signal-to-noise ratios to minimize sidelobe contamination between sources. However, the peak sensitivity is significantly worse than optimal (typically \~20% worse for reasonably large number of antenna interferometers), since data points in densely sampled regions have been weighted down to make the weights uniform. Also, isolated measurements can get artifically high relative weights and this may introduce further artifacts into the PSF.
 
@@ -42,25 +41,7 @@ For uniform weighting, we first grid the inverse variance $\omega_i$ for all sel
 
 $w_i = \frac{\omega_i}{W_k}$
 
-####   {#section-1 .noindent style="text-align: left;"}
-
-#### Briggs weighting {#briggs-weighting .noindent style="text-align: left;"}
-
-*Summary:* Briggs or Robust weighting [\[1\]](#Bibliography) creates a PSF that smoothly varies between natural and uniform weighting based on the signal-to-noise ratio of the measurements and a tunable parameter that defines a noise threshold. High signal-to-noise samples are weighted by sample density to optimize for PSF shape, and low signal-to-noise data are naturally weighted to optimize for sensitivity.
-
-The *weighting=\'briggs\' *mode is an implementation of the flexible weighting scheme developed by Dan Briggs in his PhD thesis, which can be viewed [here](http://www.aoc.nrao.edu/dissertations/dbriggs/).
-
-This choice brings up the sub-parameters:
-
-```
-weighting      =   'briggs'   #   Weighting to apply to visibilities  
-     robust    =        0.0   #   Briggs robustness parameter  
-     npixels   =          0   #   number of pixels to determine uv-cell size 0=> field of view
-```
-
-The actual weighting scheme used is:
-
-$w_i = \frac{\omega_i}{1 + W_k f^2}$
+####   {1 + W_k f^2}$
 
 where
 
@@ -78,7 +59,6 @@ The key parameter is the *robust sub-*parameter, which sets R in the Briggs equa
 
 Superuniform weighting can be combined with Briggs weighting using the *npixels *sub-parameter. This works as in 'superuniform' weighting.
 
-##  
 
 #### Briggsabs weighting
 
@@ -93,10 +73,10 @@ where R is the *robust* parameter and $\sigma_\text{i}$ is the *noise *parameter
 This choice brings up the sub-parameters:
 
 ```
-weighting      = 'briggsabs'  #   Weighting to apply to visibilities  
-     robust    =      0.0     #   Briggs robustness parameter  
-     noise     =  '0.0Jy'     #   noise parameter for briggs weighting when rmode='abs' 
-     npixels   =        0     #   number of pixels to determine uv-cell size 0=> field of view
+weighting      = 'briggsabs'  #Weighting to apply to visibilities  
+     robust    =      0.0     #Briggs robustness parameter  
+     noise     =  '0.0Jy'     #noise parameter for briggs weighting when rmode='abs' 
+     npixels   =        0     #number of pixels to determine uv-cell size 0=> field of view
 ```
 
  
@@ -107,7 +87,7 @@ weighting      = 'briggsabs'  #   Weighting to apply to visibilities
 
  
 
-#### Superuniform weighting {#superuniform-weighting .noindent}
+#### Superuniform weighting 
 
 The *weighting=\'superuniform\' *mode is similar to the \'uniform\' weighting mode but there is now an additional *npixels *sub-parameter that specifies a change to the number of cells on a side (with respect to uniform weighting) to define a uv-plane patch for the weighting renormalization. If *npixels=0*, you get uniform weighting.
 
@@ -125,41 +105,12 @@ Technically, this would be called an inverse uv-taper, since it depends on uv-co
 
 #### Perchanweightdensity
 
-When calculating weight density for Briggs style weighting in a cube, the *perchanweightdensity* parameter determines whether to calculate the weight density for each channel independently (the default, True) or a common weight density for all of the selected data. This parameter has no meaning for continuum (*specmode=\'mfs\'*) imaging but for cube imaging *perchanweightdensity=True* is a recommended  alternative option that provides more uniform sensitivity per channel for cubes, but with generally larger psfs than the *perchanweightdensity=False* option (which was also the behavior prior to CASA 5.5). When using *Briggs* style weight with *perchanweightdensity=True*, the imaging weight density calculations use only the weights of data that contribute specifically to that channel. On the other hand, when *perchanweightdensity=False*, the imaging weight density calculations sum all of the weights from all of the data channels selected whose (u,v) falls in a given uv cell on the weight density grid. Since the aggregated weights, in any given uv cell, will change depending on the number of channels included when imaging, the psf calculated for a given frequency channel will also necessarily change, resulting in variability in the psf for a given frequency channel when *perchanweightdensity=False*. In general, *perchanweightdensity=False* results in smaller psfs for the same value of robustness compared to *perchanweightdensity=True*, but the rms noise as a function of channel varies and increases toward the edge channels; *perchanweightdensity=True* provides more uniform sensitivity per channel for cubes. This may make it harder to find estimates of continuum when *perchanweightdensity=False*. If you intend to image a large cube in many smaller subcubes and subsequently concatenate, it is advisable to use *perchanweightdensity=True* to avoid surprisingly varying sensitivity and psfs across the concatenated cube.
-
-<div class="alert alert-info">
-**NOTE**: Setting *perchanweightdensity = True* only has effect when using *Briggs* (robust) or *uniform* weighting to make an image cube. It has no meaning for *natural* and *radial* weighting in data cubes, nor does it have any meaning for continuum (*specmode=\'mfs\'*) imaging.
-</div>
-
-####   {#section-3 .nopar}
+When calculating weight density for Briggs 
 
 #### Mosweight
 
-When doing Brigg\'s style weighting (including uniform) in **tclean**, the *mosweight* subparameter of the mosaic gridder determines whether to weight each field in a mosaic independently (*mosweight = True*), or to calculate the weight density  from the average uv distribution of all the fields combined (*mosweight = False*). The underlying issue with more uniform robust weighting is how the weight density maps onto the uv-grid, which can give high weight to areas of the uv-plane that are not actually more sensitive. The setting *mosweight = True* has long been known as potentially useful in cases where a mosaic has non-uniform sensitivity, but it was found that it is also very important for more uniform values of robust Briggs weighting in the presence of relatively poor uv-coverage. For example, snap-shot ALMA mosaics with *mosweight = False* typically show an increase in noise in the corners or in the areas furthest away from the phase-center. Therefore, as of CASA 5.4, the *mosweight* sub-parameter has been added to **tclean** with default value *mosweight = True*.
+When doing Brigg\'s 
 
-<div class="alert alert-warning">
-**WARNING:** the default setting of *mosweight=True* under the mosaic gridder in **tclean** has the following disadvantages: (1) it may potentially cause memory issues for large VLA mosaics; (2) the major and minor axis of the synthesized beam may be \~10% larger than with mosweight=False. Please change to *mosweight=False* to get around these issues.
-</div>
-
-####  
-
-#### uvtaper
-
-*Summary:* The effect of uvtaper this is that the clean beam becomes larger, and surface brightness sensitivity increases for extended emission.
-
-uv-tapering applies a Gaussian taper on the weights of your UV data, in addition to the weighting scheme specified via the \'weighting\' parameter. It applies a multiplicative Gaussian taper to the spatial frequency grid, to weight down high spatial-frequency measurements relative to the rest. This means that higher spatial frequencies are weighted down relative to lower spatial frequencies, to suppress artifacts arising from poorely sampled regions near and beyond the maximum spatial frequency in the uv-plane. It is equivalent to smoothing the PSF obtained by other weighting schemes and can be specified either as a Gaussian in uv-space (eg. units of lambda or klambda) or as a Gaussian in the image domain (eg. angular units like arcsec). Because the natural PSF is smoothed out, this tunes the sensitivity of the instrument to scale sizes larger than the angular-resolution of the instrument by increasing the width of the main lobe. There are limits to how much uv-tapering is desirable, however, because the sensitiivty will decrease as more and more data is down-weighted.
-
-<div class="alert alert-info">
-**NOTE**: The on-sky FWHM in arcsec is roughly the *uvtaper* / 200 (klambda).
-</div>
-
-Examples: uv*taper=\[\'5klambda\'\]* circular taper FWHM=5 kilo-lambda, uv*taper=\[\'5klambda\',\'3klambda\',\'45.0deg\'\]*, *uvtaper=\[\'10arcsec\'\]* on-sky FWHM 10 arcseconds, *uvtaper=\[\'300.0\'\]* default units are lambda in aperture plane, uv*taper=\[\]*; no outer taper applied (default)
-
- 
-
-![6178646282cf25c3d316aa14c3d888e6608a49bd](media/6178646282cf25c3d316aa14c3d888e6608a49bd.png)
-
-#  
 
 # Gridding + FFT
 
@@ -167,7 +118,7 @@ Imaging weights and weighted visibilities are first resampled onto a regular uv-
 
  
 
-![29159db628f096f12291870d788317a84a86e15c](media/29159db628f096f12291870d788317a84a86e15c.png)
+![29159db628f096f12291870d788317a84a86e15c](media/29159db628f096f12291870d788317a84a86e15c.png){.image-inline width="271" height="277"}
 
  
 
@@ -181,7 +132,7 @@ In tclean, *gridder=\'mosaic\'* uses Airy disk or polynomial models to construct
 
  
 
-![1c48e6447847e5f2e25d16da48fb67f74b5e0a70](media/1c48e6447847e5f2e25d16da48fb67f74b5e0a70.png)
+![1c48e6447847e5f2e25d16da48fb67f74b5e0a70](media/1c48e6447847e5f2e25d16da48fb67f74b5e0a70.png){.image-inline width="668" height="353"}
 
  
 

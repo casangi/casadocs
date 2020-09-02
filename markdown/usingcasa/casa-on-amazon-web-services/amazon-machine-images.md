@@ -4,7 +4,7 @@
 
 An Amazon Machine Image (AMI) provides the information required to launch an instance, which is a virtual server in the cloud
 
-# Overview {#overview style="text-align: left;"}
+# Overview {#overview 
 
 An AMI is an object that encapsulates a base OS image (e.g., Red Hat Enterprise Linux, CentOS, Debian), any 3rd party software packages (e.g., CASA, SciPy) and any OS level run time modifications (e.g., accounts, data, working directories). Since an AMI is a discrete object, it can be mapped onto differing hardware instances to provide a consistent work environment independent of the instance\'s number of processors, available memory, or total storage space.
 

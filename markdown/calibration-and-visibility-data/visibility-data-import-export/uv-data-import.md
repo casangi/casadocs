@@ -13,17 +13,16 @@ There are a number of tasks available to bring data in various forms into CASA a
 -   GMRT Data via **importgmrt**
 -   UVFITS format can be imported into and exported from CASA (**importuvfits**, **importfitsidi**, and **exportuvfits**)
 
-###  
 
-## ALMA and VLA Filling of Science Data Model (ASDM) data {#sec94}
+## ALMA and VLA Filling of Science Data Model (ASDM) data 
 
 The ALMA and JVLA projects have agreed upon a common archival science data model (ASDM; sometimes also called SDM) format, and have jointly developed the software to fill this data into CASA. In the ASDM format, the bulk of the data is contained in large binary data format (BDF) tables, with the meta-data and ancillary information in XML tables. This is structured as a directory, like the MS, and was designed to be similar to the MS to facilitate conversion.
 
 The content of an ASDM can be listed with the task **asdmsummary**:
 
 ```
-# asdmsummary :: Summarized description of an ASDM dataset.
-asdm = '' # Name of input ASDM directory
+#asdmsummary :: Summarized description of an ASDM dataset.
+asdm = '' #Name of input ASDM directory
 ```
 
 with an output that contains the list and positions of the antennas, followed by the metadata of each scan like observation time, source name, frequency and polarization setup:
@@ -116,118 +115,118 @@ The **importasdm** task will fill SDM1.2 and SDM1.3 format data into a CASA visi
 The default inputs of **importasdm** are:
 
 ```
-#  importasdm :: Convert an ALMA Science Data Model observation into a
+#importasdm :: Convert an ALMA Science Data Model observation into a
 CASA visibility file (MS) or single-dish data format (Scantable)
-asdm                =         ''        #  Name of input asdm directory (on
-                                        #   disk)
-vis                 =         ''        #  Root name of the MS to be created.
-                                        #   Note the .ms is NOT added
-createmms           =      False        #  Create a multi-MS output
-singledish          =      False        #  Set true to output single-dish data
-                                        #   format
-corr_mode           =      'all'        #  specifies the correlation mode to be
-                                        #   considered on input. A quoted string
-                                        #   containing a sequence of ao, co,
-                                        #   ac,or all separated by whitespaces
-                                        #   is expected
-srt                 =      'all'        #  specifies the spectral resolution
-                                        #   type to be considered on input. A
-                                        #   quoted string containing a sequence
-                                        #   of fr, ca, bw, or all separated by
-                                        #   whitespaces is expected
-time_sampling       =      'all'        #  specifies the time sampling
-                                        #   (INTEGRATION and/or SUBINTEGRATION)
-                                        #   to be considered on input. A quoted
-                                        #   string containing a sequence of i,
-                                        #   si, or all separated by whitespaces
-                                        #   is expected
-ocorr_mode          =       'ca'        #  output data for correlation mode
-                                        #   AUTO_ONLY (ao) or CROSS_ONLY (co) or
-                                        #   CROSS_AND_AUTO (ca)
-compression         =      False        #  Flag for turning on data compression
-lazy                =      False        #  Make the MS DATA column read the ASDM
-                                        #   Binary data directly (faster import,
-                                        #   smaller MS)
-asis                =         ''        #  Creates verbatim copies of the
-                                        #   ASDMtables in the ouput MeasurementSet.
-                                        #   Value given must be a string
-                                        #   of table names separated by spaces;
-                                        #   A * wildcard is allowed.
-wvr_corrected_data  =       'no'        #  Specifies which values are considerd
-                                        #   in the SDM binary data to fill the
-                                        #   DATA column in the MAIN table of the
-                                        #   MS. Expected values for this option
-                                        #   are: no, for uncorrected data
-                                        #   (default), yes, for the corrected
-                                        #   data, and both, for for corrected
-                                        #   and uncorrected data. Note if both
-                                        #   is selected two MeasurementSets are
-                                        #   created, one with uncorrected data
-                                        #   and the other with corrected data.
-scans               =         ''        #  processes only the specified scans.
-                                        #   This value is a semicolon separated
-                                        #   list of scan specifications. A scan
-                                        #   specification consists of an exec
-                                        #   block index followed by the :
-                                        #   character;  followed by a comma
-                                        #   separated list of scan indexes or
-                                        #   scan index ranges. A scan index is
-                                        #   relative to the exec block it
-                                        #   belongs to. Scan indexes are 1-based
-                                        #   while exec blocks are 0-based. "0:1"
-                                        #   or "2:2~6" or
-                                        #   "0:1,1:2~6,8;2:,3:24~30" "1,2" are
-                                        #   valid values for the option. "3:"
-                                        #   alone will be interpreted as, all
-                                        #   the scans of the exec block#3.  An
-                                        #   scan index or a scan index range not
-                                        #   preceded by an exec block index will
-                                        #   be interpreted as, all the scans
-                                        #   with such indexes in all the exec
-                                        #   blocks.  By default all the scans
-                                        #   are considered.
-ignore_time         =      False        #  All the rows of the tables Feed,
-                                        #   History, Pointing, Source, SysCal,
-                                        #   CalDevice, SysPower, and Weather are
-                                        #   processed independently of the time
-                                        #   range of the selected exec block /
-                                        #   scan.
-process_syspower    =       True        #   The SysPower table is processed if
-                                        #   and only if this parameter is set to
-                                        #   true.
-process_caldevice   =       True        #  The CalDevice table is processed if
-                                        #   and only if this parameter is set to
-                                        #   true.
-process_pointing    =       True        #  The Pointing table is processed if
-                                        #   and only if this parameter is set to
-                                        #   true. If set to False, the POINTING
-                                        #   table is empty in the resulting MS
-process_flags       =       True        #  Create online flags in the FLAG_CMD
-                                        #   sub-table.
-     tbuff          =        0.0        #   Time padding buffer (seconds)
-     applyflags     =      False        #  Apply the flags to the MS.
-     savecmds       =      False        #  Save flag commands to an ASCII file
-     outfile        =         ''        #  Name of ASCII file to save flag
-                                        #   commands
+asdm                =         ''        #Name of input asdm directory (on
+                                        #disk)
+vis                 =         ''        #Root name of the MS to be created.
+                                        #Note the .ms is NOT added
+createmms           =      False        #Create a multi-MS output
+singledish          =      False        #Set true to output single-dish data
+                                        #format
+corr_mode           =      'all'        #specifies the correlation mode to be
+                                        #considered on input. A quoted string
+                                        #containing a sequence of ao, co,
+                                        #ac,or all separated by whitespaces
+                                        #is expected
+srt                 =      'all'        #specifies the spectral resolution
+                                        #type to be considered on input. A
+                                        #quoted string containing a sequence
+                                        #of fr, ca, bw, or all separated by
+                                        #whitespaces is expected
+time_sampling       =      'all'        #specifies the time sampling
+                                        #(INTEGRATION and/or SUBINTEGRATION)
+                                        #to be considered on input. A quoted
+                                        #string containing a sequence of i,
+                                        #si, or all separated by whitespaces
+                                        #is expected
+ocorr_mode          =       'ca'        #output data for correlation mode
+                                        #AUTO_ONLY (ao) or CROSS_ONLY (co) or
+                                        #CROSS_AND_AUTO (ca)
+compression         =      False        #Flag for turning on data compression
+lazy                =      False        #Make the MS DATA column read the ASDM
+                                        #Binary data directly (faster import,
+                                        #smaller MS)
+asis                =         ''        #Creates verbatim copies of the
+                                        #ASDMtables in the ouput MeasurementSet.
+                                        #Value given must be a string
+                                        #of table names separated by spaces;
+                                        #A * wildcard is allowed.
+wvr_corrected_data  =       'no'        #Specifies which values are considerd
+                                        #in the SDM binary data to fill the
+                                        #DATA column in the MAIN table of the
+                                        #MS. Expected values for this option
+                                        #are: no, for uncorrected data
+                                        #(default), yes, for the corrected
+                                        #data, and both, for for corrected
+                                        #and uncorrected data. Note if both
+                                        #is selected two MeasurementSets are
+                                        #created, one with uncorrected data
+                                        #and the other with corrected data.
+scans               =         ''        #processes only the specified scans.
+                                        #This value is a semicolon separated
+                                        #list of scan specifications. A scan
+                                        #specification consists of an exec
+                                        #block index followed by the :
+                                        #character;  followed by a comma
+                                        #separated list of scan indexes or
+                                        #scan index ranges. A scan index is
+                                        #relative to the exec block it
+                                        #belongs to. Scan indexes are 1-based
+                                        #while exec blocks are 0-based. "0:1"
+                                        #or "2:2~6" or
+                                        #"0:1,1:2~6,8;2:,3:24~30" "1,2" are
+                                        #valid values for the option. "3:"
+                                        #alone will be interpreted as, all
+                                        #the scans of the exec block#3.  An
+                                        #scan index or a scan index range not
+                                        #preceded by an exec block index will
+                                        #be interpreted as, all the scans
+                                        #with such indexes in all the exec
+                                        #blocks.  By default all the scans
+                                        #are considered.
+ignore_time         =      False        #All the rows of the tables Feed,
+                                        #History, Pointing, Source, SysCal,
+                                        #CalDevice, SysPower, and Weather are
+                                        #processed independently of the time
+                                        #range of the selected exec block /
+                                        #scan.
+process_syspower    =       True        #The SysPower table is processed if
+                                        #and only if this parameter is set to
+                                        #true.
+process_caldevice   =       True        #The CalDevice table is processed if
+                                        #and only if this parameter is set to
+                                        #true.
+process_pointing    =       True        #The Pointing table is processed if
+                                        #and only if this parameter is set to
+                                        #true. If set to False, the POINTING
+                                        #table is empty in the resulting MS
+process_flags       =       True        #Create online flags in the FLAG_CMD
+                                        #sub-table.
+     tbuff          =        0.0        #Time padding buffer (seconds)
+     applyflags     =      False        #Apply the flags to the MS.
+     savecmds       =      False        #Save flag commands to an ASCII file
+     outfile        =         ''        #Name of ASCII file to save flag
+                                        #commands
 
-flagbackup          =       True        #  Back up flag column before applying
-                                        #   flags.
-verbose             =      False        #  Output lots of information while the
-                                        #   filler is working
-overwrite           =      False        #  Over write an existing MS(s)
-showversion         =      False        #  Report the version of asdm2MS being
-                                        #   used
-useversion          =       'v3'        #  Version of asdm2MS to be used ('v3'
-                                        #   (default, should work for all data))
-bdfflags            =      False        #  Set the MS FLAG column according to
-                                        #   the ASDM _binary_ flags
-with_pointing_correction =      False   #   add (ASDM::Pointing::encoder -
-                                        #   ASDM::Pointing::pointingDirection)
-                                        #   to the value to be written in
-                                        #   MS::Pointing::direction
-convert_ephem2geo   =       True        #  if True, convert any attached
-                                        #   ephemerides to the GEO reference
-                                        #   frame (time-spacing not changed)
+flagbackup          =       True        #Back up flag column before applying
+                                        #flags.
+verbose             =      False        #Output lots of information while the
+                                        #filler is working
+overwrite           =      False        #Over write an existing MS(s)
+showversion         =      False        #Report the version of asdm2MS being
+                                        #used
+useversion          =       'v3'        #Version of asdm2MS to be used ('v3'
+                                        #(default, should work for all data))
+bdfflags            =      False        #Set the MS FLAG column according to
+                                        #the ASDM _binary_ flags
+with_pointing_correction =      False   #add (ASDM::Pointing::encoder -
+                                        #ASDM::Pointing::pointingDirection)
+                                        #to the value to be written in
+                                        #MS::Pointing::direction
+convert_ephem2geo   =       True        #if True, convert any attached
+                                        #ephemerides to the GEO reference
+                                        #frame (time-spacing not changed)
 ```
 
 If *scans* is set, then **importasdm** processes only the scans specified in the option's value. This value is a semicolon separated list of scan specifications. A scan specification consists of an exec block index followed by the character ':' followed by a comma separated list of scan indexes or scan index ranges. A scan index is relative to the exec block it belongs to. Scan indexes are 1-based while exec blocks are 0-based. The expressions
@@ -252,7 +251,7 @@ The option *createmms* prepares the output file for [parallel processing](https:
 
  
 
-### Specifics on importing Janksy VLA data with importasdm {#title1}
+### Specifics on importing Janksy VLA data with importasdm 
 
 As of CASA 5.4, the task importevla is no longer available to import JVLA data, but a lot of its functionality is replaced by importasdm. However, several additional steps are required to duplicate the behaviour of importevla when using importasdm, involving a difference in default parameters and the fact that some of the on-the-go flagging cannot be performed by importasdm.
 
@@ -276,7 +275,7 @@ Like **importasdm**, the task **flagdata** can also save the flagging commands t
 
  
 
-### Import of ASDM data with option *lazy=True* {#sec95}
+### Import of ASDM data with option *lazy=True* 
 
 With *lazy=False,* **importasdm** will fill the visibilities into a newly created *DATA* column of the MS converting them from their binary format in the ASDM to the CASA Table format.
 
@@ -314,11 +313,6 @@ will set the new location of the referenced ASDM to /home/alma/myanalysis/uid\_\
 <div>
 
 <div class="alert alert-info">
-<div>
-
-<div>
-
-<div>
 
 **Info**: the lazily imported MS itself can be moved without any restrictions independently from the referenced ASDM as long as the path to the ASDM remains accessible, even across file systems.
 
@@ -327,35 +321,29 @@ will set the new location of the referenced ASDM to /home/alma/myanalysis/uid\_\
 </div>
 
 </div>
-</div>
 
 </div>
 
-</div>
 
-</div>
-
-###  
-
-## VLA: Filling data from archive format (importvla) {#sec97}
+## VLA: Filling data from archive format (importvla) 
 
 VLA data in archive format (i.e., as downloaded from the historic VLA data archive) are read into CASA from disk using the **importvla** task. The inputs are:
 
 ```
-#  importvla :: import VLA archive file(s) to a MeasurementSet:
+#importvla :: import VLA archive file(s) to a MeasurementSet:
 
-archivefiles  =         ''   #  Name of input VLA archive file(s)
-vis           =         ''   #  Name of output visibility file
-bandname      =         ''   #  VLA frequency band name:''=>obtain all bands in archive files
-frequencytol  =   150000.0   #  Frequency shift to define a unique spectral window (Hz)
-project       =         ''   #  Project name:  '' => all projects in file
-starttime     =         ''   #  start time to search for data
-stoptime      =         ''   #  end time to search for data
-applytsys     =       True   #  apply nominal sensitivity scaling to data & weights
-autocorr      =      False   #  import autocorrelations to ms, if set to True
-antnamescheme =      'new'   #   'old' or 'new'; 'VA04' or '4' for ant 4
-keepblanks    =      False   #  Fill scans with empty source names (e.g. tipping scans)?
-evlabands     =      False   #  Use updated eVLA frequencies and bandwidths
+archivefiles  =         ''   #Name of input VLA archive file(s)
+vis           =         ''   #Name of output visibility file
+bandname      =         ''   #VLA frequency band name:''=>obtain all bands in archive files
+frequencytol  =   150000.0   #Frequency shift to define a unique spectral window (Hz)
+project       =         ''   #Project name:  '' => all projects in file
+starttime     =         ''   #start time to search for data
+stoptime      =         ''   #end time to search for data
+applytsys     =       True   #apply nominal sensitivity scaling to data & weights
+autocorr      =      False   #import autocorrelations to ms, if set to True
+antnamescheme =      'new'   #'old' or 'new'; 'VA04' or '4' for ant 4
+keepblanks    =      False   #Fill scans with empty source names (e.g. tipping scans)?
+evlabands     =      False   #Use updated eVLA frequencies and bandwidths
 ```
 
 The main parameters are *archivefiles* to specify the input VLA Archive format file names, and *vis* to specify the output MS name.
@@ -400,7 +388,7 @@ archivefiles=['/home/rohir2/jmcmulli/ALMATST1/Data/N7538/AP314_A950519.xp1',
 
 The other parameters are:
 
-#### Parameter applytsys {#sec98}
+#### Parameter applytsys 
 
 The *applytsys* parameter controls whether the nominal sensitivity scaling (based on the measured *TSYS*, with the weights scaled accordingly using the integration time) is applied to the visibility amplitudes or not. If *True*, then it will be scaled so as to be the same as AIPS **FILLM** (i.e. approximately in deciJanskys). Note that post-Modcomp data is in raw correlation coefficient and will be scaled using the *TSYS* values, while Modcomp-era data had this applied online. In all cases **importvla** will do the correct thing to data and weights based on an internal flag in the VLA Archive file, either scaling it or unscaling based on your choice for *applytsys*.
 
@@ -433,13 +421,13 @@ You can specify a specific *project* name to import from archive files. The defa
 For example for VLA Project AL519:
 
 ```
-project = 'AL519'    # this will work
-project = 'al519'    # this will also work
+project = 'AL519'    #this will work
+project = 'al519'    #this will also work
 ```
 
 while *project='AL0519'* will NOT work (even though that is what queries to the VLA Archive will print it as - sorry!).
 
-#### Parameters starttime and stoptime {#sec102}
+#### Parameters starttime and stoptime 
 
 You can specify start and stop times for the data, e.g.:
 
@@ -450,15 +438,15 @@ stoptime = '2199/1/31/23:59:59'
 
 Note that the blank defaults will load all data fitting other criteria.
 
-#### Parameter autocorr {#sec103}
+#### Parameter autocorr 
 
 Note that autocorrelations are filled into the data set if *autocorr=True*. Generally for the VLA, autocorrelation data is not useful, and furthermore the imaging routine will try to image the autocorrelation data (it assumes it is single dish data) which will swamp any real signal. Thus, if you do fill the autocorrelations, you will have to flag them before imaging.
 
-#### Parameter antnamescheme {#sec104}
+#### Parameter antnamescheme 
 
 The *antnamescheme* parameter controls whether **importvla** will try to use a naming scheme where JVLA antennas are prefixed with EA (e.g. 'EA16') and old VLA antennas have names prefixed with VA (e.g. 'VA11'). Our method to detect whether an antenna is JVLA is not yet perfected, and thus unless you require this feature, simply use *antnamescheme='old'*.
 
-#### Parameter evlabands {#sec105}
+#### Parameter evlabands 
 
 The *evlabands=True* option is provided to allow users to access JVLA frequencies outside the standard VLA tunings (e.g. the extended C-band above 6 GHz).
 
@@ -468,7 +456,7 @@ The *evlabands=True* option is provided to allow users to access JVLA frequencie
 
  
 
-## Import ATCA and CARMA data {#sec106}
+## Import ATCA and CARMA data 
 
 There are several ways to import data from ATCA and CARMA into CASA. The data from these arrays has historically been processed in MIRIAD. For simple cases (single source and frequency) exporting from MIRIAD to UVFITS format and importing using **importuvfits** often works ok, although some fixes to the resulting MeasurementSet may be needed.
 
@@ -483,15 +471,15 @@ The **importatca** task reads the ATCA archive format (RPFITS) directly, avoidin
 The task **importmiriad** allows one to import visibilities in the MIRIAD data format to be converted to a MS. The task has mainly been tested on data from the ATCA and CARMA telescopes and the inputs are:
 
 ```
-#  importmiriad :: Convert a Miriad visibility file into a CASA MeasurementSet
-mirfile             =         ''        #  Name of input Miriad visibility file
-vis                 =         ''        #  Name of output MeasurementSet
-tsys                =      False        #  Use the Tsys to set the visibility weights
-spw                 =      'all'        #  Select spectral windows
-vel                 =         ''        #  Select velocity reference (TOPO,LSRK,LSRD)
-linecal             =      False        #  (CARMA) Apply line calibration
-wide                =      'all'        #  (CARMA) Select wide window averages
-debug               =          0        #  Display increasingly verbose debug messages
+#importmiriad :: Convert a Miriad visibility file into a CASA MeasurementSet
+mirfile             =         ''        #Name of input Miriad visibility file
+vis                 =         ''        #Name of output MeasurementSet
+tsys                =      False        #Use the Tsys to set the visibility weights
+spw                 =      'all'        #Select spectral windows
+vel                 =         ''        #Select velocity reference (TOPO,LSRK,LSRD)
+linecal             =      False        #(CARMA) Apply line calibration
+wide                =      'all'        #(CARMA) Select wide window averages
+debug               =          0        #Display increasingly verbose debug messages
 ```
 
 The *mirfile* parameter specifies a single MIRIAD visibility file which should have any calibration done in MIRIAD already applied to it.
@@ -508,29 +496,29 @@ The *wide* parameter is only useful for CARMA data and can select which of the w
 
  
 
-### Import ATCA RPFITS data (importatca) {#sec108}
+### Import ATCA RPFITS data (importatca) 
 
 The data from the ATCA is available from the archive in files in the RPFITS format. These files can be imported into CASA with the **importatca** task.
 
 ```
-#  importatca :: Import ATCA RPFITS file(s) to a MeasurementSet
-files               =['*.C1234']        #  Name of input ATCA RPFits file(s)
-vis                 = 'c1234.ms'        #  Name of output visibility file
-                                        #   (MeasurementSet)
-options             =         ''        #  Processing options: birdie, reweight,
-                                        #   noxycorr, fastmosaic, hires, noac
-                                        #   (comma separated list)
-spw                 =       [-1]        #  Specify the spectral windows to use,
-                                        #   default=all
-nscans              =     [0, 0]        #  Number of scans to skip followed by
-                                        #   number of scans to read
-lowfreq             =   '0.1GHz'        #  Lowest reference frequency to select
-highfreq            =   '999GHz'        #  Highest reference frequency to select
-fields              =       ['']        #  List of field names to select
-edge                =          8        #  Percentage of edge channels to flag.
-                                        #   For combined zooms, this specifies
-                                        #   the percentage for a single zoom
-                                        #   window
+#importatca :: Import ATCA RPFITS file(s) to a MeasurementSet
+files               =['*.C1234']        #Name of input ATCA RPFits file(s)
+vis                 = 'c1234.ms'        #Name of output visibility file
+                                        #(MeasurementSet)
+options             =         ''        #Processing options: birdie, reweight,
+                                        #noxycorr, fastmosaic, hires, noac
+                                        #(comma separated list)
+spw                 =       [-1]        #Specify the spectral windows to use,
+                                        #default=all
+nscans              =     [0, 0]        #Number of scans to skip followed by
+                                        #number of scans to read
+lowfreq             =   '0.1GHz'        #Lowest reference frequency to select
+highfreq            =   '999GHz'        #Highest reference frequency to select
+fields              =       ['']        #List of field names to select
+edge                =          8        #Percentage of edge channels to flag.
+                                        #For combined zooms, this specifies
+                                        #the percentage for a single zoom
+                                        #window
 ```
 
 The files parameter can take a string or a list of strings as input and also allows the use of wildcards as shown in the example above.
@@ -558,7 +546,7 @@ The *edge* parameter specifies how many edge channels to discard as a percentage
 
  
 
-### UVFITS Import {#sec109}
+### UVFITS Import 
 
  
 
@@ -566,15 +554,15 @@ The UVFITS format is not exactly a standard, but is a popular archive and transp
 
 UVFITS is supported for both import and export.
 
-#### Import using importuvfits {#sec111}
+#### Import using importuvfits 
 
 To import UVFITS format data into CASA, use the **importuvfits** task:
 
 ```
 #In CASA: inp(importuvfits)
-fitsfile            =         ''  # Name of input UVFITS file
-vis                 =         ''  # Name of output visibility file (MS)
-antnamescheme       =      'old'  # For VLA only; 'new' or 'old'; 'VA04' or '04' for VLA ant 4
+fitsfile            =         ''  #Name of input UVFITS file
+vis                 =         ''  #Name of output visibility file (MS)
+antnamescheme       =      'old'  #For VLA only; 'new' or 'old'; 'VA04' or '04' for VLA ant 4
 ```
 
 This is straightforward, since all it does is read in a UVFITS file and convert it as best it can into a MS.
@@ -586,25 +574,35 @@ importuvfits(fitsfile='NGC5921.fits',vis='ngc5921.ms')
 ```
 
 <div class="alert alert-info">
-**INFO: **Here is a hint for handling CARMA data loaded into CASA using importuvfits:tb.open(\"c0104I/ANTENNA\",nomodify=False)namelist=tb.getcol(\"NAME\").tolist()for i in range(len(namelist)): name = \'CA\'+namelist\[i\] print \' Changing \'+namelist\[i\]+\' to \'+name namelist\[i\]=name tb.putcol(\"NAME\",namelist)tb.close()
+**INFO: **Here is a hint for handling CARMA data loaded into CASA using importuvfits:
+
+tb.open("c0104I/ANTENNA",nomodify=False)
+namelist=tb.getcol("NAME").tolist()
+for i in range(len(namelist)):
+ name = 'CA'+namelist[i]
+ print ' Changing '+namelist[i]+' to '+name
+ namelist[i]=name
+ 
+tb.putcol("NAME",namelist)
+tb.close()
 </div>
 
  
 
-#### Import using importfitsidi {#sec111}
+#### Import using importfitsidi 
 
 Some **uvfits** data is written in the FITS-IDI standard. Those files can be imported into CASA with the **importfitsidi** task:
 
 ```
-#  importfitsidi :: Convert a FITS-IDI file to a CASA visibility data set
-fitsidifile         =       ['']       #  Name(s) of input FITS-IDI file(s)
-vis                 =          ''       #  Name of output visibility file (MS)
-constobsid          =      False        #  If True, give constant obs ID==0 to
-                                        #   the data from all input fitsidi
-                                        #   files (False = separate obs id for
-                                        #   each file)
-scanreindexgap_s    =        0.0        #  min time gap (seconds) between
-                                        #   integrations to start a new scan
+#importfitsidi :: Convert a FITS-IDI file to a CASA visibility data set
+fitsidifile         =       ['']       #Name(s) of input FITS-IDI file(s)
+vis                 =          ''       #Name of output visibility file (MS)
+constobsid          =      False        #If True, give constant obs ID==0 to
+                                        #the data from all input fitsidi
+                                        #files (False = separate obs id for
+                                        #each file)
+scanreindexgap_s    =        0.0        #min time gap (seconds) between
+                                        #integrations to start a new scan
 ```
 
 The *constobs* parameter can be used to give all visibilities the same observation id of 0. *scanreindexgap_s* controls the gap that defines different scans.

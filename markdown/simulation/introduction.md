@@ -33,7 +33,7 @@ ALMA users, especially those less familiar with CASA, are encouraged to use the 
 More simulation examples can be found in the CASA guides <http://casaguides.nrao.edu>, under "Simulating Observations in CASA". It is possible to run the steps independently and optionally, as long as you follow the **simobserve** and **simanalyze** conventions about filenames.
 
 <div class="alert alert-info">
-**Tip**: A list of antenna configuration files known to CASA is linked from the simulation CASA guides. On Unix, Linux, and Mac computers, you can usually also find this list yourself by typing, for instance, \"locate alma.cycle4.1.cfg\" and looking at other files in that directory.
+**Tip**: A list of antenna configuration files known to CASA is linked from the simulation CASA guides. On Unix, Linux, and Mac computers, you can usually also find this list yourself by typing, for instance, "locate alma.cycle4.1.cfg" and looking at other files in that directory.
 </div>
 
  

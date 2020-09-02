@@ -12,7 +12,7 @@ An end-to-end workflow diagram for CASA data reduction for interferometry data i
 >  
 > 
 >
->  ![](markdown/_media/ab58d87341f6d1d313c318373ddcda0f04b4d077.png)
+> [ ![ab58d87341f6d1d313c318373ddcda0f04b4d077](media/ab58d87341f6d1d313c318373ddcda0f04b4d077.png)]{
 >
 > 
 >>Flow chart of the data processing operations that a general user will carry out in an end-to-end CASA reduction session.
@@ -23,7 +23,7 @@ An end-to-end workflow diagram for CASA data reduction for interferometry data i
 
 Note that single-dish data reduction (for example with the ALMA single-dish system) follows a similar course. This is detailed in the corresponding chapters.
 
-## Loading Data into CASA {#sec55 .subsection}
+## Loading Data into CASA 
 
  
 
@@ -42,33 +42,31 @@ Once data is imported, there are other operations you can use to manipulate the 
 
 -   **concat** --- concatenate multiple MSs into a given or a new MS 
 
-####   {#section .subsubsection}
 
-## VLA: Filling data from VLA archive format {#sec56 .subsubsection}
+## VLA: Filling data from VLA archive format 
 
 Jansky VLA data in \"archive SDM format are read into CASA via **importasdm**.  Historic VLA data can be filled with the tasl **importvla**.
 
  
 
-## Fillin data from Scantable format {#sec56 .subsubsection}
+## Fillin data from Scantable format 
 
 CASA can import data from the Scantable format, since the development of Single-Dish started with that format (based on [ASAP](http://svn.atnf.csiro.au/trac/asap) format ). Currently, CASA tasks in Scantable format is no longer supported, but Scantable format can be converted into MeasurementSet format, with [importASAP](https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_importasap).
 
  
 
-## Filling data from UVFITS format {#filling-data-from-uvfits-format .subsubsection}
+## Filling data from UVFITS format 
 
  For UVFITS format, use the **importuvfits** task. A subset of popular flavors of UVFITS (in particular UVFITS as written by AIPS) is supported by the CASA filler. FITSIDI (frequently used for VLBI data) can be read by **importfitsidi**. See \"[Visibility Data Import Export](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/visibility-data-import-export)\" for details. 
 
-####   {#section-1 .subsubsection}
 
-## Loading FITS images {#sec58 .subsubsection}
+## Loading FITS images 
 
  For FITS format images, such as those to be used as calibration models, use the **importfits** task. Most, though not all, types of FITS images written by astronomical software packages can be read in. See \"[Image Analysis](https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis)\" for more information.
 
  
 
-## Concatenation of multiple MS {#sec59 .subsubsection}
+## Concatenation of multiple MS 
 
  Once you have loaded data into MeasurementSets on disk, you can use the tasks **concat** or **virtualconcat** to combine them.
 
@@ -88,9 +86,8 @@ These tasks allow you to list, plot, and/or flag data in a CASA MS.
 
 Descriptions can be found in \"[Data Examination and Editing](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing)\".
 
-####   {#section-2 .subsubsection}
 
-## Interactive X-Y Plotting and Flagging {#sec61 .subsubsection}
+## Interactive X-Y Plotting and Flagging 
 
  
 
@@ -106,21 +103,18 @@ casaplotms &
 
 from any terminal. 
 
-####   {#section-3 .subsubsection}
 
-## Flag the Data Non-interactively {#sec62 .subsubsection}
+## Flag the Data Non-interactively 
 
 The **flagdata** task (\"[Data Examination and Editing](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing)\") will flag the visibility data set based on the specified data selections. The **listobs** task may be run (e.g. with *verbose=True*) to provide some of the information needed to specify the flagging scope. **flagdata** also contains autoflagging routines.
 
-####   {#section-4 .subsubsection}
 
-## Viewing and Flagging the MS {#sec63 .subsubsection}
+## Viewing and Flagging the MS 
 
 The CASA **viewer** can be used to display the data in the MS as a (grayscale or color) raster image. The specific part of the viewer can also be launched with **msview.** The MS can also be edited (\"[Data Examination and Editing](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing)\"). 
 
-###   {#section-5 .subsection}
 
-## Calibration {#sec64 .subsection}
+## Calibration 
 
  The major calibration tasks are:
 
@@ -153,15 +147,14 @@ Antenna gain-elevation curves (e.g. for the VLA antennas), gain curves, requanti
 
 See \"[Synthesis Calibration](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration)\" for more information.
 
-###   {#section-6 .subsubsection}
 
-### Delay Calibration {#sec66 .subsubsection}
+### Delay Calibration 
 
 A delay for each antenna can be calculated using **gaincal** with option \"K\". The delay calibration will remove delay errors that cause systematic slopes in the phases as a function opf time. In particular phase wraps will be removed. 
 
  
 
-### Bandpass Calibration {#sec66 .subsubsection}
+### Bandpass Calibration 
 
 The **bandpass** task calculates a bandpass calibration solution: that is, it solves for gain variations in frequency as well as in time. Since the bandpass (relative gain as a function of frequency) generally varies much more slowly than the changes in overall (mean) gain solved for by gaincal, one generally uses a long time scale when solving for the bandpass. The default *'B'* solution mode solves for the gains in frequency slots consisting of channels or averages of channels.
 
@@ -173,7 +166,7 @@ If the gains of the system are changing over the time that the bandpass calibrat
 
  
 
-### Gain Calibration {#sec67 .subsubsection}
+### Gain Calibration 
 
 The **gaincal** task determines solutions for the time-based complex antenna gains, for each spectral window, from the specified calibration sources. A solution interval may be specified. The default *'G'* solution mode solves for antenna-based gains in each polarization in specified time solution intervals. The *'T'* solution mode is the same as *'G'* except that it solves for a single solution shared by both polarizations.
 
@@ -183,7 +176,7 @@ Gain calibration is discussed in detail in \"[Synthesis Calibration](https://cas
 
  
 
-### Polarization Calibration {#sec68 .subsubsection}
+### Polarization Calibration 
 
 The **polcal** task will solve for any unknown polarization leakage and cross-hand phase terms (*'D'* and *'X'* solutions). The *'D'* leakage solutions will work on sources with no polarization and sources with known (and supplied, e.g., using smodel) polarization. For sources with unknown polarization tracked through a range in parallactic angle on the sky, using poltype *'D+QU'*, which will first estimate the calibrator polarization for you.
 
@@ -193,7 +186,7 @@ Frequency-dependent (i.e., per channel) versions of all of these modes are also 
 
  
 
-### Examining Calibration Solutions {#sec69 .subsubsection}
+### Examining Calibration Solutions 
 
 The **plotcal** task and **plotms** will plot the solutions in a calibration table. The *xaxis* choices include time (for gaincal solutions) and channel (e.g. for bandpass calibration). 
 
@@ -201,39 +194,37 @@ The **listcal** task will print out the calibration solutions in a specified tab
 
  
 
-#### Bootstrapping Flux Calibration {#sec70 .subsubsection}
+#### Bootstrapping Flux Calibration 
 
 The **fluxscale** task bootstraps the flux density scale from "primary" standard calibrators to the "secondary" calibration sources. Note that the flux density scale must have been previously established on the "primary" calibrator(s) using **setjy**, and of course a calibration table containing valid solutions for all calibrators must be available.
 
  
 
-### Correcting the Data {#sec71 .subsubsection}
+### Correcting the Data 
 
 The final step in the calibration process, **applycal** may be used to apply several calibration tables (e.g., from **gaincal** or **bandpass**, along with prior calibration tables). The corrections are applied to the *DATA* column of the visibility, writing the *CORRECTED_DATA* column which can then be plotted in **plotms**, **split** out as the *DATA* column of a new MS, or imaged (e.g. using **clean**). Any existing corrected data are overwritten.
 
  
 
-### Splitting the Data {#sec72 .subsubsection}
+### Splitting the Data 
 
 After a suitable calibration is achieved, it may be desirable to create one or more new MeasurementSets containing the data for selected sources. This can be done using the **split** task (see \"[UV Manipulation](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/uv-manipulation)\").
 
 Further imaging and calibration (e.g. self-calibration) can be carried out on these split MeasurementSets.
 
-####   {#section-7 .subsubsection}
 
-### UV Continuum subtraction {#sec73 .subsubsection}
+### UV Continuum subtraction 
 
 For spectral line data, continuum subtraction can be performed in the image domain (**imcontsub**) or in the uv domain. For the latter, **uvcontsub** subtracts polynomial of desired order from each baseline, defined by line-free channels.
 
-####   {#section-8 .subsubsection}
 
-### Transforming the Data to a new frame {#sec74 .subsubsection}
+### Transforming the Data to a new frame 
 
 If you want to transform your dataset to a different frequency and velocity frame than the one it was observed in, then you can use the **cvel** task (\"[UV Manipulation](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/uv-manipulation)\"). Alternatively, you can do the regridding during the imaging process in **clean** without running **cvel** before.
 
  
 
-## Synthesis Imaging {#sec75 .subsection}
+## Synthesis Imaging 
 
  
 
@@ -270,7 +261,7 @@ See \"[Image Combination](https://casa.nrao.edu/casadocs-devel/stable/imaging/im
 
  
 
-## Self Calibration {#sec78 .subsection}
+## Self Calibration 
 
 Once a calibrated dataset is obtained, and a first deconvolved model image is computed, a "self-calibration" loop can be performed. Effectively, the model (not restored) image is passed back to another calibration process (on the target data). This refines the calibration of the target source, which up to this point has had (usually) only external calibration applied. This process follows the regular calibration procedure outlined above.
 
@@ -280,7 +271,7 @@ This process is described in \"[Synthesis Calibration](https://casa.nrao.edu/cas
 
  
 
-## Data and Image Analysis {#sec79 .subsection}
+## Data and Image Analysis 
 
 The key data and image analysis tasks are:
 
@@ -294,9 +285,8 @@ The key data and image analysis tasks are:
 -   **imregrid** --- regrid an image onto the coordinate system of another image 
 -   **viewer** --- there are useful region statistics and image cube plotting capabilities in the viewer
 
-####   {#section-9 .subsubsection}
 
-### What's in an image? {#sec80 .subsubsection}
+### What's in an image? 
 
 The **imhead** task will print out a summary of image "header" keywords and values. This task can also be used to retrieve and change the header values.
 
@@ -304,37 +294,37 @@ See \"[Image Analysis](https://casa.nrao.edu/casadocs-devel/stable/imaging/image
 
  
 
-### Image statistics {#sec81 .subsubsection}
+### Image statistics 
 
 The **imstat** task will print image statistics. There are options to restrict this to a box region, and to specified channels and Stokes of the cube. This task will return the statistics in a Python dictionary return variable.
 
  
 
-### Image values {#sec82 .subsubsection}
+### Image values 
 
 The **imval** task will return values from an image. There are options to restrict this to a box region, and to return specified channels and Stokes of the cube as a spectrum. This task will return these values in a Python dictionary return variable which can then be operated on in the CASA environment.
 
  
 
-### Moments of an image cube {#sec83 .subsubsection}
+### Moments of an image cube 
 
 The **immoments** task will compute a "moments" image of an input image cube. A number of options are available, from the traditional true moments (zero, first, second) and variations thereof, to other images such as median, minimum, or maximum along the moment axis.
 
  
 
-### Image math {#sec84 .subsubsection}
+### Image math 
 
 The **immath** task will allow you to form a new image by mathematical combinations of other images (or parts of images). This is a powerful task to use.
 
  
 
-### Regridding an Image {#sec85 .subsubsection}
+### Regridding an Image 
 
 It is occasionally necessary to regrid an image onto a new coordinate system. The **imregrid** task can be used to regrid an input image onto the coordinate system of an existing template image, creating a new output image.
 
  
 
-## Displaying Images {#sec86 .subsubsection}
+## Displaying Images 
 
 To display an image use the **viewer** task. The **viewer** will display images in raster, contour, or vector form. Blinking and movies are available for spectral-line image cubes. To start the viewer, type:
 
@@ -356,7 +346,7 @@ See \"[Image / Cube Visualization](https://casa.nrao.edu/casadocs-devel/stable/i
 
  
 
-## Getting data and images out of CASA {#sec87 .subsection}
+## Getting data and images out of CASA 
 
 The key data and image export tasks are:
 

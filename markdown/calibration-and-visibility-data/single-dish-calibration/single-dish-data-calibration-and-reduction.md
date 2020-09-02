@@ -204,53 +204,23 @@ scaleAutocorr(vis=sd_ms+'.cal', scale=jyperk[ant][spw]['mean'], antenna=ant, spw
 which can be iterated and applied to the actual data with the following loop:
 
 ```
-<div>
 
 to_amp_factor = lambda x: 1. / sqrt(x)
 
-</div>
-
-<div>
-
  
-
-</div>
-
-<div>
 
 for ant in jyperk.keys():
 
-</div>
-
-<div>
-
    factors=[]
-
-</div>
-
-<div>
 
    for spw in jyperk[ant].keys():
 
-</div>
-
-<div>
-
       factors.append(jyperk[ant][spw]['mean'])
-
-</div>
-
-<div>
 
    gencal(vis=sd_ms, caltable=sd_ms+'.jy2ktbl', caltype='amp', spw=",".join(str(x) for x in jyperk[ant].keys()), parameter=map(to_amp_factor, factors))
 
-</div>
-
-<div>
-
    applycal(vis=sd_ms+'.cal', gaintable=sd_ms+'.jy2ktbl')
 
-</div>
 ```
 
  

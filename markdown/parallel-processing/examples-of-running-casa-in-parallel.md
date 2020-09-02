@@ -6,9 +6,7 @@ Examples of running CASA interactively or via a script in parallel
 
 # Parallel processing using Multi-MS (MMS) in CASA is unverified - please use at own discretion. 
 
-### Please consider [parallel imaging](https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/parallel-imaging) using normal MS as alternative.
-
-###   {#section .subsection}
+### [Please consider [[parallel imaging](https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/parallel-imaging)]{ using normal MS as alternative.]
 
 # Examples of running CASA in parallel
 

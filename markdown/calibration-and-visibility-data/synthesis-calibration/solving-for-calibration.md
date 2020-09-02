@@ -19,8 +19,8 @@ There are a number of parameters that are in common between the calibration solv
 The input MeasurementSet and output calibration table are controlled by the following parameters:
 
 ```
-vis          =         ''   #   Name of input visibility file
-caltable     =         ''   #   Name of output calibration table
+vis          =         ''   #Name of input visibility file
+caltable     =         ''   #Name of output calibration table
 ```
 
 The MS name is specified in *vis*. If it is highlighted red in the inputs then it does not exist, and the task will not execute. Check the name and path in this case.
@@ -32,10 +32,10 @@ The output table name is specified in *caltable*. Be sure to give a unique name 
 Data selection is controlled by the following parameters:
 
 ```
-field        =         ''   #   field names or index of calibrators: ''==>all
-spw          =         ''   #   spectral window:channels: ''==>all
-intent       =         ''   #  Select observing intent
-selectdata   =      False   #   Other data selection parameters
+field        =         ''   #field names or index of calibrators: ''==>all
+spw          =         ''   #spectral window:channels: ''==>all
+intent       =         ''   #Select observing intent
+selectdata   =      False   #Other data selection parameters
 ```
 
 Field and spectral window selection are so often used, that we have made these standard parameters, *field* and *spw* respectively.  Additionally, *intent* is also included as a standard parameter to enable selection by the scan intents that were specified when the observations were set up and executed. They typically describe what was intended with a specific scan, i.e. a flux or phase calibration, a bandpass, a pointing, an observation of your target, or something else or a combination. The format for the scan intents of your observations are listed in the logger when you run listobs. Minimum matching with wildcards will work, like \*BANDPASS\*.  This is especially useful when multiple intents are attached to scans.  Finally, observation is an identifier to distinguish between different observing runs, mainly used for ALMA.
@@ -43,15 +43,15 @@ Field and spectral window selection are so often used, that we have made these s
 The selectdata parameter expands, revealing a range of other selection sub-parameters:
 
 ```
-selectdata          =       True        #  data selection parameters
-     timerange      =         ''        #  time range (blank for all)
-     uvrange        =         ''        #  uv range (blank for all)
-     antenna        =         ''        #  antenna/baselines (blank for all)
-     scan           =         ''        #  scan numbers (blank for all)
-     correlation    =         ''        #  correlations (blank for all)
-     array          =         ''        #  (sub)array numbers (blank for all)
-     observation    =         ''        #  Select by observation ID(s)
-     msselect       =         ''        #  MS selection (blank for all)
+selectdata          =       True        #data selection parameters
+     timerange      =         ''        #time range (blank for all)
+     uvrange        =         ''        #uv range (blank for all)
+     antenna        =         ''        #antenna/baselines (blank for all)
+     scan           =         ''        #scan numbers (blank for all)
+     correlation    =         ''        #correlations (blank for all)
+     array          =         ''        #(sub)array numbers (blank for all)
+     observation    =         ''        #Select by observation ID(s)
+     msselect       =         ''        #MS selection (blank for all)
 ```
 
 Note that if *selectdata=False* these parameters are not used when the task is executed, even if set non-trivially.
@@ -63,11 +63,11 @@ Among the most common *selectdata=True* parameters to use is uvrange, which can 
 Calibration tables that have already been determined can be arranged for apply before solving for the new table using the following parameters:
 
 ```
-docallib        =  False        #  Use traditional cal apply parameters
-     gaintable  =     []        #  Gain calibration table(s) to apply on the fly
-     gainfield  =     []        #  Select a subset of calibrators from gaintable(s)
-     interp     =     []        #  Interpolation mode (in time) to use for each gaintable
-     spwmap     =     []        #  Spectral windows combinations to form for gaintable(s)
+docallib        =  False        #Use traditional cal apply parameters
+     gaintable  =     []        #Gain calibration table(s) to apply on the fly
+     gainfield  =     []        #Select a subset of calibrators from gaintable(s)
+     interp     =     []        #Interpolation mode (in time) to use for each gaintable
+     spwmap     =     []        #Spectral windows combinations to form for gaintable(s)
 ```
 
 The *docallib* parameter is a toggle that can be used to select specification of prior calibration using the new \"cal library\" mechanism (*docallib=True*) which is described in greater detail [here.](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/cal-library-syntax)
@@ -137,7 +137,7 @@ The *spwmap* parameter is used to redistribute the calibration available in a ca
 The default for *spwmap* (an empty list per *gaintable*) means that MS spectral windows will be calibrated by solutions identified with the same index in the calibration table (i.e., by themselves, typically).  Explicit specification of the default would be *spwmap=\[0,1,2,3\]*, for an MS with four spectral windows.   Less trivially, for a caltable containing solutions derived from and labelled as spectral windows 0 and 1, these two cal spectral windows can be mapped to any of the MS spectral windows.  E.g., (for a single *gaintable*):
 
 ```
-   spwmap=[0,1,1,0]                # apply from cal spw=0 to MS spws 0,3 and from cal spw 1 to MS spws 1,2
+   spwmap=[0,1,1,0]                #apply from cal spw=0 to MS spws 0,3 and from cal spw 1 to MS spws 1,2
 ```
 
 For multiple gaintables, use a lists of lists (one spwmap list per gaintable), e.g.,
@@ -229,15 +229,15 @@ The *parang* parameter turns on the application of the antenna-based parallactic
 The parameters controlling common aspects of the solving process itself are:
 
 ```
-solint              =      'inf'        #  Solution interval: egs. 'inf', '60s' (see help)
-combine             =     'scan'        #  Data axes which to combine for solve (obs, scan,
-                                        #   spw, and/or field)
-preavg              =       -1.0        #  Pre-averaging interval (sec) (rarely needed)
-refant              =         ''        #  Reference antenna name(s)
-minblperant         =          4        #  Minimum baselines _per antenna_ required for solve
-minsnr              =        3.0        #  Reject solutions below this SNR
-solnorm             =      False        #  Normalize solution amplitudes post-solve.
-corrdepflags        =      False        #  Respect correlation-dependent flags
+solint              =      'inf'        #Solution interval: egs. 'inf', '60s' (see help)
+combine             =     'scan'        #Data axes which to combine for solve (obs, scan,
+                                        #spw, and/or field)
+preavg              =       -1.0        #Pre-averaging interval (sec) (rarely needed)
+refant              =         ''        #Reference antenna name(s)
+minblperant         =          4        #Minimum baselines _per antenna_ required for solve
+minsnr              =        3.0        #Reject solutions below this SNR
+solnorm             =      False        #Normalize solution amplitudes post-solve.
+corrdepflags        =      False        #Respect correlation-dependent flags
 ```
 
 The time and frequency (if relevant) solution interval is specified in *solint*. Optionally a frequency interval for each solution can be added after a comma, e.g. *solint=\'60s,300Hz\'*. Time units are in seconds unless specified differently. Frequency units can be either \'*ch*\' or \'*Hz*\' and only make sense for bandpass or frequency dependent polarization calibration.  On the time axis, the special value \'inf\' specifies an infinite solution interval encompassing the entire dataset, while \'int\' specifies a solution every integration.  Omitting the frequency-dependent solution interval will yield per-sample solutions on this axis.  You can use time quanta in the string, e.g. *solint=\'1min\'* and *solint=\'60s\'* both specify solution intervals of one minute. Note that \'*m*\' is a unit of distance (meters); \'*min*\' must be used to specify minutes. The *solint* parameter interacts with *combine* to determine whether the solutions cross scan, field, or other meta-data boundaries.
@@ -263,7 +263,7 @@ You can specify multiple choices for combination by separating the axes with com
 ```
 
 <div class="alert alert-warning">
-Care should be exercised when using *combine=\'spw\'* in cases where multiple groups of concurrent spectral windows are observed as a function of time. Currently, only one aggregate spectral window can be generated in a single calibration solve execution, and the meta-information for this spectral window is calculated from all selected MS spectral windows. To avoid incorrect calibration meta-information, each spectral window group should be calibrated independently (also without using *append=True*). Additional flexibility in this area will be supported in a future version.
+Care should be exercised when using *combine='spw'* in cases where multiple groups of concurrent spectral windows are observed as a function of time. Currently, only one aggregate spectral window can be generated in a single calibration solve execution, and the meta-information for this spectral window is calculated from all selected MS spectral windows. To avoid incorrect calibration meta-information, each spectral window group should be calibrated independently (also without using *append=True*). Additional flexibility in this area will be supported in a future version.
 </div>
 
 The reference antenna is specified by the *refant* parameter.  Ordinary MS Selection antenna selection syntax is used.  Ideally, use of *refant* is useful to lock the solutions with time, effectively rotating (after solving) the phase of the gain solutions for all antennas such that the reference antennas phase remains constant at zero.  In **gaincal,** it is also possible to select a *refantmode*, either \'*flex*\' or \'*strict*\'.  A list of antennas can be provided to this parameter and, for refantmode=\'flex\', if the first antenna is not present in the solutions (e.g., if it is flagged), the next antenna in the list will be used, etc.   See the documentation for the **rerefant** task for more information.  If the selected antenna drops out, the next antenna specified (or the next nearest antenna) will be substituted for ongoing continuity in time (at its current value) until the refant returns, usually at a new value (not zero), which will be kept fixed thenceforth.  You can also run without a reference antenna, but in this case the solutions will formally float with time; in practice, the first antenna will be approximately constant near zero phase. It is usually prudent to select an antenna near the center of the array that is known to be particularly stable, as any gain jumps or wanders in the *refant* will be transferred to the other antenna solutions. Also, it is best to choose a reference antenna that never drops out, if possible.Setting a *preavg* time will let you average data over periods shorter than the solution interval first before solving on longer timescales.  This is necessary only if the visibility data vary systematically within the solution interval in a manner independent of the solve-for factors (which are, by construction, considered constant within the solution interval), e.g., source linear polarization in **polcal**.  Non-trivial use of *preavg* in such cases will avoid loss of SNR in the averaging within the solution interval. 
@@ -281,7 +281,7 @@ The *corrdepflags* parameter controls how visibility vector flags are interprete
 The *append* parameter, if set to *True*, will append the solutions from this run to existing solutions in *caltable*. Of course, this only matters if the table already exists. If *append=False* and the specified caltable exists, it will overwrite it (if the caltable is not open in another process).
 
 <div class="alert alert-warning">
-The *append* parameter should be used with care, especially when also using *combine* in non-trivial ways. E.g., calibration solves will currently refuse to append incongruent aggregate spectral windows (e.g., observations with more than one group of concurrent spectral windows) when using *combine=\'spw\'*. This limitation arises from difficulty determining the appropriate spectral window fan-out on apply, and will be relaxed in a future version.
+The *append* parameter should be used with care, especially when also using *combine* in non-trivial ways. E.g., calibration solves will currently refuse to append incongruent aggregate spectral windows (e.g., observations with more than one group of concurrent spectral windows) when using *combine='spw'*. This limitation arises from difficulty determining the appropriate spectral window fan-out on apply, and will be relaxed in a future version.
 </div>
 
  

@@ -34,7 +34,7 @@ xSampling, ySampling, maxsize = aU.getTPSampling(refvis, showplot=True)
 
 which returns an image output showing the scans, their sky angles, and positions in RA-Dec, as shown here:
 
-![683703caa9ae3cec3d89b02760ba73df66041b2d](media/683703caa9ae3cec3d89b02760ba73df66041b2d.png)
+![683703caa9ae3cec3d89b02760ba73df66041b2d](media/683703caa9ae3cec3d89b02760ba73df66041b2d.png){.image-inline}
 
 Note that **getTPSampling** MUST operate on the original MeasurementSet (i.e. one that is not split or subselected). **getTPSampling** also yields the sampling rates in the x and y (i.e. azimuth and elevation) axes, as well as the maximum size of the image, in arcseconds.
 

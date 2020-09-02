@@ -29,7 +29,7 @@ $ cat ~/.casa/config.py
 
 import time
 
-datapath=["/home/casa/data/casa-data", "/home/casa/data/casa-data-req"]
+[datapath=["/home/casa/data/casa-data", "/home/casa/data/casa-data-req"]]{
 logfile='casalog-%s.log' % time.strftime("%Y%m%d-%H",time.localtime())
 telemetry_enabled = True
 crashreporter_enabled = True
@@ -44,7 +44,7 @@ At runtime the datapath(s) are expanded through a resolve(\...) function to find
 ```
 
 <div class="alert alert-warning">
-**WARNING**: CASA 5 does not use config.py. Instead \~/.casa/prelude.py is evaluated during startup before anything else and \~/.casa/init.py is evaluated just before the CASA prompt is presented. The configuration options are different and more limited 
+**WARNING**: CASA 5 does not use config.py. Instead ~/.casa/prelude.py is evaluated during startup before anything else and ~/.casa/init.py is evaluated just before the CASA prompt is presented. The configuration options are different and more limited 
 </div>
 
  
@@ -54,7 +54,25 @@ At runtime the datapath(s) are expanded through a resolve(\...) function to find
 With the full installation of CASA from a tar file, the python environment itself is included and started through ./bin/casa.  This ./bin/casa executable can be provided the following options to change configuration values at run time: 
 
 <div class="alert alert-info">
-  -h, \--help            show this help message and exit  \--logfile LOGFILE     path to log file  \--log2term            direct output to terminal  \--nologger            do not start CASA logger  \--nologfile           do not create a log file  \--nogui               avoid starting GUI tools  \--rcdir RCDIR         location for startup files  \--norc                do not load user config.py  \--colors {Neutral,NoColor,Linux,LightBG}                        prompt color  \--pipeline            start CASA pipeline run  \--agg                 startup without graphical backend  \--iplog               create ipython log  \--notelemetry         disable telemetry collection  \--nocrashreport       do not submit an online report when CASA crashes  \--datapath DATAPATH   data path(s) \[colon separated\]  \--user-site           include user\'s local site-packages lib in path  -c \...                python eval string or python script to execute
+[  -h, --help            show this help message and exit
+  --logfile LOGFILE     path to log file
+  --log2term            direct output to terminal
+  --nologger            do not start CASA logger
+  --nologfile           do not create a log file
+  --nogui               avoid starting GUI tools
+  --rcdir RCDIR         location for startup files
+  --norc                do not load user config.py
+  --colors {Neutral,NoColor,Linux,LightBG}
+                        prompt color
+  --pipeline            start CASA pipeline run
+  --agg                 startup without graphical backend
+  --iplog               create ipython log
+  --notelemetry         disable telemetry collection
+  --nocrashreport       do not submit an online report when CASA crashes
+  --datapath DATAPATH   data path(s) [colon separated]
+  --user-site           include user's local site-packages lib in path
+]{  -c ...                python eval string or python script to execute
+
 </div>
 
 These options **take precedence over the configuration files.**
@@ -66,7 +84,7 @@ Some options imply or take precedence over other options:
 -   \--pipeline implies \--agg
 
 <div class="alert alert-warning">
-**WARNING**: the command line arguments listed above apply to CASA 6. CASA 5 (including CASA 5.7) do not include \--notelemetry and \--norc.
+**WARNING**: the command line arguments listed above apply to CASA 6. CASA 5 (including CASA 5.7) do not include --notelemetry and --norc.
 </div>
 
  
@@ -79,7 +97,7 @@ CASA packages installed through pip may be imported in to the standard Python en
 (casa6) $ python
 
 Python 3.6.9 (default, Nov 7 2019, 10:44:02) 
-[GCC 8.3.0] on linux
+[[GCC 8.3.0] on linux]{
 Type "help", "copyright", "credits" or "license" for more information.
 >>> import casatasks
 >>> help(casatasks)

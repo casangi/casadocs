@@ -26,7 +26,7 @@ It is important to note that many methods return new image analysis tools that a
 
 ```
 new_image_tool = ia.collapse("my_collapsed.im")
-# do things with new_image_tool and then run done() on it
+#do things with new_image_tool and then run done() on it
 new_image_tool.done()
 ```
 
@@ -237,28 +237,28 @@ ia.maketestimage('zz',overwrite=true)
 ```
 
 ```
-# print a summary to the logger and capture the summary metadata in variable "summary"
+#print a summary to the logger and capture the summary metadata in variable "summary"
 summary = ia.summary()
 ```
 
 ```
-# evaluate image statistics and save the stats info to a variable called "stats"
+#evaluate image statistics and save the stats info to a variable called "stats"
 stats = ia.statistics()
 ```
 
 ```
-# create a rectangular region using the rg tool
+#create a rectangular region using the rg tool
 box = rg.box([10,10], [50,50])
 ```
 
 ```
-# create a subimage of that region, and name the resulting image "zz2"
-# capture the new image tool attached to "zz2" in the variable "im2"
+#create a subimage of that region, and name the resulting image "zz2"
+#capture the new image tool attached to "zz2" in the variable "im2"
 im2 = ia.subimage('zz2', box, overwrite=true)
 ```
 
 ```
-# get statistics for zz2 and store the results in the variable "stats2"
+#get statistics for zz2 and store the results in the variable "stats2"
 stats2 = im2.statistics()
 ```
 
@@ -266,12 +266,12 @@ stats2 = im2.statistics()
 print "CLEANING UP OLD zz2.amp/zz2.phase IF THEY EXIST. IGNORE WARNINGS!"
 ia.removefile('zz2.amp')
 ia.removefile('zz2.phase')
-# FFT subimage and store amp and phase
+#FFT subimage and store amp and phase
 im2.fft(amp='zz2.amp',phase='zz2.phase')
 ```
 
 ```
-# close image tools
+#close image tools
 im2.close()
 ia.close()
 ```
@@ -283,23 +283,23 @@ ia.close()
 The image analysis tool also provides native, read-only access to some foreign image formats. Presently, these are FITS (Float, Double, Short and Long pixel values are supported) and Miriad. This means that you don\'t have to convert the file to native CASA format in order to access the image. For example:
 
 ```
-# Assumes environment variable is set
+#Assumes environment variable is set
 pathname = os.environ.get("CASAPATH")
 pathname = pathname.split()[0]
 datapath1 = pathname + "/data/demo/Images/imagetestimage.fits"
-# Access FITS image
+#Access FITS image
 ia.open(datapath1)
 ia.close()
-# Access Miriad image
+#Access Miriad image
 ia.open('im.mir')
 ia.close()
-# create a new image tool attached to the FITS image
+#create a new image tool attached to the FITS image
 ims = ia.newimagefromimage(infile=datapath1)
-# create a region record representing the inner quarter of an image
+#create a region record representing the inner quarter of an image
 innerquarter=rg.box([0.25,0.25],[0.75,0.75],frac=true)
-# create a subimage of the inner quarter of the FITS image
+#create a subimage of the inner quarter of the FITS image
 subim = ims.subimage(region=innerquarter)
-# done with the tools, release resources
+#done with the tools, release resources
 ia.close()
 ims.close()
 ```
@@ -336,7 +336,7 @@ You can do some basic world to pixel and vice versa coordinate transformations v
 LEL allows you to create mathematical expressions involving images. For example, add the corresponding pixel values of two images, or multiply the miniumum value of one image by the square root of the pixel values of another image. The LEL syntax is quite rich and is described in detail on the [Lattice Expression Language](https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/lattice-expression-language-lel) pages.
 
 <div class="alert alert-info">
-**IMPORTANT NOTE**: Image names which contain \"special\" characters (eg, \"+\", \"-\", etc) must be properly escaped. See the *Lattice names* subsection of the *Expressions* section in the aforementioned document for details.
+**IMPORTANT NOTE**: Image names which contain "special" characters (eg, "+", "-", etc) must be properly escaped. See the *Lattice names* subsection of the *Expressions* section in the aforementioned document for details.
 </div>
 
 To produce an image that is the result of an LEL computation, use the **ia.calc**() or **ia.imagecalc**() image analysis tool methods. Here are some examples.
@@ -345,7 +345,7 @@ In this example the image analysis tool is attached to the persistent image name
 
 ```
 ia.maketestimage('zz', overwrite=true)
-# Make the minimum value zero
+#Make the minimum value zero
 ia.calc('zz + min(zz)')
 ia.close()
 ```
@@ -354,11 +354,11 @@ This example demonstrates ways of dealing with image names which have special ch
 
 ```
 ia.maketestimage("test-im", overwrite=true)
-# escape special characters using a ""
+#escape special characters using a ""
 im1 = ia.imagecalc(pixels='test-im + 5')
-# or surround the entire image name with quotes
+#or surround the entire image name with quotes
 im2 = ia.imagecalc(pixels='"test-im" + 5')
-# or
+#or
 im3 = ia.imagecalc(pixels="'test-im' + 5")
 im1.close()
 im2.close()
@@ -397,11 +397,11 @@ If the image has a default pixel mask, the mask used in the computation is the l
 
 ```
 ia.maketestimage('zz', overwrite=true)
-# create default pixel mask for which only positive valued pixels are good
+#create default pixel mask for which only positive valued pixels are good
 ia.calcmask("zz>0")
-# compute statistics by specifying an OTF mask, which gets ANDed with
-# the default pixel mask, effectively making only pixels with values between 0 and 1 "good"
-# for the statistics computation
+#compute statistics by specifying an OTF mask, which gets ANDed with
+#the default pixel mask, effectively making only pixels with values between 0 and 1 "good"
+#for the statistics computation
 stats = ia.statistics(mask="zz < 1")
 ia.close()
 ```
@@ -412,8 +412,8 @@ A useful LEL function to use in conjunction with the *mask* parameter is **index
 
 ```
 ia.fromshape(shape=[20])
-# only pixels in the specified planes along the specified axis are considered good.
-# prints [False False False False True True True True True True False False False False True False False False True True]
+#only pixels in the specified planes along the specified axis are considered good.
+#prints [False False False False True True True True True True False False False False True False False False True True]
 print ia.getregion(mask='indexin(0, [4:9, 14, 18:19])',getmask=true)
 ia.close()
 ```

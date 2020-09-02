@@ -7,9 +7,9 @@ Performing on-the-fly calibration using mstransform
 As of CASA 4.5 **mstransform** incorporates the possibility of applying on the-the-fly (OTF) calibration by specifying *docallib* = True, which in turn allows to specify the "Cal Library" filename (*callib* parameter). This transformation is the first one applied to the data, producing effectively a corrected data column on-the-fly, which can be further transformed. *callib* is the filename pointing to the calibration specification file. Details on how to specify the Cal Library file can be found on [this CASA Docs page](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/cal-library-syntax), where conventions and current limitations are also described. The combination of OTF calibration and cal libraries enable complex calibrations to be applied, and for the calculation to proceed more quickly than they otherwise might.
 
 ```
-docallib = True   # Enable OTF calibration
+docallib = True   #Enable OTF calibration
 
-callib   = ''     # Cal Library filename
+callib   = ''     #Cal Library filename
 ```
 
 An example of a Cal Library file is given below.

@@ -55,13 +55,16 @@ for file in files:
     with open(parent, 'r') as fid:
         pmd = fid.read()
     
-    # add horizontal rule to separate source from parent
-    smd = '\n\n***\n\n' + smd
-
     # indent headings of source by the level below the parent
     smd = re.sub('(\n#+) ', r'\1'+'#'*source.count('/')+' ', smd, flags=re.DOTALL)
     smd = re.sub('(\n#+?)# ', r'\1 ', smd, 1, flags=re.DOTALL)   # de-indent the heading by 1
     
+    # max limit of 6 heading levels
+    smd = re.sub('\n#######+ ', '\n###### ', smd, flags=re.DOTALL)
+
+    # add horizontal rule to separate source from parent
+    smd = '\n\n***\n\n' + smd
+
     # append source to parent and write parent back to disk
     with open(parent, 'w') as fid:
         fid.write(pmd + smd)
@@ -72,7 +75,7 @@ for file in files:
 for parent in os.listdir('docs/notebooks'):
     parent = 'docs/notebooks/' + parent
     if not parent.endswith('.md'): continue
-    
+
     with open(parent, 'r') as fid:
         md = fid.read()
 

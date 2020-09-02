@@ -134,7 +134,7 @@ Of these parameters*, iterations left,* and *cyclethreshold* are internally upda
 </div>
 
 <div class="alert alert-info">
-**Note** : Threshold information via the GUI must contain units.  \'0.5Jy\' will work but \'0.5\' on its own will not.
+**Note** : Threshold information via the GUI must contain units.  '0.5Jy' will work but '0.5' on its own will not.
 </div>
 
  

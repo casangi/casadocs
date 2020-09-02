@@ -13,14 +13,14 @@ A full description of the MeasurementSet can be found [here](https://casa.nrao.e
 </div>
 
 <div class="alert alert-info">
-**NOTE**: Images are handled through special image tables, although standard FITS I/O is also supported. Images and image data are described in \"[Dealing with Images\"](https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/dealing-with-images).
+[**NOTE**: Images are handled through special image tables, although standard FITS I/O is also supported. Images and image data are described in "[Dealing with Images"](https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/dealing-with-images).]{
 </div>
 
 The headers of any FITS files can be displayed in the logger with the **listfits** task:
 
 ```
-# listfits :: List the HDU and typical data rows of a fits file:
-fitsfile = '' # Name of input fits file
+#listfits :: List the HDU and typical data rows of a fits file:
+fitsfile = '' #Name of input fits file
 ```
 
 More Information on how to access Visibility Data is provided in the \"[Data Examination and Editing](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing)\" chapter.
@@ -31,7 +31,7 @@ Once in MeasurementSet form, your data can be accessed through various tools and
 
  
 
-## Under the Hood: Structure of the MeasurementSet {#sec92}
+## Under the Hood: Structure of the MeasurementSet 
 
 <div class="alert alert-info">
 **Inside the Toolkit**: Generic CASA tables are handled in the **tb** tool. You have direct access to keywords, rows and columns of the tables with the methods of this tool.
@@ -58,7 +58,7 @@ POINTING          table.f0         table.f3        table.f7_TSM1
 ```
 
 <div class="alert alert-info">
-**NOTE**: The *MAIN* table information is contained in the table.\* files in this directory.
+**NOTE**: The *MAIN* table information is contained in the table.* files in this directory.
 </div>
 
 Each of the sub-table sub-directories contain their own table.dat and other files, e.g.
@@ -70,7 +70,7 @@ table.dat  table.f0  table.f0i  table.info  table.lock
 
 > <div>
 >
-> ![63d12aa5a921803be758c7bc7488c6c62353d5a4](media/63d12aa5a921803be758c7bc7488c6c62353d5a4.png)
+> ![63d12aa5a921803be758c7bc7488c6c62353d5a4](media/63d12aa5a921803be758c7bc7488c6c62353d5a4.png){.image-inline}
 >
 > </div>
 >

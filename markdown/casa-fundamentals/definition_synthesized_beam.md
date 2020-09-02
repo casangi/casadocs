@@ -8,7 +8,7 @@ CASA uses the following zero-centered two dimensional elliptical Gaussian functi
 
 > <div>
 >
-> ![bd6ce30313654fc00a6d88e248e1ae0e864f1edf](media/bd6ce30313654fc00a6d88e248e1ae0e864f1edf.png)
+> ![bd6ce30313654fc00a6d88e248e1ae0e864f1edf](media/bd6ce30313654fc00a6d88e248e1ae0e864f1edf.png){.image-inline width="535" height="436"}
 >
 > </div>
 >
@@ -29,7 +29,7 @@ CASA uses the following zero-centered two dimensional elliptical Gaussian functi
 >
 > > <div>
 > >
-> > ![5cd15ffb3f39e942040ef35a229b1e5d3f11a9e1](media/5cd15ffb3f39e942040ef35a229b1e5d3f11a9e1.png)
+> > ![5cd15ffb3f39e942040ef35a229b1e5d3f11a9e1](media/5cd15ffb3f39e942040ef35a229b1e5d3f11a9e1.png){.image-inline width="383" height="312"}
 > >
 > > </div>
 > >
@@ -46,7 +46,7 @@ CASA uses the following zero-centered two dimensional elliptical Gaussian functi
 > >
 > > > <div>
 > > >
-> > > ![79bf91cfc2367dde815f4b998c57847420f15018](media/79bf91cfc2367dde815f4b998c57847420f15018.png)
+> > > ![79bf91cfc2367dde815f4b998c57847420f15018](media/79bf91cfc2367dde815f4b998c57847420f15018.png){.image-inline width="360" height="294"}
 > > >
 > > > </div>
 > > >

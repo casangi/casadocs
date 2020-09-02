@@ -12,7 +12,7 @@ The viewer allows the user to draw multiple line segments using the \"Polyline d
 
  
 
-![TypeFigure IDCreate a short, unique nameCaptionSpatial Profile Tool: The Spatial Profile tool shows the brightness distribution along line segments of an image.](markdown/_media/247c9434dc6e7bfcd4508140a7efbe0653671d1d.png)
+![247c9434dc6e7bfcd4508140a7efbe0653671d1d](media/247c9434dc6e7bfcd4508140a7efbe0653671d1d.png)
 
 ------------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ The viewer allows the user to draw multiple line segments using the \"Polyline d
 
 ------------------------------------------------------------------------
 
-![TypeFigureIDCreate a short, unique nameCaptionHistogram Tool: The Histogram tool can be accessed from the Main Toolbar or the Tools drop down menu. Details of the display and included pixels can be manipulated via the menus along the top of the window. The right hand panel allows one to attempt to fit a distribution to the histogram.](markdown/_media/4bd76aea63562362de82fe6ddeeede1ce551317d.png)
+![4bd76aea63562362de82fe6ddeeede1ce551317d](media/4bd76aea63562362de82fe6ddeeede1ce551317d.png)
 
 ------------------------------------------------------------------------
 
@@ -53,7 +53,7 @@ The Histogram Tool also allows you to fit the distribution using either a Gaussi
 
 ------------------------------------------------------------------------
 
-![TypeFigure IDCreate a short, unique nameCaptionTwo-Dimensional Fitting Tool: The interface to the two dimensional fitting tool (accessed via Tools:Fit\...or the blue circles icon in the Main Toolbar). The interface allows you to specify and automatically generate (Find Sources) initial estimates, to specify the range of pixel values to be included in the fit, and to specify the output (log file, residual image, and visualization). Click Fit to start the fit.](markdown/_media/df2fff474cbd464f25d5e9bb87cd7107f61a5b87.png)
+![df2fff474cbd464f25d5e9bb87cd7107f61a5b87](media/df2fff474cbd464f25d5e9bb87cd7107f61a5b87.png)
 
 ------------------------------------------------------------------------
 

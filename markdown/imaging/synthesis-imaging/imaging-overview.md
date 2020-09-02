@@ -18,7 +18,7 @@ Image reconstruction in CASA comprises an outer loop of *major cycles* and an in
 
  
 
-![26ad14d4f63ff633dbd5d9e92d40a5059ab46a67](media/26ad14d4f63ff633dbd5d9e92d40a5059ab46a67.png)
+![26ad14d4f63ff633dbd5d9e92d40a5059ab46a67](media/26ad14d4f63ff633dbd5d9e92d40a5059ab46a67.png){.image-inline width="635" height="347"}
 
 >Iterative Image Reconstruction - Major and Minor Cycles
   
@@ -32,10 +32,27 @@ Iterations begin with an initial guess for the image model.  Each major cycle co
 <div class="alert alert-info">
 **Basic Sequence of Imaging Logic:**
 
-Data : Calibrated visibilities, data weights, UV sampling functionInput : Algorithm and iteration controls (stopping threshold, loop gain,\...)Output : Model Image, Restored Image, Residual Image,\...Initialize the model imageCompute the point spread functionCompute the initial residual imageWhile ( not reached global stopping criterion )             /\* Major Cycle \*/{    While ( not reached minor-cycle stopping criterion )    /\* Minor Cycle \*/    {        Find the parameters of a new flux component        Update the model and residual images    }    Use current model image to predict model visibilities    Calculate residual visibilities (data - model)    Compute a new residual image from residual visibilities}Convolve the final model image with the fitted beam and add to the residual image
+Data : Calibrated visibilities, data weights, UV sampling function
+Input : Algorithm and iteration controls (stopping threshold, loop gain,...)
+Output : Model Image, Restored Image, Residual Image,...
+
+Initialize the model image
+Compute the point spread function
+Compute the initial residual image
+While ( not reached global stopping criterion )             /* Major Cycle */
+{
+    While ( not reached minor-cycle stopping criterion )    /* Minor Cycle */
+    {
+        Find the parameters of a new flux component
+        Update the model and residual images
+    }
+    Use current model image to predict model visibilities
+    Calculate residual visibilities (data - model)
+    Compute a new residual image from residual visibilities
+}
+Convolve the final model image with the fitted beam and add to the residual image
 </div>
 
-#  
 
 # Algorithmic Options :
 

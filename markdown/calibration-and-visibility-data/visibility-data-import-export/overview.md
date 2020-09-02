@@ -4,7 +4,7 @@
 
 Overview of Visibility Data Import Export chapter
 
-To use CASA to process your data, you first will need to get it into a form that is understood by the package. These are "MeasurementSets" for synthesis and single dish data, which is the purpose of this chapter. Importing images, or "image tables" as understood by CASA, is explained [here](https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/image-import-and-export).
+[To use CASA to process your data, you first will need to get it into a form that is understood by the package. These are "MeasurementSets" for synthesis and single dish data, which is the purpose of this chapter. Importing images, or "image tables" as understood by CASA, is explained [here](https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/image-import-and-export).]{
 
 There are a number of tasks used to fill telescope-specific data and to import/export standard formats. These are:
 

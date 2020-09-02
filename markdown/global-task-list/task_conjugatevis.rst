@@ -1,32 +1,32 @@
 Description
-      This task changes the sign of the phases in all visibility
-      columns, thus creating the complex conjugate values. A complex
-      number and its complex conjugate have equal real parts and
-      imaginary parts that are equal in magnitude but opposite in sign.
+   This task changes the sign of the phases in all visibility
+   columns, thus creating the complex conjugate values. A complex
+   number and its complex conjugate have equal real parts and
+   imaginary parts that are equal in magnitude but opposite in sign.
 
-       
+   
 
-      .. rubric:: Parameter descriptions
-         :name: parameter-descriptions
+   .. rubric:: Parameter descriptions
+      
 
-      .. rubric:: vis
-         :name: vis
+   .. rubric:: vis
+      
 
-      Name of input visibility file. For example: *vis='filename.ms'*
+   Name of input visibility file. For example: *vis='filename.ms'*
 
-      .. rubric:: spwlist
-         :name: spwlist
+   .. rubric:: spwlist
+      
 
-      Selects spectral window(s). For example: *spw=[1,2]*. By default,
-      all spws will be conjugated.
+   Selects spectral window(s). For example: *spw=[1,2]*. By default,
+   all spws will be conjugated.
 
-      .. rubric:: outputvis
-         :name: outputvis
+   .. rubric:: outputvis
+      
 
-      Name of output visibility file. Default:
-      'conjugatedvis_filename.ms'
+   Name of output visibility file. Default:
+   'conjugatedvis_filename.ms'
 
-      .. rubric:: overwrite
-         :name: overwrite
+   .. rubric:: overwrite
+      
 
-      Overwrites the *outputvis* if it exists. Default=False
+   Overwrites the *outputvis* if it exists. Default=False

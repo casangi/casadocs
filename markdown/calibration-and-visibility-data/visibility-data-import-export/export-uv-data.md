@@ -9,22 +9,22 @@ Convert a MeasurementSet to UVFITS
 The **exportuvfits** task will take a MS and write it out in UVFITS format. The defaults are:
 
 ```
-#  exportuvfits :: Convert a CASA visibility data set to a UVFITS file:
-vis                 =         ''        #  Name of input visibility file
-fitsfile            =         ''        #  Name of output UV FITS file
-datacolumn          = 'corrected'       #  Visibility file data column
-field               =         ''        #  Select field using field id(s) or field name(s)
-spw                 =         ''        #  Select spectral window/channels
-antenna             =         ''        #  Select data based on antenna/baseline
-timerange           =         ''        #  Select data based on time range
-avgchan             =          1        #  Channel averaging width (value > 1 indicates averaging)
-writesyscal         =      False        #  Write GC and TY tables, (Not yet available)
-multisource         =       True        #  Write in multi-source format
-combinespw          =       True        #  Export the spectral windows as IFs
-     padwithflags   =       True        #  Fill in missing data with flags to fit IFs
+#exportuvfits :: Convert a CASA visibility data set to a UVFITS file:
+vis                 =         ''        #Name of input visibility file
+fitsfile            =         ''        #Name of output UV FITS file
+datacolumn          = 'corrected'       #Visibility file data column
+field               =         ''        #Select field using field id(s) or field name(s)
+spw                 =         ''        #Select spectral window/channels
+antenna             =         ''        #Select data based on antenna/baseline
+timerange           =         ''        #Select data based on time range
+avgchan             =          1        #Channel averaging width (value > 1 indicates averaging)
+writesyscal         =      False        #Write GC and TY tables, (Not yet available)
+multisource         =       True        #Write in multi-source format
+combinespw          =       True        #Export the spectral windows as IFs
+     padwithflags   =       True        #Fill in missing data with flags to fit IFs
 
-writestation        =       True        #  Write station name instead of antenna name
-overwrite           =      False        #  Overwrite output file if it exists?
+writestation        =       True        #Write station name instead of antenna name
+overwrite           =      False        #Overwrite output file if it exists?
 ```
 
 For example:

@@ -37,15 +37,8 @@ Section 2 \"Obtaining the Data\" of the tutorial lists the URL where the data ca
 ```
 wget http://casa.nrao.edu/Data/EVLA/IRC10216/day2_TDEM0003_10s_norx.tar.gz
 
-<div>
-
-<div>
-
 tar xf day2_TDEM0003_10s_norx.tar.gz
 
-</div>
-
-</div>
 ```
 
 # Launching and Running CASA

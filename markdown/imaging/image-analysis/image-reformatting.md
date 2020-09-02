@@ -21,26 +21,26 @@ The task **imsubimage** provides a way to extract a smaller data cube from a big
 
 ```
 
-# imsubimage :: Create a (sub)image from a region of the image
-imagename      =    ''    # Input image name. Default is unset.
-outfile        =    ''    # Output image name. Default is unset.
-box            =    ''    # Rectangular region to select in
-                          # direction plane. Default is to use the
-                          # entire direction plane.
-region         =    ''    # Region selection. Default is to use the
-                          # full image.
-chans          =    ''    # Channels to use. Default is to use all
-                          # channels.
-stokes         =    ''    # Stokes planes to use. Default is to use
-                          # all Stokes planes.
-mask           =    ''    # Mask to use. Default is none.
-dropdeg        =  True    # Drop degenerate axes
-     keepaxes  =    []    # If dropdeg=True, these are the
-                          # degenerate axes to keep. Nondegenerate
-                          # axes are implicitly always kept.
+#imsubimage :: Create a (sub)image from a region of the image
+imagename      =    ''    #Input image name. Default is unset.
+outfile        =    ''    #Output image name. Default is unset.
+box            =    ''    #Rectangular region to select in
+                          #direction plane. Default is to use the
+                          #entire direction plane.
+region         =    ''    #Region selection. Default is to use the
+                          #full image.
+chans          =    ''    #Channels to use. Default is to use all
+                          #channels.
+stokes         =    ''    #Stokes planes to use. Default is to use
+                          #all Stokes planes.
+mask           =    ''    #Mask to use. Default is none.
+dropdeg        =  True    #Drop degenerate axes
+[     keepaxes  =    []    #If dropdeg=True, these are the]{
+                          #degenerate axes to keep. Nondegenerate
+                          #axes are implicitly always kept.
 
-verbose        =   True   # Post additional informative messages to
-                          # the logger
+verbose        =   True   #Post additional informative messages to
+                          #the logger
 ```
 
 The *region* keyword defines the size of the smaller cube and is specified via the CASA region CRTF syntax. E.g.
@@ -60,12 +60,12 @@ will extract the portion of the image that is between pixel coordinates (100,130
 Sometimes data cubes can be in axis orders that are not adequate for processing. The CASA task **imtrans** can change the ordering of the axis:
 
 ```
-#  imtrans :: Reorder image axes
-imagename           =         ''        #  Name of the input image
-outfile             =         ''        #  Name of output CASA image.
-order               =         ''        #  New zero-based axes order.
-wantreturn          =       True        #  Return an image tool referencing the
-                                        #   transposed image
+#imtrans :: Reorder image axes
+imagename           =         ''        #Name of the input image
+outfile             =         ''        #Name of output CASA image.
+order               =         ''        #New zero-based axes order.
+wantreturn          =       True        #Return an image tool referencing the
+                                        #transposed image
 ```
 
 The *order* parameter is the most important input here. It is a string of numbers that shows how axes 0, 1, 2, 3, \... are mapped onto the new cube (note that the first axis has the label 0, as typical in python). E.g. *order=\'1032\'* will reorder the input axis 0 to be axis 1 in the output, input axis 1 to be output axis 0, input axis 2 to output axis 3 (the last axis) and input axis 3 to output axis 2. Alternatively, axes can be specified by their names. E.g., to reorder an image with right ascension, declination, and frequency and reverse the first two, *order=\[''declination'', ''right ascension'', ''frequency''\]* will work. The axes names can be found typing **ia.coordsys**.**names**. Minimum match is supported, so that *order=\[\'d\', \'f\', \'r\'\]* will produce the same results.Axes can simultaneously be transposed and reversed. To reverse an axis, precede it by a \'-\'. For example, *order=\'-10-32\'* will reverse the direction of the first and third axis of the input image (the zeroth and second axes in the output image).Example (swap the stokes and spectral axes in an RA-Dec-Stokes-Frequency image):
@@ -115,22 +115,22 @@ It is occasionally necessary to regrid an image onto a new coordinate system. Th
 
 ```
 
-#  imregrid :: regrid an image onto a template image
-imagename           =         ''        #  Name of the source image
-template            =      'get'        #  A dictionary, refcode, or name of an
-                                        #   image that provides the output shape
-                                        #   and coordinate system
-output              =         ''        #  Name for the regridded image
-asvelocity          =       True        #  Regrid spectral axis in velocity space
-                                        #   rather than frequency space?
-axes                =       [-1]        #  The pixel axes to regrid. -1 => all.
-interpolation       =   'linear'        #  The interpolation method.  One of
-                                        #   'nearest', 'linear', 'cubic'.
-decimate            =         10        #  Decimation factor for coordinate grid
-                                        #   computation
-replicate           =      False        #  Replicate image rather than regrid?
-overwrite           =      False        #  Overwrite (unprompted) pre-existing
-                                        #   output file?
+#imregrid :: regrid an image onto a template image
+imagename           =         ''        #Name of the source image
+template            =      'get'        #A dictionary, refcode, or name of an
+                                        #image that provides the output shape
+                                        #and coordinate system
+output              =         ''        #Name for the regridded image
+asvelocity          =       True        #Regrid spectral axis in velocity space
+                                        #rather than frequency space?
+axes                =       [-1]        #The pixel axes to regrid. -1 => all.
+interpolation       =   'linear'        #The interpolation method.  One of
+                                        #'nearest', 'linear', 'cubic'.
+decimate            =         10        #Decimation factor for coordinate grid
+                                        #computation
+replicate           =      False        #Replicate image rather than regrid?
+overwrite           =      False        #Overwrite (unprompted) pre-existing
+                                        #output file?
 ```
 
 The output image will have the data in *imagename* regridded onto the coordinate system provided by the *template* parameter. *template* is used universally for a range of ways to define the grid of the output image: 
@@ -145,13 +145,13 @@ The output image will have the data in *imagename* regridded onto the coordinate
 **imreframe** can be used to change the velocity system of an image. It is not applying a regridding as a change from radio to optical conventions would require, but it will change the labels of the velocity axes.
 
 ```
-#  imreframe :: Change the frame in which the image reports its spectral values
-imagename           =         ''        #  Name of the input image
-output              =         ''        #  Name of the output image; '' => modify input image
-outframe            =     'lsrk'        #  Spectral frame in which the frequency or velocity
-                                        #   values will be reported by default
-restfreq            =         ''        #  restfrequency to use for velocity values (e.g.
-                                        #   '1.420GHz' for the HI line)
+#imreframe :: Change the frame in which the image reports its spectral values
+imagename           =         ''        #Name of the input image
+output              =         ''        #Name of the output image; '' => modify input image
+outframe            =     'lsrk'        #Spectral frame in which the frequency or velocity
+                                        #values will be reported by default
+restfreq            =         ''        #restfrequency to use for velocity values (e.g.
+                                        #'1.420GHz' for the HI line)
 ```
 
 *outframe* defines the velocity frame (LSRK, BARY, etc.,) of the output image and a rest frequency should be specified to relabel the spectral axis in new velocity units.
@@ -162,26 +162,26 @@ The task **imrebin** allows one to rebin an image in any spatial or spectral dir
 
 ```
 imrebin :: Rebin an image by the specified integer factors
-imagename           =         ''        #  Name of the input image
-outfile             =         ''        #  Output image name.
-factor              =         []        #  Binning factors for each axis. Use
-                                        #   imhead or ia.summary to determine axis
-                                        #   ordering.
-region              =         ''        #  Region selection. Default is to use the full
-                                        #   image.
-box                 =         ''        #  Rectangular region to select in
-                                        #   direction plane. Default is to use the entire
-                                        #   direction plane.
-chans               =         ''        #  Channels to use. Default is to use all
-                                        #   channels.
-stokes              =         ''        #  Stokes planes to use. Default is to
-                                        #   use all Stokes planes. Stokes planes
-                                        #   cannot be rebinned.
-mask                =         ''        #  Mask to use. Default is none.
-dropdeg             =      False        #  Drop degenerate axes?
-crop                =       True        #  Remove pixels from the end of an axis to
-                                        #   be rebinned if there are not enough to
-                                        #   form an integral bin?
+imagename           =         ''        #Name of the input image
+outfile             =         ''        #Output image name.
+factor              =         []        #Binning factors for each axis. Use
+                                        #imhead or ia.summary to determine axis
+                                        #ordering.
+region              =         ''        #Region selection. Default is to use the full
+                                        #image.
+box                 =         ''        #Rectangular region to select in
+                                        #direction plane. Default is to use the entire
+                                        #direction plane.
+chans               =         ''        #Channels to use. Default is to use all
+                                        #channels.
+stokes              =         ''        #Stokes planes to use. Default is to
+                                        #use all Stokes planes. Stokes planes
+                                        #cannot be rebinned.
+mask                =         ''        #Mask to use. Default is none.
+dropdeg             =      False        #Drop degenerate axes?
+crop                =       True        #Remove pixels from the end of an axis to
+                                        #be rebinned if there are not enough to
+                                        #form an integral bin?
 ```
 
 where *factor* is a list of integers that provides the numbers of pixels to be binned for each axis. The *crop* parameters controls how pixels at the boundaries are treated if the bin values are not multiple integers of the image dimensions.Example:
@@ -201,25 +201,25 @@ This leaves RA untouched, bins DEC by a factor of 2, leaves Stokes as is, and bi
 **imcollapse** allows to apply an aggregation function along one or more axes of an image. Functions supported are \'*max\', \'mean\', \'median\', \'min\', \'rms\', \'stdev\', \'sum\', \'variance\'* (minimum match supported). The relevant axes will then collapse to a single value or plane (i.e. they will result in a degenerate axis). The functions are specified in the *function* parameter of the **imcollapse** inputs:
 
 ```
-#  imcollapse :: Collapse image along one axis, aggregating pixel values along that axis.
-imagename           =         ''        #  Name of the input image
-function            =         ''        #  Function used to compute aggregation
-                                        #   of pixel values.
-axes                =        [0]        #  Zero-based axis number(s) or minimal
-                                        #   match strings to collapse.
-outfile             =         ''        #  Name of output CASA image.
-box                 =         ''        #  Optional direction plane box ('blcx,
-                                        #   blcy, trcx trcy').
-     region         =         ''        #  Name of optional region file to use.
+#imcollapse :: Collapse image along one axis, aggregating pixel values along that axis.
+imagename           =         ''        #Name of the input image
+function            =         ''        #Function used to compute aggregation
+                                        #of pixel values.
+axes                =        [0]        #Zero-based axis number(s) or minimal
+                                        #match strings to collapse.
+outfile             =         ''        #Name of output CASA image.
+box                 =         ''        #Optional direction plane box ('blcx,
+                                        #blcy, trcx trcy').
+     region         =         ''        #Name of optional region file to use.
 
-chans               =         ''        #  Optional zero-based contiguous
-                                        #   frequency channel specification.
-stokes              =         ''        #  Optional contiguous stokes planes
-                                        #   specification.
-mask                =         ''        #  Optional mask to use.
-wantreturn          =       True        #  Should an image analysis tool
-                                        #   referencing the collapsed image be
-                                        #   returned?
+chans               =         ''        #Optional zero-based contiguous
+                                        #frequency channel specification.
+stokes              =         ''        #Optional contiguous stokes planes
+                                        #specification.
+mask                =         ''        #Optional mask to use.
+wantreturn          =       True        #Should an image analysis tool
+                                        #referencing the collapsed image be
+                                        #returned?
 ```
 
 *wantreturn=True* returns an image analysis tool containing the newly created collapsed image.Example (myimage.im is a 512x512x128x4 (ra,dec,freq,stokes; i.e. in the 0-based system, frequency is labeled as axis 2) image and we want to collapse a subimage of it along its spectral axis avoiding the 8 edge channels at each end of the band, computing the mean value of the pixels (resulting image is 256x256x1x4 in size)):

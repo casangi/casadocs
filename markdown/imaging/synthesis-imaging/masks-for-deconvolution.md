@@ -18,7 +18,7 @@ There are several different ways to specify a clean mask, including:
 However they are created, the masks are all converted (as necessary) and stored as CASA images consisting of the pixel values of 1 and 0. When mask files are read in and have undefined values, these values are treated as 1s by CASA. Mixed types of masks can be specified in the **tclean** task. 
 
 <div class="alert alert-info">
-In CASA, the term, \'mask\' for an image is used in two different contexts. One is used for CASA images/image analysis is a T/F mask (pixel mask), which can be embedded in the parent CASA image.  The \'mask\' used in imaging normally refers to a 1/0 image, which is directly used to define deconvolution region(s) (or set a \'clean mask\') in the **tclean** task.
+In CASA, the term, 'mask' for an image is used in two different contexts. One is used for CASA images/image analysis is a T/F mask (pixel mask), which can be embedded in the parent CASA image.  The 'mask' used in imaging normally refers to a 1/0 image, which is directly used to define deconvolution region(s) (or set a 'clean mask') in the **tclean** task.
 </div>
 
 # Automasking
@@ -31,14 +31,14 @@ This algorithm is intended to mimic what an experienced user would do when manua
 
 Regions smaller than a user-specified fraction of the beam can be removed, or \"pruned\", from the mask. The size of the region is defined as the number of contiguous pixels in the region. The figure below shows an example of the pruning process.
 
-![4d7866a3cd721cdd1848746ddc3779ecae911c8e](media/4d7866a3cd721cdd1848746ddc3779ecae911c8e.png)
+![4d7866a3cd721cdd1848746ddc3779ecae911c8e](media/4d7866a3cd721cdd1848746ddc3779ecae911c8e.png){.image-inline}
 
 >Figure 1 - An example of the pruning process. The image on the left shows the original threshold mask, while the image on the right shows the resulting mask after all regions smaller than a user-specified fraction of the beam area have been removed. 
   
 
 The resulting masks are all convolved with a Gaussian that is a multiple of the synthesized beam size, which is controlled by the parameter *smoothfactor*. Only values above some fraction of the smoothed Gaussian peak are retained, which is defined via the *cutthreshold* parameter. Note that *cutthreshold* is defined as a fraction of the smoothed Gaussian peak, not as an absolute value. This procedure ensures that sources are not masked too tightly, i.e., there is a margin between the emission and the mask.  Note that *smoothfactor* and *cutthreshold* are related. A large *smoothfactor* and high *cutthreshold* can give a similar region to a lower *smoothfactor* but lower *cutthreshold*. Note that setting the cuttreshold too high (\>\~0.2) will tend to remove faint regions. 
 
-![04de130d6a1b73abe630710354de91960c92d734](media/04de130d6a1b73abe630710354de91960c92d734.png)
+![04de130d6a1b73abe630710354de91960c92d734](media/04de130d6a1b73abe630710354de91960c92d734.png){.image-inline}
 
 >Figure 2 - An example of the process used to ensure that sources are not masked too tightly. The left hand image shows the initial threshold mask. The middle image shows the threshold mask convolved with a Gaussian. The right image shows the final threshold mask where only emission above some fraction of the peak in the smoothed mask is retained. The final mask is larger than the original threshold mask and better encapsulates the emission.
   
@@ -47,7 +47,7 @@ The initial threshold mask can be expanded down to lower signal-to-noise via bin
 
 The sub-parameter *growiterations* gives a maximum number of iterations used to \"grow\" the previous masking into the low signal-to-noise mask, which can speed up masking of large cubes at the expense of possibly undermasking extended emission. The sub-parameter *dogrowprune* can be used to turn off pruning for the constraint mask, which also may also speed up this process.
 
-![250712b3a3d4d44283c4a301072959ddf78dec28](media/250712b3a3d4d44283c4a301072959ddf78dec28.png)
+![250712b3a3d4d44283c4a301072959ddf78dec28](media/250712b3a3d4d44283c4a301072959ddf78dec28.png){.image-inline}
 
 >Figure 3 - An example of how the masks are expanded into low signal-to-noise regions. The top row shows the binary dilation process. Left: The low signal-to-noise threshold mask used as a constraint mask. Middle: The final mask from the previous clean cycle. Right: The result of binary dilating the mask from the previous clean major cycle into the constraint mask. The bottom left image shows the binary dilated mask multiplied by the constraint mask to pick out only those regions in the constraint mask associated with the previous clean mask. The bottom middle image shows the final pruned, smoothed, and cut mask.
   

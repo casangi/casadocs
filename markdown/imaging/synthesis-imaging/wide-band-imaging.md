@@ -4,23 +4,13 @@
 
 MFS, MT-MFS with wide-field imaging,mosaics and wideband PB correction
 
-# **Wideband imaging in CASA is [experimental](https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/tasks-and-tools). Please use at own discretion.**
-
-Warning :  Joint-mosaic imaging with multi-term wideband imaging has been verified and validated only for imaging cases where the instrumental parameters do not change across the face of the mosaic (i.e. position-independent PSFs).  A series of algorithm details related to position dependent primary beam effects and point spread functions are being worked on.   Note that single pointing wideband imaging is usable (along with the \'standard\', \'mosaic\' and \'awproject\' gridders) and specific modes of wideband mosaicing are being commissioned for the VLASS imaging pipelines. 
-
- 
-
-# Imaging at wideband sensitivity ^\[1\]^
-
-The continuum imaging sensitivity offered by a broad band receiver is given by
-
-$$\begin{eqnarray} \sigma_{continuum} \propto \frac{T_{sys}}{\sqrt{ N_{ant}(N_{ant}-1) ~ N_{chan}\Delta\nu~ \Delta\tau}}= \frac{\sigma_{chan}}{\sqrt{N_{chan}} } \end{eqnarray}$$
+# **Wideband imaging in CASA is [[experimental](https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/tasks-and-tools)] \sigma_{continuum} \propto \frac{T_{sys}}{\sqrt{ N_{ant}(N_{ant}-1) ~ N_{chan}\Delta\nu~ \Delta\tau}}= \frac{\sigma_{chan}}{\sqrt{N_{chan}} } \end{eqnarray}$$
 
 where $T_{sys}$ is the instrumental system temperature, $\Delta\nu$ is the bandwidth of each channel, $\Delta\tau$ is the integration time, $N_{chan}$ is the number of frequency channels, and $\sigma_{continuum}$ and $\sigma_{chan}$ are theoretical wideband and narrowband image noise levels.  Note that this calculation is for an ideal system whose gain is flat across the band with equally weighted channels (i.e. at the center of the primary beam). 
 
 To take full advantage of this broadband imaging sensitivity, image re-construction algorithms need to be sensitive to the effects of combining measurements from a large range of frequencies. These include frequency-dependent angular resolution and uv-coverage, frequency-dependent array element response functions, and the spectral structure of the sky brightness distribution.
 
-![063c6f81181136f30f7270f39f42dd89443218e7](media/063c6f81181136f30f7270f39f42dd89443218e7.png)
+![063c6f81181136f30f7270f39f42dd89443218e7](media/063c6f81181136f30f7270f39f42dd89443218e7.png){.image-inline width="466" height="223"}
 
  
 
@@ -55,7 +45,7 @@ This corresponds to an effective spectral index of -1.4 at the half power point 
 # Options in CASA for wideband imaging
 
 <div class="alert alert-warning">
-**WARNING**: Wideband mosaicing is still in its commissioning phase and not officially endorsed in CASA 5.5. With *deconvolver=\'mtmfs\'* for multi-term imaging including wideband primary beam correction, *gridder=\'awproject\'* has a known bug and should not be used. For *gridder=\'mosaic\'* the uncertainties in the derived spectral index may be larger than the xxx.alpha.error images would imply, with or without the use of conjbeams, because of systematic issues that are currently being evaluated. Development/commissioning of wideband mosaicing is ongoing and will be available in a next CASA release.
+**WARNING**: Wideband mosaicing is still in its commissioning phase and not officially endorsed in CASA 5.5. With *deconvolver='mtmfs'* for multi-term imaging including wideband primary beam correction, *gridder='awproject'* has a known bug and should not be used. For *gridder='mosaic'* the uncertainties in the derived spectral index may be larger than the xxx.alpha.error images would imply, with or without the use of conjbeams, because of systematic issues that are currently being evaluated. Development/commissioning of wideband mosaicing is ongoing and will be available in a next CASA release.
 </div>
 
  
@@ -168,11 +158,10 @@ The following images of 3C286 illustrate what wideband imaging artifacts look li
 
  
 
-![d3af02dfa60a934b1cff3aafac93d0b2919b89d5](media/d3af02dfa60a934b1cff3aafac93d0b2919b89d5.png)
+![d3af02dfa60a934b1cff3aafac93d0b2919b89d5](media/d3af02dfa60a934b1cff3aafac93d0b2919b89d5.png){.image-inline width="549" height="341"}
 
  
 
-#  
 
 # Wide-Band and Wide-Field Imaging 
 
@@ -184,7 +173,7 @@ W-Projection or faceted imaging can be combined with multi-term imaging (*specmo
 
 The frequency dependence of the primary beam introduces artificial spectral structure on the sky brightness distribution away from the pointing center.  Below is an example of what this spectral structure looks like, in terms of a power law spectral index.  If nothing is done to eliminate the artificial PB spectrum, it will be visible to the minor cycle during deconvolution and will be interpreted as extra sky spectral structure.   Another aspect of using a wide-band primary beam is the large shelf of continuum sensitivity outside the main lobe of the average beam. This is also a region where the PB spectrum will be varying by up to 100% in positive and negative directions, also in a time-variable way. Therefore, there is increased sensitivity to sources outside the main lobe of the average PB, but very little hope of accurately imaging them without methods that carefully incorporate time- and frequency-dependent primary beam models. 
 
-![dcb7b7bb1677f24cffedcd93d0d1b98c2e68fa9e](media/dcb7b7bb1677f24cffedcd93d0d1b98c2e68fa9e.png)
+![dcb7b7bb1677f24cffedcd93d0d1b98c2e68fa9e](media/dcb7b7bb1677f24cffedcd93d0d1b98c2e68fa9e.png){.image-inline width="505" height="361"}
 
  
 
@@ -210,7 +199,7 @@ The use of *wbawp*=True with *gridder*=\'awproject\' and *conjbeams*=True enable
 
 Setting *wbawp=True* enables use of PB evaluated at the center frequency of each spectral window.  Setting *conjbeams=True* enables use of the PB at the \"conjugate\" frequency which effectively projects-out the scaling of the PB with frequency (see Bhatnagar et al, ApJ, [2013,Vol.770, No. 2, 91)](http://stacks.iop.org/0004-637X/770/91) .  The following plot shows the frequency dependence of a PB as a function of distance from the center of the PB.  The red curves trance the total-power response of the antenna and the blue curves show the frequency dependence of the antenna response.  The second figure below shows the effective frequency dependence when using conjugate beams duing imaging.  The blue curve is significantly flat compared to the plot in the first figure. When imaged with conjugate beams, the effects of frequency dependent PBs is effectively removed in the images fed to the minor cycle algorithms.  Image-plane based wide-band algorithms (like the MT-MFS algorithm) designed to model *only* sky frequency dependence can therefore be used without modification.
 
-![794630806bc8bfbf48a70d1f523bda4845f764e4](media/794630806bc8bfbf48a70d1f523bda4845f764e4.png)![1dfad9084557b0bb6d968f7b37d6d964809f3515](media/1dfad9084557b0bb6d968f7b37d6d964809f3515.png)
+![794630806bc8bfbf48a70d1f523bda4845f764e4](media/794630806bc8bfbf48a70d1f523bda4845f764e4.png){.image-inline width="292" height="220"}![1dfad9084557b0bb6d968f7b37d6d964809f3515](media/1dfad9084557b0bb6d968f7b37d6d964809f3515.png){.image-inline width="292" height="220"}
 
 ## Wideband + Mosaics
 
@@ -226,7 +215,7 @@ In a joint mosaic, one must keep in mind the spectral structure of the primary b
 
  
 
-![2012a00c1e7ad86ceadf38e2f3003013a18d8483](media/2012a00c1e7ad86ceadf38e2f3003013a18d8483.png)
+![2012a00c1e7ad86ceadf38e2f3003013a18d8483](media/2012a00c1e7ad86ceadf38e2f3003013a18d8483.png){.image-inline width="454" height="175"}
 
  
 

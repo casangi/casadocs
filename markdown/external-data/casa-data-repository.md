@@ -4,7 +4,7 @@
 
 The CASA Data Repository, and how to update geodetic and ephemeris data in CASA.
 
-Each CASA distribution comes with a minimal repository of binary data that is required for CASA to function properly. This repository includes [Measures Tables](https://casa.nrao.edu/casadocs-devel/stable/external-data/casacore-measures-tables) that deal with reference frames, as well as ephemeris data. Over time (couple of months), the geodetic and possibly ephemeris data in this repository slowly drifts out of date. Because of this, the distribution data repository must be updated occasionally. Other data that is updated less frequently is also stored in the repository, such as beam models, antenna and Jy/K correction tables, and the antenna configuration files for the CASA simulator.
+[Each CASA distribution comes with a minimal repository of binary data that is required for CASA to function properly. This repository includes [Measures Tables](https://casa.nrao.edu/casadocs-devel/stable/external-data/casacore-measures-tables) that deal with reference frames, as well as ephemeris data. Over time (couple of months), the geodetic and possibly ephemeris data in this repository slowly drifts out of date. Because of this, the distribution data repository must be updated occasionally. Other data that is updated less frequently is also stored in the repository, such as beam models, antenna and Jy/K correction tables, and the antenna configuration files for the CASA simulator.]{
 
 A snapshot of this repository is included in each tarball distribution of CASA, and in the casadata module for CASA 6+. The owner (in the Linux filesystem sense) of the CASA distribution can update the data repository to the latest available version by running from within CASA:
 

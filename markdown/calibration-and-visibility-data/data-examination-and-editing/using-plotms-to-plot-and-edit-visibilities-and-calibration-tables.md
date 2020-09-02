@@ -4,149 +4,79 @@
 
 Using plotms to plot and edit visibilities and calibration tables
 
-**plotms** is a GUI-style plotter, based on Qt, for creating X-Y plots of visibility data and calibration tables. It can either be started as a task within CASA or from outside CASA (type casaplotms on the command line).  This task also provides editing capability.
-
-**plotms** was originally intended to plot MeasurementSets (the \"ms\" in \"plotms\"), but has been extended to include calibration tables.  Supported cal table types include B Jones, B TSYS, EGainCurve, F Jones, G Jones, K Jones, Kcross Jones, KAntPos, T Jones, TOpac, Xf Jones, A Mueller, BPOLY, and GSPLINE.  Some options (axis choice, averaging, channel selection) do not apply to calibration tables or have not been implemented yet.  Other options, such as calibration axes, do not apply to MeasurementSets. For simplicity, this document primarily addresses plotting MeasurementSets.
-
-The current inputs and default values for **plotms** include:
-
-```
-plotms :: A plotter/interactive flagger for visibility data.
-vis                 =         ''        #  input MS (or CalTable) (blank for none)
-gridrows            =          1        #  Number of subplot rows (default 1).    
-gridcols            =          1        #  Number of subplot columns (default 1). 
-rowindex            =          0        #  Row location of the plot (0-based, default 0)
-colindex            =          0        #  Column location of the plot (0-based, default 0)
-plotindex           =          0        #  Index to address a subplot (0-based, default 0) 
-xaxis               =         ''        #  plot x-axis (blank for default/current)         
-yaxis               =         ''        #  plot y-axis (blank for default/current)         
-selectdata          =       True        #  data selection parameters                       
-     field          =         ''        #  field names or field index numbers (blank for all)
-     spw            =         ''        #  spectral windows:channels (blank for all)
-     timerange      =         ''        #  time range (blank for all)
-     uvrange        =         ''        #  uv range (blank for all)
-     antenna        =         ''        #  antenna/baselines (blank for all)
-     scan           =         ''        #  scan numbers (blank for all)
-     correlation    =         ''        #  correlations (blank for all)
-     array          =         ''        #  (sub)array numbers (blank for all)
-     observation    =         ''        #  observation ID(s) (blank for all)
-     intent         =         ''        #  observing intent (blank for all)
-     feed           =         ''        #  Select feed (blank for all)
-     msselect       =         ''        #  MS selection (blank for all)
-
-averagedata         =       True        #  data averaging parameters
-     avgchannel     =         ''        #  average over channel?  (blank = False, otherwise
-                                        #   value in channels)
-     avgtime        =         ''        #  average over time? (blank = False, other value in
-                                        #   seconds)
-     avgscan        =      False        #  only valid if time averaging is turned on.  average
-                                        #   over scans?
-     avgfield       =      False        #  only valid if time averaging is turned on.  average
-                                        #   over fields?
-     avgbaseline    =      False        #  average over all baselines?  (mutually exclusive
-                                        #   with avgantenna)
-     avgantenna     =      False        #  average by per-antenna?  (mutually exclusive with
-                                        #   avgbaseline)
-     avgspw         =      False        #  average over all spectral windows?
-     scalar         =      False        #  Do scalar averaging?
-
-transform           =      False        #  transform data in various ways?
-extendflag          =      False        #  have flagging extend to other data points?
-iteraxis            =         ''        #  the axis over which to iterate
-customsymbol        =      False        #  set a custom symbol(s) for unflagged points
-coloraxis           =         ''        #  selects which data to use for colorizing
-customflaggedsymbol =      False        #  set a custom plot symbol for flagged points
-xconnector          =          ''       #  Set connector for data points
-                                        #   (blank="none"; "line","step")
-plotrange           =         []        #  plot axes ranges: [xmin,xmax,ymin,ymax]
-title               =         ''        #  Title written along top of plot
-titlefont           =          0        #  Font for plot title
-xlabel              =         ''        #  Text for horizontal axis. Blank for default.
-xaxisfont           =          0        #  Font for plot x-axis
-ylabel              =         ''        #  Text for vertical axis. Blank for default.
-yaxisfont           =          0        #  Font for plot y-axis.
-showmajorgrid       =      False        #  Show major grid lines (horiz and vert.)
-showminorgrid       =      False        #  Show minor grid lines (horiz and vert.)
-showlegend          =      False        #  Show a legend on the plot.
-plotfile            =         ''        #  Name of plot file to save automatically.
-showgui             =       True        #  Show GUI
-     clearplots     =       True        #  Remove any existing plots so new ones can replace
-                                        #   them.
-callib              =       ['']        #  Calibration library string or filename for on-the-
-                                        #   fly calibration.
-headeritems         =         ''        # Comma-separated list of pre-defined
-                                        #   page header items. 
-showatm             =     False         # Compute and overlay the atmospheric
-                                        #   transmission curve.
-showtsky            =     False         # Compute and overlay the sky
-                                        #   temperature curve.
-showimage           =     False         # Compute and overlay the image
-                                        #   sideband curve.
+**plotms** is a GUI-
+title               =         ''        #Title written along top of plot
+titlefont           =          0        #Font for plot title
+xlabel              =         ''        #Text for horizontal axis. Blank for default.
+xaxisfont           =          0        #Font for plot x-axis
+ylabel              =         ''        #Text for vertical axis. Blank for default.
+yaxisfont           =          0        #Font for plot y-axis.
+showmajorgrid       =      False        #Show major grid lines (horiz and vert.)
+showminorgrid       =      False        #Show minor grid lines (horiz and vert.)
+showlegend          =      False        #Show a legend on the plot.
+plotfile            =         ''        #Name of plot file to save automatically.
+showgui             =       True        #Show GUI
+     clearplots     =       True        #Remove any existing plots so new ones can replace
+                                        #them.
+[callib              =       ['']        #Calibration library string or filename for on-the-]{
+                                        #fly calibration.
+headeritems         =         ''        #Comma-separated list of pre-defined
+                                        #page header items. 
+showatm             =     False         #Compute and overlay the atmospheric
+                                        #transmission curve.
+showtsky            =     False         #Compute and overlay the sky
+                                        #temperature curve.
+showimage           =     False         #Compute and overlay the image
+                                        #sideband curve.
 ```
 
 Note that when some parameters are set or are True, their subparameters are displayed by inp( ).  By default, selectdata, averagedata, and showgui are True and their subparameters are shown above.  Other parameters with subparameters include:
 
 ```
-[[[xaxis               =     'real'        #  plot x-axis (blank for default/current)         
-     xdatacolumn    =         ''        #  data column to use for x-axis (blank for        
-                                        #   default/current)                               
+[[[xaxis               =     'real'        #plot x-axis (blank for default/current)         
+     xdatacolumn    =         ''        #data column to use for x-axis (blank for        
+                                        #default/current)                               
 
-yaxis               =     'imag'        #  plot y-axis (blank for default/current)
-     ydatacolumn    =         ''        #  data column to use for y-axis (blank for
-                                        #  default/current)
-     yaxislocation  =      'left'       #  yaxis is to the left of the plot
-transform           =       True        #  transform data in various ways?
-     freqframe      =         ''        #  the frame in which to render frequency and velocity
-                                        #   axes
-     restfreq       =         ''        #  Rest frequency to use for velocity conversions
-     veldef         =    'RADIO'        #  the definition in which to render velocity
-     shift          = [0.0, 0.0]        #  Adjust phases by this approximate phase center
-                                        #   shift [dx,dy] (arcsec)
+yaxis               =     'imag'        #plot y-axis (blank for default/current)
+     ydatacolumn    =         ''        #data column to use for y-axis (blank for
+                                        #default/current)
+     yaxislocation  =      'left'       #yaxis is to the left of the plot
+transform           =       True        #transform data in various ways?
+     freqframe      =         ''        #the frame in which to render frequency and velocity
+                                        #axes
+     restfreq       =         ''        #Rest frequency to use for velocity conversions
+     veldef         =    'RADIO'        #the definition in which to render velocity
+     shift          = [0.0, 0.0]        #Adjust phases by this approximate phase center
+                                        #shift [dx,dy] (arcsec)
 
-extendflag          =       True        #  have flagging extend to other data points?
-     extcorr        =      False        #  extend flags based on correlation?
-     extchannel     =      False        #  extend flags based on channel?
-iteraxis            = 'baseline'        #  the axis over which to iterate
-     xselfscale     =      False        #  When true, iterated plots have a common
-                                        #   x-axis range (scale).
-     yselfscale     =      False        #  When true, iterated plots have a common
-                                        #   y-axis range (scale).
-     xsharedaxis    =      False        #  Enables iterated plots on a grid to share a                                         #  common external x-axis per column. Must also set                                          #  xselfscale=True and gridrows>1.
-     ysharedaxis    =      False        #  Enables iterated plots on a grid to share a                                          #  common external y-axis per row. Must also set                                          #  yselfscale=True and gridcols>1.
+extendflag          =       True        #have flagging extend to other data points?
+     extcorr        =      False        #extend flags based on correlation?
+     extchannel     =      False        #extend flags based on channel?
+iteraxis            = 'baseline'        #the axis over which to iterate
+     xselfscale     =      False        #When true, iterated plots have a common
+                                        #x-axis range (scale).
+     yselfscale     =      False        #When true, iterated plots have a common
+                                        #y-axis range (scale).
+     xsharedaxis    =      False        #Enables iterated plots on a grid to share a                                         #common external x-axis per column. Must also set                                          #xselfscale=True and gridrows>1.
+     ysharedaxis    =      False        #Enables iterated plots on a grid to share a                                          #common external y-axis per row. Must also set                                          #yselfscale=True and gridcols>1.
 
-customsymbol        =       True        #  set a custom symbol(s) for unflagged points
-     symbolshape    = 'autoscaling'     #  shape of plotted unflagged symbols
-     symbolsize     =          2        #  size of plotted unflagged symbols
-     symbolcolor    =   '0000ff'        #  color of plotted unflagged symbols
-     symbolfill     =     'fill'        #  fill type of plotted unflagged symbols
-     symboloutline  =      False        #  selects outlining plotted unflagged points
+customsymbol        =       True        #set a custom symbol(s) for unflagged points
+     symbolshape    = 'autoscaling'     #shape of plotted unflagged symbols
+     symbolsize     =          2        #size of plotted unflagged symbols
+     symbolcolor    =   '0000ff'        #color of plotted unflagged symbols
+     symbolfill     =     'fill'        #fill type of plotted unflagged symbols
+     symboloutline  =      False        #selects outlining plotted unflagged points
 
-customflaggedsymbol =       True        #  set a custom plot symbol for flagged points
-     flaggedsymbolshape = 'nosymbol'    #  shape of plotted flagged symbols
-     flaggedsymbolsize =          2     #  size of plotted flagged symbols
-     flaggedsymbolcolor =   'ff0000'    #  color of plotted flagged symbols
-     flaggedsymbolfill =     'fill'     #  fill type of plotted flagged symbols
-     flaggedsymboloutline =      False  #  selects outlining plotted flagged points
+customflaggedsymbol =       True        #set a custom plot symbol for flagged points
+     flaggedsymbolshape = 'nosymbol'    #shape of plotted flagged symbols
+     flaggedsymbolsize =          2     #size of plotted flagged symbols
+     flaggedsymbolcolor =   'ff0000'    #color of plotted flagged symbols
+     flaggedsymbolfill =     'fill'     #fill type of plotted flagged symbols
+     flaggedsymboloutline =      False  #selects outlining plotted flagged points
 
-showmajorgrid       =       True        #  Show major grid lines (horiz and vert.)
-     majorwidth     =          0        #  Line width in pixels of major grid lines
-     majorstyle     =         ''        #  Major grid line style: solid dash dot none
-     majorcolor     =         ''        #  Color as name or hex code of major grid lines
-
-showminorgrid       =       True        #  Show minor grid lines (horiz and vert.)
-     minorwidth     =          0        #  Line width in pixels of minor grid lines
-     minorstyle     =         ''        #  Minor grid line style: solid dash dot none
-     minorcolor     =         ''        #  Color as name or hex code of minor grid lines
-plotfile            = 'plot.jpg'        #  Name of plot file to save automatically.
-     expformat      =         ''        #  Export format type (jpg, png, ps, pdf, txt), if not
-                                        #   provided, plotfile extension will be used.
-     verbose        =      True         #  Include metadata in text export.
-     exprange       =         ''        #  Export all iteration plots or only the current one.
-     highres        =      False        #  Use high resolution
-     dpi            =         -1        #  DPI of exported plot
-     width          =         -1        #  Width of exported plot
-     height         =         -1        #  Height of exported plot
-     overwrite      =      False        #  Overwrite plot file if it already exists? ]]]
+showmajorgrid       =       True        #Show major grid lines (horiz and vert.)
+     majorwidth     =          0        #Line width in pixels of major grid lines
+     major]{]{
 ```
 
 Note that if the *vis* parameter is set to the name of a MeasurementSet here, when you start **plotms** the *entire* MeasurementSet will be plotted, which can be time consuming.  You may want to set selection or averaging parameters first.
@@ -165,7 +95,7 @@ plotms(vis1, yaxis='phase', ydatacolumn='corrected', xaxis='frequency', coloraxi
 
 ```
 
-Note that subsequent **plotms** calls will return any unspecified parameters in that call to their default values.  See also the [Examples](https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_plotms/examples) tab in the **plotms** task for **plotms** calls using many of the parameters.
+[Note that subsequent **plotms** calls will return any unspecified parameters in that call to their default values.  See also the [Examples](https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_plotms/examples) tab in the **plotms** task for **plotms** calls using many of the parameters.]{
 
 The **plotms** GUI will be described in the following sections, along with the corresponding parameters for the task interface or scripting.  For non-interactive scripting, set *showgui=False* and export the plot into an image specified by *plotfile.*
 
@@ -175,7 +105,7 @@ The **plotms** GUI will be described in the following sections, along with the c
 
 ## 1.1 Loading, Selecting, and Averaging Data: the Plot Data Tab
 
-![947bd4c094887ae05fd3452bda5a4fb6db71314e](media/947bd4c094887ae05fd3452bda5a4fb6db71314e.png)
+![947bd4c094887ae05fd3452bda5a4fb6db71314e](media/947bd4c094887ae05fd3452bda5a4fb6db71314e.png){.image-inline}
 
 >The plotms window starts on the *Plot \> Data* tab.  No parameters have been set.
   
@@ -184,7 +114,7 @@ The **plotms** GUI will be described in the following sections, along with the c
 
 When **plotms** is first started, by default it will display the *Plot* tab (as chosen from the tabs at the top of the **plotms** window) and its *Data* subtab (as chosen from the tabs on the left side) as shown in Figure 1. First, a MeasurementSet or calibration table should be loaded by clicking on *Browse* in the *File* section and selecting a MeasurementSet directory (just select the directory itself; do not descend into it).
 
-A plot can now be made of the MeasurementSet by clicking on the *Plot* button, but you may want to set selection or averaging parameters first rather than plot the entire dataset.  By default, **plotms** will plot Amplitude versus Time for a MeasurementSet; see this section on [selecting axes](#1-3-1-selecting-axes) ]for axis options.  The default axes change for calibration tables depending on the table type.  **plotms** self-scales axes and the symbol size. For a very large range, this can hide points close to zero; see the [sections below for information on setting [axes ranges](#1-3-4-axes-ranges) and [symbol sizes](#1-6-2-customizing-your-symbols).
+[A plot can now be made of the MeasurementSet by clicking on the *Plot* button, but you may want to set selection or averaging parameters first rather than plot the entire dataset.  By default, **plotms** will plot Amplitude versus Time for a MeasurementSet; see this [section on [selecting axes](#1-3-1-selecting-axes) ]{for axis options.  The default axes change for calibration tables depending on the table type.  **plotms** self-scales axes and the symbol size. For a very large range, this can hide points close to zero; see the sections below for information on setting [axes ranges](#1-3-4-axes-ranges) and [symbol sizes](#1-6-2-customizing-your-symbols).]{
 
 The **plotms** task parameter for file selection is *vis.*
 
@@ -205,7 +135,7 @@ The options for data selection are:
 -   feed
 -   msselect
 
-Note that, unlike when setting data selection parameters from the CASA command line, no quotation marks are needed around strings in the GUI.  For more information on data selection strings, see the documentation [here](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset).  To view information about your data in order to make your selection, see the [Summary](#5-3-summary-menu--information-about-your-dataset) section below or use the listobs task.
+[Note that, unlike when setting data selection parameters from the CASA command line, no quotation marks are needed around strings in the GUI.  For more information on data selection strings, see the documentation [here](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset).  To view information about your data in order to make your selection, see the [Summary](#5-3-summary-menu--information-about-your-dataset) section below or use the listobs task.]{
 
 Calibration table selection differs from MeasurementSet selection.  The *antenna* selection selects baselines which contain the selected antennas in MeasurementSets, but selects antenna1 only for calibration tables.  Spectral window selection (*spw*) is used to select spw only (channel selection is ignored) in calibration tables.  *corr* may be used to select cal table polarizations, including \"/\" for a ratio plot.
 
@@ -263,16 +193,17 @@ In order to provide a wide range of flexible interactive plotting options while 
 For plots of large numbers of points, the total memory requirement can be quite large. **plotms** attempts to predict the memory it will require (typically 5 or 6 bytes per plotted point when only one axis is a data axis, depending upon the data shapes involved), and will complain if it believes there is insufficient memory to support the requested plot. For most practical interactive purposes (plots that load and draw in less than a few or a few 10s of minutes), there is usually not a problem on typical modern workstations.  Attempts to plot large datasets on small laptops might be more likely to encounter problems here.
 
 The absolute upper limit on the number of simultaneously plotted points is currently set by the ability to index the points in the cache. For modern 64 bit machines, this is about 4.29 billion points (requiring around 25GB of memory). Such plots are not especially useful interactively, since the I/O and draw become prohibitive.In general, it is usually most efficient to plot data in modest chunks of no more than a few hundred million points or less, either using selection or averaging. Note that all iterations are (currently) cached simultaneously for iterated plots, so iteration is not a way to manage memory use. A few hundred million points tends to be the practical limit of interactive **plotms** use with respect to information content and utility in the resulting plots, especially when you consider the number of available pixels on your screen.
+
 ------------------------------------------------------------------------
 
 ## 1.2 On-The-Fly Calibration: the Plot Calibration Tab
 
-![b94c97ec8e973a5049417474e6255ba5b02936c7](media/b94c97ec8e973a5049417474e6255ba5b02936c7.png)
+[![b94c97ec8e973a5049417474e6255ba5b02936c7](media/b94c97ec8e973a5049417474e6255ba5b02936c7.png){.image-inline}]{
 
 >The plotms Calibration tab.  This MeasurementSet has no *CORRECTED_DATA* column. A calibration library file was selected with the file browser and applied on the fly.
   
 
-One can apply calibration tables to the uncalibrated data on the fly, i.e. without a run of applycal beforehand, by specifying a calibration library and selecting the *corrected* Data Column for the plotted axes.  See the [Cal Library Syntax](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/cal-library-syntax) documentation for more information on specifying calibration in a string or file.
+[One can apply calibration tables to the uncalibrated data on the fly, i.e. without a run of applycal beforehand, by specifying a calibration library and selecting the *corrected* Data Column for the plotted axes.  See the [Cal Library Syntax](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/cal-library-syntax) documentation for more information on specifying calibration in a string or file.]{
 
 The *Calibration* tab on the left hand side contains a field to specify a calibration library file, or use *Browse* to open a file selection dialog.  You can also specify the calibration library commands directly in a string.  There is a switch to apply the calibration library to produce the corrected data (*Calibration On*) or to show an existing *CORRECTED_DATA* column (*Calibration Off*).  If the *corrected* Data Column is requested but the column is not present in the MS and the calibration library is not set or enabled, **plotms** issues a warning and plots the *DATA* column instead.
 
@@ -282,7 +213,7 @@ The **plotms** task parameter *'callib'* can be used to provide a calibration li
 
 ## 1.3 Selecting Plot Axes: The Plot Axes Tab 
 
-![38b1324df723df2ffee435444a27346ea9ecd248](media/38b1324df723df2ffee435444a27346ea9ecd248.png)
+![38b1324df723df2ffee435444a27346ea9ecd248](media/38b1324df723df2ffee435444a27346ea9ecd248.png){.image-inline}
 
  
 
@@ -365,9 +296,9 @@ The **plotms** task parameters used to select the axes are *xaxis* and *yaxis*. 
 
 When left as the default empty strings (\"\"), the axes for a MeasurementSet will be Amp vs. Time.  The default axes for a calibration table depend on the type.
 
-### 1.3.2 Setting Axes Parameters {#setting-axes-parameters canvas-width="87.4276129632353"}
+### 1.3.2 Setting Axes Parameters 
 
-#### 1.3.2.1 Data Columns {#data-columns canvas-width="87.4276129632353"}
+#### 1.3.2.1 Data Columns 
 
 For relevant data axes like Amp and Phase, the user will be presented with the option to plot raw data or calibrated data. This can be selected via a *Data Column* drop-down menu, located directly under the drop-down menu for *X Axis* or *Y Axis* selection. To plot raw data, select "data"; to plot calibrated data, select "corrected". Note that this choice will only have an impact on a plot if a calibration table has been applied to the MeasurementSet or a calibration library is set and enabled.
 
@@ -377,7 +308,7 @@ Residuals can be plotted via \"corrected-model_vector\", \"corrected-model_scala
 
 The **plotms** task parameters used to select the data columns are *xdatacolumn* and *ydatacolumn*.  Valid options include \'data\', corrected\', \'model\', \'float\', \'corrected-model\' (vector implied), \'corrected-model_vector\', \'corrected-model_scalar\', \'data-model\' (vector implied), \'data-model_vector\', \'data-model_scalar\', \'corrected/model\' (vector implied), \'corrected/model_vector\', \'corrected/model_scalar\', \'data/model\' (vector implied), \'data/model_vector\', and \'data/model_scalar\'.  The implied vector residual datacolumns were kept for backwards compatibility.  Default data columns for x and y are both \'data\'.
 
-#### 1.3.2.2 Antenna Pointing Direction Parameters  {#antenna-pointing-direction-parameters canvas-width="87.4276129632353"}
+#### 1.3.2.2 Antenna Pointing Direction Parameters  
 
 Ant-Ra, Ant-Dec axes are the longitude and the latitude of the direction to which the first antenna of a baseline points at data-taking timestamps. Their value is computed by
 
@@ -406,23 +337,40 @@ WARNING: plotting antennas pointing directions with the Ant-Ra / Ant-Dec axes ha
 
  
 
-### 1.3.3 Axis Locations {#axis-locations canvas-width="443.3799416754903"}
+### 1.3.3 Axis Locations 
 
 The location of the x-axis and y-axis can be set using the radio buttons in the GUI, where the x-axis can be located at the *Bottom* (default) or *Top*, and the y-axis can be located at the *Left* (default) or *Right.*
 
 The **plotms** task parameter to set the y-axis location is *yaxislocation. * There is no parameter to set the x-axis location.  Valid values for this parameter include \'left\' and \'right\' (default \"\" == \'left\').
 
-### 1.3.4 Axes Ranges {#axes-ranges canvas-width="443.3799416754903"}
+### 1.3.4 Axes Ranges 
 
 The X and Y ranges of the plot can be set manually or automatically. By default, the circle next to *Automatic* will be checked, and the ranges will be auto-scaled. To define the range, click on the circle below *Automatic* and enter a minimum and maximum value in the blank boxes. Note that if identical values are placed in the blank boxes (xmin=xmax and/or ymin=ymax), then the values will be ignored and a best guess will be made to auto-range that axis.
 
-The **plotms** task parameter used to set the axes ranges is *plotrange*, and its value is a list of numbers in the format \[xmin, xmax, ymin, ymax\] (default \[ \], automatic range).
+[The **plotms** task parameter used to set the axes ranges is *plotrange*, and its value is a list of numbers in the format \[xmin, xmax, ymin, ymax\] (default \[ \], automatic range).]{
 
-### 1.3.5 Plotting Multiple Y-Axes {#plotting-multiple-y-axes canvas-width="443.3799416754903"}
+### 1.3.5 Plotting Multiple Y-Axes 
 
-Different values of the same dataset can be shown at the same time. To add a second y-axis, press the *Add Y Axis Data* button at the bottom of the *Axes* tab. Then select the parameters for the newly created axis by selecting from the new "Y Axis Data" drop-down menu. If the two y-axes have the same units, they can be displayed both on the same axis. If they are different (or their ranges are dissimilar), e.g. Amplitude and Elevation (both versus Time; see Figure 4 below), one axis should be attached to the left and the other to the right hand side of the plot. Using more than a single y-axis data is also reflected in the *Display* tab where a drop-down menu appears in order to select multiple y-axis options; here you may colorize each axis differently.  See the [section below[[ to learn more about [symbol properties](#1-6-2-customizing-your-symbols)].]] To remove the additional y-axis, click *Delete Y Axis Data* at the bottom of the *Axes* tab.
+[Different values of the same dataset can be shown at the same time. To add a second y-axis, press the *Add Y Axis Data* button at the bottom of the *Axes* tab. Then select the parameters for the newly created axis by selecting from the new "Y Axis Data" drop-down menu. If the two y-axes have the same units, they can be displayed both on the same axis. If they are different (or their ranges are dissimilar), e.g. Amplitude and Elevation (both versus Time; see Figure 4 below), one axis should be attached to the left and the other to the right hand side of the plot. Using more than a single y-axis data is also reflected in the *Display* tab where a drop-down menu appears in order to select multiple y-axis options; here you may colorize each axis differently.  See the [[section below[[ to learn more about [symbol properties](#1-6-2-customizing-your-symbols)]{.]{]{ To remove the additional y-axis, click *Delete Y Axis Data* at the bottom of the *Axes* tab.]{]{
 
-![6ea1a2b82d3016d25f772e89ef08d716ed1ff364](media/6ea1a2b82d3016d25f772e89ef08d716ed1ff364.png)
+[[![6ea1a2b82d3016d25f772e89ef08d716ed1ff364](media/6ea1a2b82d3016d25f772e89ef08d716ed1ff364.png)]{]{
+
+>Overplotting in plotms: Two different y-axes for the same dataset have been chosen for this plot, amplitude and elevation.
+  
+
+The **plotms** task parameters used to plot multiple y-axes are the same as for a single y-axis: *yaxis* and *yaxislocation*; multiple y-axes can be specified as a list of strings if you are specifying the **plotms** command in the terminal. The values for *yaxis* and *yaxislocation* should be set to lists of the same length:
+
+```
+[plotms(vis='ngc5921.ms', yaxis=['amp','elevation'], yaxislocation=['left','right'])]{
+```
+
+### 1.3.6 Atmospheric Curve Overlays  
+
+The ability to compute and overlay an atmospheric transmission curve or a sky temperature curve, available in plotbandpass, has been added to **plotms**.  For this feature, the x-axis must be Channel or Frequency; if another axis is chosen, a warning is issued and the plot continues without the overlay.
+
+[**plotms** uses the dataset\'s subtables to compute the mean weather values: pressure, humidity, temperature, and precipitable water vapor (pwv).  If these subtables are not found, reasonable defaults are used instead and reported in a log message.  The [atmosphere tool](https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_atmosphere) is then used by **plotms** to calculate dry and wet opacities to produce the requested overlay curve, corrected by the airmass based on elevation.]{
+
+[![fbf2f683de008d52ef2db218adad4d151c72c4a9](media/fbf2f683de008d52ef2db218adad4d151c72c4a9.png){.image-inline}]{
 
 >Amp vs. Frequency plot with a Tsky overlay.  The Tsky y-axis is automatically added on the right, and the curve is plotted in magenta.  The Plot \> Axes tab shows the radio buttons to select the Overlay: None, Atm, or Tsky.
   
@@ -435,7 +383,7 @@ plotms(vis=myvis, yaxis='amp', xaxis='freq', showatm=True)
 
 The image sideband curve may also be shown in **plotms** when the atmospheric transmission or sky temperature curves are plotted.  In order to do this, the MS (or associated MS for a calibration table) cannot have reindexed spectral window IDs as a result of a split, and must have an ASDM_RECEIVER table in order to read the LO frequencies.  If these conditions are not met, a warning is issued and only the atm/tsky curves are calculated and plotted.
 
-![06d13146ca57d00a107fef7873643a317b22505c](media/06d13146ca57d00a107fef7873643a317b22505c.png)
+[![06d13146ca57d00a107fef7873643a317b22505c](media/06d13146ca57d00a107fef7873643a317b22505c.png){.image-inline}]{
 
 >Gain Amp vs. Frequency plot for a bandpass calibration table with the Atm Transmission (magenta) and Image Sideband (black) overlays, colorized by spw and one antenna selected.  The Plot \> Axes tab shows the checkbox to select the image sideband curve, enabled only when the Overlay is Atm or Tsky.
   
@@ -461,7 +409,7 @@ In many cases, it is desirable to iterate through the data that were selected in
 
 The current iteration is indicated in the plot title of the displayed plot. To proceed to the next plot use the green arrow buttons below the main panel. The different button symbols let you to proceed panel by panel (single arrow symbols) or to jump to the first or last panel directly (double arrow symbols).
 
-The number of plots per page can be selected under *Options \> Grid*, the last of the top row of tabs, as described in the section on [plotting on a grid](#4-1-plotting-on-a-grid).  There are two scaling options for the iterated axes in a grid, set in this tab: Global and Shared. Global will use a common axis range based on data loaded with the selection criteria specified in the Data tab. Shared displays one set of x-axes and y-axes for the page rather than per-plot.  When left unchecked, *Global *and *Shared *results in plots with axes scaling to the data for each individual panel of the iteration.  See Figure 9 in [section 4.1.1](#4-1-1-plotting-iterations-on-a-grid) for an example of global shared x-axes and y-axes.
+[The number of plots per page can be selected under *Options \> Grid*, the last of the top row of tabs, as described in the section on [plotting on a grid](#4-1-plotting-on-a-grid).  There are two scaling options for the iterated axes in a grid, set in this tab: Global and Shared. Global will use a common axis range based on data loaded with the selection criteria specified in the Data tab. Shared displays one set of x-axes and y-axes for the page rather than per-plot.  When left unchecked, *Global *and *Shared *results in plots with axes scaling to the data for each individual panel of the iteration.  See Figure 9 in [section 4.1.1](#4-1-1-plotting-iterations-on-a-grid) for an example of global shared x-axes and y-axes.]{
 
 The **plotms** task parameter used to select an iteration axis is *iteraxis*.  The options include \'scan\', \'field\', \'spw\', \'baseline\', \'antenna\', \'time\', and \'corr\'.
 
@@ -514,13 +462,13 @@ The **plotms** task parameter used to select frequency frame is *freqframe.*  Va
 
 If Velocity is selected as an axis, by default the transformation from frequency uses the parameters in the MS metadata, or, if absent, using the central frequency and TOPO frame. The user can change this by using the *Frame, Velocity Defn,* and *Rest Freq* options in the Transform tab*. * The velocity definition is chosen from the *Velocity Defn* drop-down menu, offering selections of *Radio, True* (Relativistic)*,* or *Optical.*
 
-For more information on frequency frames and spectral coordinate systems, see the paper by Greisen et al. (A&A, 446, 747, 2006) (Also at [[http://www.aoc.nrao.edu/\~egreisen/scs.ps](http://www.aoc.nrao.edu/%7Eegreisen/scs.ps)])^^
+For more information on frequency frames and spectral coordinate systems, see the paper by Greisen et al. (A&A, 446, 747, 2006) [(Also at[ [[http://www.aoc.nrao.edu/\~egreisen/scs.ps](http://www.aoc.nrao.edu/%7Eegreisen/scs.ps)]{)]{]{^^
 
-Finally, the spectral line's rest frequency in units of MHz should be typed into the *Rest Freq* input box next. You can use the slsearch](https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_slsearch) task to search a spectral line table, or the [me.spectralline tool method to turn transition names into frequencies:
+Finally, the spectral line's rest frequency in units of MHz should be typed into the *Rest Freq* input box next[. You can use the [slsearch](https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_slsearch) task to search a spectral line table, or the ]{me.spectralline tool method to turn transition names into frequencies:
 
 ```
 CASA <16>: me.spectralline('HI')
- Out[17]: 
+[ Out[17]: ]{
 {'m0': {'unit': 'Hz', 'value': 1420405751.786},
  'refer': 'REST',
  'type': 'frequency'}
@@ -530,7 +478,7 @@ For a list of known lines in the CASA measures system, use the toolkit command m
 
 ```
 CASA <21>: me.linelist()
- Out[21]: 'HI H186A H185A H184A H183A H182A H181A H180A H179A H178A H177A H176A H175A 
+[ Out[21]: 'HI H186A H185A H184A H183A H182A H181A H180A H179A H178A H177A H176A H175A ]{
 H174A H173A H172A H171A H170A H169A H168A H167A H166A H165A H164A H163A H162A H161A H160A... 
 He182A He181A He180A He179A He178A He177A He176A He175A He174A He173A He172A He171A He170A 
 He169A He168A He167A He166A He165A He164A He163A He162A He161A He160A He159A He158A He157A...
@@ -554,7 +502,7 @@ The **plotms** task parameters used to set velocity definition and rest frequenc
 
 The plot's phase center can be shifted in the *Plot \> Transform* tab. This will allow coherent vector averaging of visibility amplitudes far from the phase tracking center.  Enter the X and Y shifts in units of arcseconds in the *dX* and *dY* boxes under *Phase center shift*.
 
-The **plotms** task parameter used to shift the phase center is *shift*.  Its value should be a list in the format \[dx,dy\] in arcsec (default \[0.0, 0.0\]).
+[The **plotms** task parameter used to shift the phase center is *shift*.  Its value should be a list in the format \[dx,dy\] in arcsec (default \[0.0, 0.0\]).]{
 
 ------------------------------------------------------------------------
 
@@ -605,7 +553,7 @@ To set multiple symbols in the **plotms** task, set the symbol parameters as a l
 
 ```
 [plotms(vis='ngc5921.ms', yaxis=['amp','elevation'], yaxislocation=['left','right'], customsymbol=[True,True], symbolcolor=['purple','green'])
-]
+]{
 ```
 
 In this plot, the \'amp\' axis will be purple, and the \'elevation\' axis will be green.
@@ -614,7 +562,7 @@ In this plot, the \'amp\' axis will be purple, and the \'elevation\' axis will b
 
 Plotms has the capability to connect points for calibration tables; support for MeasurementSets will be added later.  The points are colorized and connected along the x-axis or time axis by line or step.  Points with the same metadata but varying values of the x-axis or time are connected.  Unflagged points are not connected to flagged points, even when they are not displayed.  The \"Colorize\" axis will override the connection colorization.
 
-![1cb0ac9d3ca82e6a491a0d9b7ce4e6c219c0886a](media/1cb0ac9d3ca82e6a491a0d9b7ce4e6c219c0886a.png)
+[![1cb0ac9d3ca82e6a491a0d9b7ce4e6c219c0886a](media/1cb0ac9d3ca82e6a491a0d9b7ce4e6c219c0886a.png){.image-inline}]{
 
 >Plot Display tab showing the Connect Points options for a gain table.  Here, points with the same spw, channel, polarization, and antenna1 are connected along the time axis.
   
@@ -633,7 +581,7 @@ The **plotms** task parameters used to set the title and its font are *title* (d
 
 ### 1.7.2 Legend
 
-A plot symbol legend can be added to the plot by clicking on the checkbox next to *Legend*. For a simple plot, a symbol legend simply echoes the plot axes (e.g. \"Amp vs Time\") but is useful when [overplotting data](#7-1-overplotting-multiple-data-sets-on-the-same-plot) with custom colors so that you can identify the data (e.g. \"Amp vs Time\" in blue and \"Phase vs Time\" in green on the same plot).
+[A plot symbol legend can be added to the plot by clicking on the checkbox next to *Legend*. For a simple plot, [a symbol legend simply echoes the plot axes (e.g. \"Amp vs Time\") but is useful when [overplotting data](#7-1-overplotting-multiple-data-sets-on-the-same-plot) with custom colors so that you can identify the data (e.g. \"Amp vs Time\" in blue and \"Phase vs Time\" in green on the same plot).]{]{
 
 When enabled, a drop-down menu next to *Legend* allows the user to select the legend location either within the plot (Upper Right, Lower Right, Upper Left, Lower Left) or outside the plot (Out Right, Out Left, Out Top, Out Bottom).
 
@@ -641,7 +589,7 @@ The **plotms** task parameter used to enable the legend is *showlegend* (default
 
 ### 1.7.3 Axis Labels 
 
-To enable the X- and Y-axis labels, check the *Show Label* checkboxes under *X Axis* and *Y Axis *(default is checked).  As with the plot title, the user may set the label to None (no label), Default (axis name with units),* * or type the desired text in the blank box.  The font size of labels can also be customized by enabling then setting the font size for each axis.  The location of axis labels is determined by the axis location as set in the *Plot \> Axes* tab, as shown in [the section above](#1-3-3-axis-locations).
+To enable the X- and Y-axis labels, check the *Show Label* checkboxes under *X Axis* and *Y Axis *(default is checked).  As with the plot title, the user may set the label to None (no label), Default (axis name with units),* * or type the desired text in the blank box.  The font size of labels can also be customized by enabling then setting the font size for each axis.  The location of axis labels is determined by the axis location as set in the *Plot \> Axes*[ tab, as shown in [the section above](#1-3-3-axis-locations).]{
 
 The **plotms** task parameters used to set the label text and font are *xlabel and ylabel* (default \"\" is axis name with units, set to \' \' space to disable label) and *xaxisfont* and *yaxisfont* (default 0 == autoscale).
 
@@ -649,22 +597,12 @@ The **plotms** task parameters used to set the label text and font are *xlabel a
 
 A grid of lines can be superimposed on the plot using *Grid Lines* in the *Plot \> Canvas* tab. "Major" grid lines are drawn at the locations of major tick marks, while "minor" grid lines are drawn at minor tick marks.
 
-Grid line colors, thicknesses, and styles are selected independently for the "major" and "minor" grid lines. Desired line thickness should be typed into the blank boxes just to the right of the *Major* and *Minor* labels. Colors are set by clicking on the \...] buttons. The blank boxes to the left of the \... buttons will then contain the hex codes for the selected colors (e.g., "808080"). Line styles can also be selected from the drop-down menus to the right of [\... buttons; style options include *solid, dash, dot*, and *none*.
-
-The **plotms** task parameter used to add and customize major grid lines include *showmajorgrid* (default is False) with subparameters *majorwidth* (default is 1), *majorstyle* (\'solid\', \'dash\', \'dot\', \'none\'; default is \'solid\'), and *majorcolor* (RGB hex code or color name; default is \'b0b0b0\' dark gray).
-
-Parameters for minor grid lines include *showminorgrid* (default is False) with subparameters *minorwidth* (default is 0), *minorstyle* (default is \'solid\'), and *minorcolor* (default is \'d0d0d0\' light gray).
-
-------------------------------------------------------------------------
-
-# 2. Flag Extensions: The Flag Tab
-
-![0b91fab4d4cbcb4061e0185c76c2d9a8889cc449](media/0b91fab4d4cbcb4061e0185c76c2d9a8889cc449.png)
+Grid line colors, thicknesses, and 
 
 >The plotms *Flag* tab.  Here the *Extend flags* box has been checked, enabling the *Correlation* and *Channel* options.  The plot shows unflagged data in blue and flagged data in red.
   
 
-See the section below on [interactive flagging in plotms.](#8--interactive-flagging)  The options in this tab allows the user to have flagging extend to other data points besides what is marked on the plot.
+[See the section below on [interactive flagging in plotms.](#8--interactive-flagging)  The options in this tab allows the user to have flagging extend to other data points besides what is marked on the plot.]{
 
 When enabled with the *Extend flags* checkbox, the user may choose to extend flags based on correlation or channel by checking the corresponding checkboxes.  Future options for flag extensions are planned.
 
@@ -678,14 +616,14 @@ The **plotms** task parameter used to extend flags is *extendflag* (True/False, 
 
 # 3. Interactive Tools: The Tools Tab, Annotate Tab, and Tool Icons 
 
-![5805a63e175751d3cece5510c839490bd34ec9f4](media/5805a63e175751d3cece5510c839490bd34ec9f4.png)
+[![5805a63e175751d3cece5510c839490bd34ec9f4](media/5805a63e175751d3cece5510c839490bd34ec9f4.png){.image-inline}]{
 
 >The plotms Tools tab.  Here the Tracker Display tool is showing the (X,Y) coordinates of the cursor position.  A previous position was saved to the text box by pressing the SPACE bar.
   
 
 Various interactive GUI tools are selectable with the radio buttons in the *Hand Tools* section of the *Tools *tab at the top of the **plotms** window.  They are also available as icon buttons at the bottom of the **plotms** window.  These tools can be used to zoom, pan, annotate, flag/unflag, and locate data.  Described below are the bottom icon buttons in order.
 
-![30e7cfa63b3a09d8c6ed179f5c955109348d9360](media/30e7cfa63b3a09d8c6ed179f5c955109348d9360.png)
+[![30e7cfa63b3a09d8c6ed179f5c955109348d9360](media/30e7cfa63b3a09d8c6ed179f5c955109348d9360.png){.image-inline}]{
 
 -   
     **Zoom** --- The "magnifying glass" button (1st on left) lets you draw a box around a region of the plot (left-click on one corner of the box, and drag the mouse to the opposite corner of the desired box), and then zooms in on this box.
@@ -696,40 +634,17 @@ Various interactive GUI tools are selectable with the radio buttons in the *Hand
     
 
 -   
-    **Annotate** --- The 3rd button from the left is chosen from a drop-down menu to either *Annotate Text* ("T with a green diamond" button) or *Annotate Rectangle* ("pencil" button). With *Annotate Text* activated, click on a location in the plot where text is desired; a window will pop up, allowing you to type text in it. When you click the OK button, this text will appear on the plot. *Annotate Rectangle* simply lets you draw a box on the plot by left-clicking and dragging the mouse. By clicking on the *Annotate* tab near the top of the **plotms** window, different fonts, colors, line styles, etc. can be selected for annotations.
-    
+    **Annotate** --- The 3rd button from the left is chosen from a drop-down menu to either *Annotate Text* ("T with a green diamond" button) or *Annotate Rectangle* ("pencil" button). With *Annotate Text* activated, click on a location in the plot where text is desired; a window will pop up, allowing you to type text in it. When you click the OK button, this text will appear on the plot. *Annotate Rectangle* simply lets you draw a box on the plot by left-clicking and dragging the mouse. By clicking on the *Annotate* tab near the top of the **plotms** window, different fonts, colors, line 
 
 -   
-    **Stack Base** --- The "house" button (5th from left) returns to the original zoom level.
-    
-
--   
-    **Stack Back** and **Stack Forward** --- The left and right arrow buttons (4th and 6th from left) step through the zoom settings you've visited.
-    
-
--   
-    **Mark Regions** --- The "box with a green diamond" button (7th from left) lets you mark a region for flagging, unflagging, or locating. Left-click on one corner of the desired region, and then drag the mouse to set the opposite corner of the region. You can mark multiple boxes before performing an operation on them.  The selected regions will appear on the plot as shaded rectangles.    
-    
-
--   **Subtract Regions** --- The "box with a minus sign" button (8th from left) lets you de-select marked regions (draw around a marked region and the shaded area will disappear).  To de-select all marked regions, use the next button.    
-
--   <div>
-
-    **Clear Regions** --- Clicking on the "box with a red circle" button (9th from left) will clear all regions which have been marked using Mark Regions.
-
-    </div>
-
--   **Locate** --- The "magnifying glass on a sheet of paper" button (10th from left) will print out information about points in the marked regions.  This information is printed to the shell terminal when **plotms** was started with *casaplotms*, or to the casa logger/logfile when **plotms** was started in a casa python session.  The header of the output indicates the plotted X and Y axes and the range of values in the selected region.  The output for each point includes scan, field, time, baseline, spw, channel, frequency, correlation, X, Y, and observation ID.  By copying this list to a text file, or setting a new logfile with *casalog.setlogfile* as described in the [CASA logger documentation](https://casa.nrao.edu/casadocs-devel/stable/usingcasa/casa-logger), the *Locate* information can be edited to provide input for flagdata.  To list an entire column, e.g. all visibilities for a source, use the listvis task or the [table tools](https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_table).    
-
--   
-    **Flag** --- Click on the "flag" button (11th from left) to flag all points in the marked regions.  See the section below on [Interactive Flagging](#8--interactive-flagging).    
+    [**Flag** --- Click on the "flag" button (11th from left) to flag all points in the marked regions.  See the section below on [Interactive Flagging](#8--interactive-flagging).    ]{
     
 
 -   
     **Unflag** --- Click on the "crossed-out flag" button (12th from left) to unflag any flagged points in the marked regions (even if not displayed).
     
 
--   **Flag All** --- Click on the \"per-grid flag/unflag\" button (13th from left) to enter/leave the \"Flag All\" mode. See the section below on [Interactive Flagging](#8--interactive-flagging).
+-   [**Flag All** --- Click on the \"per-grid flag/unflag\" button (13th from left) to enter/leave the \"Flag All\" mode. See the section below on [Interactive Flagging](#8--interactive-flagging).]{
 
 -   **Iteration **--- The next four green arrow buttons (14th through 17th from left) control iteration, with the first and last \"double arrow\" buttons used to display the first and last iteration, and the center two \"single arrow\" button to display the previous or next iteration.  If the plots are on a grid, these arrows navigate through the pages of plots which contain multiple iterations.
 
@@ -755,12 +670,12 @@ The layout of the page is set on the **plotms** *Options* tab. For multiple plot
 
  
 
-![43c10660168c9492aad849d60db2bf97d08411c0](media/43c10660168c9492aad849d60db2bf97d08411c0.png) 
+![43c10660168c9492aad849d60db2bf97d08411c0](media/43c10660168c9492aad849d60db2bf97d08411c0.png){.image-inline} 
 
 >The plotms Options tab.  Here a 2x2 grid has been created with iteration on the \'antenna\' axis.
   
 
-If [iteration](#1-4-iteration--the-plot-page-tab) is enabled in the *Plot \> Page* tab, the grid will be filled automatically with each iterated plot.  The *Plot \> Page* tab is also where common axis scales and shared axes will be set; they are enabled for the plot in Figure 9.  These axis options are only available for iterated plots in a grid.
+[If [iteration](#1-4-iteration--the-plot-page-tab) is enabled in the *Plot \> Page* tab, the grid will be filled automatically with each iterated plot.  The *Plot \> Page* tab is also where common axis scales and shared axes will be set; they are enabled for the plot in Figure 9.  These axis options are only available for iterated plots in a grid.]{
 
 The **plotms** task parameters used to create a grid with iteration include *gridrows and gridcols* (default is 1)*.* To create the plot shown in Figure 9, the **plotms** command would be:
 
@@ -770,13 +685,13 @@ plotms('ngc5921_ut.ms', xaxis='freq', iteraxis='antenna', gridrows=2, gridcols=2
 
 ### 4.1.2 Plotting Multiple Data on a Grid
 
-We note here that plotting multiple datasets or axes on a grid is possible in **plotms** but covered separately in the [[section below](#6-2-plotting-multiple-datasets-or-axes-on-a-grid), as this involves many settings in the GUI or multiple **plotms** task commands.  Since the grid affects all of the plots, its settings are in the *Options* tab rather than the *Plot* tab.]
+[We note here that plotting multiple datasets or axes on a grid is possible in **plotms** but covered separately in the [[[section below](#6-2-plotting-multiple-datasets-or-axes-on-a-grid), as this involves many settings in the GUI or multiple **plotms** task commands.  Since the grid affects all of the plots, its settings are in the *Options* tab rather than the *Plot* tab.]{]{]{
 
 ## 4.2 Tool Button Style 
 
 The *Tool Button Style* drop-down menu determines the format of the tool buttons at the bottom of the **plotms** window. The options include *Icon Only, Text Only, Text Beside Icon, and Text Under* Icon.  In *Icon Only* mode (default), hovering the cursor over each icon will give a text description of the icon.
 
-To hide the bottom icons, see the description of the [View menu](#5-2-view-menu). The tools can also be accessed in the *Tools* tab.
+[[To hide the bottom icons, see the description of the [View menu](#5-2-view-menu). The tools can also be accessed in the *Tools* tab.]{]{
 
 ## 4.3 Log Events 
 
@@ -796,7 +711,7 @@ This setting allows the user to limit how many remembered filepaths are displaye
 
 ------------------------------------------------------------------------
 
-# 5. The plotms Menus  {#the-plotms-menus canvas-width="346.08658074035947"}
+# 5. The plotms Menus  
 
 ## 5.1 File Menu: Quit 
 
@@ -806,11 +721,11 @@ The *File* menu in the top menu bar allows you to *Quit* **plotms**, or you can 
 
 You can save a copy of a plot to file with the *Export* menu, which produces an *Export Plots* dialog box with many settings.
 
--   **Filename**: Click the *Browse* button for a GUI-based selection of the directory and filename to which the plot will be saved, or click the *Insert MS Name* button to minimize typing. You may also just type in a file name. The file format can be determined in this GUI by the suffix given to the filename: .png], .jpg], [.ps], [.pdf], and [txt[. 
+-   **Filename**: Click the *Browse* button for a GUI-based selection of the directory and filename to which the plot will be saved, or click the *Insert MS Name* button to minimize typing. You may also just type in a file name. The file format can be determined in this GUI by the suffix given to the filename: .png, .jpg, .ps, .pdf, and txt. 
     <div class="alert alert-warning">
     If a file already exists with the given filename, it will be overwritten without warning!
     </div>
--   **Format**: Alternatively, the file format can be selected from the *Format* drop-down menu, with these options: \[by file extension\], PNG, JPG, PS, PDF, and TEXT. For the first option, if your filename is \"test.jpg\" the plot will be exported in JPG format.  For the other formats, **plotms** will use the filename as given and **not** add a suffix to indicate its format. See below for an example of TEXT format; the header will include the name of the visibility and other specified parameters including selection, averaging, transformations, etc.    
+-   **Format**: Alternatively, the file format can be selected from the *Format*[ drop-down menu, with these options: \[by file extension\], PNG, JPG, PS, PDF, and TEXT]{. For the first option, if your filename is \"test.jpg\" the plot will be exported in JPG format.  For the other formats, **plotms** will use the filename as given and **not** add a suffix to indicate its format. See below for an example of TEXT format; the header will include the name of the visibility and other specified parameters including selection, averaging, transformations, etc.    
 -   **Verbose**: When a text export is selected, the output can be verbose (include metadata).  When this checkbox is unchecked, the text export will include x and y values only.  This parameter is ignored for other formats.
 -   **Range**: When iteration is chosen, producing multiple plots, you may select to export only the *Current Page* or A*ll Pages***.**  Each saved plot will have the name of the iteration appended to the given filename before the extension.  For example, with filename \"ngc5921_ut.jpg\" and iteration on antenna, the first plot will be named \"ngc5921_ut_Antenna1\@VLA:N7.jpg\".  This is so the exported plots can be identified without viewing them.  Be warned that if you are plotting iterations on a grid, the filenames will have all of the iterations on the page appended, which can lead to a very long filename. Filenames exceeding 255 characters in length will be automatically shortened upon export. One plotfile per page is produced; multipage pdf exports are not currently supported.    
 -   **High Resolution:** Exporting to images in screen resolution is currently not working, so plot exports are always high resolution.  A notice is issued in the console/log.
@@ -823,18 +738,19 @@ The TEXT format will not save an image but all of the data points themselves. Th
 
 <div class="alert alert-warning">
 **ALERT**: The exported TEXT file can be quite large and take some time to create.  Using averaging, selection, etc. is recommended to keep the file size manageable.  If a region is marked as described in section 3, only those points are exported to the text file.
+
 </div>
 
 The reported data is the same as when using the *L**ocate* button in **plotms**, with the following format (when *verbose=True*):
 
 ```python
-# vis: ngc5921_ut.ms
-# scan: 4
-# channel average: 63
-# time average: None
-# From plot 0
-# x y chan scan field ant1 ant2 ant1name ant2name time freq spw corr obs
-# Time Amp None None None None None None None MJD(seconds) GHz None None None
+#vis: ngc5921_ut.ms
+#scan: 4
+#channel average: 63
+#time average: None
+#From plot 0
+#x y chan scan field ant1 ant2 ant1name ant2name time freq spw corr obs
+#Time Amp None None None None None None None MJD(seconds) GHz None None None
 4304483429.999 62.7219 0 4 1 1 1 2@VLA:W1 2@VLA:W1 4304483429.999 1.413332233 0 RR 0
 4304483429.999 59.0717 0 4 1 1 1 2@VLA:W1 2@VLA:W1 4304483429.999 1.413332233 0 LL 0
 4304483429.999 59.0252 0 4 1 27 27 28@VLA:W7 28@VLA:W7 4304483429.999 1.413332233 0 RR 0
@@ -849,57 +765,18 @@ The **plotms** task parameter used to export plots is *plotfile.*  Unlike the Ex
 
 -    *expformat* (\'jpg\', \'png\', \'pdf\', \'ps\', \'txt\') - select the format if no extension is included in the *plotfile*. If there is no *plotfile* extension and no *expformat* set, the plot will be exported as a PNG.    
 -   verbose (True/False, default is True) - include metadata in text export; ignored for other formats.
--   *exprange ]]*[[(\'current\', \'all\'; defaults to current)]][[    
+-   *exprange *(\'current\', \'all\'; defaults to current)    
 -   *highres* (True/False, default is False)    
 -   *dpi*
 -   *width* (in pixels)
 -   *height* (in pixels)
--   *overwrite]]*[[ (True/False, de]][[fault is False)
+-   *overwrite* (True/False, default is False)
 
 ## 5.3 Summary Menu: Information About Your Dataset 
 
-Information about the MeasurementSet can be obtained from within **plotms** by clicking on the *Summary* menu in the top menu bar. If *All* is chosen from the pull-down menu next to *Type*, listobs-style output about scans, correlator configurations, and antennae will be written to the console or log.  Other options for a subset of the data include *Where, What, How, Main, Tables, Antenna, Feed, Field, Observation, History, Polarization, Source, Spectral Window, Spectral Window and Polarization, SysCal*, and *Weather*.
+Information about the MeasurementSet can be obtained from within **plotms** by clicking on the *Summary* menu in the top menu bar. If *All* is chosen from the pull-down menu next to *Type*, listobs-
 
-For calibration tables, options in the *Summary* menu include *All, Where, What, How, Main, Tables, Antenna, Field, Observation, History,* and *Spectral Window*.
-
-For more detail, click on the *Verbose* checkbox.
-
-## 5.4 View Menu: Hide or Display Tool Icons 
-
-This menu controls the display of tool icons.  Use the *View \> Toolbars* menu to de-select and hide the *Tools, Iteration* (green arrows), or *Display* (Hold Drawing) icons.  By default these icons are all selected and displayed at the bottom of the **plotms** window.
-
-## 5.4 Help Menu: About **plotms** 
-
-This menu\'s *About* option describes **plotms** and the versions of CASA, Qt, and Qwt it uses, along with links.  Qt is the software framework that **plotms** uses for its GUI, and Qwt is a library that provides plotting functionality on top of the Qt framework.
-
-Click *About Qt*  for more detail about this software package and its licensing.
-
-------------------------------------------------------------------------
-
-# 6. Plotting Multiple Data
-
-## 6.1 Overplotting Multiple Datasets or Axes on the Same Plot
-
-It is possible to overplot two datasets on the same plot, or the same dataset with different y-axes in each plot.  To do this, set up the first plot as usual.  Then press the *Add Plot* button at the bottom left of the **plotms** window. This will bring up an additional data input panel in the *Plot \> Data* tab where you can specify the plot parameters as you did for the first one, which is automatically minimized.  Use the slider to scroll vertically through the panels.  Use right-click options or the *Minimize, Maximize*, or *Close* buttons to keep a better overview on the individual datasets.
-
-When overplotting, you may want to set different custom colors for each dataset in its *Display* tab.  If you are plotting different axes or the axes ranges are a significantly different range of values, you may want to set different axes locations for each plot in the *Axes* tab.  When you are done, click the *Plot* button to see the overplot.
-
-Use the *Close* button in each data panel to close the panel and remove that plot.
-
-In the **plotms** task interface, you can overplot by invoking **plotms** more than once with clearplots=False. Each **plotms** command corresponds to a plot to go on top of previous ones, and each must have its own *plotindex* (0-based, default is 0).  Otherwise, with the same plotindex, the second plot will overwrite the first.  In the following example, we are plotting Scan vs. Time for MeasurementSet test1.ms with plotindex 0, and Field vs. Time for MeasurementSet test2.ms on the same  plot with plotindex 1.  The test2 data is a different color and its yaxis is on the right.
-
-Note that since the *plotindex* is an index into subplots, this parameter must be assigned in consecutive order.  If a *plotindex* is skipped, plotms will adjust the index number and inform the user of the corrected *plotindex* value.
-
-```
-plotms(vis='test1.ms', yaxis='scan')
-plotms(vis='test2.ms', yaxis='field', plotindex=1, clearplots=False, customsymbol=True, symbolcolor='00FF00', yaxislocation='right')
-```
-
-## 6.2 Plotting Multiple Datasets or Axes on a Grid 
-
-**plotms** allows you to plot more than one dataset or axes on the same page by [specifying a grid size](#4-1-plotting-on-a-grid) then a grid location for each plot as described below. Here is an example of two plots with different datasets:
-
-![459e57c04e9d444fff7936b9bef64eb0ac3c652d](media/459e57c04e9d444fff7936b9bef64eb0ac3c652d.png)
+[![459e57c04e9d444fff7936b9bef64eb0ac3c652d](media/459e57c04e9d444fff7936b9bef64eb0ac3c652d.png){.image-inline}]{
 
 >Plotting multiple data sets on a 2x1 grid.  Here, the MS is plotted in grid location (1,1).  Then the *Add Plot* button was used to select its bandpass calibration table and plot it in grid location (2,1).
   
@@ -914,8 +791,8 @@ The process is similar to the one above, except that you specify the grid  and e
 
 Several **plotms** task parameters are used to create a grid and specify a plot location.
 
--   gridcols] and [gridrows define the number of plots on the screen.
--   colindex] and [rowindex (0-based) set the location of an individual plot
+-   gridcols and gridrows define the number of plots on the screen.
+-   colindex and rowindex (0-based) set the location of an individual plot
 -   plotindex (0-based) must be incremented by 1 for each **plotms** call
 -   *clearplots* is set to False to keep previous plots
 
@@ -930,7 +807,7 @@ plotms(vis='test2.ms', yaxis='field', gridrows=2, gridcols=1, rowindex=1, colind
 
 # 7. Interactive Flagging
 
-Interactive flagging, on the principle of "see it --- flag it", is possible on the X-Y display of the data plotted by **plotms**. Use the cursor to mark one or more regions, and then flag, unflag, or list ([*Locate*](#3--interactive-tools--the-tools-tab--annotate-tab--and-tool-icons)) the data that falls in these regions of the display.
+Interactive flagging, on the principle of "see it --- flag it", is possible on the X-Y display of the data plotted by **plotms**[. Use the cursor to mark one or more regions, and then flag, unflag, or list ([*Locate*](#3--interactive-tools--the-tools-tab--annotate-tab--and-tool-icons)) the data that falls in these regions of the display.]{
 
 <div class="alert alert-warning">
 Do not attempt to flag data while another task is accessing the same data set.
@@ -950,16 +827,27 @@ The following figure shows an example of marking regions and then clicking the *
 
 ------------------------------------------------------------------------
 
-![552927ba046380032eabbec06584e6ff325f72fa](media/552927ba046380032eabbec06584e6ff325f72fa.png)2.  Select grids to flag/unflag \-- You can click each grid to select for flag/unflag when the mode is active. Unflag is selected for the grids where all data are already flagged, otherwise flag is selected. The background color of the grids selected for flag will change to yellow while the grids selected for unflag will change to the default color.        ![d41e5bbb0ae5ed277f736d63ba4cc3f3aee5d0e5](media/d41e5bbb0ae5ed277f736d63ba4cc3f3aee5d0e5.png)3.  Press the **Flag All** button again \-- You now leave the \"Flag all/Unflag all\" mode. At this moment, flag/unflag operations are applied to the data of the currently displayed grids selected in the previous step, and each grid is updated accordingly.     ![b917ed2b75f2a0f8cf8451329a2360ba613c9dda](media/b917ed2b75f2a0f8cf8451329a2360ba613c9dda.png)
+[![552927ba046380032eabbec06584e6ff325f72fa](media/552927ba046380032eabbec06584e6ff325f72fa.png)![a8a4487709d848f87a6f179713f2e352e6e9629e](media/a8a4487709d848f87a6f179713f2e352e6e9629e.png)]{
+
+>Plot of amplitude versus time, before (top) and after (bottom) flagging two marked regions. Note that flagged data is not displayed so these regions are hidden after flagging.  To unflag these regions, mark the two same regions and click the *Unflag* button.
+  
+
+ 
+
+------------------------------------------------------------------------
+
+New interactive flagging is available in CASA 5.5 and later. You have a new button **Flag All**, which is located next to the **Unflag **button, and can turn on and off \"Flag all/Unflag all\" mode by clicking it. Instead of flag/unflag operation on selected region, the \"Flag all/Unflag all\" mode allows you to flag/unflag whole data associated with the grid. The usage of this mode is as follows:
+
+1.  Press the **Flag All** button \-- You now enter the \"Flag all/Unflag all\" mode. Background color of completely flagged grids will become yellow.    ![3b74be06ff6033999651a736383d8c89a40d4764](media/3b74be06ff6033999651a736383d8c89a40d4764.png){.image-inline}2.  Select grids to flag/unflag \-- You can click each grid to select for flag/unflag when the mode is active. Unflag is selected for the grids where all data are already flagged, otherwise flag is selected. The background color of the grids selected for flag will change to yellow while the grids selected for unflag will change to the default color.        ![d41e5bbb0ae5ed277f736d63ba4cc3f3aee5d0e5](media/d41e5bbb0ae5ed277f736d63ba4cc3f3aee5d0e5.png){.image-inline}3.  Press the **Flag All** button again \-- You now leave the \"Flag all/Unflag all\" mode. At this moment, flag/unflag operations are applied to the data of the currently displayed grids selected in the previous step, and each grid is updated accordingly.     ![b917ed2b75f2a0f8cf8451329a2360ba613c9dda](media/b917ed2b75f2a0f8cf8451329a2360ba613c9dda.png){#__mcenew .image-inline}
 
 <div class="alert alert-warning">
-**WARNING:**  On macOS, the \"Flag all/Unflag all\" mode doesn\'t work as expected!
+**WARNING:**  On macOS, the "Flag all/Unflag all" mode doesn't work as expected!
 </div>
 
 On macOS, background color of grids doesn\'t yet change properly although flag/unflag operations work fine. It is not recommended to use this mode on macOS.
 
 <div class="alert alert-warning">
-**WARNING:**  You cannot \"undo\" flagging to a previous state!
+**WARNING:**  You cannot "undo" flagging to a previous state!
 </div>
 
 **plotms** does not automatically create flag backups in the \<msname\>.flagversions file. It is thus recommended to save the initial flags with the flagmanager task before starting **plotms** interactive flagging. Important intermediate flagging stages may also be saved during **plotms** flagging in the same fashion.  Flagging can also be performed using the interactive msview task or scripted with the flagdata or flagcmd tasks.
@@ -971,7 +859,7 @@ WARNING:  Use of flag extensions may lead to deletion of much more data than des
 </div>
 
 <div class="alert alert-warning">
-WARNING:  Interactive flagging doesn\'t support a collaboration with **Iteration** buttons! 
+WARNING:  Interactive flagging doesn't support a collaboration with **Iteration** buttons! 
 </div>
 
 The flag/unflag operations are applied to currently displayed grids only, although you can move to other iterations in the \"Flag all/Unflag all\" mode.

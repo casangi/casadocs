@@ -37,7 +37,7 @@ The *interp* parameter chooses the interpolation scheme to be used during the gr
 -   \'*cubic*\' works the same as \'linear\', but with the nearest 4 instead of 2 data channels.
 
 <div class="alert alert-warning">
-**Warning:** in CASA version earlier than 5.6, the interpolated channels were ensure to be aligned with the edge of the image channel. This could cause channels to be dropped at the edges of data chuncks, causing different sensitivities at the edge of the chunkcs (which can be particularly problematic when chanchunk \>1 or in parallel processing). In CASA 5.6, this has been resolved, and the interpolated channels data now align with the center of the image channel.
+**Warning:** in CASA version earlier than 5.6, the interpolated channels were ensure to be aligned with the edge of the image channel. This could cause channels to be dropped at the edges of data chuncks, causing different sensitivities at the edge of the chunkcs (which can be particularly problematic when chanchunk >1 or in parallel processing). In CASA 5.6, this has been resolved, and the interpolated channels data now align with the center of the image channel.
 </div>
 
  
@@ -156,18 +156,18 @@ When calculating weight density for Briggs style weighting in a cube, this param
  
 
 <div class="alert alert-info">
-**NOTE on data selection via \'spw\'**
+**NOTE on data selection via 'spw'**
 
 The user should select a range larger than what the image will need, and not try to fine-tune the list of channels. The channel mapping and binning process will pick and grid only those data channels that actually map into image channels. This process is already optimized for performance.
 </div>
 
 <div class="alert alert-info">
-**Note on image channel order of the output cube**
+**Note on image channel order of the output cube
+**
 
-The *start* parameter defines the spectral coordinate of the first image channel while the sign of *width* parameter controls direction of the increment along the spectral axis. If *width* is unspecified, and if *start* is defined as a velocity or frequency, the image channels will be ordered such that it always increases in value in the unit specified in *start* with increasing channel number. This is regardless of whether spectral axis order of the input visibility data is increasing or decreaseing in frequency. For example, start=\'-15km/s\' with result in the image with channel 0 being -15km/s and becomes more positive as the image channel number increases. For *start* specified in channel (e.g. start=5)  with an unspecified *width*, image channel frequency axis order will depend on the frequency order of the input visibility data. For a full control of the spectral axis order in the output image, the user is encouraged to set *width*.
+The *start* parameter defines the spectral coordinate of the first image channel while the sign of *width* parameter controls direction of the increment along the spectral axis. If *width* is unspecified, and if *start* is defined as a velocity or frequency, the image channels will be ordered such that it always increases in value in the unit specified in *start* with increasing channel number. This is regardless of whether spectral axis order of the input visibility data is increasing or decreaseing in frequency. For example, start='-15km/s' with result in the image with channel 0 being -15km/s and becomes more positive as the image channel number increases. For *start* specified in channel (e.g. start=5)  with an unspecified *width*, image channel frequency axis order will depend on the frequency order of the input visibility data. For a full control of the spectral axis order in the output image, the user is encouraged to set *width*.
 </div>
 
-#  
 
 # Using Output Images from tclean
 

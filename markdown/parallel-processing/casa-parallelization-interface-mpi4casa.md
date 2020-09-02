@@ -38,7 +38,6 @@ Initialize command handling services
 client.start_services()
 ```
 
-###  
 
 ### Syntax to send a command request
 
@@ -91,16 +90,16 @@ Example 1:
 Run **wvrgcal** in 2 different MeasurementSets (for instance each one corresponding to an Execution Block):
 
 ```
-# Example of full command including parameters
+#Example of full command including parameters
 cmd1 = "wvrgcal(vis='X54.ms',caltable='cal-wvr_X54',spw=[1,3,5,7])"
 cmdId1 = client.push_command_request(cmd1,block=False)
 
-# Example of command with separated parameter list
+#Example of command with separated parameter list
 cmd2 = "wvrgcal()"
 params2={vis='X54.ms',caltable='cal-wvr_X54',spw=[1,3,5,7]}
 cmdId2 = client.push_command_request(cmd2,block=False,parameters=params2)
 
-# Retrieve results
+#Retrieve results
 resultList = client.get_command_response([cmdId1, cmdId2],block=True)
 ```
 
@@ -109,19 +108,19 @@ resultList = client.get_command_response([cmdId1, cmdId2],block=True)
 Example 2:Use the CASA ms tool to get the data from 2 EBs and apply a custom median filter:
 
 ```
-# Open MSs
+#Open MSs
 client.push_command_request("tb.open('x54.ms')",target_server=1)
 client.push_command_request("tb.open('x220.ms')",target_server=2)
 
-# Apply median filter
+#Apply median filter
 client.push_command_request("data=ms.getcell('DATA',1)",target_server=[1,2])
 client.push_command_request("from scipy import signal",target_server=[1,2])
 client.push_command_request("filt_data=signal.medfilt(data)",target_server=[1,2])
 
-# Put filter data back in the MSs
+#Put filter data back in the MSs
 client.push_command_request("tb.putcell('DATA',1,filt_data)",target_server=[1,2])
 
-# Close MSs
+#Close MSs
 client.push_command_request("tb.close(),target_server=[1,2],block=True)
 ```
 

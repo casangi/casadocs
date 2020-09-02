@@ -54,7 +54,7 @@ Possible units of length are:
 *Units must always be included when defining a region.* 
 
 <div class="alert alert-info">
-**NOTE:** The CASA image analysis tasks will determine how a region is projected on a pixel image. The current CASA definition is that when the center of a pixel is inside the region, the full pixel is considered to be included in the region.  If the center of the pixel is outside the region, the full pixel will be excluded. Note that the CASA viewer behavior is not entirely consistent and for rectangles it assumes that *any* fractional pixel coverage will include the entire pixel. For other supported shapes (ellipses and polygons), however, ithe viewer adheres to the \'center of pixel\' definition, consistent with the image analysis tools and tasks. 
+**NOTE:** The CASA image analysis tasks will determine how a region is projected on a pixel image. The current CASA definition is that when the center of a pixel is inside the region, the full pixel is considered to be included in the region.  If the center of the pixel is outside the region, the full pixel will be excluded. Note that the CASA viewer behavior is not entirely consistent and for rectangles it assumes that *any* fractional pixel coverage will include the entire pixel. For other supported shapes (ellipses and polygons), however, ithe viewer adheres to the 'center of pixel' definition, consistent with the image analysis tools and tasks. 
 
 For purely single-pixel work regions may not necessarily be the best choice and alternate methods may be preferable to using regions, eg. **ia.topixel**, **ia.toworld**, **ia.pixelvalue**.
 </div>
@@ -207,19 +207,11 @@ Frequency/velocity axis:
     restfreq=1.42GHz
 
 -   Line characteristics:
-    -   Possible values: any line style recognized by matplotlib: '-'=solid, '\--'=dashed, ':'=dotted
-    -   Default:
-
-```{=html}
+    -   Possible values: any line 
 <!-- -->
 ```
     linewidth=1
-    linestyle=’-’
-
--   Symbol characteristics:
-    -   Symbol size and thickness:
-
-```{=html}
+    line
 <!-- -->
 ```
     symsize = 1
@@ -244,14 +236,7 @@ Frequency/velocity axis:
 ```
     font=Helvetica
     fontsize=10pt 
-    fontstyle=bold
-    usetex=True/False
-
--   Label position:
-    -   Possible values: 'left', 'right', 'top', 'bottom'
-    -   Default: 'top'
-
-```{=html}
+    font
 <!-- -->
 ```
     labelpos=’right’
@@ -348,7 +333,6 @@ A file with both global definitions and per-line definitions:
   \'\_\'                                 hline marker
   -------------------------------------------------------------------- -----------------------------------------------------
 
-##  
 
 ## Allowed Fonts
 

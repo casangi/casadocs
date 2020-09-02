@@ -6,11 +6,10 @@ Detailed description of the CASA logger
 
 # **Logging your session**
 
-#  
 
 The output from CASA commands is sent to the file casa-YYYYMMDD-HHMMSS.log in your local directory, where YYYYMMDD-HHMMSS are the UT date and time when CASA was started up. New starts of CASA create new log files.
 
- ![cde9d5a8ce1cfeb84295afa1b539d64fafe3213d](media/cde9d5a8ce1cfeb84295afa1b539d64fafe3213d.png)
+[ ![cde9d5a8ce1cfeb84295afa1b539d64fafe3213d](media/cde9d5a8ce1cfeb84295afa1b539d64fafe3213d.png){width="900" height="353"}]{
 
 >The CASA Logger GUI window under Linux. Note that under MacOSX a stripped down logger will instead appear as a Console.
   
@@ -34,12 +33,12 @@ The CASA logger window for Linux is shown in the [figure above](http://casa.nrao
 -   *Origin* --- where within CASA the message came from. This is in the format Task::Tool::Method (one or more of the fields may be missing depending upon the message);
 -   *Message* --- the actual text.
 
-![be077f88660e4fd271021e4d643915e0e53acc68](media/be077f88660e4fd271021e4d643915e0e53acc68.png)
+![be077f88660e4fd271021e4d643915e0e53acc68](media/be077f88660e4fd271021e4d643915e0e53acc68.png){width="900" height="353"}
 
 >The CASA Logger GUI window under Linux. Note that under MacOSX a stripped down logger will instead appear as a Console.
   
 
- ![230a345b508be96e7bc81d5cb1f7e9bdecfc114f](media/230a345b508be96e7bc81d5cb1f7e9bdecfc114f.png)
+[ ![230a345b508be96e7bc81d5cb1f7e9bdecfc114f](media/230a345b508be96e7bc81d5cb1f7e9bdecfc114f.png){width="900" height="353"}]{
 
 >Using the casalogger Filter facility. The log output can be sorted by Priority, Time, Origin, and Message. In this example we are filtering by Origin using 'clean', and it now shows all the log output from the clean task.
   
@@ -59,7 +58,7 @@ The casalogger GUI has a range of features, which include:
 **Alert:** Messages added through *Insert Message* will currently not be inserted into the correct (or user controllable) order into the log. *Copy*  does not work routinely in the current version. It is recommended to open the casa-YYYYMMDD-HHMMSS.log file in a text editor, to grab text.
 </div>
 
- ![507e2d4b51f64aef893603257c48a890f830c47c](media/507e2d4b51f64aef893603257c48a890f830c47c.png)
+[ ![507e2d4b51f64aef893603257c48a890f830c47c](media/507e2d4b51f64aef893603257c48a890f830c47c.png){width="900" height="353"}]{
 
 >CASA Logger - Insert facility: The log output can be augmented by adding notes or comments during the reduction. The file should then be saved to disk to retain these changes.
   
@@ -80,9 +79,8 @@ casalog.setlogfile('otherfile.log')
 
 will redirect the output to the 'otherfile.log*'* file. However, the logger GUI will still be monitoring the previous 'casa-YYYYMMDD-HHMMSS.log' file. To change it to the new file, go on *File - Open* and select the new log file, in our case 'otherfile.log*'*.
 
-####   {#section-1 .subsubsection}
 
-# **Startup options for the logger** {#sec48 .subsubsection}
+# **Startup options for the logger** 
 
 One can specify logger options at the startup of casa on the command line:
 
@@ -110,7 +108,7 @@ casa --nologfile
 
  
 
-# **Setting priority levels in the logger** {#sec49 .subsubsection}
+# **Setting priority levels in the logger** 
 
 **Logger** messages are assigned a Priority Level when generated within CASA. The current levels of Priority are:
 
@@ -136,7 +134,10 @@ There is a threshold for which these messages are written to the casa-YYYYMMDD-H
 
 Some examples:
 
-casalog.filter(\'INFO\')           \# the defaultcasalog.filter(\'INFO2\')          \# should satisfy even advanced userscasalog.filter(\'INFO4\')          \# all INFOx messagescasalog.filter(\'DEBUG2\')         \# all messages including debuggingcasalog.
+casalog.filter('INFO')           #the default
+casalog.filter('INFO2')          #should satisfy even advanced users
+casalog.filter('INFO4')          #all INFOx messages
+casalog.filter('DEBUG2')         #all messages including debuggingcasalog.
 
 **WARNING:** Setting the threshold to DEBUG2 will put lots of messages in the log!
 </div>

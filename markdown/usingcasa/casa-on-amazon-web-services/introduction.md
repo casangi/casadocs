@@ -6,7 +6,7 @@ An introduction to Amazon Web Services
 
 In this chapter you will learn how to create an account within AWS, select appropriate resources for a problem, launch those resources, perform any desired processing, return or store resulting products, and finally to release the reserved resources back to Amazon.
 
-![3c5e2909ab2bbc221f7c4669215ce21a70523c54](media/3c5e2909ab2bbc221f7c4669215ce21a70523c54.jpg)
+![3c5e2909ab2bbc221f7c4669215ce21a70523c54](media/3c5e2909ab2bbc221f7c4669215ce21a70523c54.jpg){.image-inline width="442" height="168"}
 
 # Amazon Web Services Introduction
 

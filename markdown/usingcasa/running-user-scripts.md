@@ -32,40 +32,40 @@ The *execfile* command in CASA 6 has been tested and found to work in the same w
 
 For CASA 5, use *\~/.casa/init.py* instead. *startup.py* should be Python 3 compliant whereas *init.py* is assumed to be Python 2.7.
 
-The \'*startup.py*\' file found in *\$HOME/.casa* (i.e. *\~/.casa/startup.py*) is evaluated by the CASA shell just before the CASA prompt is presented to the user. This allows users to customize their CASA shell environment beyond the standard settings in [config.py](https://casa.nrao.edu/casadocs-devel/stable/usingcasa/configuration), by importing packages, setting variables or modifying the python system path. 
+The \'*startup.py*\' file found in *\$HOME/.casa* (i.e. [*\~/.casa/startup.py*) is evaluated by the CASA shell just before the CASA prompt is presented to the user. This allows users to customize their CASA shell environment beyond the standard settings in [config.py](https://casa.nrao.edu/casadocs-devel/stable/usingcasa/configuration), by importing packages, setting variables or modifying the python system path. ]}
 
 One case where this is useful is for configuring CASA for ALMA data reduction. A package called \'analysisUtils\' is often used as part of ALMA analysis. It is typically imported and instantiated in startup.py:
 
 ```
-> <div>
+> 
 >
 > $ cat ~/.casa/startup.py
 >
-> </div>
+> 
 >
-> <div>
+> 
 >
 > import sys, os
 >
-> </div>
+> 
 >
-> <div>
+> 
 >
 > sys.path.append("/home/casa/contrib/AIV/science/analysis_scripts/")
 >
-> </div>
+> 
 >
-> <div>
+> 
 >
 > import analysisUtils as aU
 >
-> </div>
+> 
 >
-> <div>
+> 
 >
 > es=aU.stuffForScienceDataReduction()
 >
-> </div>
+> 
 ```
 
 In this example, the standard python modules *os* and *sys* are made available in the CASA shell. The path where the *analysisUtils* module can be found is added to the Python system path, and finally the package is imported and an object is created. These modules and objects will then be available for the user within the CASA shell environment.

@@ -11,23 +11,23 @@ The new **hanningsmooth** task (based on **mstransform**) does not write to the 
 In CASA, the **hanningsmooth** task will apply Hanning smoothing to a spectral line uv data MeasurementSet. The inputs are:
 
 ```
-#  hanningsmooth :: Hanning smooth frequency channel data to remove Gibbs ringing
-vis                 =         ''        #  Name of input MeasurementSet or Multi-MS.
-outputvis           =         ''        #  Name of output MeasurementSet or Multi-MS.
-keepmms             =       True        #  If the input is a Multi-MS the output will also
+#hanningsmooth :: Hanning smooth frequency channel data to remove Gibbs ringing
+vis                 =         ''        #Name of input MeasurementSet or Multi-MS.
+outputvis           =         ''        #Name of output MeasurementSet or Multi-MS.
+keepmms             =       True        #If the input is a Multi-MS the output will also
                                            be a Multi-MS.
-field               =         ''        #  Select field using ID(s) or name(s).
-spw                 =         ''        #  Select spectral window/channels.
-scan                =         ''        #  Select data by scan numbers.
-antenna             =         ''        #  Select data based on antenna/baseline.
-correlation         =         ''        #  Correlation: '' ==> all, correlation='XX,YY'.
-timerange           =         ''        #  Select data by time range.
-intent              =         ''        #  Select data by scan intent.
-array               =         ''        #  Select (sub)array(s) by array ID number.
-uvrange             =         ''        #  Select data by baseline length.
-observation         =         ''        #  Select by observation ID(s).
-feed                =         ''        #  Multi-feed numbers: Not yet implemented.
-datacolumn          =      'all'        #  Input data column(s) to process.
+field               =         ''        #Select field using ID(s) or name(s).
+spw                 =         ''        #Select spectral window/channels.
+scan                =         ''        #Select data by scan numbers.
+antenna             =         ''        #Select data based on antenna/baseline.
+correlation         =         ''        #Correlation: '' ==> all, correlation='XX,YY'.
+timerange           =         ''        #Select data by time range.
+intent              =         ''        #Select data by scan intent.
+array               =         ''        #Select (sub)array(s) by array ID number.
+uvrange             =         ''        #Select data by baseline length.
+observation         =         ''        #Select by observation ID(s).
+feed                =         ''        #Multi-feed numbers: Not yet implemented.
+datacolumn          =      'all'        #Input data column(s) to process.
 ```
 
 The *datacolumn* parameter determines which of the data columns is to be Hanning smoothed: 'all', 'model', 'corrected', 'data', 'float_data' or 'lag_data'. 'all' will use whichever of the visibility data columns that are present in the input MS. If 'corrected' is specified, the task will smooth the input *CORRECTED_DATA* column and save the smoothed data in *DATA* of the output MS.
@@ -35,8 +35,8 @@ The *datacolumn* parameter determines which of the data columns is to be Hanning
 The Hanning smoothing transformation in **mstransform** is available via a single parameter, as shown below:
 
 ```
-#  Hanning smooth in mstransform
-hanning   = True        # Hanning smooth data to remove Gibbs ringing
+#Hanning smooth in mstransform
+hanning   = True        #Hanning smooth data to remove Gibbs ringing
 
 ```
 

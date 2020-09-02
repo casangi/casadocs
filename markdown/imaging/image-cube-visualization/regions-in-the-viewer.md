@@ -12,14 +12,14 @@ Using CASA CRTF Regions in the Viewer
 
 ------------------------------------------------------------------------
 
-![b0a36b1085af0c104e3d638b0a2d23ee2a5b74d9](media/b0a36b1085af0c104e3d638b0a2d23ee2a5b74d9.png)
+![b0a36b1085af0c104e3d638b0a2d23ee2a5b74d9](media/b0a36b1085af0c104e3d638b0a2d23ee2a5b74d9.png){.image-inline}
 
 ------------------------------------------------------------------------
 
 CASA regions are following the CASA \'crtf\' standard as described in § [D](https://casa.nrao.edu/docs/cookbook/casa_cookbook015.html#chapter%3Aregionformat). CASA regions can be used in all applications, including **tclean** and [Image Analysis Tasks](https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis).
 
 <div class="alert alert-info">
-**NOTE:** The CASA image analysis tasks will determine how a region is projected on a pixel image. The current CASA definition is that when the center of a pixel is inside the region, the full pixel is considered to be included in the region.  If the center of the pixel is outside the region, the full pixel will be excluded. Note that the CASA viewer behavior is not entirely consistent and for rectangles it assumes that *any* fractional pixel coverage will include the entire pixel. For other supported shapes (ellipses and polygons), however, ithe viewer adheres to the \'center of pixel\' definition, consistent with the image analysis tools and tasks. 
+**NOTE:** The CASA image analysis tasks will determine how a region is projected on a pixel image. The current CASA definition is that when the center of a pixel is inside the region, the full pixel is considered to be included in the region.  If the center of the pixel is outside the region, the full pixel will be excluded. Note that the CASA viewer behavior is not entirely consistent and for rectangles it assumes that *any* fractional pixel coverage will include the entire pixel. For other supported shapes (ellipses and polygons), however, ithe viewer adheres to the 'center of pixel' definition, consistent with the image analysis tools and tasks. 
 
 For purely single-pixel work regions may not necessarily be the best choice and alternate methods may be preferable to using regions, eg. **ia.topixel**, **ia.toworld**, **ia.pixelvalue**.
 </div>
@@ -52,7 +52,7 @@ Regions can be selected by SHIFT+click, de-selected by pressing SHIFT+click agai
 
 ------------------------------------------------------------------------
 
-![9978959045808465057ed10e8fa21f4bbfeb7aa5](media/9978959045808465057ed10e8fa21f4bbfeb7aa5.png)
+![9978959045808465057ed10e8fa21f4bbfeb7aa5](media/9978959045808465057ed10e8fa21f4bbfeb7aa5.png){.image-inline}
 
 ------------------------------------------------------------------------
 
@@ -73,51 +73,7 @@ The Polygon Region and Ellipse Region drawing have the same uses, except that po
 
 ------------------------------------------------------------------------
 
-![67074e8c42de2d0374c1c00629cdbaa989c3a1d3](media/67074e8c42de2d0374c1c00629cdbaa989c3a1d3.png)
-
-------------------------------------------------------------------------
-
-With at least one region drawn, the Region Manager becomes active. Using the Properties tab, one can manually adjust the position, annotation, and display style of the region. The entries labeled \"frames\" set which planes of the image cube the region persists through (regions can have a depth associated with them and will only appear in the frames listed in this range). One can manually adjust the width and height and the center of the box in the chosen units. The \'selected\' check box is an alternative way to the SHIFT+click to select a region. The \'annotation\' checkbox will place the \"ann\" string in front of the region ASCII output -- annotation regions are not be used for processing in, e.g. data analysis tasks. In the line and text tabs, one can set the style with which the region is displayed, the associated text, and the position and style of that text.
-
-<div class="alert alert-info">
-**NOTE**: Updating the position of a region will update the spectral profile shown if the Spectral Profile tool is open and the histogram if the Histogram tool is open. The views are linked. Dragging a region or adjusting it manually with the Properties tab is a good way to explore an image.
-</div>
-
- 
-
-### Region Statistics
-
-------------------------------------------------------------------------
-
-![31a405c0af27796c3ac3fdc1c87645e1d5649f5b](media/31a405c0af27796c3ac3fdc1c87645e1d5649f5b.png)
-
-------------------------------------------------------------------------
-
-One of the most useful features of defining a region is the ability to extract statistics characterizing the intensity distribution inside the region. You can see these in the Statistics tab of the of the Region Manager Panel (see [Region Statistics](#FigRegionStatistics)). This displays statistics for the current region in the current plane of the current image. When more than a single region is drawn, you can select them one by one and the Region Panel will update the statistics to reflect the currently selected region. All values are updated on the fly when the region is dragged across the image.
-
-A similar functionality can be achieved by double clicking inside of a region. This will send statistics information for this region in all registered images to the terminal, looking something like this:
-
-```python
-(IRC10216.36GHzcont.image) image
-          Stokes         Velocity            Frame          Doppler        Frequency
-               I -2.99447e+11km/s             LSRK            RADIO      3.63499e+10
-  BrightnessUnit         BeamArea             Npts              Sum             Flux
-         Jy/beam          36.2521            27547     1.087686e-01     3.000336e-03
-            Mean              Rms          Std dev          Minimum          Maximum
-    3.948473e-06     3.723835e-04     3.723693e-04    -1.045624e-03     9.968892e-03
-```
-
-Listed parameters are Stokes, and the displayed channel Velocity with the associated Frame, Doppler and Frequency value. Sum, Mean, Rms, Std Deviation, Minimum, and Maximum value refer to those in the selected region and has the units as specified in BrightnessUnit. Npts is the number of pixels in the region, and BeamArea the beam size in pixels. FluxDensity is in Jy if the image is in Jy/beam. This is an easy way to copy and paste the statistical data to a program outside of CASA for further use.
-
-Taking the RMS of the signal-free portion of an image or cube is a good way to estimate the noise. Contrasting this number with the maximum of the image gives an estimate of the dynamic range of the image. The FluxDensity measurement gives a way to use the viewer to do very basic photometry.
-
- 
-
-### Saving and Loading Regions
-
-------------------------------------------------------------------------
-
-![f9d2972c79da5e3b12e60dc426b81baace780aae](media/f9d2972c79da5e3b12e60dc426b81baace780aae.png)
+![f9d2972c79da5e3b12e60dc426b81baace780aae](media/f9d2972c79da5e3b12e60dc426b81baace780aae.png){.image-inline}
 
 ------------------------------------------------------------------------
 
@@ -141,7 +97,7 @@ The Viewer can attempt to fit a two-dimensional Gaussian to the emission distrib
 
 ------------------------------------------------------------------------
 
-![71a8870c7e27d8e4226ab388d473c1f3cba13373](media/71a8870c7e27d8e4226ab388d473c1f3cba13373.png)
+![71a8870c7e27d8e4226ab388d473c1f3cba13373](media/71a8870c7e27d8e4226ab388d473c1f3cba13373.png){.image-inline}
 
 <div>
 

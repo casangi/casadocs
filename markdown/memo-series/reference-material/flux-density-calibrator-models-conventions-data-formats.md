@@ -87,7 +87,7 @@ pl.ylabel('Tb (K)')
 
 And the following is the output plot by executing the script above.
 
-![be05be49165cd565e14b3473344dfb5d8c00c674](media/be05be49165cd565e14b3473344dfb5d8c00c674.png)
+![be05be49165cd565e14b3473344dfb5d8c00c674](media/be05be49165cd565e14b3473344dfb5d8c00c674.png){.image-inline}
 
  
 

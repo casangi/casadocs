@@ -92,7 +92,7 @@ Important information concerning this version of CASA
 
     /lib/python2.7/site-packages/matplotlib/axes.py in <module>()
        8452                                                                                                             
-       8453 # This is provided for backward compatibility                                                               
+       8453 #This is provided for backward compatibility                                                               
     -> 8454 Subplot = subplot_class_factory()                                                                           
        8455                                                                                                             
        8456 docstring.interpd.update(Axes=martist.kwdoc(Axes))                                                          
@@ -290,24 +290,9 @@ Important information concerning this version of CASA
 -   Some *X11* settings can make the viewer unstable. We identified that the line                *Load \"glx\"*                in */etc/X11/xorg.conf*    is such a setting. If you don\'t need this line for aother applications, it would be better to have it removed.
 -   The viewer can only load MeasurementSets (MS) for which all spectral windows have the same channel width. If this is not the case, an *ArrayColumn* error will appear. To get around this, use *SPLIT*`` to place the spectral windows of interest in a separate MS, or try the *table browser* tool.
 -   When exiting CASA after using the viewer, a message similar to the following may appear: *proc vtool_1EziEss1P2tH0PxJbGHzzQ is being killed*. This is a cosmetic issue and can be ignored.
--   For some OSs and window managers, parts of the display may be eclipsing interactive elements. We recommend to change the window manager styles for these cases. 
--   When multiple animators are open, it can happen that it is not possible to make them active, when the \'Images\' animator is inactive. Active the \'Images\' animator first to enable the other animators. 
--   MeasurementSet with sizes of tens of Gb may not visualize the full data set properly on all machines, which can give the appearance that part of the data is flagged.
--   The line tool in the MAC viewer plots unreadable hex numbers. 
+-   For some OSs and window managers, parts of the display may be eclipsing interactive elements. We recommend to change the window manager 
 
-#### **plotms **
 
--   In RedHat 7 we found that in some circumstances the vertical tab of the viewer appears on the right hand side instead of the left hand side. This eclipses the scrollbar and makes it difficult to use. To fix, add the following to the top of \~/.config/Trolltech.conf
-
-```
-[Qt]
-
-style=GTK+
-```
-
--    When plotting pointing axes in **plotms** on RHEL6, the tick-values of minutes and seconds on the axes are not multiples of 5
-
-```{=html}
 <!-- -->
 ```
 -   For concatenated data sets, **plotms** can create an output error if certain data columns were present in some of the concat input MSs, but missing in others (making concat inset zero values). A practical workaround is to either handle the MSs separately, or delete those columns using the tb.removecols tool (but in case of the latter one has to take care that the columns are not crucial).
@@ -341,7 +326,7 @@ style=GTK+
 
 -   **sdimaging** task may fail when more than several MSes are chosen as inputs (infiles) to create single output image. It is because the file descriptor opened by the task exceeds the limit defined by OSes. You can relax the limit of the number of open file descriptors by the command, e.g., *ulimit -n 4096* . Note the typical number of file descriptors opened by the task is 35/MS.       
 
-#### **plotprofilemap** {#plotprofilemap .p1}
+#### **plotprofilemap** 
 
 -   The task intermittently seg faults on Mac OS.
 

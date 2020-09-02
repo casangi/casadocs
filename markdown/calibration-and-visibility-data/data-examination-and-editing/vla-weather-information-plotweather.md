@@ -9,18 +9,18 @@ Weather data for the VLA can be displayed with the task **plotweather**. This ta
 Inputs are: 
 
 ```
-# plotweather :: Plot elements of the weather table; estimate opacity.
-vis = ''              # MS name
-seasonal_weight = 0.5 # weight of the seasonal model
-doPlot = True         # set this to True to create a plot
-plotName = ''         # (Optional) the name of the plot file
+#plotweather :: Plot elements of the weather table; estimate opacity.
+vis = ''              #MS name
+seasonal_weight = 0.5 #weight of the seasonal model
+doPlot = True         #set this to True to create a plot
+plotName = ''         #(Optional) the name of the plot file
 ```
 
 The amount of seasonal data can be set by the parameter *seasonal_weight*, where a value of 1 will only use the seasonal model and a value of 0 will only use the actual weather data to calculate opacities. 
 
 Typical output of **plotweather** looks like below:
 
-![a36812b09ef65bbf1d85a367204f1070b66a1a2b](media/a36812b09ef65bbf1d85a367204f1070b66a1a2b.png)
+![a36812b09ef65bbf1d85a367204f1070b66a1a2b](media/a36812b09ef65bbf1d85a367204f1070b66a1a2b.png){.image-inline}
 
 >Typical output from plotweather. The panel at the top displays the following properties as a fiunction of time across the observation: elevation of the sun, wind speed and direction, temperature and dew point, and precipitable water vapor (pwv). The bottom panel shows the calculated zenith opacity as a function of  frequency. The opacities calculated from the actual weather data, from a seasonal model and the specified mix of both are shown in the PWV and Tau plots. 
   

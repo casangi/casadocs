@@ -12,22 +12,22 @@ The default inputs for the CASA browsetable task are:
 
 ```
  #In CASA
-#   browsetable :: Browse a table (MS, calibration table, image)
-tablename = ''             # Name of input table
+#browsetable :: Browse a table (MS, calibration table, image)
+tablename = ''             #Name of input table
 ```
 
 Once the tablename is specified, available parameters include:
 
 ```
-#   browsetable :: Browse a table (MS, calibration table, image)
-tablename      =   'ngc5921_ut.ms' #  Name of input table
-mightedit      =      False        #  Warning: the GUI seems to ignore whether the table
-                                   #   tool is opened read-only - just be careful, esp.
-                                   #   if filtering.
-sortlist       =         ''        #  Columns to sort by (ascending)
-taql           =         ''        #  TaQL query string for prefiltering the table.
-skipcols       =         ''        #  Columns to omit[
-]
+#browsetable :: Browse a table (MS, calibration table, image)
+tablename      =   'ngc5921_ut.ms' #Name of input table
+mightedit      =      False        #Warning: the GUI seems to ignore whether the table
+                                   #tool is opened read-only - just be careful, esp.
+                                   #if filtering.
+sortlist       =         ''        #Columns to sort by (ascending)
+taql           =         ''        #TaQL query string for prefiltering the table.
+skipcols       =         ''        #Columns to omit
+
 ```
 
 For more information about the Table Query Language (TaQL) string, see [this note](https://casa.nrao.edu/aips2_docs/notes/199/199.html).
@@ -46,7 +46,7 @@ For an MS, as in this example, the table browser will display the MAIN table (Fi
 > 
 >
 > 
->  ![d0c7a9d86a5f770b9aa1fa566b76946d3adb5a89](media/d0c7a9d86a5f770b9aa1fa566b76946d3adb5a89.jpg)
+> [ ![d0c7a9d86a5f770b9aa1fa566b76946d3adb5a89](media/d0c7a9d86a5f770b9aa1fa566b76946d3adb5a89.jpg){.image-inline}]{
 > 
 >
 > 
@@ -64,13 +64,13 @@ For an MS, as in this example, the table browser will display the MAIN table (Fi
 > 
 > 
 >
->  ![67577de1448a9f6ad7255d62b04c81092f74397f](media/67577de1448a9f6ad7255d62b04c81092f74397f.jpg)
+> [ ![67577de1448a9f6ad7255d62b04c81092f74397f](media/67577de1448a9f6ad7255d62b04c81092f74397f.jpg){.image-inline}]{
 
 >>Use the \"table keywords\" tab to look at other tables within an MS. Double-click on a table name to view its contents in a new tab, as shown in the following figures.
 >   
 
 > 
-> ![df2199ec1cbdc1efd54f633fd2ba0fbfdc464420](media/df2199ec1cbdc1efd54f633fd2ba0fbfdc464420.jpg) 
+> ![df2199ec1cbdc1efd54f633fd2ba0fbfdc464420](media/df2199ec1cbdc1efd54f633fd2ba0fbfdc464420.jpg){.image-inline} 
 > 
 
 >>Viewing the *ANTENNA* table of the MS.
@@ -78,12 +78,12 @@ For an MS, as in this example, the table browser will display the MAIN table (Fi
 
 > <div>
 >
->  ![1beb9b315d682d18e4a9793ed3bdf0a5d181dc87](media/1beb9b315d682d18e4a9793ed3bdf0a5d181dc87.jpg)
+>  ![1beb9b315d682d18e4a9793ed3bdf0a5d181dc87](media/1beb9b315d682d18e4a9793ed3bdf0a5d181dc87.jpg){.image-inline}
 >
 >>The *POLARIZATION* table shows the number and types of correlations.  The *CORR_TYPE* integer array indicates the Stokes type as defined in the Stokes class enumeration.  Common types include RR (5), RL (6), LR (7), and LL (8) for circular polarization, and XX (9), XY (10), YX (11), and YY (12) for linear polarization.
 >   
 >
-> ![123552363d6f2b9035519e8a13276f75935c1f7a](media/123552363d6f2b9035519e8a13276f75935c1f7a.jpg)>
+> ![123552363d6f2b9035519e8a13276f75935c1f7a](media/123552363d6f2b9035519e8a13276f75935c1f7a.jpg){.image-inline}>
 >>Double-click a cell in the table or sub-table to see its value displayed to the right.  Here, the *DATA* column cell (top right) contains a \[2,63\] array of complex numbers.  The *WEIGHT_SPECTRUM* for this data is shown below it as a \[2,63\] array of float values.  Use the sliders to see other values in the arrays, and click \"Close\" to close the cell contents display or \"Close All\" to close all contents displays.
 >   
 >

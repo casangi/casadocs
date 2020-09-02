@@ -23,6 +23,6 @@ width = [2,3]
 to average 2 channels of 1st spectral window selected and 3 in the second one.
 
 <div class="alert alert-warning">
-ALERT: When averaging channels **split** will produce negative channel widths (as reported by **listobs**) if frequency goes down with increasing channel number, whether or not the input channel widths are negative. The *band*widths and channel resolutions will still be positive.\"
+ALERT: When averaging channels **split** will produce negative channel widths (as reported by **listobs**) if frequency goes down with increasing channel number, whether or not the input channel widths are negative. The *band*widths and channel resolutions will still be positive."
 </div>
 

@@ -4,29 +4,7 @@
 
 This is a description of the joint single dish and interferometer image reconstruction algorithm within CASA 5.7/6.1.
 
-### Joint reconstruction of wideband single dish and interferometer data in CASA is [experimental](https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/tasks-and-tools). Please use at own discretion.
-
-The scope of parameters that has been tested for CASA 5.7/6.1 can be found below.
-
- 
-
-## Overview
-
-The SDINT imaging algorithm allows joint reconstruction of wideband single dish and interferometer data. This algorithm is available in the task [**sdintimaging**](https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdintimaging) and described in [Rau, Naik & Braun (2019)](https://iopscience.iop.org/article/10.3847/1538-3881/ab1aa7/meta).
-
- 
-
-### Algorithm {#algorithm style="margin-bottom: 0in; line-height: 100%;"}
-
- 
-
-Interferometer data are gridded into an image cube (and corresponding PSF). The single dish image and PSF cubes are combined with the interferometer cubes in a feathering step. The joint image and PSF cubes then form inputs to any deconvolution algorithm (in either *cube* or *mfs/mtmfs* modes). Model images from the deconvolution algorithm are translated back to model image cubes prior to subtraction from both the single dish image cube as well as the interferometer data to form a new pair of residual image cubes to be feathered in the next iteration. In the case of mosaic imaging, primary beam corrections are performed per channel of the image cube, followed by a multiplication by a common primary beam, prior to deconvolution. Therefore, for mosaic imaging, this task always implements *conjbeams=True* and *normtype='flatnoise'*.
-
- 
-
- 
-
-![66b05f9d215777360fc1b1ce0147ce542eeb93b5](media/66b05f9d215777360fc1b1ce0147ce542eeb93b5.png)
+### Joint reconstruction of wideband single dish and interferometer data in CASA is [[experimental](https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/tasks-and-tools). Please use at own discretion.]
 
  
 
@@ -34,34 +12,13 @@ Interferometer data are gridded into an image cube (and corresponding PSF). The 
 
  
 
-The input single dish data are the single dish image and psf cubes. The input interferometer data is a MeasurementSet. In addition to imaging and deconvolution parameters from interferometric imaging (task **tclean**), there are controls for a feathering step to combine interferometer and single dish cubes within the imaging iterations. Note that the above diagram shows only the \'mtmfs\' variant. Cube deconvolution proceeds directly with the cubes in the green box above, without the extra conversion back and forth to the multi-term basis. Primary beam handling is also not shown in this diagram, but full details (via pseudocode) are available in the [reference publication.](https://iopscience.iop.org/article/10.3847/1538-3881/ab1aa7)
+[The input single dish data are the single dish image and psf cubes. The input interferometer data is a MeasurementSet. In addition to imaging and deconvolution parameters from interferometric imaging (task **tclean**), there are controls for a feathering step to combine interferometer and single dish cubes within the imaging iterations. Note that the above diagram shows only the \'mtmfs\' variant. Cube deconvolution proceeds directly with the cubes in the green box above, without the extra conversion back and forth to the multi-term basis. Primary beam handling is also not shown in this diagram, but full details (via pseudocode) are available in the [reference publication.](https://iopscience.iop.org/article/10.3847/1538-3881/ab1aa7)]{
 
-The parameters used for controlling the joint deconvolution are described on the [**sdintimaging**](https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdintimaging) task pages.
-
- 
-
-## Task Specification : sdintimaging {#task-specification-sdintimaging style="margin-bottom: 0in; line-height: 100%;"}
+[The parameters used for controlling the joint deconvolution are described on the [**sdintimaging**](https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdintimaging) task pages.]{
 
  
 
-The task [**sdintimaging**](https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdintimaging) contains the algorithm for joint reconstruction of wideband single dish and interferometer data. The **sdintimaging** task shares a significant number of parameters with the **tclean** task, but also contains unique parameters. A detailed overview of these parameters, and how to use them, can be found in the CASA Docs [task pages of sdintimaging](https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdintimaging).
-
- 
-
-## Usage Modes
-
-As seen from the diagram above and described on the [**sdintimaging**](https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdintimaging) task pages, there is considerable flexibility in usage modes. One can choose between interferometer-only, singledish-only and joint interferometer-singledish imaging. Outputs are restored images and associated data products (similar to task tclean).
-
-The following usage modes will be released in the (experimental) sdintimaging task for CASA 6.1/5.7 . Modes being tested are all 12 combinations of :
-
--   Cube Imaging :  All 6 combinations of the following options.
-    -   *specmode = \'cube\' *
-    -   *deconvolver = \'multiscale\', \'hogbom\'        *
-    -   *usedata = \'sdint\', \'sd\' , \'int\'   *
-    -   *gridder = \'standard\', \'mosaic\'   *
-    -   *parallel = False*
-
-```{=html}
+## Task Specification : sdintimaging 
 <!-- -->
 ```
 -   Wideband Multi-Term Imaging :  All 6 combinations of the following options.    -   *specmode = \'mfs\' *
@@ -75,7 +32,7 @@ The following usage modes will be released in the (experimental) sdintimaging ta
 </div>
 
 <div class="alert alert-info">
-**NOTE**: Single-plane joint imaging may be run with deconvolver=\'mtmfs\' and nterms=1.
+**NOTE**: Single-plane joint imaging may be run with deconvolver='mtmfs' and nterms=1.
 </div>
 
 <div class="alert alert-info">
@@ -86,73 +43,7 @@ The following usage modes will be released in the (experimental) sdintimaging ta
 
  
 
-## Test Results {#test-results style="margin-bottom: 0in; line-height: 100%;"}
-
- 
-
-The sdintimaging task was run on a pair of simulated test datasets. Both contain a flat spectrum extended emission feature plus three point sources, two of which have spectral index=-1.0 and one which is flat-spectrum (rightmost point). The scale of the top half of the extended structure was chosen to lie within the central hole in the spatial-frequency plane at the middle frequency of the band so as to generate a situation where the interferometer-only imaging is difficult.
-
-Please refer to the [publication](https://iopscience.iop.org/article/10.3847/1538-3881/ab1aa7/meta) for a more detailed analysis of the imaging quality and comparisons of images without and with SD data. 
-
-Images from a run on the ALMA M100 12m+7m+TP Science Verification Data suite are also shown below.
-
-###  
-
-### Single Pointing Simulation :
-
-Wideband Multi-Term Imaging ( deconvolver=\'mtmfs\', specmode=\'mfs\' )
-
-<table style="height: 576px;" width="665"><colgroup><col style="width: 50%" /><col style="width: 50%" /></colgroup><tbody><tr class="odd"><td>SD + INT<br />
-<p> A joint reconstruction accurately reconstructs both intensity and spectral index for the extended emission as well as the compact sources.</p></td><td><p><img src="markdown/_media/15c3a0c5553e9880865432e38820c5f165a3aa9d.png" title="fig.try_standard_mfs_mtmfs_sdint.png" class="image-inline" width="416" height="160" /></p></td></tr><tr class="even"><td><p>INT-only</p><p>The intensity has negative bowls and the spectral index is overly steep, especially for the top half of the extended component.</p></td><td><p><img src="markdown/_media/ecab604d0c63ea17708915f25dc865d123f4fb86.png" title="fig.try_standard_mfs_mtmfs_int.png" class="image-inline" width="417" height="160" /></p></td></tr><tr class="odd"><td><p>SD-only</p><p>The spectral index of the extended emission is accurate (at 0.0) and the point sources are barely visible at this SD angular resolution.</p></td><td><p><img src="markdown/_media/2ad31ce78fc986e25620147d69ab1ae858cc33ec.png" title="fig.try_standard_mfs_mtmfs_sd.png" class="image-inline" width="414" height="159" /></p></td></tr></tbody></table>
-
- 
-
-Cube Imaging ( deconvolver=\'multiscale\', specmode=\'cube\' )
-
-<table style="height: 754px;" width="728"><colgroup><col style="width: 50%" /><col style="width: 50%" /></colgroup><tbody><tr class="odd"><td>SD + INT<br />
-<p> A joint reconstruction has lower artifacts and more accurate intensities in all three channels, compared to the int-only reconstructions below</p></td><td><p><img src="markdown/_media/93fb162b2d84a30a1ee671e0176c6eecedb042ee.png" title="fig.try_standard_cube_multiscale_sdint.png" class="image-inline" width="614" height="236" /></p></td></tr><tr class="even"><td><p>INT-only</p><p>The intensity has negative bowls in the lower frequency channels and the extended emission is largely absent at the higher frequencies.</p></td><td><p><img src="markdown/_media/4052cd1ba39e9e48fe52f0aacafaa91fa7c140d3.png" title="fig.try_standard_cube_multiscale_int.png" class="image-inline" width="596" height="229" /></p></td></tr><tr class="odd"><td><p>SD-only</p><p>A demonstration of single-dish cube imaging with deconvolution of the SD-PSF.</p><p>In this example, iterations have not been run until full convergence, which is why the sources still contain signatures of the PSF.</p></td><td><p><img src="markdown/_media/bba19f9a48a3c11588d60f71085d9880004ff3cf.png" title="fig.try_standard_cube_multiscale_sd.png" class="image-inline" width="591" height="227" /></p></td></tr></tbody></table>
-
- 
-
- 
-
-### Mosaic Simulation {#mosaic-simulation style="margin-bottom: 0in; line-height: 100%;"}
-
- 
-
-An observation of the same sky brightness was simulated with 25 pointings.
-
- 
-
-Wideband Multi-Term Mosaic Imaging ( deconvolver=\'mtmfs\', specmode=\'mfs\' , gridder=\'mosaic\' )
-
-<table style="height: 437px;" width="704"><colgroup><col style="width: 50%" /><col style="width: 50%" /></colgroup><tbody><tr class="odd"><td>SD + INT<br />
-<p> A joint reconstruction accurately reconstructs both intensity and spectral index for the extended emission as well as the compact sources.</p><p>This is a demonstration of joint mosaicing along with wideband single-dish and interferometer combination.</p></td><td><p><img src="markdown/_media/21c249a45ca04b60e8285d94b8d4f0d161aebeb6.png" title="fig.try_mosaic_mfs_mtmfs_sdint.png" class="image-inline" width="518" height="199" /></p></td></tr><tr class="even"><td><p>INT-only</p><p>The intensity has negative bowls and the spectral index is strongly inaccurate.   Note that the errors are slightly less than the situation with the single-pointing example (where there was only one pointing's worth of uv-coverage).</p></td><td><p><img src="markdown/_media/3b1edcbf6554f3fb8842b49238e910caba4d9d87.png" title="fig.try_mosaic_mfs_mtmfs_int.png" class="image-inline" width="518" height="199" /></p></td></tr></tbody></table>
-
- 
-
-Cube Mosaic Imaging ( *deconvolver=\'multiscale\', specmode=\'cube\' , gridder=\'mosaic\'* )
-
-<table style="height: 489px;" width="780"><colgroup><col style="width: 50%" /><col style="width: 50%" /></colgroup><tbody><tr class="odd"><td>SD + INT<br />
-<p> A joint reconstruction produces better per-channel reconstructions compared to the INT-only situation shown below.</p><p>This is a demonstration of cube mosaic imaging along with SD+INT joint reconstruction.</p></td><td><p><img src="markdown/_media/43924cabac57bbd4b9c4e6c40686c4bc43ce8306.png" title="fig.try_mosaic_cube_multiscale_sdint.png" class="image-inline" width="631" height="242" /></p></td></tr><tr class="even"><td><p>INT-only</p><p>Cube mosaic imaging with only interferometer data. This clearly shows negative bowls and artifacts arising from the missing flux.</p></td><td><p><img src="markdown/_media/3f9258cd3d4661d3447a9e7b39a96cf8fc62a2c5.png" title="fig.try_mosaic_cube_multiscale_int.png" class="image-inline" width="640" height="246" /></p></td></tr></tbody></table>
-
- 
-
- 
-
-### Other Tests :  ALMA M100  Spectral Cube Imaging : 12m + 7m + TP {#other-tests-alma-m100-spectral-cube-imaging-12m-7m-tp style="margin-bottom: 0in; line-height: 100%;"}
-
- 
-
-The sdintimaging task was run on the [ALMA M100 Science Verification Datasets](https://almascience.nrao.edu/alma-data/science-verification).
-
-\(1\) The single dish (TP) cube was pre-processed by adding per-plane restoringbeam information.[]
-
-\(2\) Cube specification parameters were obtained from the SD Image as follows
-
-> from sdint_helper import \*> sdintlib = SDINT_helper()> sdintlib.setup_cube_params(sdcube=\'M100_TmP\')
-
-> Output : Shape of SD cube : \90 90  1 70\]> [Coordinate ordering : \[\'Direction\', \'Direction\', \'Stokes\', \'Spectral\'\]> nchan = 70> start = 114732899312.0Hz> width = -1922516.74324Hz> Found 70 per-plane restoring beams\#> > (For specmode=\'mfs\' in sdintimaging, please remember to set \'reffreq\' to a value within the freq range of the cube.)> > Returned Dict : {\'nchan\': 70, \'start\': \'114732899312.0Hz\', \'width\': \'-1922516.74324Hz\'}
+## Test Results 
 
  
 
@@ -170,13 +61,13 @@ LEFT : INT only (12m+7m)    and  RIGHT : SD+INT (12m + 7m + TP)
 
 Channel 23
 
-![18445a5ddbc066530938f1b8712e3a68bf9b8e3a](media/18445a5ddbc066530938f1b8712e3a68bf9b8e3a.png)
+![18445a5ddbc066530938f1b8712e3a68bf9b8e3a](media/18445a5ddbc066530938f1b8712e3a68bf9b8e3a.png){.image-inline width="435" height="253"}
 
 Channel 43
 
  
 
-![f7c37345f62846af242938430ef9287b6b466fd4](media/f7c37345f62846af242938430ef9287b6b466fd4.png)
+![f7c37345f62846af242938430ef9287b6b466fd4](media/f7c37345f62846af242938430ef9287b6b466fd4.png){.image-inline width="428" height="249"}
 
  
 
@@ -184,19 +75,19 @@ Moment 0 Maps :   LEFT :  INT only.        MIDDLE :   SD + INT with sdgain=1.0  
 
  
 
-![d38c8835a149a2f61fcbeb77ee3d4f3eb04d6962](media/d38c8835a149a2f61fcbeb77ee3d4f3eb04d6962.png)
+![d38c8835a149a2f61fcbeb77ee3d4f3eb04d6962](media/d38c8835a149a2f61fcbeb77ee3d4f3eb04d6962.png){.image-inline}
 
  
 
 Moment 1 Maps :   LEFT :  INT only.        MIDDLE :   SD + INT with sdgain=1.0          RIGHT : SD + INT with sdgain=3.0
 
-![24348b162f7e4fc3ab4b71d12f80f15f361954c6](media/24348b162f7e4fc3ab4b71d12f80f15f361954c6.png)
+![24348b162f7e4fc3ab4b71d12f80f15f361954c6](media/24348b162f7e4fc3ab4b71d12f80f15f361954c6.png){.image-inline}
 
  
 
 A comparison (shown for one channel) with and without masking is shown below.
 
-![6e766bca3645b467ecae383e948f7e688aeee11d](media/6e766bca3645b467ecae383e948f7e688aeee11d.png)
+![6e766bca3645b467ecae383e948f7e688aeee11d](media/6e766bca3645b467ecae383e948f7e688aeee11d.png){.image-inline}
 
  
 
@@ -233,23 +124,9 @@ Notes :
 
 The following is a list of use cases that have simulation-based functional verification tests within CASA.
 
-<table><colgroup><col style="width: 33%" /><col style="width: 33%" /><col style="width: 33%" /></colgroup><tbody><tr class="odd"><td>1</td><td>Wideband mulit-term  imaging (SD+Int)</td><td><p>Wideband data single field imaging by joint-reconstruction from single dish and interferometric data to obtain the high resolution of the interferometer while account for the zero spacing information. Use multi-term multi-frequency synthesis (MTMFS) algorithm to properly account for spectral information of the source.</p></td></tr><tr class="even"><td>2</td><td>Wideband multi-term imaging: Int only</td><td>The same as #1 except for using interferometric data only, which is useful to make a comparison with #1 (i.e. effect of missing flux). This is equivalent to running 'mtmfs' with specmode='mfs' and gridder='standard' in tclean</td></tr><tr class="odd"><td>3</td><td>Wideband multi-term imaging: SD only</td><td>The same as #1 expect for using single dish data only which is useful to make a comparison with #1 (i.e. to see how much high resolution information is missing).  Also, sometimes, the SD PSF has significant sidelobes (Airy disk) and even single dish images can benefit from deconvolution. This is a use case where wideband multi-term imaging is applied to SD data alone to make images at the highest possible resolution as well as to derive spectral index information.  </td></tr><tr class="even"><td>4</td><td>Single field cube  imaging: SD+Int</td><td><p>Spectral cube single field imaging by joint reconstruction of single dish and interferometric data to obtain single field spectral cube image.</p><p>Use multi-scale clean for deconvolution</p></td></tr><tr class="odd"><td>5</td><td>Single field cube imaging: Int only</td><td>The same as #4 except for using the interferometric data only, which is  useful to make a comparison with #4 (i.e. effect of missing flux). This is equivalent to running 'multiscale' with specmode='cube' and gridder='standard' in tclean.</td></tr><tr class="even"><td>6</td><td>Single field cube imaging: SD only</td><td><p>The same as #4 except for using the single dish data only, which is useful to make a comparison with #4</p><p>(i.e. to see how much high resolution information is missing)</p><p>Also, it addresses the use case where SD PSF sidelobes are significant and where the SD images could benefit from multiscale (or point source) deconvolution per channel.</p></td></tr><tr class="odd"><td>7</td><td><span title="">Wideband multi-term mosaic Imaging: SD+Int<br />
-</span></td><td><p>Wideband data mosaic imaging by joint-reconstruction from single dish and interferometric data to obtain the high resolution of the interferometer while account for the zero spacing information.</p>Use multi-term multi-frequency synthesis (MTMFS) algorithm to properly account for spectral information of the source. Implement the concept of conjbeams (i.e. frequency dependent primary beam correction) for wideband mosaicing.</td></tr><tr class="even"><td>8</td><td><span title="">Wideband multi-term mosaic imaging: Int only<br />
-</span></td><td>The same as #7 except for using interferometric data only, which is useful to make a comparison with #7 (i.e. effect of missing flux). Also, this is an alternate implementation of the concept of conjbeams ( frequency dependent primary beam correction) available via tclean, and which is likely to be more robust to uv-coverage variations  (and sumwt) across frequency. </td></tr><tr class="odd"><td>9</td><td>Wideband multi-term mosaic imaging: SD only</td><td>The same as #7 expect for using single dish data only which is useful to make a comparison with #7 (i.e. to see how much high resolution information is missing).  This is the same situation as (3) , but made on an image coordinate system that matches an interferometer mosaic mtmfs image.</td></tr><tr class="even"><td>10</td><td>Cube mosaic imaging: SD+Int</td><td><p>Spectral cube mosaic imaging by joint reconstruction of single dish and interferometric data.</p>Use multi-scale clean for deconvolution. </td></tr><tr class="odd"><td>11</td><td>Cube mosaic imaging: Int only</td><td>The same as #10 except for using the intererometric data only, which is useful to make a comparison with #10 (i.e. effect of missing flux).  This is the same use case as gridder='mosaic' and deconvolver='multiscale' in tclean for specmode='cube'.</td></tr><tr class="even"><td><p>12</p></td><td>Cube mosaic imaging: SD only</td><td><p>The same as #10 except for using the single dish data only, which is useful to make a comparison with #10 (i.e. to see how much high resolution information is missing).  This is the same situation as (6), but made on an image coordinate system that matches an interferometer mosaic cube image.</p></td></tr><tr class="odd"><td><p>13</p></td><td>Wideband MTMFS SD+INT with channel 2 flagged in INT</td><td><p>The same as #1, but with partially flagged data in the cubes. This is a practical reality with real data where the INT and SD data are likely to have gaps in the data due to radio frequency interferenece or other weight variations. </p></td></tr><tr class="even"><td> 14</td><td>Cube SD+INT with channel 2 flagged</td><td><p>The same as #4, but with partially flagged data in the cubes. This is a practical reality with real data where the INT and SD data are likely to have gaps in the data due to radio frequency interferenece or other weight variations.  </p></td></tr><tr class="odd"><td>15</td><td>Wideband MTMFS SD+INT with sdpsf=""</td><td><p>The same as #1, but with an unspecified sdpsf. This triggers the auto-calculation of the SD PSF cube using restoring beam information from the regridded input sdimage.</p></td></tr></tbody></table>
+<table><colgroup><col 
 
-##   {#section-1 style="margin-bottom: 0in; line-height: 100%;"}
-
-## Future work {#future-work style="margin-bottom: 0in; line-height: 100%;"}
-
- 
-
-For future work and a summary of the Code Design, please see the \"Developer\"](https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdintimaging/developer) tab of the[ [**sdintimaging**](https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdintimaging) task. 
-
-  
-
-## References
-
- Urvashi Rau, Nikhil Naik, and Timothy Braun 2019 [AJ 158, 1](https://iopscience.iop.org/article/10.3847/1538-3881/ab1aa7/meta).^^
+## Future work ]{authors=""}
 
 https://github.com/urvashirau/WidebandSDINT
 

@@ -32,7 +32,7 @@ git log
 *git branch* lists the branches in the local repository, with the active branch indicated by **\***. After cloning, you will have only the master branch. *git status* indicates the active branch then lists the files which are *staged*, *unstaged*, and *untracked* (see section on [committing changes](#3--commit-code-changes--git-status--git-add--git-commit) below). *git log* lists the commits in the active branch with the commit ID, author, date, and message.
 
 <div class="alert alert-info">
-**NOTE**: Log output is paged automatically and does not need to be piped to a command such as \'more\'.
+**NOTE**: Log output is paged automatically and does not need to be piped to a command such as 'more'.
 </div>
 
  
@@ -49,7 +49,8 @@ It is possible to create a branch in your local git repository and push it to or
 2.  Click \"Create branch\" in the development section to the right. This will take you to the Bitbucket Create Branch form.
 3.  Use the default repository casa/casa, select branch type Custom (no prefix) and branch from the default \'master\' unless you will be patching the release branch. Set the branch name to the JIRA ticket number (e.g. \"CAS-1234\").
     <div class="alert alert-info">
-    **IMPORTANT**: The default name includes the ticket\'s title but use the ticket number only**;** delete everything after the ticket number so that the CASA build and test process works properly. You can also create branches that do not start with \"CAS-\" prefix. Those branches will not trigger the standard build tests. An exception to this is the pull request build and test which will run regardless of the branch name. If you have an urgent and sufficiently independent change (f.e. unit test bug that only showed in master) you can create a branch with \"hotfix/\" prefix. This will bypass most of the automated tests but will still run the standard pull request build and test suite.    
+    **IMPORTANT**: The default name includes the ticket's title but use the ticket number only**;** delete everything after the ticket number so that the CASA build and test process works properly. You can also create branches that do not start with "CAS-" prefix. Those branches will not trigger the standard build tests. An exception to this is the pull request build and test which will run regardless of the branch name. If you have an urgent and sufficiently independent change (f.e. unit test bug that only showed in master) you can create a branch with "hotfix/" prefix. This will bypass most of the automated tests but will still run the standard pull request build and test suite.
+    
     </div>
 4.  Click \"Create Branch.\"
 
@@ -107,7 +108,7 @@ Sample commit session:
 6.  *git add file4*  \# add file4 to the files tracked by git; file4 is now *staged*, file3 is *unstaged*
 7.  *git commit -a** *** \# commits all modified files (*staged* and *unstaged*), in this case file3 and file4. Alternatively, you could use git add file3; git commit.
 
-Remember that unlike a centralized revision control system such as svn, *git commit* saves the changes to your local repository only. The origin is unchanged until you use [git push](#4--push-changes-to-origin).  In addition, the changes are committed on this branch only; if you [switch branches](#7--switch-branches), *git log* will not show this commit.
+Remember that unlike a centralized revision control system such as svn, *git commit* saves the changes to your local repository only. The origin is unchanged until you use [[git push](#4--push-changes-to-origin)]{.  In addition, the changes are committed on this branch only; if you [switch branches](#7--switch-branches), *git log* will not show this commit.
 
 ## 3.1 Remove a file from git
 
@@ -127,35 +128,17 @@ Remember, *git rm* doesn\'t just untrack the file, it removes the file from your
 Remember, *git status* reflects the state of your working tree with respect to your local repository.  Let\'s say your working directory has \"nothing to commit\", so all of your code changes have been committed.  But what is the status of your repository compared with origin?  Remember that for tracked branches *git status* will tell you if you are ahead or behind the remote branch, for example:
 
 ```
-<div>
 
 $ git status
 
-</div>
-
-<div>
-
 On branch master
-
-</div>
-
-<div>
 
 Your branch is behind 'origin/master' by 3 commits, and can be fast-forwarded.
 
-</div>
-
-<div>
-
   (use "git pull" to update your local branch)
-
-</div>
-
-<div>
 
 nothing to commit, working directory clean
 
-</div>
 ```
 
 In this example,there are 3 commits in origin/master that are not in your local master branch.  You are helpfully told to use *git pull* to update your branch, but you may want to see what you would get before you do the pull and possibly postpone this step until later.
@@ -250,7 +233,7 @@ So the layout of the pull request is:
     Tasks: task1, task2
 
 <div class="alert alert-warning">
-Review the **Diff** and **Commits** tabs at the bottom to ensure that only your changes are listed.  If other files are included, you may be reverting others\' code changes from your outdated branch.  It is easier to fix this now than after the branch is merged into master!
+Review the **Diff** and **Commits** tabs at the bottom to ensure that only your changes are listed.  If other files are included, you may be reverting others' code changes from your outdated branch.  It is easier to fix this now than after the branch is merged into master!
 </div>
 
 Click \"Create\".  You may also \"Cancel\" if you need to fix something after your review.  Once the pull request is created, Bamboo will launch the PR Build plan, which checks out master, merges your branch into it, builds it, and runs a test suite.  The pull request reviewers will generally wait until this test completes before approving and merging your pull request.  Please be patient, as these tests can take \~10 hours to run.
@@ -275,7 +258,7 @@ The normal workflow is to work on one ticket at a time until completion as detai
 To make a different branch active, simply use* git checkout*, as you did with the new branch above:
 
 ```
-git status  # working directory clean
+git status  #working directory clean
 git checkout CAS-1245
 ```
 
@@ -288,7 +271,7 @@ git status
 
      modified: casacore (new commits)
 
-git submodule update  # now code contains new commits in casacore and matches the reference
+git submodule update  #now code contains new commits in casacore and matches the reference
 ```
 
 However, if the active branch has an older version of casacore, you may want to [merge master](#update-branch-with-master-and-submodule-changes) to update it rather than revert the code.
@@ -319,10 +302,10 @@ To retrieve your changes, use *git stash pop \<stash\>** ***(apply the changes a
 ```
 git checkout CAS-1234
 vi file1.cc
-git stash  # file1.cc changes go on stack, file1.cc is reverted
-git checkout CAS-1235 # develop and commit on another branch
-git checkout CAS-1234 # with this branch's repo version of file1.cc
-git stash pop  # get modified file1.cc back, continue work
+git stash  #file1.cc changes go on stack, file1.cc is reverted
+git checkout CAS-1235 #develop and commit on another branch
+git checkout CAS-1234 #with this branch's repo version of file1.cc
+git stash pop  #get modified file1.cc back, continue work
 ```
 
 <div>
@@ -358,15 +341,15 @@ to get your master branch on track. Then continue in your development branch:
 
 ```
 git checkout CAS-1234
-git merge master  # this merges master into CAS-1234, including casacore reference
+git merge master  #this merges master into CAS-1234, including casacore reference
     
-# To resolve conflicts
-vi file1  # edit file with conflicts
+#To resolve conflicts
+vi file1  #edit file with conflicts
 git add file1
 git commit -a
 
-git submodule update # if casacore is modified by merge
-git push origin CAS-1234 # if you want to update the branch in origin
+git submodule update #if casacore is modified by merge
+git push origin CAS-1234 #if you want to update the branch in origin
 ```
 
 <div class="alert alert-info">
@@ -387,7 +370,6 @@ This step is not required by the workflow, but is something you will probably wa
 2.  Delete the branch, *git branch -d \<branch\>*. If git complains that the branch was not fully merged, you can use -D to force the delete.
 3.  Use *git branch* to verify that the branch is no longer listed.
 
-#  
 
 # 11. When a feature requires both casacore and casa change
 
@@ -471,7 +453,6 @@ If you want to make your casacore master \"track\" the master in the new remote,
 
     git checkout -B master central-casacore/master
 
-#  
 
 # 12. Creating a patch for both release and master branches
 

@@ -7,7 +7,7 @@ How to use Cal Library
 The \"Cal Library\" is a new means of expressing calibration application instructions.  It has nominally been available in **applycal** and the calibration solve tasks since CASA 4.1, via the *docallib=True* parameter, as an alternative to the traditional parameters (e.g., *gaintable*, etc.)  that most users continue to use.  As of CASA 4.5, we have deployed use of the Cal Library for *on-the-fly* calibration in **plotms** and **mstransform**.  In CASA 4.5, our intent is to demonstrate the Cal Library and begin familiarizing users with it.  The capabilities remain limited in some ways, and new features, additional flexibility, and broader deployment in more tasks will be offered in later releases.This page describes basic use of the Cal Library.
 
 <div class="alert alert-warning">
-Please note the section on current (CASA 4.5, 4.6, 4.7, 5.\*) limitations.
+Please note the section on current (CASA 4.5, 4.6, 4.7, 5.*) limitations.
 </div>
 
 # Basic Cal Library usage
@@ -21,7 +21,7 @@ applycal(vis='my.ms',docallib=True,callib='mycal.txt')
 In a Cal Library file, each row expresses the calibration apply instructions for a particular caltable and (optionally) a specific selection of data in the MS to which it is to be applied.For example, if *mycal.txt* contains:
 
 ```
-# mycal.txt cal library file
+#mycal.txt cal library file
 caltable='cal.G' tinterp='linear' calwt=True
 ```
 
@@ -35,7 +35,7 @@ applycal(vis='my.ms',gaintable='cal.G',gainfield='',interp='linear',
 If a bandpass table, *cal.B*, is also available for application, one might use the following Cal Library file:
 
 ```
-# mycal.txt cal library file
+#mycal.txt cal library file
 caltable='cal.G' tinterp='linear' calwt=True
 caltable='cal.B' finterp='linear' calwt=False
 ```
@@ -51,7 +51,7 @@ applycal(vis='my.ms',gaintable=['cal.G','cal.B'], gainfield=['',''],
 In general, the Cal LIbrary file should be easier to read and manage than the traditional parameters as the number of specified caltables grows.A more complicated example, involving non-trivial *spwmap* as well as field selection (*fldmap*) in the caltable:
 
 ```
-# mycal.txt cal library file
+#mycal.txt cal library file
 caltable='cal.G' tinterp='linear' fldmap='nearest' spwmap=[0,1,1,3] calwt=True
 caltable='cal.B' finterp='linear' fldmap='3' spwmap=[0,0,0,0] calwt=False
 ```
@@ -71,7 +71,7 @@ Comment lines may be included in the cal library file by starting a line with th
 The real power of the Cal Library arises from the ability to specify calibration instructions for a caltable *per MS selection*.  This enables consolidating what would be multiple **applycal** executions using the traditional parameters into a single execution.  Extending the example from above, if the MS field *\'cal\'* should be calibrated by *cal.G* with *\'nearest\'* interpolation in time, and the field *\'sci\'* with *\'linear\'* interpolation in time, the following Cal Library file will achieve this:
 
 ```
-# mycal.txt cal library file
+#mycal.txt cal library file
 caltable='cal.G' field='cal' tinterp='nearest' fldmap='nearest' spwmap=[0,1,1,3] calwt=True
 caltable='cal.G' field='sci' tinterp='linear' fldmap='nearest' spwmap=[0,1,1,3] calwt=True
 caltable='cal.B' finterp='linear' fldmap='3' spwmap=[0,0,0,0] calwt=False
@@ -90,7 +90,7 @@ applycal(vis='my.ms',field='sci',gaintable=['cal.G','cal.B'], gainfield=['neares
 When there are many fields to which to apply carefully-selected calibration, *fldmap=\'nearest\'* may not properly select the correct calibrator fields for each target field.  In this case, the index list style form of *fldmap* (like *spwmap*) can be used (where field ids 1,4,6 are calibators, and 2,5,7 are the corresponding science fields):
 
 ```
-# mycal.txt cal library file
+#mycal.txt cal library file
 caltable='cal.G' field='1,2,3,4,5,6,7' tinterp='nearest' fldmap=[0,1,1,3,4,4,6,6] spwmap=[0,1,1,3] calwt=True
 caltable='cal.B' finterp='linear' fldmap='3' spwmap=[0,0,0,0] calwt=False
 ```
@@ -100,7 +100,7 @@ In this example, field 1 will calibrate itself and field 2.  Similarly, 4 will c
 If multiple calibrators are required for each individual science fields, use the string selection form of *fldmap*, and specify separate entries for each science field:
 
 ```
-# mycal.txt cal library file
+#mycal.txt cal library file
 caltable='cal.G' field='1,3,4,6,8,9,10' tinterp='nearest' fldmap='nearest' spwmap=[0,1,1,3] calwt=True
 caltable='cal.G' field='2' tinterp='linear' fldmap='1,8' spwmap=[0,1,1,3] calwt=True
 caltable='cal.G' field='5' tinterp='linear' fldmap='4,9' spwmap=[0,1,1,3] calwt=True
@@ -117,7 +117,7 @@ The additional calibrators for science fields 2, 5, and 7 are 8, 9, and 10, resp
 Since the Cal Library permits MS-selection-specific calibration specifications, it is even possible to specify different caltables for different MS selections, and take advantage of an implicit *exclusivity* property of the Cal Library.  In the above example, the G calibration for the *\'cal\'* and *\'sci\'* fields may come from different caltables, *\'cal.Gcal\'* and *\'cal.Gsci\',* respectiveily (these caltables may have been solved with different solution intervals, for example).  We would specify the Cal Library as follows:
 
 ```
-# mycal.txt cal library file
+#mycal.txt cal library file
 caltable='cal.Gcal' field='cal' tinterp='nearest' fldmap='nearest' spwmap=[0,1,1,3] calwt=True
 caltable='cal.Gsci' field='sci' tinterp='linear' fldmap='nearest' spwmap=[0,1,1,3] calwt=True
 caltable='cal.B' finterp='linear' fldmap='3' spwmap=[0,0,0,0] calwt=False

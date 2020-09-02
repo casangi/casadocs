@@ -106,7 +106,7 @@ Note that the *spw* parameter is used non-trivially and explicitly here to indic
 
 The resulting calibration table should then be used in all subsequent processing the requires the specification of prior calibration.
 
-![20628a3e93b5783c9da5f4fab6cd2cf85e4eb0dd](media/20628a3e93b5783c9da5f4fab6cd2cf85e4eb0dd.png)
+![20628a3e93b5783c9da5f4fab6cd2cf85e4eb0dd](media/20628a3e93b5783c9da5f4fab6cd2cf85e4eb0dd.png){.image-inline}
 
 >The weather information for a MS as plotted by the task {\\tt plotweather}.}
   

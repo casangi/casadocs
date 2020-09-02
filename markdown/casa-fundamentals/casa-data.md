@@ -4,7 +4,7 @@
 
 The CASA data format and how to work with it
 
-## Visibility Data {#visibility-data .subsection}
+## Visibility Data 
 
 The ALMA and VLA raw data are stored in their respective archives in the (ALMA) Science Data Model (A)SDM format.  The definition of the format can be found [here](https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/the-science-data-model). 
 
@@ -16,7 +16,7 @@ The data that you originally get from a telescope can be put in any directory th
 
 When you generate calibration solutions or images (again these are in table format), these will also be written to disk. It is a good idea to keep them in the directory in which you started CASA, too.
 
-### How do I get rid of my data in CASA? {#sec51}
+### How do I get rid of my data in CASA? 
 
 Note that when you delete a MeasurementSet, calibration table, or image, which are in fact directories, you must delete this and all underlying directories and files. If you are not running CASA, this is most simply done by using the file delete method of the operating system from which you started CASA. For example, when running CASA on a Linux system, in order to delete the MeasurementSet named AM675.ms type
 
@@ -49,7 +49,7 @@ rmtables('AM675.ms')
 and this can also be wildcarded (though you may get warnings if it tries to delete files or directories that fit the name wildcard that are not CASA tables).
 
 <div class="alert alert-warning">
-**ALERT**: **rmtables** is the preferred way to remove data. **clean** is a good example where frequently data are left in the cache after deleting the output files via \"!rm -r\". Restarting **clean** then sometimes claims that the files still exist, even though they are not present on disk anymore. **rmtables** will completely remove the files on disks and all cached versions and restarting **clean** will work as intended.  
+**ALERT**: **rmtables** is the preferred way to remove data. **clean** is a good example where frequently data are left in the cache after deleting the output files via "!rm -r". Restarting **clean** then sometimes claims that the files still exist, even though they are not present on disk anymore. **rmtables** will completely remove the files on disks and all cached versions and restarting **clean** will work as intended.  
 </div>
 
 <div class="alert alert-warning">

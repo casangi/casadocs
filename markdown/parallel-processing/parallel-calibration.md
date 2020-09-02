@@ -6,7 +6,7 @@ List of internally parallelized calibration tasks
 
 # Parallel processing using Multi-MS (MMS) in CASA is unverified - please use at own discretion. 
 
-### Please consider [parallel imaging](https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/parallel-imaging) using normal MS as alternative.
+### [Please consider [[parallel imaging](https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/parallel-imaging)]{ using normal MS as alternative.]{
 
  
 
@@ -38,9 +38,9 @@ split
 
  
 
-# Special considerations when running some tasks in parallel {#special-considerations-when-running-some-tasks-in-parallel style="font-family: 'Helvetica Neue'; font-size: 14px;"}
+# Special considerations when running some tasks in parallel {#special-considerations-when-running-some-tasks-in-parallel 
 
-### uvcontsub {#uvcontsub style="font-family: 'Helvetica Neue'; font-size: 14px;"}
+### uvcontsub {#uvcontsub 
 
 When the input is a [Multi-MS](https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/the-multi-ms) and CASA is started in parallel using [mpicasa](https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/parallelization-control), **uvcontsub** will try to process each Sub-MS in parallel. Depending on the parameters of uvcontsub and the separation axis of the partitioned Multi-MS, processing the input in parallel is not possible. This will happen for example when the input MMS is separated using the default axis \'auto\'. The \'auto\' axis will partition the MMS  by the scan and spw axes, in a way to balance the content on each Sub-MS.
 
@@ -98,9 +98,9 @@ If the users opts to recreate the MMS before running uvcontsub, best recommend a
 partition(vis='myMS.ms', outputvis='myout.ms', createmms=True, separationaxis='scan')
 ```
 
-###   {#section style="font-family: 'Helvetica Neue'; font-size: 14px;"}
+###   {#section 
 
-### flagdata (with mode=\'rflag\') {#flagdata-with-moderflag style="font-family: 'Helvetica Neue'; font-size: 14px;"}
+### flagdata (with mode=\'rflag\') {#flagdata-with-moderflag 
 
 The Rflag action=\'calculate\' can be used to produce the frequency and time thresholds in a first pass which can then be applied in a second pass, using action=\'apply\' once or several times. When this is done with the Multi-MS structure the thresholds calculated in the first pass might differ from the thresholds that would be calculated using a single MS structure. This is due to the fact that in the Multi-MS structure the data are partitioned into Sub-MSs. The default is to produce a balanced partition with respect to the SPWs and scans, with the aim to get content from all SPWs and scans into each of the Sub-MSs. For this reason, the statistics calculated by RFlag may differ across Sub-MSs, as they would differ for different data selections. At the moment this issue has not been assessed thoroughly for real-world datasets. A related question that is not understood in detail at the moment, and that can affect both serial and parallel runs of RFlag, is how much the thresholds can differ between the single pass and dual pass modes of RFlag.
 

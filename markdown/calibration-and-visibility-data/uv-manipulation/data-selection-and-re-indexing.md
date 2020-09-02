@@ -12,25 +12,25 @@ Keywords relevant to data selection are as follows:
 CASA <1>: inp mstransform
 --------> inp(mstransform)
 
-vis                 =         ''        #  Name of input MeasurementSet or Multi-MS.
-outputvis           =         ''        #  Name of output MeasurementSet or Multi-MS.
-tileshape           =        [0]        #  List with 1 or 3 elements giving the
+vis                 =         ''        #Name of input MeasurementSet or Multi-MS.
+outputvis           =         ''        #Name of output MeasurementSet or Multi-MS.
+tileshape           =        [0]        #List with 1 or 3 elements giving the
                                            tile shape of the disk data columns.
-field               =         ''        #  Select field using ID(s) or name(s).
-spw                 =         ''        #  Select spectral window/channels.
-scan                =         ''        #  Select data by scan numbers.
-antenna             =         ''        #  Select data based on antenna/baseline.
-correlation         =         ''        #  Correlation: '' ==> all, correlation='XX,YY'.
-timerange           =         ''        #  Select data by time range.
-intent              =         ''        #  Select data by scan intent.
-array               =         ''        #  Select (sub)array(s) by array ID number.
-uvrange             =         ''        #  Select data by baseline length.
-observation         =         ''        #  Select by observation ID(s).
-feed                =         ''        #  Multi-feed numbers: Not yet implemented.
-datacolumn          = 'corrected'       #  Which data column(s) to process.
-keepflags           =       True        #  Keep *completely flagged rows* or
+field               =         ''        #Select field using ID(s) or name(s).
+spw                 =         ''        #Select spectral window/channels.
+scan                =         ''        #Select data by scan numbers.
+antenna             =         ''        #Select data based on antenna/baseline.
+correlation         =         ''        #Correlation: '' ==> all, correlation='XX,YY'.
+timerange           =         ''        #Select data by time range.
+intent              =         ''        #Select data by scan intent.
+array               =         ''        #Select (sub)array(s) by array ID number.
+uvrange             =         ''        #Select data by baseline length.
+observation         =         ''        #Select by observation ID(s).
+feed                =         ''        #Multi-feed numbers: Not yet implemented.
+datacolumn          = 'corrected'       #Which data column(s) to process.
+keepflags           =       True        #Keep *completely flagged rows* or
                                            drop them from the output.
-usewtspectrum       =      False        #  Create a WEIGHT_SPECTRUM column in the output MS.
+usewtspectrum       =      False        #Create a WEIGHT_SPECTRUM column in the output MS.
 ```
 
  

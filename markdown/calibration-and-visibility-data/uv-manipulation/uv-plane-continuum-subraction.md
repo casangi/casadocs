@@ -39,18 +39,18 @@ The inputs to **uvcontsub** are:
 
 ```
 
-#  uvcontsub :: Continuum fitting and subtraction in the uv plane
-vis                 =         ''        #  Name of input MS.  Output goes to vis + ".contsub"
-                                        #   (will be overwritten if already exists)
-field               =         ''        #  Select field(s) using id(s) or name(s)
-fitspw              =         ''        #  Spectral window:channel selection for fitting the
-                                        #   continuum
-combine             =         ''        #  Data axes to combine for the continuum estimation
-                                        #   (none, or spw and/or scan)
-solint              =      'int'        #  Continuum fit timescale (int recommended!)
-fitorder            =          0        #  Polynomial order for the fits
-spw                 =         ''        #  Spectral window selection for output
-want_cont           =      False        #  Create vis + ".cont" to hold the continuum estimate.
+#uvcontsub :: Continuum fitting and subtraction in the uv plane
+vis                 =         ''        #Name of input MS.  Output goes to vis + ".contsub"
+                                        #(will be overwritten if already exists)
+field               =         ''        #Select field(s) using id(s) or name(s)
+fitspw              =         ''        #Spectral window:channel selection for fitting the
+                                        #continuum
+combine             =         ''        #Data axes to combine for the continuum estimation
+                                        #(none, or spw and/or scan)
+solint              =      'int'        #Continuum fit timescale (int recommended!)
+fitorder            =          0        #Polynomial order for the fits
+spw                 =         ''        #Spectral window selection for output
+want_cont           =      False        #Create vis + ".cont" to hold the continuum estimate.
 ```
 
 For each baseline, and over the timescale specified in *solint*, **uvcontsub** will provide a polynomial fit to the real and imaginary parts of the (continuum-only) channels specified in *fitspw* (using the standard *spw* selection syntax), and then subtract this model from all channels specified in *spw*, or from all channels in spectral windows of *fitspw* if *spw=''*. By setting the subparameter *excludechannels=True*, the channel selection in *fitspw* will be inverted. In that case one can select the line channels themselves and/or corrupted channels that are not used in the continuum fit to the data. *fitspw* can also take frequency ranges, e.g.
@@ -69,7 +69,7 @@ uvcontsub will append \".contsub\" for the continuum subtracted MS and \".cont\"
 **mstransform** has gotten support to subtract the continuum in the UV-plane using a polynomial fit along the spectral channels. This transformation can be stacked with the rest of the transformations supported by **mstransform**. To activate continum subtraction the option *douvcontsub* must be set:
 
 ```
-douvcontsub = True # Enable continuum subtraction as in task **uvcontsub**
+douvcontsub = True #Enable continuum subtraction as in task **uvcontsub**
 ```
 
 The most relevant parameter to fit the continuum is *fitspw*, which allows to select which channels are supposedly free of lines and therefore represent with better fidelity the continuum. The syntax of this parameter is similar to the usual syntax for the selection of spw\'s. For instance
@@ -81,7 +81,7 @@ fitspw='19:5~50;100~220,20:1~100'
 will use channels 5 to 5 and 100 to 220 when computing the continuum of spw 19. For spw 20 it will use channels 1 to 100.
 
 <div class="alert alert-warning">
-There is currently no support to fit the continuum over several spw\'s at the same time. You can use **uvcontsub3** task if you need that functionality.
+There is currently no support to fit the continuum over several spw's at the same time. You can use **uvcontsub3** task if you need that functionality.
 </div>
 
 The output MS will contain the continuum subtracted signal. If one, on the other hand, is interested in the fitted continuum itself, then the parameter *want_cont* should be set to True. Note that in this case, if there are other transformations enabled in mstransform, the subsequent transformations will work on the fitted continuum data.
@@ -89,13 +89,13 @@ The output MS will contain the continuum subtracted signal. If one, on the other
 The algorithm implemented by **mstransform** allows to reject some outliers in the fit by doing an iterative fit. After the first fit has been obtained, the absolute residuals of each point with respect to the fit are computed and are used as weights for the next iteration. In this way outliers are usually given less and less weight in each iteration. To enable this feature, set the parameter *niter* to a value larger than 1.
 
 ```
-  niter = 1 # Number of iterations for re-weighted linear fit
+  niter = 1 #Number of iterations for re-weighted linear fit
 ```
 
 Additionally one can control the order of the polynomial fit using parameter *fitorder*
 
 ```
-fitorder = 0 # Polynomial order for the fits
+fitorder = 0 #Polynomial order for the fits
 ```
 
 In the long term, it is foreseen that the current **uvcontusb** and **uvcontsub3** tasks are deprecated and are substituted by a new **uvcontusb** task that uses **mstransform** under the hood.

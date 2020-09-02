@@ -10,8 +10,10 @@ import re
 with open('scraper/_sitemap.txt') as fid:
     urls = fid.read().splitlines()
 #urls = ['https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/imaging-overview']
-#urls = ['https://casa.nrao.edu/casadocs-devel/stable/introduction/release-notes-610']
+#urls = ['https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/visibility-data-import-export/uv-data-import']
 #urls = ['https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_tclean']
+#urls = ['https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/using-plotms-to-plot-and-edit-visibilities-and-calibration-tables']
+#urls = ['https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset']
 #url = urls[0]
 
 os.system('rm -fr markdown')
@@ -52,11 +54,21 @@ for ii, url in enumerate(urls):
                 rst = re.sub('.*?\.\. rubric::.*?:name:.*?\n+', 'Description\n', rst, 1, flags=re.DOTALL)
             else:
                 rst = re.sub('.*?parent-fieldname-text\n*', 'Description\n', rst, 1, flags=re.DOTALL)
-            # rst = re.sub('\n   ', '\n', rst, flags=re.DOTALL)  # de-indent
-            rst = re.sub('(\s*).. container:: \S*-box\s*', r'\1.. note:: ', rst, flags=re.DOTALL)  # change alert boxes
-            rst = re.sub('\s*.. container::(\s*\S*)*?\n(\s*:name: \S*\n)?', '\n', rst, flags=re.DOTALL)  # remove container sections
+            
+            rst = re.sub('\n   ', '\n', rst, flags=re.DOTALL)  # de-indent
+            
+            # rubrics don't need names and classes
+            rst = re.sub('(\s*\.\. rubric::.*?)(:name: \S*)?\s*(:class: \S*)?\n\s*?\n', r'\1\n\n', rst, flags=re.DOTALL)
+            rst = re.sub('(\s*)\.\. rubric::\s*\n\n', r'\1\n\n', rst, flags=re.DOTALL)  # remove empty rubrics
+
+            rst = re.sub('(\s*)\.\. container:: casa-\S*-box', r'\1::', rst, flags=re.DOTALL)  # change code boxes
+            rst = re.sub('(\s*)\.\. container:: terminal-box', r'\1::', rst, flags=re.DOTALL)  # change terminal boxes
+            rst = re.sub('(\s*)\.\. container:: alert-box\s*', r'\1.. warning:: ', rst, flags=re.DOTALL)  # change alert boxes
+            rst = re.sub('(\s*)\.\. container:: \S*-box\s*', r'\1.. note:: ', rst, flags=re.DOTALL)  # change info boxes
+            
+            rst = re.sub('\s*\.\. container::(\s*\S*)*?\n(\s*:name: \S*\n)?', '\n', rst, flags=re.DOTALL)  # remove container sections
             rst = re.sub('(\.\. \|.*?\| image:: )markdown/_apimedia/(\S*)', r'\1../media/\2', rst, flags=re.DOTALL)  # fix image links
-            rst = rst.replace(' ', ' ').replace('\\ ', ' ').replace('↩ ', '')  # weird ascii things
+            rst = rst.replace(' ', '').replace('\\ ', ' ').replace('↩ ', '')  # weird ascii things
             rst = re.sub('(:math:\s*`[^\n]+) `', r'\1`', rst, flags=re.DOTALL)  # fix math equations with trailing space before `
             rst = re.sub('\s*[\+\-]+\n\s*\| Citation.*?\n\n', '\n\n', rst, flags=re.DOTALL)  # remove citation tables
             rst = re.sub('\n\s+Bibliography\s*\n', '\n\n\n   Bibliography\n', rst, flags=re.DOTALL)  # fix bibliography indent
@@ -87,11 +99,13 @@ for ii, url in enumerate(urls):
                                                      lambda m: m.group(1)+' '*(len(m.group(0))-len(m.group(1))),
                                                      tgp.group(1), flags=re.DOTALL))
             
-            # remove escapes from code blocks
-            for bs in ['casa-input-box', 'terminal-box', 'casa-output-box']:
+            # remove escapes, <div> tags, and heading symbols from code blocks
+            for bs in ['casa-input-box', 'terminal-box', 'casa-output-box', 'info-box', 'alert-box']:
                 for tgp in re.finditer('::: {\.%s}(.*?):::'%bs, md, flags=re.DOTALL):
-                    #txt = re.sub('(\S)\\n(\S)',r'\1 \2',tgp.group(1))
-                    md = md.replace(tgp.group(1), re.sub(r'\\(?!n)', '', tgp.group(1)))
+                    submd = re.sub(r'\\(?!n)', '', tgp.group(1))
+                    submd = re.sub('#[^\S\n]+', '#', submd, flags=re.DOTALL)
+                    submd = re.sub('</?div>', '', submd, flags=re.DOTALL)
+                    md = md.replace(tgp.group(1), submd)
             
             # convert the various text boxes
             md = re.sub('::: {.info-box}(.*?):::', r'<div class="alert alert-info">\1</div>', md, flags=re.DOTALL)
@@ -104,25 +118,27 @@ for ii, url in enumerate(urls):
             # weird ascii things
             md = md.replace(' ', ' ').replace('\\\n', '')
             md = re.sub('\n\n\n+', '\n\n', md, flags=re.DOTALL)
+            md = re.sub('(\S+)\n(\-+)\n', r'\1\n\n\2\n', md, flags=re.DOTALL)   # preserve horizontal rules after removing stray / chars
             
             # get rid of remaining weird style tags
             md = re.sub(r'\[([^\]]*?)\]\{(\.s1)?\s?(style)?.*?\}', r'\1', md, flags=re.DOTALL)
-            md = re.sub(r'\[([^\n]+)\]\{(\.s1)?\s?(style)?.*?\}', r'\1', md, flags=re.DOTALL)
-            md = re.sub(r'\[([^\n]+)\]\{(\.s1)?\s?(style)?.*?\}', r'\1', md, flags=re.DOTALL) # do a couple times for nested things
+            md = re.sub(r'\[([^\]]*?)\]\{(\.s1)?\s?(style)?.*?\}', r'\1', md, flags=re.DOTALL) # do a couple times for nested things
+            md = re.sub(r'\[([^\]]*?)\]\{(\.s1)?\s?(style)?.*?\}', r'\1', md, flags=re.DOTALL)
+            md = re.sub(r'\{(\.s1)|(style).*?\}', '', md, flags=re.DOTALL) # kill remaining dangling style tags
+            #md = re.sub(r'\[([^\n]+)\]\{(\.s1)?\s?(style)?.*?\}', r'\1', md, flags=re.DOTALL)
+            #md = re.sub(r'\[([^\n]+)\]\{(\.s1)?\s?(style)?.*?\}', r'\1', md, flags=re.DOTALL) # do a couple times for nested things
             md = re.sub('{.*? \.documentFirstHeading}', '', md)
-            md = re.sub('\{style.*?\}', '', md, flags=re.DOTALL)
+            md = re.sub('(\n#+ [^\n]*)\{.*?\}', r'\1', md, flags=re.DOTALL)  # bracketing in headers must go
+            md = re.sub('\n#+ +\n', '\n', md, flags=re.DOTALL)  # some headers end up empty after previous cleanup
             
             # fix image links to work properly from notebooks
-            md = re.sub('!\[.*?]\(\S*?/(\w*)(\.\w*)(.*?)\)\{.+?\}', r'![\1](media/\1\2)', md, flags=re.DOTALL)
+            md = re.sub('!\[.*?]\(\S*?/(\w*)(\.\w*).*?\)', r'![\1](media/\1\2)', md, flags=re.DOTALL)
             
             # fix image captions
             md = re.sub(' +\-{9} \-+.*?Caption\s*(.*?)\-{9} \-+', r'>\1', md, flags=re.DOTALL)
             
             with open(dest+r'.md', 'w') as fid:
                 fid.write(md)
-
-# make the root level file the index
-#os.system("mv docs/_files.rst docs/index.rst")
 
 print('')
 print('done')

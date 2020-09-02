@@ -12,24 +12,24 @@ The **split** task selects a subset of data from a MeasurementSet and creates a 
 CASA <1>: inp split
 split :: Create a visibility subset from an existing visibility set
 
-vis           =     ''            # Name of input MeasurementSet or Multi-MS
-outputvis     =     ''            # Name of output MeasurementSet or Multi-MS
-keepmms       =     True          # If the input is a Multi-MS the output will also be a Multi-MS
-field         =     ''            # Select field using ID(s) or name(s)
-spw           =     ''            # Select spectral window/channels
-scan          =     ''            # Select data by scan numbers
-antenna       =     ''            # Select data based on antenna/baseline
-correlation   =     ''            # Correlation: '' ==> all, correlation='XX,YY'
-timerange     =     ''            # Select data by time range
-intent        =     ''            # Select data by scan intent.
-array         =     ''            # Select (sub)array by array ID number(s)
-uvrange       =     ''            # Select data bt baseline length
-observation   =     ''            # Select data by observation ID(s).
-feed          =     ''            # Multi-feed numbers: Not yet implemented.
-datacolumn    =     'corrected'   # Which data column(s) to process
-keepflags     =     True          # Keep *completely flagged rows* instead of dropping them
-width         =     1             # Number of channels to average to form one output channel
-timebin       =     '0s'          # Bin width for time averaging
+vis           =     ''            #Name of input MeasurementSet or Multi-MS
+outputvis     =     ''            #Name of output MeasurementSet or Multi-MS
+keepmms       =     True          #If the input is a Multi-MS the output will also be a Multi-MS
+field         =     ''            #Select field using ID(s) or name(s)
+spw           =     ''            #Select spectral window/channels
+scan          =     ''            #Select data by scan numbers
+antenna       =     ''            #Select data based on antenna/baseline
+correlation   =     ''            #Correlation: '' ==> all, correlation='XX,YY'
+timerange     =     ''            #Select data by time range
+intent        =     ''            #Select data by scan intent.
+array         =     ''            #Select (sub)array by array ID number(s)
+uvrange       =     ''            #Select data bt baseline length
+observation   =     ''            #Select data by observation ID(s).
+feed          =     ''            #Multi-feed numbers: Not yet implemented.
+datacolumn    =     'corrected'   #Which data column(s) to process
+keepflags     =     True          #Keep *completely flagged rows* instead of dropping them
+width         =     1             #Number of channels to average to form one output channel
+timebin       =     '0s'          #Bin width for time averaging
 ```
 
 Usually you will run **split** with *datacolumn='corrected'* as previous operations (e.g. **applycal**) will have placed the calibrated data in the *CORRECTED_DATA* column of the MS. This will produce a new MS with this *CORRECTED_DATA* in its *DATA* column. The modes available in *datacolumn* are:
@@ -52,9 +52,9 @@ For example, to split out 46 channels (5-50) from spw 1 of our NGC5921 calibrate
 ```
 split(vis='ngc5921.usecase.ms',
 outputvis='ngc5921.split.ms',
-field='2', # Output NGC5921 data (field 2)
-spw='0:5~50', # Select 46 chans from spw 0
-datacolumn='corrected') # Take the calibrated data column
+field='2', #Output NGC5921 data (field 2)
+spw='0:5~50', #Select 46 chans from spw 0
+datacolumn='corrected') #Take the calibrated data column
 ```
 
 Starting in CASA 4.6.0, **split2** has been renamed to **split** and became the default in CASA. The previous implementation of **split** is still available under the name **oldsplit**. The interface of both implementations is the same, but the new **split** uses the MSTransform framework underneath. See the \"[Manipulating Visibilities with MSTransform](https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/uv-manipulation/manipulating-visibilities-with-mstransform)\" chapter for detailed information on mstransform.

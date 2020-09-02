@@ -18,7 +18,7 @@ To achieve the best output it is usually advisable to adjust the settings in the
 
 ------------------------------------------------------------------------
 
-![TypeFigureIDViewer Print ManagerCaptionPrinting to a File: From the Viewer Print Manager, shown here in top right and accessed by the printer icon in the Main Toolbar or from the Data drop down menu, you can use the \"Save\" button to save an image or \"Print\" directly to a printer. To achieve the best results, it is often helpful to adjust the settings in the Data Display Options and Viewer Canvas Manager, shown at left.](markdown/_media/173061d000f561f265692b5ea0e5a2cfa7345bfe.png)
+![173061d000f561f265692b5ea0e5a2cfa7345bfe](media/173061d000f561f265692b5ea0e5a2cfa7345bfe.png)
 
  
 
