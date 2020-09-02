@@ -24,42 +24,42 @@ Common Astronomy Software Applications
    main new features:
 
    .. rubric:: New Features
-
+      
 
    -  A new task sdintimaging is available for jont deconvolution of
-Single Dish and Interfermeter data.
+      Single Dish and Interfermeter data.
    -  A new task sdtimeaverage is available for averaging single-dish
-spectral data over specified time.
+      spectral data over specified time.
    -  A new single-dish spectral imaging mode, 'cubesource', is
-available in the task tsdimaging.
+      available in the task tsdimaging.
    -  A new parameter corrdepflags has been added to the gaincal,
-bandpass, and fringefit tasks to permit more control of
-flagging subsets of correlations.
+      bandpass, and fringefit tasks to permit more control of
+      flagging subsets of correlations.
    -  The fringefit task now includes support for dispersive delays.
    -  The CASA simulator now uses tclean instead of clean.
    -  The ability to correct for heterogeneous antenna pointing
-offsets stored in the POINTING sub-table of the MS has been
-added totclean(gridder='awproject').
+      offsets stored in the POINTING sub-table of the MS has been
+      added totclean(gridder='awproject').
    -  statwt now includes weighting each visibility by its exposure
-time, and also improved in the way the timebin parameter is
-interpreted when its value is an integer.
+      time, and also improved in the way the timebin parameter is
+      interpreted when its value is an integer.
    -  the imsmooth task has been made consistency with the rest of
-CASA in terms of masking
+      CASA in terms of masking
    -  simobserve now reads and populates antenna names rather than
-assigning numbers, which makes comparing simulated and real
-data easier.
+      assigning numbers, which makes comparing simulated and real
+      data easier.
    -  The fldmap parameter within the cal library will now support
-multiple fields
+      multiple fields
    -  `CARTA <https://casa.nrao.edu/casadocs-devel/stable/imaging/carta>`__ v.1.3
-with limited features is now available for users who wish to
-visualize their data outside the CASA Viewer.
+      with limited features is now available for users who wish to
+      visualize their data outside the CASA Viewer.
    -  VLA P-band models have been made available in CASA forseveral
-standard calibrators.
+      standard calibrators.
    -  Ephemeris tables for Solar System objects have been extended in
-time
+      time
    -  An "execfile" python shortcut has been added to the (Python 3
-based) CASA 6 environment for backwards compatibility with ALMA
-scriptForPI.py restore scripts.
+      based) CASA 6 environment for backwards compatibility with ALMA
+      scriptForPI.py restore scripts.
 
    For more details and other implementations, please see the CASA
    5.7/6.1 `Release

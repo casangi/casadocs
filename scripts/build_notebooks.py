@@ -22,7 +22,6 @@ with open('markdown/index.rst', 'r') as fid:
     rst = fid.read()
 
 rst = re.sub('Description\n', 'Common Astronomy Software Applications\n======================================\n', rst, flags=re.DOTALL)
-rst = re.sub('\n      ', '\n', rst, flags=re.DOTALL)
 rst = rst + '\n.. toctree::\n   :hidden:\n   :maxdepth: 3\n\n'
 
 with open('docs/index.rst', 'w') as fid:
