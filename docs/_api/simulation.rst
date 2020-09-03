@@ -1,7 +1,7 @@
 Simulation
 ====================
 
-.. automodsumm:: tasks.simulation
+.. automodsumm:: stubs.simulation
    :toctree: api
    :nosignatures:
    :functions-only:

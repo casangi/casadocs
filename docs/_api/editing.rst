@@ -1,7 +1,7 @@
 Editing
 ====================
 
-.. automodsumm:: tasks.editing
+.. automodsumm:: stubs.editing
    :toctree: api
    :nosignatures:
    :functions-only:

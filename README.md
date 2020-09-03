@@ -14,6 +14,7 @@ Github browser window.
 1. Scrape the latest Plone CASAdocs (creates html folder):
    ```
    $: scrapy crawl sitemap
+   $: docker run -p 8050:8050 scrapinghub/splash
    $: scrapy crawl full
    ```
 
@@ -22,18 +23,12 @@ Github browser window.
    $: python scripts/convert_html.py
    ``` 
 
-3. Generate task definitions (creates tasks folder)
-   ```
-   $: python scripts/xml_downloader.py
-   $: python scripts/task_parser.py
-   ```
-
-4. Generate notebook files (creates docs/notebooks folder)
+3. Generate notebook files (creates docs/notebooks folder)
    ```
    $: python scripts/build_notebooks.py
    ```
 
-5. Locally build pages to verify
+4. Locally build pages to verify
    ```
    $: cd docs
    $: rm -fr _api/api

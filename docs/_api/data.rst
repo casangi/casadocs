@@ -1,7 +1,7 @@
 Data Import / Export
 ====================
 
-.. automodsumm:: tasks.data
+.. automodsumm:: stubs.data
    :toctree: api
    :nosignatures:
    :functions-only:

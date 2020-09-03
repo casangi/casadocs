@@ -1,7 +1,7 @@
 Modeling
 ====================
 
-.. automodsumm:: tasks.modeling
+.. automodsumm:: stubs.modeling
    :toctree: api
    :nosignatures:
    :functions-only:

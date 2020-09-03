@@ -10,7 +10,6 @@ import nbformat
 os.system("rm -fr docs/notebooks")
 os.system("mkdir docs/notebooks")
 os.system('cp -r markdown/_media docs/notebooks/media')
-os.system('cp -r markdown/_apimedia/* docs/_api/media/')
 
 # copy the top level parents to the destination
 for file in os.listdir('markdown'):
@@ -32,7 +31,7 @@ with open('docs/index.rst', 'w') as fid:
 # this lets us preserve the ordering of pages
 with open('scraper/_sitemap.txt') as fid:
     urls = fid.read().splitlines()
-    files = [uu.replace('https://casa.nrao.edu/casadocs-devel/stable', 'markdown') for uu in urls][1:]
+    files = [uu.replace('https://casa.nrao.edu/casadocs-devel/stable', 'markdown') for uu in urls if 'stable' in uu][1:]
 
 
 # merge all child pages in to the parent directory page
@@ -49,6 +48,9 @@ for file in files:
         
     parent = parent.replace('markdown','docs/notebooks')
 
+    if not os.path.exists(source):
+        print('ERROR: missing ' + source)
+        continue
     with open(source, 'r') as fid:
         smd = fid.read()
     with open(parent, 'r') as fid:

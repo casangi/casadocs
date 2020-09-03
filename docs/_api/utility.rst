@@ -1,7 +1,7 @@
 Utility
 ====================
 
-.. automodsumm:: tasks.utility
+.. automodsumm:: stubs.utility
    :toctree: api
    :nosignatures:
    :functions-only:

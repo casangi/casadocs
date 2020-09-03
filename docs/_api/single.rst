@@ -1,7 +1,7 @@
 Single Dish
 ====================
 
-.. automodsumm:: tasks.single
+.. automodsumm:: stubs.single
    :toctree: api
    :nosignatures:
    :functions-only:

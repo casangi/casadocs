@@ -1,7 +1,7 @@
 Information
 ====================
 
-.. automodsumm:: tasks.information
+.. automodsumm:: stubs.information
    :toctree: api
    :nosignatures:
    :functions-only:

@@ -1,7 +1,7 @@
 Calibration
 ====================
 
-.. automodsumm:: tasks.calibration
+.. automodsumm:: stubs.calibration
    :toctree: api
    :nosignatures:
    :functions-only:

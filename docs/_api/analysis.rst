@@ -1,7 +1,7 @@
 Analysis
 ====================
 
-.. automodsumm:: tasks.analysis
+.. automodsumm:: stubs.analysis
    :toctree: api
    :nosignatures:
    :functions-only:

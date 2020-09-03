@@ -17,7 +17,9 @@ with open('scraper/_sitemap.txt') as fid:
 #url = urls[0]
 
 os.system('rm -fr markdown')
+os.system('rm -fr tasks')
 os.system('mkdir markdown')
+os.system('mkdir tasks')
 
 # each page in casadocs should have already been downloaded by the scrapy spider to an html file
 # the local html directory structure should match the casadocs website structure
@@ -26,25 +28,29 @@ for ii, url in enumerate(urls):
     fpath = ['html'] + url.split("/")[4:]
     if url.endswith('global-task-list') or (re.match('.*/global-task-list/task_\S*/.+', url) is not None): continue
     if url.endswith('global-tool-list') or (re.match('.*/global-tool-list/tool_\S*/.+', url) is not None): continue
+    if 'stable' not in url: continue   # ignore root directory test files
     
     source = '/'.join(fpath) + '.html'
     if os.path.exists(source):
         print('converting %s of %s...' % (str(ii), str(len(urls))), end='\r')
 
-        spath = ['markdown'] + url.split("/")[5:]
-        for ii in range(1,len(spath)):
-            subdir = '/'.join(spath[:ii])
-            if not os.path.isdir(subdir):
-                os.mkdir(subdir)
-        dest = '/'.join(spath)
-        dest = 'markdown/index' if dest == 'markdown' else dest
+        if 'global-task-list' in fpath:
+            dest = 'tasks/' + url.split("/")[-1]
+        else:
+            spath = ['markdown'] + url.split("/")[5:]
+            for ii in range(1,len(spath)):
+                subdir = '/'.join(spath[:ii])
+                if not os.path.isdir(subdir):
+                    os.mkdir(subdir)
+            dest = '/'.join(spath)
+            dest = 'markdown/index' if dest == 'markdown' else dest
         
         # use pandoc to convert html to either ipynb or rst format
         # rst is used for task / tool descriptions that are later turned in to docstrings
         # the top level markdown/index file is from html/stable and forms the index.rst later on
         if ('global-task-list' in fpath) or ('global-tool-list' in fpath) or (dest == 'markdown/index'):
             
-            os.system('pandoc %s -f html -t rst -o %s --extract-media=%s' % (source, dest+'.rst', 'markdown/_apimedia'))
+            os.system('pandoc %s -f html -t rst -o %s --extract-media=%s' % (source, dest+'.rst', 'tasks/_apimedia'))
             with open(dest+'.rst', 'r') as fid:
                 rst = fid.read()
                 
@@ -108,11 +114,11 @@ for ii, url in enumerate(urls):
                     md = md.replace(tgp.group(1), submd)
             
             # convert the various text boxes
-            md = re.sub('::: {.info-box}(.*?):::', r'<div class="alert alert-info">\1</div>', md, flags=re.DOTALL)
-            md = re.sub('::: {.alert-box}(.*?):::', r'<div class="alert alert-warning">\1</div>', md, flags=re.DOTALL)
-            md = re.sub('::: {.casa-input-box}(.*?):::', r'```\1```', md, flags=re.DOTALL)
-            md = re.sub('::: {.terminal-box}(.*?):::', r'```\1```', md, flags=re.DOTALL)
-            md = re.sub('::: {.casa-output-box}(.*?):::', r'```python\1```', md, flags=re.DOTALL)
+            md = re.sub('::: {.info-box}(.*?):::\n', r'<div class="alert alert-info">\1</div>\n', md, flags=re.DOTALL)
+            md = re.sub('::: {.alert-box}(.*?):::\n', r'<div class="alert alert-warning">\1</div>\n', md, flags=re.DOTALL)
+            md = re.sub('::: {.casa-input-box}(.*?):::\n', r'```\1```\n', md, flags=re.DOTALL)
+            md = re.sub('::: {.terminal-box}(.*?):::\n', r'```\1```\n', md, flags=re.DOTALL)
+            md = re.sub('::: {.casa-output-box}(.*?):::\n', r'```python\1```\n', md, flags=re.DOTALL)
             md = re.sub(':::.*', '', md)
             
             # weird ascii things

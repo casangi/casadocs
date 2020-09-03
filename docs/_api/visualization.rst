@@ -1,7 +1,7 @@
 Visualization
 ====================
 
-.. automodsumm:: tasks.visualization
+.. automodsumm:: stubs.visualization
    :toctree: api
    :nosignatures:
    :functions-only:

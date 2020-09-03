@@ -26,8 +26,8 @@ Common Astronomy Software Applications
    .. rubric:: New Features
       
 
-   -  A new task sdintimaging is available for jont deconvolution of
-      Single Dish and Interfermeter data.
+   -  A new task sdintimaging is available for joint deconvolution of
+      Single Dish and Interferometer data.
    -  A new task sdtimeaverage is available for averaging single-dish
       spectral data over specified time.
    -  A new single-dish spectral imaging mode, 'cubesource', is

@@ -3,20 +3,15 @@ from scrapy_splash import SplashRequest
 import os
 import re
 
-rst_body = """.. toctree::
-   :hidden:
-   :maxdepth: 2
-   :glob:
-
-   
-"""
-
 class CasadocsSpider(scrapy.Spider):
     name = "full"
 
     def start_requests(self):
         with open('scraper/_sitemap.txt') as fid:
             urls = fid.read().splitlines()
+        
+        os.system('rm -fr html')
+        os.system('mkdir html')
         
         for url in urls:
             #yield scrapy.Request(url=url, callback=self.parse)
