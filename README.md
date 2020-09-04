@@ -36,8 +36,6 @@ Github browser window.
 5. Locally build pages to verify
    ```
    $: cd docs
-   $: rm -fr _api/api
-   $: rm -fr build
-   $: sphinx-build -b html . ./build
+   $: sphinx-build -a -E -b html . ./build
    ```
 

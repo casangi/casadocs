@@ -9,7 +9,7 @@ import re
 # grab the list of all pages in casadocs
 with open('scraper/_sitemap.txt') as fid:
     urls = fid.read().splitlines()
-#urls = ['https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/imaging-overview']
+#urls = ['https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/wide-field-imaging-full-primary-beam']
 #urls = ['https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/visibility-data-import-export/uv-data-import']
 #urls = ['https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_tclean']
 #urls = ['https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/using-plotms-to-plot-and-edit-visibilities-and-calibration-tables']
@@ -73,7 +73,6 @@ for ii, url in enumerate(urls):
             rst = re.sub('(\s*)\.\. container:: \S*-box\s*', r'\1.. note:: ', rst, flags=re.DOTALL)  # change info boxes
             
             rst = re.sub('\s*\.\. container::(\s*\S*)*?\n(\s*:name: \S*\n)?', '\n', rst, flags=re.DOTALL)  # remove container sections
-            rst = re.sub('(\.\. \|.*?\| image:: )markdown/_apimedia/(\S*)', r'\1../media/\2', rst, flags=re.DOTALL)  # fix image links
             rst = rst.replace(' ', '').replace('\\ ', ' ').replace('↩ ', '')  # weird ascii things
             rst = re.sub('(:math:\s*`[^\n]+) `', r'\1`', rst, flags=re.DOTALL)  # fix math equations with trailing space before `
             rst = re.sub('\s*[\+\-]+\n\s*\| Citation.*?\n\n', '\n\n', rst, flags=re.DOTALL)  # remove citation tables
@@ -130,7 +129,7 @@ for ii, url in enumerate(urls):
             md = re.sub(r'\[([^\]]*?)\]\{(\.s1)?\s?(style)?.*?\}', r'\1', md, flags=re.DOTALL)
             md = re.sub(r'\[([^\]]*?)\]\{(\.s1)?\s?(style)?.*?\}', r'\1', md, flags=re.DOTALL) # do a couple times for nested things
             md = re.sub(r'\[([^\]]*?)\]\{(\.s1)?\s?(style)?.*?\}', r'\1', md, flags=re.DOTALL)
-            md = re.sub(r'\{(\.s1)|(style).*?\}', '', md, flags=re.DOTALL) # kill remaining dangling style tags
+            md = re.sub(r'\{\.s1.*?\}|\{style.*?\}', '', md, flags=re.DOTALL) # kill remaining dangling style tags
             #md = re.sub(r'\[([^\n]+)\]\{(\.s1)?\s?(style)?.*?\}', r'\1', md, flags=re.DOTALL)
             #md = re.sub(r'\[([^\n]+)\]\{(\.s1)?\s?(style)?.*?\}', r'\1', md, flags=re.DOTALL) # do a couple times for nested things
             md = re.sub('{.*? \.documentFirstHeading}', '', md)

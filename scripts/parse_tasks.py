@@ -114,6 +114,8 @@ for task in tasklist:
     if os.path.exists('tasks/task_' + task['name'] + '.rst'):
         with open('tasks/task_' + task['name'] + '.rst', 'r') as fid:
             rst = fid.read()
+    # change image links
+    rst = re.sub('(\.\. \|.*?\| image:: )tasks/_apimedia/(\S*)\s*?\n.*:height:.*?\n', r'\1../media/\2', rst, flags=re.DOTALL)
     
     # add this task to the __init__.py
     with open('stubs/'+task['category']+'/'+'__init__.py', 'a') as fid:

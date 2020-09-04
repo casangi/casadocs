@@ -958,10 +958,6 @@ Description
    Ephemeris
    Data <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/ephemeris-data>`__.
 
-.. |image1| image:: tasks/_apimedia/26ad14d4f63ff633dbd5d9e92d40a5059ab46a67.png
-:class: image-inline
-:width: 577px
-:height: 315px
-
+.. |image1| image:: ../media/26ad14d4f63ff633dbd5d9e92d40a5059ab46a67.png
     """
     pass

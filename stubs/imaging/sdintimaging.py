@@ -778,10 +778,6 @@ Description
    Single Dish and Interferometer Image
    Reconstruction <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-combination/joint-sd-and-interferometer-image-reconstruction>`__ "
 
-.. |image1| image:: tasks/_apimedia/c914c39a74a69699c2ae1d84231e2133af6d7081.png
-:class: image-inline
-:width: 709px
-:height: 398px
-
+.. |image1| image:: ../media/c914c39a74a69699c2ae1d84231e2133af6d7081.png
     """
     pass
