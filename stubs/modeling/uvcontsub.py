@@ -7,14 +7,14 @@ def uvcontsub(vis, field='', fitspw='', excludechans=False, combine='', solint='
 Continuum fitting and subtraction in the uv plane
 
 Parameters
-   - **vis** (string) - Name of input MS.  Output goes to vis + ".contsub" (will be overwritten if already exists)
-   - **field** ({string, stringArray, int, intArray}='') - Select field(s) using id(s) or name(s)
-   - **fitspw** (string='') - Spectral window:channel selection for fitting the continuum
-   - **combine** (string='') - Data axes to combine for the continuum estimation (none, or spw and/or scan)
-   - **solint** (variant='int') - Continuum fit timescale (int recommended!)
-   - **fitorder** (int=0) - Polynomial order for the fits
-   - **spw** (string='') - Spectral window selection for output
-   - **want_cont** (bool=False) - Create vis + ".cont" to hold the continuum estimate.
+   - **vis** (string) - Name of input MS.  Output goes to vis + ".contsub" (will be overwritten if already exists) [1]_
+   - **field** ({string, stringArray, int, intArray}='') - Select field(s) using id(s) or name(s) [2]_
+   - **fitspw** (string='') - Spectral window:channel selection for fitting the continuum [3]_
+   - **combine** (string='') - Data axes to combine for the continuum estimation (none, or spw and/or scan) [5]_
+   - **solint** (variant='int') - Continuum fit timescale (int recommended!) [6]_
+   - **fitorder** (int=0) - Polynomial order for the fits [7]_
+   - **spw** (string='') - Spectral window selection for output [8]_
+   - **want_cont** (bool=False) - Create vis + ".cont" to hold the continuum estimate. [9]_
 
 
 Description
@@ -154,6 +154,40 @@ Description
       
 
    Create vis + '.cont' to hold the continuum estimate.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of input MS.  Output goes to vis + ".contsub" (will be overwritten if already exists)
+.. [2] 
+   **field** ({string, stringArray, int, intArray}='')
+      | Select field(s) using id(s) or name(s)
+.. [3] 
+   **fitspw** (string='')
+      | Spectral window:channel selection for fitting the continuum
+.. [4] 
+   **excludechans** (bool=False)
+      | exclude Spectral window:channel selection in fitspw for fitting
+.. [5] 
+   **combine** (string='')
+      | Data axes to combine for the continuum estimation (none, or spw and/or scan)
+.. [6] 
+   **solint** (variant='int')
+      | Continuum fit timescale (int recommended!)
+.. [7] 
+   **fitorder** (int=0)
+      | Polynomial order for the fits
+.. [8] 
+   **spw** (string='')
+      | Spectral window selection for output
+.. [9] 
+   **want_cont** (bool=False)
+      | Create vis + ".cont" to hold the continuum estimate.
 
     """
     pass

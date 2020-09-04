@@ -104,18 +104,18 @@ def ParamSpec(param):
 
 os.system('rm -fr stubs')
 os.system('mkdir stubs')
-os.system('cp -r tasks/_apimedia/* docs/_api/media/')
+os.system('cp -r docs/tasks/_apimedia/* docs/_api/media/')
 for task in tasklist:
     if not os.path.exists('stubs/'+task['category']):
         os.system('mkdir stubs/'+task['category'])
     
     # grab rst plone description tab if it exists
     rst = ''
-    if os.path.exists('tasks/task_' + task['name'] + '.rst'):
-        with open('tasks/task_' + task['name'] + '.rst', 'r') as fid:
+    if os.path.exists('docs/tasks/task_' + task['name'] + '.rst'):
+        with open('docs/tasks/task_' + task['name'] + '.rst', 'r') as fid:
             rst = fid.read()
     # change image links
-    rst = re.sub('(\.\. \|.*?\| image:: )tasks/_apimedia/(\S*)\s*?\n.*:height:.*?\n', r'\1../media/\2', rst, flags=re.DOTALL)
+    rst = re.sub('(\.\. \|.*?\| image:: )docs/tasks/_apimedia/(\S*)\s*?\n.*:height:.*?\n', r'\1../media/\2', rst, flags=re.DOTALL)
     
     # add this task to the __init__.py
     with open('stubs/'+task['category']+'/'+'__init__.py', 'a') as fid:
@@ -152,6 +152,8 @@ for task in tasklist:
             fid.write('   - %s' % ParamSpec(param))
             if ('shortdescription' in task['params'][param].keys()) and (task['params'][param]['shortdescription'] is not None):
                 fid.write(' - %s' % task['params'][param]['shortdescription'])
+            if ('description' in task['params'][param].keys()) and (task['params'][param]['description'] is not None):
+                fid.write(' [%s]_' % str(list(task['params'].keys()).index(param)+1))
             fid.write('\n')
             
             # populate function subparameters (if any)
@@ -165,10 +167,21 @@ for task in tasklist:
                     fid.write('      - %s' % ParamSpec(subparam))
                     if ('shortdescription' in task['params'][subparam].keys()) and (task['params'][subparam]['shortdescription'] is not None):
                         fid.write(' - %s' % task['params'][subparam]['shortdescription'])
+                    if ('description' in task['params'][subparam].keys()) and (task['params'][subparam]['description'] is not None):
+                        fid.write(' [%s]_' % str(list(task['params'].keys()).index(subparam)+1))
                     fid.write('\n')
                 if len(task['subparams'][paramstr]) > 0:
                     fid.write('\n      .. raw:: html\n\n         </details>\n')
 
         # marry up the Plone content to the bottom Notes section
-        fid.write('\n\n' + rst)
+        fid.write('\n\n' + rst + '\n\n')
+        
+        # add long descriptions of each parameter as footnotes at the bottom
+        fid.write('\n\nDetails\n   Explanation of each parameter\n\n')
+        for param in task['params'].keys():
+            if ('description' in task['params'][param].keys()) and (task['params'][param]['description'] is not None):
+                fid.write('.. [%s] \n   %s\n' % (str(list(task['params'].keys()).index(param)+1), ParamSpec(param)))
+                fid.write('      | %s\n' % re.sub('\n', '\n      | ', task['params'][param]['description'].strip(), flags=re.DOTALL))
+            
+        # close docstring stub
         fid.write('\n    """\n    pass\n')

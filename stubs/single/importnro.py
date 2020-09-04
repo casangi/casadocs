@@ -7,10 +7,10 @@ def importnro(infile, outputvis='', overwrite=False, parallel=False):
 Convert NOSTAR data into a CASA visibility file (MS)
 
 Parameters
-   - **infile** (string) - Name of input NOSTAR data
-   - **outputvis** (string='') - Root name of the ms to be created. Note the .ms is NOT added 
-   - **overwrite** (bool=False) - Over write an existing MS(s)
-   - **parallel** (bool=False) - Turn on parallel execution
+   - **infile** (string) - Name of input NOSTAR data [1]_
+   - **outputvis** (string='') - Root name of the ms to be created. Note the .ms is NOT added  [2]_
+   - **overwrite** (bool=False) - Over write an existing MS(s) [3]_
+   - **parallel** (bool=False) - Turn on parallel execution [4]_
 
 
 Description
@@ -53,6 +53,34 @@ Description
    | The other parameters can be specified in the same manner as in
      the ALMA data. The results of the data import can be checked
      using task **listobs**.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **infile** (string)
+      | Name of input NOSTAR data
+      |                      Default: none
+.. [2] 
+   **outputvis** (string='')
+      | Root name of the ms to be created. Note the .ms is NOT
+      | added 
+      |                      Default: none
+      | 
+      |                         Example: outputvis='myms.ms'
+.. [3] 
+   **overwrite** (bool=False)
+      | Over write an existing MS(s)
+      |                      Default: False (do not overwrite)
+      |                      Options: False|True
+.. [4] 
+   **parallel** (bool=False)
+      | Turn on parallel execution
+      |                      Default: False (serial execution)
+      |                      Options: False|True
 
     """
     pass

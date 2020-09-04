@@ -36,5 +36,5 @@ Description
    Caption The CASA viewer
    ======= ===============
 
-.. |image1| image:: tasks/_apimedia/c21233cc58158c9088713800a5694cfaf3f94963.png
+.. |image1| image:: docs/tasks/_apimedia/c21233cc58158c9088713800a5694cfaf3f94963.png
 :class: image-inline

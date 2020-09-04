@@ -7,11 +7,11 @@ def rerefant(vis, tablein, caltable='', refantmode='flex', refant=''):
 Re-apply refant to a caltable
 
 Parameters
-   - **vis** (string) - Name of input visibility file (MS)
-   - **tablein** (string) - Input calibration table
-   - **caltable** (string='') - Output calibration table (overwrite tablein if unspecified)
-   - **refantmode** (string='flex') - Refant algorithm to use
-   - **refant** (string='') - Reference antenna name(s)
+   - **vis** (string) - Name of input visibility file (MS) [1]_
+   - **tablein** (string) - Input calibration table [2]_
+   - **caltable** (string='') - Output calibration table (overwrite tablein if unspecified) [3]_
+   - **refantmode** (string='flex') - Refant algorithm to use [4]_
+   - **refant** (string='') - Reference antenna name(s) [5]_
 
 
 Description
@@ -105,6 +105,28 @@ Description
    that *refantmode='strict'* is not reversible, since the reason for
    flagging solutions is not preserved. Also note that a poor refant
    choice could lead to excessive data flagging when using this mode.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of input visibility file (MS)
+.. [2] 
+   **tablein** (string)
+      | Input calibration table
+.. [3] 
+   **caltable** (string='')
+      | Output calibration table (overwrite tablein if unspecified)
+.. [4] 
+   **refantmode** (string='flex')
+      | Refant algorithm to use
+.. [5] 
+   **refant** (string='')
+      | Reference antenna name(s)
 
     """
     pass

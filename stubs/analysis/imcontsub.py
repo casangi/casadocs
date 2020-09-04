@@ -7,14 +7,14 @@ def imcontsub(imagename, linefile='', contfile='', fitorder=0, region='', box=''
 Estimates and subtracts continuum emission from an image cube
 
 Parameters
-   - **imagename** (string) - Name of the input spectral line image
-   - **linefile** (string='') - Output continuum-subtracted image file name
-   - **contfile** (string='') - Output continuum image file name
-   - **fitorder** (int=0) - Polynomial order for the continuum estimation
-   - **region** (string='') - Region selection.
-   - **box** ({string, intArray, stringArray}='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
-   - **chans** (string='') - Channels to use.
-   - **stokes** (string='') - Stokes planes to use.
+   - **imagename** (string) - Name of the input spectral line image [1]_
+   - **linefile** (string='') - Output continuum-subtracted image file name [2]_
+   - **contfile** (string='') - Output continuum image file name [3]_
+   - **fitorder** (int=0) - Polynomial order for the continuum estimation [4]_
+   - **region** (string='') - Region selection. [5]_
+   - **box** ({string, intArray, stringArray}='') - Rectangular region to select in direction plane. Default is to use the entire direction plane. [6]_
+   - **chans** (string='') - Channels to use. [7]_
+   - **stokes** (string='') - Stokes planes to use. [8]_
 
 
 Description
@@ -62,6 +62,53 @@ Description
 
    Spectral channels to use for fitting a polynomial to determine
    continuum.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **imagename** (string)
+      | Input image cube.
+      |                      Default: none
+      | 
+      |                         Example: imagename='ngc5921_task.im'
+.. [2] 
+   **linefile** (string='')
+      | Name of continuum-subtracted output spectral line cube
+      |                      Default: none
+      | 
+      |                         Example: outline='ngc5921_line.im'
+.. [3] 
+   **contfile** (string='')
+      | Name of output continuum cube
+      |                      Default: none
+      | 
+      |                         Example: contfile='ngc5921_cont.im'
+.. [4] 
+   **fitorder** (int=0)
+      | Polynomial order for the continuum estimation
+      |                      Default: 0
+      | 
+      |                         Example: fitorder=2
+.. [5] 
+   **region** (string='')
+      | Region selection. 
+      |                      Default: '' (use the full image)
+.. [6] 
+   **box** ({string, intArray, stringArray}='')
+      | Rectangular region to select in direction plane.
+      |                      Default: '' (use the entire direction plane)
+.. [7] 
+   **chans** (string='')
+      | Channels to use. 
+      |                      Default: '' (use all channels)
+.. [8] 
+   **stokes** (string='')
+      | Stokes planes to use.
+      |                      Default: '' (use all Stokes planes)
 
     """
     pass

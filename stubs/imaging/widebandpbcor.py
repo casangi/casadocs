@@ -7,22 +7,22 @@ def widebandpbcor(vis, imagename='', nterms=2, threshold='', action='pbcor', ref
 Wideband PB-correction on the output of the MS-MFS algorithm
 
 Parameters
-   - **vis** (string) - Name of measurement set. 
-   - **imagename** (string='') - Name-prefix of multi-termimages to operate on. 
-   - **nterms** (int=2) - Number of taylor terms to use
-   - **threshold** (string='') - Intensity above which to re-calculate spectral index 
-   - **action** (string='pbcor') - PB-correction (pbcor) or only calc spectral-index (calcalpha)
+   - **vis** (string) - Name of measurement set.  [1]_
+   - **imagename** (string='') - Name-prefix of multi-termimages to operate on.  [2]_
+   - **nterms** (int=2) - Number of taylor terms to use [3]_
+   - **threshold** (string='') - Intensity above which to re-calculate spectral index  [4]_
+   - **action** (string='pbcor') - PB-correction (pbcor) or only calc spectral-index (calcalpha) [5]_
 
       .. raw:: html
 
          <details><summary><i> action = pbcor </i></summary>
 
-      - **reffreq** (string='') - Reference frequency (if specified in clean)
-      - **pbmin** (double=0.2) - PB threshold below which to not correct
-      - **field** (string='') - Fields to include in the PB calculation
-      - **spwlist** (intArray=['']) - List of N spw ids
-      - **chanlist** (intArray=['']) - List of N channel ids
-      - **weightlist** (doubleArray=['']) - List of N weights (relative)
+      - **reffreq** (string='') - Reference frequency (if specified in clean) [6]_
+      - **pbmin** (double=0.2) - PB threshold below which to not correct [7]_
+      - **field** (string='') - Fields to include in the PB calculation [8]_
+      - **spwlist** (intArray=['']) - List of N spw ids [9]_
+      - **chanlist** (intArray=['']) - List of N channel ids [10]_
+      - **weightlist** (doubleArray=['']) - List of N weights (relative) [11]_
 
       .. raw:: html
 
@@ -219,6 +219,46 @@ Description
    applied to the PB spectrum while computing PB Taylor-coefficients.
    Setting weights to anything other than 1.0 makes a difference only
    with very lop-sided weights.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of measurement set.
+.. [2] 
+   **imagename** (string='')
+      | Name-prefix of multi-termimages to operate on.
+.. [3] 
+   **nterms** (int=2)
+      | Number of taylor terms to use
+.. [4] 
+   **threshold** (string='')
+      | Intensity above which to re-calculate spectral index
+.. [5] 
+   **action** (string='pbcor')
+      | PB-correction (pbcor) or only calc spectral-index (calcalpha)
+.. [6] 
+   **reffreq** (string='')
+      | Reference frequency (if specified in clean)
+.. [7] 
+   **pbmin** (double=0.2)
+      | PB threshold below which to not correct
+.. [8] 
+   **field** (string='')
+      | Fields to include in the PB calculation
+.. [9] 
+   **spwlist** (intArray=[''])
+      | List of N spw ids
+.. [10] 
+   **chanlist** (intArray=[''])
+      | List of N channel ids
+.. [11] 
+   **weightlist** (doubleArray=[''])
+      | List of N weights (relative)
 
     """
     pass

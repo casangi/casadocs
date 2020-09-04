@@ -7,24 +7,24 @@ def split(vis, outputvis='', keepmms=True, field='', spw='', scan='', antenna=''
 Create a visibility subset from an existing visibility set
 
 Parameters
-   - **vis** (string) - Name of input visibility file
-   - **outputvis** (string='') - Name of output visibility file
-   - **keepmms** (bool=True) - If the input is a Multi-MS the output will also be a Multi-MS.
-   - **field** ({string, stringArray, int, intArray}='') - Select field using field id(s) or field name(s)
-   - **spw** ({string, stringArray, int, intArray}='') - Select spectral window/channels
-   - **scan** ({string, stringArray, int, intArray}='') - Scan number range
-   - **antenna** ({string, stringArray, int, intArray}='') - Select data based on antenna/baseline
-   - **correlation** ({string, stringArray}='') - Select data based on correlation
-   - **timerange** ({string, stringArray, int, intArray}='') - Select data based on time range
-   - **intent** ({string, stringArray, int, intArray}='') - Select observing intent
-   - **array** ({string, stringArray, int, intArray}='') - Select (sub)array(s) by array ID number.
-   - **uvrange** ({string, stringArray, int, intArray}='') - Select data by baseline length.
-   - **observation** ({string, stringArray, int, intArray}='') - Select by observation ID(s)
-   - **feed** ({string, stringArray, int, intArray}='') - Multi-feed numbers: Not yet implemented.
-   - **datacolumn** (string='corrected') - Which data column(s) to process.
-   - **keepflags** (bool=True)
-   - **width** ({string, stringArray, int, intArray}='1') - Number of channels to average to form one output channel
-   - **timebin** (string='0s') - Bin width for time averaging
+   - **vis** (string) - Name of input visibility file [1]_
+   - **outputvis** (string='') - Name of output visibility file [2]_
+   - **keepmms** (bool=True) - If the input is a Multi-MS the output will also be a Multi-MS. [3]_
+   - **field** ({string, stringArray, int, intArray}='') - Select field using field id(s) or field name(s) [4]_
+   - **spw** ({string, stringArray, int, intArray}='') - Select spectral window/channels [5]_
+   - **scan** ({string, stringArray, int, intArray}='') - Scan number range [6]_
+   - **antenna** ({string, stringArray, int, intArray}='') - Select data based on antenna/baseline [7]_
+   - **correlation** ({string, stringArray}='') - Select data based on correlation [8]_
+   - **timerange** ({string, stringArray, int, intArray}='') - Select data based on time range [9]_
+   - **intent** ({string, stringArray, int, intArray}='') - Select observing intent [10]_
+   - **array** ({string, stringArray, int, intArray}='') - Select (sub)array(s) by array ID number. [11]_
+   - **uvrange** ({string, stringArray, int, intArray}='') - Select data by baseline length. [12]_
+   - **observation** ({string, stringArray, int, intArray}='') - Select by observation ID(s) [13]_
+   - **feed** ({string, stringArray, int, intArray}='') - Multi-feed numbers: Not yet implemented. [14]_
+   - **datacolumn** (string='corrected') - Which data column(s) to process. [15]_
+   - **keepflags** (bool=True) [16]_
+   - **width** ({string, stringArray, int, intArray}='1') - Number of channels to average to form one output channel [17]_
+   - **timebin** (string='0s') - Bin width for time averaging [18]_
 
 
 Description
@@ -159,6 +159,253 @@ Description
    tool. The default is set to *combine=''*, which will not cross the
    scan or state boundaries when averaging intime. Options are:
    'scan', 'state', 'state,scan'.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of input visibility file
+      |                      Default: none
+      | 
+      |                         Example: vis='ngc5921.ms'
+.. [2] 
+   **outputvis** (string='')
+      | Name of output visibility file
+      |                      Default: '' (same as vis)
+      | 
+      |                         Example: outputvis='ngc5921_out.ms'
+      | 
+      |                      IMPORTANT: if a .flagversions file with the name
+      |                      of the output MS exist, this task will exit with
+      |                      an error. The user needs to rename or remove the
+      |                      existing flagbackup or choose a different output
+      |                      name for the MS.
+.. [3] 
+   **keepmms** (bool=True)
+      | Create a Multi-MS as the output if the input is a
+      | Multi-MS.
+      |                      Default: True
+      |                      Options: True|False
+      | 
+      |                      By default it will create a Multi-MS when the
+      |                      input is a Multi-MS. The output Multi-MS will
+      |                      have the same partition axis of the input
+      |                      MMS. See CASA Docs for more information on
+      |                      the MMS format.
+      | 
+      |                      NOTE: It is not possible to do time average with
+      |                      combine='scan' if the input MMS was partitioned
+      |                      with separationaxis='scan' or 'auto'. In this
+      |                      case, the task will abort with an error.
+.. [4] 
+   **field** ({string, stringArray, int, intArray}='')
+      | Select field using field id(s) or field name(s)
+      |                      Default: '' (all fields)
+      |                      
+      |                      Use 'go listobs' to obtain the list id's or
+      |                      names. If field string is a non-negative integer,
+      |                      it is assumed a field index,  otherwise, it is
+      |                      assumed a field name.
+      | 
+      |                         Examples:
+      |                         field='0~2'; field ids 0,1,2
+      |                         field='0,4,5~7'; field ids 0,4,5,6,7
+      |                         field='3C286,3C295'; field named 3C286 and
+      |                         3C295
+      |                         field = '3,4C*'; field id 3, all names
+      |                         starting with 4C
+.. [5] 
+   **spw** ({string, stringArray, int, intArray}='')
+      | Select spectral window/channels
+      |                      Default: ''=all spectral windows and channels
+      |            
+      |                         Examples:
+      |                         spw='0~2,4'; spectral windows 0,1,2,4 (all channels)
+      |                         spw='<2';  spectral windows less than 2 (i.e. 0,1)
+      |                         spw='0:5~61'; spw 0, channels 5 to 61
+      |                         spw='0,10,3:3~45'; spw 0,10 all channels, spw
+      |                         3 - chans 3 to 45.
+      |                         spw='0~2:2~6'; spw 0,1,2 with channels 2
+      |                         through 6 in each.
+      |                         spw = '*:3~64'  channels 3 through 64 for all sp id's
+      |                         spw = ' :3~64' will NOT work.
+      | 
+      |                      NOTE: mstransform does not support multiple
+      |                      channel ranges per spectral window (';').
+.. [6] 
+   **scan** ({string, stringArray, int, intArray}='')
+      | Scan number range
+      |                      Subparameter of selectdata=True
+      |                      Default: '' = all
+.. [7] 
+   **antenna** ({string, stringArray, int, intArray}='')
+      | Select data based on antenna/baseline
+      |                      Subparameter of selectdata=True
+      |                      Default: '' (all)
+      | 
+      |                      If antenna string is a non-negative integer, it
+      |                      is assumed an antenna index, otherwise, it is
+      |                      assumed as an antenna name
+      |   
+      |                          Examples: 
+      |                          antenna='5&6'; baseline between antenna
+      |                          index 5 and index 6.
+      |                          antenna='VA05&VA06'; baseline between VLA
+      |                          antenna 5 and 6.
+      |                          antenna='5&6;7&8'; baselines with
+      |                          indices 5-6 and 7-8
+      |                          antenna='5'; all baselines with antenna index
+      |                          5
+      |                          antenna='05'; all baselines with antenna
+      |                          number 05 (VLA old name)
+      |                          antenna='5,6,10'; all baselines with antennas
+      |                          5,6,10 index numbers
+.. [8] 
+   **correlation** ({string, stringArray}='')
+      | Select data based on correlation
+      |                      Default: '' ==> all
+      | 
+      |                         Example: correlation="XX,YY".
+.. [9] 
+   **timerange** ({string, stringArray, int, intArray}='')
+      | Select data based on time range
+      |                      Subparameter of selectdata=True
+      |                      Default = '' (all)
+      | 
+      |                         Examples:
+      |                         timerange =
+      |                         'YYYY/MM/DD/hh:mm:ss~YYYY/MM/DD/hh:mm:ss'
+      |                         (Note: if YYYY/MM/DD is missing date defaults
+      |                         to first day in data set.)
+      |                         timerange='09:14:0~09:54:0' picks 40 min on
+      |                         first day 
+      |                         timerange= '25:00:00~27:30:00' picks 1 hr to 3
+      |                         hr 30min on NEXT day
+      |                         timerange='09:44:00' pick data within one
+      |                         integration of time
+      |                         timerange='>10:24:00' data after this time
+.. [10] 
+   **intent** ({string, stringArray, int, intArray}='')
+      | Select observing intent
+      |                      Default: '' (no selection by intent)
+      | 
+      |                         Example: intent='*BANDPASS*'  (selects data
+      |                         labelled with BANDPASS intent)
+.. [11] 
+   **array** ({string, stringArray, int, intArray}='')
+      | (Sub)array number range
+      |                      Default: '' (all)
+.. [12] 
+   **uvrange** ({string, stringArray, int, intArray}='')
+      | Select data by baseline length.
+      |                      Default = '' (all)
+      | 
+      |                         Examples:
+      |                         uvrange='0~1000klambda'; uvrange from 0-1000 kilo-lambda
+      |                         uvrange='>4klambda';uvranges greater than 4 kilo-lambda
+      |                         uvrange='0~1000km'; uvrange in kilometers
+.. [13] 
+   **observation** ({string, stringArray, int, intArray}='')
+      | Select by observation ID(s)
+      |                      Subparameter of selectdata=True
+      |                      Default: '' = all
+      | 
+      |                          Example: observation='0~2,4'
+.. [14] 
+   **feed** ({string, stringArray, int, intArray}='')
+      | Selection based on the feed 
+      |                      NOT IMPLEMENTED YET!
+      |                      Default: '' = all
+.. [15] 
+   **datacolumn** (string='corrected')
+      | Which data column(s) to use for processing
+      |                      (case-insensitive).
+      |                      Default: 'corrected'
+      |                      Options: 'data', 'model', 'corrected',
+      |                      'all','float_data', 'lag_data',
+      |                      'float_data,data', 'lag_data,data'
+      | 
+      |                         Example: datacolumn='data'
+      |     
+      |                      NOTE: 'all' = whichever of the above that are
+      |                      present. If the requested column does not exist,
+      |                      the task will exit with an error.
+.. [16] 
+   **keepflags** (bool=True)
+      | Keep *completely flagged rows* instead of dropping them.
+      |                      Default: True (keep completely flagged rows in
+      |                      the output)
+      |                      Options: True|False
+      | 
+      |                      Keepflags has no effect on partially flagged
+      |                      rows. All of the channels and correlations of a
+      |                      row must be flagged for it to be droppable, and a
+      |                      row must be well defined to be keepable.
+      | 
+      |                      IMPORTANT: Regardless of this parameter, flagged
+      |                      data is never included in channel averaging. On
+      |                      the other hand, partially flagged rows will
+      |                      always be included in time averaging. The average
+      |                      value of the flagged data for averages containing
+      |                      ONLY flagged data in the relevant output channel
+      |                      will be written to the output with the
+      |                      corresponding flag set to True, while only
+      |                      unflagged data is used on averages where there is
+      |                      some unflagged data with the flag set to False.
+.. [17] 
+   **width** ({string, stringArray, int, intArray}='1')
+      | Number of channels to average to form one output channel
+      |                      If a list is given, each bin will apply to one
+      |                      spw in the selection.
+      |                      Default: 1 (no channel average)
+      |                      Options: (int)|[int]
+      | 
+      |                         Example: chanbin=[2,3] => average 2 channels
+      |                         of 1st selected spectral window and 3 in the
+      |                         second one.
+.. [18] 
+   **timebin** (string='0s')
+      | Bin width for time averaging
+      |                      Default: '0s'
+      | 
+      |                      Bin width for time averaging. When timebin is
+      |                      greater than 0s, the task will average data in
+      |                      time. Flagged data will be included in the
+      |                      average calculation, unless the parameter
+      |                      keepflags is set to False. In this case only
+      |                      partially flagged rows will be used in the
+      |                      average.
+.. [19] 
+   **combine** ({string, stringArray}='')
+      | Let the timebin span across scan, state or both.
+      |                      Default: '' (separate time bins by both of the
+      |                      above)
+      |                      Options: 'scan', 'state', 'state,scan'
+      | 
+      |                      State is equivalent to sub-scans. One scan may
+      |                      have several state ids. For ALMA MSs, the
+      |                      sub-scans are limited to about 30s duration
+      |                      each. In these cases, the task will automatically
+      |                      add state to the combine parameter. To see the
+      |                      number of states in an MS, use the msmd tool. See
+      |                      help msmd.
+      | 
+      |                         Examples: 
+      |                       * combine = 'scan'; can be useful when the scan
+      |                         number goes up with each integration as in
+      |                         many WSRT MSs.
+      |                       * combine = ['scan', 'state']: disregard scan
+      |                         and state numbers when time averaging.
+      |                       * combine = 'state,scan'; same as above.
+      | 
+      |                      NOTE: It is not possible to do time average with
+      |                      combine='scan' if the input MMS was partitioned
+      |                      with separationaxis='scan' or 'auto'. In this
+      |                      case, the task will abort with an error.
 
     """
     pass

@@ -7,16 +7,16 @@ def uvcontsub3(vis, fitspw='', combine='', fitorder=0, field='', spw='', scan=''
 An experimental clone of uvcontsub
 
 Parameters
-   - **vis** (string) - 
-   - **fitspw** (string='') - 
-   - **combine** (string='') - 
-   - **fitorder** (int=0) - 
-   - **field** ({string, stringArray, int, intArray}='') - 
-   - **spw** (string='') - 
-   - **scan** (string='') - 
-   - **intent** (string='') - 
-   - **correlation** ({string, stringArray}='') - 
-   - **observation** ({string, int}='') - 
+   - **vis** (string) -  [1]_
+   - **fitspw** (string='') -  [2]_
+   - **combine** (string='') -  [3]_
+   - **fitorder** (int=0) -  [4]_
+   - **field** ({string, stringArray, int, intArray}='') -  [5]_
+   - **spw** (string='') -  [6]_
+   - **scan** (string='') -  [7]_
+   - **intent** (string='') -  [8]_
+   - **correlation** ({string, stringArray}='') -  [9]_
+   - **observation** ({string, int}='') -  [10]_
 
 
 Description
@@ -150,6 +150,43 @@ Description
    Selection by observation id.default:*''*(all obs ids)
    (See`Data Selection in a
    MeasurementSet <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__)
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of input MS.  Output goes to vis + ".contsub"
+.. [2] 
+   **fitspw** (string='')
+      | Spectral window:channel selection for fitting the continuum
+.. [3] 
+   **combine** (string='')
+      | Data axes to combine for the continuum estimation (none ('') or spw)
+.. [4] 
+   **fitorder** (int=0)
+      | Polynomial order for the fits
+.. [5] 
+   **field** ({string, stringArray, int, intArray}='')
+      | Select field(s) using id(s) or name(s)
+.. [6] 
+   **spw** (string='')
+      | Spectral window selection for output
+.. [7] 
+   **scan** (string='')
+      | Select data by scan numbers
+.. [8] 
+   **intent** (string='')
+      | Select data by scan intents
+.. [9] 
+   **correlation** ({string, stringArray}='')
+      | Select correlations
+.. [10] 
+   **observation** ({string, int}='')
+      | Select by observation ID(s)
 
     """
     pass

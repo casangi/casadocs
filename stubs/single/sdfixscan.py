@@ -7,15 +7,15 @@ def sdfixscan(infiles, mode='fft_mask', numpoly=2, beamsize='0.0', smoothsize='2
 Task for single-dish image processing
 
 Parameters
-   - **infiles** (variant) - list of name of input SD images (FITS or CASA image)
-   - **mode** (string='fft_mask') - image processing mode ["fft_mask", "model"]
+   - **infiles** (variant) - list of name of input SD images (FITS or CASA image) [1]_
+   - **mode** (string='fft_mask') - image processing mode ["fft_mask", "model"] [2]_
 
       .. raw:: html
 
          <details><summary><i> mode = fft_mask </i></summary>
 
-      - **direction** (variant='') - scan direction (p.a.) counterclockwise from the horizontal axis in unit of degree
-      - **maskwidth** (variant='1.0') - mask width for Basket-Weaving (on percentage)
+      - **direction** (variant='') - scan direction (p.a.) counterclockwise from the horizontal axis in unit of degree [6]_
+      - **maskwidth** (variant='1.0') - mask width for Basket-Weaving (on percentage) [7]_
 
       .. raw:: html
 
@@ -25,18 +25,18 @@ Parameters
 
          <details><summary><i> mode = model </i></summary>
 
-      - **numpoly** (int=2) - order of polynomial fit for Pressed-out method
-      - **beamsize** (variant='0.0') - beam size for Pressed-out method
-      - **smoothsize** (variant='2.0') - size of smoothing beam for Pressed-out method
-      - **direction** (variant='') - scan direction (p.a.) counterclockwise from the horizontal axis in unit of degree
+      - **numpoly** (int=2) - order of polynomial fit for Pressed-out method [3]_
+      - **beamsize** (variant='0.0') - beam size for Pressed-out method [4]_
+      - **smoothsize** (variant='2.0') - size of smoothing beam for Pressed-out method [5]_
+      - **direction** (variant='') - scan direction (p.a.) counterclockwise from the horizontal axis in unit of degree [6]_
 
       .. raw:: html
 
          </details>
-   - **tmax** (double=0.0) - maximum threshold value for processing
-   - **tmin** (double=0.0) - minimum threshold value for processing
-   - **outfile** (string='') - name of output file
-   - **overwrite** (bool=False) - overwrite the output file if already exists [True, False]
+   - **tmax** (double=0.0) - maximum threshold value for processing [8]_
+   - **tmin** (double=0.0) - minimum threshold value for processing [9]_
+   - **outfile** (string='') - name of output file [10]_
+   - **overwrite** (bool=False) - overwrite the output file if already exists [True, False] [11]_
 
 
 Description
@@ -111,6 +111,46 @@ Description
 
       :sup:`2. Sofue & Reich 1979
       (` `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1979A%26AS...38..251S&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__ :sup:`)` `<#ref-cit2>`__
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **infiles** (variant)
+      | list of name of input SD images (FITS or CASA image)
+.. [2] 
+   **mode** (string='fft_mask')
+      | image processing mode
+.. [3] 
+   **numpoly** (int=2)
+      | order of polynomial fit for Pressed-out method
+.. [4] 
+   **beamsize** (variant='0.0')
+      | beam size for Pressed-out method
+.. [5] 
+   **smoothsize** (variant='2.0')
+      | size of smoothing beam for Pressed-out method
+.. [6] 
+   **direction** (variant='')
+      | scan direction (p.a.) counterclockwise from the horizontal axis in unit of degree
+.. [7] 
+   **maskwidth** (variant='1.0')
+      | mask width for Basket-Weaving (on percentage)
+.. [8] 
+   **tmax** (double=0.0)
+      | maximum threshold value for processing
+.. [9] 
+   **tmin** (double=0.0)
+      | minimum threshold value for processing
+.. [10] 
+   **outfile** (string='')
+      | name of output file
+.. [11] 
+   **overwrite** (bool=False)
+      | overwrite the output file if already exists
 
     """
     pass

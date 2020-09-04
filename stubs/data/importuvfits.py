@@ -7,9 +7,9 @@ def importuvfits(fitsfile, vis='', antnamescheme='old'):
 Convert a UVFITS file to a CASA visibility data set
 
 Parameters
-   - **fitsfile** (string) - Name of input UV FITS file
-   - **vis** (string='') - Name of output visibility file (MS)
-   - **antnamescheme** (string='old') - VLA/EVLA/CARMA only; \'new\' or \'old\'; \'VA04\' or \'04\' for VLA ant 4
+   - **fitsfile** (string) - Name of input UV FITS file [1]_
+   - **vis** (string='') - Name of output visibility file (MS) [2]_
+   - **antnamescheme** (string='old') - VLA/EVLA/CARMA only; \'new\' or \'old\'; \'VA04\' or \'04\' for VLA ant 4 [3]_
 
 
 Description
@@ -40,6 +40,22 @@ Description
 
    .. note:: **NOTE**: Don't forget to flag autocorrections using the
       task**flagdata**, *autocorr = true*
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **fitsfile** (string)
+      | Name of input UV FITS file
+.. [2] 
+   **vis** (string='')
+      | Name of output visibility file (MS)
+.. [3] 
+   **antnamescheme** (string='old')
+      | VLA/EVLA/CARMA only; \'new\' or \'old\'; \'VA04\' or \'04\' for VLA ant 4
 
     """
     pass

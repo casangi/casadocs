@@ -7,21 +7,21 @@ def msuvbin(vis, field='', spw='', taql='', outvis='', phasecenter='', nx=1000, 
 grid the visibility data onto a defined uniform grid (in the form of an ms); multiple MS\'s can be done onto the same grid
 
 Parameters
-   - **vis** (string) - 
-   - **field** (string='') - 
-   - **spw** (string='') - 
-   - **taql** (string='') - 
-   - **outvis** (string='') - 
-   - **phasecenter** (string='') - 
-   - **nx** (int=1000) - 
-   - **ny** (int=1000) - 
-   - **cell** (string='1arcsec') - 
-   - **ncorr** (int=1) - 
-   - **nchan** (int=1) - 
-   - **fstart** (string='1GHz') - 
-   - **fstep** (string='1kHz') - 
-   - **wproject** (bool=False) - 
-   - **memfrac** (double=0.5) - 
+   - **vis** (string) -  [1]_
+   - **field** (string='') -  [2]_
+   - **spw** (string='') -  [3]_
+   - **taql** (string='') -  [4]_
+   - **outvis** (string='') -  [5]_
+   - **phasecenter** (string='') -  [6]_
+   - **nx** (int=1000) -  [7]_
+   - **ny** (int=1000) -  [8]_
+   - **cell** (string='1arcsec') -  [9]_
+   - **ncorr** (int=1) -  [10]_
+   - **nchan** (int=1) -  [11]_
+   - **fstart** (string='1GHz') -  [12]_
+   - **fstep** (string='1kHz') -  [13]_
+   - **wproject** (bool=False) -  [14]_
+   - **memfrac** (double=0.5) -  [15]_
 
 
 Description
@@ -142,6 +142,58 @@ Description
 
    Controls how much of computer's memory is available forgridding.
    Default=0.5
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of input visibility file (MS)
+.. [2] 
+   **field** (string='')
+      | Field selection of input ms
+.. [3] 
+   **spw** (string='')
+      | Spw selection
+.. [4] 
+   **taql** (string='')
+      | TaQl string for data selection
+.. [5] 
+   **outvis** (string='')
+      | name of output uvgrid
+.. [6] 
+   **phasecenter** (string='')
+      | phase center of uv grid
+.. [7] 
+   **nx** (int=1000)
+      | Number of pixels of grid along the x-axis
+.. [8] 
+   **ny** (int=1000)
+      | Number of pixels of grid along the y-axis
+.. [9] 
+   **cell** (string='1arcsec')
+      | pixel cell size defined in sky dimension
+.. [10] 
+   **ncorr** (int=1)
+      | number of correlations to store in grid
+.. [11] 
+   **nchan** (int=1)
+      | Number of spectral channels in grid
+.. [12] 
+   **fstart** (string='1GHz')
+      | Frequency of first spectral channel
+.. [13] 
+   **fstep** (string='1kHz')
+      | spectral channel width
+.. [14] 
+   **wproject** (bool=False)
+      | Do wprojection correction while gridding
+.. [15] 
+   **memfrac** (double=0.5)
+      | Limit how much of memory to use
 
     """
     pass

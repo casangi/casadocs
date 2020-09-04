@@ -7,13 +7,13 @@ def listcal(vis, caltable, field='', antenna='', spw='', listfile='', pagerows=5
 List antenna gain solutions
 
 Parameters
-   - **vis** (string) - Name of input visibility file
-   - **caltable** (string) - Input calibration table to list
-   - **field** (string='') - Field name or index
-   - **antenna** (string='') - Antenna name or index
-   - **spw** (string='') - Spectral window and channel
-   - **listfile** (string='') - Disk file to write output
-   - **pagerows** (int=50) - Rows per page
+   - **vis** (string) - Name of input visibility file [1]_
+   - **caltable** (string) - Input calibration table to list [2]_
+   - **field** (string='') - Field name or index [3]_
+   - **antenna** (string='') - Antenna name or index [4]_
+   - **spw** (string='') - Spectral window and channel [5]_
+   - **listfile** (string='') - Disk file to write output [6]_
+   - **pagerows** (int=50) - Rows per page [7]_
 
 
 Description
@@ -106,6 +106,34 @@ Description
 
    Rows per page of listing. Default: 50; *pagerows=0* => do not
    paginate
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of input visibility file
+.. [2] 
+   **caltable** (string)
+      | Input calibration table to list
+.. [3] 
+   **field** (string='')
+      | Field name or index
+.. [4] 
+   **antenna** (string='')
+      | Antenna name or index
+.. [5] 
+   **spw** (string='')
+      | Spectral window and channel
+.. [6] 
+   **listfile** (string='')
+      | Disk file to write output
+.. [7] 
+   **pagerows** (int=50)
+      | Rows per page
 
     """
     pass

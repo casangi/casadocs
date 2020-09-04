@@ -7,32 +7,32 @@ def listobs(vis, selectdata=True, spw='', field='', antenna='', uvrange='', time
 List the summary of a data set in the logger or in a file
 
 Parameters
-   - **vis** (string) - Name of input visibility file (MS)
-   - **selectdata** (bool=True) - Data selection parameters
+   - **vis** (string) - Name of input visibility file (MS) [1]_
+   - **selectdata** (bool=True) - Data selection parameters [2]_
 
       .. raw:: html
 
          <details><summary><i> selectdata = True </i></summary>
 
-      - **field** ({string, stringArray}='') - Selection based on field names or field index numbers. Default is all.
-      - **spw** ({string, stringArray}='') - Selection based on spectral-window/frequency/channel.
-      - **antenna** ({string, stringArray}='') - Selection based on antenna/baselines. Default is all.
-      - **timerange** ({string, stringArray}='') - Selection based on time range. Default is entire range.
-      - **correlation** ({string, stringArray}='') - Selection based on correlation. Default is all.
-      - **scan** ({string, stringArray}='') - Selection based on scan numbers. Default is all.
-      - **intent** ({string, stringArray}='') - Selection based on observation intent. Default is all.
-      - **feed** ({string, stringArray}='') - Selection based on multi-feed numbers: Not yet implemented
-      - **array** ({string, stringArray}='') - Selection based on (sub)array numbers. Default is all.
-      - **uvrange** ({string, stringArray}='') - Selection based on uv range. Default: entire range. Default units: meters.
-      - **observation** ({string, int}='') - Selection based on observation ID. Default is all.
+      - **field** ({string, stringArray}='') - Selection based on field names or field index numbers. Default is all. [4]_
+      - **spw** ({string, stringArray}='') - Selection based on spectral-window/frequency/channel. [3]_
+      - **antenna** ({string, stringArray}='') - Selection based on antenna/baselines. Default is all. [5]_
+      - **timerange** ({string, stringArray}='') - Selection based on time range. Default is entire range. [7]_
+      - **correlation** ({string, stringArray}='') - Selection based on correlation. Default is all. [8]_
+      - **scan** ({string, stringArray}='') - Selection based on scan numbers. Default is all. [9]_
+      - **intent** ({string, stringArray}='') - Selection based on observation intent. Default is all. [10]_
+      - **feed** ({string, stringArray}='') - Selection based on multi-feed numbers: Not yet implemented [11]_
+      - **array** ({string, stringArray}='') - Selection based on (sub)array numbers. Default is all. [12]_
+      - **uvrange** ({string, stringArray}='') - Selection based on uv range. Default: entire range. Default units: meters. [6]_
+      - **observation** ({string, int}='') - Selection based on observation ID. Default is all. [13]_
 
       .. raw:: html
 
          </details>
-   - **verbose** (bool=True) - Controls level of information detail reported. True reports more than False.
-   - **listfile** (string='') - Name of disk file to write output. Default is none (output is written to logger only).
-   - **listunfl** (bool=False) - List unflagged row counts? If true, it can have significant negative performance impact.
-   - **cachesize** (double=50) - EXPERIMENTAL. Maximum size in megabytes of cache in which data structures can be held.
+   - **verbose** (bool=True) - Controls level of information detail reported. True reports more than False. [14]_
+   - **listfile** (string='') - Name of disk file to write output. Default is none (output is written to logger only). [15]_
+   - **listunfl** (bool=False) - List unflagged row counts? If true, it can have significant negative performance impact. [16]_
+   - **cachesize** (double=50) - EXPERIMENTAL. Maximum size in megabytes of cache in which data structures can be held. [17]_
 
 
 Description
@@ -162,6 +162,67 @@ Description
    cache size in which data are stored so they do not have to be
    recomputed. 50 MB (the default) appears to be a reasonable value
    for most cases.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of input visibility file (MS)
+.. [2] 
+   **selectdata** (bool=True)
+      | Data selection parameters
+.. [3] 
+   **spw** ({string, stringArray}='')
+      | Selection based on spectral-window/frequency/channel.
+.. [4] 
+   **field** ({string, stringArray}='')
+      | Selection based on field names or field index numbers. Default is all.
+.. [5] 
+   **antenna** ({string, stringArray}='')
+      | Selection based on antenna/baselines. Default is all.
+.. [6] 
+   **uvrange** ({string, stringArray}='')
+      | Selection based on uv range. Default: entire range. Default units: meters.
+.. [7] 
+   **timerange** ({string, stringArray}='')
+      | Selection based on time range. Default is entire range.
+.. [8] 
+   **correlation** ({string, stringArray}='')
+      | Selection based on correlation. Default is all.
+.. [9] 
+   **scan** ({string, stringArray}='')
+      | Selection based on scan numbers. Default is all.
+.. [10] 
+   **intent** ({string, stringArray}='')
+      | Selection based on observation intent. Default is all.
+.. [11] 
+   **feed** ({string, stringArray}='')
+      | Selection based on multi-feed numbers: Not yet implemented
+.. [12] 
+   **array** ({string, stringArray}='')
+      | Selection based on (sub)array numbers. Default is all.
+.. [13] 
+   **observation** ({string, int}='')
+      | Selection based on observation ID. Default is all.
+.. [14] 
+   **verbose** (bool=True)
+      | Controls level of information detail reported. True reports more than False.
+.. [15] 
+   **listfile** (string='')
+      | Name of disk file to write output. Default is none (output is written to logger only).
+.. [16] 
+   **listunfl** (bool=False)
+      | List unflagged row counts? If true, it can have significant negative performance impact.
+.. [17] 
+   **cachesize** (double=50)
+      | EXPERIMENTAL. Maximum size in megabytes of cache in which data structures can be held.
+.. [18] 
+   **overwrite** (bool=False)
+      | If True, tacitly overwrite listfile if it exists.
 
     """
     pass

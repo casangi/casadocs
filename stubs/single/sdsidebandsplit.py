@@ -7,25 +7,25 @@ def sdsidebandsplit(outfile='', overwrite=False, signalshift=[''], imageshift=['
 [EXPERIMENTAL] invoke sideband separation using FFT
 
 Parameters
-   - **imagename** (stringArray=['']) - a list of names of input images
-   - **outfile** (string='') - Prefix of output image name
-   - **overwrite** (bool=False) - overwrite option
-   - **signalshift** (doubleArray=['']) - a list of channel number shifts in signal side band
-   - **imageshift** (doubleArray=['']) - a list of channel number shifts in image side band
-   - **getbothside** (bool=False) - sideband separation (True) or supression (False)
+   - **imagename** (stringArray=['']) - a list of names of input images [1]_
+   - **outfile** (string='') - Prefix of output image name [2]_
+   - **overwrite** (bool=False) - overwrite option [3]_
+   - **signalshift** (doubleArray=['']) - a list of channel number shifts in signal side band [4]_
+   - **imageshift** (doubleArray=['']) - a list of channel number shifts in image side band [5]_
+   - **getbothside** (bool=False) - sideband separation (True) or supression (False) [6]_
 
       .. raw:: html
 
          <details><summary><i> getbothside = True </i></summary>
 
-      - **refchan** (double=0.0) - reference channel of spectral axis in image sideband
-      - **refval** (string='') - frequency at the reference channel of spectral axis in image sideband (e.g., "100GHz")
+      - **refchan** (double=0.0) - reference channel of spectral axis in image sideband [7]_
+      - **refval** (string='') - frequency at the reference channel of spectral axis in image sideband (e.g., "100GHz") [8]_
 
       .. raw:: html
 
          </details>
-   - **otherside** (bool=False) - solve the solution of the other side band side and subtract the solution
-   - **threshold** (double=0.2) - Rejection limit of solution
+   - **otherside** (bool=False) - solve the solution of the other side band side and subtract the solution [9]_
+   - **threshold** (double=0.2) - Rejection limit of solution [10]_
 
 
 Description
@@ -259,6 +259,49 @@ Description
    Bibliography
       :sup:`1. Emerson, Klein, & Haslam 1979, A&A, 76, 92
       (` `ADS <http://adsabs.harvard.edu/abs/1979A%26A....76...92E>`__ :sup:`)` `<#ref-cit1>`__
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **imagename** (stringArray=[''])
+      | a list of names of input images. At least two valid images are required for processing
+.. [2] 
+   **outfile** (string='')
+      | Prefix of output image name.
+      |       A suffix, ".signalband" or ".imageband" is added to 
+      |       output image name depending on the side band side being solved.
+.. [3] 
+   **overwrite** (bool=False)
+      | overwrite option
+.. [4] 
+   **signalshift** (doubleArray=[''])
+      | a list of channel number shifts in signal side band.
+      |       The number of elements must be equal to that of imagename
+.. [5] 
+   **imageshift** (doubleArray=[''])
+      | a list of channel number shifts in image side band.
+      |       The number of elements must be either zero or equal to that of imagename.
+      |       In case of zero length array, the values are obtained from signalshift
+      |       assuming the shifts are the same magnitude in opposite direction.
+.. [6] 
+   **getbothside** (bool=False)
+      | sideband separation (True) or supression (False)
+.. [7] 
+   **refchan** (double=0.0)
+      | reference channel of spectral axis in image sideband
+.. [8] 
+   **refval** (string='')
+      | frequency at the reference channel of spectral axis in image sideband (e.g., "100GHz")
+.. [9] 
+   **otherside** (bool=False)
+      | solve the solution of the other side band side and subtract the solution
+.. [10] 
+   **threshold** (double=0.2)
+      | Rejection limit of solution. The value must be greater than 0.0 and less than 1.0.
 
     """
     pass

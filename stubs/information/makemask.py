@@ -7,13 +7,13 @@ def makemask(mode='list', inpimage='', inpmask='', output='', overwrite=False, i
 Makes and manipulates image masks
 
 Parameters
-   - **mode** (string='list') - Mask method (list, copy,expand,delete,setdefaultmask)
+   - **mode** (string='list') - Mask method (list, copy,expand,delete,setdefaultmask) [1]_
 
       .. raw:: html
 
          <details><summary><i> mode = list </i></summary>
 
-      - **inpimage** ({string, stringArray}='') - Name of input image.
+      - **inpimage** ({string, stringArray}='') - Name of input image. [2]_
 
       .. raw:: html
 
@@ -23,10 +23,10 @@ Parameters
 
          <details><summary><i> mode = copy </i></summary>
 
-      - **inpimage** ({string, stringArray}='') - Name of input image.
-      - **inpmask** ({string, stringArray}='') - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode)
-      - **output** (string='') - Name of output mask (imagename or imagename:internal_maskname)
-      - **overwrite** (bool=False) - overwrite output if exists?
+      - **inpimage** ({string, stringArray}='') - Name of input image. [2]_
+      - **inpmask** ({string, stringArray}='') - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode) [3]_
+      - **output** (string='') - Name of output mask (imagename or imagename:internal_maskname) [4]_
+      - **overwrite** (bool=False) - overwrite output if exists? [5]_
 
       .. raw:: html
 
@@ -36,12 +36,12 @@ Parameters
 
          <details><summary><i> mode = expand </i></summary>
 
-      - **inpimage** ({string, stringArray}='') - Name of input image.
-      - **inpmask** ({string, stringArray}='') - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode)
-      - **inpfreqs** ({string, intArray}='') - List of chans/freqs (in inpmask) to read masks from 
-      - **outfreqs** ({string, intArray}='') - List of chans/freqs (in output) on which to expand the mask
-      - **output** (string='') - Name of output mask (imagename or imagename:internal_maskname)
-      - **overwrite** (bool=False) - overwrite output if exists?
+      - **inpimage** ({string, stringArray}='') - Name of input image. [2]_
+      - **inpmask** ({string, stringArray}='') - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode) [3]_
+      - **inpfreqs** ({string, intArray}='') - List of chans/freqs (in inpmask) to read masks from  [6]_
+      - **outfreqs** ({string, intArray}='') - List of chans/freqs (in output) on which to expand the mask [7]_
+      - **output** (string='') - Name of output mask (imagename or imagename:internal_maskname) [4]_
+      - **overwrite** (bool=False) - overwrite output if exists? [5]_
 
       .. raw:: html
 
@@ -51,7 +51,7 @@ Parameters
 
          <details><summary><i> mode = delete </i></summary>
 
-      - **inpmask** ({string, stringArray}='') - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode)
+      - **inpmask** ({string, stringArray}='') - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode) [3]_
 
       .. raw:: html
 
@@ -61,7 +61,7 @@ Parameters
 
          <details><summary><i> mode = setdefaultmask </i></summary>
 
-      - **inpmask** ({string, stringArray}='') - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode)
+      - **inpmask** ({string, stringArray}='') - mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode) [3]_
 
       .. raw:: html
 
@@ -208,6 +208,34 @@ Description
 
    Output channel/frequency/velocity range. Specify same way as
    inpfreqs. The default is all channels.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **mode** (string='list')
+      | Mask method (list, copy,expand,delete,setdefaultmask)
+.. [2] 
+   **inpimage** ({string, stringArray}='')
+      | Name of input image.
+.. [3] 
+   **inpmask** ({string, stringArray}='')
+      | mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode)
+.. [4] 
+   **output** (string='')
+      | Name of output mask (imagename or imagename:internal_maskname)
+.. [5] 
+   **overwrite** (bool=False)
+      | overwrite output if exists?
+.. [6] 
+   **inpfreqs** ({string, intArray}='')
+      | List of chans/freqs (in inpmask) to read masks from
+.. [7] 
+   **outfreqs** ({string, intArray}='')
+      | List of chans/freqs (in output) on which to expand the mask
 
     """
     pass

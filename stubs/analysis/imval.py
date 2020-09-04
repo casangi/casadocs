@@ -7,11 +7,11 @@ def imval(imagename, region='', box='', chans='', stokes=''):
 Get the data value(s) and/or mask value in an image.
 
 Parameters
-   - **imagename** (string) - Name of the input image
-   - **region** (variant='') - Region selection. Empty string (default) means use rules for box/chans/stokes specification.
-   - **box** (string='') - Rectangular region(s) to select in direction plane. Empty string (default) means use the reference pixel.
-   - **chans** (string='') - Channels to use. Default is to use all channels.
-   - **stokes** (string='') - Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
+   - **imagename** (string) - Name of the input image [1]_
+   - **region** (variant='') - Region selection. Empty string (default) means use rules for box/chans/stokes specification. [2]_
+   - **box** (string='') - Rectangular region(s) to select in direction plane. Empty string (default) means use the reference pixel. [3]_
+   - **chans** (string='') - Channels to use. Default is to use all channels. [4]_
+   - **stokes** (string='') - Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes. [5]_
 
 
 Description
@@ -101,6 +101,28 @@ Description
       both the data and mask values are returned as Python Numpy
       arrays, for information on how to manipulate them see:
       `http:numpy.scipy.org/#array_interface <https://numpy.scipy.org/#array_interface>`__
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **imagename** (string)
+      | Name of the input image
+.. [2] 
+   **region** (variant='')
+      | Region selection. Empty string (default) means use rules for box/chans/stokes specification.
+.. [3] 
+   **box** (string='')
+      | Rectangular region(s) to select in direction plane. Empty string (default) means use the reference pixel.
+.. [4] 
+   **chans** (string='')
+      | Channels to use. Default is to use all channels.
+.. [5] 
+   **stokes** (string='')
+      | Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
 
     """
     pass

@@ -7,35 +7,35 @@ def clean(vis, imagename='', outlierfile='', field='', spw='', selectdata=True, 
 Invert and deconvolve images with selected algorithm
 
 Parameters
-   - **vis** ({string, stringArray}) - 
-   - **imagename** ({string, stringArray}='') - 
-   - **outlierfile** (string='') - 
-   - **field** ({string, stringArray}='') - 
-   - **spw** ({string, stringArray}='') - 
-   - **selectdata** (bool=True) - 
+   - **vis** ({string, stringArray}) -  [1]_
+   - **imagename** ({string, stringArray}='') -  [2]_
+   - **outlierfile** (string='') -  [3]_
+   - **field** ({string, stringArray}='') -  [4]_
+   - **spw** ({string, stringArray}='') -  [5]_
+   - **selectdata** (bool=True) -  [6]_
 
       .. raw:: html
 
          <details><summary><i> selectdata = True </i></summary>
 
-      - **timerange** ({string, stringArray}='') - 
-      - **uvrange** ({string, stringArray}='') - 
-      - **antenna** ({string, stringArray}='') - 
-      - **scan** ({string, stringArray}='') - 
-      - **observation** ({string, int}='') - 
-      - **intent** ({string, stringArray}='') - 
+      - **timerange** ({string, stringArray}='') -  [7]_
+      - **uvrange** ({string, stringArray}='') -  [8]_
+      - **antenna** ({string, stringArray}='') -  [9]_
+      - **scan** ({string, stringArray}='') -  [10]_
+      - **observation** ({string, int}='') -  [11]_
+      - **intent** ({string, stringArray}='') -  [12]_
 
       .. raw:: html
 
          </details>
-   - **mode** (string='mfs') - 
+   - **mode** (string='mfs') -  [13]_
 
       .. raw:: html
 
          <details><summary><i> mode = mfs </i></summary>
 
-      - **nterms** (int=1) - 
-      - **reffreq** (string='') - 
+      - **nterms** (int=1) -  [66]_
+      - **reffreq** (string='') -  [67]_
 
       .. raw:: html
 
@@ -45,13 +45,13 @@ Parameters
 
          <details><summary><i> mode = channel </i></summary>
 
-      - **nchan** (int=-1) - 
-      - **start** (variant='0') - 
-      - **width** (variant='1') - 
-      - **interpolation** (string='linear') - 
-      - **resmooth** (bool=False) - 
-      - **chaniter** (bool=False) - 
-      - **outframe** (string='') - 
+      - **nchan** (int=-1) -  [41]_
+      - **start** (variant='0') -  [42]_
+      - **width** (variant='1') -  [43]_
+      - **interpolation** (string='linear') -  [27]_
+      - **resmooth** (bool=False) -  [14]_
+      - **chaniter** (bool=False) -  [68]_
+      - **outframe** (string='') -  [44]_
 
       .. raw:: html
 
@@ -61,14 +61,14 @@ Parameters
 
          <details><summary><i> mode = velocity </i></summary>
 
-      - **nchan** (int=-1) - 
-      - **start** (variant='0') - 
-      - **width** (variant='1') - 
-      - **interpolation** (string='linear') - 
-      - **resmooth** (bool=False) - 
-      - **chaniter** (bool=False) - 
-      - **outframe** (string='') - 
-      - **veltype** (string='radio') - 
+      - **nchan** (int=-1) -  [41]_
+      - **start** (variant='0') -  [42]_
+      - **width** (variant='1') -  [43]_
+      - **interpolation** (string='linear') -  [27]_
+      - **resmooth** (bool=False) -  [14]_
+      - **chaniter** (bool=False) -  [68]_
+      - **outframe** (string='') -  [44]_
+      - **veltype** (string='radio') -  [45]_
 
       .. raw:: html
 
@@ -78,25 +78,25 @@ Parameters
 
          <details><summary><i> mode = frequency </i></summary>
 
-      - **nchan** (int=-1) - 
-      - **start** (variant='0') - 
-      - **width** (variant='1') - 
-      - **interpolation** (string='linear') - 
-      - **resmooth** (bool=False) - 
-      - **chaniter** (bool=False) - 
-      - **outframe** (string='') - 
+      - **nchan** (int=-1) -  [41]_
+      - **start** (variant='0') -  [42]_
+      - **width** (variant='1') -  [43]_
+      - **interpolation** (string='linear') -  [27]_
+      - **resmooth** (bool=False) -  [14]_
+      - **chaniter** (bool=False) -  [68]_
+      - **outframe** (string='') -  [44]_
 
       .. raw:: html
 
          </details>
-   - **gridmode** (string='') - 
+   - **gridmode** (string='') -  [15]_
 
       .. raw:: html
 
          <details><summary><i> gridmode = widefield </i></summary>
 
-      - **wprojplanes** (int=-1) - 
-      - **facets** (int=1) - 
+      - **wprojplanes** (int=-1) -  [16]_
+      - **facets** (int=1) -  [17]_
 
       .. raw:: html
 
@@ -106,10 +106,10 @@ Parameters
 
          <details><summary><i> gridmode = aprojection </i></summary>
 
-      - **wprojplanes** (int=-1) - 
-      - **cfcache** (string='cfcache.dir') - 
-      - **rotpainc** (double=5.0) - 
-      - **painc** (double=360.0) - 
+      - **wprojplanes** (int=-1) -  [16]_
+      - **cfcache** (string='cfcache.dir') -  [18]_
+      - **rotpainc** (double=5.0) -  [19]_
+      - **painc** (double=360.0) -  [20]_
 
       .. raw:: html
 
@@ -119,32 +119,32 @@ Parameters
 
          <details><summary><i> gridmode = advancedaprojection </i></summary>
 
-      - **wprojplanes** (int=-1) - 
-      - **cfcache** (string='cfcache.dir') - 
-      - **rotpainc** (double=5.0) - 
-      - **painc** (double=360.0) - 
-      - **wbawp** (bool=False) - 
-      - **conjbeams** (bool=True) - 
-      - **aterm** (bool=True) - 
-      - **psterm** (bool=False) - 
-      - **mterm** (bool=True) - 
-      - **epjtable** (string='') - 
+      - **wprojplanes** (int=-1) -  [16]_
+      - **cfcache** (string='cfcache.dir') -  [18]_
+      - **rotpainc** (double=5.0) -  [19]_
+      - **painc** (double=360.0) -  [20]_
+      - **wbawp** (bool=False) -  [24]_
+      - **conjbeams** (bool=True) -  [25]_
+      - **aterm** (bool=True) -  [21]_
+      - **psterm** (bool=False) -  [22]_
+      - **mterm** (bool=True) -  [23]_
+      - **epjtable** (string='') -  [26]_
 
       .. raw:: html
 
          </details>
-   - **niter** (int=500) - 
-   - **gain** (double=0.1) - 
-   - **threshold** (double=0.0) - 
-   - **psfmode** (string='clark') - 
-   - **imagermode** (string='csclean') - 
+   - **niter** (int=500) -  [28]_
+   - **gain** (double=0.1) -  [29]_
+   - **threshold** (double=0.0) -  [30]_
+   - **psfmode** (string='clark') -  [31]_
+   - **imagermode** (string='csclean') -  [32]_
 
       .. raw:: html
 
          <details><summary><i> imagermode = csclean </i></summary>
 
-      - **cyclefactor** (double=1.5) - 
-      - **cyclespeedup** (int=-1) - 
+      - **cyclefactor** (double=1.5) -  [64]_
+      - **cyclespeedup** (int=-1) -  [65]_
 
       .. raw:: html
 
@@ -154,42 +154,42 @@ Parameters
 
          <details><summary><i> imagermode = mosaic </i></summary>
 
-      - **mosweight** (bool=False) - 
-      - **ftmachine** (string='mosaic') - 
-      - **scaletype** (string='SAULT') - 
-      - **cyclefactor** (double=1.5) - 
-      - **cyclespeedup** (int=-1) - 
-      - **flatnoise** (bool=True) - 
+      - **mosweight** (bool=False) -  [34]_
+      - **ftmachine** (string='mosaic') -  [33]_
+      - **scaletype** (string='SAULT') -  [35]_
+      - **cyclefactor** (double=1.5) -  [64]_
+      - **cyclespeedup** (int=-1) -  [65]_
+      - **flatnoise** (bool=True) -  [69]_
 
       .. raw:: html
 
          </details>
-   - **multiscale** (intArray=[0]) - 
-   - **interactive** (bool=False) - 
+   - **multiscale** (intArray=[0]) -  [36]_
+   - **interactive** (bool=False) -  [39]_
 
       .. raw:: html
 
          <details><summary><i> interactive = True </i></summary>
 
-      - **npercycle** (int=100) - 
+      - **npercycle** (int=100) -  [63]_
 
       .. raw:: html
 
          </details>
-   - **mask** (variant='') - 
-   - **imsize** (intArray=[256, 256]) - 
-   - **cell** (doubleArray=[1.0]) - 
-   - **phasecenter** (variant='') - 
-   - **restfreq** (string='') - 
-   - **stokes** (string='I') - 
-   - **weighting** (string='natural') - 
+   - **mask** (variant='') -  [40]_
+   - **imsize** (intArray=[256, 256]) -  [46]_
+   - **cell** (doubleArray=[1.0]) -  [47]_
+   - **phasecenter** (variant='') -  [48]_
+   - **restfreq** (string='') -  [49]_
+   - **stokes** (string='I') -  [50]_
+   - **weighting** (string='natural') -  [51]_
 
       .. raw:: html
 
          <details><summary><i> weighting = briggs </i></summary>
 
-      - **robust** (double=0.0) - 
-      - **npixels** (int=0) - 
+      - **robust** (double=0.0) -  [52]_
+      - **npixels** (int=0) -  [62]_
 
       .. raw:: html
 
@@ -199,9 +199,9 @@ Parameters
 
          <details><summary><i> weighting = briggsabs </i></summary>
 
-      - **robust** (double=0.0) - 
-      - **noise** (variant='1.0Jy') - 
-      - **npixels** (int=0) - 
+      - **robust** (double=0.0) -  [52]_
+      - **noise** (variant='1.0Jy') -  [61]_
+      - **npixels** (int=0) -  [62]_
 
       .. raw:: html
 
@@ -211,29 +211,29 @@ Parameters
 
          <details><summary><i> weighting = superuniform </i></summary>
 
-      - **npixels** (int=0) - 
+      - **npixels** (int=0) -  [62]_
 
       .. raw:: html
 
          </details>
-   - **uvtaper** (bool=False) - 
+   - **uvtaper** (bool=False) -  [53]_
 
       .. raw:: html
 
          <details><summary><i> uvtaper = True </i></summary>
 
-      - **outertaper** (stringArray=['']) - 
-      - **innertaper** (stringArray=[1.0]) - 
+      - **outertaper** (stringArray=['']) -  [54]_
+      - **innertaper** (stringArray=[1.0]) -  [55]_
 
       .. raw:: html
 
          </details>
-   - **modelimage** (variant='') - 
-   - **restoringbeam** (stringArray=['']) - 
-   - **pbcor** (bool=False) - 
-   - **minpb** (double=0.2) - 
-   - **usescratch** (bool=False) - 
-   - **allowchunk** (bool=False) - 
+   - **modelimage** (variant='') -  [56]_
+   - **restoringbeam** (stringArray=['']) -  [57]_
+   - **pbcor** (bool=False) -  [58]_
+   - **minpb** (double=0.2) -  [59]_
+   - **usescratch** (bool=False) -  [60]_
+   - **allowchunk** (bool=False) -  [70]_
 
 
 Description
@@ -1847,6 +1847,223 @@ Description
 
       :sup:`3. Bhatnagar et al., AandA, 487, 419, 2008
       (` `A&A <http://www.aanda.org/articles/aa/full/2008/31/aa9284-07/aa9284-07.html>`__ :sup:`)` `<#ref-cit3>`__
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** ({string, stringArray})
+      | Name of input visibility file
+.. [2] 
+   **imagename** ({string, stringArray}='')
+      | Pre-name of output images
+.. [3] 
+   **outlierfile** (string='')
+      | Text file with image names, sizes, centers for outliers
+.. [4] 
+   **field** ({string, stringArray}='')
+      | Field Name or id
+.. [5] 
+   **spw** ({string, stringArray}='')
+      | Spectral windows e.g. \'0~3\', \'\' is all
+.. [6] 
+   **selectdata** (bool=True)
+      | Other data selection parameters
+.. [7] 
+   **timerange** ({string, stringArray}='')
+      | Range of time to select from data
+.. [8] 
+   **uvrange** ({string, stringArray}='')
+      | Select data within uvrange
+.. [9] 
+   **antenna** ({string, stringArray}='')
+      | Select data based on antenna/baseline
+.. [10] 
+   **scan** ({string, stringArray}='')
+      | Scan number range
+.. [11] 
+   **observation** ({string, int}='')
+      | Observation ID range
+.. [12] 
+   **intent** ({string, stringArray}='')
+      | Scan Intent(s)
+.. [13] 
+   **mode** (string='mfs')
+      | Spectral gridding type (mfs, channel, velocity, frequency)
+.. [14] 
+   **resmooth** (bool=False)
+      | Re-restore the cube image to a common beam when True
+.. [15] 
+   **gridmode** (string='')
+      | Gridding kernel for FFT-based transforms, default=\'\' None
+.. [16] 
+   **wprojplanes** (int=-1)
+      | Number of w-projection planes for convolution; -1 => automatic determination
+.. [17] 
+   **facets** (int=1)
+      | Number of facets along each axis (main image only)
+.. [18] 
+   **cfcache** (string='cfcache.dir')
+      | Convolution function cache directory
+.. [19] 
+   **rotpainc** (double=5.0)
+      | Parallactic angle increment (degrees) for OTF A-term rotation
+.. [20] 
+   **painc** (double=360.0)
+      | Parallactic angle increment (degrees) for computing A-term
+.. [21] 
+   **aterm** (bool=True)
+      | Switch-on the A-Term?
+.. [22] 
+   **psterm** (bool=False)
+      | Switch-on the PS-Term?
+.. [23] 
+   **mterm** (bool=True)
+      | Switch-on the M-Term?
+.. [24] 
+   **wbawp** (bool=False)
+      | Trigger the wide-band A-Projection algorithm?
+.. [25] 
+   **conjbeams** (bool=True)
+      | Use frequency conjugate beams in WB A-Projection algorithm?
+.. [26] 
+   **epjtable** (string='')
+      | Table of EP-Jones parameters
+.. [27] 
+   **interpolation** (string='linear')
+      | Spectral interpolation (nearest, linear, cubic).
+.. [28] 
+   **niter** (int=500)
+      | Maximum number of iterations
+.. [29] 
+   **gain** (double=0.1)
+      | Loop gain for cleaning
+.. [30] 
+   **threshold** (double=0.0)
+      | Flux level to stop cleaning, must include units: \'1.0mJy\'
+.. [31] 
+   **psfmode** (string='clark')
+      | Method of PSF calculation to use during minor cycles
+.. [32] 
+   **imagermode** (string='csclean')
+      | Options: \'csclean\' or \'mosaic\', \'\', uses psfmode
+.. [33] 
+   **ftmachine** (string='mosaic')
+      | Gridding method for the image
+.. [34] 
+   **mosweight** (bool=False)
+      | Individually weight the fields of the mosaic
+.. [35] 
+   **scaletype** (string='SAULT')
+      | Controls scaling of pixels in the image plane. default=\'SAULT\'; example: scaletype=\'PBCOR\' Options: \'PBCOR\',\'SAULT\'
+.. [36] 
+   **multiscale** (intArray=[0])
+      | Deconvolution scales (pixels); [] = standard clean
+.. [37] 
+   **negcomponent** (int=-1)
+      | Stop cleaning if the largest scale finds this number of neg components
+.. [38] 
+   **smallscalebias** (double=0.6)
+      | a bias to give more weight toward smaller scales
+.. [39] 
+   **interactive** (bool=False)
+      | Use interactive clean (with GUI viewer)
+.. [40] 
+   **mask** (variant='')
+      | Cleanbox(es), mask image(s), region(s), or a level
+.. [41] 
+   **nchan** (int=-1)
+      | Number of channels (planes) in output image; -1 = all
+.. [42] 
+   **start** (variant='0')
+      | start of output spectral dimension
+.. [43] 
+   **width** (variant='1')
+      | width of output spectral channels
+.. [44] 
+   **outframe** (string='')
+      | default spectral frame of output image
+.. [45] 
+   **veltype** (string='radio')
+      | velocity definition (radio, optical, true)
+.. [46] 
+   **imsize** (intArray=[256, 256])
+      | x and y image size in pixels.  Single value: same for both
+.. [47] 
+   **cell** (doubleArray=[1.0])
+      | x and y cell size(s). Default unit arcsec.
+.. [48] 
+   **phasecenter** (variant='')
+      | Image center: direction or field index
+.. [49] 
+   **restfreq** (string='')
+      | Rest frequency to assign to image (see help)
+.. [50] 
+   **stokes** (string='I')
+      | Stokes params to image (eg I,IV,IQ,IQUV)
+.. [51] 
+   **weighting** (string='natural')
+      | Weighting of uv (natural, uniform, briggs, ...)
+.. [52] 
+   **robust** (double=0.0)
+      | Briggs robustness parameter
+.. [53] 
+   **uvtaper** (bool=False)
+      | Apply additional uv tapering of visibilities
+.. [54] 
+   **outertaper** (stringArray=[''])
+      | uv-taper on outer baselines in uv-plane
+.. [55] 
+   **innertaper** (stringArray=[1.0])
+      | uv-taper in center of uv-plane (not implemented)
+.. [56] 
+   **modelimage** (variant='')
+      | Name of model image(s) to initialize cleaning
+.. [57] 
+   **restoringbeam** (stringArray=[''])
+      | Output Gaussian restoring beam for CLEAN image
+.. [58] 
+   **pbcor** (bool=False)
+      | Output primary beam-corrected image
+.. [59] 
+   **minpb** (double=0.2)
+      | Minimum PB level to use
+.. [60] 
+   **usescratch** (bool=False)
+      | True if to save model visibilities in MODEL_DATA column
+.. [61] 
+   **noise** (variant='1.0Jy')
+      | noise parameter for briggs abs mode weighting
+.. [62] 
+   **npixels** (int=0)
+      | number of pixels for superuniform or briggs weighting
+.. [63] 
+   **npercycle** (int=100)
+      | Clean iterations before interactive prompt (can be changed)
+.. [64] 
+   **cyclefactor** (double=1.5)
+      | Controls how often major cycles are done. (e.g. 5 for frequently)
+.. [65] 
+   **cyclespeedup** (int=-1)
+      | Cycle threshold doubles in this number of iterations
+.. [66] 
+   **nterms** (int=1)
+      | Number of Taylor coefficients to model the sky frequency dependence
+.. [67] 
+   **reffreq** (string='')
+      | Reference frequency (nterms > 1),\'\' uses central data-frequency
+.. [68] 
+   **chaniter** (bool=False)
+      | Clean each channel to completion (True), or all channels each cycle (False)
+.. [69] 
+   **flatnoise** (bool=True)
+      | Controls whether searching for clean components is done in a constant noise residual image (True) or in an optimal signal-to-noise residual image (False)
+.. [70] 
+   **allowchunk** (bool=False)
+      | Divide large image cubes into channel chunks for deconvolution
 
     """
     pass

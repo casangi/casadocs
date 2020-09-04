@@ -7,12 +7,12 @@ def smoothcal(vis, tablein, caltable='', field=[''], smoothtype='median', smooth
 Smooth calibration solution(s) derived from one or more sources:
 
 Parameters
-   - **vis** (string) - Name of input visibility file (MS)
-   - **tablein** (string) - Input calibration table
-   - **caltable** (string='') - Output calibration table (overwrite tablein if unspecified)
-   - **field** (stringArray=['']) - Field name list
-   - **smoothtype** (string='median') - Smoothing filter to use
-   - **smoothtime** ({double, int}=60.0) - Smoothing time (sec)
+   - **vis** (string) - Name of input visibility file (MS) [1]_
+   - **tablein** (string) - Input calibration table [2]_
+   - **caltable** (string='') - Output calibration table (overwrite tablein if unspecified) [3]_
+   - **field** (stringArray=['']) - Field name list [4]_
+   - **smoothtype** (string='median') - Smoothing filter to use [5]_
+   - **smoothtime** ({double, int}=60.0) - Smoothing time (sec) [6]_
 
 
 Description
@@ -58,6 +58,31 @@ Description
    specified *smoothtype* and *smoothtime*. Currently, it is not
    possible to smooth amplitude and phase with different values
    of*smoothtype*or *smoothtime.*
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of input visibility file (MS)
+.. [2] 
+   **tablein** (string)
+      | Input calibration table
+.. [3] 
+   **caltable** (string='')
+      | Output calibration table (overwrite tablein if unspecified)
+.. [4] 
+   **field** (stringArray=[''])
+      | Field name list
+.. [5] 
+   **smoothtype** (string='median')
+      | Smoothing filter to use
+.. [6] 
+   **smoothtime** ({double, int}=60.0)
+      | Smoothing time (sec)
 
     """
     pass

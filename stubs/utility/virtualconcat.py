@@ -7,14 +7,14 @@ def virtualconcat(vis, concatvis='', freqtol='', dirtol='', respectname=True, vi
 Concatenate several visibility data sets into a multi-MS
 
 Parameters
-   - **vis** (stringArray) - List of names of input visibility files to be concatenated
-   - **concatvis** (string='') - Name of the output visibility file (a multi-MS)
-   - **freqtol** (variant='') - Frequency shift tolerance for considering data as the same spwid
-   - **dirtol** (variant='') - Direction shift tolerance for considering data as the same field
-   - **respectname** (bool=True) - If true, fields with a different name are not merged even if their direction agrees
-   - **visweightscale** (doubleArray=['']) - List of the weight scaling factors to be applied to the individual MSs
-   - **keepcopy** (bool=False) - If true, a copy of the input MSs is kept in their original place.
-   - **copypointing** (bool=True) - If true, keep the POINTING table information in the output MMS. If false, don\'t.
+   - **vis** (stringArray) - List of names of input visibility files to be concatenated [1]_
+   - **concatvis** (string='') - Name of the output visibility file (a multi-MS) [2]_
+   - **freqtol** (variant='') - Frequency shift tolerance for considering data as the same spwid [3]_
+   - **dirtol** (variant='') - Direction shift tolerance for considering data as the same field [4]_
+   - **respectname** (bool=True) - If true, fields with a different name are not merged even if their direction agrees [5]_
+   - **visweightscale** (doubleArray=['']) - List of the weight scaling factors to be applied to the individual MSs [6]_
+   - **keepcopy** (bool=False) - If true, a copy of the input MSs is kept in their original place. [7]_
+   - **copypointing** (bool=True) - If true, keep the POINTING table information in the output MMS. If false, don\'t. [8]_
 
 
 Description
@@ -124,6 +124,37 @@ Description
    If True, the POINTING table information will be present in the
    output. If False, the result is an empty POINTING table. Default:
    True
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (stringArray)
+      | List of names of input visibility files to be concatenated
+.. [2] 
+   **concatvis** (string='')
+      | Name of the output visibility file (a multi-MS)
+.. [3] 
+   **freqtol** (variant='')
+      | Frequency shift tolerance for considering data as the same spwid
+.. [4] 
+   **dirtol** (variant='')
+      | Direction shift tolerance for considering data as the same field
+.. [5] 
+   **respectname** (bool=True)
+      | If true, fields with a different name are not merged even if their direction agrees
+.. [6] 
+   **visweightscale** (doubleArray=[''])
+      | List of the weight scaling factors to be applied to the individual MSs
+.. [7] 
+   **keepcopy** (bool=False)
+      | If true, a copy of the input MSs is kept in their original place.
+.. [8] 
+   **copypointing** (bool=True)
+      | If true, keep the POINTING table information in the output MMS. If false, don\'t.
 
     """
     pass

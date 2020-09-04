@@ -7,25 +7,25 @@ def sdfit(infile, datacolumn='data', antenna='', field='', spw='', timerange='',
 Fit a spectral line
 
 Parameters
-   - **infile** (string) - name of input SD dataset
-   - **datacolumn** (string='data') - name of data column to be used ["data", "float_data", or "corrected_data"]
-   - **antenna** (string='') - select data by antenna name or ID, e.g. "PM03"
-   - **field** (string='') - select data by field IDs and names, e.g. "3C2*" (""=all)
-   - **spw** (string='') - select data by IF IDs (spectral windows), e.g. "3,5,7" (""=all)
-   - **timerange** (string='') - select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help)
-   - **scan** (string='') - select data by scan numbers, e.g. "21~23" (""=all)
-   - **pol** (string='') - select data by polarization IDs, e.g. "XX,YY" (""=all)
-   - **intent** (string='') - select data by observational intent, e.g. "*ON_SOURCE*" (""=all)
-   - **timebin** (string='') - bin width for time averaging
-   - **polaverage** (string='') - polarization averaging mode ("", "stokes" or "geometric").
-   - **fitfunc** (string='gaussian') - function for fitting ["gaussian", "lorentzian"]
-   - **fitmode** (string='list') - mode for setting additional channel masks. "list" and "auto" are available now.
+   - **infile** (string) - name of input SD dataset [1]_
+   - **datacolumn** (string='data') - name of data column to be used ["data", "float_data", or "corrected_data"] [2]_
+   - **antenna** (string='') - select data by antenna name or ID, e.g. "PM03" [3]_
+   - **field** (string='') - select data by field IDs and names, e.g. "3C2*" (""=all) [4]_
+   - **spw** (string='') - select data by IF IDs (spectral windows), e.g. "3,5,7" (""=all) [5]_
+   - **timerange** (string='') - select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help) [6]_
+   - **scan** (string='') - select data by scan numbers, e.g. "21~23" (""=all) [7]_
+   - **pol** (string='') - select data by polarization IDs, e.g. "XX,YY" (""=all) [8]_
+   - **intent** (string='') - select data by observational intent, e.g. "*ON_SOURCE*" (""=all) [9]_
+   - **timebin** (string='') - bin width for time averaging [10]_
+   - **polaverage** (string='') - polarization averaging mode ("", "stokes" or "geometric"). [12]_
+   - **fitfunc** (string='gaussian') - function for fitting ["gaussian", "lorentzian"] [13]_
+   - **fitmode** (string='list') - mode for setting additional channel masks. "list" and "auto" are available now. [14]_
 
       .. raw:: html
 
          <details><summary><i> fitmode = list </i></summary>
 
-      - **nfit** (intArray=[0]) - list of number of lines to fit in maskline region.
+      - **nfit** (intArray=[0]) - list of number of lines to fit in maskline region. [15]_
 
       .. raw:: html
 
@@ -35,10 +35,10 @@ Parameters
 
          <details><summary><i> fitmode = auto </i></summary>
 
-      - **thresh** (double=5.0) - S/N threshold for linefinder
-      - **avg_limit** (int=4) - channel averaging for broad lines
-      - **minwidth** (int=4) - the minimum channel width to detect as a line
-      - **edge** (intArray=[0, 0]) - channels to drop at beginning and end of spectrum
+      - **thresh** (double=5.0) - S/N threshold for linefinder [16]_
+      - **avg_limit** (int=4) - channel averaging for broad lines [17]_
+      - **minwidth** (int=4) - the minimum channel width to detect as a line [18]_
+      - **edge** (intArray=[0, 0]) - channels to drop at beginning and end of spectrum [19]_
 
       .. raw:: html
 
@@ -48,13 +48,13 @@ Parameters
 
          <details><summary><i> fitmode = interact </i></summary>
 
-      - **nfit** (intArray=[0]) - list of number of lines to fit in maskline region.
+      - **nfit** (intArray=[0]) - list of number of lines to fit in maskline region. [15]_
 
       .. raw:: html
 
          </details>
-   - **outfile** (string='') - name of output file
-   - **overwrite** (bool=False) - overwrite the output file if already exists [True, False]
+   - **outfile** (string='') - name of output file [20]_
+   - **overwrite** (bool=False) - overwrite the output file if already exists [True, False] [21]_
 
 
 Description
@@ -155,6 +155,76 @@ Description
 
    Detailed output is directed to a log file identified by the
    '*outfile*' parameter.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **infile** (string)
+      | name of input SD dataset
+.. [2] 
+   **datacolumn** (string='data')
+      | name of data column to be used ["data", "float_data", or "corrected_data"]
+.. [3] 
+   **antenna** (string='')
+      | select data by antenna name or ID, e.g. "PM03"
+.. [4] 
+   **field** (string='')
+      | select data by field IDs and names, e.g. "3C2*" (""=all)
+.. [5] 
+   **spw** (string='')
+      | select data by IF IDs (spectral windows), e.g. "3,5,7" (""=all)
+.. [6] 
+   **timerange** (string='')
+      | select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help)
+.. [7] 
+   **scan** (string='')
+      | select data by scan numbers, e.g. "21~23" (""=all)
+.. [8] 
+   **pol** (string='')
+      | select data by polarization IDs, e.g. "XX,YY" (""=all)
+.. [9] 
+   **intent** (string='')
+      | select data by observational intent, e.g. "*ON_SOURCE*" (""=all)
+.. [10] 
+   **timebin** (string='')
+      | bin width for time averaging
+.. [11] 
+   **timespan** (string='')
+      | span the timebin across "scan", "state", "field", or a combination of them (e.g., "scan,state")
+.. [12] 
+   **polaverage** (string='')
+      | polarization averaging mode ("", "stokes" or "geometric").
+.. [13] 
+   **fitfunc** (string='gaussian')
+      | function for fitting
+.. [14] 
+   **fitmode** (string='list')
+      | mode for setting additional channel masks.
+.. [15] 
+   **nfit** (intArray=[0])
+      | list of number of lines to fit in maskline region.
+.. [16] 
+   **thresh** (double=5.0)
+      | S/N threshold for linefinder
+.. [17] 
+   **avg_limit** (int=4)
+      | channel averaging for broad lines
+.. [18] 
+   **minwidth** (int=4)
+      | the minimum channel width to detect as a line
+.. [19] 
+   **edge** (intArray=[0, 0])
+      | channels to drop at beginning and end of spectrum
+.. [20] 
+   **outfile** (string='')
+      | name of output file
+.. [21] 
+   **overwrite** (bool=False)
+      | overwrite the output file if already exists
 
     """
     pass

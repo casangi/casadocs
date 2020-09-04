@@ -7,15 +7,15 @@ def predictcomp(objname='', standard='Butler-JPL-Horizons 2010', epoch='', minfr
 Make a component list for a known calibrator
 
 Parameters
-   - **objname** (string='') - Object name
-   - **standard** (string='Butler-JPL-Horizons 2010') - Flux density standard
-   - **epoch** (string='') - Epoch
-   - **minfreq** (string='') - Minimum frequency
-   - **maxfreq** (string='') - Maximum frequency
-   - **nfreqs** (int=2) - Number of frequencies
-   - **prefix** (string='') - Prefix for the component list directory name.
-   - **antennalist** (string='') - Plot for this configuration
-   - **symb** (string='.') - A matplotlib plot symbol code
+   - **objname** (string='') - Object name [1]_
+   - **standard** (string='Butler-JPL-Horizons 2010') - Flux density standard [2]_
+   - **epoch** (string='') - Epoch [3]_
+   - **minfreq** (string='') - Minimum frequency [4]_
+   - **maxfreq** (string='') - Maximum frequency [5]_
+   - **nfreqs** (int=2) - Number of frequencies [6]_
+   - **prefix** (string='') - Prefix for the component list directory name. [7]_
+   - **antennalist** (string='') - Plot for this configuration [8]_
+   - **symb** (string='.') - A matplotlib plot symbol code [11]_
 
 
 Description
@@ -156,6 +156,58 @@ Description
       
 
    Print the zero baseline flux. Default: False
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **objname** (string='')
+      | Object name
+.. [2] 
+   **standard** (string='Butler-JPL-Horizons 2010')
+      | Flux density standard
+.. [3] 
+   **epoch** (string='')
+      | Epoch
+.. [4] 
+   **minfreq** (string='')
+      | Minimum frequency
+.. [5] 
+   **maxfreq** (string='')
+      | Maximum frequency
+.. [6] 
+   **nfreqs** (int=2)
+      | Number of frequencies
+.. [7] 
+   **prefix** (string='')
+      | Prefix for the component list directory name.
+.. [8] 
+   **antennalist** (string='')
+      | Plot for this configuration
+.. [9] 
+   **showplot** (bool=False)
+      | Plot S vs |u| to the screen?
+.. [10] 
+   **savefig** (string='')
+      | Save a plot of S vs |u| to this filename
+.. [11] 
+   **symb** (string='.')
+      | A matplotlib plot symbol code
+.. [12] 
+   **include0amp** (bool=False)
+      | Force the amplitude axis to start at 0?
+.. [13] 
+   **include0bl** (bool=False)
+      | Force the baseline axis to start at 0?
+.. [14] 
+   **blunit** (string='')
+      | unit of the baseline axis
+.. [15] 
+   **showbl0flux** (bool=False)
+      | Print the zero baseline flux ?
 
     """
     pass

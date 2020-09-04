@@ -7,17 +7,17 @@ def wvrgcal(vis, caltable='', toffset=0, segsource=True, sourceflag=[''], tie=['
 Generate a gain table based on Water Vapour Radiometer data
 
 Parameters
-   - **vis** (string) - 
-   - **caltable** (string='') - 
-   - **toffset** (double=0) - 
-   - **segsource** (bool=True) - 
+   - **vis** (string) -  [1]_
+   - **caltable** (string='') -  [2]_
+   - **toffset** (double=0) -  [3]_
+   - **segsource** (bool=True) -  [4]_
 
       .. raw:: html
 
          <details><summary><i> segsource = True </i></summary>
 
-      - **tie** (stringArray=['']) - 
-      - **sourceflag** (stringArray=['']) - 
+      - **tie** (stringArray=['']) -  [6]_
+      - **sourceflag** (stringArray=['']) -  [5]_
 
       .. raw:: html
 
@@ -27,27 +27,27 @@ Parameters
 
          <details><summary><i> segsource = False </i></summary>
 
-      - **nsol** (int=1) - 
+      - **nsol** (int=1) -  [7]_
 
       .. raw:: html
 
          </details>
-   - **disperse** (bool=False) - 
-   - **wvrflag** (stringArray=['']) - 
-   - **statfield** (string='') - 
-   - **statsource** (string='') - 
-   - **smooth** (string='') - 
-   - **scale** (double=1.) - 
-   - **spw** (intArray=['']) - 
-   - **wvrspw** (intArray=['']) - 
-   - **reversespw** (string='') - 
-   - **cont** (bool=False) - 
-   - **maxdistm** (double=500.) - 
-   - **minnumants** (int=2) - 
-   - **mingoodfrac** (double=0.8) - 
-   - **usefieldtab** (bool=False) - 
-   - **refant** (stringArray=['']) - 
-   - **offsetstable** (string='') - 
+   - **disperse** (bool=False) -  [8]_
+   - **wvrflag** (stringArray=['']) -  [9]_
+   - **statfield** (string='') -  [10]_
+   - **statsource** (string='') -  [11]_
+   - **smooth** (string='') -  [12]_
+   - **scale** (double=1.) -  [13]_
+   - **spw** (intArray=['']) -  [14]_
+   - **wvrspw** (intArray=['']) -  [15]_
+   - **reversespw** (string='') -  [16]_
+   - **cont** (bool=False) -  [17]_
+   - **maxdistm** (double=500.) -  [18]_
+   - **minnumants** (int=2) -  [19]_
+   - **mingoodfrac** (double=0.8) -  [20]_
+   - **usefieldtab** (bool=False) -  [21]_
+   - **refant** (stringArray=['']) -  [22]_
+   - **offsetstable** (string='') -  [23]_
 
 
 Description
@@ -226,6 +226,82 @@ Description
    (experimental). Default: '' (do not apply any offsets). Examples:
    *offsetstable='uid___A002_Xabd867_X2277.cloud_offsets'* use the
    given table.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of input visibility file
+.. [2] 
+   **caltable** (string='')
+      | Name of output gain calibration table
+.. [3] 
+   **toffset** (double=0)
+      | Time offset (sec) between interferometric and WVR data
+.. [4] 
+   **segsource** (bool=True)
+      | Do a new coefficient calculation for each source
+.. [5] 
+   **sourceflag** (stringArray=[''])
+      | Regard the WVR data for these source(s) as bad and do not produce corrections for it (requires segsource=True)
+.. [6] 
+   **tie** (stringArray=[''])
+      | Prioritise tieing the phase of these sources as well as possible (requires segsource=True)
+.. [7] 
+   **nsol** (int=1)
+      | Number of solutions for phase correction coefficients (nsol>1 requires segsource=False)
+.. [8] 
+   **disperse** (bool=False)
+      | Apply correction for dispersion
+.. [9] 
+   **wvrflag** (stringArray=[''])
+      | Regard the WVR data for these antenna(s) as bad and replace its data with interpolated values from neighbouring antennas
+.. [10] 
+   **statfield** (string='')
+      | Compute the statistics (Phase RMS, Disc) on this field only
+.. [11] 
+   **statsource** (string='')
+      | Compute the statistics (Phase RMS, Disc) on this source only
+.. [12] 
+   **smooth** (string='')
+      | Smooth calibration solution on the given timescale
+.. [13] 
+   **scale** (double=1.)
+      | Scale the entire phase correction by this factor
+.. [14] 
+   **spw** (intArray=[''])
+      | List of the spectral window IDs for which solutions should be saved into the caltable
+.. [15] 
+   **wvrspw** (intArray=[''])
+      | List of the spectral window IDs from which the WVR data should be taken
+.. [16] 
+   **reversespw** (string='')
+      | Reverse the sign of the correction for the listed SPWs (only needed for early ALMA data before Cycle 0)
+.. [17] 
+   **cont** (bool=False)
+      | Estimate the continuum (e.g., due to clouds) (experimental)
+.. [18] 
+   **maxdistm** (double=500.)
+      | maximum distance (m) of an antenna used for interpolation for a flagged antenna
+.. [19] 
+   **minnumants** (int=2)
+      | minimum number of near antennas (up to 3) required for interpolation
+.. [20] 
+   **mingoodfrac** (double=0.8)
+      | If the fraction of unflagged data for an antenna is below this value (0. to 1.), the antenna is flagged.
+.. [21] 
+   **usefieldtab** (bool=False)
+      | derive the antenna AZ/EL values from the FIELD rather than the POINTING table
+.. [22] 
+   **refant** (stringArray=[''])
+      | use the WVR data from this antenna for calculating the dT/dL parameters (can give ranked list)
+.. [23] 
+   **offsetstable** (string='')
+      | (experimental) subtract the temperature offsets in this table from the WVR measurements before calculating the phase corrections
 
     """
     pass

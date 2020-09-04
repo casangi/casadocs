@@ -7,28 +7,28 @@ def imdev(imagename, outfile='', region='', box='', chans='', stokes='', mask=''
 Create an image that can represent the statistical deviations of the input image.
 
 Parameters
-   - **imagename** (string) - Input image name
-   - **outfile** (string='') - Output image file name. If left blank (the default), no image is written but a new image tool referencing the collapsed image is returned.
-   - **region** ({string, record}='') - Region selection. Default is to use the full image.
-   - **box** (string='') - Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
-   - **chans** (string='') - Channels to use. Default is to use all channels.
-   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes.
-   - **mask** (string='') - Mask to use. Default setting is none. 
-   - **overwrite** (bool=False) - Overwrite (unprompted) pre-existing output file? Ignored if "outfile" is left blank. 
-   - **grid** (intArray=[1, 1]) - x,y grid spacing. Array of exactly two positive integers.
-   - **anchor** ({string, intArray}='ref') - x,y anchor pixel location. Either "ref" to use the image reference pixel, or an array of exactly two integers.
-   - **xlength** ({string, int}='1pix') - Either x coordinate length of box, or diameter of circle. Circle is used if ylength is empty string.
-   - **ylength** ({string, int}='1pix') - y coordinate length of box. Use a circle if ylength is empty string.
-   - **interp** (string='cubic') - Interpolation algorithm to use. One of "nearest", "linear", "cubic", or "lanczos". Minimum match supported.
-   - **stattype** (string='sigma') - Statistic to compute. See full description for supported statistics.
-   - **statalg** (string='classic') - Statistics computation algorithm to use. Supported values are "chauvenet" and "classic", Minimum match is supported.
+   - **imagename** (string) - Input image name [1]_
+   - **outfile** (string='') - Output image file name. If left blank (the default), no image is written but a new image tool referencing the collapsed image is returned. [2]_
+   - **region** ({string, record}='') - Region selection. Default is to use the full image. [3]_
+   - **box** (string='') - Rectangular region(s) to select in direction plane. Default is to use the entire direction plane. [4]_
+   - **chans** (string='') - Channels to use. Default is to use all channels. [5]_
+   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes. [6]_
+   - **mask** (string='') - Mask to use. Default setting is none.  [7]_
+   - **overwrite** (bool=False) - Overwrite (unprompted) pre-existing output file? Ignored if "outfile" is left blank.  [8]_
+   - **grid** (intArray=[1, 1]) - x,y grid spacing. Array of exactly two positive integers. [10]_
+   - **anchor** ({string, intArray}='ref') - x,y anchor pixel location. Either "ref" to use the image reference pixel, or an array of exactly two integers. [11]_
+   - **xlength** ({string, int}='1pix') - Either x coordinate length of box, or diameter of circle. Circle is used if ylength is empty string. [12]_
+   - **ylength** ({string, int}='1pix') - y coordinate length of box. Use a circle if ylength is empty string. [13]_
+   - **interp** (string='cubic') - Interpolation algorithm to use. One of "nearest", "linear", "cubic", or "lanczos". Minimum match supported. [14]_
+   - **stattype** (string='sigma') - Statistic to compute. See full description for supported statistics. [15]_
+   - **statalg** (string='classic') - Statistics computation algorithm to use. Supported values are "chauvenet" and "classic", Minimum match is supported. [16]_
 
       .. raw:: html
 
          <details><summary><i> statalg = chauvenet </i></summary>
 
-      - **zscore** (double=-1) - For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet"s criterion. Ignored if algorithm is not "chauvenet".
-      - **maxiter** (int=-1) - For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algortihm is not "chauvenet".
+      - **zscore** (double=-1) - For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet"s criterion. Ignored if algorithm is not "chauvenet". [17]_
+      - **maxiter** (int=-1) - For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algortihm is not "chauvenet". [18]_
 
       .. raw:: html
 
@@ -250,6 +250,67 @@ Description
    will stop when either this limit is reached, or the *zscore*
    criterion is met. If negative, iterate until the *zscore*
    criterion is met.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **imagename** (string)
+      | Input image name
+.. [2] 
+   **outfile** (string='')
+      | Output image file name. If left blank (the default), no image is written but a new image tool referencing the collapsed image is returned.
+.. [3] 
+   **region** ({string, record}='')
+      | Region selection. Default is to use the full image.
+.. [4] 
+   **box** (string='')
+      | Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
+.. [5] 
+   **chans** (string='')
+      | Channels to use. Default is to use all channels.
+.. [6] 
+   **stokes** (string='')
+      | Stokes planes to use. Default is to use all Stokes planes.
+.. [7] 
+   **mask** (string='')
+      | Mask to use. Default setting is none.
+.. [8] 
+   **overwrite** (bool=False)
+      | Overwrite (unprompted) pre-existing output file? Ignored if "outfile" is left blank.
+.. [9] 
+   **stretch** (bool=False)
+      | Stretch the mask if necessary and possible? Default value is False.
+.. [10] 
+   **grid** (intArray=[1, 1])
+      | x,y grid spacing. Array of exactly two positive integers.
+.. [11] 
+   **anchor** ({string, intArray}='ref')
+      | x,y anchor pixel location. Either "ref" to use the image reference pixel, or an array of exactly two integers.
+.. [12] 
+   **xlength** ({string, int}='1pix')
+      | Either x coordinate length of box, or diameter of circle. Circle is used if ylength is empty string.
+.. [13] 
+   **ylength** ({string, int}='1pix')
+      | y coordinate length of box. Use a circle if ylength is empty string.
+.. [14] 
+   **interp** (string='cubic')
+      | Interpolation algorithm to use. One of "nearest", "linear", "cubic", or "lanczos". Minimum match supported.
+.. [15] 
+   **stattype** (string='sigma')
+      | Statistic to compute. See full description for supported statistics.
+.. [16] 
+   **statalg** (string='classic')
+      | Statistics computation algorithm to use. Supported values are "chauvenet" and "classic", Minimum match is supported.
+.. [17] 
+   **zscore** (double=-1)
+      | For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet"s criterion. Ignored if algorithm is not "chauvenet".
+.. [18] 
+   **maxiter** (int=-1)
+      | For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algortihm is not "chauvenet".
 
     """
     pass

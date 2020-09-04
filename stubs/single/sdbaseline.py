@@ -7,39 +7,39 @@ def sdbaseline(infile, datacolumn='data', antenna='', field='', spw='', timerang
 Fit/subtract a spectral baseline 
 
 Parameters
-   - **infile** (string) - name of input SD dataset
-   - **datacolumn** (string='data') - name of data column to be used ["data", "float_data", or "corrected"]
-   - **antenna** (string='') - select data by antenna name or ID, e.g. "PM03"
-   - **field** (string='') - select data by field IDs and names, e.g. "3C2*" (""=all)
-   - **spw** (string='') - select data by IF IDs (spectral windows), e.g. "3,5,7" (""=all)
-   - **timerange** (string='') - select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help)
-   - **scan** (string='') - select data by scan numbers, e.g. "21~23" (""=all)
-   - **pol** (string='') - select data by polarization IDs, e.g. "XX,YY" (""=all)
-   - **intent** (string='') - select data by observational intent, e.g. "*ON_SOURCE*" (""=all)
-   - **reindex** (bool=True) - Re-index indices in subtables based on data selection
-   - **maskmode** (string='list') - mode of setting additional channel masks
+   - **infile** (string) - name of input SD dataset [1]_
+   - **datacolumn** (string='data') - name of data column to be used ["data", "float_data", or "corrected"] [2]_
+   - **antenna** (string='') - select data by antenna name or ID, e.g. "PM03" [3]_
+   - **field** (string='') - select data by field IDs and names, e.g. "3C2*" (""=all) [4]_
+   - **spw** (string='') - select data by IF IDs (spectral windows), e.g. "3,5,7" (""=all) [5]_
+   - **timerange** (string='') - select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help) [6]_
+   - **scan** (string='') - select data by scan numbers, e.g. "21~23" (""=all) [7]_
+   - **pol** (string='') - select data by polarization IDs, e.g. "XX,YY" (""=all) [8]_
+   - **intent** (string='') - select data by observational intent, e.g. "*ON_SOURCE*" (""=all) [9]_
+   - **reindex** (bool=True) - Re-index indices in subtables based on data selection [10]_
+   - **maskmode** (string='list') - mode of setting additional channel masks [11]_
 
       .. raw:: html
 
          <details><summary><i> maskmode = auto </i></summary>
 
-      - **thresh** (double=5.0) - S/N threshold for linefinder
-      - **avg_limit** (int=4) - channel averaging for broad lines
-      - **minwidth** (int=4) - the minimum channel width to detect as a line
-      - **edge** (intArray=[0, 0]) - channels to drop at beginning and end of spectrum
+      - **thresh** (double=5.0) - S/N threshold for linefinder [12]_
+      - **avg_limit** (int=4) - channel averaging for broad lines [13]_
+      - **minwidth** (int=4) - the minimum channel width to detect as a line [14]_
+      - **edge** (intArray=[0, 0]) - channels to drop at beginning and end of spectrum [15]_
 
       .. raw:: html
 
          </details>
-   - **blmode** (string='fit') - baselining mode ["fit" or "apply"]
+   - **blmode** (string='fit') - baselining mode ["fit" or "apply"] [16]_
 
       .. raw:: html
 
          <details><summary><i> blmode = fit </i></summary>
 
-      - **dosubtract** (bool=True) - subtract baseline from input data [True, False] 
-      - **blformat** ({string, stringArray}='text') - format(s) of file(s) in which best-fit parameters are written
-      - **bloutput** ({string, stringArray}='') - name(s) of file(s) in which best-fit parameters are written
+      - **dosubtract** (bool=True) - subtract baseline from input data [True, False]  [17]_
+      - **blformat** ({string, stringArray}='text') - format(s) of file(s) in which best-fit parameters are written [18]_
+      - **bloutput** ({string, stringArray}='') - name(s) of file(s) in which best-fit parameters are written [19]_
 
       .. raw:: html
 
@@ -49,20 +49,20 @@ Parameters
 
          <details><summary><i> blmode = apply </i></summary>
 
-      - **bltable** (string='') - name of baseline table to apply
+      - **bltable** (string='') - name of baseline table to apply [20]_
 
       .. raw:: html
 
          </details>
-   - **blfunc** (string='poly') - baseline model function
+   - **blfunc** (string='poly') - baseline model function [21]_
 
       .. raw:: html
 
          <details><summary><i> blfunc = poly </i></summary>
 
-      - **order** (int=5) - order of baseline model function
-      - **clipthresh** (double=3.0) - clipping threshold for iterative fitting
-      - **clipniter** (int=0) - maximum iteration number for iterative fitting
+      - **order** (int=5) - order of baseline model function [22]_
+      - **clipthresh** (double=3.0) - clipping threshold for iterative fitting [29]_
+      - **clipniter** (int=0) - maximum iteration number for iterative fitting [30]_
 
       .. raw:: html
 
@@ -72,9 +72,9 @@ Parameters
 
          <details><summary><i> blfunc = chebyshev </i></summary>
 
-      - **order** (int=5) - order of baseline model function
-      - **clipthresh** (double=3.0) - clipping threshold for iterative fitting
-      - **clipniter** (int=0) - maximum iteration number for iterative fitting
+      - **order** (int=5) - order of baseline model function [22]_
+      - **clipthresh** (double=3.0) - clipping threshold for iterative fitting [29]_
+      - **clipniter** (int=0) - maximum iteration number for iterative fitting [30]_
 
       .. raw:: html
 
@@ -84,9 +84,9 @@ Parameters
 
          <details><summary><i> blfunc = cspline </i></summary>
 
-      - **npiece** (int=2) - number of element polynomials for cubic spline curve
-      - **clipthresh** (double=3.0) - clipping threshold for iterative fitting
-      - **clipniter** (int=0) - maximum iteration number for iterative fitting
+      - **npiece** (int=2) - number of element polynomials for cubic spline curve [23]_
+      - **clipthresh** (double=3.0) - clipping threshold for iterative fitting [29]_
+      - **clipniter** (int=0) - maximum iteration number for iterative fitting [30]_
 
       .. raw:: html
 
@@ -96,13 +96,13 @@ Parameters
 
          <details><summary><i> blfunc = sinusoid </i></summary>
 
-      - **applyfft** (bool=True) - automatically set wave numbers of sinusoids
-      - **fftmethod** (string='fft') - method for automatically set wave numbers of sinusoids ["fft"]
-      - **fftthresh** (double=3.0) - threshold to select wave numbers of sinusoids
-      - **addwn** (intArray=[0]) - additional wave numbers to use
-      - **rejwn** (intArray=['']) - wave numbers NOT to use
-      - **clipthresh** (double=3.0) - clipping threshold for iterative fitting
-      - **clipniter** (int=0) - maximum iteration number for iterative fitting
+      - **applyfft** (bool=True) - automatically set wave numbers of sinusoids [24]_
+      - **fftmethod** (string='fft') - method for automatically set wave numbers of sinusoids ["fft"] [25]_
+      - **fftthresh** (double=3.0) - threshold to select wave numbers of sinusoids [26]_
+      - **addwn** (intArray=[0]) - additional wave numbers to use [27]_
+      - **rejwn** (intArray=['']) - wave numbers NOT to use [28]_
+      - **clipthresh** (double=3.0) - clipping threshold for iterative fitting [29]_
+      - **clipniter** (int=0) - maximum iteration number for iterative fitting [30]_
 
       .. raw:: html
 
@@ -112,25 +112,25 @@ Parameters
 
          <details><summary><i> blfunc = variable </i></summary>
 
-      - **blparam** (string='') - text file that stores per spectrum fit parameters
-      - **verbose** (bool=False) - output fitting parameters to logger [True, False]
+      - **blparam** (string='') - text file that stores per spectrum fit parameters [31]_
+      - **verbose** (bool=False) - output fitting parameters to logger [True, False] [32]_
 
       .. raw:: html
 
          </details>
-   - **showprogress** (bool=False) - (NOT SUPPORTED YET) show progress status for large data [True, False] (NOT SUPPORTED YET)
+   - **showprogress** (bool=False) - (NOT SUPPORTED YET) show progress status for large data [True, False] (NOT SUPPORTED YET) [33]_
 
       .. raw:: html
 
          <details><summary><i> showprogress = True </i></summary>
 
-      - **minnrow** (int=1000) - (NOT SUPPORTED YET) minimum number of input spectra to show progress status
+      - **minnrow** (int=1000) - (NOT SUPPORTED YET) minimum number of input spectra to show progress status [34]_
 
       .. raw:: html
 
          </details>
-   - **outfile** (string='') - name of output file
-   - **overwrite** (bool=False) - overwrite the output file if already exists [True, False] 
+   - **outfile** (string='') - name of output file [35]_
+   - **overwrite** (bool=False) - overwrite the output file if already exists [True, False]  [36]_
 
 
 Description
@@ -225,6 +225,121 @@ Description
    recommended to turn on sigma clipping unless you are sure that the
    data is free from any kind of extreme values that may affect the
    fit.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **infile** (string)
+      | name of input SD dataset
+.. [2] 
+   **datacolumn** (string='data')
+      | name of data column to be used ["data", "float_data", or "corrected"]
+.. [3] 
+   **antenna** (string='')
+      | select data by antenna name or ID, e.g. "PM03"
+.. [4] 
+   **field** (string='')
+      | select data by field IDs and names, e.g. "3C2*" (""=all)
+.. [5] 
+   **spw** (string='')
+      | select data by IF IDs (spectral windows), e.g. "3,5,7" (""=all)
+.. [6] 
+   **timerange** (string='')
+      | select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help)
+.. [7] 
+   **scan** (string='')
+      | select data by scan numbers, e.g. "21~23" (""=all)
+.. [8] 
+   **pol** (string='')
+      | select data by polarization IDs, e.g. "XX,YY" (""=all)
+.. [9] 
+   **intent** (string='')
+      | select data by observational intent, e.g. "*ON_SOURCE*" (""=all)
+.. [10] 
+   **reindex** (bool=True)
+      | Re-index indices in subtables based on data selection. Ignored when blmode='apply'.
+.. [11] 
+   **maskmode** (string='list')
+      | mode of setting additional channel masks. "list" and "auto" are available now.
+.. [12] 
+   **thresh** (double=5.0)
+      | S/N threshold for linefinder
+.. [13] 
+   **avg_limit** (int=4)
+      | channel averaging for broad lines
+.. [14] 
+   **minwidth** (int=4)
+      | the minimum channel width to detect as a line
+.. [15] 
+   **edge** (intArray=[0, 0])
+      | channels to drop at beginning and end of spectrum
+.. [16] 
+   **blmode** (string='fit')
+      | baselining mode ["fit" or "apply"]
+.. [17] 
+   **dosubtract** (bool=True)
+      | subtract baseline from input data [True, False]
+.. [18] 
+   **blformat** ({string, stringArray}='text')
+      | format(s) of file(s) in which best-fit parameters are written ["text", "csv", "table" or ""]
+.. [19] 
+   **bloutput** ({string, stringArray}='')
+      | name(s) of file(s) in which best-fit parameters are written
+.. [20] 
+   **bltable** (string='')
+      | name of baseline table to apply
+.. [21] 
+   **blfunc** (string='poly')
+      | baseline model function ["poly", "chebyshev", "cspline", "sinusoid", or "variable"(expert mode)]
+.. [22] 
+   **order** (int=5)
+      | order of baseline model function
+.. [23] 
+   **npiece** (int=2)
+      | number of element polynomials for cubic spline curve
+.. [24] 
+   **applyfft** (bool=True)
+      | automatically set wave numbers of sinusoids
+.. [25] 
+   **fftmethod** (string='fft')
+      | method for automatically set wave numbers of sinusoids
+.. [26] 
+   **fftthresh** (double=3.0)
+      | threshold to select wave numbers of sinusoids
+.. [27] 
+   **addwn** (intArray=[0])
+      | additional wave numbers to use
+.. [28] 
+   **rejwn** (intArray=[''])
+      | wave numbers NOT to use
+.. [29] 
+   **clipthresh** (double=3.0)
+      | clipping threshold for iterative fitting
+.. [30] 
+   **clipniter** (int=0)
+      | maximum iteration number for iterative fitting
+.. [31] 
+   **blparam** (string='')
+      | text file that stores per spectrum fit parameters
+.. [32] 
+   **verbose** (bool=False)
+      | output fitting parameters to logger
+.. [33] 
+   **showprogress** (bool=False)
+      | (NOT SUPPORTED YET) show progress status for large data
+.. [34] 
+   **minnrow** (int=1000)
+      | (NOT SUPPORTED YET) minimum number of input spectra to show progress status
+.. [35] 
+   **outfile** (string='')
+      | name of output file
+.. [36] 
+   **overwrite** (bool=False)
+      | overwrite the output file if already exists
 
     """
     pass

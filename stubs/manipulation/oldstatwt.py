@@ -7,34 +7,34 @@ def oldstatwt(vis, dorms=False, byantenna=False, sepacs=True, fitspw='', fitcorr
  Reweight visibilities according to their scatter (Experimental)
 
 Parameters
-   - **vis** (string) - 
-   - **dorms** (bool=False) - 
-   - **byantenna** (bool=False) - 
+   - **vis** (string) -  [1]_
+   - **dorms** (bool=False) -  [2]_
+   - **byantenna** (bool=False) -  [3]_
 
       .. raw:: html
 
          <details><summary><i> byantenna = True </i></summary>
 
-      - **sepacs** (bool=True) - 
+      - **sepacs** (bool=True) -  [4]_
 
       .. raw:: html
 
          </details>
-   - **fitspw** ({string, stringArray, int, intArray}='') - 
-   - **fitcorr** ({string, stringArray, int, intArray}='') - 
-   - **combine** ({string, stringArray}='') - 
-   - **timebin** (string='0s') - 
-   - **minsamp** (int=2) - 
-   - **field** ({string, stringArray, int, intArray}='') - 
-   - **spw** ({string, stringArray, int, intArray}='') - 
-   - **antenna** ({string, stringArray, int, intArray}='') - 
-   - **timerange** (string='') - 
-   - **scan** (string='') - 
-   - **intent** (string='') - 
-   - **array** (string='') - 
-   - **correlation** ({string, stringArray}='') - 
-   - **observation** ({string, int}='') - 
-   - **datacolumn** (string='corrected') - 
+   - **fitspw** ({string, stringArray, int, intArray}='') -  [5]_
+   - **fitcorr** ({string, stringArray, int, intArray}='') -  [6]_
+   - **combine** ({string, stringArray}='') -  [7]_
+   - **timebin** (string='0s') -  [8]_
+   - **minsamp** (int=2) -  [9]_
+   - **field** ({string, stringArray, int, intArray}='') -  [10]_
+   - **spw** ({string, stringArray, int, intArray}='') -  [11]_
+   - **antenna** ({string, stringArray, int, intArray}='') -  [12]_
+   - **timerange** (string='') -  [13]_
+   - **scan** (string='') -  [14]_
+   - **intent** (string='') -  [15]_
+   - **array** (string='') -  [16]_
+   - **correlation** ({string, stringArray}='') -  [17]_
+   - **observation** ({string, int}='') -  [18]_
+   - **datacolumn** (string='corrected') -  [19]_
 
 
 Description
@@ -250,6 +250,70 @@ Description
 
    .. note:: **NOTE**: 'corrected' will fall back to DATA if CORRECTED_DATA
       is absent.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of measurement set
+.. [2] 
+   **dorms** (bool=False)
+      | Use rms instead of stddev?
+.. [3] 
+   **byantenna** (bool=False)
+      | Estimate the noise per antenna -not implemented (vs. per baseline)
+.. [4] 
+   **sepacs** (bool=True)
+      | If solving by antenna, treat autocorrs separately (not implemented)
+.. [5] 
+   **fitspw** ({string, stringArray, int, intArray}='')
+      | The signal-free spectral window:channels to estimate the scatter from
+.. [6] 
+   **fitcorr** ({string, stringArray, int, intArray}='')
+      | The signal-free correlation(s) to estimate the scatter from (not implemented)
+.. [7] 
+   **combine** ({string, stringArray}='')
+      | Let estimates span changes in spw, corr, scan and/or state
+.. [8] 
+   **timebin** (string='0s')
+      | Bin length for estimates (not implemented)
+.. [9] 
+   **minsamp** (int=2)
+      | Minimum number of unflagged visibilities for estimating the scatter
+.. [10] 
+   **field** ({string, stringArray, int, intArray}='')
+      | Select field using ID(s) or name(s)
+.. [11] 
+   **spw** ({string, stringArray, int, intArray}='')
+      | Select spectral window/channels
+.. [12] 
+   **antenna** ({string, stringArray, int, intArray}='')
+      | Select data based on antenna/baseline
+.. [13] 
+   **timerange** (string='')
+      | Select data by time range
+.. [14] 
+   **scan** (string='')
+      | Select data by scan numbers
+.. [15] 
+   **intent** (string='')
+      | Select data by scan intents
+.. [16] 
+   **array** (string='')
+      | Select (sub)array(s) by array ID number
+.. [17] 
+   **correlation** ({string, stringArray}='')
+      | Select correlations to reweight (DEPRECATED in CASA v4.5)
+.. [18] 
+   **observation** ({string, int}='')
+      | Select by observation ID(s)
+.. [19] 
+   **datacolumn** (string='corrected')
+      | Which data column to calculate the scatter from
 
     """
     pass

@@ -7,10 +7,10 @@ def plotweather(vis, seasonal_weight=0.5, doPlot=True, plotName=''):
 Plot elements of the weather table; estimate opacity.
 
 Parameters
-   - **vis** (string) - MS name
-   - **seasonal_weight** (double=0.5) - weight of the seasonal model
-   - **doPlot** (bool=True) - set this to True to create a plot
-   - **plotName** (string='') - (Optional) the name of the plot file
+   - **vis** (string) - MS name [1]_
+   - **seasonal_weight** (double=0.5) - weight of the seasonal model [2]_
+   - **doPlot** (bool=True) - set this to True to create a plot [3]_
+   - **plotName** (string='') - (Optional) the name of the plot file [4]_
 
 
 Description
@@ -42,6 +42,25 @@ Description
    The wind direction is defined as the direction where the wind is
    coming from (the arrow points into the wind), with north atthe
    top and counterclockwise through west, south, and east.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | MS name
+.. [2] 
+   **seasonal_weight** (double=0.5)
+      | weight of the seasonal model
+.. [3] 
+   **doPlot** (bool=True)
+      | set this to True to create a plot
+.. [4] 
+   **plotName** (string='')
+      | (Optional) the name of the plot file
 
     """
     pass

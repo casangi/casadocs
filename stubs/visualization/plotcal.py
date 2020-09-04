@@ -8,27 +8,27 @@ def plotcal(caltable, xaxis='', yaxis='', poln='', field='', antenna='', spw='',
 An all-purpose plotter for calibration results 
 
 Parameters
-   - **caltable** (string) - 
-   - **xaxis** (string='') - 
-   - **yaxis** (string='') - 
-   - **poln** (string='') - 
-   - **field** (string='') - 
-   - **antenna** (string='') - 
-   - **spw** (string='') - 
-   - **timerange** (string='') - 
-   - **subplot** (int=111) - 
-   - **overplot** (bool=False) - 
-   - **clearpanel** (string='Auto') - 
-   - **iteration** (string='') - 
+   - **caltable** (string) -  [1]_
+   - **xaxis** (string='') -  [2]_
+   - **yaxis** (string='') -  [3]_
+   - **poln** (string='') -  [4]_
+   - **field** (string='') -  [5]_
+   - **antenna** (string='') -  [6]_
+   - **spw** (string='') -  [7]_
+   - **timerange** (string='') -  [8]_
+   - **subplot** (int=111) -  [9]_
+   - **overplot** (bool=False) -  [10]_
+   - **clearpanel** (string='Auto') -  [11]_
+   - **iteration** (string='') -  [12]_
    - **plotrange** (doubleArray=[
-            ]) - 
-   - **showflags** (bool=False) - 
-   - **plotsymbol** (string='o') - 
-   - **plotcolor** (string='blue') - 
-   - **markersize** (double=5.0) - 
-   - **fontsize** (double=10.0) - 
-   - **showgui** (bool=True) - 
-   - **figfile** (string='') - 
+            ]) -  [13]_
+   - **showflags** (bool=False) -  [14]_
+   - **plotsymbol** (string='o') -  [15]_
+   - **plotcolor** (string='blue') -  [16]_
+   - **markersize** (double=5.0) -  [17]_
+   - **fontsize** (double=10.0) -  [18]_
+   - **showgui** (bool=True) -  [19]_
+   - **figfile** (string='') -  [20]_
 
 
 Description
@@ -157,6 +157,74 @@ Description
    file will be generated. The format of the plotfile is indicated
    by a specified suffix on the filename; supported formats include
    emf, eps, pdf, png, ps, raw, rgba, svg, svgz.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **caltable** (string)
+      | Name of input calibration table
+.. [2] 
+   **xaxis** (string='')
+      | Value to plot along x axis (time,chan,freq, antenna,antenna1,antenna2,scan, amp,phase,real,imag,snr, tsys,delay,rate,disp,spgain)
+.. [3] 
+   **yaxis** (string='')
+      | Value to plot along y axis (amp,phase,real,imag,snr, antenna,antenna1,antenna2,scan, tsys,delay,rate,disp,spgain,tec)
+.. [4] 
+   **poln** (string='')
+      | Antenna polarization to plot (RL,R,L,XY,X,Y,/)
+.. [5] 
+   **field** (string='')
+      | field names or index of calibrators: \'\'==>all
+.. [6] 
+   **antenna** (string='')
+      | antenna/baselines: \'\'==>all, antenna = \'3,VA04\'
+.. [7] 
+   **spw** (string='')
+      | spectral window:channels: \'\'==>all, spw=\'1:5~57\'
+.. [8] 
+   **timerange** (string='')
+      | time range: \'\'==>all
+.. [9] 
+   **subplot** (int=111)
+      | Panel number on display screen (yxn)
+.. [10] 
+   **overplot** (bool=False)
+      | Overplot solutions on existing display
+.. [11] 
+   **clearpanel** (string='Auto')
+      | Specify if old plots are cleared or not (ignore)
+.. [12] 
+   **iteration** (string='')
+      | Iterate plots on antenna,time,spw,field
+.. [13] 
+   **plotrange** (doubleArray=[
+            ])
+      | plot axes ranges: [xmin,xmax,ymin,ymax]
+.. [14] 
+   **showflags** (bool=False)
+      | If true, show flagged solutions
+.. [15] 
+   **plotsymbol** (string='o')
+      | pylab plot symbol
+.. [16] 
+   **plotcolor** (string='blue')
+      | initial plotting color
+.. [17] 
+   **markersize** (double=5.0)
+      | Size of plotted marks
+.. [18] 
+   **fontsize** (double=10.0)
+      | Font size for labels
+.. [19] 
+   **showgui** (bool=True)
+      | Show plot on gui
+.. [20] 
+   **figfile** (string='')
+      | \'\'= no plot hardcopy, otherwise supply name
 
     """
     pass

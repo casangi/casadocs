@@ -7,29 +7,29 @@ def uvmodelfit(vis, field='', spw='', selectdata=True, timerange='', uvrange='',
 Fit a single component source model to the uv data
 
 Parameters
-   - **vis** (string) - Name of input visibility file
-   - **field** (string='') - Select field using field id(s) or field name(s)
-   - **spw** (string='') - Select spectral window/channels
-   - **selectdata** (bool=True) - Other data selection parameters
+   - **vis** (string) - Name of input visibility file [1]_
+   - **field** (string='') - Select field using field id(s) or field name(s) [2]_
+   - **spw** (string='') - Select spectral window/channels [3]_
+   - **selectdata** (bool=True) - Other data selection parameters [4]_
 
       .. raw:: html
 
          <details><summary><i> selectdata = True </i></summary>
 
-      - **timerange** (string='') - Select data based on time range
-      - **uvrange** (variant='') - Select data within uvrange (default units meters)
-      - **antenna** (string='') - Select data based on antenna/baseline
-      - **scan** (string='') - Scan number range
-      - **msselect** (string='') - Optional complex data selection (ignore for now)
+      - **timerange** (string='') - Select data based on time range [5]_
+      - **uvrange** (variant='') - Select data within uvrange (default units meters) [6]_
+      - **antenna** (string='') - Select data based on antenna/baseline [7]_
+      - **scan** (string='') - Scan number range [8]_
+      - **msselect** (string='') - Optional complex data selection (ignore for now) [9]_
 
       .. raw:: html
 
          </details>
-   - **niter** (int=5) - Number of fitting iterations to execute
-   - **comptype** (string='P') - component model type: P(oint), G(aussian), or D(isk)
-   - **sourcepar** (doubleArray=[1.0, 0.0, 0.0]) - Starting guess for component parameters (3 values for type P, 5 for G and D)
-   - **varypar** (boolArray=['']) - Control which parameters to let vary in the fit
-   - **outfile** (string='') - Optional output component list table
+   - **niter** (int=5) - Number of fitting iterations to execute [10]_
+   - **comptype** (string='P') - component model type: P(oint), G(aussian), or D(isk) [11]_
+   - **sourcepar** (doubleArray=[1.0, 0.0, 0.0]) - Starting guess for component parameters (3 values for type P, 5 for G and D) [12]_
+   - **varypar** (boolArray=['']) - Control which parameters to let vary in the fit [13]_
+   - **outfile** (string='') - Optional output component list table [14]_
 
 
 Description
@@ -216,6 +216,55 @@ Description
    Bibliography
       :sup:`1. Marti-Vidal et al. 2014, A&A 563, 136
       (` `arXiv:1401.4984 <http://arxiv.org/abs/1401.4984>`__ :sup:`)` `<#ref-cit1>`__
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of input visibility file
+.. [2] 
+   **field** (string='')
+      | Select field using field id(s) or field name(s)
+.. [3] 
+   **spw** (string='')
+      | Select spectral window/channels
+.. [4] 
+   **selectdata** (bool=True)
+      | Other data selection parameters
+.. [5] 
+   **timerange** (string='')
+      | Select data based on time range
+.. [6] 
+   **uvrange** (variant='')
+      | Select data within uvrange (default units meters)
+.. [7] 
+   **antenna** (string='')
+      | Select data based on antenna/baseline
+.. [8] 
+   **scan** (string='')
+      | Scan number range
+.. [9] 
+   **msselect** (string='')
+      | Optional complex data selection (ignore for now)
+.. [10] 
+   **niter** (int=5)
+      | Number of fitting iterations to execute
+.. [11] 
+   **comptype** (string='P')
+      | component model type: P(oint), G(aussian), or D(isk)
+.. [12] 
+   **sourcepar** (doubleArray=[1.0, 0.0, 0.0])
+      | Starting guess for component parameters (3 values for type P, 5 for G and D)
+.. [13] 
+   **varypar** (boolArray=[''])
+      | Control which parameters to let vary in the fit
+.. [14] 
+   **outfile** (string='')
+      | Optional output component list table
 
     """
     pass

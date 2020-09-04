@@ -7,14 +7,14 @@ def plotants(vis, figfile='', antindex=False, logpos=False, exclude='', checkbas
 Plot the antenna distribution in the local reference frame:
 
 Parameters
-   - **vis** (string) - Name of input visibility file (MS)
-   - **figfile** (string='') - Save the plotted figure to this file
-   - **antindex** (bool=False) - Label antennas with name and antenna ID
-   - **logpos** (bool=False) - Whether to plot logarithmic positions
-   - **exclude** (string='') - Antenna name/id selection to exclude from plot
-   - **checkbaselines** (bool=False) - Whether to check baselines in the main table.
-   - **title** (string='') - Title for the plot
-   - **showgui** (bool=True) - Show plot on gui.
+   - **vis** (string) - Name of input visibility file (MS) [1]_
+   - **figfile** (string='') - Save the plotted figure to this file [2]_
+   - **antindex** (bool=False) - Label antennas with name and antenna ID [3]_
+   - **logpos** (bool=False) - Whether to plot logarithmic positions [4]_
+   - **exclude** (string='') - Antenna name/id selection to exclude from plot [5]_
+   - **checkbaselines** (bool=False) - Whether to check baselines in the main table. [6]_
+   - **title** (string='') - Title for the plot [7]_
+   - **showgui** (bool=True) - Show plot on gui. [8]_
 
 
 Description
@@ -79,8 +79,39 @@ Description
    |         | manipulate and export the plot.                           |
    +---------+-----------------------------------------------------------+
 
-.. |image1| image:: tasks/_apimedia/f05dc15d6cf9628b4e2f819d7e5530c7f27d3bd2.png
+.. |image1| image:: docs/tasks/_apimedia/f05dc15d6cf9628b4e2f819d7e5530c7f27d3bd2.png
 :class: image-inline
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of input visibility file (MS)
+.. [2] 
+   **figfile** (string='')
+      | Save the plotted figure to this file
+.. [3] 
+   **antindex** (bool=False)
+      | Label antennas with name and antenna ID
+.. [4] 
+   **logpos** (bool=False)
+      | Whether to plot logarithmic positions
+.. [5] 
+   **exclude** (string='')
+      | Antenna name/id selection to exclude from plot
+.. [6] 
+   **checkbaselines** (bool=False)
+      | Whether to check baselines in the main table.
+.. [7] 
+   **title** (string='')
+      | Title for the plot
+.. [8] 
+   **showgui** (bool=True)
+      | Show plot on gui.
 
     """
     pass

@@ -7,37 +7,37 @@ def slsearch(outfile='', freqrange=[84, 90], species=[''], reconly=False, chemna
 Search a spectral line table.
 
 Parameters
-   - **tablename** (string='') - Input spectral line table name to search. If not specified, use the default table in the system.
-   - **outfile** (string='') - Results table name. Blank means do not write the table to disk.
-   - **freqrange** (doubleArray=[84, 90]) - Frequency range in GHz.
-   - **species** (stringArray=['']) - Species to search for.
-   - **reconly** (bool=False) - List only NRAO recommended frequencies.
-   - **chemnames** (stringArray=['']) - Chemical names to search for.
-   - **qns** (stringArray=['']) - Resolved quantum numbers to search for.
-   - **rrlinclude** (bool=True) - Include RRLs in the result set?
-   - **rrlonly** (bool=False) - Include only RRLs in the result set?
+   - **tablename** (string='') - Input spectral line table name to search. If not specified, use the default table in the system. [1]_
+   - **outfile** (string='') - Results table name. Blank means do not write the table to disk. [2]_
+   - **freqrange** (doubleArray=[84, 90]) - Frequency range in GHz. [3]_
+   - **species** (stringArray=['']) - Species to search for. [4]_
+   - **reconly** (bool=False) - List only NRAO recommended frequencies. [5]_
+   - **chemnames** (stringArray=['']) - Chemical names to search for. [6]_
+   - **qns** (stringArray=['']) - Resolved quantum numbers to search for. [7]_
+   - **rrlinclude** (bool=True) - Include RRLs in the result set? [13]_
+   - **rrlonly** (bool=False) - Include only RRLs in the result set? [14]_
 
       .. raw:: html
 
          <details><summary><i> rrlonly = False </i></summary>
 
-      - **intensity** (doubleArray=[-1]) - CDMS/JPL intensity range. -1 -> do not use an intensity range.
-      - **smu2** (doubleArray=[-1]) - Quantum mechanical line strength. -1 -> do not use a smu2 range.
-      - **loga** (doubleArray=[-1]) - log(A) (Einstein coefficient) range. -1 -> do not use a loga range.
-      - **eu** (doubleArray=[-1]) - Upper energy state range in Kelvin. -1 -> do not use an eu range.
-      - **el** (doubleArray=[-1]) - Lower energy state range in Kelvin. -1 -> do not use an el range.
+      - **intensity** (doubleArray=[-1]) - CDMS/JPL intensity range. -1 -> do not use an intensity range. [8]_
+      - **smu2** (doubleArray=[-1]) - Quantum mechanical line strength. -1 -> do not use a smu2 range. [9]_
+      - **loga** (doubleArray=[-1]) - log(A) (Einstein coefficient) range. -1 -> do not use a loga range. [10]_
+      - **eu** (doubleArray=[-1]) - Upper energy state range in Kelvin. -1 -> do not use an eu range. [12]_
+      - **el** (doubleArray=[-1]) - Lower energy state range in Kelvin. -1 -> do not use an el range. [11]_
 
       .. raw:: html
 
          </details>
-   - **verbose** (bool=False) - List result set to logger (and optionally logfile)?
+   - **verbose** (bool=False) - List result set to logger (and optionally logfile)? [15]_
 
       .. raw:: html
 
          <details><summary><i> verbose = True </i></summary>
 
-      - **logfile** (string='""') - List result set to this logfile (only used if verbose=True).
-      - **append** (bool=False) - If true, append to logfile if it already exists, if false overwrite logfile it it exists. Only used if verbose=True and logfile not blank.
+      - **logfile** (string='""') - List result set to this logfile (only used if verbose=True). [16]_
+      - **append** (bool=False) - If true, append to logfile if it already exists, if false overwrite logfile it it exists. Only used if verbose=True and logfile not blank. [17]_
 
       .. raw:: html
 
@@ -178,6 +178,64 @@ Description
    If True, append to logfile if it already exists, if False
    overwrite logfile it it exists. Only used if verbose=True and
    logfile not blank.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **tablename** (string='')
+      | Input spectral line table name to search. If not specified, use the default table in the system.
+.. [2] 
+   **outfile** (string='')
+      | Results table name. Blank means do not write the table to disk.
+.. [3] 
+   **freqrange** (doubleArray=[84, 90])
+      | Frequency range in GHz.
+.. [4] 
+   **species** (stringArray=[''])
+      | Species to search for.
+.. [5] 
+   **reconly** (bool=False)
+      | List only NRAO recommended frequencies.
+.. [6] 
+   **chemnames** (stringArray=[''])
+      | Chemical names to search for.
+.. [7] 
+   **qns** (stringArray=[''])
+      | Resolved quantum numbers to search for.
+.. [8] 
+   **intensity** (doubleArray=[-1])
+      | CDMS/JPL intensity range. -1 -> do not use an intensity range.
+.. [9] 
+   **smu2** (doubleArray=[-1])
+      | Quantum mechanical line strength. -1 -> do not use a smu2 range.
+.. [10] 
+   **loga** (doubleArray=[-1])
+      | log(A) (Einstein coefficient) range. -1 -> do not use a loga range.
+.. [11] 
+   **el** (doubleArray=[-1])
+      | Lower energy state range in Kelvin. -1 -> do not use an el range.
+.. [12] 
+   **eu** (doubleArray=[-1])
+      | Upper energy state range in Kelvin. -1 -> do not use an eu range.
+.. [13] 
+   **rrlinclude** (bool=True)
+      | Include RRLs in the result set?
+.. [14] 
+   **rrlonly** (bool=False)
+      | Include only RRLs in the result set?
+.. [15] 
+   **verbose** (bool=False)
+      | List result set to logger (and optionally logfile)?
+.. [16] 
+   **logfile** (string='""')
+      | List result set to this logfile (only used if verbose=True).
+.. [17] 
+   **append** (bool=False)
+      | If true, append to logfile if it already exists, if false overwrite logfile it it exists. Only used if verbose=True and logfile not blank.
 
     """
     pass

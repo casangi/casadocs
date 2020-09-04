@@ -7,16 +7,16 @@ def specsmooth(imagename, outfile='', box='', chans='', stokes='', region='', ma
 Smooth an image region in one dimension
 
 Parameters
-   - **imagename** (string) - Name of the input image
-   - **outfile** (string='') - Output image name.
-   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
-   - **chans** (string='') - Channels to use. Channels must be contiguous. Default is to use all channels.
-   - **stokes** (string='') - Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
-   - **region** (variant='') - Region selection. Default is to use the full image.
-   - **mask** (string='') - Mask to use. Default is none..
-   - **axis** (int=-1) - The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
-   - **function** (string='boxcar') - Convolution function. hanning and boxcar are supported functions. Minimum match is supported.
-   - **dmethod** (string='copy') - Decimation method. "" means no decimation, "copy" and "mean" are also supported (minimum match).
+   - **imagename** (string) - Name of the input image [1]_
+   - **outfile** (string='') - Output image name. [2]_
+   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane. [3]_
+   - **chans** (string='') - Channels to use. Channels must be contiguous. Default is to use all channels. [4]_
+   - **stokes** (string='') - Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes. [5]_
+   - **region** (variant='') - Region selection. Default is to use the full image. [6]_
+   - **mask** (string='') - Mask to use. Default is none.. [7]_
+   - **axis** (int=-1) - The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0). [10]_
+   - **function** (string='boxcar') - Convolution function. hanning and boxcar are supported functions. Minimum match is supported. [11]_
+   - **dmethod** (string='copy') - Decimation method. "" means no decimation, "copy" and "mean" are also supported (minimum match). [13]_
 
 
 Description
@@ -183,6 +183,52 @@ Description
 
    Decimation method. "" means no decimation, "copy" and "mean" are
    also supported (minimum match).
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **imagename** (string)
+      | Name of the input image
+.. [2] 
+   **outfile** (string='')
+      | Output image name.
+.. [3] 
+   **box** (string='')
+      | Rectangular region to select in direction plane. Default is to use the entire direction plane.
+.. [4] 
+   **chans** (string='')
+      | Channels to use. Channels must be contiguous. Default is to use all channels.
+.. [5] 
+   **stokes** (string='')
+      | Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
+.. [6] 
+   **region** (variant='')
+      | Region selection. Default is to use the full image.
+.. [7] 
+   **mask** (string='')
+      | Mask to use. Default is none..
+.. [8] 
+   **overwrite** (bool=False)
+      | Overwrite the output if it exists?
+.. [9] 
+   **stretch** (bool=False)
+      | Stretch the mask if necessary and possible? Default False
+.. [10] 
+   **axis** (int=-1)
+      | The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
+.. [11] 
+   **function** (string='boxcar')
+      | Convolution function. hanning and boxcar are supported functions. Minimum match is supported.
+.. [12] 
+   **width** (int=2)
+      | Width of boxcar, in pixels.
+.. [13] 
+   **dmethod** (string='copy')
+      | Decimation method. "" means no decimation, "copy" and "mean" are also supported (minimum match).
 
     """
     pass

@@ -7,16 +7,16 @@ def deconvolve(imagename, model='', psf=[''], alg='clark', niter=10, gain=0.1, t
 Image based deconvolver
 
 Parameters
-   - **imagename** (string) - 
-   - **model** (string='') - 
-   - **psf** (stringArray=['']) - 
-   - **alg** (string='clark') - 
+   - **imagename** (string) -  [1]_
+   - **model** (string='') -  [2]_
+   - **psf** (stringArray=['']) -  [3]_
+   - **alg** (string='clark') -  [4]_
 
       .. raw:: html
 
          <details><summary><i> alg = multiscale </i></summary>
 
-      - **scales** (intArray=[0, 3, 10]) - 
+      - **scales** (intArray=[0, 3, 10]) -  [9]_
 
       .. raw:: html
 
@@ -26,17 +26,17 @@ Parameters
 
          <details><summary><i> alg = mem </i></summary>
 
-      - **sigma** (double=0.0) - 
-      - **targetflux** (double=1.0) - 
-      - **prior** (string='') - 
+      - **sigma** (double=0.0) -  [10]_
+      - **targetflux** (double=1.0) -  [11]_
+      - **prior** (string='') -  [12]_
 
       .. raw:: html
 
          </details>
-   - **niter** (int=10) - 
-   - **gain** (double=0.1) - 
-   - **threshold** (double=0.0) - 
-   - **mask** (string='') - 
+   - **niter** (int=10) -  [5]_
+   - **gain** (double=0.1) -  [6]_
+   - **threshold** (double=0.0) -  [7]_
+   - **mask** (string='') -  [8]_
 
 
 Description
@@ -135,6 +135,49 @@ Description
       
 
    The image mask to limit the region of deconvolution.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **imagename** (string)
+      | Input image to deconvolve
+.. [2] 
+   **model** (string='')
+      | Output image containing deconvolved point model
+.. [3] 
+   **psf** (stringArray=[''])
+      | Point spread function (dirty beam)
+.. [4] 
+   **alg** (string='clark')
+      | Algorithm to use (clark, hogbom, multiscale, mem)
+.. [5] 
+   **niter** (int=10)
+      | number of iteration in deconvolution process
+.. [6] 
+   **gain** (double=0.1)
+      | CLEAN gain parameter
+.. [7] 
+   **threshold** (double=0.0)
+      | level below which sources will not be deconvolved
+.. [8] 
+   **mask** (string='')
+      | image mask to limit region of deconvolution
+.. [9] 
+   **scales** (intArray=[0, 3, 10])
+      | scale sizes (pixels) to deconvolve
+.. [10] 
+   **sigma** (double=0.0)
+      | mem parameter: Expected noise in image
+.. [11] 
+   **targetflux** (double=1.0)
+      | mem parameter: Estimated total flux in image
+.. [12] 
+   **prior** (string='')
+      | mem parameter: prior image for mem search
 
     """
     pass

@@ -60,5 +60,5 @@ Description
    |         | manipulate and export the plot.                           |
    +---------+-----------------------------------------------------------+
 
-.. |image1| image:: tasks/_apimedia/f05dc15d6cf9628b4e2f819d7e5530c7f27d3bd2.png
+.. |image1| image:: docs/tasks/_apimedia/f05dc15d6cf9628b4e2f819d7e5530c7f27d3bd2.png
 :class: image-inline

@@ -7,12 +7,12 @@ def feather(highres, lowres, imagename='', sdfactor=1.0, effdishdiam=-1.0, lowpa
 Combine two images using their Fourier transforms
 
 Parameters
-   - **imagename** (string='') - Name of output feathered image
-   - **highres** (string) - Name of high resolution (interferometer) image
-   - **lowres** (string) - Name of low resolution (single dish) image
-   - **sdfactor** (double=1.0) - Scale factor to apply to Single Dish image
-   - **effdishdiam** (double=-1.0) - New effective SingleDish diameter to use in m
-   - **lowpassfiltersd** (bool=False) - Filter out the high spatial frequencies of the SD image
+   - **imagename** (string='') - Name of output feathered image [1]_
+   - **highres** (string) - Name of high resolution (interferometer) image [2]_
+   - **lowres** (string) - Name of low resolution (single dish) image [3]_
+   - **sdfactor** (double=1.0) - Scale factor to apply to Single Dish image [4]_
+   - **effdishdiam** (double=-1.0) - New effective SingleDish diameter to use in m [5]_
+   - **lowpassfiltersd** (bool=False) - Filter out the high spatial frequencies of the SD image [6]_
 
 
 Description
@@ -120,8 +120,57 @@ Description
    Any data outside the maximum uv distance that the SD has
    illuminated is filtered out.
 
-.. |The results of feathering ALMA 12+7m and Total Power data for M100 using three different sdfactors: 0.5 (right) 0.7 (middle) 1.3 (left). The higher sdfactor (1.3) recovers more of the faint extended emission, as it is boosting the TP signal.| image:: tasks/_apimedia/c54b9bc64427577246358518c70157487bed008a.png
+.. |The results of feathering ALMA 12+7m and Total Power data for M100 using three different sdfactors: 0.5 (right) 0.7 (middle) 1.3 (left). The higher sdfactor (1.3) recovers more of the faint extended emission, as it is boosting the TP signal.| image:: docs/tasks/_apimedia/c54b9bc64427577246358518c70157487bed008a.png
 :class: image-inline
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **imagename** (string='')
+      | Name of output feathered image
+      |                           Default: none
+      | 
+      |                              Example: imagename='orion_combined.im'
+.. [2] 
+   **highres** (string)
+      | Name of high resolution (interferometer) image
+      |                           Default: none
+      | 
+      |                              Example: imagename='orion_vla.im'
+.. [3] 
+   **lowres** (string)
+      | Name of low resolution (single dish) image
+      |                           Default: none
+      | 
+      |                              Example: imagename='orion_gbt.im'
+.. [4] 
+   **sdfactor** (double=1.0)
+      | Value by which to scale the Single Dish image.
+      |                           Default: 1.0
+      | 
+      |                           Basically modifying the flux scale of the SD image
+.. [5] 
+   **effdishdiam** (double=-1.0)
+      | New effective SingleDish diameter to use in m 
+      |                           Default: -1.0 (leave as is)
+      | 
+      |                           Obviously one can only reduce the dish
+      |                           effective dish diameter in feathering.
+.. [6] 
+   **lowpassfiltersd** (bool=False)
+      | Filter out the high spatial frequencies of the SD image
+      |                           Default: False
+      | 
+      |                           If True the high spatial frequency in the SD
+      |                           image is rejected.
+      | 
+      |                           Any data outside the maximum uv distance
+      |                           that the SD has illuminated  is filtered
+      |                           out.
 
     """
     pass

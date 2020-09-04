@@ -7,7 +7,7 @@ def browsetable(tablename='', mightedit=False, sortlist='', taql='', skipcols=''
 Browse a table (MS, calibration table, image)
 
 Parameters
-   - **tablename** (string='') - Name of input table
+   - **tablename** (string='') - Name of input table [1]_
 
 
 Description
@@ -78,8 +78,47 @@ Description
    Caption CASA table browser with an MS loaded.
    ======= =====================================
 
-.. |image1| image:: tasks/_apimedia/e7b82ce6a699178fe6f43360bef6c38bb9c431bb.png
+.. |image1| image:: docs/tasks/_apimedia/e7b82ce6a699178fe6f43360bef6c38bb9c431bb.png
 :class: image-inline
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **tablename** (string='')
+      | Name of table file (vis, calibration table, image)
+      |                      Default: none
+      |                      
+      |                         Example: tablename='ngc5921.ms'
+.. [2] 
+   **mightedit** (bool=False)
+      | Disable the filtering options (below) and allow editing
+      | the table.
+      |                      Default: False
+      |                      Options: False|True
+      | 
+      |                      Warning: the GUI seems to ignore whether the
+      |                      table tool is opened read-only - just be careful,
+      |                      esp. if filtering.
+.. [3] 
+   **sortlist** ({string, stringArray}='')
+      | List of columns to sort by
+      |                      Default: none
+.. [4] 
+   **taql** (string='')
+      | TaQL query string for prefiltering the table.
+      |                      Default: none
+      | 
+      |                         Example: taql="ANTENNA2 < 6
+.. [5] 
+   **skipcols** ({string, stringArray}='')
+      | Columns to NOT display.
+      |                      Default: none
+      | 
+      |                         Example: skipcols='feed1, feed2'
 
     """
     pass

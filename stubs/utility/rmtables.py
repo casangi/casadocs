@@ -7,7 +7,7 @@ def rmtables(tablenames=['']):
 Remove tables cleanly, use this instead of rm -rf
 
 Parameters
-   - **tablenames** (stringArray=['']) - Name of the tables
+   - **tablenames** (stringArray=['']) - Name of the tables [1]_
 
 
 Description
@@ -27,6 +27,16 @@ Description
 
    .. note:: NOTE: If you have multiple sessions running, bad thingscould
       happen if you remove a table being accessed by another process.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **tablenames** (stringArray=[''])
+      | Name of the tables
 
     """
     pass

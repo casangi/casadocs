@@ -7,15 +7,15 @@ def imreframe(imagename, output='', outframe='lsrk', epoch='', restfreq=''):
 Change the frame in which the image reports its spectral values
 
 Parameters
-   - **imagename** (string) - Name of the input image
-   - **output** (string='') - Name of the output image
-   - **outframe** (string='lsrk') - Spectral frame in which the frequency or velocity values will be reported by default
+   - **imagename** (string) - Name of the input image [1]_
+   - **output** (string='') - Name of the output image [2]_
+   - **outframe** (string='lsrk') - Spectral frame in which the frequency or velocity values will be reported by default [3]_
 
       .. raw:: html
 
          <details><summary><i> outframe = topo </i></summary>
 
-      - **epoch** (string='') - Epoch to be associated with this image
+      - **epoch** (string='') - Epoch to be associated with this image [4]_
 
       .. raw:: html
 
@@ -25,7 +25,7 @@ Parameters
 
          <details><summary><i> outframe = TOPO </i></summary>
 
-      - **epoch** (string='') - Epoch to be associated with this image
+      - **epoch** (string='') - Epoch to be associated with this image [4]_
 
       .. raw:: html
 
@@ -35,7 +35,7 @@ Parameters
 
          <details><summary><i> outframe = geo </i></summary>
 
-      - **epoch** (string='') - Epoch to be associated with this image
+      - **epoch** (string='') - Epoch to be associated with this image [4]_
 
       .. raw:: html
 
@@ -45,12 +45,12 @@ Parameters
 
          <details><summary><i> outframe = GEO </i></summary>
 
-      - **epoch** (string='') - Epoch to be associated with this image
+      - **epoch** (string='') - Epoch to be associated with this image [4]_
 
       .. raw:: html
 
          </details>
-   - **restfreq** (string='') - restfrequency to use for velocity values (e.g "1.420GHz" for the HI line)
+   - **restfreq** (string='') - restfrequency to use for velocity values (e.g "1.420GHz" for the HI line) [5]_
 
 
 Description
@@ -119,6 +119,28 @@ Description
    restfreq='1.420405752GHz' for the HI 21cm line of neutral
    hydrogen. The default is to use the rest-frequency already present
    in the input image.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **imagename** (string)
+      | Name of the input image
+.. [2] 
+   **output** (string='')
+      | Name of the output image
+.. [3] 
+   **outframe** (string='lsrk')
+      | Spectral frame in which the frequency or velocity values will be reported by default
+.. [4] 
+   **epoch** (string='')
+      | Epoch to be associated with this image
+.. [5] 
+   **restfreq** (string='')
+      | restfrequency to use for velocity values (e.g "1.420GHz" for the HI line)
 
     """
     pass

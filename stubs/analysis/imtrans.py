@@ -7,9 +7,9 @@ def imtrans(imagename, outfile='', order=''):
 Reorder image axes
 
 Parameters
-   - **imagename** (string) - Name of the input image which must be specified.
-   - **outfile** (string='') - Name of output CASA image.
-   - **order** (variant='') - New zero-based axes order.
+   - **imagename** (string) - Name of the input image which must be specified. [1]_
+   - **outfile** (string='') - Name of output CASA image. [2]_
+   - **order** (variant='') - New zero-based axes order. [3]_
 
 
 Description
@@ -52,6 +52,22 @@ Description
    inverted. So, in a 4-D image, *order="-10-3-2"* maps input axes 1,
    0, 3, 2 to output axes 0, 1, 2, 3 and reverses the direction and
    values of input axes 1, 3, and 2.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **imagename** (string)
+      | Name of the input image which must be specified.
+.. [2] 
+   **outfile** (string='')
+      | Name of output CASA image.
+.. [3] 
+   **order** (variant='')
+      | New zero-based axes order.
 
     """
     pass

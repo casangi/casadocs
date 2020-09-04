@@ -7,18 +7,18 @@ def exportfits(imagename, fitsimage='', velocity=False, optical=False, bitpix=-3
 Convert a CASA image to a FITS file
 
 Parameters
-   - **imagename** (string) - Name of input CASA image
-   - **fitsimage** (string='') - Name of output image FITS file
-   - **velocity** (bool=False) - Use velocity (rather than frequency) as spectral axis
-   - **optical** (bool=False) - Use the optical (rather than radio) velocity convention
-   - **bitpix** (int=-32) - Bits per pixel
-   - **minpix** ({int, double}=0) - Minimum pixel value (if minpix > maxpix, value is automatically determined)
-   - **maxpix** ({int, double}=-1) - Maximum pixel value (if minpix > maxpix, value is automatically determined)
-   - **overwrite** (bool=False) - Overwrite output file if it exists?
-   - **dropstokes** (bool=False) - Drop the Stokes axis?
-   - **stokeslast** (bool=True) - Put Stokes axis last in header?
-   - **history** (bool=True) - Write history to the FITS image?
-   - **dropdeg** (bool=False) - Drop all degenerate axes (e.g. Stokes and/or Frequency)?
+   - **imagename** (string) - Name of input CASA image [1]_
+   - **fitsimage** (string='') - Name of output image FITS file [2]_
+   - **velocity** (bool=False) - Use velocity (rather than frequency) as spectral axis [3]_
+   - **optical** (bool=False) - Use the optical (rather than radio) velocity convention [4]_
+   - **bitpix** (int=-32) - Bits per pixel [5]_
+   - **minpix** ({int, double}=0) - Minimum pixel value (if minpix > maxpix, value is automatically determined) [6]_
+   - **maxpix** ({int, double}=-1) - Maximum pixel value (if minpix > maxpix, value is automatically determined) [7]_
+   - **overwrite** (bool=False) - Overwrite output file if it exists? [8]_
+   - **dropstokes** (bool=False) - Drop the Stokes axis? [9]_
+   - **stokeslast** (bool=True) - Put Stokes axis last in header? [10]_
+   - **history** (bool=True) - Write history to the FITS image? [11]_
+   - **dropdeg** (bool=False) - Drop all degenerate axes (e.g. Stokes and/or Frequency)? [12]_
 
 
 Description
@@ -63,6 +63,72 @@ Description
    .. note:: Info: Note that no subimaging of the fits image can be made
       with this task. The spectral reference frame can be changed
       prior to export using the task imreframe.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **imagename** (string)
+      | Name of input CASA image
+      |                      Default: none
+      | 
+      |                         Example: fitsimage='3C273XC1.image'
+.. [2] 
+   **fitsimage** (string='')
+      | Name of output image FITS file
+      |                      Default: none
+      | 
+      |                         Example: fitsimage='3C273XC1.fits'
+.. [3] 
+   **velocity** (bool=False)
+      | Use velocity (rather than frequency) as spectral axis
+      |                      Default: False
+      |                      Options: False|True
+.. [4] 
+   **optical** (bool=False)
+      | Use the optical (rather than radio) velocity convention
+      |                      Default: False
+      |                      Options: False|True
+.. [5] 
+   **bitpix** (int=-32)
+      | Bits per pixel
+      |                      Default: -32
+      | 
+      |                         Example: bitpix=16
+.. [6] 
+   **minpix** ({int, double}=0)
+      | Minimum pixel value (if minpix > maxpix, value is automatically determined)
+.. [7] 
+   **maxpix** ({int, double}=-1)
+      | Maximum pixel value (if minpix > maxpix, value is
+      | automatically determined)
+      |                      Default: -1
+.. [8] 
+   **overwrite** (bool=False)
+      | Overwrite output file if it exists?
+      |                      Default: False
+      |                      Options: False|True
+.. [9] 
+   **dropstokes** (bool=False)
+      | Drop the Stokes axis?
+.. [10] 
+   **stokeslast** (bool=True)
+      | Put Stokes axis last in header?
+      |                      Default: True
+      |                      Options: True|False
+.. [11] 
+   **history** (bool=True)
+      | Write history to the FITS image?
+      |                      Default: True
+      |                      Options: True|False
+.. [12] 
+   **dropdeg** (bool=False)
+      | Drop all degenerate axes (e.g. Stokes and/or Frequency)?
+      |                      Default: False
+      |                      Options: False|True
 
     """
     pass

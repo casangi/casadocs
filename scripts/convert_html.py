@@ -17,9 +17,9 @@ with open('scraper/_sitemap.txt') as fid:
 #url = urls[0]
 
 os.system('rm -fr markdown')
-os.system('rm -fr tasks')
+os.system('rm -fr docs/tasks')
 os.system('mkdir markdown')
-os.system('mkdir tasks')
+os.system('mkdir docs/tasks')
 
 # each page in casadocs should have already been downloaded by the scrapy spider to an html file
 # the local html directory structure should match the casadocs website structure
@@ -35,7 +35,7 @@ for ii, url in enumerate(urls):
         print('converting %s of %s...' % (str(ii), str(len(urls))), end='\r')
 
         if 'global-task-list' in fpath:
-            dest = 'tasks/' + url.split("/")[-1]
+            dest = 'docs/tasks/' + url.split("/")[-1]
         else:
             spath = ['markdown'] + url.split("/")[5:]
             for ii in range(1,len(spath)):
@@ -50,7 +50,7 @@ for ii, url in enumerate(urls):
         # the top level markdown/index file is from html/stable and forms the index.rst later on
         if ('global-task-list' in fpath) or ('global-tool-list' in fpath) or (dest == 'markdown/index'):
             
-            os.system('pandoc %s -f html -t rst -o %s --extract-media=%s' % (source, dest+'.rst', 'tasks/_apimedia'))
+            os.system('pandoc %s -f html -t rst -o %s --extract-media=%s' % (source, dest+'.rst', 'docs/tasks/_apimedia'))
             with open(dest+'.rst', 'r') as fid:
                 rst = fid.read()
                 

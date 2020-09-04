@@ -22,5 +22,12 @@ Description
    taskfailsand that task indicates that it cannot obtain a lock on
    a file or table.
 
+
+
+
+Details
+   Explanation of each parameter
+
+
     """
     pass

@@ -7,34 +7,34 @@ def listvis(vis, options='ap', datacolumn='data', field='', spw='*', selectdata=
 List measurement set visibilities.
 
 Parameters
-   - **vis** (string) - Name of input visibility file
-   - **options** (string='ap') - List options: ap only 
-   - **datacolumn** (string='data') - Column to list: data, float_data, corrected, model, residual
-   - **field** (string='') - Field names or index to be listed
-   - **spw** (string='*') - Spectral window channels 
-   - **selectdata** (bool=False) - Other data selection parameters
+   - **vis** (string) - Name of input visibility file [1]_
+   - **options** (string='ap') - List options: ap only  [2]_
+   - **datacolumn** (string='data') - Column to list: data, float_data, corrected, model, residual [3]_
+   - **field** (string='') - Field names or index to be listed [4]_
+   - **spw** (string='*') - Spectral window channels  [5]_
+   - **selectdata** (bool=False) - Other data selection parameters [6]_
 
       .. raw:: html
 
          <details><summary><i> selectdata = True </i></summary>
 
-      - **antenna** (string='') - Antenna/baselines
-      - **timerange** (string='') - Time range
-      - **correlation** (string='') - Correlations
-      - **scan** (string='') - Scan numbers
-      - **feed** (string='') - Multi-feed numbers (Not yet implemented)
-      - **array** (string='') - Array numbers (Not yet implemented)
-      - **observation** ({string, int}='') - Select by observation ID(s)
-      - **uvrange** (string='') - uv range
+      - **antenna** (string='') - Antenna/baselines [7]_
+      - **timerange** (string='') - Time range [8]_
+      - **correlation** (string='') - Correlations [9]_
+      - **scan** (string='') - Scan numbers [10]_
+      - **feed** (string='') - Multi-feed numbers (Not yet implemented) [11]_
+      - **array** (string='') - Array numbers (Not yet implemented) [12]_
+      - **observation** ({string, int}='') - Select by observation ID(s) [13]_
+      - **uvrange** (string='') - uv range [14]_
 
       .. raw:: html
 
          </details>
-   - **observation** ({string, int}='') - Select by observation ID(s)
-   - **average** (string='') - Averaging mode 
-   - **showflags** (bool=False) - Show flagged data (Not yet implemented)
-   - **pagerows** (int=50) - Rows per page
-   - **listfile** (string='') - Output file
+   - **observation** ({string, int}='') - Select by observation ID(s) [13]_
+   - **average** (string='') - Averaging mode  [15]_
+   - **showflags** (bool=False) - Show flagged data (Not yet implemented) [16]_
+   - **pagerows** (int=50) - Rows per page [17]_
+   - **listfile** (string='') - Output file [18]_
 
 
 Description
@@ -194,6 +194,67 @@ Description
 
    Write output file to disk (will not overwrite). The default is to
    write to the screen.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of input visibility file
+.. [2] 
+   **options** (string='ap')
+      | List options: ap only
+.. [3] 
+   **datacolumn** (string='data')
+      | Column to list: data, float_data, corrected, model, residual
+.. [4] 
+   **field** (string='')
+      | Field names or index to be listed
+.. [5] 
+   **spw** (string='*')
+      | Spectral window channels
+.. [6] 
+   **selectdata** (bool=False)
+      | Other data selection parameters
+.. [7] 
+   **antenna** (string='')
+      | Antenna/baselines
+.. [8] 
+   **timerange** (string='')
+      | Time range
+.. [9] 
+   **correlation** (string='')
+      | Correlations
+.. [10] 
+   **scan** (string='')
+      | Scan numbers
+.. [11] 
+   **feed** (string='')
+      | Multi-feed numbers (Not yet implemented)
+.. [12] 
+   **array** (string='')
+      | Array numbers (Not yet implemented)
+.. [13] 
+   **observation** ({string, int}='')
+      | Select by observation ID(s)
+.. [14] 
+   **uvrange** (string='')
+      | uv range
+.. [15] 
+   **average** (string='')
+      | Averaging mode
+.. [16] 
+   **showflags** (bool=False)
+      | Show flagged data (Not yet implemented)
+.. [17] 
+   **pagerows** (int=50)
+      | Rows per page
+.. [18] 
+   **listfile** (string='')
+      | Output file
 
     """
     pass

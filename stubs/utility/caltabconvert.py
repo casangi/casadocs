@@ -7,10 +7,10 @@ def caltabconvert(caltabold='', vis='', ptype='complex', caltabnew=''):
 Convert old-style caltables into new-style caltables.
 
 Parameters
-   - **caltabold** (string='') - Name of the old-style caltable
-   - **vis** (string='') - Name of the visibility file (MS) associated with the old-style caltable.
-   - **ptype** (string='complex') - Type of data in the new-format caltable ("complex" or "float"; default is "complex").
-   - **caltabnew** (string='') - Name of the new-style caltable.  If not specified, the suffix ".new" is appended to the name of old-style caltable.
+   - **caltabold** (string='') - Name of the old-style caltable [1]_
+   - **vis** (string='') - Name of the visibility file (MS) associated with the old-style caltable. [2]_
+   - **ptype** (string='complex') - Type of data in the new-format caltable ("complex" or "float"; default is "complex"). [3]_
+   - **caltabnew** (string='') - Name of the new-style caltable.  If not specified, the suffix ".new" is appended to the name of old-style caltable. [4]_
 
 
 Description
@@ -58,6 +58,44 @@ Description
 
    | Name of the new-style caltable. By default, the suffix *.new* is
      appended to the name of the old-style caltable.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **caltabold** (string='')
+      | Name of the old-style caltable.
+      |                      Default: none
+      | 
+      |                         Example: caltabold='gronk.g0'
+.. [2] 
+   **vis** (string='')
+      | Name of the visibility file (MS) associated with the
+      | old-style caltable.
+      |                      Default: none
+      | 
+      |                         Example: 'blurp.ms'
+.. [3] 
+   **ptype** (string='complex')
+      | Type of data in the new-format caltable.
+      |                      Default: "complex"
+      |                      Options: "complex" or "float"
+      | 
+      |                      Note: The old-style caltables do not have this
+      |                      information, so it is imperative that users get
+      |                      it correct.  "complex" refers to caltables that
+      |                      have complex gains (e.g., produced by gaincal,
+      |                      bpcal, etc.). "float" refers to caltables that
+      |                      real numbers such as delays (e.g., produced by
+      |                      gencal).
+.. [4] 
+   **caltabnew** (string='')
+      | Name of the new-style caltable.  
+      |                      Default: '' (the suffix ".new" is appended to the
+      |                      name of old-style caltable)
 
     """
     pass

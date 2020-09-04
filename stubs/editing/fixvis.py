@@ -7,14 +7,14 @@ def fixvis(vis, outputvis='', field='""', refcode='', reuse=True, phasecenter=''
 Recalculates (u, v, w) and/or changes Phase Center 
 
 Parameters
-   - **vis** (string) - Name of input visibility file
-   - **outputvis** (string='') - Name of output visibility file
-   - **field** (variant='""') - Select field using field id(s) or field name(s)
-   - **refcode** (string='') - reference frame to convert UVW coordinates to
-   - **reuse** (bool=True) - base UVW calculation on the old values?
-   - **phasecenter** (string='') - use this direction as phase center
-   - **distances** (variant='""') - (experimental) List of the distances (as quanta) of the fields selected by field.
-   - **datacolumn** (string='all') - when applying a phase center shift, modify visibilities only in this/these column(s)
+   - **vis** (string) - Name of input visibility file [1]_
+   - **outputvis** (string='') - Name of output visibility file [2]_
+   - **field** (variant='""') - Select field using field id(s) or field name(s) [3]_
+   - **refcode** (string='') - reference frame to convert UVW coordinates to [4]_
+   - **reuse** (bool=True) - base UVW calculation on the old values? [5]_
+   - **phasecenter** (string='') - use this direction as phase center [6]_
+   - **distances** (variant='""') - (experimental) List of the distances (as quanta) of the fields selected by field. [7]_
+   - **datacolumn** (string='all') - when applying a phase center shift, modify visibilities only in this/these column(s) [8]_
 
 
 Description
@@ -107,6 +107,96 @@ Description
    When applying a phase center shift, modify visibilities only
    inthis/these column(s). Default: 'all' (DATA, CORRECTED, and
    MODEL). Example: 'DATA,CORRECTED' (will not modify MODEL).
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of input visibility file
+      |                      Default: none
+      | 
+      |                         Example: vis='ngc5921.ms'
+.. [2] 
+   **outputvis** (string='')
+      | Name of output visibility file
+      |                      Default: '' (same as vis)
+      | 
+      |                         Example: outputvis='ngc5921_out.ms'
+.. [3] 
+   **field** (variant='""')
+      | Select field using field id(s) or field name(s)
+      |                      Default: '' (all fields)
+      |                      
+      |                      Use 'go listobs' to obtain the list id's or
+      |                      names. If field string is a non-negative integer,
+      |                      it is assumed a field index,  otherwise, it is
+      |                      assumed a field name.
+      | 
+      |                         Examples:
+      |                         field='0~2'; field ids 0,1,2
+      |                         field='0,4,5~7'; field ids 0,4,5,6,7
+      |                         field='3C286,3C295'; field named 3C286 and
+      |                         3C295
+      |                         field = '3,4C*'; field id 3, all names
+      |                         starting with 4C
+.. [4] 
+   **refcode** (string='')
+      | Reference frame to convert UVW coordinates to
+      |                      Default: '' (refcode of PHASE_DIR in the FIELD
+      |                      table)
+      | 
+      |                         Example: refcode='B1950'
+.. [5] 
+   **reuse** (bool=True)
+      | Base UVW calculation on the old values?
+      |                      Default: True
+      |                      Options: True|False
+      | 
+      |                      Note: ignored if parameter 'phasecenter' is set
+.. [6] 
+   **phasecenter** (string='')
+      | If set to a valid direction: change the phase center for
+      | the given field to this value
+      |                      If given without the equinox, e.g. '0h01m00s
+      |                      +00d12m00s', the parameter is interpreted as a
+      |                      pair of offsets in RA and DEC to the present
+      |                      phasecenter.
+      | 
+      |                         Example: phasecenter='J2000 9h25m00s
+      |                         -05d12m00s'
+      | 
+      |                      Note: The RA offset can be given in units of time
+      |                      or angle. If given as a time (i.e. as a single
+      |                      number with a time unit as in, e.g., 12s or in
+      |                      the XXhXXmXXs or XX:XX:XX.XXX formats), it is
+      |                      applied as is. If given as an angle (e.g.,
+      |                      0.01deg), it is divided by the cos(DEC) before it
+      |                      is applied.
+.. [7] 
+   **distances** (variant='""')
+      | (experimental) List of the distances (as quanta) of the
+      | fields selected by field.
+      |                      Default: [] (the distances of all fields are
+      |                      assumed to be infinity.)
+      | 
+      |                      If not a list but just a single value is given,
+      |                      this is applied to all fields.
+      | 
+      |                         Examples: 
+      |                         distances=['2E6km', '3E6km']   
+      |                         distances='15au'
+.. [8] 
+   **datacolumn** (string='all')
+      | when applying a phase center shift, modify visibilities
+      | only in this/these column(s)
+      |                      Default: 'all' (DATA, CORRECTED, and MODEL)
+      | 
+      |                         Example: datacolumn='DATA,CORRECTED' (will not
+      |                         modify MODEL)
 
     """
     pass

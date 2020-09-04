@@ -7,11 +7,11 @@ def importfitsidi(fitsidifile, vis='', constobsid=False, scanreindexgap_s=0., sp
 Convert a FITS-IDI file to a CASA visibility data set
 
 Parameters
-   - **fitsidifile** (stringArray) - Name(s) of input FITS-IDI file(s)
-   - **vis** (string='') - Name of output visibility file
-   - **constobsid** (bool=False) - If True, give constant obs ID==0 to the data from all input fitsidi files (False = separate obs id for each file)
-   - **scanreindexgap_s** (double=0.) - Min time gap (seconds) between integrations to start a new scan
-   - **specframe** (string='GEO') - Spectral reference frame for all spectral windows in the output MS
+   - **fitsidifile** (stringArray) - Name(s) of input FITS-IDI file(s) [1]_
+   - **vis** (string='') - Name of output visibility file [2]_
+   - **constobsid** (bool=False) - If True, give constant obs ID==0 to the data from all input fitsidi files (False = separate obs id for each file) [3]_
+   - **scanreindexgap_s** (double=0.) - Min time gap (seconds) between integrations to start a new scan [4]_
+   - **specframe** (string='GEO') - Spectral reference frame for all spectral windows in the output MS [5]_
 
 
 Description
@@ -99,6 +99,55 @@ Description
       :sup:`1. E. Greisen,` `AIPS
       memo <http://www.aips.nrao.edu/aipsmemo.html>`__ :sup:`114,
       revised version` `<#ref-cit1>`__
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **fitsidifile** (stringArray)
+      | Name(s) of input FITS-IDI file(s)
+      |                      Default: none (must be supplied)
+      | 
+      |                         Examples: 
+      |                         fitsidifile='3C273XC1.IDI'
+      |                         fitsidifile=['3C273XC1.IDI1','3C273XC1.IDI2']
+.. [2] 
+   **vis** (string='')
+      | Name of output visibility file
+      |                      Default: none
+      | 
+      |                         Example: outputvis='3C273XC1.ms'
+.. [3] 
+   **constobsid** (bool=False)
+      | If True, give constant obs ID==0 to the data from all
+      | input fitsidi files (False = separate obs id for each file)
+      |                      Default: False (new obs id for each input file)
+      |                      Options: False|True
+.. [4] 
+   **scanreindexgap_s** (double=0.)
+      | Min time gap (seconds) between integrations to start a
+      | new scan
+      |                      Default: 0. (no reindexing)
+      | 
+      |                      If > 0., a new scan is started whenever the gap
+      |                      between two integrations is > the given value
+      |                      (seconds) or when a new field starts or when the
+      |                      ARRAY_ID changes.
+.. [5] 
+   **specframe** (string='GEO')
+      | This frame will be used to set the spectral reference
+      | frame for all spectral windows in the output MS
+      |                      Default: GEO (geocentric)
+      |                      Options: GEO|TOPO|LSRK|BARY
+      | 
+      |                      NOTE: if specframe is set to TOPO, the reference
+      |                      location will be taken from the Observatories
+      |                      table in the CASA data repository for the given
+      |                      name of the observatory. You can edit that table
+      |                      and add new rows.
 
     """
     pass

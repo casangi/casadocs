@@ -7,17 +7,17 @@ def rmfit(imagename, rm='', rmerr='', pa0='', pa0err='', nturns='', chisq='', si
 Calculate rotation measure.
 
 Parameters
-   - **imagename** (variant) - Name(s) of the input image(s). Must be specified.
-   - **rm** (string='') - Output rotation measure image name. If not specified, no image is written.
-   - **rmerr** (string='') - Output rotation measure error image name. If not specified, no image is written.
-   - **pa0** (string='') - Output position angle (degrees) at zero wavelength image name. If not specified, no image is written.
-   - **pa0err** (string='') - Output position angle (degrees) at zero wavelength error image name. If not specified, no image is written.
-   - **nturns** (string='') - Output number of turns image name. If not specified, no image is written.
-   - **chisq** (string='') - Output reduced chi squared image name. If not specified, no image is written.
-   - **sigma** (double=-1) - Estimate of the thermal noise.  A value less than 0 means auto estimate.
-   - **rmfg** (double=0.0) - Foreground rotation measure in rad/m/m to subtract.
-   - **rmmax** (double=0.0) - Maximum rotation measure in rad/m/m for which to solve. IMPORTANT TO SPECIFY.
-   - **maxpaerr** (double=1e30) - Maximum input position angle error in degrees to allow in solution determination.
+   - **imagename** (variant) - Name(s) of the input image(s). Must be specified. [1]_
+   - **rm** (string='') - Output rotation measure image name. If not specified, no image is written. [2]_
+   - **rmerr** (string='') - Output rotation measure error image name. If not specified, no image is written. [3]_
+   - **pa0** (string='') - Output position angle (degrees) at zero wavelength image name. If not specified, no image is written. [4]_
+   - **pa0err** (string='') - Output position angle (degrees) at zero wavelength error image name. If not specified, no image is written. [5]_
+   - **nturns** (string='') - Output number of turns image name. If not specified, no image is written. [6]_
+   - **chisq** (string='') - Output reduced chi squared image name. If not specified, no image is written. [7]_
+   - **sigma** (double=-1) - Estimate of the thermal noise.  A value less than 0 means auto estimate. [8]_
+   - **rmfg** (double=0.0) - Foreground rotation measure in rad/m/m to subtract. [9]_
+   - **rmmax** (double=0.0) - Maximum rotation measure in rad/m/m for which to solve. IMPORTANT TO SPECIFY. [10]_
+   - **maxpaerr** (double=1e30) - Maximum input position angle error in degrees to allow in solution determination. [11]_
 
 
 Description
@@ -90,6 +90,46 @@ Description
    Bibliography
       :sup:`1. Leahy et al. 1986, Astronomy & Astrophysics, 156,
       234` `(ADS) <http://adsabs.harvard.edu/full/1986A%26A...156..234L>`__ `<#ref-cit1>`__
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **imagename** (variant)
+      | Name(s) of the input image(s). Must be specified.
+.. [2] 
+   **rm** (string='')
+      | Output rotation measure image name. If not specified, no image is written.
+.. [3] 
+   **rmerr** (string='')
+      | Output rotation measure error image name. If not specified, no image is written.
+.. [4] 
+   **pa0** (string='')
+      | Output position angle (degrees) at zero wavelength image name. If not specified, no image is written.
+.. [5] 
+   **pa0err** (string='')
+      | Output position angle (degrees) at zero wavelength error image name. If not specified, no image is written.
+.. [6] 
+   **nturns** (string='')
+      | Output number of turns image name. If not specified, no image is written.
+.. [7] 
+   **chisq** (string='')
+      | Output reduced chi squared image name. If not specified, no image is written.
+.. [8] 
+   **sigma** (double=-1)
+      | Estimate of the thermal noise.  A value less than 0 means auto estimate.
+.. [9] 
+   **rmfg** (double=0.0)
+      | Foreground rotation measure in rad/m/m to subtract.
+.. [10] 
+   **rmmax** (double=0.0)
+      | Maximum rotation measure in rad/m/m for which to solve. IMPORTANT TO SPECIFY.
+.. [11] 
+   **maxpaerr** (double=1e30)
+      | Maximum input position angle error in degrees to allow in solution determination.
 
     """
     pass

@@ -7,17 +7,17 @@ def imrebin(imagename, outfile='', factor='', region='', box='', chans='', stoke
 Rebin an image by the specified integer factors
 
 Parameters
-   - **imagename** (string) - Name of the input image
-   - **outfile** (string='') - Output image name.
-   - **factor** (intArray='') - Binning factors for each axis. Use imhead or ia.summary to determine axis ordering.
-   - **region** (variant='') - Region selection. Default is to use the full image.
-   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
-   - **chans** (string='') - Channels to use. Default is to use all channels.
-   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes. Stokes planes cannot be rebinned.
-   - **mask** (string='') - Mask to use. Default is none.
-   - **dropdeg** (bool=False) - Drop degenerate axes?
-   - **overwrite** (bool=False) - Overwrite the output if it exists? Default False
-   - **crop** (bool=True) - Remove pixels from the end of an axis to be rebinned if there are not enough to form an integral bin?
+   - **imagename** (string) - Name of the input image [1]_
+   - **outfile** (string='') - Output image name. [2]_
+   - **factor** (intArray='') - Binning factors for each axis. Use imhead or ia.summary to determine axis ordering. [3]_
+   - **region** (variant='') - Region selection. Default is to use the full image. [4]_
+   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane. [5]_
+   - **chans** (string='') - Channels to use. Default is to use all channels. [6]_
+   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes. Stokes planes cannot be rebinned. [7]_
+   - **mask** (string='') - Mask to use. Default is none. [8]_
+   - **dropdeg** (bool=False) - Drop degenerate axes? [9]_
+   - **overwrite** (bool=False) - Overwrite the output if it exists? Default False [10]_
+   - **crop** (bool=True) - Remove pixels from the end of an axis to be rebinned if there are not enough to form an integral bin? [12]_
 
 
 Description
@@ -57,6 +57,49 @@ Description
    binning factors array must still account for degenerate axes, and
    the binning factor associated with a degenerate axis must always
    be 1.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **imagename** (string)
+      | Name of the input image
+.. [2] 
+   **outfile** (string='')
+      | Output image name.
+.. [3] 
+   **factor** (intArray='')
+      | Binning factors for each axis. Use imhead or ia.summary to determine axis ordering.
+.. [4] 
+   **region** (variant='')
+      | Region selection. Default is to use the full image.
+.. [5] 
+   **box** (string='')
+      | Rectangular region to select in direction plane. Default is to use the entire direction plane.
+.. [6] 
+   **chans** (string='')
+      | Channels to use. Default is to use all channels.
+.. [7] 
+   **stokes** (string='')
+      | Stokes planes to use. Default is to use all Stokes planes. Stokes planes cannot be rebinned.
+.. [8] 
+   **mask** (string='')
+      | Mask to use. Default is none.
+.. [9] 
+   **dropdeg** (bool=False)
+      | Drop degenerate axes?
+.. [10] 
+   **overwrite** (bool=False)
+      | Overwrite the output if it exists? Default False
+.. [11] 
+   **stretch** (bool=False)
+      | Stretch the mask if necessary and possible?
+.. [12] 
+   **crop** (bool=True)
+      | Remove pixels from the end of an axis to be rebinned if there are not enough to form an integral bin?
 
     """
     pass

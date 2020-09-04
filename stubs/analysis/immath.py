@@ -7,15 +7,15 @@ def immath(imagename='', mode='evalexpr', outfile='immath_results.im', expr='IM0
 Perform math operations on images
 
 Parameters
-   - **imagename** (variant='') - a list of input images 
-   - **mode** (string='evalexpr') - mode for math operation (evalexpr, spix, pola, poli, lpoli, tpoli)
+   - **imagename** (variant='') - a list of input images  [1]_
+   - **mode** (string='evalexpr') - mode for math operation (evalexpr, spix, pola, poli, lpoli, tpoli) [2]_
 
       .. raw:: html
 
          <details><summary><i> mode = evalexpr </i></summary>
 
-      - **expr** (string='IM0') - Mathematical expression using images
-      - **varnames** (variant='') - a list of variable names to use with the image files
+      - **expr** (string='IM0') - Mathematical expression using images [4]_
+      - **varnames** (variant='') - a list of variable names to use with the image files [5]_
 
       .. raw:: html
 
@@ -25,7 +25,7 @@ Parameters
 
          <details><summary><i> mode = poli </i></summary>
 
-      - **sigma** (string='0.0mJy/beam') - standard deviation of noise for debiasing
+      - **sigma** (string='0.0mJy/beam') - standard deviation of noise for debiasing [6]_
 
       .. raw:: html
 
@@ -35,7 +35,7 @@ Parameters
 
          <details><summary><i> mode = lpoli </i></summary>
 
-      - **sigma** (string='0.0mJy/beam') - standard deviation of noise for debiasing
+      - **sigma** (string='0.0mJy/beam') - standard deviation of noise for debiasing [6]_
 
       .. raw:: html
 
@@ -45,7 +45,7 @@ Parameters
 
          <details><summary><i> mode = tpoli </i></summary>
 
-      - **sigma** (string='0.0mJy/beam') - standard deviation of noise for debiasing
+      - **sigma** (string='0.0mJy/beam') - standard deviation of noise for debiasing [6]_
 
       .. raw:: html
 
@@ -55,19 +55,19 @@ Parameters
 
          <details><summary><i> mode = pola </i></summary>
 
-      - **polithresh** (string='') - Threshold in linear polarization intensity image below which to mask pixels.
+      - **polithresh** (string='') - Threshold in linear polarization intensity image below which to mask pixels. [7]_
 
       .. raw:: html
 
          </details>
-   - **outfile** (string='immath_results.im') - File where the output is saved
-   - **mask** (string='') - Mask to use. Default is none.
-   - **region** (string='') - Region selection. Default is to use the full image.
-   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
-   - **chans** (string='') - Channels to use. Default is to use all channels.
-   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes.
-   - **imagemd** (string='') - An image name from which metadata should be copied. The input can be either an image listed under imagename or any other image on disk. Leaving this parameter unset may copy header metadata from any of the input images, which one is not guaranteed. 
-   - **prec** (string='float') - Precision for the output image pixels if mode="evalexpr" or "spix". "float" or "double" (minimum match supported)
+   - **outfile** (string='immath_results.im') - File where the output is saved [3]_
+   - **mask** (string='') - Mask to use. Default is none. [8]_
+   - **region** (string='') - Region selection. Default is to use the full image. [9]_
+   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane. [10]_
+   - **chans** (string='') - Channels to use. Default is to use all channels. [11]_
+   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes. [12]_
+   - **imagemd** (string='') - An image name from which metadata should be copied. The input can be either an image listed under imagename or any other image on disk. Leaving this parameter unset may copy header metadata from any of the input images, which one is not guaranteed.  [14]_
+   - **prec** (string='float') - Precision for the output image pixels if mode="evalexpr" or "spix". "float" or "double" (minimum match supported) [15]_
 
 
 Description
@@ -349,6 +349,58 @@ Description
    Specifies what the precision type, float or double (minimum match
    supported), should be for the output image. Only used if
    mode='evalexpr' or 'spix'.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **imagename** (variant='')
+      | a list of input images
+.. [2] 
+   **mode** (string='evalexpr')
+      | mode for math operation (evalexpr, spix, pola, poli, lpoli, tpoli)
+.. [3] 
+   **outfile** (string='immath_results.im')
+      | File where the output is saved
+.. [4] 
+   **expr** (string='IM0')
+      | Mathematical expression using images
+.. [5] 
+   **varnames** (variant='')
+      | a list of variable names to use with the image files
+.. [6] 
+   **sigma** (string='0.0mJy/beam')
+      | standard deviation of noise for debiasing
+.. [7] 
+   **polithresh** (string='')
+      | Threshold in linear polarization intensity image below which to mask pixels.
+.. [8] 
+   **mask** (string='')
+      | Mask to use. Default is none.
+.. [9] 
+   **region** (string='')
+      | Region selection. Default is to use the full image.
+.. [10] 
+   **box** (string='')
+      | Rectangular region to select in direction plane. Default is to use the entire direction plane.
+.. [11] 
+   **chans** (string='')
+      | Channels to use. Default is to use all channels.
+.. [12] 
+   **stokes** (string='')
+      | Stokes planes to use. Default is to use all Stokes planes.
+.. [13] 
+   **stretch** (bool=False)
+      | Stretch the mask if necessary and possible? See help stretch.par
+.. [14] 
+   **imagemd** (string='')
+      | An image name from which metadata should be copied. The input can be either an image listed under imagename or any other image on disk. Leaving this parameter unset may copy header metadata from any of the input images, which one is not guaranteed.
+.. [15] 
+   **prec** (string='float')
+      | Precision for the output image pixels if mode="evalexpr" or "spix". "float" or "double" (minimum match supported)
 
     """
     pass

@@ -7,14 +7,14 @@ def visstat(vis, axis='amplitude', datacolumn='data', useflags=True, spw='', fie
 Displays statistical information from a MeasurementSet, or from a Multi-MS
 
 Parameters
-   - **vis** (string) - Name of MeasurementSet or Multi-MS
-   - **axis** (string='amplitude') - Values on which to compute statistics
+   - **vis** (string) - Name of MeasurementSet or Multi-MS [1]_
+   - **axis** (string='amplitude') - Values on which to compute statistics [2]_
 
       .. raw:: html
 
          <details><summary><i> axis = amp </i></summary>
 
-      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data)
+      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data) [3]_
 
       .. raw:: html
 
@@ -24,7 +24,7 @@ Parameters
 
          <details><summary><i> axis = amplitude </i></summary>
 
-      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data)
+      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data) [3]_
 
       .. raw:: html
 
@@ -34,7 +34,7 @@ Parameters
 
          <details><summary><i> axis = phase </i></summary>
 
-      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data)
+      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data) [3]_
 
       .. raw:: html
 
@@ -44,7 +44,7 @@ Parameters
 
          <details><summary><i> axis = real </i></summary>
 
-      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data)
+      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data) [3]_
 
       .. raw:: html
 
@@ -54,7 +54,7 @@ Parameters
 
          <details><summary><i> axis = imag </i></summary>
 
-      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data)
+      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data) [3]_
 
       .. raw:: html
 
@@ -64,46 +64,46 @@ Parameters
 
          <details><summary><i> axis = imaginary </i></summary>
 
-      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data)
+      - **datacolumn** (string='data') - Which data column to use (data, corrected, model, float_data) [3]_
 
       .. raw:: html
 
          </details>
-   - **useflags** (bool=True) - Take flagging into account?
-   - **spw** (string='') - spectral-window/frequency/channel
-   - **field** (string='') - Field names or field index numbers: \'\'==>all, field=\'0~2,3C286\'
-   - **selectdata** (bool=True) - More data selection parameters (antenna, timerange etc)
+   - **useflags** (bool=True) - Take flagging into account? [4]_
+   - **spw** (string='') - spectral-window/frequency/channel [5]_
+   - **field** (string='') - Field names or field index numbers: \'\'==>all, field=\'0~2,3C286\' [6]_
+   - **selectdata** (bool=True) - More data selection parameters (antenna, timerange etc) [7]_
 
       .. raw:: html
 
          <details><summary><i> selectdata = True </i></summary>
 
-      - **antenna** (string='') - antenna/baselines: \'\'==>all, antenna = \'3,VA04\'
-      - **timerange** (string='') - time range: \'\'==>all, timerange=\'09:14:0~09:54:0\'
-      - **correlation** (string='') - Select data based on correlation
-      - **scan** (string='') - scan numbers: \'\'==>all
-      - **array** (string='') - (sub)array numbers: \'\'==>all
-      - **observation** ({string, int}='') - observation ID number(s): \'\' = all
-      - **uvrange** (string='') - uv range: \'\'==>all; uvrange = \'0~100klambda\', default units=meters
+      - **antenna** (string='') - antenna/baselines: \'\'==>all, antenna = \'3,VA04\' [8]_
+      - **timerange** (string='') - time range: \'\'==>all, timerange=\'09:14:0~09:54:0\' [10]_
+      - **correlation** (string='') - Select data based on correlation [11]_
+      - **scan** (string='') - scan numbers: \'\'==>all [12]_
+      - **array** (string='') - (sub)array numbers: \'\'==>all [13]_
+      - **observation** ({string, int}='') - observation ID number(s): \'\' = all [14]_
+      - **uvrange** (string='') - uv range: \'\'==>all; uvrange = \'0~100klambda\', default units=meters [9]_
 
       .. raw:: html
 
          </details>
-   - **timeaverage** (bool=False) - Average data in time.
+   - **timeaverage** (bool=False) - Average data in time. [15]_
 
       .. raw:: html
 
          <details><summary><i> timeaverage = True </i></summary>
 
-      - **timebin** (string='0s') - Bin width for time averaging.
-      - **timespan** ({string, stringArray}='') - Span the timebin across scan, state or both.
-      - **maxuvwdistance** (double=0.0) - Maximum separation of start-to-end baselines that can be included in an average. (meters)
+      - **timebin** (string='0s') - Bin width for time averaging. [16]_
+      - **timespan** ({string, stringArray}='') - Span the timebin across scan, state or both. [17]_
+      - **maxuvwdistance** (double=0.0) - Maximum separation of start-to-end baselines that can be included in an average. (meters) [18]_
 
       .. raw:: html
 
          </details>
-   - **intent** ({string, stringArray, int, intArray}='') - Select data by scan intent.
-   - **reportingaxes** (string='ddid') - Which reporting axis to use (ddid, field, integration)
+   - **intent** ({string, stringArray, int, intArray}='') - Select data by scan intent. [23]_
+   - **reportingaxes** (string='ddid') - Which reporting axis to use (ddid, field, integration) [24]_
 
 
 Description
@@ -161,6 +161,85 @@ Description
       spectral windows, each having a different number of
       channels,usespw='2' torun visstat onhomogenous data within
       the MS.
+
+
+
+
+Details
+   Explanation of each parameter
+
+.. [1] 
+   **vis** (string)
+      | Name of MeasurementSet or Multi-MS
+.. [2] 
+   **axis** (string='amplitude')
+      | Values on which to compute statistics
+.. [3] 
+   **datacolumn** (string='data')
+      | Which data column to use (data, corrected, model, float_data)
+.. [4] 
+   **useflags** (bool=True)
+      | Take flagging into account?
+.. [5] 
+   **spw** (string='')
+      | spectral-window/frequency/channel
+.. [6] 
+   **field** (string='')
+      | Field names or field index numbers: \'\'==>all, field=\'0~2,3C286\'
+.. [7] 
+   **selectdata** (bool=True)
+      | More data selection parameters (antenna, timerange etc)
+.. [8] 
+   **antenna** (string='')
+      | antenna/baselines: \'\'==>all, antenna = \'3,VA04\'
+.. [9] 
+   **uvrange** (string='')
+      | uv range: \'\'==>all; uvrange = \'0~100klambda\', default units=meters
+.. [10] 
+   **timerange** (string='')
+      | time range: \'\'==>all, timerange=\'09:14:0~09:54:0\'
+.. [11] 
+   **correlation** (string='')
+      | Select data based on correlation
+.. [12] 
+   **scan** (string='')
+      | scan numbers: \'\'==>all
+.. [13] 
+   **array** (string='')
+      | (sub)array numbers: \'\'==>all
+.. [14] 
+   **observation** ({string, int}='')
+      | observation ID number(s): \'\' = all
+.. [15] 
+   **timeaverage** (bool=False)
+      | Average data in time.
+.. [16] 
+   **timebin** (string='0s')
+      | Bin width for time averaging.
+.. [17] 
+   **timespan** ({string, stringArray}='')
+      | Span the timebin across scan, state or both.
+.. [18] 
+   **maxuvwdistance** (double=0.0)
+      | Maximum separation of start-to-end baselines that can be included in an average. (meters)
+.. [19] 
+   **disableparallel** (bool=False)
+      | Hidden parameter for internal use only. Do not change it!
+.. [20] 
+   **ddistart** (int=-1)
+      | Hidden parameter for internal use only. Do not change it!
+.. [21] 
+   **taql** (string='')
+      | Table query for nested selections
+.. [22] 
+   **monolithic_processing** (bool=False)
+      | Hidden parameter for internal use only. Do not change it!
+.. [23] 
+   **intent** ({string, stringArray, int, intArray}='')
+      | Select data by scan intent.
+.. [24] 
+   **reportingaxes** (string='ddid')
+      | Which reporting axis to use (ddid, field, integration)
 
     """
     pass
