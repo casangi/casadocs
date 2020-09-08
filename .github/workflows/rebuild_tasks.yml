@@ -1,0 +1,32 @@
+# This workflow will rebuild task stub directory when changes happen in the docs/tasks rst files
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Rebuild Task Stubs
+
+on:
+  push:
+    branches: [ master ]
+    paths: 'build/tasks/*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run a one-line script
+      run: python ./scripts/parse_tasks.py
+    - name: switching from HTTPS to SSH
+      run: git remote set-url origin ${{ secrets.ssh }}
+    - name: check for changes
+      run: git status
+    - name: stage changed files
+      run: git add .
+    - name: commit changed files
+      run: git commit -m "Auto updating TODO.txt"
+    - name: fetch from master
+      run: git fetch origin master
+    - name: push code to master
+      run: git push origin HEAD:master
+  
