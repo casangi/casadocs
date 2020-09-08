@@ -1,4 +1,4 @@
-from .fixplanets import *
-from .fixvis import *
 from .flagdata import *
+from .fixplanets import *
 from .flagmanager import *
+from .fixvis import *
