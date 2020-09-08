@@ -16,7 +16,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Run a one-line script
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Run script
       run: python ./scripts/parse_tasks.py
     - name: switching from HTTPS to SSH
       run: git remote set-url origin ${{ secrets.ssh }}
