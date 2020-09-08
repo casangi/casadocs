@@ -99,5 +99,5 @@ Description
    Any data outside the maximum uv distance that the SD has
    illuminated is filtered out.
 
-.. |c54b9bc64427577246358518c70157487bed008a| image:: docs/tasks/_apimedia/c54b9bc64427577246358518c70157487bed008a.png
+.. |c54b9bc64427577246358518c70157487bed008a| image:: ../media/c54b9bc64427577246358518c70157487bed008a.png
 :class: image-inline
