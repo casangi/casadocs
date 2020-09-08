@@ -74,9 +74,3 @@ Description
    stokes='I' only. Support for polarization-dependent sensitivity
    estimates will be added in future.
 
-   
-
-   .. rubric:: **
-      
-
-   .. rubric:: **
