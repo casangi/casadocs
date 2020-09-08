@@ -7,16 +7,16 @@ def flagmanager(vis, mode='list', versionname='', oldname='', comment='', merge=
 Enable list, save, restore, delete and rename flag version files.
 
 Parameters
-   - **vis** (string) - Name of input visibility file (MS) [1]_
-   - **mode** (string='list') - Operation: list, save, restore, delete, rename [2]_
+   - vis_ (string) - Name of input visibility file (MS)
+   - mode_ (string='list') - Operation: list, save, restore, delete, rename
 
       .. raw:: html
 
          <details><summary><i> mode = save </i></summary>
 
-      - **versionname** (string='') - Flag version name [3]_
-      - **comment** (string='') - Short description of a versionname [5]_
-      - **merge** (string='replace') - Merge option: replace will save or over-write the flags [6]_
+      - versionname_ (string='') - Flag version name
+      - comment_ (string='') - Short description of a versionname
+      - merge_ (string='replace') - Merge option: replace will save or over-write the flags
 
       .. raw:: html
 
@@ -26,8 +26,8 @@ Parameters
 
          <details><summary><i> mode = restore </i></summary>
 
-      - **versionname** (string='') - Flag version name [3]_
-      - **merge** (string='replace') - Merge option: replace will save or over-write the flags [6]_
+      - versionname_ (string='') - Flag version name
+      - merge_ (string='replace') - Merge option: replace will save or over-write the flags
 
       .. raw:: html
 
@@ -37,7 +37,7 @@ Parameters
 
          <details><summary><i> mode = delete </i></summary>
 
-      - **versionname** (string='') - Flag version name [3]_
+      - versionname_ (string='') - Flag version name
 
       .. raw:: html
 
@@ -47,9 +47,9 @@ Parameters
 
          <details><summary><i> mode = rename </i></summary>
 
-      - **oldname** (string='') - Flag version to rename [4]_
-      - **versionname** (string='') - Flag version name [3]_
-      - **comment** (string='') - Short description of a versionname [5]_
+      - oldname_ (string='') - Flag version to rename
+      - versionname_ (string='') - Flag version name
+      - comment_ (string='') - Short description of a versionname
 
       .. raw:: html
 
@@ -154,24 +154,42 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file (MS)
-.. [2] 
-   **mode** (string='list')
-      | Operation: list, save, restore, delete, rename
-.. [3] 
-   **versionname** (string='')
-      | Flag version name
-.. [4] 
-   **oldname** (string='')
-      | Flag version to rename
-.. [5] 
-   **comment** (string='')
-      | Short description of a versionname
-.. [6] 
-   **merge** (string='replace')
-      | Merge option: replace will save or over-write the flags
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file (MS)
+
+.. _mode:
+
+   .. rubric:: mode
+
+   | Operation: list, save, restore, delete, rename
+
+.. _versionname:
+
+   .. rubric:: versionname
+
+   | Flag version name
+
+.. _oldname:
+
+   .. rubric:: oldname
+
+   | Flag version to rename
+
+.. _comment:
+
+   .. rubric:: comment
+
+   | Short description of a versionname
+
+.. _merge:
+
+   .. rubric:: merge
+
+   | Merge option: replace will save or over-write the flags
+
 
     """
     pass

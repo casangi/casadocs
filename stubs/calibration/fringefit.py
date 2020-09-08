@@ -7,47 +7,47 @@ def fringefit(vis, caltable='', field='', spw='', intent='', selectdata=True, ti
 Fringe fit delay and rates
 
 Parameters
-   - **vis** (string) - Name of input visibility file [1]_
-   - **caltable** (string='') - Name of output gain calibration table [2]_
-   - **field** (string='') - Select field using field id(s) or field name(s) [3]_
-   - **spw** (string='') - Select spectral window/channels [4]_
-   - **intent** (string='') - Select observing intent [5]_
-   - **selectdata** (bool=True) - Other data selection parameters [6]_
+   - vis_ (string) - Name of input visibility file
+   - caltable_ (string='') - Name of output gain calibration table
+   - field_ (string='') - Select field using field id(s) or field name(s)
+   - spw_ (string='') - Select spectral window/channels
+   - intent_ (string='') - Select observing intent
+   - selectdata_ (bool=True) - Other data selection parameters
 
       .. raw:: html
 
          <details><summary><i> selectdata = True </i></summary>
 
-      - **timerange** (string='') - Select data based on time range [7]_
-      - **antenna** (string='') - Select data based on antenna/baseline [8]_
-      - **scan** (string='') - Scan number range [9]_
-      - **observation** ({string, int}='') - Select by observation ID(s) [10]_
-      - **msselect** (string='') - Optional complex data selection (ignore for now) [11]_
+      - timerange_ (string='') - Select data based on time range
+      - antenna_ (string='') - Select data based on antenna/baseline
+      - scan_ (string='') - Scan number range
+      - observation_ ({string, int}='') - Select by observation ID(s)
+      - msselect_ (string='') - Optional complex data selection (ignore for now)
 
       .. raw:: html
 
          </details>
-   - **solint** (variant='inf') - Solution interval: egs. \'inf\', \'60s\' (see help) [12]_
-   - **combine** (string='') - Data axes which to combine for solve (obs, scan, spw, and/or field) [13]_
-   - **refant** (string='') - Reference antenna name(s) [14]_
-   - **minsnr** (double=3.0) - Reject solutions below this signal-to-noise ratio (at the FFT stage) [15]_
-   - **zerorates** (bool=False) - Zero delay-rates in solution table [16]_
-   - **globalsolve** (bool=True) - Refine estimates of delay and rate with global least-squares solver [17]_
-   - **niter** (int=100) - Maximum number of iterations for least-squares solver [18]_
-   - **delaywindow** (doubleArray=['']) - Constrain FFT delay search to a window [19]_
-   - **ratewindow** (doubleArray=['']) - Constrain FFT rate search to a window [20]_
-   - **append** (bool=False) - Append solutions to the (existing) table [21]_
-   - **corrdepflags** (bool=False) - Respect correlation-dependent flags [22]_
-   - **docallib** (bool=False) - Use callib or traditional cal apply parameters [23]_
+   - solint_ (variant='inf') - Solution interval: egs. \'inf\', \'60s\' (see help)
+   - combine_ (string='') - Data axes which to combine for solve (obs, scan, spw, and/or field)
+   - refant_ (string='') - Reference antenna name(s)
+   - minsnr_ (double=3.0) - Reject solutions below this signal-to-noise ratio (at the FFT stage)
+   - zerorates_ (bool=False) - Zero delay-rates in solution table
+   - globalsolve_ (bool=True) - Refine estimates of delay and rate with global least-squares solver
+   - niter_ (int=100) - Maximum number of iterations for least-squares solver
+   - delaywindow_ (doubleArray=['']) - Constrain FFT delay search to a window
+   - ratewindow_ (doubleArray=['']) - Constrain FFT rate search to a window
+   - append_ (bool=False) - Append solutions to the (existing) table
+   - corrdepflags_ (bool=False) - Respect correlation-dependent flags
+   - docallib_ (bool=False) - Use callib or traditional cal apply parameters
 
       .. raw:: html
 
          <details><summary><i> docallib = False </i></summary>
 
-      - **gaintable** (stringArray=['']) - Gain calibration table(s) to apply on the fly [25]_
-      - **gainfield** (stringArray=['']) - Select a subset of calibrators from gaintable(s) [26]_
-      - **interp** (stringArray=['']) - Temporal interpolation for each gaintable (''=linear) [27]_
-      - **spwmap** (intArray=['']) - Spectral window mappings to form for gaintable(s) [28]_
+      - gaintable_ (stringArray=['']) - Gain calibration table(s) to apply on the fly
+      - gainfield_ (stringArray=['']) - Select a subset of calibrators from gaintable(s)
+      - interp_ (stringArray=['']) - Temporal interpolation for each gaintable (''=linear)
+      - spwmap_ (intArray=['']) - Spectral window mappings to form for gaintable(s)
 
       .. raw:: html
 
@@ -57,13 +57,13 @@ Parameters
 
          <details><summary><i> docallib = True </i></summary>
 
-      - **callib** (string='') - Cal Library filename [24]_
+      - callib_ (string='') - Cal Library filename
 
       .. raw:: html
 
          </details>
-   - **paramactive** (boolArray=['']) - Control which parameters are solved for [29]_
-   - **parang** (bool=False) - Apply parallactic angle correction on the fly [30]_
+   - paramactive_ (boolArray=['']) - Control which parameters are solved for
+   - parang_ (bool=False) - Apply parallactic angle correction on the fly
 
 
 Description
@@ -290,198 +290,288 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file
-.. [2] 
-   **caltable** (string='')
-      | Name of output gain calibration table
-.. [3] 
-   **field** (string='')
-      | Select field using field id(s) or field name(s)
-.. [4] 
-   **spw** (string='')
-      | Select spectral window/channels
-.. [5] 
-   **intent** (string='')
-      | Select observing intent
-.. [6] 
-   **selectdata** (bool=True)
-      | Other data selection parameters
-.. [7] 
-   **timerange** (string='')
-      | Select data based on time range
-.. [8] 
-   **antenna** (string='')
-      | Select data based on antenna/baseline
-.. [9] 
-   **scan** (string='')
-      | Scan number range
-.. [10] 
-   **observation** ({string, int}='')
-      | Select by observation ID(s)
-.. [11] 
-   **msselect** (string='')
-      | Optional complex data selection (ignore for now)
-.. [12] 
-   **solint** (variant='inf')
-      | Solution interval: egs. \'inf\', \'60s\' (see help)
-.. [13] 
-   **combine** (string='')
-      | Data axes which to combine for solve (obs, scan, spw, and/or field)
-.. [14] 
-   **refant** (string='')
-      | Reference antenna name(s)
-.. [15] 
-   **minsnr** (double=3.0)
-      | Reject solutions below this signal-to-noise ratio (at the FFT stage)
-.. [16] 
-   **zerorates** (bool=False)
-      | Zero delay-rates in solution table
-      | 
-      |         Write a solution table with delay-rates zeroed, for the case of
-      |     "manual phase calibration", so that the calibration table can be
-      |     applied to the full dataset without the extrapolation of a non-zero delay-rate term
-      |     affecting the data
-.. [17] 
-   **globalsolve** (bool=True)
-      | Refine estimates of delay and rate with global least-squares solver
-.. [18] 
-   **niter** (int=100)
-      | Maximum number of iterations for least-squares solver
-.. [19] 
-   **delaywindow** (doubleArray=[''])
-      | Constrain FFT delay search to a window specified as a two-element list with units of nanoseconds
-      |     Default: [None, None]
-      |     Examples: [-10, 10]
-.. [20] 
-   **ratewindow** (doubleArray=[''])
-      | Constrain FFT rate search to a window specified as a two-element list with units of seconds per second
-      |       Default: [None, None]
-      |       Examples: [-1e-13, 1e-13]
-.. [21] 
-   **append** (bool=False)
-      | Append solutions to the (existing) table
-      |     Default: False (overwrite existing table or make
-      |     new table)
-      | 
-      |     Appended solutions must be derived from the same
-      |     MS as the existing caltable, and solution spws
-      |     must have the same meta-info (according to spw
-      |     selection and solint) or be non-overlapping.
-.. [22] 
-   **corrdepflags** (bool=False)
-      | If False (default), if any correlation is flagged, treat all correlations in
-      |         the visibility vector as flagged when solving (per channel, per baseline).
-      |         If True, use unflagged correlations in a visibility vector, even if one or more
-      |         other correlations are flagged.
-      |               
-      |         Default: False (treat correlation vectors with one or more correlations flagged as entirely flagged)
-      |   
-      |         Traditionally, CASA has observed a strict interpretation of 
-      |         correlation-dependent flags: if one or more correlations 
-      |         (for any baseline and channel) is flagged, then all available 
-      |         correlations for the same baseline and channel are 
-      |         treated as flagged.  However, it is desirable in some 
-      |         circumstances to relax this stricture, e.g., to preserve use
-      |         of data from antennas with only one good polarization (e.g., one polarization
-      |         is bad or entirely absent).  Solutions for the bad or missing polarization 
-      |         will be rendered as flagged.
-.. [23] 
-   **docallib** (bool=False)
-      | Control means of specifying the caltables
-      |                      Default: False (Use gaintable, gainfield, interp,
-      |                      spwmap, calwt)
-      |                      Options: False|True
-      | 
-      |                      If True, specify a file containing cal library in
-      |                      callib
-.. [24] 
-   **callib** (string='')
-      | Specify a file containing cal library directives
-      |     Subparameter of docallib=True
-.. [25] 
-   **gaintable** (stringArray=[''])
-      | Gain calibration table(s) to apply on the fly
-      |     Default: '' (none)
-      |     Subparameter of docallib=False
-      |     Examples: 
-      |     gaintable='ngc5921.gcal'
-      |     gaintable=['ngc5921.ampcal','ngc5921.phcal']
-.. [26] 
-   **gainfield** (stringArray=[''])
-      | Select a subset of calibrators from gaintable(s)
-      |     Default: '' (all sources on the sky)
-      | 
-      |     'nearest' ==> nearest (on sky) available field in
-      |     table otherwise, same syntax as field
-      | 
-      |     Examples: 
-      |     gainfield='0~2,5' means use fields 0,1,2,5
-      |     from gaintable
-      |     gainfield=['0~3','4~6'] means use field 0
-      |     through 3
-.. [27] 
-   **interp** (stringArray=[''])
-      | Interpolation parameters (in time[,freq]) for each gaintable, as a list of strings.
-      |     Default: '' --> 'linear,linear' for all gaintable(s)
-      |     Options: Time: 'nearest', 'linear'
-      |     Freq: 'nearest', 'linear', 'cubic',
-      |     'spline'
-      |     Specify a list of strings, aligned with the list of caltable specified
-      |     in gaintable, that contain the required interpolation parameters
-      |     for each caltable.
-      |     * When frequency interpolation is relevant (B, Df,
-      |     Xf), separate time-dependent and freq-dependent
-      |     interp types with a comma (freq_after_ the
-      |     comma). 
-      |     * Specifications for frequency are ignored when the
-      |     calibration table has no channel-dependence. 
-      |     * Time-dependent interp options ending in 'PD'
-      |     enable a "phase delay" correction per spw for
-      |     non-channel-dependent calibration types.
-      |     * For multi-obsId datasets, 'perobs' can be
-      |     appended to the time-dependent interpolation
-      |     specification to enforce obsId boundaries when
-      |     interpolating in time. 
-      |     * Freq-dependent interp options can have 'flag' appended
-      |     to enforce channel-dependent flagging, and/or 'rel' 
-      |     appended to invoke relative frequency interpolation
-      | 
-      |     Examples: 
-      |     interp='nearest' (in time, freq-dep will be
-      |     linear, if relevant)
-      |     interp='linear,cubic'  (linear in time, cubic
-      |     in freq)
-      |     interp='linearperobs,splineflag' (linear in
-      |     time per obsId, spline in freq with
-      |     channelized flagging)
-      |     interp='nearest,linearflagrel' (nearest in
-      |     time, linear in freq with with channelized 
-      |     flagging and relative-frequency interpolation)
-      |     interp=',spline'  (spline in freq; linear in
-      |     time by default)
-      |     interp=['nearest,spline','linear']  (for
-      |     multiple gaintables)
-.. [28] 
-   **spwmap** (intArray=[''])
-      | Spectral window mappings to form for gaintable(s)
-      |                      Only used if callib=False
-      |                      default: [] (apply solutions from each calibration spw to
-      |                      the same MS spw only)
-      |                      Any available calibration spw can be mechanically mapped to any 
-      |                       MS spw. 
-      |                      Examples:
-      |                         spwmap=[0,0,1,1] means apply calibration 
-      |                           from cal spw = 0 to MS spw 0,1 and cal spw 1 to MS spws 2,3.
-      |                         spwmap=[[0,0,1,1],[0,1,0,1]] (use a list of lists for multiple
-      |                           gaintables)
-.. [29] 
-   **paramactive** (boolArray=[''])
-      | Control which parameters are solved for; a vector of (exactly) three booleans for delay, delay-rate and dispersive delay (in that order)
-.. [30] 
-   **parang** (bool=False)
-      | Apply parallactic angle correction on the fly.
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file
+
+.. _caltable:
+
+   .. rubric:: caltable
+
+   | Name of output gain calibration table
+
+.. _field:
+
+   .. rubric:: field
+
+   | Select field using field id(s) or field name(s)
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | Select spectral window/channels
+
+.. _intent:
+
+   .. rubric:: intent
+
+   | Select observing intent
+
+.. _selectdata:
+
+   .. rubric:: selectdata
+
+   | Other data selection parameters
+
+.. _timerange:
+
+   .. rubric:: timerange
+
+   | Select data based on time range
+
+.. _antenna:
+
+   .. rubric:: antenna
+
+   | Select data based on antenna/baseline
+
+.. _scan:
+
+   .. rubric:: scan
+
+   | Scan number range
+
+.. _observation:
+
+   .. rubric:: observation
+
+   | Select by observation ID(s)
+
+.. _msselect:
+
+   .. rubric:: msselect
+
+   | Optional complex data selection (ignore for now)
+
+.. _solint:
+
+   .. rubric:: solint
+
+   | Solution interval: egs. \'inf\', \'60s\' (see help)
+
+.. _combine:
+
+   .. rubric:: combine
+
+   | Data axes which to combine for solve (obs, scan, spw, and/or field)
+
+.. _refant:
+
+   .. rubric:: refant
+
+   | Reference antenna name(s)
+
+.. _minsnr:
+
+   .. rubric:: minsnr
+
+   | Reject solutions below this signal-to-noise ratio (at the FFT stage)
+
+.. _zerorates:
+
+   .. rubric:: zerorates
+
+   | Zero delay-rates in solution table
+   | 
+   |         Write a solution table with delay-rates zeroed, for the case of
+   |     "manual phase calibration", so that the calibration table can be
+   |     applied to the full dataset without the extrapolation of a non-zero delay-rate term
+   |     affecting the data
+
+.. _globalsolve:
+
+   .. rubric:: globalsolve
+
+   | Refine estimates of delay and rate with global least-squares solver
+
+.. _niter:
+
+   .. rubric:: niter
+
+   | Maximum number of iterations for least-squares solver
+
+.. _delaywindow:
+
+   .. rubric:: delaywindow
+
+   | Constrain FFT delay search to a window specified as a two-element list with units of nanoseconds
+   |     Default: [None, None]
+   |     Examples: [-10, 10]
+
+.. _ratewindow:
+
+   .. rubric:: ratewindow
+
+   | Constrain FFT rate search to a window specified as a two-element list with units of seconds per second
+   |       Default: [None, None]
+   |       Examples: [-1e-13, 1e-13]
+
+.. _append:
+
+   .. rubric:: append
+
+   | Append solutions to the (existing) table
+   |     Default: False (overwrite existing table or make
+   |     new table)
+   | 
+   |     Appended solutions must be derived from the same
+   |     MS as the existing caltable, and solution spws
+   |     must have the same meta-info (according to spw
+   |     selection and solint) or be non-overlapping.
+
+.. _corrdepflags:
+
+   .. rubric:: corrdepflags
+
+   | If False (default), if any correlation is flagged, treat all correlations in
+   |         the visibility vector as flagged when solving (per channel, per baseline).
+   |         If True, use unflagged correlations in a visibility vector, even if one or more
+   |         other correlations are flagged.
+   |               
+   |         Default: False (treat correlation vectors with one or more correlations flagged as entirely flagged)
+   |   
+   |         Traditionally, CASA has observed a strict interpretation of 
+   |         correlation-dependent flags: if one or more correlations 
+   |         (for any baseline and channel) is flagged, then all available 
+   |         correlations for the same baseline and channel are 
+   |         treated as flagged.  However, it is desirable in some 
+   |         circumstances to relax this stricture, e.g., to preserve use
+   |         of data from antennas with only one good polarization (e.g., one polarization
+   |         is bad or entirely absent).  Solutions for the bad or missing polarization 
+   |         will be rendered as flagged.
+
+.. _docallib:
+
+   .. rubric:: docallib
+
+   | Control means of specifying the caltables
+   |                      Default: False (Use gaintable, gainfield, interp,
+   |                      spwmap, calwt)
+   |                      Options: False|True
+   | 
+   |                      If True, specify a file containing cal library in
+   |                      callib
+
+.. _callib:
+
+   .. rubric:: callib
+
+   | Specify a file containing cal library directives
+   |     Subparameter of docallib=True
+
+.. _gaintable:
+
+   .. rubric:: gaintable
+
+   | Gain calibration table(s) to apply on the fly
+   |     Default: '' (none)
+   |     Subparameter of docallib=False
+   |     Examples: 
+   |     gaintable='ngc5921.gcal'
+   |     gaintable=['ngc5921.ampcal','ngc5921.phcal']
+
+.. _gainfield:
+
+   .. rubric:: gainfield
+
+   | Select a subset of calibrators from gaintable(s)
+   |     Default: '' (all sources on the sky)
+   | 
+   |     'nearest' ==> nearest (on sky) available field in
+   |     table otherwise, same syntax as field
+   | 
+   |     Examples: 
+   |     gainfield='0~2,5' means use fields 0,1,2,5
+   |     from gaintable
+   |     gainfield=['0~3','4~6'] means use field 0
+   |     through 3
+
+.. _interp:
+
+   .. rubric:: interp
+
+   | Interpolation parameters (in time[,freq]) for each gaintable, as a list of strings.
+   |     Default: '' --> 'linear,linear' for all gaintable(s)
+   |     Options: Time: 'nearest', 'linear'
+   |     Freq: 'nearest', 'linear', 'cubic',
+   |     'spline'
+   |     Specify a list of strings, aligned with the list of caltable specified
+   |     in gaintable, that contain the required interpolation parameters
+   |     for each caltable.
+   |     * When frequency interpolation is relevant (B, Df,
+   |     Xf), separate time-dependent and freq-dependent
+   |     interp types with a comma (freq_after_ the
+   |     comma). 
+   |     * Specifications for frequency are ignored when the
+   |     calibration table has no channel-dependence. 
+   |     * Time-dependent interp options ending in 'PD'
+   |     enable a "phase delay" correction per spw for
+   |     non-channel-dependent calibration types.
+   |     * For multi-obsId datasets, 'perobs' can be
+   |     appended to the time-dependent interpolation
+   |     specification to enforce obsId boundaries when
+   |     interpolating in time. 
+   |     * Freq-dependent interp options can have 'flag' appended
+   |     to enforce channel-dependent flagging, and/or 'rel' 
+   |     appended to invoke relative frequency interpolation
+   | 
+   |     Examples: 
+   |     interp='nearest' (in time, freq-dep will be
+   |     linear, if relevant)
+   |     interp='linear,cubic'  (linear in time, cubic
+   |     in freq)
+   |     interp='linearperobs,splineflag' (linear in
+   |     time per obsId, spline in freq with
+   |     channelized flagging)
+   |     interp='nearest,linearflagrel' (nearest in
+   |     time, linear in freq with with channelized 
+   |     flagging and relative-frequency interpolation)
+   |     interp=',spline'  (spline in freq; linear in
+   |     time by default)
+   |     interp=['nearest,spline','linear']  (for
+   |     multiple gaintables)
+
+.. _spwmap:
+
+   .. rubric:: spwmap
+
+   | Spectral window mappings to form for gaintable(s)
+   |                      Only used if callib=False
+   |                      default: [] (apply solutions from each calibration spw to
+   |                      the same MS spw only)
+   |                      Any available calibration spw can be mechanically mapped to any 
+   |                       MS spw. 
+   |                      Examples:
+   |                         spwmap=[0,0,1,1] means apply calibration 
+   |                           from cal spw = 0 to MS spw 0,1 and cal spw 1 to MS spws 2,3.
+   |                         spwmap=[[0,0,1,1],[0,1,0,1]] (use a list of lists for multiple
+   |                           gaintables)
+
+.. _paramactive:
+
+   .. rubric:: paramactive
+
+   | Control which parameters are solved for; a vector of (exactly) three booleans for delay, delay-rate and dispersive delay (in that order)
+
+.. _parang:
+
+   .. rubric:: parang
+
+   | Apply parallactic angle correction on the fly.
+
 
     """
     pass

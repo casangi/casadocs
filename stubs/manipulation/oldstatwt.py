@@ -7,34 +7,34 @@ def oldstatwt(vis, dorms=False, byantenna=False, sepacs=True, fitspw='', fitcorr
  Reweight visibilities according to their scatter (Experimental)
 
 Parameters
-   - **vis** (string) -  [1]_
-   - **dorms** (bool=False) -  [2]_
-   - **byantenna** (bool=False) -  [3]_
+   - vis_ (string) - 
+   - dorms_ (bool=False) - 
+   - byantenna_ (bool=False) - 
 
       .. raw:: html
 
          <details><summary><i> byantenna = True </i></summary>
 
-      - **sepacs** (bool=True) -  [4]_
+      - sepacs_ (bool=True) - 
 
       .. raw:: html
 
          </details>
-   - **fitspw** ({string, stringArray, int, intArray}='') -  [5]_
-   - **fitcorr** ({string, stringArray, int, intArray}='') -  [6]_
-   - **combine** ({string, stringArray}='') -  [7]_
-   - **timebin** (string='0s') -  [8]_
-   - **minsamp** (int=2) -  [9]_
-   - **field** ({string, stringArray, int, intArray}='') -  [10]_
-   - **spw** ({string, stringArray, int, intArray}='') -  [11]_
-   - **antenna** ({string, stringArray, int, intArray}='') -  [12]_
-   - **timerange** (string='') -  [13]_
-   - **scan** (string='') -  [14]_
-   - **intent** (string='') -  [15]_
-   - **array** (string='') -  [16]_
-   - **correlation** ({string, stringArray}='') -  [17]_
-   - **observation** ({string, int}='') -  [18]_
-   - **datacolumn** (string='corrected') -  [19]_
+   - fitspw_ ({string, stringArray, int, intArray}='') - 
+   - fitcorr_ ({string, stringArray, int, intArray}='') - 
+   - combine_ ({string, stringArray}='') - 
+   - timebin_ (string='0s') - 
+   - minsamp_ (int=2) - 
+   - field_ ({string, stringArray, int, intArray}='') - 
+   - spw_ ({string, stringArray, int, intArray}='') - 
+   - antenna_ ({string, stringArray, int, intArray}='') - 
+   - timerange_ (string='') - 
+   - scan_ (string='') - 
+   - intent_ (string='') - 
+   - array_ (string='') - 
+   - correlation_ ({string, stringArray}='') - 
+   - observation_ ({string, int}='') - 
+   - datacolumn_ (string='corrected') - 
 
 
 Description
@@ -257,63 +257,120 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of measurement set
-.. [2] 
-   **dorms** (bool=False)
-      | Use rms instead of stddev?
-.. [3] 
-   **byantenna** (bool=False)
-      | Estimate the noise per antenna -not implemented (vs. per baseline)
-.. [4] 
-   **sepacs** (bool=True)
-      | If solving by antenna, treat autocorrs separately (not implemented)
-.. [5] 
-   **fitspw** ({string, stringArray, int, intArray}='')
-      | The signal-free spectral window:channels to estimate the scatter from
-.. [6] 
-   **fitcorr** ({string, stringArray, int, intArray}='')
-      | The signal-free correlation(s) to estimate the scatter from (not implemented)
-.. [7] 
-   **combine** ({string, stringArray}='')
-      | Let estimates span changes in spw, corr, scan and/or state
-.. [8] 
-   **timebin** (string='0s')
-      | Bin length for estimates (not implemented)
-.. [9] 
-   **minsamp** (int=2)
-      | Minimum number of unflagged visibilities for estimating the scatter
-.. [10] 
-   **field** ({string, stringArray, int, intArray}='')
-      | Select field using ID(s) or name(s)
-.. [11] 
-   **spw** ({string, stringArray, int, intArray}='')
-      | Select spectral window/channels
-.. [12] 
-   **antenna** ({string, stringArray, int, intArray}='')
-      | Select data based on antenna/baseline
-.. [13] 
-   **timerange** (string='')
-      | Select data by time range
-.. [14] 
-   **scan** (string='')
-      | Select data by scan numbers
-.. [15] 
-   **intent** (string='')
-      | Select data by scan intents
-.. [16] 
-   **array** (string='')
-      | Select (sub)array(s) by array ID number
-.. [17] 
-   **correlation** ({string, stringArray}='')
-      | Select correlations to reweight (DEPRECATED in CASA v4.5)
-.. [18] 
-   **observation** ({string, int}='')
-      | Select by observation ID(s)
-.. [19] 
-   **datacolumn** (string='corrected')
-      | Which data column to calculate the scatter from
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of measurement set
+
+.. _dorms:
+
+   .. rubric:: dorms
+
+   | Use rms instead of stddev?
+
+.. _byantenna:
+
+   .. rubric:: byantenna
+
+   | Estimate the noise per antenna -not implemented (vs. per baseline)
+
+.. _sepacs:
+
+   .. rubric:: sepacs
+
+   | If solving by antenna, treat autocorrs separately (not implemented)
+
+.. _fitspw:
+
+   .. rubric:: fitspw
+
+   | The signal-free spectral window:channels to estimate the scatter from
+
+.. _fitcorr:
+
+   .. rubric:: fitcorr
+
+   | The signal-free correlation(s) to estimate the scatter from (not implemented)
+
+.. _combine:
+
+   .. rubric:: combine
+
+   | Let estimates span changes in spw, corr, scan and/or state
+
+.. _timebin:
+
+   .. rubric:: timebin
+
+   | Bin length for estimates (not implemented)
+
+.. _minsamp:
+
+   .. rubric:: minsamp
+
+   | Minimum number of unflagged visibilities for estimating the scatter
+
+.. _field:
+
+   .. rubric:: field
+
+   | Select field using ID(s) or name(s)
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | Select spectral window/channels
+
+.. _antenna:
+
+   .. rubric:: antenna
+
+   | Select data based on antenna/baseline
+
+.. _timerange:
+
+   .. rubric:: timerange
+
+   | Select data by time range
+
+.. _scan:
+
+   .. rubric:: scan
+
+   | Select data by scan numbers
+
+.. _intent:
+
+   .. rubric:: intent
+
+   | Select data by scan intents
+
+.. _array:
+
+   .. rubric:: array
+
+   | Select (sub)array(s) by array ID number
+
+.. _correlation:
+
+   .. rubric:: correlation
+
+   | Select correlations to reweight (DEPRECATED in CASA v4.5)
+
+.. _observation:
+
+   .. rubric:: observation
+
+   | Select by observation ID(s)
+
+.. _datacolumn:
+
+   .. rubric:: datacolumn
+
+   | Which data column to calculate the scatter from
+
 
     """
     pass

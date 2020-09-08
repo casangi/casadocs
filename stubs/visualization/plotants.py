@@ -7,14 +7,14 @@ def plotants(vis, figfile='', antindex=False, logpos=False, exclude='', checkbas
 Plot the antenna distribution in the local reference frame:
 
 Parameters
-   - **vis** (string) - Name of input visibility file (MS) [1]_
-   - **figfile** (string='') - Save the plotted figure to this file [2]_
-   - **antindex** (bool=False) - Label antennas with name and antenna ID [3]_
-   - **logpos** (bool=False) - Whether to plot logarithmic positions [4]_
-   - **exclude** (string='') - Antenna name/id selection to exclude from plot [5]_
-   - **checkbaselines** (bool=False) - Whether to check baselines in the main table. [6]_
-   - **title** (string='') - Title for the plot [7]_
-   - **showgui** (bool=True) - Show plot on gui. [8]_
+   - vis_ (string) - Name of input visibility file (MS)
+   - figfile_ (string='') - Save the plotted figure to this file
+   - antindex_ (bool=False) - Label antennas with name and antenna ID
+   - logpos_ (bool=False) - Whether to plot logarithmic positions
+   - exclude_ (string='') - Antenna name/id selection to exclude from plot
+   - checkbaselines_ (bool=False) - Whether to check baselines in the main table.
+   - title_ (string='') - Title for the plot
+   - showgui_ (bool=True) - Show plot on gui.
 
 
 Description
@@ -88,30 +88,54 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file (MS)
-.. [2] 
-   **figfile** (string='')
-      | Save the plotted figure to this file
-.. [3] 
-   **antindex** (bool=False)
-      | Label antennas with name and antenna ID
-.. [4] 
-   **logpos** (bool=False)
-      | Whether to plot logarithmic positions
-.. [5] 
-   **exclude** (string='')
-      | Antenna name/id selection to exclude from plot
-.. [6] 
-   **checkbaselines** (bool=False)
-      | Whether to check baselines in the main table.
-.. [7] 
-   **title** (string='')
-      | Title for the plot
-.. [8] 
-   **showgui** (bool=True)
-      | Show plot on gui.
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file (MS)
+
+.. _figfile:
+
+   .. rubric:: figfile
+
+   | Save the plotted figure to this file
+
+.. _antindex:
+
+   .. rubric:: antindex
+
+   | Label antennas with name and antenna ID
+
+.. _logpos:
+
+   .. rubric:: logpos
+
+   | Whether to plot logarithmic positions
+
+.. _exclude:
+
+   .. rubric:: exclude
+
+   | Antenna name/id selection to exclude from plot
+
+.. _checkbaselines:
+
+   .. rubric:: checkbaselines
+
+   | Whether to check baselines in the main table.
+
+.. _title:
+
+   .. rubric:: title
+
+   | Title for the plot
+
+.. _showgui:
+
+   .. rubric:: showgui
+
+   | Show plot on gui.
+
 
     """
     pass

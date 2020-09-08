@@ -7,26 +7,26 @@ def sdgaincal(infile, calmode='doublecircle', radius='', smooth=True, antenna=''
  MS SD gain calibration task
 
 Parameters
-   - **infile** (string) - name of input SD dataset (must be MS) [1]_
-   - **calmode** (string='doublecircle') - gain calibration mode ("doublecircle") [2]_
+   - infile_ (string) - name of input SD dataset (must be MS)
+   - calmode_ (string='doublecircle') - gain calibration mode ("doublecircle")
 
       .. raw:: html
 
          <details><summary><i> calmode = doublecircle </i></summary>
 
-      - **radius** (variant='') - radius of central region to be used for calibration [3]_
-      - **smooth** (bool=True) - smooth data or not [4]_
+      - radius_ (variant='') - radius of central region to be used for calibration
+      - smooth_ (bool=True) - smooth data or not
 
       .. raw:: html
 
          </details>
-   - **antenna** (string='') - select data by antenna name or ID, e.g. "PM03" [5]_
-   - **field** (string='') - select data by field IDs and names, e.g. "3C2*" ("" = all) [6]_
-   - **spw** (string='') - select data by spw IDs (spectral windows), e.g., "3,5,7" ("" = all) [7]_
-   - **scan** (string='') - select data by scan numbers, e.g. "21~23" (""=all) [8]_
-   - **applytable** (variant='') - (List of) sky and/or tsys tables for pre-application [10]_
-   - **outfile** (string='') - name of output caltable [13]_
-   - **overwrite** (bool=False) - overwrite the output file if already exists [True, False] [14]_
+   - antenna_ (string='') - select data by antenna name or ID, e.g. "PM03"
+   - field_ (string='') - select data by field IDs and names, e.g. "3C2*" ("" = all)
+   - spw_ (string='') - select data by spw IDs (spectral windows), e.g., "3,5,7" ("" = all)
+   - scan_ (string='') - select data by scan numbers, e.g. "21~23" (""=all)
+   - applytable_ (variant='') - (List of) sky and/or tsys tables for pre-application
+   - outfile_ (string='') - name of output caltable
+   - overwrite_ (bool=False) - overwrite the output file if already exists [True, False]
 
 
 Description
@@ -82,58 +82,100 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **infile** (string)
-      | name of input SD dataset (must be MS)
-.. [2] 
-   **calmode** (string='doublecircle')
-      | gain calibration mode
-.. [3] 
-   **radius** (variant='')
-      | radius of central region to be used for calibration
-.. [4] 
-   **smooth** (bool=True)
-      | smooth data or not
-.. [5] 
-   **antenna** (string='')
-      | select data by antenna name or ID, e.g. "PM03"
-.. [6] 
-   **field** (string='')
-      | select data by field IDs and names, e.g. "3C2*" ("" = all)
-.. [7] 
-   **spw** (string='')
-      | select data by spw IDs (spectral windows), e.g., "3,5,7" ("" = all)
-.. [8] 
-   **scan** (string='')
-      | select data by scan numbers, e.g. "21~23" (""=all)
-.. [9] 
-   **intent** (string='')
-      | select data by observation intent, e.g. "OBSERVE_TARGET#ON_SOURCE" (""=all)
-.. [10] 
-   **applytable** (variant='')
-      | (List of) sky and/or tsys tables for pre-application
-.. [11] 
-   **interp** (variant='')
-      | Interp type in time[,freq], per gaintable. default==linear,linear
-.. [12] 
-   **spwmap** (intArray=[''])
-      | Spectral window mappings to form for applytable(s)
-      |                      Only used if callib=False
-      |                      default: [] (apply solutions from each calibration spw to
-      |                      the same MS spw only)
-      |                      Any available calibration spw can be mechanically mapped to any 
-      |                       MS spw. 
-      |                      Examples:
-      |                         spwmap=[0,0,1,1] means apply calibration 
-      |                           from cal spw = 0 to MS spw 0,1 and cal spw 1 to MS spws 2,3.
-      |                         spwmap=[[0,0,1,1],[0,1,0,1]] (use a list of lists for multiple
-      |                           applytables)
-.. [13] 
-   **outfile** (string='')
-      | name of output caltable
-.. [14] 
-   **overwrite** (bool=False)
-      | overwrite the output file if already exists
+.. _infile:
+
+   .. rubric:: infile
+
+   | name of input SD dataset (must be MS)
+
+.. _calmode:
+
+   .. rubric:: calmode
+
+   | gain calibration mode
+
+.. _radius:
+
+   .. rubric:: radius
+
+   | radius of central region to be used for calibration
+
+.. _smooth:
+
+   .. rubric:: smooth
+
+   | smooth data or not
+
+.. _antenna:
+
+   .. rubric:: antenna
+
+   | select data by antenna name or ID, e.g. "PM03"
+
+.. _field:
+
+   .. rubric:: field
+
+   | select data by field IDs and names, e.g. "3C2*" ("" = all)
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | select data by spw IDs (spectral windows), e.g., "3,5,7" ("" = all)
+
+.. _scan:
+
+   .. rubric:: scan
+
+   | select data by scan numbers, e.g. "21~23" (""=all)
+
+.. _intent:
+
+   .. rubric:: intent
+
+   | select data by observation intent, e.g. "OBSERVE_TARGET#ON_SOURCE" (""=all)
+
+.. _applytable:
+
+   .. rubric:: applytable
+
+   | (List of) sky and/or tsys tables for pre-application
+
+.. _interp:
+
+   .. rubric:: interp
+
+   | Interp type in time[,freq], per gaintable. default==linear,linear
+
+.. _spwmap:
+
+   .. rubric:: spwmap
+
+   | Spectral window mappings to form for applytable(s)
+   |                      Only used if callib=False
+   |                      default: [] (apply solutions from each calibration spw to
+   |                      the same MS spw only)
+   |                      Any available calibration spw can be mechanically mapped to any 
+   |                       MS spw. 
+   |                      Examples:
+   |                         spwmap=[0,0,1,1] means apply calibration 
+   |                           from cal spw = 0 to MS spw 0,1 and cal spw 1 to MS spws 2,3.
+   |                         spwmap=[[0,0,1,1],[0,1,0,1]] (use a list of lists for multiple
+   |                           applytables)
+
+.. _outfile:
+
+   .. rubric:: outfile
+
+   | name of output caltable
+
+.. _overwrite:
+
+   .. rubric:: overwrite
+
+   | overwrite the output file if already exists
+
 
     """
     pass

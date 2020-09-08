@@ -7,13 +7,13 @@ def listcal(vis, caltable, field='', antenna='', spw='', listfile='', pagerows=5
 List antenna gain solutions
 
 Parameters
-   - **vis** (string) - Name of input visibility file [1]_
-   - **caltable** (string) - Input calibration table to list [2]_
-   - **field** (string='') - Field name or index [3]_
-   - **antenna** (string='') - Antenna name or index [4]_
-   - **spw** (string='') - Spectral window and channel [5]_
-   - **listfile** (string='') - Disk file to write output [6]_
-   - **pagerows** (int=50) - Rows per page [7]_
+   - vis_ (string) - Name of input visibility file
+   - caltable_ (string) - Input calibration table to list
+   - field_ (string='') - Field name or index
+   - antenna_ (string='') - Antenna name or index
+   - spw_ (string='') - Spectral window and channel
+   - listfile_ (string='') - Disk file to write output
+   - pagerows_ (int=50) - Rows per page
 
 
 Description
@@ -113,27 +113,48 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file
-.. [2] 
-   **caltable** (string)
-      | Input calibration table to list
-.. [3] 
-   **field** (string='')
-      | Field name or index
-.. [4] 
-   **antenna** (string='')
-      | Antenna name or index
-.. [5] 
-   **spw** (string='')
-      | Spectral window and channel
-.. [6] 
-   **listfile** (string='')
-      | Disk file to write output
-.. [7] 
-   **pagerows** (int=50)
-      | Rows per page
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file
+
+.. _caltable:
+
+   .. rubric:: caltable
+
+   | Input calibration table to list
+
+.. _field:
+
+   .. rubric:: field
+
+   | Field name or index
+
+.. _antenna:
+
+   .. rubric:: antenna
+
+   | Antenna name or index
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | Spectral window and channel
+
+.. _listfile:
+
+   .. rubric:: listfile
+
+   | Disk file to write output
+
+.. _pagerows:
+
+   .. rubric:: pagerows
+
+   | Rows per page
+
 
     """
     pass

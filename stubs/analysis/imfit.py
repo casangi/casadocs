@@ -7,24 +7,24 @@ def imfit(imagename, box='', region='', chans='', stokes='', mask='', includepix
 Fit one or more elliptical Gaussian components on an image region(s)
 
 Parameters
-   - **imagename** (string) - Name of the input image [1]_
-   - **box** (string='') - Rectangular region(s) to select in direction plane. Default is to use the entire direction plane. [2]_
-   - **region** (variant='') - Region selection. Default is to use the full image. [3]_
-   - **chans** (variant='') - Channels to use. Default is to use all channels. [4]_
-   - **stokes** (string='') - Stokes planes to use. Default is to use first Stokes plane. [5]_
-   - **mask** (string='') - Mask to use. Default is none. [6]_
-   - **includepix** (intArray=['']) - Range of pixel values to include for fitting. [7]_
-   - **excludepix** (intArray=['']) - Range of pixel values to exclude for fitting. [8]_
-   - **residual** (string='') - Name of output residual image. [9]_
-   - **model** (string='') - Name of output model image. [10]_
-   - **estimates** (string='') - Name of file containing initial estimates of component parameters. [11]_
-   - **logfile** (string='') - Name of file to write fit results. [12]_
-   - **newestimates** (string='') - File to write fit results which can be used as initial estimates for next run. [14]_
-   - **complist** (string='') - Name of output component list table. [15]_
-   - **dooff** (bool=False) - Also fit a zero level offset? Default is False [17]_
-   - **rms** ({int, double, record, string}='-1') - RMS to use in calculation of uncertainties. Numeric or valid quantity (record or string). If numeric, it is given units of the input image. If quantity, units must conform to image units. If not positive, the rms of the residual image, in the region of the fit, is used. [21]_
-   - **noisefwhm** ({int, double, record, string}='') - Noise correlation beam FWHM. If numeric value, interpreted as pixel widths. If quantity (dictionary, string), it must have angular units. [22]_
-   - **summary** (string='') - File name to which to write table of fit parameters. [23]_
+   - imagename_ (string) - Name of the input image
+   - box_ (string='') - Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
+   - region_ (variant='') - Region selection. Default is to use the full image.
+   - chans_ (variant='') - Channels to use. Default is to use all channels.
+   - stokes_ (string='') - Stokes planes to use. Default is to use first Stokes plane.
+   - mask_ (string='') - Mask to use. Default is none.
+   - includepix_ (intArray=['']) - Range of pixel values to include for fitting.
+   - excludepix_ (intArray=['']) - Range of pixel values to exclude for fitting.
+   - residual_ (string='') - Name of output residual image.
+   - model_ (string='') - Name of output model image.
+   - estimates_ (string='') - Name of file containing initial estimates of component parameters.
+   - logfile_ (string='') - Name of file to write fit results.
+   - newestimates_ (string='') - File to write fit results which can be used as initial estimates for next run.
+   - complist_ (string='') - Name of output component list table.
+   - dooff_ (bool=False) - Also fit a zero level offset? Default is False
+   - rms_ ({int, double, record, string}='-1') - RMS to use in calculation of uncertainties. Numeric or valid quantity (record or string). If numeric, it is given units of the input image. If quantity, units must conform to image units. If not positive, the rms of the residual image, in the region of the fit, is used.
+   - noisefwhm_ ({int, double, record, string}='') - Noise correlation beam FWHM. If numeric value, interpreted as pixel widths. If quantity (dictionary, string), it must have angular units.
+   - summary_ (string='') - File name to which to write table of fit parameters.
 
 
 Description
@@ -545,75 +545,144 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (string)
-      | Name of the input image
-.. [2] 
-   **box** (string='')
-      | Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
-.. [3] 
-   **region** (variant='')
-      | Region selection. Default is to use the full image.
-.. [4] 
-   **chans** (variant='')
-      | Channels to use. Default is to use all channels.
-.. [5] 
-   **stokes** (string='')
-      | Stokes planes to use. Default is to use first Stokes plane.
-.. [6] 
-   **mask** (string='')
-      | Mask to use. Default is none.
-.. [7] 
-   **includepix** (intArray=[''])
-      | Range of pixel values to include for fitting.
-.. [8] 
-   **excludepix** (intArray=[''])
-      | Range of pixel values to exclude for fitting.
-.. [9] 
-   **residual** (string='')
-      | Name of output residual image.
-.. [10] 
-   **model** (string='')
-      | Name of output model image.
-.. [11] 
-   **estimates** (string='')
-      | Name of file containing initial estimates of component parameters.
-.. [12] 
-   **logfile** (string='')
-      | Name of file to write fit results.
-.. [13] 
-   **append** (bool=True)
-      | If logfile exists, append to it if True or overwrite it if False
-.. [14] 
-   **newestimates** (string='')
-      | File to write fit results which can be used as initial estimates for next run.
-.. [15] 
-   **complist** (string='')
-      | Name of output component list table.
-.. [16] 
-   **overwrite** (bool=False)
-      | Overwrite component list table if it exists?
-.. [17] 
-   **dooff** (bool=False)
-      | Also fit a zero level offset? Default is False
-.. [18] 
-   **offset** (double=0.0)
-      | Initial estimate of zero-level offset. Only used if doff is True. Default is 0.0
-.. [19] 
-   **fixoffset** (bool=False)
-      | Keep the zero level offset fixed during fit? Default is False
-.. [20] 
-   **stretch** (bool=False)
-      | Stretch the mask if necessary and possible?
-.. [21] 
-   **rms** ({int, double, record, string}='-1')
-      | RMS to use in calculation of uncertainties. Numeric or valid quantity (record or string). If numeric, it is given units of the input image. If quantity, units must conform to image units. If not positive, the rms of the residual image, in the region of the fit, is used.
-.. [22] 
-   **noisefwhm** ({int, double, record, string}='')
-      | Noise correlation beam FWHM. If numeric value, interpreted as pixel widths. If quantity (dictionary, string), it must have angular units.
-.. [23] 
-   **summary** (string='')
-      | File name to which to write table of fit parameters.
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Name of the input image
+
+.. _box:
+
+   .. rubric:: box
+
+   | Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
+
+.. _region:
+
+   .. rubric:: region
+
+   | Region selection. Default is to use the full image.
+
+.. _chans:
+
+   .. rubric:: chans
+
+   | Channels to use. Default is to use all channels.
+
+.. _stokes:
+
+   .. rubric:: stokes
+
+   | Stokes planes to use. Default is to use first Stokes plane.
+
+.. _mask:
+
+   .. rubric:: mask
+
+   | Mask to use. Default is none.
+
+.. _includepix:
+
+   .. rubric:: includepix
+
+   | Range of pixel values to include for fitting.
+
+.. _excludepix:
+
+   .. rubric:: excludepix
+
+   | Range of pixel values to exclude for fitting.
+
+.. _residual:
+
+   .. rubric:: residual
+
+   | Name of output residual image.
+
+.. _model:
+
+   .. rubric:: model
+
+   | Name of output model image.
+
+.. _estimates:
+
+   .. rubric:: estimates
+
+   | Name of file containing initial estimates of component parameters.
+
+.. _logfile:
+
+   .. rubric:: logfile
+
+   | Name of file to write fit results.
+
+.. _append:
+
+   .. rubric:: append
+
+   | If logfile exists, append to it if True or overwrite it if False
+
+.. _newestimates:
+
+   .. rubric:: newestimates
+
+   | File to write fit results which can be used as initial estimates for next run.
+
+.. _complist:
+
+   .. rubric:: complist
+
+   | Name of output component list table.
+
+.. _overwrite:
+
+   .. rubric:: overwrite
+
+   | Overwrite component list table if it exists?
+
+.. _dooff:
+
+   .. rubric:: dooff
+
+   | Also fit a zero level offset? Default is False
+
+.. _offset:
+
+   .. rubric:: offset
+
+   | Initial estimate of zero-level offset. Only used if doff is True. Default is 0.0
+
+.. _fixoffset:
+
+   .. rubric:: fixoffset
+
+   | Keep the zero level offset fixed during fit? Default is False
+
+.. _stretch:
+
+   .. rubric:: stretch
+
+   | Stretch the mask if necessary and possible?
+
+.. _rms:
+
+   .. rubric:: rms
+
+   | RMS to use in calculation of uncertainties. Numeric or valid quantity (record or string). If numeric, it is given units of the input image. If quantity, units must conform to image units. If not positive, the rms of the residual image, in the region of the fit, is used.
+
+.. _noisefwhm:
+
+   .. rubric:: noisefwhm
+
+   | Noise correlation beam FWHM. If numeric value, interpreted as pixel widths. If quantity (dictionary, string), it must have angular units.
+
+.. _summary:
+
+   .. rubric:: summary
+
+   | File name to which to write table of fit parameters.
+
 
     """
     pass

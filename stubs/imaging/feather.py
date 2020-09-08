@@ -7,12 +7,12 @@ def feather(highres, lowres, imagename='', sdfactor=1.0, effdishdiam=-1.0, lowpa
 Combine two images using their Fourier transforms
 
 Parameters
-   - **imagename** (string='') - Name of output feathered image [1]_
-   - **highres** (string) - Name of high resolution (interferometer) image [2]_
-   - **lowres** (string) - Name of low resolution (single dish) image [3]_
-   - **sdfactor** (double=1.0) - Scale factor to apply to Single Dish image [4]_
-   - **effdishdiam** (double=-1.0) - New effective SingleDish diameter to use in m [5]_
-   - **lowpassfiltersd** (bool=False) - Filter out the high spatial frequencies of the SD image [6]_
+   - imagename_ (string='') - Name of output feathered image
+   - highres_ (string) - Name of high resolution (interferometer) image
+   - lowres_ (string) - Name of low resolution (single dish) image
+   - sdfactor_ (double=1.0) - Scale factor to apply to Single Dish image
+   - effdishdiam_ (double=-1.0) - New effective SingleDish diameter to use in m
+   - lowpassfiltersd_ (bool=False) - Filter out the high spatial frequencies of the SD image
 
 
 Description
@@ -129,48 +129,66 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (string='')
-      | Name of output feathered image
-      |                           Default: none
-      | 
-      |                              Example: imagename='orion_combined.im'
-.. [2] 
-   **highres** (string)
-      | Name of high resolution (interferometer) image
-      |                           Default: none
-      | 
-      |                              Example: imagename='orion_vla.im'
-.. [3] 
-   **lowres** (string)
-      | Name of low resolution (single dish) image
-      |                           Default: none
-      | 
-      |                              Example: imagename='orion_gbt.im'
-.. [4] 
-   **sdfactor** (double=1.0)
-      | Value by which to scale the Single Dish image.
-      |                           Default: 1.0
-      | 
-      |                           Basically modifying the flux scale of the SD image
-.. [5] 
-   **effdishdiam** (double=-1.0)
-      | New effective SingleDish diameter to use in m 
-      |                           Default: -1.0 (leave as is)
-      | 
-      |                           Obviously one can only reduce the dish
-      |                           effective dish diameter in feathering.
-.. [6] 
-   **lowpassfiltersd** (bool=False)
-      | Filter out the high spatial frequencies of the SD image
-      |                           Default: False
-      | 
-      |                           If True the high spatial frequency in the SD
-      |                           image is rejected.
-      | 
-      |                           Any data outside the maximum uv distance
-      |                           that the SD has illuminated  is filtered
-      |                           out.
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Name of output feathered image
+   |                           Default: none
+   | 
+   |                              Example: imagename='orion_combined.im'
+
+.. _highres:
+
+   .. rubric:: highres
+
+   | Name of high resolution (interferometer) image
+   |                           Default: none
+   | 
+   |                              Example: imagename='orion_vla.im'
+
+.. _lowres:
+
+   .. rubric:: lowres
+
+   | Name of low resolution (single dish) image
+   |                           Default: none
+   | 
+   |                              Example: imagename='orion_gbt.im'
+
+.. _sdfactor:
+
+   .. rubric:: sdfactor
+
+   | Value by which to scale the Single Dish image.
+   |                           Default: 1.0
+   | 
+   |                           Basically modifying the flux scale of the SD image
+
+.. _effdishdiam:
+
+   .. rubric:: effdishdiam
+
+   | New effective SingleDish diameter to use in m 
+   |                           Default: -1.0 (leave as is)
+   | 
+   |                           Obviously one can only reduce the dish
+   |                           effective dish diameter in feathering.
+
+.. _lowpassfiltersd:
+
+   .. rubric:: lowpassfiltersd
+
+   | Filter out the high spatial frequencies of the SD image
+   |                           Default: False
+   | 
+   |                           If True the high spatial frequency in the SD
+   |                           image is rejected.
+   | 
+   |                           Any data outside the maximum uv distance
+   |                           that the SD has illuminated  is filtered
+   |                           out.
+
 
     """
     pass

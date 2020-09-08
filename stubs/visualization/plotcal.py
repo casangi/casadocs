@@ -8,27 +8,27 @@ def plotcal(caltable, xaxis='', yaxis='', poln='', field='', antenna='', spw='',
 An all-purpose plotter for calibration results 
 
 Parameters
-   - **caltable** (string) -  [1]_
-   - **xaxis** (string='') -  [2]_
-   - **yaxis** (string='') -  [3]_
-   - **poln** (string='') -  [4]_
-   - **field** (string='') -  [5]_
-   - **antenna** (string='') -  [6]_
-   - **spw** (string='') -  [7]_
-   - **timerange** (string='') -  [8]_
-   - **subplot** (int=111) -  [9]_
-   - **overplot** (bool=False) -  [10]_
-   - **clearpanel** (string='Auto') -  [11]_
-   - **iteration** (string='') -  [12]_
-   - **plotrange** (doubleArray=[
-            ]) -  [13]_
-   - **showflags** (bool=False) -  [14]_
-   - **plotsymbol** (string='o') -  [15]_
-   - **plotcolor** (string='blue') -  [16]_
-   - **markersize** (double=5.0) -  [17]_
-   - **fontsize** (double=10.0) -  [18]_
-   - **showgui** (bool=True) -  [19]_
-   - **figfile** (string='') -  [20]_
+   - caltable_ (string) - 
+   - xaxis_ (string='') - 
+   - yaxis_ (string='') - 
+   - poln_ (string='') - 
+   - field_ (string='') - 
+   - antenna_ (string='') - 
+   - spw_ (string='') - 
+   - timerange_ (string='') - 
+   - subplot_ (int=111) - 
+   - overplot_ (bool=False) - 
+   - clearpanel_ (string='Auto') - 
+   - iteration_ (string='') - 
+   - plotrange_ (doubleArray=[
+            ]) - 
+   - showflags_ (bool=False) - 
+   - plotsymbol_ (string='o') - 
+   - plotcolor_ (string='blue') - 
+   - markersize_ (double=5.0) - 
+   - fontsize_ (double=10.0) - 
+   - showgui_ (bool=True) - 
+   - figfile_ (string='') - 
 
 
 Description
@@ -164,67 +164,126 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **caltable** (string)
-      | Name of input calibration table
-.. [2] 
-   **xaxis** (string='')
-      | Value to plot along x axis (time,chan,freq, antenna,antenna1,antenna2,scan, amp,phase,real,imag,snr, tsys,delay,rate,disp,spgain)
-.. [3] 
-   **yaxis** (string='')
-      | Value to plot along y axis (amp,phase,real,imag,snr, antenna,antenna1,antenna2,scan, tsys,delay,rate,disp,spgain,tec)
-.. [4] 
-   **poln** (string='')
-      | Antenna polarization to plot (RL,R,L,XY,X,Y,/)
-.. [5] 
-   **field** (string='')
-      | field names or index of calibrators: \'\'==>all
-.. [6] 
-   **antenna** (string='')
-      | antenna/baselines: \'\'==>all, antenna = \'3,VA04\'
-.. [7] 
-   **spw** (string='')
-      | spectral window:channels: \'\'==>all, spw=\'1:5~57\'
-.. [8] 
-   **timerange** (string='')
-      | time range: \'\'==>all
-.. [9] 
-   **subplot** (int=111)
-      | Panel number on display screen (yxn)
-.. [10] 
-   **overplot** (bool=False)
-      | Overplot solutions on existing display
-.. [11] 
-   **clearpanel** (string='Auto')
-      | Specify if old plots are cleared or not (ignore)
-.. [12] 
-   **iteration** (string='')
-      | Iterate plots on antenna,time,spw,field
-.. [13] 
-   **plotrange** (doubleArray=[
-            ])
-      | plot axes ranges: [xmin,xmax,ymin,ymax]
-.. [14] 
-   **showflags** (bool=False)
-      | If true, show flagged solutions
-.. [15] 
-   **plotsymbol** (string='o')
-      | pylab plot symbol
-.. [16] 
-   **plotcolor** (string='blue')
-      | initial plotting color
-.. [17] 
-   **markersize** (double=5.0)
-      | Size of plotted marks
-.. [18] 
-   **fontsize** (double=10.0)
-      | Font size for labels
-.. [19] 
-   **showgui** (bool=True)
-      | Show plot on gui
-.. [20] 
-   **figfile** (string='')
-      | \'\'= no plot hardcopy, otherwise supply name
+.. _caltable:
+
+   .. rubric:: caltable
+
+   | Name of input calibration table
+
+.. _xaxis:
+
+   .. rubric:: xaxis
+
+   | Value to plot along x axis (time,chan,freq, antenna,antenna1,antenna2,scan, amp,phase,real,imag,snr, tsys,delay,rate,disp,spgain)
+
+.. _yaxis:
+
+   .. rubric:: yaxis
+
+   | Value to plot along y axis (amp,phase,real,imag,snr, antenna,antenna1,antenna2,scan, tsys,delay,rate,disp,spgain,tec)
+
+.. _poln:
+
+   .. rubric:: poln
+
+   | Antenna polarization to plot (RL,R,L,XY,X,Y,/)
+
+.. _field:
+
+   .. rubric:: field
+
+   | field names or index of calibrators: \'\'==>all
+
+.. _antenna:
+
+   .. rubric:: antenna
+
+   | antenna/baselines: \'\'==>all, antenna = \'3,VA04\'
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | spectral window:channels: \'\'==>all, spw=\'1:5~57\'
+
+.. _timerange:
+
+   .. rubric:: timerange
+
+   | time range: \'\'==>all
+
+.. _subplot:
+
+   .. rubric:: subplot
+
+   | Panel number on display screen (yxn)
+
+.. _overplot:
+
+   .. rubric:: overplot
+
+   | Overplot solutions on existing display
+
+.. _clearpanel:
+
+   .. rubric:: clearpanel
+
+   | Specify if old plots are cleared or not (ignore)
+
+.. _iteration:
+
+   .. rubric:: iteration
+
+   | Iterate plots on antenna,time,spw,field
+
+.. _plotrange:
+
+   .. rubric:: plotrange
+
+   | plot axes ranges: [xmin,xmax,ymin,ymax]
+
+.. _showflags:
+
+   .. rubric:: showflags
+
+   | If true, show flagged solutions
+
+.. _plotsymbol:
+
+   .. rubric:: plotsymbol
+
+   | pylab plot symbol
+
+.. _plotcolor:
+
+   .. rubric:: plotcolor
+
+   | initial plotting color
+
+.. _markersize:
+
+   .. rubric:: markersize
+
+   | Size of plotted marks
+
+.. _fontsize:
+
+   .. rubric:: fontsize
+
+   | Font size for labels
+
+.. _showgui:
+
+   .. rubric:: showgui
+
+   | Show plot on gui
+
+.. _figfile:
+
+   .. rubric:: figfile
+
+   | \'\'= no plot hardcopy, otherwise supply name
+
 
     """
     pass

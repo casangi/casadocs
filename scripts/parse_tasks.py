@@ -87,16 +87,16 @@ for task in tasknames:
 def ParamSpec(param):
     pd = task['params'][param]
     ptype = '{%s}'%pd['type'] if len(pd['type'].split(', ')) > 1 else pd['type']
-    proto = '**%s** (%s=\'\')' % (param, ptype)
+    proto = '%s_ (%s=\'\')' % (param, ptype)
     
     # must exist params don't have default values
     if ('mustexist' in pd) and (pd['mustexist'] == 'true'):
-        proto = '**%s** (%s)' % (param, ptype)
+        proto = '%s_ (%s)' % (param, ptype)
     elif ('value' in task['params'][param]) and (task['params'][param]['value'] is not None):
         if ('string' in pd['type'].split(', ')) or ('variant' in ptype):
-            proto = '**%s** (%s=\'%s\')' % (param, ptype, pd['value'].strip())
+            proto = '%s_ (%s=\'%s\')' % (param, ptype, pd['value'].strip())
         else:
-            proto = '**%s** (%s=%s)' % (param, ptype, pd['value'].strip())
+            proto = '%s_ (%s=%s)' % (param, ptype, pd['value'].strip())
     
     return proto
 
@@ -152,8 +152,6 @@ for task in tasklist:
             fid.write('   - %s' % ParamSpec(param))
             if ('shortdescription' in task['params'][param].keys()) and (task['params'][param]['shortdescription'] is not None):
                 fid.write(' - %s' % task['params'][param]['shortdescription'])
-            if ('description' in task['params'][param].keys()) and (task['params'][param]['description'] is not None):
-                fid.write(' [%s]_' % str(list(task['params'].keys()).index(param)+1))
             fid.write('\n')
             
             # populate function subparameters (if any)
@@ -167,8 +165,6 @@ for task in tasklist:
                     fid.write('      - %s' % ParamSpec(subparam))
                     if ('shortdescription' in task['params'][subparam].keys()) and (task['params'][subparam]['shortdescription'] is not None):
                         fid.write(' - %s' % task['params'][subparam]['shortdescription'])
-                    if ('description' in task['params'][subparam].keys()) and (task['params'][subparam]['description'] is not None):
-                        fid.write(' [%s]_' % str(list(task['params'].keys()).index(subparam)+1))
                     fid.write('\n')
                 if len(task['subparams'][paramstr]) > 0:
                     fid.write('\n      .. raw:: html\n\n         </details>\n')
@@ -180,8 +176,9 @@ for task in tasklist:
         fid.write('\n\nDetails\n   Explanation of each parameter\n\n')
         for param in task['params'].keys():
             if ('description' in task['params'][param].keys()) and (task['params'][param]['description'] is not None):
-                fid.write('.. [%s] \n   %s\n' % (str(list(task['params'].keys()).index(param)+1), ParamSpec(param)))
-                fid.write('      | %s\n' % re.sub('\n', '\n      | ', task['params'][param]['description'].strip(), flags=re.DOTALL))
+                fid.write('.. _%s:\n\n' % param)
+                fid.write('   .. rubric:: %s\n\n' % param)
+                fid.write('   | %s\n\n' % re.sub('\n', '\n   | ', task['params'][param]['description'].strip(), flags=re.DOTALL))
             
         # close docstring stub
         fid.write('\n    """\n    pass\n')

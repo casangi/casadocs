@@ -7,17 +7,17 @@ def initweights(vis, wtmode='nyq', tsystable='', gainfield='', interp='', spwmap
 Initializes weight information in the MS
 
 Parameters
-   - **vis** (string) - Name of input visibility file (MS) [1]_
-   - **wtmode** (string='nyq') - Initialization mode [2]_
+   - vis_ (string) - Name of input visibility file (MS)
+   - wtmode_ (string='nyq') - Initialization mode
 
       .. raw:: html
 
          <details><summary><i> wtmode = tsys </i></summary>
 
-      - **tsystable** (string='') - Tsys calibration table to apply on the fly [3]_
-      - **gainfield** (string='') - Select a subset of calibrators from Tsys table [4]_
-      - **interp** (string='') - Interpolation type in time[,freq]. default==\'linear,linear\' [5]_
-      - **spwmap** (intArray=['']) - Spectral windows combinations to form for gaintable(s) [6]_
+      - tsystable_ (string='') - Tsys calibration table to apply on the fly
+      - gainfield_ (string='') - Select a subset of calibrators from Tsys table
+      - interp_ (string='') - Interpolation type in time[,freq]. default==\'linear,linear\'
+      - spwmap_ (intArray=['']) - Spectral windows combinations to form for gaintable(s)
 
       .. raw:: html
 
@@ -27,15 +27,15 @@ Parameters
 
          <details><summary><i> wtmode = tinttsys </i></summary>
 
-      - **tsystable** (string='') - Tsys calibration table to apply on the fly [3]_
-      - **gainfield** (string='') - Select a subset of calibrators from Tsys table [4]_
-      - **interp** (string='') - Interpolation type in time[,freq]. default==\'linear,linear\' [5]_
-      - **spwmap** (intArray=['']) - Spectral windows combinations to form for gaintable(s) [6]_
+      - tsystable_ (string='') - Tsys calibration table to apply on the fly
+      - gainfield_ (string='') - Select a subset of calibrators from Tsys table
+      - interp_ (string='') - Interpolation type in time[,freq]. default==\'linear,linear\'
+      - spwmap_ (intArray=['']) - Spectral windows combinations to form for gaintable(s)
 
       .. raw:: html
 
          </details>
-   - **dowtsp** (bool=False) - Initialize the WEIGHT_SPECTRUM column [7]_
+   - dowtsp_ (bool=False) - Initialize the WEIGHT_SPECTRUM column
 
 
 Description
@@ -135,27 +135,48 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file (MS)
-.. [2] 
-   **wtmode** (string='nyq')
-      | Initialization mode
-.. [3] 
-   **tsystable** (string='')
-      | Tsys calibration table to apply on the fly
-.. [4] 
-   **gainfield** (string='')
-      | Select a subset of calibrators from Tsys table
-.. [5] 
-   **interp** (string='')
-      | Interpolation type in time[,freq]. default==\'linear,linear\'
-.. [6] 
-   **spwmap** (intArray=[''])
-      | Spectral windows combinations to form for gaintable(s)
-.. [7] 
-   **dowtsp** (bool=False)
-      | Initialize the WEIGHT_SPECTRUM column
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file (MS)
+
+.. _wtmode:
+
+   .. rubric:: wtmode
+
+   | Initialization mode
+
+.. _tsystable:
+
+   .. rubric:: tsystable
+
+   | Tsys calibration table to apply on the fly
+
+.. _gainfield:
+
+   .. rubric:: gainfield
+
+   | Select a subset of calibrators from Tsys table
+
+.. _interp:
+
+   .. rubric:: interp
+
+   | Interpolation type in time[,freq]. default==\'linear,linear\'
+
+.. _spwmap:
+
+   .. rubric:: spwmap
+
+   | Spectral windows combinations to form for gaintable(s)
+
+.. _dowtsp:
+
+   .. rubric:: dowtsp
+
+   | Initialize the WEIGHT_SPECTRUM column
+
 
     """
     pass

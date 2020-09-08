@@ -7,10 +7,10 @@ def caltabconvert(caltabold='', vis='', ptype='complex', caltabnew=''):
 Convert old-style caltables into new-style caltables.
 
 Parameters
-   - **caltabold** (string='') - Name of the old-style caltable [1]_
-   - **vis** (string='') - Name of the visibility file (MS) associated with the old-style caltable. [2]_
-   - **ptype** (string='complex') - Type of data in the new-format caltable ("complex" or "float"; default is "complex"). [3]_
-   - **caltabnew** (string='') - Name of the new-style caltable.  If not specified, the suffix ".new" is appended to the name of old-style caltable. [4]_
+   - caltabold_ (string='') - Name of the old-style caltable
+   - vis_ (string='') - Name of the visibility file (MS) associated with the old-style caltable.
+   - ptype_ (string='complex') - Type of data in the new-format caltable ("complex" or "float"; default is "complex").
+   - caltabnew_ (string='') - Name of the new-style caltable.  If not specified, the suffix ".new" is appended to the name of old-style caltable.
 
 
 Description
@@ -65,37 +65,49 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **caltabold** (string='')
-      | Name of the old-style caltable.
-      |                      Default: none
-      | 
-      |                         Example: caltabold='gronk.g0'
-.. [2] 
-   **vis** (string='')
-      | Name of the visibility file (MS) associated with the
-      | old-style caltable.
-      |                      Default: none
-      | 
-      |                         Example: 'blurp.ms'
-.. [3] 
-   **ptype** (string='complex')
-      | Type of data in the new-format caltable.
-      |                      Default: "complex"
-      |                      Options: "complex" or "float"
-      | 
-      |                      Note: The old-style caltables do not have this
-      |                      information, so it is imperative that users get
-      |                      it correct.  "complex" refers to caltables that
-      |                      have complex gains (e.g., produced by gaincal,
-      |                      bpcal, etc.). "float" refers to caltables that
-      |                      real numbers such as delays (e.g., produced by
-      |                      gencal).
-.. [4] 
-   **caltabnew** (string='')
-      | Name of the new-style caltable.  
-      |                      Default: '' (the suffix ".new" is appended to the
-      |                      name of old-style caltable)
+.. _caltabold:
+
+   .. rubric:: caltabold
+
+   | Name of the old-style caltable.
+   |                      Default: none
+   | 
+   |                         Example: caltabold='gronk.g0'
+
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of the visibility file (MS) associated with the
+   | old-style caltable.
+   |                      Default: none
+   | 
+   |                         Example: 'blurp.ms'
+
+.. _ptype:
+
+   .. rubric:: ptype
+
+   | Type of data in the new-format caltable.
+   |                      Default: "complex"
+   |                      Options: "complex" or "float"
+   | 
+   |                      Note: The old-style caltables do not have this
+   |                      information, so it is imperative that users get
+   |                      it correct.  "complex" refers to caltables that
+   |                      have complex gains (e.g., produced by gaincal,
+   |                      bpcal, etc.). "float" refers to caltables that
+   |                      real numbers such as delays (e.g., produced by
+   |                      gencal).
+
+.. _caltabnew:
+
+   .. rubric:: caltabnew
+
+   | Name of the new-style caltable.  
+   |                      Default: '' (the suffix ".new" is appended to the
+   |                      name of old-style caltable)
+
 
     """
     pass

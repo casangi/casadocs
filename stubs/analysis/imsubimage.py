@@ -7,25 +7,25 @@ def imsubimage(imagename, outfile='', box='', region='', chans='', stokes='', ma
 Create a (sub)image from a region of the image
 
 Parameters
-   - **imagename** (string) - Input image name.  Default is unset. [1]_
-   - **outfile** (string='') - Output image name.  Default is unset. [2]_
-   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane. [3]_
-   - **region** (string='') - Region selection. Default is to use the full image. [4]_
-   - **chans** (string='') - Channels to use. Default is to use all channels. [5]_
-   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes. [6]_
-   - **mask** (variant='') - Mask to use. Default is none. [7]_
-   - **dropdeg** (bool=False) - Drop degenerate axes [8]_
+   - imagename_ (string) - Input image name.  Default is unset.
+   - outfile_ (string='') - Output image name.  Default is unset.
+   - box_ (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - region_ (string='') - Region selection. Default is to use the full image.
+   - chans_ (string='') - Channels to use. Default is to use all channels.
+   - stokes_ (string='') - Stokes planes to use. Default is to use all Stokes planes.
+   - mask_ (variant='') - Mask to use. Default is none.
+   - dropdeg_ (bool=False) - Drop degenerate axes
 
       .. raw:: html
 
          <details><summary><i> dropdeg = True </i></summary>
 
-      - **keepaxes** (intArray=['']) - If dropdeg=True, these are the degenerate axes to keep. Nondegenerate axes are implicitly always kept. [12]_
+      - keepaxes_ (intArray=['']) - If dropdeg=True, these are the degenerate axes to keep. Nondegenerate axes are implicitly always kept.
 
       .. raw:: html
 
          </details>
-   - **verbose** (bool=True) - Post additional informative messages to the logger [10]_
+   - verbose_ (bool=True) - Post additional informative messages to the logger
 
 
 Description
@@ -85,42 +85,78 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (string)
-      | Input image name.  Default is unset.
-.. [2] 
-   **outfile** (string='')
-      | Output image name.  Default is unset.
-.. [3] 
-   **box** (string='')
-      | Rectangular region to select in direction plane. Default is to use the entire direction plane.
-.. [4] 
-   **region** (string='')
-      | Region selection. Default is to use the full image.
-.. [5] 
-   **chans** (string='')
-      | Channels to use. Default is to use all channels.
-.. [6] 
-   **stokes** (string='')
-      | Stokes planes to use. Default is to use all Stokes planes.
-.. [7] 
-   **mask** (variant='')
-      | Mask to use. Default is none.
-.. [8] 
-   **dropdeg** (bool=False)
-      | Drop degenerate axes
-.. [9] 
-   **overwrite** (bool=False)
-      | Overwrite (unprompted) pre-existing output file?
-.. [10] 
-   **verbose** (bool=True)
-      | Post additional informative messages to the logger
-.. [11] 
-   **stretch** (bool=False)
-      | Stretch the mask if necessary and possible?
-.. [12] 
-   **keepaxes** (intArray=[''])
-      | If dropdeg=True, these are the degenerate axes to keep. Nondegenerate axes are implicitly always kept.
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Input image name.  Default is unset.
+
+.. _outfile:
+
+   .. rubric:: outfile
+
+   | Output image name.  Default is unset.
+
+.. _box:
+
+   .. rubric:: box
+
+   | Rectangular region to select in direction plane. Default is to use the entire direction plane.
+
+.. _region:
+
+   .. rubric:: region
+
+   | Region selection. Default is to use the full image.
+
+.. _chans:
+
+   .. rubric:: chans
+
+   | Channels to use. Default is to use all channels.
+
+.. _stokes:
+
+   .. rubric:: stokes
+
+   | Stokes planes to use. Default is to use all Stokes planes.
+
+.. _mask:
+
+   .. rubric:: mask
+
+   | Mask to use. Default is none.
+
+.. _dropdeg:
+
+   .. rubric:: dropdeg
+
+   | Drop degenerate axes
+
+.. _overwrite:
+
+   .. rubric:: overwrite
+
+   | Overwrite (unprompted) pre-existing output file?
+
+.. _verbose:
+
+   .. rubric:: verbose
+
+   | Post additional informative messages to the logger
+
+.. _stretch:
+
+   .. rubric:: stretch
+
+   | Stretch the mask if necessary and possible?
+
+.. _keepaxes:
+
+   .. rubric:: keepaxes
+
+   | If dropdeg=True, these are the degenerate axes to keep. Nondegenerate axes are implicitly always kept.
+
 
     """
     pass

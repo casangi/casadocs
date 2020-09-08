@@ -7,12 +7,12 @@ def smoothcal(vis, tablein, caltable='', field=[''], smoothtype='median', smooth
 Smooth calibration solution(s) derived from one or more sources:
 
 Parameters
-   - **vis** (string) - Name of input visibility file (MS) [1]_
-   - **tablein** (string) - Input calibration table [2]_
-   - **caltable** (string='') - Output calibration table (overwrite tablein if unspecified) [3]_
-   - **field** (stringArray=['']) - Field name list [4]_
-   - **smoothtype** (string='median') - Smoothing filter to use [5]_
-   - **smoothtime** ({double, int}=60.0) - Smoothing time (sec) [6]_
+   - vis_ (string) - Name of input visibility file (MS)
+   - tablein_ (string) - Input calibration table
+   - caltable_ (string='') - Output calibration table (overwrite tablein if unspecified)
+   - field_ (stringArray=['']) - Field name list
+   - smoothtype_ (string='median') - Smoothing filter to use
+   - smoothtime_ ({double, int}=60.0) - Smoothing time (sec)
 
 
 Description
@@ -65,24 +65,42 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file (MS)
-.. [2] 
-   **tablein** (string)
-      | Input calibration table
-.. [3] 
-   **caltable** (string='')
-      | Output calibration table (overwrite tablein if unspecified)
-.. [4] 
-   **field** (stringArray=[''])
-      | Field name list
-.. [5] 
-   **smoothtype** (string='median')
-      | Smoothing filter to use
-.. [6] 
-   **smoothtime** ({double, int}=60.0)
-      | Smoothing time (sec)
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file (MS)
+
+.. _tablein:
+
+   .. rubric:: tablein
+
+   | Input calibration table
+
+.. _caltable:
+
+   .. rubric:: caltable
+
+   | Output calibration table (overwrite tablein if unspecified)
+
+.. _field:
+
+   .. rubric:: field
+
+   | Field name list
+
+.. _smoothtype:
+
+   .. rubric:: smoothtype
+
+   | Smoothing filter to use
+
+.. _smoothtime:
+
+   .. rubric:: smoothtime
+
+   | Smoothing time (sec)
+
 
     """
     pass

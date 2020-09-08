@@ -7,21 +7,21 @@ def msuvbin(vis, field='', spw='', taql='', outvis='', phasecenter='', nx=1000, 
 grid the visibility data onto a defined uniform grid (in the form of an ms); multiple MS\'s can be done onto the same grid
 
 Parameters
-   - **vis** (string) -  [1]_
-   - **field** (string='') -  [2]_
-   - **spw** (string='') -  [3]_
-   - **taql** (string='') -  [4]_
-   - **outvis** (string='') -  [5]_
-   - **phasecenter** (string='') -  [6]_
-   - **nx** (int=1000) -  [7]_
-   - **ny** (int=1000) -  [8]_
-   - **cell** (string='1arcsec') -  [9]_
-   - **ncorr** (int=1) -  [10]_
-   - **nchan** (int=1) -  [11]_
-   - **fstart** (string='1GHz') -  [12]_
-   - **fstep** (string='1kHz') -  [13]_
-   - **wproject** (bool=False) -  [14]_
-   - **memfrac** (double=0.5) -  [15]_
+   - vis_ (string) - 
+   - field_ (string='') - 
+   - spw_ (string='') - 
+   - taql_ (string='') - 
+   - outvis_ (string='') - 
+   - phasecenter_ (string='') - 
+   - nx_ (int=1000) - 
+   - ny_ (int=1000) - 
+   - cell_ (string='1arcsec') - 
+   - ncorr_ (int=1) - 
+   - nchan_ (int=1) - 
+   - fstart_ (string='1GHz') - 
+   - fstep_ (string='1kHz') - 
+   - wproject_ (bool=False) - 
+   - memfrac_ (double=0.5) - 
 
 
 Description
@@ -149,51 +149,96 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file (MS)
-.. [2] 
-   **field** (string='')
-      | Field selection of input ms
-.. [3] 
-   **spw** (string='')
-      | Spw selection
-.. [4] 
-   **taql** (string='')
-      | TaQl string for data selection
-.. [5] 
-   **outvis** (string='')
-      | name of output uvgrid
-.. [6] 
-   **phasecenter** (string='')
-      | phase center of uv grid
-.. [7] 
-   **nx** (int=1000)
-      | Number of pixels of grid along the x-axis
-.. [8] 
-   **ny** (int=1000)
-      | Number of pixels of grid along the y-axis
-.. [9] 
-   **cell** (string='1arcsec')
-      | pixel cell size defined in sky dimension
-.. [10] 
-   **ncorr** (int=1)
-      | number of correlations to store in grid
-.. [11] 
-   **nchan** (int=1)
-      | Number of spectral channels in grid
-.. [12] 
-   **fstart** (string='1GHz')
-      | Frequency of first spectral channel
-.. [13] 
-   **fstep** (string='1kHz')
-      | spectral channel width
-.. [14] 
-   **wproject** (bool=False)
-      | Do wprojection correction while gridding
-.. [15] 
-   **memfrac** (double=0.5)
-      | Limit how much of memory to use
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file (MS)
+
+.. _field:
+
+   .. rubric:: field
+
+   | Field selection of input ms
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | Spw selection
+
+.. _taql:
+
+   .. rubric:: taql
+
+   | TaQl string for data selection
+
+.. _outvis:
+
+   .. rubric:: outvis
+
+   | name of output uvgrid
+
+.. _phasecenter:
+
+   .. rubric:: phasecenter
+
+   | phase center of uv grid
+
+.. _nx:
+
+   .. rubric:: nx
+
+   | Number of pixels of grid along the x-axis
+
+.. _ny:
+
+   .. rubric:: ny
+
+   | Number of pixels of grid along the y-axis
+
+.. _cell:
+
+   .. rubric:: cell
+
+   | pixel cell size defined in sky dimension
+
+.. _ncorr:
+
+   .. rubric:: ncorr
+
+   | number of correlations to store in grid
+
+.. _nchan:
+
+   .. rubric:: nchan
+
+   | Number of spectral channels in grid
+
+.. _fstart:
+
+   .. rubric:: fstart
+
+   | Frequency of first spectral channel
+
+.. _fstep:
+
+   .. rubric:: fstep
+
+   | spectral channel width
+
+.. _wproject:
+
+   .. rubric:: wproject
+
+   | Do wprojection correction while gridding
+
+.. _memfrac:
+
+   .. rubric:: memfrac
+
+   | Limit how much of memory to use
+
 
     """
     pass

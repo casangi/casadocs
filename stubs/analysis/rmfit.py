@@ -7,17 +7,17 @@ def rmfit(imagename, rm='', rmerr='', pa0='', pa0err='', nturns='', chisq='', si
 Calculate rotation measure.
 
 Parameters
-   - **imagename** (variant) - Name(s) of the input image(s). Must be specified. [1]_
-   - **rm** (string='') - Output rotation measure image name. If not specified, no image is written. [2]_
-   - **rmerr** (string='') - Output rotation measure error image name. If not specified, no image is written. [3]_
-   - **pa0** (string='') - Output position angle (degrees) at zero wavelength image name. If not specified, no image is written. [4]_
-   - **pa0err** (string='') - Output position angle (degrees) at zero wavelength error image name. If not specified, no image is written. [5]_
-   - **nturns** (string='') - Output number of turns image name. If not specified, no image is written. [6]_
-   - **chisq** (string='') - Output reduced chi squared image name. If not specified, no image is written. [7]_
-   - **sigma** (double=-1) - Estimate of the thermal noise.  A value less than 0 means auto estimate. [8]_
-   - **rmfg** (double=0.0) - Foreground rotation measure in rad/m/m to subtract. [9]_
-   - **rmmax** (double=0.0) - Maximum rotation measure in rad/m/m for which to solve. IMPORTANT TO SPECIFY. [10]_
-   - **maxpaerr** (double=1e30) - Maximum input position angle error in degrees to allow in solution determination. [11]_
+   - imagename_ (variant) - Name(s) of the input image(s). Must be specified.
+   - rm_ (string='') - Output rotation measure image name. If not specified, no image is written.
+   - rmerr_ (string='') - Output rotation measure error image name. If not specified, no image is written.
+   - pa0_ (string='') - Output position angle (degrees) at zero wavelength image name. If not specified, no image is written.
+   - pa0err_ (string='') - Output position angle (degrees) at zero wavelength error image name. If not specified, no image is written.
+   - nturns_ (string='') - Output number of turns image name. If not specified, no image is written.
+   - chisq_ (string='') - Output reduced chi squared image name. If not specified, no image is written.
+   - sigma_ (double=-1) - Estimate of the thermal noise.  A value less than 0 means auto estimate.
+   - rmfg_ (double=0.0) - Foreground rotation measure in rad/m/m to subtract.
+   - rmmax_ (double=0.0) - Maximum rotation measure in rad/m/m for which to solve. IMPORTANT TO SPECIFY.
+   - maxpaerr_ (double=1e30) - Maximum input position angle error in degrees to allow in solution determination.
 
 
 Description
@@ -97,39 +97,72 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (variant)
-      | Name(s) of the input image(s). Must be specified.
-.. [2] 
-   **rm** (string='')
-      | Output rotation measure image name. If not specified, no image is written.
-.. [3] 
-   **rmerr** (string='')
-      | Output rotation measure error image name. If not specified, no image is written.
-.. [4] 
-   **pa0** (string='')
-      | Output position angle (degrees) at zero wavelength image name. If not specified, no image is written.
-.. [5] 
-   **pa0err** (string='')
-      | Output position angle (degrees) at zero wavelength error image name. If not specified, no image is written.
-.. [6] 
-   **nturns** (string='')
-      | Output number of turns image name. If not specified, no image is written.
-.. [7] 
-   **chisq** (string='')
-      | Output reduced chi squared image name. If not specified, no image is written.
-.. [8] 
-   **sigma** (double=-1)
-      | Estimate of the thermal noise.  A value less than 0 means auto estimate.
-.. [9] 
-   **rmfg** (double=0.0)
-      | Foreground rotation measure in rad/m/m to subtract.
-.. [10] 
-   **rmmax** (double=0.0)
-      | Maximum rotation measure in rad/m/m for which to solve. IMPORTANT TO SPECIFY.
-.. [11] 
-   **maxpaerr** (double=1e30)
-      | Maximum input position angle error in degrees to allow in solution determination.
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Name(s) of the input image(s). Must be specified.
+
+.. _rm:
+
+   .. rubric:: rm
+
+   | Output rotation measure image name. If not specified, no image is written.
+
+.. _rmerr:
+
+   .. rubric:: rmerr
+
+   | Output rotation measure error image name. If not specified, no image is written.
+
+.. _pa0:
+
+   .. rubric:: pa0
+
+   | Output position angle (degrees) at zero wavelength image name. If not specified, no image is written.
+
+.. _pa0err:
+
+   .. rubric:: pa0err
+
+   | Output position angle (degrees) at zero wavelength error image name. If not specified, no image is written.
+
+.. _nturns:
+
+   .. rubric:: nturns
+
+   | Output number of turns image name. If not specified, no image is written.
+
+.. _chisq:
+
+   .. rubric:: chisq
+
+   | Output reduced chi squared image name. If not specified, no image is written.
+
+.. _sigma:
+
+   .. rubric:: sigma
+
+   | Estimate of the thermal noise.  A value less than 0 means auto estimate.
+
+.. _rmfg:
+
+   .. rubric:: rmfg
+
+   | Foreground rotation measure in rad/m/m to subtract.
+
+.. _rmmax:
+
+   .. rubric:: rmmax
+
+   | Maximum rotation measure in rad/m/m for which to solve. IMPORTANT TO SPECIFY.
+
+.. _maxpaerr:
+
+   .. rubric:: maxpaerr
+
+   | Maximum input position angle error in degrees to allow in solution determination.
+
 
     """
     pass

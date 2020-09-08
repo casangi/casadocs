@@ -7,15 +7,15 @@ def concat(vis, concatvis='', freqtol='', dirtol='', respectname=False, timesort
 Concatenate several visibility data sets.
 
 Parameters
-   - **vis** (stringArray) - Name of input visibility file [1]_
-   - **concatvis** (string='') - Name of output visibility file [2]_
-   - **freqtol** (variant='') - Frequency shift tolerance for considering data as the same spwid [3]_
-   - **dirtol** (variant='') - Direction shift tolerance for considering data as the same field [4]_
-   - **respectname** (bool=False) - If true, fields with a different name are not merged even if their direction agrees [5]_
-   - **timesort** (bool=False) - If true, sort by TIME in ascending order [6]_
-   - **copypointing** (bool=True) - Copy all rows of the POINTING table. [7]_
-   - **visweightscale** (doubleArray=['']) - List of the weight scaling factors to be applied to the individual MSs [8]_
-   - **forcesingleephemfield** (variant='') - Make sure that there is only one joint ephemeris for every field in this list [9]_
+   - vis_ (stringArray) - Name of input visibility file
+   - concatvis_ (string='') - Name of output visibility file
+   - freqtol_ (variant='') - Frequency shift tolerance for considering data as the same spwid
+   - dirtol_ (variant='') - Direction shift tolerance for considering data as the same field
+   - respectname_ (bool=False) - If true, fields with a different name are not merged even if their direction agrees
+   - timesort_ (bool=False) - If true, sort by TIME in ascending order
+   - copypointing_ (bool=True) - Copy all rows of the POINTING table.
+   - visweightscale_ (doubleArray=['']) - List of the weight scaling factors to be applied to the individual MSs
+   - forcesingleephemfield_ (variant='') - Make sure that there is only one joint ephemeris for every field in this list
 
 
 Description
@@ -126,110 +126,137 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (stringArray)
-      | Name of input visibility file
-      |                      default: none
-      | 
-      |                         Example:
-      |                         vis='['src2.ms','ngc5921.ms','ngc315.ms']
-.. [2] 
-   **concatvis** (string='')
-      | Name of visibility file that will contain the
-      | concatenated data
-      |                      default: none
-      | 
-      |                         Example: concatvis='outvis.ms'
-      | 
-      |                      Note: if this file exits on disk then the input
-      |                      files are added to this file.  Otherwise the new
-      |                      file contains the concatenated data. Be careful
-      |                      here when concatenating to an existing file.
-.. [3] 
-   **freqtol** (variant='')
-      | Frequency shift tolerance for considering data as the
-      | same spwid. The number of channels must also be the same.
-      |                     Default: '' == 1 Hz
-      | 
-      |                        Example: freqtol='10MHz' will not combine spwid
-      |                        unless they are within 10 MHz.
-      | 
-      |                     Note: This option is useful to combine spectral
-      |                     windows with very slight frequency differences
-      |                     caused by Doppler tracking, for example.
-.. [4] 
-   **dirtol** (variant='')
-      | Direction shift tolerance for considering data as the
-      | same field
-      |                      Default: '' == 1 mas (milliarcsec)
-      | 
-      |                         Example: dirtol='1arcsec' will not combine
-      |                         data for a field unless their phase center
-      |                         differ by less than 1 arcsec.  
-      | 
-      |                      Note: If the field names are different in the
-      |                      input data sets, the name in the output data set
-      |                      will be the first relevant data set in the list.
-.. [5] 
-   **respectname** (bool=False)
-      | If true, fields with a different name are not merged even
-      | if their direction agrees (within dirtol)
-      |                      Default: False
-.. [6] 
-   **timesort** (bool=False)
-      | If true, sort by TIME in ascending order
-      |                      Default: False (data in order as read in)
-      | 
-      |                         Example: timesort=True
-      | 
-      |                      Note: There is no constraint on data that is
-      |                      simultaneously observed for more than one field;
-      |                      for example multi-source correlation of VLBA
-      |                      data.
-.. [7] 
-   **copypointing** (bool=True)
-      | Make a proper copy of the POINTING subtable 
-      |                      Default:True (can be time consuming!)
-      | 
-      |                      If False, the result is an empty POINTING table.
-.. [8] 
-   **visweightscale** (doubleArray=[''])
-      | List of the weight scaling factors to be applied to the
-      | individual MSs
-      |                      Default: [] (empty list) - no scaling
-      | 
-      |                      The weights of the individual MSs will be scaled
-      |                      in the concatenated output MS by the factors in
-      |                      this list. SIGMA will be scaled by
-      |                      1/sqrt(factor). Useful for handling heterogeneous
-      |                      arrays. Use plotms to inspect the "Wt" column as
-      |                      a reference for determining the scaling factors.
-      |  
-      |                         Example: [1.,3.,3.] - scale the weights of the
-      |                         second and third MS by a factor 3 and the
-      |                         SIGMA column of these MS by a factor
-      |                         1/sqrt(3).
-.. [9] 
-   **forcesingleephemfield** (variant='')
-      | Make sure that there is only one joint ephemeris for every field in this list
-      |                      Default: '' (standard treatment of all ephemeris
-      |                      fields)
-      | 
-      |                      By default, concat will only merge two ephemeris
-      |                      fields if the first ephemeris covers the time
-      |                      range of the second. Otherwise, two separate
-      |                      fields with separate ephemerides are placed in
-      |                      the output MS.
-      |                      In order to override this behaviour and make
-      |                      concat merge the non-overlapping or only
-      |                      partially overlapping input ephemerides, the name
-      |                      or id of the field in question needs to be placed
-      |                      into the list in parameter
-      |                      'forcesingleephemfield'.
-      | 
-      |                      Example: ['Neptune'] - will make sure that there
-      |                      is only one joint ephemeris for field Neptune in
-      |                      the output MS
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file
+   |                      default: none
+   | 
+   |                         Example:
+   |                         vis='['src2.ms','ngc5921.ms','ngc315.ms']
+
+.. _concatvis:
+
+   .. rubric:: concatvis
+
+   | Name of visibility file that will contain the
+   | concatenated data
+   |                      default: none
+   | 
+   |                         Example: concatvis='outvis.ms'
+   | 
+   |                      Note: if this file exits on disk then the input
+   |                      files are added to this file.  Otherwise the new
+   |                      file contains the concatenated data. Be careful
+   |                      here when concatenating to an existing file.
+
+.. _freqtol:
+
+   .. rubric:: freqtol
+
+   | Frequency shift tolerance for considering data as the
+   | same spwid. The number of channels must also be the same.
+   |                     Default: '' == 1 Hz
+   | 
+   |                        Example: freqtol='10MHz' will not combine spwid
+   |                        unless they are within 10 MHz.
+   | 
+   |                     Note: This option is useful to combine spectral
+   |                     windows with very slight frequency differences
+   |                     caused by Doppler tracking, for example.
+
+.. _dirtol:
+
+   .. rubric:: dirtol
+
+   | Direction shift tolerance for considering data as the
+   | same field
+   |                      Default: '' == 1 mas (milliarcsec)
+   | 
+   |                         Example: dirtol='1arcsec' will not combine
+   |                         data for a field unless their phase center
+   |                         differ by less than 1 arcsec.  
+   | 
+   |                      Note: If the field names are different in the
+   |                      input data sets, the name in the output data set
+   |                      will be the first relevant data set in the list.
+
+.. _respectname:
+
+   .. rubric:: respectname
+
+   | If true, fields with a different name are not merged even
+   | if their direction agrees (within dirtol)
+   |                      Default: False
+
+.. _timesort:
+
+   .. rubric:: timesort
+
+   | If true, sort by TIME in ascending order
+   |                      Default: False (data in order as read in)
+   | 
+   |                         Example: timesort=True
+   | 
+   |                      Note: There is no constraint on data that is
+   |                      simultaneously observed for more than one field;
+   |                      for example multi-source correlation of VLBA
+   |                      data.
+
+.. _copypointing:
+
+   .. rubric:: copypointing
+
+   | Make a proper copy of the POINTING subtable 
+   |                      Default:True (can be time consuming!)
+   | 
+   |                      If False, the result is an empty POINTING table.
+
+.. _visweightscale:
+
+   .. rubric:: visweightscale
+
+   | List of the weight scaling factors to be applied to the
+   | individual MSs
+   |                      Default: [] (empty list) - no scaling
+   | 
+   |                      The weights of the individual MSs will be scaled
+   |                      in the concatenated output MS by the factors in
+   |                      this list. SIGMA will be scaled by
+   |                      1/sqrt(factor). Useful for handling heterogeneous
+   |                      arrays. Use plotms to inspect the "Wt" column as
+   |                      a reference for determining the scaling factors.
+   |  
+   |                         Example: [1.,3.,3.] - scale the weights of the
+   |                         second and third MS by a factor 3 and the
+   |                         SIGMA column of these MS by a factor
+   |                         1/sqrt(3).
+
+.. _forcesingleephemfield:
+
+   .. rubric:: forcesingleephemfield
+
+   | Make sure that there is only one joint ephemeris for every field in this list
+   |                      Default: '' (standard treatment of all ephemeris
+   |                      fields)
+   | 
+   |                      By default, concat will only merge two ephemeris
+   |                      fields if the first ephemeris covers the time
+   |                      range of the second. Otherwise, two separate
+   |                      fields with separate ephemerides are placed in
+   |                      the output MS.
+   |                      In order to override this behaviour and make
+   |                      concat merge the non-overlapping or only
+   |                      partially overlapping input ephemerides, the name
+   |                      or id of the field in question needs to be placed
+   |                      into the list in parameter
+   |                      'forcesingleephemfield'.
+   | 
+   |                      Example: ['Neptune'] - will make sure that there
+   |                      is only one joint ephemeris for field Neptune in
+   |                      the output MS
+
 
     """
     pass

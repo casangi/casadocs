@@ -7,7 +7,7 @@ def listfits(fitsfile):
 List the HDU and typical data rows of a fits file:
 
 Parameters
-   - **fitsfile** (string) - Name of input fits file [1]_
+   - fitsfile_ (string) - Name of input fits file
 
 
 Description
@@ -23,9 +23,12 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **fitsfile** (string)
-      | Name of input fits file
+.. _fitsfile:
+
+   .. rubric:: fitsfile
+
+   | Name of input fits file
+
 
     """
     pass

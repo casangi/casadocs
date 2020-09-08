@@ -7,7 +7,7 @@ def browsetable(tablename='', mightedit=False, sortlist='', taql='', skipcols=''
 Browse a table (MS, calibration table, image)
 
 Parameters
-   - **tablename** (string='') - Name of input table [1]_
+   - tablename_ (string='') - Name of input table
 
 
 Description
@@ -87,38 +87,53 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **tablename** (string='')
-      | Name of table file (vis, calibration table, image)
-      |                      Default: none
-      |                      
-      |                         Example: tablename='ngc5921.ms'
-.. [2] 
-   **mightedit** (bool=False)
-      | Disable the filtering options (below) and allow editing
-      | the table.
-      |                      Default: False
-      |                      Options: False|True
-      | 
-      |                      Warning: the GUI seems to ignore whether the
-      |                      table tool is opened read-only - just be careful,
-      |                      esp. if filtering.
-.. [3] 
-   **sortlist** ({string, stringArray}='')
-      | List of columns to sort by
-      |                      Default: none
-.. [4] 
-   **taql** (string='')
-      | TaQL query string for prefiltering the table.
-      |                      Default: none
-      | 
-      |                         Example: taql="ANTENNA2 < 6
-.. [5] 
-   **skipcols** ({string, stringArray}='')
-      | Columns to NOT display.
-      |                      Default: none
-      | 
-      |                         Example: skipcols='feed1, feed2'
+.. _tablename:
+
+   .. rubric:: tablename
+
+   | Name of table file (vis, calibration table, image)
+   |                      Default: none
+   |                      
+   |                         Example: tablename='ngc5921.ms'
+
+.. _mightedit:
+
+   .. rubric:: mightedit
+
+   | Disable the filtering options (below) and allow editing
+   | the table.
+   |                      Default: False
+   |                      Options: False|True
+   | 
+   |                      Warning: the GUI seems to ignore whether the
+   |                      table tool is opened read-only - just be careful,
+   |                      esp. if filtering.
+
+.. _sortlist:
+
+   .. rubric:: sortlist
+
+   | List of columns to sort by
+   |                      Default: none
+
+.. _taql:
+
+   .. rubric:: taql
+
+   | TaQL query string for prefiltering the table.
+   |                      Default: none
+   | 
+   |                         Example: taql="ANTENNA2 < 6
+
+.. _skipcols:
+
+   .. rubric:: skipcols
+
+   | Columns to NOT display.
+   |                      Default: none
+   | 
+   |                         Example: skipcols='feed1, feed2'
+
 
     """
     pass

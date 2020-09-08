@@ -7,11 +7,11 @@ def imval(imagename, region='', box='', chans='', stokes=''):
 Get the data value(s) and/or mask value in an image.
 
 Parameters
-   - **imagename** (string) - Name of the input image [1]_
-   - **region** (variant='') - Region selection. Empty string (default) means use rules for box/chans/stokes specification. [2]_
-   - **box** (string='') - Rectangular region(s) to select in direction plane. Empty string (default) means use the reference pixel. [3]_
-   - **chans** (string='') - Channels to use. Default is to use all channels. [4]_
-   - **stokes** (string='') - Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes. [5]_
+   - imagename_ (string) - Name of the input image
+   - region_ (variant='') - Region selection. Empty string (default) means use rules for box/chans/stokes specification.
+   - box_ (string='') - Rectangular region(s) to select in direction plane. Empty string (default) means use the reference pixel.
+   - chans_ (string='') - Channels to use. Default is to use all channels.
+   - stokes_ (string='') - Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
 
 
 Description
@@ -108,21 +108,36 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (string)
-      | Name of the input image
-.. [2] 
-   **region** (variant='')
-      | Region selection. Empty string (default) means use rules for box/chans/stokes specification.
-.. [3] 
-   **box** (string='')
-      | Rectangular region(s) to select in direction plane. Empty string (default) means use the reference pixel.
-.. [4] 
-   **chans** (string='')
-      | Channels to use. Default is to use all channels.
-.. [5] 
-   **stokes** (string='')
-      | Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Name of the input image
+
+.. _region:
+
+   .. rubric:: region
+
+   | Region selection. Empty string (default) means use rules for box/chans/stokes specification.
+
+.. _box:
+
+   .. rubric:: box
+
+   | Rectangular region(s) to select in direction plane. Empty string (default) means use the reference pixel.
+
+.. _chans:
+
+   .. rubric:: chans
+
+   | Channels to use. Default is to use all channels.
+
+.. _stokes:
+
+   .. rubric:: stokes
+
+   | Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
+
 
     """
     pass

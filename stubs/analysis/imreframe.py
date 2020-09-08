@@ -7,15 +7,15 @@ def imreframe(imagename, output='', outframe='lsrk', epoch='', restfreq=''):
 Change the frame in which the image reports its spectral values
 
 Parameters
-   - **imagename** (string) - Name of the input image [1]_
-   - **output** (string='') - Name of the output image [2]_
-   - **outframe** (string='lsrk') - Spectral frame in which the frequency or velocity values will be reported by default [3]_
+   - imagename_ (string) - Name of the input image
+   - output_ (string='') - Name of the output image
+   - outframe_ (string='lsrk') - Spectral frame in which the frequency or velocity values will be reported by default
 
       .. raw:: html
 
          <details><summary><i> outframe = topo </i></summary>
 
-      - **epoch** (string='') - Epoch to be associated with this image [4]_
+      - epoch_ (string='') - Epoch to be associated with this image
 
       .. raw:: html
 
@@ -25,7 +25,7 @@ Parameters
 
          <details><summary><i> outframe = TOPO </i></summary>
 
-      - **epoch** (string='') - Epoch to be associated with this image [4]_
+      - epoch_ (string='') - Epoch to be associated with this image
 
       .. raw:: html
 
@@ -35,7 +35,7 @@ Parameters
 
          <details><summary><i> outframe = geo </i></summary>
 
-      - **epoch** (string='') - Epoch to be associated with this image [4]_
+      - epoch_ (string='') - Epoch to be associated with this image
 
       .. raw:: html
 
@@ -45,12 +45,12 @@ Parameters
 
          <details><summary><i> outframe = GEO </i></summary>
 
-      - **epoch** (string='') - Epoch to be associated with this image [4]_
+      - epoch_ (string='') - Epoch to be associated with this image
 
       .. raw:: html
 
          </details>
-   - **restfreq** (string='') - restfrequency to use for velocity values (e.g "1.420GHz" for the HI line) [5]_
+   - restfreq_ (string='') - restfrequency to use for velocity values (e.g "1.420GHz" for the HI line)
 
 
 Description
@@ -126,21 +126,36 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (string)
-      | Name of the input image
-.. [2] 
-   **output** (string='')
-      | Name of the output image
-.. [3] 
-   **outframe** (string='lsrk')
-      | Spectral frame in which the frequency or velocity values will be reported by default
-.. [4] 
-   **epoch** (string='')
-      | Epoch to be associated with this image
-.. [5] 
-   **restfreq** (string='')
-      | restfrequency to use for velocity values (e.g "1.420GHz" for the HI line)
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Name of the input image
+
+.. _output:
+
+   .. rubric:: output
+
+   | Name of the output image
+
+.. _outframe:
+
+   .. rubric:: outframe
+
+   | Spectral frame in which the frequency or velocity values will be reported by default
+
+.. _epoch:
+
+   .. rubric:: epoch
+
+   | Epoch to be associated with this image
+
+.. _restfreq:
+
+   .. rubric:: restfreq
+
+   | restfrequency to use for velocity values (e.g "1.420GHz" for the HI line)
+
 
     """
     pass

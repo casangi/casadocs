@@ -7,14 +7,14 @@ def imhistory(imagename, mode='list', verbose=True, origin='imhistory', message=
 Retrieve and modify image history
 
 Parameters
-   - **imagename** (string) - Name of the input spectral line image [1]_
-   - **mode** (string='list') - Mode to run in, "list" to retrieve history, "append" to append a record to history. [2]_
+   - imagename_ (string) - Name of the input spectral line image
+   - mode_ (string='list') - Mode to run in, "list" to retrieve history, "append" to append a record to history.
 
       .. raw:: html
 
          <details><summary><i> mode = list </i></summary>
 
-      - **verbose** (bool=True) - Write history to logger if mode="list"? [3]_
+      - verbose_ (bool=True) - Write history to logger if mode="list"?
 
       .. raw:: html
 
@@ -24,8 +24,8 @@ Parameters
 
          <details><summary><i> mode = append </i></summary>
 
-      - **origin** (string='imhistory') - Origin of appended message. Only used for mode="append". [4]_
-      - **message** (string='') - Message to append. Only used of mode="append". [5]_
+      - origin_ (string='imhistory') - Origin of appended message. Only used for mode="append".
+      - message_ (string='') - Message to append. Only used of mode="append".
 
       .. raw:: html
 
@@ -52,40 +52,55 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (string)
-      | Name of the input (CASA or FITS) image
-      |                      Default: none
-      | 
-      |                         Example: imagename='ngc5921.im'
-.. [2] 
-   **mode** (string='list')
-      | Operating mode.
-      |                      Default: 'list' (retrieve history)
-      |                      Options: 'list|append' ('append' to append a
-      |                      record to history)
-.. [3] 
-   **verbose** (bool=True)
-      | Write history to logger if mode="list"?
-      |                      Subparameter of mode='list'
-      |                      Default: True
-      |                      Options: True|False
-.. [4] 
-   **origin** (string='imhistory')
-      | Origin of appended message. 
-      |                      Subparameter of mode='append'
-      |                      Default: 'imhistory'
-      | 
-      |                      The user can specify any string. This string will
-      |                      appear as a tag at the start of the appended line
-      |                      in the image history. Only used for mode="append".
-.. [5] 
-   **message** (string='')
-      | Message to append. 
-      |                      Subparameter of mode='append'
-      |                      Default: none
-      | 
-      |                      Only used of mode="append".
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Name of the input (CASA or FITS) image
+   |                      Default: none
+   | 
+   |                         Example: imagename='ngc5921.im'
+
+.. _mode:
+
+   .. rubric:: mode
+
+   | Operating mode.
+   |                      Default: 'list' (retrieve history)
+   |                      Options: 'list|append' ('append' to append a
+   |                      record to history)
+
+.. _verbose:
+
+   .. rubric:: verbose
+
+   | Write history to logger if mode="list"?
+   |                      Subparameter of mode='list'
+   |                      Default: True
+   |                      Options: True|False
+
+.. _origin:
+
+   .. rubric:: origin
+
+   | Origin of appended message. 
+   |                      Subparameter of mode='append'
+   |                      Default: 'imhistory'
+   | 
+   |                      The user can specify any string. This string will
+   |                      appear as a tag at the start of the appended line
+   |                      in the image history. Only used for mode="append".
+
+.. _message:
+
+   .. rubric:: message
+
+   | Message to append. 
+   |                      Subparameter of mode='append'
+   |                      Default: none
+   | 
+   |                      Only used of mode="append".
+
 
     """
     pass

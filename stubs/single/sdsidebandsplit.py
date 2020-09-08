@@ -7,25 +7,25 @@ def sdsidebandsplit(outfile='', overwrite=False, signalshift=[''], imageshift=['
 [EXPERIMENTAL] invoke sideband separation using FFT
 
 Parameters
-   - **imagename** (stringArray=['']) - a list of names of input images [1]_
-   - **outfile** (string='') - Prefix of output image name [2]_
-   - **overwrite** (bool=False) - overwrite option [3]_
-   - **signalshift** (doubleArray=['']) - a list of channel number shifts in signal side band [4]_
-   - **imageshift** (doubleArray=['']) - a list of channel number shifts in image side band [5]_
-   - **getbothside** (bool=False) - sideband separation (True) or supression (False) [6]_
+   - imagename_ (stringArray=['']) - a list of names of input images
+   - outfile_ (string='') - Prefix of output image name
+   - overwrite_ (bool=False) - overwrite option
+   - signalshift_ (doubleArray=['']) - a list of channel number shifts in signal side band
+   - imageshift_ (doubleArray=['']) - a list of channel number shifts in image side band
+   - getbothside_ (bool=False) - sideband separation (True) or supression (False)
 
       .. raw:: html
 
          <details><summary><i> getbothside = True </i></summary>
 
-      - **refchan** (double=0.0) - reference channel of spectral axis in image sideband [7]_
-      - **refval** (string='') - frequency at the reference channel of spectral axis in image sideband (e.g., "100GHz") [8]_
+      - refchan_ (double=0.0) - reference channel of spectral axis in image sideband
+      - refval_ (string='') - frequency at the reference channel of spectral axis in image sideband (e.g., "100GHz")
 
       .. raw:: html
 
          </details>
-   - **otherside** (bool=False) - solve the solution of the other side band side and subtract the solution [9]_
-   - **threshold** (double=0.2) - Rejection limit of solution [10]_
+   - otherside_ (bool=False) - solve the solution of the other side band side and subtract the solution
+   - threshold_ (double=0.2) - Rejection limit of solution
 
 
 Description
@@ -266,42 +266,72 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (stringArray=[''])
-      | a list of names of input images. At least two valid images are required for processing
-.. [2] 
-   **outfile** (string='')
-      | Prefix of output image name.
-      |       A suffix, ".signalband" or ".imageband" is added to 
-      |       output image name depending on the side band side being solved.
-.. [3] 
-   **overwrite** (bool=False)
-      | overwrite option
-.. [4] 
-   **signalshift** (doubleArray=[''])
-      | a list of channel number shifts in signal side band.
-      |       The number of elements must be equal to that of imagename
-.. [5] 
-   **imageshift** (doubleArray=[''])
-      | a list of channel number shifts in image side band.
-      |       The number of elements must be either zero or equal to that of imagename.
-      |       In case of zero length array, the values are obtained from signalshift
-      |       assuming the shifts are the same magnitude in opposite direction.
-.. [6] 
-   **getbothside** (bool=False)
-      | sideband separation (True) or supression (False)
-.. [7] 
-   **refchan** (double=0.0)
-      | reference channel of spectral axis in image sideband
-.. [8] 
-   **refval** (string='')
-      | frequency at the reference channel of spectral axis in image sideband (e.g., "100GHz")
-.. [9] 
-   **otherside** (bool=False)
-      | solve the solution of the other side band side and subtract the solution
-.. [10] 
-   **threshold** (double=0.2)
-      | Rejection limit of solution. The value must be greater than 0.0 and less than 1.0.
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | a list of names of input images. At least two valid images are required for processing
+
+.. _outfile:
+
+   .. rubric:: outfile
+
+   | Prefix of output image name.
+   |       A suffix, ".signalband" or ".imageband" is added to 
+   |       output image name depending on the side band side being solved.
+
+.. _overwrite:
+
+   .. rubric:: overwrite
+
+   | overwrite option
+
+.. _signalshift:
+
+   .. rubric:: signalshift
+
+   | a list of channel number shifts in signal side band.
+   |       The number of elements must be equal to that of imagename
+
+.. _imageshift:
+
+   .. rubric:: imageshift
+
+   | a list of channel number shifts in image side band.
+   |       The number of elements must be either zero or equal to that of imagename.
+   |       In case of zero length array, the values are obtained from signalshift
+   |       assuming the shifts are the same magnitude in opposite direction.
+
+.. _getbothside:
+
+   .. rubric:: getbothside
+
+   | sideband separation (True) or supression (False)
+
+.. _refchan:
+
+   .. rubric:: refchan
+
+   | reference channel of spectral axis in image sideband
+
+.. _refval:
+
+   .. rubric:: refval
+
+   | frequency at the reference channel of spectral axis in image sideband (e.g., "100GHz")
+
+.. _otherside:
+
+   .. rubric:: otherside
+
+   | solve the solution of the other side band side and subtract the solution
+
+.. _threshold:
+
+   .. rubric:: threshold
+
+   | Rejection limit of solution. The value must be greater than 0.0 and less than 1.0.
+
 
     """
     pass

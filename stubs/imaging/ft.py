@@ -7,14 +7,14 @@ def ft(vis, field='', spw='', model='', nterms=1, reffreq='', complist='', incre
 Insert a source model as a visibility set
 
 Parameters
-   - **vis** (string) - Name of input visibility file [1]_
-   - **field** (string='') - Select field using field id(s) or field name(s) [2]_
-   - **spw** (string='') - Select spectral window/channels [3]_
-   - **model** (variant='') - Name of input model image(s) [4]_
-   - **nterms** (int=1) - Number of terms used to model the sky frequency dependence [5]_
-   - **complist** (string='') - Name of component list [7]_
-   - **incremental** (bool=False) - Add to the existing model visibility? [8]_
-   - **usescratch** (bool=False) - If True, predicted  visibility  is stored in MODEL_DATA column [9]_
+   - vis_ (string) - Name of input visibility file
+   - field_ (string='') - Select field using field id(s) or field name(s)
+   - spw_ (string='') - Select spectral window/channels
+   - model_ (variant='') - Name of input model image(s)
+   - nterms_ (int=1) - Number of terms used to model the sky frequency dependence
+   - complist_ (string='') - Name of component list
+   - incremental_ (bool=False) - Add to the existing model visibility?
+   - usescratch_ (bool=False) - If True, predicted  visibility  is stored in MODEL_DATA column
 
 
 Description
@@ -76,85 +76,112 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file
-      |                      Default: none
-      | 
-      |                         Example: vis='ngc5921.ms'
-.. [2] 
-   **field** (string='')
-      | Select field using field id(s) or field name(s)
-      |                      Default: '' (all fields)
-      |                      
-      |                      BUT, only one source can be specified in a
-      |                      multi-source vis.
-      | 
-      | 
-      |                         Examples: 
-      |                         field = '1328+307'  specifies source
-      |                         '1328+307'
-      |                         field = '4' specified field with index 4
-.. [3] 
-   **spw** (string='')
-      | Select spectral window/channels
-      |                      Default: '' (all spectral windows and channels)
-.. [4] 
-   **model** (variant='')
-      | Name of input model image(s)
-      |                      Default: '' (none)
-      | 
-      |                         Example:
-      |                         model='/usr/lib/casapy/data/nrao/VLA/CalModels/3C286_X.im'
-      | 
-      |                      NOTE: The model visibilities are scaled from the
-      |                      model frequency to the observed frequency of the
-      |                      data.
-.. [5] 
-   **nterms** (int=1)
-      | Number of terms used to model the sky frequency
-      | dependence
-      |                      Default: 1 (one model image is required)
-      | 
-      |                         Example: nterms=3 - represents a 2nd order
-      |                         Taylor-polynomial in frequency and should be
-      |                         used in conjuction with coefficient model
-      |                         images as
-      |                         model=['xxx.model.tt0','xxx.model.tt1',
-      |                         'xxx.model.tt2']
-.. [6] 
-   **reffreq** (string='')
-      | Reference-frequency about which this Taylor-expansion is
-      | defined.
-      |                      Default: '' (reads the reference frequency from
-      |                      the model image)
-      | 
-      |                         Example: reffreq = '1.5GHz'
-.. [7] 
-   **complist** (string='')
-      | Name of component list
-      |                      Default: none
-      | 
-      |                         Example: complist='test.cl'
-      | 
-      |                      WARNING: component lists are difficult to make
-.. [8] 
-   **incremental** (bool=False)
-      | Add model visibility to the existing model visibilties
-      | stored in the MS
-      |                      Default: False
-      |                      Options: False|True
-.. [9] 
-   **usescratch** (bool=False)
-      | Story visibilities in MODEL_DATA column?
-      |                      Default: False
-      |                      Options: False|True
-      | 
-      |                      If True, model visibilities will be stored in the
-      |                      scratch column MODEL_DATA; if False, the model
-      |                      visibilities will be generated  on the fly (this
-      |                      mode may save some disk space equivalent to the
-      |                      volume of the observed data).
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file
+   |                      Default: none
+   | 
+   |                         Example: vis='ngc5921.ms'
+
+.. _field:
+
+   .. rubric:: field
+
+   | Select field using field id(s) or field name(s)
+   |                      Default: '' (all fields)
+   |                      
+   |                      BUT, only one source can be specified in a
+   |                      multi-source vis.
+   | 
+   | 
+   |                         Examples: 
+   |                         field = '1328+307'  specifies source
+   |                         '1328+307'
+   |                         field = '4' specified field with index 4
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | Select spectral window/channels
+   |                      Default: '' (all spectral windows and channels)
+
+.. _model:
+
+   .. rubric:: model
+
+   | Name of input model image(s)
+   |                      Default: '' (none)
+   | 
+   |                         Example:
+   |                         model='/usr/lib/casapy/data/nrao/VLA/CalModels/3C286_X.im'
+   | 
+   |                      NOTE: The model visibilities are scaled from the
+   |                      model frequency to the observed frequency of the
+   |                      data.
+
+.. _nterms:
+
+   .. rubric:: nterms
+
+   | Number of terms used to model the sky frequency
+   | dependence
+   |                      Default: 1 (one model image is required)
+   | 
+   |                         Example: nterms=3 - represents a 2nd order
+   |                         Taylor-polynomial in frequency and should be
+   |                         used in conjuction with coefficient model
+   |                         images as
+   |                         model=['xxx.model.tt0','xxx.model.tt1',
+   |                         'xxx.model.tt2']
+
+.. _reffreq:
+
+   .. rubric:: reffreq
+
+   | Reference-frequency about which this Taylor-expansion is
+   | defined.
+   |                      Default: '' (reads the reference frequency from
+   |                      the model image)
+   | 
+   |                         Example: reffreq = '1.5GHz'
+
+.. _complist:
+
+   .. rubric:: complist
+
+   | Name of component list
+   |                      Default: none
+   | 
+   |                         Example: complist='test.cl'
+   | 
+   |                      WARNING: component lists are difficult to make
+
+.. _incremental:
+
+   .. rubric:: incremental
+
+   | Add model visibility to the existing model visibilties
+   | stored in the MS
+   |                      Default: False
+   |                      Options: False|True
+
+.. _usescratch:
+
+   .. rubric:: usescratch
+
+   | Story visibilities in MODEL_DATA column?
+   |                      Default: False
+   |                      Options: False|True
+   | 
+   |                      If True, model visibilities will be stored in the
+   |                      scratch column MODEL_DATA; if False, the model
+   |                      visibilities will be generated  on the fly (this
+   |                      mode may save some disk space equivalent to the
+   |                      volume of the observed data).
+
 
     """
     pass

@@ -7,11 +7,11 @@ def importasap(infile, outputvis='', flagbackup=True, overwrite=False, parallel=
 Convert ASAP Scantable data  into a CASA visibility file (MS)
 
 Parameters
-   - **infile** (string) - Name of input ASAP Scantable data [1]_
-   - **outputvis** (string='') - Root name of the ms to be created. Note the .ms is NOT added. [2]_
-   - **flagbackup** (bool=True) - Back up flag column before applying flags. [3]_
-   - **overwrite** (bool=False) - Over write an existing MS(s) [4]_
-   - **parallel** (bool=False) - Turn on parallel execution [5]_
+   - infile_ (string) - Name of input ASAP Scantable data
+   - outputvis_ (string='') - Root name of the ms to be created. Note the .ms is NOT added.
+   - flagbackup_ (bool=True) - Back up flag column before applying flags.
+   - overwrite_ (bool=False) - Over write an existing MS(s)
+   - parallel_ (bool=False) - Turn on parallel execution
 
 
 Description
@@ -33,35 +33,50 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **infile** (string)
-      | Name of input ASAP Scantable data
-      |                      Default: none
-      | 
-      |                         Example: infile='mydata.asap'
-.. [2] 
-   **outputvis** (string='')
-      | Name of output visibility file
-      |                      Default: '' (same as vis)
-      | 
-      |                         Example: outputvis='myms.ms'
-      | 
-      |                      NOTE: Note the .ms is NOT added
-.. [3] 
-   **flagbackup** (bool=True)
-      | Back up flag column before applying flags.
-      |                      Default: True
-      |                      Options: True|False
-.. [4] 
-   **overwrite** (bool=False)
-      | Over write an existing MS(s)
-      |                      Default: False (do not overwrite)
-      |                      Options: False|True
-.. [5] 
-   **parallel** (bool=False)
-      | Turn on parallel execution
-      |                      Default: False (serial execution)
-      |                      Options: False|True
+.. _infile:
+
+   .. rubric:: infile
+
+   | Name of input ASAP Scantable data
+   |                      Default: none
+   | 
+   |                         Example: infile='mydata.asap'
+
+.. _outputvis:
+
+   .. rubric:: outputvis
+
+   | Name of output visibility file
+   |                      Default: '' (same as vis)
+   | 
+   |                         Example: outputvis='myms.ms'
+   | 
+   |                      NOTE: Note the .ms is NOT added
+
+.. _flagbackup:
+
+   .. rubric:: flagbackup
+
+   | Back up flag column before applying flags.
+   |                      Default: True
+   |                      Options: True|False
+
+.. _overwrite:
+
+   .. rubric:: overwrite
+
+   | Over write an existing MS(s)
+   |                      Default: False (do not overwrite)
+   |                      Options: False|True
+
+.. _parallel:
+
+   .. rubric:: parallel
+
+   | Turn on parallel execution
+   |                      Default: False (serial execution)
+   |                      Options: False|True
+
 
     """
     pass

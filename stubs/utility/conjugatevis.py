@@ -7,10 +7,10 @@ def conjugatevis(vis, spwlist='""', outputvis='', overwrite=False):
 Change the sign of the phases in all visibility columns.
 
 Parameters
-   - **vis** (string) - Name of input visibility file [1]_
-   - **spwlist** (variant='""') - Spectral window selection [2]_
-   - **outputvis** (string='') - Name of output visibility file [3]_
-   - **overwrite** (bool=False) - Overwrite the outputvis if it exists? [4]_
+   - vis_ (string) - Name of input visibility file
+   - spwlist_ (variant='""') - Spectral window selection
+   - outputvis_ (string='') - Name of output visibility file
+   - overwrite_ (bool=False) - Overwrite the outputvis if it exists?
 
 
 Description
@@ -52,29 +52,41 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file
-      |                      Default: none
-      | 
-      |                         Example: vis='ngc5921.ms'
-.. [2] 
-   **spwlist** (variant='""')
-      | Spectral window selection
-      |                      Default:[] (all spws will be conjugated)
-      | 
-      |                         Example: spw=[1,2]
-.. [3] 
-   **outputvis** (string='')
-      | Name of output visibility file
-      |                      Default: 'conjugated_'+vis
-      | 
-      |                         Example: outputvis='conjugated.ms'
-.. [4] 
-   **overwrite** (bool=False)
-      | Overwrite the outputvis if it exists?
-      |                      Default: False
-      |                      Options: False|True
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file
+   |                      Default: none
+   | 
+   |                         Example: vis='ngc5921.ms'
+
+.. _spwlist:
+
+   .. rubric:: spwlist
+
+   | Spectral window selection
+   |                      Default:[] (all spws will be conjugated)
+   | 
+   |                         Example: spw=[1,2]
+
+.. _outputvis:
+
+   .. rubric:: outputvis
+
+   | Name of output visibility file
+   |                      Default: 'conjugated_'+vis
+   | 
+   |                         Example: outputvis='conjugated.ms'
+
+.. _overwrite:
+
+   .. rubric:: overwrite
+
+   | Overwrite the outputvis if it exists?
+   |                      Default: False
+   |                      Options: False|True
+
 
     """
     pass

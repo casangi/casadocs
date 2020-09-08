@@ -7,15 +7,15 @@ def predictcomp(objname='', standard='Butler-JPL-Horizons 2010', epoch='', minfr
 Make a component list for a known calibrator
 
 Parameters
-   - **objname** (string='') - Object name [1]_
-   - **standard** (string='Butler-JPL-Horizons 2010') - Flux density standard [2]_
-   - **epoch** (string='') - Epoch [3]_
-   - **minfreq** (string='') - Minimum frequency [4]_
-   - **maxfreq** (string='') - Maximum frequency [5]_
-   - **nfreqs** (int=2) - Number of frequencies [6]_
-   - **prefix** (string='') - Prefix for the component list directory name. [7]_
-   - **antennalist** (string='') - Plot for this configuration [8]_
-   - **symb** (string='.') - A matplotlib plot symbol code [11]_
+   - objname_ (string='') - Object name
+   - standard_ (string='Butler-JPL-Horizons 2010') - Flux density standard
+   - epoch_ (string='') - Epoch
+   - minfreq_ (string='') - Minimum frequency
+   - maxfreq_ (string='') - Maximum frequency
+   - nfreqs_ (int=2) - Number of frequencies
+   - prefix_ (string='') - Prefix for the component list directory name.
+   - antennalist_ (string='') - Plot for this configuration
+   - symb_ (string='.') - A matplotlib plot symbol code
 
 
 Description
@@ -163,51 +163,96 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **objname** (string='')
-      | Object name
-.. [2] 
-   **standard** (string='Butler-JPL-Horizons 2010')
-      | Flux density standard
-.. [3] 
-   **epoch** (string='')
-      | Epoch
-.. [4] 
-   **minfreq** (string='')
-      | Minimum frequency
-.. [5] 
-   **maxfreq** (string='')
-      | Maximum frequency
-.. [6] 
-   **nfreqs** (int=2)
-      | Number of frequencies
-.. [7] 
-   **prefix** (string='')
-      | Prefix for the component list directory name.
-.. [8] 
-   **antennalist** (string='')
-      | Plot for this configuration
-.. [9] 
-   **showplot** (bool=False)
-      | Plot S vs |u| to the screen?
-.. [10] 
-   **savefig** (string='')
-      | Save a plot of S vs |u| to this filename
-.. [11] 
-   **symb** (string='.')
-      | A matplotlib plot symbol code
-.. [12] 
-   **include0amp** (bool=False)
-      | Force the amplitude axis to start at 0?
-.. [13] 
-   **include0bl** (bool=False)
-      | Force the baseline axis to start at 0?
-.. [14] 
-   **blunit** (string='')
-      | unit of the baseline axis
-.. [15] 
-   **showbl0flux** (bool=False)
-      | Print the zero baseline flux ?
+.. _objname:
+
+   .. rubric:: objname
+
+   | Object name
+
+.. _standard:
+
+   .. rubric:: standard
+
+   | Flux density standard
+
+.. _epoch:
+
+   .. rubric:: epoch
+
+   | Epoch
+
+.. _minfreq:
+
+   .. rubric:: minfreq
+
+   | Minimum frequency
+
+.. _maxfreq:
+
+   .. rubric:: maxfreq
+
+   | Maximum frequency
+
+.. _nfreqs:
+
+   .. rubric:: nfreqs
+
+   | Number of frequencies
+
+.. _prefix:
+
+   .. rubric:: prefix
+
+   | Prefix for the component list directory name.
+
+.. _antennalist:
+
+   .. rubric:: antennalist
+
+   | Plot for this configuration
+
+.. _showplot:
+
+   .. rubric:: showplot
+
+   | Plot S vs |u| to the screen?
+
+.. _savefig:
+
+   .. rubric:: savefig
+
+   | Save a plot of S vs |u| to this filename
+
+.. _symb:
+
+   .. rubric:: symb
+
+   | A matplotlib plot symbol code
+
+.. _include0amp:
+
+   .. rubric:: include0amp
+
+   | Force the amplitude axis to start at 0?
+
+.. _include0bl:
+
+   .. rubric:: include0bl
+
+   | Force the baseline axis to start at 0?
+
+.. _blunit:
+
+   .. rubric:: blunit
+
+   | unit of the baseline axis
+
+.. _showbl0flux:
+
+   .. rubric:: showbl0flux
+
+   | Print the zero baseline flux ?
+
 
     """
     pass

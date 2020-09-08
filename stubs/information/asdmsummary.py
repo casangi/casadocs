@@ -7,7 +7,7 @@ def asdmsummary(asdm):
 Summarized description of an ASDM dataset.
 
 Parameters
-   - **asdm** (string) - Name of input ASDM directory [1]_
+   - asdm_ (string) - Name of input ASDM directory
 
 
 Description
@@ -35,14 +35,17 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **asdm** (string)
-      | Name of input ASDM directory
-      |                      The asdmsummary task prints a description of the
-      |                      content of an SDM dataset to the CASA logger.
-      | 
-      |                         Example:
-      |                         asdm='10C-119_sb3070258_1.55628.42186299768'
+.. _asdm:
+
+   .. rubric:: asdm
+
+   | Name of input ASDM directory
+   |                      The asdmsummary task prints a description of the
+   |                      content of an SDM dataset to the CASA logger.
+   | 
+   |                         Example:
+   |                         asdm='10C-119_sb3070258_1.55628.42186299768'
+
 
     """
     pass

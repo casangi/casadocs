@@ -7,46 +7,46 @@ def polcal(vis, caltable='', field='', spw='', intent='', selectdata=True, timer
 Determine instrumental polarization calibrations
 
 Parameters
-   - **vis** (string) - Name of input visibility file [1]_
-   - **caltable** (string='') - Name of output gain calibration table [2]_
-   - **field** (string='') - Select field using field id(s) or field name(s) [3]_
-   - **spw** (string='') - Select spectral window/channels [4]_
-   - **intent** (string='') - Select observing intent [5]_
-   - **selectdata** (bool=True) - Other data selection parameters [6]_
+   - vis_ (string) - Name of input visibility file
+   - caltable_ (string='') - Name of output gain calibration table
+   - field_ (string='') - Select field using field id(s) or field name(s)
+   - spw_ (string='') - Select spectral window/channels
+   - intent_ (string='') - Select observing intent
+   - selectdata_ (bool=True) - Other data selection parameters
 
       .. raw:: html
 
          <details><summary><i> selectdata = True </i></summary>
 
-      - **timerange** (string='') - Select data based on time range [7]_
-      - **uvrange** (variant='') - Select data within uvrange (default units meters) [8]_
-      - **antenna** (string='') - Select data based on antenna/baseline [9]_
-      - **scan** (string='') - Scan number range [10]_
-      - **observation** ({string, int}='') - Select by observation ID(s) [11]_
-      - **msselect** (string='') - Optional complex data selection (ignore for now) [12]_
+      - timerange_ (string='') - Select data based on time range
+      - uvrange_ (variant='') - Select data within uvrange (default units meters)
+      - antenna_ (string='') - Select data based on antenna/baseline
+      - scan_ (string='') - Scan number range
+      - observation_ ({string, int}='') - Select by observation ID(s)
+      - msselect_ (string='') - Optional complex data selection (ignore for now)
 
       .. raw:: html
 
          </details>
-   - **solint** (variant='inf') - Solution interval [13]_
-   - **combine** (string='obs,scan') - Data axes which to combine for solve (obs, scan, spw, and/or field) [14]_
-   - **preavg** (double=300.0) - Pre-averaging interval (sec) [15]_
-   - **refant** (string='') - Reference antenna name(s) [16]_
-   - **minblperant** (int=4) - Minimum baselines _per antenna_ required for solve [17]_
-   - **minsnr** (double=3.0) - Reject solutions below this SNR [18]_
-   - **poltype** (string='D+QU') - Type of instrumental polarization solution (see help) [19]_
-   - **smodel** (doubleArray=['']) - Point source Stokes parameters for source model. [20]_
-   - **append** (bool=False) - Append solutions to the (existing) table [21]_
-   - **docallib** (bool=False) - Use callib or traditional cal apply parameters [22]_
+   - solint_ (variant='inf') - Solution interval
+   - combine_ (string='obs,scan') - Data axes which to combine for solve (obs, scan, spw, and/or field)
+   - preavg_ (double=300.0) - Pre-averaging interval (sec)
+   - refant_ (string='') - Reference antenna name(s)
+   - minblperant_ (int=4) - Minimum baselines _per antenna_ required for solve
+   - minsnr_ (double=3.0) - Reject solutions below this SNR
+   - poltype_ (string='D+QU') - Type of instrumental polarization solution (see help)
+   - smodel_ (doubleArray=['']) - Point source Stokes parameters for source model.
+   - append_ (bool=False) - Append solutions to the (existing) table
+   - docallib_ (bool=False) - Use callib or traditional cal apply parameters
 
       .. raw:: html
 
          <details><summary><i> docallib = False </i></summary>
 
-      - **gaintable** (stringArray=['']) - Gain calibration table(s) to apply [24]_
-      - **gainfield** (stringArray=['']) - Select a subset of calibrators from gaintable(s) [25]_
-      - **interp** (stringArray=['']) - Interpolation mode (in time) to use for each gaintable [26]_
-      - **spwmap** (intArray=['']) - Spectral window mappings to form for gaintable(s) [27]_
+      - gaintable_ (stringArray=['']) - Gain calibration table(s) to apply
+      - gainfield_ (stringArray=['']) - Select a subset of calibrators from gaintable(s)
+      - interp_ (stringArray=['']) - Interpolation mode (in time) to use for each gaintable
+      - spwmap_ (intArray=['']) - Spectral window mappings to form for gaintable(s)
 
       .. raw:: html
 
@@ -56,7 +56,7 @@ Parameters
 
          <details><summary><i> docallib = True </i></summary>
 
-      - **callib** (string='') - Cal Library filename [23]_
+      - callib_ (string='') - Cal Library filename
 
       .. raw:: html
 
@@ -168,97 +168,178 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file
-.. [2] 
-   **caltable** (string='')
-      | Name of output gain calibration table
-.. [3] 
-   **field** (string='')
-      | Select field using field id(s) or field name(s)
-.. [4] 
-   **spw** (string='')
-      | Select spectral window/channels
-.. [5] 
-   **intent** (string='')
-      | Select observing intent
-.. [6] 
-   **selectdata** (bool=True)
-      | Other data selection parameters
-.. [7] 
-   **timerange** (string='')
-      | Select data based on time range
-.. [8] 
-   **uvrange** (variant='')
-      | Select data within uvrange (default units meters)
-.. [9] 
-   **antenna** (string='')
-      | Select data based on antenna/baseline
-.. [10] 
-   **scan** (string='')
-      | Scan number range
-.. [11] 
-   **observation** ({string, int}='')
-      | Select by observation ID(s)
-.. [12] 
-   **msselect** (string='')
-      | Optional complex data selection (ignore for now)
-.. [13] 
-   **solint** (variant='inf')
-      | Solution interval
-.. [14] 
-   **combine** (string='obs,scan')
-      | Data axes which to combine for solve (obs, scan, spw, and/or field)
-.. [15] 
-   **preavg** (double=300.0)
-      | Pre-averaging interval (sec)
-.. [16] 
-   **refant** (string='')
-      | Reference antenna name(s)
-.. [17] 
-   **minblperant** (int=4)
-      | Minimum baselines _per antenna_ required for solve
-.. [18] 
-   **minsnr** (double=3.0)
-      | Reject solutions below this SNR
-.. [19] 
-   **poltype** (string='D+QU')
-      | Type of instrumental polarization solution (see help)
-.. [20] 
-   **smodel** (doubleArray=[''])
-      | Point source Stokes parameters for source model.
-.. [21] 
-   **append** (bool=False)
-      | Append solutions to the (existing) table
-.. [22] 
-   **docallib** (bool=False)
-      | Use callib or traditional cal apply parameters
-.. [23] 
-   **callib** (string='')
-      | Cal Library filename
-.. [24] 
-   **gaintable** (stringArray=[''])
-      | Gain calibration table(s) to apply
-.. [25] 
-   **gainfield** (stringArray=[''])
-      | Select a subset of calibrators from gaintable(s)
-.. [26] 
-   **interp** (stringArray=[''])
-      | Interpolation mode (in time) to use for each gaintable
-.. [27] 
-   **spwmap** (intArray=[''])
-      | Spectral window mappings to form for gaintable(s)
-      |                      Only used if callib=False
-      |                      default: [] (apply solutions from each calibration spw to
-      |                      the same MS spw only)
-      |                      Any available calibration spw can be mechanically mapped to any 
-      |                       MS spw. 
-      |                      Examples:
-      |                         spwmap=[0,0,1,1] means apply calibration 
-      |                           from cal spw = 0 to MS spw 0,1 and cal spw 1 to MS spws 2,3.
-      |                         spwmap=[[0,0,1,1],[0,1,0,1]] (use a list of lists for multiple
-      |                           gaintables)
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file
+
+.. _caltable:
+
+   .. rubric:: caltable
+
+   | Name of output gain calibration table
+
+.. _field:
+
+   .. rubric:: field
+
+   | Select field using field id(s) or field name(s)
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | Select spectral window/channels
+
+.. _intent:
+
+   .. rubric:: intent
+
+   | Select observing intent
+
+.. _selectdata:
+
+   .. rubric:: selectdata
+
+   | Other data selection parameters
+
+.. _timerange:
+
+   .. rubric:: timerange
+
+   | Select data based on time range
+
+.. _uvrange:
+
+   .. rubric:: uvrange
+
+   | Select data within uvrange (default units meters)
+
+.. _antenna:
+
+   .. rubric:: antenna
+
+   | Select data based on antenna/baseline
+
+.. _scan:
+
+   .. rubric:: scan
+
+   | Scan number range
+
+.. _observation:
+
+   .. rubric:: observation
+
+   | Select by observation ID(s)
+
+.. _msselect:
+
+   .. rubric:: msselect
+
+   | Optional complex data selection (ignore for now)
+
+.. _solint:
+
+   .. rubric:: solint
+
+   | Solution interval
+
+.. _combine:
+
+   .. rubric:: combine
+
+   | Data axes which to combine for solve (obs, scan, spw, and/or field)
+
+.. _preavg:
+
+   .. rubric:: preavg
+
+   | Pre-averaging interval (sec)
+
+.. _refant:
+
+   .. rubric:: refant
+
+   | Reference antenna name(s)
+
+.. _minblperant:
+
+   .. rubric:: minblperant
+
+   | Minimum baselines _per antenna_ required for solve
+
+.. _minsnr:
+
+   .. rubric:: minsnr
+
+   | Reject solutions below this SNR
+
+.. _poltype:
+
+   .. rubric:: poltype
+
+   | Type of instrumental polarization solution (see help)
+
+.. _smodel:
+
+   .. rubric:: smodel
+
+   | Point source Stokes parameters for source model.
+
+.. _append:
+
+   .. rubric:: append
+
+   | Append solutions to the (existing) table
+
+.. _docallib:
+
+   .. rubric:: docallib
+
+   | Use callib or traditional cal apply parameters
+
+.. _callib:
+
+   .. rubric:: callib
+
+   | Cal Library filename
+
+.. _gaintable:
+
+   .. rubric:: gaintable
+
+   | Gain calibration table(s) to apply
+
+.. _gainfield:
+
+   .. rubric:: gainfield
+
+   | Select a subset of calibrators from gaintable(s)
+
+.. _interp:
+
+   .. rubric:: interp
+
+   | Interpolation mode (in time) to use for each gaintable
+
+.. _spwmap:
+
+   .. rubric:: spwmap
+
+   | Spectral window mappings to form for gaintable(s)
+   |                      Only used if callib=False
+   |                      default: [] (apply solutions from each calibration spw to
+   |                      the same MS spw only)
+   |                      Any available calibration spw can be mechanically mapped to any 
+   |                       MS spw. 
+   |                      Examples:
+   |                         spwmap=[0,0,1,1] means apply calibration 
+   |                           from cal spw = 0 to MS spw 0,1 and cal spw 1 to MS spws 2,3.
+   |                         spwmap=[[0,0,1,1],[0,1,0,1]] (use a list of lists for multiple
+   |                           gaintables)
+
 
     """
     pass

@@ -7,7 +7,7 @@ def listhistory(vis):
 List the processing history of a dataset:
 
 Parameters
-   - **vis** (string) - Name of input visibility file (MS) [1]_
+   - vis_ (string) - Name of input visibility file (MS)
 
 
 Description
@@ -22,9 +22,12 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file (MS)
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file (MS)
+
 
     """
     pass

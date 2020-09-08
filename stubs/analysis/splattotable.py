@@ -7,8 +7,8 @@ def splattotable(filenames, table=''):
 Convert a downloaded Splatalogue spectral line list to a casa table.
 
 Parameters
-   - **filenames** (stringArray) - Files containing Splatalogue lists. [1]_
-   - **table** (string='') - Output table name. Must be specified. [2]_
+   - filenames_ (stringArray) - Files containing Splatalogue lists.
+   - table_ (string='') - Output table name. Must be specified.
 
 
 Description
@@ -87,17 +87,23 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **filenames** (stringArray)
-      | Files containing Splatalogue lists.
-      | 
-      |                      The downloaded files must be in a specific format
-      |                      for this task to succeed. Fro details, see the splattotable
-      |                      task pages on CASA Docs
-      |                      (https://casa.nrao.edu/casadocs/)
-.. [2] 
-   **table** (string='')
-      | Output table name. Must be specified.
+.. _filenames:
+
+   .. rubric:: filenames
+
+   | Files containing Splatalogue lists.
+   | 
+   |                      The downloaded files must be in a specific format
+   |                      for this task to succeed. Fro details, see the splattotable
+   |                      task pages on CASA Docs
+   |                      (https://casa.nrao.edu/casadocs/)
+
+.. _table:
+
+   .. rubric:: table
+
+   | Output table name. Must be specified.
+
 
     """
     pass

@@ -7,66 +7,66 @@ def specfit(imagename, box='', region='', chans='', stokes='', axis=-1, mask='',
 Fit 1-dimensional gaussians and/or polynomial models to an image or image region
 
 Parameters
-   - **imagename** (string) - Name of the input image [1]_
-   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane. [2]_
-   - **region** (string='') - Region selection. Default is to use the full image. [3]_
-   - **chans** (string='') - Channels to use. Default is to use all channels. [4]_
-   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes. [5]_
-   - **axis** (int=-1) - The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0). [6]_
-   - **mask** (string='') - Mask to use. Default is none.. [7]_
-   - **poly** (int=-1) - Order of polynomial element.  Default: do not fit a polynomial (<0). [9]_
-   - **estimates** (string='') - Name of file containing initial estimates.  Default: No initial estimates (""). [10]_
+   - imagename_ (string) - Name of the input image
+   - box_ (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - region_ (string='') - Region selection. Default is to use the full image.
+   - chans_ (string='') - Channels to use. Default is to use all channels.
+   - stokes_ (string='') - Stokes planes to use. Default is to use all Stokes planes.
+   - axis_ (int=-1) - The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
+   - mask_ (string='') - Mask to use. Default is none..
+   - poly_ (int=-1) - Order of polynomial element.  Default: do not fit a polynomial (<0).
+   - estimates_ (string='') - Name of file containing initial estimates.  Default: No initial estimates ("").
 
       .. raw:: html
 
          <details><summary><i> estimates = '' </i></summary>
 
-      - **ngauss** (int=1) - Number of Gaussian elements.  Default: 1. [8]_
-      - **pampest** ({string, double, doubleArray, int, intArray}='') - Initial estimate of PCF profile (gaussian or lorentzian) amplitudes. [26]_
-      - **pcenterest** ({string, double, doubleArray, int, intArray}='') - Initial estimate PCF profile centers, in pixels. [27]_
-      - **pfwhmest** ({string, double, doubleArray, int, intArray}='') - Initial estimate PCF profile FWHMs, in pixels. [28]_
-      - **pfix** ({string, stringArray}='') - PCF profile parameters to fix during fit. [29]_
-      - **pfunc** ({string, stringArray}='') - PCF singlet functions to fit. "gaussian" or "lorentzian" (minimal match supported). Unspecified means all gaussians. [40]_
+      - ngauss_ (int=1) - Number of Gaussian elements.  Default: 1.
+      - pampest_ ({string, double, doubleArray, int, intArray}='') - Initial estimate of PCF profile (gaussian or lorentzian) amplitudes.
+      - pcenterest_ ({string, double, doubleArray, int, intArray}='') - Initial estimate PCF profile centers, in pixels.
+      - pfwhmest_ ({string, double, doubleArray, int, intArray}='') - Initial estimate PCF profile FWHMs, in pixels.
+      - pfix_ ({string, stringArray}='') - PCF profile parameters to fix during fit.
+      - pfunc_ ({string, stringArray}='') - PCF singlet functions to fit. "gaussian" or "lorentzian" (minimal match supported). Unspecified means all gaussians.
 
       .. raw:: html
 
          </details>
-   - **minpts** (int=1) - Minimum number of unmasked points necessary to attempt fit. [11]_
-   - **multifit** (bool=False) - If true, fit a profile along the desired axis at each pixel in the specified region. If false, average the non-fit axis pixels and do a single fit to that average profile. Default False. [12]_
+   - minpts_ (int=1) - Minimum number of unmasked points necessary to attempt fit.
+   - multifit_ (bool=False) - If true, fit a profile along the desired axis at each pixel in the specified region. If false, average the non-fit axis pixels and do a single fit to that average profile. Default False.
 
       .. raw:: html
 
          <details><summary><i> multifit = True </i></summary>
 
-      - **amp** (string='') - Name of amplitude solution image. Default: do not write the image (""). [15]_
-      - **amperr** (string='') - Name of amplitude solution error image. Default: do not write the image (""). [16]_
-      - **center** (string='') - Name of center solution image. Default: do not write the image (""). [17]_
-      - **centererr** (string='') - Name of center solution error image. Default: do not write the image (""). [18]_
-      - **fwhm** (string='') - Name of fwhm solution image. Default: do not write the image (""). [19]_
-      - **fwhmerr** (string='') - Name of fwhm solution error image. Default: do not write the image (""). [20]_
-      - **integral** (string='') - Prefix of ame of integral solution image. Name of image will have gaussian component number appended.  Default: do not write the image (""). [21]_
-      - **integralerr** (string='') - Prefix of name of integral error solution image. Name of image will have gaussian component number appended.  Default: do not write the image (""). [22]_
+      - amp_ (string='') - Name of amplitude solution image. Default: do not write the image ("").
+      - amperr_ (string='') - Name of amplitude solution error image. Default: do not write the image ("").
+      - center_ (string='') - Name of center solution image. Default: do not write the image ("").
+      - centererr_ (string='') - Name of center solution error image. Default: do not write the image ("").
+      - fwhm_ (string='') - Name of fwhm solution image. Default: do not write the image ("").
+      - fwhmerr_ (string='') - Name of fwhm solution error image. Default: do not write the image ("").
+      - integral_ (string='') - Prefix of ame of integral solution image. Name of image will have gaussian component number appended.  Default: do not write the image ("").
+      - integralerr_ (string='') - Prefix of name of integral error solution image. Name of image will have gaussian component number appended.  Default: do not write the image ("").
 
       .. raw:: html
 
          </details>
-   - **model** (string='') - Name of model image. Default: do not write the model image (""). [13]_
-   - **residual** (string='') - Name of residual image. Default: do not write the residual image (""). [14]_
-   - **wantreturn** (bool=True) - Should a record summarizing the results be returned? [23]_
-   - **logresults** (bool=True) - Output results to logger? [25]_
-   - **gmncomps** ({int, intArray}=0) - Number of components in each gaussian multiplet to fit [30]_
-   - **gmampcon** ({string, double, doubleArray, int, intArray}='') - The amplitude ratio constraints for non-reference components to reference component in gaussian multiplets. [31]_
-   - **gmcentercon** ({string, double, doubleArray, int, intArray}='') - The center offset constraints (in pixels) for non-reference components to reference component in gaussian multiplets. [32]_
-   - **gmfwhmcon** ({string, double, doubleArray, int, intArray}='') - The FWHM  ratio constraints for non-reference components to reference component in gaussian multiplets. [33]_
-   - **gmampest** (doubleArray=[0.0]) - Initial estimate of individual gaussian amplitudes in gaussian multiplets. [34]_
-   - **gmcenterest** (doubleArray=[0.0]) - Initial estimate of individual gaussian centers in gaussian multiplets, in pixels. [35]_
-   - **gmfwhmest** (doubleArray=[0.0]) - Initial estimate of individual gaussian FWHMss in gaussian multiplets, in pixels. [36]_
-   - **gmfix** ({string, stringArray}='') - Parameters of individual gaussians in gaussian multiplets to fix during fit. [37]_
-   - **logfile** (string='') - File in which to log results. Default is not to write a logfile. [38]_
-   - **goodamprange** (doubleArray=[0.0]) - Acceptable amplitude solution range. [0.0] => all amplitude solutions are acceptable. [41]_
-   - **goodcenterrange** (doubleArray=[0.0]) - Acceptable center solution range in pixels relative to region start. [0.0] => all center solutions are acceptable. [42]_
-   - **goodfwhmrange** (doubleArray=[0.0]) - Acceptable FWHM solution range in pixels. [0.0] => all FWHM solutions are acceptable. [43]_
-   - **sigma** ({string, doubleArray, intArray}='') - Standard deviation array or image name. [44]_
+   - model_ (string='') - Name of model image. Default: do not write the model image ("").
+   - residual_ (string='') - Name of residual image. Default: do not write the residual image ("").
+   - wantreturn_ (bool=True) - Should a record summarizing the results be returned?
+   - logresults_ (bool=True) - Output results to logger?
+   - gmncomps_ ({int, intArray}=0) - Number of components in each gaussian multiplet to fit
+   - gmampcon_ ({string, double, doubleArray, int, intArray}='') - The amplitude ratio constraints for non-reference components to reference component in gaussian multiplets.
+   - gmcentercon_ ({string, double, doubleArray, int, intArray}='') - The center offset constraints (in pixels) for non-reference components to reference component in gaussian multiplets.
+   - gmfwhmcon_ ({string, double, doubleArray, int, intArray}='') - The FWHM  ratio constraints for non-reference components to reference component in gaussian multiplets.
+   - gmampest_ (doubleArray=[0.0]) - Initial estimate of individual gaussian amplitudes in gaussian multiplets.
+   - gmcenterest_ (doubleArray=[0.0]) - Initial estimate of individual gaussian centers in gaussian multiplets, in pixels.
+   - gmfwhmest_ (doubleArray=[0.0]) - Initial estimate of individual gaussian FWHMss in gaussian multiplets, in pixels.
+   - gmfix_ ({string, stringArray}='') - Parameters of individual gaussians in gaussian multiplets to fix during fit.
+   - logfile_ (string='') - File in which to log results. Default is not to write a logfile.
+   - goodamprange_ (doubleArray=[0.0]) - Acceptable amplitude solution range. [0.0] => all amplitude solutions are acceptable.
+   - goodcenterrange_ (doubleArray=[0.0]) - Acceptable center solution range in pixels relative to region start. [0.0] => all center solutions are acceptable.
+   - goodfwhmrange_ (doubleArray=[0.0]) - Acceptable FWHM solution range in pixels. [0.0] => all FWHM solutions are acceptable.
+   - sigma_ ({string, doubleArray, intArray}='') - Standard deviation array or image name.
 
 
 Description
@@ -631,141 +631,276 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (string)
-      | Name of the input image
-.. [2] 
-   **box** (string='')
-      | Rectangular region to select in direction plane. Default is to use the entire direction plane.
-.. [3] 
-   **region** (string='')
-      | Region selection. Default is to use the full image.
-.. [4] 
-   **chans** (string='')
-      | Channels to use. Default is to use all channels.
-.. [5] 
-   **stokes** (string='')
-      | Stokes planes to use. Default is to use all Stokes planes.
-.. [6] 
-   **axis** (int=-1)
-      | The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
-.. [7] 
-   **mask** (string='')
-      | Mask to use. Default is none..
-.. [8] 
-   **ngauss** (int=1)
-      | Number of Gaussian elements.  Default: 1.
-.. [9] 
-   **poly** (int=-1)
-      | Order of polynomial element.  Default: do not fit a polynomial (<0).
-.. [10] 
-   **estimates** (string='')
-      | Name of file containing initial estimates.  Default: No initial estimates ("").
-.. [11] 
-   **minpts** (int=1)
-      | Minimum number of unmasked points necessary to attempt fit.
-.. [12] 
-   **multifit** (bool=False)
-      | If true, fit a profile along the desired axis at each pixel in the specified region. If false, average the non-fit axis pixels and do a single fit to that average profile. Default False.
-.. [13] 
-   **model** (string='')
-      | Name of model image. Default: do not write the model image ("").
-.. [14] 
-   **residual** (string='')
-      | Name of residual image. Default: do not write the residual image ("").
-.. [15] 
-   **amp** (string='')
-      | Name of amplitude solution image. Default: do not write the image ("").
-.. [16] 
-   **amperr** (string='')
-      | Name of amplitude solution error image. Default: do not write the image ("").
-.. [17] 
-   **center** (string='')
-      | Name of center solution image. Default: do not write the image ("").
-.. [18] 
-   **centererr** (string='')
-      | Name of center solution error image. Default: do not write the image ("").
-.. [19] 
-   **fwhm** (string='')
-      | Name of fwhm solution image. Default: do not write the image ("").
-.. [20] 
-   **fwhmerr** (string='')
-      | Name of fwhm solution error image. Default: do not write the image ("").
-.. [21] 
-   **integral** (string='')
-      | Prefix of ame of integral solution image. Name of image will have gaussian component number appended.  Default: do not write the image ("").
-.. [22] 
-   **integralerr** (string='')
-      | Prefix of name of integral error solution image. Name of image will have gaussian component number appended.  Default: do not write the image ("").
-.. [23] 
-   **wantreturn** (bool=True)
-      | Should a record summarizing the results be returned?
-.. [24] 
-   **stretch** (bool=False)
-      | Stretch the mask if necessary and possible?
-.. [25] 
-   **logresults** (bool=True)
-      | Output results to logger?
-.. [26] 
-   **pampest** ({string, double, doubleArray, int, intArray}='')
-      | Initial estimate of PCF profile (gaussian or lorentzian) amplitudes.
-.. [27] 
-   **pcenterest** ({string, double, doubleArray, int, intArray}='')
-      | Initial estimate PCF profile centers, in pixels.
-.. [28] 
-   **pfwhmest** ({string, double, doubleArray, int, intArray}='')
-      | Initial estimate PCF profile FWHMs, in pixels.
-.. [29] 
-   **pfix** ({string, stringArray}='')
-      | PCF profile parameters to fix during fit.
-.. [30] 
-   **gmncomps** ({int, intArray}=0)
-      | Number of components in each gaussian multiplet to fit
-.. [31] 
-   **gmampcon** ({string, double, doubleArray, int, intArray}='')
-      | The amplitude ratio constraints for non-reference components to reference component in gaussian multiplets.
-.. [32] 
-   **gmcentercon** ({string, double, doubleArray, int, intArray}='')
-      | The center offset constraints (in pixels) for non-reference components to reference component in gaussian multiplets.
-.. [33] 
-   **gmfwhmcon** ({string, double, doubleArray, int, intArray}='')
-      | The FWHM  ratio constraints for non-reference components to reference component in gaussian multiplets.
-.. [34] 
-   **gmampest** (doubleArray=[0.0])
-      | Initial estimate of individual gaussian amplitudes in gaussian multiplets.
-.. [35] 
-   **gmcenterest** (doubleArray=[0.0])
-      | Initial estimate of individual gaussian centers in gaussian multiplets, in pixels.
-.. [36] 
-   **gmfwhmest** (doubleArray=[0.0])
-      | Initial estimate of individual gaussian FWHMss in gaussian multiplets, in pixels.
-.. [37] 
-   **gmfix** ({string, stringArray}='')
-      | Parameters of individual gaussians in gaussian multiplets to fix during fit.
-.. [38] 
-   **logfile** (string='')
-      | File in which to log results. Default is not to write a logfile.
-.. [39] 
-   **append** (bool=True)
-      | Append results to logfile? Logfile must be specified. Default is to append. False means overwrite existing file if it exists.
-.. [40] 
-   **pfunc** ({string, stringArray}='')
-      | PCF singlet functions to fit. "gaussian" or "lorentzian" (minimal match supported). Unspecified means all gaussians.
-.. [41] 
-   **goodamprange** (doubleArray=[0.0])
-      | Acceptable amplitude solution range. [0.0] => all amplitude solutions are acceptable.
-.. [42] 
-   **goodcenterrange** (doubleArray=[0.0])
-      | Acceptable center solution range in pixels relative to region start. [0.0] => all center solutions are acceptable.
-.. [43] 
-   **goodfwhmrange** (doubleArray=[0.0])
-      | Acceptable FWHM solution range in pixels. [0.0] => all FWHM solutions are acceptable.
-.. [44] 
-   **sigma** ({string, doubleArray, intArray}='')
-      | Standard deviation array or image name.
-.. [45] 
-   **outsigma** (string='')
-      | Name of output image used for standard deviation. Ignored if sigma is empty.
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Name of the input image
+
+.. _box:
+
+   .. rubric:: box
+
+   | Rectangular region to select in direction plane. Default is to use the entire direction plane.
+
+.. _region:
+
+   .. rubric:: region
+
+   | Region selection. Default is to use the full image.
+
+.. _chans:
+
+   .. rubric:: chans
+
+   | Channels to use. Default is to use all channels.
+
+.. _stokes:
+
+   .. rubric:: stokes
+
+   | Stokes planes to use. Default is to use all Stokes planes.
+
+.. _axis:
+
+   .. rubric:: axis
+
+   | The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
+
+.. _mask:
+
+   .. rubric:: mask
+
+   | Mask to use. Default is none..
+
+.. _ngauss:
+
+   .. rubric:: ngauss
+
+   | Number of Gaussian elements.  Default: 1.
+
+.. _poly:
+
+   .. rubric:: poly
+
+   | Order of polynomial element.  Default: do not fit a polynomial (<0).
+
+.. _estimates:
+
+   .. rubric:: estimates
+
+   | Name of file containing initial estimates.  Default: No initial estimates ("").
+
+.. _minpts:
+
+   .. rubric:: minpts
+
+   | Minimum number of unmasked points necessary to attempt fit.
+
+.. _multifit:
+
+   .. rubric:: multifit
+
+   | If true, fit a profile along the desired axis at each pixel in the specified region. If false, average the non-fit axis pixels and do a single fit to that average profile. Default False.
+
+.. _model:
+
+   .. rubric:: model
+
+   | Name of model image. Default: do not write the model image ("").
+
+.. _residual:
+
+   .. rubric:: residual
+
+   | Name of residual image. Default: do not write the residual image ("").
+
+.. _amp:
+
+   .. rubric:: amp
+
+   | Name of amplitude solution image. Default: do not write the image ("").
+
+.. _amperr:
+
+   .. rubric:: amperr
+
+   | Name of amplitude solution error image. Default: do not write the image ("").
+
+.. _center:
+
+   .. rubric:: center
+
+   | Name of center solution image. Default: do not write the image ("").
+
+.. _centererr:
+
+   .. rubric:: centererr
+
+   | Name of center solution error image. Default: do not write the image ("").
+
+.. _fwhm:
+
+   .. rubric:: fwhm
+
+   | Name of fwhm solution image. Default: do not write the image ("").
+
+.. _fwhmerr:
+
+   .. rubric:: fwhmerr
+
+   | Name of fwhm solution error image. Default: do not write the image ("").
+
+.. _integral:
+
+   .. rubric:: integral
+
+   | Prefix of ame of integral solution image. Name of image will have gaussian component number appended.  Default: do not write the image ("").
+
+.. _integralerr:
+
+   .. rubric:: integralerr
+
+   | Prefix of name of integral error solution image. Name of image will have gaussian component number appended.  Default: do not write the image ("").
+
+.. _wantreturn:
+
+   .. rubric:: wantreturn
+
+   | Should a record summarizing the results be returned?
+
+.. _stretch:
+
+   .. rubric:: stretch
+
+   | Stretch the mask if necessary and possible?
+
+.. _logresults:
+
+   .. rubric:: logresults
+
+   | Output results to logger?
+
+.. _pampest:
+
+   .. rubric:: pampest
+
+   | Initial estimate of PCF profile (gaussian or lorentzian) amplitudes.
+
+.. _pcenterest:
+
+   .. rubric:: pcenterest
+
+   | Initial estimate PCF profile centers, in pixels.
+
+.. _pfwhmest:
+
+   .. rubric:: pfwhmest
+
+   | Initial estimate PCF profile FWHMs, in pixels.
+
+.. _pfix:
+
+   .. rubric:: pfix
+
+   | PCF profile parameters to fix during fit.
+
+.. _gmncomps:
+
+   .. rubric:: gmncomps
+
+   | Number of components in each gaussian multiplet to fit
+
+.. _gmampcon:
+
+   .. rubric:: gmampcon
+
+   | The amplitude ratio constraints for non-reference components to reference component in gaussian multiplets.
+
+.. _gmcentercon:
+
+   .. rubric:: gmcentercon
+
+   | The center offset constraints (in pixels) for non-reference components to reference component in gaussian multiplets.
+
+.. _gmfwhmcon:
+
+   .. rubric:: gmfwhmcon
+
+   | The FWHM  ratio constraints for non-reference components to reference component in gaussian multiplets.
+
+.. _gmampest:
+
+   .. rubric:: gmampest
+
+   | Initial estimate of individual gaussian amplitudes in gaussian multiplets.
+
+.. _gmcenterest:
+
+   .. rubric:: gmcenterest
+
+   | Initial estimate of individual gaussian centers in gaussian multiplets, in pixels.
+
+.. _gmfwhmest:
+
+   .. rubric:: gmfwhmest
+
+   | Initial estimate of individual gaussian FWHMss in gaussian multiplets, in pixels.
+
+.. _gmfix:
+
+   .. rubric:: gmfix
+
+   | Parameters of individual gaussians in gaussian multiplets to fix during fit.
+
+.. _logfile:
+
+   .. rubric:: logfile
+
+   | File in which to log results. Default is not to write a logfile.
+
+.. _append:
+
+   .. rubric:: append
+
+   | Append results to logfile? Logfile must be specified. Default is to append. False means overwrite existing file if it exists.
+
+.. _pfunc:
+
+   .. rubric:: pfunc
+
+   | PCF singlet functions to fit. "gaussian" or "lorentzian" (minimal match supported). Unspecified means all gaussians.
+
+.. _goodamprange:
+
+   .. rubric:: goodamprange
+
+   | Acceptable amplitude solution range. [0.0] => all amplitude solutions are acceptable.
+
+.. _goodcenterrange:
+
+   .. rubric:: goodcenterrange
+
+   | Acceptable center solution range in pixels relative to region start. [0.0] => all center solutions are acceptable.
+
+.. _goodfwhmrange:
+
+   .. rubric:: goodfwhmrange
+
+   | Acceptable FWHM solution range in pixels. [0.0] => all FWHM solutions are acceptable.
+
+.. _sigma:
+
+   .. rubric:: sigma
+
+   | Standard deviation array or image name.
+
+.. _outsigma:
+
+   .. rubric:: outsigma
+
+   | Name of output image used for standard deviation. Ignored if sigma is empty.
+
 
     """
     pass

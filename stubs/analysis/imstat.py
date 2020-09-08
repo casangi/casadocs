@@ -7,23 +7,23 @@ def imstat(imagename, axes='-1', region='', box='', chans='', stokes='', listit=
 Displays statistical information from an image or image region
 
 Parameters
-   - **imagename** (string) - Name of the input image [1]_
-   - **axes** (variant='-1') - List of axes to evaluate statistics over. Default is all axes. [2]_
-   - **region** (string='') - Region selection. Default is to use the full image. [3]_
-   - **box** (string='') - Rectangular region(s) to select in direction plane. Default is to use the entire direction plane. [4]_
-   - **chans** (string='') - Channels to use. Default is to use all channels. [5]_
-   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes. [6]_
-   - **listit** (bool=True) - Print stats and bounding box to logger? [7]_
-   - **verbose** (bool=True) - Print additional messages to logger? [8]_
-   - **mask** (string='') - Mask to use. Default is none. [9]_
-   - **logfile** (string='') - Name of file to write fit results. [11]_
-   - **algorithm** (string='classic') - Algorithm to use. Supported values are "biweight", "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported. [13]_
+   - imagename_ (string) - Name of the input image
+   - axes_ (variant='-1') - List of axes to evaluate statistics over. Default is all axes.
+   - region_ (string='') - Region selection. Default is to use the full image.
+   - box_ (string='') - Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
+   - chans_ (string='') - Channels to use. Default is to use all channels.
+   - stokes_ (string='') - Stokes planes to use. Default is to use all Stokes planes.
+   - listit_ (bool=True) - Print stats and bounding box to logger?
+   - verbose_ (bool=True) - Print additional messages to logger?
+   - mask_ (string='') - Mask to use. Default is none.
+   - logfile_ (string='') - Name of file to write fit results.
+   - algorithm_ (string='classic') - Algorithm to use. Supported values are "biweight", "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported.
 
       .. raw:: html
 
          <details><summary><i> algorithm = classic </i></summary>
 
-      - **clmethod** (string='auto') - Method to use for calculating classical statistics. Supported methods are "auto", "tiled", and "framework". Ignored if algorithm is not "classic". [19]_
+      - clmethod_ (string='auto') - Method to use for calculating classical statistics. Supported methods are "auto", "tiled", and "framework". Ignored if algorithm is not "classic".
 
       .. raw:: html
 
@@ -33,7 +33,7 @@ Parameters
 
          <details><summary><i> algorithm = hinges-fences </i></summary>
 
-      - **fence** (double=-1) - Fence value for hinges-fences. A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if algorithm is not "hinges-fences". [14]_
+      - fence_ (double=-1) - Fence value for hinges-fences. A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if algorithm is not "hinges-fences".
 
       .. raw:: html
 
@@ -43,8 +43,8 @@ Parameters
 
          <details><summary><i> algorithm = fit-half </i></summary>
 
-      - **center** (string='mean') - Center to use for fit-half. Valid choices are "mean", "median", and "zero". Ignored if algorithm is not "fit-half". [15]_
-      - **lside** (bool=True) - For fit-half, use values <= center for real data if True? If False, use values >= center as real data. Ignored if algorithm is not "fit-half". [16]_
+      - center_ (string='mean') - Center to use for fit-half. Valid choices are "mean", "median", and "zero". Ignored if algorithm is not "fit-half".
+      - lside_ (bool=True) - For fit-half, use values <= center for real data if True? If False, use values >= center as real data. Ignored if algorithm is not "fit-half".
 
       .. raw:: html
 
@@ -54,8 +54,8 @@ Parameters
 
          <details><summary><i> algorithm = chauvenet </i></summary>
 
-      - **zscore** (double=-1) - For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet"s criterion. Ignored if algorithm is not "chauvenet". [17]_
-      - **maxiter** (int=-1) - For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algorithm is not "chauvenet". [18]_
+      - zscore_ (double=-1) - For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet"s criterion. Ignored if algorithm is not "chauvenet".
+      - maxiter_ (int=-1) - For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algorithm is not "chauvenet".
 
       .. raw:: html
 
@@ -65,7 +65,7 @@ Parameters
 
          <details><summary><i> algorithm = biweight </i></summary>
 
-      - **niter** (int=3) - For biweight, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, do a fast, simple computation (see description). Ignored if the algorithm is not "biweight". [20]_
+      - niter_ (int=3) - For biweight, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, do a fast, simple computation (see description). Ignored if the algorithm is not "biweight".
 
       .. raw:: html
 
@@ -636,66 +636,126 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (string)
-      | Name of the input image
-.. [2] 
-   **axes** (variant='-1')
-      | List of axes to evaluate statistics over. Default is all axes.
-.. [3] 
-   **region** (string='')
-      | Region selection. Default is to use the full image.
-.. [4] 
-   **box** (string='')
-      | Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
-.. [5] 
-   **chans** (string='')
-      | Channels to use. Default is to use all channels.
-.. [6] 
-   **stokes** (string='')
-      | Stokes planes to use. Default is to use all Stokes planes.
-.. [7] 
-   **listit** (bool=True)
-      | Print stats and bounding box to logger?
-.. [8] 
-   **verbose** (bool=True)
-      | Print additional messages to logger?
-.. [9] 
-   **mask** (string='')
-      | Mask to use. Default is none.
-.. [10] 
-   **stretch** (bool=False)
-      | Stretch the mask if necessary and possible?
-.. [11] 
-   **logfile** (string='')
-      | Name of file to write fit results.
-.. [12] 
-   **append** (bool=True)
-      | If logfile exists, append to it if True or overwrite it if False
-.. [13] 
-   **algorithm** (string='classic')
-      | Algorithm to use. Supported values are "biweight", "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported.
-.. [14] 
-   **fence** (double=-1)
-      | Fence value for hinges-fences. A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if algorithm is not "hinges-fences".
-.. [15] 
-   **center** (string='mean')
-      | Center to use for fit-half. Valid choices are "mean", "median", and "zero". Ignored if algorithm is not "fit-half".
-.. [16] 
-   **lside** (bool=True)
-      | For fit-half, use values <= center for real data if True? If False, use values >= center as real data. Ignored if algorithm is not "fit-half".
-.. [17] 
-   **zscore** (double=-1)
-      | For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet"s criterion. Ignored if algorithm is not "chauvenet".
-.. [18] 
-   **maxiter** (int=-1)
-      | For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algorithm is not "chauvenet".
-.. [19] 
-   **clmethod** (string='auto')
-      | Method to use for calculating classical statistics. Supported methods are "auto", "tiled", and "framework". Ignored if algorithm is not "classic".
-.. [20] 
-   **niter** (int=3)
-      | For biweight, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, do a fast, simple computation (see description). Ignored if the algorithm is not "biweight".
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Name of the input image
+
+.. _axes:
+
+   .. rubric:: axes
+
+   | List of axes to evaluate statistics over. Default is all axes.
+
+.. _region:
+
+   .. rubric:: region
+
+   | Region selection. Default is to use the full image.
+
+.. _box:
+
+   .. rubric:: box
+
+   | Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
+
+.. _chans:
+
+   .. rubric:: chans
+
+   | Channels to use. Default is to use all channels.
+
+.. _stokes:
+
+   .. rubric:: stokes
+
+   | Stokes planes to use. Default is to use all Stokes planes.
+
+.. _listit:
+
+   .. rubric:: listit
+
+   | Print stats and bounding box to logger?
+
+.. _verbose:
+
+   .. rubric:: verbose
+
+   | Print additional messages to logger?
+
+.. _mask:
+
+   .. rubric:: mask
+
+   | Mask to use. Default is none.
+
+.. _stretch:
+
+   .. rubric:: stretch
+
+   | Stretch the mask if necessary and possible?
+
+.. _logfile:
+
+   .. rubric:: logfile
+
+   | Name of file to write fit results.
+
+.. _append:
+
+   .. rubric:: append
+
+   | If logfile exists, append to it if True or overwrite it if False
+
+.. _algorithm:
+
+   .. rubric:: algorithm
+
+   | Algorithm to use. Supported values are "biweight", "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported.
+
+.. _fence:
+
+   .. rubric:: fence
+
+   | Fence value for hinges-fences. A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if algorithm is not "hinges-fences".
+
+.. _center:
+
+   .. rubric:: center
+
+   | Center to use for fit-half. Valid choices are "mean", "median", and "zero". Ignored if algorithm is not "fit-half".
+
+.. _lside:
+
+   .. rubric:: lside
+
+   | For fit-half, use values <= center for real data if True? If False, use values >= center as real data. Ignored if algorithm is not "fit-half".
+
+.. _zscore:
+
+   .. rubric:: zscore
+
+   | For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet"s criterion. Ignored if algorithm is not "chauvenet".
+
+.. _maxiter:
+
+   .. rubric:: maxiter
+
+   | For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algorithm is not "chauvenet".
+
+.. _clmethod:
+
+   .. rubric:: clmethod
+
+   | Method to use for calculating classical statistics. Supported methods are "auto", "tiled", and "framework". Ignored if algorithm is not "classic".
+
+.. _niter:
+
+   .. rubric:: niter
+
+   | For biweight, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, do a fast, simple computation (see description). Ignored if the algorithm is not "biweight".
+
 
     """
     pass

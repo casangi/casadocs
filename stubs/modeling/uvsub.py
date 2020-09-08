@@ -7,8 +7,8 @@ def uvsub(vis, reverse=False):
 Subtract/add model from/to the corrected visibility data.
 
 Parameters
-   - **vis** (string) - Name of input visibility file (MS) [1]_
-   - **reverse** (bool=False) - reverse the operation (add rather than subtract) [2]_
+   - vis_ (string) - Name of input visibility file (MS)
+   - reverse_ (bool=False) - reverse the operation (add rather than subtract)
 
 
 Description
@@ -71,12 +71,18 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file (MS)
-.. [2] 
-   **reverse** (bool=False)
-      | reverse the operation (add rather than subtract)
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file (MS)
+
+.. _reverse:
+
+   .. rubric:: reverse
+
+   | reverse the operation (add rather than subtract)
+
 
     """
     pass

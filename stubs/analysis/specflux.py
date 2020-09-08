@@ -7,17 +7,17 @@ def specflux(imagename, region='', box='', chans='', stokes='', mask='', stretch
 Report spectral profile and calculate spectral flux over a user specified region
 
 Parameters
-   - **imagename** (string) - Name of the input image [1]_
-   - **region** (variant='') - Region selection. Default is to use the full image. [2]_
-   - **box** (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane. [3]_
-   - **chans** (string='') - Channels to use. Default is to use all channels. [4]_
-   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes. [5]_
-   - **mask** (string='') - Mask to use. Default is none. [6]_
-   - **function** (string='flux density') - Aggregate function to use for computing per channel values. Supported values are "flux density", "mean", "median", "sum". Minimal match supported. [8]_
-   - **unit** (string='km/s') - Unit to use for the spectral flux calculation. Must be conformant with a typical spectral axis unit. [9]_
-   - **major** (variant='') - Major axis of overriding restoring beam. If specified, must be a valid quantity. [10]_
-   - **minor** (variant='') - Minor axis of overriding restoring beam. If specified, must be a valid quantity [11]_
-   - **logfile** (string='') - File which to write details. Default is to not write to a file. [12]_
+   - imagename_ (string) - Name of the input image
+   - region_ (variant='') - Region selection. Default is to use the full image.
+   - box_ (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - chans_ (string='') - Channels to use. Default is to use all channels.
+   - stokes_ (string='') - Stokes planes to use. Default is to use all Stokes planes.
+   - mask_ (string='') - Mask to use. Default is none.
+   - function_ (string='flux density') - Aggregate function to use for computing per channel values. Supported values are "flux density", "mean", "median", "sum". Minimal match supported.
+   - unit_ (string='km/s') - Unit to use for the spectral flux calculation. Must be conformant with a typical spectral axis unit.
+   - major_ (variant='') - Major axis of overriding restoring beam. If specified, must be a valid quantity.
+   - minor_ (variant='') - Minor axis of overriding restoring beam. If specified, must be a valid quantity
+   - logfile_ (string='') - File which to write details. Default is to not write to a file.
 
 
 Description
@@ -156,45 +156,84 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (string)
-      | Name of the input image
-.. [2] 
-   **region** (variant='')
-      | Region selection. Default is to use the full image.
-.. [3] 
-   **box** (string='')
-      | Rectangular region to select in direction plane. Default is to use the entire direction plane.
-.. [4] 
-   **chans** (string='')
-      | Channels to use. Default is to use all channels.
-.. [5] 
-   **stokes** (string='')
-      | Stokes planes to use. Default is to use all Stokes planes.
-.. [6] 
-   **mask** (string='')
-      | Mask to use. Default is none.
-.. [7] 
-   **stretch** (bool=False)
-      | Stretch the mask if necessary and possible?
-.. [8] 
-   **function** (string='flux density')
-      | Aggregate function to use for computing per channel values. Supported values are "flux density", "mean", "median", "sum". Minimal match supported.
-.. [9] 
-   **unit** (string='km/s')
-      | Unit to use for the spectral flux calculation. Must be conformant with a typical spectral axis unit.
-.. [10] 
-   **major** (variant='')
-      | Major axis of overriding restoring beam. If specified, must be a valid quantity.
-.. [11] 
-   **minor** (variant='')
-      | Minor axis of overriding restoring beam. If specified, must be a valid quantity
-.. [12] 
-   **logfile** (string='')
-      | File which to write details. Default is to not write to a file.
-.. [13] 
-   **overwrite** (bool=False)
-      | Overwrite exisitng ouput file if it exists?
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Name of the input image
+
+.. _region:
+
+   .. rubric:: region
+
+   | Region selection. Default is to use the full image.
+
+.. _box:
+
+   .. rubric:: box
+
+   | Rectangular region to select in direction plane. Default is to use the entire direction plane.
+
+.. _chans:
+
+   .. rubric:: chans
+
+   | Channels to use. Default is to use all channels.
+
+.. _stokes:
+
+   .. rubric:: stokes
+
+   | Stokes planes to use. Default is to use all Stokes planes.
+
+.. _mask:
+
+   .. rubric:: mask
+
+   | Mask to use. Default is none.
+
+.. _stretch:
+
+   .. rubric:: stretch
+
+   | Stretch the mask if necessary and possible?
+
+.. _function:
+
+   .. rubric:: function
+
+   | Aggregate function to use for computing per channel values. Supported values are "flux density", "mean", "median", "sum". Minimal match supported.
+
+.. _unit:
+
+   .. rubric:: unit
+
+   | Unit to use for the spectral flux calculation. Must be conformant with a typical spectral axis unit.
+
+.. _major:
+
+   .. rubric:: major
+
+   | Major axis of overriding restoring beam. If specified, must be a valid quantity.
+
+.. _minor:
+
+   .. rubric:: minor
+
+   | Minor axis of overriding restoring beam. If specified, must be a valid quantity
+
+.. _logfile:
+
+   .. rubric:: logfile
+
+   | File which to write details. Default is to not write to a file.
+
+.. _overwrite:
+
+   .. rubric:: overwrite
+
+   | Overwrite exisitng ouput file if it exists?
+
 
     """
     pass

@@ -7,14 +7,14 @@ def imcontsub(imagename, linefile='', contfile='', fitorder=0, region='', box=''
 Estimates and subtracts continuum emission from an image cube
 
 Parameters
-   - **imagename** (string) - Name of the input spectral line image [1]_
-   - **linefile** (string='') - Output continuum-subtracted image file name [2]_
-   - **contfile** (string='') - Output continuum image file name [3]_
-   - **fitorder** (int=0) - Polynomial order for the continuum estimation [4]_
-   - **region** (string='') - Region selection. [5]_
-   - **box** ({string, intArray, stringArray}='') - Rectangular region to select in direction plane. Default is to use the entire direction plane. [6]_
-   - **chans** (string='') - Channels to use. [7]_
-   - **stokes** (string='') - Stokes planes to use. [8]_
+   - imagename_ (string) - Name of the input spectral line image
+   - linefile_ (string='') - Output continuum-subtracted image file name
+   - contfile_ (string='') - Output continuum image file name
+   - fitorder_ (int=0) - Polynomial order for the continuum estimation
+   - region_ (string='') - Region selection.
+   - box_ ({string, intArray, stringArray}='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
+   - chans_ (string='') - Channels to use.
+   - stokes_ (string='') - Stokes planes to use.
 
 
 Description
@@ -69,46 +69,70 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (string)
-      | Input image cube.
-      |                      Default: none
-      | 
-      |                         Example: imagename='ngc5921_task.im'
-.. [2] 
-   **linefile** (string='')
-      | Name of continuum-subtracted output spectral line cube
-      |                      Default: none
-      | 
-      |                         Example: outline='ngc5921_line.im'
-.. [3] 
-   **contfile** (string='')
-      | Name of output continuum cube
-      |                      Default: none
-      | 
-      |                         Example: contfile='ngc5921_cont.im'
-.. [4] 
-   **fitorder** (int=0)
-      | Polynomial order for the continuum estimation
-      |                      Default: 0
-      | 
-      |                         Example: fitorder=2
-.. [5] 
-   **region** (string='')
-      | Region selection. 
-      |                      Default: '' (use the full image)
-.. [6] 
-   **box** ({string, intArray, stringArray}='')
-      | Rectangular region to select in direction plane.
-      |                      Default: '' (use the entire direction plane)
-.. [7] 
-   **chans** (string='')
-      | Channels to use. 
-      |                      Default: '' (use all channels)
-.. [8] 
-   **stokes** (string='')
-      | Stokes planes to use.
-      |                      Default: '' (use all Stokes planes)
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Input image cube.
+   |                      Default: none
+   | 
+   |                         Example: imagename='ngc5921_task.im'
+
+.. _linefile:
+
+   .. rubric:: linefile
+
+   | Name of continuum-subtracted output spectral line cube
+   |                      Default: none
+   | 
+   |                         Example: outline='ngc5921_line.im'
+
+.. _contfile:
+
+   .. rubric:: contfile
+
+   | Name of output continuum cube
+   |                      Default: none
+   | 
+   |                         Example: contfile='ngc5921_cont.im'
+
+.. _fitorder:
+
+   .. rubric:: fitorder
+
+   | Polynomial order for the continuum estimation
+   |                      Default: 0
+   | 
+   |                         Example: fitorder=2
+
+.. _region:
+
+   .. rubric:: region
+
+   | Region selection. 
+   |                      Default: '' (use the full image)
+
+.. _box:
+
+   .. rubric:: box
+
+   | Rectangular region to select in direction plane.
+   |                      Default: '' (use the entire direction plane)
+
+.. _chans:
+
+   .. rubric:: chans
+
+   | Channels to use. 
+   |                      Default: '' (use all channels)
+
+.. _stokes:
+
+   .. rubric:: stokes
+
+   | Stokes planes to use.
+   |                      Default: '' (use all Stokes planes)
+
 
     """
     pass

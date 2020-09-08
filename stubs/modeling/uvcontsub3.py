@@ -7,16 +7,16 @@ def uvcontsub3(vis, fitspw='', combine='', fitorder=0, field='', spw='', scan=''
 An experimental clone of uvcontsub
 
 Parameters
-   - **vis** (string) -  [1]_
-   - **fitspw** (string='') -  [2]_
-   - **combine** (string='') -  [3]_
-   - **fitorder** (int=0) -  [4]_
-   - **field** ({string, stringArray, int, intArray}='') -  [5]_
-   - **spw** (string='') -  [6]_
-   - **scan** (string='') -  [7]_
-   - **intent** (string='') -  [8]_
-   - **correlation** ({string, stringArray}='') -  [9]_
-   - **observation** ({string, int}='') -  [10]_
+   - vis_ (string) - 
+   - fitspw_ (string='') - 
+   - combine_ (string='') - 
+   - fitorder_ (int=0) - 
+   - field_ ({string, stringArray, int, intArray}='') - 
+   - spw_ (string='') - 
+   - scan_ (string='') - 
+   - intent_ (string='') - 
+   - correlation_ ({string, stringArray}='') - 
+   - observation_ ({string, int}='') - 
 
 
 Description
@@ -157,36 +157,66 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input MS.  Output goes to vis + ".contsub"
-.. [2] 
-   **fitspw** (string='')
-      | Spectral window:channel selection for fitting the continuum
-.. [3] 
-   **combine** (string='')
-      | Data axes to combine for the continuum estimation (none ('') or spw)
-.. [4] 
-   **fitorder** (int=0)
-      | Polynomial order for the fits
-.. [5] 
-   **field** ({string, stringArray, int, intArray}='')
-      | Select field(s) using id(s) or name(s)
-.. [6] 
-   **spw** (string='')
-      | Spectral window selection for output
-.. [7] 
-   **scan** (string='')
-      | Select data by scan numbers
-.. [8] 
-   **intent** (string='')
-      | Select data by scan intents
-.. [9] 
-   **correlation** ({string, stringArray}='')
-      | Select correlations
-.. [10] 
-   **observation** ({string, int}='')
-      | Select by observation ID(s)
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input MS.  Output goes to vis + ".contsub"
+
+.. _fitspw:
+
+   .. rubric:: fitspw
+
+   | Spectral window:channel selection for fitting the continuum
+
+.. _combine:
+
+   .. rubric:: combine
+
+   | Data axes to combine for the continuum estimation (none ('') or spw)
+
+.. _fitorder:
+
+   .. rubric:: fitorder
+
+   | Polynomial order for the fits
+
+.. _field:
+
+   .. rubric:: field
+
+   | Select field(s) using id(s) or name(s)
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | Spectral window selection for output
+
+.. _scan:
+
+   .. rubric:: scan
+
+   | Select data by scan numbers
+
+.. _intent:
+
+   .. rubric:: intent
+
+   | Select data by scan intents
+
+.. _correlation:
+
+   .. rubric:: correlation
+
+   | Select correlations
+
+.. _observation:
+
+   .. rubric:: observation
+
+   | Select by observation ID(s)
+
 
     """
     pass

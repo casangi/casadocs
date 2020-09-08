@@ -7,7 +7,7 @@ def rmtables(tablenames=['']):
 Remove tables cleanly, use this instead of rm -rf
 
 Parameters
-   - **tablenames** (stringArray=['']) - Name of the tables [1]_
+   - tablenames_ (stringArray=['']) - Name of the tables
 
 
 Description
@@ -34,9 +34,12 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **tablenames** (stringArray=[''])
-      | Name of the tables
+.. _tablenames:
+
+   .. rubric:: tablenames
+
+   | Name of the tables
+
 
     """
     pass

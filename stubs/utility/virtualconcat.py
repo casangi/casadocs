@@ -7,14 +7,14 @@ def virtualconcat(vis, concatvis='', freqtol='', dirtol='', respectname=True, vi
 Concatenate several visibility data sets into a multi-MS
 
 Parameters
-   - **vis** (stringArray) - List of names of input visibility files to be concatenated [1]_
-   - **concatvis** (string='') - Name of the output visibility file (a multi-MS) [2]_
-   - **freqtol** (variant='') - Frequency shift tolerance for considering data as the same spwid [3]_
-   - **dirtol** (variant='') - Direction shift tolerance for considering data as the same field [4]_
-   - **respectname** (bool=True) - If true, fields with a different name are not merged even if their direction agrees [5]_
-   - **visweightscale** (doubleArray=['']) - List of the weight scaling factors to be applied to the individual MSs [6]_
-   - **keepcopy** (bool=False) - If true, a copy of the input MSs is kept in their original place. [7]_
-   - **copypointing** (bool=True) - If true, keep the POINTING table information in the output MMS. If false, don\'t. [8]_
+   - vis_ (stringArray) - List of names of input visibility files to be concatenated
+   - concatvis_ (string='') - Name of the output visibility file (a multi-MS)
+   - freqtol_ (variant='') - Frequency shift tolerance for considering data as the same spwid
+   - dirtol_ (variant='') - Direction shift tolerance for considering data as the same field
+   - respectname_ (bool=True) - If true, fields with a different name are not merged even if their direction agrees
+   - visweightscale_ (doubleArray=['']) - List of the weight scaling factors to be applied to the individual MSs
+   - keepcopy_ (bool=False) - If true, a copy of the input MSs is kept in their original place.
+   - copypointing_ (bool=True) - If true, keep the POINTING table information in the output MMS. If false, don\'t.
 
 
 Description
@@ -131,30 +131,54 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (stringArray)
-      | List of names of input visibility files to be concatenated
-.. [2] 
-   **concatvis** (string='')
-      | Name of the output visibility file (a multi-MS)
-.. [3] 
-   **freqtol** (variant='')
-      | Frequency shift tolerance for considering data as the same spwid
-.. [4] 
-   **dirtol** (variant='')
-      | Direction shift tolerance for considering data as the same field
-.. [5] 
-   **respectname** (bool=True)
-      | If true, fields with a different name are not merged even if their direction agrees
-.. [6] 
-   **visweightscale** (doubleArray=[''])
-      | List of the weight scaling factors to be applied to the individual MSs
-.. [7] 
-   **keepcopy** (bool=False)
-      | If true, a copy of the input MSs is kept in their original place.
-.. [8] 
-   **copypointing** (bool=True)
-      | If true, keep the POINTING table information in the output MMS. If false, don\'t.
+.. _vis:
+
+   .. rubric:: vis
+
+   | List of names of input visibility files to be concatenated
+
+.. _concatvis:
+
+   .. rubric:: concatvis
+
+   | Name of the output visibility file (a multi-MS)
+
+.. _freqtol:
+
+   .. rubric:: freqtol
+
+   | Frequency shift tolerance for considering data as the same spwid
+
+.. _dirtol:
+
+   .. rubric:: dirtol
+
+   | Direction shift tolerance for considering data as the same field
+
+.. _respectname:
+
+   .. rubric:: respectname
+
+   | If true, fields with a different name are not merged even if their direction agrees
+
+.. _visweightscale:
+
+   .. rubric:: visweightscale
+
+   | List of the weight scaling factors to be applied to the individual MSs
+
+.. _keepcopy:
+
+   .. rubric:: keepcopy
+
+   | If true, a copy of the input MSs is kept in their original place.
+
+.. _copypointing:
+
+   .. rubric:: copypointing
+
+   | If true, keep the POINTING table information in the output MMS. If false, don\'t.
+
 
     """
     pass

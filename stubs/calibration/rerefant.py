@@ -7,11 +7,11 @@ def rerefant(vis, tablein, caltable='', refantmode='flex', refant=''):
 Re-apply refant to a caltable
 
 Parameters
-   - **vis** (string) - Name of input visibility file (MS) [1]_
-   - **tablein** (string) - Input calibration table [2]_
-   - **caltable** (string='') - Output calibration table (overwrite tablein if unspecified) [3]_
-   - **refantmode** (string='flex') - Refant algorithm to use [4]_
-   - **refant** (string='') - Reference antenna name(s) [5]_
+   - vis_ (string) - Name of input visibility file (MS)
+   - tablein_ (string) - Input calibration table
+   - caltable_ (string='') - Output calibration table (overwrite tablein if unspecified)
+   - refantmode_ (string='flex') - Refant algorithm to use
+   - refant_ (string='') - Reference antenna name(s)
 
 
 Description
@@ -112,21 +112,36 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file (MS)
-.. [2] 
-   **tablein** (string)
-      | Input calibration table
-.. [3] 
-   **caltable** (string='')
-      | Output calibration table (overwrite tablein if unspecified)
-.. [4] 
-   **refantmode** (string='flex')
-      | Refant algorithm to use
-.. [5] 
-   **refant** (string='')
-      | Reference antenna name(s)
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file (MS)
+
+.. _tablein:
+
+   .. rubric:: tablein
+
+   | Input calibration table
+
+.. _caltable:
+
+   .. rubric:: caltable
+
+   | Output calibration table (overwrite tablein if unspecified)
+
+.. _refantmode:
+
+   .. rubric:: refantmode
+
+   | Refant algorithm to use
+
+.. _refant:
+
+   .. rubric:: refant
+
+   | Reference antenna name(s)
+
 
     """
     pass

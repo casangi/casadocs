@@ -7,16 +7,16 @@ def impv(imagename, outfile='', mode='coords', start='', end='', center='', leng
 Construct a position-velocity image by choosing two points in the direction plane.
 
 Parameters
-   - **imagename** (string) - Name of the input image [1]_
-   - **outfile** (string='') - Output image name. If empty, no image is written. [2]_
-   - **mode** (string='coords') - If "coords", use start and end values. If "length", use center, length, and pa values. [3]_
+   - imagename_ (string) - Name of the input image
+   - outfile_ (string='') - Output image name. If empty, no image is written.
+   - mode_ (string='coords') - If "coords", use start and end values. If "length", use center, length, and pa values.
 
       .. raw:: html
 
          <details><summary><i> mode = coords </i></summary>
 
-      - **start** ({string, stringArray, intArray, doubleArray}='') - The starting pixel in the direction plane (array of two values). [4]_
-      - **end** ({string, stringArray, intArray, doubleArray}='') - The ending pixel in the direction plane (array of two values). [5]_
+      - start_ ({string, stringArray, intArray, doubleArray}='') - The starting pixel in the direction plane (array of two values).
+      - end_ ({string, stringArray, intArray, doubleArray}='') - The ending pixel in the direction plane (array of two values).
 
       .. raw:: html
 
@@ -26,28 +26,28 @@ Parameters
 
          <details><summary><i> mode = length </i></summary>
 
-      - **center** ({string, stringArray, intArray, doubleArray}='') - The center point in the direction plane (array of two values). If specified, length and pa must also be specified and neither of start nor end may be specified. [6]_
-      - **length** ({string, int, double, stringArray, record}='') - The length of the segment in the direction plane. If specified, center and pa must also be specified and neither of start nor end may be specified. [7]_
-      - **pa** ({string, record}='') - The position angle of the segment in the direction plane, measured from north through east. If specified, center and length must also be specified and neither of start nor end may be specified. [8]_
+      - center_ ({string, stringArray, intArray, doubleArray}='') - The center point in the direction plane (array of two values). If specified, length and pa must also be specified and neither of start nor end may be specified.
+      - length_ ({string, int, double, stringArray, record}='') - The length of the segment in the direction plane. If specified, center and pa must also be specified and neither of start nor end may be specified.
+      - pa_ ({string, record}='') - The position angle of the segment in the direction plane, measured from north through east. If specified, center and length must also be specified and neither of start nor end may be specified.
 
       .. raw:: html
 
          </details>
-   - **width** ({string, int, record}='1') - Width of slice for averaging pixels perpendicular to the slice. Must be an odd positive integer or valid quantity. See help for details. [9]_
-   - **unit** (string='arcsec') - Unit for the offset axis in the resulting image. Must be a unit of angular measure. [10]_
-   - **chans** (string='') - Channels to use.  Channels must be contiguous. Default is to use all channels. [13]_
+   - width_ ({string, int, record}='1') - Width of slice for averaging pixels perpendicular to the slice. Must be an odd positive integer or valid quantity. See help for details.
+   - unit_ (string='arcsec') - Unit for the offset axis in the resulting image. Must be a unit of angular measure.
+   - chans_ (string='') - Channels to use.  Channels must be contiguous. Default is to use all channels.
 
       .. raw:: html
 
          <details><summary><i> chans = '' </i></summary>
 
-      - **region** ({string, record}='""') - Region selection. Default is entire image. No selection is permitted in the direction plane. [12]_
+      - region_ ({string, record}='""') - Region selection. Default is entire image. No selection is permitted in the direction plane.
 
       .. raw:: html
 
          </details>
-   - **stokes** (string='') - Stokes planes to use. Planes must be contiguous. Default is to use all stokes. [14]_
-   - **mask** (variant='') - Mask to use. Default is none. [15]_
+   - stokes_ (string='') - Stokes planes to use. Planes must be contiguous. Default is to use all stokes.
+   - mask_ (variant='') - Mask to use. Default is none.
 
 
 Description
@@ -140,54 +140,102 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (string)
-      | Name of the input image
-.. [2] 
-   **outfile** (string='')
-      | Output image name. If empty, no image is written.
-.. [3] 
-   **mode** (string='coords')
-      | If "coords", use start and end values. If "length", use center, length, and pa values.
-.. [4] 
-   **start** ({string, stringArray, intArray, doubleArray}='')
-      | The starting pixel in the direction plane (array of two values).
-.. [5] 
-   **end** ({string, stringArray, intArray, doubleArray}='')
-      | The ending pixel in the direction plane (array of two values).
-.. [6] 
-   **center** ({string, stringArray, intArray, doubleArray}='')
-      | The center point in the direction plane (array of two values). If specified, length and pa must also be specified and neither of start nor end may be specified.
-.. [7] 
-   **length** ({string, int, double, stringArray, record}='')
-      | The length of the segment in the direction plane. If specified, center and pa must also be specified and neither of start nor end may be specified.
-.. [8] 
-   **pa** ({string, record}='')
-      | The position angle of the segment in the direction plane, measured from north through east. If specified, center and length must also be specified and neither of start nor end may be specified.
-.. [9] 
-   **width** ({string, int, record}='1')
-      | Width of slice for averaging pixels perpendicular to the slice. Must be an odd positive integer or valid quantity. See help for details.
-.. [10] 
-   **unit** (string='arcsec')
-      | Unit for the offset axis in the resulting image. Must be a unit of angular measure.
-.. [11] 
-   **overwrite** (bool=False)
-      | Overwrite the output if it exists?
-.. [12] 
-   **region** ({string, record}='""')
-      | Region selection. Default is entire image. No selection is permitted in the direction plane.
-.. [13] 
-   **chans** (string='')
-      | Channels to use.  Channels must be contiguous. Default is to use all channels.
-.. [14] 
-   **stokes** (string='')
-      | Stokes planes to use. Planes must be contiguous. Default is to use all stokes.
-.. [15] 
-   **mask** (variant='')
-      | Mask to use. Default is none.
-.. [16] 
-   **stretch** (bool=False)
-      | Stretch the mask if necessary and possible? Default False
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Name of the input image
+
+.. _outfile:
+
+   .. rubric:: outfile
+
+   | Output image name. If empty, no image is written.
+
+.. _mode:
+
+   .. rubric:: mode
+
+   | If "coords", use start and end values. If "length", use center, length, and pa values.
+
+.. _start:
+
+   .. rubric:: start
+
+   | The starting pixel in the direction plane (array of two values).
+
+.. _end:
+
+   .. rubric:: end
+
+   | The ending pixel in the direction plane (array of two values).
+
+.. _center:
+
+   .. rubric:: center
+
+   | The center point in the direction plane (array of two values). If specified, length and pa must also be specified and neither of start nor end may be specified.
+
+.. _length:
+
+   .. rubric:: length
+
+   | The length of the segment in the direction plane. If specified, center and pa must also be specified and neither of start nor end may be specified.
+
+.. _pa:
+
+   .. rubric:: pa
+
+   | The position angle of the segment in the direction plane, measured from north through east. If specified, center and length must also be specified and neither of start nor end may be specified.
+
+.. _width:
+
+   .. rubric:: width
+
+   | Width of slice for averaging pixels perpendicular to the slice. Must be an odd positive integer or valid quantity. See help for details.
+
+.. _unit:
+
+   .. rubric:: unit
+
+   | Unit for the offset axis in the resulting image. Must be a unit of angular measure.
+
+.. _overwrite:
+
+   .. rubric:: overwrite
+
+   | Overwrite the output if it exists?
+
+.. _region:
+
+   .. rubric:: region
+
+   | Region selection. Default is entire image. No selection is permitted in the direction plane.
+
+.. _chans:
+
+   .. rubric:: chans
+
+   | Channels to use.  Channels must be contiguous. Default is to use all channels.
+
+.. _stokes:
+
+   .. rubric:: stokes
+
+   | Stokes planes to use. Planes must be contiguous. Default is to use all stokes.
+
+.. _mask:
+
+   .. rubric:: mask
+
+   | Mask to use. Default is none.
+
+.. _stretch:
+
+   .. rubric:: stretch
+
+   | Stretch the mask if necessary and possible? Default False
+
 
     """
     pass

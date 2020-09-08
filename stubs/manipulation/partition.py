@@ -7,20 +7,20 @@ def partition(vis, outputvis='', createmms=True, separationaxis='auto', numsubms
 Task to produce Multi-MSs using parallelism
 
 Parameters
-   - **vis** (string) - Name of input measurement set [1]_
-   - **outputvis** (string='') - Name of output measurement set [2]_
-   - **createmms** (bool=True) - Should this create a multi-MS output [3]_
+   - vis_ (string) - Name of input measurement set
+   - outputvis_ (string='') - Name of output measurement set
+   - createmms_ (bool=True) - Should this create a multi-MS output
 
       .. raw:: html
 
          <details><summary><i> createmms = True </i></summary>
 
-      - **separationaxis** (string='auto') - Axis to do parallelization across(scan, spw, baseline, auto) [4]_
-      - **numsubms** ({string, int}='auto') - The number of SubMSs to create (auto or any number) [5]_
-      - **flagbackup** (bool=True) - Create a backup of the FLAG column in the MMS. [6]_
-      - **disableparallel** (bool=False) - Create a multi-MS in parallel. [19]_
-      - **ddistart** (int=-1) - Do not change this parameter. For internal use only. [20]_
-      - **taql** (string='') - Table query for nested selections [21]_
+      - separationaxis_ (string='auto') - Axis to do parallelization across(scan, spw, baseline, auto)
+      - numsubms_ ({string, int}='auto') - The number of SubMSs to create (auto or any number)
+      - flagbackup_ (bool=True) - Create a backup of the FLAG column in the MMS.
+      - disableparallel_ (bool=False) - Create a multi-MS in parallel.
+      - ddistart_ (int=-1) - Do not change this parameter. For internal use only.
+      - taql_ (string='') - Table query for nested selections
 
       .. raw:: html
 
@@ -30,28 +30,28 @@ Parameters
 
          <details><summary><i> createmms = False </i></summary>
 
-      - **separationaxis** (string='auto') - Axis to do parallelization across(scan, spw, baseline, auto) [4]_
-      - **numsubms** ({string, int}='auto') - The number of SubMSs to create (auto or any number) [5]_
-      - **flagbackup** (bool=True) - Create a backup of the FLAG column in the MMS. [6]_
-      - **disableparallel** (bool=False) - Create a multi-MS in parallel. [19]_
-      - **ddistart** (int=-1) - Do not change this parameter. For internal use only. [20]_
-      - **taql** (string='') - Table query for nested selections [21]_
+      - separationaxis_ (string='auto') - Axis to do parallelization across(scan, spw, baseline, auto)
+      - numsubms_ ({string, int}='auto') - The number of SubMSs to create (auto or any number)
+      - flagbackup_ (bool=True) - Create a backup of the FLAG column in the MMS.
+      - disableparallel_ (bool=False) - Create a multi-MS in parallel.
+      - ddistart_ (int=-1) - Do not change this parameter. For internal use only.
+      - taql_ (string='') - Table query for nested selections
 
       .. raw:: html
 
          </details>
-   - **datacolumn** (string='all') - Which data column(s) to process. [7]_
-   - **field** ({string, stringArray, int, intArray}='') - Select field using ID(s) or name(s). [8]_
-   - **spw** ({string, stringArray, int, intArray}='') - Select spectral window/channels. [9]_
-   - **scan** ({string, stringArray, int, intArray}='') - Select data by scan numbers. [10]_
-   - **antenna** ({string, stringArray, int, intArray}='') - Select data based on antenna/baseline. [11]_
-   - **correlation** ({string, stringArray}='') - Correlation: '' ==> all, correlation="XX,YY". [12]_
-   - **timerange** ({string, stringArray, int, intArray}='') - Select data by time range. [13]_
-   - **intent** ({string, stringArray, int, intArray}='') - Select data by scan intent. [14]_
-   - **array** ({string, stringArray, int, intArray}='') - Select (sub)array(s) by array ID number. [15]_
-   - **uvrange** ({string, stringArray, int, intArray}='') - Select data by baseline length. [16]_
-   - **observation** ({string, stringArray, int, intArray}='') - Select by observation ID(s). [17]_
-   - **feed** ({string, stringArray, int, intArray}='') - Multi-feed numbers: Not yet implemented. [18]_
+   - datacolumn_ (string='all') - Which data column(s) to process.
+   - field_ ({string, stringArray, int, intArray}='') - Select field using ID(s) or name(s).
+   - spw_ ({string, stringArray, int, intArray}='') - Select spectral window/channels.
+   - scan_ ({string, stringArray, int, intArray}='') - Select data by scan numbers.
+   - antenna_ ({string, stringArray, int, intArray}='') - Select data based on antenna/baseline.
+   - correlation_ ({string, stringArray}='') - Correlation: '' ==> all, correlation="XX,YY".
+   - timerange_ ({string, stringArray, int, intArray}='') - Select data by time range.
+   - intent_ ({string, stringArray, int, intArray}='') - Select data by scan intent.
+   - array_ ({string, stringArray, int, intArray}='') - Select (sub)array(s) by array ID number.
+   - uvrange_ ({string, stringArray, int, intArray}='') - Select data by baseline length.
+   - observation_ ({string, stringArray, int, intArray}='') - Select by observation ID(s).
+   - feed_ ({string, stringArray, int, intArray}='') - Multi-feed numbers: Not yet implemented.
 
 
 Description
@@ -165,69 +165,132 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input measurement set
-.. [2] 
-   **outputvis** (string='')
-      | Name of output measurement set
-.. [3] 
-   **createmms** (bool=True)
-      | Should this create a multi-MS output
-.. [4] 
-   **separationaxis** (string='auto')
-      | Axis to do parallelization across(scan, spw, baseline, auto)
-.. [5] 
-   **numsubms** ({string, int}='auto')
-      | The number of SubMSs to create (auto or any number)
-.. [6] 
-   **flagbackup** (bool=True)
-      | Create a backup of the FLAG column in the MMS.
-.. [7] 
-   **datacolumn** (string='all')
-      | Which data column(s) to process.
-.. [8] 
-   **field** ({string, stringArray, int, intArray}='')
-      | Select field using ID(s) or name(s).
-.. [9] 
-   **spw** ({string, stringArray, int, intArray}='')
-      | Select spectral window/channels.
-.. [10] 
-   **scan** ({string, stringArray, int, intArray}='')
-      | Select data by scan numbers.
-.. [11] 
-   **antenna** ({string, stringArray, int, intArray}='')
-      | Select data based on antenna/baseline.
-.. [12] 
-   **correlation** ({string, stringArray}='')
-      | Correlation: '' ==> all, correlation="XX,YY".
-.. [13] 
-   **timerange** ({string, stringArray, int, intArray}='')
-      | Select data by time range.
-.. [14] 
-   **intent** ({string, stringArray, int, intArray}='')
-      | Select data by scan intent.
-.. [15] 
-   **array** ({string, stringArray, int, intArray}='')
-      | Select (sub)array(s) by array ID number.
-.. [16] 
-   **uvrange** ({string, stringArray, int, intArray}='')
-      | Select data by baseline length.
-.. [17] 
-   **observation** ({string, stringArray, int, intArray}='')
-      | Select by observation ID(s).
-.. [18] 
-   **feed** ({string, stringArray, int, intArray}='')
-      | Multi-feed numbers: Not yet implemented.
-.. [19] 
-   **disableparallel** (bool=False)
-      | Create a multi-MS in parallel.
-.. [20] 
-   **ddistart** (int=-1)
-      | Do not change this parameter. For internal use only.
-.. [21] 
-   **taql** (string='')
-      | Table query for nested selections
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input measurement set
+
+.. _outputvis:
+
+   .. rubric:: outputvis
+
+   | Name of output measurement set
+
+.. _createmms:
+
+   .. rubric:: createmms
+
+   | Should this create a multi-MS output
+
+.. _separationaxis:
+
+   .. rubric:: separationaxis
+
+   | Axis to do parallelization across(scan, spw, baseline, auto)
+
+.. _numsubms:
+
+   .. rubric:: numsubms
+
+   | The number of SubMSs to create (auto or any number)
+
+.. _flagbackup:
+
+   .. rubric:: flagbackup
+
+   | Create a backup of the FLAG column in the MMS.
+
+.. _datacolumn:
+
+   .. rubric:: datacolumn
+
+   | Which data column(s) to process.
+
+.. _field:
+
+   .. rubric:: field
+
+   | Select field using ID(s) or name(s).
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | Select spectral window/channels.
+
+.. _scan:
+
+   .. rubric:: scan
+
+   | Select data by scan numbers.
+
+.. _antenna:
+
+   .. rubric:: antenna
+
+   | Select data based on antenna/baseline.
+
+.. _correlation:
+
+   .. rubric:: correlation
+
+   | Correlation: '' ==> all, correlation="XX,YY".
+
+.. _timerange:
+
+   .. rubric:: timerange
+
+   | Select data by time range.
+
+.. _intent:
+
+   .. rubric:: intent
+
+   | Select data by scan intent.
+
+.. _array:
+
+   .. rubric:: array
+
+   | Select (sub)array(s) by array ID number.
+
+.. _uvrange:
+
+   .. rubric:: uvrange
+
+   | Select data by baseline length.
+
+.. _observation:
+
+   .. rubric:: observation
+
+   | Select by observation ID(s).
+
+.. _feed:
+
+   .. rubric:: feed
+
+   | Multi-feed numbers: Not yet implemented.
+
+.. _disableparallel:
+
+   .. rubric:: disableparallel
+
+   | Create a multi-MS in parallel.
+
+.. _ddistart:
+
+   .. rubric:: ddistart
+
+   | Do not change this parameter. For internal use only.
+
+.. _taql:
+
+   .. rubric:: taql
+
+   | Table query for nested selections
+
 
     """
     pass

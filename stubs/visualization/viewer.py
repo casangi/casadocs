@@ -7,16 +7,16 @@ def viewer(infile, displaytype='raster', channel=0, zoom=1, outfile='', outscale
 View an image or visibility data set
 
 Parameters
-   - **infile** (string) -  (Optional)  Name of file to visualize. [1]_
-   - **displaytype** (string='raster') -  (Optional)  Type of visual rendering (raster, contour, vector or marker).  lel  if an lel expression is given for infile  (advanced). [2]_
-   - **channel** (int=0) -  (Optional)  access a specific channel in the image cube [3]_
-   - **zoom** (int=1) -  (Optional)  zoom in/out by increments [4]_
-   - **outfile** (string='') -  (Optional)  name of the output file to generate [5]_
-   - **outscale** (double=1.0) -  (Optional)  amount to scale output bitmap formats (non-PS, non-PDF) [6]_
-   - **outdpi** (int=300) -  (Optional)  output DPI for PS/PDF [7]_
-   - **outformat** (string='jpg') -  (Optional)  format of the output e.g. jpg or pdf (this is overridden by the output files extension [8]_
-   - **outlandscape** (bool=False) -  (Optional)  should the output mode be landscape (PS or PDF) [9]_
-   - **gui** (bool=True) -  (Optional)  Display the panel in a GUI. [10]_
+   - infile_ (string) -  (Optional)  Name of file to visualize.
+   - displaytype_ (string='raster') -  (Optional)  Type of visual rendering (raster, contour, vector or marker).  lel  if an lel expression is given for infile  (advanced).
+   - channel_ (int=0) -  (Optional)  access a specific channel in the image cube
+   - zoom_ (int=1) -  (Optional)  zoom in/out by increments
+   - outfile_ (string='') -  (Optional)  name of the output file to generate
+   - outscale_ (double=1.0) -  (Optional)  amount to scale output bitmap formats (non-PS, non-PDF)
+   - outdpi_ (int=300) -  (Optional)  output DPI for PS/PDF
+   - outformat_ (string='jpg') -  (Optional)  format of the output e.g. jpg or pdf (this is overridden by the output files extension
+   - outlandscape_ (bool=False) -  (Optional)  should the output mode be landscape (PS or PDF)
+   - gui_ (bool=True) -  (Optional)  Display the panel in a GUI.
 
 
 Description
@@ -66,36 +66,66 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **infile** (string)
-      | (Optional)  Name of file to visualize.
-.. [2] 
-   **displaytype** (string='raster')
-      | (Optional)  Type of visual rendering (raster, contour, vector or marker).  lel  if an lel expression is given for infile  (advanced).
-.. [3] 
-   **channel** (int=0)
-      | (Optional)  access a specific channel in the image cube
-.. [4] 
-   **zoom** (int=1)
-      | (Optional)  zoom in/out by increments
-.. [5] 
-   **outfile** (string='')
-      | (Optional)  name of the output file to generate
-.. [6] 
-   **outscale** (double=1.0)
-      | (Optional)  amount to scale output bitmap formats (non-PS, non-PDF)
-.. [7] 
-   **outdpi** (int=300)
-      | (Optional)  output DPI for PS/PDF
-.. [8] 
-   **outformat** (string='jpg')
-      | (Optional)  format of the output e.g. jpg or pdf (this is overridden by the output files extension
-.. [9] 
-   **outlandscape** (bool=False)
-      | (Optional)  should the output mode be landscape (PS or PDF)
-.. [10] 
-   **gui** (bool=True)
-      | (Optional)  Display the panel in a GUI.
+.. _infile:
+
+   .. rubric:: infile
+
+   | (Optional)  Name of file to visualize.
+
+.. _displaytype:
+
+   .. rubric:: displaytype
+
+   | (Optional)  Type of visual rendering (raster, contour, vector or marker).  lel  if an lel expression is given for infile  (advanced).
+
+.. _channel:
+
+   .. rubric:: channel
+
+   | (Optional)  access a specific channel in the image cube
+
+.. _zoom:
+
+   .. rubric:: zoom
+
+   | (Optional)  zoom in/out by increments
+
+.. _outfile:
+
+   .. rubric:: outfile
+
+   | (Optional)  name of the output file to generate
+
+.. _outscale:
+
+   .. rubric:: outscale
+
+   | (Optional)  amount to scale output bitmap formats (non-PS, non-PDF)
+
+.. _outdpi:
+
+   .. rubric:: outdpi
+
+   | (Optional)  output DPI for PS/PDF
+
+.. _outformat:
+
+   .. rubric:: outformat
+
+   | (Optional)  format of the output e.g. jpg or pdf (this is overridden by the output files extension
+
+.. _outlandscape:
+
+   .. rubric:: outlandscape
+
+   | (Optional)  should the output mode be landscape (PS or PDF)
+
+.. _gui:
+
+   .. rubric:: gui
+
+   | (Optional)  Display the panel in a GUI.
+
 
     """
     pass

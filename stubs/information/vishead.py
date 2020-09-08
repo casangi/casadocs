@@ -7,14 +7,14 @@ def vishead(vis, mode='summary', listitems=['telescope', 'observer', 'project', 
 List, summary, get, and put metadata in a measurement set
 
 Parameters
-   - **vis** (string) - Name of input visibility file [1]_
-   - **mode** (string='summary') - Mode of operation for vishead [2]_
+   - vis_ (string) - Name of input visibility file
+   - mode_ (string='summary') - Mode of operation for vishead
 
       .. raw:: html
 
          <details><summary><i> mode = list </i></summary>
 
-      - **listitems** (stringArray=['telescope', 'observer', 'project', 'field', 'freq_group_name', 'spw_name', 'schedule', 'schedule_type', 'release_date']) - Keyword items to list. This parameter is only relevant in list mode. Note that the default list is a subset of the possible keywords. To get all the keywords set listitems=[] [3]_
+      - listitems_ (stringArray=['telescope', 'observer', 'project', 'field', 'freq_group_name', 'spw_name', 'schedule', 'schedule_type', 'release_date']) - Keyword items to list. This parameter is only relevant in list mode. Note that the default list is a subset of the possible keywords. To get all the keywords set listitems=[]
 
       .. raw:: html
 
@@ -24,8 +24,8 @@ Parameters
 
          <details><summary><i> mode = get </i></summary>
 
-      - **hdkey** (string='') - Keyword to get/put [4]_
-      - **hdindex** (string='') - Index (counting from 0) if keyword is an array (used in get/put mode only). The empty string means all elements [5]_
+      - hdkey_ (string='') - Keyword to get/put
+      - hdindex_ (string='') - Index (counting from 0) if keyword is an array (used in get/put mode only). The empty string means all elements
 
       .. raw:: html
 
@@ -35,9 +35,9 @@ Parameters
 
          <details><summary><i> mode = put </i></summary>
 
-      - **hdkey** (string='') - Keyword to get/put [4]_
-      - **hdindex** (string='') - Index (counting from 0) if keyword is an array (used in get/put mode only). The empty string means all elements [5]_
-      - **hdvalue** (variant='') - Value of the keywords to be put in the MS (used in put mode only) [6]_
+      - hdkey_ (string='') - Keyword to get/put
+      - hdindex_ (string='') - Index (counting from 0) if keyword is an array (used in get/put mode only). The empty string means all elements
+      - hdvalue_ (variant='') - Value of the keywords to be put in the MS (used in put mode only)
 
       .. raw:: html
 
@@ -92,24 +92,42 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file
-.. [2] 
-   **mode** (string='summary')
-      | Mode of operation for vishead
-.. [3] 
-   **listitems** (stringArray=['telescope', 'observer', 'project', 'field', 'freq_group_name', 'spw_name', 'schedule', 'schedule_type', 'release_date'])
-      | Keyword items to list. This parameter is only relevant in list mode. Note that the default list is a subset of the possible keywords. To get all the keywords set listitems=[]
-.. [4] 
-   **hdkey** (string='')
-      | Keyword to get/put
-.. [5] 
-   **hdindex** (string='')
-      | Index (counting from 0) if keyword is an array (used in get/put mode only). The empty string means all elements
-.. [6] 
-   **hdvalue** (variant='')
-      | Value of the keywords to be put in the MS (used in put mode only)
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file
+
+.. _mode:
+
+   .. rubric:: mode
+
+   | Mode of operation for vishead
+
+.. _listitems:
+
+   .. rubric:: listitems
+
+   | Keyword items to list. This parameter is only relevant in list mode. Note that the default list is a subset of the possible keywords. To get all the keywords set listitems=[]
+
+.. _hdkey:
+
+   .. rubric:: hdkey
+
+   | Keyword to get/put
+
+.. _hdindex:
+
+   .. rubric:: hdindex
+
+   | Index (counting from 0) if keyword is an array (used in get/put mode only). The empty string means all elements
+
+.. _hdvalue:
+
+   .. rubric:: hdvalue
+
+   | Value of the keywords to be put in the MS (used in put mode only)
+
 
     """
     pass

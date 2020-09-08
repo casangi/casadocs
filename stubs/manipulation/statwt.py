@@ -7,35 +7,35 @@ def statwt(vis, selectdata=True, field='', spw='', intent='', array='', observat
 Compute and set weights based on variance of data.
 
 Parameters
-   - **vis** (string) - Name of measurement set [1]_
-   - **selectdata** (bool=True) - Enable data selection parameters [2]_
+   - vis_ (string) - Name of measurement set
+   - selectdata_ (bool=True) - Enable data selection parameters
 
       .. raw:: html
 
          <details><summary><i> selectdata = True </i></summary>
 
-      - **field** (string='') - Selection based on field names or field index numbers. Default is all. [3]_
-      - **spw** (string='') - Selection based on spectral windows:channels. Default is all. [4]_
-      - **observation** (string='') - Selection based on observation IDs. Default is all. [7]_
-      - **intent** (string='') - Selection based on intents. Default is all. [5]_
-      - **array** (string='') - Selection based on array IDs. Default is all. [6]_
-      - **scan** (string='') - Select data by scan numbers. [8]_
+      - field_ (string='') - Selection based on field names or field index numbers. Default is all.
+      - spw_ (string='') - Selection based on spectral windows:channels. Default is all.
+      - observation_ (string='') - Selection based on observation IDs. Default is all.
+      - intent_ (string='') - Selection based on intents. Default is all.
+      - array_ (string='') - Selection based on array IDs. Default is all.
+      - scan_ (string='') - Select data by scan numbers.
 
       .. raw:: html
 
          </details>
-   - **combine** (string='') - Ignore changes in these columns (scan, field, and/or state) when aggregating samples to compute weights. The value "corr" is also supported to aggregate samples across correlations. [9]_
-   - **timebin** ({string, int}='1') - Length for binning in time to determine statistics. Can either be integer to be multiplied by the representative integration time, a quantity (string) in time units [10]_
-   - **slidetimebin** (bool=False) - Use a sliding window for time binning, as opposed to time block processing? [11]_
-   - **chanbin** ({string, int}='spw') - Channel bin width for computing weights. Can either be integer, in which case it is interpreted as number of channels to include in each bin, or a string "spw" or quantity with frequency units. [12]_
-   - **minsamp** (int=2) - Minimum number of unflagged visibilities required for computing weights in a sample. Must be >= 2. [13]_
-   - **statalg** (string='classic') - Statistics algorithm to use for computing variances. Supported values are "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported, although the full string must be specified for the subparameters to appear in the inputs list. [14]_
+   - combine_ (string='') - Ignore changes in these columns (scan, field, and/or state) when aggregating samples to compute weights. The value "corr" is also supported to aggregate samples across correlations.
+   - timebin_ ({string, int}='1') - Length for binning in time to determine statistics. Can either be integer to be multiplied by the representative integration time, a quantity (string) in time units
+   - slidetimebin_ (bool=False) - Use a sliding window for time binning, as opposed to time block processing?
+   - chanbin_ ({string, int}='spw') - Channel bin width for computing weights. Can either be integer, in which case it is interpreted as number of channels to include in each bin, or a string "spw" or quantity with frequency units.
+   - minsamp_ (int=2) - Minimum number of unflagged visibilities required for computing weights in a sample. Must be >= 2.
+   - statalg_ (string='classic') - Statistics algorithm to use for computing variances. Supported values are "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported, although the full string must be specified for the subparameters to appear in the inputs list.
 
       .. raw:: html
 
          <details><summary><i> statalg = hinges-fences </i></summary>
 
-      - **fence** (double=-1) - Fence value for statalg="hinges-fences". A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if statalg is not "hinges-fences". [15]_
+      - fence_ (double=-1) - Fence value for statalg="hinges-fences". A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if statalg is not "hinges-fences".
 
       .. raw:: html
 
@@ -45,8 +45,8 @@ Parameters
 
          <details><summary><i> statalg = fit-half </i></summary>
 
-      - **center** (string='mean') - Center to use for statalg="fit-half". Valid choices are "mean", "median", and "zero". Ignored if statalg is not "fit-half". [16]_
-      - **lside** (bool=True) - For statalg="fit-half", real data are <=; center? If false, real data are >= center. Ignored if statalg is not "fit-half". [17]_
+      - center_ (string='mean') - Center to use for statalg="fit-half". Valid choices are "mean", "median", and "zero". Ignored if statalg is not "fit-half".
+      - lside_ (bool=True) - For statalg="fit-half", real data are <=; center? If false, real data are >= center. Ignored if statalg is not "fit-half".
 
       .. raw:: html
 
@@ -56,18 +56,18 @@ Parameters
 
          <details><summary><i> statalg = chauvenet </i></summary>
 
-      - **zscore** (double=-1) - For statalg="chauvenet", this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet\'s criterion. Ignored if statalg is not "chauvenet". [18]_
-      - **maxiter** (int=-1) - For statalg="chauvenet", this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if statalg is not "chauvenet". [19]_
+      - zscore_ (double=-1) - For statalg="chauvenet", this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet\'s criterion. Ignored if statalg is not "chauvenet".
+      - maxiter_ (int=-1) - For statalg="chauvenet", this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if statalg is not "chauvenet".
 
       .. raw:: html
 
          </details>
-   - **fitspw** (string='') - Channels to include in the computation of weights. Specified as an MS select channel selection string. [20]_
-   - **excludechans** (bool=False) - If True: invert the channel selection in fitspw and exclude the fitspw selection from the computation of the weights. [21]_
-   - **wtrange** (doubleArray=['']) - Range of acceptable weights. Data with weights outside this range will be flagged. Empty array (default) means all weights are good. [22]_
-   - **flagbackup** (bool=True) - Back up the state of flags before the run? [23]_
-   - **preview** (bool=False) - Preview mode. If True, no data is changed, although the amount of data that would have been flagged is reported. [24]_
-   - **datacolumn** (string='corrected') - Data column to use to compute weights. Supported values are "data", "corrected", "residual", and "residual_data" (case insensitive, minimum match supported). [25]_
+   - fitspw_ (string='') - Channels to include in the computation of weights. Specified as an MS select channel selection string.
+   - excludechans_ (bool=False) - If True: invert the channel selection in fitspw and exclude the fitspw selection from the computation of the weights.
+   - wtrange_ (doubleArray=['']) - Range of acceptable weights. Data with weights outside this range will be flagged. Empty array (default) means all weights are good.
+   - flagbackup_ (bool=True) - Back up the state of flags before the run?
+   - preview_ (bool=False) - Preview mode. If True, no data is changed, although the amount of data that would have been flagged is reported.
+   - datacolumn_ (string='corrected') - Data column to use to compute weights. Supported values are "data", "corrected", "residual", and "residual_data" (case insensitive, minimum match supported).
 
 
 Description
@@ -482,81 +482,156 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of measurement set
-.. [2] 
-   **selectdata** (bool=True)
-      | Enable data selection parameters
-.. [3] 
-   **field** (string='')
-      | Selection based on field names or field index numbers. Default is all.
-.. [4] 
-   **spw** (string='')
-      | Selection based on spectral windows:channels. Default is all.
-.. [5] 
-   **intent** (string='')
-      | Selection based on intents. Default is all.
-.. [6] 
-   **array** (string='')
-      | Selection based on array IDs. Default is all.
-.. [7] 
-   **observation** (string='')
-      | Selection based on observation IDs. Default is all.
-.. [8] 
-   **scan** (string='')
-      | Select data by scan numbers.
-.. [9] 
-   **combine** (string='')
-      | Ignore changes in these columns (scan, field, and/or state) when aggregating samples to compute weights. The value "corr" is also supported to aggregate samples across correlations.
-.. [10] 
-   **timebin** ({string, int}='1')
-      | Length for binning in time to determine statistics. Can either be integer to be multiplied by the representative integration time, a quantity (string) in time units
-.. [11] 
-   **slidetimebin** (bool=False)
-      | Use a sliding window for time binning, as opposed to time block processing?
-.. [12] 
-   **chanbin** ({string, int}='spw')
-      | Channel bin width for computing weights. Can either be integer, in which case it is interpreted as number of channels to include in each bin, or a string "spw" or quantity with frequency units.
-.. [13] 
-   **minsamp** (int=2)
-      | Minimum number of unflagged visibilities required for computing weights in a sample. Must be >= 2.
-.. [14] 
-   **statalg** (string='classic')
-      | Statistics algorithm to use for computing variances. Supported values are "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported, although the full string must be specified for the subparameters to appear in the inputs list.
-.. [15] 
-   **fence** (double=-1)
-      | Fence value for statalg="hinges-fences". A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if statalg is not "hinges-fences".
-.. [16] 
-   **center** (string='mean')
-      | Center to use for statalg="fit-half". Valid choices are "mean", "median", and "zero". Ignored if statalg is not "fit-half".
-.. [17] 
-   **lside** (bool=True)
-      | For statalg="fit-half", real data are <=; center? If false, real data are >= center. Ignored if statalg is not "fit-half".
-.. [18] 
-   **zscore** (double=-1)
-      | For statalg="chauvenet", this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet\'s criterion. Ignored if statalg is not "chauvenet".
-.. [19] 
-   **maxiter** (int=-1)
-      | For statalg="chauvenet", this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if statalg is not "chauvenet".
-.. [20] 
-   **fitspw** (string='')
-      | Channels to include in the computation of weights. Specified as an MS select channel selection string.
-.. [21] 
-   **excludechans** (bool=False)
-      | If True: invert the channel selection in fitspw and exclude the fitspw selection from the computation of the weights.
-.. [22] 
-   **wtrange** (doubleArray=[''])
-      | Range of acceptable weights. Data with weights outside this range will be flagged. Empty array (default) means all weights are good.
-.. [23] 
-   **flagbackup** (bool=True)
-      | Back up the state of flags before the run?
-.. [24] 
-   **preview** (bool=False)
-      | Preview mode. If True, no data is changed, although the amount of data that would have been flagged is reported.
-.. [25] 
-   **datacolumn** (string='corrected')
-      | Data column to use to compute weights. Supported values are "data", "corrected", "residual", and "residual_data" (case insensitive, minimum match supported).
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of measurement set
+
+.. _selectdata:
+
+   .. rubric:: selectdata
+
+   | Enable data selection parameters
+
+.. _field:
+
+   .. rubric:: field
+
+   | Selection based on field names or field index numbers. Default is all.
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | Selection based on spectral windows:channels. Default is all.
+
+.. _intent:
+
+   .. rubric:: intent
+
+   | Selection based on intents. Default is all.
+
+.. _array:
+
+   .. rubric:: array
+
+   | Selection based on array IDs. Default is all.
+
+.. _observation:
+
+   .. rubric:: observation
+
+   | Selection based on observation IDs. Default is all.
+
+.. _scan:
+
+   .. rubric:: scan
+
+   | Select data by scan numbers.
+
+.. _combine:
+
+   .. rubric:: combine
+
+   | Ignore changes in these columns (scan, field, and/or state) when aggregating samples to compute weights. The value "corr" is also supported to aggregate samples across correlations.
+
+.. _timebin:
+
+   .. rubric:: timebin
+
+   | Length for binning in time to determine statistics. Can either be integer to be multiplied by the representative integration time, a quantity (string) in time units
+
+.. _slidetimebin:
+
+   .. rubric:: slidetimebin
+
+   | Use a sliding window for time binning, as opposed to time block processing?
+
+.. _chanbin:
+
+   .. rubric:: chanbin
+
+   | Channel bin width for computing weights. Can either be integer, in which case it is interpreted as number of channels to include in each bin, or a string "spw" or quantity with frequency units.
+
+.. _minsamp:
+
+   .. rubric:: minsamp
+
+   | Minimum number of unflagged visibilities required for computing weights in a sample. Must be >= 2.
+
+.. _statalg:
+
+   .. rubric:: statalg
+
+   | Statistics algorithm to use for computing variances. Supported values are "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported, although the full string must be specified for the subparameters to appear in the inputs list.
+
+.. _fence:
+
+   .. rubric:: fence
+
+   | Fence value for statalg="hinges-fences". A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if statalg is not "hinges-fences".
+
+.. _center:
+
+   .. rubric:: center
+
+   | Center to use for statalg="fit-half". Valid choices are "mean", "median", and "zero". Ignored if statalg is not "fit-half".
+
+.. _lside:
+
+   .. rubric:: lside
+
+   | For statalg="fit-half", real data are <=; center? If false, real data are >= center. Ignored if statalg is not "fit-half".
+
+.. _zscore:
+
+   .. rubric:: zscore
+
+   | For statalg="chauvenet", this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet\'s criterion. Ignored if statalg is not "chauvenet".
+
+.. _maxiter:
+
+   .. rubric:: maxiter
+
+   | For statalg="chauvenet", this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if statalg is not "chauvenet".
+
+.. _fitspw:
+
+   .. rubric:: fitspw
+
+   | Channels to include in the computation of weights. Specified as an MS select channel selection string.
+
+.. _excludechans:
+
+   .. rubric:: excludechans
+
+   | If True: invert the channel selection in fitspw and exclude the fitspw selection from the computation of the weights.
+
+.. _wtrange:
+
+   .. rubric:: wtrange
+
+   | Range of acceptable weights. Data with weights outside this range will be flagged. Empty array (default) means all weights are good.
+
+.. _flagbackup:
+
+   .. rubric:: flagbackup
+
+   | Back up the state of flags before the run?
+
+.. _preview:
+
+   .. rubric:: preview
+
+   | Preview mode. If True, no data is changed, although the amount of data that would have been flagged is reported.
+
+.. _datacolumn:
+
+   .. rubric:: datacolumn
+
+   | Data column to use to compute weights. Supported values are "data", "corrected", "residual", and "residual_data" (case insensitive, minimum match supported).
+
 
     """
     pass

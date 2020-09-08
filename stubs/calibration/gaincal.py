@@ -7,74 +7,74 @@ def gaincal(vis, caltable='', field='', spw='', intent='', selectdata=True, time
 Determine temporal gains from calibrator observations
 
 Parameters
-   - **vis** (string) - Name of input visibility file [1]_
-   - **caltable** (string='') - Name of output gain calibration table [2]_
-   - **field** (string='') - Select field using field id(s) or field name(s) [3]_
-   - **spw** (string='') - Select spectral window/channels [4]_
-   - **intent** (string='') - Select observing intent [5]_
-   - **selectdata** (bool=True) - Other data selection parameters [6]_
+   - vis_ (string) - Name of input visibility file
+   - caltable_ (string='') - Name of output gain calibration table
+   - field_ (string='') - Select field using field id(s) or field name(s)
+   - spw_ (string='') - Select spectral window/channels
+   - intent_ (string='') - Select observing intent
+   - selectdata_ (bool=True) - Other data selection parameters
 
       .. raw:: html
 
          <details><summary><i> selectdata = True </i></summary>
 
-      - **timerange** (string='') - Select data based on time range [7]_
-      - **uvrange** (variant='') - Select data by baseline length. [8]_
-      - **antenna** (string='') - Select data based on antenna/baseline [9]_
-      - **scan** (string='') - Scan number range [10]_
-      - **observation** ({string, int}='') - Select by observation ID(s) [11]_
-      - **msselect** (string='') - Optional complex data selection (ignore for now) [12]_
+      - timerange_ (string='') - Select data based on time range
+      - uvrange_ (variant='') - Select data by baseline length.
+      - antenna_ (string='') - Select data based on antenna/baseline
+      - scan_ (string='') - Scan number range
+      - observation_ ({string, int}='') - Select by observation ID(s)
+      - msselect_ (string='') - Optional complex data selection (ignore for now)
 
       .. raw:: html
 
          </details>
-   - **solint** (variant='inf') - Solution interval [13]_
-   - **combine** (string='') - Data axes which to combine for solve (obs, scan, spw, and/or field) [14]_
-   - **preavg** (double=-1.0) - Pre-averaging interval (sec) (rarely needed) [15]_
-   - **refant** (string='') - Reference antenna name(s) [16]_
-   - **refantmode** (string='flex') - Reference antenna mode [17]_
-   - **minblperant** (int=4) - Minimum baselines _per antenna_ required for solve [18]_
-   - **minsnr** (double=3.0) - Reject solutions below this SNR [19]_
-   - **solnorm** (bool=False) - Normalize (squared) solution amplitudes (G, T only) [20]_
+   - solint_ (variant='inf') - Solution interval
+   - combine_ (string='') - Data axes which to combine for solve (obs, scan, spw, and/or field)
+   - preavg_ (double=-1.0) - Pre-averaging interval (sec) (rarely needed)
+   - refant_ (string='') - Reference antenna name(s)
+   - refantmode_ (string='flex') - Reference antenna mode
+   - minblperant_ (int=4) - Minimum baselines _per antenna_ required for solve
+   - minsnr_ (double=3.0) - Reject solutions below this SNR
+   - solnorm_ (bool=False) - Normalize (squared) solution amplitudes (G, T only)
 
       .. raw:: html
 
          <details><summary><i> solnorm = True </i></summary>
 
-      - **normtype** (string='mean') - Solution normalization calculation type: mean or median [21]_
+      - normtype_ (string='mean') - Solution normalization calculation type: mean or median
 
       .. raw:: html
 
          </details>
-   - **gaintype** (string='G') - Type of gain solution (G,T,GSPLINE,K,KCROSS) [22]_
+   - gaintype_ (string='G') - Type of gain solution (G,T,GSPLINE,K,KCROSS)
 
       .. raw:: html
 
          <details><summary><i> gaintype = GSPLINE </i></summary>
 
-      - **splinetime** (double=3600.0) - Spline timescale(sec); All spw\'s are first averaged. [29]_
-      - **npointaver** (int=3) - The phase-unwrapping algorithm [30]_
-      - **phasewrap** (double=180.0) - Wrap the phase for jumps greater than this value (degrees) [31]_
+      - splinetime_ (double=3600.0) - Spline timescale(sec); All spw\'s are first averaged.
+      - npointaver_ (int=3) - The phase-unwrapping algorithm
+      - phasewrap_ (double=180.0) - Wrap the phase for jumps greater than this value (degrees)
 
       .. raw:: html
 
          </details>
-   - **smodel** (doubleArray=['']) - Point source Stokes parameters for source model. [23]_
-   - **calmode** (string='ap') - Type of solution" (\'ap\', \'p\', \'a\') [24]_
-   - **solmode** (string='') - Robust solving mode: (\'\', \'L1\', \'R\',\'L1R\') [25]_
-   - **rmsthresh** (doubleArray=['']) - RMS Threshold sequence (for solmode=\'R\' or \'L1R\'; see help) [26]_
-   - **corrdepflags** (bool=False) - Respect correlation-dependent flags [27]_
-   - **append** (bool=False) - Append solutions to the (existing) table [28]_
-   - **docallib** (bool=False) - Use callib or traditional cal apply parameters [32]_
+   - smodel_ (doubleArray=['']) - Point source Stokes parameters for source model.
+   - calmode_ (string='ap') - Type of solution" (\'ap\', \'p\', \'a\')
+   - solmode_ (string='') - Robust solving mode: (\'\', \'L1\', \'R\',\'L1R\')
+   - rmsthresh_ (doubleArray=['']) - RMS Threshold sequence (for solmode=\'R\' or \'L1R\'; see help)
+   - corrdepflags_ (bool=False) - Respect correlation-dependent flags
+   - append_ (bool=False) - Append solutions to the (existing) table
+   - docallib_ (bool=False) - Use callib or traditional cal apply parameters
 
       .. raw:: html
 
          <details><summary><i> docallib = False </i></summary>
 
-      - **gaintable** (stringArray=['']) - Gain calibration table(s) to apply on the fly [34]_
-      - **gainfield** (stringArray=['']) - Select a subset of calibrators from gaintable(s) [35]_
-      - **interp** (stringArray=['']) - Interpolation parameters for each gaintable, as a list [36]_
-      - **spwmap** (intArray=['']) - Spectral window mappings to form for gaintable(s) [37]_
+      - gaintable_ (stringArray=['']) - Gain calibration table(s) to apply on the fly
+      - gainfield_ (stringArray=['']) - Select a subset of calibrators from gaintable(s)
+      - interp_ (stringArray=['']) - Interpolation parameters for each gaintable, as a list
+      - spwmap_ (intArray=['']) - Spectral window mappings to form for gaintable(s)
 
       .. raw:: html
 
@@ -84,12 +84,12 @@ Parameters
 
          <details><summary><i> docallib = True </i></summary>
 
-      - **callib** (string='') - Cal Library filename [33]_
+      - callib_ (string='') - Cal Library filename
 
       .. raw:: html
 
          </details>
-   - **parang** (bool=False) - Apply parallactic angle correction [38]_
+   - parang_ (bool=False) - Apply parallactic angle correction
 
 
 Description
@@ -379,415 +379,529 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file
-      |                      Default: none
-      | 
-      |                         Example: vis='ngc5921.ms'
-.. [2] 
-   **caltable** (string='')
-      | Name of output gain calibration table
-      |                      Default: none
-      | 
-      |                         Example: caltable='ngc5921.gcal'
-.. [3] 
-   **field** (string='')
-      | Select field using field id(s) or field name(s)
-      |                      Default: '' (all fields)
-      |                      
-      |                      Use 'go listobs' to obtain the list id's or
-      |                      names. If field string is a non-negative integer,
-      |                      it is assumed a field index,  otherwise, it is
-      |                      assumed a field name.
-      | 
-      |                         Examples:
-      |                         field='0~2'; field ids 0,1,2
-      |                         field='0,4,5~7'; field ids 0,4,5,6,7
-      |                         field='3C286,3C295'; field named 3C286 and
-      |                         3C295
-      |                         field = '3,4C*'; field id 3, all names
-      |                         starting with 4C
-.. [4] 
-   **spw** (string='')
-      | Select spectral window/channels
-      |                      Default: '' (all spectral windows and channels)
-      | 
-      |                         Examples:
-      |                         spw='0~2,4'; spectral windows 0,1,2,4 (all
-      |                         channels)
-      |                         spw='<2';  spectral windows less than 2
-      |                         (i.e. 0,1)
-      |                         spw='0:5~61'; spw 0, channels 5 to 61,
-      |                         INCLUSIVE
-      |                         spw='*:5~61'; all spw with channels 5 to 61
-      |                         spw='0,10,3:3~45'; spw 0,10 all channels, spw
-      |                         3, channels 3 to 45.
-      |                         spw='0~2:2~6'; spw 0,1,2 with channels 2
-      |                         through 6 in each.
-      |                         spw='0:0~10;15~60'; spectral window 0 with
-      |                         channels 0-10,15-60. (NOTE ';' to separate
-      |                         channel selections)
-      |                         spw='0:0~10^2,1:20~30^5'; spw 0, channels
-      |                         0,2,4,6,8,10, spw 1, channels 20,25,30
-.. [5] 
-   **intent** (string='')
-      | Select observing intent
-      |                      Default: '' (no selection by intent)
-      | 
-      |                         Example: intent='*BANDPASS*'  (selects data
-      |                         labelled with BANDPASS intent)
-.. [6] 
-   **selectdata** (bool=True)
-      | Other data selection parameters
-      |                      Default: True
-      |                      Options: True|False
-.. [7] 
-   **timerange** (string='')
-      | Select data based on time range
-      |                      Subparameter of selectdata=True
-      |                      Default = '' (all)
-      | 
-      |                         Examples:
-      |                         timerange =
-      |                         'YYYY/MM/DD/hh:mm:ss~YYYY/MM/DD/hh:mm:ss'
-      |                         (Note: if YYYY/MM/DD is missing date defaults
-      |                         to first day in data set.)
-      |                         timerange='09:14:0~09:54:0' picks 40 min on
-      |                         first day 
-      |                         timerange= '25:00:00~27:30:00' picks 1 hr to 3
-      |                         hr 30min on NEXT day
-      |                         timerange='09:44:00' pick data within one
-      |                         integration of time
-      |                         timerange='>10:24:00' data after this time
-.. [8] 
-   **uvrange** (variant='')
-      | Select data by baseline length.
-      |                      Default = '' (all)
-      | 
-      |                         Examples:
-      |                         uvrange='0~1000klambda'; uvrange from 0-1000 kilo-lambda
-      |                         uvrange='>4klambda';uvranges greater than 4 kilo-lambda
-      |                         uvrange='0~1000km'; uvrange in kilometers
-.. [9] 
-   **antenna** (string='')
-      | Select data based on antenna/baseline
-      |                      Subparameter of selectdata=True
-      |                      Default: '' (all)
-      | 
-      |                      If antenna string is a non-negative integer, it
-      |                      is assumed an antenna index, otherwise, it is
-      |                      assumed as an antenna name
-      |   
-      |                          Examples: 
-      |                          antenna='5&6'; baseline between antenna
-      |                          index 5 and index 6.
-      |                          antenna='VA05&VA06'; baseline between VLA
-      |                          antenna 5 and 6.
-      |                          antenna='5&6;7&8'; baselines with
-      |                          indices 5-6 and 7-8
-      |                          antenna='5'; all baselines with antenna index
-      |                          5
-      |                          antenna='05'; all baselines with antenna
-      |                          number 05 (VLA old name)
-      |                          antenna='5,6,10'; all baselines with antennas
-      |                          5,6,10 index numbers
-.. [10] 
-   **scan** (string='')
-      | Scan number range
-      |                      Subparameter of selectdata=True
-      |                      Default: '' = all
-      | 
-      |                      Check 'go listobs' to insure the scan numbers are
-      |                      in order.
-.. [11] 
-   **observation** ({string, int}='')
-      | Select by observation ID(s)
-      |                      Subparameter of selectdata=True
-      |                      Default: '' = all
-      | 
-      |                          Example: observation='0~2,4'
-.. [12] 
-   **msselect** (string='')
-      | Optional complex data selection (ignore for now)
-.. [13] 
-   **solint** (variant='inf')
-      | Solution interval
-      |                      Default: 'inf' (infinite, up to boundaries
-      |                      controlled by combine); 
-      |                      Options: 'inf' (~infinite), 'int' (per
-      |                      integration), any float or integer value with or
-      |                      without units
-      | 
-      |                         Examples: 
-      |                         solint='1min'; solint='60s', solint=60 (i.e.,
-      |                         1 minute); solint='0s'; solint=0; solint='int'
-      |                         (i.e., per integration); solint-'-1s';
-      |                         solint='inf' (i.e., ~infinite, up to
-      |                         boundaries enforced by combine)
-.. [14] 
-   **combine** (string='')
-      | Data axes which to combine for solve
-      |                      Default: 'scan' (solutions will break at obs,
-      |                      field, and spw boundaries)
-      |                      Options: '','obs','scan','spw',field', or any
-      |                      comma-separated combination in a single string
-      | 
-      |                         Example: combine='scan,spw' - Extend solutions
-      |                         over scan boundaries (up to the solint), and
-      |                         combine spws for solving
-.. [15] 
-   **preavg** (double=-1.0)
-      | Pre-averaging interval (sec)
-      |                      Default: -1.0 (none)
-      | 
-      |                      Rarely needed.  Will average data over periods
-      |                      shorter than the solution interval first.
-.. [16] 
-   **refant** (string='')
-      | Reference antenna name(s); a prioritized list may be
-      | specified
-      |                      Default: '' (No refant applied)
-      | 
-      |                         Examples: 
-      |                         refant='4' (antenna with index 4)
-      |                         refant='VA04' (VLA antenna #4)
-      |                         refant='EA02,EA23,EA13' (EVLA antenna EA02,
-      |                         use EA23 and EA13 as alternates if/when EA02
-      |                         drops out)
-      | 
-      |                      Use taskname=listobs for antenna listing
-.. [17] 
-   **refantmode** (string='flex')
-      | Reference antenna mode
-.. [18] 
-   **minblperant** (int=4)
-      | Minimum number of baselines required per antenna for each
-      | solve
-      |                      Default: 4
-      | 
-      |                      Antennas with fewer baselines are excluded from
-      |                      solutions.
-      | 
-      |                         Example: minblperant=10 --> Antennas
-      |                         participating on 10 or more baselines are
-      |                         included in the solve
-      | 
-      |                      minblperant = 1 will solve for all baseline
-      |                      pairs, even if only one is present in the data
-      |                      set.  Unless closure errors are expected, use
-      |                      taskname=gaincal rather than taskname=blcal to
-      |                      obtain more options in data analysis.
-.. [19] 
-   **minsnr** (double=3.0)
-      | Reject solutions below this SNR
-      |                      Default: 3.0
-.. [20] 
-   **solnorm** (bool=False)
-      | Normalize (squared) solution amplitudes (G, T only)
-      |                      Default: False (no normalization)
-.. [21] 
-   **normtype** (string='mean')
-      | Solution normalization calculation type: mean or median
-      |                      Default: 'mean'
-.. [22] 
-   **gaintype** (string='G')
-      | Type of gain solution (G,T,GSPLINE,K,KCROSS)
-      |                      Default: 'G'
-      | 
-      |                         Example: gaintype='GSPLINE'
-      | 
-      |                    * 'G' means determine gains for each polarization and sp_wid
-      |                    * 'T' obtains one solution for both polarizations;
-      |                      Hence. their phase offset must be first removed
-      |                      using a prior G.
-      |                    * 'GSPLINE' makes a spline fit to the calibrator
-      |                      data. It is useful for noisy data and fits a
-      |                      smooth curve through the calibrated amplitude and
-      |                      phase. However, at present GSPLINE is somewhat
-      |                      experimental. Use with caution and check
-      |                      solutions.
-      |                    * 'K' solves for simple antenna-based delays via
-      |                      FFTs of the spectra on baselines to the reference
-      |                      antenna.  (This is not global fringe-fitting.)
-      |                      If combine includes 'spw', multi-band delays are
-      |                      determined; otherwise, per-spw single-band delays
-      |                      will be determined.
-      |                    * 'KCROSS' solves for a global cross-hand delay.
-      |                      Use parang=T and apply prior gain and bandpass
-      |                      solutions.  Multi-band delay solves
-      |                      (combine='spw') not yet supported for KCROSS.
-.. [23] 
-   **smodel** (doubleArray=[''])
-      | Point source Stokes parameters for source model
-      | (experimental).
-      |                      Default: [] (use MODEL_DATA column)
-      | 
-      |                         Example: [1,0,0,0] (I=1, unpolarized)
-.. [24] 
-   **calmode** (string='ap')
-      | Type of solution" ('ap', 'p', 'a')
-      |                      Default: 'ap' (amp and phase)
-      |                      Options: 'p' (phase) ,'a' (amplitude), 'ap'
-      |                      (amplitude and phase)
-      | 
-      |                         Example: calmode='p'
-.. [25] 
-   **solmode** (string='')
-      | Robust solving mode: 
-      |                      Options: '', 'L1', 'R', 'L1R'
-.. [26] 
-   **rmsthresh** (doubleArray=[''])
-      | RMS Threshold sequence
-      |                      Subparameter of solmode='R' or 'L1R'
-      | 
-      |                      See CASA Docs for more information
-      |                      (https://casa.nrao.edu/casadocs/)
-.. [27] 
-   **corrdepflags** (bool=False)
-      | If False (default), if any correlation is flagged, treat all correlations in
-      |               the visibility vector as flagged when solving (per channel, per baseline).
-      |               If True, use unflagged correlations in a visibility vector, even if one or more
-      |               other correlations are flagged.
-      |               
-      |                      Default: False (treat correlation vectors with one or more correlations flagged as entirely flagged)
-      |   
-      |                      Traditionally, CASA has observed a strict interpretation of 
-      |                      correlation-dependent flags: if one or more correlations 
-      |                      (for any baseline and channel) is flagged, then all available 
-      |                      correlations for the same baseline and channel are 
-      |                      treated as flagged.  However, it is desirable in some 
-      |                      circumstances to relax this stricture, e.g., to preserve use
-      |                      of data from antennas with only one good polarization (e.g., one polarization
-      |                      is bad or entirely absent).  Solutions for the bad or missing polarization 
-      |                      will be rendered as flagged.
-.. [28] 
-   **append** (bool=False)
-      | Append solutions to the (existing) table
-      |                      Default: False (overwrite existing table or make
-      |                      new table)
-      | 
-      |                      Appended solutions must be derived from the same
-      |                      MS as the existing caltable, and solution spws
-      |                      must have the same meta-info (according to spw
-      |                      selection and solint) or be non-overlapping.
-.. [29] 
-   **splinetime** (double=3600.0)
-      | Spline timescale(sec); All spw\'s are first averaged.
-      |                      Subparameter of gaintype='GSPLINE'
-      |                      Default: 3600 (1 hour)
-      | 
-      |                         Example: splinetime=1000
-      | 
-      |                      Typical splinetime should cover about 3 to 5
-      |                      calibrator scans.
-.. [30] 
-   **npointaver** (int=3)
-      | Tune phase-unwrapping algorithm
-      |                      Subparameter of gaintype='GSPLINE'
-      |                      Default: 3; Keep at this value
-.. [31] 
-   **phasewrap** (double=180.0)
-      | Wrap the phase for jumps greater than this value
-      | (degrees)
-      |                      Subparameter of gaintype='GSPLINE'
-      |                      Default: 180; Keep at this value
-.. [32] 
-   **docallib** (bool=False)
-      | Control means of specifying the caltables
-      |                      Default: False (Use gaintable, gainfield, interp,
-      |                      spwmap, calwt)
-      |                      Options: False|True
-      | 
-      |                      If True, specify a file containing cal library in
-      |                      callib
-.. [33] 
-   **callib** (string='')
-      | Specify a file containing cal library directives
-      |                      Subparameter of docallib=True
-.. [34] 
-   **gaintable** (stringArray=[''])
-      | Gain calibration table(s) to apply on the fly
-      |                      Default: '' (none)
-      |                      Subparameter of docallib=False
-      |                         Examples: 
-      |                         gaintable='ngc5921.gcal'
-      |                         gaintable=['ngc5921.ampcal','ngc5921.phcal']
-.. [35] 
-   **gainfield** (stringArray=[''])
-      | Select a subset of calibrators from gaintable(s)
-      |                      Default: '' (all sources on the sky)
-      | 
-      |                      'nearest' ==> nearest (on sky) available field in
-      |                      table otherwise, same syntax as field
-      | 
-      |                         Examples: 
-      |                         gainfield='0~2,5' means use fields 0,1,2,5
-      |                         from gaintable
-      |                         gainfield=['0~3','4~6'] means use field 0
-      |                         through 3
-.. [36] 
-   **interp** (stringArray=[''])
-      | Interpolation parmameters (in time[,freq]) for each gaintable, as a list of strings.
-      |                      Default: '' --> 'linear,linear' for all gaintable(s)
-      |                      Options: Time: 'nearest', 'linear'
-      |                               Freq: 'nearest', 'linear', 'cubic',
-      |                               'spline'
-      |                    Specify a list of strings, aligned with the list of caltable specified
-      |                    in gaintable, that contain the required interpolation parameters
-      |                    for each caltable.
-      |                    * When frequency interpolation is relevant (B, Df,
-      |                      Xf), separate time-dependent and freq-dependent
-      |                      interp types with a comma (freq_after_ the
-      |                      comma). 
-      |                    * Specifications for frequency are ignored when the
-      |                      calibration table has no channel-dependence. 
-      |                    * Time-dependent interp options ending in 'PD'
-      |                      enable a "phase delay" correction per spw for
-      |                      non-channel-dependent calibration types.
-      |                    * For multi-obsId datasets, 'perobs' can be
-      |                      appended to the time-dependent interpolation
-      |                      specification to enforce obsId boundaries when
-      |                      interpolating in time. 
-      |                    * Freq-dependent interp options can have 'flag' appended
-      |                      to enforce channel-dependent flagging, and/or 'rel' 
-      |                      appended to invoke relative frequency interpolation
-      | 
-      |                         Examples: 
-      |                         interp='nearest' (in time, freq-dep will be
-      |                         linear, if relevant)
-      |                         interp='linear,cubic'  (linear in time, cubic
-      |                         in freq)
-      |                         interp='linearperobs,splineflag' (linear in
-      |                         time per obsId, spline in freq with
-      |                         channelized flagging)
-      |                         interp='nearest,linearflagrel' (nearest in
-      |                         time, linear in freq with with channelized 
-      |                         flagging and relative-frequency interpolation)
-      |                         interp=',spline'  (spline in freq; linear in
-      |                         time by default)
-      |                         interp=['nearest,spline','linear']  (for
-      |                         multiple gaintables)
-.. [37] 
-   **spwmap** (intArray=[''])
-      | Spectral window mappings to form for gaintable(s)
-      |                      Only used if callib=False
-      |                      default: [] (apply solutions from each calibration spw to
-      |                       the same MS spw only)
-      |                      Any available calibration spw can be mechanically mapped to any 
-      |                       MS spw. 
-      |                      Examples:
-      |                         spwmap=[0,0,1,1] means apply calibration 
-      |                           from cal spw = 0 to MS spw 0,1 and cal spw 1 to MS spws 2,3.
-      |                         spwmap=[[0,0,1,1],[0,1,0,1]] (use a list of lists for multiple
-      |                           gaintables)
-.. [38] 
-   **parang** (bool=False)
-      | Apply parallactic angle correction
-      |                      Default: False
-      | 
-      |                      If True, apply the parallactic angle correction
-      |                      (required for polarization calibration)
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file
+   |                      Default: none
+   | 
+   |                         Example: vis='ngc5921.ms'
+
+.. _caltable:
+
+   .. rubric:: caltable
+
+   | Name of output gain calibration table
+   |                      Default: none
+   | 
+   |                         Example: caltable='ngc5921.gcal'
+
+.. _field:
+
+   .. rubric:: field
+
+   | Select field using field id(s) or field name(s)
+   |                      Default: '' (all fields)
+   |                      
+   |                      Use 'go listobs' to obtain the list id's or
+   |                      names. If field string is a non-negative integer,
+   |                      it is assumed a field index,  otherwise, it is
+   |                      assumed a field name.
+   | 
+   |                         Examples:
+   |                         field='0~2'; field ids 0,1,2
+   |                         field='0,4,5~7'; field ids 0,4,5,6,7
+   |                         field='3C286,3C295'; field named 3C286 and
+   |                         3C295
+   |                         field = '3,4C*'; field id 3, all names
+   |                         starting with 4C
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | Select spectral window/channels
+   |                      Default: '' (all spectral windows and channels)
+   | 
+   |                         Examples:
+   |                         spw='0~2,4'; spectral windows 0,1,2,4 (all
+   |                         channels)
+   |                         spw='<2';  spectral windows less than 2
+   |                         (i.e. 0,1)
+   |                         spw='0:5~61'; spw 0, channels 5 to 61,
+   |                         INCLUSIVE
+   |                         spw='*:5~61'; all spw with channels 5 to 61
+   |                         spw='0,10,3:3~45'; spw 0,10 all channels, spw
+   |                         3, channels 3 to 45.
+   |                         spw='0~2:2~6'; spw 0,1,2 with channels 2
+   |                         through 6 in each.
+   |                         spw='0:0~10;15~60'; spectral window 0 with
+   |                         channels 0-10,15-60. (NOTE ';' to separate
+   |                         channel selections)
+   |                         spw='0:0~10^2,1:20~30^5'; spw 0, channels
+   |                         0,2,4,6,8,10, spw 1, channels 20,25,30
+
+.. _intent:
+
+   .. rubric:: intent
+
+   | Select observing intent
+   |                      Default: '' (no selection by intent)
+   | 
+   |                         Example: intent='*BANDPASS*'  (selects data
+   |                         labelled with BANDPASS intent)
+
+.. _selectdata:
+
+   .. rubric:: selectdata
+
+   | Other data selection parameters
+   |                      Default: True
+   |                      Options: True|False
+
+.. _timerange:
+
+   .. rubric:: timerange
+
+   | Select data based on time range
+   |                      Subparameter of selectdata=True
+   |                      Default = '' (all)
+   | 
+   |                         Examples:
+   |                         timerange =
+   |                         'YYYY/MM/DD/hh:mm:ss~YYYY/MM/DD/hh:mm:ss'
+   |                         (Note: if YYYY/MM/DD is missing date defaults
+   |                         to first day in data set.)
+   |                         timerange='09:14:0~09:54:0' picks 40 min on
+   |                         first day 
+   |                         timerange= '25:00:00~27:30:00' picks 1 hr to 3
+   |                         hr 30min on NEXT day
+   |                         timerange='09:44:00' pick data within one
+   |                         integration of time
+   |                         timerange='>10:24:00' data after this time
+
+.. _uvrange:
+
+   .. rubric:: uvrange
+
+   | Select data by baseline length.
+   |                      Default = '' (all)
+   | 
+   |                         Examples:
+   |                         uvrange='0~1000klambda'; uvrange from 0-1000 kilo-lambda
+   |                         uvrange='>4klambda';uvranges greater than 4 kilo-lambda
+   |                         uvrange='0~1000km'; uvrange in kilometers
+
+.. _antenna:
+
+   .. rubric:: antenna
+
+   | Select data based on antenna/baseline
+   |                      Subparameter of selectdata=True
+   |                      Default: '' (all)
+   | 
+   |                      If antenna string is a non-negative integer, it
+   |                      is assumed an antenna index, otherwise, it is
+   |                      assumed as an antenna name
+   |   
+   |                          Examples: 
+   |                          antenna='5&6'; baseline between antenna
+   |                          index 5 and index 6.
+   |                          antenna='VA05&VA06'; baseline between VLA
+   |                          antenna 5 and 6.
+   |                          antenna='5&6;7&8'; baselines with
+   |                          indices 5-6 and 7-8
+   |                          antenna='5'; all baselines with antenna index
+   |                          5
+   |                          antenna='05'; all baselines with antenna
+   |                          number 05 (VLA old name)
+   |                          antenna='5,6,10'; all baselines with antennas
+   |                          5,6,10 index numbers
+
+.. _scan:
+
+   .. rubric:: scan
+
+   | Scan number range
+   |                      Subparameter of selectdata=True
+   |                      Default: '' = all
+   | 
+   |                      Check 'go listobs' to insure the scan numbers are
+   |                      in order.
+
+.. _observation:
+
+   .. rubric:: observation
+
+   | Select by observation ID(s)
+   |                      Subparameter of selectdata=True
+   |                      Default: '' = all
+   | 
+   |                          Example: observation='0~2,4'
+
+.. _msselect:
+
+   .. rubric:: msselect
+
+   | Optional complex data selection (ignore for now)
+
+.. _solint:
+
+   .. rubric:: solint
+
+   | Solution interval
+   |                      Default: 'inf' (infinite, up to boundaries
+   |                      controlled by combine); 
+   |                      Options: 'inf' (~infinite), 'int' (per
+   |                      integration), any float or integer value with or
+   |                      without units
+   | 
+   |                         Examples: 
+   |                         solint='1min'; solint='60s', solint=60 (i.e.,
+   |                         1 minute); solint='0s'; solint=0; solint='int'
+   |                         (i.e., per integration); solint-'-1s';
+   |                         solint='inf' (i.e., ~infinite, up to
+   |                         boundaries enforced by combine)
+
+.. _combine:
+
+   .. rubric:: combine
+
+   | Data axes which to combine for solve
+   |                      Default: 'scan' (solutions will break at obs,
+   |                      field, and spw boundaries)
+   |                      Options: '','obs','scan','spw',field', or any
+   |                      comma-separated combination in a single string
+   | 
+   |                         Example: combine='scan,spw' - Extend solutions
+   |                         over scan boundaries (up to the solint), and
+   |                         combine spws for solving
+
+.. _preavg:
+
+   .. rubric:: preavg
+
+   | Pre-averaging interval (sec)
+   |                      Default: -1.0 (none)
+   | 
+   |                      Rarely needed.  Will average data over periods
+   |                      shorter than the solution interval first.
+
+.. _refant:
+
+   .. rubric:: refant
+
+   | Reference antenna name(s); a prioritized list may be
+   | specified
+   |                      Default: '' (No refant applied)
+   | 
+   |                         Examples: 
+   |                         refant='4' (antenna with index 4)
+   |                         refant='VA04' (VLA antenna #4)
+   |                         refant='EA02,EA23,EA13' (EVLA antenna EA02,
+   |                         use EA23 and EA13 as alternates if/when EA02
+   |                         drops out)
+   | 
+   |                      Use taskname=listobs for antenna listing
+
+.. _refantmode:
+
+   .. rubric:: refantmode
+
+   | Reference antenna mode
+
+.. _minblperant:
+
+   .. rubric:: minblperant
+
+   | Minimum number of baselines required per antenna for each
+   | solve
+   |                      Default: 4
+   | 
+   |                      Antennas with fewer baselines are excluded from
+   |                      solutions.
+   | 
+   |                         Example: minblperant=10 --> Antennas
+   |                         participating on 10 or more baselines are
+   |                         included in the solve
+   | 
+   |                      minblperant = 1 will solve for all baseline
+   |                      pairs, even if only one is present in the data
+   |                      set.  Unless closure errors are expected, use
+   |                      taskname=gaincal rather than taskname=blcal to
+   |                      obtain more options in data analysis.
+
+.. _minsnr:
+
+   .. rubric:: minsnr
+
+   | Reject solutions below this SNR
+   |                      Default: 3.0
+
+.. _solnorm:
+
+   .. rubric:: solnorm
+
+   | Normalize (squared) solution amplitudes (G, T only)
+   |                      Default: False (no normalization)
+
+.. _normtype:
+
+   .. rubric:: normtype
+
+   | Solution normalization calculation type: mean or median
+   |                      Default: 'mean'
+
+.. _gaintype:
+
+   .. rubric:: gaintype
+
+   | Type of gain solution (G,T,GSPLINE,K,KCROSS)
+   |                      Default: 'G'
+   | 
+   |                         Example: gaintype='GSPLINE'
+   | 
+   |                    * 'G' means determine gains for each polarization and sp_wid
+   |                    * 'T' obtains one solution for both polarizations;
+   |                      Hence. their phase offset must be first removed
+   |                      using a prior G.
+   |                    * 'GSPLINE' makes a spline fit to the calibrator
+   |                      data. It is useful for noisy data and fits a
+   |                      smooth curve through the calibrated amplitude and
+   |                      phase. However, at present GSPLINE is somewhat
+   |                      experimental. Use with caution and check
+   |                      solutions.
+   |                    * 'K' solves for simple antenna-based delays via
+   |                      FFTs of the spectra on baselines to the reference
+   |                      antenna.  (This is not global fringe-fitting.)
+   |                      If combine includes 'spw', multi-band delays are
+   |                      determined; otherwise, per-spw single-band delays
+   |                      will be determined.
+   |                    * 'KCROSS' solves for a global cross-hand delay.
+   |                      Use parang=T and apply prior gain and bandpass
+   |                      solutions.  Multi-band delay solves
+   |                      (combine='spw') not yet supported for KCROSS.
+
+.. _smodel:
+
+   .. rubric:: smodel
+
+   | Point source Stokes parameters for source model
+   | (experimental).
+   |                      Default: [] (use MODEL_DATA column)
+   | 
+   |                         Example: [1,0,0,0] (I=1, unpolarized)
+
+.. _calmode:
+
+   .. rubric:: calmode
+
+   | Type of solution" ('ap', 'p', 'a')
+   |                      Default: 'ap' (amp and phase)
+   |                      Options: 'p' (phase) ,'a' (amplitude), 'ap'
+   |                      (amplitude and phase)
+   | 
+   |                         Example: calmode='p'
+
+.. _solmode:
+
+   .. rubric:: solmode
+
+   | Robust solving mode: 
+   |                      Options: '', 'L1', 'R', 'L1R'
+
+.. _rmsthresh:
+
+   .. rubric:: rmsthresh
+
+   | RMS Threshold sequence
+   |                      Subparameter of solmode='R' or 'L1R'
+   | 
+   |                      See CASA Docs for more information
+   |                      (https://casa.nrao.edu/casadocs/)
+
+.. _corrdepflags:
+
+   .. rubric:: corrdepflags
+
+   | If False (default), if any correlation is flagged, treat all correlations in
+   |               the visibility vector as flagged when solving (per channel, per baseline).
+   |               If True, use unflagged correlations in a visibility vector, even if one or more
+   |               other correlations are flagged.
+   |               
+   |                      Default: False (treat correlation vectors with one or more correlations flagged as entirely flagged)
+   |   
+   |                      Traditionally, CASA has observed a strict interpretation of 
+   |                      correlation-dependent flags: if one or more correlations 
+   |                      (for any baseline and channel) is flagged, then all available 
+   |                      correlations for the same baseline and channel are 
+   |                      treated as flagged.  However, it is desirable in some 
+   |                      circumstances to relax this stricture, e.g., to preserve use
+   |                      of data from antennas with only one good polarization (e.g., one polarization
+   |                      is bad or entirely absent).  Solutions for the bad or missing polarization 
+   |                      will be rendered as flagged.
+
+.. _append:
+
+   .. rubric:: append
+
+   | Append solutions to the (existing) table
+   |                      Default: False (overwrite existing table or make
+   |                      new table)
+   | 
+   |                      Appended solutions must be derived from the same
+   |                      MS as the existing caltable, and solution spws
+   |                      must have the same meta-info (according to spw
+   |                      selection and solint) or be non-overlapping.
+
+.. _splinetime:
+
+   .. rubric:: splinetime
+
+   | Spline timescale(sec); All spw\'s are first averaged.
+   |                      Subparameter of gaintype='GSPLINE'
+   |                      Default: 3600 (1 hour)
+   | 
+   |                         Example: splinetime=1000
+   | 
+   |                      Typical splinetime should cover about 3 to 5
+   |                      calibrator scans.
+
+.. _npointaver:
+
+   .. rubric:: npointaver
+
+   | Tune phase-unwrapping algorithm
+   |                      Subparameter of gaintype='GSPLINE'
+   |                      Default: 3; Keep at this value
+
+.. _phasewrap:
+
+   .. rubric:: phasewrap
+
+   | Wrap the phase for jumps greater than this value
+   | (degrees)
+   |                      Subparameter of gaintype='GSPLINE'
+   |                      Default: 180; Keep at this value
+
+.. _docallib:
+
+   .. rubric:: docallib
+
+   | Control means of specifying the caltables
+   |                      Default: False (Use gaintable, gainfield, interp,
+   |                      spwmap, calwt)
+   |                      Options: False|True
+   | 
+   |                      If True, specify a file containing cal library in
+   |                      callib
+
+.. _callib:
+
+   .. rubric:: callib
+
+   | Specify a file containing cal library directives
+   |                      Subparameter of docallib=True
+
+.. _gaintable:
+
+   .. rubric:: gaintable
+
+   | Gain calibration table(s) to apply on the fly
+   |                      Default: '' (none)
+   |                      Subparameter of docallib=False
+   |                         Examples: 
+   |                         gaintable='ngc5921.gcal'
+   |                         gaintable=['ngc5921.ampcal','ngc5921.phcal']
+
+.. _gainfield:
+
+   .. rubric:: gainfield
+
+   | Select a subset of calibrators from gaintable(s)
+   |                      Default: '' (all sources on the sky)
+   | 
+   |                      'nearest' ==> nearest (on sky) available field in
+   |                      table otherwise, same syntax as field
+   | 
+   |                         Examples: 
+   |                         gainfield='0~2,5' means use fields 0,1,2,5
+   |                         from gaintable
+   |                         gainfield=['0~3','4~6'] means use field 0
+   |                         through 3
+
+.. _interp:
+
+   .. rubric:: interp
+
+   | Interpolation parmameters (in time[,freq]) for each gaintable, as a list of strings.
+   |                      Default: '' --> 'linear,linear' for all gaintable(s)
+   |                      Options: Time: 'nearest', 'linear'
+   |                               Freq: 'nearest', 'linear', 'cubic',
+   |                               'spline'
+   |                    Specify a list of strings, aligned with the list of caltable specified
+   |                    in gaintable, that contain the required interpolation parameters
+   |                    for each caltable.
+   |                    * When frequency interpolation is relevant (B, Df,
+   |                      Xf), separate time-dependent and freq-dependent
+   |                      interp types with a comma (freq_after_ the
+   |                      comma). 
+   |                    * Specifications for frequency are ignored when the
+   |                      calibration table has no channel-dependence. 
+   |                    * Time-dependent interp options ending in 'PD'
+   |                      enable a "phase delay" correction per spw for
+   |                      non-channel-dependent calibration types.
+   |                    * For multi-obsId datasets, 'perobs' can be
+   |                      appended to the time-dependent interpolation
+   |                      specification to enforce obsId boundaries when
+   |                      interpolating in time. 
+   |                    * Freq-dependent interp options can have 'flag' appended
+   |                      to enforce channel-dependent flagging, and/or 'rel' 
+   |                      appended to invoke relative frequency interpolation
+   | 
+   |                         Examples: 
+   |                         interp='nearest' (in time, freq-dep will be
+   |                         linear, if relevant)
+   |                         interp='linear,cubic'  (linear in time, cubic
+   |                         in freq)
+   |                         interp='linearperobs,splineflag' (linear in
+   |                         time per obsId, spline in freq with
+   |                         channelized flagging)
+   |                         interp='nearest,linearflagrel' (nearest in
+   |                         time, linear in freq with with channelized 
+   |                         flagging and relative-frequency interpolation)
+   |                         interp=',spline'  (spline in freq; linear in
+   |                         time by default)
+   |                         interp=['nearest,spline','linear']  (for
+   |                         multiple gaintables)
+
+.. _spwmap:
+
+   .. rubric:: spwmap
+
+   | Spectral window mappings to form for gaintable(s)
+   |                      Only used if callib=False
+   |                      default: [] (apply solutions from each calibration spw to
+   |                       the same MS spw only)
+   |                      Any available calibration spw can be mechanically mapped to any 
+   |                       MS spw. 
+   |                      Examples:
+   |                         spwmap=[0,0,1,1] means apply calibration 
+   |                           from cal spw = 0 to MS spw 0,1 and cal spw 1 to MS spws 2,3.
+   |                         spwmap=[[0,0,1,1],[0,1,0,1]] (use a list of lists for multiple
+   |                           gaintables)
+
+.. _parang:
+
+   .. rubric:: parang
+
+   | Apply parallactic angle correction
+   |                      Default: False
+   | 
+   |                      If True, apply the parallactic angle correction
+   |                      (required for polarization calibration)
+
 
     """
     pass

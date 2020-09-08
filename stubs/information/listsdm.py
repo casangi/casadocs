@@ -7,7 +7,7 @@ def listsdm(sdm):
 Lists observation information present in an SDM directory.
 
 Parameters
-   - **sdm** (string) - Name of input SDM directory [1]_
+   - sdm_ (string) - Name of input SDM directory
 
 
 
@@ -17,9 +17,12 @@ Parameters
 Details
    Explanation of each parameter
 
-.. [1] 
-   **sdm** (string)
-      | Name of input SDM directory
+.. _sdm:
+
+   .. rubric:: sdm
+
+   | Name of input SDM directory
+
 
     """
     pass

@@ -7,17 +7,17 @@ def immoments(imagename, moments=[0], axis='spectral', region='', box='', chans=
 Compute moments from an image
 
 Parameters
-   - **imagename** (string) - Name of the input image [1]_
-   - **moments** (intArray=[0]) - List of moments you would like to compute [2]_
-   - **axis** ({string, int}='spectral') - The momement axis: ra, dec, lat, long, spectral, or stokes [3]_
-   - **region** ({string, stringArray}='') - Region selection. Default is to use the full image. [4]_
-   - **box** (string='') - Rectangular region(s) to select in direction plane. Default is to use the entire direction plane. [5]_
-   - **chans** (string='') - Channels to use. Default is to use all channels. [6]_
-   - **stokes** (string='') - Stokes planes to use. Default is to use all Stokes planes. [7]_
-   - **mask** (variant='') - Mask to use. Default is none. [8]_
-   - **includepix** ({int, doubleArray, intArray}=-1) - Range of pixel values to include [9]_
-   - **excludepix** ({int, doubleArray, intArray}=-1) - Range of pixel values to exclude [10]_
-   - **outfile** (string='') - Output image file name (or root for multiple moments)  [11]_
+   - imagename_ (string) - Name of the input image
+   - moments_ (intArray=[0]) - List of moments you would like to compute
+   - axis_ ({string, int}='spectral') - The momement axis: ra, dec, lat, long, spectral, or stokes
+   - region_ ({string, stringArray}='') - Region selection. Default is to use the full image.
+   - box_ (string='') - Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
+   - chans_ (string='') - Channels to use. Default is to use all channels.
+   - stokes_ (string='') - Stokes planes to use. Default is to use all Stokes planes.
+   - mask_ (variant='') - Mask to use. Default is none.
+   - includepix_ ({int, doubleArray, intArray}=-1) - Range of pixel values to include
+   - excludepix_ ({int, doubleArray, intArray}=-1) - Range of pixel values to exclude
+   - outfile_ (string='') - Output image file name (or root for multiple moments) 
 
 
 Description
@@ -94,42 +94,78 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (string)
-      | Name of the input image
-.. [2] 
-   **moments** (intArray=[0])
-      | List of moments you would like to compute
-.. [3] 
-   **axis** ({string, int}='spectral')
-      | The momement axis: ra, dec, lat, long, spectral, or stokes
-.. [4] 
-   **region** ({string, stringArray}='')
-      | Region selection. Default is to use the full image.
-.. [5] 
-   **box** (string='')
-      | Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
-.. [6] 
-   **chans** (string='')
-      | Channels to use. Default is to use all channels.
-.. [7] 
-   **stokes** (string='')
-      | Stokes planes to use. Default is to use all Stokes planes.
-.. [8] 
-   **mask** (variant='')
-      | Mask to use. Default is none.
-.. [9] 
-   **includepix** ({int, doubleArray, intArray}=-1)
-      | Range of pixel values to include
-.. [10] 
-   **excludepix** ({int, doubleArray, intArray}=-1)
-      | Range of pixel values to exclude
-.. [11] 
-   **outfile** (string='')
-      | Output image file name (or root for multiple moments)
-.. [12] 
-   **stretch** (bool=False)
-      | Stretch the mask if necessary and possible?
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Name of the input image
+
+.. _moments:
+
+   .. rubric:: moments
+
+   | List of moments you would like to compute
+
+.. _axis:
+
+   .. rubric:: axis
+
+   | The momement axis: ra, dec, lat, long, spectral, or stokes
+
+.. _region:
+
+   .. rubric:: region
+
+   | Region selection. Default is to use the full image.
+
+.. _box:
+
+   .. rubric:: box
+
+   | Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
+
+.. _chans:
+
+   .. rubric:: chans
+
+   | Channels to use. Default is to use all channels.
+
+.. _stokes:
+
+   .. rubric:: stokes
+
+   | Stokes planes to use. Default is to use all Stokes planes.
+
+.. _mask:
+
+   .. rubric:: mask
+
+   | Mask to use. Default is none.
+
+.. _includepix:
+
+   .. rubric:: includepix
+
+   | Range of pixel values to include
+
+.. _excludepix:
+
+   .. rubric:: excludepix
+
+   | Range of pixel values to exclude
+
+.. _outfile:
+
+   .. rubric:: outfile
+
+   | Output image file name (or root for multiple moments)
+
+.. _stretch:
+
+   .. rubric:: stretch
+
+   | Stretch the mask if necessary and possible?
+
 
     """
     pass

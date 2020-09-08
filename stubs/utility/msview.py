@@ -7,16 +7,16 @@ def msview(infile, displaytype='raster', channel=0, zoom=1, outfile='', outscale
 View a visibility data set
 
 Parameters
-   - **infile** (string) -  [1]_
-   - **displaytype** (string='raster') -  [2]_
-   - **channel** (int=0) -  [3]_
-   - **zoom** (int=1) -  [4]_
-   - **outfile** (string='') -  [5]_
-   - **outscale** (double=1.0) -  [6]_
-   - **outdpi** (int=300) -  [7]_
-   - **outformat** (string='jpg') -  [8]_
-   - **outlandscape** (bool=False) -  [9]_
-   - **gui** (bool=True) -  [10]_
+   - infile_ (string) - 
+   - displaytype_ (string='raster') - 
+   - channel_ (int=0) - 
+   - zoom_ (int=1) - 
+   - outfile_ (string='') - 
+   - outscale_ (double=1.0) - 
+   - outdpi_ (int=300) - 
+   - outformat_ (string='jpg') - 
+   - outlandscape_ (bool=False) - 
+   - gui_ (bool=True) - 
 
 
 Description
@@ -62,36 +62,66 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **infile** (string)
-      | (Optional)  Name of file to visualize.
-.. [2] 
-   **displaytype** (string='raster')
-      | (Optional)  Type of visual rendering (raster, contour, vector or marker).  lel  if an lel expression is given for infile  (advanced).
-.. [3] 
-   **channel** (int=0)
-      | (Optional)  access a specific channel in the image cube
-.. [4] 
-   **zoom** (int=1)
-      | (Optional)  zoom in/out by increments
-.. [5] 
-   **outfile** (string='')
-      | (Optional)  name of the output file to generate
-.. [6] 
-   **outscale** (double=1.0)
-      | (Optional)  amount to scale output bitmap formats (non-PS, non-PDF)
-.. [7] 
-   **outdpi** (int=300)
-      | (Optional)  output DPI for PS/PDF
-.. [8] 
-   **outformat** (string='jpg')
-      | (Optional)  format of the output e.g. jpg or pdf (this is overridden by the output files extension
-.. [9] 
-   **outlandscape** (bool=False)
-      | (Optional)  should the output mode be landscape (PS or PDF)
-.. [10] 
-   **gui** (bool=True)
-      | (Optional)  Display the panel in a GUI.
+.. _infile:
+
+   .. rubric:: infile
+
+   | (Optional)  Name of file to visualize.
+
+.. _displaytype:
+
+   .. rubric:: displaytype
+
+   | (Optional)  Type of visual rendering (raster, contour, vector or marker).  lel  if an lel expression is given for infile  (advanced).
+
+.. _channel:
+
+   .. rubric:: channel
+
+   | (Optional)  access a specific channel in the image cube
+
+.. _zoom:
+
+   .. rubric:: zoom
+
+   | (Optional)  zoom in/out by increments
+
+.. _outfile:
+
+   .. rubric:: outfile
+
+   | (Optional)  name of the output file to generate
+
+.. _outscale:
+
+   .. rubric:: outscale
+
+   | (Optional)  amount to scale output bitmap formats (non-PS, non-PDF)
+
+.. _outdpi:
+
+   .. rubric:: outdpi
+
+   | (Optional)  output DPI for PS/PDF
+
+.. _outformat:
+
+   .. rubric:: outformat
+
+   | (Optional)  format of the output e.g. jpg or pdf (this is overridden by the output files extension
+
+.. _outlandscape:
+
+   .. rubric:: outlandscape
+
+   | (Optional)  should the output mode be landscape (PS or PDF)
+
+.. _gui:
+
+   .. rubric:: gui
+
+   | (Optional)  Display the panel in a GUI.
+
 
     """
     pass

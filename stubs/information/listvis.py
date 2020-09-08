@@ -7,34 +7,34 @@ def listvis(vis, options='ap', datacolumn='data', field='', spw='*', selectdata=
 List measurement set visibilities.
 
 Parameters
-   - **vis** (string) - Name of input visibility file [1]_
-   - **options** (string='ap') - List options: ap only  [2]_
-   - **datacolumn** (string='data') - Column to list: data, float_data, corrected, model, residual [3]_
-   - **field** (string='') - Field names or index to be listed [4]_
-   - **spw** (string='*') - Spectral window channels  [5]_
-   - **selectdata** (bool=False) - Other data selection parameters [6]_
+   - vis_ (string) - Name of input visibility file
+   - options_ (string='ap') - List options: ap only 
+   - datacolumn_ (string='data') - Column to list: data, float_data, corrected, model, residual
+   - field_ (string='') - Field names or index to be listed
+   - spw_ (string='*') - Spectral window channels 
+   - selectdata_ (bool=False) - Other data selection parameters
 
       .. raw:: html
 
          <details><summary><i> selectdata = True </i></summary>
 
-      - **antenna** (string='') - Antenna/baselines [7]_
-      - **timerange** (string='') - Time range [8]_
-      - **correlation** (string='') - Correlations [9]_
-      - **scan** (string='') - Scan numbers [10]_
-      - **feed** (string='') - Multi-feed numbers (Not yet implemented) [11]_
-      - **array** (string='') - Array numbers (Not yet implemented) [12]_
-      - **observation** ({string, int}='') - Select by observation ID(s) [13]_
-      - **uvrange** (string='') - uv range [14]_
+      - antenna_ (string='') - Antenna/baselines
+      - timerange_ (string='') - Time range
+      - correlation_ (string='') - Correlations
+      - scan_ (string='') - Scan numbers
+      - feed_ (string='') - Multi-feed numbers (Not yet implemented)
+      - array_ (string='') - Array numbers (Not yet implemented)
+      - observation_ ({string, int}='') - Select by observation ID(s)
+      - uvrange_ (string='') - uv range
 
       .. raw:: html
 
          </details>
-   - **observation** ({string, int}='') - Select by observation ID(s) [13]_
-   - **average** (string='') - Averaging mode  [15]_
-   - **showflags** (bool=False) - Show flagged data (Not yet implemented) [16]_
-   - **pagerows** (int=50) - Rows per page [17]_
-   - **listfile** (string='') - Output file [18]_
+   - observation_ ({string, int}='') - Select by observation ID(s)
+   - average_ (string='') - Averaging mode 
+   - showflags_ (bool=False) - Show flagged data (Not yet implemented)
+   - pagerows_ (int=50) - Rows per page
+   - listfile_ (string='') - Output file
 
 
 Description
@@ -201,60 +201,114 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file
-.. [2] 
-   **options** (string='ap')
-      | List options: ap only
-.. [3] 
-   **datacolumn** (string='data')
-      | Column to list: data, float_data, corrected, model, residual
-.. [4] 
-   **field** (string='')
-      | Field names or index to be listed
-.. [5] 
-   **spw** (string='*')
-      | Spectral window channels
-.. [6] 
-   **selectdata** (bool=False)
-      | Other data selection parameters
-.. [7] 
-   **antenna** (string='')
-      | Antenna/baselines
-.. [8] 
-   **timerange** (string='')
-      | Time range
-.. [9] 
-   **correlation** (string='')
-      | Correlations
-.. [10] 
-   **scan** (string='')
-      | Scan numbers
-.. [11] 
-   **feed** (string='')
-      | Multi-feed numbers (Not yet implemented)
-.. [12] 
-   **array** (string='')
-      | Array numbers (Not yet implemented)
-.. [13] 
-   **observation** ({string, int}='')
-      | Select by observation ID(s)
-.. [14] 
-   **uvrange** (string='')
-      | uv range
-.. [15] 
-   **average** (string='')
-      | Averaging mode
-.. [16] 
-   **showflags** (bool=False)
-      | Show flagged data (Not yet implemented)
-.. [17] 
-   **pagerows** (int=50)
-      | Rows per page
-.. [18] 
-   **listfile** (string='')
-      | Output file
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file
+
+.. _options:
+
+   .. rubric:: options
+
+   | List options: ap only
+
+.. _datacolumn:
+
+   .. rubric:: datacolumn
+
+   | Column to list: data, float_data, corrected, model, residual
+
+.. _field:
+
+   .. rubric:: field
+
+   | Field names or index to be listed
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | Spectral window channels
+
+.. _selectdata:
+
+   .. rubric:: selectdata
+
+   | Other data selection parameters
+
+.. _antenna:
+
+   .. rubric:: antenna
+
+   | Antenna/baselines
+
+.. _timerange:
+
+   .. rubric:: timerange
+
+   | Time range
+
+.. _correlation:
+
+   .. rubric:: correlation
+
+   | Correlations
+
+.. _scan:
+
+   .. rubric:: scan
+
+   | Scan numbers
+
+.. _feed:
+
+   .. rubric:: feed
+
+   | Multi-feed numbers (Not yet implemented)
+
+.. _array:
+
+   .. rubric:: array
+
+   | Array numbers (Not yet implemented)
+
+.. _observation:
+
+   .. rubric:: observation
+
+   | Select by observation ID(s)
+
+.. _uvrange:
+
+   .. rubric:: uvrange
+
+   | uv range
+
+.. _average:
+
+   .. rubric:: average
+
+   | Averaging mode
+
+.. _showflags:
+
+   .. rubric:: showflags
+
+   | Show flagged data (Not yet implemented)
+
+.. _pagerows:
+
+   .. rubric:: pagerows
+
+   | Rows per page
+
+.. _listfile:
+
+   .. rubric:: listfile
+
+   | Output file
+
 
     """
     pass

@@ -7,9 +7,9 @@ def imtrans(imagename, outfile='', order=''):
 Reorder image axes
 
 Parameters
-   - **imagename** (string) - Name of the input image which must be specified. [1]_
-   - **outfile** (string='') - Name of output CASA image. [2]_
-   - **order** (variant='') - New zero-based axes order. [3]_
+   - imagename_ (string) - Name of the input image which must be specified.
+   - outfile_ (string='') - Name of output CASA image.
+   - order_ (variant='') - New zero-based axes order.
 
 
 Description
@@ -59,15 +59,24 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (string)
-      | Name of the input image which must be specified.
-.. [2] 
-   **outfile** (string='')
-      | Name of output CASA image.
-.. [3] 
-   **order** (variant='')
-      | New zero-based axes order.
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Name of the input image which must be specified.
+
+.. _outfile:
+
+   .. rubric:: outfile
+
+   | Name of output CASA image.
+
+.. _order:
+
+   .. rubric:: order
+
+   | New zero-based axes order.
+
 
     """
     pass

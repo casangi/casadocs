@@ -7,14 +7,14 @@ def importmiriad(mirfile, vis='', tsys=False, spw=[-1], vel='', linecal=False, w
 Convert a Miriad visibility file into a CASA MeasurementSet
 
 Parameters
-   - **mirfile** (string) - Name of input Miriad visibility file [1]_
-   - **vis** (string='') - Name of output MeasurementSet [2]_
-   - **tsys** (bool=False) - Use the Tsys to set the visibility weights [3]_
-   - **spw** (intArray=[-1]) - Select spectral window/channels [4]_
-   - **vel** (string='') - Select velocity reference (TOPO,LSRK,LSRD) [5]_
-   - **linecal** (bool=False) - (CARMA) Apply line calibration [6]_
-   - **wide** (intArray=['']) - (CARMA) Select wide window averages [7]_
-   - **debug** (int=0) - Display increasingly verbose debug messages [8]_
+   - mirfile_ (string) - Name of input Miriad visibility file
+   - vis_ (string='') - Name of output MeasurementSet
+   - tsys_ (bool=False) - Use the Tsys to set the visibility weights
+   - spw_ (intArray=[-1]) - Select spectral window/channels
+   - vel_ (string='') - Select velocity reference (TOPO,LSRK,LSRD)
+   - linecal_ (bool=False) - (CARMA) Apply line calibration
+   - wide_ (intArray=['']) - (CARMA) Select wide window averages
+   - debug_ (int=0) - Display increasingly verbose debug messages
 
 
 Description
@@ -79,65 +79,89 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **mirfile** (string)
-      | Name of input Miriad visibility file
-      |                      Default: none
-      | 
-      |                         Example: mirfile='mydata.uv'
-.. [2] 
-   **vis** (string='')
-      | Name of output MeasurementSet
-      |                      Default: none
-      | 
-      |                         Example: vis='mydata.ms'
-.. [3] 
-   **tsys** (bool=False)
-      | Use the Tsys to set the visibility weights
-      |                      Default: False
-      |                      Options: False|True
-.. [4] 
-   **spw** (intArray=[-1])
-      | Select spectral window/channels
-      |                      Default: '' (all spectral windows and channels)
-      |            
-      |                         Examples:
-      |                         spw='0~2,4'; spectral windows 0,1,2,4 (all channels)
-      |                         spw='<2';  spectral windows less than 2 (i.e. 0,1)
-      |                         spw='0:5~61'; spw 0, channels 5 to 61
-      |                         spw='0,10,3:3~45'; spw 0,10 all channels, spw
-      |                         3 - chans 3 to 45.
-      |                         spw='0~2:2~6'; spw 0,1,2 with channels 2
-      |                         through 6 in each.
-      |                         spw = '*:3~64'  channels 3 through 64 for all sp id's
-      |                         spw = ' :3~64' will NOT work.
-.. [5] 
-   **vel** (string='')
-      | Select velocity reference
-      |                      Default: telescope dependent, ATCA -> TOPO, CARMA
-      |                      -> LSRK
-      |                      Options: TOPO|LSRK|LSRD
-      | 
-      |                         Example: vel='LSRK'
-.. [6] 
-   **linecal** (bool=False)
-      | (CARMA) Apply line calibration
-      |                      Default: False
-      |                      Options: False|True
-      |  
-      |                      Only useful for CARMA data
-.. [7] 
-   **wide** (intArray=[''])
-      | (CARMA) Select wide window averages
-      | 
-      |                      Select which of the wide-band channels should be loaded 
-      |                      Only useful for CARMA data
-.. [8] 
-   **debug** (int=0)
-      | Display increasingly verbose debug messages
-      |                      Default: 0
-      | 
-      |                         Example: debug=1
+.. _mirfile:
+
+   .. rubric:: mirfile
+
+   | Name of input Miriad visibility file
+   |                      Default: none
+   | 
+   |                         Example: mirfile='mydata.uv'
+
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of output MeasurementSet
+   |                      Default: none
+   | 
+   |                         Example: vis='mydata.ms'
+
+.. _tsys:
+
+   .. rubric:: tsys
+
+   | Use the Tsys to set the visibility weights
+   |                      Default: False
+   |                      Options: False|True
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | Select spectral window/channels
+   |                      Default: '' (all spectral windows and channels)
+   |            
+   |                         Examples:
+   |                         spw='0~2,4'; spectral windows 0,1,2,4 (all channels)
+   |                         spw='<2';  spectral windows less than 2 (i.e. 0,1)
+   |                         spw='0:5~61'; spw 0, channels 5 to 61
+   |                         spw='0,10,3:3~45'; spw 0,10 all channels, spw
+   |                         3 - chans 3 to 45.
+   |                         spw='0~2:2~6'; spw 0,1,2 with channels 2
+   |                         through 6 in each.
+   |                         spw = '*:3~64'  channels 3 through 64 for all sp id's
+   |                         spw = ' :3~64' will NOT work.
+
+.. _vel:
+
+   .. rubric:: vel
+
+   | Select velocity reference
+   |                      Default: telescope dependent, ATCA -> TOPO, CARMA
+   |                      -> LSRK
+   |                      Options: TOPO|LSRK|LSRD
+   | 
+   |                         Example: vel='LSRK'
+
+.. _linecal:
+
+   .. rubric:: linecal
+
+   | (CARMA) Apply line calibration
+   |                      Default: False
+   |                      Options: False|True
+   |  
+   |                      Only useful for CARMA data
+
+.. _wide:
+
+   .. rubric:: wide
+
+   | (CARMA) Select wide window averages
+   | 
+   |                      Select which of the wide-band channels should be loaded 
+   |                      Only useful for CARMA data
+
+.. _debug:
+
+   .. rubric:: debug
+
+   | Display increasingly verbose debug messages
+   |                      Default: 0
+   | 
+   |                         Example: debug=1
+
 
     """
     pass

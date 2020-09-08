@@ -7,19 +7,19 @@ def simalma(project='sim', dryrun=True, skymodel='', inbright='', indirection=''
 Simulation task for ALMA 
 
 Parameters
-   - **project** (string='sim') - root prefix for output file names [1]_
-   - **dryrun** (bool=True) - dryrun=True will only produce the informative report, not run simobserve/analyze [2]_
-   - **skymodel** (string='') - model image to observe [3]_
-   - **complist** (string='') - componentlist to observe [9]_
-   - **setpointings** (bool=True)
+   - project_ (string='sim') - root prefix for output file names
+   - dryrun_ (bool=True) - dryrun=True will only produce the informative report, not run simobserve/analyze
+   - skymodel_ (string='') - model image to observe
+   - complist_ (string='') - componentlist to observe
+   - setpointings_ (bool=True)
 
       .. raw:: html
 
          <details><summary><i> setpointings = True </i></summary>
 
-      - **integration** (string='10s') - integration (sampling) time [13]_
-      - **direction** (stringArray=['']) - "J2000 19h00m00 -40d00m00" or "" to center on model [14]_
-      - **mapsize** (stringArray=['', '']) - angular size of map or "" to cover model [15]_
+      - integration_ (string='10s') - integration (sampling) time
+      - direction_ (stringArray=['']) - "J2000 19h00m00 -40d00m00" or "" to center on model
+      - mapsize_ (stringArray=['', '']) - angular size of map or "" to cover model
 
       .. raw:: html
 
@@ -29,35 +29,35 @@ Parameters
 
          <details><summary><i> setpointings = False </i></summary>
 
-      - **ptgfile** (string='$project.ptg.txt') - list of pointing positions [12]_
-      - **integration** (string='10s') - integration (sampling) time [13]_
+      - ptgfile_ (string='$project.ptg.txt') - list of pointing positions
+      - integration_ (string='10s') - integration (sampling) time
 
       .. raw:: html
 
          </details>
-   - **antennalist** (stringArray=['alma.cycle1.1.cfg', 'aca.cycle1.cfg']) - antenna position files of ALMA 12m and 7m arrays [16]_
-   - **hourangle** (string='transit') - hour angle of observation center e.g. -3:00:00, or "transit" [17]_
-   - **totaltime** (stringArray=['20min', '1h']) - total time of observation; vector corresponding to antennalist [18]_
-   - **tpnant** (int=0) - Number of total power antennas to use (0-4) [19]_
-   - **pwv** (double=0.5) - Precipitable Water Vapor in mm. 0 for noise-free simulation [21]_
-   - **image** (bool=True) - image simulated data [22]_
+   - antennalist_ (stringArray=['alma.cycle1.1.cfg', 'aca.cycle1.cfg']) - antenna position files of ALMA 12m and 7m arrays
+   - hourangle_ (string='transit') - hour angle of observation center e.g. -3:00:00, or "transit"
+   - totaltime_ (stringArray=['20min', '1h']) - total time of observation; vector corresponding to antennalist
+   - tpnant_ (int=0) - Number of total power antennas to use (0-4)
+   - pwv_ (double=0.5) - Precipitable Water Vapor in mm. 0 for noise-free simulation
+   - image_ (bool=True) - image simulated data
 
       .. raw:: html
 
          <details><summary><i> image = True </i></summary>
 
-      - **imsize** (intArray=[128, 128]) - output image size in pixels (x,y) or 0 to match model [23]_
-      - **imdirection** (string='') - set output image direction, (otherwise center on the model) [24]_
-      - **cell** (string='') - cell size with units or "" to equal model [25]_
-      - **niter** (int=0) - maximum number of iterations (0 for dirty image) [26]_
-      - **threshold** (string='0.1mJy') - flux level (+units) to stop cleaning [27]_
+      - imsize_ (intArray=[128, 128]) - output image size in pixels (x,y) or 0 to match model
+      - imdirection_ (string='') - set output image direction, (otherwise center on the model)
+      - cell_ (string='') - cell size with units or "" to equal model
+      - niter_ (int=0) - maximum number of iterations (0 for dirty image)
+      - threshold_ (string='0.1mJy') - flux level (+units) to stop cleaning
 
       .. raw:: html
 
          </details>
-   - **graphics** (string='both') - display graphics at each stage to [screen|file|both|none] [28]_
-   - **verbose** (bool=False)
-   - **overwrite** (bool=False) - overwrite files starting with $project [30]_
+   - graphics_ (string='both') - display graphics at each stage to [screen|file|both|none]
+   - verbose_ (bool=False)
+   - overwrite_ (bool=False) - overwrite files starting with $project
 
 
 Description
@@ -386,90 +386,174 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **project** (string='sim')
-      | root prefix for output file names
-.. [2] 
-   **dryrun** (bool=True)
-      | dryrun=True will only produce the informative report, not run simobserve/analyze
-.. [3] 
-   **skymodel** (string='')
-      | model image to observe
-.. [4] 
-   **inbright** (string='')
-      | scale surface brightness of brightest pixel e.g. "1.2Jy/pixel"
-.. [5] 
-   **indirection** (string='')
-      | set new direction e.g. "J2000 19h00m00 -40d00m00"
-.. [6] 
-   **incell** (string='')
-      | set new cell/pixel size e.g. "0.1arcsec"
-.. [7] 
-   **incenter** (string='')
-      | set new frequency of center channel e.g. "89GHz" (required even for 2D model)
-.. [8] 
-   **inwidth** (string='')
-      | set new channel width e.g. "10MHz" (required even for 2D model)
-.. [9] 
-   **complist** (string='')
-      | componentlist to observe
-.. [10] 
-   **compwidth** (string='"8GHz"')
-      | bandwidth of components
-.. [12] 
-   **ptgfile** (string='$project.ptg.txt')
-      | list of pointing positions
-.. [13] 
-   **integration** (string='10s')
-      | integration (sampling) time
-.. [14] 
-   **direction** (stringArray=[''])
-      | "J2000 19h00m00 -40d00m00" or "" to center on model
-.. [15] 
-   **mapsize** (stringArray=['', ''])
-      | angular size of map or "" to cover model
-.. [16] 
-   **antennalist** (stringArray=['alma.cycle1.1.cfg', 'aca.cycle1.cfg'])
-      | antenna position files of ALMA 12m and 7m arrays
-.. [17] 
-   **hourangle** (string='transit')
-      | hour angle of observation center e.g. -3:00:00, or "transit"
-.. [18] 
-   **totaltime** (stringArray=['20min', '1h'])
-      | total time of observation; vector corresponding to antennalist
-.. [19] 
-   **tpnant** (int=0)
-      | Number of total power antennas to use (0-4)
-.. [20] 
-   **tptime** (string='0s')
-      | total observation time for total power
-.. [21] 
-   **pwv** (double=0.5)
-      | Precipitable Water Vapor in mm. 0 for noise-free simulation
-.. [22] 
-   **image** (bool=True)
-      | image simulated data
-.. [23] 
-   **imsize** (intArray=[128, 128])
-      | output image size in pixels (x,y) or 0 to match model
-.. [24] 
-   **imdirection** (string='')
-      | set output image direction, (otherwise center on the model)
-.. [25] 
-   **cell** (string='')
-      | cell size with units or "" to equal model
-.. [26] 
-   **niter** (int=0)
-      | maximum number of iterations (0 for dirty image)
-.. [27] 
-   **threshold** (string='0.1mJy')
-      | flux level (+units) to stop cleaning
-.. [28] 
-   **graphics** (string='both')
-      | display graphics at each stage to [screen|file|both|none]
-.. [30] 
-   **overwrite** (bool=False)
-      | overwrite files starting with $project
+.. _project:
+
+   .. rubric:: project
+
+   | root prefix for output file names
+
+.. _dryrun:
+
+   .. rubric:: dryrun
+
+   | dryrun=True will only produce the informative report, not run simobserve/analyze
+
+.. _skymodel:
+
+   .. rubric:: skymodel
+
+   | model image to observe
+
+.. _inbright:
+
+   .. rubric:: inbright
+
+   | scale surface brightness of brightest pixel e.g. "1.2Jy/pixel"
+
+.. _indirection:
+
+   .. rubric:: indirection
+
+   | set new direction e.g. "J2000 19h00m00 -40d00m00"
+
+.. _incell:
+
+   .. rubric:: incell
+
+   | set new cell/pixel size e.g. "0.1arcsec"
+
+.. _incenter:
+
+   .. rubric:: incenter
+
+   | set new frequency of center channel e.g. "89GHz" (required even for 2D model)
+
+.. _inwidth:
+
+   .. rubric:: inwidth
+
+   | set new channel width e.g. "10MHz" (required even for 2D model)
+
+.. _complist:
+
+   .. rubric:: complist
+
+   | componentlist to observe
+
+.. _compwidth:
+
+   .. rubric:: compwidth
+
+   | bandwidth of components
+
+.. _ptgfile:
+
+   .. rubric:: ptgfile
+
+   | list of pointing positions
+
+.. _integration:
+
+   .. rubric:: integration
+
+   | integration (sampling) time
+
+.. _direction:
+
+   .. rubric:: direction
+
+   | "J2000 19h00m00 -40d00m00" or "" to center on model
+
+.. _mapsize:
+
+   .. rubric:: mapsize
+
+   | angular size of map or "" to cover model
+
+.. _antennalist:
+
+   .. rubric:: antennalist
+
+   | antenna position files of ALMA 12m and 7m arrays
+
+.. _hourangle:
+
+   .. rubric:: hourangle
+
+   | hour angle of observation center e.g. -3:00:00, or "transit"
+
+.. _totaltime:
+
+   .. rubric:: totaltime
+
+   | total time of observation; vector corresponding to antennalist
+
+.. _tpnant:
+
+   .. rubric:: tpnant
+
+   | Number of total power antennas to use (0-4)
+
+.. _tptime:
+
+   .. rubric:: tptime
+
+   | total observation time for total power
+
+.. _pwv:
+
+   .. rubric:: pwv
+
+   | Precipitable Water Vapor in mm. 0 for noise-free simulation
+
+.. _image:
+
+   .. rubric:: image
+
+   | image simulated data
+
+.. _imsize:
+
+   .. rubric:: imsize
+
+   | output image size in pixels (x,y) or 0 to match model
+
+.. _imdirection:
+
+   .. rubric:: imdirection
+
+   | set output image direction, (otherwise center on the model)
+
+.. _cell:
+
+   .. rubric:: cell
+
+   | cell size with units or "" to equal model
+
+.. _niter:
+
+   .. rubric:: niter
+
+   | maximum number of iterations (0 for dirty image)
+
+.. _threshold:
+
+   .. rubric:: threshold
+
+   | flux level (+units) to stop cleaning
+
+.. _graphics:
+
+   .. rubric:: graphics
+
+   | display graphics at each stage to [screen|file|both|none]
+
+.. _overwrite:
+
+   .. rubric:: overwrite
+
+   | overwrite files starting with $project
+
 
     """
     pass

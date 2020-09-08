@@ -7,20 +7,20 @@ def simobserve(project='sim', skymodel='', inbright='', indirection='', incell='
 visibility simulation task
 
 Parameters
-   - **project** (string='sim') - Root prefix for output file names [1]_
-   - **skymodel** (string='') - model image to observe [2]_
-   - **complist** (string='') - Componentlist to observe [8]_
-   - **setpointings** (bool=True) - Calculate a map of pointings? [11]_
+   - project_ (string='sim') - Root prefix for output file names
+   - skymodel_ (string='') - model image to observe
+   - complist_ (string='') - Componentlist to observe
+   - setpointings_ (bool=True) - Calculate a map of pointings?
 
       .. raw:: html
 
          <details><summary><i> setpointings = True </i></summary>
 
-      - **integration** (string='10s') - Integration (sampling) time [13]_
-      - **direction** (stringArray=['']) - Mosaic center direction, e.g J2000 19h00m00 -40d00m00 [14]_
-      - **mapsize** (stringArray=['', '']) - Angular size of mosaic map to simulate. [15]_
-      - **maptype** (string='hexagonal') - how to calculate the pointings for the mosaic observation: hexagonal, square (raster), ALMA, etc. [16]_
-      - **pointingspacing** (string='') - Spacing in between pointings e.g. 0.25PB. ALMA default: INT=lambda/D/sqrt(3), SD=lambda/D/3  [17]_
+      - integration_ (string='10s') - Integration (sampling) time
+      - direction_ (stringArray=['']) - Mosaic center direction, e.g J2000 19h00m00 -40d00m00
+      - mapsize_ (stringArray=['', '']) - Angular size of mosaic map to simulate.
+      - maptype_ (string='hexagonal') - how to calculate the pointings for the mosaic observation: hexagonal, square (raster), ALMA, etc.
+      - pointingspacing_ (string='') - Spacing in between pointings e.g. 0.25PB. ALMA default: INT=lambda/D/sqrt(3), SD=lambda/D/3 
 
       .. raw:: html
 
@@ -30,24 +30,24 @@ Parameters
 
          <details><summary><i> setpointings = False </i></summary>
 
-      - **ptgfile** (string='$project.ptg.txt') - List of pointing positions [12]_
-      - **integration** (string='10s') - Integration (sampling) time [13]_
+      - ptgfile_ (string='$project.ptg.txt') - List of pointing positions
+      - integration_ (string='10s') - Integration (sampling) time
 
       .. raw:: html
 
          </details>
-   - **obsmode** (string='int') - Observation mode to simulate [int(interferometer)|sd(singledish)|(none)] [20]_
+   - obsmode_ (string='int') - Observation mode to simulate [int(interferometer)|sd(singledish)|(none)]
 
       .. raw:: html
 
          <details><summary><i> obsmode = int </i></summary>
 
-      - **antennalist** (string='') - Interferometer antenna position file [24]_
-      - **refdate** (string='2014/01/01') - Date of observation. Not critical unless concatting simulations [21]_
-      - **hourangle** (string='transit') - Hour angle of observation center, e.g. -3:00:00, 5h [22]_
-      - **totaltime** (string='7200s') - Total time of observation or number of repetitions [23]_
-      - **caldirection** (string='') - pt source calibrator [experimental] [18]_
-      - **calflux** (string='1Jy') - pt source calibrator flux [experimental] [19]_
+      - antennalist_ (string='') - Interferometer antenna position file
+      - refdate_ (string='2014/01/01') - Date of observation. Not critical unless concatting simulations
+      - hourangle_ (string='transit') - Hour angle of observation center, e.g. -3:00:00, 5h
+      - totaltime_ (string='7200s') - Total time of observation or number of repetitions
+      - caldirection_ (string='') - pt source calibrator [experimental]
+      - calflux_ (string='1Jy') - pt source calibrator flux [experimental]
 
       .. raw:: html
 
@@ -57,11 +57,11 @@ Parameters
 
          <details><summary><i> obsmode = sd </i></summary>
 
-      - **sdantlist** (string='aca.tp.cfg') - Single dish antenna position file [25]_
-      - **sdant** (int=0) - Single dish antenna index in file [26]_
-      - **refdate** (string='2014/01/01') - Date of observation. Not critical unless concatting simulations [21]_
-      - **hourangle** (string='transit') - Hour angle of observation center, e.g. -3:00:00, 5h [22]_
-      - **totaltime** (string='7200s') - Total time of observation or number of repetitions [23]_
+      - sdantlist_ (string='aca.tp.cfg') - Single dish antenna position file
+      - sdant_ (int=0) - Single dish antenna index in file
+      - refdate_ (string='2014/01/01') - Date of observation. Not critical unless concatting simulations
+      - hourangle_ (string='transit') - Hour angle of observation center, e.g. -3:00:00, 5h
+      - totaltime_ (string='7200s') - Total time of observation or number of repetitions
 
       .. raw:: html
 
@@ -71,23 +71,23 @@ Parameters
 
          <details><summary><i> obsmode = '' </i></summary>
 
-      - **antennalist** (string='') - Interferometer antenna position file [24]_
-      - **sdantlist** (string='aca.tp.cfg') - Single dish antenna position file [25]_
-      - **sdant** (int=0) - Single dish antenna index in file [26]_
+      - antennalist_ (string='') - Interferometer antenna position file
+      - sdantlist_ (string='aca.tp.cfg') - Single dish antenna position file
+      - sdant_ (int=0) - Single dish antenna index in file
 
       .. raw:: html
 
          </details>
-   - **outframe** (string='LSRK') - Spectral frame of MS to create [27]_
-   - **thermalnoise** (string='tsys-atm') - add thermal noise: [tsys-atm|tsys-manual|(none)] [28]_
+   - outframe_ (string='LSRK') - Spectral frame of MS to create
+   - thermalnoise_ (string='tsys-atm') - add thermal noise: [tsys-atm|tsys-manual|(none)]
 
       .. raw:: html
 
          <details><summary><i> thermalnoise = tsys-atm </i></summary>
 
-      - **user_pwv** (double=0.5) - Precipitable Water Vapor in mm [29]_
-      - **t_ground** (double=270.) - Ground/spillover ambient temperature in K [30]_
-      - **seed** (int=11111) - Random number seed [33]_
+      - user_pwv_ (double=0.5) - Precipitable Water Vapor in mm
+      - t_ground_ (double=270.) - Ground/spillover ambient temperature in K
+      - seed_ (int=11111) - Random number seed
 
       .. raw:: html
 
@@ -97,18 +97,18 @@ Parameters
 
          <details><summary><i> thermalnoise = tsys-manual </i></summary>
 
-      - **t_ground** (double=270.) - Ground/spillover ambient temperature in K [30]_
-      - **t_sky** (double=260.) - Atmospheric temperatur in K [31]_
-      - **tau0** (double=0.1) - Zenith opacity [32]_
-      - **seed** (int=11111) - Random number seed [33]_
+      - t_ground_ (double=270.) - Ground/spillover ambient temperature in K
+      - t_sky_ (double=260.) - Atmospheric temperatur in K
+      - tau0_ (double=0.1) - Zenith opacity
+      - seed_ (int=11111) - Random number seed
 
       .. raw:: html
 
          </details>
-   - **leakage** (double=0.0) - Cross polarization (interferometer only) [34]_
-   - **graphics** (string='both') - Display graphics at each stage to [screen|file|both|none] [35]_
-   - **verbose** (bool=False) - Print extra information to the logger and terminal [36]_
-   - **overwrite** (bool=True) - Overwrite existing files in the project subdirectory [37]_
+   - leakage_ (double=0.0) - Cross polarization (interferometer only)
+   - graphics_ (string='both') - Display graphics at each stage to [screen|file|both|none]
+   - verbose_ (bool=False) - Print extra information to the logger and terminal
+   - overwrite_ (bool=True) - Overwrite existing files in the project subdirectory
 
 
 Description
@@ -698,366 +698,477 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **project** (string='sim')
-      | root prefix for output file names
-.. [2] 
-   **skymodel** (string='')
-      | Model image to observe
-      | 
-      |                    * simobserve uses a CASA or fits image. If you
-      |                      merely have a grid of numbers, you will need to
-      |                      write them out as fits or write a CASA script to
-      |                      read them in and use the ia tool to create an
-      |                      image and insert the data.
-      | 
-      |                    * simobserve does NOT require a coordinate system
-      |                      in the header. If the coordinate information is
-      |                      incomplete, missing, or you would like to
-      |                      override it, set the appropriate "in"
-      |                      parameters. NOTE that setting those parameters
-      |                      simply changes the header values, ignoring any
-      |                      values already in the image. No regridding is
-      |                      performed. 
-      | 
-      |                    * You can also manipulate an image header manually
-      |                      with the "imhead" task. 
-      | 
-      |                    * If you have a proper Coordinate System,
-      |                      simobserve will do its best to generate
-      |                      visibilities from that.
-.. [3] 
-   **inbright** (string='')
-      | Peak brightness to scale the image to, in Jy/pixel
-      |                      Subparameter of skymodel
-      |                      Default: '' (i.e., unchanged)
-      | 
-      |                         Example: inbright='1.2Jy/pixel'
-      | 
-      |                      Note: "unchanged" will take the numerical values
-      |                      in your image and assume they are in Jy/pixel,
-      |                      even if it says some other unit in the header.
-.. [4] 
-   **indirection** (string='')
-      | Central direction to place the sky model image
-      |                      Subparameter of skymodel
-      |                      Default: '' (use whatever is in the image
-      |                      already)
-      | 
-      |                         Example: indirection='J2000 19h00m00
-      |                         -40d00m00'
-.. [5] 
-   **incell** (string='')
-      | set new cell/pixel size
-      |                      Subparameter of skymodel
-      |                      Default: '' (use whatever is in the image
-      |                      already)
-      | 
-      |                         Example: incell='0.1arcsec'
-.. [6] 
-   **incenter** (string='')
-      | Frequency to use for the center channel (or only channel,
-      | if the skymodel is 2D)
-      |                      Subparameter of skymodel
-      |                      Default: '' (use whatever is in the image
-      |                      already)
-      | 
-      |                         Example: incenter='89GHz'
-.. [7] 
-   **inwidth** (string='')
-      | Set new channel width 
-      |                      Subparameter of skymodel
-      |                      Default: '' (use whatever is in the image
-      |                      already)
-      |                      
-      |                      Should be a string representing a quantity with
-      |                      units e.g. inwidth='10MHz'
-      | 
-      |                      NOTES: 
-      |                    * Only works reliably with frequencies, not
-      |                      velocities 
-      |                    * It is not possible to change the number of
-      |                      spectral planes of the sky model, only to relabel
-      |                      them with different frequencies That kind of
-      |                      regridding can be accomplished with the CASA
-      |                      toolkit.
-.. [8] 
-   **complist** (string='')
-      | Component list model of the sky, added to or instead of skymodel. See https://casaguides.nrao.edu/index.php/Simulation_Guide_Component_Lists_(CASA_5.4)
-.. [9] 
-   **compwidth** (string='"8GHz"')
-      | Bandwidth of components
-      |                      Subparameter of complist
-      | 
-      |                      If simulating from components only, this defines
-      |                      the bandwidth of the MS and output images
-      | 
-      |                         Example: compwidth='8GHz'
-.. [10] 
-   **comp_nchan** (int=1)
-      | Channelization of components
-      |                      Subparameter of complist
-      | 
-      |                      If simulating from components only, this defines
-      |                      the number of channels of the MeasurementSet
-      | 
-      |                         Example: comp_nchan=256
-.. [11] 
-   **setpointings** (bool=True)
-      | If true, calculate a map of pointings and write ptgfile. If false, read pointings from ptgfile.
-      |                      Default: True
-      | 
-      |                      If graphics are on, display the pointings shown
-      |                      on the model image
-.. [12] 
-   **ptgfile** (string='$project.ptg.txt')
-      | A text file specifying directions
-      |                      Subparameter of setpointings=False
-      |                      
-      |                      The text file should have the following format,
-      |                      with optional integration times:
-      |                      Epoch     RA          DEC      TIME(optional)
-      |                      J2000 23h59m28.10 -019d52m12.35 10.0
-      | 
-      |                      If the time column is not present in the file, it
-      |                      will use "integration" for all pointings.
-      | 
-      |                      NOTE: at this time the file should contain only
-      |                      science pointings: simobserve will observe these,
-      |                      then optionally the calibrator, then the list of
-      |                      science pointings again, etc, until totaltime is
-      |                      used up.
-.. [13] 
-   **integration** (string='10s')
-      | Time interval for each integration
-      |                      Subparameter of setpointings=False
-      | 
-      |                         Example: integration='10s'
-      | 
-      |                      NOTE: to simulate a "scan" longer than one
-      |                      integration, use  setpointings to generate a
-      |                      pointing file, and then edit the file to increase
-      |                      the time at each point to be larger than the
-      |                      parameter integration time.
-.. [14] 
-   **direction** (stringArray=[''])
-      | Mosaic center direction.
-      |                      Subparameter of setpointings=True
-      | 
-      |                         Example: "J2000 19h00m00 -40d00m00" or "" to
-      |                         center on model
-      | 
-      |                      If unset, will use the center of the skymodel
-      |                      image.
-      |                    * can optionally be a list of pointings, otherwise
-      |                    * simobserve will cover a region of size mapsize
-      |                      according to maptype
-.. [15] 
-   **mapsize** (stringArray=['', ''])
-      | Angular size of of mosaic map to simulate.
-      |                      Subparameter of setpointings=True
-      | 
-      |                      Set to "" to cover model
-.. [16] 
-   **maptype** (string='hexagonal')
-      | How to calculate the pointings for the mosaic
-      | observation?
-      |                      Subparameter of setpointings=True
-      |                      Options: hexagonal, square (raster), ALMA, etc
-      | 
-      |                      "ALMA" for the same hex algorithm as the ALMA
-      |                      Cycle 1 OT or "ALMA2012" for the algorithm used
-      |                      in the Cycle 0 OT
-.. [17] 
-   **pointingspacing** (string='')
-      | Spacing in between pointings. 
-      |                      Subparameter of setpointings=True
-      | 
-      |                         Examples: 
-      |                         pointingspacing="0.25PB" 
-      |                         pointingspacing="" for ALMA default
-      |                         INT=lambda/D/sqrt(3), SD=lambda/D/3
-.. [18] 
-   **caldirection** (string='')
-      | pt source calibrator [experimental]
-.. [19] 
-   **calflux** (string='1Jy')
-      | pt source calibrator flux [experimental]
-.. [20] 
-   **obsmode** (string='int')
-      | Observation mode to simulate
-      |                      Options: int(interferometer)|sd(singledish)|""(none)
-      | 
-      |                      Observation mode to calculate visibilities from a
-      |                      skymodel image (which may have been modified
-      |                      above), an optional component list, and a
-      |                      pointing file (which also may have been generated
-      |                      above).
-      | 
-      |                      This parameter takes two possible values:
-      |                      - interferometer (or int)
-      |                      - singledish (or sd)
-      |                    * If graphics are on, this observe step will
-      |                      display the array (similar to plotants), the uv
-      |                      coverage, the synthesized (dirty) beam, and
-      |                      ephemeris information 
-      |                    * If simulating from a component list, you should
-      |                      specify "compwidth", the desired bandwidth; and 
-      | 		     specify "comp_nchan", the desired channelization
-      | 		     if more than one output channel is desired
-.. [21] 
-   **refdate** (string='2014/01/01')
-      | Date of simulated observation
-      |                      Subparameter of obsmode='int|sd'
-      |                      Not critical unless concatting simulations
-      | 
-      |                         Example: refdate="2014/05/21"
-.. [22] 
-   **hourangle** (string='transit')
-      | Hour angle of observation center.
-      |                      Subparameter of obsmode='int|sd'
-      | 
-      |                          Examples:
-      |                          hourangle="-3:00:00", "5h", or "transit"
-.. [23] 
-   **totaltime** (string='7200s')
-      | Total time of observation or number of repetitions
-      |                      Subparameter of obsmode='int|sd'
-      | 
-      |                          Example:
-      |                          totaltime='7200s'
-      |                          If a number without units, interpreted as the
-      |                          number of times to repeat the mosaic.
-.. [24] 
-   **antennalist** (string='')
-      | Text file containing antenna positions.
-      |                      Subparameter of obsmode='int|""'
-      | 
-      |                      Each row has x y z coordinates and antenna diameter
-      | 		     with optional station name and antenna name.
-      | 		     Header lines are required to specify:
-      |                      # observatory=ALMA
-      |                      # coordsys=UTM
-      | 
-      | 		     If the Universal Transverse Mercator projection is
-      | 		     specified, then other keywords are required:
-      |                      # datum=WGS84
-      |                      # zone=19
-      | 		     # hemisphere=S
-      | 
-      | 		     If the observatory keyword is not defined, then the
-      | 		     COFA keyword should be, using a coordinate pair:
-      | 		     #COFA=-67.75,-23.02
-      | 
-      |                    * Standard array configurations are found in your
-      | 		     CASA data repository,
-      |                    * If "", simobserve will not not produce an
-      |                      interferometric MS 
-      |                    * A string of the form "alma;0.5arcsec" will be
-      |                    parsed into a full 12m ALMA configuration.
-.. [25] 
-   **sdantlist** (string='aca.tp.cfg')
-      | single dish antenna position file
-      |                      Subparameter of obsmode='sd|""'
-.. [26] 
-   **sdant** (int=0)
-      | Index of the antenna in the list to use for total power.  
-      |                      Subparameter of obsmode='sd|""'
-      |                      Default: first antenna on the list.
-.. [27] 
-   **outframe** (string='LSRK')
-      | spectral frame of MS to create
-      |                      Subparameter of obsmode='sd|""'
-.. [28] 
-   **thermalnoise** (string='tsys-atm')
-      | add thermal noise.
-      |                      Options: tsys-atm, tsys-manual, ""
-      | 
-      |                      This parameter accepts two settings:
-      |                      - tsys-atm: J. Pardo's ATM library will be used
-      |                      to construct an atmospheric profile for the ALMA
-      |                      site: altitude 5000m, ground pressure 650mbar,
-      |                      relhum=20%, a water layer of user_pwv at altitude
-      |                      of 2km, the sky brightness temperature returned
-      |                      by ATM, and internally tabulated receiver
-      |                      temperatures.
-      |                      - tsys-manual: instead of using the ATM model,
-      |                      specify the zenith  sky brightness and opacity
-      |                      manually.  Noise is added and then the visibility
-      |                      flux scale is referenced above the atmosphere.
-      | 
-      |                      If left unset (empty string) no thermalnoise
-      |                      corruption is performed.
-      |  
-      |                      In either mode, noise is calculated using an
-      |                      antenna spillover efficiency of 0.96, taper of
-      |                      0.86, surface accuracy of 25 and 300 microns for
-      |                      ALMA and EVLA respectively (using the Ruze
-      |                      formula for surface efficiency), correlator
-      |                      efficiencies of 0.95 and 0.91 for ALMA and EVLA,
-      |                      receiver temperatures 
-      |                      for ALMA of 17, 30, 37, 51, 65,
-      |                      83,147,196,175,230 K interpolated between 35,
-      |                      75,110,145,185,230,345,409,675,867 GHz, 
-      |                      for EVLA of 500, 70,  60,  55,  100, 130, 350 K
-      |                      interpolated between
-      |                      0.33,1.47,4.89,8.44,22.5,33.5,43.3 GHz, 
-      |                      for SMA of 67,  116, 134, 500 K interpolated
-      |                      between 212.,310.,383.,660. GHz.
-      | 
-      |                      Note: These are only approximate numbers and do
-      |                      not take into account performance at edges of
-      |                      receiver bands, neither are they guaranteed to
-      |                      reflect the most recent measurements.  Caveat
-      |                      emptor. Use the sm tool to add noise if you want
-      |                      more precise control, and use the ALMA exposure
-      |                      time calculator for sensitivity numbers in
-      |                      proposals.
-.. [29] 
-   **user_pwv** (double=0.5)
-      | Precipitable water vapor if constructing an atmospheric
-      | model (in mm)
-      |                       Subparameter of thermalnoise='tsys-atm'
-.. [30] 
-   **t_ground** (double=270.)
-      | Ground/spillover temperature in K
-      |                       Subparameter of
-      |                       thermalnoise='tsys-atm|tsys-manual'
-.. [31] 
-   **t_sky** (double=260.)
-      | Atmospheric temperature in K
-      |                       Subparameter of thermalnoise='tsys-manual'
-.. [32] 
-   **tau0** (double=0.1)
-      | Zenith opacity at observing frequency
-      |                       Subparameter of thermalnoise='tsys-manual'
-      | 
-      |                       https://casaguides.nrao.edu/index.php/Corrupt
-      |                       for more information on noise, in particular how
-      |                       to add a phase screen using the toolkit
-.. [33] 
-   **seed** (int=11111)
-      | Random number seed
-      |                       Subparameter of
-      |                       thermalnoise='tsys-atm|tsys-manual'
-.. [34] 
-   **leakage** (double=0.0)
-      | add cross polarization corruption of this fractional
-      | magnitude (interferometer only)
-.. [35] 
-   **graphics** (string='both')
-      | View plots on the screen, saved to file, both, or neither
-      |                      Options: screen|file|both|none
-.. [36] 
-   **verbose** (bool=False)
-      | Print extra information to the logger and terminal
-      |                      Default: False
-      |                      Options: True|False
-.. [37] 
-   **overwrite** (bool=True)
-      | Overwrite files starting with $project
-      |                      Default: False
-      |                      Options: True|False
+.. _project:
+
+   .. rubric:: project
+
+   | root prefix for output file names
+
+.. _skymodel:
+
+   .. rubric:: skymodel
+
+   | Model image to observe
+   | 
+   |                    * simobserve uses a CASA or fits image. If you
+   |                      merely have a grid of numbers, you will need to
+   |                      write them out as fits or write a CASA script to
+   |                      read them in and use the ia tool to create an
+   |                      image and insert the data.
+   | 
+   |                    * simobserve does NOT require a coordinate system
+   |                      in the header. If the coordinate information is
+   |                      incomplete, missing, or you would like to
+   |                      override it, set the appropriate "in"
+   |                      parameters. NOTE that setting those parameters
+   |                      simply changes the header values, ignoring any
+   |                      values already in the image. No regridding is
+   |                      performed. 
+   | 
+   |                    * You can also manipulate an image header manually
+   |                      with the "imhead" task. 
+   | 
+   |                    * If you have a proper Coordinate System,
+   |                      simobserve will do its best to generate
+   |                      visibilities from that.
+
+.. _inbright:
+
+   .. rubric:: inbright
+
+   | Peak brightness to scale the image to, in Jy/pixel
+   |                      Subparameter of skymodel
+   |                      Default: '' (i.e., unchanged)
+   | 
+   |                         Example: inbright='1.2Jy/pixel'
+   | 
+   |                      Note: "unchanged" will take the numerical values
+   |                      in your image and assume they are in Jy/pixel,
+   |                      even if it says some other unit in the header.
+
+.. _indirection:
+
+   .. rubric:: indirection
+
+   | Central direction to place the sky model image
+   |                      Subparameter of skymodel
+   |                      Default: '' (use whatever is in the image
+   |                      already)
+   | 
+   |                         Example: indirection='J2000 19h00m00
+   |                         -40d00m00'
+
+.. _incell:
+
+   .. rubric:: incell
+
+   | set new cell/pixel size
+   |                      Subparameter of skymodel
+   |                      Default: '' (use whatever is in the image
+   |                      already)
+   | 
+   |                         Example: incell='0.1arcsec'
+
+.. _incenter:
+
+   .. rubric:: incenter
+
+   | Frequency to use for the center channel (or only channel,
+   | if the skymodel is 2D)
+   |                      Subparameter of skymodel
+   |                      Default: '' (use whatever is in the image
+   |                      already)
+   | 
+   |                         Example: incenter='89GHz'
+
+.. _inwidth:
+
+   .. rubric:: inwidth
+
+   | Set new channel width 
+   |                      Subparameter of skymodel
+   |                      Default: '' (use whatever is in the image
+   |                      already)
+   |                      
+   |                      Should be a string representing a quantity with
+   |                      units e.g. inwidth='10MHz'
+   | 
+   |                      NOTES: 
+   |                    * Only works reliably with frequencies, not
+   |                      velocities 
+   |                    * It is not possible to change the number of
+   |                      spectral planes of the sky model, only to relabel
+   |                      them with different frequencies That kind of
+   |                      regridding can be accomplished with the CASA
+   |                      toolkit.
+
+.. _complist:
+
+   .. rubric:: complist
+
+   | Component list model of the sky, added to or instead of skymodel. See https://casaguides.nrao.edu/index.php/Simulation_Guide_Component_Lists_(CASA_5.4)
+
+.. _compwidth:
+
+   .. rubric:: compwidth
+
+   | Bandwidth of components
+   |                      Subparameter of complist
+   | 
+   |                      If simulating from components only, this defines
+   |                      the bandwidth of the MS and output images
+   | 
+   |                         Example: compwidth='8GHz'
+
+.. _comp_nchan:
+
+   .. rubric:: comp_nchan
+
+   | Channelization of components
+   |                      Subparameter of complist
+   | 
+   |                      If simulating from components only, this defines
+   |                      the number of channels of the MeasurementSet
+   | 
+   |                         Example: comp_nchan=256
+
+.. _setpointings:
+
+   .. rubric:: setpointings
+
+   | If true, calculate a map of pointings and write ptgfile. If false, read pointings from ptgfile.
+   |                      Default: True
+   | 
+   |                      If graphics are on, display the pointings shown
+   |                      on the model image
+
+.. _ptgfile:
+
+   .. rubric:: ptgfile
+
+   | A text file specifying directions
+   |                      Subparameter of setpointings=False
+   |                      
+   |                      The text file should have the following format,
+   |                      with optional integration times:
+   |                      Epoch     RA          DEC      TIME(optional)
+   |                      J2000 23h59m28.10 -019d52m12.35 10.0
+   | 
+   |                      If the time column is not present in the file, it
+   |                      will use "integration" for all pointings.
+   | 
+   |                      NOTE: at this time the file should contain only
+   |                      science pointings: simobserve will observe these,
+   |                      then optionally the calibrator, then the list of
+   |                      science pointings again, etc, until totaltime is
+   |                      used up.
+
+.. _integration:
+
+   .. rubric:: integration
+
+   | Time interval for each integration
+   |                      Subparameter of setpointings=False
+   | 
+   |                         Example: integration='10s'
+   | 
+   |                      NOTE: to simulate a "scan" longer than one
+   |                      integration, use  setpointings to generate a
+   |                      pointing file, and then edit the file to increase
+   |                      the time at each point to be larger than the
+   |                      parameter integration time.
+
+.. _direction:
+
+   .. rubric:: direction
+
+   | Mosaic center direction.
+   |                      Subparameter of setpointings=True
+   | 
+   |                         Example: "J2000 19h00m00 -40d00m00" or "" to
+   |                         center on model
+   | 
+   |                      If unset, will use the center of the skymodel
+   |                      image.
+   |                    * can optionally be a list of pointings, otherwise
+   |                    * simobserve will cover a region of size mapsize
+   |                      according to maptype
+
+.. _mapsize:
+
+   .. rubric:: mapsize
+
+   | Angular size of of mosaic map to simulate.
+   |                      Subparameter of setpointings=True
+   | 
+   |                      Set to "" to cover model
+
+.. _maptype:
+
+   .. rubric:: maptype
+
+   | How to calculate the pointings for the mosaic
+   | observation?
+   |                      Subparameter of setpointings=True
+   |                      Options: hexagonal, square (raster), ALMA, etc
+   | 
+   |                      "ALMA" for the same hex algorithm as the ALMA
+   |                      Cycle 1 OT or "ALMA2012" for the algorithm used
+   |                      in the Cycle 0 OT
+
+.. _pointingspacing:
+
+   .. rubric:: pointingspacing
+
+   | Spacing in between pointings. 
+   |                      Subparameter of setpointings=True
+   | 
+   |                         Examples: 
+   |                         pointingspacing="0.25PB" 
+   |                         pointingspacing="" for ALMA default
+   |                         INT=lambda/D/sqrt(3), SD=lambda/D/3
+
+.. _caldirection:
+
+   .. rubric:: caldirection
+
+   | pt source calibrator [experimental]
+
+.. _calflux:
+
+   .. rubric:: calflux
+
+   | pt source calibrator flux [experimental]
+
+.. _obsmode:
+
+   .. rubric:: obsmode
+
+   | Observation mode to simulate
+   |                      Options: int(interferometer)|sd(singledish)|""(none)
+   | 
+   |                      Observation mode to calculate visibilities from a
+   |                      skymodel image (which may have been modified
+   |                      above), an optional component list, and a
+   |                      pointing file (which also may have been generated
+   |                      above).
+   | 
+   |                      This parameter takes two possible values:
+   |                      - interferometer (or int)
+   |                      - singledish (or sd)
+   |                    * If graphics are on, this observe step will
+   |                      display the array (similar to plotants), the uv
+   |                      coverage, the synthesized (dirty) beam, and
+   |                      ephemeris information 
+   |                    * If simulating from a component list, you should
+   |                      specify "compwidth", the desired bandwidth; and 
+   | 		     specify "comp_nchan", the desired channelization
+   | 		     if more than one output channel is desired
+
+.. _refdate:
+
+   .. rubric:: refdate
+
+   | Date of simulated observation
+   |                      Subparameter of obsmode='int|sd'
+   |                      Not critical unless concatting simulations
+   | 
+   |                         Example: refdate="2014/05/21"
+
+.. _hourangle:
+
+   .. rubric:: hourangle
+
+   | Hour angle of observation center.
+   |                      Subparameter of obsmode='int|sd'
+   | 
+   |                          Examples:
+   |                          hourangle="-3:00:00", "5h", or "transit"
+
+.. _totaltime:
+
+   .. rubric:: totaltime
+
+   | Total time of observation or number of repetitions
+   |                      Subparameter of obsmode='int|sd'
+   | 
+   |                          Example:
+   |                          totaltime='7200s'
+   |                          If a number without units, interpreted as the
+   |                          number of times to repeat the mosaic.
+
+.. _antennalist:
+
+   .. rubric:: antennalist
+
+   | Text file containing antenna positions.
+   |                      Subparameter of obsmode='int|""'
+   | 
+   |                      Each row has x y z coordinates and antenna diameter
+   | 		     with optional station name and antenna name.
+   | 		     Header lines are required to specify:
+   |                      # observatory=ALMA
+   |                      # coordsys=UTM
+   | 
+   | 		     If the Universal Transverse Mercator projection is
+   | 		     specified, then other keywords are required:
+   |                      # datum=WGS84
+   |                      # zone=19
+   | 		     # hemisphere=S
+   | 
+   | 		     If the observatory keyword is not defined, then the
+   | 		     COFA keyword should be, using a coordinate pair:
+   | 		     #COFA=-67.75,-23.02
+   | 
+   |                    * Standard array configurations are found in your
+   | 		     CASA data repository,
+   |                    * If "", simobserve will not not produce an
+   |                      interferometric MS 
+   |                    * A string of the form "alma;0.5arcsec" will be
+   |                    parsed into a full 12m ALMA configuration.
+
+.. _sdantlist:
+
+   .. rubric:: sdantlist
+
+   | single dish antenna position file
+   |                      Subparameter of obsmode='sd|""'
+
+.. _sdant:
+
+   .. rubric:: sdant
+
+   | Index of the antenna in the list to use for total power.  
+   |                      Subparameter of obsmode='sd|""'
+   |                      Default: first antenna on the list.
+
+.. _outframe:
+
+   .. rubric:: outframe
+
+   | spectral frame of MS to create
+   |                      Subparameter of obsmode='sd|""'
+
+.. _thermalnoise:
+
+   .. rubric:: thermalnoise
+
+   | add thermal noise.
+   |                      Options: tsys-atm, tsys-manual, ""
+   | 
+   |                      This parameter accepts two settings:
+   |                      - tsys-atm: J. Pardo's ATM library will be used
+   |                      to construct an atmospheric profile for the ALMA
+   |                      site: altitude 5000m, ground pressure 650mbar,
+   |                      relhum=20%, a water layer of user_pwv at altitude
+   |                      of 2km, the sky brightness temperature returned
+   |                      by ATM, and internally tabulated receiver
+   |                      temperatures.
+   |                      - tsys-manual: instead of using the ATM model,
+   |                      specify the zenith  sky brightness and opacity
+   |                      manually.  Noise is added and then the visibility
+   |                      flux scale is referenced above the atmosphere.
+   | 
+   |                      If left unset (empty string) no thermalnoise
+   |                      corruption is performed.
+   |  
+   |                      In either mode, noise is calculated using an
+   |                      antenna spillover efficiency of 0.96, taper of
+   |                      0.86, surface accuracy of 25 and 300 microns for
+   |                      ALMA and EVLA respectively (using the Ruze
+   |                      formula for surface efficiency), correlator
+   |                      efficiencies of 0.95 and 0.91 for ALMA and EVLA,
+   |                      receiver temperatures 
+   |                      for ALMA of 17, 30, 37, 51, 65,
+   |                      83,147,196,175,230 K interpolated between 35,
+   |                      75,110,145,185,230,345,409,675,867 GHz, 
+   |                      for EVLA of 500, 70,  60,  55,  100, 130, 350 K
+   |                      interpolated between
+   |                      0.33,1.47,4.89,8.44,22.5,33.5,43.3 GHz, 
+   |                      for SMA of 67,  116, 134, 500 K interpolated
+   |                      between 212.,310.,383.,660. GHz.
+   | 
+   |                      Note: These are only approximate numbers and do
+   |                      not take into account performance at edges of
+   |                      receiver bands, neither are they guaranteed to
+   |                      reflect the most recent measurements.  Caveat
+   |                      emptor. Use the sm tool to add noise if you want
+   |                      more precise control, and use the ALMA exposure
+   |                      time calculator for sensitivity numbers in
+   |                      proposals.
+
+.. _user_pwv:
+
+   .. rubric:: user_pwv
+
+   | Precipitable water vapor if constructing an atmospheric
+   | model (in mm)
+   |                       Subparameter of thermalnoise='tsys-atm'
+
+.. _t_ground:
+
+   .. rubric:: t_ground
+
+   | Ground/spillover temperature in K
+   |                       Subparameter of
+   |                       thermalnoise='tsys-atm|tsys-manual'
+
+.. _t_sky:
+
+   .. rubric:: t_sky
+
+   | Atmospheric temperature in K
+   |                       Subparameter of thermalnoise='tsys-manual'
+
+.. _tau0:
+
+   .. rubric:: tau0
+
+   | Zenith opacity at observing frequency
+   |                       Subparameter of thermalnoise='tsys-manual'
+   | 
+   |                       https://casaguides.nrao.edu/index.php/Corrupt
+   |                       for more information on noise, in particular how
+   |                       to add a phase screen using the toolkit
+
+.. _seed:
+
+   .. rubric:: seed
+
+   | Random number seed
+   |                       Subparameter of
+   |                       thermalnoise='tsys-atm|tsys-manual'
+
+.. _leakage:
+
+   .. rubric:: leakage
+
+   | add cross polarization corruption of this fractional
+   | magnitude (interferometer only)
+
+.. _graphics:
+
+   .. rubric:: graphics
+
+   | View plots on the screen, saved to file, both, or neither
+   |                      Options: screen|file|both|none
+
+.. _verbose:
+
+   .. rubric:: verbose
+
+   | Print extra information to the logger and terminal
+   |                      Default: False
+   |                      Options: True|False
+
+.. _overwrite:
+
+   .. rubric:: overwrite
+
+   | Overwrite files starting with $project
+   |                      Default: False
+   |                      Options: True|False
+
 
     """
     pass

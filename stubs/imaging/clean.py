@@ -7,35 +7,35 @@ def clean(vis, imagename='', outlierfile='', field='', spw='', selectdata=True, 
 Invert and deconvolve images with selected algorithm
 
 Parameters
-   - **vis** ({string, stringArray}) -  [1]_
-   - **imagename** ({string, stringArray}='') -  [2]_
-   - **outlierfile** (string='') -  [3]_
-   - **field** ({string, stringArray}='') -  [4]_
-   - **spw** ({string, stringArray}='') -  [5]_
-   - **selectdata** (bool=True) -  [6]_
+   - vis_ ({string, stringArray}) - 
+   - imagename_ ({string, stringArray}='') - 
+   - outlierfile_ (string='') - 
+   - field_ ({string, stringArray}='') - 
+   - spw_ ({string, stringArray}='') - 
+   - selectdata_ (bool=True) - 
 
       .. raw:: html
 
          <details><summary><i> selectdata = True </i></summary>
 
-      - **timerange** ({string, stringArray}='') -  [7]_
-      - **uvrange** ({string, stringArray}='') -  [8]_
-      - **antenna** ({string, stringArray}='') -  [9]_
-      - **scan** ({string, stringArray}='') -  [10]_
-      - **observation** ({string, int}='') -  [11]_
-      - **intent** ({string, stringArray}='') -  [12]_
+      - timerange_ ({string, stringArray}='') - 
+      - uvrange_ ({string, stringArray}='') - 
+      - antenna_ ({string, stringArray}='') - 
+      - scan_ ({string, stringArray}='') - 
+      - observation_ ({string, int}='') - 
+      - intent_ ({string, stringArray}='') - 
 
       .. raw:: html
 
          </details>
-   - **mode** (string='mfs') -  [13]_
+   - mode_ (string='mfs') - 
 
       .. raw:: html
 
          <details><summary><i> mode = mfs </i></summary>
 
-      - **nterms** (int=1) -  [66]_
-      - **reffreq** (string='') -  [67]_
+      - nterms_ (int=1) - 
+      - reffreq_ (string='') - 
 
       .. raw:: html
 
@@ -45,13 +45,13 @@ Parameters
 
          <details><summary><i> mode = channel </i></summary>
 
-      - **nchan** (int=-1) -  [41]_
-      - **start** (variant='0') -  [42]_
-      - **width** (variant='1') -  [43]_
-      - **interpolation** (string='linear') -  [27]_
-      - **resmooth** (bool=False) -  [14]_
-      - **chaniter** (bool=False) -  [68]_
-      - **outframe** (string='') -  [44]_
+      - nchan_ (int=-1) - 
+      - start_ (variant='0') - 
+      - width_ (variant='1') - 
+      - interpolation_ (string='linear') - 
+      - resmooth_ (bool=False) - 
+      - chaniter_ (bool=False) - 
+      - outframe_ (string='') - 
 
       .. raw:: html
 
@@ -61,14 +61,14 @@ Parameters
 
          <details><summary><i> mode = velocity </i></summary>
 
-      - **nchan** (int=-1) -  [41]_
-      - **start** (variant='0') -  [42]_
-      - **width** (variant='1') -  [43]_
-      - **interpolation** (string='linear') -  [27]_
-      - **resmooth** (bool=False) -  [14]_
-      - **chaniter** (bool=False) -  [68]_
-      - **outframe** (string='') -  [44]_
-      - **veltype** (string='radio') -  [45]_
+      - nchan_ (int=-1) - 
+      - start_ (variant='0') - 
+      - width_ (variant='1') - 
+      - interpolation_ (string='linear') - 
+      - resmooth_ (bool=False) - 
+      - chaniter_ (bool=False) - 
+      - outframe_ (string='') - 
+      - veltype_ (string='radio') - 
 
       .. raw:: html
 
@@ -78,25 +78,25 @@ Parameters
 
          <details><summary><i> mode = frequency </i></summary>
 
-      - **nchan** (int=-1) -  [41]_
-      - **start** (variant='0') -  [42]_
-      - **width** (variant='1') -  [43]_
-      - **interpolation** (string='linear') -  [27]_
-      - **resmooth** (bool=False) -  [14]_
-      - **chaniter** (bool=False) -  [68]_
-      - **outframe** (string='') -  [44]_
+      - nchan_ (int=-1) - 
+      - start_ (variant='0') - 
+      - width_ (variant='1') - 
+      - interpolation_ (string='linear') - 
+      - resmooth_ (bool=False) - 
+      - chaniter_ (bool=False) - 
+      - outframe_ (string='') - 
 
       .. raw:: html
 
          </details>
-   - **gridmode** (string='') -  [15]_
+   - gridmode_ (string='') - 
 
       .. raw:: html
 
          <details><summary><i> gridmode = widefield </i></summary>
 
-      - **wprojplanes** (int=-1) -  [16]_
-      - **facets** (int=1) -  [17]_
+      - wprojplanes_ (int=-1) - 
+      - facets_ (int=1) - 
 
       .. raw:: html
 
@@ -106,10 +106,10 @@ Parameters
 
          <details><summary><i> gridmode = aprojection </i></summary>
 
-      - **wprojplanes** (int=-1) -  [16]_
-      - **cfcache** (string='cfcache.dir') -  [18]_
-      - **rotpainc** (double=5.0) -  [19]_
-      - **painc** (double=360.0) -  [20]_
+      - wprojplanes_ (int=-1) - 
+      - cfcache_ (string='cfcache.dir') - 
+      - rotpainc_ (double=5.0) - 
+      - painc_ (double=360.0) - 
 
       .. raw:: html
 
@@ -119,32 +119,32 @@ Parameters
 
          <details><summary><i> gridmode = advancedaprojection </i></summary>
 
-      - **wprojplanes** (int=-1) -  [16]_
-      - **cfcache** (string='cfcache.dir') -  [18]_
-      - **rotpainc** (double=5.0) -  [19]_
-      - **painc** (double=360.0) -  [20]_
-      - **wbawp** (bool=False) -  [24]_
-      - **conjbeams** (bool=True) -  [25]_
-      - **aterm** (bool=True) -  [21]_
-      - **psterm** (bool=False) -  [22]_
-      - **mterm** (bool=True) -  [23]_
-      - **epjtable** (string='') -  [26]_
+      - wprojplanes_ (int=-1) - 
+      - cfcache_ (string='cfcache.dir') - 
+      - rotpainc_ (double=5.0) - 
+      - painc_ (double=360.0) - 
+      - wbawp_ (bool=False) - 
+      - conjbeams_ (bool=True) - 
+      - aterm_ (bool=True) - 
+      - psterm_ (bool=False) - 
+      - mterm_ (bool=True) - 
+      - epjtable_ (string='') - 
 
       .. raw:: html
 
          </details>
-   - **niter** (int=500) -  [28]_
-   - **gain** (double=0.1) -  [29]_
-   - **threshold** (double=0.0) -  [30]_
-   - **psfmode** (string='clark') -  [31]_
-   - **imagermode** (string='csclean') -  [32]_
+   - niter_ (int=500) - 
+   - gain_ (double=0.1) - 
+   - threshold_ (double=0.0) - 
+   - psfmode_ (string='clark') - 
+   - imagermode_ (string='csclean') - 
 
       .. raw:: html
 
          <details><summary><i> imagermode = csclean </i></summary>
 
-      - **cyclefactor** (double=1.5) -  [64]_
-      - **cyclespeedup** (int=-1) -  [65]_
+      - cyclefactor_ (double=1.5) - 
+      - cyclespeedup_ (int=-1) - 
 
       .. raw:: html
 
@@ -154,42 +154,42 @@ Parameters
 
          <details><summary><i> imagermode = mosaic </i></summary>
 
-      - **mosweight** (bool=False) -  [34]_
-      - **ftmachine** (string='mosaic') -  [33]_
-      - **scaletype** (string='SAULT') -  [35]_
-      - **cyclefactor** (double=1.5) -  [64]_
-      - **cyclespeedup** (int=-1) -  [65]_
-      - **flatnoise** (bool=True) -  [69]_
+      - mosweight_ (bool=False) - 
+      - ftmachine_ (string='mosaic') - 
+      - scaletype_ (string='SAULT') - 
+      - cyclefactor_ (double=1.5) - 
+      - cyclespeedup_ (int=-1) - 
+      - flatnoise_ (bool=True) - 
 
       .. raw:: html
 
          </details>
-   - **multiscale** (intArray=[0]) -  [36]_
-   - **interactive** (bool=False) -  [39]_
+   - multiscale_ (intArray=[0]) - 
+   - interactive_ (bool=False) - 
 
       .. raw:: html
 
          <details><summary><i> interactive = True </i></summary>
 
-      - **npercycle** (int=100) -  [63]_
+      - npercycle_ (int=100) - 
 
       .. raw:: html
 
          </details>
-   - **mask** (variant='') -  [40]_
-   - **imsize** (intArray=[256, 256]) -  [46]_
-   - **cell** (doubleArray=[1.0]) -  [47]_
-   - **phasecenter** (variant='') -  [48]_
-   - **restfreq** (string='') -  [49]_
-   - **stokes** (string='I') -  [50]_
-   - **weighting** (string='natural') -  [51]_
+   - mask_ (variant='') - 
+   - imsize_ (intArray=[256, 256]) - 
+   - cell_ (doubleArray=[1.0]) - 
+   - phasecenter_ (variant='') - 
+   - restfreq_ (string='') - 
+   - stokes_ (string='I') - 
+   - weighting_ (string='natural') - 
 
       .. raw:: html
 
          <details><summary><i> weighting = briggs </i></summary>
 
-      - **robust** (double=0.0) -  [52]_
-      - **npixels** (int=0) -  [62]_
+      - robust_ (double=0.0) - 
+      - npixels_ (int=0) - 
 
       .. raw:: html
 
@@ -199,9 +199,9 @@ Parameters
 
          <details><summary><i> weighting = briggsabs </i></summary>
 
-      - **robust** (double=0.0) -  [52]_
-      - **noise** (variant='1.0Jy') -  [61]_
-      - **npixels** (int=0) -  [62]_
+      - robust_ (double=0.0) - 
+      - noise_ (variant='1.0Jy') - 
+      - npixels_ (int=0) - 
 
       .. raw:: html
 
@@ -211,29 +211,29 @@ Parameters
 
          <details><summary><i> weighting = superuniform </i></summary>
 
-      - **npixels** (int=0) -  [62]_
+      - npixels_ (int=0) - 
 
       .. raw:: html
 
          </details>
-   - **uvtaper** (bool=False) -  [53]_
+   - uvtaper_ (bool=False) - 
 
       .. raw:: html
 
          <details><summary><i> uvtaper = True </i></summary>
 
-      - **outertaper** (stringArray=['']) -  [54]_
-      - **innertaper** (stringArray=[1.0]) -  [55]_
+      - outertaper_ (stringArray=['']) - 
+      - innertaper_ (stringArray=[1.0]) - 
 
       .. raw:: html
 
          </details>
-   - **modelimage** (variant='') -  [56]_
-   - **restoringbeam** (stringArray=['']) -  [57]_
-   - **pbcor** (bool=False) -  [58]_
-   - **minpb** (double=0.2) -  [59]_
-   - **usescratch** (bool=False) -  [60]_
-   - **allowchunk** (bool=False) -  [70]_
+   - modelimage_ (variant='') - 
+   - restoringbeam_ (stringArray=['']) - 
+   - pbcor_ (bool=False) - 
+   - minpb_ (double=0.2) - 
+   - usescratch_ (bool=False) - 
+   - allowchunk_ (bool=False) - 
 
 
 Description
@@ -1854,216 +1854,426 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** ({string, stringArray})
-      | Name of input visibility file
-.. [2] 
-   **imagename** ({string, stringArray}='')
-      | Pre-name of output images
-.. [3] 
-   **outlierfile** (string='')
-      | Text file with image names, sizes, centers for outliers
-.. [4] 
-   **field** ({string, stringArray}='')
-      | Field Name or id
-.. [5] 
-   **spw** ({string, stringArray}='')
-      | Spectral windows e.g. \'0~3\', \'\' is all
-.. [6] 
-   **selectdata** (bool=True)
-      | Other data selection parameters
-.. [7] 
-   **timerange** ({string, stringArray}='')
-      | Range of time to select from data
-.. [8] 
-   **uvrange** ({string, stringArray}='')
-      | Select data within uvrange
-.. [9] 
-   **antenna** ({string, stringArray}='')
-      | Select data based on antenna/baseline
-.. [10] 
-   **scan** ({string, stringArray}='')
-      | Scan number range
-.. [11] 
-   **observation** ({string, int}='')
-      | Observation ID range
-.. [12] 
-   **intent** ({string, stringArray}='')
-      | Scan Intent(s)
-.. [13] 
-   **mode** (string='mfs')
-      | Spectral gridding type (mfs, channel, velocity, frequency)
-.. [14] 
-   **resmooth** (bool=False)
-      | Re-restore the cube image to a common beam when True
-.. [15] 
-   **gridmode** (string='')
-      | Gridding kernel for FFT-based transforms, default=\'\' None
-.. [16] 
-   **wprojplanes** (int=-1)
-      | Number of w-projection planes for convolution; -1 => automatic determination
-.. [17] 
-   **facets** (int=1)
-      | Number of facets along each axis (main image only)
-.. [18] 
-   **cfcache** (string='cfcache.dir')
-      | Convolution function cache directory
-.. [19] 
-   **rotpainc** (double=5.0)
-      | Parallactic angle increment (degrees) for OTF A-term rotation
-.. [20] 
-   **painc** (double=360.0)
-      | Parallactic angle increment (degrees) for computing A-term
-.. [21] 
-   **aterm** (bool=True)
-      | Switch-on the A-Term?
-.. [22] 
-   **psterm** (bool=False)
-      | Switch-on the PS-Term?
-.. [23] 
-   **mterm** (bool=True)
-      | Switch-on the M-Term?
-.. [24] 
-   **wbawp** (bool=False)
-      | Trigger the wide-band A-Projection algorithm?
-.. [25] 
-   **conjbeams** (bool=True)
-      | Use frequency conjugate beams in WB A-Projection algorithm?
-.. [26] 
-   **epjtable** (string='')
-      | Table of EP-Jones parameters
-.. [27] 
-   **interpolation** (string='linear')
-      | Spectral interpolation (nearest, linear, cubic).
-.. [28] 
-   **niter** (int=500)
-      | Maximum number of iterations
-.. [29] 
-   **gain** (double=0.1)
-      | Loop gain for cleaning
-.. [30] 
-   **threshold** (double=0.0)
-      | Flux level to stop cleaning, must include units: \'1.0mJy\'
-.. [31] 
-   **psfmode** (string='clark')
-      | Method of PSF calculation to use during minor cycles
-.. [32] 
-   **imagermode** (string='csclean')
-      | Options: \'csclean\' or \'mosaic\', \'\', uses psfmode
-.. [33] 
-   **ftmachine** (string='mosaic')
-      | Gridding method for the image
-.. [34] 
-   **mosweight** (bool=False)
-      | Individually weight the fields of the mosaic
-.. [35] 
-   **scaletype** (string='SAULT')
-      | Controls scaling of pixels in the image plane. default=\'SAULT\'; example: scaletype=\'PBCOR\' Options: \'PBCOR\',\'SAULT\'
-.. [36] 
-   **multiscale** (intArray=[0])
-      | Deconvolution scales (pixels); [] = standard clean
-.. [37] 
-   **negcomponent** (int=-1)
-      | Stop cleaning if the largest scale finds this number of neg components
-.. [38] 
-   **smallscalebias** (double=0.6)
-      | a bias to give more weight toward smaller scales
-.. [39] 
-   **interactive** (bool=False)
-      | Use interactive clean (with GUI viewer)
-.. [40] 
-   **mask** (variant='')
-      | Cleanbox(es), mask image(s), region(s), or a level
-.. [41] 
-   **nchan** (int=-1)
-      | Number of channels (planes) in output image; -1 = all
-.. [42] 
-   **start** (variant='0')
-      | start of output spectral dimension
-.. [43] 
-   **width** (variant='1')
-      | width of output spectral channels
-.. [44] 
-   **outframe** (string='')
-      | default spectral frame of output image
-.. [45] 
-   **veltype** (string='radio')
-      | velocity definition (radio, optical, true)
-.. [46] 
-   **imsize** (intArray=[256, 256])
-      | x and y image size in pixels.  Single value: same for both
-.. [47] 
-   **cell** (doubleArray=[1.0])
-      | x and y cell size(s). Default unit arcsec.
-.. [48] 
-   **phasecenter** (variant='')
-      | Image center: direction or field index
-.. [49] 
-   **restfreq** (string='')
-      | Rest frequency to assign to image (see help)
-.. [50] 
-   **stokes** (string='I')
-      | Stokes params to image (eg I,IV,IQ,IQUV)
-.. [51] 
-   **weighting** (string='natural')
-      | Weighting of uv (natural, uniform, briggs, ...)
-.. [52] 
-   **robust** (double=0.0)
-      | Briggs robustness parameter
-.. [53] 
-   **uvtaper** (bool=False)
-      | Apply additional uv tapering of visibilities
-.. [54] 
-   **outertaper** (stringArray=[''])
-      | uv-taper on outer baselines in uv-plane
-.. [55] 
-   **innertaper** (stringArray=[1.0])
-      | uv-taper in center of uv-plane (not implemented)
-.. [56] 
-   **modelimage** (variant='')
-      | Name of model image(s) to initialize cleaning
-.. [57] 
-   **restoringbeam** (stringArray=[''])
-      | Output Gaussian restoring beam for CLEAN image
-.. [58] 
-   **pbcor** (bool=False)
-      | Output primary beam-corrected image
-.. [59] 
-   **minpb** (double=0.2)
-      | Minimum PB level to use
-.. [60] 
-   **usescratch** (bool=False)
-      | True if to save model visibilities in MODEL_DATA column
-.. [61] 
-   **noise** (variant='1.0Jy')
-      | noise parameter for briggs abs mode weighting
-.. [62] 
-   **npixels** (int=0)
-      | number of pixels for superuniform or briggs weighting
-.. [63] 
-   **npercycle** (int=100)
-      | Clean iterations before interactive prompt (can be changed)
-.. [64] 
-   **cyclefactor** (double=1.5)
-      | Controls how often major cycles are done. (e.g. 5 for frequently)
-.. [65] 
-   **cyclespeedup** (int=-1)
-      | Cycle threshold doubles in this number of iterations
-.. [66] 
-   **nterms** (int=1)
-      | Number of Taylor coefficients to model the sky frequency dependence
-.. [67] 
-   **reffreq** (string='')
-      | Reference frequency (nterms > 1),\'\' uses central data-frequency
-.. [68] 
-   **chaniter** (bool=False)
-      | Clean each channel to completion (True), or all channels each cycle (False)
-.. [69] 
-   **flatnoise** (bool=True)
-      | Controls whether searching for clean components is done in a constant noise residual image (True) or in an optimal signal-to-noise residual image (False)
-.. [70] 
-   **allowchunk** (bool=False)
-      | Divide large image cubes into channel chunks for deconvolution
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file
+
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Pre-name of output images
+
+.. _outlierfile:
+
+   .. rubric:: outlierfile
+
+   | Text file with image names, sizes, centers for outliers
+
+.. _field:
+
+   .. rubric:: field
+
+   | Field Name or id
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | Spectral windows e.g. \'0~3\', \'\' is all
+
+.. _selectdata:
+
+   .. rubric:: selectdata
+
+   | Other data selection parameters
+
+.. _timerange:
+
+   .. rubric:: timerange
+
+   | Range of time to select from data
+
+.. _uvrange:
+
+   .. rubric:: uvrange
+
+   | Select data within uvrange
+
+.. _antenna:
+
+   .. rubric:: antenna
+
+   | Select data based on antenna/baseline
+
+.. _scan:
+
+   .. rubric:: scan
+
+   | Scan number range
+
+.. _observation:
+
+   .. rubric:: observation
+
+   | Observation ID range
+
+.. _intent:
+
+   .. rubric:: intent
+
+   | Scan Intent(s)
+
+.. _mode:
+
+   .. rubric:: mode
+
+   | Spectral gridding type (mfs, channel, velocity, frequency)
+
+.. _resmooth:
+
+   .. rubric:: resmooth
+
+   | Re-restore the cube image to a common beam when True
+
+.. _gridmode:
+
+   .. rubric:: gridmode
+
+   | Gridding kernel for FFT-based transforms, default=\'\' None
+
+.. _wprojplanes:
+
+   .. rubric:: wprojplanes
+
+   | Number of w-projection planes for convolution; -1 => automatic determination
+
+.. _facets:
+
+   .. rubric:: facets
+
+   | Number of facets along each axis (main image only)
+
+.. _cfcache:
+
+   .. rubric:: cfcache
+
+   | Convolution function cache directory
+
+.. _rotpainc:
+
+   .. rubric:: rotpainc
+
+   | Parallactic angle increment (degrees) for OTF A-term rotation
+
+.. _painc:
+
+   .. rubric:: painc
+
+   | Parallactic angle increment (degrees) for computing A-term
+
+.. _aterm:
+
+   .. rubric:: aterm
+
+   | Switch-on the A-Term?
+
+.. _psterm:
+
+   .. rubric:: psterm
+
+   | Switch-on the PS-Term?
+
+.. _mterm:
+
+   .. rubric:: mterm
+
+   | Switch-on the M-Term?
+
+.. _wbawp:
+
+   .. rubric:: wbawp
+
+   | Trigger the wide-band A-Projection algorithm?
+
+.. _conjbeams:
+
+   .. rubric:: conjbeams
+
+   | Use frequency conjugate beams in WB A-Projection algorithm?
+
+.. _epjtable:
+
+   .. rubric:: epjtable
+
+   | Table of EP-Jones parameters
+
+.. _interpolation:
+
+   .. rubric:: interpolation
+
+   | Spectral interpolation (nearest, linear, cubic).
+
+.. _niter:
+
+   .. rubric:: niter
+
+   | Maximum number of iterations
+
+.. _gain:
+
+   .. rubric:: gain
+
+   | Loop gain for cleaning
+
+.. _threshold:
+
+   .. rubric:: threshold
+
+   | Flux level to stop cleaning, must include units: \'1.0mJy\'
+
+.. _psfmode:
+
+   .. rubric:: psfmode
+
+   | Method of PSF calculation to use during minor cycles
+
+.. _imagermode:
+
+   .. rubric:: imagermode
+
+   | Options: \'csclean\' or \'mosaic\', \'\', uses psfmode
+
+.. _ftmachine:
+
+   .. rubric:: ftmachine
+
+   | Gridding method for the image
+
+.. _mosweight:
+
+   .. rubric:: mosweight
+
+   | Individually weight the fields of the mosaic
+
+.. _scaletype:
+
+   .. rubric:: scaletype
+
+   | Controls scaling of pixels in the image plane. default=\'SAULT\'; example: scaletype=\'PBCOR\' Options: \'PBCOR\',\'SAULT\'
+
+.. _multiscale:
+
+   .. rubric:: multiscale
+
+   | Deconvolution scales (pixels); [] = standard clean
+
+.. _negcomponent:
+
+   .. rubric:: negcomponent
+
+   | Stop cleaning if the largest scale finds this number of neg components
+
+.. _smallscalebias:
+
+   .. rubric:: smallscalebias
+
+   | a bias to give more weight toward smaller scales
+
+.. _interactive:
+
+   .. rubric:: interactive
+
+   | Use interactive clean (with GUI viewer)
+
+.. _mask:
+
+   .. rubric:: mask
+
+   | Cleanbox(es), mask image(s), region(s), or a level
+
+.. _nchan:
+
+   .. rubric:: nchan
+
+   | Number of channels (planes) in output image; -1 = all
+
+.. _start:
+
+   .. rubric:: start
+
+   | start of output spectral dimension
+
+.. _width:
+
+   .. rubric:: width
+
+   | width of output spectral channels
+
+.. _outframe:
+
+   .. rubric:: outframe
+
+   | default spectral frame of output image
+
+.. _veltype:
+
+   .. rubric:: veltype
+
+   | velocity definition (radio, optical, true)
+
+.. _imsize:
+
+   .. rubric:: imsize
+
+   | x and y image size in pixels.  Single value: same for both
+
+.. _cell:
+
+   .. rubric:: cell
+
+   | x and y cell size(s). Default unit arcsec.
+
+.. _phasecenter:
+
+   .. rubric:: phasecenter
+
+   | Image center: direction or field index
+
+.. _restfreq:
+
+   .. rubric:: restfreq
+
+   | Rest frequency to assign to image (see help)
+
+.. _stokes:
+
+   .. rubric:: stokes
+
+   | Stokes params to image (eg I,IV,IQ,IQUV)
+
+.. _weighting:
+
+   .. rubric:: weighting
+
+   | Weighting of uv (natural, uniform, briggs, ...)
+
+.. _robust:
+
+   .. rubric:: robust
+
+   | Briggs robustness parameter
+
+.. _uvtaper:
+
+   .. rubric:: uvtaper
+
+   | Apply additional uv tapering of visibilities
+
+.. _outertaper:
+
+   .. rubric:: outertaper
+
+   | uv-taper on outer baselines in uv-plane
+
+.. _innertaper:
+
+   .. rubric:: innertaper
+
+   | uv-taper in center of uv-plane (not implemented)
+
+.. _modelimage:
+
+   .. rubric:: modelimage
+
+   | Name of model image(s) to initialize cleaning
+
+.. _restoringbeam:
+
+   .. rubric:: restoringbeam
+
+   | Output Gaussian restoring beam for CLEAN image
+
+.. _pbcor:
+
+   .. rubric:: pbcor
+
+   | Output primary beam-corrected image
+
+.. _minpb:
+
+   .. rubric:: minpb
+
+   | Minimum PB level to use
+
+.. _usescratch:
+
+   .. rubric:: usescratch
+
+   | True if to save model visibilities in MODEL_DATA column
+
+.. _noise:
+
+   .. rubric:: noise
+
+   | noise parameter for briggs abs mode weighting
+
+.. _npixels:
+
+   .. rubric:: npixels
+
+   | number of pixels for superuniform or briggs weighting
+
+.. _npercycle:
+
+   .. rubric:: npercycle
+
+   | Clean iterations before interactive prompt (can be changed)
+
+.. _cyclefactor:
+
+   .. rubric:: cyclefactor
+
+   | Controls how often major cycles are done. (e.g. 5 for frequently)
+
+.. _cyclespeedup:
+
+   .. rubric:: cyclespeedup
+
+   | Cycle threshold doubles in this number of iterations
+
+.. _nterms:
+
+   .. rubric:: nterms
+
+   | Number of Taylor coefficients to model the sky frequency dependence
+
+.. _reffreq:
+
+   .. rubric:: reffreq
+
+   | Reference frequency (nterms > 1),\'\' uses central data-frequency
+
+.. _chaniter:
+
+   .. rubric:: chaniter
+
+   | Clean each channel to completion (True), or all channels each cycle (False)
+
+.. _flatnoise:
+
+   .. rubric:: flatnoise
+
+   | Controls whether searching for clean components is done in a constant noise residual image (True) or in an optimal signal-to-noise residual image (False)
+
+.. _allowchunk:
+
+   .. rubric:: allowchunk
+
+   | Divide large image cubes into channel chunks for deconvolution
+
 
     """
     pass

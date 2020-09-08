@@ -7,28 +7,28 @@ def exportuvfits(vis, fitsfile='', datacolumn='corrected', field='', spw='', ant
 Convert a CASA visibility data set to a UVFITS file:
 
 Parameters
-   - **vis** (string) - Name of input visibility file [1]_
-   - **fitsfile** (string='') - Name of output UV FITS file [2]_
-   - **datacolumn** (string='corrected') - Visibility file data column [3]_
-   - **field** ({string, stringArray, int, intArray}='') - Select field using field id(s) or field name(s) [4]_
-   - **spw** (string='') - Select spectral window/channels [5]_
-   - **antenna** (string='') - Select data based on antenna/baseline [6]_
-   - **timerange** (string='') - Select data based on time range [7]_
-   - **writesyscal** (bool=False) - Write GC and TY tables (not yet available) [8]_
-   - **multisource** (bool=True) - Write in multi-source format? [9]_
-   - **combinespw** (bool=True) - Export the spectral windows as IFs [10]_
+   - vis_ (string) - Name of input visibility file
+   - fitsfile_ (string='') - Name of output UV FITS file
+   - datacolumn_ (string='corrected') - Visibility file data column
+   - field_ ({string, stringArray, int, intArray}='') - Select field using field id(s) or field name(s)
+   - spw_ (string='') - Select spectral window/channels
+   - antenna_ (string='') - Select data based on antenna/baseline
+   - timerange_ (string='') - Select data based on time range
+   - writesyscal_ (bool=False) - Write GC and TY tables (not yet available)
+   - multisource_ (bool=True) - Write in multi-source format?
+   - combinespw_ (bool=True) - Export the spectral windows as IFs
 
       .. raw:: html
 
          <details><summary><i> combinespw = True </i></summary>
 
-      - **padwithflags** (bool=False) - Fill in missing data with flags to fit IFs [12]_
+      - padwithflags_ (bool=False) - Fill in missing data with flags to fit IFs
 
       .. raw:: html
 
          </details>
-   - **writestation** (bool=True) - Write station name instead of antenna name [11]_
-   - **overwrite** (bool=False) - Overwrite output file if it exists? [13]_
+   - writestation_ (bool=True) - Write station name instead of antenna name
+   - overwrite_ (bool=False) - Overwrite output file if it exists?
 
 
 Description
@@ -120,157 +120,196 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file
-      |                      Default: none
-      | 
-      |                         Example: vis='ngc5921.ms'
-.. [2] 
-   **fitsfile** (string='')
-      | Name of output UV FITS file
-      |                      Default: none
-      | 
-      |                         Example: vis='ngc5921XC1.fits'
-.. [3] 
-   **datacolumn** (string='corrected')
-      | Visibility file data column
-      |                      Default: corrected
-      |                      Options: 'data'(raw)|'corrected'|'model'|'weight'
-      | 
-      |                         Example: datacolumn='model'
-.. [4] 
-   **field** ({string, stringArray, int, intArray}='')
-      | Select field using field id(s) or field name(s)
-      |                      Default: '' --> all fields
-      |                      
-      |                      Use 'go listobs' to obtain the list id's or
-      |                      names. If field string is a non-negative integer,
-      |                      it is assumed a field index,  otherwise, it is
-      |                      assumed a field name.
-      | 
-      |                         Examples:
-      |                         field='0~2'; field ids 0,1,2
-      |                         field='0,4,5~7'; field ids 0,4,5,6,7
-      |                         field='3C286,3C295'; field named 3C286 and
-      |                         3C295
-      |                         field = '3,4C*'; field id 3, all names
-      |                         starting with 4C
-.. [5] 
-   **spw** (string='')
-      | Select spectral window/channels
-      | 
-      |                         Examples:
-      |                         spw='0~2,4'; spectral windows 0,1,2,4 (all
-      |                         channels)
-      |                         spw='<2';  spectral windows less than 2
-      |                         (i.e. 0,1)
-      |                         spw='0:5~61'; spw 0, channels 5 to 61,
-      |                         INCLUSIVE
-      |                         spw='*:5~61'; all spw with channels 5 to 61
-      |                         spw='0,10,3:3~45'; spw 0,10 all channels, spw
-      |                         3, channels 3 to 45.
-      |                         spw='0~2:2~6'; spw 0,1,2 with channels 2
-      |                         through 6 in each.
-      |                         spw='0:0~10;15~60'; spectral window 0 with
-      |                         channels 0-10,15-60. (NOTE ';' to separate
-      |                         channel selections)
-      |                         spw='0:0~10^2,1:20~30^5'; spw 0, channels
-      |                         0,2,4,6,8,10, spw 1, channels 20,25,30 
-      |                         type 'help par.selection' for more examples.
-.. [6] 
-   **antenna** (string='')
-      | Select data based on antenna/baseline
-      |                      Subparameter of selectdata=True
-      |                      Default: '' (all)
-      | 
-      |                      If antenna string is a non-negative integer, it
-      |                      is assumed an antenna index, otherwise, it is
-      |                      assumed as an antenna name
-      |   
-      |                          Examples: 
-      |                          antenna='5&6'; baseline between antenna
-      |                          index 5 and index 6.
-      |                          antenna='VA05&VA06'; baseline between VLA
-      |                          antenna 5 and 6.
-      |                          antenna='5&6;7&8'; baselines with
-      |                          indices 5-6 and 7-8
-      |                          antenna='5'; all baselines with antenna index
-      |                          5
-      |                          antenna='05'; all baselines with antenna
-      |                          number 05 (VLA old name)
-      |                          antenna='5,6,10'; all baselines with antennas
-      |                          5,6,10 index numbers
-.. [7] 
-   **timerange** (string='')
-      | Select data based on time range
-      |                      Subparameter of selectdata=True
-      |                      Default = '' (all)
-      | 
-      |                         Examples:
-      |                         timerange =
-      |                         'YYYY/MM/DD/hh:mm:ss~YYYY/MM/DD/hh:mm:ss'
-      |                         (Note: if YYYY/MM/DD is missing date defaults
-      |                         to first day in data set.)
-      |                         timerange='09:14:0~09:54:0' picks 40 min on
-      |                         first day 
-      |                         timerange= '25:00:00~27:30:00' picks 1 hr to 3
-      |                         hr 30min on NEXT day
-      |                         timerange='09:44:00' pick data within one
-      |                         integration of time
-      |                         timerange='>10:24:00' data after this time
-.. [8] 
-   **writesyscal** (bool=False)
-      | Write GC and TY tables. Not yet available.
-      |                      Default: False
-.. [9] 
-   **multisource** (bool=True)
-      | Write in multi-source format? 
-      |                      Default: True
-      | 
-      |                      Set to False if only one source is selected. 
-      | 
-      |                      Note: diffmap does not work on multisource uvfits
-      |                      files, so if planning on using diffmap on the
-      |                      resulting uvfits file, select a single source and
-      |                      set multisource = False. Otherwise use True. (If
-      |                      multiple sources are selected, a multi-source
-      |                      file will be written no matter what the setting
-      |                      of this parameter).
-.. [10] 
-   **combinespw** (bool=True)
-      | Export the spectral windows as IFs?
-      |                      Default: True
-      | 
-      |                      If True, export the spectral windows as
-      |                      IFs. All spectral windows must have same
-      |                      shape. Otherwise multiple windows will use
-      |                      multiple FREQIDs.
-.. [11] 
-   **writestation** (bool=True)
-      | Write station name instead of antenna name
-      |                      Default: True
-.. [12] 
-   **padwithflags** (bool=False)
-      | Fill in missing data with flags to fit IFs
-      |                      Subparameter of combinespw=True
-      |                      Default: True
-      |                      
-      |                      If True, and combinespw is True, fill in missing
-      |                      data as needed to fit the IF structure. This is
-      |                      appropriate if the MS had a few
-      |                      frequency-dependent flags applied, and was then
-      |                      time-averaged by split, or when exporting for use
-      |                      by difmap. If the spectral windows were observed
-      |                      at different times, padwithflags=True will add a
-      |                      large number of flags, making the output file
-      |                      significantly longer. It does not yet support
-      |                      spectral windows with different widths.
-.. [13] 
-   **overwrite** (bool=False)
-      | Overwrite output file if it exists?
-      |                      Default: False
-      |                      Options: False|True
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file
+   |                      Default: none
+   | 
+   |                         Example: vis='ngc5921.ms'
+
+.. _fitsfile:
+
+   .. rubric:: fitsfile
+
+   | Name of output UV FITS file
+   |                      Default: none
+   | 
+   |                         Example: vis='ngc5921XC1.fits'
+
+.. _datacolumn:
+
+   .. rubric:: datacolumn
+
+   | Visibility file data column
+   |                      Default: corrected
+   |                      Options: 'data'(raw)|'corrected'|'model'|'weight'
+   | 
+   |                         Example: datacolumn='model'
+
+.. _field:
+
+   .. rubric:: field
+
+   | Select field using field id(s) or field name(s)
+   |                      Default: '' --> all fields
+   |                      
+   |                      Use 'go listobs' to obtain the list id's or
+   |                      names. If field string is a non-negative integer,
+   |                      it is assumed a field index,  otherwise, it is
+   |                      assumed a field name.
+   | 
+   |                         Examples:
+   |                         field='0~2'; field ids 0,1,2
+   |                         field='0,4,5~7'; field ids 0,4,5,6,7
+   |                         field='3C286,3C295'; field named 3C286 and
+   |                         3C295
+   |                         field = '3,4C*'; field id 3, all names
+   |                         starting with 4C
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | Select spectral window/channels
+   | 
+   |                         Examples:
+   |                         spw='0~2,4'; spectral windows 0,1,2,4 (all
+   |                         channels)
+   |                         spw='<2';  spectral windows less than 2
+   |                         (i.e. 0,1)
+   |                         spw='0:5~61'; spw 0, channels 5 to 61,
+   |                         INCLUSIVE
+   |                         spw='*:5~61'; all spw with channels 5 to 61
+   |                         spw='0,10,3:3~45'; spw 0,10 all channels, spw
+   |                         3, channels 3 to 45.
+   |                         spw='0~2:2~6'; spw 0,1,2 with channels 2
+   |                         through 6 in each.
+   |                         spw='0:0~10;15~60'; spectral window 0 with
+   |                         channels 0-10,15-60. (NOTE ';' to separate
+   |                         channel selections)
+   |                         spw='0:0~10^2,1:20~30^5'; spw 0, channels
+   |                         0,2,4,6,8,10, spw 1, channels 20,25,30 
+   |                         type 'help par.selection' for more examples.
+
+.. _antenna:
+
+   .. rubric:: antenna
+
+   | Select data based on antenna/baseline
+   |                      Subparameter of selectdata=True
+   |                      Default: '' (all)
+   | 
+   |                      If antenna string is a non-negative integer, it
+   |                      is assumed an antenna index, otherwise, it is
+   |                      assumed as an antenna name
+   |   
+   |                          Examples: 
+   |                          antenna='5&6'; baseline between antenna
+   |                          index 5 and index 6.
+   |                          antenna='VA05&VA06'; baseline between VLA
+   |                          antenna 5 and 6.
+   |                          antenna='5&6;7&8'; baselines with
+   |                          indices 5-6 and 7-8
+   |                          antenna='5'; all baselines with antenna index
+   |                          5
+   |                          antenna='05'; all baselines with antenna
+   |                          number 05 (VLA old name)
+   |                          antenna='5,6,10'; all baselines with antennas
+   |                          5,6,10 index numbers
+
+.. _timerange:
+
+   .. rubric:: timerange
+
+   | Select data based on time range
+   |                      Subparameter of selectdata=True
+   |                      Default = '' (all)
+   | 
+   |                         Examples:
+   |                         timerange =
+   |                         'YYYY/MM/DD/hh:mm:ss~YYYY/MM/DD/hh:mm:ss'
+   |                         (Note: if YYYY/MM/DD is missing date defaults
+   |                         to first day in data set.)
+   |                         timerange='09:14:0~09:54:0' picks 40 min on
+   |                         first day 
+   |                         timerange= '25:00:00~27:30:00' picks 1 hr to 3
+   |                         hr 30min on NEXT day
+   |                         timerange='09:44:00' pick data within one
+   |                         integration of time
+   |                         timerange='>10:24:00' data after this time
+
+.. _writesyscal:
+
+   .. rubric:: writesyscal
+
+   | Write GC and TY tables. Not yet available.
+   |                      Default: False
+
+.. _multisource:
+
+   .. rubric:: multisource
+
+   | Write in multi-source format? 
+   |                      Default: True
+   | 
+   |                      Set to False if only one source is selected. 
+   | 
+   |                      Note: diffmap does not work on multisource uvfits
+   |                      files, so if planning on using diffmap on the
+   |                      resulting uvfits file, select a single source and
+   |                      set multisource = False. Otherwise use True. (If
+   |                      multiple sources are selected, a multi-source
+   |                      file will be written no matter what the setting
+   |                      of this parameter).
+
+.. _combinespw:
+
+   .. rubric:: combinespw
+
+   | Export the spectral windows as IFs?
+   |                      Default: True
+   | 
+   |                      If True, export the spectral windows as
+   |                      IFs. All spectral windows must have same
+   |                      shape. Otherwise multiple windows will use
+   |                      multiple FREQIDs.
+
+.. _writestation:
+
+   .. rubric:: writestation
+
+   | Write station name instead of antenna name
+   |                      Default: True
+
+.. _padwithflags:
+
+   .. rubric:: padwithflags
+
+   | Fill in missing data with flags to fit IFs
+   |                      Subparameter of combinespw=True
+   |                      Default: True
+   |                      
+   |                      If True, and combinespw is True, fill in missing
+   |                      data as needed to fit the IF structure. This is
+   |                      appropriate if the MS had a few
+   |                      frequency-dependent flags applied, and was then
+   |                      time-averaged by split, or when exporting for use
+   |                      by difmap. If the spectral windows were observed
+   |                      at different times, padwithflags=True will add a
+   |                      large number of flags, making the output file
+   |                      significantly longer. It does not yet support
+   |                      spectral windows with different widths.
+
+.. _overwrite:
+
+   .. rubric:: overwrite
+
+   | Overwrite output file if it exists?
+   |                      Default: False
+   |                      Options: False|True
+
 
     """
     pass

@@ -7,15 +7,15 @@ def importatca(files=[''], vis='', options='', spw=[-1], nscans=[0,0], lowfreq=0
 Import ATCA RPFITS file(s) to a measurement set
 
 Parameters
-   - **files** (stringArray=['']) - Name of input ATCA RPFits file(s) [1]_
-   - **vis** (string='') - Name of output MeasurementSet [2]_
-   - **options** (string='') - Processing options: birdie, reweight, noxycorr, fastmosaic, hires, noac (comma separated list) [3]_
-   - **spw** (intArray=[-1]) - Select spectral window/channels [4]_
-   - **nscans** (intArray=[0,0]) - Number of scans to skip followed by number of scans to read [5]_
-   - **lowfreq** (double=0.1) - Lowest reference frequency to select [6]_
-   - **highfreq** (double=999) - Highest reference frequency to select [7]_
-   - **fields** (stringArray=['']) - List of field names to select [8]_
-   - **edge** (double=8) - Percentage of edge channels to flag. For combined zooms, this specifies the percentage for a single zoom window [9]_
+   - files_ (stringArray=['']) - Name of input ATCA RPFits file(s)
+   - vis_ (string='') - Name of output MeasurementSet
+   - options_ (string='') - Processing options: birdie, reweight, noxycorr, fastmosaic, hires, noac (comma separated list)
+   - spw_ (intArray=[-1]) - Select spectral window/channels
+   - nscans_ (intArray=[0,0]) - Number of scans to skip followed by number of scans to read
+   - lowfreq_ (double=0.1) - Lowest reference frequency to select
+   - highfreq_ (double=999) - Highest reference frequency to select
+   - fields_ (stringArray=['']) - List of field names to select
+   - edge_ (double=8) - Percentage of edge channels to flag. For combined zooms, this specifies the percentage for a single zoom window
 
 
 Description
@@ -125,81 +125,108 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **files** (stringArray=[''])
-      | Name of input ATCA RPFits file(s)
-.. [2] 
-   **vis** (string='')
-      | Name of output MeasurementSet
-      |                      Default: none
-      | 
-      |                         Example: vis='mydata.ms'
-.. [3] 
-   **options** (string='')
-      | Processing options
-      |                      Default: none
-      |                      Options: birdie, reweight, noxycorr, fastmosaic,
-      |                      hires, noac (comma separated list)
-      | 
-      |                      * birdie: (pre-CABB data only) discard edge
-      |                        channels and channels affected by internal RFI
-      |                      * reweight: (pre-CABB data only) suppress ringing
-      |                        of RFI spikes by reweighting of the lag
-      |                        spectrum 
-      |                      * noxycorr: do not apply the xy phase correction
-      |                        as derived from the switched noise calibration,
-      |                        by default this is applied during loading of
-      |                        the data
-      |                      * fastmosaic: use this option if you are loading
-      |                        mosaic data with many pointings and only one or
-      |                        two integrations per pointing; this option
-      |                        changes the tiling of the data to avoid
-      |                        excessive I/O
-      |                      * hires: use this option if you have data in time
-      |                        binning mode (as used for pulsars) but you want
-      |                        to make it look like data with very short
-      |                        integration time (no bins)
-      |                      * noac: discard the auto-correlation data
-.. [4] 
-   **spw** (intArray=[-1])
-      | Select spectral window/channels
-      |                      Default: '' (all spectral windows and channels)
-      |            
-      |                         Examples:
-      |                         spw='0~2,4'; spectral windows 0,1,2,4 (all channels)
-      |                         spw='<2';  spectral windows less than 2 (i.e. 0,1)
-      |                         spw='0:5~61'; spw 0, channels 5 to 61
-      |                         spw='0,10,3:3~45'; spw 0,10 all channels, spw
-      |                         3 - chans 3 to 45.
-      |                         spw='0~2:2~6'; spw 0,1,2 with channels 2
-      |                         through 6 in each.
-      |                         spw = '*:3~64'  channels 3 through 64 for all sp id's
-      |                         spw = ' :3~64' will NOT work.
-.. [5] 
-   **nscans** (intArray=[0,0])
-      | Number of scans to skip followed by number of scans to
-      | read
-      |                      Default: [0, 0]
-.. [6] 
-   **lowfreq** (double=0.1)
-      | Lowest reference frequency to select
-      |                      Default: 0.1GHz
-.. [7] 
-   **highfreq** (double=999)
-      | Highest reference frequency to select
-      |                      Default: 999GHz
-.. [8] 
-   **fields** (stringArray=[''])
-      | List of field names to select
-.. [9] 
-   **edge** (double=8)
-      | The edge parameter specifies how many edge channels to
-      | discard as a percentage of the number of channels in each band.
-      |                      Default: 8 (e.g., discard 82 channels from the
-      |                      top and bottom of a 2048 channel spectrum)
-      | 
-      |                      For combined zooms, this specifies the percentage
-      |                      for a single zoom window
+.. _files:
+
+   .. rubric:: files
+
+   | Name of input ATCA RPFits file(s)
+
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of output MeasurementSet
+   |                      Default: none
+   | 
+   |                         Example: vis='mydata.ms'
+
+.. _options:
+
+   .. rubric:: options
+
+   | Processing options
+   |                      Default: none
+   |                      Options: birdie, reweight, noxycorr, fastmosaic,
+   |                      hires, noac (comma separated list)
+   | 
+   |                      * birdie: (pre-CABB data only) discard edge
+   |                        channels and channels affected by internal RFI
+   |                      * reweight: (pre-CABB data only) suppress ringing
+   |                        of RFI spikes by reweighting of the lag
+   |                        spectrum 
+   |                      * noxycorr: do not apply the xy phase correction
+   |                        as derived from the switched noise calibration,
+   |                        by default this is applied during loading of
+   |                        the data
+   |                      * fastmosaic: use this option if you are loading
+   |                        mosaic data with many pointings and only one or
+   |                        two integrations per pointing; this option
+   |                        changes the tiling of the data to avoid
+   |                        excessive I/O
+   |                      * hires: use this option if you have data in time
+   |                        binning mode (as used for pulsars) but you want
+   |                        to make it look like data with very short
+   |                        integration time (no bins)
+   |                      * noac: discard the auto-correlation data
+
+.. _spw:
+
+   .. rubric:: spw
+
+   | Select spectral window/channels
+   |                      Default: '' (all spectral windows and channels)
+   |            
+   |                         Examples:
+   |                         spw='0~2,4'; spectral windows 0,1,2,4 (all channels)
+   |                         spw='<2';  spectral windows less than 2 (i.e. 0,1)
+   |                         spw='0:5~61'; spw 0, channels 5 to 61
+   |                         spw='0,10,3:3~45'; spw 0,10 all channels, spw
+   |                         3 - chans 3 to 45.
+   |                         spw='0~2:2~6'; spw 0,1,2 with channels 2
+   |                         through 6 in each.
+   |                         spw = '*:3~64'  channels 3 through 64 for all sp id's
+   |                         spw = ' :3~64' will NOT work.
+
+.. _nscans:
+
+   .. rubric:: nscans
+
+   | Number of scans to skip followed by number of scans to
+   | read
+   |                      Default: [0, 0]
+
+.. _lowfreq:
+
+   .. rubric:: lowfreq
+
+   | Lowest reference frequency to select
+   |                      Default: 0.1GHz
+
+.. _highfreq:
+
+   .. rubric:: highfreq
+
+   | Highest reference frequency to select
+   |                      Default: 999GHz
+
+.. _fields:
+
+   .. rubric:: fields
+
+   | List of field names to select
+
+.. _edge:
+
+   .. rubric:: edge
+
+   | The edge parameter specifies how many edge channels to
+   | discard as a percentage of the number of channels in each band.
+   |                      Default: 8 (e.g., discard 82 channels from the
+   |                      top and bottom of a 2048 channel spectrum)
+   | 
+   |                      For combined zooms, this specifies the percentage
+   |                      for a single zoom window
+
 
     """
     pass

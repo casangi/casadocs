@@ -7,10 +7,10 @@ def polfromgain(vis, tablein, caltable='', paoffset=0.0):
 Derive linear polarization from gain ratio
 
 Parameters
-   - **vis** (string) - Name of input visibility file (MS) [1]_
-   - **tablein** (string) - Input calibration table [2]_
-   - **caltable** (string='') - Output calibration table (forces polarization correction if specified) [3]_
-   - **paoffset** (double=0.0) - Manual position angle offset [4]_
+   - vis_ (string) - Name of input visibility file (MS)
+   - tablein_ (string) - Input calibration table
+   - caltable_ (string='') - Output calibration table (forces polarization correction if specified)
+   - paoffset_ (double=0.0) - Manual position angle offset
 
 
 
@@ -20,18 +20,30 @@ Parameters
 Details
    Explanation of each parameter
 
-.. [1] 
-   **vis** (string)
-      | Name of input visibility file (MS)
-.. [2] 
-   **tablein** (string)
-      | Input calibration table
-.. [3] 
-   **caltable** (string='')
-      | Output calibration table (forces polarization correction if specified)
-.. [4] 
-   **paoffset** (double=0.0)
-      | Manual position angle offset
+.. _vis:
+
+   .. rubric:: vis
+
+   | Name of input visibility file (MS)
+
+.. _tablein:
+
+   .. rubric:: tablein
+
+   | Input calibration table
+
+.. _caltable:
+
+   .. rubric:: caltable
+
+   | Output calibration table (forces polarization correction if specified)
+
+.. _paoffset:
+
+   .. rubric:: paoffset
+
+   | Manual position angle offset
+
 
     """
     pass

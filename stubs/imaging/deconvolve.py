@@ -7,16 +7,16 @@ def deconvolve(imagename, model='', psf=[''], alg='clark', niter=10, gain=0.1, t
 Image based deconvolver
 
 Parameters
-   - **imagename** (string) -  [1]_
-   - **model** (string='') -  [2]_
-   - **psf** (stringArray=['']) -  [3]_
-   - **alg** (string='clark') -  [4]_
+   - imagename_ (string) - 
+   - model_ (string='') - 
+   - psf_ (stringArray=['']) - 
+   - alg_ (string='clark') - 
 
       .. raw:: html
 
          <details><summary><i> alg = multiscale </i></summary>
 
-      - **scales** (intArray=[0, 3, 10]) -  [9]_
+      - scales_ (intArray=[0, 3, 10]) - 
 
       .. raw:: html
 
@@ -26,17 +26,17 @@ Parameters
 
          <details><summary><i> alg = mem </i></summary>
 
-      - **sigma** (double=0.0) -  [10]_
-      - **targetflux** (double=1.0) -  [11]_
-      - **prior** (string='') -  [12]_
+      - sigma_ (double=0.0) - 
+      - targetflux_ (double=1.0) - 
+      - prior_ (string='') - 
 
       .. raw:: html
 
          </details>
-   - **niter** (int=10) -  [5]_
-   - **gain** (double=0.1) -  [6]_
-   - **threshold** (double=0.0) -  [7]_
-   - **mask** (string='') -  [8]_
+   - niter_ (int=10) - 
+   - gain_ (double=0.1) - 
+   - threshold_ (double=0.0) - 
+   - mask_ (string='') - 
 
 
 Description
@@ -142,42 +142,78 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (string)
-      | Input image to deconvolve
-.. [2] 
-   **model** (string='')
-      | Output image containing deconvolved point model
-.. [3] 
-   **psf** (stringArray=[''])
-      | Point spread function (dirty beam)
-.. [4] 
-   **alg** (string='clark')
-      | Algorithm to use (clark, hogbom, multiscale, mem)
-.. [5] 
-   **niter** (int=10)
-      | number of iteration in deconvolution process
-.. [6] 
-   **gain** (double=0.1)
-      | CLEAN gain parameter
-.. [7] 
-   **threshold** (double=0.0)
-      | level below which sources will not be deconvolved
-.. [8] 
-   **mask** (string='')
-      | image mask to limit region of deconvolution
-.. [9] 
-   **scales** (intArray=[0, 3, 10])
-      | scale sizes (pixels) to deconvolve
-.. [10] 
-   **sigma** (double=0.0)
-      | mem parameter: Expected noise in image
-.. [11] 
-   **targetflux** (double=1.0)
-      | mem parameter: Estimated total flux in image
-.. [12] 
-   **prior** (string='')
-      | mem parameter: prior image for mem search
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Input image to deconvolve
+
+.. _model:
+
+   .. rubric:: model
+
+   | Output image containing deconvolved point model
+
+.. _psf:
+
+   .. rubric:: psf
+
+   | Point spread function (dirty beam)
+
+.. _alg:
+
+   .. rubric:: alg
+
+   | Algorithm to use (clark, hogbom, multiscale, mem)
+
+.. _niter:
+
+   .. rubric:: niter
+
+   | number of iteration in deconvolution process
+
+.. _gain:
+
+   .. rubric:: gain
+
+   | CLEAN gain parameter
+
+.. _threshold:
+
+   .. rubric:: threshold
+
+   | level below which sources will not be deconvolved
+
+.. _mask:
+
+   .. rubric:: mask
+
+   | image mask to limit region of deconvolution
+
+.. _scales:
+
+   .. rubric:: scales
+
+   | scale sizes (pixels) to deconvolve
+
+.. _sigma:
+
+   .. rubric:: sigma
+
+   | mem parameter: Expected noise in image
+
+.. _targetflux:
+
+   .. rubric:: targetflux
+
+   | mem parameter: Estimated total flux in image
+
+.. _prior:
+
+   .. rubric:: prior
+
+   | mem parameter: prior image for mem search
+
 
     """
     pass

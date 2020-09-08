@@ -7,33 +7,33 @@ def plotprofilemap(imagename, figfile='', overwrite=False, transparent=False, po
 Makes profile map.
 
 Parameters
-   - **imagename** (string) - Input image name (CASA image or FITS) [1]_
-   - **figfile** (string='') - Output figure name [2]_
-   - **pol** (int=0) - Polarization component to be plotted [5]_
-   - **spectralaxis** (string='') - Type of spectral axis [6]_
+   - imagename_ (string) - Input image name (CASA image or FITS)
+   - figfile_ (string='') - Output figure name
+   - pol_ (int=0) - Polarization component to be plotted
+   - spectralaxis_ (string='') - Type of spectral axis
 
       .. raw:: html
 
          <details><summary><i> spectralaxis = velocity </i></summary>
 
-      - **restfreq** (string='') - Rest frequency [7]_
+      - restfreq_ (string='') - Rest frequency
 
       .. raw:: html
 
          </details>
-   - **plotrange** (string='') - Spectral axis range to plot [8]_
-   - **title** (string='') - Title of the plot [9]_
-   - **linecolor** (string='b') - Line color [10]_
-   - **linestyle** (string='-') - Line style [11]_
-   - **linewidth** (double=0.2) - Line width in points [12]_
-   - **separatepanel** (bool=True) - Separate plots [13]_
-   - **plotmasked** (string='empty') - Masked data handling [14]_
+   - plotrange_ (string='') - Spectral axis range to plot
+   - title_ (string='') - Title of the plot
+   - linecolor_ (string='b') - Line color
+   - linestyle_ (string='-') - Line style
+   - linewidth_ (double=0.2) - Line width in points
+   - separatepanel_ (bool=True) - Separate plots
+   - plotmasked_ (string='empty') - Masked data handling
 
       .. raw:: html
 
          <details><summary><i> plotmasked = plot </i></summary>
 
-      - **maskedcolor** (string='gray') - Line color for masked data [15]_
+      - maskedcolor_ (string='gray') - Line color for masked data
 
       .. raw:: html
 
@@ -43,25 +43,25 @@ Parameters
 
          <details><summary><i> plotmasked = zero </i></summary>
 
-      - **maskedcolor** (string='gray') - Line color for masked data [15]_
+      - maskedcolor_ (string='gray') - Line color for masked data
 
       .. raw:: html
 
          </details>
-   - **showaxislabel** (bool=False) - Show axis labels on the bottom left panel [16]_
-   - **showtick** (bool=False) - Show axis ticks [17]_
+   - showaxislabel_ (bool=False) - Show axis labels on the bottom left panel
+   - showtick_ (bool=False) - Show axis ticks
 
       .. raw:: html
 
          <details><summary><i> showtick = True </i></summary>
 
-      - **showticklabel** (bool=False) - Show axis tick labels on the bottom left panel [18]_
+      - showticklabel_ (bool=False) - Show axis tick labels on the bottom left panel
 
       .. raw:: html
 
          </details>
-   - **figsize** (string='') - Size of the figure [19]_
-   - **numpanels** (string='') - Number of panels [20]_
+   - figsize_ (string='') - Size of the figure
+   - numpanels_ (string='') - Number of panels
 
 
 Description
@@ -134,66 +134,126 @@ Description
 Details
    Explanation of each parameter
 
-.. [1] 
-   **imagename** (string)
-      | Input image name (CASA image or FITS)
-.. [2] 
-   **figfile** (string='')
-      | Output figure name
-.. [3] 
-   **overwrite** (bool=False)
-      | Overwrite existing figfile
-.. [4] 
-   **transparent** (bool=False)
-      | Output transparent figure
-.. [5] 
-   **pol** (int=0)
-      | Polarization component to be plotted
-.. [6] 
-   **spectralaxis** (string='')
-      | Type of spectral axis
-.. [7] 
-   **restfreq** (string='')
-      | Rest frequency
-.. [8] 
-   **plotrange** (string='')
-      | Spectral axis range to plot
-.. [9] 
-   **title** (string='')
-      | Title of the plot
-.. [10] 
-   **linecolor** (string='b')
-      | Line color
-.. [11] 
-   **linestyle** (string='-')
-      | Line style
-.. [12] 
-   **linewidth** (double=0.2)
-      | Line width in points
-.. [13] 
-   **separatepanel** (bool=True)
-      | Separate plots
-.. [14] 
-   **plotmasked** (string='empty')
-      | Masked data handling
-.. [15] 
-   **maskedcolor** (string='gray')
-      | Line color for masked data
-.. [16] 
-   **showaxislabel** (bool=False)
-      | Show axis labels on the bottom left panel
-.. [17] 
-   **showtick** (bool=False)
-      | Show axis ticks
-.. [18] 
-   **showticklabel** (bool=False)
-      | Show axis tick labels on the bottom left panel
-.. [19] 
-   **figsize** (string='')
-      | Size of the figure
-.. [20] 
-   **numpanels** (string='')
-      | Number of panels
+.. _imagename:
+
+   .. rubric:: imagename
+
+   | Input image name (CASA image or FITS)
+
+.. _figfile:
+
+   .. rubric:: figfile
+
+   | Output figure name
+
+.. _overwrite:
+
+   .. rubric:: overwrite
+
+   | Overwrite existing figfile
+
+.. _transparent:
+
+   .. rubric:: transparent
+
+   | Output transparent figure
+
+.. _pol:
+
+   .. rubric:: pol
+
+   | Polarization component to be plotted
+
+.. _spectralaxis:
+
+   .. rubric:: spectralaxis
+
+   | Type of spectral axis
+
+.. _restfreq:
+
+   .. rubric:: restfreq
+
+   | Rest frequency
+
+.. _plotrange:
+
+   .. rubric:: plotrange
+
+   | Spectral axis range to plot
+
+.. _title:
+
+   .. rubric:: title
+
+   | Title of the plot
+
+.. _linecolor:
+
+   .. rubric:: linecolor
+
+   | Line color
+
+.. _linestyle:
+
+   .. rubric:: linestyle
+
+   | Line style
+
+.. _linewidth:
+
+   .. rubric:: linewidth
+
+   | Line width in points
+
+.. _separatepanel:
+
+   .. rubric:: separatepanel
+
+   | Separate plots
+
+.. _plotmasked:
+
+   .. rubric:: plotmasked
+
+   | Masked data handling
+
+.. _maskedcolor:
+
+   .. rubric:: maskedcolor
+
+   | Line color for masked data
+
+.. _showaxislabel:
+
+   .. rubric:: showaxislabel
+
+   | Show axis labels on the bottom left panel
+
+.. _showtick:
+
+   .. rubric:: showtick
+
+   | Show axis ticks
+
+.. _showticklabel:
+
+   .. rubric:: showticklabel
+
+   | Show axis tick labels on the bottom left panel
+
+.. _figsize:
+
+   .. rubric:: figsize
+
+   | Size of the figure
+
+.. _numpanels:
+
+   .. rubric:: numpanels
+
+   | Number of panels
+
 
     """
     pass
