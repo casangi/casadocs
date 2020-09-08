@@ -6,7 +6,7 @@ name: Rebuild Task Stubs
 on:
   push:
     branches: [ master ]
-    paths: 'build/tasks/*'
+    paths: 'build/tasks'
 
 jobs:
   build:
