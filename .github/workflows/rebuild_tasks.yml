@@ -4,10 +4,11 @@
 name: Rebuild Task Stubs
 
 on:
-  push:
-    branches: [ master ]
-    paths: 
-    - "docs/tasks/**"
+  #push:
+  #  branches: [ master ]
+  #  paths: 
+  #  - "docs/tasks/**"
+  workflow_dispatch:
 
 jobs:
   build:
