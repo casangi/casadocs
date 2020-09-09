@@ -24,8 +24,12 @@ jobs:
       run: pip install requests
     - name: Run script
       run: python ./scripts/parse_tasks.py
-    - name: commit changed files
-      run: git commit -m "auto task regen"
-    - name: push code to master
-      run: git push origin HEAD:master
-  
+    - name: Commit files
+      run: |
+        git config --local user.name  ${{ github.actor }}
+        git commit -m "automatic task regeneration"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        force: true
