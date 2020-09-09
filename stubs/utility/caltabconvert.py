@@ -60,15 +60,9 @@ Description
      appended to the name of the old-style caltable.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _caltabold:
 
-   .. rubric:: caltabold
-
+caltabold (string='')
    | Name of the old-style caltable.
    |                      Default: none
    | 
@@ -76,8 +70,7 @@ Details
 
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string='')
    | Name of the visibility file (MS) associated with the
    | old-style caltable.
    |                      Default: none
@@ -86,8 +79,7 @@ Details
 
 .. _ptype:
 
-   .. rubric:: ptype
-
+ptype (string='complex')
    | Type of data in the new-format caltable.
    |                      Default: "complex"
    |                      Options: "complex" or "float"
@@ -102,8 +94,7 @@ Details
 
 .. _caltabnew:
 
-   .. rubric:: caltabnew
-
+caltabnew (string='')
    | Name of the new-style caltable.  
    |                      Default: '' (the suffix ".new" is appended to the
    |                      name of old-style caltable)

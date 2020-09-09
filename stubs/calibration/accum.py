@@ -128,15 +128,9 @@ Description
    Calibration <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration/solving-for-calibration>`__.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      Default: none
    | 
@@ -144,8 +138,7 @@ Details
 
 .. _tablein:
 
-   .. rubric:: tablein
-
+tablein (string='')
    | Input cumulative calibration table
    |                      Default: '' (none)
    | 
@@ -155,23 +148,20 @@ Details
 
 .. _incrtable:
 
-   .. rubric:: incrtable
-
+incrtable (string='')
    | The calibration data to be interpolated onto the tablein
    | file.
    |                      Default: '' (must be specified)
 
 .. _caltable:
 
-   .. rubric:: caltable
-
+caltable (string='')
    | The output cumulative calibration table
    |                      Default: '' (use tablein as the output file)
 
 .. _field:
 
-   .. rubric:: field
-
+field (stringArray=[''])
    | Select field using field id(s) or field name(s)
    |                      Default: '' --> all fields
    |                      
@@ -190,15 +180,13 @@ Details
 
 .. _calfield:
 
-   .. rubric:: calfield
-
+calfield (stringArray=[''])
    | Select field(s) from incrtable to process.
    |                      Default: '' (all fields)
 
 .. _interp:
 
-   .. rubric:: interp
-
+interp (string='linear')
    | Interpolation type (in time[,freq]) to use for each
    | gaintable.
    |                      Default: '' ('linear,linear' for all gaintable(s))
@@ -234,8 +222,7 @@ Details
 
 .. _accumtime:
 
-   .. rubric:: accumtime
-
+accumtime ({double, int}=1.0)
    | The time separation when making tablein.
    |                      Subparameter of tablein
    |                      Default: 1.0  (1 second)
@@ -246,8 +233,7 @@ Details
 
 .. _spwmap:
 
-   .. rubric:: spwmap
-
+spwmap (intArray=[-1])
    | Spectral windows combinations to form for gaintable(s)
    |                      Default: [] (apply solutions from each spw to
    |                                   that spw only)

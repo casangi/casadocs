@@ -14,6 +14,16 @@ Parameters
    - stokes_ (string='') - Stokes planes to use. Default is to use all Stokes planes.
    - axis_ (int=-1) - The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
    - mask_ (string='') - Mask to use. Default is none.
+
+      .. raw:: html
+
+         <details><summary><i> mask != '' </i></summary>
+
+      - stretch_ (bool=False) - Stretch the mask if necessary and possible? 
+
+      .. raw:: html
+
+         </details>
    - minpts_ (int=1) - Minimum number of unmasked points necessary to attempt fit.
    - multifit_ (bool=False) - If true, fit a profile along the desired axis at each pixel in the specified region. If false, average the non-fit axis pixels and do a single fit to that average profile. Default False.
 
@@ -36,7 +46,27 @@ Parameters
    - wantreturn_ (bool=True) - Should a record summarizing the results be returned?
    - logresults_ (bool=True) - Output results to logger?
    - logfile_ (string='') - File in which to log results. Default is not to write a logfile.
+
+      .. raw:: html
+
+         <details><summary><i> logfile != '' </i></summary>
+
+      - append_ (bool=True) - Append results to logfile? Logfile must be specified. Default is to append. False means overwrite existing file if it exists.
+
+      .. raw:: html
+
+         </details>
    - sigma_ ({string, stringArray, doubleArray, intArray}='') - Standard deviation array or image name(s).
+
+      .. raw:: html
+
+         <details><summary><i> sigma != '' </i></summary>
+
+      - outsigma_ (string='') - Name of output image used for standard deviation. Ignored if sigma is empty.
+
+      .. raw:: html
+
+         </details>
 
 
 Description
@@ -383,153 +413,124 @@ Description
       (` `PDF <http://www2.units.it/ipl/students_area/imm2/files/Numerical_Recipes.pdf>`__ :sup:`)` `<#ref-cit2>`__
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (variant='')
    | Name of the input image(s)
 
 .. _box:
 
-   .. rubric:: box
-
+box (string='')
    | Rectangular region to select in direction plane. Default is to use the entire direction plane.
 
 .. _region:
 
-   .. rubric:: region
-
+region (string='')
    | Region selection. Default is to use the full image.
 
 .. _chans:
 
-   .. rubric:: chans
-
+chans (string='')
    | Channels to use. Default is to use all channels.
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='')
    | Stokes planes to use. Default is to use all Stokes planes.
 
 .. _axis:
 
-   .. rubric:: axis
-
+axis (int=-1)
    | The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
 
 .. _mask:
 
-   .. rubric:: mask
-
+mask (string='')
    | Mask to use. Default is none.
 
 .. _minpts:
 
-   .. rubric:: minpts
-
+minpts (int=1)
    | Minimum number of unmasked points necessary to attempt fit.
 
 .. _multifit:
 
-   .. rubric:: multifit
-
+multifit (bool=False)
    | If true, fit a profile along the desired axis at each pixel in the specified region. If false, average the non-fit axis pixels and do a single fit to that average profile. Default False.
 
 .. _spxtype:
 
-   .. rubric:: spxtype
-
+spxtype (string='plp')
    | Type of function to fit. "plp" = power logarithmic polynomial, "ltp" = logarithmic transformed polynomial.
 
 .. _spxest:
 
-   .. rubric:: spxest
-
+spxest (doubleArray=[''])
    | REQUIRED. Initial estimates as array of numerical values for the spectral index function coefficients. eg [1.5, -0.8] if fitting a plp function thought to be close to 1.5*(x/div)**(-0.8) or [0.4055, -0.8] if fitting an lpt function thought to be close to ln(1.5) - 0.8*ln(x/div).
 
 .. _spxfix:
 
-   .. rubric:: spxfix
-
+spxfix (boolArray=[''])
    | Fix the corresponding spectral index function coefficients during the fit. True means hold fixed.
 
 .. _div:
 
-   .. rubric:: div
-
+div (variant='0')
    | Divisor (numerical value or quantity) to use in the logarithmic terms of the plp or ltp function. 0 means calculate a useful value on the fly.
 
 .. _spxsol:
 
-   .. rubric:: spxsol
-
+spxsol (string='')
    | Name of the spectral index function coefficient solution image to write.
 
 .. _spxerr:
 
-   .. rubric:: spxerr
-
+spxerr (string='')
    | Name of the spectral index function coefficient error image to write.
 
 .. _model:
 
-   .. rubric:: model
-
+model (string='')
    | Name of model image. Default: do not write the model image ("").
 
 .. _residual:
 
-   .. rubric:: residual
-
+residual (string='')
    | Name of residual image. Default: do not write the residual image ("").
 
 .. _wantreturn:
 
-   .. rubric:: wantreturn
-
+wantreturn (bool=True)
    | Should a record summarizing the results be returned?
 
 .. _stretch:
 
-   .. rubric:: stretch
-
+stretch (bool=False)
    | Stretch the mask if necessary and possible?
 
 .. _logresults:
 
-   .. rubric:: logresults
-
+logresults (bool=True)
    | Output results to logger?
 
 .. _logfile:
 
-   .. rubric:: logfile
-
+logfile (string='')
    | File in which to log results. Default is not to write a logfile.
 
 .. _append:
 
-   .. rubric:: append
-
+append (bool=True)
    | Append results to logfile? Logfile must be specified. Default is to append. False means overwrite existing file if it exists.
 
 .. _sigma:
 
-   .. rubric:: sigma
-
+sigma ({string, stringArray, doubleArray, intArray}='')
    | Standard deviation array or image name(s).
 
 .. _outsigma:
 
-   .. rubric:: outsigma
-
+outsigma (string='')
    | Name of output image used for standard deviation. Ignored if sigma is empty.
 
 

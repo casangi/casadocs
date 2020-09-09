@@ -44,33 +44,24 @@ Description
    top and counterclockwise through west, south, and east.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | MS name
 
 .. _seasonal_weight:
 
-   .. rubric:: seasonal_weight
-
+seasonal_weight (double=0.5)
    | weight of the seasonal model
 
 .. _doPlot:
 
-   .. rubric:: doPlot
-
+doPlot (bool=True)
    | set this to True to create a plot
 
 .. _plotName:
 
-   .. rubric:: plotName
-
+plotName (string='')
    | (Optional) the name of the plot file
 
 

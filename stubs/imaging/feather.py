@@ -117,18 +117,11 @@ Description
    illuminated is filtered out.
 
 .. |c54b9bc64427577246358518c70157487bed008a| image:: ../media/c54b9bc64427577246358518c70157487bed008a.png
-:class: image-inline
 
-
-
-
-Details
-   Explanation of each parameter
 
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string='')
    | Name of output feathered image
    |                           Default: none
    | 
@@ -136,8 +129,7 @@ Details
 
 .. _highres:
 
-   .. rubric:: highres
-
+highres (string)
    | Name of high resolution (interferometer) image
    |                           Default: none
    | 
@@ -145,8 +137,7 @@ Details
 
 .. _lowres:
 
-   .. rubric:: lowres
-
+lowres (string)
    | Name of low resolution (single dish) image
    |                           Default: none
    | 
@@ -154,8 +145,7 @@ Details
 
 .. _sdfactor:
 
-   .. rubric:: sdfactor
-
+sdfactor (double=1.0)
    | Value by which to scale the Single Dish image.
    |                           Default: 1.0
    | 
@@ -163,8 +153,7 @@ Details
 
 .. _effdishdiam:
 
-   .. rubric:: effdishdiam
-
+effdishdiam (double=-1.0)
    | New effective SingleDish diameter to use in m 
    |                           Default: -1.0 (leave as is)
    | 
@@ -173,8 +162,7 @@ Details
 
 .. _lowpassfiltersd:
 
-   .. rubric:: lowpassfiltersd
-
+lowpassfiltersd (bool=False)
    | Filter out the high spatial frequencies of the SD image
    |                           Default: False
    | 

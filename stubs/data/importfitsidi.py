@@ -101,15 +101,9 @@ Description
       revised version` `<#ref-cit1>`__
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _fitsidifile:
 
-   .. rubric:: fitsidifile
-
+fitsidifile (stringArray)
    | Name(s) of input FITS-IDI file(s)
    |                      Default: none (must be supplied)
    | 
@@ -119,8 +113,7 @@ Details
 
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string='')
    | Name of output visibility file
    |                      Default: none
    | 
@@ -128,8 +121,7 @@ Details
 
 .. _constobsid:
 
-   .. rubric:: constobsid
-
+constobsid (bool=False)
    | If True, give constant obs ID==0 to the data from all
    | input fitsidi files (False = separate obs id for each file)
    |                      Default: False (new obs id for each input file)
@@ -137,8 +129,7 @@ Details
 
 .. _scanreindexgap_s:
 
-   .. rubric:: scanreindexgap_s
-
+scanreindexgap_s (double=0.)
    | Min time gap (seconds) between integrations to start a
    | new scan
    |                      Default: 0. (no reindexing)
@@ -150,8 +141,7 @@ Details
 
 .. _specframe:
 
-   .. rubric:: specframe
-
+specframe (string='GEO')
    | This frame will be used to set the spectral reference
    | frame for all spectral windows in the output MS
    |                      Default: GEO (geocentric)

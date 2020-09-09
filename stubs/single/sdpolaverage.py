@@ -36,69 +36,54 @@ Description
    LL.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _infile:
 
-   .. rubric:: infile
-
+infile (string)
    | name of input SD dataset
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='data')
    | name of data column to be used ["data", "float_data", or "corrected_data"]
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | select data by antenna name or ID, e.g. "PM03"
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | select data by field IDs and names, e.g. "3C2*" (""=all)
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | select data by IF IDs (spectral windows), e.g. "3,5,7" (""=all)
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help)
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | select data by scan numbers, e.g. "21~23" (""=all)
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | select data by observational intent, e.g. "*ON_SOURCE*" (""=all)
 
 .. _polaverage:
 
-   .. rubric:: polaverage
-
+polaverage (string='')
    | polarization averaging mode ("", "stokes" or "geometric").
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | name of output file
 
 

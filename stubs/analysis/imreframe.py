@@ -121,39 +121,29 @@ Description
    in the input image.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Name of the input image
 
 .. _output:
 
-   .. rubric:: output
-
+output (string='')
    | Name of the output image
 
 .. _outframe:
 
-   .. rubric:: outframe
-
+outframe (string='lsrk')
    | Spectral frame in which the frequency or velocity values will be reported by default
 
 .. _epoch:
 
-   .. rubric:: epoch
-
+epoch (string='')
    | Epoch to be associated with this image
 
 .. _restfreq:
 
-   .. rubric:: restfreq
-
+restfreq (string='')
    | restfrequency to use for velocity values (e.g "1.420GHz" for the HI line)
 
 

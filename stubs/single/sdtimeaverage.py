@@ -108,69 +108,54 @@ Description
       If 'float_data' does not exist, 'data is used instead.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _infile:
 
-   .. rubric:: infile
-
+infile (string)
    | name of input SD dataset
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='float_data')
    | name of data column to be used ["data", "float_data", or "corrected_data"]
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | select data by field IDs and names, e.g. "3C2*" (""=all)
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | select data by spectral windows and channels, e.g. "3,5,7" (""=all)
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help)
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | select data by scan numbers, e.g. "21~23" (""=all)
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | antenna IDs to be averaged over, e.g. "PM03" (""=all)
 
 .. _timebin:
 
-   .. rubric:: timebin
-
+timebin (string='all')
    | bin width for time averaging.
 
 .. _timespan:
 
-   .. rubric:: timespan
-
+timespan (string='scan')
    | span across scan, state or both.
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | name of output file
 
 

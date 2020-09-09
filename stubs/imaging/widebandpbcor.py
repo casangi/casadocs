@@ -221,75 +221,59 @@ Description
    with very lop-sided weights.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of measurement set.
 
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string='')
    | Name-prefix of multi-termimages to operate on.
 
 .. _nterms:
 
-   .. rubric:: nterms
-
+nterms (int=2)
    | Number of taylor terms to use
 
 .. _threshold:
 
-   .. rubric:: threshold
-
+threshold (string='')
    | Intensity above which to re-calculate spectral index
 
 .. _action:
 
-   .. rubric:: action
-
+action (string='pbcor')
    | PB-correction (pbcor) or only calc spectral-index (calcalpha)
 
 .. _reffreq:
 
-   .. rubric:: reffreq
-
+reffreq (string='')
    | Reference frequency (if specified in clean)
 
 .. _pbmin:
 
-   .. rubric:: pbmin
-
+pbmin (double=0.2)
    | PB threshold below which to not correct
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Fields to include in the PB calculation
 
 .. _spwlist:
 
-   .. rubric:: spwlist
-
+spwlist (intArray=[''])
    | List of N spw ids
 
 .. _chanlist:
 
-   .. rubric:: chanlist
-
+chanlist (intArray=[''])
    | List of N channel ids
 
 .. _weightlist:
 
-   .. rubric:: weightlist
-
+weightlist (doubleArray=[''])
    | List of N weights (relative)
 
 

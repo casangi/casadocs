@@ -21,15 +21,9 @@ Parameters
 
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _fitsimage:
 
-   .. rubric:: fitsimage
-
+fitsimage (string)
    | Name of input image FITS file
    |                      Default: none
    | 
@@ -37,8 +31,7 @@ Details
 
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string='')
    | Name of output CASA image
    |                      Default: none
    | 
@@ -46,8 +39,7 @@ Details
 
 .. _whichrep:
 
-   .. rubric:: whichrep
-
+whichrep (int=0)
    | If fits image has multiple coordinate reps, choose one.
    |                      Default: 0 (means first)
    | 
@@ -55,8 +47,7 @@ Details
 
 .. _whichhdu:
 
-   .. rubric:: whichhdu
-
+whichhdu (int=-1)
    | If fits file contains multiple images, choose one
    |                      Default: -1 (use the first valid one)
    | 
@@ -66,24 +57,21 @@ Details
 
 .. _zeroblanks:
 
-   .. rubric:: zeroblanks
-
+zeroblanks (bool=True)
    | Set blanked pixels to zero (not NaN)
    |                      Default: True
    |                      Options: True|False
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Overwrite output file if it exists?
    |                      Default: False
    |                      Options: False|True
 
 .. _defaultaxes:
 
-   .. rubric:: defaultaxes
-
+defaultaxes (bool=False)
    | Add the default 4D coordinate axes where they are
    | missing
    |                      Default: False
@@ -93,8 +81,7 @@ Details
 
 .. _defaultaxesvalues:
 
-   .. rubric:: defaultaxesvalues
-
+defaultaxesvalues (variant='[]')
    | List of values to assign to added degenerate axes when
    | defaultaxes==True (ra,dec,freq,stokes)
    |                      Default: []
@@ -109,8 +96,7 @@ Details
 
 .. _beam:
 
-   .. rubric:: beam
-
+beam (variant='[]')
    | List of values to be used to define the synthesized beam
    | [BMAJ,BMIN,BPA] (as in the FITS keywords)
    |                      Default: [] (i.e.take from FITS file)

@@ -15,6 +15,16 @@ Parameters
    - chans_ (string='') - Channels to use. Default is to use all channels.
    - stokes_ (string='') - Stokes planes to use. Default is to use all Stokes planes. Stokes planes cannot be rebinned.
    - mask_ (string='') - Mask to use. Default is none.
+
+      .. raw:: html
+
+         <details><summary><i> mask != '' </i></summary>
+
+      - stretch_ (bool=False) - Stretch the mask if necessary and possible? 
+
+      .. raw:: html
+
+         </details>
    - dropdeg_ (bool=False) - Drop degenerate axes?
    - overwrite_ (bool=False) - Overwrite the output if it exists? Default False
    - crop_ (bool=True) - Remove pixels from the end of an axis to be rebinned if there are not enough to form an integral bin?
@@ -59,81 +69,64 @@ Description
    be 1.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Name of the input image
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | Output image name.
 
 .. _factor:
 
-   .. rubric:: factor
-
+factor (intArray='')
    | Binning factors for each axis. Use imhead or ia.summary to determine axis ordering.
 
 .. _region:
 
-   .. rubric:: region
-
+region (variant='')
    | Region selection. Default is to use the full image.
 
 .. _box:
 
-   .. rubric:: box
-
+box (string='')
    | Rectangular region to select in direction plane. Default is to use the entire direction plane.
 
 .. _chans:
 
-   .. rubric:: chans
-
+chans (string='')
    | Channels to use. Default is to use all channels.
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='')
    | Stokes planes to use. Default is to use all Stokes planes. Stokes planes cannot be rebinned.
 
 .. _mask:
 
-   .. rubric:: mask
-
+mask (string='')
    | Mask to use. Default is none.
 
 .. _dropdeg:
 
-   .. rubric:: dropdeg
-
+dropdeg (bool=False)
    | Drop degenerate axes?
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Overwrite the output if it exists? Default False
 
 .. _stretch:
 
-   .. rubric:: stretch
-
+stretch (bool=False)
    | Stretch the mask if necessary and possible?
 
 .. _crop:
 
-   .. rubric:: crop
-
+crop (bool=True)
    | Remove pixels from the end of an axis to be rebinned if there are not enough to form an integral bin?
 
 

@@ -15,6 +15,16 @@ Parameters
    - width_ ({string, stringArray, int, intArray}='1') - Number of channels to average to form one output channel
    - antenna_ ({string, stringArray, int, intArray}='') - Select data based on antenna/baseline
    - timebin_ (string='0s') - Interval for time averaging
+
+      .. raw:: html
+
+         <details><summary><i> timebin != 0s </i></summary>
+
+      - combine_ ({string, stringArray}='') - Let time bins span changes in scan and/or stat
+
+      .. raw:: html
+
+         </details>
    - timerange_ (string='') - Select data by time range
    - array_ (string='') - Select (sub)array(s) by array ID number
    - uvrange_ (string='') - Select data by baseline length (default units meters)
@@ -28,31 +38,23 @@ Parameters
 
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input MeasurementSet
    |                Default: none;
    |                  Example: vis='ngc5921.ms'
 
 .. _outputvis:
 
-   .. rubric:: outputvis
-
+outputvis (string='')
    | Name of output measurement set
    |                Default: none;
    |                  Example: outputvis='ngc5921_src.ms'
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='corrected')
    | Data column(s) to Oldsplit out
    |                 Default='corrected';
    |                 Options: 'data', 'model', 'corrected', 'all',
@@ -68,8 +70,7 @@ Details
 
 .. _field:
 
-   .. rubric:: field
-
+field ({string, stringArray, int, intArray}='')
    | Select field using ID(s) or name(s)
    |                 (Run listobs to obtain list of field IDs and names)
    |                 Default: ''=all fields.
@@ -86,8 +87,7 @@ Details
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw ({string, stringArray, int, intArray}='')
    | Select spectral window/channels
    |                 Default: ''=all spectral windows and channels
    | 
@@ -108,8 +108,7 @@ Details
 
 .. _width:
 
-   .. rubric:: width
-
+width ({string, stringArray, int, intArray}='1')
    | Number of channels to average to form one output channel
    |                Default: '1' => no channel averaging
    |                  Example: width=[2,3] => average 2 channels of 1s
@@ -117,8 +116,7 @@ Details
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna ({string, stringArray, int, intArray}='')
    | Select data based on antenna/baseline
    |                Default: '' (all)
    |                Non-negative integers are assumed to be antenna
@@ -142,8 +140,7 @@ Details
 
 .. _timebin:
 
-   .. rubric:: timebin
-
+timebin (string='0s')
    | Interval for time averaging
    |                Default: '0s' or '-1s' (no averaging)
    |                  Example: timebin='30s'
@@ -151,8 +148,7 @@ Details
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | Select data by time range
    |                timerange = 'YYYY/MM/DD/hh:mm:ss~YYYY/MM/DD/hh:mm:ss'
    |                Note: if YYYY/MM/DD is missing date, timerange defaults
@@ -169,15 +165,13 @@ Details
 
 .. _array:
 
-   .. rubric:: array
-
+array (string='')
    | Select (sub)array(s) by array ID number
    |                Default: ''=all
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange (string='')
    | Select data by baseline length (default units meters)
    |                Default: ''=all
    | 
@@ -188,15 +182,13 @@ Details
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | Select data by scan numbers
    |                Default: ''=all
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | Select data by scan intents
    |                Default: '' = all
    | 
@@ -209,8 +201,7 @@ Details
 
 .. _correlation:
 
-   .. rubric:: correlation
-
+correlation ({string, stringArray}='')
    | Select correlations
    |                Default: '' = all
    | 
@@ -220,15 +211,13 @@ Details
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | Select by observation ID(s)
    |                Default: '' = all
 
 .. _combine:
 
-   .. rubric:: combine
-
+combine ({string, stringArray}='')
    | Let time bins span changes in scan and/or state
    |                Default = '' (separate time bins by both of the above)
    | 
@@ -241,8 +230,7 @@ Details
 
 .. _keepflags:
 
-   .. rubric:: keepflags
-
+keepflags (bool=True)
    | If practical, keep *completely flagged rows* instead of
    | dropping them.
    |                This has absolutely no effect on averaging
@@ -267,8 +255,7 @@ Details
 
 .. _keepmms:
 
-   .. rubric:: keepmms
-
+keepmms (bool=False)
    | If the input is a multi-MS, make the output one,
    | too. (experimental)
    |                Default: False => the output will be a normal MS

@@ -1712,15 +1712,9 @@ Description
       AIPS,` http://www.aips.nrao.edu/cook.html#CEE :sup:`)` `<#ref-cit1>`__
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      Default: none
    | 
@@ -1728,8 +1722,7 @@ Details
 
 .. _mode:
 
-   .. rubric:: mode
-
+mode (string='manual')
    | Flagging mode
    |                      Default: 'manual'
    |                      Options: 'list', 'manual', 'clip', 'quack',
@@ -1939,8 +1932,7 @@ Details
 
 .. _autocorr:
 
-   .. rubric:: autocorr
-
+autocorr (bool=False)
    | Flag only the auto-correlations?
    |                      Subparameter of mode='manual'
    |                      Default: False
@@ -1954,8 +1946,7 @@ Details
 
 .. _inpfile:
 
-   .. rubric:: inpfile
-
+inpfile ({string, stringArray}='')
    | Input ASCII file, list of files or Python list of strings
    | with flag commands.
    |                      Subparameter of mode='list'
@@ -1979,8 +1970,7 @@ Details
 
 .. _reason:
 
-   .. rubric:: reason
-
+reason ({string, stringArray}='any')
    | Select flag commands based on REASON(s)
    |                      Subparameter of mode='list'
    |                      Default: 'any' (all flags regardless of reason)
@@ -2001,8 +1991,7 @@ Details
 
 .. _tbuff:
 
-   .. rubric:: tbuff
-
+tbuff ({double, doubleArray}=0.0)
    | A time buffer or list of time buffers to pad the
    | timerange parameters in flag commands.
    |                      Subparameter of mode='list'
@@ -2044,8 +2033,7 @@ Details
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw ({string, stringArray}='')
    | Select spectral window/channels
    |                      Default: '' (all spectral windows and channels)
    | 
@@ -2070,8 +2058,7 @@ Details
 
 .. _field:
 
-   .. rubric:: field
-
+field ({string, stringArray}='')
    | Select field using field id(s) or field name(s)
    |                      Default: '' (all fields)
    |                      
@@ -2090,8 +2077,7 @@ Details
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna ({string, stringArray}='')
    | Select data based on antenna/baseline
    |                      Subparameter of selectdata=True
    |                      Default: '' (all)
@@ -2120,8 +2106,7 @@ Details
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange ({string, stringArray}='')
    | Select data by baseline length.
    |                      Default = '' (all)
    | 
@@ -2134,8 +2119,7 @@ Details
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange ({string, stringArray}='')
    | Select data based on time range
    |                      Subparameter of selectdata=True
    |                      Default = '' (all)
@@ -2155,8 +2139,7 @@ Details
 
 .. _correlation:
 
-   .. rubric:: correlation
-
+correlation ({string, stringArray}='')
    | Select data based on correlation
    |                      Default: '' ==> all
    |                      Options: Any of 'ABS', 'ARG', 'REAL', 'IMAG',
@@ -2179,16 +2162,14 @@ Details
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan ({string, stringArray}='')
    | Scan number range
    |                      Subparameter of selectdata=True
    |                      Default: '' = all
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent ({string, stringArray}='')
    | Select observing intent
    |                      Default: '' (no selection by intent)
    | 
@@ -2200,8 +2181,7 @@ Details
 
 .. _array:
 
-   .. rubric:: array
-
+array ({string, stringArray}='')
    | Selection based on the antenna array
    |                      Default: '' (all)
    | 
@@ -2210,8 +2190,7 @@ Details
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | Select by observation ID(s)
    |                      Subparameter of selectdata=True
    |                      Default: '' = all
@@ -2220,14 +2199,12 @@ Details
 
 .. _feed:
 
-   .. rubric:: feed
-
+feed ({string, stringArray}='')
    | Selection based on the feed: Not yet implemented
 
 .. _clipminmax:
 
-   .. rubric:: clipminmax
-
+clipminmax (doubleArray=[''])
    | Range to use for clipping
    |                      Subparameter of mode='clip'
    |                      Default: [] (it will flag only NaN and Infs)
@@ -2238,8 +2215,7 @@ Details
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn ({string, stringArray}='DATA')
    | Data column to image (data or observed, corrected)
    |                      Subparameter of mode='clip|tfcrop|rflag'
    |                      Default:'corrected'
@@ -2250,8 +2226,7 @@ Details
 
 .. _clipoutside:
 
-   .. rubric:: clipoutside
-
+clipoutside ({bool, boolArray}=True)
    | Clip outside the range?
    |                      Subparameter of mode='clip'
    |                      Default: True
@@ -2259,8 +2234,7 @@ Details
 
 .. _channelavg:
 
-   .. rubric:: channelavg
-
+channelavg ({bool, boolArray}=False)
    | Pre-average data across channels before analyzing
    | visibilities for flagging
    |                      Subparameter of mode='clip|tfcrop|rflag'
@@ -2284,8 +2258,7 @@ Details
 
 .. _chanbin:
 
-   .. rubric:: chanbin
-
+chanbin ({int, intArray}=1)
    | Bin width for channel average in number of input channels
    |                      Subparameter of mode='clip|tfcrop|rflag'
    |                      Default: 1
@@ -2301,8 +2274,7 @@ Details
 
 .. _timeavg:
 
-   .. rubric:: timeavg
-
+timeavg ({bool, boolArray}=False)
    | Pre-average data across time before analyzing
    | visibilities for flagging.
    |                      Subparameter of mode='clip|tfcrop|rflag'
@@ -2328,16 +2300,14 @@ Details
 
 .. _timebin:
 
-   .. rubric:: timebin
-
+timebin (string='0s')
    | Bin width for time average in seconds
    |                      Subparameter of mode='clip|tfcrop|rflag'
    |                      Default: '0s'
 
 .. _clipzeros:
 
-   .. rubric:: clipzeros
-
+clipzeros (bool=False)
    | Clip zero-value data
    |                      Subparameter of mode='clip'
    |                      Default: False
@@ -2345,8 +2315,7 @@ Details
 
 .. _quackinterval:
 
-   .. rubric:: quackinterval
-
+quackinterval ({double, doubleArray, int, intArray}=1.0)
    | Time in seconds from scan beginning or end to flag.
    |                      Subparameter of mode='quack'
    |                      Default: 0.0
@@ -2356,8 +2325,7 @@ Details
 
 .. _quackmode:
 
-   .. rubric:: quackmode
-
+quackmode ({string, stringArray}='beg')
    | Quack mode flags the region of the scan given by one of the
    | options below using the time set at quackinterval.
    |                      Subparameter of mode='quack'
@@ -2387,8 +2355,7 @@ Details
 
 .. _quackincrement:
 
-   .. rubric:: quackincrement
-
+quackincrement ({bool, boolArray}=False)
    | Increment quack flagging in time taking into account
    | flagged data or not.
    |                      Subparameter of mode='quack'
@@ -2413,8 +2380,7 @@ Details
 
 .. _tolerance:
 
-   .. rubric:: tolerance
-
+tolerance (double=0.0)
    | Amount of shadowing allowed (or tolerated), in meters. 
    |                      Subparameter of mode='shadow'
    |                      Default: 0.0
@@ -2426,8 +2392,7 @@ Details
 
 .. _addantenna:
 
-   .. rubric:: addantenna
-
+addantenna ({string, record}='')
    | File name or dictionary with additional antenna names,
    | positions and diameters
    |                      Subparameter of mode='shadow'
@@ -2456,8 +2421,7 @@ Details
 
 .. _lowerlimit:
 
-   .. rubric:: lowerlimit
-
+lowerlimit (double=0.0)
    | Lower limiting elevation (in degrees)
    |                      Subparameter of mode='elevation'
    |                      Default: 0.0
@@ -2469,8 +2433,7 @@ Details
 
 .. _upperlimit:
 
-   .. rubric:: upperlimit
-
+upperlimit (double=90.0)
    | Upper limiting elevation (in degrees)
    |                      Subparameter of mode='elevation'
    |                      Default: 90.0
@@ -2482,8 +2445,7 @@ Details
 
 .. _ntime:
 
-   .. rubric:: ntime
-
+ntime ({double, string}='scan')
    | Timerange (in seconds or minutes) over which to buffer
    | data before running the algorithm. 
    |                      Subparameter of mode='tfcrop|rflag|extend'
@@ -2504,8 +2466,7 @@ Details
 
 .. _combinescans:
 
-   .. rubric:: combinescans
-
+combinescans (bool=False)
    | Accumulate data across scans depending on the value of
    | ntime.
    |                      Subparameter of mode='tfcrop|rflag|extend'
@@ -2521,8 +2482,7 @@ Details
 
 .. _timecutoff:
 
-   .. rubric:: timecutoff
-
+timecutoff (double=4.0)
    | Flagging thresholds in units of deviation from the fit
    |                      Subparameter of mode='tfcrop'
    |                      Default: 4.0
@@ -2540,8 +2500,7 @@ Details
 
 .. _freqcutoff:
 
-   .. rubric:: freqcutoff
-
+freqcutoff (double=3.0)
    | Flag threshold in frequency.
    |                      Subparameter of mode='tfcrop'
    |                      Default: 3.0
@@ -2554,8 +2513,7 @@ Details
 
 .. _timefit:
 
-   .. rubric:: timefit
-
+timefit (string='line')
    | Fitting function for the time direction (poly/line)
    |                      Subparameter of mode='tfcrop'
    |                      Default: 'line'
@@ -2584,8 +2542,7 @@ Details
 
 .. _freqfit:
 
-   .. rubric:: freqfit
-
+freqfit (string='poly')
    | Fitting function for the frequency direction (poly/line)
    |                      Subparameter of mode='tfcrop'
    |                      Default: 'poly'
@@ -2601,8 +2558,7 @@ Details
 
 .. _maxnpieces:
 
-   .. rubric:: maxnpieces
-
+maxnpieces (int=7)
    | Number of pieces in the polynomial-fits (for "freqfit" or
    | "timefit" = "poly")
    |                      Subparameter of mode='tfcrop'
@@ -2620,8 +2576,7 @@ Details
 
 .. _flagdimension:
 
-   .. rubric:: flagdimension
-
+flagdimension (string='freqtime')
    | Choose the directions along which to perform flagging
    |                      Subparameter of mode='tfcrop'
    |                      Default: 'freqtime' (first flag along frequency,
@@ -2638,8 +2593,7 @@ Details
 
 .. _usewindowstats:
 
-   .. rubric:: usewindowstats
-
+usewindowstats (string='none')
    | Use sliding-window statistics to find additional flags.
    |                      Subparameter of mode='tfcrop'
    |                      Default: 'none' 
@@ -2668,8 +2622,7 @@ Details
 
 .. _halfwin:
 
-   .. rubric:: halfwin
-
+halfwin (int=1)
    | Half-width of sliding window to use with "usewindowstats"
    | (1,2,3).
    |                      Subparameter of mode='tfcrop'
@@ -2680,8 +2633,7 @@ Details
 
 .. _extendflags:
 
-   .. rubric:: extendflags
-
+extendflags (bool=True)
    | Extend flags along time, frequency and correlation.
    |                      Subparameter of mode='tfcrop|rflag'
    |                      Default: True
@@ -2706,8 +2658,7 @@ Details
 
 .. _winsize:
 
-   .. rubric:: winsize
-
+winsize (int=3)
    | Number of timesteps in the sliding time window ( fparm(1)
    | in AIPS )
    |                      Subparameter of mode='rflag'
@@ -2715,8 +2666,7 @@ Details
 
 .. _timedev:
 
-   .. rubric:: timedev
-
+timedev (variant='')
    | Time-series noise estimate ( noise in AIPS )
    |                      Subparameter of mode='rflag'
    |                      Default: []
@@ -2737,8 +2687,7 @@ Details
 
 .. _freqdev:
 
-   .. rubric:: freqdev
-
+freqdev (variant='')
    | Spectral noise estimate ( scutoff in AIPS )
    |                      Subparameter of mode='rflag'
    |                      Default: []
@@ -2748,8 +2697,7 @@ Details
 
 .. _timedevscale:
 
-   .. rubric:: timedevscale
-
+timedevscale (double=5.0)
    | Threshold scaling for timedev( fparm(9) in AIPS ).
    |                      For Step 1 (time analysis), flag a point if local
    |                      rms around it is larger than 'timedevscale' x
@@ -2766,8 +2714,7 @@ Details
 
 .. _freqdevscale:
 
-   .. rubric:: freqdevscale
-
+freqdevscale (double=5.0)
    | Threshold scaling for freqdev (fparm(10) in AIPS ). 
    |                      For Step 2 (spectral analysis), flag a point if
    |                      local rms around it is larger than 'freqdevscale'
@@ -2784,8 +2731,7 @@ Details
 
 .. _spectralmax:
 
-   .. rubric:: spectralmax
-
+spectralmax (double=1E6)
    | Flag whole spectrum if 'freqdev' is greater than
    | spectralmax ( fparm(6) in AIPS )
    |                      Subparameter of mode='rflag'
@@ -2793,8 +2739,7 @@ Details
 
 .. _spectralmin:
 
-   .. rubric:: spectralmin
-
+spectralmin (double=0.0)
    | Flag whole spectrum if 'freqdev' is less than spectralmin
    | ( fparm(5) in AIPS )
    |                      Subparameter of mode='rflag'
@@ -2802,8 +2747,7 @@ Details
 
 .. _antint_ref_antenna:
 
-   .. rubric:: antint_ref_antenna
-
+antint_ref_antenna (string='')
    | Antenna of interest. Baselines with this antenna will be
    | checked for flagged channels.
    |                      Subparameter of mode='antint'
@@ -2816,8 +2760,7 @@ Details
 
 .. _minchanfrac:
 
-   .. rubric:: minchanfrac
-
+minchanfrac (double=0.6)
    | Minimum fraction of flagged channels required for a
    | baseline to be deemed as flagged
    |                      Subparameter of mode='antint'
@@ -2837,8 +2780,7 @@ Details
 
 .. _verbose:
 
-   .. rubric:: verbose
-
+verbose (bool=False)
    | Print timestamps of flagged integrations to the log
    |                      Subparameter of mode='antint'
    | 
@@ -2854,8 +2796,7 @@ Details
 
 .. _extendpols:
 
-   .. rubric:: extendpols
-
+extendpols (bool=True)
    | Extend flags to all selected correlations
    |                      Subparameter of mode='extend'
    |                      Default: True
@@ -2868,8 +2809,7 @@ Details
 
 .. _growtime:
 
-   .. rubric:: growtime
-
+growtime (double=50.0)
    | For any channel, flag the entire timerange in the current
    | 2D chunk (set by 'ntime') if more than X% of the timerange is already
    | flagged.
@@ -2882,8 +2822,7 @@ Details
 
 .. _growfreq:
 
-   .. rubric:: growfreq
-
+growfreq (double=50.0)
    | For any timestep, flag all channels in the current 2D
    | chunk (set by  data-selection) if more than X% of the channels are
    | already flagged.
@@ -2896,8 +2835,7 @@ Details
 
 .. _growaround:
 
-   .. rubric:: growaround
-
+growaround (bool=False)
    | Flag a point based on the number of flagged points around it.
    |                      Subparameter of mode='extend'
    |                      Default: False
@@ -2910,8 +2848,7 @@ Details
 
 .. _flagneartime:
 
-   .. rubric:: flagneartime
-
+flagneartime (bool=False)
    | Flag points before and after every flagged one, in the
    | time-direction.
    |                      Subparameter of mode='extend'
@@ -2922,8 +2859,7 @@ Details
 
 .. _flagnearfreq:
 
-   .. rubric:: flagnearfreq
-
+flagnearfreq (bool=False)
    | Flag points before and after every flagged one, in the
    | frequency-direction
    |                      Subparameter of mode='extend'
@@ -2934,8 +2870,7 @@ Details
 
 .. _minrel:
 
-   .. rubric:: minrel
-
+minrel (double=0.0)
    | Minimum number of flags (relative) to include in
    | histogram
    |                      Subparameter of mode='summary'
@@ -2943,8 +2878,7 @@ Details
 
 .. _maxrel:
 
-   .. rubric:: maxrel
-
+maxrel (double=1.0)
    | Maximum number of flags (relative) to include in
    | histogram
    |                      Subparameter of mode='summary'
@@ -2952,8 +2886,7 @@ Details
 
 .. _minabs:
 
-   .. rubric:: minabs
-
+minabs (int=0)
    | Minimum number of flags (absolute, inclusive) to include
    | in histogram
    |                      Subparameter of mode='summary'
@@ -2961,8 +2894,7 @@ Details
 
 .. _maxabs:
 
-   .. rubric:: maxabs
-
+maxabs (int=-1)
    | Maximum number of flags (absolute, inclusive) to include
    | in histogram
    |                      Subparameter of mode='summary'
@@ -2972,8 +2904,7 @@ Details
 
 .. _spwchan:
 
-   .. rubric:: spwchan
-
+spwchan (bool=False)
    | List the number of flags per spw and per channel.
    |                      Subparameter of mode='summary'
    |                      Default: False
@@ -2981,8 +2912,7 @@ Details
 
 .. _spwcorr:
 
-   .. rubric:: spwcorr
-
+spwcorr (bool=False)
    | List the number of flags per spw and per correlation.
    |                      Subparameter of mode='summary'
    |                      Default: False
@@ -2990,8 +2920,7 @@ Details
 
 .. _basecnt:
 
-   .. rubric:: basecnt
-
+basecnt (bool=False)
    | List the number of flags per baseline
    |                      Subparameter of mode='summary'
    |                      Default: False
@@ -2999,8 +2928,7 @@ Details
 
 .. _fieldcnt:
 
-   .. rubric:: fieldcnt
-
+fieldcnt (bool=False)
    | Produce a separated breakdown per field
    |                      Subparameter of mode='summary'
    |                      Default: False
@@ -3008,8 +2936,7 @@ Details
 
 .. _name:
 
-   .. rubric:: name
-
+name (string='Summary')
    | Name for this summary, to be used as a key in the
    | returned Python dictionary
    |                      Subparameter of mode='summary'
@@ -3045,8 +2972,7 @@ Details
 
 .. _action:
 
-   .. rubric:: action
-
+action (string='apply')
    | Action to perform in MS/cal table or in the input list of
    | parameters.
    |                      Default: 'apply'
@@ -3067,8 +2993,7 @@ Details
 
 .. _display:
 
-   .. rubric:: display
-
+display (string='')
    | Display data and/or end-of-MS reports at runtime.
    |                      Subparameter of action='apply|calculate'
    |                      Default: 'none'
@@ -3095,8 +3020,7 @@ Details
 
 .. _flagbackup:
 
-   .. rubric:: flagbackup
-
+flagbackup (bool=True)
    | Automatically backup flags before the run?
    |                      Default: True
    |                      Options: True|False
@@ -3106,8 +3030,7 @@ Details
 
 .. _savepars:
 
-   .. rubric:: savepars
-
+savepars (bool=False)
    | Save the current parameters to the FLAG_CMD table of the
    | MS or to an output text file?
    |                      Default: False
@@ -3124,8 +3047,7 @@ Details
 
 .. _cmdreason:
 
-   .. rubric:: cmdreason
-
+cmdreason (string='')
    | A string containing a reason to save to the FLAG_CMD
    | table or to an output text file given by the outfile sub-parameter.
    |                      Subparameter of savepars=True
@@ -3139,8 +3061,7 @@ Details
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | Name of output file to save current parameters. If empty,
    | save to FLAG_CMD
    |                      Subparameter of savepars=True
@@ -3152,8 +3073,7 @@ Details
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=True)
    | Overwrite the existing file given in 'outfile'
    |                      Default: True
    |                      Options: True|False
@@ -3166,8 +3086,7 @@ Details
 
 .. _writeflags:
 
-   .. rubric:: writeflags
-
+writeflags (bool=True)
    | Internal hidden parameter. Do not modify.
 
 

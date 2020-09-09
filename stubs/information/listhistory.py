@@ -17,15 +17,9 @@ Description
    will be written to the logger.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file (MS)
 
 

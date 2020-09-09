@@ -727,15 +727,9 @@ Description
    when the image has multiple beams and *mode="summary"*.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Input image cube.
    |                      Default: none
    | 
@@ -743,8 +737,7 @@ Details
 
 .. _mode:
 
-   .. rubric:: mode
-
+mode (string='summary')
    | Mode of operation.
    |                      Default: summary
    |                      Options: "add", "del", "get", "history", "list",
@@ -811,8 +804,7 @@ Details
 
 .. _hdkey:
 
-   .. rubric:: hdkey
-
+hdkey (string='')
    | Keyword to use with get, put, add, or del.
    |                      Subparameter of mode=get|put|add|del
    | 
@@ -823,8 +815,7 @@ Details
 
 .. _hdvalue:
 
-   .. rubric:: hdvalue
-
+hdvalue (variant='')
    | Keyword value used for modes 'put' and 'add'. 
    |                      Subparameter of mode='put|add' ('del')
    | 
@@ -834,8 +825,7 @@ Details
 
 .. _verbose:
 
-   .. rubric:: verbose
-
+verbose (bool=False)
    | Give a full listing of beams or just a short summary? Only used when the image has multiple beams and mode="summary".
 
 

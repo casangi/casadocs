@@ -7,21 +7,21 @@ def msuvbin(vis, field='', spw='', taql='', outvis='', phasecenter='', nx=1000, 
 grid the visibility data onto a defined uniform grid (in the form of an ms); multiple MS\'s can be done onto the same grid
 
 Parameters
-   - vis_ (string) - 
-   - field_ (string='') - 
-   - spw_ (string='') - 
-   - taql_ (string='') - 
-   - outvis_ (string='') - 
-   - phasecenter_ (string='') - 
-   - nx_ (int=1000) - 
-   - ny_ (int=1000) - 
-   - cell_ (string='1arcsec') - 
-   - ncorr_ (int=1) - 
-   - nchan_ (int=1) - 
-   - fstart_ (string='1GHz') - 
-   - fstep_ (string='1kHz') - 
-   - wproject_ (bool=False) - 
-   - memfrac_ (double=0.5) - 
+   - vis_ (string)
+   - field_ (string='')
+   - spw_ (string='')
+   - taql_ (string='')
+   - outvis_ (string='')
+   - phasecenter_ (string='')
+   - nx_ (int=1000)
+   - ny_ (int=1000)
+   - cell_ (string='1arcsec')
+   - ncorr_ (int=1)
+   - nchan_ (int=1)
+   - fstart_ (string='1GHz')
+   - fstep_ (string='1kHz')
+   - wproject_ (bool=False)
+   - memfrac_ (double=0.5)
 
 
 Description
@@ -144,99 +144,79 @@ Description
    Default=0.5
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file (MS)
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Field selection of input ms
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Spw selection
 
 .. _taql:
 
-   .. rubric:: taql
-
+taql (string='')
    | TaQl string for data selection
 
 .. _outvis:
 
-   .. rubric:: outvis
-
+outvis (string='')
    | name of output uvgrid
 
 .. _phasecenter:
 
-   .. rubric:: phasecenter
-
+phasecenter (string='')
    | phase center of uv grid
 
 .. _nx:
 
-   .. rubric:: nx
-
+nx (int=1000)
    | Number of pixels of grid along the x-axis
 
 .. _ny:
 
-   .. rubric:: ny
-
+ny (int=1000)
    | Number of pixels of grid along the y-axis
 
 .. _cell:
 
-   .. rubric:: cell
-
+cell (string='1arcsec')
    | pixel cell size defined in sky dimension
 
 .. _ncorr:
 
-   .. rubric:: ncorr
-
+ncorr (int=1)
    | number of correlations to store in grid
 
 .. _nchan:
 
-   .. rubric:: nchan
-
+nchan (int=1)
    | Number of spectral channels in grid
 
 .. _fstart:
 
-   .. rubric:: fstart
-
+fstart (string='1GHz')
    | Frequency of first spectral channel
 
 .. _fstep:
 
-   .. rubric:: fstep
-
+fstep (string='1kHz')
    | spectral channel width
 
 .. _wproject:
 
-   .. rubric:: wproject
-
+wproject (bool=False)
    | Do wprojection correction while gridding
 
 .. _memfrac:
 
-   .. rubric:: memfrac
-
+memfrac (double=0.5)
    | Limit how much of memory to use
 
 

@@ -9,11 +9,31 @@ Create a (sub)image from a region of the image
 Parameters
    - imagename_ (string) - Input image name.  Default is unset.
    - outfile_ (string='') - Output image name.  Default is unset.
+
+      .. raw:: html
+
+         <details><summary><i> outfile != '' </i></summary>
+
+      - overwrite_ (bool=False) - Overwrite (unprompted) pre-existing output file?
+
+      .. raw:: html
+
+         </details>
    - box_ (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
    - region_ (string='') - Region selection. Default is to use the full image.
    - chans_ (string='') - Channels to use. Default is to use all channels.
    - stokes_ (string='') - Stokes planes to use. Default is to use all Stokes planes.
    - mask_ (variant='') - Mask to use. Default is none.
+
+      .. raw:: html
+
+         <details><summary><i> mask != '' </i></summary>
+
+      - stretch_ (bool=False) - Stretch the mask if necessary and possible? 
+
+      .. raw:: html
+
+         </details>
    - dropdeg_ (bool=False) - Drop degenerate axes
 
       .. raw:: html
@@ -80,81 +100,64 @@ Description
    dropdeg=False; all axes are kept in that case.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Input image name.  Default is unset.
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | Output image name.  Default is unset.
 
 .. _box:
 
-   .. rubric:: box
-
+box (string='')
    | Rectangular region to select in direction plane. Default is to use the entire direction plane.
 
 .. _region:
 
-   .. rubric:: region
-
+region (string='')
    | Region selection. Default is to use the full image.
 
 .. _chans:
 
-   .. rubric:: chans
-
+chans (string='')
    | Channels to use. Default is to use all channels.
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='')
    | Stokes planes to use. Default is to use all Stokes planes.
 
 .. _mask:
 
-   .. rubric:: mask
-
+mask (variant='')
    | Mask to use. Default is none.
 
 .. _dropdeg:
 
-   .. rubric:: dropdeg
-
+dropdeg (bool=False)
    | Drop degenerate axes
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Overwrite (unprompted) pre-existing output file?
 
 .. _verbose:
 
-   .. rubric:: verbose
-
+verbose (bool=True)
    | Post additional informative messages to the logger
 
 .. _stretch:
 
-   .. rubric:: stretch
-
+stretch (bool=False)
    | Stretch the mask if necessary and possible?
 
 .. _keepaxes:
 
-   .. rubric:: keepaxes
-
+keepaxes (intArray=[''])
    | If dropdeg=True, these are the degenerate axes to keep. Nondegenerate axes are implicitly always kept.
 
 

@@ -285,105 +285,84 @@ Description
    solve for phase offset (also known as "secular phase").
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
 
 .. _caltable:
 
-   .. rubric:: caltable
-
+caltable (string='')
    | Name of output gain calibration table
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Select field using field id(s) or field name(s)
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Select spectral window/channels
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | Select observing intent
 
 .. _selectdata:
 
-   .. rubric:: selectdata
-
+selectdata (bool=True)
    | Other data selection parameters
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | Select data based on time range
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | Select data based on antenna/baseline
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | Scan number range
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | Select by observation ID(s)
 
 .. _msselect:
 
-   .. rubric:: msselect
-
+msselect (string='')
    | Optional complex data selection (ignore for now)
 
 .. _solint:
 
-   .. rubric:: solint
-
+solint (variant='inf')
    | Solution interval: egs. \'inf\', \'60s\' (see help)
 
 .. _combine:
 
-   .. rubric:: combine
-
+combine (string='')
    | Data axes which to combine for solve (obs, scan, spw, and/or field)
 
 .. _refant:
 
-   .. rubric:: refant
-
+refant (string='')
    | Reference antenna name(s)
 
 .. _minsnr:
 
-   .. rubric:: minsnr
-
+minsnr (double=3.0)
    | Reject solutions below this signal-to-noise ratio (at the FFT stage)
 
 .. _zerorates:
 
-   .. rubric:: zerorates
-
+zerorates (bool=False)
    | Zero delay-rates in solution table
    | 
    |         Write a solution table with delay-rates zeroed, for the case of
@@ -393,36 +372,31 @@ Details
 
 .. _globalsolve:
 
-   .. rubric:: globalsolve
-
+globalsolve (bool=True)
    | Refine estimates of delay and rate with global least-squares solver
 
 .. _niter:
 
-   .. rubric:: niter
-
+niter (int=100)
    | Maximum number of iterations for least-squares solver
 
 .. _delaywindow:
 
-   .. rubric:: delaywindow
-
+delaywindow (doubleArray=[''])
    | Constrain FFT delay search to a window specified as a two-element list with units of nanoseconds
    |     Default: [None, None]
    |     Examples: [-10, 10]
 
 .. _ratewindow:
 
-   .. rubric:: ratewindow
-
+ratewindow (doubleArray=[''])
    | Constrain FFT rate search to a window specified as a two-element list with units of seconds per second
    |       Default: [None, None]
    |       Examples: [-1e-13, 1e-13]
 
 .. _append:
 
-   .. rubric:: append
-
+append (bool=False)
    | Append solutions to the (existing) table
    |     Default: False (overwrite existing table or make
    |     new table)
@@ -434,8 +408,7 @@ Details
 
 .. _corrdepflags:
 
-   .. rubric:: corrdepflags
-
+corrdepflags (bool=False)
    | If False (default), if any correlation is flagged, treat all correlations in
    |         the visibility vector as flagged when solving (per channel, per baseline).
    |         If True, use unflagged correlations in a visibility vector, even if one or more
@@ -455,8 +428,7 @@ Details
 
 .. _docallib:
 
-   .. rubric:: docallib
-
+docallib (bool=False)
    | Control means of specifying the caltables
    |                      Default: False (Use gaintable, gainfield, interp,
    |                      spwmap, calwt)
@@ -467,15 +439,13 @@ Details
 
 .. _callib:
 
-   .. rubric:: callib
-
+callib (string='')
    | Specify a file containing cal library directives
    |     Subparameter of docallib=True
 
 .. _gaintable:
 
-   .. rubric:: gaintable
-
+gaintable (stringArray=[''])
    | Gain calibration table(s) to apply on the fly
    |     Default: '' (none)
    |     Subparameter of docallib=False
@@ -485,8 +455,7 @@ Details
 
 .. _gainfield:
 
-   .. rubric:: gainfield
-
+gainfield (stringArray=[''])
    | Select a subset of calibrators from gaintable(s)
    |     Default: '' (all sources on the sky)
    | 
@@ -501,8 +470,7 @@ Details
 
 .. _interp:
 
-   .. rubric:: interp
-
+interp (stringArray=[''])
    | Interpolation parameters (in time[,freq]) for each gaintable, as a list of strings.
    |     Default: '' --> 'linear,linear' for all gaintable(s)
    |     Options: Time: 'nearest', 'linear'
@@ -546,8 +514,7 @@ Details
 
 .. _spwmap:
 
-   .. rubric:: spwmap
-
+spwmap (intArray=[''])
    | Spectral window mappings to form for gaintable(s)
    |                      Only used if callib=False
    |                      default: [] (apply solutions from each calibration spw to
@@ -562,14 +529,12 @@ Details
 
 .. _paramactive:
 
-   .. rubric:: paramactive
-
+paramactive (boolArray=[''])
    | Control which parameters are solved for; a vector of (exactly) three booleans for delay, delay-rate and dispersive delay (in that order)
 
 .. _parang:
 
-   .. rubric:: parang
-
+parang (bool=False)
    | Apply parallactic angle correction on the fly.
 
 

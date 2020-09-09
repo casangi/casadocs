@@ -170,15 +170,9 @@ Description
       cal table format.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file or calibration table.
    |                      default: '' (none) 
    | 
@@ -186,8 +180,7 @@ Details
 
 .. _inpmode:
 
-   .. rubric:: inpmode
-
+inpmode (string='table')
    | Input mode for flag commands(table/list/xml)
    |                      options: 'table','list','xml'
    |                      default: 'table' (the input commands from
@@ -208,8 +201,7 @@ Details
 
 .. _inpfile:
 
-   .. rubric:: inpfile
-
+inpfile ({string, stringArray}='')
    | Source of flag commands. Subparameter of
    | inpmode='table/list'.
    |                      Path to MS containing FLAG_CMD (table), or name
@@ -230,8 +222,7 @@ Details
 
 .. _tablerows:
 
-   .. rubric:: tablerows
-
+tablerows (intArray=[''])
    | List of rows of the FLAG_CMD table to read. Subparameter
    | of inpmode='table/list'.
    |                      default: [] (read all rows)
@@ -246,8 +237,7 @@ Details
 
 .. _reason:
 
-   .. rubric:: reason
-
+reason ({string, stringArray}='any')
    | Select flag commands based on REASON(s). Subparameter of
    | inpmode.
    |                      default: 'any' (all flags regardless of reason)
@@ -267,8 +257,7 @@ Details
 
 .. _useapplied:
 
-   .. rubric:: useapplied
-
+useapplied (bool=False)
    | Select commands whose rows have APPLIED column set to
    | True. Subparameter of inpmode='table'.
    |                      options: True,False
@@ -284,23 +273,20 @@ Details
 
 .. _tbuff:
 
-   .. rubric:: tbuff
-
+tbuff (double=0.0)
    | Time buffer (sec) to pad flags. Subparameter of
    | inpmode='xml'.
    |                      default: 0.0
 
 .. _ants:
 
-   .. rubric:: ants
-
+ants (string='')
    | Allowed flag antenna names to select by. Subparameter of
    | inpmode='xml'.
 
 .. _action:
 
-   .. rubric:: action
-
+action (string='apply')
    | Action to perform in MS and/or in inpfile
    |                      options: apply/unapply/list/plot/clear/extract
    |                      default: 'apply'
@@ -352,8 +338,7 @@ Details
 
 .. _flagbackup:
 
-   .. rubric:: flagbackup
-
+flagbackup (bool=True)
    | Automatically backup the FLAG column before
    | execution. Subparameter of action='apply/unapply'.
    |                      options: True,False
@@ -361,16 +346,14 @@ Details
 
 .. _clearall:
 
-   .. rubric:: clearall
-
+clearall (bool=False)
    | Delete all rows from FLAG_CMD. Subparameter of
    | action='clear'.
    |                      default: False (will not clear)
 
 .. _rowlist:
 
-   .. rubric:: rowlist
-
+rowlist (intArray=[''])
    | FLAG_CMD rows to clear. Subparameter of action='clear'.
    |                      default: [] (all flags in table)
    |                
@@ -392,8 +375,7 @@ Details
 
 .. _plotfile:
 
-   .. rubric:: plotfile
-
+plotfile (string='')
    | Name of output file to save plot
    |                      default: '' (plot to matplotlib window)
    | 
@@ -402,8 +384,7 @@ Details
 
 .. _savepars:
 
-   .. rubric:: savepars
-
+savepars (bool=False)
    | Save the flag commands to the FLAG_CMD table of the MS or
    | to an output text file.
    |                      options: True/False     
@@ -411,8 +392,7 @@ Details
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | Name of output file to save commands. Subparameter of
    | savepars=True.
    |                      default: ' '; it will save the commands in the
@@ -423,8 +403,7 @@ Details
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=True)
    | Overwrite an existing file given in 'outfile' to save the
    | flag commands. Subparameter of savepars=True.
    |                      options: True/False

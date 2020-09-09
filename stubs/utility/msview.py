@@ -7,16 +7,16 @@ def msview(infile, displaytype='raster', channel=0, zoom=1, outfile='', outscale
 View a visibility data set
 
 Parameters
-   - infile_ (string) - 
-   - displaytype_ (string='raster') - 
-   - channel_ (int=0) - 
-   - zoom_ (int=1) - 
-   - outfile_ (string='') - 
-   - outscale_ (double=1.0) - 
-   - outdpi_ (int=300) - 
-   - outformat_ (string='jpg') - 
-   - outlandscape_ (bool=False) - 
-   - gui_ (bool=True) - 
+   - infile_ (string)
+   - displaytype_ (string='raster')
+   - channel_ (int=0)
+   - zoom_ (int=1)
+   - outfile_ (string='')
+   - outscale_ (double=1.0)
+   - outdpi_ (int=300)
+   - outformat_ (string='jpg')
+   - outlandscape_ (bool=False)
+   - gui_ (bool=True)
 
 
 Description
@@ -57,69 +57,54 @@ Description
    +---------+-----------------------------------------------------------+
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _infile:
 
-   .. rubric:: infile
-
+infile (string)
    | (Optional)  Name of file to visualize.
 
 .. _displaytype:
 
-   .. rubric:: displaytype
-
+displaytype (string='raster')
    | (Optional)  Type of visual rendering (raster, contour, vector or marker).  lel  if an lel expression is given for infile  (advanced).
 
 .. _channel:
 
-   .. rubric:: channel
-
+channel (int=0)
    | (Optional)  access a specific channel in the image cube
 
 .. _zoom:
 
-   .. rubric:: zoom
-
+zoom (int=1)
    | (Optional)  zoom in/out by increments
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | (Optional)  name of the output file to generate
 
 .. _outscale:
 
-   .. rubric:: outscale
-
+outscale (double=1.0)
    | (Optional)  amount to scale output bitmap formats (non-PS, non-PDF)
 
 .. _outdpi:
 
-   .. rubric:: outdpi
-
+outdpi (int=300)
    | (Optional)  output DPI for PS/PDF
 
 .. _outformat:
 
-   .. rubric:: outformat
-
+outformat (string='jpg')
    | (Optional)  format of the output e.g. jpg or pdf (this is overridden by the output files extension
 
 .. _outlandscape:
 
-   .. rubric:: outlandscape
-
+outlandscape (bool=False)
    | (Optional)  should the output mode be landscape (PS or PDF)
 
 .. _gui:
 
-   .. rubric:: gui
-
+gui (bool=True)
    | (Optional)  Display the panel in a GUI.
 
 

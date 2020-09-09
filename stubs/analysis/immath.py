@@ -62,6 +62,16 @@ Parameters
          </details>
    - outfile_ (string='immath_results.im') - File where the output is saved
    - mask_ (string='') - Mask to use. Default is none.
+
+      .. raw:: html
+
+         <details><summary><i> mask != '' </i></summary>
+
+      - stretch_ (bool=False) - Stretch the mask if necessary and possible? See help stretch.par 
+
+      .. raw:: html
+
+         </details>
    - region_ (string='') - Region selection. Default is to use the full image.
    - box_ (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
    - chans_ (string='') - Channels to use. Default is to use all channels.
@@ -351,99 +361,79 @@ Description
    mode='evalexpr' or 'spix'.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (variant='')
    | a list of input images
 
 .. _mode:
 
-   .. rubric:: mode
-
+mode (string='evalexpr')
    | mode for math operation (evalexpr, spix, pola, poli, lpoli, tpoli)
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='immath_results.im')
    | File where the output is saved
 
 .. _expr:
 
-   .. rubric:: expr
-
+expr (string='IM0')
    | Mathematical expression using images
 
 .. _varnames:
 
-   .. rubric:: varnames
-
+varnames (variant='')
    | a list of variable names to use with the image files
 
 .. _sigma:
 
-   .. rubric:: sigma
-
+sigma (string='0.0mJy/beam')
    | standard deviation of noise for debiasing
 
 .. _polithresh:
 
-   .. rubric:: polithresh
-
+polithresh (string='')
    | Threshold in linear polarization intensity image below which to mask pixels.
 
 .. _mask:
 
-   .. rubric:: mask
-
+mask (string='')
    | Mask to use. Default is none.
 
 .. _region:
 
-   .. rubric:: region
-
+region (string='')
    | Region selection. Default is to use the full image.
 
 .. _box:
 
-   .. rubric:: box
-
+box (string='')
    | Rectangular region to select in direction plane. Default is to use the entire direction plane.
 
 .. _chans:
 
-   .. rubric:: chans
-
+chans (string='')
    | Channels to use. Default is to use all channels.
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='')
    | Stokes planes to use. Default is to use all Stokes planes.
 
 .. _stretch:
 
-   .. rubric:: stretch
-
+stretch (bool=False)
    | Stretch the mask if necessary and possible? See help stretch.par
 
 .. _imagemd:
 
-   .. rubric:: imagemd
-
+imagemd (string='')
    | An image name from which metadata should be copied. The input can be either an image listed under imagename or any other image on disk. Leaving this parameter unset may copy header metadata from any of the input images, which one is not guaranteed.
 
 .. _prec:
 
-   .. rubric:: prec
-
+prec (string='float')
    | Precision for the output image pixels if mode="evalexpr" or "spix". "float" or "double" (minimum match supported)
 
 

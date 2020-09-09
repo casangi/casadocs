@@ -15,6 +15,22 @@ Parameters
    - nfreqs_ (int=2) - Number of frequencies
    - prefix_ (string='') - Prefix for the component list directory name.
    - antennalist_ (string='') - Plot for this configuration
+
+      .. raw:: html
+
+         <details><summary><i> antennalist != '' </i></summary>
+
+      - showplot_ (bool=False) - Plot S vs |u| to the screen?
+      - savefig_ (string='') - Save a plot of S vs |u| to this filename
+      - symb_ (string='.') - A matplotlib plot symbol code
+      - include0amp_ (bool=False) - Force the amplitude axis to start at 0?
+      - include0bl_ (bool=False) - Force the baseline axis to start at 0?
+      - blunit_ (string='') - unit of the baseline axis
+      - showbl0flux_ (bool=False) - Print the zero baseline flux ?
+
+      .. raw:: html
+
+         </details>
    - symb_ (string='.') - A matplotlib plot symbol code
 
 
@@ -158,99 +174,79 @@ Description
    Print the zero baseline flux. Default: False
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _objname:
 
-   .. rubric:: objname
-
+objname (string='')
    | Object name
 
 .. _standard:
 
-   .. rubric:: standard
-
+standard (string='Butler-JPL-Horizons 2010')
    | Flux density standard
 
 .. _epoch:
 
-   .. rubric:: epoch
-
+epoch (string='')
    | Epoch
 
 .. _minfreq:
 
-   .. rubric:: minfreq
-
+minfreq (string='')
    | Minimum frequency
 
 .. _maxfreq:
 
-   .. rubric:: maxfreq
-
+maxfreq (string='')
    | Maximum frequency
 
 .. _nfreqs:
 
-   .. rubric:: nfreqs
-
+nfreqs (int=2)
    | Number of frequencies
 
 .. _prefix:
 
-   .. rubric:: prefix
-
+prefix (string='')
    | Prefix for the component list directory name.
 
 .. _antennalist:
 
-   .. rubric:: antennalist
-
+antennalist (string='')
    | Plot for this configuration
 
 .. _showplot:
 
-   .. rubric:: showplot
-
+showplot (bool=False)
    | Plot S vs |u| to the screen?
 
 .. _savefig:
 
-   .. rubric:: savefig
-
+savefig (string='')
    | Save a plot of S vs |u| to this filename
 
 .. _symb:
 
-   .. rubric:: symb
-
+symb (string='.')
    | A matplotlib plot symbol code
 
 .. _include0amp:
 
-   .. rubric:: include0amp
-
+include0amp (bool=False)
    | Force the amplitude axis to start at 0?
 
 .. _include0bl:
 
-   .. rubric:: include0bl
-
+include0bl (bool=False)
    | Force the baseline axis to start at 0?
 
 .. _blunit:
 
-   .. rubric:: blunit
-
+blunit (string='')
    | unit of the baseline axis
 
 .. _showbl0flux:
 
-   .. rubric:: showbl0flux
-
+showbl0flux (bool=False)
    | Print the zero baseline flux ?
 
 

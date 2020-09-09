@@ -9,7 +9,32 @@ visibility simulation task
 Parameters
    - project_ (string='sim') - Root prefix for output file names
    - skymodel_ (string='') - model image to observe
+
+      .. raw:: html
+
+         <details><summary><i> skymodel != '' </i></summary>
+
+      - inbright_ (string='') - Peak brightness to scale the image to in Jy/pixel
+      - indirection_ (string='') - Set new direction, e.g. J2000 19h00m00 -40d00m00
+      - incell_ (string='') - Set new cell/pixel size, e.g. 0.1arcsec
+      - incenter_ (string='') - Set new frequency of center channel e.g. 89GHz (required even for 2D model)
+      - inwidth_ (string='') - Set new channel width, e.g. "10MHz" (required even for 2D model)
+
+      .. raw:: html
+
+         </details>
    - complist_ (string='') - Componentlist to observe
+
+      .. raw:: html
+
+         <details><summary><i> complist != '' </i></summary>
+
+      - compwidth_ (string='"8GHz"') - Bandwidth of components
+      - comp_nchan_ (int=1) - Channelization of components
+
+      .. raw:: html
+
+         </details>
    - setpointings_ (bool=True) - Calculate a map of pointings?
 
       .. raw:: html
@@ -693,21 +718,14 @@ Description
    False
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _project:
 
-   .. rubric:: project
-
+project (string='sim')
    | root prefix for output file names
 
 .. _skymodel:
 
-   .. rubric:: skymodel
-
+skymodel (string='')
    | Model image to observe
    | 
    |                    * simobserve uses a CASA or fits image. If you
@@ -734,8 +752,7 @@ Details
 
 .. _inbright:
 
-   .. rubric:: inbright
-
+inbright (string='')
    | Peak brightness to scale the image to, in Jy/pixel
    |                      Subparameter of skymodel
    |                      Default: '' (i.e., unchanged)
@@ -748,8 +765,7 @@ Details
 
 .. _indirection:
 
-   .. rubric:: indirection
-
+indirection (string='')
    | Central direction to place the sky model image
    |                      Subparameter of skymodel
    |                      Default: '' (use whatever is in the image
@@ -760,8 +776,7 @@ Details
 
 .. _incell:
 
-   .. rubric:: incell
-
+incell (string='')
    | set new cell/pixel size
    |                      Subparameter of skymodel
    |                      Default: '' (use whatever is in the image
@@ -771,8 +786,7 @@ Details
 
 .. _incenter:
 
-   .. rubric:: incenter
-
+incenter (string='')
    | Frequency to use for the center channel (or only channel,
    | if the skymodel is 2D)
    |                      Subparameter of skymodel
@@ -783,8 +797,7 @@ Details
 
 .. _inwidth:
 
-   .. rubric:: inwidth
-
+inwidth (string='')
    | Set new channel width 
    |                      Subparameter of skymodel
    |                      Default: '' (use whatever is in the image
@@ -804,14 +817,12 @@ Details
 
 .. _complist:
 
-   .. rubric:: complist
-
+complist (string='')
    | Component list model of the sky, added to or instead of skymodel. See https://casaguides.nrao.edu/index.php/Simulation_Guide_Component_Lists_(CASA_5.4)
 
 .. _compwidth:
 
-   .. rubric:: compwidth
-
+compwidth (string='"8GHz"')
    | Bandwidth of components
    |                      Subparameter of complist
    | 
@@ -822,8 +833,7 @@ Details
 
 .. _comp_nchan:
 
-   .. rubric:: comp_nchan
-
+comp_nchan (int=1)
    | Channelization of components
    |                      Subparameter of complist
    | 
@@ -834,8 +844,7 @@ Details
 
 .. _setpointings:
 
-   .. rubric:: setpointings
-
+setpointings (bool=True)
    | If true, calculate a map of pointings and write ptgfile. If false, read pointings from ptgfile.
    |                      Default: True
    | 
@@ -844,8 +853,7 @@ Details
 
 .. _ptgfile:
 
-   .. rubric:: ptgfile
-
+ptgfile (string='$project.ptg.txt')
    | A text file specifying directions
    |                      Subparameter of setpointings=False
    |                      
@@ -865,8 +873,7 @@ Details
 
 .. _integration:
 
-   .. rubric:: integration
-
+integration (string='10s')
    | Time interval for each integration
    |                      Subparameter of setpointings=False
    | 
@@ -880,8 +887,7 @@ Details
 
 .. _direction:
 
-   .. rubric:: direction
-
+direction (stringArray=[''])
    | Mosaic center direction.
    |                      Subparameter of setpointings=True
    | 
@@ -896,8 +902,7 @@ Details
 
 .. _mapsize:
 
-   .. rubric:: mapsize
-
+mapsize (stringArray=['', ''])
    | Angular size of of mosaic map to simulate.
    |                      Subparameter of setpointings=True
    | 
@@ -905,8 +910,7 @@ Details
 
 .. _maptype:
 
-   .. rubric:: maptype
-
+maptype (string='hexagonal')
    | How to calculate the pointings for the mosaic
    | observation?
    |                      Subparameter of setpointings=True
@@ -918,8 +922,7 @@ Details
 
 .. _pointingspacing:
 
-   .. rubric:: pointingspacing
-
+pointingspacing (string='')
    | Spacing in between pointings. 
    |                      Subparameter of setpointings=True
    | 
@@ -930,20 +933,17 @@ Details
 
 .. _caldirection:
 
-   .. rubric:: caldirection
-
+caldirection (string='')
    | pt source calibrator [experimental]
 
 .. _calflux:
 
-   .. rubric:: calflux
-
+calflux (string='1Jy')
    | pt source calibrator flux [experimental]
 
 .. _obsmode:
 
-   .. rubric:: obsmode
-
+obsmode (string='int')
    | Observation mode to simulate
    |                      Options: int(interferometer)|sd(singledish)|""(none)
    | 
@@ -967,8 +967,7 @@ Details
 
 .. _refdate:
 
-   .. rubric:: refdate
-
+refdate (string='2014/01/01')
    | Date of simulated observation
    |                      Subparameter of obsmode='int|sd'
    |                      Not critical unless concatting simulations
@@ -977,8 +976,7 @@ Details
 
 .. _hourangle:
 
-   .. rubric:: hourangle
-
+hourangle (string='transit')
    | Hour angle of observation center.
    |                      Subparameter of obsmode='int|sd'
    | 
@@ -987,8 +985,7 @@ Details
 
 .. _totaltime:
 
-   .. rubric:: totaltime
-
+totaltime (string='7200s')
    | Total time of observation or number of repetitions
    |                      Subparameter of obsmode='int|sd'
    | 
@@ -999,8 +996,7 @@ Details
 
 .. _antennalist:
 
-   .. rubric:: antennalist
-
+antennalist (string='')
    | Text file containing antenna positions.
    |                      Subparameter of obsmode='int|""'
    | 
@@ -1029,30 +1025,26 @@ Details
 
 .. _sdantlist:
 
-   .. rubric:: sdantlist
-
+sdantlist (string='aca.tp.cfg')
    | single dish antenna position file
    |                      Subparameter of obsmode='sd|""'
 
 .. _sdant:
 
-   .. rubric:: sdant
-
+sdant (int=0)
    | Index of the antenna in the list to use for total power.  
    |                      Subparameter of obsmode='sd|""'
    |                      Default: first antenna on the list.
 
 .. _outframe:
 
-   .. rubric:: outframe
-
+outframe (string='LSRK')
    | spectral frame of MS to create
    |                      Subparameter of obsmode='sd|""'
 
 .. _thermalnoise:
 
-   .. rubric:: thermalnoise
-
+thermalnoise (string='tsys-atm')
    | add thermal noise.
    |                      Options: tsys-atm, tsys-manual, ""
    | 
@@ -1099,31 +1091,27 @@ Details
 
 .. _user_pwv:
 
-   .. rubric:: user_pwv
-
+user_pwv (double=0.5)
    | Precipitable water vapor if constructing an atmospheric
    | model (in mm)
    |                       Subparameter of thermalnoise='tsys-atm'
 
 .. _t_ground:
 
-   .. rubric:: t_ground
-
+t_ground (double=270.)
    | Ground/spillover temperature in K
    |                       Subparameter of
    |                       thermalnoise='tsys-atm|tsys-manual'
 
 .. _t_sky:
 
-   .. rubric:: t_sky
-
+t_sky (double=260.)
    | Atmospheric temperature in K
    |                       Subparameter of thermalnoise='tsys-manual'
 
 .. _tau0:
 
-   .. rubric:: tau0
-
+tau0 (double=0.1)
    | Zenith opacity at observing frequency
    |                       Subparameter of thermalnoise='tsys-manual'
    | 
@@ -1133,38 +1121,33 @@ Details
 
 .. _seed:
 
-   .. rubric:: seed
-
+seed (int=11111)
    | Random number seed
    |                       Subparameter of
    |                       thermalnoise='tsys-atm|tsys-manual'
 
 .. _leakage:
 
-   .. rubric:: leakage
-
+leakage (double=0.0)
    | add cross polarization corruption of this fractional
    | magnitude (interferometer only)
 
 .. _graphics:
 
-   .. rubric:: graphics
-
+graphics (string='both')
    | View plots on the screen, saved to file, both, or neither
    |                      Options: screen|file|both|none
 
 .. _verbose:
 
-   .. rubric:: verbose
-
+verbose (bool=False)
    | Print extra information to the logger and terminal
    |                      Default: False
    |                      Options: True|False
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=True)
    | Overwrite files starting with $project
    |                      Default: False
    |                      Options: True|False

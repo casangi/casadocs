@@ -15,6 +15,16 @@ Parameters
    - chans_ (string='') - Channels to use. Default is to use all channels.
    - stokes_ (string='') - Stokes planes to use. Default is to use all Stokes planes.
    - mask_ (variant='') - Mask to use. Default is none.
+
+      .. raw:: html
+
+         <details><summary><i> mask != '' </i></summary>
+
+      - stretch_ (bool=False) - Stretch the mask if necessary and possible? 
+
+      .. raw:: html
+
+         </details>
    - includepix_ ({int, doubleArray, intArray}=-1) - Range of pixel values to include
    - excludepix_ ({int, doubleArray, intArray}=-1) - Range of pixel values to exclude
    - outfile_ (string='') - Output image file name (or root for multiple moments) 
@@ -89,81 +99,64 @@ Description
    only be given for one of includepix or excludepix.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Name of the input image
 
 .. _moments:
 
-   .. rubric:: moments
-
+moments (intArray=[0])
    | List of moments you would like to compute
 
 .. _axis:
 
-   .. rubric:: axis
-
+axis ({string, int}='spectral')
    | The momement axis: ra, dec, lat, long, spectral, or stokes
 
 .. _region:
 
-   .. rubric:: region
-
+region ({string, stringArray}='')
    | Region selection. Default is to use the full image.
 
 .. _box:
 
-   .. rubric:: box
-
+box (string='')
    | Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
 
 .. _chans:
 
-   .. rubric:: chans
-
+chans (string='')
    | Channels to use. Default is to use all channels.
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='')
    | Stokes planes to use. Default is to use all Stokes planes.
 
 .. _mask:
 
-   .. rubric:: mask
-
+mask (variant='')
    | Mask to use. Default is none.
 
 .. _includepix:
 
-   .. rubric:: includepix
-
+includepix ({int, doubleArray, intArray}=-1)
    | Range of pixel values to include
 
 .. _excludepix:
 
-   .. rubric:: excludepix
-
+excludepix ({int, doubleArray, intArray}=-1)
    | Range of pixel values to exclude
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | Output image file name (or root for multiple moments)
 
 .. _stretch:
 
-   .. rubric:: stretch
-
+stretch (bool=False)
    | Stretch the mask if necessary and possible?
 
 

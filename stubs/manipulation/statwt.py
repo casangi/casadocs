@@ -477,159 +477,129 @@ Description
    to True, and the corresponding weights are set to 0.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of measurement set
 
 .. _selectdata:
 
-   .. rubric:: selectdata
-
+selectdata (bool=True)
    | Enable data selection parameters
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Selection based on field names or field index numbers. Default is all.
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Selection based on spectral windows:channels. Default is all.
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | Selection based on intents. Default is all.
 
 .. _array:
 
-   .. rubric:: array
-
+array (string='')
    | Selection based on array IDs. Default is all.
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation (string='')
    | Selection based on observation IDs. Default is all.
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | Select data by scan numbers.
 
 .. _combine:
 
-   .. rubric:: combine
-
+combine (string='')
    | Ignore changes in these columns (scan, field, and/or state) when aggregating samples to compute weights. The value "corr" is also supported to aggregate samples across correlations.
 
 .. _timebin:
 
-   .. rubric:: timebin
-
+timebin ({string, int}='1')
    | Length for binning in time to determine statistics. Can either be integer to be multiplied by the representative integration time, a quantity (string) in time units
 
 .. _slidetimebin:
 
-   .. rubric:: slidetimebin
-
+slidetimebin (bool=False)
    | Use a sliding window for time binning, as opposed to time block processing?
 
 .. _chanbin:
 
-   .. rubric:: chanbin
-
+chanbin ({string, int}='spw')
    | Channel bin width for computing weights. Can either be integer, in which case it is interpreted as number of channels to include in each bin, or a string "spw" or quantity with frequency units.
 
 .. _minsamp:
 
-   .. rubric:: minsamp
-
+minsamp (int=2)
    | Minimum number of unflagged visibilities required for computing weights in a sample. Must be >= 2.
 
 .. _statalg:
 
-   .. rubric:: statalg
-
+statalg (string='classic')
    | Statistics algorithm to use for computing variances. Supported values are "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported, although the full string must be specified for the subparameters to appear in the inputs list.
 
 .. _fence:
 
-   .. rubric:: fence
-
+fence (double=-1)
    | Fence value for statalg="hinges-fences". A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if statalg is not "hinges-fences".
 
 .. _center:
 
-   .. rubric:: center
-
+center (string='mean')
    | Center to use for statalg="fit-half". Valid choices are "mean", "median", and "zero". Ignored if statalg is not "fit-half".
 
 .. _lside:
 
-   .. rubric:: lside
-
+lside (bool=True)
    | For statalg="fit-half", real data are <=; center? If false, real data are >= center. Ignored if statalg is not "fit-half".
 
 .. _zscore:
 
-   .. rubric:: zscore
-
+zscore (double=-1)
    | For statalg="chauvenet", this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet\'s criterion. Ignored if statalg is not "chauvenet".
 
 .. _maxiter:
 
-   .. rubric:: maxiter
-
+maxiter (int=-1)
    | For statalg="chauvenet", this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if statalg is not "chauvenet".
 
 .. _fitspw:
 
-   .. rubric:: fitspw
-
+fitspw (string='')
    | Channels to include in the computation of weights. Specified as an MS select channel selection string.
 
 .. _excludechans:
 
-   .. rubric:: excludechans
-
+excludechans (bool=False)
    | If True: invert the channel selection in fitspw and exclude the fitspw selection from the computation of the weights.
 
 .. _wtrange:
 
-   .. rubric:: wtrange
-
+wtrange (doubleArray=[''])
    | Range of acceptable weights. Data with weights outside this range will be flagged. Empty array (default) means all weights are good.
 
 .. _flagbackup:
 
-   .. rubric:: flagbackup
-
+flagbackup (bool=True)
    | Back up the state of flags before the run?
 
 .. _preview:
 
-   .. rubric:: preview
-
+preview (bool=False)
    | Preview mode. If True, no data is changed, although the amount of data that would have been flagged is reported.
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='corrected')
    | Data column to use to compute weights. Supported values are "data", "corrected", "residual", and "residual_data" (case insensitive, minimum match supported).
 
 

@@ -233,99 +233,79 @@ Description
       '_tsys' for :math:`T_{\rm sys}`).
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _infile:
 
-   .. rubric:: infile
-
+infile (string)
    | name of input SD dataset (must be MS)
 
 .. _calmode:
 
-   .. rubric:: calmode
-
+calmode (string='ps')
    | SD calibration mode
 
 .. _fraction:
 
-   .. rubric:: fraction
-
+fraction (variant='10%')
    | fraction of the OFF data to mark
 
 .. _noff:
 
-   .. rubric:: noff
-
+noff (int=-1)
    | number of the OFF data to mark
 
 .. _width:
 
-   .. rubric:: width
-
+width (double=0.5)
    | width of the pixel for edge detection
 
 .. _elongated:
 
-   .. rubric:: elongated
-
+elongated (bool=False)
    | whether observed area is elongated in one direction or not
 
 .. _applytable:
 
-   .. rubric:: applytable
-
+applytable (variant='')
    | (List of) sky and/or tsys tables
 
 .. _interp:
 
-   .. rubric:: interp
-
+interp (string='')
    | Interpolation type in time[,freq]. Valid options for time are "nearest", "linear", and "cubic", while valid options for frequency include "nearest", "linear", "cspline", or any numeric string that indicates an order of polynomial interpolation. You can specify interpolation type for time and frequency separately by joining two of the above options by comma (e.g., "linear,cspline").
 
 .. _spwmap:
 
-   .. rubric:: spwmap
-
+spwmap (variant='')
    | A dictionary indicating spw combinations to apply Tsys calibration to target. The key should be spw for Tsys calibration and its associated value must be a list of science spws to be applied.
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | name of output file (See a WARNING in help)
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | overwrite the output file if already exists
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | select data by field IDs and names, e.g. "3C2*" ("" = all)
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | select data by spw IDs (spectral windows), e.g., "3,5,7" ("" = all)
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | select data by scan numbers, e.g. "21~23" (""=all)
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | select data by observation intent, e.g. "OBSERVE_TARGET#ON_SOURCE" (""=all)
 
 

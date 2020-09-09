@@ -9,6 +9,16 @@ Construct a position-velocity image by choosing two points in the direction plan
 Parameters
    - imagename_ (string) - Name of the input image
    - outfile_ (string='') - Output image name. If empty, no image is written.
+
+      .. raw:: html
+
+         <details><summary><i> outfile != '' </i></summary>
+
+      - overwrite_ (bool=False) - Overwrite the output if it exists?
+
+      .. raw:: html
+
+         </details>
    - mode_ (string='coords') - If "coords", use start and end values. If "length", use center, length, and pa values.
 
       .. raw:: html
@@ -48,6 +58,16 @@ Parameters
          </details>
    - stokes_ (string='') - Stokes planes to use. Planes must be contiguous. Default is to use all stokes.
    - mask_ (variant='') - Mask to use. Default is none.
+
+      .. raw:: html
+
+         <details><summary><i> mask != '' </i></summary>
+
+      - stretch_ (bool=False) - Stretch the mask if necessary and possible? Default False
+
+      .. raw:: html
+
+         </details>
 
 
 Description
@@ -135,105 +155,84 @@ Description
    end point of any image analysis sequence for tasks/tool methods.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Name of the input image
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | Output image name. If empty, no image is written.
 
 .. _mode:
 
-   .. rubric:: mode
-
+mode (string='coords')
    | If "coords", use start and end values. If "length", use center, length, and pa values.
 
 .. _start:
 
-   .. rubric:: start
-
+start ({string, stringArray, intArray, doubleArray}='')
    | The starting pixel in the direction plane (array of two values).
 
 .. _end:
 
-   .. rubric:: end
-
+end ({string, stringArray, intArray, doubleArray}='')
    | The ending pixel in the direction plane (array of two values).
 
 .. _center:
 
-   .. rubric:: center
-
+center ({string, stringArray, intArray, doubleArray}='')
    | The center point in the direction plane (array of two values). If specified, length and pa must also be specified and neither of start nor end may be specified.
 
 .. _length:
 
-   .. rubric:: length
-
+length ({string, int, double, stringArray, record}='')
    | The length of the segment in the direction plane. If specified, center and pa must also be specified and neither of start nor end may be specified.
 
 .. _pa:
 
-   .. rubric:: pa
-
+pa ({string, record}='')
    | The position angle of the segment in the direction plane, measured from north through east. If specified, center and length must also be specified and neither of start nor end may be specified.
 
 .. _width:
 
-   .. rubric:: width
-
+width ({string, int, record}='1')
    | Width of slice for averaging pixels perpendicular to the slice. Must be an odd positive integer or valid quantity. See help for details.
 
 .. _unit:
 
-   .. rubric:: unit
-
+unit (string='arcsec')
    | Unit for the offset axis in the resulting image. Must be a unit of angular measure.
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Overwrite the output if it exists?
 
 .. _region:
 
-   .. rubric:: region
-
+region ({string, record}='""')
    | Region selection. Default is entire image. No selection is permitted in the direction plane.
 
 .. _chans:
 
-   .. rubric:: chans
-
+chans (string='')
    | Channels to use.  Channels must be contiguous. Default is to use all channels.
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='')
    | Stokes planes to use. Planes must be contiguous. Default is to use all stokes.
 
 .. _mask:
 
-   .. rubric:: mask
-
+mask (variant='')
    | Mask to use. Default is none.
 
 .. _stretch:
 
-   .. rubric:: stretch
-
+stretch (bool=False)
    | Stretch the mask if necessary and possible? Default False
 
 

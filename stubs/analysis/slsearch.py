@@ -180,111 +180,89 @@ Description
    logfile not blank.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _tablename:
 
-   .. rubric:: tablename
-
+tablename (string='')
    | Input spectral line table name to search. If not specified, use the default table in the system.
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | Results table name. Blank means do not write the table to disk.
 
 .. _freqrange:
 
-   .. rubric:: freqrange
-
+freqrange (doubleArray=[84, 90])
    | Frequency range in GHz.
 
 .. _species:
 
-   .. rubric:: species
-
+species (stringArray=[''])
    | Species to search for.
 
 .. _reconly:
 
-   .. rubric:: reconly
-
+reconly (bool=False)
    | List only NRAO recommended frequencies.
 
 .. _chemnames:
 
-   .. rubric:: chemnames
-
+chemnames (stringArray=[''])
    | Chemical names to search for.
 
 .. _qns:
 
-   .. rubric:: qns
-
+qns (stringArray=[''])
    | Resolved quantum numbers to search for.
 
 .. _intensity:
 
-   .. rubric:: intensity
-
+intensity (doubleArray=[-1])
    | CDMS/JPL intensity range. -1 -> do not use an intensity range.
 
 .. _smu2:
 
-   .. rubric:: smu2
-
+smu2 (doubleArray=[-1])
    | Quantum mechanical line strength. -1 -> do not use a smu2 range.
 
 .. _loga:
 
-   .. rubric:: loga
-
+loga (doubleArray=[-1])
    | log(A) (Einstein coefficient) range. -1 -> do not use a loga range.
 
 .. _el:
 
-   .. rubric:: el
-
+el (doubleArray=[-1])
    | Lower energy state range in Kelvin. -1 -> do not use an el range.
 
 .. _eu:
 
-   .. rubric:: eu
-
+eu (doubleArray=[-1])
    | Upper energy state range in Kelvin. -1 -> do not use an eu range.
 
 .. _rrlinclude:
 
-   .. rubric:: rrlinclude
-
+rrlinclude (bool=True)
    | Include RRLs in the result set?
 
 .. _rrlonly:
 
-   .. rubric:: rrlonly
-
+rrlonly (bool=False)
    | Include only RRLs in the result set?
 
 .. _verbose:
 
-   .. rubric:: verbose
-
+verbose (bool=False)
    | List result set to logger (and optionally logfile)?
 
 .. _logfile:
 
-   .. rubric:: logfile
-
+logfile (string='""')
    | List result set to this logfile (only used if verbose=True).
 
 .. _append:
 
-   .. rubric:: append
-
+append (bool=False)
    | If true, append to logfile if it already exists, if false overwrite logfile it it exists. Only used if verbose=True and logfile not blank.
 
 

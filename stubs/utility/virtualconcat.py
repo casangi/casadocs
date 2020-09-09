@@ -126,57 +126,44 @@ Description
    True
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (stringArray)
    | List of names of input visibility files to be concatenated
 
 .. _concatvis:
 
-   .. rubric:: concatvis
-
+concatvis (string='')
    | Name of the output visibility file (a multi-MS)
 
 .. _freqtol:
 
-   .. rubric:: freqtol
-
+freqtol (variant='')
    | Frequency shift tolerance for considering data as the same spwid
 
 .. _dirtol:
 
-   .. rubric:: dirtol
-
+dirtol (variant='')
    | Direction shift tolerance for considering data as the same field
 
 .. _respectname:
 
-   .. rubric:: respectname
-
+respectname (bool=True)
    | If true, fields with a different name are not merged even if their direction agrees
 
 .. _visweightscale:
 
-   .. rubric:: visweightscale
-
+visweightscale (doubleArray=[''])
    | List of the weight scaling factors to be applied to the individual MSs
 
 .. _keepcopy:
 
-   .. rubric:: keepcopy
-
+keepcopy (bool=False)
    | If true, a copy of the input MSs is kept in their original place.
 
 .. _copypointing:
 
-   .. rubric:: copypointing
-
+copypointing (bool=True)
    | If true, keep the POINTING table information in the output MMS. If false, don\'t.
 
 

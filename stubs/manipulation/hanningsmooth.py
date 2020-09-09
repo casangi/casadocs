@@ -89,15 +89,9 @@ Description
    chapter.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      Default: none
    | 
@@ -105,8 +99,7 @@ Details
 
 .. _outputvis:
 
-   .. rubric:: outputvis
-
+outputvis (string='')
    | Name of output visibility file
    |                      Default: '' (same as vis)
    | 
@@ -114,8 +107,7 @@ Details
 
 .. _keepmms:
 
-   .. rubric:: keepmms
-
+keepmms (bool=True)
    | Create a Multi-MS as the output if the input is a
    | Multi-MS.
    | 
@@ -130,8 +122,7 @@ Details
 
 .. _field:
 
-   .. rubric:: field
-
+field ({string, stringArray, int, intArray}='')
    | Select field using field id(s) or field name(s)
    |                      Default: '' (all fields)
    |                      
@@ -150,8 +141,7 @@ Details
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw ({string, stringArray, int, intArray}='')
    | Select spectral window/channels
    |                      Default: ''=all spectral windows and channels
    |            
@@ -171,16 +161,14 @@ Details
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan ({string, stringArray, int, intArray}='')
    | Scan number range
    |                      Subparameter of selectdata=True
    |                      Default: '' = all
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna ({string, stringArray, int, intArray}='')
    | Select data based on antenna/baseline
    |                      Subparameter of selectdata=True
    |                      Default: '' (all)
@@ -208,8 +196,7 @@ Details
 
 .. _correlation:
 
-   .. rubric:: correlation
-
+correlation ({string, stringArray}='')
    | Select data based on correlation
    |                      Default: '' ==> all
    | 
@@ -217,8 +204,7 @@ Details
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange ({string, stringArray, int, intArray}='')
    | Select data based on time range
    |                      Subparameter of selectdata=True
    |                      Default = '' (all)
@@ -238,8 +224,7 @@ Details
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent ({string, stringArray, int, intArray}='')
    | Select observing intent
    |                      Default: '' (no selection by intent)
    | 
@@ -248,15 +233,13 @@ Details
 
 .. _array:
 
-   .. rubric:: array
-
+array ({string, stringArray, int, intArray}='')
    | (Sub)array number range
    |                      Default: '' (all)
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange ({string, stringArray, int, intArray}='')
    | Select data by baseline length.
    |                      Default = '' (all)
    | 
@@ -267,8 +250,7 @@ Details
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, stringArray, int, intArray}='')
    | Select by observation ID(s)
    |                      Subparameter of selectdata=True
    |                      Default: '' = all
@@ -277,16 +259,14 @@ Details
 
 .. _feed:
 
-   .. rubric:: feed
-
+feed ({string, stringArray, int, intArray}='')
    | Selection based on the feed 
    |                      NOT IMPLEMENTED YET!
    |                      Default: '' = all
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='all')
    | Which data column(s) to use for processing
    |                      (case-insensitive).
    |                      Default: 'all' (= whichever of the options that

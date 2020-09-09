@@ -163,153 +163,124 @@ Description
       the MS.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of MeasurementSet or Multi-MS
 
 .. _axis:
 
-   .. rubric:: axis
-
+axis (string='amplitude')
    | Values on which to compute statistics
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='data')
    | Which data column to use (data, corrected, model, float_data)
 
 .. _useflags:
 
-   .. rubric:: useflags
-
+useflags (bool=True)
    | Take flagging into account?
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | spectral-window/frequency/channel
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Field names or field index numbers: \'\'==>all, field=\'0~2,3C286\'
 
 .. _selectdata:
 
-   .. rubric:: selectdata
-
+selectdata (bool=True)
    | More data selection parameters (antenna, timerange etc)
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | antenna/baselines: \'\'==>all, antenna = \'3,VA04\'
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange (string='')
    | uv range: \'\'==>all; uvrange = \'0~100klambda\', default units=meters
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | time range: \'\'==>all, timerange=\'09:14:0~09:54:0\'
 
 .. _correlation:
 
-   .. rubric:: correlation
-
+correlation (string='')
    | Select data based on correlation
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | scan numbers: \'\'==>all
 
 .. _array:
 
-   .. rubric:: array
-
+array (string='')
    | (sub)array numbers: \'\'==>all
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | observation ID number(s): \'\' = all
 
 .. _timeaverage:
 
-   .. rubric:: timeaverage
-
+timeaverage (bool=False)
    | Average data in time.
 
 .. _timebin:
 
-   .. rubric:: timebin
-
+timebin (string='0s')
    | Bin width for time averaging.
 
 .. _timespan:
 
-   .. rubric:: timespan
-
+timespan ({string, stringArray}='')
    | Span the timebin across scan, state or both.
 
 .. _maxuvwdistance:
 
-   .. rubric:: maxuvwdistance
-
+maxuvwdistance (double=0.0)
    | Maximum separation of start-to-end baselines that can be included in an average. (meters)
 
 .. _disableparallel:
 
-   .. rubric:: disableparallel
-
+disableparallel (bool=False)
    | Hidden parameter for internal use only. Do not change it!
 
 .. _ddistart:
 
-   .. rubric:: ddistart
-
+ddistart (int=-1)
    | Hidden parameter for internal use only. Do not change it!
 
 .. _taql:
 
-   .. rubric:: taql
-
+taql (string='')
    | Table query for nested selections
 
 .. _monolithic_processing:
 
-   .. rubric:: monolithic_processing
-
+monolithic_processing (bool=False)
    | Hidden parameter for internal use only. Do not change it!
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent ({string, stringArray, int, intArray}='')
    | Select data by scan intent.
 
 .. _reportingaxes:
 
-   .. rubric:: reportingaxes
-
+reportingaxes (string='ddid')
    | Which reporting axis to use (ddid, field, integration)
 
 

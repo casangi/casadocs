@@ -20,15 +20,9 @@ Description
    parameter.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _fitsfile:
 
-   .. rubric:: fitsfile
-
+fitsfile (string)
    | Name of input UV FITS file
    |                      Default: none
    | 
@@ -36,8 +30,7 @@ Details
 
 .. _flagfile:
 
-   .. rubric:: flagfile
-
+flagfile ({string, stringArray}='')
    | List of files containing flagging information.
    |                      Default: none
    | 
@@ -47,8 +40,7 @@ Details
 
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string='')
    | Name of input visibility file
    |                      Default: none
    | 

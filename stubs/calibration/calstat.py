@@ -90,15 +90,9 @@ Description
    .. warning:: NB: The *useflags* parameter is not yet implemented.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _caltable:
 
-   .. rubric:: caltable
-
+caltable (string)
    | Name of input calibration table
    |                      Default: ''
    | 
@@ -106,8 +100,7 @@ Details
 
 .. _axis:
 
-   .. rubric:: axis
-
+axis (string='amplitude')
    | Which data to analyze.
    |                      Default: 'amplitude'
    |                      Options: 'amp', 'amplitude', 'phase', 'real',
@@ -120,15 +113,13 @@ Details
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='gain')
    | Which data column to use if axis is 'amp', 'amplitude', 'phase', 'real', 'imag' or 'imaginary'.
    |                      Default: 'gain'
 
 .. _useflags:
 
-   .. rubric:: useflags
-
+useflags (bool=True)
    | Take flagging into account? (not implemented, this
    | parameter  has no effect!)
    |                      Default: False

@@ -374,15 +374,9 @@ Description
    |
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      Default: none
    | 
@@ -390,8 +384,7 @@ Details
 
 .. _caltable:
 
-   .. rubric:: caltable
-
+caltable (string='')
    | Name of output gain calibration table
    |                      Default: none
    | 
@@ -399,8 +392,7 @@ Details
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Select field using field id(s) or field name(s)
    |                      Default: '' (all fields)
    |                      
@@ -419,8 +411,7 @@ Details
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Select spectral window/channels
    |                      Default: '' (all spectral windows and channels)
    | 
@@ -444,8 +435,7 @@ Details
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | Select observing intent
    |                      Default: '' (no selection by intent)
    | 
@@ -454,16 +444,14 @@ Details
 
 .. _selectdata:
 
-   .. rubric:: selectdata
-
+selectdata (bool=True)
    | Other data selection parameters
    |                      Default: True
    |                      Options: True|False
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | Select data based on time range
    |                      Subparameter of selectdata=True
    |                      Default = '' (all)
@@ -483,8 +471,7 @@ Details
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange (variant='')
    | Select data by baseline length.
    |                      Default = '' (all)
    | 
@@ -495,8 +482,7 @@ Details
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | Select data based on antenna/baseline
    |                      Subparameter of selectdata=True
    |                      Default: '' (all)
@@ -521,8 +507,7 @@ Details
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | Scan number range
    |                      Subparameter of selectdata=True
    |                      Default: '' = all
@@ -532,8 +517,7 @@ Details
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | Select by observation ID(s)
    |                      Subparameter of selectdata=True
    |                      Default: '' = all
@@ -542,14 +526,12 @@ Details
 
 .. _msselect:
 
-   .. rubric:: msselect
-
+msselect (string='')
    | Optional complex data selection (ignore for now)
 
 .. _solint:
 
-   .. rubric:: solint
-
+solint (variant='inf')
    | Solution interval
    |                      Default: 'inf' (infinite, up to boundaries
    |                      controlled by combine); 
@@ -566,8 +548,7 @@ Details
 
 .. _combine:
 
-   .. rubric:: combine
-
+combine (string='')
    | Data axes which to combine for solve
    |                      Default: 'scan' (solutions will break at obs,
    |                      field, and spw boundaries)
@@ -580,8 +561,7 @@ Details
 
 .. _preavg:
 
-   .. rubric:: preavg
-
+preavg (double=-1.0)
    | Pre-averaging interval (sec)
    |                      Default: -1.0 (none)
    | 
@@ -590,8 +570,7 @@ Details
 
 .. _refant:
 
-   .. rubric:: refant
-
+refant (string='')
    | Reference antenna name(s); a prioritized list may be
    | specified
    |                      Default: '' (No refant applied)
@@ -607,14 +586,12 @@ Details
 
 .. _refantmode:
 
-   .. rubric:: refantmode
-
+refantmode (string='flex')
    | Reference antenna mode
 
 .. _minblperant:
 
-   .. rubric:: minblperant
-
+minblperant (int=4)
    | Minimum number of baselines required per antenna for each
    | solve
    |                      Default: 4
@@ -634,29 +611,25 @@ Details
 
 .. _minsnr:
 
-   .. rubric:: minsnr
-
+minsnr (double=3.0)
    | Reject solutions below this SNR
    |                      Default: 3.0
 
 .. _solnorm:
 
-   .. rubric:: solnorm
-
+solnorm (bool=False)
    | Normalize (squared) solution amplitudes (G, T only)
    |                      Default: False (no normalization)
 
 .. _normtype:
 
-   .. rubric:: normtype
-
+normtype (string='mean')
    | Solution normalization calculation type: mean or median
    |                      Default: 'mean'
 
 .. _gaintype:
 
-   .. rubric:: gaintype
-
+gaintype (string='G')
    | Type of gain solution (G,T,GSPLINE,K,KCROSS)
    |                      Default: 'G'
    | 
@@ -685,8 +658,7 @@ Details
 
 .. _smodel:
 
-   .. rubric:: smodel
-
+smodel (doubleArray=[''])
    | Point source Stokes parameters for source model
    | (experimental).
    |                      Default: [] (use MODEL_DATA column)
@@ -695,8 +667,7 @@ Details
 
 .. _calmode:
 
-   .. rubric:: calmode
-
+calmode (string='ap')
    | Type of solution" ('ap', 'p', 'a')
    |                      Default: 'ap' (amp and phase)
    |                      Options: 'p' (phase) ,'a' (amplitude), 'ap'
@@ -706,15 +677,13 @@ Details
 
 .. _solmode:
 
-   .. rubric:: solmode
-
+solmode (string='')
    | Robust solving mode: 
    |                      Options: '', 'L1', 'R', 'L1R'
 
 .. _rmsthresh:
 
-   .. rubric:: rmsthresh
-
+rmsthresh (doubleArray=[''])
    | RMS Threshold sequence
    |                      Subparameter of solmode='R' or 'L1R'
    | 
@@ -723,8 +692,7 @@ Details
 
 .. _corrdepflags:
 
-   .. rubric:: corrdepflags
-
+corrdepflags (bool=False)
    | If False (default), if any correlation is flagged, treat all correlations in
    |               the visibility vector as flagged when solving (per channel, per baseline).
    |               If True, use unflagged correlations in a visibility vector, even if one or more
@@ -744,8 +712,7 @@ Details
 
 .. _append:
 
-   .. rubric:: append
-
+append (bool=False)
    | Append solutions to the (existing) table
    |                      Default: False (overwrite existing table or make
    |                      new table)
@@ -757,8 +724,7 @@ Details
 
 .. _splinetime:
 
-   .. rubric:: splinetime
-
+splinetime (double=3600.0)
    | Spline timescale(sec); All spw\'s are first averaged.
    |                      Subparameter of gaintype='GSPLINE'
    |                      Default: 3600 (1 hour)
@@ -770,16 +736,14 @@ Details
 
 .. _npointaver:
 
-   .. rubric:: npointaver
-
+npointaver (int=3)
    | Tune phase-unwrapping algorithm
    |                      Subparameter of gaintype='GSPLINE'
    |                      Default: 3; Keep at this value
 
 .. _phasewrap:
 
-   .. rubric:: phasewrap
-
+phasewrap (double=180.0)
    | Wrap the phase for jumps greater than this value
    | (degrees)
    |                      Subparameter of gaintype='GSPLINE'
@@ -787,8 +751,7 @@ Details
 
 .. _docallib:
 
-   .. rubric:: docallib
-
+docallib (bool=False)
    | Control means of specifying the caltables
    |                      Default: False (Use gaintable, gainfield, interp,
    |                      spwmap, calwt)
@@ -799,15 +762,13 @@ Details
 
 .. _callib:
 
-   .. rubric:: callib
-
+callib (string='')
    | Specify a file containing cal library directives
    |                      Subparameter of docallib=True
 
 .. _gaintable:
 
-   .. rubric:: gaintable
-
+gaintable (stringArray=[''])
    | Gain calibration table(s) to apply on the fly
    |                      Default: '' (none)
    |                      Subparameter of docallib=False
@@ -817,8 +778,7 @@ Details
 
 .. _gainfield:
 
-   .. rubric:: gainfield
-
+gainfield (stringArray=[''])
    | Select a subset of calibrators from gaintable(s)
    |                      Default: '' (all sources on the sky)
    | 
@@ -833,8 +793,7 @@ Details
 
 .. _interp:
 
-   .. rubric:: interp
-
+interp (stringArray=[''])
    | Interpolation parmameters (in time[,freq]) for each gaintable, as a list of strings.
    |                      Default: '' --> 'linear,linear' for all gaintable(s)
    |                      Options: Time: 'nearest', 'linear'
@@ -878,8 +837,7 @@ Details
 
 .. _spwmap:
 
-   .. rubric:: spwmap
-
+spwmap (intArray=[''])
    | Spectral window mappings to form for gaintable(s)
    |                      Only used if callib=False
    |                      default: [] (apply solutions from each calibration spw to
@@ -894,8 +852,7 @@ Details
 
 .. _parang:
 
-   .. rubric:: parang
-
+parang (bool=False)
    | Apply parallactic angle correction
    |                      Default: False
    | 

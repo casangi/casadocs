@@ -10,11 +10,31 @@ Parameters
    - imagename_ (string) - Name of the input image
    - pbimage_ (variant='""') - Name of the primary beam image which must exist or array of values for the pb response.
    - outfile_ (string='') - Output image name. If empty, no image is written.
+
+      .. raw:: html
+
+         <details><summary><i> outfile != '' </i></summary>
+
+      - overwrite_ (bool=False) - Overwrite the output if it exists?
+
+      .. raw:: html
+
+         </details>
    - box_ (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
    - region_ (variant='') - Region selection.
    - chans_ (string='') - Channels to use.
    - stokes_ (string='') - Stokes planes to use.
    - mask_ (string='') - Mask to use.
+
+      .. raw:: html
+
+         <details><summary><i> mask != '' </i></summary>
+
+      - stretch_ (bool=False) - Stretch the mask if necessary and possible?
+
+      .. raw:: html
+
+         </details>
    - mode_ (string='divide') - Divide or multiply the image by the primary beam image. Minimal match supported.
    - cutoff_ (double=-1.0) - PB cutoff. If mode is "d", all values less than this will be masked. If "m", all values greater will be masked. Less than 0, no cutoff.
 
@@ -46,36 +66,27 @@ Description
    which is the default.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Name of the input (CASA, FITS, MIRIAD) image
 
 .. _pbimage:
 
-   .. rubric:: pbimage
-
+pbimage (variant='""')
    | Name of the image (CASA, FITS, MIRIAD) of the primary
    | beam pattern or an array of pixel values.
    |                      Default: ''
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | Name of output CASA image. 
    |                      Default: none. Must be specified.
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | If output file is specified, controls if an already
    | existing file by the same name can be overwritten. 
    |                      Default: True
@@ -86,43 +97,37 @@ Details
 
 .. _box:
 
-   .. rubric:: box
-
+box (string='')
    | Rectangular region to select in direction plane.
    |                      Default: '' (use the entire direction plane)
 
 .. _region:
 
-   .. rubric:: region
-
+region (variant='')
    | Region selection. 
    |                      Default: '' (use the full image)
 
 .. _chans:
 
-   .. rubric:: chans
-
+chans (string='')
    | Channels to use. 
    |                      Default: '' (use all channels)
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='')
    | Stokes planes to use.
    |                      Default: '' (use all Stokes planes)
 
 .. _mask:
 
-   .. rubric:: mask
-
+mask (string='')
    | Mask to use.
    |                      Default: none
 
 .. _mode:
 
-   .. rubric:: mode
-
+mode (string='divide')
    | Divide or multiply the image by the primary beam image. 
    |                      Default: 'divide'
    | 
@@ -130,8 +135,7 @@ Details
 
 .. _cutoff:
 
-   .. rubric:: cutoff
-
+cutoff (double=-1.0)
    | Primary beam cutoff.
    |                      Default: -1.0 (no cutoff)
    | 
@@ -141,8 +145,7 @@ Details
 
 .. _stretch:
 
-   .. rubric:: stretch
-
+stretch (bool=False)
    | Stretch the mask if necessary and possible? 
    |                      Default: False
    |                      Options: False|True

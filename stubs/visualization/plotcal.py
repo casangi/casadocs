@@ -8,27 +8,27 @@ def plotcal(caltable, xaxis='', yaxis='', poln='', field='', antenna='', spw='',
 An all-purpose plotter for calibration results 
 
 Parameters
-   - caltable_ (string) - 
-   - xaxis_ (string='') - 
-   - yaxis_ (string='') - 
-   - poln_ (string='') - 
-   - field_ (string='') - 
-   - antenna_ (string='') - 
-   - spw_ (string='') - 
-   - timerange_ (string='') - 
-   - subplot_ (int=111) - 
-   - overplot_ (bool=False) - 
-   - clearpanel_ (string='Auto') - 
-   - iteration_ (string='') - 
+   - caltable_ (string)
+   - xaxis_ (string='')
+   - yaxis_ (string='')
+   - poln_ (string='')
+   - field_ (string='')
+   - antenna_ (string='')
+   - spw_ (string='')
+   - timerange_ (string='')
+   - subplot_ (int=111)
+   - overplot_ (bool=False)
+   - clearpanel_ (string='Auto')
+   - iteration_ (string='')
    - plotrange_ (doubleArray=[
-            ]) - 
-   - showflags_ (bool=False) - 
-   - plotsymbol_ (string='o') - 
-   - plotcolor_ (string='blue') - 
-   - markersize_ (double=5.0) - 
-   - fontsize_ (double=10.0) - 
-   - showgui_ (bool=True) - 
-   - figfile_ (string='') - 
+            ])
+   - showflags_ (bool=False)
+   - plotsymbol_ (string='o')
+   - plotcolor_ (string='blue')
+   - markersize_ (double=5.0)
+   - fontsize_ (double=10.0)
+   - showgui_ (bool=True)
+   - figfile_ (string='')
 
 
 Description
@@ -159,129 +159,105 @@ Description
    emf, eps, pdf, png, ps, raw, rgba, svg, svgz.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _caltable:
 
-   .. rubric:: caltable
-
+caltable (string)
    | Name of input calibration table
 
 .. _xaxis:
 
-   .. rubric:: xaxis
-
+xaxis (string='')
    | Value to plot along x axis (time,chan,freq, antenna,antenna1,antenna2,scan, amp,phase,real,imag,snr, tsys,delay,rate,disp,spgain)
 
 .. _yaxis:
 
-   .. rubric:: yaxis
-
+yaxis (string='')
    | Value to plot along y axis (amp,phase,real,imag,snr, antenna,antenna1,antenna2,scan, tsys,delay,rate,disp,spgain,tec)
 
 .. _poln:
 
-   .. rubric:: poln
-
+poln (string='')
    | Antenna polarization to plot (RL,R,L,XY,X,Y,/)
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | field names or index of calibrators: \'\'==>all
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | antenna/baselines: \'\'==>all, antenna = \'3,VA04\'
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | spectral window:channels: \'\'==>all, spw=\'1:5~57\'
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | time range: \'\'==>all
 
 .. _subplot:
 
-   .. rubric:: subplot
-
+subplot (int=111)
    | Panel number on display screen (yxn)
 
 .. _overplot:
 
-   .. rubric:: overplot
-
+overplot (bool=False)
    | Overplot solutions on existing display
 
 .. _clearpanel:
 
-   .. rubric:: clearpanel
-
+clearpanel (string='Auto')
    | Specify if old plots are cleared or not (ignore)
 
 .. _iteration:
 
-   .. rubric:: iteration
-
+iteration (string='')
    | Iterate plots on antenna,time,spw,field
 
 .. _plotrange:
 
-   .. rubric:: plotrange
-
+plotrange (doubleArray=[
+            ])
    | plot axes ranges: [xmin,xmax,ymin,ymax]
 
 .. _showflags:
 
-   .. rubric:: showflags
-
+showflags (bool=False)
    | If true, show flagged solutions
 
 .. _plotsymbol:
 
-   .. rubric:: plotsymbol
-
+plotsymbol (string='o')
    | pylab plot symbol
 
 .. _plotcolor:
 
-   .. rubric:: plotcolor
-
+plotcolor (string='blue')
    | initial plotting color
 
 .. _markersize:
 
-   .. rubric:: markersize
-
+markersize (double=5.0)
    | Size of plotted marks
 
 .. _fontsize:
 
-   .. rubric:: fontsize
-
+fontsize (double=10.0)
    | Font size for labels
 
 .. _showgui:
 
-   .. rubric:: showgui
-
+showgui (bool=True)
    | Show plot on gui
 
 .. _figfile:
 
-   .. rubric:: figfile
-
+figfile (string='')
    | \'\'= no plot hardcopy, otherwise supply name
 
 

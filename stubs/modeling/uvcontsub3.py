@@ -7,16 +7,16 @@ def uvcontsub3(vis, fitspw='', combine='', fitorder=0, field='', spw='', scan=''
 An experimental clone of uvcontsub
 
 Parameters
-   - vis_ (string) - 
-   - fitspw_ (string='') - 
-   - combine_ (string='') - 
-   - fitorder_ (int=0) - 
-   - field_ ({string, stringArray, int, intArray}='') - 
-   - spw_ (string='') - 
-   - scan_ (string='') - 
-   - intent_ (string='') - 
-   - correlation_ ({string, stringArray}='') - 
-   - observation_ ({string, int}='') - 
+   - vis_ (string)
+   - fitspw_ (string='')
+   - combine_ (string='')
+   - fitorder_ (int=0)
+   - field_ ({string, stringArray, int, intArray}='')
+   - spw_ (string='')
+   - scan_ (string='')
+   - intent_ (string='')
+   - correlation_ ({string, stringArray}='')
+   - observation_ ({string, int}='')
 
 
 Description
@@ -152,69 +152,54 @@ Description
    MeasurementSet <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__)
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input MS.  Output goes to vis + ".contsub"
 
 .. _fitspw:
 
-   .. rubric:: fitspw
-
+fitspw (string='')
    | Spectral window:channel selection for fitting the continuum
 
 .. _combine:
 
-   .. rubric:: combine
-
+combine (string='')
    | Data axes to combine for the continuum estimation (none ('') or spw)
 
 .. _fitorder:
 
-   .. rubric:: fitorder
-
+fitorder (int=0)
    | Polynomial order for the fits
 
 .. _field:
 
-   .. rubric:: field
-
+field ({string, stringArray, int, intArray}='')
    | Select field(s) using id(s) or name(s)
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Spectral window selection for output
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | Select data by scan numbers
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | Select data by scan intents
 
 .. _correlation:
 
-   .. rubric:: correlation
-
+correlation ({string, stringArray}='')
    | Select correlations
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | Select by observation ID(s)
 
 

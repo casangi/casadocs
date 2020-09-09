@@ -163,171 +163,139 @@ Description
    Omitting the *'f'* will generate strictly unchannelized solutions.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
 
 .. _caltable:
 
-   .. rubric:: caltable
-
+caltable (string='')
    | Name of output gain calibration table
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Select field using field id(s) or field name(s)
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Select spectral window/channels
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | Select observing intent
 
 .. _selectdata:
 
-   .. rubric:: selectdata
-
+selectdata (bool=True)
    | Other data selection parameters
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | Select data based on time range
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange (variant='')
    | Select data within uvrange (default units meters)
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | Select data based on antenna/baseline
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | Scan number range
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | Select by observation ID(s)
 
 .. _msselect:
 
-   .. rubric:: msselect
-
+msselect (string='')
    | Optional complex data selection (ignore for now)
 
 .. _solint:
 
-   .. rubric:: solint
-
+solint (variant='inf')
    | Solution interval
 
 .. _combine:
 
-   .. rubric:: combine
-
+combine (string='obs,scan')
    | Data axes which to combine for solve (obs, scan, spw, and/or field)
 
 .. _preavg:
 
-   .. rubric:: preavg
-
+preavg (double=300.0)
    | Pre-averaging interval (sec)
 
 .. _refant:
 
-   .. rubric:: refant
-
+refant (string='')
    | Reference antenna name(s)
 
 .. _minblperant:
 
-   .. rubric:: minblperant
-
+minblperant (int=4)
    | Minimum baselines _per antenna_ required for solve
 
 .. _minsnr:
 
-   .. rubric:: minsnr
-
+minsnr (double=3.0)
    | Reject solutions below this SNR
 
 .. _poltype:
 
-   .. rubric:: poltype
-
+poltype (string='D+QU')
    | Type of instrumental polarization solution (see help)
 
 .. _smodel:
 
-   .. rubric:: smodel
-
+smodel (doubleArray=[''])
    | Point source Stokes parameters for source model.
 
 .. _append:
 
-   .. rubric:: append
-
+append (bool=False)
    | Append solutions to the (existing) table
 
 .. _docallib:
 
-   .. rubric:: docallib
-
+docallib (bool=False)
    | Use callib or traditional cal apply parameters
 
 .. _callib:
 
-   .. rubric:: callib
-
+callib (string='')
    | Cal Library filename
 
 .. _gaintable:
 
-   .. rubric:: gaintable
-
+gaintable (stringArray=[''])
    | Gain calibration table(s) to apply
 
 .. _gainfield:
 
-   .. rubric:: gainfield
-
+gainfield (stringArray=[''])
    | Select a subset of calibrators from gaintable(s)
 
 .. _interp:
 
-   .. rubric:: interp
-
+interp (stringArray=[''])
    | Interpolation mode (in time) to use for each gaintable
 
 .. _spwmap:
 
-   .. rubric:: spwmap
-
+spwmap (intArray=[''])
    | Spectral window mappings to form for gaintable(s)
    |                      Only used if callib=False
    |                      default: [] (apply solutions from each calibration spw to

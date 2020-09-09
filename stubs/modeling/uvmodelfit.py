@@ -218,93 +218,74 @@ Description
       (` `arXiv:1401.4984 <http://arxiv.org/abs/1401.4984>`__ :sup:`)` `<#ref-cit1>`__
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Select field using field id(s) or field name(s)
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Select spectral window/channels
 
 .. _selectdata:
 
-   .. rubric:: selectdata
-
+selectdata (bool=True)
    | Other data selection parameters
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | Select data based on time range
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange (variant='')
    | Select data within uvrange (default units meters)
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | Select data based on antenna/baseline
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | Scan number range
 
 .. _msselect:
 
-   .. rubric:: msselect
-
+msselect (string='')
    | Optional complex data selection (ignore for now)
 
 .. _niter:
 
-   .. rubric:: niter
-
+niter (int=5)
    | Number of fitting iterations to execute
 
 .. _comptype:
 
-   .. rubric:: comptype
-
+comptype (string='P')
    | component model type: P(oint), G(aussian), or D(isk)
 
 .. _sourcepar:
 
-   .. rubric:: sourcepar
-
+sourcepar (doubleArray=[1.0, 0.0, 0.0])
    | Starting guess for component parameters (3 values for type P, 5 for G and D)
 
 .. _varypar:
 
-   .. rubric:: varypar
-
+varypar (boolArray=[''])
    | Control which parameters to let vary in the fit
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | Optional output component list table
 
 

@@ -211,15 +211,9 @@ Description
       factors for ALMA are TBD.)
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      Default: none
    | 
@@ -227,8 +221,7 @@ Details
 
 .. _caltable:
 
-   .. rubric:: caltable
-
+caltable (string='')
    | Name of input calibration table
    |                      Default: none
    | 
@@ -244,8 +237,7 @@ Details
 
 .. _caltype:
 
-   .. rubric:: caltype
-
+caltype (string='')
    | The calibration parameter type being specified
    |                      Default: none
    |                      Options: 'amp', 'ph', 'sbd', 'mbd', 'antpos',
@@ -283,16 +275,14 @@ Details
 
 .. _infile:
 
-   .. rubric:: infile
-
+infile (string='')
    | Input ancilliary file
    |                     Subparameter of caltype='gc|gceff|tecim'
    |                     Default: none
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Select spectral window/channels
    |                      Default: '' (all spectral windows and channels)
    |            
@@ -309,8 +299,7 @@ Details
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | Select data based on antenna/baseline
    |                      Subparameter of selectdata=True
    |                      Default: '' (all)
@@ -335,8 +324,7 @@ Details
 
 .. _pol:
 
-   .. rubric:: pol
-
+pol (string='')
    | Polarization selection for specified parameters
    |                      Default: pol='' (specified parameters apply to
    |                      all polarizations)
@@ -346,8 +334,7 @@ Details
 
 .. _parameter:
 
-   .. rubric:: parameter
-
+parameter (doubleArray=[''])
    | The calibration values
    | 
    |                      The calibration parameters, specified as a list,
@@ -368,8 +355,7 @@ Details
 
 .. _uniform:
 
-   .. rubric:: uniform
-
+uniform (bool=True)
    | Assume uniform calibration values across the array
    |                     Subparameter of caltype='tsys'
    |                      Default: True

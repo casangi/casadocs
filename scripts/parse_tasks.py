@@ -9,8 +9,8 @@ tasknames = list(set(re.findall("\w+.xml", xmlstring)))
 
 # loop through each task xml webpage and parse the xml to python dictionaries
 tasklist = []
-for task in tasknames:
-    print('processing ' + task)
+for ii, task in enumerate(tasknames):
+    print('processing ' + str(ii) + ' - ' + task)
     xmlstring = requests.get("https://casa.nrao.edu/PloneResource/stable/taskXml/" + task).text
     xmlroot = ET.fromstring(xmlstring)
     
@@ -114,7 +114,10 @@ for task in tasklist:
         with open('docs/tasks/task_' + task['name'] + '.rst', 'r') as fid:
             rst = fid.read()
     # change image links
-    rst = re.sub('(\.\. \|.*?\| image:: )docs/tasks/_apimedia/(\S*)\s*?\n.*:height:.*?\n', r'\1../media/\2', rst, flags=re.DOTALL)
+    rst = re.sub('(\.\. \|.*?\| image:: )docs/tasks/_apimedia/(\S*)\s*?\n', r'\1../media/\2\n', rst, flags=re.DOTALL)
+    rst = re.sub('\n:class:.*?\n', r'\n', rst, flags=re.DOTALL)
+    rst = re.sub('\n:width:.*?\n', r'\n', rst, flags=re.DOTALL)
+    rst = re.sub('\n:height:.*?\n', r'\n', rst, flags=re.DOTALL)
     
     # add this task to the __init__.py
     with open('stubs/'+task['category']+'/'+'__init__.py', 'a') as fid:
@@ -144,17 +147,18 @@ for task in tasklist:
         # populate function parameters
         fid.write('Parameters\n')
         for param in task['params'].keys():
-            # skip subparameters for now, they will go in "other parameters" section later
+            # skip subparameters for now, they are handled below for each regular parameter
             if ('subparam' in task['params'][param]) and (task['params'][param]['subparam'].lower() == 'true'):
                 continue
             
             fid.write('   - %s' % ParamSpec(param))
             if ('shortdescription' in task['params'][param].keys()) and (task['params'][param]['shortdescription'] is not None):
-                fid.write(' - %s' % task['params'][param]['shortdescription'])
+                if len(task['params'][param]['shortdescription'].strip()) > 0:
+                    fid.write(' - %s' % task['params'][param]['shortdescription'])
             fid.write('\n')
             
             # populate function subparameters (if any)
-            subparmkeys = [ee for ee in task['subparams'].keys() if ee.startswith(param + ' =')]
+            subparmkeys = [ee for ee in task['subparams'].keys() if ee.startswith(param + ' =') or ee.startswith(param + ' !=')]
             for paramstr in subparmkeys:
                 if len(task['subparams'][paramstr]) > 0:
                     fid.write('\n      .. raw:: html\n\n         <details><summary><i> %s </i></summary>\n\n' % paramstr)
@@ -163,7 +167,8 @@ for task in tasklist:
                     if subparam not in task['params']: continue
                     fid.write('      - %s' % ParamSpec(subparam))
                     if ('shortdescription' in task['params'][subparam].keys()) and (task['params'][subparam]['shortdescription'] is not None):
-                        fid.write(' - %s' % task['params'][subparam]['shortdescription'])
+                        if len(task['params'][subparam]['shortdescription'].strip()) > 0:
+                            fid.write(' - %s' % task['params'][subparam]['shortdescription'])
                     fid.write('\n')
                 if len(task['subparams'][paramstr]) > 0:
                     fid.write('\n      .. raw:: html\n\n         </details>\n')
@@ -172,11 +177,10 @@ for task in tasklist:
         fid.write('\n\n' + rst + '\n\n')
         
         # add long descriptions of each parameter as footnotes at the bottom
-        fid.write('\n\nDetails\n   Explanation of each parameter\n\n')
         for param in task['params'].keys():
             if ('description' in task['params'][param].keys()) and (task['params'][param]['description'] is not None):
                 fid.write('.. _%s:\n\n' % param)
-                fid.write('   .. rubric:: %s\n\n' % param)
+                fid.write('%s\n' % ParamSpec(param).replace('_ ', ' '))
                 fid.write('   | %s\n\n' % re.sub('\n', '\n   | ', task['params'][param]['description'].strip(), flags=re.DOTALL))
             
         # close docstring stub

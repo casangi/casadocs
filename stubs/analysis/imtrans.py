@@ -54,27 +54,19 @@ Description
    values of input axes 1, 3, and 2.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Name of the input image which must be specified.
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | Name of output CASA image.
 
 .. _order:
 
-   .. rubric:: order
-
+order (variant='')
    | New zero-based axes order.
 
 

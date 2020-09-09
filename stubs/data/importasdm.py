@@ -62,15 +62,9 @@ Parameters
 
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _asdm:
 
-   .. rubric:: asdm
-
+asdm (string)
    | Name of input ASDM file (directory)
    |                      Default: none
    | 
@@ -78,8 +72,7 @@ Details
 
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string='')
    | Root ms name. 
    |                      Default: none
    | 
@@ -88,8 +81,7 @@ Details
 
 .. _createmms:
 
-   .. rubric:: createmms
-
+createmms (bool=False)
    | Create a Multi-MS partitioned according to the given
    | separation axis.
    |                      Default: False
@@ -101,8 +93,7 @@ Details
 
 .. _separationaxis:
 
-   .. rubric:: separationaxis
-
+separationaxis (string='auto')
    | Axis to do parallelization across
    |                      Default: 'auto'
    |                      Options: 'scan', 'spw', 'baseline', 'auto'
@@ -130,8 +121,7 @@ Details
 
 .. _numsubms:
 
-   .. rubric:: numsubms
-
+numsubms ({string, int}='auto')
    | The number of sub-MSs to create in the Multi-Ms.
    |                      Default: 'auto'
    |                      Options: any integer number (example: numsubms=4)
@@ -151,24 +141,21 @@ Details
 
 .. _corr_mode:
 
-   .. rubric:: corr_mode
-
+corr_mode (string='all')
    | Correlation mode to be considered on input.
    |                      Default: 'all'
    |                      Options: ao, co, ac, or all
 
 .. _srt:
 
-   .. rubric:: srt
-
+srt (string='all')
    | Spectral resolution type.
    |                      Default: 'all'
    |                      Options: fr, ca, bw, or all
 
 .. _time_sampling:
 
-   .. rubric:: time_sampling
-
+time_sampling (string='all')
    | Specifies the time sampling (INTEGRATION and/or
    | SUBINTEGRATION) to be considered on input. 
    |                      Default: 'all'
@@ -179,8 +166,7 @@ Details
 
 .. _ocorr_mode:
 
-   .. rubric:: ocorr_mode
-
+ocorr_mode (string='ca')
    | Output data for correlation mode AUTO_ONLY (ao) or
    | CROSS_ONLY (co) or CROSS_AND_AUTO (ca)
    |                      Default: 'ca'
@@ -188,8 +174,7 @@ Details
 
 .. _compression:
 
-   .. rubric:: compression
-
+compression (bool=False)
    | Produce compressed columns in the resulting measurement
    | set.
    |                      Default: False
@@ -197,8 +182,7 @@ Details
 
 .. _lazy:
 
-   .. rubric:: lazy
-
+lazy (bool=False)
    | Make the MS DATA column read the ASDM Binary data
    | directly (faster import, smaller MS).
    |                      Default: False
@@ -222,8 +206,7 @@ Details
 
 .. _asis:
 
-   .. rubric:: asis
-
+asis (string='')
    | Creates verbatim copies of the ASDM tables in the output
    | measurement set.
    |                      Default: none
@@ -235,8 +218,7 @@ Details
 
 .. _wvr_corrected_data:
 
-   .. rubric:: wvr_corrected_data
-
+wvr_corrected_data (string='no')
    | Specifies which values are considerd in the ASDM binary
    | data to fill the DATA column in the MAIN table of the MS.
    |                      Default: no
@@ -252,8 +234,7 @@ Details
 
 .. _scans:
 
-   .. rubric:: scans
-
+scans (string='')
    | Processes only the scans specified in the option's value.
    |                      Default: none (all scans)
    | 
@@ -279,8 +260,7 @@ Details
 
 .. _ignore_time:
 
-   .. rubric:: ignore_time
-
+ignore_time (bool=False)
    | All the rows of the tables Feed, History, Pointing,
    | Source, SysCal, CalDevice, SysPower, and Weather are processed
    | independently of the time range of the selected exec block / scan.
@@ -289,8 +269,7 @@ Details
 
 .. _process_syspower:
 
-   .. rubric:: process_syspower
-
+process_syspower (bool=True)
    | The SysPower table is processed if and only if this
    | parameter is set to true.
    |                      Default: True
@@ -298,8 +277,7 @@ Details
 
 .. _process_caldevice:
 
-   .. rubric:: process_caldevice
-
+process_caldevice (bool=True)
    | The CalDevice table is processed if and only if this
    | parameter is set to true.
    |                      Default: True
@@ -307,8 +285,7 @@ Details
 
 .. _process_pointing:
 
-   .. rubric:: process_pointing
-
+process_pointing (bool=True)
    | The Pointing table is processed if and only if this
    | parameter is set to true. 
    |                      Default: True
@@ -319,8 +296,7 @@ Details
 
 .. _process_flags:
 
-   .. rubric:: process_flags
-
+process_flags (bool=True)
    | Create online flags based on the Flag.xml, Antenna.xml
    | and SpectralWindow.xml files and copy them to the FLAG_CMD sub-table
    | of the MS.
@@ -334,8 +310,7 @@ Details
 
 .. _tbuff:
 
-   .. rubric:: tbuff
-
+tbuff (double=0.0)
    | Time padding buffer (seconds)
    |                      Subparameter of process_flags=True
    |                      Default: 0.0
@@ -349,8 +324,7 @@ Details
 
 .. _applyflags:
 
-   .. rubric:: applyflags
-
+applyflags (bool=False)
    | Apply the online flags to the MS.
    |                      Subparameter of process_flags=True
    |                      Default: False
@@ -358,8 +332,7 @@ Details
 
 .. _savecmds:
 
-   .. rubric:: savecmds
-
+savecmds (bool=False)
    | Save the flag commands to an ASCII file given by the
    | parameter outfile. 
    |                      Subparameter of process_flags=True
@@ -368,8 +341,7 @@ Details
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile ({string, stringArray}='')
    | Filename or list of filenames where to save the online
    | flag commands.
    |                      Subparameter of process_flags=True
@@ -379,24 +351,21 @@ Details
 
 .. _flagbackup:
 
-   .. rubric:: flagbackup
-
+flagbackup (bool=True)
    | Back up flag column before applying flags.
    |                      Default: True
    |                      Options: True|False
 
 .. _verbose:
 
-   .. rubric:: verbose
-
+verbose (bool=False)
    | Produce log output as asdm2MS is being run
    |                      Default: False
    |                      Options: False|True
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Over write an existing MS(s) or MS(s), if the option
    | wvr_corrected_data='both'
    |                      Default: False  (do not overwrite)
@@ -411,23 +380,20 @@ Details
 
 .. _showversion:
 
-   .. rubric:: showversion
-
+showversion (bool=False)
    | Report the version of asdm2MS being used
    |                      Default: False
    |                      Options: False|True
 
 .. _useversion:
 
-   .. rubric:: useversion
-
+useversion (string='v3')
    | Version of asdm2MS to be used
    |                      Default: 'v3' (should work for all data)
 
 .. _bdfflags:
 
-   .. rubric:: bdfflags
-
+bdfflags (bool=False)
    | Set the MS FLAG column according to the ASDM _binary_
    | flags
    |                      Default: False
@@ -435,8 +401,7 @@ Details
 
 .. _with_pointing_correction:
 
-   .. rubric:: with_pointing_correction
-
+with_pointing_correction (bool=False)
    | Add (ASDM::Pointing::encoder -
    | ASDM::Pointing::pointingDirection) to the value to be written in
    | MS::Pointing::direction
@@ -445,8 +410,7 @@ Details
 
 .. _convert_ephem2geo:
 
-   .. rubric:: convert_ephem2geo
-
+convert_ephem2geo (bool=True)
    | if True, convert any attached ephemerides to the GEO
    | reference frame (time-spacing not changed)
    |                      Default: True
@@ -464,8 +428,7 @@ Details
 
 .. _polyephem_tabtimestep:
 
-   .. rubric:: polyephem_tabtimestep
-
+polyephem_tabtimestep (double=0.)
    | Timestep (days) for the tabulation of polynomial
    | ephemerides. A value less than or equal to 0 disables tabulation.
    |                      Default: 0

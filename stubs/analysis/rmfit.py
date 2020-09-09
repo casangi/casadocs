@@ -92,75 +92,59 @@ Description
       234` `(ADS) <http://adsabs.harvard.edu/full/1986A%26A...156..234L>`__ `<#ref-cit1>`__
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (variant)
    | Name(s) of the input image(s). Must be specified.
 
 .. _rm:
 
-   .. rubric:: rm
-
+rm (string='')
    | Output rotation measure image name. If not specified, no image is written.
 
 .. _rmerr:
 
-   .. rubric:: rmerr
-
+rmerr (string='')
    | Output rotation measure error image name. If not specified, no image is written.
 
 .. _pa0:
 
-   .. rubric:: pa0
-
+pa0 (string='')
    | Output position angle (degrees) at zero wavelength image name. If not specified, no image is written.
 
 .. _pa0err:
 
-   .. rubric:: pa0err
-
+pa0err (string='')
    | Output position angle (degrees) at zero wavelength error image name. If not specified, no image is written.
 
 .. _nturns:
 
-   .. rubric:: nturns
-
+nturns (string='')
    | Output number of turns image name. If not specified, no image is written.
 
 .. _chisq:
 
-   .. rubric:: chisq
-
+chisq (string='')
    | Output reduced chi squared image name. If not specified, no image is written.
 
 .. _sigma:
 
-   .. rubric:: sigma
-
+sigma (double=-1)
    | Estimate of the thermal noise.  A value less than 0 means auto estimate.
 
 .. _rmfg:
 
-   .. rubric:: rmfg
-
+rmfg (double=0.0)
    | Foreground rotation measure in rad/m/m to subtract.
 
 .. _rmmax:
 
-   .. rubric:: rmmax
-
+rmmax (double=0.0)
    | Maximum rotation measure in rad/m/m for which to solve. IMPORTANT TO SPECIFY.
 
 .. _maxpaerr:
 
-   .. rubric:: maxpaerr
-
+maxpaerr (double=1e30)
    | Maximum input position angle error in degrees to allow in solution determination.
 
 

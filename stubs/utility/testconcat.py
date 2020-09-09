@@ -7,48 +7,38 @@ def testconcat(vis, testconcatvis='', freqtol='', dirtol='', copypointing=True):
 Concatenate the subtables of several visibility data sets, not the MAIN bulk data.
 
 Parameters
-   - vis_ (stringArray) - 
-   - testconcatvis_ (string='') - 
-   - freqtol_ (variant='') - 
-   - dirtol_ (variant='') - 
-   - copypointing_ (bool=True) - 
+   - vis_ (stringArray)
+   - testconcatvis_ (string='')
+   - freqtol_ (variant='')
+   - dirtol_ (variant='')
+   - copypointing_ (bool=True)
 
 
 
-
-
-
-Details
-   Explanation of each parameter
 
 .. _vis:
 
-   .. rubric:: vis
-
+vis (stringArray)
    | Name(s) of input visibility files to be test-concatenated
 
 .. _testconcatvis:
 
-   .. rubric:: testconcatvis
-
+testconcatvis (string='')
    | Name of output MS containing the merged subtables
 
 .. _freqtol:
 
-   .. rubric:: freqtol
-
+freqtol (variant='')
    | Frequency shift tolerance for considering data as the same spwid
 
 .. _dirtol:
 
-   .. rubric:: dirtol
-
+dirtol (variant='')
    | Direction shift tolerance for considering data as the same field
 
 .. _copypointing:
 
-   .. rubric:: copypointing
-
+copypointing (bool=True)
    | Copy all rows of the POINTING table.
 
 

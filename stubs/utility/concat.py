@@ -121,15 +121,9 @@ Description
    ephemeris for field Neptune in the output MS.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (stringArray)
    | Name of input visibility file
    |                      default: none
    | 
@@ -138,8 +132,7 @@ Details
 
 .. _concatvis:
 
-   .. rubric:: concatvis
-
+concatvis (string='')
    | Name of visibility file that will contain the
    | concatenated data
    |                      default: none
@@ -153,8 +146,7 @@ Details
 
 .. _freqtol:
 
-   .. rubric:: freqtol
-
+freqtol (variant='')
    | Frequency shift tolerance for considering data as the
    | same spwid. The number of channels must also be the same.
    |                     Default: '' == 1 Hz
@@ -168,8 +160,7 @@ Details
 
 .. _dirtol:
 
-   .. rubric:: dirtol
-
+dirtol (variant='')
    | Direction shift tolerance for considering data as the
    | same field
    |                      Default: '' == 1 mas (milliarcsec)
@@ -184,16 +175,14 @@ Details
 
 .. _respectname:
 
-   .. rubric:: respectname
-
+respectname (bool=False)
    | If true, fields with a different name are not merged even
    | if their direction agrees (within dirtol)
    |                      Default: False
 
 .. _timesort:
 
-   .. rubric:: timesort
-
+timesort (bool=False)
    | If true, sort by TIME in ascending order
    |                      Default: False (data in order as read in)
    | 
@@ -206,8 +195,7 @@ Details
 
 .. _copypointing:
 
-   .. rubric:: copypointing
-
+copypointing (bool=True)
    | Make a proper copy of the POINTING subtable 
    |                      Default:True (can be time consuming!)
    | 
@@ -215,8 +203,7 @@ Details
 
 .. _visweightscale:
 
-   .. rubric:: visweightscale
-
+visweightscale (doubleArray=[''])
    | List of the weight scaling factors to be applied to the
    | individual MSs
    |                      Default: [] (empty list) - no scaling
@@ -235,8 +222,7 @@ Details
 
 .. _forcesingleephemfield:
 
-   .. rubric:: forcesingleephemfield
-
+forcesingleephemfield (variant='')
    | Make sure that there is only one joint ephemeris for every field in this list
    |                      Default: '' (standard treatment of all ephemeris
    |                      fields)

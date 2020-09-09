@@ -65,15 +65,9 @@ Description
       prior to export using the task imreframe.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Name of input CASA image
    |                      Default: none
    | 
@@ -81,8 +75,7 @@ Details
 
 .. _fitsimage:
 
-   .. rubric:: fitsimage
-
+fitsimage (string='')
    | Name of output image FITS file
    |                      Default: none
    | 
@@ -90,24 +83,21 @@ Details
 
 .. _velocity:
 
-   .. rubric:: velocity
-
+velocity (bool=False)
    | Use velocity (rather than frequency) as spectral axis
    |                      Default: False
    |                      Options: False|True
 
 .. _optical:
 
-   .. rubric:: optical
-
+optical (bool=False)
    | Use the optical (rather than radio) velocity convention
    |                      Default: False
    |                      Options: False|True
 
 .. _bitpix:
 
-   .. rubric:: bitpix
-
+bitpix (int=-32)
    | Bits per pixel
    |                      Default: -32
    | 
@@ -115,52 +105,45 @@ Details
 
 .. _minpix:
 
-   .. rubric:: minpix
-
+minpix ({int, double}=0)
    | Minimum pixel value (if minpix > maxpix, value is automatically determined)
 
 .. _maxpix:
 
-   .. rubric:: maxpix
-
+maxpix ({int, double}=-1)
    | Maximum pixel value (if minpix > maxpix, value is
    | automatically determined)
    |                      Default: -1
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Overwrite output file if it exists?
    |                      Default: False
    |                      Options: False|True
 
 .. _dropstokes:
 
-   .. rubric:: dropstokes
-
+dropstokes (bool=False)
    | Drop the Stokes axis?
 
 .. _stokeslast:
 
-   .. rubric:: stokeslast
-
+stokeslast (bool=True)
    | Put Stokes axis last in header?
    |                      Default: True
    |                      Options: True|False
 
 .. _history:
 
-   .. rubric:: history
-
+history (bool=True)
    | Write history to the FITS image?
    |                      Default: True
    |                      Options: True|False
 
 .. _dropdeg:
 
-   .. rubric:: dropdeg
-
+dropdeg (bool=False)
    | Drop all degenerate axes (e.g. Stokes and/or Frequency)?
    |                      Default: False
    |                      Options: False|True

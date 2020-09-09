@@ -120,21 +120,14 @@ Description
    e.g., mstransform operations.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _files:
 
-   .. rubric:: files
-
+files (stringArray=[''])
    | Name of input ATCA RPFits file(s)
 
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string='')
    | Name of output MeasurementSet
    |                      Default: none
    | 
@@ -142,8 +135,7 @@ Details
 
 .. _options:
 
-   .. rubric:: options
-
+options (string='')
    | Processing options
    |                      Default: none
    |                      Options: birdie, reweight, noxycorr, fastmosaic,
@@ -171,8 +163,7 @@ Details
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (intArray=[-1])
    | Select spectral window/channels
    |                      Default: '' (all spectral windows and channels)
    |            
@@ -189,36 +180,31 @@ Details
 
 .. _nscans:
 
-   .. rubric:: nscans
-
+nscans (intArray=[0,0])
    | Number of scans to skip followed by number of scans to
    | read
    |                      Default: [0, 0]
 
 .. _lowfreq:
 
-   .. rubric:: lowfreq
-
+lowfreq (double=0.1)
    | Lowest reference frequency to select
    |                      Default: 0.1GHz
 
 .. _highfreq:
 
-   .. rubric:: highfreq
-
+highfreq (double=999)
    | Highest reference frequency to select
    |                      Default: 999GHz
 
 .. _fields:
 
-   .. rubric:: fields
-
+fields (stringArray=[''])
    | List of field names to select
 
 .. _edge:
 
-   .. rubric:: edge
-
+edge (double=8)
    | The edge parameter specifies how many edge channels to
    | discard as a percentage of the number of channels in each band.
    |                      Default: 8 (e.g., discard 82 channels from the

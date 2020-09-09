@@ -227,225 +227,184 @@ Description
    fit.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _infile:
 
-   .. rubric:: infile
-
+infile (string)
    | name of input SD dataset
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='data')
    | name of data column to be used ["data", "float_data", or "corrected"]
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | select data by antenna name or ID, e.g. "PM03"
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | select data by field IDs and names, e.g. "3C2*" (""=all)
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | select data by IF IDs (spectral windows), e.g. "3,5,7" (""=all)
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help)
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | select data by scan numbers, e.g. "21~23" (""=all)
 
 .. _pol:
 
-   .. rubric:: pol
-
+pol (string='')
    | select data by polarization IDs, e.g. "XX,YY" (""=all)
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | select data by observational intent, e.g. "*ON_SOURCE*" (""=all)
 
 .. _reindex:
 
-   .. rubric:: reindex
-
+reindex (bool=True)
    | Re-index indices in subtables based on data selection. Ignored when blmode='apply'.
 
 .. _maskmode:
 
-   .. rubric:: maskmode
-
+maskmode (string='list')
    | mode of setting additional channel masks. "list" and "auto" are available now.
 
 .. _thresh:
 
-   .. rubric:: thresh
-
+thresh (double=5.0)
    | S/N threshold for linefinder
 
 .. _avg_limit:
 
-   .. rubric:: avg_limit
-
+avg_limit (int=4)
    | channel averaging for broad lines
 
 .. _minwidth:
 
-   .. rubric:: minwidth
-
+minwidth (int=4)
    | the minimum channel width to detect as a line
 
 .. _edge:
 
-   .. rubric:: edge
-
+edge (intArray=[0, 0])
    | channels to drop at beginning and end of spectrum
 
 .. _blmode:
 
-   .. rubric:: blmode
-
+blmode (string='fit')
    | baselining mode ["fit" or "apply"]
 
 .. _dosubtract:
 
-   .. rubric:: dosubtract
-
+dosubtract (bool=True)
    | subtract baseline from input data [True, False]
 
 .. _blformat:
 
-   .. rubric:: blformat
-
+blformat ({string, stringArray}='text')
    | format(s) of file(s) in which best-fit parameters are written ["text", "csv", "table" or ""]
 
 .. _bloutput:
 
-   .. rubric:: bloutput
-
+bloutput ({string, stringArray}='')
    | name(s) of file(s) in which best-fit parameters are written
 
 .. _bltable:
 
-   .. rubric:: bltable
-
+bltable (string='')
    | name of baseline table to apply
 
 .. _blfunc:
 
-   .. rubric:: blfunc
-
+blfunc (string='poly')
    | baseline model function ["poly", "chebyshev", "cspline", "sinusoid", or "variable"(expert mode)]
 
 .. _order:
 
-   .. rubric:: order
-
+order (int=5)
    | order of baseline model function
 
 .. _npiece:
 
-   .. rubric:: npiece
-
+npiece (int=2)
    | number of element polynomials for cubic spline curve
 
 .. _applyfft:
 
-   .. rubric:: applyfft
-
+applyfft (bool=True)
    | automatically set wave numbers of sinusoids
 
 .. _fftmethod:
 
-   .. rubric:: fftmethod
-
+fftmethod (string='fft')
    | method for automatically set wave numbers of sinusoids
 
 .. _fftthresh:
 
-   .. rubric:: fftthresh
-
+fftthresh (double=3.0)
    | threshold to select wave numbers of sinusoids
 
 .. _addwn:
 
-   .. rubric:: addwn
-
+addwn (intArray=[0])
    | additional wave numbers to use
 
 .. _rejwn:
 
-   .. rubric:: rejwn
-
+rejwn (intArray=[''])
    | wave numbers NOT to use
 
 .. _clipthresh:
 
-   .. rubric:: clipthresh
-
+clipthresh (double=3.0)
    | clipping threshold for iterative fitting
 
 .. _clipniter:
 
-   .. rubric:: clipniter
-
+clipniter (int=0)
    | maximum iteration number for iterative fitting
 
 .. _blparam:
 
-   .. rubric:: blparam
-
+blparam (string='')
    | text file that stores per spectrum fit parameters
 
 .. _verbose:
 
-   .. rubric:: verbose
-
+verbose (bool=False)
    | output fitting parameters to logger
 
 .. _showprogress:
 
-   .. rubric:: showprogress
-
+showprogress (bool=False)
    | (NOT SUPPORTED YET) show progress status for large data
 
 .. _minnrow:
 
-   .. rubric:: minnrow
-
+minnrow (int=1000)
    | (NOT SUPPORTED YET) minimum number of input spectra to show progress status
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | name of output file
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | overwrite the output file if already exists
 
 

@@ -10,6 +10,16 @@ Parameters
    - vis_ (string) - Name of input MS.  Output goes to vis + ".contsub" (will be overwritten if already exists)
    - field_ ({string, stringArray, int, intArray}='') - Select field(s) using id(s) or name(s)
    - fitspw_ (string='') - Spectral window:channel selection for fitting the continuum
+
+      .. raw:: html
+
+         <details><summary><i> fitspw != '' </i></summary>
+
+      - excludechans_ (bool=False) - exclude Spectral window:channel selection in fitspw for fitting
+
+      .. raw:: html
+
+         </details>
    - combine_ (string='') - Data axes to combine for the continuum estimation (none, or spw and/or scan)
    - solint_ (variant='int') - Continuum fit timescale (int recommended!)
    - fitorder_ (int=0) - Polynomial order for the fits
@@ -156,63 +166,49 @@ Description
    Create vis + '.cont' to hold the continuum estimate.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input MS.  Output goes to vis + ".contsub" (will be overwritten if already exists)
 
 .. _field:
 
-   .. rubric:: field
-
+field ({string, stringArray, int, intArray}='')
    | Select field(s) using id(s) or name(s)
 
 .. _fitspw:
 
-   .. rubric:: fitspw
-
+fitspw (string='')
    | Spectral window:channel selection for fitting the continuum
 
 .. _excludechans:
 
-   .. rubric:: excludechans
-
+excludechans (bool=False)
    | exclude Spectral window:channel selection in fitspw for fitting
 
 .. _combine:
 
-   .. rubric:: combine
-
+combine (string='')
    | Data axes to combine for the continuum estimation (none, or spw and/or scan)
 
 .. _solint:
 
-   .. rubric:: solint
-
+solint (variant='int')
    | Continuum fit timescale (int recommended!)
 
 .. _fitorder:
 
-   .. rubric:: fitorder
-
+fitorder (int=0)
    | Polynomial order for the fits
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Spectral window selection for output
 
 .. _want_cont:
 
-   .. rubric:: want_cont
-
+want_cont (bool=False)
    | Create vis + ".cont" to hold the continuum estimate.
 
 

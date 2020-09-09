@@ -149,45 +149,34 @@ Description
    *mode='rename'*.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file (MS)
 
 .. _mode:
 
-   .. rubric:: mode
-
+mode (string='list')
    | Operation: list, save, restore, delete, rename
 
 .. _versionname:
 
-   .. rubric:: versionname
-
+versionname (string='')
    | Flag version name
 
 .. _oldname:
 
-   .. rubric:: oldname
-
+oldname (string='')
    | Flag version to rename
 
 .. _comment:
 
-   .. rubric:: comment
-
+comment (string='')
    | Short description of a versionname
 
 .. _merge:
 
-   .. rubric:: merge
-
+merge (string='replace')
    | Merge option: replace will save or over-write the flags
 
 

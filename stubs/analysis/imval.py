@@ -103,39 +103,29 @@ Description
       `http:numpy.scipy.org/#array_interface <https://numpy.scipy.org/#array_interface>`__
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Name of the input image
 
 .. _region:
 
-   .. rubric:: region
-
+region (variant='')
    | Region selection. Empty string (default) means use rules for box/chans/stokes specification.
 
 .. _box:
 
-   .. rubric:: box
-
+box (string='')
    | Rectangular region(s) to select in direction plane. Empty string (default) means use the reference pixel.
 
 .. _chans:
 
-   .. rubric:: chans
-
+chans (string='')
    | Channels to use. Default is to use all channels.
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='')
    | Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
 
 

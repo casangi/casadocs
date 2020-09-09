@@ -210,51 +210,39 @@ Description
    inpfreqs. The default is all channels.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _mode:
 
-   .. rubric:: mode
-
+mode (string='list')
    | Mask method (list, copy,expand,delete,setdefaultmask)
 
 .. _inpimage:
 
-   .. rubric:: inpimage
-
+inpimage ({string, stringArray}='')
    | Name of input image.
 
 .. _inpmask:
 
-   .. rubric:: inpmask
-
+inpmask ({string, stringArray}='')
    | mask(s) to be processed: image masks,T/F internal masks(Need to include parent image names),regions(for copy mode)
 
 .. _output:
 
-   .. rubric:: output
-
+output (string='')
    | Name of output mask (imagename or imagename:internal_maskname)
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | overwrite output if exists?
 
 .. _inpfreqs:
 
-   .. rubric:: inpfreqs
-
+inpfreqs ({string, intArray}='')
    | List of chans/freqs (in inpmask) to read masks from
 
 .. _outfreqs:
 
-   .. rubric:: outfreqs
-
+outfreqs ({string, intArray}='')
    | List of chans/freqs (in output) on which to expand the mask
 
 

@@ -24,10 +24,5 @@ Description
 
 
 
-
-Details
-   Explanation of each parameter
-
-
     """
     pass

@@ -9,6 +9,19 @@ Browse a table (MS, calibration table, image)
 Parameters
    - tablename_ (string='') - Name of input table
 
+      .. raw:: html
+
+         <details><summary><i> tablename != '' </i></summary>
+
+      - mightedit_ (bool=False) - Warning: the GUI seems to ignore whether the table tool is opened read-only. Just be careful, esp. if filtering.
+      - sortlist_ ({string, stringArray}='') - Columns to sort by (ascending)
+      - taql_ (string='') - TaQL query string for prefiltering the table.
+      - skipcols_ ({string, stringArray}='') - Columns to omit
+
+      .. raw:: html
+
+         </details>
+
 
 Description
    Brings up a browser that can open and display any CASA table (MS,
@@ -40,18 +53,11 @@ Description
    ======= =====================================
 
 .. |image1| image:: ../media/e7b82ce6a699178fe6f43360bef6c38bb9c431bb.png
-:class: image-inline
 
-
-
-
-Details
-   Explanation of each parameter
 
 .. _tablename:
 
-   .. rubric:: tablename
-
+tablename (string='')
    | Name of table file (vis, calibration table, image)
    |                      Default: none
    |                      
@@ -59,8 +65,7 @@ Details
 
 .. _mightedit:
 
-   .. rubric:: mightedit
-
+mightedit (bool=False)
    | Disable the filtering options (below) and allow editing
    | the table.
    |                      Default: False
@@ -72,15 +77,13 @@ Details
 
 .. _sortlist:
 
-   .. rubric:: sortlist
-
+sortlist ({string, stringArray}='')
    | List of columns to sort by
    |                      Default: none
 
 .. _taql:
 
-   .. rubric:: taql
-
+taql (string='')
    | TaQL query string for prefiltering the table.
    |                      Default: none
    | 
@@ -88,8 +91,7 @@ Details
 
 .. _skipcols:
 
-   .. rubric:: skipcols
-
+skipcols ({string, stringArray}='')
    | Columns to NOT display.
    |                      Default: none
    | 

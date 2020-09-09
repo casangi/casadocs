@@ -108,51 +108,39 @@ Description
    paginate
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
 
 .. _caltable:
 
-   .. rubric:: caltable
-
+caltable (string)
    | Input calibration table to list
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Field name or index
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | Antenna name or index
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Spectral window and channel
 
 .. _listfile:
 
-   .. rubric:: listfile
-
+listfile (string='')
    | Disk file to write output
 
 .. _pagerows:
 
-   .. rubric:: pagerows
-
+pagerows (int=50)
    | Rows per page
 
 

@@ -11,26 +11,40 @@ Parameters
    - function_ (string='') - Aggregate function to apply. This can be set one of flux, madm, max, mean, median, min, npts, rms, stddev, sum, variance, xmadm. Must be specified.
    - axes_ (variant='[0]') - Zero-based axis number(s) or minimal match strings to collapse.
    - outfile_ (string='') - Name of output CASA image. Must be specified.
+
+      .. raw:: html
+
+         <details><summary><i> outfile != '' </i></summary>
+
+      - overwrite_ (bool=False) - Overwrite output image if it exists?
+
+      .. raw:: html
+
+         </details>
    - box_ (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
    - region_ (string='') - Region selection. Default is to use the full image.
    - chans_ (string='') - Channels to use. Default is to use all channels.
    - stokes_ (string='') - Stokes planes to use. Default is to use all Stokes planes.
    - mask_ (string='') - Mask to use. Default is none.
+
+      .. raw:: html
+
+         <details><summary><i> mask != '' </i></summary>
+
+      - stretch_ (bool=False) - Stretch the mask if necessary and possible?
+
+      .. raw:: html
+
+         </details>
    - stretch_ (bool=False) - Stretch the mask if necessary and possible?
 
 
 
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Name of the input image
    |                      Default: none
    | 
@@ -38,8 +52,7 @@ Details
 
 .. _function:
 
-   .. rubric:: function
-
+function (string='')
    | Function used to compute aggregation of pixel values
    | along the collapsed axis.
    |                      Default: none
@@ -65,8 +78,7 @@ Details
 
 .. _axes:
 
-   .. rubric:: axes
-
+axes (variant='[0]')
    | Zero-based axis number(s) or minimal match strings to
    | collapse.
    |                      Default: [0]
@@ -82,8 +94,7 @@ Details
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | Name of output CASA image. Must be specified.
    |                      Default: none
    | 
@@ -91,8 +102,7 @@ Details
 
 .. _box:
 
-   .. rubric:: box
-
+box (string='')
    | Rectangular region to select in direction plane. 
    |                      Default: '' (use the entire direction plane)
    | 
@@ -100,44 +110,38 @@ Details
 
 .. _region:
 
-   .. rubric:: region
-
+region (string='')
    | Region selection.
    |                      Default: '' (use the full image)
 
 .. _chans:
 
-   .. rubric:: chans
-
+chans (string='')
    | Channels to use. 
    |                      Default: '' (use all channels)
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='')
    | Stokes planes to use.
    |                      Default: '' (use all stokes planes)
 
 .. _mask:
 
-   .. rubric:: mask
-
+mask (string='')
    | Mask to use.
    |                      Default: none
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Overwrite output image if it exists?
    |                      Default: False
    |                      Options: False|True
 
 .. _stretch:
 
-   .. rubric:: stretch
-
+stretch (bool=False)
    | Stretch the mask if necessary and possible? 
    |                      Default: False
    |                      Options: False|True

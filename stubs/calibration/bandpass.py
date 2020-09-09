@@ -336,15 +336,9 @@ Description
 
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      default: non
    | 
@@ -352,8 +346,7 @@ Details
 
 .. _caltable:
 
-   .. rubric:: caltable
-
+caltable (string='')
    | Name of output bandpass calibration table
    |                      default: none
    | 
@@ -361,8 +354,7 @@ Details
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Select field using field id(s) or field name(s)
    |                      default: '' --> all fields
    |                      
@@ -381,8 +373,7 @@ Details
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Select spectral window/channels
    | 
    |                         Examples:
@@ -406,8 +397,7 @@ Details
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | Select observing intent
    |                      default: '' (no selection by intent)
    | 
@@ -416,15 +406,13 @@ Details
 
 .. _selectdata:
 
-   .. rubric:: selectdata
-
+selectdata (bool=True)
    | Other data selection parameters
    |                      default: True
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | Select data based on time range
    |                      Subparameter of selectdata=True
    |                      default = '' (all)
@@ -444,8 +432,7 @@ Details
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange (variant='')
    | Select data within uvrange (default units meters)
    |                      Subparameter of selectdata=True
    |                      default: '' (all)
@@ -458,8 +445,7 @@ Details
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | Select data based on antenna/baseline
    |                      Subparameter of selectdata=True
    |                      default: '' (all)
@@ -488,8 +474,7 @@ Details
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | Scan number range
    |                      Subparameter of selectdata=True
    |                      default: '' = all
@@ -499,8 +484,7 @@ Details
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | Select by observation ID(s)
    |                      Subparameter of selectdata=True
    |                      default: '' = all
@@ -509,14 +493,12 @@ Details
 
 .. _msselect:
 
-   .. rubric:: msselect
-
+msselect (string='')
    | Optional complex data selection (ignore for now)
 
 .. _solint:
 
-   .. rubric:: solint
-
+solint (variant='inf')
    | Solution interval in time[,freq]
    |                      default: 'inf' (~infinite, up to boundaries
    |                      controlled by combine, with no pre-averaging in
@@ -545,8 +527,7 @@ Details
 
 .. _combine:
 
-   .. rubric:: combine
-
+combine (string='scan')
    | Data axes to combine for solving
    |                      default: 'scan' --> solutions will break at obs,
    |                      field, and spw boundaries but may extend over
@@ -561,8 +542,7 @@ Details
 
 .. _refant:
 
-   .. rubric:: refant
-
+refant (string='')
    | Reference antenna name(s); a prioritized list may be
    | specified
    |                      default: '' (no reference antenna)
@@ -578,8 +558,7 @@ Details
 
 .. _minblperant:
 
-   .. rubric:: minblperant
-
+minblperant (int=4)
    | Minimum baselines _per antenna_ required for solve
    |                      default: 4
    | 
@@ -595,24 +574,21 @@ Details
 
 .. _minsnr:
 
-   .. rubric:: minsnr
-
+minsnr (double=3.0)
    | Reject solutions below this SNR (only applies for
    | bandtype = B)
    |                      default: 3.0
 
 .. _solnorm:
 
-   .. rubric:: solnorm
-
+solnorm (bool=False)
    | Normalize bandpass amplitudes and phase for each spw,
    | pol, ant, and timestamp
    |                      default: False (no normalization)
 
 .. _bandtype:
 
-   .. rubric:: bandtype
-
+bandtype (string='B')
    | Type of bandpass solution (B or BPOLY)
    |                       default: 'B'
    | 
@@ -630,14 +606,12 @@ Details
 
 .. _smodel:
 
-   .. rubric:: smodel
-
+smodel (doubleArray=[''])
    | Point source Stokes parameters for source model.
 
 .. _corrdepflags:
 
-   .. rubric:: corrdepflags
-
+corrdepflags (bool=False)
    | If False (default), if any correlation is flagged, treat all correlations in
    |         the visibility vector as flagged when solving (per channel, per baseline).
    |         If True, use unflagged correlations in a visibility vector, even if one or more
@@ -657,8 +631,7 @@ Details
 
 .. _append:
 
-   .. rubric:: append
-
+append (bool=False)
    | Append solutions to the (existing) table
    |                      default: False (overwrite existing table or make
    |                      new table)
@@ -671,8 +644,7 @@ Details
 
 .. _fillgaps:
 
-   .. rubric:: fillgaps
-
+fillgaps (int=0)
    | Fill flagged solution channels by interpolation
    |                      Subparameter of bandtype='B'  
    |                      default: 0 (don't interpolate)
@@ -682,8 +654,7 @@ Details
 
 .. _degamp:
 
-   .. rubric:: degamp
-
+degamp (int=3)
    | Polynomial degree for BPOLY amplitude solution
    |                      Subparameter of bandtype='BPOLY'
    |                      default: 3
@@ -692,8 +663,7 @@ Details
 
 .. _degphase:
 
-   .. rubric:: degphase
-
+degphase (int=3)
    | Polynomial degree for BPOLY phase solution
    |                      Subparameter of bandtype='BPOLY'
    |                      default: 3
@@ -702,8 +672,7 @@ Details
 
 .. _visnorm:
 
-   .. rubric:: visnorm
-
+visnorm (bool=False)
    | Normalize data prior to BPOLY solution
    |                      Subparameter of bandtype='BPOLY'
    |                      default: False
@@ -712,8 +681,7 @@ Details
 
 .. _maskcenter:
 
-   .. rubric:: maskcenter
-
+maskcenter (int=0)
    | Number of channels to avoid in center of each band
    |                      Subparameter of bandtype='BPOLY'
    |                      default: 0
@@ -722,8 +690,7 @@ Details
 
 .. _maskedge:
 
-   .. rubric:: maskedge
-
+maskedge (int=5)
    | Fraction of channels to avoid at each band edge (in %)
    |                      Subparameter of bandtype='BPOLY'
    |                      default: 5
@@ -732,8 +699,7 @@ Details
 
 .. _docallib:
 
-   .. rubric:: docallib
-
+docallib (bool=False)
    | Control means of specifying the caltables
    |                      default: False --> Use gaintable, gainfield,
    |                      interp, spwmap, calwt. 
@@ -743,8 +709,7 @@ Details
 
 .. _callib:
 
-   .. rubric:: callib
-
+callib (string='')
    | Cal Library filename
    |                      Subparameter of callib=True
    | 
@@ -753,8 +718,7 @@ Details
 
 .. _gaintable:
 
-   .. rubric:: gaintable
-
+gaintable (stringArray=[''])
    | Gain calibration table(s) to apply on the fly
    |                      Subparameter of callib=False
    |                      default: '' (none)
@@ -764,8 +728,7 @@ Details
 
 .. _gainfield:
 
-   .. rubric:: gainfield
-
+gainfield (stringArray=[''])
    | Select a subset of calibrators from gaintable(s)
    |                      Subparameter of callib=False
    |                      default:'' --> all sources in table
@@ -782,8 +745,7 @@ Details
 
 .. _interp:
 
-   .. rubric:: interp
-
+interp (stringArray=[''])
    | Interpolation parmameters (in time[,freq]) for each gaintable, as a list of strings.
    |                      Default: '' --> 'linear,linear' for all gaintable(s)
    |                      Options: Time: 'nearest', 'linear'
@@ -827,8 +789,7 @@ Details
 
 .. _spwmap:
 
-   .. rubric:: spwmap
-
+spwmap (intArray=[''])
    | Spectral window mappings to form for gaintable(s)
    |                      Only used if callib=False
    |                      default: [] (apply solutions from each calibration spw to
@@ -843,8 +804,7 @@ Details
 
 .. _parang:
 
-   .. rubric:: parang
-
+parang (bool=False)
    | Apply parallactic angle correction
    |                      default: False
    | 

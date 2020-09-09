@@ -7,34 +7,34 @@ def oldstatwt(vis, dorms=False, byantenna=False, sepacs=True, fitspw='', fitcorr
  Reweight visibilities according to their scatter (Experimental)
 
 Parameters
-   - vis_ (string) - 
-   - dorms_ (bool=False) - 
-   - byantenna_ (bool=False) - 
+   - vis_ (string)
+   - dorms_ (bool=False)
+   - byantenna_ (bool=False)
 
       .. raw:: html
 
          <details><summary><i> byantenna = True </i></summary>
 
-      - sepacs_ (bool=True) - 
+      - sepacs_ (bool=True)
 
       .. raw:: html
 
          </details>
-   - fitspw_ ({string, stringArray, int, intArray}='') - 
-   - fitcorr_ ({string, stringArray, int, intArray}='') - 
-   - combine_ ({string, stringArray}='') - 
-   - timebin_ (string='0s') - 
-   - minsamp_ (int=2) - 
-   - field_ ({string, stringArray, int, intArray}='') - 
-   - spw_ ({string, stringArray, int, intArray}='') - 
-   - antenna_ ({string, stringArray, int, intArray}='') - 
-   - timerange_ (string='') - 
-   - scan_ (string='') - 
-   - intent_ (string='') - 
-   - array_ (string='') - 
-   - correlation_ ({string, stringArray}='') - 
-   - observation_ ({string, int}='') - 
-   - datacolumn_ (string='corrected') - 
+   - fitspw_ ({string, stringArray, int, intArray}='')
+   - fitcorr_ ({string, stringArray, int, intArray}='')
+   - combine_ ({string, stringArray}='')
+   - timebin_ (string='0s')
+   - minsamp_ (int=2)
+   - field_ ({string, stringArray, int, intArray}='')
+   - spw_ ({string, stringArray, int, intArray}='')
+   - antenna_ ({string, stringArray, int, intArray}='')
+   - timerange_ (string='')
+   - scan_ (string='')
+   - intent_ (string='')
+   - array_ (string='')
+   - correlation_ ({string, stringArray}='')
+   - observation_ ({string, int}='')
+   - datacolumn_ (string='corrected')
 
 
 Description
@@ -252,123 +252,99 @@ Description
       is absent.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of measurement set
 
 .. _dorms:
 
-   .. rubric:: dorms
-
+dorms (bool=False)
    | Use rms instead of stddev?
 
 .. _byantenna:
 
-   .. rubric:: byantenna
-
+byantenna (bool=False)
    | Estimate the noise per antenna -not implemented (vs. per baseline)
 
 .. _sepacs:
 
-   .. rubric:: sepacs
-
+sepacs (bool=True)
    | If solving by antenna, treat autocorrs separately (not implemented)
 
 .. _fitspw:
 
-   .. rubric:: fitspw
-
+fitspw ({string, stringArray, int, intArray}='')
    | The signal-free spectral window:channels to estimate the scatter from
 
 .. _fitcorr:
 
-   .. rubric:: fitcorr
-
+fitcorr ({string, stringArray, int, intArray}='')
    | The signal-free correlation(s) to estimate the scatter from (not implemented)
 
 .. _combine:
 
-   .. rubric:: combine
-
+combine ({string, stringArray}='')
    | Let estimates span changes in spw, corr, scan and/or state
 
 .. _timebin:
 
-   .. rubric:: timebin
-
+timebin (string='0s')
    | Bin length for estimates (not implemented)
 
 .. _minsamp:
 
-   .. rubric:: minsamp
-
+minsamp (int=2)
    | Minimum number of unflagged visibilities for estimating the scatter
 
 .. _field:
 
-   .. rubric:: field
-
+field ({string, stringArray, int, intArray}='')
    | Select field using ID(s) or name(s)
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw ({string, stringArray, int, intArray}='')
    | Select spectral window/channels
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna ({string, stringArray, int, intArray}='')
    | Select data based on antenna/baseline
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | Select data by time range
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | Select data by scan numbers
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | Select data by scan intents
 
 .. _array:
 
-   .. rubric:: array
-
+array (string='')
    | Select (sub)array(s) by array ID number
 
 .. _correlation:
 
-   .. rubric:: correlation
-
+correlation ({string, stringArray}='')
    | Select correlations to reweight (DEPRECATED in CASA v4.5)
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | Select by observation ID(s)
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='corrected')
    | Which data column to calculate the scatter from
 
 

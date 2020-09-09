@@ -17,6 +17,17 @@ Parameters
    - refspwmap_ (intArray=[-1]) - Scale across spectral window boundaries
    - gainthreshold_ (double=-1.0) - Threshold (fractional deviation from the median) on gain amplitudes to be used in the flux scale calculation
    - antenna_ (string='') - Select data based on antenna/baseline
+
+      .. raw:: html
+
+         <details><summary><i> antenna != '' </i></summary>
+
+      - timerange_ (string='') - Select data based on time range
+      - scan_ (string='') - Scan number range
+
+      .. raw:: html
+
+         </details>
    - incremental_ (bool=False) - Incremental caltable
    - fitorder_ (int=1) - Order of spectral fitting
    - display_ (bool=False) - Display some statistics of flux scaling
@@ -165,15 +176,9 @@ Description
    in **gaincal**. Please see the Examples section.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      Default: none
    | 
@@ -181,8 +186,7 @@ Details
 
 .. _caltable:
 
-   .. rubric:: caltable
-
+caltable (string='')
    | Name of input calibration table
    |                      Default: none
    | 
@@ -191,8 +195,7 @@ Details
 
 .. _fluxtable:
 
-   .. rubric:: fluxtable
-
+fluxtable (string='')
    | Name of output, flux-scaled calibration table (required)
    |                      Default: none
    | 
@@ -206,8 +209,7 @@ Details
 
 .. _reference:
 
-   .. rubric:: reference
-
+reference (stringArray=[''])
    | Reference field name(s) (transfer flux scale FROM)
    |                      Default: none
    | 
@@ -221,8 +223,7 @@ Details
 
 .. _transfer:
 
-   .. rubric:: transfer
-
+transfer (stringArray=[''])
    | Transfer field name(s) (transfer flux scale TO)
    |                      Default: '' (all sources in caltable that are not
    |                      specified as reference sources.  Do not include
@@ -241,8 +242,7 @@ Details
 
 .. _listfile:
 
-   .. rubric:: listfile
-
+listfile (string='')
    | Name of listfile that contains the fit information.
    |                      Default: '' (no fit listfile will be created)
    | 
@@ -254,16 +254,14 @@ Details
 
 .. _append:
 
-   .. rubric:: append
-
+append (bool=False)
    | Append fluxscaled solutions to the fluxtable?
    |                      Default: False (the fluxtable must not exist)
    |                      Options: False|True
 
 .. _refspwmap:
 
-   .. rubric:: refspwmap
-
+refspwmap (intArray=[-1])
    | Vector of spectral windows enabling scaling across
    | spectral windows
    |                      Default: [-1] (none)
@@ -279,8 +277,7 @@ Details
 
 .. _gainthreshold:
 
-   .. rubric:: gainthreshold
-
+gainthreshold (double=-1.0)
    | Threshold in the input gain solutions to be used in fractional deviation from median values.
    |                      Default: -1 (no threshold)
    | 
@@ -290,8 +287,7 @@ Details
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | Select data based on antenna/baseline
    |                      Subparameter of antenna
    |                      Default: '' (all)
@@ -316,8 +312,7 @@ Details
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | Select data based on time range
    |                      Subparameter of antenna
    |                      Default = '' (all)
@@ -337,16 +332,14 @@ Details
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | Scan number range
    |                      Subparameter of antenna
    |                      Default: '' = all
 
 .. _incremental:
 
-   .. rubric:: incremental
-
+incremental (bool=False)
    | Create an incremental caltable containing only gain
    | correction factors ( flux density= 1/(gain correction factor)**2)?
    |                      Default: False
@@ -362,8 +355,7 @@ Details
 
 .. _fitorder:
 
-   .. rubric:: fitorder
-
+fitorder (int=1)
    | Polynomial order of the spectral fitting for valid flux
    | densities
    |                      Default: 1
@@ -374,8 +366,7 @@ Details
 
 .. _display:
 
-   .. rubric:: display
-
+display (bool=False)
    | Display statistics and/or spectral fitting results.
    |                      Default: False
    |                      Options: False|True

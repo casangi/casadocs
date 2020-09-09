@@ -113,75 +113,59 @@ Description
       (` `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1979A%26AS...38..251S&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__ :sup:`)` `<#ref-cit2>`__
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _infiles:
 
-   .. rubric:: infiles
-
+infiles (variant)
    | list of name of input SD images (FITS or CASA image)
 
 .. _mode:
 
-   .. rubric:: mode
-
+mode (string='fft_mask')
    | image processing mode
 
 .. _numpoly:
 
-   .. rubric:: numpoly
-
+numpoly (int=2)
    | order of polynomial fit for Pressed-out method
 
 .. _beamsize:
 
-   .. rubric:: beamsize
-
+beamsize (variant='0.0')
    | beam size for Pressed-out method
 
 .. _smoothsize:
 
-   .. rubric:: smoothsize
-
+smoothsize (variant='2.0')
    | size of smoothing beam for Pressed-out method
 
 .. _direction:
 
-   .. rubric:: direction
-
+direction (variant='')
    | scan direction (p.a.) counterclockwise from the horizontal axis in unit of degree
 
 .. _maskwidth:
 
-   .. rubric:: maskwidth
-
+maskwidth (variant='1.0')
    | mask width for Basket-Weaving (on percentage)
 
 .. _tmax:
 
-   .. rubric:: tmax
-
+tmax (double=0.0)
    | maximum threshold value for processing
 
 .. _tmin:
 
-   .. rubric:: tmin
-
+tmin (double=0.0)
    | minimum threshold value for processing
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | name of output file
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | overwrite the output file if already exists
 
 

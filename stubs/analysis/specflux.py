@@ -13,11 +13,31 @@ Parameters
    - chans_ (string='') - Channels to use. Default is to use all channels.
    - stokes_ (string='') - Stokes planes to use. Default is to use all Stokes planes.
    - mask_ (string='') - Mask to use. Default is none.
+
+      .. raw:: html
+
+         <details><summary><i> mask != '' </i></summary>
+
+      - stretch_ (bool=False) - Stretch the mask if necessary and possible? 
+
+      .. raw:: html
+
+         </details>
    - function_ (string='flux density') - Aggregate function to use for computing per channel values. Supported values are "flux density", "mean", "median", "sum". Minimal match supported.
    - unit_ (string='km/s') - Unit to use for the spectral flux calculation. Must be conformant with a typical spectral axis unit.
    - major_ (variant='') - Major axis of overriding restoring beam. If specified, must be a valid quantity.
    - minor_ (variant='') - Minor axis of overriding restoring beam. If specified, must be a valid quantity
    - logfile_ (string='') - File which to write details. Default is to not write to a file.
+
+      .. raw:: html
+
+         <details><summary><i> logfile != '' </i></summary>
+
+      - overwrite_ (bool=False) - Overwrite exisitng ouput file if it exists?
+
+      .. raw:: html
+
+         </details>
 
 
 Description
@@ -151,87 +171,69 @@ Description
    Overwrite exisitng*logfile* file if it exists. (Default: False)
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Name of the input image
 
 .. _region:
 
-   .. rubric:: region
-
+region (variant='')
    | Region selection. Default is to use the full image.
 
 .. _box:
 
-   .. rubric:: box
-
+box (string='')
    | Rectangular region to select in direction plane. Default is to use the entire direction plane.
 
 .. _chans:
 
-   .. rubric:: chans
-
+chans (string='')
    | Channels to use. Default is to use all channels.
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='')
    | Stokes planes to use. Default is to use all Stokes planes.
 
 .. _mask:
 
-   .. rubric:: mask
-
+mask (string='')
    | Mask to use. Default is none.
 
 .. _stretch:
 
-   .. rubric:: stretch
-
+stretch (bool=False)
    | Stretch the mask if necessary and possible?
 
 .. _function:
 
-   .. rubric:: function
-
+function (string='flux density')
    | Aggregate function to use for computing per channel values. Supported values are "flux density", "mean", "median", "sum". Minimal match supported.
 
 .. _unit:
 
-   .. rubric:: unit
-
+unit (string='km/s')
    | Unit to use for the spectral flux calculation. Must be conformant with a typical spectral axis unit.
 
 .. _major:
 
-   .. rubric:: major
-
+major (variant='')
    | Major axis of overriding restoring beam. If specified, must be a valid quantity.
 
 .. _minor:
 
-   .. rubric:: minor
-
+minor (variant='')
    | Minor axis of overriding restoring beam. If specified, must be a valid quantity
 
 .. _logfile:
 
-   .. rubric:: logfile
-
+logfile (string='')
    | File which to write details. Default is to not write to a file.
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Overwrite exisitng ouput file if it exists?
 
 

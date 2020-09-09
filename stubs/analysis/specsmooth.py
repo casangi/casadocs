@@ -9,13 +9,43 @@ Smooth an image region in one dimension
 Parameters
    - imagename_ (string) - Name of the input image
    - outfile_ (string='') - Output image name.
+
+      .. raw:: html
+
+         <details><summary><i> outfile != '' </i></summary>
+
+      - overwrite_ (bool=False) - Overwrite the output if it exists?
+
+      .. raw:: html
+
+         </details>
    - box_ (string='') - Rectangular region to select in direction plane. Default is to use the entire direction plane.
    - chans_ (string='') - Channels to use. Channels must be contiguous. Default is to use all channels.
    - stokes_ (string='') - Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
    - region_ (variant='') - Region selection. Default is to use the full image.
    - mask_ (string='') - Mask to use. Default is none..
+
+      .. raw:: html
+
+         <details><summary><i> mask != '' </i></summary>
+
+      - stretch_ (bool=False) - Stretch the mask if necessary and possible? Default False
+
+      .. raw:: html
+
+         </details>
    - axis_ (int=-1) - The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
    - function_ (string='boxcar') - Convolution function. hanning and boxcar are supported functions. Minimum match is supported.
+
+      .. raw:: html
+
+         <details><summary><i> function != hanning </i></summary>
+
+      - width_ (int=2) - Width of boxcar, in pixels.
+
+      .. raw:: html
+
+         </details>
    - dmethod_ (string='copy') - Decimation method. "" means no decimation, "copy" and "mean" are also supported (minimum match).
 
 
@@ -185,87 +215,69 @@ Description
    also supported (minimum match).
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Name of the input image
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | Output image name.
 
 .. _box:
 
-   .. rubric:: box
-
+box (string='')
    | Rectangular region to select in direction plane. Default is to use the entire direction plane.
 
 .. _chans:
 
-   .. rubric:: chans
-
+chans (string='')
    | Channels to use. Channels must be contiguous. Default is to use all channels.
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='')
    | Stokes planes to use. Planes specified must be contiguous. Default is to use all Stokes planes.
 
 .. _region:
 
-   .. rubric:: region
-
+region (variant='')
    | Region selection. Default is to use the full image.
 
 .. _mask:
 
-   .. rubric:: mask
-
+mask (string='')
    | Mask to use. Default is none..
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Overwrite the output if it exists?
 
 .. _stretch:
 
-   .. rubric:: stretch
-
+stretch (bool=False)
    | Stretch the mask if necessary and possible? Default False
 
 .. _axis:
 
-   .. rubric:: axis
-
+axis (int=-1)
    | The profile axis. Default: use the spectral axis if one exists, axis 0 otherwise (<0).
 
 .. _function:
 
-   .. rubric:: function
-
+function (string='boxcar')
    | Convolution function. hanning and boxcar are supported functions. Minimum match is supported.
 
 .. _width:
 
-   .. rubric:: width
-
+width (int=2)
    | Width of boxcar, in pixels.
 
 .. _dmethod:
 
-   .. rubric:: dmethod
-
+dmethod (string='copy')
    | Decimation method. "" means no decimation, "copy" and "mean" are also supported (minimum match).
 
 

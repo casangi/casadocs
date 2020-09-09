@@ -10,7 +10,31 @@ Parameters
    - project_ (string='sim') - root prefix for output file names
    - dryrun_ (bool=True) - dryrun=True will only produce the informative report, not run simobserve/analyze
    - skymodel_ (string='') - model image to observe
+
+      .. raw:: html
+
+         <details><summary><i> skymodel != '' </i></summary>
+
+      - inbright_ (string='') - scale surface brightness of brightest pixel e.g. "1.2Jy/pixel"
+      - indirection_ (string='') - set new direction e.g. "J2000 19h00m00 -40d00m00"
+      - incell_ (string='') - set new cell/pixel size e.g. "0.1arcsec"
+      - incenter_ (string='') - set new frequency of center channel e.g. "89GHz" (required even for 2D model)
+      - inwidth_ (string='') - set new channel width e.g. "10MHz" (required even for 2D model)
+
+      .. raw:: html
+
+         </details>
    - complist_ (string='') - componentlist to observe
+
+      .. raw:: html
+
+         <details><summary><i> complist != '' </i></summary>
+
+      - compwidth_ (string='"8GHz"') - bandwidth of components
+
+      .. raw:: html
+
+         </details>
    - setpointings_ (bool=True)
 
       .. raw:: html
@@ -39,6 +63,16 @@ Parameters
    - hourangle_ (string='transit') - hour angle of observation center e.g. -3:00:00, or "transit"
    - totaltime_ (stringArray=['20min', '1h']) - total time of observation; vector corresponding to antennalist
    - tpnant_ (int=0) - Number of total power antennas to use (0-4)
+
+      .. raw:: html
+
+         <details><summary><i> tpnant != 0 </i></summary>
+
+      - tptime_ (string='0s') - total observation time for total power
+
+      .. raw:: html
+
+         </details>
    - pwv_ (double=0.5) - Precipitable Water Vapor in mm. 0 for noise-free simulation
    - image_ (bool=True) - image simulated data
 
@@ -381,177 +415,144 @@ Description
    outputs produced.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _project:
 
-   .. rubric:: project
-
+project (string='sim')
    | root prefix for output file names
 
 .. _dryrun:
 
-   .. rubric:: dryrun
-
+dryrun (bool=True)
    | dryrun=True will only produce the informative report, not run simobserve/analyze
 
 .. _skymodel:
 
-   .. rubric:: skymodel
-
+skymodel (string='')
    | model image to observe
 
 .. _inbright:
 
-   .. rubric:: inbright
-
+inbright (string='')
    | scale surface brightness of brightest pixel e.g. "1.2Jy/pixel"
 
 .. _indirection:
 
-   .. rubric:: indirection
-
+indirection (string='')
    | set new direction e.g. "J2000 19h00m00 -40d00m00"
 
 .. _incell:
 
-   .. rubric:: incell
-
+incell (string='')
    | set new cell/pixel size e.g. "0.1arcsec"
 
 .. _incenter:
 
-   .. rubric:: incenter
-
+incenter (string='')
    | set new frequency of center channel e.g. "89GHz" (required even for 2D model)
 
 .. _inwidth:
 
-   .. rubric:: inwidth
-
+inwidth (string='')
    | set new channel width e.g. "10MHz" (required even for 2D model)
 
 .. _complist:
 
-   .. rubric:: complist
-
+complist (string='')
    | componentlist to observe
 
 .. _compwidth:
 
-   .. rubric:: compwidth
-
+compwidth (string='"8GHz"')
    | bandwidth of components
 
 .. _ptgfile:
 
-   .. rubric:: ptgfile
-
+ptgfile (string='$project.ptg.txt')
    | list of pointing positions
 
 .. _integration:
 
-   .. rubric:: integration
-
+integration (string='10s')
    | integration (sampling) time
 
 .. _direction:
 
-   .. rubric:: direction
-
+direction (stringArray=[''])
    | "J2000 19h00m00 -40d00m00" or "" to center on model
 
 .. _mapsize:
 
-   .. rubric:: mapsize
-
+mapsize (stringArray=['', ''])
    | angular size of map or "" to cover model
 
 .. _antennalist:
 
-   .. rubric:: antennalist
-
+antennalist (stringArray=['alma.cycle1.1.cfg', 'aca.cycle1.cfg'])
    | antenna position files of ALMA 12m and 7m arrays
 
 .. _hourangle:
 
-   .. rubric:: hourangle
-
+hourangle (string='transit')
    | hour angle of observation center e.g. -3:00:00, or "transit"
 
 .. _totaltime:
 
-   .. rubric:: totaltime
-
+totaltime (stringArray=['20min', '1h'])
    | total time of observation; vector corresponding to antennalist
 
 .. _tpnant:
 
-   .. rubric:: tpnant
-
+tpnant (int=0)
    | Number of total power antennas to use (0-4)
 
 .. _tptime:
 
-   .. rubric:: tptime
-
+tptime (string='0s')
    | total observation time for total power
 
 .. _pwv:
 
-   .. rubric:: pwv
-
+pwv (double=0.5)
    | Precipitable Water Vapor in mm. 0 for noise-free simulation
 
 .. _image:
 
-   .. rubric:: image
-
+image (bool=True)
    | image simulated data
 
 .. _imsize:
 
-   .. rubric:: imsize
-
+imsize (intArray=[128, 128])
    | output image size in pixels (x,y) or 0 to match model
 
 .. _imdirection:
 
-   .. rubric:: imdirection
-
+imdirection (string='')
    | set output image direction, (otherwise center on the model)
 
 .. _cell:
 
-   .. rubric:: cell
-
+cell (string='')
    | cell size with units or "" to equal model
 
 .. _niter:
 
-   .. rubric:: niter
-
+niter (int=0)
    | maximum number of iterations (0 for dirty image)
 
 .. _threshold:
 
-   .. rubric:: threshold
-
+threshold (string='0.1mJy')
    | flux level (+units) to stop cleaning
 
 .. _graphics:
 
-   .. rubric:: graphics
-
+graphics (string='both')
    | display graphics at each stage to [screen|file|both|none]
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | overwrite files starting with $project
 
 

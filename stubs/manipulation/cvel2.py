@@ -228,15 +228,9 @@ Description
       `task <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_mstransform>`__).
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      Default: none
    | 
@@ -244,8 +238,7 @@ Details
 
 .. _outputvis:
 
-   .. rubric:: outputvis
-
+outputvis (string='')
    | Name of output visibility file or Multi-MS
    |                      Default: none
    | 
@@ -253,8 +246,7 @@ Details
 
 .. _keepmms:
 
-   .. rubric:: keepmms
-
+keepmms (bool=True)
    | If the input is a Multi-MS the output will also be a
    | Multi-MS.
    |                      Default: True
@@ -272,14 +264,12 @@ Details
 
 .. _passall:
 
-   .. rubric:: passall
-
+passall (bool=False)
    | HIDDEN parameter. Pass through (write to output MS) non-selected data with no change
 
 .. _field:
 
-   .. rubric:: field
-
+field ({string, stringArray, int, intArray}='')
    | Select field using field id(s) or field name(s)
    |                      Default: '' (all fields)
    |                      
@@ -298,8 +288,7 @@ Details
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw ({string, stringArray, int, intArray}='')
    | Select spectral window/channels
    |                      Default: ''=all spectral windows and channels
    |            
@@ -319,16 +308,14 @@ Details
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan ({string, stringArray, int, intArray}='')
    | Scan number range
    |                      Subparameter of selectdata=True
    |                      default: '' = all
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna ({string, stringArray, int, intArray}='')
    | Select data based on antenna/baseline
    |                      Subparameter of selectdata=True
    |                      default: '' (all)
@@ -356,8 +343,7 @@ Details
 
 .. _correlation:
 
-   .. rubric:: correlation
-
+correlation ({string, stringArray}='')
    | Select data based on correlation
    |                      Default: '' (all)
    | 
@@ -365,8 +351,7 @@ Details
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange ({string, stringArray, int, intArray}='')
    | Select data based on time range
    |                      Subparameter of selectdata=True
    |                      Default = '' (all)
@@ -386,8 +371,7 @@ Details
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent ({string, stringArray, int, intArray}='')
    | Select observing intent
    |                      Default: '' (no selection by intent)
    | 
@@ -396,21 +380,18 @@ Details
 
 .. _array:
 
-   .. rubric:: array
-
+array ({string, stringArray, int, intArray}='')
    | Select (sub)array(s) by array ID number.
    |                      Default = '' (all)
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange ({string, stringArray, int, intArray}='')
    | Select data by baseline length.
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, stringArray, int, intArray}='')
    | Select by observation ID(s)
    |                      Subparameter of selectdata=True
    |                      Default: '' = all
@@ -419,20 +400,17 @@ Details
 
 .. _feed:
 
-   .. rubric:: feed
-
+feed ({string, stringArray, int, intArray}='')
    | Multi-feed numbers: Not yet implemented.
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='all')
    | Which data column(s) to process.
 
 .. _mode:
 
-   .. rubric:: mode
-
+mode (string='channel')
    | Regridding mode (channel/velocity/frequency/channel_b).
    |                      Default: 'channel'
    |                      Options: 'channel', 'velocity', 'frequency',
@@ -479,8 +457,7 @@ Details
 
 .. _nchan:
 
-   .. rubric:: nchan
-
+nchan (int=-1)
    | Number of channels in the output spw (-1=all). 
    |                      Subparameter of
    |                      mode='channel|velocity|frequency|channel_b'                
@@ -493,8 +470,7 @@ Details
 
 .. _start:
 
-   .. rubric:: start
-
+start (variant='0')
    | Start or end input channel (zero-based), depending on the sign of the width parameter 
    |                      Subparameter of
    |                      mode='channel|velocity|frequency|channel_b'                
@@ -512,8 +488,7 @@ Details
 
 .. _width:
 
-   .. rubric:: width
-
+width (variant='1')
    | Channel width of the output visibilities. 
    |                      Subparameter of
    |                      mode='channel|velocity|frequency|channel_b'                
@@ -534,8 +509,7 @@ Details
 
 .. _interpolation:
 
-   .. rubric:: interpolation
-
+interpolation (string='linear')
    | Spectral interpolation method
    |                      Subparameter of
    |                      mode='channel|velocity|frequency|channel_b'
@@ -544,8 +518,7 @@ Details
 
 .. _phasecenter:
 
-   .. rubric:: phasecenter
-
+phasecenter (variant='')
    | Phase center direction to be used for the spectral
    | coordinate transformation.
    |                      Default: '' (first selected field)
@@ -561,8 +534,7 @@ Details
 
 .. _restfreq:
 
-   .. rubric:: restfreq
-
+restfreq (string='')
    | Rest frequency to use for output visibilities.
    |                      Default='' 
    | 
@@ -573,8 +545,7 @@ Details
 
 .. _outframe:
 
-   .. rubric:: outframe
-
+outframe (string='')
    | Output reference frame (not case-sensitive).
    |                      Default: '' (keep original reference frame)
    |                      Options: LSRK, LSRD, BARY, GALACTO, LGROUP, CMB,
@@ -588,15 +559,13 @@ Details
 
 .. _veltype:
 
-   .. rubric:: veltype
-
+veltype (string='radio')
    | Definition of velocity (in mode)
    |                      Default = 'radio'
 
 .. _hanning:
 
-   .. rubric:: hanning
-
+hanning (bool=False)
    | Hanning smooth data to remove Gibbs ringing.
    |                      Default: False
    |                      Options: False|True

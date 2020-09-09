@@ -107,39 +107,29 @@ Description
    choice could lead to excessive data flagging when using this mode.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file (MS)
 
 .. _tablein:
 
-   .. rubric:: tablein
-
+tablein (string)
    | Input calibration table
 
 .. _caltable:
 
-   .. rubric:: caltable
-
+caltable (string='')
    | Output calibration table (overwrite tablein if unspecified)
 
 .. _refantmode:
 
-   .. rubric:: refantmode
-
+refantmode (string='flex')
    | Refant algorithm to use
 
 .. _refant:
 
-   .. rubric:: refant
-
+refant (string='')
    | Reference antenna name(s)
 
 

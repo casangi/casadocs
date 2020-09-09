@@ -413,339 +413,279 @@ Description
       involved.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input Measurement set or Multi-MS.
 
 .. _outputvis:
 
-   .. rubric:: outputvis
-
+outputvis (string='')
    | Name of output Measurement Set or Multi-MS.
 
 .. _createmms:
 
-   .. rubric:: createmms
-
+createmms (bool=False)
    | Create a multi-MS output from an input MS.
 
 .. _separationaxis:
 
-   .. rubric:: separationaxis
-
+separationaxis (string='auto')
    | Axis to do parallelization across(scan,spw,auto,baseline).
 
 .. _numsubms:
 
-   .. rubric:: numsubms
-
+numsubms ({string, int}='auto')
    | The number of Sub-MSs to create (auto or any number)
 
 .. _tileshape:
 
-   .. rubric:: tileshape
-
+tileshape (intArray=[0])
    | List with 1 or 3 elements giving the tile shape of the disk data columns.
 
 .. _field:
 
-   .. rubric:: field
-
+field ({string, stringArray, int, intArray}='')
    | Select field using ID(s) or name(s).
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw ({string, stringArray, int, intArray}='')
    | Select spectral window/channels.
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan ({string, stringArray, int, intArray}='')
    | Select data by scan numbers.
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna ({string, stringArray, int, intArray}='')
    | Select data based on antenna/baseline.
 
 .. _correlation:
 
-   .. rubric:: correlation
-
+correlation ({string, stringArray}='')
    | Correlation: '' ==> all, correlation="XX,YY".
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange ({string, stringArray, int, intArray}='')
    | Select data by time range.
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent ({string, stringArray, int, intArray}='')
    | Select data by scan intent.
 
 .. _array:
 
-   .. rubric:: array
-
+array ({string, stringArray, int, intArray}='')
    | Select (sub)array(s) by array ID number.
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange ({string, stringArray, int, intArray}='')
    | Select data by baseline length.
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, stringArray, int, intArray}='')
    | Select by observation ID(s).
 
 .. _feed:
 
-   .. rubric:: feed
-
+feed ({string, stringArray, int, intArray}='')
    | Multi-feed numbers: Not yet implemented.
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='corrected')
    | Which data column(s) to process.
 
 .. _realmodelcol:
 
-   .. rubric:: realmodelcol
-
+realmodelcol (bool=False)
    | Make real a virtual MODEL column.
 
 .. _keepflags:
 
-   .. rubric:: keepflags
-
+keepflags (bool=True)
    | Keep *completely flagged rows* or drop them from the output.
 
 .. _usewtspectrum:
 
-   .. rubric:: usewtspectrum
-
+usewtspectrum (bool=False)
    | Force creation of the columns WEIGHT_SPECTRUM and SIGMA_SPECTRUM in the output MS, even if not present in the input MS.
 
 .. _combinespws:
 
-   .. rubric:: combinespws
-
+combinespws (bool=False)
    | Combine the input spws into a new output spw. Only supported when the number of channels is the same for all the spws.
 
 .. _chanaverage:
 
-   .. rubric:: chanaverage
-
+chanaverage (bool=False)
    | Average data in channels.
 
 .. _chanbin:
 
-   .. rubric:: chanbin
-
+chanbin ({int, intArray}=1)
    | Width (bin) of input channels to average to form an output channel.
 
 .. _hanning:
 
-   .. rubric:: hanning
-
+hanning (bool=False)
    | Hanning smooth data to remove Gibbs ringing.
 
 .. _regridms:
 
-   .. rubric:: regridms
-
+regridms (bool=False)
    | Transform channel labels and visibilities to a different spectral reference frame. Notice that u,v,w data is not transformed.
 
 .. _mode:
 
-   .. rubric:: mode
-
+mode (string='channel')
    | Regridding mode (channel/velocity/frequency/channel_b).
 
 .. _nchan:
 
-   .. rubric:: nchan
-
+nchan (int=-1)
    | Number of channels in the output spw (-1=all). Used for regridding, together with \'start\' and \'width\'.
 
 .. _start:
 
-   .. rubric:: start
-
+start (variant='0')
    | Start of the output visibilities. Used for regridding, together with \'width\' and \'nchan\'. It can be in different units, depending on the regridding mode: first input channel (mode=\'channel\'), first velocity (mode=\'velocity\'), or first frequency (mode=\'frequency\'). Example values: \'5\', \'0.0km/s\', \'1.4GHz\', for channel, velocity, and frequency modes, respectively.
 
 .. _width:
 
-   .. rubric:: width
-
+width (variant='1')
    | Channel width of the output visibilities. Used for regridding, together with \'start\', and \'nchan\'. It can be in different units, depending on the regridding mode: number of input channels (mode=\'channel\'), velocity (mode=\'velocity\'), or frequency (mode=\'frequency\'. Example values: \'2\', \'1.0km/s\', \'1.0kHz\', for channel, velocity, and frequency modes, respectively.
 
 .. _nspw:
 
-   .. rubric:: nspw
-
+nspw (int=1)
    | Number of output spws to create in output MS.
 
 .. _interpolation:
 
-   .. rubric:: interpolation
-
+interpolation (string='linear')
    | Spectral interpolation method.
 
 .. _phasecenter:
 
-   .. rubric:: phasecenter
-
+phasecenter (variant='')
    | Phase center direction to be used for the spectral coordinate transformation: direction measure or field index
 
 .. _restfreq:
 
-   .. rubric:: restfreq
-
+restfreq (string='')
    | Rest frequency to use for output.
 
 .. _outframe:
 
-   .. rubric:: outframe
-
+outframe (string='')
    | Output reference frame (''=keep input frame).
 
 .. _veltype:
 
-   .. rubric:: veltype
-
+veltype (string='radio')
    | Velocity definition.
 
 .. _preaverage:
 
-   .. rubric:: preaverage
-
+preaverage (bool=False)
    | Pre-average channels before regridding, when the ratio between the output and and input widths is greater than 2.
 
 .. _timeaverage:
 
-   .. rubric:: timeaverage
-
+timeaverage (bool=False)
    | Average data in time.
 
 .. _timebin:
 
-   .. rubric:: timebin
-
+timebin (string='0s')
    | Bin width for time averaging.
 
 .. _timespan:
 
-   .. rubric:: timespan
-
+timespan ({string, stringArray}='')
    | Span the timebin across scan, state or both.
 
 .. _maxuvwdistance:
 
-   .. rubric:: maxuvwdistance
-
+maxuvwdistance (double=0.0)
    | Maximum separation of start-to-end baselines that can be included in an average. (meters)
 
 .. _docallib:
 
-   .. rubric:: docallib
-
+docallib (bool=False)
    | Enable on-the-fly (OTF) calibration as in task applycal
 
 .. _callib:
 
-   .. rubric:: callib
-
+callib (string='')
    | Path to calibration library file
 
 .. _douvcontsub:
 
-   .. rubric:: douvcontsub
-
+douvcontsub (bool=False)
    | Enable continuum subtraction as in task uvcontsub
 
 .. _fitspw:
 
-   .. rubric:: fitspw
-
+fitspw (string='')
    | Spectral window:channel selection for fitting the continuum
 
 .. _fitorder:
 
-   .. rubric:: fitorder
-
+fitorder (int=0)
    | Polynomial order for the fits
 
 .. _want_cont:
 
-   .. rubric:: want_cont
-
+want_cont (bool=False)
    | Produce continuum estimate instead of continuum subtracted data
 
 .. _denoising_lib:
 
-   .. rubric:: denoising_lib
-
+denoising_lib (bool=True)
    | Use new denoising library (based on GSL) instead of casacore fitting routines
 
 .. _nthreads:
 
-   .. rubric:: nthreads
-
+nthreads (int=1)
    | Number of OMP threads to use (currently maximum limited by number of polarizations)
 
 .. _niter:
 
-   .. rubric:: niter
-
+niter (int=1)
    | Number of iterations for re-weighted linear fit
 
 .. _disableparallel:
 
-   .. rubric:: disableparallel
-
+disableparallel (bool=False)
    | Hidden parameter for internal use only. Do not change it!
 
 .. _ddistart:
 
-   .. rubric:: ddistart
-
+ddistart (int=-1)
    | Hidden parameter for internal use only. Do not change it!
 
 .. _taql:
 
-   .. rubric:: taql
-
+taql (string='')
    | Table query for nested selections
 
 .. _monolithic_processing:
 
-   .. rubric:: monolithic_processing
-
+monolithic_processing (bool=False)
    | Hidden parameter for internal use only. Do not change it!
 
 .. _reindex:
 
-   .. rubric:: reindex
-
+reindex (bool=True)
    | Hidden parameter for use in the pipeline context only
 
 

@@ -66,21 +66,14 @@ Description
    reverse=False.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file (MS)
 
 .. _reverse:
 
-   .. rubric:: reverse
-
+reverse (bool=False)
    | reverse the operation (add rather than subtract)
 
 

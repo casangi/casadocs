@@ -31,6 +31,16 @@ Parameters
          </details>
    - verbose_ (bool=True) - Controls level of information detail reported. True reports more than False.
    - listfile_ (string='') - Name of disk file to write output. Default is none (output is written to logger only).
+
+      .. raw:: html
+
+         <details><summary><i> listfile != '' </i></summary>
+
+      - overwrite_ (bool=False) - If True, tacitly overwrite listfile if it exists.
+
+      .. raw:: html
+
+         </details>
    - listunfl_ (bool=False) - List unflagged row counts? If true, it can have significant negative performance impact.
    - cachesize_ (double=50) - EXPERIMENTAL. Maximum size in megabytes of cache in which data structures can be held.
 
@@ -85,117 +95,94 @@ Description
    rows.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file (MS)
 
 .. _selectdata:
 
-   .. rubric:: selectdata
-
+selectdata (bool=True)
    | Data selection parameters
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw ({string, stringArray}='')
    | Selection based on spectral-window/frequency/channel.
 
 .. _field:
 
-   .. rubric:: field
-
+field ({string, stringArray}='')
    | Selection based on field names or field index numbers. Default is all.
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna ({string, stringArray}='')
    | Selection based on antenna/baselines. Default is all.
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange ({string, stringArray}='')
    | Selection based on uv range. Default: entire range. Default units: meters.
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange ({string, stringArray}='')
    | Selection based on time range. Default is entire range.
 
 .. _correlation:
 
-   .. rubric:: correlation
-
+correlation ({string, stringArray}='')
    | Selection based on correlation. Default is all.
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan ({string, stringArray}='')
    | Selection based on scan numbers. Default is all.
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent ({string, stringArray}='')
    | Selection based on observation intent. Default is all.
 
 .. _feed:
 
-   .. rubric:: feed
-
+feed ({string, stringArray}='')
    | Selection based on multi-feed numbers: Not yet implemented
 
 .. _array:
 
-   .. rubric:: array
-
+array ({string, stringArray}='')
    | Selection based on (sub)array numbers. Default is all.
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | Selection based on observation ID. Default is all.
 
 .. _verbose:
 
-   .. rubric:: verbose
-
+verbose (bool=True)
    | Controls level of information detail reported. True reports more than False.
 
 .. _listfile:
 
-   .. rubric:: listfile
-
+listfile (string='')
    | Name of disk file to write output. Default is none (output is written to logger only).
 
 .. _listunfl:
 
-   .. rubric:: listunfl
-
+listunfl (bool=False)
    | List unflagged row counts? If true, it can have significant negative performance impact.
 
 .. _cachesize:
 
-   .. rubric:: cachesize
-
+cachesize (double=50)
    | EXPERIMENTAL. Maximum size in megabytes of cache in which data structures can be held.
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | If True, tacitly overwrite listfile if it exists.
 
 

@@ -60,45 +60,34 @@ Description
    of*smoothtype*or *smoothtime.*
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file (MS)
 
 .. _tablein:
 
-   .. rubric:: tablein
-
+tablein (string)
    | Input calibration table
 
 .. _caltable:
 
-   .. rubric:: caltable
-
+caltable (string='')
    | Output calibration table (overwrite tablein if unspecified)
 
 .. _field:
 
-   .. rubric:: field
-
+field (stringArray=[''])
    | Field name list
 
 .. _smoothtype:
 
-   .. rubric:: smoothtype
-
+smoothtype (string='median')
    | Smoothing filter to use
 
 .. _smoothtime:
 
-   .. rubric:: smoothtime
-
+smoothtime ({double, int}=60.0)
    | Smoothing time (sec)
 
 

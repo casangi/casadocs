@@ -12,6 +12,16 @@ Parameters
    - spw_ (string='') - Select spectral window/channels
    - model_ (variant='') - Name of input model image(s)
    - nterms_ (int=1) - Number of terms used to model the sky frequency dependence
+
+      .. raw:: html
+
+         <details><summary><i> nterms != 1 </i></summary>
+
+      - reffreq_ (string='') - Reference frequency (e.g. \'1.5e+9\' or \'1.5GHz\')
+
+      .. raw:: html
+
+         </details>
    - complist_ (string='') - Name of component list
    - incremental_ (bool=False) - Add to the existing model visibility?
    - usescratch_ (bool=False) - If True, predicted  visibility  is stored in MODEL_DATA column
@@ -71,15 +81,9 @@ Description
       available models.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      Default: none
    | 
@@ -87,8 +91,7 @@ Details
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Select field using field id(s) or field name(s)
    |                      Default: '' (all fields)
    |                      
@@ -103,15 +106,13 @@ Details
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Select spectral window/channels
    |                      Default: '' (all spectral windows and channels)
 
 .. _model:
 
-   .. rubric:: model
-
+model (variant='')
    | Name of input model image(s)
    |                      Default: '' (none)
    | 
@@ -124,8 +125,7 @@ Details
 
 .. _nterms:
 
-   .. rubric:: nterms
-
+nterms (int=1)
    | Number of terms used to model the sky frequency
    | dependence
    |                      Default: 1 (one model image is required)
@@ -139,8 +139,7 @@ Details
 
 .. _reffreq:
 
-   .. rubric:: reffreq
-
+reffreq (string='')
    | Reference-frequency about which this Taylor-expansion is
    | defined.
    |                      Default: '' (reads the reference frequency from
@@ -150,8 +149,7 @@ Details
 
 .. _complist:
 
-   .. rubric:: complist
-
+complist (string='')
    | Name of component list
    |                      Default: none
    | 
@@ -161,8 +159,7 @@ Details
 
 .. _incremental:
 
-   .. rubric:: incremental
-
+incremental (bool=False)
    | Add model visibility to the existing model visibilties
    | stored in the MS
    |                      Default: False
@@ -170,8 +167,7 @@ Details
 
 .. _usescratch:
 
-   .. rubric:: usescratch
-
+usescratch (bool=False)
    | Story visibilities in MODEL_DATA column?
    |                      Default: False
    |                      Options: False|True

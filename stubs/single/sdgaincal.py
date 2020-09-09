@@ -25,6 +25,17 @@ Parameters
    - spw_ (string='') - select data by spw IDs (spectral windows), e.g., "3,5,7" ("" = all)
    - scan_ (string='') - select data by scan numbers, e.g. "21~23" (""=all)
    - applytable_ (variant='') - (List of) sky and/or tsys tables for pre-application
+
+      .. raw:: html
+
+         <details><summary><i> applytable != '' </i></summary>
+
+      - interp_ (variant='') - Interp type in time[,freq], per gaintable. default==linear,linear
+      - spwmap_ (intArray=['']) - Spectral window mappings to form for applytable(s)
+
+      .. raw:: html
+
+         </details>
    - outfile_ (string='') - name of output caltable
    - overwrite_ (bool=False) - overwrite the output file if already exists [True, False]
 
@@ -77,81 +88,64 @@ Description
       ALMA.` `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?2015ASPC..499..347P&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__ `<#ref-cit1>`__
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _infile:
 
-   .. rubric:: infile
-
+infile (string)
    | name of input SD dataset (must be MS)
 
 .. _calmode:
 
-   .. rubric:: calmode
-
+calmode (string='doublecircle')
    | gain calibration mode
 
 .. _radius:
 
-   .. rubric:: radius
-
+radius (variant='')
    | radius of central region to be used for calibration
 
 .. _smooth:
 
-   .. rubric:: smooth
-
+smooth (bool=True)
    | smooth data or not
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | select data by antenna name or ID, e.g. "PM03"
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | select data by field IDs and names, e.g. "3C2*" ("" = all)
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | select data by spw IDs (spectral windows), e.g., "3,5,7" ("" = all)
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | select data by scan numbers, e.g. "21~23" (""=all)
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | select data by observation intent, e.g. "OBSERVE_TARGET#ON_SOURCE" (""=all)
 
 .. _applytable:
 
-   .. rubric:: applytable
-
+applytable (variant='')
    | (List of) sky and/or tsys tables for pre-application
 
 .. _interp:
 
-   .. rubric:: interp
-
+interp (variant='')
    | Interp type in time[,freq], per gaintable. default==linear,linear
 
 .. _spwmap:
 
-   .. rubric:: spwmap
-
+spwmap (intArray=[''])
    | Spectral window mappings to form for applytable(s)
    |                      Only used if callib=False
    |                      default: [] (apply solutions from each calibration spw to
@@ -166,14 +160,12 @@ Details
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | name of output caltable
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | overwrite the output file if already exists
 
 

@@ -247,6 +247,19 @@ Parameters
 
          </details>
    - iteraxis_ (string='') - The axis over which to iterate
+
+      .. raw:: html
+
+         <details><summary><i> iteraxis != '' </i></summary>
+
+      - xselfscale_ (bool=False) - When True, iterated plots have a common x-axis range (scale).
+      - yselfscale_ (bool=False) - When True, iterated plots have a common y-axis range (scale).
+      - xsharedaxis_ (bool=False) - Iterated plots on a grid share a common external x-axis per column. Must also set xselfscale=True and gridrows>1.
+      - ysharedaxis_ (bool=False) - Iterated plots on a grid share a common external y-axis per row. Must also set yselfscale=True and gridcols>1.
+
+      .. raw:: html
+
+         </details>
    - customsymbol_ (variant='False') - Enable custom symbol(s) for unflagged points
 
       .. raw:: html
@@ -334,6 +347,23 @@ Parameters
          </details>
    - showlegend_ (bool=False) - Show a legend on the plot.
    - plotfile_ (string='') - Name of plot file to save automatically
+
+      .. raw:: html
+
+         <details><summary><i> plotfile != '' </i></summary>
+
+      - expformat_ (string='') - Export format type. If not provided, plotfile extension will be used to determine type.
+      - verbose_ (bool=True) - Include metadata in text export
+      - exprange_ (string='') - Range of iteration plots to export, one plotfile per page.  Multipage pdf exports are not supported.
+      - highres_ (bool=False) - Use high resolution
+      - dpi_ (int=-1) - DPI of exported plot
+      - width_ (int=-1) - Width in pixels of exported plot
+      - height_ (int=-1) - Height in pixels of exported plot
+      - overwrite_ (bool=False) - Overwrite plot file if it already exists
+
+      .. raw:: html
+
+         </details>
    - showgui_ (bool=True) - Show GUI
 
       .. raw:: html
@@ -1886,597 +1916,494 @@ Description
          and fail to make the plot.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string='')
    | Input MS or CalTable (blank for none)
 
 .. _gridrows:
 
-   .. rubric:: gridrows
-
+gridrows (int=1)
    | Number of subplot rows
 
 .. _gridcols:
 
-   .. rubric:: gridcols
-
+gridcols (int=1)
    | Number of subplot columns
 
 .. _rowindex:
 
-   .. rubric:: rowindex
-
+rowindex (int=0)
    | Row location of the plot (0-based)
 
 .. _colindex:
 
-   .. rubric:: colindex
-
+colindex (int=0)
    | Column location of the plot (0-based)
 
 .. _plotindex:
 
-   .. rubric:: plotindex
-
+plotindex (int=0)
    | Index to address a subplot (0-based)
 
 .. _xaxis:
 
-   .. rubric:: xaxis
-
+xaxis (string='')
    | Plot x-axis (blank for default/current)
 
 .. _xdatacolumn:
 
-   .. rubric:: xdatacolumn
-
+xdatacolumn (string='')
    | Data column to use for x-axis (blank for default/current).  Note that unspecified residuals are complex (vector) differences or ratios.
 
 .. _xframe:
 
-   .. rubric:: xframe
-
+xframe (string='')
    | Coordinate frame to use for x-axis
 
 .. _xinterp:
 
-   .. rubric:: xinterp
-
+xinterp (string='')
    | Interpolation method for x-axis
 
 .. _yaxis:
 
-   .. rubric:: yaxis
-
+yaxis (variant='')
    | Plot y-axis (blank for default/current)
 
 .. _ydatacolumn:
 
-   .. rubric:: ydatacolumn
-
+ydatacolumn (variant='')
    | Data column to use for y-axis (blank for default/current). Note that unspecified residuals are complex (vector) differences or ratios.
 
 .. _yframe:
 
-   .. rubric:: yframe
-
+yframe (variant='')
    | Coordinate frame to use for y-axis
 
 .. _yinterp:
 
-   .. rubric:: yinterp
-
+yinterp (variant='')
    | Interpolation method for y-axis
 
 .. _yaxislocation:
 
-   .. rubric:: yaxislocation
-
+yaxislocation (variant='')
    | Location of the y-axis (blank for default: left)
 
 .. _selectdata:
 
-   .. rubric:: selectdata
-
+selectdata (bool=True)
    | Enable data selection parameters
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Field names or ids (blank for all)
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Spectral windows:channels (blank for all)
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | Time range (blank for all)
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange (string='')
    | UV range (blank for all)
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | Baseline/antenna names or ids (blank for all)
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | Scan numbers (blank for all)
 
 .. _correlation:
 
-   .. rubric:: correlation
-
+correlation (string='')
    | Correlations/polarizations (blank for all)
 
 .. _array:
 
-   .. rubric:: array
-
+array (string='')
    | (Sub)array numbers (blank for all)
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation (string='')
    | Observation IDs (blank for all)
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | Observing intent (blank for all)
 
 .. _feed:
 
-   .. rubric:: feed
-
+feed (string='')
    | Feed numbers (blank for all)
 
 .. _msselect:
 
-   .. rubric:: msselect
-
+msselect (string='')
    | MSSelection TaQL string (blank for none)
 
 .. _averagedata:
 
-   .. rubric:: averagedata
-
+averagedata (bool=True)
    | Enable data averaging parameters
 
 .. _avgchannel:
 
-   .. rubric:: avgchannel
-
+avgchannel (string='')
    | Average over channel (blank = False, otherwise value in channels)
 
 .. _avgtime:
 
-   .. rubric:: avgtime
-
+avgtime (string='')
    | Average over time (blank = False, otherwise value in seconds)
 
 .. _avgscan:
 
-   .. rubric:: avgscan
-
+avgscan (bool=False)
    | Average over scans. Only valid with time averaging
 
 .. _avgfield:
 
-   .. rubric:: avgfield
-
+avgfield (bool=False)
    | Average over fields. Only valid with time averaging
 
 .. _avgbaseline:
 
-   .. rubric:: avgbaseline
-
+avgbaseline (bool=False)
    | Average over all baselines (mutually exclusive with avgantenna)
 
 .. _avgantenna:
 
-   .. rubric:: avgantenna
-
+avgantenna (bool=False)
    | Average per antenna (mutually exclusive with avgbaseline)
 
 .. _avgspw:
 
-   .. rubric:: avgspw
-
+avgspw (bool=False)
    | Average over all spectral windows
 
 .. _scalar:
 
-   .. rubric:: scalar
-
+scalar (bool=False)
    | Scalar averaging (False=vector averaging)
 
 .. _transform:
 
-   .. rubric:: transform
-
+transform (bool=True)
    | Enable data transformations
 
 .. _freqframe:
 
-   .. rubric:: freqframe
-
+freqframe (string='')
    | The frame in which to render frequency and velocity axes
 
 .. _restfreq:
 
-   .. rubric:: restfreq
-
+restfreq (string='')
    | Rest frequency to use for velocity conversions
 
 .. _veldef:
 
-   .. rubric:: veldef
-
+veldef (string='RADIO')
    | The definition in which to render velocity
 
 .. _shift:
 
-   .. rubric:: shift
-
+shift (doubleArray=[0.0, 0.0])
    | Adjust phases by this approximate phase center shift [dx,dy] (arcsec)
 
 .. _extendflag:
 
-   .. rubric:: extendflag
-
+extendflag (bool=False)
    | Extend flagging to other data points not plotted
 
 .. _extcorr:
 
-   .. rubric:: extcorr
-
+extcorr (bool=False)
    | Extend flags based on correlation
 
 .. _extchannel:
 
-   .. rubric:: extchannel
-
+extchannel (bool=False)
    | Extend flags based on channel
 
 .. _iteraxis:
 
-   .. rubric:: iteraxis
-
+iteraxis (string='')
    | The axis over which to iterate
 
 .. _xselfscale:
 
-   .. rubric:: xselfscale
-
+xselfscale (bool=False)
    | When True, iterated plots have a common x-axis range (scale).
 
 .. _yselfscale:
 
-   .. rubric:: yselfscale
-
+yselfscale (bool=False)
    | When True, iterated plots have a common y-axis range (scale).
 
 .. _xsharedaxis:
 
-   .. rubric:: xsharedaxis
-
+xsharedaxis (bool=False)
    | Iterated plots on a grid share a common external x-axis per column. Must also set xselfscale=True and gridrows>1.
 
 .. _ysharedaxis:
 
-   .. rubric:: ysharedaxis
-
+ysharedaxis (bool=False)
    | Iterated plots on a grid share a common external y-axis per row. Must also set yselfscale=True and gridcols>1.
 
 .. _customsymbol:
 
-   .. rubric:: customsymbol
-
+customsymbol (variant='False')
    | Enable custom symbol(s) for unflagged points
 
 .. _symbolshape:
 
-   .. rubric:: symbolshape
-
+symbolshape (variant='autoscaling')
    | Shape of plotted unflagged symbols
 
 .. _symbolsize:
 
-   .. rubric:: symbolsize
-
+symbolsize (variant='2')
    | Size of plotted unflagged symbols
 
 .. _symbolcolor:
 
-   .. rubric:: symbolcolor
-
+symbolcolor (variant='0000ff')
    | Color (name or hex code) of plotted unflagged symbols
 
 .. _symbolfill:
 
-   .. rubric:: symbolfill
-
+symbolfill (variant='fill')
    | Fill type of plotted unflagged symbols
 
 .. _symboloutline:
 
-   .. rubric:: symboloutline
-
+symboloutline (variant='False')
    | Outline plotted unflagged symbols
 
 .. _coloraxis:
 
-   .. rubric:: coloraxis
-
+coloraxis (string='')
    | Selects data axis for colorizing
 
 .. _customflaggedsymbol:
 
-   .. rubric:: customflaggedsymbol
-
+customflaggedsymbol (variant='False')
    | Enable custom symbol(s) for flagged points
 
 .. _flaggedsymbolshape:
 
-   .. rubric:: flaggedsymbolshape
-
+flaggedsymbolshape (variant='circle')
    | Shape of plotted flagged symbols
 
 .. _flaggedsymbolsize:
 
-   .. rubric:: flaggedsymbolsize
-
+flaggedsymbolsize (variant='2')
    | Size of plotted flagged symbols
 
 .. _flaggedsymbolcolor:
 
-   .. rubric:: flaggedsymbolcolor
-
+flaggedsymbolcolor (variant='ff0000')
    | Color (name or hex code) of plotted flagged symbols
 
 .. _flaggedsymbolfill:
 
-   .. rubric:: flaggedsymbolfill
-
+flaggedsymbolfill (variant='fill')
    | Fill type of plotted flagged symbols
 
 .. _flaggedsymboloutline:
 
-   .. rubric:: flaggedsymboloutline
-
+flaggedsymboloutline (variant='False')
    | Outline plotted flagged symbols
 
 .. _xconnector:
 
-   .. rubric:: xconnector
-
+xconnector (string='')
    | Set connector for data points (blank="none"; "line","step")
 
 .. _timeconnector:
 
-   .. rubric:: timeconnector
-
+timeconnector (bool=False)
    | Connect points by time rather than x-axis
 
 .. _plotrange:
 
-   .. rubric:: plotrange
-
+plotrange (doubleArray=[''])
    | Plot axes ranges: [xmin,xmax,ymin,ymax]
 
 .. _title:
 
-   .. rubric:: title
-
+title (string='')
    | Title at top of plot
 
 .. _titlefont:
 
-   .. rubric:: titlefont
-
+titlefont (int=0)
    | Font size for plot title
 
 .. _xlabel:
 
-   .. rubric:: xlabel
-
+xlabel (string='')
    | Text for horizontal x-axis. Blank for default.
 
 .. _xaxisfont:
 
-   .. rubric:: xaxisfont
-
+xaxisfont (int=0)
    | Font size for x-axis label
 
 .. _ylabel:
 
-   .. rubric:: ylabel
-
+ylabel (string='')
    | Text for vertical y-axis. Blank for default.
 
 .. _yaxisfont:
 
-   .. rubric:: yaxisfont
-
+yaxisfont (int=0)
    | Font size for y-axis label
 
 .. _showmajorgrid:
 
-   .. rubric:: showmajorgrid
-
+showmajorgrid (bool=False)
    | Show major grid lines
 
 .. _majorwidth:
 
-   .. rubric:: majorwidth
-
+majorwidth (int=1)
    | Line width in pixels of major grid lines
 
 .. _majorstyle:
 
-   .. rubric:: majorstyle
-
+majorstyle (string='')
    | Major grid line style
 
 .. _majorcolor:
 
-   .. rubric:: majorcolor
-
+majorcolor (string='B0B0B0')
    | Color (name or hex code) of major grid lines
 
 .. _showminorgrid:
 
-   .. rubric:: showminorgrid
-
+showminorgrid (bool=False)
    | Show minor grid lines
 
 .. _minorwidth:
 
-   .. rubric:: minorwidth
-
+minorwidth (int=1)
    | Line width in pixels of minor grid lines
 
 .. _minorstyle:
 
-   .. rubric:: minorstyle
-
+minorstyle (string='')
    | Minor grid line style
 
 .. _minorcolor:
 
-   .. rubric:: minorcolor
-
+minorcolor (string='D0D0D0')
    | Color (name or hex code) of minor grid lines
 
 .. _showlegend:
 
-   .. rubric:: showlegend
-
+showlegend (bool=False)
    | Show a legend on the plot.
 
 .. _legendposition:
 
-   .. rubric:: legendposition
-
+legendposition (string='')
    | Legend position, default upperRight.
 
 .. _plotfile:
 
-   .. rubric:: plotfile
-
+plotfile (string='')
    | Name of plot file to save automatically
 
 .. _expformat:
 
-   .. rubric:: expformat
-
+expformat (string='')
    | Export format type. If not provided, plotfile extension will be used to determine type.
 
 .. _verbose:
 
-   .. rubric:: verbose
-
+verbose (bool=True)
    | Include metadata in text export
 
 .. _exprange:
 
-   .. rubric:: exprange
-
+exprange (string='')
    | Range of iteration plots to export, one plotfile per page.  Multipage pdf exports are not supported.
 
 .. _highres:
 
-   .. rubric:: highres
-
+highres (bool=False)
    | Use high resolution
 
 .. _dpi:
 
-   .. rubric:: dpi
-
+dpi (int=-1)
    | DPI of exported plot
 
 .. _width:
 
-   .. rubric:: width
-
+width (int=-1)
    | Width in pixels of exported plot
 
 .. _height:
 
-   .. rubric:: height
-
+height (int=-1)
    | Height in pixels of exported plot
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Overwrite plot file if it already exists
 
 .. _showgui:
 
-   .. rubric:: showgui
-
+showgui (bool=True)
    | Show GUI
 
 .. _clearplots:
 
-   .. rubric:: clearplots
-
+clearplots (bool=True)
    | Remove any existing plots so new ones can replace them.
 
 .. _callib:
 
-   .. rubric:: callib
-
+callib (stringArray=[''])
    | Calibration library string or filename for on-the-fly calibration.
 
 .. _headeritems:
 
-   .. rubric:: headeritems
-
+headeritems (string='')
    | Comma-separated list of pre-defined page header items.
 
 .. _showatm:
 
-   .. rubric:: showatm
-
+showatm (bool=False)
    | Compute and overlay the atmospheric transmission curve
 
 .. _showtsky:
 
-   .. rubric:: showtsky
-
+showtsky (bool=False)
    | Compute and overlay the sky temperature curve
 
 .. _showimage:
 
-   .. rubric:: showimage
-
+showimage (bool=False)
    | Compute and overlay the image sideband curve
 
 

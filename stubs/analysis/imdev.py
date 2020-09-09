@@ -14,6 +14,16 @@ Parameters
    - chans_ (string='') - Channels to use. Default is to use all channels.
    - stokes_ (string='') - Stokes planes to use. Default is to use all Stokes planes.
    - mask_ (string='') - Mask to use. Default setting is none. 
+
+      .. raw:: html
+
+         <details><summary><i> mask != '' </i></summary>
+
+      - stretch_ (bool=False) - Stretch the mask if necessary and possible? Default value is False.
+
+      .. raw:: html
+
+         </details>
    - overwrite_ (bool=False) - Overwrite (unprompted) pre-existing output file? Ignored if "outfile" is left blank. 
    - grid_ (intArray=[1, 1]) - x,y grid spacing. Array of exactly two positive integers.
    - anchor_ ({string, intArray}='ref') - x,y anchor pixel location. Either "ref" to use the image reference pixel, or an array of exactly two integers.
@@ -252,117 +262,94 @@ Description
    criterion is met.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Input image name
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | Output image file name. If left blank (the default), no image is written but a new image tool referencing the collapsed image is returned.
 
 .. _region:
 
-   .. rubric:: region
-
+region ({string, record}='')
    | Region selection. Default is to use the full image.
 
 .. _box:
 
-   .. rubric:: box
-
+box (string='')
    | Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
 
 .. _chans:
 
-   .. rubric:: chans
-
+chans (string='')
    | Channels to use. Default is to use all channels.
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='')
    | Stokes planes to use. Default is to use all Stokes planes.
 
 .. _mask:
 
-   .. rubric:: mask
-
+mask (string='')
    | Mask to use. Default setting is none.
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Overwrite (unprompted) pre-existing output file? Ignored if "outfile" is left blank.
 
 .. _stretch:
 
-   .. rubric:: stretch
-
+stretch (bool=False)
    | Stretch the mask if necessary and possible? Default value is False.
 
 .. _grid:
 
-   .. rubric:: grid
-
+grid (intArray=[1, 1])
    | x,y grid spacing. Array of exactly two positive integers.
 
 .. _anchor:
 
-   .. rubric:: anchor
-
+anchor ({string, intArray}='ref')
    | x,y anchor pixel location. Either "ref" to use the image reference pixel, or an array of exactly two integers.
 
 .. _xlength:
 
-   .. rubric:: xlength
-
+xlength ({string, int}='1pix')
    | Either x coordinate length of box, or diameter of circle. Circle is used if ylength is empty string.
 
 .. _ylength:
 
-   .. rubric:: ylength
-
+ylength ({string, int}='1pix')
    | y coordinate length of box. Use a circle if ylength is empty string.
 
 .. _interp:
 
-   .. rubric:: interp
-
+interp (string='cubic')
    | Interpolation algorithm to use. One of "nearest", "linear", "cubic", or "lanczos". Minimum match supported.
 
 .. _stattype:
 
-   .. rubric:: stattype
-
+stattype (string='sigma')
    | Statistic to compute. See full description for supported statistics.
 
 .. _statalg:
 
-   .. rubric:: statalg
-
+statalg (string='classic')
    | Statistics computation algorithm to use. Supported values are "chauvenet" and "classic", Minimum match is supported.
 
 .. _zscore:
 
-   .. rubric:: zscore
-
+zscore (double=-1)
    | For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet"s criterion. Ignored if algorithm is not "chauvenet".
 
 .. _maxiter:
 
-   .. rubric:: maxiter
-
+maxiter (int=-1)
    | For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algortihm is not "chauvenet".
 
 

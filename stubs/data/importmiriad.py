@@ -74,15 +74,9 @@ Description
       select which of the wide-band channels should be loaded.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _mirfile:
 
-   .. rubric:: mirfile
-
+mirfile (string)
    | Name of input Miriad visibility file
    |                      Default: none
    | 
@@ -90,8 +84,7 @@ Details
 
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string='')
    | Name of output MeasurementSet
    |                      Default: none
    | 
@@ -99,16 +92,14 @@ Details
 
 .. _tsys:
 
-   .. rubric:: tsys
-
+tsys (bool=False)
    | Use the Tsys to set the visibility weights
    |                      Default: False
    |                      Options: False|True
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (intArray=[-1])
    | Select spectral window/channels
    |                      Default: '' (all spectral windows and channels)
    |            
@@ -125,8 +116,7 @@ Details
 
 .. _vel:
 
-   .. rubric:: vel
-
+vel (string='')
    | Select velocity reference
    |                      Default: telescope dependent, ATCA -> TOPO, CARMA
    |                      -> LSRK
@@ -136,8 +126,7 @@ Details
 
 .. _linecal:
 
-   .. rubric:: linecal
-
+linecal (bool=False)
    | (CARMA) Apply line calibration
    |                      Default: False
    |                      Options: False|True
@@ -146,8 +135,7 @@ Details
 
 .. _wide:
 
-   .. rubric:: wide
-
+wide (intArray=[''])
    | (CARMA) Select wide window averages
    | 
    |                      Select which of the wide-band channels should be loaded 
@@ -155,8 +143,7 @@ Details
 
 .. _debug:
 
-   .. rubric:: debug
-
+debug (int=0)
    | Display increasingly verbose debug messages
    |                      Default: 0
    | 

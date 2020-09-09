@@ -133,15 +133,9 @@ Description
 
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis ({string, stringArray})
    | Name(s) of input visibility file(s)
    |                default: none;
    |                example: vis='ngc5921.ms'
@@ -149,8 +143,7 @@ Details
 
 .. _field:
 
-   .. rubric:: field
-
+field ({string, stringArray}='')
    | Select fields to image or mosaic.  Use field id(s) or name(s).
    |                   ['go listobs' to obtain the list id's or names]
    |                default: ''= all fields
@@ -168,8 +161,7 @@ Details
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw ({string, stringArray}='')
    | Select spectral window/channels
    |                NOTE: channels de-selected here will contain all zeros if
    |                          selected by the parameter mode subparameters.
@@ -191,8 +183,7 @@ Details
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent ({string, stringArray}='')
    | Scan Intent(s)
    | 
    |                    default: '' (all)
@@ -202,14 +193,12 @@ Details
 
 .. _selectdata:
 
-   .. rubric:: selectdata
-
+selectdata (bool=True)
    | Enable data selection parameters.
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange ({string, stringArray}='')
    | Range of time to select from data
    | 
    |                    default: '' (all); examples,
@@ -230,8 +219,7 @@ Details
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange ({string, stringArray}='')
    | Select data within uvrange (default unit is meters)
    |                    default: '' (all); example:
    |                    uvrange='0~1000klambda'; uvrange from 0-1000 kilo-lambda
@@ -244,8 +232,7 @@ Details
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna ({string, stringArray}='')
    | Select data based on antenna/baseline
    | 
    |                    default: '' (all)
@@ -270,8 +257,7 @@ Details
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan ({string, stringArray}='')
    | Scan number range
    | 
    |                    default: '' (all)
@@ -282,16 +268,14 @@ Details
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | Observation ID range
    |                    default: '' (all)
    |                    example: observation='1~5'
 
 .. _imsize:
 
-   .. rubric:: imsize
-
+imsize ({int, intArray}=100)
    | Number of pixels
    |          example :  imsize = [350,250]
    |                            imsize = 500 is equivalent to [500,500]
@@ -300,8 +284,7 @@ Details
 
 .. _cell:
 
-   .. rubric:: cell
-
+cell ({int, double, intArray, doubleArray, string, stringArray}='"1arcsec"')
    | Cell size
    |                example: cell=['0.5arcsec,'0.5arcsec'] or
    |                cell=['1arcmin', '1arcmin']
@@ -309,8 +292,7 @@ Details
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='I')
    | Stokes Planes to make (I only, for now)
    |                default='I'; example: stokes='IQUV';
    |                  Options: 'I','Q','U','V','IV','QU','IQ','UV','IQUV','RR','LL','XX','YY','RRLL','XXYY','pseudoI'
@@ -329,8 +311,7 @@ Details
 
 .. _specmode:
 
-   .. rubric:: specmode
-
+specmode (string='mfs')
    | Spectral definition mode (mfs only, for now)
    | 
    |                        mode='mfs' : Continuum imaging with only one output image channel.
@@ -370,8 +351,7 @@ Details
 
 .. _weighting:
 
-   .. rubric:: weighting
-
+weighting (string='natural')
    | Weighting scheme (natural,uniform,briggs,superuniform,radial)
    | 
    |                        During gridding of the dirty or residual image, each visibility value is
@@ -434,8 +414,7 @@ Details
 
 .. _robust:
 
-   .. rubric:: robust
-
+robust (double=0.5)
    | Robustness parameter for Briggs weighting.
    | 
    |                             robust = -2.0 maps to uniform weighting.
@@ -444,8 +423,7 @@ Details
 
 .. _npixels:
 
-   .. rubric:: npixels
-
+npixels (int=0)
    | Number of pixels to determine uv-cell size for super-uniform weighting
    |                       (0 defaults to -/+ 3 pixels)
    | 
@@ -462,8 +440,7 @@ Details
 
 .. _uvtaper:
 
-   .. rubric:: uvtaper
-
+uvtaper (stringArray=[''])
    | uv-taper on outer baselines in uv-plane
    | 
    |                    Apply a Gaussian taper in addition to the weighting scheme specified

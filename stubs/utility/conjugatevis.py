@@ -20,15 +20,9 @@ Description
    imaginary parts that are equal in magnitude but opposite in sign.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      Default: none
    | 
@@ -36,8 +30,7 @@ Details
 
 .. _spwlist:
 
-   .. rubric:: spwlist
-
+spwlist (variant='""')
    | Spectral window selection
    |                      Default:[] (all spws will be conjugated)
    | 
@@ -45,8 +38,7 @@ Details
 
 .. _outputvis:
 
-   .. rubric:: outputvis
-
+outputvis (string='')
    | Name of output visibility file
    |                      Default: 'conjugated_'+vis
    | 
@@ -54,8 +46,7 @@ Details
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Overwrite the outputvis if it exists?
    |                      Default: False
    |                      Options: False|True

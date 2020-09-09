@@ -29,15 +29,9 @@ Description
       happen if you remove a table being accessed by another process.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _tablenames:
 
-   .. rubric:: tablenames
-
+tablenames (stringArray=[''])
    | Name of the tables
 
 

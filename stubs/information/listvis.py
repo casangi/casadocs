@@ -196,117 +196,94 @@ Description
    write to the screen.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
 
 .. _options:
 
-   .. rubric:: options
-
+options (string='ap')
    | List options: ap only
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='data')
    | Column to list: data, float_data, corrected, model, residual
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Field names or index to be listed
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='*')
    | Spectral window channels
 
 .. _selectdata:
 
-   .. rubric:: selectdata
-
+selectdata (bool=False)
    | Other data selection parameters
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | Antenna/baselines
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | Time range
 
 .. _correlation:
 
-   .. rubric:: correlation
-
+correlation (string='')
    | Correlations
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | Scan numbers
 
 .. _feed:
 
-   .. rubric:: feed
-
+feed (string='')
    | Multi-feed numbers (Not yet implemented)
 
 .. _array:
 
-   .. rubric:: array
-
+array (string='')
    | Array numbers (Not yet implemented)
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | Select by observation ID(s)
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange (string='')
    | uv range
 
 .. _average:
 
-   .. rubric:: average
-
+average (string='')
    | Averaging mode
 
 .. _showflags:
 
-   .. rubric:: showflags
-
+showflags (bool=False)
    | Show flagged data (Not yet implemented)
 
 .. _pagerows:
 
-   .. rubric:: pagerows
-
+pagerows (int=50)
    | Rows per page
 
 .. _listfile:
 
-   .. rubric:: listfile
-
+listfile (string='')
    | Output file
 
 

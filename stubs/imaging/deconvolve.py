@@ -7,16 +7,16 @@ def deconvolve(imagename, model='', psf=[''], alg='clark', niter=10, gain=0.1, t
 Image based deconvolver
 
 Parameters
-   - imagename_ (string) - 
-   - model_ (string='') - 
-   - psf_ (stringArray=['']) - 
-   - alg_ (string='clark') - 
+   - imagename_ (string)
+   - model_ (string='')
+   - psf_ (stringArray=[''])
+   - alg_ (string='clark')
 
       .. raw:: html
 
          <details><summary><i> alg = multiscale </i></summary>
 
-      - scales_ (intArray=[0, 3, 10]) - 
+      - scales_ (intArray=[0, 3, 10])
 
       .. raw:: html
 
@@ -26,17 +26,17 @@ Parameters
 
          <details><summary><i> alg = mem </i></summary>
 
-      - sigma_ (double=0.0) - 
-      - targetflux_ (double=1.0) - 
-      - prior_ (string='') - 
+      - sigma_ (double=0.0)
+      - targetflux_ (double=1.0)
+      - prior_ (string='')
 
       .. raw:: html
 
          </details>
-   - niter_ (int=10) - 
-   - gain_ (double=0.1) - 
-   - threshold_ (double=0.0) - 
-   - mask_ (string='') - 
+   - niter_ (int=10)
+   - gain_ (double=0.1)
+   - threshold_ (double=0.0)
+   - mask_ (string='')
 
 
 Description
@@ -50,81 +50,64 @@ Description
       (v4.7.2 or earlier).
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Input image to deconvolve
 
 .. _model:
 
-   .. rubric:: model
-
+model (string='')
    | Output image containing deconvolved point model
 
 .. _psf:
 
-   .. rubric:: psf
-
+psf (stringArray=[''])
    | Point spread function (dirty beam)
 
 .. _alg:
 
-   .. rubric:: alg
-
+alg (string='clark')
    | Algorithm to use (clark, hogbom, multiscale, mem)
 
 .. _niter:
 
-   .. rubric:: niter
-
+niter (int=10)
    | number of iteration in deconvolution process
 
 .. _gain:
 
-   .. rubric:: gain
-
+gain (double=0.1)
    | CLEAN gain parameter
 
 .. _threshold:
 
-   .. rubric:: threshold
-
+threshold (double=0.0)
    | level below which sources will not be deconvolved
 
 .. _mask:
 
-   .. rubric:: mask
-
+mask (string='')
    | image mask to limit region of deconvolution
 
 .. _scales:
 
-   .. rubric:: scales
-
+scales (intArray=[0, 3, 10])
    | scale sizes (pixels) to deconvolve
 
 .. _sigma:
 
-   .. rubric:: sigma
-
+sigma (double=0.0)
    | mem parameter: Expected noise in image
 
 .. _targetflux:
 
-   .. rubric:: targetflux
-
+targetflux (double=1.0)
    | mem parameter: Estimated total flux in image
 
 .. _prior:
 
-   .. rubric:: prior
-
+prior (string='')
    | mem parameter: prior image for mem search
 
 

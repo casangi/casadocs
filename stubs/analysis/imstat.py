@@ -16,7 +16,27 @@ Parameters
    - listit_ (bool=True) - Print stats and bounding box to logger?
    - verbose_ (bool=True) - Print additional messages to logger?
    - mask_ (string='') - Mask to use. Default is none.
+
+      .. raw:: html
+
+         <details><summary><i> mask != '' </i></summary>
+
+      - stretch_ (bool=False) - Stretch the mask if necessary and possible? 
+
+      .. raw:: html
+
+         </details>
    - logfile_ (string='') - Name of file to write fit results.
+
+      .. raw:: html
+
+         <details><summary><i> logfile != '' </i></summary>
+
+      - append_ (bool=True) - If logfile exists, append to it if True or overwrite it if False
+
+      .. raw:: html
+
+         </details>
    - algorithm_ (string='classic') - Algorithm to use. Supported values are "biweight", "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported.
 
       .. raw:: html
@@ -631,129 +651,104 @@ Description
       :sup:`a. May be removed in the future.` `<#refa>`__
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Name of the input image
 
 .. _axes:
 
-   .. rubric:: axes
-
+axes (variant='-1')
    | List of axes to evaluate statistics over. Default is all axes.
 
 .. _region:
 
-   .. rubric:: region
-
+region (string='')
    | Region selection. Default is to use the full image.
 
 .. _box:
 
-   .. rubric:: box
-
+box (string='')
    | Rectangular region(s) to select in direction plane. Default is to use the entire direction plane.
 
 .. _chans:
 
-   .. rubric:: chans
-
+chans (string='')
    | Channels to use. Default is to use all channels.
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='')
    | Stokes planes to use. Default is to use all Stokes planes.
 
 .. _listit:
 
-   .. rubric:: listit
-
+listit (bool=True)
    | Print stats and bounding box to logger?
 
 .. _verbose:
 
-   .. rubric:: verbose
-
+verbose (bool=True)
    | Print additional messages to logger?
 
 .. _mask:
 
-   .. rubric:: mask
-
+mask (string='')
    | Mask to use. Default is none.
 
 .. _stretch:
 
-   .. rubric:: stretch
-
+stretch (bool=False)
    | Stretch the mask if necessary and possible?
 
 .. _logfile:
 
-   .. rubric:: logfile
-
+logfile (string='')
    | Name of file to write fit results.
 
 .. _append:
 
-   .. rubric:: append
-
+append (bool=True)
    | If logfile exists, append to it if True or overwrite it if False
 
 .. _algorithm:
 
-   .. rubric:: algorithm
-
+algorithm (string='classic')
    | Algorithm to use. Supported values are "biweight", "chauvenet", "classic", "fit-half", and "hinges-fences". Minimum match is supported.
 
 .. _fence:
 
-   .. rubric:: fence
-
+fence (double=-1)
    | Fence value for hinges-fences. A negative value means use the entire data set (ie default to the "classic" algorithm). Ignored if algorithm is not "hinges-fences".
 
 .. _center:
 
-   .. rubric:: center
-
+center (string='mean')
    | Center to use for fit-half. Valid choices are "mean", "median", and "zero". Ignored if algorithm is not "fit-half".
 
 .. _lside:
 
-   .. rubric:: lside
-
+lside (bool=True)
    | For fit-half, use values <= center for real data if True? If False, use values >= center as real data. Ignored if algorithm is not "fit-half".
 
 .. _zscore:
 
-   .. rubric:: zscore
-
+zscore (double=-1)
    | For chauvenet, this is the target maximum number of standard deviations data may have to be included. If negative, use Chauvenet"s criterion. Ignored if algorithm is not "chauvenet".
 
 .. _maxiter:
 
-   .. rubric:: maxiter
-
+maxiter (int=-1)
    | For chauvenet, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, iterate until the zscore criterion is met. Ignored if algorithm is not "chauvenet".
 
 .. _clmethod:
 
-   .. rubric:: clmethod
-
+clmethod (string='auto')
    | Method to use for calculating classical statistics. Supported methods are "auto", "tiled", and "framework". Ignored if algorithm is not "classic".
 
 .. _niter:
 
-   .. rubric:: niter
-
+niter (int=3)
    | For biweight, this is the maximum number of iterations to attempt. Iterating will stop when either this limit is reached, or the zscore criterion is met. If negative, do a fast, simple computation (see description). Ignored if the algorithm is not "biweight".
 
 

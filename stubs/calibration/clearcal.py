@@ -66,15 +66,9 @@ Description
    (i.e., MODEL_DATA column will not be added).
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file (MS)
    |                      Default: none
    | 
@@ -82,8 +76,7 @@ Details
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Select field using field id(s) or field name(s)
    |                      default: '' (all fields)
    |                      
@@ -102,8 +95,7 @@ Details
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Select spectral window/channels
    | 
    |                         Examples:
@@ -127,8 +119,7 @@ Details
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | Select observing intent
    |                      default: '' (no selection by intent)
    | 
@@ -137,8 +128,7 @@ Details
 
 .. _addmodel:
 
-   .. rubric:: addmodel
-
+addmodel (bool=False)
    | add MODEL_DATA along with CORRECTED_DATA?
    |                      Default: False (model will not be added)
    |                      Options: False|True

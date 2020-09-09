@@ -166,15 +166,9 @@ Description
    the observaton time).
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      Default: none
    | 
@@ -182,8 +176,7 @@ Details
 
 .. _field:
 
-   .. rubric:: field
-
+field (variant='""')
    | Select field using field id(s) or field name(s)
    |                      Default: '' (all fields)
    |                      
@@ -202,16 +195,14 @@ Details
 
 .. _fixuvw:
 
-   .. rubric:: fixuvw
-
+fixuvw (bool=False)
    | Recalculate Fourier-plane u,v,w coordinates?
    |                      Default: False
    |                      Options: False|True
 
 .. _direction:
 
-   .. rubric:: direction
-
+direction (variant='')
    | If set, do not use pointing table but set direction to
    | this value
    |                      Default: '' (use pointing table)
@@ -227,8 +218,7 @@ Details
 
 .. _refant:
 
-   .. rubric:: refant
-
+refant (variant='0')
    | Reference antenna name(s); a prioritized list may be
    | specified
    |                      Default: 0 (antenna ID 0)
@@ -244,8 +234,7 @@ Details
 
 .. _reftime:
 
-   .. rubric:: reftime
-
+reftime (string='first')
    | If using pointing table information, use it from this
    | timestamp
    |                      Default: 'first'

@@ -160,135 +160,109 @@ Description
    inputMS at the time the MMS is created.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input measurement set
 
 .. _outputvis:
 
-   .. rubric:: outputvis
-
+outputvis (string='')
    | Name of output measurement set
 
 .. _createmms:
 
-   .. rubric:: createmms
-
+createmms (bool=True)
    | Should this create a multi-MS output
 
 .. _separationaxis:
 
-   .. rubric:: separationaxis
-
+separationaxis (string='auto')
    | Axis to do parallelization across(scan, spw, baseline, auto)
 
 .. _numsubms:
 
-   .. rubric:: numsubms
-
+numsubms ({string, int}='auto')
    | The number of SubMSs to create (auto or any number)
 
 .. _flagbackup:
 
-   .. rubric:: flagbackup
-
+flagbackup (bool=True)
    | Create a backup of the FLAG column in the MMS.
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='all')
    | Which data column(s) to process.
 
 .. _field:
 
-   .. rubric:: field
-
+field ({string, stringArray, int, intArray}='')
    | Select field using ID(s) or name(s).
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw ({string, stringArray, int, intArray}='')
    | Select spectral window/channels.
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan ({string, stringArray, int, intArray}='')
    | Select data by scan numbers.
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna ({string, stringArray, int, intArray}='')
    | Select data based on antenna/baseline.
 
 .. _correlation:
 
-   .. rubric:: correlation
-
+correlation ({string, stringArray}='')
    | Correlation: '' ==> all, correlation="XX,YY".
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange ({string, stringArray, int, intArray}='')
    | Select data by time range.
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent ({string, stringArray, int, intArray}='')
    | Select data by scan intent.
 
 .. _array:
 
-   .. rubric:: array
-
+array ({string, stringArray, int, intArray}='')
    | Select (sub)array(s) by array ID number.
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange ({string, stringArray, int, intArray}='')
    | Select data by baseline length.
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, stringArray, int, intArray}='')
    | Select by observation ID(s).
 
 .. _feed:
 
-   .. rubric:: feed
-
+feed ({string, stringArray, int, intArray}='')
    | Multi-feed numbers: Not yet implemented.
 
 .. _disableparallel:
 
-   .. rubric:: disableparallel
-
+disableparallel (bool=False)
    | Create a multi-MS in parallel.
 
 .. _ddistart:
 
-   .. rubric:: ddistart
-
+ddistart (int=-1)
    | Do not change this parameter. For internal use only.
 
 .. _taql:
 
-   .. rubric:: taql
-
+taql (string='')
    | Table query for nested selections
 
 

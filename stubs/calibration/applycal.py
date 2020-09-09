@@ -145,15 +145,9 @@ Description
    old flag versions and otherwise manage the flag information.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      default: non
    | 
@@ -161,8 +155,7 @@ Details
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Select field using field id(s) or field name(s)
    |                      default: '' --> all fields
    |                      
@@ -181,8 +174,7 @@ Details
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Select spectral window/channels
    | 
    |                         Examples:
@@ -206,8 +198,7 @@ Details
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | Select observing intent
    |                      default: '' (no selection by intent)
    | 
@@ -216,15 +207,13 @@ Details
 
 .. _selectdata:
 
-   .. rubric:: selectdata
-
+selectdata (bool=True)
    | Other data selection parameters
    |                      default: True
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | Select data based on time range
    |                      Subparameter of selectdata=True
    |                      default = '' (all)
@@ -244,8 +233,7 @@ Details
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange (variant='')
    | Select data within uvrange (default units meters)
    |                      Subparameter of selectdata=True
    |                      default: '' (all)
@@ -258,8 +246,7 @@ Details
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | Select data based on antenna/baseline
    |                      Subparameter of selectdata=True
    |                      default: '' (all)
@@ -284,16 +271,14 @@ Details
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | Scan number range
    |                      Subparameter of selectdata=True
    |                      default: '' = all
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | Select by observation ID(s)
    |                      Subparameter of selectdata=True
    |                      default: '' = all
@@ -302,14 +287,12 @@ Details
 
 .. _msselect:
 
-   .. rubric:: msselect
-
+msselect (string='')
    | Optional complex data selection (ignore for now)
 
 .. _docallib:
 
-   .. rubric:: docallib
-
+docallib (bool=False)
    | Control means of specifying the caltables
    |                      default: False --> Use gaintable, gainfield,
    |                      interp, spwmap, calwt. 
@@ -319,8 +302,7 @@ Details
 
 .. _callib:
 
-   .. rubric:: callib
-
+callib (string='')
    | Cal Library filename
    |                      Subparameter of callib=True
    | 
@@ -329,8 +311,7 @@ Details
 
 .. _gaintable:
 
-   .. rubric:: gaintable
-
+gaintable (stringArray=[''])
    | Gain calibration table(s) to apply on the fly
    |                      Subparameter of callib=False
    |                      default: '' (none)
@@ -343,8 +324,7 @@ Details
 
 .. _gainfield:
 
-   .. rubric:: gainfield
-
+gainfield (stringArray=[''])
    | Select a subset of calibrators from gaintable(s)
    |                      Subparameter of callib=False
    |                      default:'' --> all sources in table
@@ -361,8 +341,7 @@ Details
 
 .. _interp:
 
-   .. rubric:: interp
-
+interp (stringArray=[''])
    | Interpolation parmameters (in time[,freq]) for each gaintable, as a list of strings.
    |                      Default: '' --> 'linear,linear' for all gaintable(s)
    |                      Options: Time: 'nearest', 'linear'
@@ -406,8 +385,7 @@ Details
 
 .. _spwmap:
 
-   .. rubric:: spwmap
-
+spwmap (intArray=[''])
    | Spectral windows combinations to form for gaintables(s)
    |                      Subparameter of callib=False
    |                      default: [] (apply solutions from each spw to
@@ -422,8 +400,7 @@ Details
 
 .. _calwt:
 
-   .. rubric:: calwt
-
+calwt (boolArray=[True])
    | Calibrate data weights per gaintable.
    |                      default: True (for all specified gaintables)
    |  
@@ -434,8 +411,7 @@ Details
 
 .. _parang:
 
-   .. rubric:: parang
-
+parang (bool=False)
    | Apply parallactic angle correction
    |                      default: False
    | 
@@ -445,8 +421,7 @@ Details
 
 .. _applymode:
 
-   .. rubric:: applymode
-
+applymode (string='')
    | Calibration apply mode
    |                      default: 'calflag' 
    |                      Options: "calflag", "calflagstrict", "trial",
@@ -469,8 +444,7 @@ Details
 
 .. _flagbackup:
 
-   .. rubric:: flagbackup
-
+flagbackup (bool=True)
    | Automatically back up the state of flags before the run?
    |                      default: True
 

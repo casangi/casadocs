@@ -115,15 +115,9 @@ Description
    *fitsfile* parameter.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      Default: none
    | 
@@ -131,8 +125,7 @@ Details
 
 .. _fitsfile:
 
-   .. rubric:: fitsfile
-
+fitsfile (string='')
    | Name of output UV FITS file
    |                      Default: none
    | 
@@ -140,8 +133,7 @@ Details
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='corrected')
    | Visibility file data column
    |                      Default: corrected
    |                      Options: 'data'(raw)|'corrected'|'model'|'weight'
@@ -150,8 +142,7 @@ Details
 
 .. _field:
 
-   .. rubric:: field
-
+field ({string, stringArray, int, intArray}='')
    | Select field using field id(s) or field name(s)
    |                      Default: '' --> all fields
    |                      
@@ -170,8 +161,7 @@ Details
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Select spectral window/channels
    | 
    |                         Examples:
@@ -195,8 +185,7 @@ Details
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | Select data based on antenna/baseline
    |                      Subparameter of selectdata=True
    |                      Default: '' (all)
@@ -221,8 +210,7 @@ Details
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | Select data based on time range
    |                      Subparameter of selectdata=True
    |                      Default = '' (all)
@@ -242,15 +230,13 @@ Details
 
 .. _writesyscal:
 
-   .. rubric:: writesyscal
-
+writesyscal (bool=False)
    | Write GC and TY tables. Not yet available.
    |                      Default: False
 
 .. _multisource:
 
-   .. rubric:: multisource
-
+multisource (bool=True)
    | Write in multi-source format? 
    |                      Default: True
    | 
@@ -266,8 +252,7 @@ Details
 
 .. _combinespw:
 
-   .. rubric:: combinespw
-
+combinespw (bool=True)
    | Export the spectral windows as IFs?
    |                      Default: True
    | 
@@ -278,15 +263,13 @@ Details
 
 .. _writestation:
 
-   .. rubric:: writestation
-
+writestation (bool=True)
    | Write station name instead of antenna name
    |                      Default: True
 
 .. _padwithflags:
 
-   .. rubric:: padwithflags
-
+padwithflags (bool=False)
    | Fill in missing data with flags to fit IFs
    |                      Subparameter of combinespw=True
    |                      Default: True
@@ -304,8 +287,7 @@ Details
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Overwrite output file if it exists?
    |                      Default: False
    |                      Options: False|True

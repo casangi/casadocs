@@ -47,15 +47,9 @@ Description
    successful.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Name of the input (CASA or FITS) image
    |                      Default: none
    | 
@@ -63,8 +57,7 @@ Details
 
 .. _mode:
 
-   .. rubric:: mode
-
+mode (string='list')
    | Operating mode.
    |                      Default: 'list' (retrieve history)
    |                      Options: 'list|append' ('append' to append a
@@ -72,8 +65,7 @@ Details
 
 .. _verbose:
 
-   .. rubric:: verbose
-
+verbose (bool=True)
    | Write history to logger if mode="list"?
    |                      Subparameter of mode='list'
    |                      Default: True
@@ -81,8 +73,7 @@ Details
 
 .. _origin:
 
-   .. rubric:: origin
-
+origin (string='imhistory')
    | Origin of appended message. 
    |                      Subparameter of mode='append'
    |                      Default: 'imhistory'
@@ -93,8 +84,7 @@ Details
 
 .. _message:
 
-   .. rubric:: message
-
+message (string='')
    | Message to append. 
    |                      Subparameter of mode='append'
    |                      Default: none

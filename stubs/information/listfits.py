@@ -18,15 +18,9 @@ Description
    a data table.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _fitsfile:
 
-   .. rubric:: fitsfile
-
+fitsfile (string)
    | Name of input fits file
 
 

@@ -287,7 +287,7 @@ Parameters
          <details><summary><i> weighting = briggsabs </i></summary>
 
       - robust_ (double=0.5) - Robustness parameter
-      - noise_ (variant='1.0Jy') - 
+      - noise_ (variant='1.0Jy')
       - npixels_ (int=0) - Number of pixels to determine uv-cell size 
       - uvtaper_ (stringArray=['']) - uv-taper on outer baselines in uv-plane
 
@@ -295,6 +295,23 @@ Parameters
 
          </details>
    - niter_ (int=0) - Maximum number of iterations
+
+      .. raw:: html
+
+         <details><summary><i> niter != 0 </i></summary>
+
+      - gain_ (double=0.1) - Loop gain
+      - threshold_ (double=0.0) - Stopping threshold 
+      - nsigma_ (double=0.0) - Multiplicative factor for rms-based threshold stopping
+      - cycleniter_ (int=-1) - Maximum number of minor-cycle iterations
+      - cyclefactor_ (double=1.0) - Scaling on PSF sidelobe level to compute the minor-cycle stopping threshold.
+      - minpsffraction_ (double=0.05) - PSF fraction that marks the max depth of cleaning in the minor cycle
+      - maxpsffraction_ (double=0.8) - PSF fraction that marks the minimum depth of cleaning in the minor cycle 
+      - interactive_ ({bool, int}=False) - Modify masks and parameters at runtime
+
+      .. raw:: html
+
+         </details>
    - usemask_ (string='user') - Type of mask(s) for deconvolution:  user, pb, or auto-multithresh
 
       .. raw:: html
@@ -781,22 +798,16 @@ Description
 .. |image1| image:: ../media/c914c39a74a69699c2ae1d84231e2133af6d7081.png
 
 
-
-Details
-   Explanation of each parameter
-
 .. _usedata:
 
-   .. rubric:: usedata
-
+usedata (string='sdint')
    | Output image type: 'int' - use interferometric data only; 
    |                    'sd' - use single dish data only;
    |                    'sdint' - use both single dish and interferic data
 
 .. _sdimage:
 
-   .. rubric:: sdimage
-
+sdimage (string='')
    | Input single dish image
    | This single dish Image cube must contain images per frequency channel (blanked for empty
    | or flagged channels).
@@ -807,8 +818,7 @@ Details
 
 .. _sdpsf:
 
-   .. rubric:: sdpsf
-
+sdpsf (string='')
    | Input single dish PSF image. 
    | 
    | This single dish PSF cube must contain the effective SD beam in the center of the image,
@@ -825,20 +835,17 @@ Details
 
 .. _sdgain:
 
-   .. rubric:: sdgain
-
+sdgain (double=1.0)
    | A factor or gain to adjust single dish flux scale (to use in feather stage)
 
 .. _dishdia:
 
-   .. rubric:: dishdia
-
+dishdia (double=100.0)
    | (Optional) effective dish diameter (if sdpsf is given as a dish diameter this will be ignored)
 
 .. _vis:
 
-   .. rubric:: vis
-
+vis ({string, stringArray})
    | Name(s) of input visibility file(s)
    |                default: none;
    |                example: vis='ngc5921.ms'
@@ -846,14 +853,12 @@ Details
 
 .. _selectdata:
 
-   .. rubric:: selectdata
-
+selectdata (bool=True)
    | Enable data selection parameters.
 
 .. _field:
 
-   .. rubric:: field
-
+field ({string, stringArray}='')
    | Select fields to image or mosaic.  Use field id(s) or name(s).
    |                   ['go listobs' to obtain the list id's or names]
    |                default: ''= all fields
@@ -871,8 +876,7 @@ Details
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw ({string, stringArray}='')
    | Select spectral window/channels
    |                NOTE: channels de-selected here will contain all zeros if
    |                          selected by the parameter mode subparameters.
@@ -894,8 +898,7 @@ Details
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange ({string, stringArray}='')
    | Range of time to select from data
    | 
    |                    default: '' (all); examples,
@@ -916,8 +919,7 @@ Details
 
 .. _uvrange:
 
-   .. rubric:: uvrange
-
+uvrange ({string, stringArray}='')
    | Select data within uvrange (default unit is meters)
    |                    default: '' (all); example:
    |                    uvrange='0~1000klambda'; uvrange from 0-1000 kilo-lambda
@@ -930,8 +932,7 @@ Details
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna ({string, stringArray}='')
    | Select data based on antenna/baseline
    | 
    |                    default: '' (all)
@@ -956,8 +957,7 @@ Details
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan ({string, stringArray}='')
    | Scan number range
    | 
    |                    default: '' (all)
@@ -968,16 +968,14 @@ Details
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | Observation ID range
    |                    default: '' (all)
    |                    example: observation='1~5'
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent ({string, stringArray}='')
    | Scan Intent(s)
    | 
    |                    default: '' (all)
@@ -987,16 +985,14 @@ Details
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='corrected')
    | Data column to image (data or observed, corrected)
    |                      default:'corrected'
    |                      ( If 'corrected' does not exist, it will use 'data' instead )
 
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename ({int, string, stringArray}='')
    | Pre-name of output images
    | 
    |                        example : imagename='try'
@@ -1045,8 +1041,7 @@ Details
 
 .. _imsize:
 
-   .. rubric:: imsize
-
+imsize ({int, intArray}=100)
    | Number of pixels
    |          example :  imsize = [350,250]
    |                            imsize = 500 is equivalent to [500,500]
@@ -1055,8 +1050,7 @@ Details
 
 .. _cell:
 
-   .. rubric:: cell
-
+cell ({int, double, intArray, doubleArray, string, stringArray}='"1arcsec"')
    | Cell size
    |                example: cell=['0.5arcsec,'0.5arcsec'] or
    |                cell=['1arcmin', '1arcmin']
@@ -1064,8 +1058,7 @@ Details
 
 .. _phasecenter:
 
-   .. rubric:: phasecenter
-
+phasecenter ({int, string}='')
    | Phase center of the image (string or field id); if the phasecenter is the name known major solar system object ('MERCURY', 'VENUS', 'MARS', 'JUPITER', 'SATURN', 'URANUS', 'NEPTUNE', 'PLUTO', 'SUN', 'MOON') or is an ephemerides table then that source is tracked and the background sources get smeared. There is a special case, when phasecenter='TRACKFIELD', which will use the ephemerides or polynomial phasecenter in the FIELD table of the MS's as the source center to track.
    |                example: phasecenter=6
    |                         phasecenter='J2000 19h30m00 -40d00m00'
@@ -1078,8 +1071,7 @@ Details
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='I')
    | Stokes Planes to make
    |                default='I'; example: stokes='IQUV';
    |                  Options: 'I','Q','U','V','IV','QU','IQ','UV','IQUV','RR','LL','XX','YY','RRLL','XXYY','pseudoI'
@@ -1098,8 +1090,7 @@ Details
 
 .. _projection:
 
-   .. rubric:: projection
-
+projection (string='SIN')
    | Coordinate projection
    |                      Examples : SIN,   NCP
    |                      A list of supported (but untested) projections can be found here :
@@ -1107,8 +1098,7 @@ Details
 
 .. _startmodel:
 
-   .. rubric:: startmodel
-
+startmodel (string='')
    | Name of starting model image
    | 
    |                       The contents of the supplied starting model image will be
@@ -1138,8 +1128,7 @@ Details
 
 .. _specmode:
 
-   .. rubric:: specmode
-
+specmode (string='mfs')
    | Spectral definition mode (mfs,cube,cubedata, cubesource)
    | 
    |                        mode='mfs' : Continuum imaging with only one output image channel.
@@ -1188,8 +1177,7 @@ Details
 
 .. _reffreq:
 
-   .. rubric:: reffreq
-
+reffreq (string='')
    | Reference frequency of the output image coordinate system
    | 
    |                        Example :  reffreq='1.5GHz'    as a string with units.
@@ -1201,8 +1189,7 @@ Details
 
 .. _nchan:
 
-   .. rubric:: nchan
-
+nchan (int=-1)
    | Number of channels in the output image
    |                        For default (=-1), the number of channels will be automatically determined
    |                        based on data selected by 'spw' with 'start' and 'width'.
@@ -1211,8 +1198,7 @@ Details
 
 .. _start:
 
-   .. rubric:: start
-
+start (string='')
    | First channel (e.g. start=3,start=\'1.1GHz\',start=\'15343km/s\')
    |                        of output cube images specified by data channel number (integer),
    |                        velocity (string with a unit),  or frequency (string with a unit).
@@ -1233,8 +1219,7 @@ Details
 
 .. _width:
 
-   .. rubric:: width
-
+width (string='')
    | Channel width (e.g. width=2,width=\'0.1MHz\',width=\'10km/s\') of output cube images
    |                       specified by data channel number (integer), velocity (string with a unit), or
    |                       or frequency (string with a unit).
@@ -1252,8 +1237,7 @@ Details
 
 .. _outframe:
 
-   .. rubric:: outframe
-
+outframe (string='LSRK')
    | Spectral reference frame in which to interpret \'start\' and \'width\'
    |                       Options: '','LSRK','LSRD','BARY','GEO','TOPO','GALACTO','LGROUP','CMB'
    |                       example: outframe='bary' for Barycentric frame
@@ -1273,8 +1257,7 @@ Details
 
 .. _veltype:
 
-   .. rubric:: veltype
-
+veltype (string='radio')
    | Velocity type (radio, z, ratio, beta, gamma, optical)
    |                       For start and/or width specified in velocity, specifies the velocity definition
    |                       Options: 'radio','optical','z','beta','gamma','optical'
@@ -1296,8 +1279,7 @@ Details
 
 .. _restfreq:
 
-   .. rubric:: restfreq
-
+restfreq (stringArray=[''])
    | List of rest frequencies or a rest frequency in a string.
    |                       Specify rest frequency to use for output image.
    |                       *Currently it uses the first rest frequency in the list for translation of
@@ -1309,8 +1291,7 @@ Details
 
 .. _interpolation:
 
-   .. rubric:: interpolation
-
+interpolation (string='linear')
    | Spectral interpolation (nearest,linear,cubic)
    | 
    |                        Interpolation rules to use when binning data channels onto image channels
@@ -1324,8 +1305,7 @@ Details
 
 .. _chanchunks:
 
-   .. rubric:: chanchunks
-
+chanchunks (int=1)
    | Number of channel chunks to grid separately
    | 
    |                        For large image cubes, the gridders can run into memory limits
@@ -1343,8 +1323,7 @@ Details
 
 .. _perchanweightdensity:
 
-   .. rubric:: perchanweightdensity
-
+perchanweightdensity (bool=True)
    | When calculating weight density for Briggs
    |                          style weighting in a cube, this parameter
    |                          determines whether to calculate the weight
@@ -1395,8 +1374,7 @@ Details
 
 .. _gridder:
 
-   .. rubric:: gridder
-
+gridder (string='standard')
    | Gridding options (standard, wproject, widefield, mosaic, awproject)
    | 
    |                        The following options choose different gridding convolution
@@ -1529,8 +1507,7 @@ Details
 
 .. _facets:
 
-   .. rubric:: facets
-
+facets (int=1)
    | Number of facets on a side
    | 
    |                        A set of (facets x facets) subregions of the specified image
@@ -1540,8 +1517,7 @@ Details
 
 .. _psfphasecenter:
 
-   .. rubric:: psfphasecenter
-
+psfphasecenter ({int, string}='')
    | For mosaic use psf centered on this
    |                              optional direction. You may need to use
    |                              this if for example the mosaic does not
@@ -1561,8 +1537,7 @@ Details
 
 .. _wprojplanes:
 
-   .. rubric:: wprojplanes
-
+wprojplanes (int=1)
    | Number of distinct w-values at which to compute and use different
    |                        gridding convolution functions for W-Projection
    | 
@@ -1590,8 +1565,7 @@ Details
 
 .. _vptable:
 
-   .. rubric:: vptable
-
+vptable (string='')
    | VP table saved via the vpmanager
    | 
    |                        vptable="" : Choose default beams for different telescopes
@@ -1621,14 +1595,12 @@ Details
 
 .. _mosweight:
 
-   .. rubric:: mosweight
-
+mosweight (bool=True)
    | When doing Brigg's style weighting (including uniform) to perform the weight density calculation for each field indepedently if True. If False the weight density is calculated from the average uv distribution of all the fields.
 
 .. _aterm:
 
-   .. rubric:: aterm
-
+aterm (bool=True)
    | Use aperture illumination functions during gridding
    | 
    |                        This parameter turns on the A-term of the AW-Projection gridder.
@@ -1637,8 +1609,7 @@ Details
 
 .. _psterm:
 
-   .. rubric:: psterm
-
+psterm (bool=False)
    | Include the Prolate Spheroidal (PS) funtion as the anti-aliasing 
    |                         operator in the gridding convolution functions used for gridding.
    | 
@@ -1666,16 +1637,14 @@ Details
 
 .. _wbawp:
 
-   .. rubric:: wbawp
-
+wbawp (bool=True)
    | Use frequency dependent A-terms
    |                        Scale aperture illumination functions appropriately with frequency
    |                        when gridding and combining data from multiple channels.
 
 .. _cfcache:
 
-   .. rubric:: cfcache
-
+cfcache (string='')
    | Convolution function cache directory name
    | 
    |                        Name of a directory in which to store gridding convolution functions.
@@ -1697,15 +1666,13 @@ Details
 
 .. _usepointing:
 
-   .. rubric:: usepointing
-
+usepointing (bool=False)
    | The usepointing flag informs the gridder that it should utilize the pointing table
    | to use the correct direction in which the antenna is pointing with respect to the pointing phasecenter.
 
 .. _computepastep:
 
-   .. rubric:: computepastep
-
+computepastep (double=360.0)
    | Parallactic angle interval after the AIFs are recomputed (deg)
    | 
    |                        This parameter controls the accuracy of the aperture illumination function
@@ -1719,8 +1686,7 @@ Details
 
 .. _rotatepastep:
 
-   .. rubric:: rotatepastep
-
+rotatepastep (double=360.0)
    | Parallactic angle interval after which the nearest AIF is rotated (deg) 
    | 
    |                        Instead of recomputing the AIF for every timestep's parallactic angle,
@@ -1735,8 +1701,7 @@ Details
 
 .. _pointingoffsetsigdev:
 
-   .. rubric:: pointingoffsetsigdev
-
+pointingoffsetsigdev ({intArray, doubleArray}=[''])
    | Corrections for heterogenous and time-dependent pointing 
    |                          offsets via AWProjection are controlled by this parameter. 
    |                          It is a vector of 2 ints or doubles each of which is interpreted 
@@ -1793,8 +1758,7 @@ Details
 
 .. _pblimit:
 
-   .. rubric:: pblimit
-
+pblimit (double=0.2)
    | PB gain level at which to cut off normalizations
    | 
    |                        Divisions by .pb during normalizations have a cut off at a .pb gain
@@ -1815,8 +1779,7 @@ Details
 
 .. _deconvolver:
 
-   .. rubric:: deconvolver
-
+deconvolver (string='hogbom')
    | Name of minor cycle algorithm (hogbom,clark,multiscale,mtmfs,mem,clarkstokes)
    | 
    |                        Each of the following algorithms operate on residual images and psfs
@@ -1884,8 +1847,7 @@ Details
 
 .. _scales:
 
-   .. rubric:: scales
-
+scales ({intArray, floatArray}=[''])
    | List of scale sizes (in pixels) for multi-scale and mtmfs algorithms.
    |                                   -->  scales=[0,6,20]
    |                                   This set of scale sizes should represent the sizes
@@ -1906,8 +1868,7 @@ Details
 
 .. _nterms:
 
-   .. rubric:: nterms
-
+nterms (int=2)
    | Number of Taylor coefficients in the spectral model
    | 
    |                        - nterms=1 : Assume flat spectrum source
@@ -1952,8 +1913,7 @@ Details
 
 .. _smallscalebias:
 
-   .. rubric:: smallscalebias
-
+smallscalebias (double=0.0)
    | A numerical control to bias the scales when using multi-scale or mtmfs algorithms.
    |                       The peak from each scale's smoothed residual is
    |                       multiplied by ( 1 - smallscalebias * scale/maxscale )
@@ -1967,8 +1927,7 @@ Details
 
 .. _restoration:
 
-   .. rubric:: restoration
-
+restoration (bool=True)
    | Restore the model image.
    | 
    |                        Construct a restored image : imagename.image by convolving the model
@@ -1983,8 +1942,7 @@ Details
 
 .. _restoringbeam:
 
-   .. rubric:: restoringbeam
-
+restoringbeam ({string, stringArray}='')
    | Restoring beam shape/size to use.
    | 
    |                        - restoringbeam='' or ['']
@@ -2006,8 +1964,7 @@ Details
 
 .. _pbcor:
 
-   .. rubric:: pbcor
-
+pbcor (bool=False)
    | Apply PB correction on the output restored image
    | 
    |                        A new image with extension .image.pbcor will be created from
@@ -2031,8 +1988,7 @@ Details
 
 .. _weighting:
 
-   .. rubric:: weighting
-
+weighting (string='natural')
    | Weighting scheme (natural,uniform,briggs,superuniform,radial, briggsabs)
    | 
    |                        During gridding of the dirty or residual image, each visibility value is
@@ -2103,8 +2059,7 @@ Details
 
 .. _robust:
 
-   .. rubric:: robust
-
+robust (double=0.5)
    | Robustness parameter for Briggs weighting.
    | 
    |                             robust = -2.0 maps to uniform weighting.
@@ -2113,14 +2068,12 @@ Details
 
 .. _noise:
 
-   .. rubric:: noise
-
+noise (variant='1.0Jy')
    | noise parameter for briggs abs mode weighting
 
 .. _npixels:
 
-   .. rubric:: npixels
-
+npixels (int=0)
    | Number of pixels to determine uv-cell size for super-uniform weighting
    |                       (0 defaults to -/+ 3 pixels)
    | 
@@ -2137,8 +2090,7 @@ Details
 
 .. _uvtaper:
 
-   .. rubric:: uvtaper
-
+uvtaper (stringArray=[''])
    | uv-taper on outer baselines in uv-plane
    | 
    |                    Apply a Gaussian taper in addition to the weighting scheme specified
@@ -2162,8 +2114,7 @@ Details
 
 .. _niter:
 
-   .. rubric:: niter
-
+niter (int=0)
    | Maximum number of iterations
    | 
    |                        A stopping criterion based on total iteration count.
@@ -2210,8 +2161,7 @@ Details
 
 .. _gain:
 
-   .. rubric:: gain
-
+gain (double=0.1)
    | Loop gain
    | 
    |                        Fraction of the source flux to subtract out of the residual image
@@ -2227,8 +2177,7 @@ Details
 
 .. _threshold:
 
-   .. rubric:: threshold
-
+threshold (double=0.0)
    | Stopping threshold (number in units of Jy, or string)
    | 
    |                       A global stopping threshold that the peak residual (within clean mask)
@@ -2263,8 +2212,7 @@ Details
 
 .. _nsigma:
 
-   .. rubric:: nsigma
-
+nsigma (double=0.0)
    | Multiplicative factor for rms-based threshold stopping
    | 
    |                        N-sigma threshold is calculated as nsigma * rms value per image plane determined
@@ -2277,8 +2225,7 @@ Details
 
 .. _cycleniter:
 
-   .. rubric:: cycleniter
-
+cycleniter (int=-1)
    | Maximum number of minor-cycle iterations (per plane) before triggering
    |                        a major cycle
    | 
@@ -2295,8 +2242,7 @@ Details
 
 .. _cyclefactor:
 
-   .. rubric:: cyclefactor
-
+cyclefactor (double=1.0)
    | Scaling on PSF sidelobe level to compute the minor-cycle stopping threshold.
    | 
    |                        Please refer to the Note under the documentation for 'threshold' that
@@ -2310,8 +2256,7 @@ Details
 
 .. _minpsffraction:
 
-   .. rubric:: minpsffraction
-
+minpsffraction (double=0.05)
    | PSF fraction that marks the max depth of cleaning in the minor cycle
    | 
    |                        Please refer to the Note under the documentation for 'threshold' that
@@ -2322,8 +2267,7 @@ Details
 
 .. _maxpsffraction:
 
-   .. rubric:: maxpsffraction
-
+maxpsffraction (double=0.8)
    | PSF fraction that marks the minimum depth of cleaning in the minor cycle
    | 
    |                        Please refer to the Note under the documentation for 'threshold' that
@@ -2336,8 +2280,7 @@ Details
 
 .. _interactive:
 
-   .. rubric:: interactive
-
+interactive ({bool, int}=False)
    | Modify masks and parameters at runtime
    | 
    |                        interactive=True will trigger an interactive GUI at every major cycle
@@ -2393,8 +2336,7 @@ Details
 
 .. _usemask:
 
-   .. rubric:: usemask
-
+usemask (string='user')
    | Type of mask(s) to be used for deconvolution
    | 
    |                        user: (default) mask image(s) or user specified region file(s) or string CRTF expression(s)
@@ -2428,8 +2370,7 @@ Details
 
 .. _mask:
 
-   .. rubric:: mask
-
+mask ({string, stringArray}='')
    | Mask (a list of image name(s) or region file(s) or region string(s)
    | 
    |     
@@ -2482,8 +2423,7 @@ Details
 
 .. _pbmask:
 
-   .. rubric:: pbmask
-
+pbmask (double=0.0)
    | Sub-parameter for usemask='auto-multithresh': primary beam mask
    | 
    |                        Examples : pbmask=0.0 (default, no pb mask)
@@ -2491,75 +2431,64 @@ Details
 
 .. _sidelobethreshold:
 
-   .. rubric:: sidelobethreshold
-
+sidelobethreshold (double=3.0)
    | Sub-parameter for "auto-multithresh":  mask threshold based on sidelobe levels:  sidelobethreshold * max_sidelobe_level * peak residual
 
 .. _noisethreshold:
 
-   .. rubric:: noisethreshold
-
+noisethreshold (double=5.0)
    | Sub-parameter for "auto-multithresh":  mask threshold based on the noise level: noisethreshold * rms + location (=median)
    | 
    |               The rms is calculated from MAD with rms = 1.4826*MAD.
 
 .. _lownoisethreshold:
 
-   .. rubric:: lownoisethreshold
-
+lownoisethreshold (double=1.5)
    | Sub-parameter for "auto-multithresh":  mask threshold to grow previously masked regions via binary dilation:   lownoisethreshold * rms in residual image + location (=median)
    | 
    |               The rms is calculated from MAD with rms = 1.4826*MAD.
 
 .. _negativethreshold:
 
-   .. rubric:: negativethreshold
-
+negativethreshold (double=0.0)
    | Sub-parameter for "auto-multithresh": mask threshold  for negative features: -1.0* negativethreshold * rms + location(=median)
    | 
    |               The rms is calculated from MAD with rms = 1.4826*MAD.
 
 .. _smoothfactor:
 
-   .. rubric:: smoothfactor
-
+smoothfactor (double=1.0)
    | Sub-parameter for "auto-multithresh":  smoothing factor in a unit of the beam
 
 .. _minbeamfrac:
 
-   .. rubric:: minbeamfrac
-
+minbeamfrac (double=0.3)
    | Sub-parameter for "auto-multithresh":  minimum beam fraction in size to prune masks smaller than mimbeamfrac * beam
    |                        <=0.0 : No pruning
 
 .. _cutthreshold:
 
-   .. rubric:: cutthreshold
-
+cutthreshold (double=0.01)
    | Sub-parameter for "auto-multithresh": threshold to cut the smoothed mask to create a final mask: cutthreshold * peak of the smoothed mask
 
 .. _growiterations:
 
-   .. rubric:: growiterations
-
+growiterations (int=75)
    | Sub-parameter for "auto-multithresh": Maximum number of iterations to perform using binary dilation for growing the mask
 
 .. _dogrowprune:
 
-   .. rubric:: dogrowprune
-
+dogrowprune (bool=True)
    | Experimental sub-parameter for "auto-multithresh": Do pruning on the grow mask
 
 .. _minpercentchange:
 
-   .. rubric:: minpercentchange
-
+minpercentchange (double=-1.0)
    | If the change in the mask size in a particular channel is less than minpercentchange, stop masking that channel in subsequent cycles. This check is only applied when noise based threshold is used and when the previous clean major cycle had a cyclethreshold value equal to the clean threshold. Values equal to -1.0 (or any value less than 0.0) will turn off this check (the default). Automask will still stop masking if the current channel mask is an empty mask and the noise threshold was used to determine the mask.
 
 .. _verbose:
 
-   .. rubric:: verbose
-
+verbose (bool=False)
    | If it is set to True, the summary of automasking at the end of each automasking process
    |                         is printed in the logger.  Following information per channel will be listed in the summary.
    | 
@@ -2579,8 +2508,7 @@ Details
 
 .. _fastnoise:
 
-   .. rubric:: fastnoise
-
+fastnoise (bool=True)
    | Only relevant when automask (user='multi-autothresh') and/or n-sigma stopping threshold (nsigma>0.0) are/is used. If it is set to True,  a simpler but faster noise calucation is used. 
    |                         In this case, the threshold values are determined based on classic statistics (using all
    |                         unmasked pixels for the calculations).
@@ -2599,8 +2527,7 @@ Details
 
 .. _restart:
 
-   .. rubric:: restart
-
+restart (bool=True)
    | Restart using existing images (and start from an existing model image)
    |                         or automatically increment the image name and make a new image set.
    | 
@@ -2651,8 +2578,7 @@ Details
 
 .. _savemodel:
 
-   .. rubric:: savemodel
-
+savemodel (string='none')
    | Options to save model visibilities (none, virtual, modelcolumn)
    | 
    |                        Often, model visibilities must be created and saved in the MS
@@ -2697,8 +2623,7 @@ Details
 
 .. _calcres:
 
-   .. rubric:: calcres
-
+calcres (bool=True)
    | Calculate initial residual image
    | 
    |                       This parameter controls what the first major cycle does.
@@ -2721,8 +2646,7 @@ Details
 
 .. _calcpsf:
 
-   .. rubric:: calcpsf
-
+calcpsf (bool=True)
    | Calculate PSF
    | 
    |                         This parameter controls what the first major cycle does.
@@ -2732,8 +2656,7 @@ Details
 
 .. _parallel:
 
-   .. rubric:: parallel
-
+parallel (bool=False)
    | Run major cycles in parallel (this feature is experimental)
    | 
    |                        Parallel tclean will run only if casa has already been started using mpirun.

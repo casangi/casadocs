@@ -79,61 +79,47 @@ Description
    |         | manipulate and export the plot.                           |
    +---------+-----------------------------------------------------------+
 
-.. |image1| image:: docs/tasks/_apimedia/f05dc15d6cf9628b4e2f819d7e5530c7f27d3bd2.png
-:class: image-inline
+.. |image1| image:: ../media/f05dc15d6cf9628b4e2f819d7e5530c7f27d3bd2.png
 
-
-
-
-Details
-   Explanation of each parameter
 
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file (MS)
 
 .. _figfile:
 
-   .. rubric:: figfile
-
+figfile (string='')
    | Save the plotted figure to this file
 
 .. _antindex:
 
-   .. rubric:: antindex
-
+antindex (bool=False)
    | Label antennas with name and antenna ID
 
 .. _logpos:
 
-   .. rubric:: logpos
-
+logpos (bool=False)
    | Whether to plot logarithmic positions
 
 .. _exclude:
 
-   .. rubric:: exclude
-
+exclude (string='')
    | Antenna name/id selection to exclude from plot
 
 .. _checkbaselines:
 
-   .. rubric:: checkbaselines
-
+checkbaselines (bool=False)
    | Whether to check baselines in the main table.
 
 .. _title:
 
-   .. rubric:: title
-
+title (string='')
    | Title for the plot
 
 .. _showgui:
 
-   .. rubric:: showgui
-
+showgui (bool=True)
    | Show plot on gui.
 
 

@@ -94,15 +94,9 @@ Description
    calibration sought from **accor**.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      default: none
    |                         
@@ -110,8 +104,7 @@ Details
 
 .. _caltable:
 
-   .. rubric:: caltable
-
+caltable (string='')
    | Name of output gain calibration table
    |                      default: none
    |                         
@@ -119,8 +112,7 @@ Details
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Select field using field id(s) or field name(s)
    |                      default: '' --> all fields
    |                      
@@ -142,8 +134,7 @@ Details
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Select spectral window/channels
    | 
    |                         Examples:
@@ -167,8 +158,7 @@ Details
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | Select observing intent
    |                      default: '' (no selection by intent)
    | 
@@ -177,16 +167,14 @@ Details
 
 .. _selectdata:
 
-   .. rubric:: selectdata
-
+selectdata (bool=True)
    | Other data selection parameters
    |                      default: True (Must set selectdata=True to select
    |                      other selection parameters.)
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | Select data based on time range
    |                      Subparameter of selectdata=True
    |                      default = '' (all)
@@ -206,8 +194,7 @@ Details
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | Select data based on antenna/baseline
    |                      Subparameter of selectdata=True
    |                      default: '' (all)
@@ -236,8 +223,7 @@ Details
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | Scan number range
    |                      Subparameter of selectdata=True
    |                      default: '' = all
@@ -247,8 +233,7 @@ Details
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | Select by observation ID(s)
    |                      Subparameter of selectdata=True
    |                      default: '' = all
@@ -257,14 +242,12 @@ Details
 
 .. _msselect:
 
-   .. rubric:: msselect
-
+msselect (string='')
    | Optional complex data selection (ignore for now)
 
 .. _solint:
 
-   .. rubric:: solint
-
+solint (variant='inf')
    | Solution interval (units optional)
    |                      default: 'inf' (~infinite, up to boundaries
    |                      controlled by combine)
@@ -281,8 +264,7 @@ Details
 
 .. _combine:
 
-   .. rubric:: combine
-
+combine (string='')
    | Data axes which to combine for solve
    |                      default: '' (solutions will break at obs, scan,
    |                      field, and spw)
@@ -298,8 +280,7 @@ Details
 
 .. _append:
 
-   .. rubric:: append
-
+append (bool=False)
    | Append solutions to the (existing) table
    |                      default: False (overwrite existing table or make
    |                      new table)
@@ -311,8 +292,7 @@ Details
 
 .. _docallib:
 
-   .. rubric:: docallib
-
+docallib (bool=False)
    | Control means of specifying the caltables
    |                      default: False --> Use gaintable, gainfield,
    |                      interp, spwmap, calwt. 
@@ -322,8 +302,7 @@ Details
 
 .. _callib:
 
-   .. rubric:: callib
-
+callib (string='')
    | Cal Library filename
    |                      Subparameter of callib=True
    | 
@@ -332,8 +311,7 @@ Details
 
 .. _gaintable:
 
-   .. rubric:: gaintable
-
+gaintable (stringArray=[''])
    | Gain calibration table(s) to apply on the fly
    |                      Subparameter of callib=False
    |                      default: '' (none)
@@ -343,8 +321,7 @@ Details
 
 .. _gainfield:
 
-   .. rubric:: gainfield
-
+gainfield (stringArray=[''])
    | Select a subset of calibrators from gaintable(s)
    |                      Subparameter of callib=False
    |                      default:'' --> all sources in table
@@ -362,8 +339,7 @@ Details
 
 .. _interp:
 
-   .. rubric:: interp
-
+interp (stringArray=[''])
    | Interpolation parmameters (in time[,freq]) for each gaintable, as a list of strings.
    |                      Default: '' --> 'linear,linear' for all gaintable(s)
    |                      Options: Time: 'nearest', 'linear'
@@ -407,8 +383,7 @@ Details
 
 .. _spwmap:
 
-   .. rubric:: spwmap
-
+spwmap (intArray=[''])
    | Spectral windows combinations to form for gaintables(s)
    |                      Subparameter of callib=False
    |                      default: [] (apply solutions from each spw to

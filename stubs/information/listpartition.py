@@ -15,27 +15,19 @@ Parameters
 
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of Multi-MS or normal MS.
 
 .. _createdict:
 
-   .. rubric:: createdict
-
+createdict (bool=False)
    | Create and return a dictionary with Sub-MS information
 
 .. _listfile:
 
-   .. rubric:: listfile
-
+listfile (string='')
    | Name of ASCII file to save output: ''==>to terminal
 
 

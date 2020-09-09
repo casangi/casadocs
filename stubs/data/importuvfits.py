@@ -42,27 +42,19 @@ Description
       task**flagdata**, *autocorr = true*
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _fitsfile:
 
-   .. rubric:: fitsfile
-
+fitsfile (string)
    | Name of input UV FITS file
 
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string='')
    | Name of output visibility file (MS)
 
 .. _antnamescheme:
 
-   .. rubric:: antnamescheme
-
+antnamescheme (string='old')
    | VLA/EVLA/CARMA only; \'new\' or \'old\'; \'VA04\' or \'04\' for VLA ant 4
 
 

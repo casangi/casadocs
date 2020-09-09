@@ -87,45 +87,34 @@ Description
    Metadata <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/listing-and-manipulating-ms-metadata>`__.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
 
 .. _mode:
 
-   .. rubric:: mode
-
+mode (string='summary')
    | Mode of operation for vishead
 
 .. _listitems:
 
-   .. rubric:: listitems
-
+listitems (stringArray=['telescope', 'observer', 'project', 'field', 'freq_group_name', 'spw_name', 'schedule', 'schedule_type', 'release_date'])
    | Keyword items to list. This parameter is only relevant in list mode. Note that the default list is a subset of the possible keywords. To get all the keywords set listitems=[]
 
 .. _hdkey:
 
-   .. rubric:: hdkey
-
+hdkey (string='')
    | Keyword to get/put
 
 .. _hdindex:
 
-   .. rubric:: hdindex
-
+hdindex (string='')
    | Index (counting from 0) if keyword is an array (used in get/put mode only). The empty string means all elements
 
 .. _hdvalue:
 
-   .. rubric:: hdvalue
-
+hdvalue (variant='')
    | Value of the keywords to be put in the MS (used in put mode only)
 
 

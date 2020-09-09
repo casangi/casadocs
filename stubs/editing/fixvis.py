@@ -109,15 +109,9 @@ Description
    MODEL). Example: 'DATA,CORRECTED' (will not modify MODEL).
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      Default: none
    | 
@@ -125,8 +119,7 @@ Details
 
 .. _outputvis:
 
-   .. rubric:: outputvis
-
+outputvis (string='')
    | Name of output visibility file
    |                      Default: '' (same as vis)
    | 
@@ -134,8 +127,7 @@ Details
 
 .. _field:
 
-   .. rubric:: field
-
+field (variant='""')
    | Select field using field id(s) or field name(s)
    |                      Default: '' (all fields)
    |                      
@@ -154,8 +146,7 @@ Details
 
 .. _refcode:
 
-   .. rubric:: refcode
-
+refcode (string='')
    | Reference frame to convert UVW coordinates to
    |                      Default: '' (refcode of PHASE_DIR in the FIELD
    |                      table)
@@ -164,8 +155,7 @@ Details
 
 .. _reuse:
 
-   .. rubric:: reuse
-
+reuse (bool=True)
    | Base UVW calculation on the old values?
    |                      Default: True
    |                      Options: True|False
@@ -174,8 +164,7 @@ Details
 
 .. _phasecenter:
 
-   .. rubric:: phasecenter
-
+phasecenter (string='')
    | If set to a valid direction: change the phase center for
    | the given field to this value
    |                      If given without the equinox, e.g. '0h01m00s
@@ -196,8 +185,7 @@ Details
 
 .. _distances:
 
-   .. rubric:: distances
-
+distances (variant='""')
    | (experimental) List of the distances (as quanta) of the
    | fields selected by field.
    |                      Default: [] (the distances of all fields are
@@ -212,8 +200,7 @@ Details
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='all')
    | when applying a phase center shift, modify visibilities
    | only in this/these column(s)
    |                      Default: 'all' (DATA, CORRECTED, and MODEL)

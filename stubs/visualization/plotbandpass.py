@@ -36,8 +36,33 @@ Parameters
 
          </details>
    - figfile_ (string='') - The name of the plot file to produce.
+
+      .. raw:: html
+
+         <details><summary><i> figfile != '' </i></summary>
+
+      - density_ (int=108) - dpi to use in creating PNGs and PDFs (default=108)
+      - buildpdf_ (bool=False) - If True, assemble all the pngs into a pdf
+      - convert_ (string='convert') - For buildpdf=T, full path for the ImageMagick convert command (in case it is not found)
+      - gs_ (string='gs') - For buildpdf=T, full path for ghostscript command (in case it is not found)
+      - pdftk_ (string='pdftk') - For buildpdf=T, full path for pdftk command (in case it is not found)
+
+      .. raw:: html
+
+         </details>
    - plotrange_ (doubleArray=[0,0,0,0]) - The axes limits to use [x0,x1,y0,y1].
    - caltable2_ (string='') - A second cal table, of type BPOLY or B, to overlay on a B table
+
+      .. raw:: html
+
+         <details><summary><i> caltable2 != '' </i></summary>
+
+      - zoom_ (string='') - "intersect" will zoom to overlap region of caltable with caltable2
+      - caltable3_ (string='') - A third cal table, of type BPOLY, to overlay on the first two tables
+
+      .. raw:: html
+
+         </details>
    - overlay_ (string='') - Show multiple solutions in same frame in different colors (time, antenna, spw, baseband, or time,antenna)
 
       .. raw:: html
@@ -58,11 +83,52 @@ Parameters
    - subplot_ ({string, int}='22') - 11..81,22,32 or 42 for RowsxColumns (default=22), any 3rd digit is ignored
    - poln_ ({stringArray, string}='['']') - Polarizations to plot: "" = all, or "RR","RL","LR","LL","XX","XY","YX","YY","RR,LL","XX,YY"
    - showatm_ (bool=False) - Compute and overlay the atmospheric transmission curve
+
+      .. raw:: html
+
+         <details><summary><i> showatm != False </i></summary>
+
+      - pwv_ ({double, string}='auto') - Define the pwv to use for the showatm option: "auto" or value in mm
+      - showimage_ (bool=False) - also show the atmospheric curve for the image sideband (in black)
+      - parentms_ (string='') - if showimage=T, name of the parent ms (only needed if the ms has been previously split)
+      - lo1_ ({string, double}='') - specify the LO1 setting (in GHz) for the observation ('' = automatic)
+      - showatmpoints_ (bool=False) - Draw atmospheric curve with points instead of a line
+
+      .. raw:: html
+
+         </details>
    - solutionTimeThresholdSeconds_ (double=30.0) - Consider 2 solutions simultaneous if within this interval in seconds
    - debug_ (bool=False) - Print verbose messages for debugging purposes
    - vis_ (string='') - name of the ms for this table, in case it does not match the string in the caltable
    - showtsky_ (bool=False) - Compute and overlay the sky temperature curve instead of transmission
+
+      .. raw:: html
+
+         <details><summary><i> showtsky != False </i></summary>
+
+      - pwv_ ({double, string}='auto') - Define the pwv to use for the showatm option: "auto" or value in mm
+      - showimage_ (bool=False) - also show the atmospheric curve for the image sideband (in black)
+      - parentms_ (string='') - if showimage=T, name of the parent ms (only needed if the ms has been previously split)
+      - lo1_ ({string, double}='') - specify the LO1 setting (in GHz) for the observation ('' = automatic)
+      - showatmpoints_ (bool=False) - Draw atmospheric curve with points instead of a line
+
+      .. raw:: html
+
+         </details>
    - channeldiff_ ({bool, double}=False) - Set to a value > 0 (sigma) to plot derivatives of the solutions
+
+      .. raw:: html
+
+         <details><summary><i> channeldiff != False </i></summary>
+
+      - edge_ (int=8) - The number of edge channels to ignore in finding outliers (for channeldiff>0)
+      - resample_ (int=1) - The channel expansion factor to use when computing MAD of derivative (for channeldiff>0)
+      - platformingSigma_ (double=10.0) - declare platforming if the amplitude derivative exceeds this many times the MAD
+      - platformingThreshold_ (double=10.0) - if platformingSigma=0, then declare platforming if the amplitude derivative exceeds this percentage of the median
+
+      .. raw:: html
+
+         </details>
    - basebands_ ({int, string, intArray}='') - A baseband number or list of baseband numbers for which to display solutions.  Default = all.
    - showBasebandNumber_ (bool=False) - Put the baseband converter number (BBC_NO) in the title of each plot
    - scans_ ({int, string, intArray}='') - A scan or list of scans for which to display solutions.  Default = all. Does not work with overlay="time".
@@ -354,303 +420,249 @@ Description
    'intersect' will zoom to overlap region of caltable with caltable2
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _caltable:
 
-   .. rubric:: caltable
-
+caltable (string)
    | Input table name, either a bandpass solution or a Tsys solution
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna ({string, int, stringArray, intArray}='')
    | A comma-delimited string list of antennas (either names or integer indices) for which to display solutions.  Default = all antennas.
 
 .. _field:
 
-   .. rubric:: field
-
+field ({string, int, stringArray, intArray}='')
    | A comma-delimited string list of fields (either names or integer indices) for which to display solutions.  Default = all fields.
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw ({string, int, stringArray, intArray}='')
    | A comma-delimited string list of spws for which to display solutions.  Default = all spws.
 
 .. _yaxis:
 
-   .. rubric:: yaxis
-
+yaxis (string='amp')
    | The quantity to plot on the y-axis ("amp", "phase", "both", "tsys", append "db" for dB).
 
 .. _xaxis:
 
-   .. rubric:: xaxis
-
+xaxis (string='chan')
    | The quantity to plot on the x-axis ("chan" or "freq").
 
 .. _figfile:
 
-   .. rubric:: figfile
-
+figfile (string='')
    | The name of the plot file to produce.
 
 .. _plotrange:
 
-   .. rubric:: plotrange
-
+plotrange (doubleArray=[0,0,0,0])
    | The axes limits to use [x0,x1,y0,y1].
 
 .. _caltable2:
 
-   .. rubric:: caltable2
-
+caltable2 (string='')
    | A second cal table, of type BPOLY or B, to overlay on a B table
 
 .. _overlay:
 
-   .. rubric:: overlay
-
+overlay (string='')
    | Show multiple solutions in same frame in different colors (time, antenna, spw, baseband, or time,antenna)
 
 .. _showflagged:
 
-   .. rubric:: showflagged
-
+showflagged (bool=False)
    | Show the values of the solution, even if flagged
 
 .. _timeranges:
 
-   .. rubric:: timeranges
-
+timeranges (string='')
    | Show only these timeranges, the first timerange being 0
 
 .. _buildpdf:
 
-   .. rubric:: buildpdf
-
+buildpdf (bool=False)
    | If True, assemble all the pngs into a pdf
 
 .. _caltable3:
 
-   .. rubric:: caltable3
-
+caltable3 (string='')
    | A third cal table, of type BPOLY, to overlay on the first two tables
 
 .. _markersize:
 
-   .. rubric:: markersize
-
+markersize (int=3)
    | Size of points
 
 .. _density:
 
-   .. rubric:: density
-
+density (int=108)
    | dpi to use in creating PNGs and PDFs (default=108)
 
 .. _interactive:
 
-   .. rubric:: interactive
-
+interactive (bool=True)
    | if False, then run to completion automatically without pause
 
 .. _showpoints:
 
-   .. rubric:: showpoints
-
+showpoints ({string, bool}='auto')
    | Draw points for the data (default=F for amp, T for phase)
 
 .. _showlines:
 
-   .. rubric:: showlines
-
+showlines ({string, bool}='auto')
    | Draw lines connecting the data (default=T for amp, F for phase)
 
 .. _subplot:
 
-   .. rubric:: subplot
-
+subplot ({string, int}='22')
    | 11..81,22,32 or 42 for RowsxColumns (default=22), any 3rd digit is ignored
 
 .. _zoom:
 
-   .. rubric:: zoom
-
+zoom (string='')
    | "intersect" will zoom to overlap region of caltable with caltable2
 
 .. _poln:
 
-   .. rubric:: poln
-
+poln ({stringArray, string}='['']')
    | Polarizations to plot: "" = all, or "RR","RL","LR","LL","XX","XY","YX","YY","RR,LL","XX,YY"
 
 .. _showatm:
 
-   .. rubric:: showatm
-
+showatm (bool=False)
    | Compute and overlay the atmospheric transmission curve
 
 .. _pwv:
 
-   .. rubric:: pwv
-
+pwv ({double, string}='auto')
    | Define the pwv to use for the showatm option: "auto" or value in mm
 
 .. _gs:
 
-   .. rubric:: gs
-
+gs (string='gs')
    | For buildpdf=T, full path for ghostscript command (in case it is not found)
 
 .. _convert:
 
-   .. rubric:: convert
-
+convert (string='convert')
    | For buildpdf=T, full path for the ImageMagick convert command (in case it is not found)
 
 .. _chanrange:
 
-   .. rubric:: chanrange
-
+chanrange ({string, intArray}='')
    | Set xrange ("5~100") over which to autoscale y-axis for xaxis="freq"
 
 .. _solutionTimeThresholdSeconds:
 
-   .. rubric:: solutionTimeThresholdSeconds
-
+solutionTimeThresholdSeconds (double=30.0)
    | Consider 2 solutions simultaneous if within this interval in seconds
 
 .. _debug:
 
-   .. rubric:: debug
-
+debug (bool=False)
    | Print verbose messages for debugging purposes
 
 .. _phase:
 
-   .. rubric:: phase
-
+phase ({intArray, string}='['']')
    | The y-axis limits to use for phase plots when yaxis="both"
 
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string='')
    | name of the ms for this table, in case it does not match the string in the caltable
 
 .. _showtsky:
 
-   .. rubric:: showtsky
-
+showtsky (bool=False)
    | Compute and overlay the sky temperature curve instead of transmission
 
 .. _showfdm:
 
-   .. rubric:: showfdm
-
+showfdm (bool=False)
    | when showing TDM spws, draw the locations of the corresponding FDM spws
 
 .. _showatmfield:
 
-   .. rubric:: showatmfield
-
+showatmfield ({int, string}='')
    | for overlay="time", use first observation of this fieldID or name
 
 .. _lo1:
 
-   .. rubric:: lo1
-
+lo1 ({string, double}='')
    | specify the LO1 setting (in GHz) for the observation ('' = automatic)
 
 .. _showimage:
 
-   .. rubric:: showimage
-
+showimage (bool=False)
    | also show the atmospheric curve for the image sideband (in black)
 
 .. _showatmpoints:
 
-   .. rubric:: showatmpoints
-
+showatmpoints (bool=False)
    | Draw atmospheric curve with points instead of a line
 
 .. _parentms:
 
-   .. rubric:: parentms
-
+parentms (string='')
    | if showimage=T, name of the parent ms (only needed if the ms has been previously split)
 
 .. _pdftk:
 
-   .. rubric:: pdftk
-
+pdftk (string='pdftk')
    | For buildpdf=T, full path for pdftk command (in case it is not found)
 
 .. _channeldiff:
 
-   .. rubric:: channeldiff
-
+channeldiff ({bool, double}=False)
    | Set to a value > 0 (sigma) to plot derivatives of the solutions
 
 .. _edge:
 
-   .. rubric:: edge
-
+edge (int=8)
    | The number of edge channels to ignore in finding outliers (for channeldiff>0)
 
 .. _resample:
 
-   .. rubric:: resample
-
+resample (int=1)
    | The channel expansion factor to use when computing MAD of derivative (for channeldiff>0)
 
 .. _platformingThreshold:
 
-   .. rubric:: platformingThreshold
-
+platformingThreshold (double=10.0)
    | if platformingSigma=0, then declare platforming if the amplitude derivative exceeds this percentage of the median
 
 .. _platformingSigma:
 
-   .. rubric:: platformingSigma
-
+platformingSigma (double=10.0)
    | declare platforming if the amplitude derivative exceeds this many times the MAD
 
 .. _basebands:
 
-   .. rubric:: basebands
-
+basebands ({int, string, intArray}='')
    | A baseband number or list of baseband numbers for which to display solutions.  Default = all.
 
 .. _showBasebandNumber:
 
-   .. rubric:: showBasebandNumber
-
+showBasebandNumber (bool=False)
    | Put the baseband converter number (BBC_NO) in the title of each plot
 
 .. _scans:
 
-   .. rubric:: scans
-
+scans ({int, string, intArray}='')
    | A scan or list of scans for which to display solutions.  Default = all. Does not work with overlay="time".
 
 .. _figfileSequential:
 
-   .. rubric:: figfileSequential
-
+figfileSequential (bool=False)
    | naming scheme for pngs: False: name by spw/antenna (default), True: figfile.000.png, figfile.001.png, etc.
 
 .. _chanrangeSetXrange:
 
-   .. rubric:: chanrangeSetXrange
-
+chanrangeSetXrange (bool=False)
    | If True, then chanrange also sets the xrange to display
 
 

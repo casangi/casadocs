@@ -82,15 +82,9 @@ Description
    Output table name. Must be specfied.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _filenames:
 
-   .. rubric:: filenames
-
+filenames (stringArray)
    | Files containing Splatalogue lists.
    | 
    |                      The downloaded files must be in a specific format
@@ -100,8 +94,7 @@ Details
 
 .. _table:
 
-   .. rubric:: table
-
+table (string='')
    | Output table name. Must be specified.
 
 

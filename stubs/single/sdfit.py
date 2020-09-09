@@ -17,6 +17,16 @@ Parameters
    - pol_ (string='') - select data by polarization IDs, e.g. "XX,YY" (""=all)
    - intent_ (string='') - select data by observational intent, e.g. "*ON_SOURCE*" (""=all)
    - timebin_ (string='') - bin width for time averaging
+
+      .. raw:: html
+
+         <details><summary><i> timebin != '' </i></summary>
+
+      - timespan_ (string='') - span the timebin across "scan", "state", "field", or a combination of them (e.g., "scan,state")
+
+      .. raw:: html
+
+         </details>
    - polaverage_ (string='') - polarization averaging mode ("", "stokes" or "geometric").
    - fitfunc_ (string='gaussian') - function for fitting ["gaussian", "lorentzian"]
    - fitmode_ (string='list') - mode for setting additional channel masks. "list" and "auto" are available now.
@@ -157,135 +167,109 @@ Description
    '*outfile*' parameter.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _infile:
 
-   .. rubric:: infile
-
+infile (string)
    | name of input SD dataset
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='data')
    | name of data column to be used ["data", "float_data", or "corrected_data"]
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | select data by antenna name or ID, e.g. "PM03"
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | select data by field IDs and names, e.g. "3C2*" (""=all)
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | select data by IF IDs (spectral windows), e.g. "3,5,7" (""=all)
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help)
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | select data by scan numbers, e.g. "21~23" (""=all)
 
 .. _pol:
 
-   .. rubric:: pol
-
+pol (string='')
    | select data by polarization IDs, e.g. "XX,YY" (""=all)
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | select data by observational intent, e.g. "*ON_SOURCE*" (""=all)
 
 .. _timebin:
 
-   .. rubric:: timebin
-
+timebin (string='')
    | bin width for time averaging
 
 .. _timespan:
 
-   .. rubric:: timespan
-
+timespan (string='')
    | span the timebin across "scan", "state", "field", or a combination of them (e.g., "scan,state")
 
 .. _polaverage:
 
-   .. rubric:: polaverage
-
+polaverage (string='')
    | polarization averaging mode ("", "stokes" or "geometric").
 
 .. _fitfunc:
 
-   .. rubric:: fitfunc
-
+fitfunc (string='gaussian')
    | function for fitting
 
 .. _fitmode:
 
-   .. rubric:: fitmode
-
+fitmode (string='list')
    | mode for setting additional channel masks.
 
 .. _nfit:
 
-   .. rubric:: nfit
-
+nfit (intArray=[0])
    | list of number of lines to fit in maskline region.
 
 .. _thresh:
 
-   .. rubric:: thresh
-
+thresh (double=5.0)
    | S/N threshold for linefinder
 
 .. _avg_limit:
 
-   .. rubric:: avg_limit
-
+avg_limit (int=4)
    | channel averaging for broad lines
 
 .. _minwidth:
 
-   .. rubric:: minwidth
-
+minwidth (int=4)
    | the minimum channel width to detect as a line
 
 .. _edge:
 
-   .. rubric:: edge
-
+edge (intArray=[0, 0])
    | channels to drop at beginning and end of spectrum
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | name of output file
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | overwrite the output file if already exists
 
 

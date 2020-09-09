@@ -130,51 +130,39 @@ Description
       consistency.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file (MS)
 
 .. _wtmode:
 
-   .. rubric:: wtmode
-
+wtmode (string='nyq')
    | Initialization mode
 
 .. _tsystable:
 
-   .. rubric:: tsystable
-
+tsystable (string='')
    | Tsys calibration table to apply on the fly
 
 .. _gainfield:
 
-   .. rubric:: gainfield
-
+gainfield (string='')
    | Select a subset of calibrators from Tsys table
 
 .. _interp:
 
-   .. rubric:: interp
-
+interp (string='')
    | Interpolation type in time[,freq]. default==\'linear,linear\'
 
 .. _spwmap:
 
-   .. rubric:: spwmap
-
+spwmap (intArray=[''])
    | Spectral windows combinations to form for gaintable(s)
 
 .. _dowtsp:
 
-   .. rubric:: dowtsp
-
+dowtsp (bool=False)
    | Initialize the WEIGHT_SPECTRUM column
 
 

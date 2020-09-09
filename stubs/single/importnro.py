@@ -55,22 +55,15 @@ Description
      using task **listobs**.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _infile:
 
-   .. rubric:: infile
-
+infile (string)
    | Name of input NOSTAR data
    |                      Default: none
 
 .. _outputvis:
 
-   .. rubric:: outputvis
-
+outputvis (string='')
    | Root name of the ms to be created. Note the .ms is NOT
    | added 
    |                      Default: none
@@ -79,16 +72,14 @@ Details
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Over write an existing MS(s)
    |                      Default: False (do not overwrite)
    |                      Options: False|True
 
 .. _parallel:
 
-   .. rubric:: parallel
-
+parallel (bool=False)
    | Turn on parallel execution
    |                      Default: False (serial execution)
    |                      Options: False|True

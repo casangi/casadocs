@@ -307,189 +307,154 @@ Description
       679-687` `(A&A) <http://www.aanda.org/articles/aa/pdf/2007/41/aa7811-07.pdf>`__ `<#ref-cit1>`__
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _infiles:
 
-   .. rubric:: infiles
-
+infiles (stringArray)
    | a list of names of input SD Measurementsets (only MS is allowed for this task)
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | prefix of output images (.image, .weight, .sumwt, .psf)
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | overwrite the output file if already exists [True, False]
 
 .. _field:
 
-   .. rubric:: field
-
+field ({string, stringArray}='')
    | select data by field IDs and names, e.g. \'3C2*\' (\'\'=all)
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw ({string, stringArray}='')
    | select data by IF IDs (spectral windows), e.g. \'3,5,7\' (\'\'=all)
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna ({string, stringArray}='')
    | select data by antenna names or IDs, e.g, \'PM03\' (\'\' = all antennas)
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan ({string, stringArray}='')
    | select data by scan numbers, e.g. \'21~23\' (\'\'=all)
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent ({string, stringArray}='OBSERVE_TARGET#ON_SOURCE')
    | select data by observational intent, e.g. \'*ON_SOURCE*\' (\'\'=all)
 
 .. _mode:
 
-   .. rubric:: mode
-
+mode (string='channel')
    | spectral gridding type
 
 .. _nchan:
 
-   .. rubric:: nchan
-
+nchan (int=-1)
    | number of channels (planes) in output image (-1=all)
 
 .. _start:
 
-   .. rubric:: start
-
+start ({string, int}='0')
    | start of output spectral dimension, e.g. \'0\', \'110GHz\', \'-20km/s\'
 
 .. _width:
 
-   .. rubric:: width
-
+width ({string, int}='1')
    | width of output spectral channels
 
 .. _veltype:
 
-   .. rubric:: veltype
-
+veltype (string='radio')
    | velocity definition
 
 .. _specmode:
 
-   .. rubric:: specmode
-
+specmode (string='cube')
    | Spectral definition mode (cube, cubedata, cubesource)
 
 .. _outframe:
 
-   .. rubric:: outframe
-
+outframe (string='')
    | velocity frame of output image (''=current frame or LSRK for multiple-MS inputs)
 
 .. _gridfunction:
 
-   .. rubric:: gridfunction
-
+gridfunction (string='BOX')
    | gridding function for imaging (see description in help)
 
 .. _convsupport:
 
-   .. rubric:: convsupport
-
+convsupport (int=-1)
    | convolution support for gridding
 
 .. _truncate:
 
-   .. rubric:: truncate
-
+truncate ({string, int, double}='-1')
    | truncation radius for gridding
 
 .. _gwidth:
 
-   .. rubric:: gwidth
-
+gwidth ({string, int, double}='-1')
    | HWHM for gaussian
 
 .. _jwidth:
 
-   .. rubric:: jwidth
-
+jwidth ({string, int, double}='-1')
    | c-parameter for jinc function
 
 .. _imsize:
 
-   .. rubric:: imsize
-
+imsize ({intArray, doubleArray}=[''])
    | x and y image size in pixels, e.g., [64,64]. Single value: same for both spatial axes ([] = number of pixels to cover whole pointings in MSes)
 
 .. _cell:
 
-   .. rubric:: cell
-
+cell ({string, stringArray, doubleArray}='')
    | x and y cell size, (e.g., [\'8arcsec\',\'8arcsec\']. default unit arcmin. ('' = 1/3 of FWHM of primary beam)
 
 .. _phasecenter:
 
-   .. rubric:: phasecenter
-
+phasecenter (variant='')
    | image center direction: position or field index or ephemeris source info, e.g., \'J2000 17:30:15.0 -25.30.00.0\', \'MARS\'. (\'\' = the center of pointing directions in MSes)
 
 .. _projection:
 
-   .. rubric:: projection
-
+projection (string='SIN')
    | map projection type
 
 .. _pointingcolumn:
 
-   .. rubric:: pointingcolumn
-
+pointingcolumn (string='direction')
    | pointing data column to use
 
 .. _restfreq:
 
-   .. rubric:: restfreq
-
+restfreq ({string, double}='')
    | rest frequency to assign to image, e.g., \'114.5GHz\'
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='I')
    | stokes parameters or polarization types to image, e.g. \'I\', \'XX\'
 
 .. _minweight:
 
-   .. rubric:: minweight
-
+minweight (double=0.1)
    | Minimum weight ratio to the median of weight used in weight correction and weight beased masking
 
 .. _brightnessunit:
 
-   .. rubric:: brightnessunit
-
+brightnessunit (string='')
    | Overwrite the brightness unit in image (\'\' = respect the unit in MS) [\'K\' or \'Jy/beam\']
 
 .. _clipminmax:
 
-   .. rubric:: clipminmax
-
+clipminmax (bool=False)
    | Clip minimum and maximum value from each pixel. Note the benefit of clipping is lost when the number of integrations contributing to each gridded pixel is small, or where the incidence of spurious datapoints is approximately or greater than the number of beams (in area) encompassed by expected image.
 
 

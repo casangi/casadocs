@@ -15,33 +15,24 @@ Parameters
 
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file (MS)
 
 .. _tablein:
 
-   .. rubric:: tablein
-
+tablein (string)
    | Input calibration table
 
 .. _caltable:
 
-   .. rubric:: caltable
-
+caltable (string='')
    | Output calibration table (forces polarization correction if specified)
 
 .. _paoffset:
 
-   .. rubric:: paoffset
-
+paoffset (double=0.0)
    | Manual position angle offset
 
 

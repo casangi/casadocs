@@ -261,42 +261,32 @@ Description
       (` `ADS <http://adsabs.harvard.edu/abs/1979A%26A....76...92E>`__ :sup:`)` `<#ref-cit1>`__
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (stringArray=[''])
    | a list of names of input images. At least two valid images are required for processing
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | Prefix of output image name.
    |       A suffix, ".signalband" or ".imageband" is added to 
    |       output image name depending on the side band side being solved.
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | overwrite option
 
 .. _signalshift:
 
-   .. rubric:: signalshift
-
+signalshift (doubleArray=[''])
    | a list of channel number shifts in signal side band.
    |       The number of elements must be equal to that of imagename
 
 .. _imageshift:
 
-   .. rubric:: imageshift
-
+imageshift (doubleArray=[''])
    | a list of channel number shifts in image side band.
    |       The number of elements must be either zero or equal to that of imagename.
    |       In case of zero length array, the values are obtained from signalshift
@@ -304,32 +294,27 @@ Details
 
 .. _getbothside:
 
-   .. rubric:: getbothside
-
+getbothside (bool=False)
    | sideband separation (True) or supression (False)
 
 .. _refchan:
 
-   .. rubric:: refchan
-
+refchan (double=0.0)
    | reference channel of spectral axis in image sideband
 
 .. _refval:
 
-   .. rubric:: refval
-
+refval (string='')
    | frequency at the reference channel of spectral axis in image sideband (e.g., "100GHz")
 
 .. _otherside:
 
-   .. rubric:: otherside
-
+otherside (bool=False)
    | solve the solution of the other side band side and subtract the solution
 
 .. _threshold:
 
-   .. rubric:: threshold
-
+threshold (double=0.2)
    | Rejection limit of solution. The value must be greater than 0.0 and less than 1.0.
 
 

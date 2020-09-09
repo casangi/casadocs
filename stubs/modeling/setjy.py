@@ -103,15 +103,9 @@ Parameters
 
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string='')
    | Name of input visibility file
    |                      Default: none
    | 
@@ -119,8 +113,7 @@ Details
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Select field using field id(s) or field name(s)
    |                      Default: '' (all fields, but run setjy one field
    |                      at a time)
@@ -140,8 +133,7 @@ Details
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | Select spectral window/channels
    |                      Default: '' (all spectral windows)
    | 
@@ -152,8 +144,7 @@ Details
 
 .. _selectdata:
 
-   .. rubric:: selectdata
-
+selectdata (bool=False)
    | Other parameters for selecting part(s) of the MS to
    | operate on.
    |                      Default: False
@@ -165,8 +156,7 @@ Details
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange ({string, stringArray}='')
    | Select data based on time range
    |                      Subparameter of selectdata=True
    |                      Default = '' (all)
@@ -186,8 +176,7 @@ Details
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan ({string, stringArray}='')
    | Scan number range
    |                      Subparameter of selectdata=True
    |                      Default: '' = all
@@ -203,8 +192,7 @@ Details
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | Select observing intent
    |                      Default: '' (all
    | 
@@ -221,8 +209,7 @@ Details
 
 .. _observation:
 
-   .. rubric:: observation
-
+observation ({string, int}='')
    | Select by observation ID(s)
    |                      Subparameter of selectdata=True
    |                      Default: '' = all
@@ -231,8 +218,7 @@ Details
 
 .. _scalebychan:
 
-   .. rubric:: scalebychan
-
+scalebychan (bool=True)
    | Scale the flux density on a per channel basis?
    |                      Default: True
    |                      Options: True|False
@@ -246,8 +232,7 @@ Details
 
 .. _standard:
 
-   .. rubric:: standard
-
+standard (string='Perley-Butler 2017')
    | Flux density standard, used if fluxdensity[0] less than 0.0
    |                      Default: 'Perley-Butler 2017'
    |                      Options: 'Baars', 'Perley 90', 'Perley-Taylor
@@ -278,8 +263,7 @@ Details
 
 .. _model:
 
-   .. rubric:: model
-
+model (string='')
    | Model image (I only) for setting the model visibilities.
    |                      Subparameter of standard="Perley-Butler 2010",
    |                      "Perley-Butler 2013", and "Perley-Butler 2017"
@@ -312,15 +296,13 @@ Details
 
 .. _modimage:
 
-   .. rubric:: modimage
-
+modimage (string='')
    | File location for field model
    |                      Deprecated
 
 .. _listmodels:
 
-   .. rubric:: listmodels
-
+listmodels (bool=False)
    | List the available models for VLA calibrators or Tb
    | models for Solar System objects
    |                      Subparameter of standard="Perley-Butler 2010",
@@ -345,8 +327,7 @@ Details
 
 .. _fluxdensity:
 
-   .. rubric:: fluxdensity
-
+fluxdensity ({int, intArray, doubleArray}=-1)
    | Specified flux density in Jy [I,Q,U,V]
    |                      Subparameter of standard="manual"
    |                      Default: -1 (uses [1,0,0,0] flux density for
@@ -377,8 +358,7 @@ Details
 
 .. _spix:
 
-   .. rubric:: spix
-
+spix ({double, doubleArray}=0.0)
    | Spectral index for I flux density
    |                      Subparameter of standard="manual"
    |                      Default: [] =>0.0 (no effect)
@@ -399,8 +379,7 @@ Details
 
 .. _reffreq:
 
-   .. rubric:: reffreq
-
+reffreq (string='1GHz')
    | Reference frequency for spix
    |                      Subparameter of standard="manual"
    |                      Default: '1GHz' (this is only here to prevent
@@ -426,8 +405,7 @@ Details
 
 .. _polindex:
 
-   .. rubric:: polindex
-
+polindex (doubleArray=[''])
    | Coefficients of the frequency-dependent linear
    | polarization index (polarization fraction) 
    |                      Subparameter of standard="manual"
@@ -447,8 +425,7 @@ Details
 
 .. _polangle:
 
-   .. rubric:: polangle
-
+polangle (doubleArray=[''])
    | Coefficients of the frequency-dependent linear
    | polarization angle (in radians)
    |                      Subparameter of standard="manual"
@@ -470,8 +447,7 @@ Details
 
 .. _rotmeas:
 
-   .. rubric:: rotmeas
-
+rotmeas (double=0.0)
    | Rotation measure (in rad/m^2)
    |                      Subparameter of standard="manual"
    |                      Default: 0.0
@@ -488,8 +464,7 @@ Details
 
 .. _fluxdict:
 
-   .. rubric:: fluxdict
-
+fluxdict (record='')
    | Output dictionary from fluxscale
    |                      Subparameter of standard="fluxscale"
    | 
@@ -505,8 +480,7 @@ Details
 
 .. _useephemdir:
 
-   .. rubric:: useephemdir
-
+useephemdir (bool=False)
    | Use directions in the ephemeris table for the solar
    | system object?
    |                      Subparameter of standard="Butler-JPL-Horizons
@@ -516,8 +490,7 @@ Details
 
 .. _interpolation:
 
-   .. rubric:: interpolation
-
+interpolation (string='nearest')
    | Method to be used to interpolate in time for the time
    | variable sources (3C48,3C138,3C147).
    |                      Subparameter of standard="Perley-Butler 2013",
@@ -530,8 +503,7 @@ Details
 
 .. _usescratch:
 
-   .. rubric:: usescratch
-
+usescratch (bool=False)
    | Will create if necessary and use the MODEL_DATA
    |                      Default: False
    |                      Options: False|True
@@ -569,8 +541,7 @@ Details
 
 .. _ismms:
 
-   .. rubric:: ismms
-
+ismms (bool=False)
    | to be used internally for MMS
 
 

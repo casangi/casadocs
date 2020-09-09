@@ -28,15 +28,9 @@ Description
    reduction.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _infile:
 
-   .. rubric:: infile
-
+infile (string)
    | Name of input ASAP Scantable data
    |                      Default: none
    | 
@@ -44,8 +38,7 @@ Details
 
 .. _outputvis:
 
-   .. rubric:: outputvis
-
+outputvis (string='')
    | Name of output visibility file
    |                      Default: '' (same as vis)
    | 
@@ -55,24 +48,21 @@ Details
 
 .. _flagbackup:
 
-   .. rubric:: flagbackup
-
+flagbackup (bool=True)
    | Back up flag column before applying flags.
    |                      Default: True
    |                      Options: True|False
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Over write an existing MS(s)
    |                      Default: False (do not overwrite)
    |                      Options: False|True
 
 .. _parallel:
 
-   .. rubric:: parallel
-
+parallel (bool=False)
    | Turn on parallel execution
    |                      Default: False (serial execution)
    |                      Options: False|True

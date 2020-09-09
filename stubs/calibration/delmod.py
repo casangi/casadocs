@@ -34,21 +34,14 @@ Description
    column to take effect.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file (MS)
 
 .. _otf:
 
-   .. rubric:: otf
-
+otf (bool=True)
    | Delete the on-the-fly model data keywords
    |                      Default=True
    | 
@@ -68,16 +61,14 @@ Details
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | Select field using field id(s) or field name(s)
    |                      Subparameter of otf
    |                      Default: '' (all fields' models will be deleted)
 
 .. _scr:
 
-   .. rubric:: scr
-
+scr (bool=False)
    | Delete the MODEL_DATA scr col (if it exists)
    |                      Default: False
    | 

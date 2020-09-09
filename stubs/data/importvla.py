@@ -24,15 +24,9 @@ Parameters
 
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _archivefiles:
 
-   .. rubric:: archivefiles
-
+archivefiles (stringArray)
    | Name of input VLA archive file(s)
    |                      Default: none.  Must be supplied
    | 
@@ -43,8 +37,7 @@ Details
 
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string='')
    | Name of output visibility file
    |                      Default: none.  Must be supplied
    | 
@@ -57,8 +50,7 @@ Details
 
 .. _bandname:
 
-   .. rubric:: bandname
-
+bandname (string='')
    | VLA frequency band name:
    |                      Default: '' (obtain all bands in the archive
    |                      file)
@@ -71,8 +63,7 @@ Details
 
 .. _frequencytol:
 
-   .. rubric:: frequencytol
-
+frequencytol (string='150000.0Hz')
    | Tolerance in frequency shift in making spectral windows
    |                      Default: = 150000.0Hz'
    | 
@@ -84,8 +75,7 @@ Details
 
 .. _project:
 
-   .. rubric:: project
-
+project (string='')
    | Project name to import from archive files
    |                      Default: '' (all projects in file)
    | 
@@ -97,8 +87,7 @@ Details
 
 .. _starttime:
 
-   .. rubric:: starttime
-
+starttime (string='')
    | Time after which data will be considered for importing
    |                      Default: '' (all)
    | 
@@ -107,8 +96,7 @@ Details
 
 .. _stoptime:
 
-   .. rubric:: stoptime
-
+stoptime (string='')
    | Time before which data will be considered for
    | importing
    |                      Default: '' (all)
@@ -118,8 +106,7 @@ Details
 
 .. _applytsys:
 
-   .. rubric:: applytsys
-
+applytsys (bool=True)
    | Apply data scaling and weight scaling by nominal
    | sensitivity (~Tsys)
    |                      Default: True (strongly recommended)
@@ -127,16 +114,14 @@ Details
 
 .. _autocorr:
 
-   .. rubric:: autocorr
-
+autocorr (bool=False)
    | Import autocorrelations to MS
    |                      Default: False (no autocorrelations)
    |                      Options: False|True
 
 .. _antnamescheme:
 
-   .. rubric:: antnamescheme
-
+antnamescheme (string='new')
    | 'old' or 'new' antenna names.
    |                      Default: 'new'
    |                      Options: new|old
@@ -147,8 +132,7 @@ Details
 
 .. _keepblanks:
 
-   .. rubric:: keepblanks
-
+keepblanks (bool=False)
    | Should sources with blank names be filled into the data
    | base?
    |                      Default: False (do not fill)
@@ -160,8 +144,7 @@ Details
 
 .. _evlabands:
 
-   .. rubric:: evlabands
-
+evlabands (bool=False)
    | Use the EVLA's center frequency and bandwidths for
    | frequencies specified via wavelength or band.
    |                      Default: False

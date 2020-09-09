@@ -9,6 +9,17 @@ Makes profile map.
 Parameters
    - imagename_ (string) - Input image name (CASA image or FITS)
    - figfile_ (string='') - Output figure name
+
+      .. raw:: html
+
+         <details><summary><i> figfile != '' </i></summary>
+
+      - overwrite_ (bool=False) - Overwrite existing figfile
+      - transparent_ (bool=False) - Output transparent figure
+
+      .. raw:: html
+
+         </details>
    - pol_ (int=0) - Polarization component to be plotted
    - spectralaxis_ (string='') - Type of spectral axis
 
@@ -129,129 +140,104 @@ Description
       'plot' (plot masked data with different color specified by maskedcolor)
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Input image name (CASA image or FITS)
 
 .. _figfile:
 
-   .. rubric:: figfile
-
+figfile (string='')
    | Output figure name
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | Overwrite existing figfile
 
 .. _transparent:
 
-   .. rubric:: transparent
-
+transparent (bool=False)
    | Output transparent figure
 
 .. _pol:
 
-   .. rubric:: pol
-
+pol (int=0)
    | Polarization component to be plotted
 
 .. _spectralaxis:
 
-   .. rubric:: spectralaxis
-
+spectralaxis (string='')
    | Type of spectral axis
 
 .. _restfreq:
 
-   .. rubric:: restfreq
-
+restfreq (string='')
    | Rest frequency
 
 .. _plotrange:
 
-   .. rubric:: plotrange
-
+plotrange (string='')
    | Spectral axis range to plot
 
 .. _title:
 
-   .. rubric:: title
-
+title (string='')
    | Title of the plot
 
 .. _linecolor:
 
-   .. rubric:: linecolor
-
+linecolor (string='b')
    | Line color
 
 .. _linestyle:
 
-   .. rubric:: linestyle
-
+linestyle (string='-')
    | Line style
 
 .. _linewidth:
 
-   .. rubric:: linewidth
-
+linewidth (double=0.2)
    | Line width in points
 
 .. _separatepanel:
 
-   .. rubric:: separatepanel
-
+separatepanel (bool=True)
    | Separate plots
 
 .. _plotmasked:
 
-   .. rubric:: plotmasked
-
+plotmasked (string='empty')
    | Masked data handling
 
 .. _maskedcolor:
 
-   .. rubric:: maskedcolor
-
+maskedcolor (string='gray')
    | Line color for masked data
 
 .. _showaxislabel:
 
-   .. rubric:: showaxislabel
-
+showaxislabel (bool=False)
    | Show axis labels on the bottom left panel
 
 .. _showtick:
 
-   .. rubric:: showtick
-
+showtick (bool=False)
    | Show axis ticks
 
 .. _showticklabel:
 
-   .. rubric:: showticklabel
-
+showticklabel (bool=False)
    | Show axis tick labels on the bottom left panel
 
 .. _figsize:
 
-   .. rubric:: figsize
-
+figsize (string='')
    | Size of the figure
 
 .. _numpanels:
 
-   .. rubric:: numpanels
-
+numpanels (string='')
    | Number of panels
 
 

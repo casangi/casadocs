@@ -12,15 +12,9 @@ Parameters
 
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _sdm:
 
-   .. rubric:: sdm
-
+sdm (string)
    | Name of input SDM directory
 
 

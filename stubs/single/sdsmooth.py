@@ -70,93 +70,74 @@ Description
    |
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _infile:
 
-   .. rubric:: infile
-
+infile (string)
    | name of input SD dataset
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='data')
    | name of data column to be used ["data", "float_data", or "corrected"]
 
 .. _antenna:
 
-   .. rubric:: antenna
-
+antenna (string='')
    | select data by antenna name or ID, e.g. "PM03"
 
 .. _field:
 
-   .. rubric:: field
-
+field (string='')
    | select data by field IDs and names, e.g. "3C2*" (""=all)
 
 .. _spw:
 
-   .. rubric:: spw
-
+spw (string='')
    | select data by spectral window IDs, e.g. "3,5,7" (""=all)
 
 .. _timerange:
 
-   .. rubric:: timerange
-
+timerange (string='')
    | select data by time range, e.g. "09:14:0~09:54:0" (""=all) (see examples in help)
 
 .. _scan:
 
-   .. rubric:: scan
-
+scan (string='')
    | select data by scan numbers, e.g. "21~23" (""=all)
 
 .. _pol:
 
-   .. rubric:: pol
-
+pol (string='')
    | select data by polarization IDs, e.g. "0,1" (""=all)
 
 .. _intent:
 
-   .. rubric:: intent
-
+intent (string='')
    | select data by observational intent, e.g. "*ON_SOURCE*" (""=all)
 
 .. _reindex:
 
-   .. rubric:: reindex
-
+reindex (bool=True)
    | Re-index indices in subtables based on data selection
 
 .. _kernel:
 
-   .. rubric:: kernel
-
+kernel (string='gaussian')
    | spectral smoothing kernel type
 
 .. _kwidth:
 
-   .. rubric:: kwidth
-
+kwidth (int=5)
    | smoothing kernel width in channel
 
 .. _outfile:
 
-   .. rubric:: outfile
-
+outfile (string='')
    | name of output file
 
 .. _overwrite:
 
-   .. rubric:: overwrite
-
+overwrite (bool=False)
    | overwrite the output file if already exists
 
 

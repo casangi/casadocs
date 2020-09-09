@@ -54,15 +54,9 @@ Description
 
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _vis:
 
-   .. rubric:: vis
-
+vis (string)
    | Name of input visibility file
    |                      Default: none
    | 
@@ -70,15 +64,13 @@ Details
 
 .. _asdm:
 
-   .. rubric:: asdm
-
+asdm (string='')
    | Name of output ASDM directory (on disk)
    |                      Default: none
 
 .. _datacolumn:
 
-   .. rubric:: datacolumn
-
+datacolumn (string='data')
    | Which data column(s) to use for processing
    |                      (case-insensitive).
    |                      Default: 'corrected'
@@ -94,29 +86,25 @@ Details
 
 .. _archiveid:
 
-   .. rubric:: archiveid
-
+archiveid (string='S0')
    | The X0 in uid://X0/X1/X2
    |                      Default: 'S0'
 
 .. _rangeid:
 
-   .. rubric:: rangeid
-
+rangeid (string='X1')
    | The X1 in uid://X0/X1/X2
    |                      Default: 'X1'
 
 .. _subscanduration:
 
-   .. rubric:: subscanduration
-
+subscanduration (string='24h')
    | Maximum duration of a subscan in the output ASDM
    |                      Default: 24h
 
 .. _sbduration:
 
-   .. rubric:: sbduration
-
+sbduration (string='2700s')
    | Maximum duration of a scheduling block (and therefore
    | exec block) in the output ASDM
    |                      Default: '2700s'
@@ -130,32 +118,28 @@ Details
 
 .. _apcorrected:
 
-   .. rubric:: apcorrected
-
+apcorrected (bool=False)
    | Data to be marked as having atmospheric phase correction
    |                      Default: False
    |                      Options: False|True
 
 .. _verbose:
 
-   .. rubric:: verbose
-
+verbose (bool=True)
    | Produce log output?
    |                      Default: True
    |                      Options: True|False
 
 .. _showversion:
 
-   .. rubric:: showversion
-
+showversion (bool=True)
    | Report the version of ASDM class set being used
    |                      Default: True
    |                      Options: True|False
 
 .. _useversion:
 
-   .. rubric:: useversion
-
+useversion (string='v3')
    | Selects the version of MS2asdm to be used
    |                      Default: 'v3'
 

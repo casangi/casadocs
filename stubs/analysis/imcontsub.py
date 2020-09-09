@@ -64,15 +64,9 @@ Description
    continuum.
 
 
-
-
-Details
-   Explanation of each parameter
-
 .. _imagename:
 
-   .. rubric:: imagename
-
+imagename (string)
    | Input image cube.
    |                      Default: none
    | 
@@ -80,8 +74,7 @@ Details
 
 .. _linefile:
 
-   .. rubric:: linefile
-
+linefile (string='')
    | Name of continuum-subtracted output spectral line cube
    |                      Default: none
    | 
@@ -89,8 +82,7 @@ Details
 
 .. _contfile:
 
-   .. rubric:: contfile
-
+contfile (string='')
    | Name of output continuum cube
    |                      Default: none
    | 
@@ -98,8 +90,7 @@ Details
 
 .. _fitorder:
 
-   .. rubric:: fitorder
-
+fitorder (int=0)
    | Polynomial order for the continuum estimation
    |                      Default: 0
    | 
@@ -107,29 +98,25 @@ Details
 
 .. _region:
 
-   .. rubric:: region
-
+region (string='')
    | Region selection. 
    |                      Default: '' (use the full image)
 
 .. _box:
 
-   .. rubric:: box
-
+box ({string, intArray, stringArray}='')
    | Rectangular region to select in direction plane.
    |                      Default: '' (use the entire direction plane)
 
 .. _chans:
 
-   .. rubric:: chans
-
+chans (string='')
    | Channels to use. 
    |                      Default: '' (use all channels)
 
 .. _stokes:
 
-   .. rubric:: stokes
-
+stokes (string='')
    | Stokes planes to use.
    |                      Default: '' (use all Stokes planes)
 
