@@ -18,47 +18,8 @@ Description
    found in the Chapter pages on `"Browsing through MeasurementSets
    and Calibration
    Tables" <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/browse-a-table>`__.
-
-   
-
-   .. rubric:: Parameters
-      
-
-   .. rubric:: *tablename*
-      
-
-   Name of table file on disk. For example *filename.ms*,
-   *caltable.tbl*, *imagefile.image*, etc.
-
-   .. rubric:: *mightedit*
-      
-
-   If the default False is changed to True, this disables the
-   filtering options and allows editing the table.
-
-   .. warning:: **WARNING**: The GUI appears to ignore whether the table tool
-      is opened read-only - just be aware that you should not edit
-      filtered tables unless you know what you are doing!
-
-   .. rubric:: *sortlist*
-      
-
-   List of columns to sort by.
-
-   .. rubric:: *taql*
-      
-
-   TaQL query string for prefiltering the table (see "Examples" tab
-   at the top-right)
-
-   .. rubric:: *skipcols*
-      
-
-   Columns to NOT display. For example: *skipcols='feed1, feed2'* 
-
-   |  
-   |  
-   | |image1|
+  
+   |image1|
 
    ======= =====================================
    Type    Figure 1
@@ -66,5 +27,5 @@ Description
    Caption CASA table browser with an MS loaded.
    ======= =====================================
 
-.. |image1| image:: docs/tasks/_apimedia/e7b82ce6a699178fe6f43360bef6c38bb9c431bb.png
+.. |image1| image:: ../media/e7b82ce6a699178fe6f43360bef6c38bb9c431bb.png
 :class: image-inline
