@@ -87,37 +87,6 @@ Description
    At this time, it is not possible to apply selection to the
    caltable.
 
-   
-
-   .. rubric:: Parameters
-      
-
-   .. rubric:: *caltable*
-      
-
-   Specify the name of the calibration table as a string in
-   *caltable*.
-
-   .. rubric:: *axis*
-      
-
-   Specify the axis upon which to calculate statistics in *axis*. The
-   possible values are 'amp' (or 'amplitude'), 'phase', 'real',
-   'imag' (or 'imaginary'). Also, the name of any real valued
-   CalTable column can be given, e.g. TIME, POLY_COEFF_AMP, REF_ANT,
-   ANTENNA1, FLAG, etc.
-
-   .. rubric:: *datacolumn*
-      
-
-   For *axis='amp'*, *'amplitude'*, *'phase'*, *'real'*, *'imag'*, or
-   *'imaginary'* specify the name of the column from which to extract
-   the axis values and calculate statistics. E.g., for a 'G' table
-   from **gaincal**, use *datacolumn='CPARAM'*.
-
-   .. rubric:: *useflags*
-      
-
    .. warning:: NB: The *useflags* parameter is not yet implemented.
 
 

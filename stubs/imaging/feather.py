@@ -59,11 +59,7 @@ Description
    (left). The higher sdfactor (1.3) recovers more of the faint
    extended emission, as it is boosting the TP signal.|
 
-   | *The results of feathering ALMA 12+7m and Total Power data for
-     M100 using three different sdfactors: 0.5 (right) 0.7 (middle)
-     1.3 (left). The higher sdfactor (1.3) recovers more of the faint
-     extended emission, as it is boosting the TP signal.*
-   | 
+   |c54b9bc64427577246358518c70157487bed008a| 
 
    .. note:: **NOTE**: The **tclean** task allows another method of
       combining single-dish and interferometric data. The single-dish
@@ -120,7 +116,7 @@ Description
    Any data outside the maximum uv distance that the SD has
    illuminated is filtered out.
 
-.. |The results of feathering ALMA 12+7m and Total Power data for M100 using three different sdfactors: 0.5 (right) 0.7 (middle) 1.3 (left). The higher sdfactor (1.3) recovers more of the faint extended emission, as it is boosting the TP signal.| image:: docs/tasks/_apimedia/c54b9bc64427577246358518c70157487bed008a.png
+.. |c54b9bc64427577246358518c70157487bed008a| image:: ../media/c54b9bc64427577246358518c70157487bed008a.png
 :class: image-inline
 
 
