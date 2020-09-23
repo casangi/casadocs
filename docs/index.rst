@@ -80,6 +80,7 @@ Common Astronomy Software Applications
    :maxdepth: 3
 
    notebooks/introduction
+   api
    notebooks/usingcasa
    notebooks/casa-fundamentals
    notebooks/external-data
@@ -87,8 +88,6 @@ Common Astronomy Software Applications
    notebooks/imaging
    notebooks/pipeline
    notebooks/simulation
-   task_api
-   tool_api
    notebooks/parallel-processing
    notebooks/memo-series
    notebooks/casa-development-team

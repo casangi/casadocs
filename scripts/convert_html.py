@@ -22,7 +22,7 @@ os.system('mkdir markdown')
 os.system('mkdir docs/tasks')
 
 # each page in casadocs should have already been downloaded by the scrapy spider to an html file
-# the local html directory structure should match the casadocs website structure
+# the local html directory structure should  match the casadocs website structure
 # we will execute pandoc on each of these files to convert their format
 for ii, url in enumerate(urls):
     fpath = ['html'] + url.split("/")[4:]
@@ -49,38 +49,57 @@ for ii, url in enumerate(urls):
         # rst is used for task / tool descriptions that are later turned in to docstrings
         # the top level markdown/index file is from html/stable and forms the index.rst later on
         if ('global-task-list' in fpath) or ('global-tool-list' in fpath) or (dest == 'markdown/index'):
-            
-            os.system('pandoc %s -f html -t rst -o %s --extract-media=%s' % (source, dest+'.rst', 'docs/tasks/_apimedia'))
-            with open(dest+'.rst', 'r') as fid:
-                rst = fid.read()
-                
-            # remove preamble and create heading
-            # clean up the conversion mess
-            if '..rubric' in rst:
-                rst = re.sub('.*?\.\. rubric::.*?:name:.*?\n+', 'Description\n', rst, 1, flags=re.DOTALL)
-            else:
-                rst = re.sub('.*?parent-fieldname-text\n*', 'Description\n', rst, 1, flags=re.DOTALL)
-            
-            rst = re.sub('\n   ', '\n', rst, flags=re.DOTALL)  # de-indent
-            
-            # rubrics don't need names and classes
-            rst = re.sub('(\s*\.\. rubric::.*?)(:name: \S*)?\s*(:class: \S*)?\n\s*?\n', r'\1\n\n', rst, flags=re.DOTALL)
-            rst = re.sub('(\s*)\.\. rubric::\s*\n\n', r'\1\n\n', rst, flags=re.DOTALL)  # remove empty rubrics
+            # merge some of the individual task pages
+            fullrst = ''
+            for head, suffix in [('Description',''), ('Examples', '/examples'), ('Development','/developer')]:
+                tsrc = source.replace('.html', suffix+'.html')
+                if not os.path.exists(tsrc): continue
+                os.system('pandoc %s -f html -t rst -o %s --extract-media=%s' % (tsrc, dest+'.rst', 'docs/tasks/_apimedia'))
+                with open(dest+'.rst', 'r') as fid:
+                    rst = fid.read()
 
-            rst = re.sub('(\s*)\.\. container:: casa-\S*-box', r'\1::', rst, flags=re.DOTALL)  # change code boxes
-            rst = re.sub('(\s*)\.\. container:: terminal-box', r'\1::', rst, flags=re.DOTALL)  # change terminal boxes
-            rst = re.sub('(\s*)\.\. container:: alert-box\s*', r'\1.. warning:: ', rst, flags=re.DOTALL)  # change alert boxes
-            rst = re.sub('(\s*)\.\. container:: \S*-box\s*', r'\1.. note:: ', rst, flags=re.DOTALL)  # change info boxes
+                # convert to sphinx boxes
+                rst = re.sub('(\s*)\.\. container:: casa-\S*-box', r'\1::', rst, flags=re.DOTALL)  # change code boxes
+                rst = re.sub('(\s*)\.\. container:: terminal-box', r'\1::', rst, flags=re.DOTALL)  # change terminal boxes
+                rst = re.sub('(\s*)\.\. container:: alert-box\s*', r'\1.. warning:: ', rst, flags=re.DOTALL)  # change alert boxes
+                rst = re.sub('(\s*)\.\. container:: \S*-box\s*', r'\1.. note:: ', rst, flags=re.DOTALL)  # change info boxes
+
+                # remove containers and de-indent text below
+                for ii in range(10):
+                    for blob in re.finditer('(?<=\n).. container::.*?\n\n   (.*?\n\n)(?=\S)', rst, flags=re.DOTALL):
+                        rst = rst.replace(blob.group(0), blob.group(1).replace('\n   ','\n'))
+                
+                # remove remaining container sections
+                rst = re.sub('\s*\.\. container::(\s*\S*)*?\n(\s*:name: \S*\n)?', '\n', rst, flags=re.DOTALL)
             
-            rst = re.sub('\s*\.\. container::(\s*\S*)*?\n(\s*:name: \S*\n)?', '\n', rst, flags=re.DOTALL)  # remove container sections
-            rst = rst.replace(' ', '').replace('\\ ', ' ').replace('↩ ', '')  # weird ascii things
-            rst = re.sub('(:math:\s*`[^\n]+) `', r'\1`', rst, flags=re.DOTALL)  # fix math equations with trailing space before `
-            rst = re.sub('\s*[\+\-]+\n\s*\| Citation.*?\n\n', '\n\n', rst, flags=re.DOTALL)  # remove citation tables
-            rst = re.sub('\n\s+Bibliography\s*\n', '\n\n\n   Bibliography\n', rst, flags=re.DOTALL)  # fix bibliography indent
-            
+                # rubrics don't need names and classes
+                rst = re.sub('(\s*\.\. rubric::.*?)(:name: \S*)?\s*(:class: \S*)?\n\s*?\n', r'\1\n\n', rst, flags=re.DOTALL)
+                rst = re.sub('(\s*)\.\. rubric::\s*\n\n', r'\1\n\n', rst, flags=re.DOTALL)  # remove empty rubrics
+                
+                rst = rst.replace(' ', ' ').replace('\\ ', ' ').replace('↩ ', '')  # weird ascii things
+                rst = re.sub('(:math:\s*`[^\n]+) `', r'\1`', rst, flags=re.DOTALL)  # fix math equations with trailing space before `
+                rst = re.sub('\s*[\+\-]+\n\s*\| Citation.*?\n\n', '\n\n', rst, flags=re.DOTALL)  # remove citation tables
+                rst = re.sub('\n\s+Bibliography\s*\n', '\n\n\n   Bibliography\n', rst, flags=re.DOTALL)  # fix bibliography indent
+                
+                # fix image links and get rid of image attributes, they don't work with Sphinx
+                rst = re.sub('(\.\. \|.*?\| image:: )docs/tasks/_apimedia/(\S*)\s*?\n', r'\1_apimedia/\2\n', rst, flags=re.DOTALL)
+                rst = re.sub('\n\s*:class:.*?\n', r'\n', rst, flags=re.DOTALL)
+                rst = re.sub('\n\s*:width:.*?\n', r'\n', rst, flags=re.DOTALL)
+                rst = re.sub('\n\s*:height:.*?\n', r'\n', rst, flags=re.DOTALL)
+
+                # create heading
+                header = '\n\n.. _%s:\n\n%s\n   ' % (head, head)
+                if re.search('(\n\S+\n=+\n+)(.*)', rst, flags=re.DOTALL):
+                    rst = header + re.search('(\n\S+\n=+\n+)(.*)', rst, flags=re.DOTALL).group(2).replace('\n','\n   ')
+                else:
+                    rst = header + rst.strip().replace('\n','\n   ')
+                
+                # tack on the end
+                fullrst = fullrst + rst
+
             with open(dest + '.rst', 'w') as fid:
-                fid.write(rst)
-        
+                fid.write(fullrst)
+            
         # otherwise use ipynb format for easier content editing later on
         else:
             os.system('pandoc %s -f html -t markdown-grid_tables -o %s --wrap=none --atx-headers --extract-media=%s' % (source, dest+'.md', 'markdown/_media')) #'/'.join(spath[:-1])))

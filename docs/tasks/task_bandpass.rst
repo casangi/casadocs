@@ -1,7 +1,13 @@
+
+
+.. _Description:
+
 Description
+   calculates a bandpass calibration solution
+   
    .. rubric:: Summary
       
-
+   
    Determines the amplitude and phase as a function of frequency for
    each spectral window containing more than one channel. Strong
    sources (or many observations of moderately strong sources) are
@@ -10,12 +16,12 @@ Description
    polynomial fit over the channels 'BPOLY'. The 'B' solutions can be
    determined at any specified time interval, and is recommended in
    most applications.
-
    
-
+    
+   
    .. rubric:: Introduction
       
-
+   
    For channelized data, it is usually desirable to solve for the
    gain variations in frequency as well as in time. Variation in
    frequency arises as a result of non-uniform filter passbands or
@@ -24,7 +30,7 @@ Description
    timescales much longer than the time-dependent effects handled by
    **gaincal**. Thus, it makes sense to solve for them as a separate
    term, using the **bandpass** task.
-
+   
    It is usually best to solve for the bandpass in channelized data
    before solving for the gain as a function of time. However, if the
    gains during the bandpass calibrator observations are fluctuating
@@ -32,10 +38,10 @@ Description
    to first solve for those time-dependent gains of that source with
    **gaincal**, and input these to **bandpass** via *gaintable*. See
    the examples section for more on how to do this.
-
+   
    .. rubric:: Common calibration solve parameters
       
-
+   
    See `"Solving for
    Calibration" <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration/solving-for-calibration>`__
    for more information on the task parameters **bandpass** shares
@@ -43,7 +49,7 @@ Description
    properties and arrange prior calibration. Below we describe
    parameters unique to **bandpass**, and those common parameters
    with unique properties.
-
+   
    .. warning:: **WARNING:** the channelization of the bandpass solution spws
       is set by the nominal channelization of the input data, not the
       selected portion. Edge-channels should be flagged if they are
@@ -52,30 +58,30 @@ Description
       flagged, then solutions for those channels will be
       extrapolated. **
       **
-
    
-
+    
+   
    .. rubric:: Bandpass types: *bandtype*
       
-
+   
    The *bandtype* parameter selects the type of solution used for the
    **bandpass**. The choices are 'B' and 'BPOLY'.
-
+   
    .. rubric:: *bandtype='B'*
       
-
+   
    Use of *bandtype='B'* in **bandpass** differs from *gaintype='G'*
    in **gaincal** only in that it is determined for each channel in
    each spectral window. It is possible to solve for it as a function
    of time, but it is most efficient to keep the B solving timescale
    as long as possible, and use **gaincal** for frequency-independent
    rapid time-scale variations.
-
+   
    Do not use *combine='spw'* with *bandtype='B'*, as this will
    generate a solution for all spws overlaid in *channel*
    coordinates, and for which it is not yet possible to apply to all
    spws in *frequency* coordinates.
-
+   
    The B solutions are limited by the signal-to-noise ratio available
    per channel, which may be limited. It is therefore important that
    the data be optimally coherent over the time-range of the B
@@ -90,10 +96,10 @@ Description
    obscure actual systematic bandpass structure. If adequate SNR is
    unachievable by these means with the available data, use of
    *bandtype='BPOLY'* can be considered.
-
+   
    .. rubric:: *bandtype='BPOLY'*
       
-
+   
    For some observations, it may be the case that the SNR per channel
    is insufficient to obtain a usable per-channel B solution. In this
    case it is desirable to solve instead for a best-fit functional
@@ -109,25 +115,25 @@ Description
    continuous bandpass response over their combined frequency
    range. *
    *
-
+   
    The BPOLY solver requires a number of unique sub-parameters
    (default values are given below):
-
+   
    ::
-
-      | bandtype = 'BPOLY' # Type of bandpass solution
+   
+      | bandtype        =    'BPOLY'   #   Type of bandpass solution
         (B or BPOLY)
-      |  degamp = 3 # Polynomial degree for
+      |      degamp     =          3   #   Polynomial degree for
         BPOLY amplitude solution
-      |  degphase = 3 # Polynomial degree for
+      |      degphase   =          3   #   Polynomial degree for
         BPOLY phase solution
-      |  visnorm = False # Normalize data prior to
+      |      visnorm    =      False   #   Normalize data prior to
         BPOLY solution
-      |  maskcenter = 0 # Number of channels in
+      |      maskcenter =          0   #   Number of channels in
         BPOLY to avoid in center of band
-      |  maskedge = 0 # Percent of channels in
+      |      maskedge   =          0   #   Percent of channels in
         BPOLY to avoid at each band edge
-
+   
    | The *degamp* and *degphase* parameters indicate the polynomial
      degree desired for the amplitude and phase solutions. The
      *maskcenter* parameter is used to indicate the number of
@@ -152,15 +158,15 @@ Description
      take out the amplitude normalization change. Note also in the
      case of multiple fields, that the BPOLY solution will be labeled
      with the field ID of the first field used in the BPOLY solution.
-
    
-
+    
+   
    .. rubric:: Bandpass calibration considerations
       
-
+   
    .. rubric:: Bandpass normalization (*solnorm*)
       
-
+   
    The *solnorm* parameter requires more explanation in the context
    of the bandpass. Most users are used to seeing a normalized
    bandpass, where the mean amplitude is unity and fiducial phase is
@@ -170,11 +176,11 @@ Description
    if the bandpass calibration is the end of your calibration
    sequence (e.g. you have already done all the gain calibration you
    want to).
-
+   
    .. note:: **NOTE**: Setting *solnorm=True* will NOT rescale any previous
       calibration tables that the user may have supplied in
       gaintable.
-
+   
    You can safely use *solnorm=True* if you do the **bandpass** first
    (perhaps using a throw-away initial **gaincal** calibration) as we
    suggest above, as later **gaincal** calibration stages will deal
@@ -187,17 +193,17 @@ Description
    variation of bandpass among antennas could otherwise enter the
    gain solution and make (probably subtle) adjustments to the flux
    scale.
-
+   
    We finally note that *solnorm=False* at the bandpass step in the
    calibration chain will still in the end produce the correct
    results. It only means that there will be a part of what we
    usually think of the gain calibration inside the bandpass
    solution, particularly if **bandpass** is run as the first step.
-
+   
    .. rubric:: What if the bandpass calibrator has a significant
       spectral variation?
       
-
+   
    The bandpass calibrator may have a spectral slope that will change
    the spectral properties of the solutions if a flat-spectrum model
    is used. If the slope is significant, the best remedy is to
@@ -214,32 +220,43 @@ Description
    overall spectral slope for the bandpass calibrator. Finally, rerun
    **bandpass** and all other calibration steps again, making use of
    the newly created internal bandpass model.
-
+   
    .. rubric:: Combining spectral windows for bandpass calibration
+      
+   
+   It may sometimes be desirable to combine spectral windows in
+   **bandpass** solving, using *combine='spw'*.   This is useful,
+   e.g., for calibrating the bandpass for HI observations (e.g.,
+   at the VLA) when even the bandpass calibrator has its own HI
+   lines or is absorbed by galactic HI.
+   
+   When using *combine='spw'* in **bandpass**, all selected spws
+   (which must all have the same number of selected channels, have
+   the same net sideband, and should probably all have the same
+   net bandwidth, etc.) will effectively be averaged together to
+   derive a single **bandpass** solution.  The channel frequencies
+   assigned to the solution will be a channel-by-channel average
+   over spws of the input channel frequencies (these may or may
+   not coincide with the frequencies of the intended spectral
+   window to which this solution is to be appied, depending on the
+   symmetry of the observing setup).  The solution will be
+   assigned the lowest spectral window id from the input spectral
+   windows.   This solution can be applied to any other spectral
+   window by using *spwmap* and adding *'rel'* to the frequency
+   interpolation string for the **bandpass** table in the *interp*
+   parameter.  See the section on "Prior calibration" at `Solve
+   for
+   Calibration <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration/solving-for-calibration>`__
+   for more information about the mechanics of applying bandpass
+   solutions of this sort.
+   
 
-      It may sometimes be desirable to combine spectral windows in
-      **bandpass** solving, using *combine='spw'*. This is useful,
-      e.g., for calibrating the bandpass for HI observations (e.g.,
-      at the VLA) when even the bandpass calibrator has its own HI
-      lines or is absorbed by galactic HI.
+.. _Examples:
 
-      When using *combine='spw'* in **bandpass**, all selected spws
-      (which must all have the same number of selected channels, have
-      the same net sideband, and should probably all have the same
-      net bandwidth, etc.) will effectively be averaged together to
-      derive a single **bandpass** solution. The channel frequencies
-      assigned to the solution will be a channel-by-channel average
-      over spws of the input channel frequencies (these may or may
-      not coincide with the frequencies of the intended spectral
-      window to which this solution is to be appied, depending on the
-      symmetry of the observing setup). The solution will be
-      assigned the lowest spectral window id from the input spectral
-      windows.  This solution can be applied to any other spectral
-      window by using *spwmap* and adding *'rel'* to the frequency
-      interpolation string for the **bandpass** table in the *interp*
-      parameter. See the section on "Prior calibration" at `Solve
-      for
-      Calibration <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration/solving-for-calibration>`__
-      for more information about the mechanics of applying bandpass
-      solutions of this sort.
+Examples
+   
 
+.. _Development:
+
+Development
+   

@@ -1,13 +1,19 @@
+
+
+.. _Description:
+
 Description
+   task description
+   
    .. rubric:: Summary:
       
-
+   
    The time-dependent phases for a specified caltable are
    re-referenced to a new antenna by the specified algorithm.
-
+   
    .. rubric:: Introduction
       
-
+   
    Fundamentally, the baseline visibility phases measured by a
    synthesis instrument are exclusively differences (between
    antennas), and so no absolute phase reference exists.
@@ -25,7 +31,7 @@ Description
    visibility baselines—will be assured. Usually, the phase reference
    antenna is applied on the back-end of the calibration solving
    task, e.g., **gaincal** or **bandpass**.
-
+   
    However, it is sometimes the case that the referencing must be
    reapplied with a different reference antenna choice, or with a
    different algorithm, e.g., due to dropouts (from visibility
@@ -33,33 +39,33 @@ Description
    antenna. The **rerefant** task provides a convenient mechanism to
    achieve this without having to re-run the calibration solving task
    with only a new *refant* setting.
-
+   
    .. rubric:: Input/Output parameters
       
-
+   
    An input MS, input caltable, and output caltable are specified in
    *vis*, *tablein*, and *caltable*, respectively.
-
+   
    .. rubric:: Reference antenna choice: *refant*
       
-
+   
    Reference antennas are specified using the *refant* parameter. A
    list of antennas may be specified in decreasing order of
    preference. (See below for the conditions under which alternate
    reference antennas are used.) *
    *
-
    
-
+    
+   
    .. rubric:: Phase referencing mode: *refantmode*
       
-
+   
    The *refantmode* parameter controls how the refant is applied.
    Currently available choices are 'flex' and 'strict'.
-
+   
    .. rubric:: *refantmode='flex'*
       
-
+   
    If the preferred or current *refant* drops out, switch to another.
    Alternate reference antennas will be chosen from the *refant*
    parameter (if a nontrivial list of antennas is specified), or
@@ -76,10 +82,10 @@ Description
    on the cross-hand phase difference will change. When doing
    polarimetry (which depends on stable cross-hand phase), it may be
    preferable to use *refantmode='strict'* (see below).
-
+   
    .. rubric:: *refantmode='strict'*
       
-
+   
    If the preferred or current refant is absent for a solution, flag
    all antennas at that solution. This mode ensures that the
    effective cross-hand phase will be maintained constant and equal
@@ -89,3 +95,43 @@ Description
    that *refantmode='strict'* is not reversible, since the reason for
    flagging solutions is not preserved. Also note that a poor refant
    choice could lead to excessive data flagging when using this mode.
+   
+
+.. _Examples:
+
+Examples
+   task examples
+   
+   To apply a prioritized list of reference antennas using
+   *refantmode='flex'*:
+   
+   ::
+   
+      | rerefant(vis='n5921.ms',
+      |          tablein='n5921.gcal',
+      |          caltable='n5921_ea03ish.gcal',  # Output caltable
+      |          refant='ea03,ea05,ea23,ea01',   # prioritized list
+        of reference antennas
+      |          refantmode='flex')              # flexible use of
+        alternates
+   
+   To strictly apply a preferred reference antenna:
+   
+   ::
+   
+      | rerefant(vis='n5921.ms',
+      |          tablein='n5921.gcal',
+      |          caltable='n5921_ea03.gcal',     # Output caltable
+      |          refant='ea03',                  # the strictly
+        preferred reference antenna
+      |          refantmode='strict')            # strict!
+   
+
+.. _Development:
+
+Development
+   task developer
+   
+   --CASA Developer--
+   
+   

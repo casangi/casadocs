@@ -213,11 +213,9 @@ epub_title = project
 epub_exclude_files = ['search.html']
 
 #######################################################################
-## Pull in CNGI files
+## Regenerate Task XML
 #######################################################################
-#os.system("mkdir cngi")
-#os.system("wget -O cngi/visibilities.ipynb https://raw.githubusercontent.com/casangi/cngi_prototype/master/docs/visibilities.ipynb")
-#os.system("wget -O cngi/images.ipynb https://raw.githubusercontent.com/casangi/cngi_prototype/master/docs/images.ipynb")
+os.system("python ../scripts/parse_xml.py")
 
 def setup(app):
     app.add_css_file('customization.css')

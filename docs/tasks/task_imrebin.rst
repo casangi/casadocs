@@ -1,11 +1,17 @@
+
+
+.. _Description:
+
 Description
+   imrebin task: Rebin an image by the specified integer factors
+   
    This application rebins the specified image by the specified
    integer binning factors for each axis. It supports both float
    valued and complex valued images. The corresponding output pixel
    value is the average of the input pixel values. The output pixel
    will be masked False if there were no good input pixels. A
    polarization axis cannot be rebinned.
-
+   
    | The binning factors array must contain at least one element and
      no more elements than the number of input image axes. If the
      number of elements specified is less than the number of image
@@ -18,7 +24,7 @@ Description
      the frequency axis. If you wish to rebin the frequency axis, it
      is recommended that you inspect your image with **imhead** or
      **ia.summary** to determine the axis ordering.
-
+   
    Binning starts from the origin pixel of the bounding box of the
    selected region or the origin pixel of the input image if no
    region is specified. The value of crop is used to determine how to
@@ -28,10 +34,36 @@ Description
    are averaged into the final bin along that axis. Should the length
    of the axis to be rebinned be an integral multiple of the
    associated binning factor, the value of crop is irrelevant.
-
+   
    A value of *dropdeg=True* will result in the output image not
    containing axes that are degenerate in the specified region or in
    the input image if no region is specified. Note that, however, the
    binning factors array must still account for degenerate axes, and
    the binning factor associated with a degenerate axis must always
    be 1.
+   
+
+.. _Examples:
+
+Examples
+   task examples
+   
+   ::
+   
+      | # rebin the first two axes (normally the direction axes)
+      | imrebin(imagename="my.im", outfile="rebinned.im",
+        factor=[2,3])
+      | # rebin the frequency axis, which is the fourth axis in this
+        image
+      | imrebin(imagename="my2.im", outfile="rebinned2.im",
+        factor=[1,1,1,4])
+   
+
+.. _Development:
+
+Development
+   task developer
+   
+   --CASA Developer--
+   
+   

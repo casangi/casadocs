@@ -1,11 +1,18 @@
+
+
+.. _Description:
+
 Description
+   listobs task: List the summary of a data set in the logger or in a
+   file
+   
    This application reports various metadata related to an MS. The
    listing is sent to the logger or can be saved to a file. Standard
    MS selection parameters can be used to limit the listing (see
    `Visibility Data
    Selections <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__
    for details).
-
+   
    The report begins with information such as the observer, the
    project ID, the number of records, the length of the observation,
    and minimum and maxiumum timestamp of the records included.
@@ -19,20 +26,20 @@ Description
    diameter, latitude and longitude, position relative to the array
    center, and the ITRF geocentric coordinates for each antenna will
    be listed.
-
+   
    Should the MS have multiple array IDs and/or multiple observation
    IDs, the report will list all of these tables for each array
    ID/observation ID pair.
-
+   
    Note: The 'Average Interval (s)' column in the scan table is the
    average of the MS's *INTERVAL* column for each scan.
-
    
-
+    
+   
    .. rubric:: Description of algorithm to calculate the number of
       unflagged rows
       
-
+   
    The number of unflagged rows is only computed and reported in the
    scan and field table if *listunfl=True*. Computing these
    quantities can have a negative performance impact, especially for
@@ -46,3 +53,115 @@ Description
    0.625 rows to the unflagged row count. A row with a value of False
    in the *FLAG_ROW* column is not counted in the number of unflagged
    rows.
+   
+   Parameter Summary
+   
+   vis
+   
+   The measurement set to interrogate.
+   
+   selectdata
+   
+   Select a subset of data?
+   
+   field
+   
+   Field selection. Used only if selectdata = True.
+   
+   spw
+   
+   Spectral window selection. Used only if selectdata = True.
+   
+   antenna
+   
+   Antenna selection. Used only if selectdata = True.
+   
+   timerange
+   
+   Timerange selection. Used only if selectdata = True.
+   
+   correlation
+   
+   Correlation selection. Used only if selectdata = True.
+   
+   scan
+   
+   Scan selection. Used only if selectdata = True.
+   
+   intent
+   
+   Intent selection. Used only if selectdata = True.
+   
+   feed
+   
+   Feed selection. Used only if selectdata = True.
+   
+   array
+   
+   Array selection. Used only if selectdata = True.
+   
+   uvrange
+   
+   The uvrange selection. Used only if selectdata = True.
+   
+   observation
+   
+   Observation selection. Used only if selectdata = True.
+   
+   verbose
+   
+   Verbosity level. True prints more than false.
+   
+   listfile
+   
+   File name to which to save report. No file is produced if set to
+   the empty string.
+   
+   overwrite
+   
+   Overwrite the specified file if it exists? Only used if listfile
+   is not the empty string.
+   
+   listunfl
+   
+   Include number of unflagged rows in the field table?
+   
+   cachesize
+   
+   Experimental parameter allowing user to control the temporary
+   cache size in which data are stored so they do not have to be
+   recomputed. 50 MB (the default) appears to be a reasonable value
+   for most cases.
+   
+
+.. _Examples:
+
+Examples
+   task examples
+   
+   ::
+   
+      | # generate standard listobs listing
+      | listobs(vis="my.ms")
+   
+   ::
+   
+      | # generate listobs listing with more detail
+      | listobs(vis="my.ms", verbose=True)
+   
+   ::
+   
+      | # save the listobs output into a text file
+      | listobs(vis="my.ms", verbose=True, listfile="my.listobs.out")
+   
+   |
+   
+
+.. _Development:
+
+Development
+   task developer
+   
+   --CASA Developer--
+   
+   

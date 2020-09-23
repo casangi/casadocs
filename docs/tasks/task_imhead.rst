@@ -1,14 +1,20 @@
+
+
+.. _Description:
+
 Description
+   imhead task: List, get and put image header parameters.
+   
    This task allows the user to manipulate metadata associated with a
    CASA image. Both float and complex valued images are fully
    supported.
-
+   
    .. note:: NOTE: For measurement sets, the task vishead should be used.
-
-   The supported mode values are:
-
+   
+    The supported mode values are:
+   
    +---------+-----------------------------------------------------------+
-   | Values  | **Description**                                          |
+   | Values  |  **Description**                                          |
    +---------+-----------------------------------------------------------+
    | add     | Add a new metadata value to the image.                    |
    +---------+-----------------------------------------------------------+
@@ -31,27 +37,27 @@ Description
    |         | various metadata values. Ignores the *hdkey* and          |
    |         | *hdvalue* parameters.                                     |
    +---------+-----------------------------------------------------------+
-
+   
    See below for details about how these modes act for specific
    keywords.
-
+   
    .. warning:: ALERT: Only limited checking is implemented to ensure modifying
       a specific value will leave the image metadata in a consistent
       state, so, if one is not careful, one could end up with an
       image that has an inconsistent set of metadata and is
       therefore, nonsensical and useless.
-
+   
       That is, PROCEED AT YOUR OWN RISK when using modes add, del, or
       put.
-
    
-
+   
+   
    .. rubric:: Notes for *mode='list'*
       
-
+   
    Supported keywords that can be listed with parameter 'hdkey' when
    using mode='list':
-
+   
    +-------------------+-------------------------------------------------+
    | **Values**        | Description                                     |
    +===================+=================================================+
@@ -115,11 +121,11 @@ Description
    +-------------------+-------------------------------------------------+
    | telescope         | Telescope name.                                 |
    +-------------------+-------------------------------------------------+
-
+   
    .. rubric:: 
       Notes for *mode='add'*
       
-
+   
    The behavior of *mode='add'* depends on the keyword that the user
    specifies under 'hdkey'. Below is a summary of the per keyword
    behavior of this mode. In general, the return value will be True
@@ -128,7 +134,7 @@ Description
    logged which describes the failure. In most cases, you probably
    want to use *mode='put'* rather than *mode='add'*. We continue to
    support *mode='add'* mainly for backward compatibility.
-
+   
    +--------------------------+------------------------------------------+
    | **Values**               | Description                              |
    +==========================+==========================================+
@@ -253,20 +259,20 @@ Description
    |                          | not exist. Else do nothing and return    |
    |                          | False.                                   |
    +--------------------------+------------------------------------------+
-
+   
    .. rubric:: 
       Notes for *mode='del'*
       
-
+   
    The behavior of *mode='del'* depends on the keyword that the user
    specifies under 'hdkey'. Below is a summary of the per keyword
    behavior of this mode. In general, the return value will be True
    if the operation succeeds, or False if it fails or is not
    supported. If unsuccessful or not supported, a warning message is
    normally logged which describes the failure.
-
+   
    +--------------------------+------------------------------------------+
-   | **Values**               | **Description**                         |
+   | **Values**               |  **Description**                         |
    +--------------------------+------------------------------------------+
    | beammajor or bmaj        | Deletes all beams. Returns False if the  |
    |                          | image has no beams.                      |
@@ -342,21 +348,21 @@ Description
    +--------------------------+------------------------------------------+
    | any user defined keyword | Deletes the key-value pair.              |
    +--------------------------+------------------------------------------+
-
    
-
+   
+   
    .. rubric:: Notes for *mode='get'*
       
-
+   
    The data type of the value returned by **imhead** when
    *mode='get'* depends on the keyword that the user specifies under
    'hdkey'. Below is a list of keywords on the data type that will be
    returned when *mode='get'* for each. A "quantity dictionary" is a
    dictionary with 'value' and 'unit' keys that can be used as input
    to various methods of the **qa** tool.
-
+   
    +-------------------------+-------------------------------------------+
-   | **Values**              | **Description**                          |
+   | **Values**              |  **Description**                          |
    +-------------------------+-------------------------------------------+
    | beammajor or bmaj       | Returns quantity dictionary.              |
    +-------------------------+-------------------------------------------+
@@ -416,12 +422,12 @@ Description
    +-------------------------+-------------------------------------------+
    | any user defined keword | Returns string.                           |
    +-------------------------+-------------------------------------------+
-
    
-
+   
+   
    .. rubric:: Notes for *mode='put'*
       
-
+   
    In general, *mode='put'* will modify the specified key to the
    specified value that the user specifies under 'hdkey'. True is
    returned if the metadatum was successfully modified, False
@@ -430,9 +436,9 @@ Description
    modification of reference direction occurs to implicitly account
    for precession to a new reference frame. The following are the
    exceptional cases for *mode='put'*.
-
+   
    +--------------------------+------------------------------------------+
-   | **Values**               | **Description**                         |
+   | **Values**               |  **Description**                         |
    +--------------------------+------------------------------------------+
    | beammajor or bmaj        | Will always fail if image has multiple   |
    |                          | beams. Use **ia.setrestoringbeam** ()   |
@@ -570,18 +576,18 @@ Description
    | any user defined keyword | *hdvalue* can be practically any         |
    |                          | supported input parameter type.          |
    +--------------------------+------------------------------------------+
-
    
-
+   
+   
    .. rubric:: Notes for *mode='summary'*
       
-
+   
    If *mode='summary'*, various metadata will be listed to the
    logger, and a dictionary containing some metadata will be
    returned. The key/value pairs in the returned dicitonary will be:
-
+   
    +---------------+-----------------------------------------------------+
-   | **Values**    | **Description**                                    |
+   | **Values**    |  **Description**                                    |
    +---------------+-----------------------------------------------------+
    | axisnames     | Array of image axes names.                          |
    +---------------+-----------------------------------------------------+
@@ -627,33 +633,105 @@ Description
    +---------------+-----------------------------------------------------+
    | unit          | Image brightness unit.                              |
    +---------------+-----------------------------------------------------+
-
    
-
+    
+   
    .. rubric:: Task-specific Parameters Summary
       
-
+   
    .. rubric:: *mode*
       
-
+   
    Mode of operation. See above for details. Modes which involve
    writing parameters will fail on read-only images, such as FITS
    images.
-
+   
    .. rubric:: *hdkey*
       
-
+   
    The associated keyword for modes *"add"*, *"del"*, *"get"*, or
    *"put"*. Only *mode="get"* will succeed for read-only images. See
    above for supported values.
-
+   
    .. rubric:: *hdvalue*
       
-
+   
    Value of keyword used only for modes add or put.
-
+   
    .. rubric:: *verbose*
       
-
+   
    Give a full listing of beams or just a short summary? Only used
    when the image has multiple beams and *mode="summary"*.
+   
+
+.. _Examples:
+
+Examples
+   mode='get' (image has direction and spectral coordinates)
+   
+   ::
+   
+      | epoch = imhead(imagename=imagename, mode="get",
+        hdkey="date-obs")
+      | observer = imhead(imagename=imagename, mode="get",
+        hdkey="observer")
+      | projection = imhead(imagename=imagename, mode="get",
+        hdkey="projection")
+      | restfreq = imhead(imagename=imagename, mode="get",
+        hdkey="restfreq")
+   
+   mode='add'
+   
+   ::
+   
+      | 
+      | if imhead(imagename=imagename, mode="add", hdkey="mykey",
+        hdvalue="myvalue"):
+      |      print "mykey added".
+      | else:
+      |      print "addition of mykey failed."
+   
+   mode="del"
+   
+   ::
+   
+      | if imhead(imagename=imagename, mode="del", hdkey="mykey"):
+      |      print "mykey deleted".
+      | else:
+      |      print "deletion of mykey failed."
+   
+   mode="put"
+   
+   ::
+   
+      | # change the reference RA value
+      | key = 'crval1'
+      | imhead(imagename=imagename, mode="put", hdkey=key,
+        hdvalue="3:00:00")
+      | # or equivalently
+      | imhead(imagename=imagename, mode="put", hdkey=key,
+        hdvalue="45deg")
+      | # change the direction reference frame (NOTE, no precession
+        of the existing
+      | # reference values is done!)
+      | imhead(imagename=imagename, mode="put", hdkey="equinox",
+        hdvalue="GALACTIC")
+      | # change the object
+      | imhead(imagename=imagename, mode="put", hdkey="object",
+        hdvalue="Milliways, also known as The Restaurant at the End
+        of the Universe")
+   
+   |
+   
+
+.. _Development:
+
+Development
+   --CASA Developer--
+   
+   Here would be a discussion of how applycal is implemented.  This
+   is intended for the other members of the development team so is a
+   technical discussion.  We will work on building these up over
+   time.
+   

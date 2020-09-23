@@ -39,3 +39,12 @@ Github browser window.
    $: sphinx-build -a -E -b html . ./build
    ```
 
+
+.. TODO:
+1. Add horizontal TOC to top of task pages - DONE
+2. pull release notes to a change history section for each task
+3. start using release branches instead of tags
+4. look at jira link to casadocs branches
+5. disable task categories and/or add global index - DONE 
+
+

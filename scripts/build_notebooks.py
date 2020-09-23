@@ -43,7 +43,7 @@ for file in files:
     if source == parent:
         with open('docs/index.rst', 'a') as fid:
             fid.write('   notebooks/%s\n' % parent.split('/')[-1].split('.')[0])
-            if parent.endswith('simulation.md'): fid.write('   task_api\n   tool_api\n')
+            if parent.endswith('introduction.md'): fid.write('   api\n')
         continue
         
     parent = parent.replace('markdown','docs/notebooks')

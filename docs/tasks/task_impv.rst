@@ -1,4 +1,11 @@
+
+
+.. _Description:
+
 Description
+   impv task: Construct a position-velocity image by choosing two points
+   in the direction plane.
+   
    Create a position-velocity image. The way the slice is specified
    is controlled by the *mode* parameter. When *mode="coords"*, start
    and end are used to specify the points between which slice is
@@ -11,7 +18,7 @@ Description
    input image if no *region* is specified. One may not specify a
    *region* in direction space; that is accomplished by specifying
    the slice as described previously.
-
+   
    The parameters *start* and *end* may be specified as two element
    arrays of numerical values, in which case these values will be
    interpreted as pixel locations in the input image. Alternatively,
@@ -33,14 +40,14 @@ Description
    starts at the specified position angle and ends on the opposite
    side of the specified center. Thus *pa="45deg"* means start at a
    point at a *pa* of 45 degrees relative to the specified center and
-   end at a point at a *pa* of 225degrees relative to the center.
+   end at a point at a *pa* of 225 degrees relative to the center.
    Either *start/end* or *center/pa/length* must be specified; if a
    parameter from one of these sets is specified, a parameter from
    the other set may not be specified. In either case, the *end*
    points of the segment must fall within the input image, and they
    both must be at least 2 pixels from the edge of the input image to
    facilite rotation (see below).
-
+   
    | One may specify a *width*, which represents the number of pixels
      centered along and perpendicular to the direction slice that are
      used for averaging along the slice. The *width* may be specified
@@ -71,7 +78,7 @@ Description
      image as a table record. It can be retrieved using the table
      tool (see the examples tab, which is linked from the top of this
      page).
-
+   
    Note that because the ouput image does not have a direction
    coordinate, other image analysis tasks and tool methods may not be
    able to process it correctly if it is used as an input image. In
@@ -81,3 +88,18 @@ Description
    output image from the task or tool method in question. That is,
    the output image of impv should normally be considered to be the
    end point of any image analysis sequence for tasks/tool methods.
+   
+
+.. _Examples:
+
+Examples
+   
+
+.. _Development:
+
+Development
+   task developer
+   
+   --CASA Developer--
+   
+   

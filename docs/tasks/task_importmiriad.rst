@@ -1,41 +1,47 @@
+
+
+.. _Description:
+
 Description
+   Convert a Miriad visibility dataset into a CASA MeasurementSet
+   
    The task **importmiriad** allows one to import visibilities in the
    MIRIAD data format to be converted to a MeasurementSet. The task
    has mainly been tested on data from the ATCA and CARMA telescopes
    and the inputs are:
-
+   
    ::
-
+   
       #In CASA
-      # importmiriad :: Convert a Miriad visibility file into a CASA
+      #  importmiriad :: Convert a Miriad visibility file into a CASA
       MeasurementSet
-      mirfile       =     ''    # Name of input Miriad
+      mirfile             =         ''        #  Name of input Miriad
       visibility file
-      vis         =     ''    # Name of output
+      vis                 =         ''        #  Name of output
       MeasurementSet
-      tsys        =   False    # Use the Tsys to set
+      tsys                =      False        #  Use the Tsys to set
       the visibility
-                          #  weights
-      spw         =    [-1]    # Select spectral
+                                              #   weights
+      spw                 =       [-1]        #  Select spectral
       windows, default is
-                          #  all
-      vel         =     ''    # Select velocity
+                                              #   all
+      vel                 =         ''        #  Select velocity
       reference
-                          #  (TOPO,LSRK,LSRD)
-      linecal       =   False    # (CARMA) Apply line
+                                              #   (TOPO,LSRK,LSRD)
+      linecal             =      False        #  (CARMA) Apply line
       calibration
-      wide        =     []    # (CARMA) Select wide
+      wide                =         []        #  (CARMA) Select wide
       window averages
-      debug        =     0    # Display increasingly
+      debug               =          0        #  Display increasingly
       verbose debug
-                          #  messages
-
+                                              #   messages
+   
    -  The *mirfile* parameter specifies a single MIRIAD visibility
-      dataset which**must have any calibration done in MIRIAD
-      already applied to it**.MIRIADcalibration tables are usually
-      applied on the fly within MIRIAD;such steps (e.g., uvaver)
+      dataset which **must have any calibration done in MIRIAD
+      already applied to it**. MIRIAD calibration tables are usually
+      applied on the fly within MIRIAD; such steps (e.g., uvaver)
       need to be taken within MIRIAD such that your
-      MIRIADvisibilities have the calibration permanently applied.
+      MIRIAD visibilities have the calibration permanently applied.
    -  Set the *tsys* parameter to True to change the visibility
       weights from the MIRIAD default (usually the integration time)
       to the inverse of the noise variance using the recorded system
@@ -53,3 +59,26 @@ Description
       data.
    -  The *wide* parameter is only useful for CARMA data and can
       select which of the wide-band channels should be loaded.
+   
+
+.. _Examples:
+
+Examples
+   .. rubric:: Reading a MIRIAD file and converting it into a
+      MeasurementSet   
+      
+   
+   ::
+   
+      #In CASA
+   
+      importmiriad(mirfile='ngc5921.uv', vis='ngc5921.ms',tsys=True)
+   
+   We read the MIRIAD dataset ngc5921.uv and converted it to a
+   MeasurementSet, using the recorded Tsys values to set the weights.
+   
+
+.. _Development:
+
+Development
+   

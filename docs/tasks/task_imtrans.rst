@@ -1,8 +1,14 @@
+
+
+.. _Description:
+
 Description
+   imtrans task: Reorder image axes
+   
    This task reorders (transposes) the axes in the input image to the
    specified order. The associated pixel values and coordinate system
    are transposed.
-
+   
    The *order* parameter describes the mapping of the input axes to
    the output axes. It can be one of three types: a non-negative
    integer, a string, or a list of strings. If a string or
@@ -21,7 +27,7 @@ Description
    specify the leading 0; e.g., specify *order=321* rather than
    *order=0321*. Python interprets an integer with a leading 0 as an
    octal number.
-
+   
    Because of ambiguity for axes numbers greater than nine, using
    string or integer order specifications cannot handle images
    containing more than 10 axes. The order parameter can also be
@@ -38,3 +44,40 @@ Description
    inverted. So, in a 4-D image, *order="-10-3-2"* maps input axes 1,
    0, 3, 2 to output axes 0, 1, 2, 3 and reverses the direction and
    values of input axes 1, 3, and 2.
+   
+
+.. _Examples:
+
+Examples
+   task examples
+   
+   ::
+   
+         # Swap the stokes and spectral axes in an
+         RA-Dec-Stokes-Frequency image
+         imagename = "myim.im"
+         outfile = "outim.im"
+         order = "0132"
+         imtrans()
+         # or
+         outfile = "myim_2.im"
+         order = 132
+         imtrans()
+         # or
+         outfile = "myim_3.im"
+         order = ["r", "d", "f", "s"]
+         imtrans()
+         # or
+         outfile = "myim_4.im"
+         order = ["rig", "declin", "frequ", "stok"]
+         imtrans()
+   
+
+.. _Development:
+
+Development
+   task developer
+   
+   --CASA Developer--
+   
+   
