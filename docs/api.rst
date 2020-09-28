@@ -9,5 +9,7 @@ This section is verified prior to each release
 
    api/tasks
    api/tools
+   api/routines
    api/shell
    api/data
+   api/configuration
