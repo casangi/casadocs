@@ -1,4 +1,4 @@
-Startup Configuration
+Configuration
 =====================
 
 CASA startup configuration methods and options
