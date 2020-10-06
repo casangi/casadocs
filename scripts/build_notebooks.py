@@ -70,6 +70,9 @@ for file in files:
     with open(parent, 'w') as fid:
         fid.write(pmd + smd)
 
+# add examples repo submodule to end of index.rst toctree
+with open('docs/index.rst', 'a') as fid:
+    fid.write('   examples/index\n')
 
 # convert the parent pages to jupyter notebooks
 # split sections in to separate cells at appropriate level

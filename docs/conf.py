@@ -60,8 +60,8 @@ nbsphinx_codecell_lexer = 'python3'
 #napoleon_google_docstring = False
 #napoleon_numpy_docstring = False
 
-nbsphinx_epilog = """
-Open in Colab: https://colab.research.google.com/github/casangi/casadocs/blob/master/docs/{{ env.doc2path(env.docname, base=None) }}
+nbsphinx_prolog = """
+Open in Colab: https://colab.research.google.com/github/casangi/{{ ('casadocs/blob/master/docs/'+env.doc2path(env.docname, base=None)).replace('casadocs/blob/master/docs/examples', 'examples/blob/master') }}
 
 ----
 """
@@ -91,7 +91,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['build', 'tasks', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['build', 'tasks', 'examples/README.md', 'examples/cngi', 'examples/community/_template.ipynb', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'

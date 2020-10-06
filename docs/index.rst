@@ -91,3 +91,4 @@ Common Astronomy Software Applications
    notebooks/parallel-processing
    notebooks/memo-series
    notebooks/casa-development-team
+   examples/index
