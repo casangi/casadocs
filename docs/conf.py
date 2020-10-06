@@ -213,9 +213,12 @@ epub_title = project
 epub_exclude_files = ['search.html']
 
 #######################################################################
-## Regenerate Task XML
+## Regenerate Task XML and Examples
+## this is kind of a lame way to integrate things, but it works better
+## than the standard solutions
 #######################################################################
 os.system("python ../scripts/parse_xml.py")
+os.system("git clone https://github.com/casangi/examples.git")
 
 def setup(app):
     app.add_css_file('customization.css')
