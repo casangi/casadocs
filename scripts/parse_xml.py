@@ -9,14 +9,17 @@ import os
 ########################################################
 
 # grab the index of all the task xml pages
-xmlstring = requests.get("https://casa.nrao.edu/PloneResource/stable/taskXml/").text
+#xmlstring = requests.get("https://casa.nrao.edu/PloneResource/stable/taskXml/").text
+xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casa5/gcwrap/tasks").text
 tasknames = list(set(re.findall("\w+.xml", xmlstring)))
 
 # loop through each task xml webpage and parse the xml to python dictionaries
 tasklist = []
 for ii, task in enumerate(tasknames):
     print('processing ' + str(ii) + ' - ' + task)
-    xmlstring = requests.get("https://casa.nrao.edu/PloneResource/stable/taskXml/" + task).text
+    #xmlstring = requests.get("https://casa.nrao.edu/PloneResource/stable/taskXml/" + task).text
+    #xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/raw/casa5/gcwrap/tasks/" + task).text
+    xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/browse/casa5/gcwrap/tasks/" + task + '?raw').text
     xmlroot = ET.fromstring(xmlstring)
     
     if '}' not in xmlroot.tag:
