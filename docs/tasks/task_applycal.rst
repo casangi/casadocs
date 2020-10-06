@@ -145,4 +145,8 @@ Examples
 .. _Development:
 
 Development
+   task applycal developer
+   
+   --CASA Developer--
+   
    

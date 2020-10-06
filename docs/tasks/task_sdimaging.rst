@@ -109,45 +109,6 @@ Description
 .. _Examples:
 
 Examples
-   To generate a spectral line cube with 500 channels selected from
-   channel 200 to 700:
-   
-   ::
-   
-      | spw='0'
-      | pol='XX'
-      | src='Moon'
-   
-      | sdimaging(infiles='mydata.ms',
-      |     spw=spw,
-      |     nchan=500,
-      |     start='200',
-      |     width='1',
-      |     cell=['30.0arcsec','30.0arcsec'],
-      |     outfile='mydata.ms.im',
-      |     imsize=[80,80],
-      |     gridfunction='GAUSS',
-      |     gwidth='4arcsec',
-      |     stokes=pol,
-      |     ephemsrcname=src)
-   
-    
-   
-   The *start* parameter can be specified in different units:
-   
-   ::
-   
-      start=100 (mode='channel')
-      start='22.3GHz' (mode='frequency')
-      start='5.0km/s' (mode='velocity')
-   
-    
-   
-   The parameter *ephemsrcname* can be set to a solar system object:
-   
-   ::
-   
-      ephemsrcname ='MERCURY'
    
 
 .. _Development:

@@ -15,7 +15,10 @@ Description
    absolute deviation, first and third quartiles, minimum, maximum,
    variance, standard deviation, and root mean square. Two other
    fields indicate whether the data are weighted and whether they are
-   masked. The field 'npts' gives the number of data points.
+   masked. The field 'npts' gives the number of data points. The
+   parameter 'doquantiles' can be set to False to show the
+   statistical output excluding quantiles, which significantly
+   decreases the run-time of visstat.
    
    Statistics may be computed on any of the following axes: flag,
    antenna1, antenna2, feed1, feed2, field_id, array_id,

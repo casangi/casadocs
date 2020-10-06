@@ -150,7 +150,7 @@ Examples
       |         xaxis='time',yaxis = 'phase',
       |         subplot = 212)
    
-   The result is shown in the following figure: |image1|
+   The result is shown in the following figure:
    
     
    
@@ -176,7 +176,7 @@ Examples
    
    This will generate the following figure:
    
-   |image2|
+   |image1|
    
     
    
@@ -193,11 +193,10 @@ Examples
    
     This will generate the following figure:
    
-   |image3|
+   |image2|
    
-   .. |image1| image:: _apimedia/8ee76c738355edb7136d886ab6f37cdfeee0fd71.png
-   .. |image2| image:: _apimedia/6efc81647da94725b6e55ab7f57234a0dfa0ae17.png
-   .. |image3| image:: _apimedia/f7fdc5b2f708731d83827fe05276126078f2c8c5.png
+   .. |image1| image:: _apimedia/6efc81647da94725b6e55ab7f57234a0dfa0ae17.png
+   .. |image2| image:: _apimedia/f7fdc5b2f708731d83827fe05276126078f2c8c5.png
    
 
 .. _Development:

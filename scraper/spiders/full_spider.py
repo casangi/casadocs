@@ -44,7 +44,7 @@ class CasadocsSpider(scrapy.Spider):
         # the main heading of the page is used later to set the new navigation and page name
         # sometimes the plone heading differs from the plone navigation tree, and the navigation tree is a better name
         # so here we overwrite the heading with whatever the navigation tree is calling this page
-        body = re.sub('(<h1 class="documentFirstHeading">).*(</h1>)', r'\1%s\2' % title, body)
+        body = re.sub('(<h1 class="documentFirstHeading">).*?(</h1>)', r'\g<1>%s\2' % title, body)
         
         # deal with relative links to images
         body = re.sub('\.\./\.\./\.\./\.\./\.\./docs/', 'https://casa.nrao.edu/docs/', body)

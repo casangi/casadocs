@@ -56,6 +56,68 @@ Description
 .. _Examples:
 
 Examples
+   Example usage of sdgaincal
+   
+   There are two ways to generate and apply double-circle gaintable.
+   One is to calibrate and apply atmosphere and sky calibrations
+   separately, and the other is to apply them on-the-fly during
+   double-circle gain calibration. The latter should be more
+   efficient. Examples for these two procedures are shown below.
+   
+   .. rubric:: Apply atmosphere and sky caltables separately
+      
+   
+   To compute a gaintable and subsequently apply it using
+   **applycal**:
+   
+   #. Generate the :math:`T_{sky}` and :math:`T_{sys}` calibration
+      tables, and apply them (**sdcal**)
+   #. Split out the corrected column data (**split**)
+   #. Generate the double-circle gaincal calibration tables
+      (**sdgaincal**)
+   #. Apply the double-circle gaincal calibration tables
+      (**applycal**)
+   
+   In CASA, this looks like the following:
+   
+   ::
+   
+      | sdcal(infile=inputvis, calmode='ps,tsys,apply')
+      | split(vis=inputvis, outputvis=calibratedvis,
+        datacolumn='corrected')
+      | sdgaincal(infile=calibratedvis, outfile='DCgaintable',
+        calmode='doublecircle')
+      | applycal(vis=calibratedvis, gaintable='DCgaintable')
+   
+   .. rubric:: Apply atmosphere and sky caltables on-the-fly
+      
+   
+   To compute a gaintable and subsequently apply it using
+   **applycal**:
+   
+   #. Generate the :math:`T_{sky}` and :math:`T_{sys}` calibration
+      tables (**sdcal**)
+   #. Generate the double-circle gaincal calibration tables by
+      applying :math:`T_{sky}` and :math:`T_{sys}` calibration
+      tables on-the-fly (**sdgaincal**)
+   
+      -  You can set *spwmap* and *interp* for each
+         pre-application caltable if necessary
+   
+   #. Apply the double-circle gaincal calibration tables
+      (**applycal**)
+   
+   In CASA, this looks like the following:
+   
+   ::
+   
+      | sdcal(infile=inputvis, calmode='ps', outfile='sky.tbl')
+      | sdcal(infile=inputvis, calmode='tsys',
+        outfile='tsys.tbl')
+        sdgaincal(infile=inputvis, applytable=['sky.tbl',
+        'tsys.tbl'],outfile='DCgaintable',
+        calmode='doublecircle')
+      | applycal(vis=inputvis, gaintable='DCgaintable')
    
 
 .. _Development:

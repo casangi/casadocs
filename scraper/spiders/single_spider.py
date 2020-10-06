@@ -16,7 +16,7 @@ class CasadocsSpider(scrapy.Spider):
     name = "single"
     
     def start_requests(self):
-        urls = ['https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/wide-band-imaging']
+        urls = ['https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/2-d-visualization-of-visibility-data-msview']
         
         for url in urls:
             # yield scrapy.Request(url=url, callback=self.parse)
@@ -52,7 +52,7 @@ class CasadocsSpider(scrapy.Spider):
         # the main heading of the page is used later to set the new navigation and page name
         # sometimes the plone heading differs from the plone navigation tree, and the navigation tree is a better name
         # so here we overwrite the heading with whatever the navigation tree is calling this page
-        body = re.sub('(<h1 class="documentFirstHeading">).*(</h1>)', r'\1%s\2' % title, body)
+        body = re.sub('(<h1 class="documentFirstHeading">).*?(</h1>)', r'\g<1>%s\2' % title, body)
         
         # plone folders/pages that list contents need to be removed, they will be replaced by toctrees and their links are bad anyway
         entries = response.css('div.entries').getall()

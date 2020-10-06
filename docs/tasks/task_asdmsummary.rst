@@ -155,8 +155,4 @@ Examples
 .. _Development:
 
 Development
-   task asdmsummary developer
-   
-   --CASA Developer--
-   
    

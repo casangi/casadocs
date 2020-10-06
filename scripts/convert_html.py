@@ -18,8 +18,10 @@ with open('scraper/_sitemap.txt') as fid:
 
 os.system('rm -fr markdown')
 os.system('rm -fr docs/tasks')
+os.system('rm -fr docs/tools')
 os.system('mkdir markdown')
 os.system('mkdir docs/tasks')
+os.system('mkdir docs/tools')
 
 # each page in casadocs should have already been downloaded by the scrapy spider to an html file
 # the local html directory structure should  match the casadocs website structure
@@ -36,6 +38,8 @@ for ii, url in enumerate(urls):
 
         if 'global-task-list' in fpath:
             dest = 'docs/tasks/' + url.split("/")[-1]
+        elif 'global-tool-list' in fpath:
+            dest = 'docs/tools/' + url.split("/")[-1]
         else:
             spath = ['markdown'] + url.split("/")[5:]
             for ii in range(1,len(spath)):
@@ -54,7 +58,7 @@ for ii, url in enumerate(urls):
             for head, suffix in [('Description',''), ('Examples', '/examples'), ('Development','/developer')]:
                 tsrc = source.replace('.html', suffix+'.html')
                 if not os.path.exists(tsrc): continue
-                os.system('pandoc %s -f html -t rst -o %s --extract-media=%s' % (tsrc, dest+'.rst', 'docs/tasks/_apimedia'))
+                os.system('pandoc %s -f html -t rst -o %s --extract-media=%s' % (tsrc, dest+'.rst', dest[:dest.rindex('/')]+'/_apimedia'))
                 with open(dest+'.rst', 'r') as fid:
                     rst = fid.read()
 
@@ -83,6 +87,7 @@ for ii, url in enumerate(urls):
                 
                 # fix image links and get rid of image attributes, they don't work with Sphinx
                 rst = re.sub('(\.\. \|.*?\| image:: )docs/tasks/_apimedia/(\S*)\s*?\n', r'\1_apimedia/\2\n', rst, flags=re.DOTALL)
+                rst = re.sub('(\.\. \|.*?\| image:: )docs/tools/_apimedia/(\S*)\s*?\n', r'\1_apimedia/\2\n', rst, flags=re.DOTALL)
                 rst = re.sub('\n\s*:class:.*?\n', r'\n', rst, flags=re.DOTALL)
                 rst = re.sub('\n\s*:width:.*?\n', r'\n', rst, flags=re.DOTALL)
                 rst = re.sub('\n\s*:height:.*?\n', r'\n', rst, flags=re.DOTALL)

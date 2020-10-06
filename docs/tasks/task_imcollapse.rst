@@ -52,10 +52,4 @@ Examples
 .. _Development:
 
 Development
-   --CASA Developer--
-   
-   Here would be a discussion of how imcollapse is implemented.  This
-   is intended for the other members of the development team so is a
-   technical discussion.  We will work on building these up over
-   time.
    

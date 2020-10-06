@@ -28,12 +28,7 @@ Github browser window.
    $: python scripts/build_notebooks.py
    ```
 
-4. Generate API files (creates stubs folder)
-   ```
-   $: python scripts/parse_tasks.py
-   ```
-
-5. Locally build pages to verify
+4. Locally build pages to verify (this will also call scripts/parse_xml.py)
    ```
    $: cd docs
    $: sphinx-build -a -E -b html . ./build
