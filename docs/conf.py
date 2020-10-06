@@ -168,9 +168,11 @@ latex_documents = [
 ## this is kind of a lame way to integrate things, but it works better
 ## than the standard solutions
 #######################################################################
-os.system("python ../scripts/parse_xml.py")
-os.system("rm -fr examples")
-os.system("git clone https://github.com/casangi/examples.git")
+if not os.path.exists('../stubs'):
+    os.system("python ../scripts/parse_xml.py")
+
+if not os.path.exists('examples'):
+    os.system("git clone https://github.com/casangi/examples.git")
 
 # tweak the default readthedocs theme
 def setup(app):
