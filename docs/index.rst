@@ -12,8 +12,10 @@ Common Astronomy Software Applications
    (`VLA <https://public.nrao.edu/venue/the-very-large-array/>`__),
    and is often used also for other radio telescopes.
    
-   6.2.0 Development Build
-      You are viewing the latest build of master, currently in the 6.2.0 development cycle
+   6.2 Beta Demonstration
+      You are viewing a beta demonstration release of new documentation 
+      system changes coming out with the CASA 6.2 release. This beta will be
+      deleted with the release of 6.2.0
    
    *CASA is developed by an international consortium of scientists
    based at the National Radio Astronomical Observatory (NRAO), the
