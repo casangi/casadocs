@@ -58,4 +58,8 @@ Examples
 .. _Development:
 
 Development
+   task conjugatevis developer
+   
+   --CASA Developer--
+   
    

@@ -16,7 +16,7 @@ Description
    
     
    
-   The `sdintimaging <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdintimaging/>`__ task
+   The `sdintimaging <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/>`__ task
    allowsjoint reconstruction of wideband single dish and
    interferometer data.
    

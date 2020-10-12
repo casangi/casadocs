@@ -19,8 +19,6 @@ Description
    simulated observation and the original model data, and generate a
    "fidelity image". Fidelity is defined as:
    
-   I\|I−T\| 
-   
    .. math:: \begin{equation} \frac{I}{|I-T|} \end{equation}
    
    where I is the observed image intensity and T is the true image
@@ -374,7 +372,7 @@ Description
    Displays the fidelity image. The fidelity image is defined by the
    following equation:
    
-   fidelity=\|input\|max[\|input−output\|0.7∗rms(output)] :math:`fidelity = \frac{| input |}{max[| input-output |  0.7*rms(output)]}`
+   :math:`fidelity = \frac{| input |}{max[| input-output |  0.7*rms(output)]}`
    
    .. note:: **NOTE**: The RMS is calculated in the lower quarter of the
       image which is likely not the best choice. It is encouraged to

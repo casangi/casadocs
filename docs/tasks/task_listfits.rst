@@ -15,9 +15,20 @@ Description
 .. _Examples:
 
 Examples
+   task examples
+   
+   To write the header information of a FITS file to the CASA logger:
+   
+   ::
+   
+      listfits(fitsfile='filename.fits')
    
 
 .. _Development:
 
 Development
+   task developer
+   
+   --CASA Developer--
+   
    
