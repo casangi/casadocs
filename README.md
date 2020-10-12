@@ -1,8 +1,11 @@
 # CASAdocs
 Common Astronomy Software Applications Documentation
 
-- view latest master build at: https://casadocs.readthedocs.io/en/latest
-- view stable release build at: https://casadocs.readthedocs.io/en/stable
+- view latest master build at: https://casadocs.readthedocs.io/en/latest  [![Documentation Status](https://readthedocs.org/projects/casadocs/badge/?version=latest)](https://casadocs.readthedocs.io/en/latest/?badge=latest)
+- view stable release build at: https://casadocs.readthedocs.io/en/stable  [![Documentation Status](https://readthedocs.org/projects/casadocs/badge/?version=stable)](https://casadocs.readthedocs.io/en/stable/?badge=stable)
+
+A new documentation build is triggered for every commit to the repository. 
+It can take 5 to 10 minutes to complete.
 
 
 ## Editing Regular Content
