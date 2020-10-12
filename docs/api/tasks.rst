@@ -6,7 +6,7 @@ CASA Task interface definition
 Input / Output
 ^^^^^^^^^^^^^^^
 
-.. automodsumm:: stubs.data
+.. automodsumm:: stubs.tasks.data
    :toctree: tt
    :nosignatures:
    :functions-only:
@@ -15,7 +15,7 @@ Input / Output
 Information
 ^^^^^^^^^^^^^^^
 
-.. automodsumm:: stubs.information
+.. automodsumm:: stubs.tasks.information
    :toctree: tt
    :nosignatures:
    :functions-only:
@@ -24,7 +24,7 @@ Information
 Calibration
 ^^^^^^^^^^^^^
 
-.. automodsumm:: stubs.calibration
+.. automodsumm:: stubs.tasks.calibration
    :toctree: tt
    :nosignatures:
    :functions-only:
@@ -33,7 +33,7 @@ Calibration
 Imaging
 ^^^^^^^^^^^^^^^
 
-.. automodsumm:: stubs.imaging
+.. automodsumm:: stubs.tasks.imaging
    :toctree: tt
    :nosignatures:
    :functions-only:
@@ -42,7 +42,7 @@ Imaging
 Modeling
 ^^^^^^^^^^^^^^^
 
-.. automodsumm:: stubs.modeling
+.. automodsumm:: stubs.tasks.modeling
    :toctree: tt
    :nosignatures:
    :functions-only:
@@ -51,7 +51,7 @@ Modeling
 Single Dish
 ^^^^^^^^^^^^^^^
 
-.. automodsumm:: stubs.single
+.. automodsumm:: stubs.tasks.single
    :toctree: tt
    :nosignatures:
    :functions-only:
@@ -60,17 +60,17 @@ Single Dish
 Manipulation
 ^^^^^^^^^^^^^^^
 
-.. automodsumm:: stubs.manipulation
+.. automodsumm:: stubs.tasks.manipulation
    :toctree: tt
    :nosignatures:
    :functions-only:
 
-.. automodsumm:: stubs.utility
+.. automodsumm:: stubs.tasks.utility
    :toctree: tt
    :nosignatures:
    :functions-only:
 
-.. automodsumm:: stubs.editing
+.. automodsumm:: stubs.tasks.editing
    :toctree: tt
    :nosignatures:
    :functions-only:
@@ -79,7 +79,7 @@ Manipulation
 Analysis
 ^^^^^^^^^
 
-.. automodsumm:: stubs.analysis
+.. automodsumm:: stubs.tasks.analysis
    :toctree: tt
    :nosignatures:
    :functions-only:
@@ -88,7 +88,7 @@ Analysis
 Visualization
 ^^^^^^^^^^^^^^^
 
-.. automodsumm:: stubs.visualization
+.. automodsumm:: stubs.tasks.visualization
    :toctree: tt
    :nosignatures:
    :functions-only:
@@ -97,7 +97,7 @@ Visualization
 Simulation
 ^^^^^^^^^^^^^^^
 
-.. automodsumm:: stubs.simulation
+.. automodsumm:: stubs.tasks.simulation
    :toctree: tt
    :nosignatures:
    :functions-only:

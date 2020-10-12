@@ -159,7 +159,7 @@ Description
    FFT-based convolution. This algorithm is reasonably fast. Also,
    for polarization imaging, Clark searches for the peak in
    
-   I2+Q2+U2+V2 :math:`I^2 + Q^2 + U^2 + V^2`.
+   :math:`I^2 + Q^2 + U^2 + V^2`.
    
    The '*hogbom*' algorithm is the “Classic” image-plane CLEAN, where
    model pixels are found iteratively by searching for the peak. Each
@@ -200,18 +200,18 @@ Description
    For *weighting='natural'*, visibilities are weighted only by the
    data weights, which are calculated during filling and calibration
    and should be equal to the inverse noise variance on that
-   visibility. Imaging weight wi :math:`w_i` of
-   sample ˙ı :math:`\dot\imath` is given by:
+   visibility. Imaging weight :math:`w_i` of
+   sample :math:`\dot\imath` is given by:
    
-   wi=ωi=1σi2 :math:`w_i = \omega_i = \frac{1}{{\sigma_i}^2}`
+   :math:`w_i = \omega_i = \frac{1}{{\sigma_i}^2}`
    
-   where the data weight ωi :math:`\omega_i` is determined from
-   σi :math:`\sigma_i`, the rms noise on visibility
-   ˙ı :math:`\dot\imath`. When data is gridded into the same uv-cell
-   for imaging, the weights are summed, and thus a higher uv density
-   results in higher imaging weights. No sub-parameters are linked to
-   this mode choice. It is the default imaging weight mode, and it
-   should produce “optimum” image with with the lowest noise (highest
+   where the data weight :math:`\omega_i` is determined from
+   :math:`\sigma_i`, the rms noise on visibility :math:`\dot\imath`.
+   When data is gridded into the same uv-cell for imaging, the
+   weights are summed, and thus a higher uv density results in higher
+   imaging weights. No sub-parameters are linked to this mode choice.
+   It is the default imaging weight mode, and it should produce
+   “optimum” image with with the lowest noise (highest
    signal-to-noise ratio).
    
    .. note:: **NOTE**: This generally produces images with the poorest
@@ -232,13 +232,13 @@ Description
    sub-parameters are linked to this mode choice.
    
    For uniform weighting, we first grid the inverse variance
-   ωi :math:`\omega_i` for all selected data onto a grid with uv
+   :math:`\omega_i` for all selected data onto a grid with uv
    cell-size given by 2 ∕ FOV,where FOVis the specified field of view
    (defaults to the image field of view). This forms the gridded
-   weights Wk :math:`W_k`. The weight of the
-   ˙ı :math:`\dot\imath`-th sample is then:
+   weights :math:`W_k`. The weight of the :math:`\dot\imath`-th
+   sample is then:
    
-   wi=wiWk :math:`w_i = \frac{w_i}{W_k}`
+   :math:`w_i = \frac{w_i}{W_k}`
    
    .. rubric:: Briggs weighting
       
@@ -260,12 +260,12 @@ Description
    
    The actual weighting scheme used is:
    
-   wi=ωi1+Wkf2 :math:`w_i = \frac{\omega_i}{1 + W_k f^2}`
+   :math:`w_i = \frac{\omega_i}{1 + W_k f^2}`
    
-    where Wk :math:`W_k` is defined as in 'uniform'and
+    where :math:`W_k` is defined as in 'uniform'and
    'superuniform'weighting, and
    
-   f2=(5×10−R)2ΣkW2kΣiωi :math:`f^2 = \frac{(5 \times 10^{-\text{R}})^2}{\frac{\Sigma_k W_k^2}{\Sigma_i \omega_i}}`
+   :math:`f^2 = \frac{(5 \times 10^{-\text{R}})^2}{\frac{\Sigma_k W_k^2}{\Sigma_i \omega_i}}`
    
    and Ris the *robust* sub-parameter.
    
@@ -295,10 +295,10 @@ Description
    For *weighting='briggsabs'*, a slightly different Briggs weighting
    is used, with:
    
-   wi=ωiWkR2+2σ2R :math:`w_i = \frac{\omega_i}{W_k \text{R}^2 + 2\sigma_\text{R}^2}`
+   :math:`w_i = \frac{\omega_i}{W_k \text{R}^2 + 2\sigma_\text{R}^2}`
    
-   where Ris the *robust* parameter and σR :math:`\sigma_\text{R}`
-   is the *noise* parameter.
+   where Ris the *robust* parameter and :math:`\sigma_\text{R}` is
+   the *noise* parameter.
    
    This choice brings up the sub-parameters:
    
@@ -320,7 +320,7 @@ Description
    The *weighting='radial'* mode is a seldom-used option that
    increases the weight by the radius in the uv-plane, i.e.:
    
-   wi=ωi×√u2i+v2i :math:`w_i = \omega_i \times \sqrt{u_i^2 + v_i^2}`
+   :math:`w_i = \omega_i \times \sqrt{u_i^2 + v_i^2}`
    
    Technically, this would be called an inverse uv-taper, since it
    depends on uv-coordinates and not on the data per-se. Its effect
@@ -548,7 +548,7 @@ Description
    spectral index map is also computed as the ratio of the first two
    terms, following this convention:
    
-   I(ν)=I(refν)×(ν/ν0)α :math:`I(\nu) = I(ref_\nu) \times  (\nu/\nu_0)^\alpha`
+   :math:`I(\nu) = I(ref_\nu) \times  (\nu/\nu_0)^\alpha`
    
    .. note:: **NOTE**: Unlike standard multi-scale cleaning (*multiscale=
       [0,6,10,....]* with *nterms=1*), with higher nterms the largest
@@ -927,8 +927,7 @@ Description
    images represent taylor-coefficients of the sky spectrum (images
    with file-name extensions of tt0,tt1,etc). A spectral index map is
    also computed as the ratio of the first two terms (following the
-   convention of
-   I(nu)=I(refnu)x(nu/nu0)α :math:`I(nu) = I(ref_nu) x (nu/nu_0)^\alpha`).
+   convention of :math:`I(nu) = I(ref_nu) x (nu/nu_0)^\alpha`).
    Additionally, a spectral-index error image is made by treating
    taylor-coefficient residuals as errors, and propagating them
    through the division used to compute spectral-index. It is meant
@@ -1868,4 +1867,8 @@ Examples
 .. _Development:
 
 Development
+   task clean developer
+   
+   --CASA Developer--
+   
    

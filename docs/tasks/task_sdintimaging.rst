@@ -16,7 +16,7 @@ Description
    
     
    
-   The `sdintimaging <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/>`__ task
+   The `sdintimaging <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdintimaging/>`__ task
    allowsjoint reconstruction of wideband single dish and
    interferometer data.
    
@@ -542,6 +542,8 @@ Development
    
     
    
+   -  Check if restoration can happen with niter=0. If not, say so in
+      the docs. 
    -  Line 640 of sdint_helper.py in the log message within the
       'allowshift' clause of the checkpsf method : The input psf
       should be "inpsf" and not sdpsf. This path through the code
@@ -631,6 +633,10 @@ Development
       -  Feather produces 'imageregrid' warnings for every single
          run, suggesting that the SD cell size and beam size aren't
          compatible, even when they are clearly compatible. 
+      -  sdintimaging produces tmp_sdplane, tmp_joint,tmp_intplane
+         temporary images because of the need to send feather only
+         one channel at a time. Eliminate the need for this by
+         calling feather on the cube, after the above fixes.
    
    -  Manage imageanalysis warning message
    

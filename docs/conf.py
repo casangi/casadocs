@@ -55,7 +55,9 @@ nbsphinx_execute = 'never'
 todo_include_todos = True
 add_module_names = False
 numpy_show_class_members = False
+autosummary_generate = True
 nbsphinx_codecell_lexer = 'python3'
+autodoc_member_order = 'bysource'
 
 #napoleon_google_docstring = False
 #napoleon_numpy_docstring = False
@@ -168,8 +170,11 @@ latex_documents = [
 ## this is kind of a lame way to integrate things, but it works better
 ## than the standard solutions
 #######################################################################
-if not os.path.exists('../stubs'):
-    os.system("python ../scripts/parse_xml.py")
+if not os.path.exists('../stubs/tasks'):
+    os.system("python ../scripts/parse_task_xml.py")
+
+if not os.path.exists('../stubs/tools'):
+    os.system("python ../scripts/parse_tool_xml.py")
 
 if not os.path.exists('examples'):
     os.system("git clone https://github.com/casangi/examples.git")

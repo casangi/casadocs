@@ -1086,7 +1086,6 @@ https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/the-multi-ms
 https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/parallel-calibration
 https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/examples-of-running-casa-in-parallel
 https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/casa-parallelization-interface-mpi4casa
-https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/testing-using-multi-ms
 https://casa.nrao.edu/casadocs-devel/stable/memo-series
 https://casa.nrao.edu/casadocs-devel/stable/memo-series/casa-memos
 https://casa.nrao.edu/casadocs-devel/stable/memo-series/casacore-notes

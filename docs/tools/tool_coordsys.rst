@@ -1,0 +1,252 @@
+
+
+.. _Description:
+
+Description
+   applycal task: Apply calibrations solution(s) to data
+   
+   .. rubric:: Summary
+      
+   
+   | A Coordsys tool is used to store and manipulate a Coordinate
+     System (we will use the term \`Coordinate System'
+     interchangeably with \`Coordsys tool'). A Coordinate System is a
+     collection of coordinates, such as a direction coordinate (E.g.
+     RA/DEC), or a spectral coordinate (e.g. an LSRK frequency).
+   | The main job of the Coordsys tool is to convert between absolute
+     pixel and world (physical) coordinates. It also supports
+     relative pixel and world coordinates (relative to reference
+     location).
+   | A Coordinate System is generally associated with an image
+     (manipulated via an Image tool) but can also exist in its own
+     right. An image is basically just a regular lattice of pixels
+     plus a Coordinate System describing the mapping from pixel
+     coordinate to world (or physical) coordinate.
+   | Each coordinate is associated with a number of axes. For
+     example, a direction coordinate has two coupled axes; a
+     longitude and a latitude. A spectral coordinate has one axis. A
+     linear coordinate can have an arbitrary number of axes, but they
+     are all uncoupled. The Coordinate System actually maintains two
+     kinds of axes; pixel axes and world axes.
+   | As well as the coordinates, there is some extra information
+     stored in the Coordinate System. This consists of the telescope,
+     the epoch (date of observation), and the highly influential
+     observer's name. The telescope (i.e. position on earth) and
+     epoch are important if you want to, say, change a spectral
+     coordinate from LSRK to TOPO.
+   | For general discussion about celestial coordinate systems, see
+     the papers by Mark Calabretta and Eric Greisen. Background on
+     the WCS system and relevant papers (including the papers
+     published in *A&A 2002, 1061-1075 and 1077-1122* can be found
+     \\htmladdnormallink{here{http://www.atnf.csiro.au/people/mark.calabretta/WCS.
+     Note that the actual system implemented originally in \\casa\\
+     was based on a 1996 draft of these papers. The final papers are
+     being implemented while new version of the defining library
+     become available.
+   
+   .. rubric:: Coordinate formatting
+      
+   
+   | Many of the Coordsys tool functions use a world coordinate value
+     as an argument. This world value can be formatted in many ways.
+   | Some functions (e.g. toworld) have a function argument called
+     format which takes a string. This controls the format in which
+     the coordinate is output and hence possibly input into some
+     other function.
+   | Possibilities for format are :
+   
+   .. rubric:: Items:
+      
+   
+   | **'n' -** means the world coordinate is given as a numeric
+     vector (actually doubles). The units are implicitly those
+     returned by function units.
+   | **'q' -** means the world coordinate is given as a vector of
+     quantities (value and unit) - see the quanta module. If there is
+     only one axis (e.g. spectral coordinate), you will get a single
+     quantum only.
+   | **'m' -** means the world coordinate is given as a record of
+     measures - see the measures module.
+   | The record consists of fields named *direction*, *spectral*,
+     *stokes*, *linear*, and *tabular*, depending upon which
+     coordinate types are present in the Coordinate System.
+   | The *direction* field holds a direction measure.
+   | The *spectral* field holds further subfields *frequency*,
+     *radiovelocity*, *opticalvelocity*, *betavelocity*. The
+     *frequency* subfield holds a frequency measure. The
+     *radiovelocity* subfield holds a doppler measure using the radio
+     velocity definition. The *opticalvelocity* subfield holds a
+     doppler measure using the optical velocity definition. The
+     *betavelocity* subfield holds a doppler measure using the true
+     or beta velocity definition.
+   | The *stokes* field just holds a string giving the Stokes type
+     (not a real measure).
+   | The *linear* and *tabular* fields hold a vector of quanta (not a
+     real measure).
+   | **'s' -** means the the world coordinate is given as a vector of
+     formatted strings
+   | \\end{itemize
+   | You can give a combination of one or more of the allowed letters
+     when using the format argument. The coordinate is given as a
+     record, with possible fields 'numeric', 'quantity', 'measure'
+     and 'string' where each of these fields is given as described
+     above.
+   | There are functions torel and toabs used to inter-convert
+     between absolute and relative world and pixel coordinates. These
+     functions have an argument isworld whereby you can specify
+     whether the coordinate is a pixel coordinate or a world
+     coordinate. In general, you should not need to use this argument
+     because any coordinate variable generated by Coordsys tool
+     functions 'knows' whether it is absolute or relative, world or
+     pixel. . However, you may be inputting a coordinate variable
+     which you have generated in some other way, and then you may
+     need this.
+   
+   .. rubric:: **Stokes Coordinates**
+      
+   
+   | Stokes axes don't fit very well into our Coordinate model since
+     they are not interpolatable. The alternative to having a Stokes
+     Coordinate is having a Stokes pixel type (like double, complex).
+     Both have their good and bad points. We have chosen to use a
+     Stokes Coordinate.
+   | With the Stokes Coordinate, any absolute pixel coordinate value
+     must be in the range of 1 to :math:`nStokes`, where
+     :math:`nStokes` is the number of Stokes types in the Coordinate.
+   | We define relative world coordinates for a Stokes axis to be the
+     same as absolute world coordinates (it makes no sense to think
+     of a relative value :math:`XY - XX` say).
+   | You can use the specialized functions stokes and setstokes to
+     recover and set new Stokes values in the Stokes Coordinate.
+   | {{COORDSYS:PWAXES\bf World and Pixel axes
+   | The Coordinate System maintains what it calls pixel and world
+     axes. The pixel axis is associated with, say, the axes of a
+     lattice of pixels. The world axes describe notional world axes,
+     generally in the same order as the pixel axes. However, they may
+     be different. Imagine that a 3-D image is collapsed along one
+     axis. The resultant image has 2 pixel axes. However, we can
+     maintain the world coordinate for the collapsed axis (so we know
+     the coordinate value still). Thus we have three world axes and
+     two pixel axes. It is also possible for the C++ programmer to
+     reorder these pixel and world axes. However, this is strongly
+     discouraged, and you should never actually encounter a situation
+     where the pixel and world axes are in different orders, but you
+     may encounter cases where the number of world and pixela axes is
+     different.
+   | For those of us (\casa\ programmers) writing robust scripts, we
+     must account for these possibilities, although the user really
+     shouldn't bother. Thus, the pixel and world vectors return the
+     pixel and world axes of the found coordinate.
+   | The functions referencevalue, increment, units, and names return
+     their vectors in world axis order. However, function
+     referencepixel returns in pixel axis order (and the world
+     vectors might have more values than the referencepixel vector).
+   
+   .. rubric:: Overview of Coordsys tool functions
+      
+   
+   | **Items:**
+   | **Get/set -** Functions to get and set various items within the
+     Coordinate System are
+   | **referencepixel -** get the reference pixel
+   | **setreferencepixel -** set the reference pixel
+   | **referencevalue -** get the reference value
+   | **setreferencevalue -** set the reference value
+   | **setreferencelocation -** Set reference pixel and value to
+     these values
+   | **increment -** get axis increments
+   | **setincrement -** set axis increments
+   | **lineartransform -** get linear transform
+   | **setlineartransform -** set linear transform
+   | **names -** get axis names
+   | **setnames -** set axis names
+   | **units -** get axis units
+   | **setunits -** set axis units
+   | **stokes -** get Stokes values
+   | **setdirection -** set Direction coordinate values
+   | **setstokes -** set Stokes values
+   | **setspectral -** set Spectral coordinate tabular values
+   | **settabular -** set Tabular coordinate tabular values
+   | **projection -** get direction coordinate projection
+   | **setprojection -** set direction coordinate projection
+   | **referencecode -** get reference codes
+   | **setreferencecode -** set reference codes
+   | **restfrequency -** get the spectral coordinate rest frequency
+   | **setrestfrequency -** set the spectral coordinate rest
+     frequency
+   | **epoch -** get the epoch of observation
+   | **setepoch -** set the epoch of observation
+   | **telescope -** get the telecope of the observation
+   | **settelescope -** set the telecope of the observation
+   | **observer -** get observer name
+   | **setobserver -** set observer name
+   | \\end{itemize
+   | **Utility -** There is a range of utility services available
+     through the functions
+   | **Items:**
+   | **axesmap -** get mapping between pixel and world axes order
+   | **axiscoordinatetypes -** get type of coordinate for each axis
+   | **coordinatetype -** get type of coordinates
+   | **copy -** make a copy of this tool
+   | **done -** destroy this tool
+   | **findaxis -** find specified axis (by number) in coordinate
+     system
+   | **findcoordinate -** find specified (by number) coordinate
+   | **fromrecord -** set Coordinate System from a casapy record
+   | **id -** get the fundamental identifier of this tool
+   | **naxes -** get number of axes
+   | **ncoordinates -** get the number of coordinates
+   | **reorder -** reorder coordinates
+   | **summary -** summarize the Coordinate System
+   | **torecord -** Convert a Coordinate SYstem to a casapy record
+   | **type -** the type of this tool
+   
+   .. rubric:: Coordinate conversion
+      
+   
+   | **Items:**
+   | **convert -** Convert one numeric coordinate with mixed input
+     and output formats (abs/rel/world/pixel)
+   | **toabs -** Convert a relative coordinate to an absolute
+     coordinate
+   | **topixel -** Convert from absolute world coordinate to absolute
+     pixel coordinate
+   | **torel -** Convert an absolute coordinate to a relative
+     coordinate
+   | **toworld -** Convert from an absolute pixel coordinate to an
+     absolute world coordinate
+   | **convertmany -** Convert many numeric coordinates with mixed
+     input and output formats (abs/rel/world/pixel)
+   | **toabsmany -** Convert many relative coordinates to absolute
+     coordinates
+   | **topixelmany -** Convert many absolute world coordinates to
+     absolute pixel coordinates
+   | **torelmany -** Convert many absolute coordinates to relative
+     coordinates
+   | **toworldmany -** Convert many absolute pixel coordinates to
+     absolute world coordinates
+   | **frequencytovelocity -** Convert from frequency to velocity
+   | **frequencytofrequency -** Apply a relativistic Doppler shift to
+     a list of frequencies
+   | **velocitytofrequency -** Convert from velocity to frequency
+   | **setconversiontype -** Set extra reference frame conversion
+     layer
+   | **conversiontype -** Recover extra reference frame conversion
+     types
+   | **Tests -**
+   | **Items:**
+   | **coordsystest -** Run test suite for Coordsys tool
+   | \\end{itemize
+   | \\end{itemize
+   
+
+.. _Examples:
+
+Examples
+   
+
+.. _Development:
+
+Development
+   --CASA Developer--
+   

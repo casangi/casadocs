@@ -45,21 +45,9 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
-   The following example creates a caltable with **accor** solutions
-   on a 30s timescale. 
-   
-   ::
-   
-      accor(vis='data.ms', caltable='cal.A', solint='30s')
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
    

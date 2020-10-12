@@ -3,6 +3,12 @@
 .. _Description:
 
 Description
+   task description
+   
+   Lists the processing history of a MeasurementSet.
+   
+   The list of all tasks and processing steps of a MeasurementSet
+   will be written to the logger.
    
 
 .. _Examples:
@@ -21,8 +27,4 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
    

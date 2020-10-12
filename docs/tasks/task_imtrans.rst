@@ -49,6 +49,28 @@ Description
 .. _Examples:
 
 Examples
+   task examples
+   
+   ::
+   
+         # Swap the stokes and spectral axes in an
+         RA-Dec-Stokes-Frequency image
+         imagename = "myim.im"
+         outfile = "outim.im"
+         order = "0132"
+         imtrans()
+         # or
+         outfile = "myim_2.im"
+         order = 132
+         imtrans()
+         # or
+         outfile = "myim_3.im"
+         order = ["r", "d", "f", "s"]
+         imtrans()
+         # or
+         outfile = "myim_4.im"
+         order = ["rig", "declin", "frequ", "stok"]
+         imtrans()
    
 
 .. _Development:

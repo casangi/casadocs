@@ -75,7 +75,7 @@ Description
    The *mode='pola'* option creates an image of the polarization
    angle;
    
-   :math:`\theta = {1\over{2}}\,tan^{-1}(U/Q)`
+   θ=12tan−1(U/Q) :math:`\theta = {1\over{2}}\,tan^{-1}(U/Q)`
    
    If *polithresh* is set to a value, e.g. ’30uJy/beam’, a mask
    (’ *mask0* ’) is written to the output image and is False for
@@ -93,7 +93,7 @@ Description
    intensity using all of the linear and circular polarizations
    available in the input image(s);
    
-   :math:`\sqrt{( Q^2+ U^2+ V^2)}`.
+   √(Q2+U2+V2) :math:`\sqrt{( Q^2+ U^2+ V^2)}`.
    
    If the input image(s) contains only Q and U, or only V, then just
    those components contribute to the total polarized intensity. 
@@ -104,9 +104,9 @@ Description
    
    The polarized intensity may optionally be debiased (if *sigma* >
    0). This requires an estimate of the thermal noise level
-   (:math:`\sigma`). The resulting image will be computed using
+   (σ :math:`\sigma`). The resulting image will be computed using
    
-   :math:`\sqrt{( Q^2 + U^2 + V^2 - \sigma^2)}`
+   √(Q2+U2+V2−σ2) :math:`\sqrt{( Q^2 + U^2 + V^2 - \sigma^2)}`
    
    In the output image, pixels for which the expression inside the
    square root is negative are masked, and their values are set to
@@ -124,14 +124,14 @@ Description
    The *mode='tpoli'* option will calculate a total polarization
    intensity image;
    
-   :math:`\sqrt{( Q^2+ U^2+ V^2)}`. 
+   √(Q2+U2+V2) :math:`\sqrt{( Q^2+ U^2+ V^2)}`. 
    
    The task requires all three Stokes image planes to be present. 
    
    The *mode='lpoli'* option will calculate a linear polarization
    intensity image;
    
-   :math:`\sqrt{( Q^2+ U^2)}`.
+   √(Q2+U2) :math:`\sqrt{( Q^2+ U^2)}`.
    
    Only the Q and U Stokes image planes are required to be present.
    If Stokes V is present it will be ignored. 
@@ -144,28 +144,29 @@ Description
    This mode computes the spectral index using two images of
    different frequencies. The spectral index is defined as
    
-   :math:`\alpha = ln(I_0/I_1)/ln(\nu_0/\nu_1)`
+   α=ln(I0/I1)/ln(ν0/ν1) :math:`\alpha = ln(I_0/I_1)/ln(\nu_0/\nu_1)`
    
-   | where the :math:`I`'s are the pixel values and the
-     :math:`\nu`'s are the frequencies of the two images.
+   | where the I :math:`I`'s are the pixel values and the
+     ν :math:`\nu`'s are the frequencies of the two images.
    
    | If exactly two images aren't supplied, an exception will result.
      This mode is equivalent to specifying mode='evalexpr' and
      expr='spectralindex(IM0, IM1)'. Both images must have spectral
      axes. If both images have multiple channels, they must have the
      same number of channels. In that case, the pixel values of the
-     i :math:`^{th}` plane in the output image will be computed
-     using the the i :math:`^{th}` plane pixel values and the
-     i :math:`^ith` plane frequencies of the input images.
-     Alternatively, one image can have :math:`n>1` channels and the
-     other can have a single channel, in which case the output image
-     will have :math:`n` channels with the i :math:`^{th}` plane
-     pixel values being the result of the i :math:`^{th}` plane
-     pixel values and i :math:`^{th}` plane frequency of the
-     multi-channel image and the pixel values and fequency of the
-     single channel image. If corresponding pixels in the two input
-     images do not have the same sign, the corresponding output pixel
-     will have a value of :math:`nan`.
+     ith :math:`^{th}` plane in the output image will be computed
+     using the the ith :math:`^{th}` plane pixel values and the
+     iith :math:`^ith` plane frequencies of the input images.
+     Alternatively, one image can have n>1 :math:`n>1` channels and
+     the other can have a single channel, in which case the output
+     image will have n :math:`n` channels with the
+     ith :math:`^{th}` plane pixel values being the result of the
+     ith :math:`^{th}` plane pixel values and ith :math:`^{th}`
+     plane frequency of the multi-channel image and the pixel values
+     and fequency of the single channel image. If corresponding
+     pixels in the two input images do not have the same sign, the
+     corresponding output pixel will have a value of
+     nan :math:`nan`.
    
     
    

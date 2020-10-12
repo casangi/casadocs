@@ -9,9 +9,11 @@ Description
    the MS. An overview on weights in CASA is provided in the `Data
    Weights <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-weights>`__
    section of CASAdocs. For ALMA interferometry and EVLA data, it
-   should not generally be necessary to use this task, as the weight
-   information should have been initialized properly at fill time
-   (when the import was performed with CASA v4.2.2 and later).
+   should not generally be necessary to use this task, as the
+   per-spectral window weight information should have been
+   initialized properly at fill time (v4.2.2 and later). To set
+   per-channel weights, use
+   initweights(vis=finalvis,wtmode='weight',dowtsp=True).
    
    | Several initialization modes are supported via the *wtmode*
      parameter. If *wtmode='nyq'* (the default), the SIGMA and WEIGHT

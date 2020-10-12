@@ -91,13 +91,6 @@ Description
 .. _Examples:
 
 Examples
-    # create a uvfits file from an MS, overwriting the output file if
-   it already exists.
-   
-   ::
-   
-      exportuvfits(vis="my.ms", fitsfile="my.uvfits",
-      datacolumn="corrected", overwrite=True)
    
 
 .. _Development:

@@ -19,6 +19,8 @@ Description
    simulated observation and the original model data, and generate a
    "fidelity image". Fidelity is defined as:
    
+   I\|I−T\| 
+   
    .. math:: \begin{equation} \frac{I}{|I-T|} \end{equation}
    
    where I is the observed image intensity and T is the true image
@@ -372,7 +374,7 @@ Description
    Displays the fidelity image. The fidelity image is defined by the
    following equation:
    
-   :math:`fidelity = \frac{| input |}{max[| input-output |  0.7*rms(output)]}`
+   fidelity=\|input\|max[\|input−output\|0.7∗rms(output)] :math:`fidelity = \frac{| input |}{max[| input-output |  0.7*rms(output)]}`
    
    .. note:: **NOTE**: The RMS is calculated in the lower quarter of the
       image which is likely not the best choice. It is encouraged to
@@ -416,9 +418,30 @@ Description
 .. _Examples:
 
 Examples
+   task examples
+   
+   This example was taken from the simulation CASAguide located
+   `here <https://casaguides.nrao.edu/index.php/Simulation_Guide_Component_Lists_(CASA_5.1)>`__.
+   
+   ::
+   
+      | default("simanalyze")
+      | project = "FITS_list"
+      | vis="FITS_list.alma.cycle5.1.ms"
+      | imsize = [256,256]
+      | imdirection = "J2000 10h00m00.0s -30d00m00.0s"
+      | cell = '0.1arcsec'
+      | niter = 5000
+      | threshold = '10.0mJy/beam'
+      | analyze = True
+      | simanalyze()
    
 
 .. _Development:
 
 Development
+   task developer
+   
+   --CASA Developer--
+   
    

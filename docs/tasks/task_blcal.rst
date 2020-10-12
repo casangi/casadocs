@@ -77,8 +77,4 @@ Examples
 .. _Development:
 
 Development
-   task blcal developer
-   
-   --CASA Developer--
-   
    

@@ -9,7 +9,7 @@ import re
 # grab the list of all pages in casadocs
 with open('scraper/_sitemap.txt') as fid:
     urls = fid.read().splitlines()
-#urls = ['https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/wide-field-imaging-full-primary-beam']
+#urls = ['https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/image-definition']
 #urls = ['https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/visibility-data-import-export/uv-data-import']
 #urls = ['https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_tclean']
 #urls = ['https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/using-plotms-to-plot-and-edit-visibilities-and-calibration-tables']
@@ -165,6 +165,9 @@ for ii, url in enumerate(urls):
             
             # fix image captions
             md = re.sub(' +\-{9} \-+.*?Caption\s*(.*?)\-{9} \-+', r'>\1', md, flags=re.DOTALL)
+            
+            # change internal hyperlinks to new address
+            md = re.sub('(\[.*?\])\(https://casa.nrao.edu/casadocs-devel/stable/(\S*?)/.*?([^/]*?)\)', r'\1(\2.ipynb#\3)', md, flags=re.DOTALL)
             
             with open(dest+r'.md', 'w') as fid:
                 fid.write(md)

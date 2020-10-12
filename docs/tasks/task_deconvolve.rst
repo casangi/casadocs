@@ -124,4 +124,8 @@ Examples
 .. _Development:
 
 Development
+   task deconvolve developer
+   
+   --CASA Developer--
+   
    

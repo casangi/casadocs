@@ -3,4 +3,8 @@ Tools
 
 CASA Tool interface definition
 
-Coming Soon....
+.. automodsumm:: stubs.tools
+   :toctree: tt
+   :nosignatures:
+   :classes-only:
+   :template: tooldoc.rst

@@ -99,7 +99,7 @@ def ParamSpec(param):
     # must exist params don't have default values
     if ('mustexist' in pd) and (pd['mustexist'] == 'true'):
         proto = '%s_ (%s)' % (param, ptype)
-    elif ('value' in task['params'][param]) and (task['params'][param]['value'] is not None):
+    elif ('value' in pd) and (pd['value'] is not None):
         if ('string' in pd['type'].split(', ')) or ('variant' in ptype):
             proto = '%s_ (%s=\'%s\')' % (param, ptype, pd['value'].strip())
         else:
@@ -108,30 +108,35 @@ def ParamSpec(param):
     return proto
 
 
+# clean out old data
+if not os.path.exists('../stubs'): os.system('mkdir ../stubs')
+if os.path.exists('../stubs/tasks'): os.system('rm -fr ../stubs/tasks')
+os.system('mkdir ../stubs/tasks')
 
-os.system('rm -fr ../stubs')
-os.system('mkdir ../stubs')
 for task in tasklist:
-    if not os.path.exists('../stubs/'+task['category']):
-        os.system('mkdir ../stubs/'+task['category'])
     
-    # grab rst plone description tab if it exists
+    # grab rst description page if it exists, otherwise skip this task
     rst = ''
     if os.path.exists('tasks/task_' + task['name'] + '.rst'):
         with open('tasks/task_' + task['name'] + '.rst', 'r') as fid:
             rst = fid.read()
+    else:
+        continue
+        
+    if not os.path.exists('../stubs/tasks/'+task['category']):
+        os.system('mkdir ../stubs/tasks/'+task['category'])
     
     # change image links
     rst = re.sub('(\.\. \|.*?\| image:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', rst, flags=re.DOTALL)
     
     # add this task to the __init__.py
     # with open('stubs/' + '__init__.py', 'a') as fid:
-    with open('../stubs/'+task['category']+'/'+'__init__.py', 'a') as fid:
+    with open('../stubs/tasks/'+task['category']+'/'+'__init__.py', 'a') as fid:
         fid.write('from .' + task['name'] + ' import *\n')
     
     # write the python stub function
     # with open('stubs/' + task['name'] + '.py', 'w') as fid:
-    with open('../stubs/'+task['category']+'/'+task['name']+'.py', 'w') as fid:
+    with open('../stubs/tasks/'+task['category']+'/'+task['name']+'.py', 'w') as fid:
         fid.write('#\n# stub function definition file for docstring parsing\n#\n\n')
         
         # build the function prototype, start with params that have no default
@@ -141,7 +146,7 @@ for task in tasklist:
             # must exist params don't have default values
             if ('mustexist' not in task['params'][param]) or (task['params'][param]['mustexist'] == 'false'):
                 proto += '%s%s, ' % (param, ParamSpec(param)[ParamSpec(param).rindex('='):-1])
-        fid.write('def %s(%s):\n    r"""\n' % (task['name'], proto[:-2]))
+        fid.write('def %s(%s):\n    """\n' % (task['name'], proto[:-2]))
         
         # populate function description
         if 'shortdescription' in task.keys():
