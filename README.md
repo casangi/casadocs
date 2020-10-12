@@ -1,6 +1,9 @@
 # CASAdocs
 Common Astronomy Software Applications Documentation
 
+- view latest master build at: https://casadocs.readthedocs.io/en/latest
+- view stable release build at: https://casadocs.readthedocs.io/en/stable/
+
 
 ## Editing Regular Content
 Most of the casadocs content is written in markdown format using the Google
