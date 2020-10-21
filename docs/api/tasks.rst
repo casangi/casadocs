@@ -21,6 +21,15 @@ Information
    :functions-only:
 
 
+Flagging
+^^^^^^^^^^^^^
+
+.. automodsumm:: stubs.tasks.flagging
+   :toctree: tt
+   :nosignatures:
+   :functions-only:
+
+
 Calibration
 ^^^^^^^^^^^^^
 
@@ -39,15 +48,6 @@ Imaging
    :functions-only:
 
 
-Modeling
-^^^^^^^^^^^^^^^
-
-.. automodsumm:: stubs.tasks.modeling
-   :toctree: tt
-   :nosignatures:
-   :functions-only:
-
-
 Single Dish
 ^^^^^^^^^^^^^^^
 
@@ -61,16 +61,6 @@ Manipulation
 ^^^^^^^^^^^^^^^
 
 .. automodsumm:: stubs.tasks.manipulation
-   :toctree: tt
-   :nosignatures:
-   :functions-only:
-
-.. automodsumm:: stubs.tasks.utility
-   :toctree: tt
-   :nosignatures:
-   :functions-only:
-
-.. automodsumm:: stubs.tasks.editing
    :toctree: tt
    :nosignatures:
    :functions-only:
