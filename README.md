@@ -31,7 +31,7 @@ Sphinx RST syntax and examples can be found here:
 
 
 ## Generating from Scratch
-This should not be necessary and his here only for reference on how
+This should not be necessary and is here only for reference on how
 to regenerate the original content from Plone.
 
 1. Scrape the latest Plone CASAdocs (creates html folder):
