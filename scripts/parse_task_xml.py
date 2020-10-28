@@ -109,9 +109,8 @@ def ParamSpec(param):
 
 
 # clean out old data
-if not os.path.exists('../stubs'): os.system('mkdir ../stubs')
-if os.path.exists('../stubs/tasks'): os.system('rm -fr ../stubs/tasks')
-os.system('mkdir ../stubs/tasks')
+if os.path.exists('../casatasks'): os.system('rm -fr ../casatasks')
+os.system('mkdir ../casatasks')
 
 for task in tasklist:
     
@@ -123,20 +122,18 @@ for task in tasklist:
     else:
         continue
         
-    if not os.path.exists('../stubs/tasks/'+task['category']):
-        os.system('mkdir ../stubs/tasks/'+task['category'])
+    if not os.path.exists('../casatasks/'+task['category']):
+        os.system('mkdir ../casatasks/'+task['category'])
     
     # change image links
     rst = re.sub('(\.\. \|.*?\| image:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', rst, flags=re.DOTALL)
     
     # add this task to the __init__.py
-    # with open('stubs/' + '__init__.py', 'a') as fid:
-    with open('../stubs/tasks/'+task['category']+'/'+'__init__.py', 'a') as fid:
+    with open('../casatasks/'+task['category']+'/'+'__init__.py', 'a') as fid:
         fid.write('from .' + task['name'] + ' import *\n')
     
     # write the python stub function
-    # with open('stubs/' + task['name'] + '.py', 'w') as fid:
-    with open('../stubs/tasks/'+task['category']+'/'+task['name']+'.py', 'w') as fid:
+    with open('../casatasks/'+task['category']+'/'+task['name']+'.py', 'w') as fid:
         fid.write('#\n# stub function definition file for docstring parsing\n#\n\n')
         
         # build the function prototype, start with params that have no default

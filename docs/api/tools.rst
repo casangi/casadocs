@@ -3,7 +3,7 @@ Tools
 
 CASA Tool interface definition
 
-.. automodsumm:: stubs.tools
+.. automodsumm:: casatools
    :toctree: tt
    :nosignatures:
    :classes-only:

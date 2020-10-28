@@ -46,9 +46,8 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.coverage',
     'sphinx.ext.githubpages',
-    #'sphinx.ext.napoleon',
     'sphinx_automodapi.automodapi',
-    'm2r'
+    'recommonmark'
 ]
 nbsphinx_allow_errors = True
 nbsphinx_execute = 'never'
@@ -170,10 +169,10 @@ latex_documents = [
 ## this is kind of a lame way to integrate things, but it works better
 ## than the standard solutions
 #######################################################################
-if not os.path.exists('../stubs/tasks'):
+if not os.path.exists('../casatasks'):
     os.system("python ../scripts/parse_task_xml.py")
 
-if not os.path.exists('../stubs/tools'):
+if not os.path.exists('../casatools'):
     os.system("python ../scripts/parse_tool_xml.py")
 
 if not os.path.exists('examples'):

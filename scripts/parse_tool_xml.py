@@ -113,19 +113,13 @@ def ParamSpec(method, param):
 # separate first line from rest for using the dropdown expander
 def cleanxml(text):
     text = re.sub(r'<.*?>', '', text, flags=re.DOTALL).replace('\\', '').strip()
-    lb = text.find('.')
-    lb = text.find('\n') if lb < 0 else lb
-    first = text if lb < 0 else text[:lb+1].strip()
-    rest = '' if (lb < 0) else text[lb+1:].strip()
-    first = first.replace('\n', ' ')
-    text = '   | ' + re.sub('\n', '\n   | ', text, flags=re.DOTALL)
-    return (first, rest, text)
+    #text = re.sub('\n', '\n| ', text, flags=re.DOTALL)
+    return text.strip()
 
 
 # clean out old data
-if not os.path.exists('../stubs'): os.system('mkdir ../stubs')
-if os.path.exists('../stubs/tools'): os.system('rm -fr ../stubs/tools')
-os.system('mkdir ../stubs/tools')
+if os.path.exists('../casatools'): os.system('rm -fr ../casatools')
+os.system('mkdir ../casatools')
 
 for name in tooldict.keys():
     
@@ -143,19 +137,19 @@ for name in tooldict.keys():
     rst = re.sub('(\.\. \|.*?\| image:: )_apimedia/(\S*)\s*?\n', r'\1../../tools/_apimedia/\2\n', rst, flags=re.DOTALL)
     
     # add this tool to the __init__.py
-    with open('../stubs/tools/' + '__init__.py', 'a') as fid:
+    with open('../casatools/' + '__init__.py', 'a') as fid:
         fid.write('from .' + name + ' import *\n')
     
     # write the python stub class
-    with open('../stubs/tools/' + name + '.py', 'w') as fid:
+    with open('../casatools/' + name + '.py', 'w') as fid:
         fid.write('#\n# stub class definition file for docstring parsing\n#\n\n')
         fid.write('class %s:\n    """\n' % name)
 
         # populate class description
         if ('shortdescription' in tool.keys()) and (tool['shortdescription'] is not None) and (len(tool['shortdescription'].strip()) > 0):
-            fid.write(cleanxml(tool['shortdescription'])[2].replace('   | ', ' ') + '\n\n')
+            fid.write(cleanxml(tool['shortdescription']) + '\n\n')
         if ('description' in tool.keys()) and (tool['description'] is not None) and (len(tool['description'].strip()) > 0):
-            fid.write(cleanxml(tool['description'])[2].replace('   | ', ' ') + '\n\n')
+            fid.write(cleanxml(tool['description']) + '\n\n')
         fid.write('    """\n\n')
         
         # build the class definition
@@ -164,18 +158,15 @@ for name in tooldict.keys():
             tm = tool['methods'][method]
             
             # create a method description
+            desc = ''
+            if ('shortdescription' in tm.keys()) and (tm['shortdescription'] is not None):
+                desc = cleanxml(tm['shortdescription']) + '\n\n'
             if ('description' in tm.keys()) and (tm['description'] is not None) and (len(tm['description'].strip()) > 0):
-                desc = cleanxml(tm['description'])
-            elif ('shortdescription' in tm.keys()) and (tm['shortdescription'] is not None):
-                desc = cleanxml(tm['shortdescription'])
-            else:
-                desc = '   '
-
+                desc = desc + cleanxml(tm['description']) + '\n'
+                
             # some methods have no parameters
             if ('params' not in tm.keys()) or (len(tm['params']) == 0):
-                txt = '.. raw:: html\n\n' + '   <details><summary>' + desc[0] + '</summary>\n\n'
-                if len(desc[1]) > 0: txt = txt + 'Description\n' + desc[2]
-                fid.write('    def %s(self):\n        """\n%s\n\n        """\n\n        pass\n\n' % (method, txt))
+                fid.write('    def %s(self):\n        """\n%s\n\n        """\n\n        pass\n\n' % (method, desc))
                 continue
             
             proto = [pp for pp in tm['params'] if ('mustexist' in tm['params'][pp]) and (tm['params'][pp]['mustexist'] == 'true')]
@@ -184,28 +175,23 @@ for name in tooldict.keys():
                 # must exist params don't have default values
                 if ('mustexist' not in tm['params'][param]) or (tm['params'][param]['mustexist'] == 'false'):
                     proto += '%s%s, ' % (param, ParamSpec(method, param)[ParamSpec(method, param).rindex('='):-1])
-            fid.write('    def %s(self, %s):\n        """\n' % (method, proto[:-2]))
-        
-            # populate method description
-            fid.write('.. raw:: html\n\n' + '   <details><summary>' + desc[0] + '</summary>\n\n')
+            
+            # populate method protoype and description
+            fid.write('    def %s(self, %s):\n        """\n%s\n\n' % (method, proto[:-2], desc))
             
             # populate method parameters
-            fid.write('Parameters\n')
+            fid.write('.. rubric:: Parameters\n\n')
             for param in tm['params'].keys():
-                
-                fid.write('   - %s' % ParamSpec(method, param))
+                fid.write('- ``%s``' % ParamSpec(method, param))
                 if ('description' in tm['params'][param].keys()) and (tm['params'][param]['description'] is not None) and (len(tm['params'][param]['description'].strip()) > 0):
-                    fid.write(' - %s' % re.sub('\s+', ' ', cleanxml(tm['params'][param]['description'])[2], flags=re.DOTALL))
+                    fid.write(' - %s' % cleanxml(tm['params'][param]['description']))
                 elif ('shortdescription' in tm['params'][param].keys()) and (tm['params'][param]['shortdescription'] is not None):
                     if len(tm['params'][param]['shortdescription'].strip()) > 0:
-                        fid.write(' - %s' % cleanxml(tm['params'][param]['shortdescription'])[2])
+                        fid.write(' - %s' % cleanxml(tm['params'][param]['shortdescription']))
                 fid.write('\n')
             
-            # add rest of the description
-            if len(desc[1]) > 0: fid.write('Description\n' + desc[2] + '\n')
-            
             # close docstring stub
-            fid.write('\n.. raw:: html\n\n' + '   </details>\n\n' + '        """\n\n        pass\n\n\n')
+            fid.write('\n        """\n\n        pass\n\n\n')
             
         # marry up the Plone content to the bottom Notes section
         #fid.write('\n\n    """' + rst + '\n\n    """')
