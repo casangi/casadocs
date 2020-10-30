@@ -79,6 +79,11 @@ Description
    -  'summary' = report the amount of flagged data
    -  'unflag' = unflag the specified data 
    
+   A progress report line and a partial flagging summary is produced
+   in the CASA logger every approximate 10% of the input data (since
+   CASA 6.2), when the logger priority level is INFO (default).
+   Additional messages are visible when setting a more detailed
+   `level of logging <../../notebooks/usingcasa.ipynb#Setting-priority-levels-in-the-logger>`_.
     
    
    .. rubric:: Parameter descriptions
