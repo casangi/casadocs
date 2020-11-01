@@ -1,7 +1,7 @@
-Tools
+casatools
 ====================
 
-CASA Tool interface definition
+CASA class interface definition
 
 .. automodsumm:: casatools
    :toctree: tt

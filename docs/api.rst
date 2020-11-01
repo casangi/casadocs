@@ -7,9 +7,9 @@ This section is verified prior to each release
 .. toctree::
    :maxdepth: 1
 
-   api/tasks
-   api/tools
+   api/casatasks
+   api/casatools
+   api/casashell
+   api/casadata
    api/routines
-   api/shell
-   api/data
    api/configuration

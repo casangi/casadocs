@@ -3,11 +3,6 @@
 .. _Description:
 
 Description
-   apply calibrations solutions(s) to data
-   
-   .. rubric:: Summary
-      
-   
    The **applycal** task reads the specified gain calibration tables,
    applies them to the (raw) MS *DATA* column (with the specified
    selection), and writes the calibrated data into the
@@ -42,11 +37,8 @@ Description
    
    Calibrated data may be examined in **plotms** and **visstat**.
    
-    
-   
    .. rubric:: Weight calibration: *calwt*
-      
-   
+
    Unlike the solving tasks, calibration of the weights is optional
    in **applycal**, and is controlled using the *calwt* parameter. If
    *calwt=True*, the weights will be calibrated by all specified
@@ -95,8 +87,6 @@ Description
 .. _Examples:
 
 Examples
-   task applycal examples
-   
    Often, it is desirable to calibrate calibrators and science
    targets in separate runs of **applycal**, perhaps with different
    interpolation parameters. First we calibrate the calibrators
@@ -107,46 +97,29 @@ Examples
    
    ::
    
-      | applycal(vis='n5921.ms',
-      |          field='0,1',                             #
-        calibrators
-      |          spw='',                                  # all
-        channels
-      |          gaintable=['n5921.gcal','n5921.bcal']    # gain and
-        bandpass tables
-      |          gainfield=['nearest',''],                # nearest
-        on sky for gcal
-      |          interp=['nearest','nearest,linear'],     # nearest
-        in time for gcal
-      |          calwt=True)                              # calibrate
-        the weights
+      applycal(vis='n5921.ms',
+               field='0,1',                             # calibrators
+               spw='',                                  # all channels
+               gaintable=['n5921.gcal','n5921.bcal']    # gain and bandpass tables
+               gainfield=['nearest',''],                # nearest on sky for gcal
+               interp=['nearest','nearest,linear'],     # nearest in time for gcal
+               calwt=True)                              # calibrate the weights
    
    Next, calibrate the science target with explicit gainfield
    selection for the gain caltable, and linear interpolation in time:
    
    ::
    
-      | applycal(vis='n5921.ms',
-      |          field='2',                               # science
-        field
-      |          spw='',                                  # all
-        channels
-      |          gaintable=['n5921.gcal','n5921.bcal']    # gain and
-        bandpass tables
-      |          gainfield=['1',''],                      # field 1
-        calibrates field 2 for gcal table
-      |          interp=['linear','nearest,linear'],      # linear in
-        time for gcal
-      |          calwt=True)                              # calibrate
-        the weights
-      |
-   
+      applycal(vis='n5921.ms',
+               field='2',                               # science field
+               spw='',                                  # all channels
+               gaintable=['n5921.gcal','n5921.bcal']    # gain and bandpass tables
+               gainfield=['1',''],                      # field 1 calibrates field 2 for gcal table
+               interp=['linear','nearest,linear'],      # linear in time for gcal
+               calwt=True)                              # calibrate the weights
+
 
 .. _Development:
 
 Development
-   task applycal developer
-   
-   --CASA Developer--
-   
-   
+   None

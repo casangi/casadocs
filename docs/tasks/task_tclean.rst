@@ -3,11 +3,6 @@
 .. _Description:
 
 Description
-   task tclean description
-   
-   .. rubric:: Overview
-      
-   
    The **tclean** task forms images from visibilities and
    reconstructs a sky model.
    
@@ -42,12 +37,9 @@ Description
    of the process.
    
    |image1|
-   
-    
-   
+
    .. rubric:: Operating Modes
-      
-   
+
    The tclean task can be configured to perform either full iterative
    image reconstructions
    (see `synthesis-imaging <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging>`__ )
