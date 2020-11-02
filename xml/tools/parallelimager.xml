@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+                             file:///opt/casa/code/tools/xml/casa.xsd">
+
+	<tool name="parallelimager" module="parallelimager">
+		<shortdescription>tool for synthesis imaging</shortdescription>
+		<description>
+			parallelimager is a tool that accomplishes synthesis processing. A
+			{\tt parallelimager} may be constructed to process any number of
+			MeasurementSets; however, multiple copies of {\tt parallelimager}
+			may also be made.
+		</description>
+		<code>
+			<include>tools/synthesis/parallelimager_forward.h</include>
+		</code>
+
+		<method type="constructor" name="parallelimager">
+			<shortdescription>
+				Construct a parallelimager tool
+			</shortdescription>
+			<description>
+				This is used to construct {\tt parallelimager} tool.
+			</description>
+			<returns type="parallelimager"/>
+			<example/>
+		</method>
+
+		<method type="function" name="clean">
+			<shortdescription>
+				Create an image and deconvolve it
+			</shortdescription>
+			<description/>
+			<input>
+				<param type="intArray" direction="in" name="ranks">
+					<description>participating ranks</description>
+				</param>
+				<param type="record" name="clean_params">
+					<description>clean parameters</description>
+				</param>
+				<param type="record" name="selection_params">
+					<description>selection parameters</description>
+				</param>
+				<param type="record" name="image_params">
+					<description>image parameters</description>
+				</param>
+				<param type="record" name="grid_params">
+					<description>grid parameters</description>
+				</param>
+				<param type="record" name="weight_params">
+					<description>weight parameters</description>
+				</param>
+				<param type="record" name="normalization_params">
+					<description>normalization parameters</description>
+				</param>
+				<param type="record" name="deconvolution_params">
+					<description>deconvolution parameters</description>
+				</param>
+				<param type="record" name="iteration_params">
+					<description>iteration parameters</description>
+				</param>
+			</input>
+			<returns type="record"/>
+		</method>
+	</tool>
+
+</casaxml>
+

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+
+<!-- This is a param set for asdm2ms filler -->
+
+<tool name="asdm2msfillertask" module="asdm2msfillertask">
+<code>
+	<include>tools/alma/asdm2ms_forward.h</include>
+<private>
+	<include>tools/alma/asdm2ms_private.h</include>
+</private>
+</code>
+
+	<shortdescription>tool for ASDM filler tasks</shortdescription>
+
+<description></description>
+
+
+
+<method type="constructor" name="asdm2msfillertask">
+
+  <shortdescription>Construct an vlafillertask tool</shortdescription>
+
+  <description></description>
+
+  <input></input>
+
+  <returns type="asdm2msfillertask"/>
+
+  <example></example>
+
+</method>
+
+<method type="function" name="fill">
+
+  <shortdescription>Perform fill operations</shortdescription>
+
+  <description></description>
+
+  <input>
+
+    <param type="string" name="msname">
+    <description>name of output ms</description>
+    </param>
+
+    <param type="string" name="inputfile">
+    <description>name of vla archive</description>
+    </param>
+
+    <param type="bool" name="complexdata">
+	    <description>Is data complex flag</description>
+    <value>false</value>
+    </param>
+
+    <param type="bool" name="overwrite">
+    <description>overwrite or append</description>
+    <value>false</value>
+    </param>
+
+  </input>
+
+  <returns type="bool"/>
+
+  <example></example>
+
+</method>
+
+</tool>
+
+</casaxml>
+

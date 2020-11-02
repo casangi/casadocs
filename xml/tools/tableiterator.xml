@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+
+
+
+ 
+        <tool name="tableiterator" module="table">
+        <shortdescription>Allows iteration through a table tool</shortdescription>
+       
+<code>
+	<include>tools/tables/tableindex_forward.h</include>
+<private>
+	<include>tools/tables/tableindex_private.h</include>
+</private>
+</code>
+
+<description>
+A tableiterator allows iteration through a table based on the contents
+of one or more columns. Each step in the iteration process forms
+a subset of the table for which the specified columns have the same value.
+</description>
+
+<example>
+\begin{verbatim}
+vis:=table("3C273XC1.MS");
+vis.summary();
+visbyants:=tableiterator(vis, "ANTENNA1 ANTENNA2");
+visbyants.reset();
+while(visbyants.next()) {
+  nrows:=visbyants.table().nrows();
+  print "Antenna1 ", visbyants.table().getcell("ANTENNA1", 1),
+        " Antenna2 ", visbyants.table().getcell("ANTENNA2", 1),
+        ": ", nrows, "samples";
+}
+\end{verbatim}
+This example iterates through the table on ANTENNA1 and ANTENNA2.
+Thus each call to \texttt{next} forms a (reference) table
+containing the rows of a single baseline in the main table.
+The \texttt{table} function can be used to get access to the current
+subset.
+\\Note that a \texttt{next} has to be done to get the first subset.
+</example>
+
+
+
+ 
+   <method type="constructor" name="tableiterator">
+   <shortdescription>Construct a tableiterator</shortdescription>
+   
+<description>
+Construct an iterator for the given table. Each step in the iteration
+returns a subtable for which the values of the given columns are
+equal. By default the table will be sorted before the iteration is
+started to achieve that all equal values are grouped together.
+\\The optional order argument can be given to define how the table
+has to be sorted. 'a' is ascending, 'd' is descending, other is don't care
+(which comes to ascending). Instead of a single letter any word can be
+used starting with a or d (e.g. asc).
+\\The optional sort argument can be given to define if the table
+has to be sorted. F means no sorting. The default T means sorting.
+The default sort algorithm used is heapsort.
+By giving the sort argument a string value, it can also be used to
+specify another sort algorithm. 'n' is no sort, 'q' is quicksort,
+'i' is insertion sort, other is heapsort. A full word can also be used.
+</description>
+<input>
+<!--
+     <param type="record" direction="in" name="tab">
+     <description>table to be iterated, expects table tool</description>
+     </param>
+
+     <param type="stringArray" direction="in" name="columns">
+     <description>Array of column names</description>
+     </param>
+
+     <param type="string" direction="in" name="order">
+     <description>Order when sorting the table</description>
+     <value></value>
+     </param>
+
+     <param type="bool" direction="in" name="sort">
+     <description>Sort the table first?</description>
+     <value>true</value>
+     </param>
+-->
+</input>
+<returns type="bool"/>
+</method>
+
+ 
+   <method type="function" name="table">
+   <shortdescription>Return the current table subset</shortdescription>
+   
+<description>
+Return a \texttt{table} tool for the current subset.
+\\Note that \texttt{next} has to be called to form the first subset.
+</description>
+<returns type="record">
+<shortdescription>table tool|Bool
+</shortdescription>
+</returns>
+</method>
+
+ 
+   <method type="function" name="reset">
+   <shortdescription>Reset iteration to the beginning</shortdescription>
+   
+<description>
+It resets the iteration to the beginning of the table.
+Note that \texttt{next} has to be called to get the first subset.
+</description>
+<returns type="bool"/>
+</method>
+
+ 
+   <method type="function" name="next">
+   <shortdescription>Advance to the next table subset</shortdescription>
+   
+<description>
+Form the next subset of the table.
+It returns a false status if no more subsets are available
+The subset can be accessed using the \texttt{table} function.
+\\Note that \texttt{next} has to be called to form the first subset.
+</description>
+<returns type="bool"/>
+</method>
+
+ 
+   <method type="function" name="terminate">
+   <shortdescription>Terminate the iteration and clean up memory</shortdescription>
+   
+<description>
+This function has to be called if the iteration is ended prematurely.
+Otherwise tables are left open.
+If the iteration is done until the end, \texttt{terminate} does not
+need to be called, but it does not harm to call it.
+\\Hereafter it is still possible to restart the iteration using the
+\texttt{reset} function.
+</description>
+<returns type="bool"/>
+</method>
+
+ 
+   <method type="function" name="done">
+   <shortdescription>End the tableiterator tool</shortdescription>
+   
+<description>
+Terminate the iteration and free up all memory.
+</description>
+<returns type="bool"/>
+</method>
+
+</tool>
+</casaxml>
+

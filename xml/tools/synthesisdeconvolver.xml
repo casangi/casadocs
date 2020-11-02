@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+
+ 
+        <tool name="synthesisdeconvolver" module="synthesisdeconvolver">
+        <shortdescription>tool for synthesis imaging</shortdescription>
+       
+<description>
+synthesisdeconvolver is an tool that accomplishes synthesis processing.
+A {\tt synthesisdeconvolver} must be constructed for each MeasurementSet for which one
+wishes to do processing. Multiple copies of {\tt synthesisdeconvolver} may
+be made at any time (provide they are given different names).
+</description>
+
+<code>
+	<include>tools/synthesis/synthesisdeconvolver_forward.h</include>
+<private>
+	<include>tools/synthesis/synthesisdeconvolver_private.h</include>
+</private>
+
+</code>
+
+
+<!-- ===================================== -->
+ 
+   <method type="constructor" name="synthesisdeconvolver">
+   <shortdescription>Construct an synthesisdeconvolver tool</shortdescription>
+   
+<description>
+This is used to construct {\tt synthesisdeconvolver} tool. 
+
+</description>
+<input>
+
+</input>
+<returns type="synthesisdeconvolver"/>
+<example>
+
+
+</example>
+</method>
+
+
+<!-- ===================================== -->
+
+   <method type="function" name="setupdeconvolution">
+   <shortdescription>Set parameters to control minor cycle algorithms</shortdescription>
+
+<description>
+</description>
+<input>
+
+     <param type="record" name="decpars">
+     <description>All parameters for deconvolution (minor cycle)</description>
+     <value type="record"></value>
+     </param>
+
+</input>
+<returns type="bool"/>
+</method>
+
+<!-- ===================================== -->
+
+   <method type="function" name="initminorcycle">
+   <shortdescription>Find peak residual</shortdescription>
+
+<description>
+</description>
+<input/>
+
+<returns type="record"/>
+</method>
+
+<!-- ===================================== -->
+
+   <method type="function" name="setupmask">
+   <shortdescription>Create an input or auto mask</shortdescription>
+
+<description>
+</description>
+<input>
+</input>
+<returns type="bool"/>
+</method>
+
+<!-- ===================================== -->
+
+   <method type="function" name="interactivegui">
+   <shortdescription>Run interactive GUI</shortdescription>
+
+<description>
+</description>
+
+<input>
+     <param type="record" name="iterbotrecord">
+     <description>All parameters that control iterations</description>
+     <value type="record"></value>
+     </param>
+</input>
+
+<returns type="record"/>
+</method>
+
+<!-- ===================================== -->
+<!-- ===================================== -->
+   <method type="function" name="estimatememory">
+   <shortdescription>Get an estimate in kilobytes of memory that will be needed</shortdescription>
+
+<description>
+  This function returns an estimate of the memory (RAM) to be used by synthesisdeconvolver tool. Need to be run after functions setdata and defineimage are done
+</description>
+<input>
+<param type="intArray" name="imsize">
+     <description>Image size that will be deconvolved (vector of int)</description>
+     <value></value>
+     </param>
+</input>
+<returns type="any"><any type="variant"/></returns>
+</method>
+<!-- ===================================== -->
+   <method type="function" name="executeminorcycle">
+   <shortdescription>Run a minor cycle</shortdescription>
+
+<description>
+</description>
+<input>
+     <param type="record" name="iterbotrecord">
+     <description>All parameters that control minor cycle</description>
+     <value type="record"></value>
+     </param>
+</input>
+
+<returns type="record"/>
+</method>
+
+
+<!-- ===================================== -->
+
+   <method type="function" name="restore">
+   <shortdescription>Restore images</shortdescription>
+
+<description>
+</description>
+<input>
+</input>
+
+<returns type="bool"/>
+</method>
+
+<!-- ===================================== -->
+
+   <method type="function" name="pbcor">
+   <shortdescription>Apply primary beam correction</shortdescription>
+
+<description>
+</description>
+<input>
+</input>
+
+<returns type="bool"/>
+</method>
+
+<!-- ===================================== -->
+   <method type="function" name="checkrestoringbeam">
+   <shortdescription>check restoring beam.</shortdescription>
+
+<description>
+</description>
+<input>
+</input>
+
+<returns type="bool"/>
+</method>
+
+<!-- ===========================
+
+   <method type="function" name="testsummary">
+   <shortdescription>TEST. Print a summary from an input image tool.</shortdescription>
+
+<description>
+</description>
+<input>
+
+     <param type="image" name="imt">
+     <description> Input image tool object </description>
+     <value></value>
+     </param>
+
+</input>
+
+<returns type="bool"/>
+</method>
+
+
+============================== -->
+
+   <method type="function" name="done">
+   <shortdescription>Close the tool</shortdescription>
+
+<description>
+</description>
+<input>
+
+</input>
+<returns type="bool"/>
+</method>
+
+</tool>
+
+</casaxml>
+

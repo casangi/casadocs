@@ -1,0 +1,2791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+<tool name="regionmanager" module="images">
+<shortdescription>Create and manipulate regions of interest</shortdescription>
+
+
+<keyword>image</keyword>
+<keyword>region-of-interest</keyword>
+<keyword>region</keyword>
+<keyword>box</keyword>
+<keyword>polygon</keyword>
+
+<code>
+	<include>tools/images/regionmanager_forward.h</include>
+	<private>
+		<include>tools/images/regionmanager_private.h</include>	
+        </private>
+</code>
+
+<description>
+\medskip
+\noindent
+{\bf Overview of Regionmanager functionality}
+
+\begin{itemize}
+
+\item Create simple pixel-coordinate based regions with functions
+
+\begin{description}
+
+\item <link anchor="images:regionmanager.box.function">box</link>
+\item <link anchor="images:regionmanager.quarter.function">quarter</link>
+\item Create simple world-coordinate based regions with functions
+
+\end{description}
+
+
+\begin{description}
+
+\item <link anchor="images:regionmanager.frombcs.function">frombcs</link> (range along one axis)
+\item <link anchor="images:regionmanager.wrange.function">wrange</link> (range along one axis)
+\item <link anchor="images:regionmanager.wbox.function">wbox</link>
+\item <link anchor="images:regionmanager.wpolygon.function">wpolygon</link>
+\item <link anchor="images:regionmanager.wbox.function">wdbox</link>
+\item <link anchor="images:regionmanager.wpolygon.function">wdpolygon</link>
+
+\end{description}
+
+Also related is function <link anchor="images:regionmanager.setcoordinates.function">setcoordinates</link>
+
+
+<!---
+\begin{description}
+\item Create compound regions (from world regions only) with functions
+
+\item <link anchor="images:regionmanager.complement.function">complement</link>
+\item <link anchor="images:regionmanager.concatenation.function">concatenation</link>
+\item <link anchor="images:regionmanager.difference.function">difference</link>
+\item <link anchor="images:regionmanager.intersection.function">intersection</link>
+\item <link anchor="images:regionmanager.makeunion.function">makeunion</link>
+
+\end{description}
+
+\item The GUI interface is started with function
+<link anchor="images:regionmanager.gui.function">gui</link>.
+
+\item I/O of regions in tables with functions
+
+\begin{description}
+
+\item <link anchor="images:regionmanager.copyregions.function">copyregions</link>
+\item <link anchor="images:regionmanager.deletefromtable.function">deletefromtable</link>
+\item <link anchor="images:regionmanager.namesintable.function">namesintable</link>
+\item <link anchor="images:regionmanager.fromtabletoglobal.function">fromtabletoglobal</link>
+\item <link anchor="images:regionmanager.fromtabletorecord.function">fromtabletorecord</link>
+\item <link anchor="images:regionmanager.fromtabletonakedrecord.function">fromtabletonakedrecord</link>
+\item <link anchor="images:regionmanager.fromglobaltotable.function">fromglobaltotable</link>
+\item <link anchor="images:regionmanager.fromrecordtotable.function">fromrecordtotable</link>
+
+\end{description}  
+-->
+
+\item Convert pixel regions  to world regions with 
+
+\begin{description}
+
+\item <link anchor="images:regionmanager.pixeltoworldregion.function">pixeltoworldregion</link>.
+
+\end{description}
+
+\item There are some general utility functions, generally only of interest
+if you are writing scripts.  These are
+
+\begin{description}
+
+\item <link anchor="images:regionmanager.absreltype.function">absreltype</link>
+\item <link anchor="images:regionmanager.def.function">def</link>
+\item <link anchor="images:regionmanager.done.function">done</link>
+\item <link anchor="images:regionmanager.extractsimpleregions.function">extractsimpleregions</link>
+\item <link anchor="images:regionmanager.ispixelregion.function">ispixelregion</link>
+\item <link anchor="images:regionmanager.isworldregion.function">isworldregion</link>
+\item <link anchor="images:regionmanager.type.function">type</link>
+
+\end{description}
+
+\item There are some functions relating to interactive
+creation of regions with the \viewer.  These are
+generally only of interest if you are writing scripts, and are
+
+\begin{description}
+
+\item <link anchor="images:regionmanager.displayedplane.function">displayedplane</link>
+\item <link anchor="images:regionmanager.pseudotoworldregion.function">psuedotoworldregion</link>
+
+\end{description}
+
+\item There are some functions relating to communications.  These are
+generally only of interest if you are writing scripts and are
+
+\begin{description}
+
+\item <link anchor="images:regionmanager.setselectcallback.function">setselectcallback</link>
+\item <link anchor="images:regionmanager.getselectcallback.function">getselectcallback</link>
+
+\end{description}
+
+\end{itemize}
+
+\medskip
+\noindent{\bf Regions and the Regionmanager}
+
+When working with an image, one is generally interested in some part of
+that image on which astrophysical analysis is performed.  This \region\
+(or more generically and simply, the `region') might be the whole image,
+or some subset of it. 
+
+Regions come in a few varieties.  There are simple regular shapes (box,
+ellipsoid), simple irregular shapes (polygon), as well as compound
+regions made by combining other regions (simple or compound).  For
+example unions or intersections of regions.  In addition, the simple
+regions can be pixel-coordinate based or world-coordinate based. 
+However, a compound regions must always comprise world-coordinate based
+regions. 
+
+It is the task of the \regionmanager\ (\tool) to manage your regions; it
+creates, lists and manipulates them.  Apart from a \regionmanager, the
+only other way to create a \region\ is with the
+<link anchor="">viewier</link> \tool (type viewer within the
+casapy environment).  This
+allows you to interactively make, with the cursor and an image display,
+a box or polygonal region.  The region so made may be collected by the
+\regionmanager\ (in fact the complete process can be initiated from the
+\regionmanager). 
+
+The \regionmanager\ has a command line interface, but there are plans
+to have it interact directly with the 
+<link anchor="">CASA viewer</link>\tool. in the future.
+Currently the only way to interact is to save the regions created
+with the viewer to a file or as a region in the image , and use the \regionmanager\ function
+fromfiletorecord or fromtabletorecord, repsectively, to bring the regions in the CLI.
+
+It is probably fair to say that for the simplest regions, such as a 
+pixel box, there is little to choose between making a region with the  
+GUI or the command line interface.  However, for the world regions, 
+the GUI is significantly better; it hides the details of handling the 
+coordinate information.  
+
+\medskip
+\noindent
+{\bf Simple Pixel and World regions}
+
+Pixel regions are specified purely in terms of pixel coordinates.  Pixel
+coordinates are considered to run from 1 at the bottom left corner 
+(blc) of an image to the image shape at the top-right corner (trc).
+
+For example, a pixel region might be box that runs from a bottom
+blc of [20,20] to a trc of [64,90] in a 2D image.  Such a pixel region
+is NOT very portable though.  If you are interested in a region about an
+astronomical source, pixel coordinates are only useful for a particular
+image.  In some other image, the source may well have different pixel
+coordinates.  However, pixel regions are easy to make and use, and they
+are valuable. 
+
+So far, we have been talking about absolute pixel coordinates.  However,
+pixel regions can also be specified in relative coordinates.  This is
+controlled through the argument  {\stfaf absrel} which may take on one
+of the values 'abs' (absolute coordinates) 'relref' (relative to the
+reference pixel of the image) or 'relcen' (relative to the center of the
+image).  You can use the <link anchor="images:image.summary.function">summary</link> function
+of the <link anchor="images:image">image</link> module to see the reference pixel. 
+The sense of the offset is  $rel = abs - ref$.
+
+You may also define pixel regions in terms of fractional coordinates
+that are in the range [0,1] (blc to trc) - look for argument {\stfaf frac}
+which can be T or F.
+
+<example>
+
+From the command line, let's make a simple pixel box region with
+
+
+
+- ia.open('myimage')
+- csys = ia.coordsys()
+- r1 = rg.box( blc=[10,20], trc=[30,40] )
+- ia.statistics(region=r1);
+Number points = 441           
+Flux density  = -1.728895e-03  Jy
+Sum           = -9.522969e-02        Mean     = -2.159403e-04 
+Variance      = 1.518106e-05         Sigma    = 3.896288e-03  
+Rms           = 3.897854e-03  
+
+Minimum value is -1.208747e-02  at [13, 32]
+Maximum value is 1.287862e-02   at [21, 37]
+
+
+You have now created a region tool called {\stf r1} which describes a 2D
+box from [10,20] to [30,40] in absolute pixel coordinates.   The region
+is made `const' as well so you can't overwrite it by mistake.  
+We then apply it to an image and evaluate some statistics in the
+specified region.
+
+</example>
+
+World regions are more portable, because the region is specified in
+terms of the world coordinates (e.g.  RA and DEC, or Frequency etc). 
+You can create a region with one image, and then apply it to another. 
+For example, you might make an RA/DEC world box (i.e.  blc and trc
+specified as RA and DEC) from an optical image.  You can then apply it
+to your radio image of the same source.  The software will look for the
+axes of the region (in this case RA and DEC), and then attempt to match
+them with the image to which the region is being applied.  For each
+matching axis, the region will be applied.  
+
+When you make a world region, you must supply a coordinate system from
+the appropriate image to the \regionmanager.  The coordinate system
+comes from the <link anchor="images:image.coordsys.function">coordsys</link> function
+of the Image tool.  This associates a coordinate with an image pixel
+axis. 
+
+<example>
+
+Now let's do an example with a world box.  It is better to make a world
+box with the GUI interface, but the command line is still manageable. 
+First, let's summarise the header of our image (the one from the
+previous example). 
+
+
+- ia.open( 'myimage' )
+- ia.summary()
+Image name       : myimage
+Image mask       : Absent
+Image units      : JY/BEAM
+
+Direction system : J2000
+
+Name             Proj Shape Tile   Coord value at pixel    Coord incr Units
+--------------------------------------------------------------------------- 
+Right Ascension   SIN   155  155  17:42:29.303    90.00 -1.000000e+00 arcsec
+Declination       SIN   178  178 -28.59.18.600    90.00  1.000000e+00 arcsec
+T
+
+
+And now we will make a world box with the blc at the reference pixel,
+and the trc offset somewhat.  We use the <link anchor="quanta:quanta">quanta</link>
+module for creating associations of values and units; in particular,
+the <link anchor="quanta:quanta.quantity.function">quantity</link> function.
+
+
+- blc = "17:42:29.303 -28.59.18.600";
+- trc = "17:42:28.303 -28.59.10.600";
+- csys = ia.coordsys()
+- r2 = rg.wbox(blc=blc, trc=trc, pixelaxes=[0,1], csys=csys.torecord() )
+- ia.boundingbox(r2);
+[blc=[90 90], trc=[103 98], inc=[1 1], bbShape=[14 9], regionShape=[14 9], imageShape=[155 178] ]
+
+
+As well as passing in the blc and trc quantities, we have also told the
+\regionmanager\ which axes these values pertain to (they are numbered in
+the order in which they list in the {\cf summary} function), and we
+also supplied it with the coordinate system of the image.  Note that
+with the GUI interface, both the axes and coordinates handling is
+hidden.  If we wished, we could have left out the {\stfaf pixelaxes}
+argument, and it would have defaulted to [0,1].   We then find
+the bounding box of the region when it's applied to the image.
+You can see from the summary listing that it is correct.
+
+</example>
+
+We generally think about our images as being in some order;
+RA/DEC/Frequency (for the X/Y/Z axes) or whatever.  In the application
+of world regions, this order is unimportant.  If you created a world
+region from an RA/DEC/Frequency image, and applied it to a
+Frequency/DEC/RA image, that image order change would be accounted for. 
+
+Note that for pixel regions however, because the region is not tagged
+with a coordinate system, the order of the image is relevant.  So if you
+made a pixel box from an RA/DEC image and applied it to a DEC/RA image,
+the RA range would be applied to the DEC axis and vice versa.  The pixel
+regions are present for simple usage only. 
+
+\medskip
+\noindent
+{\bf Simple pixel regions as world regions}
+
+It is possible to create a world region that is specified in pixel
+coordinates, and maintains the coordinate axis information.  This can be
+useful because compound regions must be world-coordinate based (see
+below).  We can do this because we have defined in the \regionmanager,
+``new'' world units, called ``pix'' (which are then known to the
+<link anchor="quanta:quanta">quanta</link> module) and these are recognized in the
+world regions.  Similarly, we have also defined a unit called ``frac''. 
+This allows you to specify world coordinates in units of the fraction of
+the image shape.  For example, the blc of a 2D image has a ``frac''
+coordinate of [0,0] and a trc of [1,1].  But be careful, such regions
+are still not portable to another image, because they are still
+effectively pixel-coordinate based (although masquerading as world
+regions). 
+
+<example>
+
+- ia.maketestimage()
+- csys = ia.coordsys()
+-
+- r1 = rg.wbox(blc="10pix,10pix", trc="20pix,20pix", pixelaxes=[0,1], csys=csys.torecord())
+- localstats = ia.statistics(region=r1, list=False, verbose=False)
+- print 'Region 1: number points = ', localstats['npts'][0]
+Region 1: number points =  121
+-
+- r2 = rg.wbox(blc="30pix 30pix", trc="40pix 40pix", pixelaxes=[0,1], csys=csys.torecord())  
+- localstats=ia.statistics(region=r2, list=False, verbose=False)
+- print 'Region 2: number points = ', localstats['npts'][0]
+Region 2: number points =  121
+
+- regions={}
+- regions['r1']=[r1]
+- regions['r2']=[r2]
+- r3 = rg.makeunion(regions)
+- localstats=ia.statistics(region=r3, list=False, verbose=False)
+- print 'Region 3: number points = ', localstats['npts'][0]
+Region 3: number points =  242
+
+In this example we make a union from two pixel boxes masquerading as
+world regions.  
+</example>
+
+\medskip
+\noindent
+{\bf Compound Regions}
+
+It is often desirable to make a region which combines others.  These are
+called compound regions.  For example, give me the union of 3 regions
+and evaluate the statistics in that union.  Or intersect this region
+with that one and extract the image data from that region.  Compound
+regions are fully recursive; you can nest them as deeply as you like. 
+
+You {\em must} be aware that compound regions can only be made from
+world-coordinated based regions.  You can convert a pixel region to a
+world region with the
+<link anchor="images:regionmanager.pixeltoworldregion.function">pixeltoworldregion</link>
+function (at some point this function will move from the \regionmanager\
+\tool\ to the <link anchor="images:image">Image</link> \tool. 
+
+<example>
+
+- ia.open('myimage')
+- csys ia.coordsys();
+-
+- blc = "17:42:29.303, -28.59.18.600";
+- trc = "17:42:28.303, -28.59.10.600";
+- r1 = rg.wbox(blc=blc,trc=trc,pixelaxes=[0,1],csys=csys.torecord());
+- ia.boundingbox(r1);
+[blc=[90 90] , trc=[103 98] , inc=[1 1], bbShape=[14 9] , regionShape=[14 9] , imageShape=[155 178] ] 
+-
+- blc = "17:42:27.303, -28.59.18.600"
+- trc = "17:42:26.303, -28.59.10.600"
+- r2 = rg.wbox(blc=blc,trc=trc,pixelaxes=[0,1],csys=csys.torecord());
+- ia.boundingbox(r2);
+[blc=[116 90] , trc=[129 98] , inc=[1 1], bbShape=[14 9] , regionShape=[14 9] , imageShape=[155 178] ] 
+-
+- regions={}
+- regions['r1']=[r1]
+- regions['r2']=[r2]
+- r3 = rg.makeunion(regions)
+- bb = ia.boundingbox(r3)
+- bb
+[blc=[90 90] , trc=[129 98] , regionShape=[40 9] , imageShape=[155 178] ] 
+- 
+- s1 = ia.statistics(region=r1, list=False)
+- s2 = ia.statistics(region=r2, list=False)
+- s3 = ia.statistics(region=r3, list=False)
+-
+- np = (bb['trc'][0]-bb['blc'][0]+1)*(bb['trc'][1]-bb['blc'][1]+1)
+- print 'No. pts in r1, r2, r3, bb(r3) = ', s1['npts'][0], s2['npts'][0], s3['npts'][0], np
+No. pts in r1, r2, r3, bb(r3) =  126, 126, 252, 360
+-
+-
+- r4 = rg.intersection(r1, r2)
+- ia.boundingbox(r4)
+- r4
+{}
+
+
+
+We make two world boxes and find the bounding box of each.  Then
+we make the union of the two and find the bounding box which we store in
+a record called {\cf bb}.  We then find some statistics over the union
+(supressing the logger output and storing the results in records).
+You can see that the number of points found in the region reflects the
+union, not the bounding box of the union. 
+
+Finally, we make an intersection of our two regions.  Because
+regions r1 and r2 don't actually intersect, so the region returned
+is empty.
+
+</example>
+
+\medskip
+\noindent
+{\bf Automatic Extension}
+
+One general philosophy behind the regions software is that if you apply
+a region to an image, but don't explicitly specify all axes of the image
+in that region, then for the unspecified axes, the full image is taken. 
+For example, imagine that from an RA/DEC optical image you made an
+RA/DEC region.  You then applied it to an RA/DEC/Frequency radio
+spectral-line cube.  For the frequency axis, which was not specified in
+the region, all frequency pixels would be selected.  Another
+philosophy is that if, on application, a region extends beyond an image,
+the overhang is silently discarded. 
+
+<example>
+
+- ia.open('myimage')
+- ia.boundingbox(rg.box())
+[blc=[1 1] , trc=[155 178] , inc=[1 1] , bbShape=[155 178] , regionShape=[155 178] , imageShape=[155 178] ] 
+-
+- r1 = rg.box(trc=[20])
+- ia.boundingbox(r1)
+[blc=[1 1] , trc=[20 178] , inc=[1 1] , bbShape=[20 178] , regionShape=[20 178] , imageShape=[155 178] ] 
+-
+- r2 = rg.box(trc=[9000,20])
+- ia.boundingbox(r2)
+[blc=[1 1] , trc=[155 20] , inc=[1 1] , bbShape=[155 20] , regionShape=[155 20] , imageShape=[155 178] ] 
+
+In the first example, none of the axes are specified in the region,
+so it defaults to the full image on all axes.  In the second example
+only the first axis of the trc is specified.  In the third example,
+the trc overhang is silently discarded.
+
+</example>
+
+\medskip
+\noindent
+{\bf Masks}
+
+Some comment about the combination of masks and \regions\ is useful
+here.  Consider a simple polygonal region.  This \region\ is defined by
+a bounding box, the polygonal vertices, and a mask called a \regionmask.
+The \regionmask\ specifies whether a pixel within the bounding box is
+inside or outside the polygon.  For a simple box \region, there is
+obviously no need for a \regionmask.
+
+Now imagine that you wish to recover the mask of an image from a
+polygonal \region.  Now, necessarily, the mask is returned to you in
+regular Boolean array.  Thus, the array shape reflects the
+<link anchor="images:image.boundingbox.function">bounding-box</link> of the polygonal region. 
+If the actual \pixelmask\ that you apply is all good, then the retrieved 
+mask would be good inside of the polygonal region and bad outside of it.  If
+the actual \pixelmask\ had some bad values in it as well, the
+retrieved mask would be bad outside of the polygonal region.  Inside the
+polygonal region it would be bad if the \pixelmask\ was bad.
+
+More simply put, the mask that you recover is just a logical ``and'' of
+the \pixelmask\ and the \regionmask; if the \pixelmask\ is T {\it and} the   
+\regionmask\ is T then the retrieved mask is T (good), else it is F (bad).   
+
+\medskip
+\noindent
+{\bf Vector Inputs}
+ 
+Many of the functions of a Regionmanager \tool\ take vectors (numeric or
+strings) as their arguments.  You can assume that
+ 
+\begin{itemize}
+ 
+\item For numeric vectors you can enter as an actual numeric vector    
+(e.g. ['1.2','2.5','3']), a vector of strings (e.g. "1.2 2.5 3") or even
+a string with white space and/or comma delimiters (e.g. '1.2 2.5 3').
+ 
+\item For string vectors you can enter as an actual vector of strings
+(e.g.  "1.2 2.5 3") or a string with white space or comma delimiters
+(e.g.  '1.2 2.5 3').
+ 
+\end{itemize}
+
+\medskip
+\noindent
+{\bf Default Values}
+
+When specifying blc and trc vectors for some regions (usually boxes)
+it can often be that you wish to default  one axis but not others.
+
+For example, you may like to specify a value for axis 2 but leave axis 1
+at its defaults.  This is trivial with the GUI interface (you just don't
+fill in the ones you are not interested in), but is a little harder with
+the command line interface. 
+
+There is a function called <link anchor="images:regionmanager.def.function">def</link> which
+provides a magic value which can be used with pixel boxes for this
+purpose.  
+For example,
+
+THIS EXAMPLE IS NOT VALID YET
+
+- ia.fromshape('x', [20,30])
+- r = rg.box(trc=[rg.dflt(),10])
+- ia.boundingbox(region=r)
+[blc=[1 1] , trc=[20 10] , regionShape=[20 10] , imageShape=[20 30] ] 
+
+
+You can see that trc for axis 1 has defaulted to the shape of the image.
+
+With world boxes, we have defined a magic unit called `default'
+instead. Thus
+
+<example>
+
+- ia.fromshape('x', [20,30])
+- csys = ia.coordsys()
+- rg.setcoordinates(csys.torecord())
+- r = rg.wbox(trc="0dflt 10pix")
+- ia.boundingbox(region=r)
+[blc=[1 1] , trc=[20 10] , regionShape=[20 10] , imageShape=[20 30] ] 
+
+</example>
+
+\medskip
+\noindent
+{\bf Error Checking}
+
+Although some error checking is done when the region is created (in
+\casa), much of it does not occur until the region is applied to an
+image.  In particular, when creating a compound region, it is {\em not}
+checked that the compound region contains only world-coordinate based
+regions.  It is only when you apply the region to an image that these
+checks are made.  Any errors that occur will cause exceptions to be
+generated.  Thus, when writing scripts, you should always use 
+try/except blocks as in this example.
+
+<example>
+
+- def getStats(imageobject, blc, trc, csys):
+     try :
+	r1 = rg.wbox(blc=blc, trc=trc, csys=csys.torecord())
+     	imageobject.statistics(r1)
+     except Exception, instance:
+      	print 'ERROR: ", instance
+      	return False
+
+     return True
+
+
+This fairly silly function detects if the region creation failed
+(function given invalid arguments) and displays the exception if
+it did.  If all is well statistics are then evaluated from the 
+region, and True is returned.
+
+</example>
+
+\medskip
+\noindent
+{\bf How a region is stored in \aipspp}
+
+In \aipspp, a region is itself a \tool.  This means it can be
+transmitted about with \glish, saved to Tables and restored from Tables. 
+A region is actually made with a generic container \tool\ called an
+<link anchor="misc:itemcontainer">Itemcontainer</link>.  The regions that you make
+have no intelligence regarding their greater purpose in life (although of course
+an Itemcontainer does have some functions so they can be manipulated).
+All of the knowledge about regions lies with the \regionmanager. 
+It should not be necessary for you to know anything about the insides of
+regions.  You just need to know how to make them and how to use them. 
+
+<example>
+THIS EXAMPLE IS NOT VALID ANYMORE
+
+- r1 = rg.box([10,20], [30,40])
+- r1
+[gui=&lt;function&gt;, done=&lt;function&gt;, get=&lt;function&gt;, has_item=&lt;function&gt;, 
+makeconst=&lt;function&gt;, length=&lt;function&gt;, names=&lt;function&gt;, 
+set=&lt;function&gt;, add=&lt;function&gt;, fromrecord=&lt;function&gt;, 
+torecord=&lt;function&gt;, type=&lt;function&gt;] 
+-
+- r1.torecord()
+[name=LCSlicer, isRegion=3, blc=[10 20] , trc=[30 40] , inc=, 
+fracblc=[F F] , fractrc=[F F] , fracinc=, 
+arblc=[1 1] , artrc=[1 1] , oneRel=True, comment=] 
+
+
+First we make a simple pixel-box region.  We then try and print it out. 
+You can see that this isn't very enlightening.  What you see are the
+Itemcontainer's functions.  To really see inside the region, you can use
+the <link anchor="misc:itemcontainer.torecord.function">torecord</link> function of
+Itemcontainer.  This converts the region to a record which you can view
+if you really must (the record is of no functional use when dealing
+with regions).
+
+</example>
+
+It's perhaps also useful to know that once you have made a region
+you can't break it.  You can delete it, maybe overwrite it, but you
+can't mistakenly mess up its contents (even with the
+<link anchor="misc:itemcontainer">Itemcontainer</link> functions with which it was
+created).  It's user proof - there's a challenge for you !
+</description>
+
+ 
+<method type="constructor" name="regionmanager">
+   <shortdescription>Construct a regionmanager</shortdescription>
+   <returns type="casaregionmanager">Regionmanager tool</returns>
+
+   <description>
+This is the only \regionmanager\ constructor.  It should generally be
+unnecessary for you to make one as there is little state in a
+\regionmanager\ (you can set a Coordinate System with
+<link anchor="images:regionmanager.setcoordinates.function">setcoordinates</link>); the
+default \regionmanager\ {\stf rg} should be all you need. 
+
+</description>
+</method>
+ 
+   <method type="function" name="absreltype">
+   <shortdescription>Convert region type value to a string</shortdescription>
+   
+<input>
+  
+     <param type="int" direction="in" name="absrelvalue">
+     <description>Region type value</description>
+     <value>0</value>
+     <choice>Integer - 1, 2, 3, 4</choice>
+     </param>
+</input>
+<returns type="string">String or fail</returns>
+
+<description>
+
+This function is not intended for general user use.
+
+Regions may be specified with coordinates which are absolute or
+relative.  This function converts the integer code defining the
+absolute/relative type of the coordinates (which is stored in the
+region) into a string (maybe for printing purposes).
+
+The different types are
+
+
+Integer     String      Description
+1            abs        Absolute coordinate
+2            relref     Relative reference pixel
+3            relcen     Relative to center of image
+4            reldir     Relative to some direction
+
+ 
+</description>
+ 
+<example>
+
+- r = rg.box(blc=[3,40], trc=[80,90])   # Create region
+- v = r.get('arblc')                    # Get absrel value vector for blc
+- for i in range( len(v) ):
++    print rg.absreltype(v[i])          # Print string conversion for each axis
+-
+
+</example>
+</method>
+
+ 
+   <method type="function" name="box">
+   <shortdescription>Create a pixel box region</shortdescription>
+   
+<input>  
+  
+     <param type="doubleArray" direction="in" name="blc">
+     <description>blc of the box</description>
+     <value>0</value>
+     <choice>Unity</choice>
+     </param>
+  
+     <param type="doubleArray" direction="in" name="trc">
+     <description>trc of the box</description>
+     <value>-1</value>
+     <choice>Shape</choice>
+     </param>
+  
+     <param type="doubleArray" direction="in" name="inc">
+     <description>increment</description>
+     <value>1</value>
+     </param>
+
+     <param type="string" direction="in" name="absrel">
+     <description>Absolute or relative coordinates</description>
+     <value>relref</value>
+     <value>relcen</value>
+     <value>abs</value>
+     </param>
+  
+     <param type="bool" direction="in" name="frac">
+     <description>Pixel or fractional coordinates</description>
+     <value>false</value>
+     <choice>F</choice>
+     </param>
+  
+     <param type="string" direction="in" name="comment">
+     <description>A comment stored with the region</description>
+     <value></value>
+     <choice></choice>
+     </param>
+</input>
+<returns type="record">Region tool or fail</returns>
+
+<description>
+
+This function creates a multi-dimensional pixel box region.  The box is
+specified by a bottom-left corner, and top-right corner and an increment
+(or stride).  Pixel coordinates are considered to run from 1 at the
+bottom left corner of the image to the image shape at the top-right
+corner of the image. 
+
+You can specify whether the coordinates are given as pixel coordinates
+({\stfaf frac=F}) or fractions of the image shape ({\stfaf frac=T}). 
+Absolute fractions are in the range [0,1]. 
+
+You can also specify whether the coordinates are given as absolute
+coordinates ({\stfaf absrel='abs'}) or relative to the reference pixel
+({\stfaf absrel='relref'}) or relative to the center of the image
+({\stfaf absrel='relcen'}). 
+
+</description>
+
+<example>  
+
+ia.open('myimage')
+ia.shape()
+[155 178 256]
+
+r = rg.box()                 # create region
+-
+- ia.boundingbox(r)
+[blc=[1 1 1] , trc=[155 178 256] , inc=[1 1 1] , bbShape=[155 178 256] , 
+regionShape=[155 178 256] , imageShape=[155 178 256] ] 
+
+
+This region, on application to an image, selects the entire image.
+
+</example>
+
+<example>  
+
+- ia.open('myimage')
+- ia.shape()
+[155 178 256]  
+-
+- r=rg.box(blc=[5,10])
+- ia.boundingbox(r)
+[blc=[5 10 1] , trc=[155 178 256] , inc=[1 1 1] , bbShape=[151 169 256] , 
+regionShape=[151 169 256] , imageShape=[155 178 256] ] 
+
+
+This region is only specified for the first two axes of the blc.  
+Automatic extension rules apply for the other axis and the trc
+(defaults to the shape).
+
+</example>
+
+<example>  
+
+- ia.open('myimage')
+- ia.shape()
+[155 178 256]
+-
+- r = rg.box(blc=[10, 10, 10], trc=[20, 20, 20], inc=[2, 2, 2])
+- ia.boundingbox(r)                                        
+[blc=[10 10 10] , trc=[20 20 20] , inc=[2 2 2] , bbShape=[11 11 11] , 
+regionShape=[6 6 6] , imageShape=[155 178 256] ] 
+-
+stats=ia.statistics(region=r, list=False);
+stats['npts'][0]
+216
+
+
+This region picks out every other pixel in the 3D box.  The
+``regionShape'' field of the bounding box record does reflect the
+increment whereas ``bbShape'' does not.  You can see that the number of
+points used in determining the statistics (216) reflects the increment
+as well. 
+
+</example>
+
+<example>  
+
+THIS EXAMPLE IS NOT VALID YET
+
+- ia.open('myimage')
+- ia.shape()
+[64 128]  
+-
+- rmd = rg.dflt()
+- r = rg.box([-5,-10], [rmd,20], absrel='relcen')
+-
+- ia.boundingbox(r)
+[blc=[28 55] , trc=[64 85] , inc=[1 1] , bbShape=[37 31] , 
+regionShape=[37 31] , imageShape=[64 128] ] 
+
+
+The region is specified in pixels relative to the center of the image. 
+Note the use of the default value ({\cf rg.dflt()}) to default the first
+axis of the trc argument to the image shape without having to know the
+image shape. 
+
+</example>
+
+<example>  
+
+- ia.open('myimage')
+- ia.shape()
+[155 178 256] 
+-
+- summ=ia.summary(list=False)
+- summ['header']['refpix']
+[90 90 1]
+-
+- r = rg.box([-0.25,-0.3], [0.25, 0.5], frac=True, absrel='relref')
+- ia.boundingbox(r)
+[blc=[39 37 1] , trc=[116 178 256] , inc=[1 1 1] , bbShape=[78 142 256] , 
+regionShape=[78 142 256] , imageShape=[155 178 256] ] 
+
+
+This example shows selection by relative to reference pixel fractional
+coordinates plus auto extension to unspecified axes. 
+
+</example>
+</method>
+
+
+<method type="function" name="frombcs">
+<shortdescription>Create a world coordinate region based on box-chan-stokes input</shortdescription>
+<input>  
+  
+     <param type="record" direction="in" name="csys">
+        <description>Coordinate system record. Must be specified.</description>
+        <value/>
+     </param>
+     <param type="intArray" direction="in" name="shape">
+     <description>shape of the image. Necessary for boundedness checks. Must have the same number of dimensions as the associated coordinate system. Default = []</description>
+     <value>0</value>
+     </param>
+  
+     <param type="string" direction="in" name="box">
+     <description>Direction plane box specification as normally provided in image analysis tasks. "" means use entire directional plane as specified in shape. Default "".</description>
+     <value></value>
+     </param>
+  
+     <param type="string" direction="in" name="chans">
+     <description>Channel spec as normally provided to image analysis tasks. "" means use all channels, Default "".</description>
+     <value></value>
+     </param>
+     <param type="string" direction="in" name="stokes">
+     <description>Stokes spec as normally provided to image analysis tasks. "" means use stokescontrol for setting stokes. Default "".</description>
+     <value></value>
+     </param>
+  
+     <param type="string" direction="in" name="stokescontrol">
+     <description>Polarization set to use if stokes parameter is not specified. Choices are "a" (use all stokes) and "f" (use first stokes). Default "a".</description>
+     <value>a</value>
+     </param>
+     <param type="any" direction="in" name="region">
+             <any type="variant"/>
+        
+        <description>Named region in the form imagename:regionname or region dictionary. Used only if box, chans, stokes not specified. Default "".</description>   
+       <value></value>
+     </param>
+</input>
+<returns type="record">Region tool or fail</returns>
+
+<description>
+
+This function creates a multi-dimensional world coordinate region based
+on box, chans, stokes inputs familiar from image analysis tasks. It is
+being introduced as a temporary means of refactoring some python level
+task code into C++. However, if users find it to have value, its existence
+can be permanent.
+</description>
+
+<example>  
+
+</example>
+</method>
+
+ 
+   <method type="function" name="complement">
+   <shortdescription>Create the complement of a world region</shortdescription>
+   
+<input>  
+  
+     <param type="any" direction="in" name="region">
+     <description>The world region</description>
+     <any type="variant"/>
+     <choice>Region tool</choice>
+     <value></value>
+     </param>
+  
+     <param type="string" direction="in" name="comment">
+     <description>A comment stored with the region</description>
+     <value></value>
+     <choice>String</choice>
+     </param>
+</input>
+<returns type="record">>Region tool or fail</returns>
+
+<description>
+This function (short-hand name {\tt comp}) creates the complement of
+a world region(s). 
+
+The region parameter can be a single region record defining a simple
+or complex region or it can contain several region records in a 
+Python dictionary.  If multiple regions are given then the union of
+this set of regions is taken first, and the complement is found from
+the union.
+
+NOTE: ia.statistics() is UNABLE to handle complement regions in CASA yet.
+
+</description>
+
+<example>  
+
+- ia.open('hcn')
+- csys = ia.coordsys()
+- ia.shape()
+[155 178]
+-
+- blc = "17:42:29.303 -28.59.18.600"
+- trc = "17:42:28.303 -28.59.10.600"
+- r2 = rg.wbox(blc,trc,[1,2],csys.torecord())
+- r3 = rg.complement(r2);
+-
+- ia.statistics(region=r2)                          # Some output discarded 
+Selected bounding box [90, 90] to [103, 98]         
+No pts   = 126
+-
+- ia.statistics(region=r3)
+Selected bounding box [1, 1] to [155, 178]     # Some output discarded 
+No pts   = 27464
+
+
+As expected,  the number of pixels in the complement
+is $(155*178)-126=27464$
+</example>
+</method>
+
+ 
+   <method type="function" name="concatenation">
+   <shortdescription>Concatenate world regions along a new axis</shortdescription>
+   
+<input>  
+  
+     <param type="any" direction="in" name="box">
+     <description>The axis to concatenate along</description>
+     <any type="variant" />
+     <value></value>
+     <choice>world box region</choice>
+     </param>
+  
+     <param type="any" direction="in" name="regions">
+     <description>World regions</description>
+     <any type="variant" />
+     <value/>
+     <choice>Record containing world regions</choice>
+     </param>
+  
+     <param type="string" direction="in" name="comment">
+     <description>A comment stored with the region</description>
+     <value></value>
+     <choice>String</choice>
+     </param>
+</input>
+<returns type="record">Region tool or fail</returns>
+
+<description>
+This function (short-hand name {\tt concat}) creates a region which is
+the concatenation along a new axis of the given world regions. 
+
+This function is similar to the
+<link anchor="images:regionmanager.extension.function">extension</link> function.  The
+{\stfaf concatenation} function allows you to take many world regions,
+and concatenate them along one axis (rather than take one region and
+extend it along many axes which is what function {\stff extension}
+does).
+
+For example, you may have generated a different polygonal region for
+each spectral pixel of a spectral-line cube and you wish to concatenate them
+together to form the overall region for use in a deconvolution
+application. 
+
+The axis to concatenate along is specified as a 1-dimensional world box.
+The shape of the 1D box must contain as many pixels (although you
+don't have to specify it in pixels) as there are regions
+to concatenate.   
+
+Because this function is most likely to be used in a script, the
+interface takes a record containing {\stff region} records, Python
+dictionaries, as there might be a lot of them.
+
+</description>
+
+<example>
+
+- ia.open('cube')
+- csys = ia.coordsys()
+- rg.setcoordinates(csys.torecord(), verbose=False) # Don't tell us each time
+                                                    # private coordinates used
+- box = rg.wbox(blc="20pix", trc="25pix", pixelaxes=[2])
+- bb = ia.boundingbox(box)
+-
+- regs = {};
+- local x, y;
+- for i in bb.blc[3]:bb.trc[3]:
++ # Some code in function `mypolygon' generates the 
++ # x and y vectors for this spectral pixel, perhaps interactively
++    
++    mypolygon(x,y);
++    regs["reg"+str(j)] = rg.wpolygon(x,y,[0,1])
+- rc = rg.concatenation(box, regs)
+-
+- ia.statistics(region=rc, axes=[1,2])
+Plane Freq         Npts Sum            Mean           Rms            Sigma          Minimum        Maximum        
+20    1.413724e+09 25   -4.778154e+00  -1.911262e-01  2.578399e-01   1.766359e-01   -4.252437e-01  1.820721e-01   
+21    1.413744e+09 40   -7.476902e+00  -2.990761e-01  3.692736e-01   2.210687e-01   -6.073643e-01  1.634156e-01   
+22    1.413763e+09 32   -2.696485e+00  -1.078594e-01  1.916686e-01   1.617070e-01   -3.295788e-01  1.422531e-01   
+23    1.413783e+09 77   4.889158e-01   1.955663e-02   3.148451e-02   2.518293e-02   -3.671944e-02  6.521463e-02   
+24    1.413803e+09 25   -1.337832e+00  -5.351327e-02  6.296221e-02   3.385893e-02   -1.232493e-01  1.014871e-02   
+25    1.413823e+09 15   1.091297e+00   4.365189e-02   7.252339e-02   5.910932e-02   -6.364560e-02  1.630955e-01   
+
+
+
+In this example, we create a 1D box and use it to concatenate 2D xy
+polygons along the z axis.  We then ask for the statistics of each plane
+in the region.  There is a differerent number of pixels per plane 
+as each polygon is different.
+
+</example>
+</method>
+
+ <!--
+   <method type="function" name="copyregions">
+   <shortdescription>Copy regions from one Table to another</shortdescription>
+   
+<input>  
+  
+     <param type="string" direction="inout" name="tableout">
+     <description>The output table</description>
+     <value></value>
+     <choice>Image tool, table tool or String</choice>
+     </param>
+  
+     <param type="string" direction="in" name="tablein">
+     <description>The input table</description>
+     <value></value>
+     <choice>Image tool, table tool or String</choice>
+     </param>
+  
+     <param type="string" direction="in" name="regionname">
+     <description>Prompt for confirmation</description>
+     <value></value>
+     </param>
+</input>
+<returns type="bool">Bool or fail</returns>
+<description>
+NOT IMPLEMENTED IN CASA
+
+This function copies all the regions from one \aipspp\ Table to
+another.  
+
+For the Table \tool\ arguments, you can specify an
+<link anchor="images:image">image</link> tool, a <link anchor="table:table">table</link> tool,
+or a string.  If you give a string, it should be the name of an existing
+\aipspp\ table on disk (any kind of table) or a new table (for {\stfaf
+tableout}) which will be created for you.  The new table has no useful
+structure beyond housing the regions for you. 
+
+If desired, you can request confirmation prompting to prevent accidental
+overwrite of existing regions.
+
+</description>
+
+<example>
+
+- rg.copyregions('newtable', 'hcn')
+
+
+Creates the output table and copies all the regions
+housed by the image {\sff hcn} via the Image \tool\ {\stf im}.
+</example>
+
+</method>
+-->
+
+<!--
+
+ 
+   <method type="function" name="dflt">
+   <shortdescription>Default pixel coordinate value</shortdescription>
+   
+<returns type="int">Integer</returns>
+
+<description>
+NOT IMPLEMENTED IN CASA
+ 
+This function returns a value which can be used as a default when
+creating pixel regions.  For example, you might wish to make a pixel box
+and default the value of the first axis of the {\stfaf trc} argument (to
+the shape) but specify the value for the second axis. 
+ 
+</description>
+ 
+<example>
+
+- ia.open('quintin')
+- ia.shape()
+[155 178 256]  
+-
+- blc = [12,rg.dflt(),43]
+- trc = [rg.dflt(),50]
+- r1 = rg.box(blc, trc)
+-
+- ia.boundingbox(r1)
+[blc=[12 1 43] , trc=[155 50 256] , inc=[1 1 1] , bbShape=[144 50 214] , 
+regionShape=[144 50 214] , imageShape=[155 178 256] ] 
+
+
+So you can see that the {\stfaf blc} and {\stfaf trc} elements which were
+given the value {\stfaf rg.dflt()} have been given default values; 1 for
+the {\stfaf blc} and {\stfaf shape=128} for the {\tt trc}.  Note that {\stfaf 
+trc[3]} was not given.  It has been returned as 256.  It didn't need a
+{\stfaf rg.dflt()} because it was the last dimension. 
+
+</example>
+
+<example>
+
+Typing {\stfaf rg.dflt()} is rather cumbersome.  However, it is unique. 
+To make it easier, you could define your own symbol according to
+
+
+THIS EXAMPLE IS NOT VALID YET
+- rmd = rg.dflt()      
+- blc = [1,23,43]
+- trc = [rmd,50]
+- r1 = rg.box(blc, trc)
+
+</example>
+</method>
+
+ -->
+ 
+   <method type="function" name="deletefromtable">
+   <shortdescription>Delete regions from a Table</shortdescription>
+   
+<input>  
+  
+     <param type="string" direction="in" name="tablename">
+     <description>The table</description>
+     <value></value>
+     <choice>Image tool, table tool or String</choice>
+     </param>
+<!--
+     <param type="bool" direction="in" name="confirm">
+     <description>Prompt for confirmation</description>
+     <value>false</value>
+     <choice>F</choice>
+     </param>
+ --> 
+     <param type="string" direction="in" name="regionname">
+     <description>Name(s) of the region(s) to delete</description>
+     <choice>Vector of strings</choice>
+     <value></value>
+     </param>
+</input>
+<returns type="bool">Bool or fail</returns>
+
+<description>
+
+
+This function deletes a region stored in an casa  Table.  
+
+For the {\stfaf tablename} argument, 
+<!--
+you can specify an
+<link anchor="images:image">image</link> tool, a <link anchor="table:table">table</link> tool,
+-->
+you have to give  the name of an existing
+CASA table on disk (any kind of table).
+
+You specify the name of the region with the {\stfaf regionname}
+arguments.  If you set {\stfaf regionname=''} then nothing is done.  The names of all the regions stored in a Table can be found
+with the function
+<link anchor="images:regionmanager.namesintable.function">namesintable</link>. 
+
+</description>
+
+<example>
+
+- names = rg.namesintable(hcn)
+- rg.deletefromtable(img, names[0])
+
+ 
+In this example, we delete the first region that is reported to be in the Table {\tt 'hcn'}.
+</example>
+
+</method>
+
+ 
+   <method type="function" name="difference">
+   <shortdescription>Create the difference of two world regions</shortdescription>
+   
+<input>  
+     <param type="record" direction="in" name="region1">
+     <description>The first world region</description>
+     <value></value>
+     </param>
+  
+     <param type="record" direction="in" name="region2">
+     <description>The second world region</description>
+     <value></value>
+     <choice>Region tool</choice>
+     </param>
+  
+     <param type="string" direction="in" name="comment">
+     <description>A comment stored with the region</description>
+     <value></value>
+     <choice>String</choice>
+     </param>
+</input>
+<returns type="record">Region tool or fail</returns>
+
+<description>
+This function (short-hand name {\stff diff}) creates
+a region which is the difference of two world regions.  The order
+of the regions is important.
+
+The difference consists of all pixels masked-on in the first
+region and not masked-on in the second region.
+
+</description>
+
+<example>  
+
+- ia.open('hcn')
+- csys = ia.coordsys()
+- rg.setcoordinates(csys.torecord())
+-
+- blc = "10pix 10pix"
+- trc = "60pix 60pix"
+- r1 = rg.wbox(blc,trc,[0,1])
+-
+- blc = "50pix 50pix"
+- trc = "80pix 80pix"
+- r2 = rg.wbox(blc, trc, [0,1])
+- 
+- r3 = rg.difference(r1, r2)                        # r1 - r2
+-
+- ia.statistics(region=r1)                          # Some output discarded 
+Selected bounding box [10, 10] to [60, 60]
+No pts   = 2601
+-
+- ia.statistics(region=r3)                          # Some output discarded 
+Selected bounding box [10, 10] to [60, 60]
+No pts   = 2480
+-
+-
+- r4 = rg.difference(r2, r1)                        # r2 - r1
+-
+- ia.statistics(region=r2)                          # Some output discarded 
+Selected bounding box [50, 50] to [80, 80]
+No pts   = 961
+-
+- ia.statistics(region=r4)                          # Some output discarded 
+Selected bounding box [50, 50, 1] to [80, 80, 64]
+No pts   = 840
+
+
+We use pixel units and boxes in this example to make it clear what is
+happening.  The two regions overlap in the top right corner area of
+region {\stf r1} by an area of $11\times11=121$~pixels.  Therefore, the
+difference region {\stf r3} has $2601-121=2480$~pixels in it.  For
+difference region {\stf r4}, the region of overlap is the bottom left
+corner area of region {\stf r2} and still contains 121~pixels.  We expect
+$961-121=840$~pixels in the differnce region.  
+
+</example>
+</method>
+
+ 
+   <method type="function" name="done">
+   <shortdescription>Destroy this regionmanager</shortdescription>
+<returns type="bool">Bool or fail</returns>   
+
+<description>
+ 
+This function destroys the contents of the {\stf regionmanager} \tool\
+(including its GUI).  The \tool\ still exists as a Glish variable, but
+it is no longer a Regionmanager ! You are unlikely to need this
+function. 
+ 
+</description>
+ 
+
+</method>
+
+
+ <!--
+   <method type="function" name="extension">
+   <shortdescription>Extend a world region to extra dimensions</shortdescription>
+   
+<input>  
+  
+     <param type="any" direction="in" name="box">
+     <description>The world region to extend over</description>
+     <any type="record"/>
+     <value></value>
+     <choice>World box region tool</choice>
+     </param>
+  
+     <param type="any" direction="in" name="region">
+     <description>The world region to extend</description>
+     <any type="record"/>
+     <value></value>
+     <choice>Region tool</choice>
+     </param>
+  
+     <param type="string" direction="in" name="comment">
+     <description>A comment stored with the region</description>
+     <value></value>
+     <choice>String</choice>
+     </param>
+</input>
+<returns type="bool">Region tool or fail</returns>
+
+<description>
+NOT IMPLEMENTED IN CASA
+
+This function (short-hand name {\stff ext}) creates a region which
+is the extension over specified dimensions along straight lines of the
+given region.  For example, you might like to extend a 2-D polygon to be
+a 3-D `cylindrical polygon' (that is, the polygon is replicated for
+each plane). 
+
+The extension is specified with a world box.  It can be of any
+dimension.  However, you can't put the same axes in the extension box as
+are in the region you are extending. 
+
+</description>
+
+<example>
+
+- ia.open('cube')
+- csys = ia.coordsys()
+- ia.shape()
+[155 178 64]  
+-
+- rg.setcoordinates(csys.torecord())
+-
+- x = qa.quantity([40,45,48,55,48,43,40], 'pix')
+- y = qa.quantity([40,43,59,60,53,48,45], 'pix')
+- poly = rg.wpolygon(x, y, [1,3])
+- box = rg.wbox(qa.quantity("20pix"), qa.quantity("30pix"), [2])
+- 
+- ext = rg.extension(box, poly, 'a cylindrical polygon')
+-
+- ia.boundingbox(poly)
+[blc=[40 1 40] , trc=[55 178 60] , inc=[1 1 1] , bbShape=[16 178 21] ,
+regionShape=[16 178 21] , imageShape=[155 178 256] ] 
+-
+- ia.boundingbox(box)
+[blc=[1 20 1] , trc=[155 30 256] , inc=[1 1 1] , bbShape=[155 11 256] ,
+regionShape=[155 11 256] , imageShape=[155 178 256] ]
+-
+- ia.boundingbox(ext)
+[blc=[40 20 40] , trc=[55 30 60] , inc=[1 1 1] , bbShape=[16 11 21] ,
+regionShape=[16 11 21] , imageShape=[155 178 256] ] 
+
+
+In this example we create a 2D polygon in the XZ plane.  We then create
+a 1D box along the Y axis from pixels 20 to 30.  Then we extend the
+polygon with that box to make a series of XZ polygons for the specified Y
+pixels. 
+
+Note that when the {\stfaf box} and {\stfaf poly} regions are applied to the
+image with the {\stfaf boundingbox} function, the auto-extension operation
+is applied.  It is not until the region has as many dimensions as the
+image (the region {\stfaf ext}) that no auto-extension occurs. 
+
+</example>
+</method>
+-->
+
+<!--
+ 
+   <method type="function" name="extractsimpleregions">
+   <shortdescription>Extract all simple regions into a record</shortdescription>
+   
+<input>  
+  
+     <param type="any" direction="in" name="region">
+     <description>The region to extend</description>
+     <any type="record"/>
+     <value></value>
+     <choice>Region tool</choice>
+     </param>
+</input>
+<returns type="any"><any type="record"/>Record of Region tools or fail</returns>
+
+<description>
+NOT IMPLEMENTED IN CASA
+
+This function (short-hand name {\stff esr}) extracts all simple (i.e.
+non-compound) regions from the given region \tool.  This might be useful
+to plot all of the simple regions that made up a compound region.
+
+</description>
+
+<example>
+
+- ia.open'cube')
+- csys = ia.coordsys()
+- rg.setcoordinates(csys.torecord())
+-
+- x = qa.quantity([40,45,48,55,48,43,40], 'pix')
+- y = qa.quantity([40,43,59,60,53,48,45], 'pix')
+- poly = rg.wpolygon(x, y, [1,3])
+- box = rg.wbox(qa.quantity("20pix"), qa.quantity("30pix"), [2])
+- 
+- union = rg.union(box, poly);
+- rec = rg.extractsimpleregions(union)
+- print 'Number of extracted simple regions = ', length(rec)
+2
+
+</example>
+</method>
+
+-->
+
+<method type="function" name="selectedchannels">
+    <shortdescription>Get an array of zero-based selected channel numbers from an input string specificaiton.</shortdescription>
+   
+    <input>  
+        <param type="string" direction="in" name="specification">
+            <description>Valid channel specification. See help par.chans for examples.</description>
+            <value></value>
+        </param>
+
+        <param type="intArray" direction="in" name="shape">
+            <description>Image shape. Used to determine if the specificaiton lies outside the image.</description>
+            <value>0</value>
+        </param>
+    </input>
+
+    <returns type="intArray"/>
+
+    <description>
+This method returns all the selected zero-based channel numbers from the specified string within the image.
+
+
+
+    </description>
+    
+    <example>
+        ia.fromshape("",[20,20,20])
+        rg.setcoordinates(ia.coordsys().torecord())
+        selected_channels = rg.selectedchannels(specification="range=[40km/s,50km/s]", shape=ia.shape())
+        ia.done()
+    </example>
+
+</method>
+
+<method type="function" name="fromtextfile">
+    <shortdescription>Create a region dictionary from a region text file.</shortdescription>
+   
+    <input>  
+        <param type="string" direction="in" name="filename">
+            <description>List of text file containing the region description</description>
+            <value></value>
+            <type mustexist="true">path</type>
+        </param>
+
+        <param type="intArray" direction="in" name="shape">
+            <description>Image shape.</description>
+            <value>0</value>
+        </param>
+
+        <param type="record" direction="in" name="csys">
+          <description>Coordinate system record. Defaults to coordinate system used in rg.setcoordinates()</description>
+           <value/>
+         </param>
+
+    </input>
+
+    <returns type="record">Record or fail</returns>
+
+    <description>
+This function reads a text file containing region descriptions and
+converts it to a python dictionary.
+
+    </description>
+
+</method>
+
+<method type="function" name="fromtext">
+    <shortdescription>Create a region dictionary from a region text string.</shortdescription>
+   
+    <input>  
+        <param type="string" direction="in" name="text">
+            <description>region description</description>
+            <value></value>
+        </param>
+
+        <param type="intArray" direction="in" name="shape">
+            <description>Image shape, only used if first region is a difference.</description>
+            <value>1</value>
+        </param>
+
+        <param type="record" direction="in" name="csys">
+          <description>Coordinate system record. Defaults to coordinate system used in rg.setcoordinates()</description>
+           <value/>
+         </param>
+
+    </input>
+
+    <returns type="record">Record or fail</returns>
+
+    <description>
+This function reads a region region text descriptions and
+converts it to a python region dictionary.
+
+    </description>
+<example>
+ia.open('test.image')
+csys=ia.coordsys()
+rg.setcoordinates(csys.torecord())
+a=rg.fromtext("ellipse [[04h31m38.44139, 18d13m57.0861], [1.0arcsec, 1.0arcsec], 0.00000000deg]", shape=[1500, 1500,    1, 1])
+ia.done()
+ 
+In this example, we create a circular region of 1 arcsec radius centered on J2000 04h31m38.44139  18d13m57.0861
+
+</example>
+</method>
+
+
+   <method type="function" name="fromfiletorecord">
+   <shortdescription>Create a region record(s) from a file(s).</shortdescription>
+   
+<input>  
+     <param type="string" direction="in" name="filename">
+     <description>List of files containing the Image Regions</description>
+     <value></value>
+     <choice>File name(s)</choice>
+     </param>
+
+     <param type="bool" direction="in" name="verbose">
+     <description>Report successful saves</description>
+     <value>true</value>
+     <choice>true</choice>
+     </param>
+
+     <param type="string" direction="in" name="regionname">
+     <description>Name(s) of the region(s) when saved in the table</description>
+     <value></value>
+     <choice>Self naming</choice>
+     </param>
+</input>
+
+<returns type="record">Record or fail</returns>
+
+<description>
+This function reads files containing ImageRegion objects and turns them
+into Region Records.
+
+The intended use for this method is to read the file saved by the casa
+viewer and turn the files contents into regions that are usabla by the
+image analysis tool.
+
+</description>
+
+<example>
+
+- img = ia.open('hcn')
+- rg.fromfiletorecord(T, "x1 x2", "file1, file2", r1, r2)
+- ia.statistics( region=r1, verbose=True )
+- ia.statistics( region=r2, verbose=True ) 
+
+ 
+In this example, we create two regions called  {\stf r1} and {\stf r2} 
+from the files ???
+The regions are renamed to `x1' and `x2' as they are stored.
+
+</example>
+<example>
+e
+- img = ia.open('hcn')
+- r1 = rg.box()f
+- r2 = rg.quarter()
+- rg.fromglobaltotable(img, T, F, "", r1, r2)
+- rg.namesintable(img)
+x1 x2
+
+ 
+In this example, we save two regions called {\stf r1} and {\stf r2} to
+the table (previously containing no regions) referred to by the image
+tool {\stf im}.  The names for regions are made up for us as we don't
+specify them.  Note that because the regions are specified by the
+special \glish\ `...' argument (it has no actual argument name), we
+must give the {\stfaf regionname} argument explcitly as an empty vector
+of strings (else \glish\ will take the empty string as a region). 
+
+</example>
+</method>
+
+
+<method type="function" name="tofile">
+   <shortdescription>Create a region record file that can be read by from filetorecord.</shortdescription>
+   
+<input>  
+     <param type="string" direction="in" name="filename">
+     <description>List of files containing the Image Regions</description>
+     <value></value>
+     <choice>File name(s)</choice>
+     </param>
+
+     <param type="record" direction="in" name="region">
+     <description>region record/dict to store in the file</description>
+     <value></value>
+     </param>
+
+
+
+</input>
+
+<returns type="bool"></returns>
+
+<description>
+This function is to store a region created by the regionmanager in a disk file for future use
+
+</description>
+
+<example>
+
+- img = ia.open('hcn')
+- imcs=ia.coordsys()
+- blc = ['16:28:25.50',  '+040.49.05.61']
+- trc = ['16:24:28.67', '+041.45.28.43']
+- r1 = rg.wbox(blc=blc,trc=trc,pixelaxes=[0,1],csys=imcs.torecord())
+- rg.tofile('myboxregion', r1)
+- r1readback=rg.fromfiletorecord('myboxregion')
+
+ 
+In this example we create a box region using world coordinates for blc and trc. We save that on disk in a file called {\tt 'myboxregion'}.
+Then we read it back using the function rg.fromfiletorecord and store it in a variable {\tt r1readback}. {\tt r1} and {\tt r1readback} should be
+identical. 
+
+</example>
+
+</method>
+ 
+ <!--
+   <method type="function" name="fromglobaltotable">
+   <shortdescription>Save regions into a Table</shortdescription>
+   
+<input>  
+  
+     <param type="string" direction="in" name="tablename">
+     <description>The table</description>
+     <value></value>
+     <choice>Image tool, table tool or String</choice>
+     </param>
+  
+     <param type="bool" direction="in" name="confirm">
+     <description>Prompt for confirmation</description>
+     <value>true</value>
+     <choice>F</choice>
+     </param>
+  
+     <param type="bool" direction="in" name="verbose">
+     <description>Report successful saves</description>
+     <value>true</value>
+     <choice>true</choice>
+     </param>
+  
+     <param type="any" direction="in" name="regionname">
+     <description>Name(s) of the region(s) when saved in the table</description>     <any type="variant"/>
+     <value></value>
+     <choice>Self naming</choice>
+     </param>
+  
+     <param type="any" direction="in" name="regions">
+     <description>Region(s) to save</description>
+     <any type="record"/>
+     <value></value>
+     <choice>Region tool(s)</choice>
+     </param>
+</input>
+<returns type="bool">Bool or fail</returns>
+<description>
+NOT IMPLEMENTED IN CASA
+
+This function saves regions into an \aipspp\ Table.  
+
+For the {\stfaf tablename} argument, you can specify an
+<link anchor="images:image">image</link> \tool, a <link anchor="table:table">table</link> \tool,
+or a string.  If you give a string, it should be the name of an existing
+\aipspp\ table on disk (any kind of table) or a new table which will be
+created for you.  The new table has no useful structure beyond housing
+the regions for you. 
+
+You can specify the name that each region will have ({\stfaf regionname})
+when it is saved in the Table.  If you don't specify this,
+a name will be made up for you (region1, region2, etc).
+
+</description>
+
+<example>
+
+- img = ia.open('hcn')
+- r1 = rg.box()
+- r2 = rg.quarter()
+- rg.fromglobaltotable(ia, T, F, "x1 x2", r1, r2)
+- rg.namesintable(img)
+x1 x2
+
+ 
+In this example, we save two regions called  {\stf r1} and {\stf r2} to the
+table (previously containing no regions) referred to by the image \tool\
+{\stf im}.  The regions are renamed to `x1' and `x2' as they are stored.
+
+</example>
+<example>
+e
+- img = ia.open('hcn')
+- r1 = rg.box()f
+- r2 = rg.quarter()
+- rg.fromglobaltotable(img, T, F, "", r1, r2)
+- rg.namesintable(img)
+x1 x2
+
+ 
+In this example, we save two regions called {\stf r1} and {\stf r2} to
+the table (previously containing no regions) referred to by the image
+tool {\stf im}.  The names for regions are made up for us as we don't
+specify them.  Note that because the regions are specified by the
+special \glish\ `...' argument (it has no actual argument name), we
+must give the {\stfaf regionname} argument explcitly as an empty vector
+of strings (else \glish\ will take the empty string as a region). 
+
+</example>
+</method>
+-->
+ 
+   <method type="function" name="fromrecordtotable">
+   <shortdescription>Save regions stored in a record into a Table</shortdescription>
+   
+<input>  
+  
+     <param type="string" direction="in" name="tablename">
+     <description>The table</description>
+     <choice>Image tool, table tool or String</choice>
+     <value></value>
+     </param>
+
+     <param type="any" direction="in" name="regionname">
+     <description>Name(s) of the region(s) when saved in the table</description>     <any type="variant"/>
+     <value></value>
+     <choice>Vector of strings</choice>
+     </param>
+
+     <param type="record" direction="in" name="regionrec">
+     <description>Region(s) to save</description>
+     <value></value>
+     <choice>Record of region tool(s)</choice>
+     </param>
+
+     <param type="bool" direction="in" name="asmask">
+       <description>save region as a mask rather than region</description>
+       <value>false</value>
+       <choice>false</choice>
+     </param>
+
+     <param type="bool" direction="in" name="verbose">
+     <description>Report successful saves</description>
+     <value>true</value>
+     <choice>True</choice>
+     </param>
+  
+  
+     
+</input>
+<returns type="string"></returns>
+<description>
+
+
+This function saves regions into an casa Table
+For the {\stfaf tablename} argument the user should be the name of an existing
+\aipspp\ Table on disk (any kind of table).
+
+If the parameter {\tt asmask} is {\tt True} then the table has to be an image table.
+A mask makes sense with an image only.  
+
+<!--
+For the {\stfaf tablename} argument, you can specify an
+<link anchor="images:image">image</link> \tool, a <link anchor="table:table">table</link> \tool,
+or a string.  If you give a string, it should be the name of an existing
+casa Table on disk (any kind of table, images, plaintables).  The new table has no useful structure beyond housing
+the regions for you. 
+-->
+You can specify the name the region will have ({\stfaf
+regionname}) when it is saved in the Table.  If you don't specify this,
+a digit based name is assigned to it or if specify a name that already
+exists a new one will be generated which is close but different. The
+function returns you the name the region is assigned
+
+</description>
+
+<example>
+
+- ia.open('hcn')
+- cs=ia.coordsys()
+- blc = "16:28:25.50 +040.49.05.61"
+- trc = "16:24:28.67 +041.45.28.43"
+- r1 = rg.wbox(blc="10pix 20pix",trc="30pix 40pix",pixelaxes=[0,1],csys=cs.torecord())
+- r2 = rg.wbox(blc=blc,trc=trc,pixelaxes=[0,1],csys=cs.torecord())
+- rg.fromrecordtotable('hcn', "x", r1)
+x
+- rg.fromrecordtotable('hcn', "x", r2)
+x0
+- rg.namesintable('hcn')
+x x0
+
+
+ 
+
+</example>
+
+<example>
+2 CASA image files on disk 'hcn1' 'hcn2'
+
+- names = rg.namesintable('hcn1')
+- r = rg.fromtabletorecord('hcn1', names[0])
+- rg.namesintable('hcn2')
+- rg.fromrecordtotable('hcn2', names[0], r)
+
+
+In this example, we recover a region into a record
+from one image, and then copy them to another.
+
+</example>
+
+<example>
+
+####In this example a region is saved as a mask 
+ia.open('myfancy.image')
+csys=ia.coordsys()
+ia.done()
+##Lets make a world-box  region 
+wbox=rg.wbox(['10pix', '10pix', '0pix', '0pix'], ['20pix', '20pix', '0pix', '0pix'], csys=csys.torecord())
+###save that into the image as a mask rather than just a region and assign it the name
+###mask1
+rg.fromrecordtotable('myfancy.image', 'mask1', wbox, asmask=True)
+###now let us set that as default mask
+ia.open('myfancy.image')
+ia.maskhandler('set', 'mask1')
+ia.done()
+###and now let us view that image
+viewer('myfancy.image')
+</example>
+
+</method>
+ 
+   <method type="function" name="fromtabletorecord">
+   <shortdescription>Restore regions from a Table to a record</shortdescription>
+   
+<input>  
+  
+     <param type="string" direction="in" name="tablename">
+     <description>The table</description>
+     <value></value>
+     <choice>Image tool, table tool or String</choice>
+     </param>
+  
+     
+  
+     <param type="any" direction="in" name="regionname">
+     <description>Name of the region(s) to restore</description>
+     <any type="variant"/>
+     <value></value>
+     <choice>All</choice>
+     </param>
+     <param type="bool" direction="in" name="verbose">
+     <description>Report successful restores</description>
+     <value>true</value>
+     <choice>True</choice>
+     </param>
+
+<!--
+     <param type="bool" direction="in" name="numberfields">
+     <description>Number the fields ?</description>
+     <value>true</value>
+     <choice>T</choice>
+     </param>
+-->
+</input>
+<returns type="record">Record or fail</returns>
+
+<description>
+
+This function restores a region from an \aipspp\ Table
+to the global name space.
+
+For the {\stfaf tablename} argument, you can specify an
+<link anchor="images:image">image</link> \tool, a <link anchor="table:table">table</link> \tool,
+or a string.  If you give a string, it should be the name of an existing
+\aipspp\ table on disk (any kind of table). 
+
+If {\stfaf numberfields} is F, then the field names of the
+record are the same as they are in the Table.  Otherwise,
+the regions are put into numbered fields (the field
+names could be anything).
+
+You can use the function
+<link anchor="images:regionmanager.namesintable.function">namesintable</link> to find out the
+names of the regions in the Table. 
+
+</description>
+
+<example>
+
+- img = ia.open('hcn')
+- rec = rg.fromtabletorecord(img, numberfields=True)
+- print is_region(rec[0])
+
+
+The record fields are numbered, not named.
+
+</example>
+</method>
+
+
+ 
+   <method type="function" name="intersection">
+   <shortdescription>Create the intersection of some world regions</shortdescription>
+   
+<input>  
+  
+     <param type="any" direction="in" name="regions">
+     <description>World regions and comment</description>
+     <any type="variant"/>
+     <value></value>
+     <choice>Region tools or record of region tools, and String</choice>
+     </param>
+
+     <param type="string" direction="in" name="comment">
+     <description>A comment stored with the region</description>
+     <value></value>
+     <choice>String</choice>
+     </param>
+</input>
+<returns type="record">Region tool</returns>
+
+<description>
+This function (short-hand name {\stff int}) creates a region which is
+the intersection of the given world regions.   The input regions can
+themselves be compound regions (such as the union or intersection etc). 
+The input regions must be provided as a Python dictionary of regions
+(see examples).
+
+
+</description>
+
+<example>
+
+- ia.open('hcn')
+- csys = ia.coordsys()
+- rg.setcoordinates(csys.torecord())
+-
+- blc = "10pix 10pix 1pix"
+- trc = "60pix 60pix 1pix"
+- r1 = rg.wbox(blc=blc, trc=trc, pixelaxes=[0,1,2])
+-
+- x = qa.quantity([50,55,58,65,58,53,50], 'pix')
+- y = qa.quantity([50,53,69,70,63,58,55], 'pix')
+- r2 = rg.wpolygon(x=x, y=y, pixelaxes=[0,1])
+- 
+- regions= {'region1':r1, 'region2':r2}
+- r3 = rg.intersection(regions, 'This is the comment')
+- 
+- ia.boundingbox(r1)
+[blc=[10 10 1] , trc=[60 60 256] , regionShape=[51 51 256] , imageShape=[155 178 256] ] 
+- ia.boundingbox(r2)
+[blc=[50 50 1] , trc=[65 70 256] , regionShape=[16 21 256] , imageShape=[155 178 256] ] 
+- ia.boundingbox(r3)
+[blc=[50 50 1] , trc=[60 60 256] , regionShape=[11 11 256] , imageShape=[155 178 256] ]
+-
+- ia.statistics(region=r3)                           # Some output discarded
+NORMAL: Selected bounding box [50, 50, 1] to [60, 60, 1]
+Number points = 51            
+
+
+
+In this example, we use pixel coordinates so that it is clear what is
+happening.  You can see that the number of pixels in the intersection
+(51) is less than the number in the bounding box of the intersection
+(121) because the intersection is actually polygonal and does not fill
+the bounding box. 
+
+</example>
+
+<example>  
+
+- ia.open('onno')
+- csys = ia.coordsys()
+- x = qa.quantity([3,6,9,6,5,5,3],'pix')
+- y = qa.quantity([3,4,7,9,7,5,5],'pix')
+-
+- regions = {};
+- regions['poly'] = rg.wpoly(x,y,[1,2],csys.torecord())
+-
+- blc = "17:42:29.303 -28.59.18.600"
+- trc = "17:42:28.303 -28.59.10.600"
+- regions['box'] = rg.wbox(blc,trc,[0,1],csys.torecord())
+-
+- r3 = rg.intersection(regions,'The mysteries of CASA')
+
+
+This example is the same as the prevoius one, except the regions are
+provided to the intersection function in a record, rather than directly in the
+call sequence.
+
+</example>  
+</method>
+
+ 
+   <method type="function" name="ispixelregion">
+   <shortdescription>Is this region a pixel region ?</shortdescription>
+   
+<input>  
+  
+     <param type="record" direction="in" name="region">
+     <description>The region</description>
+     <value></value>
+     <choice>Region tool</choice>
+     </param>
+</input>
+<returns type="bool">Bool</returns>
+
+<description>
+NOT IMPLEMENTED IN CASA
+
+This function returns T if the region is a pixel region.
+For any other \glish\ variable it returns F.
+
+</description>
+
+<example>
+
+- ia.open('hcn')
+- csys = ia.coordsys()
+- r1 = rg.box()                          # A pixel region
+- r2 = rg.wbox(csys=csys.torecord())     # A world region
+- rg.ispixelregion(r1)
+T
+- rg.ispixelregion(r2)
+F
+- x = [20,30]
+- rg.ispixelregion(x)
+F
+
+</example>
+</method>
+
+ 
+   <method type="function" name="isworldregion">
+   <shortdescription>Is this region a world region ?</shortdescription>
+   
+<input>  
+  
+     <param type="record" direction="in" name="region">
+     <description>The region</description>
+     <value></value>
+     <choice>Region tool</choice>
+     </param>
+</input>
+<returns type="bool">Bool</returns>
+
+<description>
+NOT IMPLEMENTED IN CASA
+
+This function returns T if the region is a world region.
+For any other \glish\ variable it returns F.
+
+</description>
+
+<example>
+
+- ia.open('hcn')
+- csys = ia.coordsys()
+- r1 = rg.box()                         # A pixel region
+- r2 = rg.wbox(csys=csys.torecord())    # A world region
+- rg.isworldregion(r1)
+F
+- rg.isworldregion(r2)
+T
+- x = [20,30]
+- rg.isworldregion(x)
+F
+
+</example>
+</method>
+
+ 
+   <method type="function" name="namesintable">
+   <shortdescription>Find the names of the regions stored in a Table</shortdescription>
+   
+<input>  
+  
+     <param type="string" direction="in" name="tablename">
+     <description>The table</description>
+     <value></value>
+     <choice>Image tool, table tool or String</choice>
+     </param>
+</input>
+<returns type="stringArray">Vector of strings</returns>
+
+<description>
+
+This function returns the names of regions stored in an CASA Table.  
+
+For the {\stfaf tablename} argument, you can specify a string; it should be the name of an existing
+\aipspp\ table on disk (any kind of table). 
+
+</description>
+
+<example>
+
+
+- names=rg.namesintable('hcn')
+- names
+r1 poly2 int0
+
+</example>
+</method>
+
+ <!--
+   <method type="function" name="pixeltoworldregion">
+   <shortdescription>Convert a simple pixel region to a world region</shortdescription>
+   
+<input>  
+  
+     <param type="any" direction="in" name="csys">
+     <description>The coordinate system to use in the conversion</description>
+     <any type="record"/>
+     <value></value>
+     <choice>Image tool</choice>
+     </param>
+  
+     <param type="intArray" direction="in" name="shape">
+     <description>The shape to use for fractional coordinates</description>
+     <value>0</value>
+     <choice>Unset</choice>
+     </param>
+  
+     <param type="any" direction="in" name="region">
+     <description>The region</description>
+     <any type="record"/>
+     <value></value>
+     <choice>Region tool</choice>
+     </param>
+</input>
+<returns type="any"><any type="record"/>Region tool or fail</returns>
+
+<description>
+NOT IMPLEMENTED IN CASA
+
+This function converts the simple pixel regions to world regions.  This
+function is provided because compound regions require world regions. 
+You specify a <link anchor="images:coordsys">Coordinate System</link> \tool\ for
+the conversions as well as the pixel region. 
+You only need to supply a shape if the coordinates use fractional
+coordinates. 
+
+Currently, this function can only convert pixel boxes.
+
+</description>
+
+<example>
+
+- ia.open('hcn')
+- csys = ia.coordsys()
+- r1 = rg.box([10,20,30], [50,60,70])
+- r2 = rg.pixeltoworldregion(csys=csys.torecord(), region=r1)
+- rg.isworldregion(r1)
+F
+- rg.isworldregion(r2)
+T
+- ia.boundingbox(r1)
+[blc=[10 20 30] , trc=[50 60 70] , inc=[1 1 1] , bbShape=[41 41 41] , 
+regionShape=[41 41 41] , imageShape=[155 178 256] ] 
+-
+- ia.boundingbox(r2)
+[blc=[10 20 30] , trc=[50 60 70] , inc=[1 1 1] , bbShape=[41 41 41] , 
+regionShape=[41 41 41] , imageShape=[155 178 256] ] 
+
+</example>
+</method>
+-->
+ <!--
+   <method type="function" name="quarter">
+   <shortdescription>Create a quarter pixel region</shortdescription>
+   
+<input>  
+  
+     <param type="string" direction="in" name="comment">
+     <description>A comment stored with the region</description>
+     <value></value>
+     <choice>String</choice>
+     </param>
+</input>
+<returns type="any"><any type="record"/>Region tool or fail</returns>
+<description>
+NOT IMPLEMENTED IN CASA
+
+This function creates a  region which selects
+one quarter of the image by area centered on the image
+center for the first two dimensions.  It selects
+all pixels for higher dimensions.  It might be useful for
+deconvolution (CLEAN).  This region is implemented with the
+<link anchor="images:regionmanager.box.function">pixel box</link> function.
+
+</description>
+<example>  
+
+- r1 = rg.quarter()
+- ia.open('hcn')
+- ia.boundingbox(r1)
+[blc=[40 46 1] , trc=[116 134 256] , inc=[1 1 1] , bbShape=[77 89 256] , 
+regionShape=[77 89 256] , imageShape=[155 178 256] ] 
+
+
+You can see that auto extension to the third axis is occurring.
+
+</example>
+</method>
+-->
+ 
+   <method type="function" name="setcoordinates">
+   <shortdescription>Set new default Coordinate System</shortdescription>
+   
+<input>
+  
+     <param type="record" direction="in" name="csys">
+     <description>Default Coordinate System for use in world regions</description>
+     <choice>Coordinate tool</choice>
+     <value></value>
+     </param>
+  
+</input>
+
+<returns type="bool">Bool</returns>
+<description>
+ 
+This function allows you to (re)set the default Coordinate System
+used by the functions that make world regions.  If you don't specifiy a
+Coordinate System when you make the world region, the default Coordinate
+System, if there is one, is used.   The Coordinate System is
+stored in a {\stf coordinates} \tool\ and is created with
+the <link anchor="images:coordsys">coordsys</link> \toolfunction.
+
+Normally, the world region creating functions like
+<link anchor="images:regionmanager.wbox.function">wbox</link> and
+<link anchor="images:regionmanager.wpolygon.function">wpolygon</link> will issue a message
+each time the private Coordinate System is used.  However, if you set
+{\stfaf verbose=F} then this will not occur. 
+
+ 
+</description>
+ 
+<example>
+
+- ia.open('quiqui')
+- csys = ia.coordsys()
+- rg.setcoordinates(csys.torecord())
+- r1 = rg.wbox()
+Using private CoordinateSystem from image "quiqui"
+
+</example>
+</method>
+ 
+
+ 
+   <method type="function" name="makeunion">
+   <shortdescription>Create a union of world regions</shortdescription>
+   
+<input>  
+     <param type="any" direction="in" name="regions">
+     <description>World regions and comment</description>
+     <any type="variant"/>
+     <value></value>
+     <choice>Record/dict  of regions to be unionized (the key names are immaterial)</choice>
+     </param>
+
+     <param type="string" direction="in" name="comment">
+     <description>A comment stored with the region</description>
+     <value></value>
+     <choice></choice>
+     </param>
+</input>
+<returns type="record">Region tool</returns>
+
+<description>
+
+This function takes a minimum of two world regions and creates a region which
+is the union of the given regions.  The input regions can themselves be
+compound regions (such as the union or intersection etc).   The input
+regions must be a Pythion dictionary of at leat two regions
+(see examples).
+
+</description>
+
+<example>  
+
+- ia.open('onno')
+- csys = ia.coordsys()
+- x = qa.quantity([3,6,9,6,5,5,3],'pix')
+- y = qa.quantity([3,4,7,9,7,5,5],'pix')
+- r1 = rg.wpoly(x,y,[1,2],csys.torecord())
+-
+- blc = "17:42:29.303 -28.59.18.600"
+- trc = "17:42:28.303 -28.59.10.600"
+- r2 = rg.wbox(blc,trc,[0,1],csys.torecord())
+-
+- regions= {'region1':r1, 'region2':r2}
+- r3 = rg.makeunion(regions,'The mysteries of CASA')
+- 
+- ia.shape()
+[155 178 256]  
+- ia.boundingbox(r1)
+[blc=[3 3 1] , trc=[9 9 256] , inc=[1 1 1] , bbShape=[7 7 256] ,
+regionShape=[7 7 256] , imageShape=[155 178 256] ] 
+- ia.boundingbox(r2)
+[blc=[90 90 1] , trc=[103 98 256] ,  inc=[1 1 1] , bbShape=[14 9 256] ,
+regionShape=[14 9 256] , imageShape=[155 178 256] ] 
+- ia.boundingbox(r3)
+[blc=[3 3 1] , trc=[103 98 256] ,  inc=[1 1 1] , bbShape=[101 96 256] ,
+regionShape=[101 96 256] , imageShape=[155 178 256] ] 
+-
+- ia.statistics(region=r1)
+Selected bounding box [3, 3, 1] to [9, 9, 256]
+Number points = 6400          
+-
+- ia.statistics(region=r2)
+Selected bounding box [90, 90, 1] to [103, 98, 256]
+Number points = 32256         
+-
+- ia.statistics(region=r3) 
+Selected bounding box [3, 3, 1] to [103, 98, 256]
+Number points = 38656         
+
+
+When the polygon only is applied, it is auto extended along the third
+axis.  The {\stff statistics} function finds 6400 pixels in the region,
+which is $6400/256=25$ pixels per plane.  Likewise, when the box only is
+applied, the {\stff statistics} function finds 32256 pixels in the
+region, which is $32256/256=126$ pixels per plane.  When the union is
+applied, the {\stff statistics} function finds 38656 pixels in the
+region.  First it finds the union of the polygon and box (which are
+specified only in the XY plane) and that union is extended.  Thus we
+expect $(25+126)*256=38656$ pixels in the region of the union, as found.
+
+</example>  
+
+<example>  
+
+- ia.open('onno')
+- csys = ia.coordsys()
+- x = qa.quantity([3,6,9,6,5,5,3],'pix')
+- y = qa.quantity([3,4,7,9,7,5,5],'pix')
+-
+- regions = {}
+- regions['poly'] = rg.wpoly(x,y,[0,1],csys.torecord())
+-
+- blc = "17:42:29.303 -28.59.18.600"
+- trc = "17:42:28.303 -28.59.10.600"
+- regions['box'] = rg.wbox(blc,trc,[0,1],csys.torecord())
+-
+- r3 = rg.union(regions,'The mysteries of CASA')
+
+
+This example is the same as the prevoius one, except the regions are
+provided to the union function in a record, rather than directly in the
+call sequence.
+
+</example>  
+
+</method>
+
+ 
+   <method type="function" name="wbox">
+   <shortdescription>Create a world box region</shortdescription>
+   
+<input>  
+  
+     <param type="any" direction="in" name="blc">
+     <description>blc of the box ; a vector of quantities</description>
+     <any type="variant"/>
+     <value></value>
+     <choice>Unity</choice>
+     </param>
+  
+     <param type="any" direction="in" name="trc">
+     <description>trc of the box; a vector of quantities</description>
+     <any type="variant"/>
+     <value></value>
+     <choice>Shape</choice>
+     </param>
+  
+     <param type="intArray" direction="in" name="pixelaxes">
+     <description>Which pixel axes</description>
+     <value>-1</value>
+     <choice>[0,1,2,...]</choice>
+     </param>
+  
+     <param type="record" direction="in" name="csys">
+     <description>Coordinate System</description>
+     <value></value>
+     <choice>Private Coordinate System</choice>
+     </param>
+  
+     <param type="string" direction="in" name="absrel">
+     <description>Absolute or relative coordinates
+     Vector of
+            strings from 'abs', 'relref' and 'relcen'</description>
+     <value>abs</value>
+     </param>
+  
+     <param type="string" direction="in" name="comment">
+     <description>A comment stored with the region</description>
+     <value></value>
+     </param>
+</input>
+<returns type="record">Region tool</returns>
+
+<description>
+
+This function creates a multi-dimensional world box region; the
+corners of the box are specified in world coordinates.  However, the box
+is not a true world volume in that its sides do not follow world
+contours.  Its sides are parallel to the pixel axes.  If you are in a
+region of high world coordinate contour non-linearity (e.g.  near a
+pole), you are probably better off using a world polygon. 
+
+The box is specified by a bottom-left corner, and a top-right corner. 
+The coordinates are given as quantities, and you can give a vector of
+quantities (e.g.  {\cf blc = qa.quantity("1rad 20deg")} or a
+quantity of a vector (e.g.{\cf blc = qa.quantity([10,30], 'rad')}). 
+
+You can specify whether the coordinates are given as absolute coordinates
+({\stfaf absrel='abs'}) or relative to the reference pixel ({\stfaf 
+absrel='relref'}) or relative to the center of the image ({\stfaf
+absrel='relcen'}).  You can specify this for each axis (the same for the
+blc and trc).   If you specify less values than the number of
+values in {\stfaf blc} or {\stfaf trc} then the last value you
+did specify is used as the default for all higher numbered axes
+(e.g. {\stfaf absrel='relref'} means {\stfaf absrel="relref relref"}
+for two axes).
+
+You specify which pixel axes in the image the {\stfaf blc} and {\stfaf
+trc} vector refer to with the {\stfaf pixelaxes} argument.  If you
+don't, it defaults to [0,1,2,...].  This specification is an important
+part of world regions. 
+
+You must also specify the Coordinate System with the {\stfaf csys}
+argument.  The Coordinate System is encapsulated in a {\stfaf coordinates}
+tool and can be recovered from an image with the
+<link anchor="images:image.coordsys.function">coordsys</link> tool function.  You can
+also set a default Coordinate System in the \regionmanager\ with the
+<link anchor="images:regionmanager.setcoordinates.function">setcoordinates</link> 
+function.
+
+In the \regionmanager\ we have defined units `pix' and `frac'; these are
+then known to the <link anchor="quanta:quanta">quanta</link> system.  This means
+that you can effectively define a pixel box (except for the stride
+capability) as a world box with most of the advantages of world regions
+(can be used for compound regions).  However, it is still not very
+portable to other images because the coordinates are pixel based,
+not world based. 
+
+Note that the need to deal with the {\stfaf pixelaxes} and {\stfaf csys}
+is hidden from you when using the <link anchor="images:regionmanager.gui.function">gui</link>
+interface of the \regionmanager. 
+
+</description>
+
+<example>  
+
+- r = rg.wbox()
+
+
+This region, on application to an image, will select the entire
+image.
+
+</example>
+
+<example>  
+
+- ia.open('ada')
+- csys = ia.coordsys()
+- csys.summary()
+
+Name             Proj Shape Tile   Coord value at pixel    Coord incr Units
+--------------------------------------------------------------------------- 
+Frequency                64   16  1.413350e+09     1.00  1.968717e+04 Hz
+Velocity                          1.378053e+02     1.00 -4.174021e+00 km/s
+Declination       SIN   178   89 -28.59.18.600    90.00  1.000000e+00 arcsec
+Right Ascension   SIN   155   31  17:42:29.303    90.00 -1.000000e+00 arcsec
+-
+-
+- blc = "17:42:29.303 -28.59.18.600"
+- trc = "17:42:28.303 -28.59.10.600"
+- r1 = rg.wbox(blc=blc,trc=trc,pixelaxes=[0,1],csys=csys.torecord())
+- ia.boundingbox(r1)
+[blc=[1 90 90] , trc=[64 98 103] , regionShape=[64 9 14], imageShape=[64 178 155] ] 
+
+
+We have specified an RA and DEC for the blc and the trc (they should
+be quantities; for blc we do that explicitly, but for the trc
+we just give a vector of strings which is automatically converted
+for us to a vector of quantities).
+
+From the {\stff summary} listing you can see that RA and DEC correspond
+to pixel axes 3 and 2 respectively (don't be confused by the dual
+listing for the spectral axis) so that is why the {\stfaf pixelaxes}
+argument is set to [3,2].  If we had set blc/trc in DEC/RA order then we
+would have put {\stfaf pixelaxes=[1,2]}.  For the unspecified frequency
+axis, all pixels are selected. 
+
+</example>
+
+<example>  
+
+- ia.open('bork')
+- csys = ia.coordsys()
+- csys.summary()
+
+Name             Proj Shape Tile   Coord value at pixel    Coord incr Units
+--------------------------------------------------------------------------- 
+Right Ascension   SIN   155   31  17:42:29.303    90.00 -1.000000e+00 arcsec
+Declination       SIN   178   89 -28.59.18.600    90.00  1.000000e+00 arcsec
+
+- rg.setcoordinates(cs)
+T
+- blc = "-10pix -28.59.18.6"
+- trc = "10pix  -28.59.1.6"
+- r1 = rg.wbox(blc=blc,trc=trc,absrel="relref abs")   # pixelaxes defaults to [0,1]
+Using private CoordinateSystem from image "bork"
+- ia.boundingbox(r1)
+[blc=[80 90] , trc=[100 107] , regionShape=[21 18] , imageShape=[155 178] ] 
+
+
+In this example, we use pixel coordinates relative to the reference
+pixel for the RA axis and absolute world coordinates for the DEC axis. 
+We also set the state of the \regionmanager\ with a Coordinate
+System to use when making world regions.  You can see that when the
+region was made, a message was issued reminding you that the internal
+Coordinate System from the image {\sff bork} was being used. 
+
+</example>  
+
+<example>  
+
+- ia.open('hcn')
+- csys = ia.coordsys()
+- csys.summary()
+
+Name             Proj Shape Tile   Coord value at pixel    Coord incr Units
+--------------------------------------------------------------------------- 
+Right Ascension   SIN   155   31  17:42:29.303    90.00 -1.000000e+00 arcsec
+Declination       SIN   178   89 -28.59.18.600    90.00  1.000000e+00 arcsec
+Frequency                64   16  1.413350e+09     1.00  1.968717e+04 Hz
+Velocity                          1.378053e+02     1.00 -4.174021e+00 km/s
+T 
+-
+- blc = "1.414E9Hz"
+- trc = "1.4145GHz"
+- r = rg.wbox(blc=blc, trc=trc, pixelaxes=[2], csys=cs)
+- ia.boundingbox(r)
+[blc=[1 1 34] , trc=[155 178 59] , regionShape=[155 178 26] , imageShape=[155 178 64] ] 
+
+
+In this example we only specified a region for the frequency axis (note
+we used different units for the blc and trc).  Therefore, on
+application, the region selected for the RA and DEC axes is
+automatically the full image.  
+
+</example>
+</method>
+ 
+   <method type="function" name="wpolygon">
+   <shortdescription>Create a world polygon region with quantities</shortdescription>
+   
+<input>  
+  
+     <param type="any" direction="in" name="x">
+     <description>The x vector; a vector of quantities</description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+  
+     <param type="any" direction="in" name="y">
+     <description>The y vector; vector of quantities</description>
+     <any type="variant"/>
+     <value></value>
+  
+     <choice>Quantity vector</choice>
+     </param>
+  
+     <param type="intArray" direction="in" name="pixelaxes">
+     <description>which pixel axes; vector of integers ..default -1 
+     means [0,1]
+     </description>
+ 
+     <value>-1</value>
+ 
+     <choice>[1,2]</choice>
+     </param>
+  
+     <param type="record" direction="in" name="csys">
+     <description>Coordinate System</description>
+     <value></value>
+ 
+     <choice>Private Coordinate System</choice>
+     </param>
+  
+     <param type="string" direction="in" name="absrel">
+     <description>Absolute or relative coordinates; possibilities are 'abs', 'rel', 'relcen'</description>
+     <value>abs</value>
+     <choice>abs</choice>
+     </param>
+  
+     <param type="string" direction="in" name="comment">
+     <description>A comment stored with the region</description>
+     <value></value>
+     <choice></choice>
+     </param>
+</input>
+<returns type="record">Region tool</returns>
+
+<description>
+
+This function (short-hand name {\stff wpoly}) creates a 2D world
+polygon region.  The polygon is specified by an {\stfaf x} and a {\stfaf y}
+vector.  These must be quantities of a vector (the 
+<link anchor="images:regionmanager.wbox.function">world box</link> function
+allows both
+quantities of vectors and vectors of quantities).  This means that the
+units are common to all elements of each vector.  Thus, {\cf
+qa.quantity([1,2,3],'rad')} (a quantity of a vector) is different from
+{\cf qa.quantity("1rad 2rad 3rad")} (a vector of quantities) although
+the information that they specify is the same. 
+
+You specify which pixel axes in the image the {\stfaf x} and {\stfaf 
+y} vectors pertain to with the {\stfaf pixelaxes} argument.  If you don't,
+it defaults to [0,1].  This specification is an important part of
+world regions. 
+
+You can specify whether the {\stfaf x} and {\stfaf y} vector coordinates are
+given as absolute coordinates ({\stfaf absrel='abs'}) or relative to the
+reference pixel ({\stfaf absrel='relref'}) or relative to the center of the
+image ({\stfaf absrel='relcen'}).  This argument applies to both the axes
+of the polygon. 
+
+You must also specify the Coordinate System with the {\stfaf csys}
+argument.  The Coordinate System is encapsulated in a {\stfaf coordinates}
+\tool\ and can be recovered from an image with the
+<link anchor="images:image.coordsys.function">coordsys</link> function.  You can
+also set a default Coordinate System in the Regionmanager with the
+<link anchor="images:regionmanager.setcoordinates.function">setcoordinates</link> 
+function.
+
+In the \regionmanager\ we have defined units `pix' and `frac'; these are
+then known to the <link anchor="quanta:quanta">quanta</link> system.  This means
+that you can effectively define a pixel box (except for the stride
+capability) as a world box with most of the advantages of world regions
+(can be used for compound regions).  However, it is still not very
+portable to other images because the coordinates are pixel based,
+not world based. 
+
+Note that the need to deal with the {\stfaf pixelaxes} and {\stfaf csys}
+is hidden from you when using the <link anchor="images:regionmanager.gui.function">gui</link>
+interface of the \regionmanager. 
+
+</description>
+
+<example>  
+
+ia.open('myim.im')
+csys = ia.coordsys()
+x = ["3pix", "6pix", "9pix", "6pix", "5pix","5pix","3pix"]
+y = ["3pix","4pix","7pix","9pix","7pix","5pix","5pix"]
+r1 = rg.wpolygon(x=x, y=y, pixelaxes=[0,1], csys=csys.torecord())
+stats = ia.statistics(region=r1)
+ia.done()
+
+
+We applied the 2D polygon, defined in the XY plane with absolute pixel
+coordinates, to a 3D image.  Therefore, the third (Z) axis was
+automatically extended to the whole image. 
+
+</example>
+
+</method>
+
+
+ <!--
+   <method type="function" name="wmask">
+   <shortdescription>Create a world mask region</shortdescription>
+   
+<input>  
+  
+     <param type="string" direction="in" name="expr">
+     <description>Boolean expression</description>
+     <value></value>
+     <choice>String</choice>
+     </param>
+</input>
+<returns type="any"><any type="record"/>Region tool</returns>
+
+<description>
+NOT IMPLEMENTED IN CASA
+
+This function creates a mask region.   This region can be applied
+on-the-fly to images.  The expression must be Boolean.
+
+</description>
+
+<example>  
+
+- ia.imagemaketestimage('zz')
+- r = rg.wmask(expr='zz&gt;0')
+- ia.statistics(region=r.torecord())
+
+
+The mask region effectively creates a (notional) Boolean
+lattice.    In this example, when the pixel values
+are greater than zero, the lattice is True (good), else
+False.  The statistics, when evaluated, are then
+only computed when the mask region is True.
+
+</example>
+
+<example>  
+
+- ia.imagemaketestimage('zz')
+- rg.setcoordinates(ia.coordsys().torecord() )
+#
+- r1 = rg.wbox(...)                 # Make a world box
+- r2 = rg.wmask(expr='zz&gt;0')        # Make a mask region
+- r3 = rg.intersection (r1,r2)      # Intersect them
+- ia.statistics(region=r3)            # Find statistics
+
+
+In this example, the mask is only applied when
+the pixels fall in the specified box.
+
+</example>
+</method>
+-->
+ 
+</tool>
+</casaxml>
+

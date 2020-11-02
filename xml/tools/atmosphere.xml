@@ -1,0 +1,2682 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+
+   <tool name="atmosphere" module="atmosphere">
+   <shortdescription>Atmosphere model</shortdescription>
+
+
+<code>
+	<include>tools/atmosphere/atmosphere_forward.h</include>
+<private>
+	<include>tools/atmosphere/atmosphere_private.h</include>
+</private>
+</code>
+ 
+   <method type="constructor" name="atmosphere">
+   <shortdescription>Construct an atmosphere tool</shortdescription>
+   
+<description>
+This is used to construct an {\tt atmosphere} tool.
+</description>
+<input>
+</input>
+<returns type="atmosphere"/>
+<example>
+A default atmosphere tool is created automatically during casapy
+startup and defined as 'at'. 
+Manual tool construction is done this way:
+
+at = casac.atmosphere()
+
+</example>
+</method>
+
+<method type="function" name="close">
+   <shortdescription>Destroy the atmosphere tool</shortdescription>
+   
+<returns type="bool"/>
+<example>
+at.close()
+
+</example>
+</method>
+
+<method type="function" name="done">
+   <shortdescription>Destroy the atmosphere tool</shortdescription>
+   
+<returns type="bool"/>
+<example>
+at.done()
+
+</example>
+</method>
+
+<method type="function" name="getAtmVersion">
+   <shortdescription>Returns the version of ATM library.
+   </shortdescription>
+<description> 
+Returns the version of ATM library implemented to this tool.
+</description>
+   <returns type="string">The ATM library tag.
+   </returns>
+<example>
+
+at.getAtmVersion()
+# 'ATM-0_5_0'
+
+</example>
+</method>
+
+   <method type="function" name="listAtmosphereTypes">
+   <shortdescription>Returns a list of atmospheric types used by ATM.
+   </shortdescription>
+<description>
+Returns a list of index numbers and corresponding atmosphere types
+used by the ATM library.
+</description>
+   <returns type="stringArray">List of index - atmosphere type pairs
+   </returns>
+<example>
+
+at.listAtmosphereTypes()
+# ['1 - TROPICAL', '2 - MIDLATSUMMER', '3 - MIDLATWINTER', 
+#  '4 - SUBARTSUMMER', '5 - SUBARTWINTER']
+
+</example>
+   </method>
+
+
+   <method type="function" name="initAtmProfile">
+   <shortdescription>Set initial atmospheric profile for atmosphere tool
+   </shortdescription>
+   
+<description>
+An atmospheric profile is composed of 4 quantities as a function of
+altitude z:
+
+    * the layer thickness
+    * the pressure P
+    * the temperature T and
+    * the gas densities for H2O, O3, CO and N2O.
+
+
+This method is needed for computing the absorption and phase
+coefficients, as well as for performing radiative transfer
+calculations (only layer thickness/T are needed).
+
+This method builds an atmospheric profile that can be used to calculate
+absorption and phase coefficients, as well as to perform forward
+and/or retrieval radiative transfer calculations. It is composed of a
+set of parameters needed to build a layer thickness/P/T/gas densities
+densities profile from simple parameters currently available at
+observatories (from weather stations for example) using functions from
+the ATM library. The set of input parameters consists of the pressure
+P, the temperature T and the relative humidity at the ground, the
+altitude of the site, the tropospheric temperature lapse rate,... The
+profile is built as: thickness of the considered atmospheric layers
+above the site, and mean P,T,H2O,O3,CO,N2O in them. The total number
+of atmospheric layers in the particular profile is also available (a
+negative value indicates an error).  The zenith column of water vapor
+can be calculated by simply integrating the H2O profile.
+</description>
+<input>
+
+     <param type="double" direction="in" name="altitude" units="m">
+     <description>Site altitude - Quantity with units of altitude, meter
+       </description>
+     <value>5000.</value>
+     </param>
+
+     <param type="double" direction="in" name="temperature" units="K">
+     <description>Ambient Temperature - Quantity with units of temperature, K
+       </description>
+     <value>270.0</value>
+     </param>
+
+     <param type="double" direction="in" name="pressure" units="mbar">
+     <description>Ambient pressure - Quantity with units of pressure, mbar
+       </description>
+     <value>560.0</value>
+     </param>
+
+     <param type="double" direction="in" name="maxAltitude" units="km">
+     <description>altitude of the top pf the modelled atmosphere -
+        Quantity with dimension of length, and units of kilometer
+        </description>
+     <value>48.0</value>
+     </param>
+
+     <param type="double" direction="in" name="humidity">
+     <description>used to guess water (0-100)</description>
+     <value>20.0</value>
+     </param>
+
+     <param type="double" direction="in" name="dTem_dh" units="K/km">
+     <description>the derivative of temperature with respect to height
+         - Quantity with units of K/km</description>
+     <value>-5.6</value>
+     </param>
+
+     <param type="double" direction="in" name="dP" units="mbar">
+     <description>initial pressure step - 
+        Quantity with the units of pressure, mb</description>
+     <value>10.0</value>
+     </param>
+
+     <param type="double" direction="in" name="dPm">
+     <description>pressure multiplicative factor for steps</description>
+     <value>1.2</value>
+     </param>
+
+     <param type="double" direction="in" name="h0" units="km">
+     <description>scale height for water( exp distribution ) -
+       Quantity with the dimension of length, and units of kilometer </description>
+     <value>2.0</value>
+     </param>
+
+     <param type="int" direction="in" name="atmType">
+     <description> atmospheric type
+         1(tropical),2(mid latitude summer),3(mid latitude winter),
+         4(subarctic summer),5(subarctic winter), dimensionless
+        </description>
+     <value>1</value>
+     </param>
+
+     <param type="doubleArray" direction="in" name="layerBoundaries">
+     <description>Altitude of user-defined temperature profile, 
+       a double array in unit of meter</description>
+     <value></value>
+     </param>
+
+     <param type="doubleArray" direction="in" name="layerTemperature">
+     <description>User-defined temperature profile, a double 
+       array in unit of Kelvin</description>
+     <value></value>
+     </param>
+
+</input>
+<returns type="string">String displaying input values.</returns>
+<example>
+
+tmp = qa.quantity(270.0, 'K')
+pre = qa.quantity(560.0, 'mbar')
+hum = 20.0
+alt = qa.quantity(5000, 'm')
+h0  = qa.quantity(2.0, 'km')
+wvl = qa.quantity(-5.6, 'K/km')
+mxA = qa.quantity(48, 'km')
+dpr = qa.quantity(10.0, 'mbar')
+dpm = 1.2
+att = 1
+myatm = at.initAtmProfile(alt, tmp, pre, mxA, hum, wvl, dpr, dpm, h0, att)
+print myatm
+# BASIC ATMOSPHERIC PARAMETERS TO GENERATE REFERENCE ATMOSPHERIC PROFILE
+#  
+# Ground temperature T:         270 K
+# Ground pressure P:            560 mb
+# Relative humidity rh:         20 %
+# Scale height h0:              2 km
+# Pressure step dp:             10 mb
+# Altitude alti:                5000 m
+# Attitude top atm profile:     48 km
+# Pressure step factor:         1.2 
+# Tropospheric lapse rate:      -5.6 K/km
+# Atmospheric type:             TROPICAL
+# User-defined temperature profile: OFF
+#
+# Built atmospheric profile with 19 layers.
+
+User-defined temperature profile
+myalt = [ 5071.72200397, 6792.36546384, 15727.0776121, 42464.18192672 ] #meter
+mytemp = [ 270., 264., 258., 252. ] #Kelvin
+newatm = at.initAtmProfile(alt, tmp, pre, mxA, hum, wvl, dpr, dpm, h0, att, myalt, mytemp)
+print newatm
+# BASIC ATMOSPHERIC PARAMETERS TO GENERATE REFERENCE ATMOSPHERIC PROFILE
+#  
+# Ground temperature T:         270 K
+# Ground pressure P:            560 mb
+# Relative humidity rh:         20 %
+# Scale height h0:              2 km
+# Pressure step dp:             10 mb
+# Altitude alti:                5000 m
+# Attitude top atm profile:     48 km
+# Pressure step factor:         1.2 
+# Tropospheric lapse rate:      -5.6 K/km
+# Atmospheric type:             TROPICAL
+# User-defined temperature profile: ON
+#
+# Built atmospheric profile with 19 layers.
+
+</example>
+</method>
+
+ 
+   <method type="function" name="updateAtmProfile">
+   <shortdescription>Update basic atmospheric parameters of atmosphere tool
+   </shortdescription>
+   
+<description>
+This is used to update the {\tt atmosphere} tool when basic
+atmospheric parameters.change.
+</description>
+<input>
+
+     <param type="double" direction="in" name="altitude" units="m">
+     <description>Site altitude - Quantity with units of altitude, meter
+       </description>
+     <value>5000.</value>
+     </param>
+
+     <param type="double" direction="in" name="temperature" units="K">
+     <description>Ambient ground temperature - Quantity with units of temperature, K
+       </description>
+     <value>270.0</value>
+     </param>
+
+     <param type="double" direction="in" name="pressure" units="mbar">
+     <description>Ambient ground pressure - Quantity with units of pressure, mbar
+       </description>
+     <value>560.0</value>
+     </param>
+
+     <param type="double" direction="in" name="humidity">
+     <description>Relative humidy used to guess water (0-100)</description>
+     <value>20.0</value>
+     </param>
+
+     <param type="double" direction="in" name="dTem_dh" units="K/km">
+     <description>Tropospheric Lapse Rate - the derivative of temperature with respect to height
+         - Quantity with units of K/km</description>
+     <value>-5.6</value>
+     </param>
+
+     <param type="double" direction="in" name="h0" units="km">
+     <description>scale height for water( exp distribution ) -
+       Quantity with the dimension of length, and units of kilometer </description>
+     <value>2.0</value>
+     </param>
+</input>
+<returns type="string">String of current values.</returns>
+<example>
+
+new_tmp = qa.quantity(275.0, 'K')
+print at.updateAtmProfile(alt, new_tmp, pre, hum, wvl, h0)
+# UPDATED BASIC ATMOSPHERIC PARAMETERS TO GENERATE REFERENCE ATMOSPHERIC PROFILE
+#  
+# Ground temperature T:         275 K
+# Ground pressure P:            560 mb
+# Relative humidity rh:         20 %
+# Scale height h0:              2 km
+# Altitude alti:                5000 m
+# Tropospheric lapse rate:      -5.6 K/km
+
+</example>
+</method>
+
+   <method type="function" name="getBasicAtmParms">
+   <shortdescription>Gets the current basic atmospheric parameters of the model.
+   </shortdescription>
+   <output>
+
+     <param type="double" name="altitude" units="m">
+     <description>Site altitude - Quantity with units of altitude, meter
+       </description>
+     </param>
+
+     <param type="double" name="temperature" units="K">
+     <description>Ambient ground temperature - Quantity with units of temperature, K
+       </description>
+     </param>
+
+     <param type="double" name="pressure" units="mbar">
+     <description>Ambient pressure - Quantity with units of pressure, mbar
+       </description>
+     </param>
+
+     <param type="double" name="maxAltitude" units="km">
+     <description>altitude of the top pf the modelled atmosphere -
+        Quantity with dimension of length, and units of kilometer
+        </description>
+     </param>
+
+     <param type="double" name="humidity">
+     <description>Ground relative humidity used to guess water (0-100)</description>
+     </param>
+
+     <param type="double" name="dTem_dh" units="K/km">
+     <description>Current Tropospheric Lapse Rate (the derivative of temperature with respect to height)
+         - Quantity with units of K/km</description>
+     </param>
+
+     <param type="double" name="dP" units="mbar">
+     <description>initial pressure step - 
+        Quantity with the units of pressure, mb</description>
+     </param>
+
+     <param type="double" name="dPm">
+     <description>pressure multiplicative factor for steps</description>
+     </param>
+
+     <param type="double" name="h0" units="km">
+     <description>Water vapor scale height ( exp distribution ) -
+       Quantity with the dimension of length, and units of kilometer </description>
+     </param>
+
+     <param type="string" name="atmType">
+     <description> atmospheric type used to describe the behaviour above
+         the tropopause.
+         1(tropical),2(mid latitude summer),3(mid latitude winter),
+         4(subarctic summer),5(subarctic winter), dimensionless
+        </description>
+     </param>
+   </output>
+
+   <returns type="string">Returns string listing of parameters.</returns>
+<example>
+
+p = at.getBasicAtmParms()
+# returns a tuple of
+# 0 - string listing of parameters, 1 - altitude, 2 - temperature,
+# 3 - pressure, 4 - maxAltitude, 5 - humidity, 6 - dTem_dh,
+# 7 - dP, 8 - dPm. 9 - h0, and 10 - atmType
+print "Atmospheric type:   ", p[10]
+# Atmospheric type:    TROPICAL
+print "Ground temperature: ", p[2]['value'][0], p[2]['unit']
+# Ground temperature:  288.16 K
+print p[0]           # a "pretty" listing of all the parameters
+# CURRENT ATMOSPHERIC PARAMETERS OF REFERENCE ATMOSPHERIC PROFILE
+#  
+# Ground temperature T:         275 K
+# Ground pressure P:            560 mbar
+# Relative humidity rh:         20 %
+# Scale height h0:              2 km
+# Pressure step dp:             10 mbar
+# Altitude alti:                5000 m
+# Attitude top atm profile      48 km
+# Pressure step factor          1.2 
+# Tropospheric lapse rate       -5.6 K/km
+# Atmospheric type:             TROPICAL
+#
+# Atmospheric profile has 19 layers.
+
+</example>
+   </method>
+
+   <method type="function" name="getNumLayers">
+   <shortdescription>Returns the number of layers in the atmospheric profile.
+   </shortdescription>
+   <returns type="int"/>
+<example>
+
+p = at.getProfile()
+for i in range(at.getNumLayers()):
+        # Print atmospheric profile returned by at.getProfile():
+        # Layer thickness (idx=1), Temperature (idx=2),
+        # Number density of water vapor(idx=4), and Pressure (idx=5)
+        print p[1]['value'][i], p[2]['value'][i], p[4]['value'][i], p[5]['value'][i]
+
+</example>
+   </method>
+
+ 
+   <method type="function" name="getGroundWH2O">
+   <shortdescription>get the zenith column of water vapor</shortdescription>
+   
+<description>
+Method to get the zenith column  of water vapor. It is computed by
+simply integrating the H2O profile:
+</description>
+<returns type="Quantity"/>
+<example>
+
+w = at.getGroundWH2O()
+print "Guessed water content: ", w['value'][0], w['unit']
+# Guessed water content:  2.6529103462750112 mm
+
+</example>
+</method>
+
+ 
+   <method type="function" name="getProfile">
+   <shortdescription>get atmospheric profile</shortdescription>
+   
+<description>
+
+Get the atmospheric profile.
+
+</description>
+
+<output>
+     <param type="double"  name="thickness" units="m">
+     <description>thickness of every atmospheric layer -
+        Quantum with a vector value and unit of length, m
+        </description>
+     </param>
+
+     <param type="double"  name="temperature" units="K">
+     <description>temperature of every atmospheric layer -
+      Quantum with a vector value and unit of temperature, K
+       </description>
+     </param>
+
+     <param type="double"  name="watermassdensity" units="kg.m-3">
+     <description>water vapor mass density content of every atmospheric layer -
+        Quantum with a vector value and unit of kg.m-3
+        </description>
+     </param>
+
+     <param type="double"  name="water" units="m-3">
+     <description>water vapor content of every atmospheric layer -
+        Quantum with a vector value and unit of m-3
+        </description>
+     </param>
+
+     <param type="double"  name="pressure" units="Pa">
+     <description>pressure of every atmospheric layer -
+        Quantum with a vector value and unit of Pascal
+        </description>
+     </param>
+
+     <param type="double"  name="O3" units="m-3">
+     <description>O3 of every atmospheric layer -
+        Quantum with a vector value and unit of m-3
+        </description>
+     </param>
+
+     <param type="double"  name="CO" units="m-3">
+     <description>CO of every atmospheric layer -
+        Quantum with a vector value and unit of m-3
+     </description>
+     </param>
+
+     <param type="double"  name="N2O" units="m-3">
+     <description>N2O of every atmospheric layer -
+        Quantum with a vector value and unit of m-3
+     </description>
+     </param>
+
+</output>
+<returns type="string">String displaying atmospheric profile</returns>
+
+<example>
+
+p = at.getProfile()
+# returns a tuple of
+# 0 - string listing of layer values, and arrays of layer, 1 - thickness,
+# 2 - temperature, 3 - watermassdensity, 4 - water (number density),
+# 5 - pressure, 6 - O3 (number density), 7 - CO, 8 - N2O
+for i in range(at.getNumLayers()):
+        # Print atmospheric profile returned by at.getProfile():
+        # Layer thickness (idx=1), Temperature (idx=2),
+        # Number density of water vapor(idx=4), and Pressure (idx=5)
+        print p[1]['value'][i], p[2]['value'][i], p[4]['value'][i],\
+              p[5]['value'][i]
+
+print p[0]    # "pretty" listing of all layer parameters
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="initSpectralWindow">
+   <shortdescription>initialize spectral window</shortdescription>
+   
+<description>
+
+function that defines a spectral window, computes absorption and emmision coefficients for this window,
+using the atmospheric model profile.
+
+NOTE: This method should be invoked after setting atmospheric profile model by initAtmProfile.
+
+</description>
+
+<input>
+
+
+     <param type="int" direction="in" name="nbands">
+     <description>number of spectral windows/bands. The value must be > 0.</description>
+     <value>1</value>
+     </param>
+
+     <param type="double" direction="in" name="fCenter" units="GHz">
+     <description>center frequencies -
+         Quantum with a vector value and unit of frequency, GHz
+         </description>
+     <value>90</value>
+     </param>
+
+     <param type="double" direction="in" name="fWidth" units="GHz">
+     <description>frequency width of band - Quantum with a vector value and unit of frequency, GHz
+        </description>
+     <value>0.64</value>
+     </param>
+
+     <param type="double" direction="in" name="fRes" units="GHz">
+     <description>resolution inside band -
+        Quantum with a vector value and unit frequency, GHz.
+        Default is for a single frequency.
+        </description>
+     <value>0.0</value>
+     </param>
+
+</input>
+
+<returns type="int">Number of channels in the first spectral window</returns>
+
+<example>
+
+nb = 1
+fC = qa.quantity(88., 'GHz')
+fW = qa.quantity(0.5, 'GHz')
+fR = qa.quantity(0.5, 'GHz')
+at.initSpectralWindow(nb, fC, fW, fR)
+
+nb = 2
+fC = qa.quantity([88., 90.], 'GHz')
+fW = qa.quantity([0.5, 0.5], 'GHz')
+fR = qa.quantity([0.125, 0.125], 'GHz')
+at.initSpectralWindow(nb, fC, fW, fR)
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="addSpectralWindow">
+   <shortdescription>add a new spectral window</shortdescription>
+   
+<description>
+
+
+Add a new spectral window, uniformly sampled, this spectral window
+having no sideband.
+
+</description>
+
+<input>
+
+     <param type="double" direction="in" name="fCenter" units="GHz">
+     <description>frequencies -
+         Quantum with a double value and unit of frequency, GHz
+         </description>
+     <value>350</value>
+     </param>
+
+     <param type="double" direction="in" name="fWidth" units="GHz">
+     <description>frequency width of band - Quantum with a double value and unit of frequency, GHz
+        </description>
+     <value>0.008</value>
+     </param>
+
+     <param type="double" direction="in" name="fRes" units="GHz">
+     <description>resolution inside band -
+        Quantum with a double value and unit frequency, GHz
+        </description>
+     <value>0.002</value>
+     </param>
+
+</input>
+
+<returns type="int">Number of channels in new spectral window</returns>
+
+<example>
+
+fC2 = qa.quantity(350.0, 'GHz')
+fW2 = qa.quantity(0.008, 'GHz')
+fR2 = qa.quantity(0.002, 'GHz')
+nc = at.addSpectralWindow(fC2, fW2, fR2)
+print "New spectral window has ", nc, " channels"
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="getNumSpectralWindows">
+   <shortdescription>Get number of spectral windows</shortdescription>
+
+<returns type="int">Number of spectral windows</returns>
+<example>
+
+numSpw = at.getNumSpectralWindows()
+print "There are ", numSpw, " spectral windows"
+
+</example>
+</method>
+
+
+   <method type="function" name="getNumChan">
+   <shortdescription>return the number of channels of ith band</shortdescription>
+   
+<description>
+Return the number of channels of ith band ( passes in as parameter ).
+</description>
+
+<input>
+     <param type="int" direction="in" name="spwid">
+     <description>Int standing for identifier of bands (0-based). The value must be >= 0.</description>
+     <value>0</value>
+     </param>
+</input>
+
+<returns type="int"> Int, the number of channels of the given band.</returns>
+
+<example>
+
+for spwid in range(at.getNumSpectralWindows()):
+        numCh = at.getNumChan(spwid)
+        print "Spectral window ", spwid, " has ", numCh, " frequency channels"
+
+</example>
+</method>
+
+ 
+   <method type="function" name="getRefChan">
+   <shortdescription>Get the reference channel of a given spectral window
+   </shortdescription>
+<description>
+Return the reference channel of the given spectral window
+</description>
+<input>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+</input>
+<returns type="int"> Reference channel number.</returns>
+<example>
+
+rc = at.getRefChan()
+print "Reference channel retrieved: ", rc
+
+</example>
+</method>
+
+ 
+   <method type="function" name="getRefFreq">
+   <shortdescription>Get the reference frequency of given spectral window
+   </shortdescription>
+<description>
+Return the reference frequency of the given spectral window
+</description>
+<input>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+</input>
+<returns type="Quantity">Reference channel frequency.</returns>
+<example>
+
+rf = at.getRefFreq()
+print "Reference frequency retrieved: ", rf['value'][0], rf['unit']
+
+</example>
+</method>
+
+ 
+   <method type="function" name="getChanSep">
+   <shortdescription>Get the channel separation for regularly spaced grid for spectral window
+   </shortdescription>
+<description>
+Return the channel separation of the given spectral window
+</description>
+<input>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+</input>
+<returns type="Quantity">Channel separation.</returns>
+<example>
+
+cs = at.getChanSep()
+print "Channel separation retrieved: ", cs['value'][0], cs['unit']
+
+</example>
+</method>
+
+ 
+   <method type="function" name="getChanFreq">
+   <shortdescription>Get the channel frequency for a given grid point for the specified spectral window.
+   </shortdescription>
+   <description>
+      Return the channel frequency for a given grid point for the specified spectral window.
+   </description>
+   <input>
+      <param type="int" direction="in" name="chanNum">
+      <description>Int standing for channel number (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+   </input>
+   <returns type="Quantity">Channel frequency.</returns>
+   <example>
+   
+for spwid in range(at.getNumSpectralWindows()):
+        numCh = at.getNumChan(spwid)
+        print "Spectral window ", spwid, " has ", numCh, " frequency channels"
+        for n in range(numCh):
+                freq = at.getChanFreq(n, spwid)
+                print "Channel ", n, " Frequency:", freq['value'][0], freq['unit']
+
+    
+    </example>
+    </method>
+
+ 
+   <method type="function" name="getSpectralWindow">
+   <shortdescription>Get the spectral grid for the specified spectral window.
+   </shortdescription>
+   <description>
+      Return the spectral grid for the specified spectral window.
+   </description>
+   <input>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+   </input>
+   <returns type="Quantity">Spectral grid.</returns>
+   <example>
+   
+print at.getSpectralWindow()['value'],at.getSpectralWindow()['unit']
+
+sg = at.getSpectralWindow()
+for i in range(len(sg['value'])):
+        print sg['value'][i], sg['unit']
+
+    
+    </example>
+    </method>
+
+ 
+   <method type="function" name="getChanNum">
+   <shortdescription>Get the grid position for a given frequency in the specified spectral window.
+   </shortdescription>
+   <description>
+      Return the channel number for given frequency in the specified
+      spectral window relative to the reference channel number.
+   </description>
+   <input>
+      <param type="double" direction="in" name="freq" units="GHz">
+      <description>Frequency</description>
+      </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+   </input>
+   <returns type="double">Channel number.</returns>
+   <example>
+   
+# List current spectral window setting of SPW0
+at.getRefFreq()['value'][0], at.getRefFreq()['unit']
+# (90.0, 'GHz')
+print at.getChanSep()['value'][0], at.getChanSep()['unit']
+# 10.0 MHz
+at.getRefChan()
+# 32
+
+# Get grid positions
+at.getChanNum(qa.quantity(90., 'GHz'))
+# 0.0
+
+at.getChanNum(qa.quantity(90., 'GHz'), 0)
+# 0.0
+
+at.getChanNum(qa.quantity(90.08, 'GHz'), 0)
+# 8.0
+
+at.getChanNum(qa.quantity(89.985, 'GHz'), 0)
+# -1.5
+
+at.getChanNum(qa.quantity(89.98,'GHz'), 0)
+# -2.0
+
+    
+    </example>
+    </method>
+
+ 
+   <method type="function" name="getBandwidth">
+   <shortdescription>
+Get the frequency range encompassing the list of frequency grid points for the specified spectral window.
+   </shortdescription>
+   <description>
+Get the frequency range encompassing the list of frequency grid points for the specified spectral window.
+   </description>
+   <input>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+   </input>
+   <returns type="Quantity">Bandwidth.</returns>
+   <example>
+   
+print "Total bandwidth retrieved: ", at.getBandwidth()['value'][0], at.getBandwidth()['unit']
+
+    
+    </example>
+    </method>
+
+ 
+   <method type="function" name="getMinFreq">
+   <shortdescription>
+Get lowest frequency channel for the specified spectral window.
+   </shortdescription>
+   <description>
+Get lowest frequency channel for the specified spectral window.
+   </description>
+   <input>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+   </input>
+   <returns type="Quantity">Lowest frequency.</returns>
+   <example>
+   
+print "Frequency range: from ", at.getMinFreq()['value'][0], " to ",\
+      at.getMaxFreq()['value'][0], at.getMinFreq()['unit']
+
+    
+    </example>
+    </method>
+
+ 
+ 
+   <method type="function" name="getMaxFreq">
+   <shortdescription>
+Get highest frequency channel for the specified spectral window.
+   </shortdescription>
+   <description>
+Get highest frequency channel for the specified spectral window.
+   </description>
+   <input>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+   </input>
+   <returns type="Quantity">Highest frequency.</returns>
+   <example>
+   
+print "Frequency range: from ", at.getMinFreq()['value'][0], " to ",\
+      at.getMaxFreq()['value'][0], at.getMaxFreq()['unit']
+    
+    </example>
+    </method>
+
+ 
+ 
+   <method type="function" name="getDryOpacity">
+   <shortdescription>get the integrated Dry Opacity along the atmospheric path for channel nc in spectral window swpId</shortdescription>
+   
+<description>
+
+Get the integrated Dry Opacity for one channel in a band.
+
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+</input>
+<returns type="double">The Dry Opacity of channel nc in band spwid.</returns>
+
+<example>
+
+nb = 1
+fC = qa.quantity([850.0], 'GHz')
+fW = qa.quantity([0.5], 'GHz')
+fR = qa.quantity([0.5], 'GHz')
+at.initSpectralWindow(nb, fC, fW, fR)
+print "Total Dry Opacity at ", fC['value'][0], fC['unit'],\
+      " for 1.0 air mass: ", at.getDryOpacity()
+
+
+</example>
+
+</method>
+
+   <method type="function" name="getDryContOpacity">
+   <shortdescription>get the integrated Dry Continuum Opacity along the atmospheric path for channel nc in spectral window spwid</shortdescription>
+   
+<description>
+
+Get the integrated Dry Continuum Opacity for one channel in a band.
+
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+</input>
+<returns type="double">The Dry Continuum Opacity of channel nc in band spwid.</returns>
+
+<example>
+
+nb = 1
+fC = qa.quantity([850.0], 'GHz')
+fW = qa.quantity([0.5], 'GHz')
+fR = qa.quantity([0.5], 'GHz')
+at.initSpectralWindow(nb, fC, fW, fR)
+print "Total Dry Cont Opacity at ", fC['value'][0], fC['unit'],\
+      " for 1.0 air mass: ", at.getDryContOpacity()
+
+
+</example>
+
+</method>
+
+   <method type="function" name="getO2LinesOpacity">
+   <shortdescription>get the integrated O2 Lines Opacity along the atmospheric path for channel nc in spectral window spwid</shortdescription>
+   
+<description>
+
+Get the integrated O2 Lines Opacity for one channel in a band.
+
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+</input>
+<returns type="double">The O2 LinesOpacity of channel nc in band spwid.</returns>
+
+<example>
+
+nb = 1
+fC = qa.quantity([850.0], 'GHz')
+fW = qa.quantity([0.5], 'GHz')
+fR = qa.quantity([0.5], 'GHz')
+at.initSpectralWindow(nb, fC, fW, fR)
+print "Total O2 Lines Opacity at ", fC['value'][0], fC['unit'],\
+      " for 1.0 air mass: ", at.getO2LinesOpacity()
+
+
+</example>
+
+</method>
+
+   <method type="function" name="getO3LinesOpacity">
+   <shortdescription>get the integrated O3 Lines Opacity along the atmospheric path for channel nc in spectral window spwid</shortdescription>
+   
+<description>
+
+Get the integrated O3 Lines Opacity for one channel in a band.
+
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+</input>
+<returns type="double">The O3 LinesOpacity of channel nc in band spwid.</returns>
+
+<example>
+
+nb = 1
+fC = qa.quantity([850.0], 'GHz')
+fW = qa.quantity([0.5], 'GHz')
+fR = qa.quantity([0.5], 'GHz')
+at.initSpectralWindow(nb, fC, fW, fR)
+print "Total O3 Lines Opacity at ", fC['value'][0], fC['unit'],\
+      " for 1.0 air mass: ", at.getO3LinesOpacity()
+
+
+</example>
+
+</method>
+
+   <method type="function" name="getCOLinesOpacity">
+   <shortdescription>get the integrated CO Lines Opacity along the atmospheric path for channel nc in spectral window spwid</shortdescription>
+   
+<description>
+
+Get the integrated CO Lines Opacity for one channel in a band.
+
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+</input>
+<returns type="double">The CO LinesOpacity of channel nc in band spwid.</returns>
+
+<example>
+
+nb = 1
+fC = qa.quantity([850.0], 'GHz')
+fW = qa.quantity([0.5], 'GHz')
+fR = qa.quantity([0.5], 'GHz')
+at.initSpectralWindow(nb, fC, fW, fR)
+print "Total CO Lines Opacity at ", fC['value'][0], fC['unit'],\
+      " for 1.0 air mass: ", at.getCOLinesOpacity()
+
+
+</example>
+
+</method>
+
+   <method type="function" name="getN2OLinesOpacity">
+   <shortdescription>get the integrated N2O Lines Opacity along the atmospheric path for channel nc in spectral window spwid</shortdescription>
+   
+<description>
+
+Get the integrated N2O Lines Opacity for one channel in a band.
+
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+</input>
+<returns type="double">The N2O LinesOpacity of channel nc in band spwid.</returns>
+
+<example>
+
+nb = 1
+fC = qa.quantity([850.0], 'GHz')
+fW = qa.quantity([0.5], 'GHz')
+fR = qa.quantity([0.5], 'GHz')
+at.initSpectralWindow(nb, fC, fW, fR)
+print "Total N2O Lines Opacity at ", fC['value'][0], fC['unit'],\
+      " for 1.0 air mass: ", at.getN2OLinesOpacity()
+
+
+</example>
+
+</method>
+
+   <method type="function" name="getWetOpacity">
+   <shortdescription>get the integrated zenith Wet Opacity along the atmospheric path for channel nc in spectral window spwid</shortdescription>
+   
+<description>
+
+Get the integrated zenith Wet Opacity for one channel in a band.
+
+</description>
+
+<input>
+
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+
+<returns type="Quantity">The integrated zenith Wet Opacity of channel nc in band spwid. Units of mm-1.</returns>
+
+<example>
+
+for i in range(at.getNumSpectralWindows()):
+        for j in range(at.getNumChan(i)):
+                print "Frequency: ", at.getChanFreq(j, i)['value'][0], at.getChanFreq(j, i)['unit']
+                print "Wet opacity:", at.getWetOpacity(j, i)['value'][0], at.getWetOpacity(j, i)['unit'],\
+                      " for ", at.getUserWH2O()['value'][0], at.getUserWH2O()['unit'], " H2O"
+
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="getH2OLinesOpacity">
+   <shortdescription>get the integrated zenith H2O Lines Opacity along the atmospheric path for channel nc in spectral window spwid</shortdescription>
+   
+<description>
+
+Get the integrated zenith H2O Lines Opacity for one channel in a band.
+
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+</input>
+<returns type="double">The integrated zenith H2O Lines Opacity of channel nc in band spwid.</returns>
+
+<example>
+
+nb = 1
+fC = qa.quantity([850.0], 'GHz')
+fW = qa.quantity([0.5], 'GHz')
+fR = qa.quantity([0.5], 'GHz')
+at.initSpectralWindow(nb, fC, fW, fR)
+print "Total H2O Lines Opacity at ", fC['value'][0], fC['unit'],\
+      " for 1.0 air mass: ", at.getH2OLinesOpacity()
+
+
+</example>
+
+</method>
+
+   <method type="function" name="getH2OContOpacity">
+   <shortdescription>get the integrated zenith H2O Continuum Opacity along the atmospheric path for channel nc in spectral window spwid</shortdescription>
+   
+<description>
+
+Get the integrated zenith H2O Continuum Opacity for one channel in a band.
+
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+</input>
+<returns type="double">The integrated zenith H2O Continuum Opacity of channel nc in band spwid.</returns>
+
+<example>
+
+nb = 1
+fC = qa.quantity([850.0], 'GHz')
+fW = qa.quantity([0.5], 'GHz')
+fR = qa.quantity([0.5], 'GHz')
+at.initSpectralWindow(nb, fC, fW, fR)
+print "Total H2O Cont Opacity at ", fC['value'][0], fC['unit'],\
+      " for 1.0 air mass: ", at.getH2OContOpacity()
+
+
+</example>
+
+</method>
+
+   <method type="function" name="getDryOpacitySpec">
+   <shortdescription>get the integrated Dry opacity along the atmospheric path on each channel of a band</shortdescription>
+   
+<description>
+
+Get the integrated Dry opacity along the atmospheric path on each channel in a band.
+
+</description>
+
+<output>
+
+
+     <param type="doubleArray"  name="dryOpacity">
+     <description>the integrated dry opacity for each channel</description>
+     </param>
+
+</output>
+
+<input>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+</input>
+
+<returns type="int">The number of channels.</returns>
+
+<example>
+
+at.getDryOpacitySpec()
+# (8, 
+#  array([0.12113794420465548, 0.11890122206854335,
+#         0.11713584932434795, 0.11572780449702716,
+#         0.11459567027114714, 0.11368004975916192,
+#         0.11293678422232195,0.11233248854020933]))
+
+</example>
+
+</method>
+
+   <method type="function" name="getWetOpacitySpec">
+   <shortdescription>get the integrated zenith Wet Opacity along the atmospheric path on each channel of a band</shortdescription>
+   
+<description>
+
+Getthe integrated zenith Wet Opacity along the atmospheric path on each channel in a band.
+
+</description>
+
+<output>
+
+     <param type="double"  name="wetOpacity" units="mm-1">
+     <description>wet opacity for each channel in band -
+        Quantum with a vector value and unit of mm-1
+        </description>
+     </param>
+</output>
+<input>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+
+<returns type="int">The number of channels.</returns>
+
+<example>
+
+sw=at.getWetOpacitySpec()
+# returns a tuple of
+# 0 - The number of channels and
+# 1 - an quantity array of wet opacity for each channel in band
+sw[1]['value']
+# array([1.7225454913767393, 1.7204246078103735,
+#        1.7188614166349163, 1.7179243635081174,
+#        1.7177278069990962, 1.7184525049248152,
+#        1.7204244157129918, 1.7242351137518073])
+
+sw[0]
+# 8
+
+Another example:
+for s in range(at.getNumSpectralWindows()):
+        print "band", s
+        for i in range(at.getNumChan(0)):
+                print " - dryOpacity ", at.getDryOpacitySpec(spwid=s)[1][i], " wet Opacity/mm ",\
+                      at.getWetOpacitySpec(spwid=s)[1]['value'][i]
+
+
+</example>
+</method>
+
+
+   <method type="function" name="getDispersivePhaseDelay">
+   <shortdescription>get the integrated zenith H2O Atmospheric Phase Delay</shortdescription>
+   
+<description>
+Get the integrated zenith H2O Atmospheric Phase Delay (Dispersive part) 
+for the current conditions, for channel number nc of spectral window spwid.
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">The integrated zenith Atmospheric Phase Delay for channel nc in band spwid.</returns>
+
+<example>
+
+w = at.getUserWH2O()
+numSpw = at.getNumSpectralWindows()
+for spwid in range(numSpw):
+        numCh = at.getNumChan(spwid)
+        print "Spectral window ", spwid, " has ", numCh, " frequency channels"
+        for n in range(numCh):
+                freq = at.getChanFreq(n, spwid)
+                print "Total Dispersive Phase Delay at ",freq['value'][0], freq['unit'], " for 1.0 air mass: ",\
+                      (at.getDispersivePhaseDelay(n, spwid)['value'][0])/(w['value'][0])," degrees per mm of water vapor (", \
+                      ((100*at.getDispersivePhaseDelay(n, spwid)['value'][0])/(w['value'][0]))/(at.getNonDispersivePhaseDelay(n,spwid)['value'][0]/w['value'][0]),\
+                      "% of the Non-dispersive one )"
+
+
+</example>
+</method>
+
+
+   <method type="function" name="getDispersiveWetPhaseDelay">
+   <shortdescription>get the integrated dispersive wet Atmospheric Phase Delay</shortdescription>
+   
+<description>
+Function to retrievethe the integrated Atmospheric Phase Delay
+(Dispersive part) along the atmospheric path corresponding to the 1st
+guess water column.
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">The integrated dispersive Atmospheric Phase Delay for channel nc in band spwid.</returns>
+
+<example>
+
+w = at.getUserWH2O()
+numSpw = at.getNumSpectralWindows()
+for spwid in range(numSpw):
+        numCh = at.getNumChan(spwid)
+        print "Spectral window ", spwid, " has ", numCh, " frequency channels"
+        for n in range(numCh):
+                freq = at.getChanFreq(n, spwid)
+                print "Total Dispersive Wet Phase Delay at ", freq['value'][0], freq['unit'], " for 1.0 air mass: ",\
+                      (at.getDispersiveWetPhaseDelay(n, spwid)['value'][0])/(w['value'][0]), " degrees per mm of water vapor (",\
+                      ((100*at.getDispersiveWetPhaseDelay(n, spwid)['value'][0])/(w['value'][0]))/(at.getNonDispersiveWetPhaseDelay(n,spwid)['value'][0]/w['value'][0]),\
+                      "% of the Non-dispersive one )"
+
+
+</example>
+</method>
+
+
+   <method type="function" name="getNonDispersiveWetPhaseDelay">
+   <shortdescription>get the integrated nondispersive wet Atmospheric Phase Delay</shortdescription>
+   
+<description>
+Function to retrieve the integrated wet Atmospheric Phase Delay
+(NonDispersive part) along the atmospheric path corresponding to the 1st
+guess water column.
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">The integrated dispersive Atmospheric Phase Delay for channel nc in band spwid.</returns>
+
+<example>
+
+w = at.getUserWH2O()
+numSpw = at.getNumSpectralWindows()
+for spwid in range(numSpw):
+        numCh = at.getNumChan(spwid)
+        print "Spectral window ", spwid, " has ", numCh, " frequency channels"
+        for n in range(numCh):
+                freq = at.getChanFreq(n, spwid)
+                print "Total Dispersive Wet Phase Delay at ", freq['value'][0], freq['unit'], " for 1.0 air mass: ",\
+                      (at.getDispersiveWetPhaseDelay(n, spwid)['value'][0])/(w['value'][0]), " degrees per mm of water vapor (",\
+                      ((100*at.getDispersiveWetPhaseDelay(n, spwid)['value'][0])/(w['value'][0]))/(at.getNonDispersiveWetPhaseDelay(n,spwid)['value'][0]/w['value'][0]),\
+                      "% of the Non-dispersive one )"
+
+
+</example>
+</method>
+
+   <method type="function" name="getNonDispersiveDryPhaseDelay">
+   <shortdescription>get the integrated nondispersive dry Atmospheric Phase Delay</shortdescription>
+   
+<description>
+Function to retrieve the integrated dry Atmospheric Phase Delay
+(NonDispersive part) along the atmospheric path corresponding to the 1st
+guess water column.
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">The integrated dispersive Atmospheric Phase Delay for channel nc in band spwid.</returns>
+
+<example>
+
+w = at.getUserWH2O()
+numSpw = at.getNumSpectralWindows()
+for spwid in range(numSpw):
+        numCh = at.getNumChan(spwid)
+        print "Spectral window ", spwid, " has ", numCh, " frequency channels"
+        for n in range(numCh):
+                freq = at.getChanFreq(n, spwid)
+                print "Total Dispersive Dry Phase Delay at ", freq['value'][0], freq['unit'], " for 1.0 air mass: ",\
+                      (at.getDispersiveDryPhaseDelay(n,spwid)['value'][0])/(w['value'][0])," degrees per mm of water vapor (",\
+                      ((100*at.getDispersiveDryPhaseDelay(n,spwid)['value'][0])/(w['value'][0]))/(at.getNonDispersiveDryPhaseDelay(n,spwid)['value'][0]/w['value'][0]),\
+                      "% of the Non-dispersive one )"
+
+
+</example>
+</method>
+
+   <method type="function" name="getNonDispersivePhaseDelay">
+   <shortdescription>get the integrated zenith H2O Atmospheric Phase Delay (Non-Dispersive part)</shortdescription>
+   
+<description>
+Get the integrated zenith H2O Atmospheric Phase Delay (Non-Dispersive
+part) for the current conditions, for channel number nc of spectral
+window spwid.
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">The integrated zenith Atmospheric Phase Delay channel nc in band spwid.</returns>
+
+<example>
+
+w = at.getUserWH2O()
+numSpw = at.getNumSpectralWindows()
+for spwid in range(numSpw):
+        numCh = at.getNumChan(spwid)
+        print "Spectral window ", spwid, " has ", numCh, " frequency channels"
+        for n in range(numCh):
+                freq = at.getChanFreq(n, spwid)
+                print "Total Dispersive Phase Delay at ", freq['value'][0], freq['unit'], " for 1.0 air mass: ",\
+                      (at.getDispersivePhaseDelay(n,spwid)['value'][0])/(w['value'][0])," degrees per mm of water vapor (",\
+                      ((100*at.getDispersivePhaseDelay(n,spwid)['value'][0])/(w['value'][0]))/(at.getNonDispersivePhaseDelay(n,spwid)['value'][0]/w['value'][0]),\
+                      "% of the Non-dispersive one )"
+
+
+</example>
+</method>
+
+ 
+   <method type="function" name="getDispersivePathLength">
+   <shortdescription>get the integrated zenith Atmospheric Dispersive Path</shortdescription>
+   
+<description>
+Retrieve the integrated zenith H2O Atmospheric Path length (Dispersive part)
+along the atmospheric path corresponding to the user water column
+for channel nc in spectral window spwid.
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">The integrated zenith H2O Atmospheric Path Length for channel nc in band spwid.</returns>
+
+<example>
+
+w = at.getUserWH2O()
+nb = 1
+fC = qa.quantity([850.0], 'GHz')
+fW = qa.quantity([0.5], 'GHz')
+nfR = qa.quantity([0.5], 'GHz')
+at.initSpectralWindow(nb, fC, fW, fR)
+print "Total Dispersive Delay at ", fC['value'][0], fC['unit'], " for 1.0 air mass: ",\
+      at.getDispersivePathLength()['value'][0] /  w['value'][0], " meters per mm of water vapor"
+print "(",100*(at.getDispersivePathLength()['value'][0] /  w['value'][0])/(at.getNonDispersivePathLength()['value'][0] / w['value'][0]),\
+      "% of the Non-dispersive one )"
+
+
+</example>
+</method>
+
+   <method type="function" name="getDispersiveWetPathLength">
+   <shortdescription>get the integrated wet Atmospheric Dispersive Path</shortdescription>
+   
+<description>
+Retrieve the integrated wet Atmospheric Path length (Dispersive part)
+along the atmospheric path corresponding to the 1st guess water column
+for channel nc in spectral window spwid.
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">The integrated Atmospheric Path Length for channel nc in band spwid.</returns>
+
+<example>
+
+w = at.getGroundWH2O()
+nb = 1
+fC = qa.quantity([850.0], 'GHz')
+fW = qa.quantity([0.5], 'GHz')
+nfR = qa.quantity([0.5], 'GHz')
+at.initSpectralWindow(nb, fC, fW, fR)
+print "Total Dispersive Delay at ", fC['value'][0], fC['unit'], " for 1.0 air mass: ",\
+      at.getDispersiveWetPathLength()['value'][0] /  w['value'][0], " meters per mm of water vapor"
+print "(",100*(at.getDispersiveWetPathLength()['value'][0] /  w['value'][0])/(at.getNonDispersiveWetPathLength()['value'][0] / w['value'][0]),\
+      "% of the Non-dispersive one )"
+
+
+</example>
+</method>
+
+   <method type="function" name="getNonDispersiveWetPathLength">
+   <shortdescription>get the integrated wet Atmospheric NonDispersive Path</shortdescription>
+   
+<description>
+Retrieve the integrated wet Atmospheric Path length (NonDispersive part)
+along the atmospheric path corresponding to the 1st guess water column
+for channel nc in spectral window spwid.
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">The integrated Atmospheric Path Length for channel nc in band spwid.</returns>
+
+<example>
+
+w = at.getGroundWH2O()
+nb = 1
+fC = qa.quantity([850.0], 'GHz')
+fW = qa.quantity([0.5], 'GHz')
+nfR = qa.quantity([0.5], 'GHz')
+at.initSpectralWindow(nb, fC, fW, fR)
+print "Total Dispersive Delay at ", fC['value'][0], fC['unit'], " for 1.0 air mass: ",\
+      at.getDispersiveWetPathLength()['value'][0] /  w['value'][0], " meters per mm of water vapor"
+print "(",100*(at.getDispersiveWetPathLength()['value'][0] /  w['value'][0])/(at.getNonDispersiveWetPathLength()['value'][0] / w['value'][0]),\
+      "% of the Non-dispersive one )"
+
+
+</example>
+</method>
+
+   <method type="function" name="getNonDispersiveDryPathLength">
+   <shortdescription>get the integrated dry Atmospheric NonDispersive Path</shortdescription>
+   
+<description>
+Retrieve the integrated dry Atmospheric Path length (NonDispersive part)
+along the atmospheric path corresponding to the 1st guess water column
+for channel nc in spectral window spwid. 
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">The integrated Atmospheric Path Length for channel nc in band spwid.</returns>
+
+<example>
+
+w = at.getGroundWH2O()
+nb = 1
+fC = qa.quantity([850.0], 'GHz')
+fW = qa.quantity([0.5], 'GHz')
+nfR = qa.quantity([0.5], 'GHz')
+at.initSpectralWindow(nb, fC, fW, fR)
+print "Total Dispersive Delay at ", fC['value'][0], fC['unit'], " for 1.0 air mass: ",\
+      at.getDispersiveDryPathLength()['value'][0] /  w['value'][0], " meters per mm of water vapor"
+print "(",100*(at.getDispersiveDryPathLength()['value'][0] /  w['value'][0])/(at.getNonDispersiveDryPathLength()['value'][0] / w['value'][0]),\
+      "% of the Non-dispersive one )"
+
+
+</example>
+</method>
+
+
+   <method type="function" name="getO2LinesPathLength">
+   <shortdescription>get the integrated O2 lines Path</shortdescription>
+   
+<description>
+Retrieve the integrated Atmospheric Path length (due to O2 Lines) along 
+the atmospheric path corresponding to the 1st guess water column
+for channel nc in spectral window spwid. 
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">The integrated Path Length for channel nc in band spwid.</returns>
+
+<example>
+
+
+
+</example>
+</method>
+
+
+   <method type="function" name="getO3LinesPathLength">
+   <shortdescription>get the integrated O3 lines Path</shortdescription>
+   
+<description>
+Retrieve the integrated Atmospheric Path length (due to O3 Lines) along 
+the atmospheric path corresponding to the 1st guess water column
+for channel nc in spectral window spwid. 
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">The integrated Path Length for channel nc in band spwid.</returns>
+
+<example>
+
+
+
+</example>
+</method>
+
+
+   <method type="function" name="getCOLinesPathLength">
+   <shortdescription>get the integrated CO lines Path</shortdescription>
+   
+<description>
+Retrieve the integrated Atmospheric Path length (due to CO Lines) 
+along the atmospheric path corresponding to the 1st guess water column 
+for channel nc in spectral window spwid. 
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">The integrated Path Length for channel nc in band spwid.</returns>
+
+<example>
+
+
+
+</example>
+</method>
+
+
+   <method type="function" name="getN2OLinesPathLength">
+   <shortdescription>get the integrated N2O lines Path</shortdescription>
+   
+<description>
+Retrieve the integrated Atmospheric Path length (due to N2O Lines) 
+along the atmospheric path corresponding to the 1st guess water column 
+for channel nc in spectral window spwid. 
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">The integrated Path Length for channel nc in band spwid.</returns>
+
+<example>
+
+
+
+</example>
+</method>
+
+
+   <method type="function" name="getNonDispersivePathLength">
+   <shortdescription>get the integrated zenith H2O Atmospheric Non-Dispersive Path</shortdescription>
+   
+<description>
+Get the integrated zenith H2O Atmospheric Path length (Non-Dispersive part)
+for the current conditions, for channel nc in spectral window spwid.
+</description>
+
+<input>
+      <param type="int" direction="in" name="nc">
+      <description>Channel number (0-based; defaults to reference channel)</description>
+      <value>-1</value>
+     </param>
+      <param type="int" direction="in" name="spwid">
+      <description>Int standing for spectral window id (0-based). The value must be >= 0.</description>
+      <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">The integrated zenith H2O Atmospheric Path Length for channel nc in band spwid.</returns>
+
+<example>
+
+w = at.getUserWH2O()
+nb = 1
+fC = qa.quantity([850.0], 'GHz')
+fW = qa.quantity([0.5], 'GHz')
+nfR = qa.quantity([0.5], 'GHz')
+at.initSpectralWindow(nb, fC, fW, fR)
+print "Total Dispersive Delay at ", fC['value'][0], fC['unit'], " for 1.0 air mass: ",\
+      at.getDispersivePathLength()['value'][0] /  w['value'][0], " meters per mm of water vapor"
+print "(",100*(at.getDispersivePathLength()['value'][0] /  w['value'][0])/(at.getNonDispersivePathLength()['value'][0] / w['value'][0]),\
+      "% of the Non-dispersive one )"
+
+
+</example>
+</method>
+
+
+   <method type="function" name="getAbsH2OLines">
+   <shortdescription>
+Get H2O lines Absorption Coefficient at layer nl and frequency channel nf in spectral window spwid
+   </shortdescription>
+   
+<description>
+Accessor to get H2O lines Absorption Coefficient at layer nl,
+spectral window spwid and channel nf.
+</description>
+
+<input>
+
+     <param type="int"  name="nl">
+     <description>atmospheric layer number. The value must be >= 0.
+       </description>
+     </param>
+
+     <param type="int"  name="nf">
+     <description>frequency channnel number. The value must be >= 0.
+       </description>
+     <value>0</value>
+     </param>
+
+     <param type="int"  name="spwid">
+     <description>spectral window id. The value must be >= 0.</description>
+     <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">
+     <description>absorption coefficient for H2O lines -
+     Quantum with unit of m-1
+        </description>
+</returns>
+
+<example>
+
+ac = at.getAbsH2OLines(0, 0, 0)
+print "H2O lines absorption coefficient for layer 0, channel 0 is ", ac['value'][0], ac['unit']
+
+</example>
+</method>
+
+
+    <method type="function" name="getAbsH2OCont">
+   <shortdescription>
+Get H2O continuum Absorption Coefficient at layer nl and frequency channel nf in spectral window spwid
+   </shortdescription>
+   
+<description>
+Get H2O continuum Absorption Coefficient at layer nl, 
+spectral window spwid and frequency channel nf
+</description>
+
+<input>
+
+     <param type="int"  name="nl">
+     <description>atmospheric layer number. The value must be >= 0.
+       </description>
+     </param>
+
+     <param type="int"  name="nf">
+     <description>frequency channnel number. The value must be >= 0.
+       </description>
+     <value>0</value>
+     </param>
+
+     <param type="int"  name="spwid">
+     <description>spectral window id. The value must be >= 0. </description>
+     <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">
+     <description>absorption coefficient for H2O continuum -
+     Quantum with unit of m-1
+        </description>
+</returns>
+
+<example>
+
+ac = at.getAbsH2OCont(0, 0, 0)
+print "H2OCont absorption coefficient for layer 0, channel 0 is ", ac['value'][0], ac['unit']
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="getAbsO2Lines">
+   <shortdescription>
+Get O2 lines Absorption Coefficient at layer nl and frequency channel nf in spectral window spwid
+   </shortdescription>
+   
+<description>
+Get O2 lines Absorption Coefficient at layer nl, 
+spectral window spwid and frequency channel nf
+</description>
+
+<input>
+
+     <param type="int"  name="nl">
+     <description>atmospheric layer number. The value must be >= 0.
+       </description>
+     </param>
+
+     <param type="int"  name="nf">
+     <description>frequency channnel number. The value must be >= 0.
+       </description>
+     <value>0</value>
+     </param>
+
+     <param type="int"  name="spwid">
+     <description>spectral window id. The value must be >= 0. </description>
+     <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">
+     <description>absorption coefficient for O2 lines -
+     Quantum with unit of m-1
+        </description>
+</returns>
+
+<example>
+
+ac = at.getAbsO2Lines(0, 0, 0)
+print "O2 lines absorption coefficient for layer 0, channel 0 is ", ac['value'][0], ac['unit']
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="getAbsDryCont">
+   <shortdescription>
+Get Dry Continuum Absorption Coefficient at layer nl and frequency channel nf in spectral window spwid
+   </shortdescription>
+   
+<description>
+Get Dry Continuum Absorption Coefficient at layer nl, 
+spectral window spwid and frequency channel nf
+</description>
+
+<input>
+
+     <param type="int"  name="nl">
+     <description>atmospheric layer number. The value must be >= 0.
+       </description>
+     </param>
+
+     <param type="int"  name="nf">
+     <description>frequency channnel number. The value must be >= 0.
+       </description>
+     <value>0</value>
+     </param>
+
+     <param type="int"  name="spwid">
+     <description>spectral window id. The value must be >= 0. </description>
+     <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">
+     <description>absorption coefficient for dry continuum -
+     Quantum with unit of m-1
+        </description>
+</returns>
+
+<example>
+
+ac = at.getAbsDryCont(0, 0, 0)
+print "Dry Continuum absorption coefficient for layer 0, channel 0 is ", ac['value'][0], ac['unit']
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="getAbsO3Lines">
+   <shortdescription>
+Get O3 lines Absorption Coefficient at layer nl and frequency channel nf in spectral window spwid
+   </shortdescription>
+   
+<description>
+Get O3 lines Absorption Coefficient at layer nl,  
+spectral window spwid and frequency channel nf
+</description>
+
+<input>
+
+     <param type="int"  name="nl">
+     <description>atmospheric layer number. The value must be >= 0.
+       </description>
+     </param>
+
+     <param type="int"  name="nf">
+     <description>frequency channnel number. The value must be >= 0.
+       </description>
+     <value>0</value>
+     </param>
+
+     <param type="int"  name="spwid">
+     <description>spectral window id. The value must be >= 0.</description>
+     <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">
+     <description>absorption coefficient for O3 lines -
+     Quantum with unit of m-1
+        </description>
+</returns>
+
+<example>
+
+ac = at.getAbsO3Lines(0, 0, 0)
+print "O3 lines absorption coefficient for layer 0, channel 0 is ", ac['value'][0], ac['unit']
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="getAbsCOLines">
+   <shortdescription>
+Get CO lines Absorption Coefficient at layer nl and frequency channel nf in spectral window spwid
+   </shortdescription>
+   
+<description>
+Get CO lines Absorption Coefficient at layer nl, 
+spectral window spwid and frequency channel nf
+</description>
+
+<input>
+
+     <param type="int"  name="nl">
+     <description>atmospheric layer number. The value must be >= 0.
+       </description>
+     </param>
+
+     <param type="int"  name="nf">
+     <description>frequency channnel number. The value must be >= 0.
+       </description>
+     <value>0</value>
+     </param>
+
+     <param type="int"  name="spwid">
+     <description>spectral window id. The value must be >= 0. </description>
+     <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">
+     <description>absorption coefficient for CO lines -
+     Quantum with unit of m-1
+        </description>
+</returns>
+
+<example>
+
+ac = at.getAbsCOLines(0, 0, 0)
+print "CO lines absorption coefficient for layer 0, channel 0 is ", ac['value'][0], ac['unit']
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="getAbsN2OLines">
+   <shortdescription>
+Get N2O lines Absorption Coefficient at layer nl and frequency channel nf in spectral window spwid
+   </shortdescription>
+   
+<description>
+Get N2O lines Absorption Coefficient at layer nl, 
+spectral window spwid and frequency channel nf
+</description>
+
+<input>
+
+     <param type="int"  name="nl">
+     <description>atmospheric layer number. The value must be >= 0.
+       </description>
+     </param>
+
+     <param type="int"  name="nf">
+     <description>frequency channnel number. The value must be >= 0.
+       </description>
+     <value>0</value>
+     </param>
+
+     <param type="int"  name="spwid">
+     <description>spectral window id. The value must be >= 0. </description>
+     <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">
+     <description>absorption coefficient for N2O lines -
+     Quantum with unit of m-1
+        </description>
+</returns>
+
+<example>
+
+ac = at.getAbsN2OLines(0, 0, 0)
+print "N2O lines absorption coefficient for layer 0, channel 0 is ", ac['value'][0], ac['unit']
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="getAbsTotalDry">
+   <shortdescription>
+Get Total Dry Absorption Coefficient at layer nl and frequency channel nf in spectral window spwid
+   </shortdescription>
+   
+<description>
+Get total dry Absorption Coefficient at layer nl, 
+spectral window spwid and frequency channel nf
+</description>
+
+<input>
+
+     <param type="int"  name="nl">
+     <description>atmospheric layer number. The value must be >= 0.
+       </description>
+     </param>
+
+     <param type="int"  name="nf">
+     <description>frequency channnel number. The value must be >= 0.
+       </description>
+     <value>0</value>
+     </param>
+
+     <param type="int"  name="spwid">
+     <description>spectral window id. The value must be >= 0. </description>
+     <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">
+     <description>total dry absorption coefficient -
+     Quantum with unit of m-1
+        </description>
+</returns>
+
+<example>
+
+ac = at.getAbsTotalDry(0, 0, 0)
+print "Total dry absorption coefficient for layer 0, channel 0 is ", ac['value'][0], ac['unit']
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="getAbsTotalWet">
+   <shortdescription>
+Get total wet absorption coefficient at layer nl and frequency channel nf in spectral window spwid
+   </shortdescription>
+   
+<description>
+Get total wet absorption coefficient at layer nl, 
+spectral window spwid and frequency channel nf
+</description>
+
+<input>
+
+     <param type="int"  name="nl">
+     <description>atmospheric layer number. The value must be >= 0.
+       </description>
+     </param>
+
+     <param type="int"  name="nf">
+     <description>frequency channnel number. The value must be >= 0.
+       </description>
+     <value>0</value>
+     </param>
+
+     <param type="int"  name="spwid">
+     <description>spectral window id. The value must be >= 0. </description>
+     <value>0</value>
+     </param>
+
+</input>
+
+<returns type="Quantity">
+     <description>Total wet absorption coefficient -
+     Quantum with unit of m-1
+        </description>
+</returns>
+
+<example>
+
+ac = at.getAbsTotalWet(0, 0, 0)
+print "Total wet absorption coefficient for layer 0, channel 0 is ", ac['value'][0], ac['unit']
+
+</example>
+
+</method>
+
+   <method type="function" name="setUserWH2O">
+   <shortdescription>set the user zenith water vapor column</shortdescription>
+
+<description>
+
+Set user zenith water vapor column for forward radiative transfer
+calculations.
+
+</description>
+
+<input>
+     <param type="double" direction="in" name="wh2o" units="mm">
+     <description>User water vapor column</description>
+     <value>0.0</value>
+     </param>
+
+</input>
+
+<returns type="bool"/>
+
+<example>
+
+wh2o=qa.quantity(0.8,"mm")
+at.setUserWH2O(wh2o)
+
+</example>
+
+</method>
+
+
+   <method type="function" name="getUserWH2O">
+   <shortdescription>get the user zenith water vapor column</shortdescription>
+
+<description>
+
+Get user zenith water vapor column for forward radiative transfer
+calculations.
+
+</description>
+
+<returns type="Quantity">User water vapor column</returns>
+
+<example>
+
+print "water vapor column: ", at.getUserWH2O()['value'][0], at.getUserWH2O()['unit']
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="setAirMass">
+   <shortdescription>Set the air mass</shortdescription>
+   
+<description>
+Setter for air mass in SkyStatus without performing water vapor retrieval.
+</description>
+
+<input>
+     <param type="double" direction="in" name="airmass">
+     <description>Air Mass</description>
+     </param>
+</input>
+<returns type="bool"/>
+
+<example>
+
+at.setAirMass(1.51)
+
+</example>
+</method>
+
+ 
+   <method type="function" name="getAirMass">
+   <shortdescription>Get the air mass</shortdescription>
+   
+<description>
+Accessor to get airmass.
+</description>
+
+<returns type="double">Air mass value</returns>
+<example>
+
+at.setAirMass(2.0)
+print "(INPUT CHANGE) Air mass: ", at.getAirMass()
+
+</example>
+</method>
+
+
+   <method type="function" name="setSkyBackgroundTemperature">
+   <shortdescription>Set the sky background temperature</shortdescription>
+   
+<description>
+ 	Set sky background temperature in SkyStatus without performing water vapor retrieval
+</description>
+
+<input>
+     <param type="double" direction="in" name="tbgr" units="K">
+     <description>sky background temperature</description>
+     <value>2.73</value>
+     </param>
+</input>
+<returns type="bool"/>
+
+<example>
+
+at.setSkyBackgroundTemperature(qa.quantity(2.73,'K'))
+
+</example>
+</method>
+
+ 
+   <method type="function" name="getSkyBackgroundTemperature">
+   <shortdescription>Get the sky background temperature</shortdescription>
+   
+<description>
+Get the sky background temperature
+</description>
+
+<returns type="Quantity">sky background temperature</returns>
+<example>
+
+t = at.getSkyBackgroundTemperature()
+print t['value'][0], t['unit']
+# 2.73 K
+
+</example>
+</method>
+
+ 
+   <method type="function" name="getAverageTebbSky">
+   <shortdescription>Returns average equiv. BB Temp</shortdescription>
+   
+<description>
+Returns the average Equivalent Blackbody Temperature in spectral
+window spwid, for the current conditions and a perfect sky coupling.
+</description>
+
+<input>
+     <param type="int" direction="in" name="spwid">
+     <description>Spectral window (0-based). The value must be >= 0.</description>
+     <value>0</value>
+     </param>
+     <param type="double" direction="in" name="wh2o" units="mm">
+     <description>User specified water column length in mm.  Default is not to use wh2o.</description>
+     <value>-1</value>
+     </param>
+</input>
+
+<returns type="Quantity">Average Tebb</returns>
+
+<example>
+
+wh2o = qa.quantity(0.4,'mm')
+print "(INPUT CHANGE) water vapor column:", wh2o['value'], wh2o['unit']
+print "(NEW OUTPUT) T_EBB =", at.getAverageTebbSky(0,wh2o)['value'][0], at.getAverageTebbSky(0,wh2o)['unit']
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="getTebbSky">
+   <shortdescription>Returns equiv. BB Temp</shortdescription>
+   
+<description>
+Gets the Equivalent Blackbody Temperature in spectral window spwid and
+channel nc, for the current (user) Water Vapor Column wh2o,
+the current Air Mass, and perfect Sky Coupling to the sky.
+</description>
+
+<input>
+     <param type="int" direction="in" name="nc">
+     <description>Channel number (0-based) - defaults to reference channel</description>
+     <value>-1</value>
+     </param>
+         <param type="int" direction="in" name="spwid">
+     <description>Spectral window (0-based). The value must be >= 0.</description>
+     <value>0</value>
+     </param>
+     <param type="double" direction="in" name="wh2o" units="mm">
+     <description>User specified water column length in mm.  Default is not to use wh2o.</description>
+     <value>-1</value>
+     </param>
+</input>
+
+<returns type="Quantity">Average Tebb</returns>
+
+<example>
+
+for s in range(at.getNumSpectralWindows()):
+        for i in range(at.getNumChan(s)):
+                print "Band", s, " channel ", i, "TebbSky = ", at.getTebbSky(i,s)['value'][0], at.getTebbSky()['unit']
+
+
+</example>
+</method>
+
+ 
+   <method type="function" name="getTebbSkySpec">
+   <shortdescription>Returns equiv. BB Temp on each channel of a band</shortdescription>
+   
+<description>
+Gets the Equivalent Blackbody Temperatures in a spectral window spwid 
+for the current (user) Water Vapor Column wh2o, the current Air Mass, and
+perfect Sky Coupling to the sky.
+</description>
+
+<output>
+
+     <param type="double"  name="tebbSky" units="K">
+     <description>the Equivalent Blackbody Temperatures in a band -
+        Quantum with a vector value and unit of K
+        </description>
+     </param>
+</output>
+<input>
+         <param type="int" direction="in" name="spwid">
+     <description>Spectral window (0-based). The value must be >= 0.</description>
+     <value>0</value>
+     </param>
+     <param type="double" direction="in" name="wh2o" units="mm">
+     <description>User specified water column length in mm.  Default is not to use wh2o.</description>
+     <value>-1</value>
+     </param>
+</input>
+
+<returns type="int">The number of channels.</returns>
+
+<example>
+sw=at.getWetOpacitySpec()
+# returns a tuple of
+# 0 - The number of channels, and
+# 1 - the Equivalent Blackbody Temperatures in a band
+sw[1]['value']
+# [34.687910103670511,
+#  35.496193465331679,
+#  36.460355664151791,
+#  37.419146813713745,
+#  37.9452005127634,
+#  38.722631196093729,
+#  39.593561594172662,
+#  40.528694048924017]
+
+sw[0]
+# 8
+
+Another example:
+for s in range(at.getNumSpectralWindows()):
+        print "band", s
+        tebbspec = at.getTebbSkySpec(spwid=s)
+        for i in range(at.getNumChan(s)):
+                print " - TebbSky %f [%s] " % (tebbspec[1]['value'][i],tebbspec[1]['unit'])
+
+</example>
+</method>
+
+
+   <method type="function" name="getAverageTrjSky">
+   <shortdescription>Returns the average Rayleigh-Jeans Temperature</shortdescription>
+   
+<description>
+Returns the average Rayleigh-Jeans Temperature in spectral
+window spwid, for the current (user) Water Vapor Column wh2o, 
+the current Air Mass, and perfect Sky Coupling to the sky.
+</description>
+
+<input>
+     <param type="int" direction="in" name="spwid">
+     <description>Spectral window (0-based). The value must be >= 0.</description>
+     <value>0</value>
+     </param>
+     <param type="double" direction="in" name="wh2o" units="mm">
+     <description>User specified water column length in mm.  Default is not to use wh2o.</description>
+     <value>-1</value>
+     </param>
+</input>
+
+<returns type="Quantity">Average Trj</returns>
+
+<example>
+
+wh2o = qa.quantity(0.4,'mm')
+print "(INPUT CHANGE) water vapor column:", wh2o['value'], wh2o['unit']
+print "(NEW OUTPUT) T_RJ =", at.getAverageTrjSky(0,wh2o)['value'][0], at.getAverageTrjSky(0,wh2o)['unit']
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="getTrjSky">
+   <shortdescription>Returns the Rayleigh-Jeans Temperature</shortdescription>
+   
+<description>
+Gets the Rayleigh-Jeans Temperature in spectral window spwid and
+channel nc, for the current (user) Water Vapor Column wh2o, the 
+current Air Mass, and perfect Sky Coupling to the sky.
+</description>
+
+<input>
+     <param type="int" direction="in" name="nc">
+     <description>Channel number (0-based) - defaults to reference channel</description>
+     <value>-1</value>
+     </param>
+         <param type="int" direction="in" name="spwid">
+     <description>Spectral window (0-based). The value must be >= 0.</description>
+     <value>0</value>
+     </param>
+     <param type="double" direction="in" name="wh2o" units="mm">
+     <description>User specified water column length in mm.  Default is not to use wh2o.</description>
+     <value>-1</value>
+     </param>
+</input>
+
+<returns type="Quantity">Average Trj</returns>
+
+<example>
+
+for s in range(at.getNumSpectralWindows()):
+        for i in range(at.getNumChan(s)):
+                print "Band", s, " channel ", i, "TrjSky = ", at.getTrjSky(i,s)['value'][0], at.getTrjSky()['unit']
+
+
+</example>
+</method>
+
+ 
+   <method type="function" name="getTrjSkySpec">
+   <shortdescription>Returns the Rayleigh-Jeans Temperatures on each channel of a band</shortdescription>
+   
+<description>
+Gets the Rayleigh-Jeans Temperatures in a spectral window spwid 
+for the current (user) Water Vapor Column wh2o, the current Air 
+Mass, and perfect Sky Coupling to the sky.
+</description>
+
+<output>
+
+     <param type="double"  name="trjSky" units="K">
+     <description>the Rayleigh-Jeans Temperatures in a band -
+        Quantum with a vector value and unit of K
+        </description>
+     </param>
+</output>
+<input>
+         <param type="int" direction="in" name="spwid">
+     <description>Spectral window (0-based). The value must be >= 0.</description>
+     <value>0</value>
+     </param>
+     <param type="double" direction="in" name="wh2o" units="mm">
+     <description>User specified water column length in mm.  Default is not to use wh2o.</description>
+     <value>-1</value>
+     </param>
+</input>
+
+<returns type="int">The number of channels.</returns>
+
+<example>
+sw=at.getWetOpacitySpec()
+# returns a tuple of
+# 0 - The number of channels, and
+# 1 - the Equivalent Blackbody Temperatures in a band
+sw[1]['value']
+# [34.687910103670511,
+#  35.496193465331679,
+#  36.460355664151791,
+#  37.419146813713745,
+#  37.9452005127634,
+#  38.722631196093729,
+#  39.593561594172662,
+#  40.528694048924017]
+
+sw[0]
+# 8
+
+Another example:
+for s in range(at.getNumSpectralWindows()):
+        print "band", s
+        trjspec = at.getTrjSkySpec(spwid=s)
+        for i in range(at.getNumChan(s)):
+                print " - TrjSky %f [%s] " % (trjspec[1]['value'][i],trjspec[1]['unit'])
+
+</example>
+</method>
+
+
+</tool>
+
+</casaxml>
+

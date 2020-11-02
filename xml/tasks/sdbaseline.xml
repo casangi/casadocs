@@ -1,0 +1,638 @@
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd file:///opt/casa/code/xmlcasa/xml/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
+
+
+
+
+<task category="single dish" name="sdbaseline" type="function">
+
+  <shortdescription>Fit/subtract a spectral baseline </shortdescription>
+
+  <description>
+Task sdbaseline fits and/or subtracts baseline from single-dish spectra.
+Given baseline parameters (baseline type, order, etc.), sdbaseline 
+computes the best-fit baseline for each spectrum by least-square fitting 
+method and, if you want, subtracts it. The best-fit baseline parameters 
+(including baseline type, coefficients of basis functions, etc.) and 
+other values such as residual rms can be saved in various formats 
+including ascii text (in human-readable format or CSV format) or baseline 
+table (a CASA table).
+Sdbaseline has another mode to 'apply' a baseline table to a MS data; 
+for each spectrum in MS, the best-fit baseline is reproduced from the 
+baseline parameters stored in the given baseline table and subtracted. 
+Putting 'fit' and 'subtract' into separate processes can be useful for 
+pipeline processing for huge dataset.
+  </description>
+
+  <input>
+
+    <param mustexist="true" name="infile" type="string"><shortdescription>name of input SD dataset</shortdescription><description>name of input SD dataset</description>
+        
+        <value/>
+    </param>
+
+    <param ignorecase="true" name="datacolumn" type="string"><shortdescription>name of data column to be used [&quot;data&quot;, &quot;float_data&quot;, or &quot;corrected&quot;]</shortdescription><description>name of data column to be used [&quot;data&quot;, &quot;float_data&quot;, or &quot;corrected&quot;]</description>
+        
+        <value>data</value>
+        <allowed kind="enum">
+            <value>data</value>
+            <value>float_data</value>
+            <value>corrected</value>
+        </allowed>
+    </param>
+
+    <param name="antenna" type="string"><shortdescription>select data by antenna name or ID, e.g. &quot;PM03&quot;</shortdescription><description>select data by antenna name or ID, e.g. &quot;PM03&quot;</description>
+        
+        <value/>
+    </param> 
+
+    <param name="field" type="string"><shortdescription>select data by field IDs and names, e.g. &quot;3C2*&quot; (&quot;&quot;=all)</shortdescription><description>select data by field IDs and names, e.g. &quot;3C2*&quot; (&quot;&quot;=all)</description>
+        
+        <value/>
+    </param>
+
+    <param name="spw" type="string"><shortdescription>select data by IF IDs (spectral windows), e.g. &quot;3,5,7&quot; (&quot;&quot;=all)</shortdescription><description>select data by IF IDs (spectral windows), e.g. &quot;3,5,7&quot; (&quot;&quot;=all)</description>
+        
+        <value/>
+    </param>
+
+    <param name="timerange" type="string"><shortdescription>select data by time range, e.g. &quot;09:14:0~09:54:0&quot; (&quot;&quot;=all) (see examples in help)</shortdescription><description>select data by time range, e.g. &quot;09:14:0~09:54:0&quot; (&quot;&quot;=all) (see examples in help)</description>
+        
+        <value/>
+    </param>
+
+    <param name="scan" type="string"><shortdescription>select data by scan numbers, e.g. &quot;21~23&quot; (&quot;&quot;=all)</shortdescription><description>select data by scan numbers, e.g. &quot;21~23&quot; (&quot;&quot;=all)</description>
+        
+        <value/>
+    </param>
+
+    <param name="pol" type="string"><shortdescription>select data by polarization IDs, e.g. &quot;XX,YY&quot; (&quot;&quot;=all)</shortdescription><description>select data by polarization IDs, e.g. &quot;XX,YY&quot; (&quot;&quot;=all)</description>
+        
+        <value/>
+    </param>
+
+    <param name="intent" type="string"><shortdescription>select data by observational intent, e.g. &quot;*ON_SOURCE*&quot; (&quot;&quot;=all)</shortdescription><description>select data by observational intent, e.g. &quot;*ON_SOURCE*&quot; (&quot;&quot;=all)</description>
+        
+        <value/>
+    </param>
+
+    <param name="reindex" type="bool">
+         <shortdescription>Re-index indices in subtables based on data selection</shortdescription>
+        <description>Re-index indices in subtables based on data selection. Ignored when blmode='apply'.</description>
+        <value>True</value>
+    </param>
+
+    <param ignorecase="true" name="maskmode" type="string">
+        <shortdescription>mode of setting additional channel masks</shortdescription>
+
+        <description>mode of setting additional channel masks. &quot;list&quot; and &quot;auto&quot; are available now.</description>
+        <value>list</value>
+        <allowed kind="enum">
+            <value>auto</value>
+            <value>list</value>
+
+        </allowed>
+    </param>
+
+    <param subparam="true" name="thresh" type="double"><shortdescription>S/N threshold for linefinder</shortdescription><description>S/N threshold for linefinder</description>
+        
+        <value>5.0</value>
+    </param>
+
+    <param subparam="true" name="avg_limit" type="int"><shortdescription>channel averaging for broad lines</shortdescription><description>channel averaging for broad lines</description>
+        
+        <value>4</value>
+    </param>
+
+    <param subparam="true" name="minwidth" type="int"><shortdescription>the minimum channel width to detect as a line</shortdescription><description>the minimum channel width to detect as a line</description>
+        
+        <value>4</value>
+    </param>
+
+    <param subparam="true" name="edge" type="intArray"><shortdescription>channels to drop at beginning and end of spectrum</shortdescription><description>channels to drop at beginning and end of spectrum</description>
+        
+        <value type="intArray"><value>0</value><value>0</value></value>
+    </param>
+
+    <param ignorecase="true" name="blmode" type="string"><shortdescription>baselining mode [&quot;fit&quot; or &quot;apply&quot;]</shortdescription><description>baselining mode [&quot;fit&quot; or &quot;apply&quot;]</description>
+        
+        <value>fit</value>
+    </param>
+
+    <param subparam="true" name="dosubtract" type="bool"><shortdescription>subtract baseline from input data [True, False] </shortdescription><description>subtract baseline from input data [True, False] </description>
+        
+        <value>True</value>
+    </param>
+
+    <param subparam="true" ignorecase="true" name="blformat" type="any">
+        <shortdescription>format(s) of file(s) in which best-fit parameters are written</shortdescription>
+        <description>format(s) of file(s) in which best-fit parameters are written [&quot;text&quot;, &quot;csv&quot;, &quot;table&quot; or &quot;&quot;]</description>
+        <any limittypes="string stringArray" type="variant"/>
+        <value type="string">text</value>
+        <allowed kind="enum">
+            <value>table</value>
+            <value>text</value>
+            <value>csv</value>
+            <value/>
+        </allowed>
+    </param>
+
+    <param subparam="true" name="bloutput" type="any"><shortdescription>name(s) of file(s) in which best-fit parameters are written</shortdescription><description>name(s) of file(s) in which best-fit parameters are written</description>
+        
+        <any limittypes="string stringArray" type="variant"/>
+        <value type="string"/>
+    </param>
+
+    <param subparam="true" name="bltable" type="string"><shortdescription>name of baseline table to apply</shortdescription><description>name of baseline table to apply</description>
+        
+        <value/>
+    </param>
+
+    <param ignorecase="true" name="blfunc" type="string">
+        <shortdescription>baseline model function</shortdescription>
+        <description>baseline model function [&quot;poly&quot;, &quot;chebyshev&quot;, &quot;cspline&quot;, &quot;sinusoid&quot;, or &quot;variable&quot;(expert mode)]</description>
+        <value>poly</value>
+        <allowed kind="enum">
+            <value>poly</value>
+            <value>chebyshev</value>
+            <value>cspline</value>
+            <value>sinusoid</value>
+            <value>variable</value>
+        </allowed>
+    </param>
+
+    <param subparam="true" name="order" type="int"><shortdescription>order of baseline model function</shortdescription><description>order of baseline model function</description>
+        
+        <value>5</value>
+    </param>
+
+    <param subparam="true" name="npiece" type="int"><shortdescription>number of element polynomials for cubic spline curve</shortdescription><description>number of element polynomials for cubic spline curve</description>
+        
+        <value>2</value>
+    </param>
+
+    <param subparam="true" name="applyfft" type="bool"><shortdescription>automatically set wave numbers of sinusoids</shortdescription><description>automatically set wave numbers of sinusoids</description>
+        
+        <value>True</value>
+    </param>
+
+    <param subparam="true" ignorecase="true" name="fftmethod" type="string">
+        <shortdescription>method for automatically set wave numbers of sinusoids [&quot;fft&quot;]</shortdescription>
+        <description>method for automatically set wave numbers of sinusoids</description>
+        <value>fft</value>
+        <allowed kind="enum">
+            <value>fft</value>
+        </allowed>
+    </param>
+
+    <param subparam="true" name="fftthresh" type="any"><shortdescription>threshold to select wave numbers of sinusoids</shortdescription><description>threshold to select wave numbers of sinusoids</description>
+        
+        <value type="double">3.0</value>
+    </param>
+
+    <param subparam="true" name="addwn" type="any"><shortdescription>additional wave numbers to use</shortdescription><description>additional wave numbers to use</description>
+        
+        <value type="intArray"><value>0</value></value>
+    </param>
+
+    <param subparam="true" name="rejwn" type="any"><shortdescription>wave numbers NOT to use</shortdescription><description>wave numbers NOT to use</description>
+        
+        <value type="intArray"/>
+    </param>
+
+    <param subparam="true" name="clipthresh" type="double"><shortdescription>clipping threshold for iterative fitting</shortdescription><description>clipping threshold for iterative fitting</description>
+        
+        <value>3.0</value>
+    </param>
+
+    <param subparam="true" name="clipniter" type="int"><shortdescription>maximum iteration number for iterative fitting</shortdescription><description>maximum iteration number for iterative fitting</description>
+        
+        <value>0</value>
+    </param>
+
+    <param subparam="true" name="blparam" type="string"><shortdescription>text file that stores per spectrum fit parameters</shortdescription><description>text file that stores per spectrum fit parameters</description>
+        
+        <value/>
+    </param>
+
+    <param subparam="true" name="verbose" type="bool">
+        <shortdescription>output fitting parameters to logger [True, False]</shortdescription>
+        <description>output fitting parameters to logger</description>
+        <value>False</value>
+    </param>
+
+    <param name="showprogress" type="bool">
+        <shortdescription>(NOT SUPPORTED YET) show progress status for large data [True, False] (NOT SUPPORTED YET)</shortdescription>
+        <description>(NOT SUPPORTED YET) show progress status for large data</description>
+        <value>False</value>
+    </param>
+
+    <param subparam="true" name="minnrow" type="int"><shortdescription>(NOT SUPPORTED YET) minimum number of input spectra to show progress status</shortdescription><description>(NOT SUPPORTED YET) minimum number of input spectra to show progress status</description>
+        
+        <value>1000</value>
+    </param>
+
+    <param name="outfile" type="string"><shortdescription>name of output file</shortdescription><description>name of output file</description>
+        
+        <value/>
+    </param>
+
+    <param name="overwrite" type="bool">
+        <shortdescription>overwrite the output file if already exists [True, False] </shortdescription>
+        <description>overwrite the output file if already exists</description>
+        <value>False</value>
+    </param>
+
+    <constraints>
+            <when param="maskmode">
+                <equals value="list"/>
+                <equals value="auto">
+                        <default param="thresh"><value>5.0</value></default>
+                        <default param="avg_limit"><value>4</value></default>
+                        <default param="minwidth"><value>4</value></default>
+                        <default param="edge"><value type="vector"><value>0</value><value>0</value></value></default>
+                </equals>
+                <equals value="interact"/>
+            </when>
+            <when param="blmode">
+                <equals value="fit">
+                        <default param="dosubtract"><value>True</value></default>
+                        <default param="blformat"><value type="string">text</value></default>
+                        <default param="bloutput"><value type="string"/></default>
+                </equals>
+                <equals value="apply">
+                        <default param="bltable"><value type="string"/></default>
+                </equals>
+            </when>
+            <when param="blfunc">
+                <equals value="poly">
+                        <default param="order"><value>5</value></default>
+                        <default param="clipthresh"><value>3.0</value></default>
+                        <default param="clipniter"><value>0</value></default>
+                </equals>
+                <equals value="chebyshev">
+                        <default param="order"><value>5</value></default>
+                        <default param="clipthresh"><value>3.0</value></default>
+                        <default param="clipniter"><value>0</value></default>
+                </equals>
+                <equals value="cspline">
+                        <default param="npiece"><value>2</value></default>
+                        <default param="clipthresh"><value>3.0</value></default>
+                        <default param="clipniter"><value>0</value></default>
+                </equals>
+                <equals value="sinusoid">
+                        <default param="applyfft"><value>True</value></default>
+                        <default param="fftmethod"><value type="string">fft</value></default>
+                        <default param="fftthresh"><value type="double">3.0</value></default>
+                        <default param="addwn"><value type="intArray"><value>0</value></value></default>
+                        <default param="rejwn"><value type="intArray"/></default>
+                        <default param="clipthresh"><value>3.0</value></default>
+                        <default param="clipniter"><value>0</value></default>
+                </equals> 
+                <equals value="variable">
+                        <default param="blparam"><value type="string"/></default>
+                        <default param="verbose"><value>False</value></default>
+                </equals>
+            </when>
+            <when param="showprogress">
+                <equals value="False" type="bool"/>
+                <equals value="True" type="bool">
+                        <default param="minnrow"><value>1000</value></default>
+                </equals>
+            </when>
+    </constraints>
+
+    </input>
+
+  <returns type="void"/>
+
+  <example>
+-----------------
+Keyword arguments
+-----------------
+infile -- name of input SD dataset
+datacolumn -- name of data column to be used
+        options: 'data', 'float_data', or 'corrected'
+        default: 'data'
+antenna -- select data by antenna name or ID
+        default: '' (use all antennas)
+        example: 'PM03'
+field -- select data by field IDs and names
+        default: '' (use all fields)
+        example: field='3C2*' (all names starting with 3C2)
+                 field='0,4,5~7' (field IDs 0,4,5,6,7)
+                 field='0,3C273' (field ID 0 or field named 3C273)
+        this selection is in addition to the other selections to data
+spw -- select data by IF IDs (spectral windows)/channels
+        default: '' (use all IFs and channels)
+        example: spw='3,5,7' (IF IDs 3,5,7; all channels)
+                 spw='&lt;2' (IF IDs less than 2, i.e., 0,1; all channels)
+                 spw='30~45GHz' (IF IDs with the center frequencies in range 30-45GHz; all channels)
+                 spw='0:5~61' (IF ID 0; channels 5 to 61; all channels)
+                 spw='3:10~20;50~60' (select multiple channel ranges within IF ID 3)
+                 spw='3:10~20,4:0~30' (select different channel ranges for IF IDs 3 and 4)
+                 spw='1~4;6:15~48' (for channels 15 through 48 for IF IDs 1,2,3,4 and 6)
+        this selection is in addition to the other selections to data
+timerange -- select data by time range
+        default: '' (use all)
+        example: timerange = 'YYYY/MM/DD/hh:mm:ss~YYYY/MM/DD/hh:mm:ss'
+                 Note: YYYY/MM/DD can be dropped as needed:
+                 timerange='09:14:00~09:54:00' # this time range
+                 timerange='09:44:00' # data within one integration of time
+                 timerange='&gt;10:24:00' # data after this time
+                 timerange='09:44:00+00:13:00' #data 13 minutes after time
+        this selection is in addition to the other selections to data
+scan -- select data by scan numbers
+        default: '' (use all scans)
+        example: scan='21~23' (scan IDs 21,22,23)
+        this selection is in addition to the other selections to data
+pol -- select data by polarization IDs
+        default: '' (use all polarizations)
+        example: pol='XX,YY' (polarizations XX and YY)
+        this selection is in addition to the other selections to data
+intent -- select data by observational intent, also referred to as 'scan intent'
+        default: '' (use all scan intents)
+        example: intent='*ON_SOURCE*' (any valid scan-intent expression accepted by the MSSelection module can be specified)
+        this selection is in addition to the other selections to data
+reindex -- Re-index indices in subtables based on data selection.
+           Ignored when blmode='apply'.
+           If True, DATA_DESCRIPTION, FEED, SPECTRAL_WINDOW, STATE, and SOURCE
+           subtables are filtered  based on data selection and re-indexed in output MS.
+           default: True
+maskmode -- mode of setting additional channel masks. When blmode='apply'
+             and/or blfunc='variable', maskmode and its subparameters
+             are ignored.
+        options: 'list' and 'auto' ('interact' will be available later)
+        default: 'list'
+        example: maskmode='auto' runs linefinder to detect line regions 
+                 to be excluded from fitting. this mode requires three 
+                 expandable parameters: thresh, avg_limit, minwidth, and edge.
+                 NOTE maskmode='auto' is EXPERIMENTAL.
+                 USE WITH CARE! May need to tweak the expandable parameters.
+                 maskmode='list' uses the given masklist only: no additional 
+                 masks applied.
+                 maskmode='interact' allows users to manually modify the 
+                 mask regions by dragging mouse on the spectrum plotter GUI.
+                 use LEFT or RIGHT button to add or delete regions, 
+                 respectively.
+    &gt;&gt;&gt; maskmode expandable parameters
+        thresh -- S/N threshold for linefinder. a single channel S/N ratio
+                  above which the channel is considered to be a detection. 
+                default: 5
+        avg_limit -- channel averaging for broad lines. a number of
+                     consecutive channels not greater than this parameter
+                     can be averaged to search for broad lines.
+                default: 4
+        minwidth -- the minimum channel width to detect as a line.
+                     a line with number of consecutive channels less
+                     than this parameter will not be detected as a line.
+                default: 4
+        edge -- channels to drop at beginning and end of spectrum
+                default: 0
+                example: edge=[1000] drops 1000 channels at beginning AND end.
+                         edge=[1000,500] drops 1000 from beginning and 500
+                         from end.
+        Note: For bad baselines threshold should be increased,
+        and avg_limit decreased (r even switched off completely by
+        setting this parameter to 1) to avoid detecting baseline
+        undulations instead of real lines.
+blmode -- baselining mode. 
+        options: 'fit', 'apply'
+        default: 'fit'
+        example: blmode='fit' calculates the best-fit baseline based on 
+                 given baseline type, then (if you set dosubtract=True) 
+                 subtract it from each spectrum. The information about 
+                 best-fit baselines (baseline type, order, coefficients, 
+                 etc.) can be stored in various formats (cf. blformat).
+                 blmode='apply' reads a baseline table as well as input 
+                 MS, reproduces the best-fit baseline via info written 
+                 in the baseline table, then subtracts it from each 
+                 spectrum. 
+    &gt;&gt;&gt; blmode expandable parameters
+        dosubtract -- execute baseline subtraction in addition to fitting.
+                      Note that dosubtract=False will be ignored if 
+                      bloutput is given, that is, baseline subtraction 
+                      will be always executed for the input MS in case 
+                      bloutput is not specified.
+                options: (bool) True, False
+                default: True
+        blformat -- format(s) of file(s) in which best-fit parameters are 
+                    written. 
+                options: 'text', 'csv', 'table', and '' can be set for
+                         a single output. In case you want to output 
+                         fitting results in multiple formats, a list 
+                         containing the above keywords is accepted as well.
+                default: 'text'
+                example: (1) blformat='text' outputs an ascii text file 
+                         with the best-fit baseline parameters written 
+                         in human-readable format. It may be good to read, 
+                         but you should mind it might be huge.
+                         (2) blformat='csv' outputs a CSV file. For example, 
+                         output of csv with blfunc='poly' is as below:
+                         #scan, beam, spw, pol, MJD[s], fitrange (i.e. inverse mask), blfunc, order, fitting coefficients, rms, number of clipped channels 
+                         4,0,17,0,4915973292.23,[[252;3828]],poly,1,767.647,-0.00956208,26.3036,0
+                         ... .
+                         (3) blformat='table' outputs a baseline table 
+                         which can be used to apply afterwards.
+                         (4) blformat='' doesn't output any parameter file.
+                         (5) blformat=['csv','table'] outputs both a CSV 
+                         file and a baseline table. 
+                         (6) If one or more ''s appear in blformat, they 
+                         are all ignored. For example, if blformat=['',
+                         'text',''] is given, only 'text' will be output. 
+                         (7) Elements of blformat other than '' must not 
+                         be duplicated. For example, blformat=['text','',
+                         'text'] is not accepted.
+        bloutput -- name(s) of file(s) in which best-fit parameters are 
+                    written. If bloutput is a null string '', name(s) of 
+                    baseline parameter file(s) will be set as follows: 
+                    &lt;outfile&gt;_blparam.txt for blformat='text', 
+                    &lt;outfile&gt;_blparam.csv for blformat='csv', and 
+                    &lt;outfile&gt;_blparam.bltable for blformat='table'.
+                    Otherwise, blformat and bloutput must have the same 
+                    length, and one-to-one correspondence is assumed 
+                    between them. If there are '' elements in bloutput, 
+                    output file names will be set by following the above 
+                    rules. If there are '' elements in blformat, the 
+                    corresponding bloutput elements will be ignored. 
+                    Also, non-'' bloutput elements correspoding to 
+                    non-'' blformat elements must not be duplicated.
+                default: ''
+                example: (1) bloutput='' and blformat=['csv','table']: 
+                         outputs a csv file '&lt;outfile&gt;_blparam.csv'
+                         and a baseline table '&lt;outfile&gt;_blparam.bltable'.
+                         (2) bloutput=['foo.csv',''] and blformat=['csv',
+                         'table']: outputs a csv file 'foo.csv' and a 
+                         baseline table '&lt;outfile&gt;_blparam.bltable'.
+                         (3) bloutput=['foo.csv','bar.blt'] and blformat=
+                         ['csv','']: outputs a csv file 'foo.csv' only.
+                         (4) bloutput=['foo.csv','foo.csv','bar.blt'] and 
+                         blformat=['csv','','table']: the second 'foo.csv' 
+                         is ignored because it corresponds to the blformat 
+                         element '', and thus outputs a csv file 'foo.csv' 
+                         and a baseline table 'bar.blt'.
+                         (5) bloutput=['foo.csv','foo.csv','bar.blt'] and 
+                         blformat=['csv','text','table']: will be error 
+                         since 'foo.csv' is duplicated.
+                         (6) bloutput=['foo.csv','bar.blt'] and blformat=
+                         ['csv','','table']: will be error since bloutput 
+                         and blformat have different lengths.
+        bltable -- name of baseline table to apply
+                default: ''
+blfunc -- baseline model function. In cases blmode='apply' or blparam is 
+          set, blfunc and its subparameters are ignored.
+        options: 'poly', 'chebyshev', 'cspline', 'sinusoid' or 'variable'
+        default: 'poly'
+        example: blfunc='poly' uses a single polynomial line of 
+                 any order which should be given as an expandable 
+                 parameter 'order' to fit baseline. 
+                 blfunc='chebyshev' uses Chebyshev polynomials. 
+                 blfunc='cspline' uses a cubic spline function, a piecewise 
+                 cubic polynomial having C2-continuity (i.e., the second 
+                 derivative is continuous at the joining points). 
+                 blfunc='sinusoid' uses a combination of sinusoidal curves. 
+        NOTE blfunc='variable' IS EXPERT MODE!!!
+    &gt;&gt;&gt; blfunc expandable parameters
+        order -- order of baseline model function
+                options: (int) (&lt;0 turns off baseline fitting)
+                default: 5
+                example: typically in range 2-9 (higher values
+                         seem to be needed for GBT)
+        npiece -- number of the element polynomials of cubic spline curve
+                options: (int) (&lt;0 turns off baseline fitting)
+                default: 2
+        applyfft -- automatically choose an appropriate set of sinusoidal 
+                    wave numbers via FFT for each spectrum data.
+                options: (bool) True, False
+                default: True
+        fftmethod -- method to be used when applyfft=True. Now only 
+                     'fft' is available and it is the default.
+        fftthresh -- threshold on Fourier-domain spectrum data to pick up 
+                     appropriate wave numbers to be used for sinusoidal 
+                     fitting. both (float) and (str) accepted.
+                     given a float value, the unit is set to sigma.
+                     for string values, allowed formats include:
+                     'xsigma' or 'x' (= above x-sigma level. e.g., '3sigma')
+                     or 'topx' (= the x strongest ones, e.g. 'top5'). 
+                default is 3.0 (i.e., above 3sigma level).
+        addwn -- additional wave number(s) of sinusoids to be used 
+                 for fitting. 
+                 (list) and (int) are accepted to specify every
+                 wave numbers. also (str) can be used in case
+                 you need to specify wave numbers in a certain range.
+                 default: [0] (i.e., constant is subtracted at least)
+                 example: 0
+                          [0,1,2]
+                          '0,1,2'
+                          'a-b' (= a, a+1, ..., b)
+                          'a~b' (= a, a+1, ..., b)
+                          '&lt;a'  (= 0,1,...,a-2,a-1)
+                          '&gt;=a' (= a, a+1, ... up to the maximum wave
+                                   number corresponding to the Nyquist
+                                   frequency for the case of FFT)
+        rejwn -- wave number(s) of sinusoid NOT to be used for fitting.
+                 can be set just as addwn but has higher priority:
+                 wave numbers which are specified both in addwn
+                 and rejwn will NOT be used. 
+                 note also that rejwn value takes precedence over those 
+                 automatically selected by setting applyfft=True as well.
+                 default: []
+        clipthresh -- clipping threshold for iterative fitting
+                 default: 3
+        clipniter -- maximum iteration number for iterative fitting
+                 default: 0 (no iteration, i.e., no clipping)
+        blparam -- the name of text file that stores per spectrum fit
+                   parameters. See below for details of format.
+        verbose -- output fitting parameters to logger (ONLY available
+           for blfunc='variable'. if False, the fitting parameters are
+           not output to the CASA logger.
+            options: (bool) True, False
+            default: False
+showprogress -- (NOT SUPPORTED YET) show progress status for large data
+        options: (bool) False (this capability is currently unavailable.)
+        default: False
+    &gt;&gt;&gt; showprogress expandable parameter
+        minnrow -- (NOT SUPPORTED YET) minimum number of input spectra to show progress status
+                 default: 1000
+outfile -- name of output file
+        default: '' (&lt;infile&gt;_bs)
+overwrite -- overwrite the output file if already exists
+        options: (bool) True, False
+        default: False
+        NOTE this parameter is ignored when outform='ASCII'
+
+
+-----------
+DESCRIPTION
+-----------
+
+Task sdbaseline performs baseline fitting/subtraction for single-dish spectra.
+The fit parameters, terms and rms of baseline can be saved into an ascii file 
+or baseline table. Subtracting baseline from data in input MS using existing 
+baseline table is also possible.
+
+-----------------------
+BASELINE MODEL FUNCTION
+-----------------------
+The list of available model functions are shown above (see Keyword arguments
+section). In general 'cspline' or 'chebyshev' are recommended since they are
+more stable than others. 'poly' will work for lower order but will be unstable
+for higher order fitting. 'sinusoid' is kind of special mode that will be
+useful for the data that clearly shows standing wave in the spectral baseline.
+
+----------------------------------
+SIGMA CLIPPING (ITERATIVE FITTING)
+----------------------------------
+In general least square fitting is strongly affected by an extreme data
+so that the resulting fit makes worse. Sigma clipping is an iterative
+baseline fitting with data clipping based on a certain threshold. Threshold
+is set as a certain factor times rms of the resulting (baseline subtracted)
+spectra. If sigma clipping is on, baseline fit/removal is performed several
+times. After each baseline subtraction, the data whose absolute value is
+above threshold are detected and those data are excluded from the next round
+of fitting. By using sigma clipping, extreme data are excluded from the
+fit so that resulting fit is more robust.
+
+The user is able to control a multiplication factor using parameter
+clipthresh for clipping threshold based on rms. Actual threshold for sigma
+clipping will be (clipthresh) x (rms of spectra). Also, the user can specify
+number of maximum iteration to the parameter clipniter.
+
+In general, sigma clipping will lower the performance since it increases
+number of fits per spectra. However, it is strongly recommended to turn
+on sigma clipping unless you are sure that the data is free from any kind
+of extreme values that may affect the fit.
+
+
+----------------------------------
+PER SPECTRUM FIT PARAMETERS
+----------------------------------
+Per spectrum baseline fitting parameter is accepted in blfunc='variable'.
+Note this is an expert mode. The fitting parameters should be defined in
+a text file for each spectrum in the input MS. The text file should store
+comma separated values in order of:
+row ID, polarization, mask, clipniter, clipthresh, use_linefinder, 
+thresh, left edge, right edge, avg_limit, blfunc, order, npiece, nwave.
+Each row in the text file must contain the following keys and values:
+* 'row': row number after selection,
+* 'pol': polarization index in the row,
+* 'clipniter': maximum iteration number for iterative fitting,
+* 'blfunc': function name.
+     available ones include, 'poly', 'chebyshev', 'cspline',and 'sinusoid'
+* 'order': maximum order of polynomial. needed when blfunc='poly'
+     or 'chebyshev', 
+* 'npiece': number or piecewise polynomial. needed when blfunc='cspline',
+and
+* 'nwave': a list of sinusoidal wave numbers. needed when blfunc='sinusoid'.
+
+example:
+#row,pol,mask,clipniter,clipthresh,use_linefinder,thresh,Ledge,Redge,avg_limit,blfunc,order,npiece,nwave
+1,1,0~4000;6000~8000,0,3.,false,0.,0,0,0,chebyshev,0,0,[]
+1,0,,0,3.,false,0.,0,0,0,poly,1,0,[]
+0,1,,0,3.,false,0.,0,0,0,chebyshev,2,0,[]
+0,0,,0,3.,false,,,,,cspline,,1,[]
+
+  </example>
+
+</task>
+
+</casaxml>

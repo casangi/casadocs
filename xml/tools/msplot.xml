@@ -1,0 +1,2260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+
+<!--   
+ ***************************************************************************
+ ** msplot.xml:  defines the interface to the MsPlot tool, which handles 
+ **              the plotting of measurement sets.
+ ** Copyright (C) 2007-2008
+ ** Associated Universities, Inc. Washington DC, USA.
+ **
+ ** This library is free software; you can redistribute it and/or modify it
+ ** under the terms of the GNU Library General Public License as published by
+ ** the Free Software Foundation; either version 2 of the License, or (at your
+ ** option) any later version.
+ **
+ ** This library is distributed in the hope that it will be useful, but WITHOUT
+ ** ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ ** FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Library General Public
+ ** License for more details.
+ **
+ ** You should have received a copy of the GNU Library General Public License
+ ** along with this library; if not, write to the Free Software Foundation,
+ ** Inc., 675 Massachusetts Ave, Cambridge, MA 02139, USA.
+ **
+ ** Correspondence concerning AIPS++ should be addressed as follows:
+ **        Internet email: aips2-request@nrao.edu.
+ **        Postal address: AIPS++ Project Office
+ **                        National Radio Astronomy Observatory
+ **                        520 Edgemont Road
+ **                        Charlottesville, VA 22903-2475 USA
+ **   
+ ** @author  Gary Li & Shannon Jaeger
+ ** @version 
+ ***************************************************************************
+-->
+
+        <tool name="msplot" module="mp">
+	        <shortdescription>Plot data from a measurement set</shortdescription>
+
+<keyword>measurement set</keyword>
+<keyword>plotter</keyword>
+<keyword>pylab</keyword>
+<keyword>matplotlib</keyword>
+
+
+<code>
+<include>tools/ms/msplot_forward.h</include>
+<private>
+	<include>tools/ms/msplot_private.h</include>
+</private>
+</code>
+       
+<description>
+The msplot \tool\ is a plotting tool for a 
+<link anchor="ms:ms">measurement sets</link>.
+
+The functionality of the msplot \tool\ extends that of the 
+tableplot \tool\ to add knowledgable about 
+<link anchor="ms:ms">measurement sets</link>.
+The msplot \tool\ does for measurement sets what the tableplot 
+\tool\ does for tables. Much of the functionality is similar 
+to that of tableplot \tool\ and it may be useful to read the
+tableplot \tool\ documentation.
+
+There is also a similar plotting tool for calibration data,
+<link anchor="calplot:calplot">calplot tool</link>. 
+The calplot \tool\ documentation may be useful to read since the
+calplot \tool\ is similar to msplot \tool\ 
+
+\bigskip
+\noindent{\bf Overview of msplot \tool\ functionality}
+
+At present, the msplot \tool\ plots 
+from a {\bf single} measurment sets only. 
+Eventually data from more than one measurement set will be able to be 
+accessed and plotted at the same time. Plots from the same
+MeasurementSet can be overlayed and more then one plotting panel can
+be created so different plots can be viewed simultaneously.
+
+\begin{itemize}
+\item{\bf Opening and Closing -} Before doing any plots you must call 
+<link anchor="msplot:msplot.open.function">mp.open</link> with the 
+measurment set to be plotted. When finished use
+<link anchor="msplot:msplot.reset.function">mp.reset</link> to reset
+the measurment set; clear any data seletion done with 
+<link anchor="msplot:msplot.setdata.function">mp.setdata</link> 
+as well as resets all of the plotting options back their default values.
+<link anchor="msplot:msplot.done.function">mp.done</link> to close
+the measurement set, and the MS plotter.
+
+\item{\bf Plotting -} The msplot \tool\ provides 
+several common plots that can be called easily, but the 
+<link anchor="msplot:msplot.plotxy.function">mp.plotxy</link>
+function is a generic function for plotting.
+The available common plots are:
+<link anchor="msplot:msplot.array.function">mp.array</link>,
+<link anchor="msplot:msplot.azimuth.function">mp.azimuth</link>,
+<link anchor="msplot:msplot.baseline.function">mp.baseline</link>,
+<link anchor="msplot:msplot.elevation.function">mp.elevation</link>,
+<link anchor="msplot:msplot.hourangle.function">mp.hourangle</link>,
+<link anchor="msplot:msplot.parallacticangle.function">mp.parallacticangle</link>,
+<link anchor="msplot:msplot.uvcoverage.function">mp.uvcoverage</link>,
+<link anchor="msplot:msplot.uvdist.function">mp.uvdist</link>,
+<link anchor="msplot:msplot.vischannel.function">mp.vischannel</link>, and
+<link anchor="msplot:msplot.vistime.function">mp.vistime</link>.
+
+There are a number of plotting options that can
+be set to change the color, labels, symbol, number of plotting panels,
+and many others. The 
+<link anchor="smplot:msplot.plotoptions.function">mp.plotoptions</link>
+function controls the plot options. It is important to note that once
+a plot option is set, it remains set until a subsequent call to 
+the {\bf plotoptions} method turns it off.
+
+In addition iterative plots are provided. Iterative plots allow a user
+to iterate over some column plotting for that particular item.  For
+example, a user may wish to plot the uv distances for each antenna 
+separately by using the iteration value of 'ANTENNA' with the mp.dist
+function.
+
+All of methods listed above have an interation parameter. Valid values
+for this parameter are:
+BASELINE, ANTENNA, FIELD, SPW, SCAN, FEED, and ARRAY_ID. 
+To plot the the next plots in the iteration use the
+<link anchor="msplot:msplot.iterplotnext.function">mp.iterplotnext</link>.
+To stop the iterative plot use
+<link anchor="msplot:msplot.iterplotstop.function">mp.iterplotstop</link>.
+Note that a useful operation to perform before doing and interative plot
+is to set the subplot option to plot multiple plots with the
+<link anchor="msplot:msplot.plotoptions.function">mp.plotoptions</link>.
+funcion. For example, subplot=131 will yeild a plot of three rows of plots.fntvwy
+
+
+\item{\bf Data Sselection -} The 
+<link anchor="msplot:msplot.setdata.function">mp.setdata</link>
+function can be used to select which
+data is to be viewed, more precisely antennas, fields,
+UV ranges, and time selections can specified. 
+
+\item{\bf (Un)Flagging - }
+(Un)Flagging can be performed both in memory and on disk. Flagging has
+recently undergone some refactoring and it is now possible to save
+what has been flagged in stages (versions).  This gives msplot the 
+ability to undo flagging if so desired. Also is a new button on the
+plotting window that turns on the flagging mode, allowing users to
+interactively select the areas of interest.  Soon there will be other
+buttons for (un)flaggig, and for displaying information about the 
+flagged regions.
+
+To (un)flag data first make a plot, see the plotting section above.
+The next step is to mark a region(s) on the plot.  This is done 
+with the
+<link anchor="msplot:msplot.markregion.function">mp.markregion</link>
+function.  If a specific region is given to this function this region
+is used, otherwise the regions can be marked on the plotter by selecting
+square regions with the mouse.
+
+Now there are regions marked on the plot, there are three different
+actions that can be taken at this point.  The
+<link anchor="msplot:msplot.locatedata.function">mp.locatedata</link>
+function displays information about each of the points in the marked
+regions. ({\bf Warning:} if a lot of points are selected a large 
+amount of data will be given to the logger, this can slow down the
+logger drastically!)  The other two actions that can be taken are
+closely related
+<link anchor="msplot:msplot.flagdata.function">mp.flagdata</link>
+and
+<link anchor="msplot:msplot.unflagdata.function">mp.unflagdata</link>,
+to flag or unflag data respectively. Both of these functions allow
+the flagging to be done in memory (default) or on disk.
+
+One final function for flagging is
+<link anchor="msplot:msplot.clearflags.function">mp.clearflags</link>.
+{\bf Warning: This function clears all flags, all data will be unflagged
+with this method.}
+
+\end{itemize}
+</description>
+<example>
+</example>
+
+
+<!--   **********   CONSTRUCTOR   **********    -->
+ 
+<method type="constructor" name="msplot">
+   <shortdescription>
+     Construct a msplot tool for plotting measurment sets
+   </shortdescription>
+
+   <description>
+     Create a msplot {\bf tool} object. 
+
+     This is the most commonly used constructor.  It creates an msplot \tool\
+     which is associated with a particular measurement set, and a tableplot
+     tool that is used to do the plotting.
+   </description>
+   
+   <keyword>mp</keyword>
+   <returns type="msplotobject">msplot tool</returns>
+</method>
+
+
+<!--  **********  OPEN, DONE, RESET FUNCTIONS  ********* -->
+
+<method type="function" name="open">
+   <shortdescription>
+     Set the measurement set to be plotted.
+   </shortdescription> 
+   <keyword>open</keyword>
+
+   <description>
+    Set the measurement set to be plotted. This method must be
+    invoked before any of the other msplot \tool\ functions.
+   </description>
+
+   <input>
+     <param type="string" name="msname">
+     <description>measurement set name, including path </description>
+     <value></value>
+     </param>
+
+     <param type="bool" name="dovel">
+     <description>whether to calculate velocity or not</description>
+     <value>false</value>
+     </param>
+
+     <param type="string" name="restfreq">
+     <description>a rest frequency quanta or transition name</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="frame">
+     <description>frequency frame for spectral axis</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="doppler">
+     <description>doppler mode</description>
+     <value></value>
+     </param>
+
+   </input>
+
+   <returns type="bool">
+      <description>True upon success, False otherwise</description>
+   </returns>
+
+   <example>
+# Open a msplot tool with a measurment set
+  mp.open( msname='./data/3C273XC1.ms' );
+</example>
+</method>
+
+
+<method type="function" name="clearplot">
+  <shortdescription> Clear the plotting window or a particular panel,
+     or all panels.
+  </shortdescription>   
+
+  <description> 
+    Clear the plotting window. Either clear the whole window (default) 
+    or a particular panel (specified by the subplot parameter). 
+  </description>
+
+  <input>
+     <param type="int" name="subplot">
+     <description>Three (or four) digits number: first digit for nrows, 
+         second for ncols, the rest for pannel number.</description>
+     <value>000</value>
+     </param>
+  </input>
+
+  <returns type="bool">
+    <shortdescription>
+     true, if successful, false, otherwise.
+    </shortdescription>
+  </returns>
+
+  <example>
+# open a MS dataset, Plot the array on the left and uvcoverage on the
+# right. 
+# Also set the X and Y axes labels, and the title, 
+mp.open( msname='ngc5921.ms');  
+mp.plotoptions( subplot=121 )
+mp.array()
+mp.plotoptions( subplot=122 )
+mp.uvcoverage()
+
+# Now clear the uvcoverage plot area and plot the uvdist instead.
+mp.clearplot( subplot=122 )
+mp.uvdist()
+
+# Now clear all plots
+mp.clearplot()
+  </example>
+</method> 
+
+<method type="function" name="emperorsNewClose">
+  <shortdescription>Like the Emperor's New Clothes.
+  </shortdescription>   
+
+  <description> 
+     The mp.close() method has been a much contested method.  With
+     user's not really wanting to close things, but pretend to.  So
+     just to make all happy we have a much anticipated new close 
+     method, sure to bedazzle and shine!
+
+     Note that you may find the mp.reset function very useful for
+     controlling the state of the msplot tool.
+  </description>  
+
+  <input>
+  </input>
+
+   <returns type="bool">
+     <shortdescription>
+        true, if successful, false, otherwise.
+     </shortdescription>
+   </returns>
+</method> 
+
+
+<method type="function" name="reset">
+  <shortdescription>Reset the state of MS plot back to its default state.
+  </shortdescription>   
+
+  <description> 
+    Reset the state of MS plot back to its default state.  Calling this
+    function will cause {\bf all} of the plot options to be reset to 
+    their default values, and to reset any data selection performed by
+    the mp.setdata().
+  </description>
+
+  <input>
+  </input>
+
+  <returns type="bool">
+  <shortdescription>
+     true, if successful, false, otherwise.
+  </shortdescription>
+  </returns>
+</method> 
+
+<method type="function" name="closeMS">
+  <shortdescription>Close the measurement set being used.
+  </shortdescription>   
+
+  <description> 
+     Close the measurement set being used. As a a side affect any
+     data selections (via mp.setdata or mp.sespectral) are reset 
+     to their initial state, and the plot options (set via 
+     mp.plotoptions) are also set to their initial stat.
+  </description>  
+
+  <input>
+  </input>
+
+   <returns type="bool">
+     <shortdescription>
+        true, if successful, false, otherwise.
+     </shortdescription>
+   </returns>
+</method> 
+
+
+<method type="function" name="close">
+  <shortdescription>See done -- close and done do the same thing.
+  </shortdescription>   
+
+  <description> 
+    See done
+  </description>
+
+  <returns type="bool">
+    <shortdescription>
+      true, if successful, false, otherwise.
+    </shortdescription>
+   </returns>
+</method>
+
+<method type="function" name="done">
+  <shortdescription>Close the current MeasurementSet, and destroy
+      the plotter -- ending all plotting.
+  </shortdescription>   
+
+  <description> 
+    End the msplot tool 
+  </description>
+
+  <returns type="bool">
+    <shortdescription>
+      true, if successful, false, otherwise.
+    </shortdescription>
+   </returns>
+</method>
+
+
+<!--  **********  PLOTOOPTION, DATA SELCTION FUNCTIONS  ********* -->
+
+<method type="function" name="plotoptions">
+   <shortdescription>
+     Set the style of the plot.
+   </shortdescription>
+    
+  <description> 
+    Set the style of the plot.  This function allows the plot title, axis
+    labels, font, plotting color, plot symbol and many, other aspects of
+    the plot to be set by the user, giving the user much flexibility over
+    the look of their plots.
+
+    The various aspects that can be controlled by the user are as follows:
+    \begin{itemize}
+    \item{\bf Labels:} The title that appears at the top of the plot is 
+      controlled by the \title\ paramete'r.  The label along the x-axis
+      and y-axis are set using the {\it xlabel} and {\it ylabel} parameters.
+      If no values are not provided by the user then these labels are
+      constructed from the data selected to be plotted. 
+     
+      To control the font size of the labels use the {\it font} parameter.
+      The x-axis and y-axis labels are always set to be 2pts. smaller
+      then the title, which is set at the given font size specified.
+
+    \item{\bf Size Controls:}
+       To control the size of the window, the {\it windowsize}, and
+       {\it aspectratio} options can be set.
+
+       To control the range of points plotted use the {\it plotrange}
+       option.  This plot option accepts either time strings in the
+       form YYYY/MM/DD/hh:mm:ss or real values.
+
+    \item{\bf Data Point Sytles:}
+      There are a number of plotoptions for  controlling the color and 
+      style of the points plotted. 
+
+      The {\it plotsymbol} option set both the color and/or shape of the
+      points plotted.  It accepts the same syntax as that used by the
+      {\bf pylab} plot function.  There are six different colors used:
+      'k' black, 'r'ed, 'g'reen, 'b'lue, 'c'yan, 'y'ellow, wnd 'w'hite.
+      The plotsymbols include, but are not limited to '+', 'o', '-',
+      and '--'.  For a full list see the 
+      <link anchor="http://matplotlib.sourceforge.net/matplotlib.py">
+      matplotlib documentation</link>.
+
+      The {\it markersize} and {\it linewidth} options control how big the
+      plot symbols/lines are.
+
+      The {\it multicolor} plot option is unique to CASA. It is used to
+      specify whether or not different channels/correlations are plotted
+      in different colors.  The colors used can not be set by anyof the
+      plot options.  Basically, when plotting the colors are cycled through,
+      changing whenever a different channel or correlation is encountered.
+
+      For large measurement sets it may be useful to plot only a portion
+      of the measurment set.  The {\it skipnrows} allows every nth row
+      to be plotted rather then all of the plots.
+
+    \item{\bf Multiple plots:} 
+     One of the more useful abilities of the CASA plotters is the ability
+     to plot several plot simultaneously, either side-by-side, and/or one on
+     top of the other.
+
+     The {\it subplot} option determines the number of panels to create,
+     each panel contains a plot of some data.  
+     Although the {\it subplot} option is a single integer, it is really
+     treated as three separate integers: 
+     \begin{itemize}
+        \item {\it nrows}: number of rows of panels, 
+        \item {\it ncols}: number of columns of panels, and
+        \item {\it panel}: the panel number, which panel to plot on.
+     \end{itemize}
+
+     For example, {\it subplot=132} specifies that there are three panels
+     side-by-side (three columns of panels), and that we are plotting on
+     the second panel.  The top, left corner panel is panel number 1, and
+     the panel number increases to the right first, continuing on the next
+     row when the end of a row is reached. The example section shows
+     some examples that create a number of different panel arrangements.
+
+     Related to the multi-panel plots is the {\it removeoldpanels} option.
+     This option when set to {\it True}, the default value, mimics the native 
+     matplot behviour,
+     clearing any panels that lie partially or completely under a new panel
+     being plotted. If it is set to {\it False} new panels could potentially
+     plot overtop of old panels depending on the subplot values.
+
+     In addtions to having plots there is the ability to overplot.  The
+     {\it overplot} option when set to true will, instead of clearing
+     the panel that is currently being plotted on, plot over what is already
+     there.  When {\it overplot} is set to true the next plot is plotted
+     over top of what is already there, and if the {\it plotsymbol} has
+     not been specified the {\it msplot} tool will automatically pick a
+     different color to plot with.  An example where this may be useful
+     if plotting different spectral windows separately, but on the same
+     plot.
+
+     Related to overplotting is the {\it replacetopplot} and 
+     {\it showflags} option.  By default
+     {\it replacetopplot} is set to {\it False}, but if it is set to {\it True} 
+     then only
+     the last plot on a panel is replaced.  This option comes in handy when
+     a mistake has been made in the last plot.  If the {\it showflags} option
+     is set to {\it True} then the flagged data is plotted.  A nice feature
+     is the ability to plot the flagged and unflagged data on the same plot,
+     by doing the same plot with both the {\it overplot} and {\it showflags}
+     plot turned on.  Note that flagged data is always plotted in a magenta
+     color.
+ 
+     \end{itemize}
+  </description>
+   
+  <input>
+     <param type="int" name="subplot">
+     <description>Three (or four) digits number: first digit for nx, 
+               second for ny, the rest for pannel number.
+     </description>
+     <value>111</value>
+     </param>
+
+     <param type="string" name="plotsymbol">
+     <description>String specifying the colour to plot in, as well as
+     the symbol to plot.  This argument takes the same values as
+     pylab plot command.
+     Some of the valid symbols are: 'o', '+', ...
+     </description>
+     <value></value>
+     </param> 
+
+     <param type="string" name="plotcolor">
+     <description>String specifying the colour to plot in. This can be one 
+       of the predefined pylab colour names. This over-rides the colour 
+       specified in plotsymbol.
+     </description>
+     <value></value>
+     </param> 
+
+     <param type="string" name="multicolor">
+     <description>chan: means different channels in different colours,
+                  corr: means different correlations in different colours,
+                  both: means different correlations and channels in multicolour
+                  none: plot everything the same color.</description>
+     <value>none</value>
+     </param> 
+
+     <param type="string" name="plotrange">
+     <description>Plot data within the specified range of values will be
+     plotted. The range
+     of values is given as a string in the form [xmin, xmax, ymin, ymax].
+     For most plots the xmin/max
+     and ymin/max values are expected to be numeric values.  However, for
+     time plots, ie. where one or more of the axis is time, the xmin/max
+     and ymin/max are expected to be strings in the from YYYY/MM/DD/hh:mm:ss.
+     </description>
+     <value></value>
+     </param> 
+
+     <param type="char" name="timeplot">
+     <description>Indicate if the data is to be interpretted as time
+	time values. Valid values are 'o'ff, 'x'-axis, 'y'-axis, 
+	'b'oth axes.
+    .</description>
+     <value>'o'</value>
+     </param> 
+
+     <param type="double" name="markersize">
+     <description>Specify the size (in pixels) of the markers being plotted.
+     Markers are specified with the plotsymbol option. 
+    .</description>
+     <value>8.0</value>
+     </param> 
+
+     <param type="double" name="linewidth">
+     <description>Occasionally lines, rather then points, are plotted.
+     This option allows the width of the plotted lines to be specified
+     in points (pixels).
+    </description>
+     <value>1.0</value>
+     </param> 
+
+     <param type="bool" name="overplot">
+     <description>To do overplot or not.</description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="replacetopplot">
+     <description>true : when overplot=false, replace the top-most layer only
+                  false : overplot=false always creates a fresh stack of plots.</description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="removeoldpanels">
+     <description>true : mimic the native matplotlib behaviour of clearing up plots that
+                         lie partially or completely underneath a new panel.
+                  false : turn this feature off. Explicit mp.clearplot will then be
+		          required. This is provided to allow small plots to be inset into
+			  larger plot panels.</description>
+     <value>true</value>
+     </param>
+
+     <param type="int" name="skipnrows">
+     <description>Indicates how many points to skip when plotting, ie.
+        it plots every nth point.
+     </description>
+     <value>1</value>
+     </param>
+
+     <param type="int" name="averagenrows">
+     <description>Indicates how many rows to average when plotting, ie.
+        average together every n rows.
+     </description>
+     <value>1</value>
+     </param>
+
+     <param type="string" name="extendflag">
+     <description>A string contains flag extension code. Possible
+                  codes are: &quot;P&quot; for correlation; &quot;C&quot;
+                  for channel; &quot;B&quot; for baseline; &quot;W&quot;
+                  for spectral window; and &quot;T&quot; for time.
+     </description>
+     <value></value>
+     </param>
+
+
+     <param type="string" name="connect">
+     <description>Indicates how to join point with lines when
+       plotsymbol contains '-'.
+        connect='none': points are not connected by lines.
+        connect='row' : points are joined along time and baseline
+	                  and each channel and correlation is a separate line.
+	connect='chan': points are joined along channel. Each timestamp
+			  or baseline is a separate line. This is to be used
+			  in conjunction with 'averagenrows' or 'skipnrows'
+			  because for a large number of rows, it is inefficient.
+     </description>
+     <value>none</value>
+     </param>
+
+     <param type="bool" name="showflags">
+     <description>Indicates whether or not to plot flagged and unflagged data.
+        False : plot only unflagged data
+        True : plot only flagged data
+     </description>
+     <value>false</value>
+     </param>
+
+     <param type="string" name="title">
+     <description> string for the title of the plot</description>
+     <value></value>
+     </param> 
+
+     <param type="string" name="xlabel">
+     <description> string for the X -label of the plot</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="ylabel">
+     <description> string for the Y -label of the plot</description>
+     <value></value>
+     </param>
+
+     <param type="double" name="fontsize">
+     <description> font size of the labels for the plot</description>
+     <value>14.0</value>
+     </param>
+
+     <param type="double" name="windowsize">
+     <description> window size of the plot</description>
+     <value>1.0</value>
+     </param>
+
+     <param type="double" name="aspectratio">
+     <description> aspect ratio of the window size of the plot</description>
+     <value>1.0</value>
+     </param>
+
+</input>
+<returns type="bool">
+<shortdescription>Bool: True if plotoptions succeeded, 
+False otherwise
+</shortdescription>
+</returns>
+<example>
+# open a MS dataset, set the plot options. 
+# Also set the X and Y axes labels, and the title, 
+  mp.open( msname='./data/3C273XC1.ms');  
+  labels := ['Amplitude vs UVdist','uvdist','amplitude'];
+  mp.plotoptions( windowsize=5,aspectratio=0.8, fontsize=14.0, \
+       xlabel='uvdist', ylabel='amplitude', title='Amplitude vs. UVdist', 
+       plotsymbol='g+' );
+
+# Create 3 panels for plotting, and starting an iterative plot.  Three
+# plots will be plotted for each iteration of the plot.
+mp.open( './data/ngc5921.ms')
+mp.plotoptions( subplot=311 )
+mp.vischannel( column='data', what='amp', iteration='baseline' )
+
+# Create 3 panels for plotting, but they are different sizes.
+# Two panels at the top, smaller with the array and uvcoverage plots.
+# A single wider panel at the bottom (the whole second row) containing
+# the uvdistance plot.  The uvdistance plot, plots the corrected data
+# overtop of the actual data.
+mp.open( './data/ngc5921.ms');
+mp.plotoptions( subplot=221 );
+mp.array();
+mp.plotoptions(subplot=222);
+mp.uvcoverage();
+mp.plotoptions( subplot=212 );
+mp.uvdist();
+mp.plotoptions( overplot=1, plotcolor=3);
+mp.uvdist(column='corrected_data');
+
+# Plot the flagged and unflagged data on the same plot, plotting the
+# visibility amplitude vs. the channel.
+mp.open(ngc5921PATH);
+mp.vischannel();
+mp.plotoptions( showflags=1, overplot=1 );
+mp.vischannel();
+</example>
+</method>
+
+
+<method type="function" name="summary">
+   <shortdescription>
+   List a short summary, description, of the data in the open
+   measurment set.
+   </shortdescription>
+   <keyword>summary</keyword>
+
+   <description> 
+   List a summary, description, of the selected data in the open
+   measurment set.  
+
+The information that is displayed includes:
+   <li>
+       <ul>anntenna names</ul>
+       <ul>field names</ul>
+       <ul>scan numbers</ul>
+       <ul>specral window list, including the number of channels for
+           each one.</ul>
+       <ul>correlations</ul>
+   </li>
+   Eventually the summary will include the time range and uv distance
+   range as well.
+   </description>
+
+   <input>
+     <param type="bool" name="selected">
+     <description> Determine if we print a summary of the selected (true)
+        data or a summary of the full measurement set (false).
+     </description>
+     <value>true</value>
+     </param>
+   </input>
+
+   <returns type="bool">
+     <shortdescription>Bool, true if  succeeded, false otherwise.
+     </shortdescription>
+   </returns>
+   
+   <example>
+  # create a msplot tool and set the subset data for plotting.
+  mp.open( msname='./data/3C273XC1.ms');
+
+  # View a summary of the whole measurement set.  
+  mp.summary( selected=false);
+
+  # View what we've selected.
+  mp.setdata( "spw=3~7", antenna="0~200" );
+  mp.summary( selected=true );
+   </example>
+</method>
+
+<method type="function" name="setdata">
+   <shortdescription>
+   Select a subset of the measurement set to operate on.
+   </shortdescription>
+   <keyword>setdata</keyword>
+
+   <description> 
+     Select a subset of the measurement set. All plots will operate on this 
+     subset of the measurement set based on the values given.
+
+     All of the {\it Index} fields expect lists of integers. All of the 
+     {\it Name} fields accept strings. Where both indices and expressions 
+     are allowed as inputs (antenna's for example), they will be combined 
+     together when selecting the data.
+
+     The expression strings contain values separated by
+     ','. The wildcard character '*' can be used with the names.
+     The '\&gt;' and '\&lt;' characters can be used to indicate values that are 
+     greater then, or less then (respectively) a particular value.
+
+     Note: that integer values in the antennaNames list will be interpreted
+     as indices. The '~' indicates a range for values.  
+
+     Spectral windows {\it names} are bit of a special case as channel 
+     information can be specified too. Spectral windows are in the 
+     folling format:
+         (spwlist):(channellist)
+     where the spetral window and channel list follow the expression
+     conventions listed above.
+	 "RR,LL,RL"
+         "[RR LL RR]"
+         "(XX)"
+     where different types of polarizations are separated by a space or
+     a comma.
+
+   </description>
+
+   <input>
+     <param type="string" name="baseline">
+     <description>Baseline selection expression.</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="field">
+     <description>Field selection string.</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="scan">
+     <description>Scan selection string.</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="uvrange">
+     <description>UV Range selection string.</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="array">
+     <description>Array selection string.</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="feed">
+     <description>Feed selection string.</description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window selection string.</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlation selection string.</description>
+     <value></value>
+     </param>
+
+
+     <param type="string" name="time">
+     <description>Time selection values are in the form:
+            YYYY\/MM\/MM\/DD\/hh:mm:ss~YYYY\/MM\/DD\/hh:mm:ss\^step
+      where the first or second term may be dropped, and more
+      then one range may be specified.  Ranges are separted by
+      a &quot;,&quot;.  The step value is a real value representing the
+      number of seconds to skip or average, depending on the
+      value given.</description>
+     <value></value>
+     </param>
+
+   </input>
+
+
+   <returns type="bool">
+     <shortdescription>Bool, true if setdata succeeded, false otherwise.
+     </shortdescription>
+   </returns>
+   
+   <example>
+# create a msplot tool and set the subset data for plotting.
+  mp.open( msname='./data/3C273XC1.ms');
+
+# Select all antenna's that begin with VLA or N, field 1,2 and 3,
+# 'RR' and 'LL' correlations, and spectral windows 3,4, and 5.
+  mp.setdata( antennaNames='VLA:N*', fieldNames='1~3', correlations='RR, LL',\
+      spwIndex=[3,4,5] );
+
+# Select all fields, LR correlations, uvdists greater than 125 kilolambda,
+# and times of June 27, 1989 at 3:31:40.
+  mp.setdata( fieldNames'*', correlations='LR', uvDists='&gt;125kl' \
+      times='1989/06/27/03:31:40' );
+   </example>
+</method>
+
+<method type="function" name="extendflag">
+   <shortdescription>
+   Set the scope of flagging extension
+   </shortdescription>
+   <keyword>extendflag</keyword>
+
+   <description> 
+      Set the scope of flagging extension
+   </description>
+
+   <input>
+
+     <param type="string" name="extendcorr">
+     <description>Indicate correlation based flagging extension. 
+       Valid values are: 
+        <I></I> <I>all</I><I>half</I> 
+     </description>
+     <value></value>
+     </param>
+
+     <param type="string" name="extendchan">
+     <description>Indicate channel based flagging extension. 
+       Valid values are: 
+        <I></I> <I>all</I> 
+     </description>
+     <value></value>
+     </param>
+
+     <param type="string" name="extendspw">
+     <description>Indicate spectral window based flagging extension. 
+       Valid values are: 
+        <I></I> <I>all</I> 
+     </description>
+     <value></value>
+     </param>
+
+     <param type="string" name="extendant">
+     <description>Indicate antenna (baselines) based flagging extension. 
+       Valid values are: 
+        <I></I> <I>all</I> 
+     </description>
+     <value></value>
+     </param>
+
+     <param type="string" name="extendtime">
+     <description>Indicate time based flagging extension. 
+       Valid values are: 
+        <I></I> <I>all</I> 
+     </description>
+     <value></value>
+     </param>
+
+   </input>
+
+   <returns type="bool">
+     <shortdescription>Bool, always true.
+     </shortdescription>
+   </returns>
+   
+   <example>
+# create a msplot tool and set the subset data for plotting.
+  mp.open( msname='./data/3C273XC1.ms');
+
+# TO COME
+  mp.average( ??? )
+   </example>
+</method>
+<method type="function" name="avedata">
+   <shortdescription>
+   Specify which data is to be averaged in the MS (or selected MS).
+   </shortdescription>
+   <keyword>setdata</keyword>
+
+   <description> 
+      No description here at the moment. This method is under
+      active development and is changing frequently.  Documentation
+      will be provided when development settles down.
+   </description>
+
+   <input>
+     <param type="string" name="chanavemode">
+     <description>Indicate what if any averaging should be done on
+     the selected channels.The channel selection and averaging is
+     done via the <I>spw</I> parameter.
+     Valid values are: 
+     <UL>
+         <LI><B>none:</B>
+             No averaging, default value</LI>
+         <LI><B>step:</B>
+             Plot every nth point</LI>
+         <LI><B>scalarstep: incoherent average of every n points</B></LI>
+         <LI><B>vectorstep: coherent average of every n points</B></LI>
+         <LI><B>scalarchunk: incoherent average of blocks with n points</B></LI>
+         <LI><B>vectorchunk: coherent average of blocks with n points</B></LI>
+     </UL>
+     </description>
+     <value>none</value>
+     </param>
+
+     <param type="string" name="corravemode">
+     <description>Indicate what if any averaging should be done
+     on the selected correlations.  See <i>chanavemode</i> for a
+     detailed description  of the valid values.
+     Valid values
+     are: <I>none</I>, <I>step</I>, <I>scalarstep</I>, 
+     <I>vectorstep</I>, <I>scalarchunk</I>, or <I>vectorchunk</I>
+     </description>
+     <value>none</value>
+     </param>
+
+     <param type="string" name="datacolumn">
+     <description>Indicate the visibility data to be averaged. 
+       Valid values are: 
+        <I>DATA</I> <I>CORRECTEDDATA</I> <I>MODELDATA</I> 
+     </description>
+     <value>DATA</value>
+     </param>
+
+     <param type="string" name="averagemode">
+     <description>Indicate the mode for channel and/or time
+     averaging. Valid values are: 
+        <I>vector</I> <I>scalar</I> 
+     </description>
+     <value>vector</value>
+     </param>
+
+     <param type="string" name="averagechan">
+     <description>Indicate the number of channels to average. 
+       The default value of 1 means no channel averaging.
+     </description>
+     <value>1</value>
+     </param>
+
+     <param type="string" name="averagetime">
+     <description>Indicate the length of time interval to average.
+     Valid values are double values of time in seconds. The default
+     value 0 means no time averaging.
+     </description>
+     <value>0</value>
+     </param>
+
+     <param type="bool" name="averageflagged">
+     <description>Indicate either flagged or unflagged data to average.
+     </description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="averagescan">
+     <description>Indicate whether time averaging cross scan boundaries.
+     </description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="averagebl">
+     <description>Indicate whether averaging cross baseline boundaries.
+     </description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="averagearray">
+     <description>Indicate whether averaging cross array boundaries.
+     </description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="averagechanid">
+     <description>Indicate whether using averaged channel id or not.
+     </description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="averagevel">
+     <description>Indicate whether calculating averaged velocity id or not.
+     </description>
+     <value>false</value>
+     </param>
+
+   </input>
+
+
+   <returns type="bool">
+     <shortdescription>Bool, true if setdata succeeded, false otherwise.
+     </shortdescription>
+   </returns>
+   
+   <example>
+# create a msplot tool and set the subset data for plotting.
+  mp.open( msname='./data/3C273XC1.ms');
+
+# TO COME
+  mp.average( ??? )
+   </example>
+</method>
+
+
+<!--  **********  PLOTTING FUNCTIONS  ********* -->
+
+<method type="function" name="plot">
+  <input>
+     <param type="string" name="type">
+       <description>The type of plot to do.  Valid values are strings
+           for each of the msplot function, the valid strings are:
+           &quot;array&quot;
+           &quot;azimuth&quot;, &quot;baseline&quot;, &quot;elevation&quot;, 
+           &quot;hourangle&quot;, &quot;parallacticangle&quot;, 
+           &quot;uvcoverage&quot;, &quot;uvdist&quot;, &quot;vischannel&quot;,
+           and &quot;vistime&quot;
+       </description>
+       <value></value>
+    </param>
+          
+     <param type="string" name="column">
+     <description>Column name in main table of measurment set to
+        plot. Valid values are: data, corrected, model, residual,
+        and weight.
+     </description>
+     <value></value>
+     </param>
+
+     <param type="string" name="value">
+     <description> String: amp, phase </description>
+     <value></value>
+     </param> 
+	  
+     <param type="stringArray" name="iteration">
+       <description> List of strings:  Antenna1, Antenna2, Feed1, Feed2, 
+         Field\_id, Scan\_number, and Time.
+         Spectral Window/Polarization\_id( not available yet ) 
+       </description>
+     <value></value>
+     </param>   
+  </input>
+  
+  <returns type="bool"> 
+    <shortdescription> true, if the plot is okay.
+    </shortdescription>
+  </returns>
+  
+  <example>
+# create a msplot tool.
+mp.open( msname='./data/ngc7538.ms');
+
+# Plot the antenna distribution.
+mp.plot( type='array' );
+
+# Plot the uv distances with the corrected data column plotted
+# over the data column
+mp.plotoptions( overplot=False, plotcolor='chocolate' );
+mp.plot( type='uvdist', value='phase' );
+mp.plotoptions( overplot=True, plotcolor='lemonchiffon' );
+mp.plot( type='uvdist', column='corrected', value='phase' );
+
+# Do an iterative plot on baselines, on the visibility amplitude/channel
+# plot.  We display 6 plots at a time.
+mp.clearplot();
+mp.plotoptions( subplot=231 );
+mp.plot( type='vischannel', column='data', value='amp', iteration='baseline' );
+mp.iterplotnext();
+mp.iterplotnext();
+mp.iterplotstop();
+  </example>
+</method>
+
+<method type="function" name="checkplot">
+  <input>
+     <param type="string" name="plottype">
+       <description>The type of plot to check.  Valid values are strings
+           for each of the msplot function, the valid strings are:
+           &quot;array&quot;
+           &quot;azimuth&quot;, &quot;baseline&quot;, &quot;elevation&quot;, 
+           &quot;hourangle&quot;, &quot;parallacticangle&quot;, 
+           &quot;uvcoverage&quot;, &quot;uvdist&quot;, &quot;vischannel&quot;,
+           &quot;visfrequency&quot;, 
+           &quot;vistime&quot;, and &quot;visvelocity&quot;,
+       </description>
+       <value></value>
+    </param>
+          
+     <param type="string" name="column">
+     <description>Column name in main table of measurment set to
+        plot. Valid values are: data, corrected, model, residual,
+        and weight.
+     </description>
+     <value>data</value>
+     </param>
+
+     <param type="string" name="value">
+     <description> String: amp, phase </description>
+     <value>amp</value>
+     </param> 
+	  
+     <param type="stringArray" name="iteration">
+       <description> List of strings:  Antenna1, Antenna2, Feed1, Feed2, 
+         Field\_id, Scan\_number, and Time.
+         Spectral Window/Polarization\_id( not available yet ) 
+       </description>
+     <value></value>
+     </param>   
+  </input>
+  
+  <returns type="bool"> 
+    <shortdescription> true, if the plot is okay.
+    </shortdescription>
+  </returns>
+  
+  <example>
+# create a msplot tool.
+mp.open( msname='./data/ngc7538.ms');
+
+# select the data: spectral windows 0 and 1, channels 3 through 5
+# and RL correlations
+mp.setdata( spwNames=['(0,1):[3-5]'],  correlations=['RL'] );
+mp.checkplot( plottype='uvdist', column='data', value='amp');
+  </example>
+</method>
+
+
+<method type="function" name="plotxy">
+   <shortdescription>
+       A generic plotting routine for Measurement sets.
+   </shortdescription>
+   
+   <description> 
+      Plot X versus Y for all meaningful columns in the MAIN table 
+      of a MS and derived quantities. 
+      \begin{enumerate}
+          \item X and Y may be one of the followings:\\
+              Antenna1, Antenna2, Feed1, Feed2, Field\_id, \\
+              ifr\_number( not available yet ), Scan\_number, \\
+              Time, channel( not available yet ),  uvdistance, \\
+              frequency(not available yet ),u, v, w, \\
+              weight, data, model, corrected, residual \\
+      ( derived quantities will be listed later). 
+      \item iteration axis may be one of the followings:\\
+        Antenna1, Antenna2, Feed1, Feed2, Field\_id, Scan\_number,\\
+        Time, Spectral Window/Polarization\_id( not available yet )
+     \end{enumerate}
+    </description>
+
+    <input>
+     <param type="string" name="x">
+     <description> X-axis, a column name in measurement ests' main table.
+         Valid values are: antenna1, antenna2, aziumth, baseline,
+         channel, corrected, data, elevation, feed1, feed2, field\_id,
+         frequency, hourangle, ifr\_number, model, parallactic\_angle,
+         residual, scan\_number, time, u, uvdist, v, velocity, w, and weight.
+     </description>
+     <value>uvdist</value>
+     </param>
+
+     <param type="string" name="y">
+     <description> Y-axis, a column name in the measurment sets' main 
+         table. Valid values are the same as the X-axis values.
+     </description>
+     <value>data</value>
+     </param>
+
+     <param type="string" name="xcolumn">
+     <description>The column name in the measurement sets' msin table.
+         Valid values are: data, corrected, model, and residual.
+     </description>
+     <value>data</value>
+     </param>
+
+     <param type="string" name="ycolumn">
+     <description>The column name in the measurement sets' msin table.
+         Valid values are: data, corrected, model, and residual.
+     </description>
+     <value>data</value>
+     </param>
+
+     <param type="string" name="xvalue">
+     <description> String, needed if X or Y is data quantity: 
+             amp, phase, real, imag </description>
+     <value>amp</value>
+     </param>   
+
+     <param type="string" name="yvalue">
+     <description> String, needed if X or Y is data quantity: 
+             amp, phase, real, imag </description>
+     <value>amp</value>
+     </param>   
+     
+     <param type="stringArray" name="iteration">
+     <description> List of strings:  Antenna1, Antenna2, Feed1, Feed2, 
+             Field\_id, Scan\_number, and Time.
+             Ex: iteration over baselines : ['antenna1','antenna2']
+                    Spectral Window/Polarization\_id( not available yet ) 
+     </description>
+     <value></value>
+     </param>   
+   </input>
+
+   <returns type="bool">
+     <shortdescription>Bool, true if plotting successful, false otherwise
+     </shortdescription>
+   </returns>
+
+   <example>
+# create a msplot tool.
+mp.open( msname='./data/ngc7538.ms');
+
+# select data. correlations are separated by a space:
+#    correlations=['RR RL']
+mp.setdata( spwNames=['(0,1):[3-5]'],  correlations=['RL'] );
+
+# Do an iterative plot over baselines, plotting uvdist vs. data for each antenna.
+mp.plotxy( X='uvdist', Y='', column='data', iteration=['antenna1, 'antenna2']); 
+ </example>
+</method>
+
+
+<method type="function" name="checkplotxy">
+   <shortdescription>
+       Routine for checking the sanity of a plotxy plot.
+   </shortdescription>
+
+  <description>
+     Do a sanity checks of all the inputs that have been given.
+     This includes checking the plot option values (mp.plotoptions()), 
+     data selection (mp.setdata()), and spectral selections
+     (mp.setspectral()).
+
+     Also included in the sanity checks is a check to see how many
+     points will be plotted.  If there are millions of points to
+     be plotted, but do not want to wait for a large plot try setting
+     the skipnrows or averagenrows plot options.
+  </description>
+
+  <input>
+
+     <param type="string" name="x">
+     <description> X-axis, a column name in measurement ests' main table.
+         Valid values are: antenna1, antenna2, aziumth, baseline,
+         channel, corrected, data, elevation, feed1, feed2, field\_id,
+         frequency, hourangle, ifr\_number, model, parallactic\_angle,
+         residual, scan\_number, time, u, uvdist, v, velocity, w, and weight.
+     </description>
+     <value>uvdist</value>
+     </param>
+
+     <param type="string" name="y">
+     <description> Y-axis, a column name in the measurment sets' main 
+         table. Valid values are the same as the X-axis values.
+     </description>
+     <value>data</value>
+     </param>
+
+     <param type="string" name="xcolumn">
+     <description>The column name in the measurement sets' msin table.
+         Valid values are: data, corrected, model, and residual.
+     </description>
+     <value>data</value>
+     </param>
+
+     <param type="string" name="ycolumn">
+     <description>The column name in the measurement sets' msin table.
+         Valid values are: data, corrected, model, and residual.
+     </description>
+     <value>data</value>
+     </param>
+
+     <param type="string" name="xvalue">
+     <description> String, needed if X or Y is data quantity: 
+           amp, phase, real, and imag  </description>
+     <value>amp</value>
+     </param>   
+
+     <param type="string" name="yvalue">
+     <description> String, needed if X or Y is data quantity: 
+           amp, phase, real, and imag  </description>
+     <value>amp</value>
+     </param>   
+     
+     <param type="stringArray" name="iteration">
+     <description> List of strings:  Antenna1, Antenna2, Feed1, Feed2,
+                 Field\_id, Scan\_number, and Time.
+                 Spectral Window/Polarization\_id( not available yet ) 
+     </description>
+     <value></value>
+     </param>   
+
+   </input>
+
+   <returns type="bool">
+     <shortdescription>Bool, true if plotting successful, false otherwise
+     </shortdescription>
+   </returns>
+
+
+   <example>
+# create a msplot tool, do some data selections and 
+# plot option selection and  check the validty of them.
+mp.open( msname='./data/3C273XC1.ms');
+mp.setdata( antennaNames='VLA:N*', fieldNames='1~3', correlations='RR, LL',\
+      spwIndex=[3,4,5] );
+mp.plotoptions( windowsize=5,aspectratio=0.8, fontsize=14.0, \
+       xlabel='uvdist', ylabel='amplitude', title='Amplitude vs. UVdist', 
+       plotsymbol='g+' );
+mp.checkplotxy( X='uvdist', Y='', column='data', iteration=['antenna1, 'antenna2']); 
+</example>
+</method>
+
+
+   <method type="function" name="iterplotstart">
+   <shortdescription>Plot the first set of iterative plots.
+   </shortdescription>
+   
+<description> 
+Begin a series of plots using subtables constructed via an iteration axes,
+which is set in either the <I>mp.plot</I> or <I>mp.plotxy</I> methods.
+Use iterplotnext() to step through. Multi-panel plots as well as overplots
+are supported with this function.  Overplots have a restriction in that
+both plots must have the same axies.
+
+<B>Only forward step through is allowed.</B>
+</description>
+<input>
+</input>
+
+<returns type="bool">
+<shortdescription>
+true if iterative plot is successfully started, false otherwise
+</shortdescription>
+</returns>
+
+<example>
+# create a msplot tool, select the data with field name 3C273 for plot, 
+# and initialize a plot of Amplitude vs UV distance for 
+# channel 1 and stokes 1, iterating over Antenna1, and creating
+# two plot panels per iteration page.
+  mp.open( msname=['./data/3C273XC1.ms']);
+  plotoptions.nxpanels := 1;
+  plotoptions.nypanels := 2;
+  plotoptions.windowsize := 6;
+  plotoptions.aspectratio := 1.2;
+  plotoptions.fontsize := 14.0;
+  mp.setdata( fieldNames=['3C273'] );
+  labels := ['Amplitude vs UVdist (iterating over Antenna1)','uvdist','amplitude'];
+  mp.plotxy( x='SQRT(SUMSQUARE(UVW[1:2]))' y='AMPLITUDE(DATA[1,1])', iteration='ANTENNA1' );
+  mp.iterplotstart();
+To iterate over baseline, for stokes 1, channel 1.
+  plotopts.nxpanels := 1;
+  plotopts.nypanels := 4;
+  labels := ['Amplitude vs UVdist (iterating over Baseline)','uvdist','amplitude'];
+  iteraxes := ['ANTENNA1','ANTENNA2'];
+  mp.plotxy( x=['SQRT(SUMSQUARE(UVW[1:2]))' y='AMPLITUDE(DATA[1,1])'], iteration=iteraxes )
+  mp.iterplotstart();
+</example>
+</method>
+
+   <method type="function" name="iterplotnext">
+   <shortdescription>Continue plotting on an iteration axes.
+   </shortdescription>
+   
+<description> 
+Start/Continue plotting by stepping through the iteration axes. 
+</description>
+
+
+<returns type="bool">
+<shortdescription> true, if additional iteration steps remain,
+ false,if last iteration has completed or else.
+</shortdescription>
+</returns>
+<example>
+# Iterate through the data, plotting the uvdist for each antenna1
+# The same plot can be achieved with mp.uvdist( iteration='antenna1' )
+  mp.open( msname=['./data/3C273XC1.ms']);
+  mp.plotoptions( subplot=121, windowsize=6, aspectratio=1.2, fontsize=14.0);
+  mp.setdata( uvDists=['&gt;25kl'] );
+  mp.plotxy(X='uvdist',Y='',iteration='antenna1');
+  mp.iterplotnext();
+  mp.iterplotnext();
+  mp.iterplotstop();
+</example>
+</method>
+
+ 
+   <method type="function" name="iterplotstop">
+   <shortdescription>Stop an iterative plot.</shortdescription>
+   
+<description> 
+To be called at the end of the plot iterations, or in between if desired.
+</description>
+<input>
+   <param type="bool" name="rmplotter">
+   <description>Indicates of the plot window should be removed (true)from the
+      display or left (false) </description>
+    <value>false</value>
+   </param>
+</input>
+
+<returns type="bool">
+<shortdescription>
+ture, if all is valid, fales, otherwise.
+</shortdescription>
+</returns>
+
+<example>
+# see the example for iterplotnext()
+</example>
+</method>
+
+
+<method type="function" name="savefig">
+   <shortdescription>
+     Save the currently plotted image.
+   </shortdescription> 
+   <keyword>open</keyword>
+
+   <description>
+    Store the contents of the plot window in a file.  The file format (type)
+    is based on the file name, ie. the file extension given determines the
+    format the file is saved as. The accepted formats are <I>eps</I>,
+    <I>ps</I>, <I>png</I>, <I>pdf</I>, and <I>svg</I>.
+
+    Internally, this function uses the matplotlib pl.savefig function.
+
+    Note that if a full path is not given that the files will be saved in
+    the current working directory.
+   </description>
+
+   <input>
+     <param type="string" name="filename">
+     <description>Name the plot image is to be saved to. </description>
+     <value></value>
+     </param>
+
+     <param type="int" name="dpi">
+     <description>Number of dots per inch (resolution) to save the image at. 
+     </description>
+     <value>-1</value>
+     </param>
+
+     <param type="string" name="orientation">
+     <description>Either <I>landscape</I> or <I>portrait</I>. Supported
+     by the postscript format only.</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="papertype">
+     <description>Valid values are: <I>letter</I>, <I>legal</I>, <I>exective</I>,
+          <I>ledger</I>, <I>a0</I>-<I>a10</I> and <I>b0</I>-<I>b10</I>.  This 
+           option is supported byt the postscript format only.
+     </description>
+     <value></value>
+     </param>
+
+     <param type="string" name="facecolor">
+     <description>Color of space between the plot and the edge of the
+        square. Valid values are the same as those
+         accepted by the plotcolor option.</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="edgecolor">
+     <description>Color of the outer edge. Valid values are the same as those
+         accepted by the plotcolor option.</description>
+     <value></value>
+     </param>
+
+   </input>
+
+   <returns type="bool">
+      <description>True upon success, False otherwise</description>
+   </returns>
+
+   <example>
+# Open a msplot tool with a measurment set
+  mp.open( msname='./data/3C273XC1.ms' );
+# Plot something and save it in a pdf file.
+  mp.plot( 'uvdist' )
+  mp.savefig( 'uvdist.pdf', edgecolor='black' )
+</example>
+</method>
+
+
+
+<!--  ********** FLAGGING FUNCTIONS  ********* -->
+
+  <method type="function" name="markregion">
+   <shortdescription> Mark a rectangular region to flag or to investigate
+       the data in the area.
+   </shortdescription>
+   
+<description> 
+Mark a rectangular region on the plot. Each call to {\tt markflag} allows
+one region to be drawn. Any number of successive calls can be made. This
+function marks and stores a list of marked regions. These regions can then
+be (un)flagged, or information about the marked data can be retrieved.
+To flag the data the {\tt (un)flagdata} function must be used and to find
+out information about the data the {\tt locatedata} function must be
+used.
+
+In the case of multi-panel plots, the subplot parameter must be specified with 
+each call. The subplot value corresponds to a row-major ordering of panels,
+see the subplot plot option information.
+
+Marking the region requires two consecutive mouse clicks at the two diagonally 
+opposite corners. A hatched rectangle will appear over the selected region. 
+Alternative a specific region can be given to this function with the 
+{\tt region} parameter.
+
+</description>
+<input>
+     <param type="int" name="subplot">
+     <description>Three digits number: first digit for nx, second for ny, 
+               last for pannel number.</description>
+     <value>111</value>
+     </param>
+
+     <param type="doubleArray" direction="in" name="region">
+     <description>[xmin,ymin,xmax,ymax] bounding box</description>
+     <value>0.0</value>
+     </param>
+    
+</input>
+<returns type="bool"/>
+<example>
+# mark 2 flag regions on a multi-panel plot, one in panel 1 and one
+# in panel 2.
+  tp.markflags(subplot=131, region=[100,-100,50,-50]);
+  tp.markflags(subplot=221);
+</example>
+</method>
+ 
+   <method type="function" name="flagdata">
+   <shortdescription>Set flags for all selected
+     regions marked using 
+     <link anchor="msplot:msplot.markregion.function">mp.markregion()</link>
+   </shortdescription>
+<description> 
+Set flags for all regions marked using {\tt markflags()}. The plot is
+automatically redrawn after applying flags.
+
+If reduction TaQL functions such as {\tt sum,mean} are used, flags
+corresponding to all accessed values will be modified. For example, with
+a measurement set table, flagging on the mean amplitude of stokes 1 and
+channels 1 to 5, given by 'MEAN(AMPLITUDE(DATA[1,1:5]))' results in flags
+being set for all 5 accessed channels.
+
+For a measurement set, by default, flags are set only for accessed channels
+and stokes when the DATA column is used. However all channels/stokes can be
+flagged for the marked flag regions by setting the corresponding row flag.
+</description>
+
+<input>
+</input>
+<returns type="bool">
+<shortdescription>
+ture, if flagging is successful, false, otherwise
+</shortdescription>
+</returns>
+<example>
+# mark 2 flag regions on a multi-panel plot, one in panel 1 and one
+# in panel 2. Then apply the flags and write to disk.
+  mp.markflags(subplot=221, region=[0,15,10,30]);
+  mp.markflags(subplot=222, region=[15,30,10,30]);
+  mp.flagdata();
+</example>
+</method>
+
+   <method type="function" name="unflagdata">
+   <shortdescription>
+    Unset flags in  all regions marked using 
+     <link anchor="msplot:msplot.markregion.function">mp.markregion()</link>
+      Similar to the
+     <link anchor="msplot:msplot.flagdata.function">mp.flagdata()</link>
+   </shortdescription>
+
+<description> 
+Unset flags for all regions marked using {\tt markflags()}. See the
+{\tt flagdata()} function for more information.
+</description>
+
+<input>
+</input>
+<returns type="bool">
+<shortdescription>
+ture, if flagging is successful, false, otherwise
+</shortdescription>
+</returns>
+<example>
+
+# mark 2 flag regions on a multi-panel plot with three rows of plots.
+# One region is marked on panel 1 and one region onpanel 2. Then the
+# marked regions are applied unflagging data and writing the changes 
+# to disk.
+  mp.markflags(subplot=311);
+  mp.markflags(subplot=312);
+  mp.unflagdata();
+
+</example>
+</method>
+
+   <method type="function" name="clearflags">
+   <shortdescription>Clear all flags in the table. Note: This clears *all* 
+    flags and should be used with caution.
+   </shortdescription>
+   
+<description> 
+Currently, this function clears all flags from the table. This will be modified
+to allow for selective un-flagging of previously flagged regions (specified by
+indexing into a stored history of marked flag-regions). 
+</description>
+
+<returns type="bool">
+<shortdescription>
+true, if successfull, false, otherwise.
+</shortdescription>
+</returns>
+<example>
+
+# clear all flags from the subset of the measurement set.
+  mp := msplot( msname=['./data/3C273XC1.ms']);
+  mp.setdata( spwIndex=[0] );
+  mp.clearflags();
+  mp.done();
+
+</example>
+</method>
+
+
+   <method type="function" name="locatedata">
+   <shortdescription>
+    Print info about data selected using mp.markregion().
+   </shortdescription>
+   
+<description> 
+New functionality that is being added to the plotting facilities,
+as a result we've purposely not put any description in as we are
+still exploring how this function should work.
+</description>
+<input>
+</input>
+<returns type="bool"/>
+<example>
+
+
+</example>
+</method>
+
+
+   <method type="function" name="saveflagversion">
+   <shortdescription>Save current flags, applied to the current
+     measurement set with a version name. 
+   </shortdescription>
+<description> 
+</description>
+<input>
+     <param type="string" name="versionname">
+     <description>Version name </description>
+     <value></value>
+     </param>
+
+     <param type="string" name="comment">
+     <description>Comment for this flag table </description>
+     <value></value>
+     </param>
+
+     <param type="string" name="merge">
+     <description>merge type: &quot;replace&quot; existing flag version,
+          &quot;and&quot; logical AND with exisiting flag version, or
+          &quot;or&quot;  logical OR with existing flag version
+      </description>
+     <value>replace</value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+
+</example>
+</method>
+
+    <method type="function" name="restoreflagversion">
+   <shortdescription>Restore flags for the current Measurement Set.
+   </shortdescription>
+<description> 
+</description>
+<input>
+     <param type="stringArray" name="versionname">
+     <description>List of flag versions to restore from.</description>
+     <value></value>
+     </param>
+     <param type="string" name="merge">
+     <description>merge type: &quot;replace&quot; existing flag version,
+          &quot;and&quot; logical AND with exisiting flag version, or
+          &quot;or&quot;  logical OR with existing flag version
+      </description>
+     <value>replace</value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+
+</example>
+</method>
+
+
+    <method type="function" name="deleteflagversion">
+   <shortdescription>For the current measurement set delete a saved flag_version.
+   </shortdescription>
+<description> 
+</description>
+<input>
+     <param type="stringArray" name="versionname">
+     <description>Version name </description>
+     <value></value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+
+</example>
+</method>
+    <method type="function" name="getflagversionlist">
+   <shortdescription>Print out a list of saved flag_versions, for 
+   	the current Measurement Set.
+  </shortdescription>
+<description> 
+</description>
+<input>
+</input>
+<returns type="bool"/>
+<example>
+
+
+</example>
+</method>
+
+
+<!--  ********** OBSOLETE PLOTTING FUNCTIONS  ********* -->
+
+<!--
+
+<method type="function" name="array">
+   <shortdescription>Plot antenna distribution.
+   </shortdescription>
+   
+<description> 
+Plot antenna distribution in local reference frame. 
+ X - toward local east; Y - toward local north.
+</description>
+
+<returns type="bool"> 
+<shortdescription> true, after successful plotting.
+</shortdescription>
+</returns>
+<example>
+
+# create a msplot tool.
+  mp.open( msname='./data/3C273XC1.ms');
+  mp.array();
+
+</example>
+</method>
+
+   <method type="function" name="azimuth">
+   <shortdescription>Plot amplitude, phase, etc. versus azimuth. 
+   </shortdescription>
+   
+<description> 
+Plot amplitude, phase, etc. versus azimuth angle( not functioning yet ).
+</description>
+<input>
+     <param type="string" name="column">
+     <description>The column name in the measurement sets' main table.
+       Valid columns are: data, corrected, model, residual, and weight.
+     </description>
+     <value>data</value>
+     </param>
+
+     <param type="string" name="value">
+     <description> String: amp, phase </description>
+     <value>amp</value>
+     </param>
+
+     <param type="stringArray" name="iteration">
+     <description> List of strings:  Antenna1, Antenna2, Feed1, Feed2, Field_id, 
+                                     Scan_number, Time.
+				     Ex: iteration over baselines : ['antenna1','antenna2']
+                                     Spectral Window/Polarization_id( not available yet ) 
+     </description>
+     <value></value>
+     </param>   
+</input>
+<returns type="bool"> 
+<shortdescription>Bool, true if plotting successful, false otherwise
+</shortdescription>
+</returns>
+<example>
+
+# create a msplot tool.
+  mp.open( msname='./data/ngc7538.ms');
+  mp.setdata( spwNames=['(0,1):[3-5]'],  correlations=['RL'] );
+  mp.azimuth( column=['data'], value=['phase'] ); 
+
+</example>
+</method>
+
+   <method type="function" name="baseline">
+   <shortdescription>
+      Plot amplitude, phase, etc. versus baseline.
+   </shortdescription>
+   
+<description> 
+Plot amplitude, phase, etc. versus baseline.
+</description>
+<input>
+
+     <param type="string" name="column">
+     <description>Column name in main table of the measurement set. 
+         Valid values are: data, corrected, model, residual, and weight
+     </description>
+     <value>data</value>
+     </param>
+
+     <param type="string" name="value">
+     <description> String: amp, phase </description>
+     <value>amp</value>
+     </param> 
+	  
+     <param type="stringArray" name="iteration">
+     <description> List of strings:  Antenna1, Antenna2, Feed1, Feed2, Field_id, 
+                                     Scan_number, Time.
+				     Ex: iteration over baselines : ['antenna1','antenna2']
+                                     Spectral Window/Polarization_id( not available yet ) 
+     </description>
+     <value></value>
+     </param>   
+</input>
+<returns type="bool">
+<shortdescription>Bool, true if plotting successful, false otherwise
+</shortdescription>
+ </returns>
+<example>
+
+# create a msplot tool.
+  mp.open( msname='./data/ngc7538.ms');
+
+# select data. correlations are separated by a space:
+#    correlations=['RR RL']
+  mp.setdata( spwNames='(0,1):[3-5]',  correlations='RL' );
+
+# Plot the phase vs. baseline using the corrected data column.
+  mp.baseline( column='corrected', value='phase' ); 
+
+</example>
+</method>
+
+ 
+   <method type="function" name="elevation">
+   <shortdescription>Plot amplitude, phase, etc. versus elevation. 
+   </shortdescription>
+   
+<description> 
+Plot amplitude, phase, etc. versus elevation( not functioning yet ).
+</description>
+<input>
+
+     <param type="string" name="column">
+     <description> String, column name in MAIN table of MS: data, corrected, 
+         model, and residual.
+     </description>
+     <value>data</value>
+     </param>
+
+     <param type="string" name="value">
+     <description> String: amp, phase </description>
+     <value>amp</value>
+     </param>
+
+     <param type="stringArray" name="iteration">
+     <description> List of strings:  Antenna1, Antenna2, Feed1, Feed2, Field_id, 
+                                     Scan_number, Time.
+				     Ex: iteration over baselines : ['antenna1','antenna2']
+                                     Spectral Window/Polarization_id( not available yet ) 
+     </description>
+     <value></value>
+     </param>   
+</input>
+<returns type="bool"> 
+<shortdescription>Bool, true if plotting successful, false otherwise
+</shortdescription>
+</returns>
+<example>
+
+# create a msplot tool.
+  mp.open( msname='./data/ngc7538.ms');
+  mp.setdata( spwNames=['(0,1):[3-5]'],  correlations=['RL'] );
+  mp.elevation( column=['data'], value=['phase'] ); 
+
+</example>
+</method>
+
+ 
+<method type="function" name="uvcoverage">
+   <shortdescription>Plot the the UV coverage of a MeasurementSet 
+      (or its subset if the user called setdata() ).
+   </shortdescription>
+   
+   <description> 
+      Plot the the UV coverage of the given MeasurementSet or its subset \\
+      if the user called setdata() function.
+   </description>
+
+
+<returns type="bool"> 
+<shortdescription>true, after successful plotting.
+</shortdescription>
+</returns>
+<example>
+
+# create a msplot tool.
+  mp.open( msname='./data/3C273XC1.ms');
+  mp.uvcoverage();
+
+</example>
+</method>
+
+ 
+   <method type="function" name="uvdist">
+   <shortdescription>Plot quantities versus uv distance.
+    </shortdescription>
+   
+<description> 
+Plot quantities versus uv distance.
+</description>
+<input>
+     <param type="string" name="column">
+     <description>Column name in main table of measurment set to
+        plot. Valid values are: data, corrected, model, residual,
+        and weight.
+     </description>
+     <value>data</value>
+     </param>
+
+     <param type="string" name="value">
+     <description> String: amp, phase </description>
+     <value>amp</value>
+     </param> 
+	  
+     <param type="stringArray" name="iteration">
+     <description> List of strings:  Antenna1, Antenna2, Feed1, Feed2, Field_id, 
+                                     Scan_number, Time.
+				     Ex: iteration over baselines : ['antenna1','antenna2']
+                                     Spectral Window/Polarization_id( not available yet ) 
+     </description>
+     <value></value>
+     </param>   
+  
+</input>
+<returns type="bool">
+<shortdescription>
+Bool, true if plotting successful, false otherwise
+</shortdescription>
+</returns>
+<example>
+
+# create a msplot tool.
+  mp.open( msname='./data/ngc7538.ms');
+# select the data: spectral windows 0 and 1, channels 3 through 5
+# and RL correlations
+  mp.setdata( spwNames=['(0,1):[3-5]'],  correlations=['RL'] );
+  mp.uvdist( column='data', value='amp');
+ 
+</example>
+</method>
+
+ 
+   <method type="function" name="vistime">
+   <shortdescription>Plot visibility amplitude, phase, etc. 
+      versus time.</shortdescription>
+   
+<description> 
+Plot amplitude, phase, etc. versus time.
+</description>
+<input>
+
+     <param type="string" name="column">
+     <description>The column name in the measurment sets main table to plot.
+         Valid values are: data, corrected, model, residual, and weight.
+     </description>
+     <value>data</value>
+     </param>
+
+     <param type="string" name="value">
+     <description> String: amp, phase </description>
+     <value>amp</value>
+     </param>
+
+     <param type="stringArray" name="iteration">
+     <description> List of strings:  Antenna1, Antenna2, Feed1, Feed2, Field_id, 
+                                     Scan_number, Time.
+				     Ex: iteration over baselines : ['antenna1','antenna2']
+                                     Spectral Window/Polarization_id( not available yet ) 
+     </description>
+     <value></value>
+     </param>   
+</input>
+<returns type="bool">
+<shortdescription>Bool, true if plotting successful, false otherwise
+</shortdescription>
+</returns>
+<example>
+
+# create a msplot tool.
+  mp.open( msname='./data/ngc7538.ms');
+# select data. correlations are separated by a space:
+#    correlations=['RR RL']
+  mp.setdata( spwNames=['(0,1):[3-5]'],  correlations=['RL'] );
+  mp.vistime( column=['data'], value=['amp'], iteration=['baseline']); 
+
+</example>
+</method>
+
+ 
+   <method type="function" name="vischannel">
+   <shortdescription>Plot visibility amplitude, phase, etc. 
+       versus channel.
+   </shortdescription>
+   
+<description> 
+Plot amplitude, phase, etc. versus channel.
+</description>
+<input>
+
+     <param type="string" name="column">
+     <description>The column name in the measurement sets' msin table.
+         Valid values are: data, corrected, model, and residual.
+     </description>
+     <value>data</value>
+     </param>
+
+     <param type="string" name="value">
+     <description> String: amp, phase </description>
+     <value>amp</value>
+     </param>
+
+     <param type="stringArray" name="iteration">
+     <description> List of strings:  Antenna1, Antenna2, Feed1, Feed2, Field_id, 
+                                     Scan_number, Time.
+				     Ex: iteration over baselines : ['antenna1','antenna2']
+                                     Spectral Window/Polarization_id( not available yet ) 
+     </description>
+     <value></value>
+     </param>   
+</input>
+<returns type="bool">
+<shortdescription>Bool, true if plotting successful, false otherwise
+</shortdescription>
+</returns>
+<example>
+
+# open an msplot tool with the ngc7538.ms measurement set.
+  mp.open( msname='./data/ngc7538.ms');
+
+# select data. correlations are separated by a space:
+#    correlations=['RR RL']
+  mp.setdata( spwNames=['(0,1):[3-5]'],  correlations=['RL'] );
+
+# Do an iterative plot, plotting channel vs. amplitude for each baseline.
+  mp.vischannel( column='data', value='amp', iteration='baseline'); 
+
+</example>
+</method>
+
+ 
+ 
+   <method type="function" name="hourangle">
+   <shortdescription>Plot amplitude, phase, etc. versus hour angle.
+   </shortdescription>
+   
+<description> 
+Plot amplitude, phase, etc. versus hour angle.
+</description>
+<input>
+
+     <param type="string" name="column">
+     <description>The column name in the measurement sets' main table.
+       Valid columns are: data, corrected, model, residual, and weight.
+     </description>
+     <value>data</value>
+     </param>
+
+     <param type="string" name="value">
+     <description> String: amp, phase </description>
+     <value>amp</value>
+     </param>
+
+     <param type="stringArray" name="iteration">
+     <description> List of strings:  Antenna1, Antenna2, Feed1, Feed2, Field_id, 
+                                     Scan_number, Time.
+				     Ex: iteration over baselines : ['antenna1','antenna2']
+                                     Spectral Window/Polarization_id( not available yet ) 
+     </description>
+     <value></value>
+     </param>   
+</input>
+<returns type="bool">
+<shortdescription>Bool, true if plotting successful, false otherwise
+</shortdescription>
+</returns>
+<example>
+
+# create a msplot tool.
+  mp.open( msname='./data/ngc7538.ms');
+  mp.setdata( spwNames=['(0,1):[3-5]'],  correlations=['RL'] );
+  mp.hourangle( column=['data'], value=['phase'] ); 
+
+</example>
+</method>
+
+ 
+   <method type="function" name="parallacticangle">
+   <shortdescription>Plot amplitude, phase, etc. versus parallactic angle.
+   </shortdescription>
+   
+<description> 
+Plot amplitude, phase, etc. versus hour angle( not functioning yet ).
+</description>
+<input>
+
+     <param type="string" name="column">
+     <description>The column name in the measurement sets' main table.
+       Valid columns are: data, corrected, model, residual, and weight.
+     </description>
+     <value>data</value>
+     </param>
+
+     <param type="string" name="value">
+     <description> String: amp, phase </description>
+     <value>amp</value>
+     </param> 
+
+     <param type="stringArray" name="iteration">
+     <description> List of strings:  Antenna1, Antenna2, Feed1, Feed2, Field_id, 
+                                     Scan_number, Time.
+				     Ex: iteration over baselines : ['antenna1','antenna2']
+                                     Spectral Window/Polarization_id( not available yet ) 
+     </description>
+     <value></value>
+     </param>   
+</input>
+<returns type="bool">
+<shortdescription>
+Bool,  true if plotting successful, false otherwise
+</shortdescription>
+</returns>
+<example>
+
+# create a msplot tool.
+  mp.open( msname='./data/ngc7538.ms');
+  mp.setdata( spwNames=['(0,1):[3-5]'],  correlations=['RL'] );
+  mp.parallacticangle( column=['data'], value=['phase'] ); 
+
+</example>
+</method>
+
+-->
+ 
+ 
+</tool>
+
+</casaxml>
+

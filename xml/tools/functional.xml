@@ -1,0 +1,1710 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+
+
+ 
+     <tool name="functional" module="scimath">
+     <shortdescription>Functionals handling</shortdescription>
+
+<code>
+	<include>tools/scimath/functional_forward.h</include>
+    <private>
+	    <include>tools/scimath/functional_private.h</include>
+    </private>
+</code>
+
+<description>
+
+\bigskip
+
+{\it Introduction}
+
+A functional is a function with parameters, defined as $f(p;x)$, where
+$p$ are the parameters, and $x$ the arguments. Methods are available to
+calculate the value of a function for a series of argument values for
+the given set of parameters, and for the automatic calculation of the
+derivatives with respect to the parameters.
+
+The created functionals can be used in the fitting \tool\ or in any
+other \tool\ that needs to have generic function values or their derivatives.
+
+A functional has a mask associated with it, to indicate if certain
+parameters have to be solved for. See
+<link anchor="functionals:functionals.masks.function">masks</link> for details.
+
+Functionals are created in a variety of ways, in general by
+specifying the name of the functional, together with some necessary
+information like e.g. the order of a polynomial, or the code needed
+to compile your privately defined function. Parameters can be set at
+creation time or later.
+
+\begin{verbatim}
+- a = fs.gaussian1d()	           # creates a 1D Gaussian, default arguments
+- b = fs.open('gaussian1')         # creates the same one
+- a.state()                        # the 'state' of the functional
+[type=0, order=-1, ndim=1, npar=3, params=[1 0 1] ] 
+- a.type()                         # its type
+gaussian1d 
+- a.ndim()                         # its dimension (number of arguments)
+1 
+- a.npar()                         # its number of parameters
+3 
+- b.state()
+[type=0, order=-1, ndim=1, npar=3, params=[1 0 1] ] 
+- a.f(1);                          # the value at x=1
+0.0625
+- a.fdf([0,0.5]);                  # value and derivatives
+[[1:2,]
+    1   1   0       0
+    0.5 0.5 1.38629 0.693147] 
+\end{verbatim}
+
+In some cases an {\em order} can be specified as well (e.g. for
+polynomials):
+\begin{verbatim}
+- a := dfs.poly(3)               # creates a 3rd order polynomial
+- b := dfs.functional('polyn',3) # creates the same one, but with
+                                 # original defaults
+- a.state()
+[type=5, order=3, ndim=1, npar=4, params=[1 1 1 1] ] 
+- b.state()
+[type=5, order=3, ndim=1, npar=4, params=[0 0 0 0] ] 
+\end{verbatim}
+
+An extremely valuable aspect of the Functionals module is the ability to
+create a functional from a compiled string specifying an arbitrary
+function.  For example, let us make our own polynomial $1 + 2*x + 3*x^2$
+and evaluate it at a few abcissa locations
+
+\begin{verbatim}
+- a := dfs.compiled ('p0 + p1*x + p2*x*x', [1,2,3])   # Define
+- a.f([0,10,20])                                      # Evaluate at x=[0,10,20]
+[1 321 1241]  
+\end{verbatim}
+
+The functions created can also be used to specify the function to be
+fitted in a least squares fit (see the fitting \tool\ ).
+
+</description>
+
+
+<!-- ****************************************************************** -->
+<!-- METHOD ORDER                                                       -->
+<!-- The order in which the methods appear in this file are the same as -->
+<!-- the appear in functionals.g.  This was done in order to easily     -->
+<!-- verify that all methods/functions were implemented.  Private       -->
+<!-- methods do not appear here, this file defines the interface.       -->
+<!-- The methods for the functional server appear first followed by the -->
+<!-- methods for the functional tool.                                   -->
+<!-- ****************************************************************** -->
+
+
+   <method type="constructor" name="functional">
+   <shortdescription>Construct a functional tool</shortdescription>
+<description>
+Create a {\tt functional} tool.
+</description>
+</method>
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="open">
+   <shortdescription>Create a functional</shortdescription>   
+
+   <input>
+     <param type="string" direction="in" name="name">
+     <description>The name of functional to create. The recognized names are:
+	'gaussian1d', 'gaussian2d', 'gaussian3d', 'gaussianNd', 'hyperplane',
+        'polynomial', 'evenpolynomial', 'oddpolynomial', 'sinusoid1d',
+        'chebyshev', 'butterworth', 'combine', 'compound',  and 'compiled'.
+     </description>
+     <value>gaussian1d</value>
+     </param>
+
+     <param type="int" direction="in" name="order">
+     <description>An integer value, 0 or greater, giving the order of
+     the functional, if appropriate.
+     </description>
+     <value>0</value>
+     </param>
+
+     <param type="doubleArray" direction="in" name="params">
+     <description>
+          parameters, the value of the parameters depends on
+          the functional.
+     </description>
+     <value type="vector"> <value>1.0</value>
+                         <value>0.0</value>
+                         <value>1.0</value>
+     </value>
+     </param>
+</input>
+<returns type="functional">Functional</returns>
+<description>
+
+Define the named functional. If an order is specified it is used,
+otherwise the default functional is with the specified (or
+default) parameters. Naming is minimum-match, case insensitive. See
+the separate {\em combine}, {\em compound} and {\em compiled}
+descriptions for more information on these special cases.
+
+\begin{tabular}{|c|c|c|l|}
+\hline 
+Name &amp; Order &amp; Default order &amp; Default parameters \\
+\hline
+\hline
+gaussian1d &amp; - &amp; - &amp; [1 0 1] \\
+gaussian2d &amp; - &amp; - &amp; [1 0 0 1 1 0] \\
+gaussian3d &amp; - &amp; - &amp; [1 0 0 0 1 1 1 0 0] \\
+gaussianNd &amp; y &amp; 2 &amp; [0.159155 0 0 1 1 0] (note height) \\
+hyperplane &amp; y &amp; 0 &amp; [0] \\
+polynomial &amp; y &amp; 0 &amp; [0] (see separate poly)\\
+evenpolynomial &amp; y &amp; 0 &amp; [0] \\
+odd polynomial &amp; y &amp; 0 &amp; [0] \\
+sinusoid1d &amp; - &amp; - &amp; [1 1 0] \\
+chebyshev &amp; y &amp; 0 &amp; [0] \\
+butterworth &amp; - &amp; 0 &amp; [0] \\
+combine &amp; - &amp; - &amp; [] (all 1 after adds)\\
+compound &amp; - &amp; - &amp; [] (copied from added functions) \\
+compiled &amp; y &amp; - &amp; [...] (a list of zeroes: see separate compiled) \\
+\hline
+\end{tabular}
+
+A created functional (or {/em function} for short, but be aware of
+possible \glish\ terminology clashes) will have a set of basic
+methods, which are described in the {\em functional} tool.
+
+</description>
+
+<example>
+
+- a:=dfs.functional('poly', 2, [1,2,3]) # create a polynomial
+- a.f([0,1,2])                          # get some values
+[1 6 17]  
+- a.fdf([0,1,2])                        # get values and derivatives
+[[1:3,]
+    1  1 0 0
+    6  1 1 1
+    17 1 2 4] 
+- b:=dfs.functional('combi')            # a combine
+- b.add(a)                              # with the polynomial
+T 
+- b.f([0,1,2])                          # values are same
+[1 6 17]  
+- b.add(b)                              # add again
+T 
+- b.f([0,1,2])                          # as expected from the combination
+[2 12 34]  
+
+
+</example>
+</method>
+
+-->
+
+<!-- ****************************************************************** -->
+<!-- The following PRIVATE methods not given here (this is an interface -->
+<!-- definition): define, f, cf, fdf, cfdf, add                         -->
+
+
+<!-- ****************************************************************** -->
+
+
+   <method type="function" name="f">
+   <shortdescription>Calculate the value of the functional</shortdescription>
+   
+<input>
+     <param type="any" direction="in" name="x">
+        <any type="variant" limittypes="double doubleArray"/>
+        <description>real argument values</description>
+        <value type="double">0</value>
+     </param>
+</input>
+<returns type="any">
+   <any type="variant"/>
+   <description>
+   double or array of doubles
+   </description>
+</returns>
+<description>
+
+Calculate the value of the functional.
+
+</description>
+
+<example>
+
+gfn = fn.gaussian1d(2, 0, 1)
+#returns 0.125
+gfn.f(1)              
+# returns array([  1.25000000e-01,   3.05175781e-05])
+gfn.f([1,2])
+
+</example>
+</method>
+
+
+<!-- ****************************************************************** -->
+
+<!--
+   <method type="function" name="cf">
+   <shortdescription>Calculate the value of the complex functional</shortdescription>
+   
+<input>
+
+     <param type="complexArray" direction="in" name="x">
+     <description>argument values</description>
+     </param>
+</input>
+<returns type="any">
+  <any type="variant"/>
+  unknown">scalar or array of complexs
+</returns>
+<description>
+
+Calculate the complex value of the functional.
+
+</description>
+
+<example>
+
+- a:=dfs.gaussian1d()
+- a.setparameters([2,1,3])
+T 
+- a.cf(1)
+2+0i 
+- a.cf(1+1i)
+2.72158+0i 
+- a.cf(1i)
+1.63224+1.15576i 
+
+</example>
+</method>
+-->
+
+<!-- ****************************************************************** -->
+
+<!--
+   <method type="function" name="fdf">
+   <shortdescription>Calculate the value and derivatives of the functional</shortdescription>
+   
+<input>
+     <param type="any" direction="in" name="x">
+        <any type="variant" limittypes="double doubleArray" />
+     <description>real argument values</description>
+     <value>0</value>
+     </param>
+</input>
+<returns type="any">
+   <any type="variant"/>
+   array of doubles
+</returns>
+<description>
+
+Calculate the value of the functional for the specified arguments,
+and the derivatives with respect to the parameters (taking any
+specified mask into account).
+
+</description>
+
+<example>
+
+- a:=dfs.gaussian1d()
+- a.setparameters([2,1,3])
+T
+- a.fdf(1)
+[[1:1,]
+    2 1 0 0] 
+- a.fdf([1,2])
+[[1:2,]
+    2       1        0        0
+    1.46973 0.734867 0.905549 0.30185]
+
+</example>
+</method>
+
+-->
+
+<!-- ****************************************************************** -->
+
+<!--
+   <method type="function" name="cfdf">
+   <shortdescription>Calculate the value and derivatives of the
+complex functional</shortdescription>
+     
+<input>
+     <param type="complexArray" direction="in" name="x">
+     <description>argument values</description>
+     </param>
+</input>
+<returns type="any">
+    <any type="variant"/>
+    vector or array of complex
+</returns>           
+<description>
+
+Calculate the value of the functional for the specified complex arguments,
+and the derivatives with respect to the parameters (taking any
+specified mask into account).
+</description>
+
+<example>
+
+- a:=dfs.gaussian1d()
+- a.setparameters([2,1,3])
+T
+- a.cfdf(1)
+[[1:1,]
+    2+0i 1+-0i 0+0i 0+0i] 
+- a.cfdf([1,2])
+[[1:2,]
+    2+0i       1+-0i        0+0i        0+0i
+    1.46973+0i 0.734867+-0i 0.905549+0i 0.30185+0i] 
+- a.cfdf(1i)   
+[[1:1,]
+    1.63224+1.15576i 0.81612+0.577882i -1.71778+0.293572i
+    0.474734-0.670449i] 
+
+</example>
+</method>
+-->
+<!-- ****************************************************************** -->
+
+<!-- ================================================================== -->
+<!--   This method has a param that is a Functional type in the original-->
+<!--   Aips++ code, but the new casapy infrastructure doesn't have      -->
+<!--   support for data types like this.  For the time being the        -->
+<!--   function/method is COMMENTED OUT, until a solution is found.     -->
+<!-- ================================================================== -->
+<!--
+<comment>
+   <method type="function" name="add">
+   <shortdescription>Add a functional to a combi or compound functional
+   </shortdescription>
+
+<input>
+     <param type="functional" direction="in" name="x">
+     <description>functional to be added</description>
+      </param>
+</input>
+<returns type="bool"></returns>
+<description>
+
+Add another functional to a combi or compound functional.
+
+</description>
+
+<example>
+
+- a:=dfs.poly(2,[1,2,3])        # a polynomial
+- a.f(1)                        # its value at x=1
+6 
+- b:=dfs.gaussian1d(10, 0.5, 1) # a Gaussian with height, center, width
+- b.f(1)
+5 
+- c:=dfs.combi(); c.add(a); c.add(b)  # combine them
+T 
+T 
+- c.f(1)                        # value is the sum (default
+parameters are 1)
+11 
+- c.setpar(1, 2.5)              # set the first parameter of combi
+to 2.5
+[2.5 1]  
+- c.f(1)                        # now value is 2.5*poly + 1*gauss
+20 
+
+</example>
+</method>
+</comment>
+-->
+
+
+<!-- ****************************************************************** -->
+<!-- NOTE: This may need to be renamed since there were two type        -->
+<!--       methods:  one returning the TOOL TYPE and                    -->
+<!--                 one returning the FUNCTIONAL type                  -->
+<!--       It's not clear which one should be used as type.             -->
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="type">
+   <shortdescription>Show the type name</shortdescription>
+   
+<input>
+</input>
+<returns type="string"></returns>
+<description>
+Return the known functional type.
+</description>
+
+<example>
+
+- a:=dfs.gaussian1d()
+- a.type()
+gaussian1d 
+
+</example>
+</method>
+-->
+<!-- ****************************************************************** -->
+<!-- 
+   <method type="function" name="npar">
+   <shortdescription>Show the number of parameters</shortdescription>
+   
+<input>
+</input>
+<returns type="int">integer</returns>
+<description>
+Returns an integer giving the number of parameters.
+</description>
+
+<example>
+
+- a:=dfs.gaussian1d()
+- a.npar()
+3
+
+</example>
+</method>
+
+-->
+<!-- ****************************************************************** -->
+
+   <method type="function" name="ndim">
+   <shortdescription>Get the number of dimensions</shortdescription>
+   
+<input>
+</input>
+<returns type="int">integer</returns>
+<description>
+Return the number of dimensions.
+</description>
+
+<example>
+
+a = fn.gaussian1d()
+# nd is set to 1
+nd = fn.ndim()
+
+</example>
+</method>
+-->
+
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="order">
+   <shortdescription>Show the order or similar information</shortdescription>
+   
+<input>
+</input>
+<returns type="int">integer (order) or -1</returns>
+<description>
+
+Return the order of the functional when relevant (e.g. of polynomial).
+
+</description>
+
+<example>
+
+- a:=dfs.gaussian1d()
+- b:=dfs.poly(2)      
+- a.order()
+-1 
+- b.order()
+2 
+
+</example>
+</method>
+-->
+
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="state">
+   <shortdescription>Show complete state of the functional</shortdescription>
+   
+<input> 
+</input>   
+<returns type="record">
+  state record
+</returns>     
+<description>      
+
+Show the complete state of the functional
+
+</description>   
+
+<example>
+
+- a:=dfs.gaussian1d()
+- a.setparameters([2,1,3])
+T
+- a.state()
+[type=0, order=-1, ndim=1, npar=3, params=[2 1 3] , masks=[T T F] ]
+
+</example>
+</method>
+
+-->
+<!-- ****************************************************************** -->
+<!-- NOTE: This method was not autogenerated from the help file.        -->
+<!--       There is NO HELP information for this method.                -->
+<!-- ALSO since there is no support in casapy for Functionals to be     -->
+<!-- passed as parameters this method is COMMENTED OUT.                 -->
+<!-- ****************************************************************** -->
+<comment>
+   <method type="function" name="copyfrom">
+   <shortdescription>Copy from the given functional.</shortdescription>
+
+<input>
+     <param type="functional" direction="in" name="funcin">
+     <description>The functional to copy from</description>
+     </param>
+</input>
+<returns type="bool">true retuned when copy is successful.</returns>
+
+<description>
+</description>
+<example>
+</example>
+</method>
+</comment>
+
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="parameters">
+   <shortdescription>Show the functional parameters</shortdescription>
+   
+<input>
+</input>
+<returns type="doubleArray">value array or fail</returns>
+<description>
+
+Return the parameter values.
+
+</description>
+
+<example>
+
+- a:=dfs.gaussian1d()
+- a.parameters()
+[1 0 1]  
+
+</example>
+</method>
+-->
+<!-- ****************************************************************** -->
+
+<!--
+   <method type="function" name="setparameters">
+   <shortdescription>Set the functional parameters</shortdescription>
+   
+<input>
+     <param type="doubleArray" direction="in" name="par">
+     <description>parameters to be set</description>
+     <value>-1</value>
+     </param>
+</input>
+<returns type="bool">bool or fail</returns>
+<description>
+
+Set all the parameter values
+
+</description>
+
+<example>
+
+- a:=dfs.gaussian1d()
+- a.setparameters([2,1,3])
+T 
+- a.parameters()           
+[2 1 3]  
+
+</example>
+</method>
+-->
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="par">
+   <shortdescription>Show a single parameter</shortdescription>
+   
+<input>
+     <param type="int" direction="in" name="n">
+     <description>parameter index, default index is 1</description>
+     <value>1</value>
+     </param>
+</input>
+<returns type="double">value</returns>
+<description>
+
+Show a parameter value at position 'n'.
+
+</description>
+
+<example>
+
+- a:=dfs.gaussian1d()
+- a.setparameters([2,1,3])
+T 
+- a.parameters()           
+[2 1 3]  
+- a.par(2)
+1 
+
+</example>
+</method>
+-->
+
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="setpar">
+   <shortdescription>Set a single parameter</shortdescription>
+   
+<input>
+     <param type="int" direction="in" name="n">
+     <description>parameter index, default index is 1</description>
+     <value>1</value>
+     </param>
+
+     <param type="double" direction="in" name="v">
+     <description>parameter values to be set</description>
+     <value>1</value>
+     </param>
+</input>
+<returns type="doubleArray">value array</returns>
+<description>
+
+Set a parameter value, and return the new suite of values
+
+</description>
+
+<example>
+
+- a:=dfs.gaussian1d()
+- a.setparameters([2,1,3])
+T 
+- a.parameters()           
+[2 1 3]  
+- a.setpar(2,5)
+[2 5 3]  
+
+</example>
+</method>
+-->
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="masks">
+   <shortdescription>Show the functional masks</shortdescription>
+   
+<input>
+</input>
+<returns type="boolArray">boolean array or fail</returns>
+<description>
+
+Return the mask values. The mask is used when the functional is
+fitted. A false ($F$) mask indicates that the parameter is not to be
+solved. It also indicates (by the same token) that no derivative is
+calculated for that parameter by {\em fdf}.
+
+</description>
+
+<example>
+
+- a:=dfs.gaussian1d()
+- a.masks()
+[T T T]  
+- a.fdf([0,1])
+[[1:2,]
+    1      1      0        0
+    0.0625 0.0625 0.346574 0.346574] 
+- a.setmask(2,F)
+[T F T]  
+- a.fdf([0,1])   
+x0: 
+[[1:2,]
+    1      1      0 0
+    0.0625 0.0625 0 0.346574] 
+
+</example>
+</method>
+-->
+
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="setmasks">
+   <shortdescription>Set the functional masks</shortdescription>
+   
+<input>
+     <param type="boolArray" direction="in" name="mask">
+     <description>masks to be set</description>
+     </param>
+</input>
+<returns type="bool">bool or fail</returns>
+<description>
+
+Set all the parameter masks
+
+</description>
+
+<example>
+
+- a:=dfs.gaussian1d()
+- a.setmasks([T,F,F])
+T 
+- a.masks()           
+[T F F]  
+- a.fdf([0,1])        
+[[1:2,]
+    1      1      0 0
+    0.0625 0.0625 0 0] 
+
+</example>
+</method>
+-->
+
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="mask">
+   <shortdescription>Show a single mask value</shortdescription>
+   
+<input>
+     <param type="int" direction="in" name="n">
+     <description>parameter index</description>
+     <value>1</value>
+     </param>
+</input>
+<returns type="double">value or fail</returns>
+<description>
+
+Show a parameter mask
+
+</description>
+
+<example>
+
+- a:=dfs.gaussian1d()
+- a.setmasks([T,F,F])
+T 
+- a.masks()           
+[T F F]  
+- a.mask(2)
+F 
+
+</example>
+</method>
+-->
+
+<!-- ****************************************************************** -->
+
+<!--
+   <method type="function" name="setmask">
+   <shortdescription>Set a single mask</shortdescription>
+   
+<input>
+     <param type="int" direction="in" name="n">
+     <description>parameter index</description>
+     <value>1</value>
+     </param>
+
+     <param type="bool" direction="in" name="v">
+     <description>parameter mask to be set</description>
+     <value>true</value>
+     </param>
+</input>
+<returns type="boolArray">boolean array or fail</returns>
+<description>
+
+Set a parameter mask, and return the new suite of masks
+
+</description>
+
+<example>
+
+- a:=dfs.gaussian1d()
+- a.setmasks([T,F,F])
+T 
+- a.masks()           
+[T F F]  
+- a.setmask(2,T)
+[T T F]  
+
+</example>
+</method>
+-->
+
+<!-- ****************************************************************** -->
+<!-- NOTE: There were two dome methods in the aips++ version:           -->
+<!--          One for freeing the functional tool                       -->
+<!--          and One for freeing a functional tool                     -->
+<!-- It's not clear which one should continue to be called "done".      -->
+<!-- ****************************************************************** -->
+    <method type="function" name="done">
+   <shortdescription>Free resources of the functional</shortdescription>
+   
+<input>
+</input>
+<returns type="bool"></returns>
+<description>
+
+Free the functional's resources.
+
+</description>
+
+<example>
+
+- a:=dfs.gaussian1d()
+- a.setparameters([2,1,3])
+T 
+- a.state()
+[type=0, order=-1, ndim=1, npar=3, params=[2 1 3] , masks=[T T T] ] 
+- a.done()
+T 
+- is_functional(a)
+F 
+- a
+F 
+
+</example>
+</method>
+
+
+<!-- ****************************************************************** -->
+   <method type="function" name="gaussian1d">
+   <shortdescription>Create and return a new functional tool representing a 1D Gaussian function</shortdescription>
+
+<input>
+     <param type="double" direction="in" name="amplitude">
+        <value>1</value>
+     <description>amplitude of Gaussian</description>
+     </param>
+
+     <param type="double" direction="in" name="center">
+     <description>center of Gaussian</description>
+     <value>0</value>
+     </param>
+
+     <param type="double" direction="in" name="fwhm">
+     <description>FWHM of Gaussian</description>
+     <value>1</value>
+     </param>
+</input>
+<returns type="functional">Functional</returns>
+<description>
+
+Create a 1-dimensional Gaussian with the specified amplitude, fwhm, and
+center. 
+
+</description>
+
+<example>
+
+# get the value and derivatives of a Gaussian with
+# height=2; center at x=1; a width of 1 at x=[0,1,2]
+gfn = fn.gaussian1d(2,1,1)
+
+# returns array([ 0.125,  2.   ,  0.125])
+vals = gfn.f([0, 1, 2])
+
+</example>
+</method>
+
+<!-- ****************************************************************** -->
+
+   <method type="function" name="gaussian2d">
+   <shortdescription>Create a 2D Gaussian function</shortdescription>
+   
+<input>
+     <param type="double" direction="in" name="amplitude">
+        <description>Amplitude of Gaussian</description>
+        <value>1</value>
+     </param>
+     
+    <param type="doubleArray" direction="in" name="center">
+        <description>Center (x,y) position. Must have exactly 2 elements.</description>
+        <value>-1</value>
+     </param>
+     <param type="doubleArray" direction="in" name="fwhm">
+        <description>FWHM of the axes. Must have exactly 2 elements.</description>
+        <value>-1</value>
+     </param>
+     <param type="any" direction="in" name="pa">
+        <any type="variant" limittypes="string doubleQuant"/>
+        <description>The angle between the positive y axis and the major axis, measured counterclockwise.</description>
+        <value>0</value>
+     </param>
+</input>
+<returns type="functional">Functional</returns>
+<description>
+
+Create a 2-dimensional Gaussian with the specified amplitude, fwhms, and
+center. The created functional has method {\em f}  to
+calculate the function value at a series of {\em x, y} values, or the
+value.
+
+</description>
+
+<example>
+
+# major axis along the y axis
+g2d = fn.gaussian2d(1,[0,0],[3,2],"90deg")
+
+# both these commands return 0.5
+v = g2d([0, 1])
+v = g2d([1.5, 0])
+
+# returns array([ 0.5,  0.5])
+v =  g2d.f([0,1,1.5,0])
+
+
+</example>
+</method>
+
+
+<method type="function" name="polynomial">
+   <shortdescription>Create and return a new functional tool representing a 1D polynomial function, y = c_0 + c_1*x + c_2*x**2 + ... + c_n*x**n</shortdescription>
+
+<input>
+     <param type="doubleArray" direction="in" name="coefficients">
+        <value>0</value>
+        <description>Array of coefficients. Number of coefficients determines order of polynomial.</description>
+     </param>
+</input>
+<returns type="functional">Functional</returns>
+<description>
+
+Create a 1-dimensional polynomial function with the specified coefficents.
+
+</description>
+
+<example>
+
+# get the value and derivatives of 3 + 2*x + 4*x*x
+poly = fn.powerlogpoly(3, 2, 4)
+
+# value at 3
+vals = poly.f(3)
+
+</example>
+</method>
+
+<method type="function" name="powerlogpoly">
+   <shortdescription>Create and return a new functional tool representing a 1D power log polynomial function, y = c_0 * x**( c_1 + c_2*ln(x) + c_3*ln(x)**2 + ... c_n*ln(x)**(n-1)</shortdescription>
+
+<input>
+     <param type="doubleArray" direction="in" name="coefficients">
+        <value>0</value>
+        <description>Array of coefficients.</description>
+     </param>
+</input>
+<returns type="functional">Functional</returns>
+<description>
+
+Create a 1-dimensional power log polynomial function with the specified coefficents.
+
+</description>
+
+<example>
+
+# get the value and derivatives of 2*x**(1+ln(x))
+plp = fn.powerlogpoly(2,1,1)
+
+# value at 3
+vals = plp.f(3)
+
+</example>
+</method>
+
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="poly">
+   <shortdescription>Create a 1D polynomial function</shortdescription>
+   
+<input>
+     <param type="int" direction="in" name="order">
+     <description>polynomial degree</description>
+     <value>0</value>
+     </param>
+
+     <param type="doubleArray" direction="in" name="params">
+     <description>factors of terms</description>
+     <value>-1</value>
+     </param>
+</input>
+<returns type="functional">Functional</returns>
+<description>
+
+Create a polynomial of specified degree. The default parameters are
+all 1. (Note that using the generic {\em functional} function the
+parameters are all set to zero).
+
+</description>
+
+<example>
+
+- dfs.poly(2).f([1,2])
+[3 7]  
+- dfs.poly(2).state() 
+[type=5, order=2, ndim=1, npar=3, params=[1 1 1] ] 
+- dfs.poly(2).type() 
+polynomial 
+-
+
+
+</example>
+</method>
+-->
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="oddpoly">
+   <shortdescription>Create an odd 1D polynomial function</shortdescription>
+   
+<input>
+
+     <param type="int" direction="in" name="order">
+     <description>polynomial degree (integer value)</description>
+     <value>0</value>
+     </param>
+
+     <param type="doubleArray" direction="in" name="params">
+     <description>factors of terms</description>
+     <value>-1</value>
+     </param>
+</input>
+<returns type="functional">Functional</returns>
+<description>
+
+Create an odd polynomial of specified degree. The default parameters are
+all 1. (Note that using the generic {\em functional} function the
+parameters are all set to zero).
+
+</description>
+
+<example>
+
+- dfs.oddpoly(2).f([1,2])
+[2 10]  
+- dfs.oddpoly(2).npar()  
+2 
+
+
+
+</example>
+</method>
+-->
+
+<!-- ****************************************************************** --> 
+
+<!--
+   <method type="function" name="evenpoly">
+   <shortdescription>Create an even 1D polynomial function</shortdescription>
+   
+<input>
+
+     <param type="int" direction="in" name="order">
+     <description>polynomial degree (integer value)</description>
+     <value>0</value>
+     </param>
+
+     <param type="doubleArray" direction="in" name="params">
+     <description>factors of terms</description>
+     <value>-1</value>
+     </param>
+</input>
+<returns type="functional">Functional</returns>
+<description>
+
+Create an even polynomial of specified degree. The default parameters are
+all 1. (Note that using the generic {\em functional} function the
+parameters are all set to zero).
+
+</description>
+
+<example>
+
+- dfs.evenpoly(2).fdf([1,2])
+[[1:2,]
+    2 1 1
+    5 1 4] 
+- dfs.evenpoly(2).state()   
+[type=6, order=3, ndim=1, npar=2, params=[1 1] ] 
+
+
+
+</example>
+</method>
+-->
+
+<!-- ****************************************************************** -->
+
+<!--
+   <method type="function" name="chebyshev">
+   <shortdescription>Create a 1D Chebyshev polynomial function</shortdescription>
+   
+<input>
+
+     <param type="int" direction="in" name="order">
+     <description>order of the polynomial</description>
+     <value>0</value>
+     </param>
+
+     <param type="doubleArray" direction="in" name="params">
+     <description>the Chebyshev coefficients</description>
+     <value>0</value>
+     </param>
+
+     <param type="double" direction="in" name="xmin">
+     <description>the minimum value of the interval of interest</description>
+     <value>-1</value>
+     </param>
+
+     <param type="double" direction="in" name="xmax">
+     <description>the maximum value of the interval of interest</description>
+     <value>-1</value>
+     </param>
+
+     <param type="string" direction="in" name="ooimode">
+     <description>the ``out-of-interval'' mode.  This controls
+what gets returned when an input value to the function is outside the
+interval of interest.
+It is a minimum match to the following values:
+   'constant' - the value of the def argument; 
+   'zeroth' - the value of the zero-th order coefficient; 
+   'extrapolate' - the function evaluated explicitly at the input value; 
+   'cyclic' - the function evaluated at the input value after ''folding'' it into the interval of interest;
+   'edge' - the function evaluated at the nearest edge of the interval of interest
+</description>
+     <value>'constant'</value>
+     </param>
+
+     <param type="double" direction="in" name="def">
+     <description>the default value to return for input values
+outside of the interval of interest when ooimode='constant'</description>
+     <value>0</value>
+     </param>
+</input>
+<returns type="functional">Functional</returns>
+<description>
+
+This function creates a functional representing a Chebyshev series, a
+linear combination of so-called Chebyshev polynomials. 
+
+\bigskip
+\textbf{About Chebyshev Polynomials}
+\bigskip
+
+Chebyshev polynomials are a special type of ultraspheric polynomials 
+that are useful in such contexts as numerical analysis and circuit
+design. They form an orthogobnal set.  A (type I) Chebyshev
+polynomial, $T_n$, is generated via the equation:
+
+\begin{equation}
+  T_n(x) = \cos n(\arccos x)
+\end{equation}
+
+Through clever use of trigometric identities, one can express $T_n$
+as a real polynomial expression of the form
+
+\begin{equation}
+  T_n(x) = \sum_{i=0}^{n} C_i t^i
+\end{equation}
+The low order polynomials look like this:
+\begin{eqnarray}
+  T_0 &amp; = &amp; 1 \\
+  T_1 &amp; = &amp; x \\
+  T_2 &amp; = &amp; 2x^2 - 1 \\
+  T_3 &amp; = &amp; 4x^3 - 3x \\
+  T_4 &amp; = &amp; 8x^4 - 8x^2 + 1 \\
+  T_5 &amp; = &amp; 16x^5 - 20x^3 + 5x 
+\end{eqnarray}
+Higher order polynomials satisfy the recurrance relation,
+\begin{equation}
+  T_{n+1} = 2xT_n - T_{n-1}.
+\end{equation}
+
+A common use of Chebyshev polynomials is in approximating
+functions.  In particular, any function that is approximated by
+a power series,
+\begin{equation}
+  f(x) \sim \sum P_i x^i,
+\end{equation}
+over the interval [-1, 1] can be approximated by a linear
+combination of Chebyshev polynomials:
+\begin{equation}
+  f(x) \sim \sum C_i T_i(x),
+\end{equation}
+where $C_i$ is the set of so-called Chebyshev coefficients.
+
+Approximating a function with Chebyshev polynomials has some
+important advantages.  For one, if the function is well approximated
+by a converging power series, one can obtain an equally accurate
+estimate using fewer terms of the corresponding Chebyshev series.
+More important, though, is the property over the interval [-1, 1],
+each polynomial has a domain of [-1, 1]; thus, the series is nicely
+bounded.  And because of this bounded property, approximations
+calculated from a Chebyshev series are less susceptible to machine
+rounding errors than the equivalent power series.  
+
+\bigskip
+\textbf{The ``Interval of Interest''}
+\bigskip
+
+Of course, in most real applications of these polynomials, one doesn't
+want to be limited to the [-1, 1] interval; thus, it is necessary to
+map the actual \emph{interval of interest} into [-1, 1] before
+evaluating the series.  The \texttt{chebyshev} functional supports
+this automatically when one sets the \texttt{xmin} and \texttt{xmax}
+arguments to this function.  The mapping of values within this
+interval into [-1, 1] is done as follows:
+
+\begin{equation}
+x^\prime = x - (\mathtt{min} + \mathtt{max})/2) / 
+((\mathtt{max} - \mathtt{min})/2)
+\end{equation}
+
+When the functional is evaluated via \texttt{f()}, the input values are
+first tranformed in the above way, and then the series is evaluated
+using the given coefficients.  This is assuming the input value is
+within the interval of interest.  
+
+The behavior of the function when the value is outside the interval of
+interest is configurable via the \texttt{ooimode}.  The values are as
+follows: 
+
+\begin{description}
+\item[constant] the value returned is the value set with the
+\texttt{def} argument.
+\item[zeroth] the value returned is the value of the zero-th order
+coefficient.  Thus, if \texttt{params=[3,1,1]}, 3 is returned.
+\item[extrapolate] the function is evaluated based on its coefficients
+just as it would be inside the interval.  Thus, the function's range is not
+guaranteed to remain within the characteristic bounds of the
+Chebyshev interval.  As the input value departs from the interval, the
+returned value diverges toward +/- infinity.  
+\item[cyclic] the function is evaluated as if the range is cyclic,
+repeating the range values from its canonical domain.  The period of
+the cycle will be equal to $\mathtt{xmax}-\mathtt{xmin}$.  When the 
+function is evaluated outside this interval, the input value will 
+shifted an integer number of periods until it falls within the 
+Chebyshev interval; the value returned is the polynomial evaluated 
+at the shifted value.  
+\item[edge] the value of the nearest edge of the interval of interest
+is returned.
+\end{description}
+
+The default out-of-interval mode is \texttt{constant}.  
+
+</description>
+
+<example>
+
+- cheb := dfs.chebyshev(2, [2, 3, 4])
+- cheb.state()
+[type=9, order=2, ndim=1, npar=3, params=[2 3 4] , masks=[T T T] , 
+mode=[interval=[-1 1] , default=0, intervalMode=constant]] 
+- cheb.f([0, 0.5, 1, 2, 5])
+[-2 1.5 9 0 0]  
+- cheb := dfs.chebyshev(2, [2, 3, 4], xmin=0, xmax=2, ooimode='extrap')
+[type=9, order=2, ndim=1, npar=3, params=[2 3 4] , masks=[T T T] , 
+mode=[interval=[0 2] , default=0, intervalMode=extrapolate]] 
+- cheb.state()
+- cheb.f([0, 0.5, 1, 2, 5])
+[3 -1.5 -2 9 138]  
+
+</example>
+
+</method>
+-->
+
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="butterworth">
+   <shortdescription>Create an approximation of butterworth
+bandpass</shortdescription>
+   
+<input>
+     <param type="int" direction="in" name="minorder">
+     <description>An integer value for the order of the minimum 
+     (high-pass) cutoff of the curve
+     </description>
+     <value>1</value>
+     </param>
+
+     <param type="int" direction="in" name="maxorder">
+     <description>An integer value for the order of the maximum (low-pass) 
+     cutoff of the curve</description>
+     <value>1</value>
+     </param>
+
+     <param type="double" direction="in" name="mincut">
+     <description>the characteristic cutoff value of the minimum
+     (high-pass) portion of the curve.</description>
+     <value>-1.0</value>
+     </param>
+
+     <param type="double" direction="in" name="maxcut">
+     <description>the characteristic cutoff value of the maximum
+(low-pass) portion of the curve.</description>
+     <value>1.0</value>
+     </param>
+
+     <param type="double" direction="in" name="center">
+     <description>the location of the peak of the bandpass curve</description>
+     <value>0.0</value>
+     </param> 
+
+     <param type="double" direction="in" name="peak">
+     <description>the maximum value of the bandpass curve</description>
+     <value>1.0</value>
+     </param> 
+</input>
+<returns type="functional">Functional</returns>
+
+<description>
+This function creates a functional that simulates the (amplitude)
+transfer function for a wideband bandpass filter constructed from the
+combination of a low-pass and a high-pass Butterworth filter.  It is
+not an exact representation.  In particular is includes a
+discontinuity at the bandpass peak.  Thus, care should be taken when
+evaluating derivatives of or fitting this function.  
+
+In analog electronic filter design, a Butterworth low-pass filter is 
+one in which the amplitude transfer function, $|H(j\omega)|$ (where 
+$j = \sqrt{-1}$ and $\omega$ is the angular frequency), is given by:
+\begin{equation}
+  |H(j\omega)| = \frac{1}{\sqrt{1 + (\omega/\omega_c)^{2n}}}
+\end{equation}
+where $n$ refers to the filter "order" and $\omega_c$ is the "cutoff
+frequency".  When $\omega = \omega_c$, the filter output is $1/\sqrt{2}$
+that of the input, and the higher the order, the steeper the drop off
+towards zero and the closer the approximation to a idealized step
+function. 
+
+Filter theory provides transformations for deriving transfer functions 
+of high-pass and band-pass filters which reflect how the electrical 
+circuits actually work.  However, to simplify this class's implementation 
+and to make the transfer function behavior more predictable by the naive 
+user, this functional does not actually use the proper transformations.
+Instead, the Butterworth bandpass transfer function is approximated by 
+low pass component, given above, combined with a pseudo high-pass function
+that is of the same form but with $\omega$ substituted with $-\omega$.
+Both components are shifted such that its peak transfer point is at a
+given "center" position.  
+
+The character of the band edges can be set independently for both ends
+of the passband.  The cuttoff value - where the signal is attenuated to
+$1/\sqrt{2}$ of the peak -is set with the \texttt{mincut} and
+\texttt{maxcut} arguments for the low end (i.e. high-pass) and high
+end (i.e. low-pass) portions of the curve, respectively.  This value
+is the value of $\omega_c$ for each side of the passband.  The order of
+the attenuation curve - $n$ in the above formula - can be set using
+\texttt{minorder} and \texttt{maxorder}.  
+</description>
+
+<example>
+
+- butt := dfs.butterworth(minorder=4, maxorder=4, mincut=10,
+                          maxcut=50, center=30, peak=1)
+- butt.state()
+[type=10, order=-1, ndim=1, npar=4, params=[30 10 50 1] , masks=[T T T T] , 
+mode=[minOrder=4, maxOrder=4]]
+- butt.f([0, 7, 10, 13, 30, 47, 50, 53, 60])
+[0.193786 0.496351 0.707107 0.886488 1 0.886488 0.707107 0.496351 0.193786]  
+
+
+To plot this function...
+
+- include 'pgplotter.g'
+- pg := pgplotter()
+- x := [-30:90]
+- y := butt.f(x)
+- pg.plotxy1(x, y, ylab='Bandpass')
+
+</example>
+</method>
+-->
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="combi">
+   <shortdescription>Create a combination function</shortdescription>
+   
+<input>
+</input>
+<returns type="functional">Functional</returns>
+<description>
+
+Create a function consisting of a combination of one or more
+functions. Each partaking function will be defined as a normal
+function with its own parameters. The combination function will have
+parameters equal to the number of functions added. I.e. the added
+functions are considered encapsulated simple functions.
+Only functions with the same number of dimensions can be
+combined. See also {\em compound}.
+
+</description>
+
+<example>
+
+- a:=dfs.poly(2,[1,2,3])        # a polynomial
+- a.f(1)                        # its value at x=1
+6 
+- b:=dfs.gaussian1d(10, 0.5, 1) # a Gaussian with height, center, width
+- b.f(1)
+5 
+- c:=dfs.combi(); c.add(a); c.add(b)  # combine them
+T 
+T 
+- c.f(1)                        # value is the sum (default parameters are 1)
+11 
+- c.setpar(1, 2.5)              # set the first parameter of combi to 2.5
+[2.5 1]  
+- c.f(1)                        # now value is 2.5*poly + 1*gauss
+20 
+-
+
+
+
+</example>
+</method>
+-->
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="compound">
+   <shortdescription>Create a compound function</shortdescription>
+   
+<input>
+</input>
+<returns type="functional">Functional</returns>
+<description>
+
+Create a function consisting of a combination of one or more
+functions, creating a compound function. The compound resulting
+functions is a function with the sum of all the parameters of the
+partaking functions. If a parameter of the compound function is
+changed, the parameter of the constituting function is changed as well.
+
+</description>
+
+<example>
+
+- a:=dfs.poly(2,[1,2,3])        # a polynomial
+- a.f(1)                        # its value at x=1
+6 
+- b:=dfs.gaussian1d(10, 0.5, 1) # a Gaussian with height, center, width
+- b.f(1)
+5 
+- c:=dfs.compound(); c.add(a); c.add(b) # compound them
+T 
+T 
+- c.f(1)                        # result is sum
+11 
+- c.state()                     # the function description
+[type=11, order=-1, ndim=1, npar=6, params=[1 2 3 10 0.5 1] ,
+    nfunc=2, funcs=[__*0=[type=5, order=2, ndim=1, npar=3,
+                          params=[1 2 3] ],
+                    __*1=[type=0, order=-1, ndim=1, npar=3,
+                          params=[10 0.5 1] ]]] 
+- c.setpar(1, 2.5)              # set the first parameter of compound to 2.5
+[2.5 2 3 10 0.5 1]  
+- c.f(1)                        # now value is 1.5 greater since zeroeth
+                                # order of poly is now 2.5 i.s.o. 1
+12.5
+-
+
+
+
+</example>
+</method>
+
+-->
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="compiled">
+   <shortdescription>Create your own function</shortdescription>
+   
+<input>
+     <param type="string" direction="in" name="code">
+     <description>programmable expression string</description>
+     <value></value>
+     </param>
+
+     <param type="doubleArray" direction="in" name="params">
+     <description>optionally parameters to be set</description>
+     <value>-1</value>
+     </param>
+</input>
+<returns type="functional">Functional or fail</returns>
+<description>
+
+Create a function based on the programable string. The string should
+be a single expression, which can use the standard operators and
+functions and parentheses, having a single value as a result. The
+{\em parameters} of the function can be addressed with the $p$
+variable. This variable can be indexed in two ways. The first way is
+using the standard algebraic way, where the parameters are: $p$ (or
+$p0$), $p1$, $p2$, ... . The second way is by glish indexing, where
+the parameters are addressed as: $p[1]$, $p[2]$, ... . The arguments
+are accessed in the same way, but using the variable name $x$. The
+compilation determines the number of dimensions and parameters of
+the produced function.\\
+Operators are the standard operators (including comparisons, which
+produce a zero or one result; and conditional expression).\\
+In addition to the standard expected functions, there is an $atan$
+with either one or two arguments (although $atan2$ exists as well),
+and $pi$ and $ee$ with no or one argument. The functional created
+behaves as all other functionals, and hence can be used in combinations.
+
+</description>
+
+<example>
+
+- a:=dfs.compiled('sin(pi(0.5) ) +pi'); # an example
+- a.state()                             # and its result
+[type=12, order=-1, progtext=sin(pi(0.5) ) +pi, ndim=0, npar=0, params=] 
+- a.f(0)                                # note that a value is
+                                        # necessary to produce non-empty 
+                                        # result
+4.14159 
+-  a.fdf([0])                           # no derivatives: sine no parameters
+[1:1,]
+    4.14159] 
+- b:= dfs.functional('compil','p*exp(-(x/p[2])^2') # try one to show error
+SEVERE: Method define fails!
+Illegal compiled expression:
+No closing function paranethesis at: 
+'p*exp(-(x/p[2])^2'''
+- b:= dfs.functional('compil','p*exp(-(x/p[2])^2)') # try again
+				        # Now a Gaussian with height
+					# and halfwidth 0
+- b.parameters()
+[0 0] 
+- b.setparameters([10 1])		# change to height 10 and
+					# halfwidth 1 
+10 1]
+- b.f([-1,-0.5,0,.5,1])
+[3.67879 7.78801 10 7.78801 3.67879] 
+- # the next one is sync(x), catering for x=0
+- # using the fact that comparisons deliver values. Note
+- # the extensive calculation to make sure no divison by 0 
+- synca:=
+ dfs.compiled('( (x==0) * 1)+( (x!=0) * sin(x+(x==0)*1)/(x+(x==0)*1) )')
+- synca.f([-1,0,1])
+[0.841471 1 0.841471]  
+- sin(1)/1
+0.841471 
+
+- # using conditional expressions:
+- dfs.compiled('x==0 ? 1 : sin(x)/x').f([-1,0,1])
+[0.841471 1 0.841471]  
+
+
+
+</example>
+</method>
+-->
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="id">
+   <shortdescription>identification of tool</shortdescription>
+   
+<input>
+</input>
+<returns type="record">
+</returns>
+<description>The unique object id for the functional will returned. Its use 
+             is meant for the toolmanager.
+</description>
+<example>
+
+- dfs.id()
+[sequence=1, pid=6053, time=1020745837, host=cetus, agentid=4] 
+
+</example>
+</method>
+-->
+
+<!-- ****************************************************************** -->
+<!-- BIG BIG NOTE, NAME CHANGE  type to tool_type                       -->
+<!-- This method gives the tool's type from the server.  This may no    -->
+<!-- longer be needed.                                                  -->
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="tool_type">
+   <shortdescription>type of tool</shortdescription>
+   
+<input>
+</input>
+<returns type="string"></returns>
+<description>
+type will return the tool name.
+</description>
+<example>
+
+- dfs.type()
+functionals 
+
+</example>
+</method>
+-->
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="name">
+   <shortdescription>type of tool</shortdescription>
+   
+<input>
+</input>
+<returns type="string"></returns>
+<description>The tool name is returned.
+</description>
+<example>
+
+- dfs.type()
+functionals 
+
+</example>
+</method>
+-->
+<!-- ****************************************************************** -->
+<!-- BIG BIG NOTE, NAME CHANGE  done to tool_done                       -->
+<!-- This method kill's the functional tool.  May no longer be needed.  -->
+<!-- ****************************************************************** -->
+<!--
+   <method type="function" name="tool_done">
+   <shortdescription>free resources used by tool</shortdescription>
+   
+<input>
+     <param type="bool" direction="in" name="kill">
+     <description>force killing of the default tool</description>
+     <value>false</value>
+     </param>
+</input>
+<returns type="bool"></returns>
+<description>
+done will free the resources used by the tool. If the tool is the
+default tool ({\em dm}) the done will only be executed if the kill
+argument is true.
+</description>
+
+<example>
+
+- a:=functionals()
+- a.done()
+T 
+- dfs.done()
+F 
+- dfs.done(kill=True)
+NORMAL: Successfully closed empty server: functionals
+T 
+
+</example>
+</method>
+
+-->
+
+
+</tool>
+
+</casaxml>
+

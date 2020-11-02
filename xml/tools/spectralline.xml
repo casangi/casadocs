@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+ 
+<tool name="spectralline" module="spectralline">
+    <shortdescription>spectral line tool</shortdescription>
+    <keyword>spectralline</keyword>
+
+    <code>
+        <include>tools/spectralline/spectralline_forward.h</include>
+        <private>
+		<include>tools/spectralline/spectralline_private.h</include>
+        </private>
+    </code>
+    
+    <description>
+\medskip
+\noindent{\bf Summary}
+
+The spectral line tool provides an interface for searching spectral line lists
+downloaded from Splatalogue (http://www.splatalogue.net).
+
+
+\bigskip
+{\bf Overview of Spectralline \tool\ functionality}
+
+
+\begin{itemize}
+
+\item {\bf Conversion - } In order for the spectralline tool to be able to search
+Splatalogue a splatalogue line list, an ascii version of a line list must be exported
+using the splatalogue web interface and then converted to a CASA table. The method
+splattotable does this conversion.
+
+\begin{itemize}
+
+\item <link anchor="spectralline:spectralline.splattotable.function">splattotable</link> - Convert an ascii Splatalogue line list to a casa table.
+
+\end{itemize}
+
+\item {\bf Construction - } 
+
+\begin{itemize}
+
+\item <link anchor="spectralline:spectralline.open.function">open</link> - open a Spatalogue table for searching
+
+
+\end{itemize}
+
+\item {\bf Searching - } 
+
+\begin{itemize}
+
+\item <link anchor="spectralline:spectralline.search.function">search</link> - search a Spatalogue table
+
+\item <link anchor="spectralline:spectralline.chemnames.function">chemnames</link> - get unique chemical names in a Splatalogue table
+
+\item <link anchor="spectralline:spectralline.species.function">species</link> - get unique species in a Splatalogue table
+
+
+\end{itemize}
+
+\item {\bf Examination - } 
+
+\begin{itemize}
+
+\item <link anchor="spectralline:spectralline.list.function">list</link> - list the spectral lines in a Spatalogue table
+
+\end{itemize}
+
+\end{itemize}
+
+</description>
+
+<method type="constructor" name="spectralline">
+  <shortdescription></shortdescription>
+  <description></description>
+  <input></input>
+  <example></example>
+</method>
+
+<method type="function" name="splattotable">
+    <shortdescription>Convert a downloaded Splatalogue spectral line list to a casa table.</shortdescription>
+    <input>
+        <param type="stringArray" direction="in" name="filenames">
+            <description>Files containing Splatalogue dumps</description>
+            <value/>
+        </param>
+        <param type="string" direction="in" name="table">
+            <description>Output table name.</description>
+            <value/>
+        </param>
+    </input>
+    <description>
+    This method reads a spectral line list(s) downloaded from Splatalogue (www.splatalogue.net) and loads it into a CASA table which
+    can be queried via eg this tool's search function.
+    
+    REQUIRMENTS OF THE DOWNLOADED FILES
+    
+    The downloaded files must be in a specific format for this method to succeed. The columns are the
+    important things; one can filter the results as one desires using Splatalogue, but the particular columns must be present as described
+    below. The columns which must be present in the downloaded file in this exact order are: "Species", "NRAO Recommended", "Chemical Name",
+    "Freq in GHz", "Resolved QNs", "CDMS/JPL Intensity", "S<sub>ij</sub>\^<sup>2</sup>; (D<sup>2</sup>)",
+    "Log<sub>10</sub> (A<sub>ij</sub>)", "E<sub>L</sub> (K)", "E<sub>U</sub> (K)", "Linelist". In order to get these columns in this order, one should
+    select exactly the following items on the Splatalogue search interface. Under "Specify Ranges" one should select "GHz" for the frequency unit.
+    Under "Line Strength Display" select exactly "CDMS/JPL Intensity",
+    "Sij u2", and "Aij". Under "Energy Levels", one should select exactly "Elower (K)" and "Eupper (K)". Under "Miscellaneous", one should
+    select exactly "Display Ordered Frequency ONLY" and "Display NRAO Recommended Frequencies". One should then initiate the search and on
+    the resulting page, one should select the Tab Field Separator and then export the list. The resulting list should be in the proper
+    format for importing into CASA.
+    
+    RETURN VALUE
+    This method returns an open spectralline tool which references the new table. The new table can also be opened by 
+    a spectralline tool using the open method (eg sl.open(tablename)). 
+    </description>
+    <returns type="spectralline"/>
+    <example>
+newsl = sl.splattotable("mysplatlist.txt", "mynewsl.tbl")
+# search the new spectral line tool
+newsl.search([0,1000])
+    </example>
+</method>
+
+<method type="function" name="open">
+    <shortdescription>Open a spectralline tool using the specified table.</shortdescription>
+    <input>
+        <param type="string" direction="in" name="table">
+            <description>CASA table containing Splatalogue data.</description>
+            <value/>
+        </param>
+    </input>
+    <returns type="bool"/>
+    <description>
+    This method opens a CASA Splatalogue spectral line table. The table should have been created with
+    splattotable(), search(), or any other sl method which creates a new CASA spectral line table. If no
+    table name is supplied, the default CASA spectral line table included in the system will be opened.  The
+    opened tool can then be used to query the table via eg the sl.search() method. This method returns true
+    if the table was successfully opened.
+    </description>
+    <example>
+    # open user created spectral line table
+    isopen = sl.open("mysplat.tbl")
+    if (isopen)
+      sl.search([0,1000])
+      
+    # open system default spectral line table
+    isopen = sl.open()
+    if (isopen)
+      sl.search([0,1000])
+    </example>
+</method>
+
+<method type="function" name="close">
+    <shortdescription>close the spectralline tool</shortdescription>
+    <description>
+    The associated table is closed inside casapy and
+    is no longer available for use.
+    </description>
+    <returns type="bool"/>
+    <example>
+    sl.close()
+    </example>
+</method>
+
+ 
+<method type="function" name="done">
+    <shortdescription>End the spectralline tool</shortdescription>
+    <description>
+    Effectively a synonym for function <link anchor="spectalline:spectralline.close.function">close</link>.
+    </description>
+    <returns type="bool"/>
+    <example>
+    sl.done()
+    </example>
+</method>
+
+<method type="function" name="search">
+    <shortdescription>Search a Splatalogue table that has been converted to a casa table</shortdescription>
+    <input>
+        <param type="string" name="outfile">
+            <description>Results table name. Blank means do not write the table to disk.</description>
+            <value/>
+        </param>
+        <param type="doubleArray" name="freqrange">
+            <description>Frequency range in GHz.</description>
+            <value>0</value>
+        </param>
+        <param type="variant" name="species">
+            <any type="variant"/>
+            <description>Species to search for.</description>
+            <value/>
+        </param>
+        <param type="bool" name="reconly">
+            <description>List only NRAO recommended frequencies.</description>
+            <value>false</value>
+        </param>
+        <param type="variant" name="chemnames">
+            <any type="variant"/>
+            <description>Chemical names to search for.</description>
+            <value/>
+        </param>
+        <param type="stringArray" name="qns">
+            <description>Resolved quantum numbers to search for.</description>
+            <value/>
+        </param>
+        <param type="doubleArray" name="intensity">
+            <description>CDMS/JPL intensity range. -1 -\&amp;  do not use an intensity range.</description>
+            <value>-1</value>
+        </param>
+        <param type="doubleArray" name="smu2">
+            <description>S*mu*mu range in Debye**2. -1 -\&amp;  do not use an S*mu*mu range.</description>
+            <value>-1</value>
+        </param>
+        <param type="doubleArray" name="loga">
+            <description>log(A) (Einstein coefficient) range. -1 -\&amp;  do not use a loga range.</description>
+            <value>-1</value>
+        </param>
+        <param type="doubleArray" name="el">
+            <description>Lower energy state range in Kelvin. -1 -\&amp;  do not use an el range.</description>
+            <value>-1</value>
+        </param>
+        <param type="doubleArray" name="eu">
+            <description>Upper energy state range in Kelvin. -1 -\&amp;  do not use an eu range.</description>
+            <value>-1</value>
+        </param>
+         <param type="bool" name="rrlinclude">
+            <description>Include RRLs in the result set?</description>
+            <value>true</value>
+        </param>
+        <param type="bool" name="rrlonly">
+            <description>Include only RRLs in the result set?</description>
+            <value>false</value>
+        </param>
+        <param type="bool" name="verbose">
+            <description>List result set to logger (and optionally logfile)?</description>
+            <value>true</value>
+        </param>
+        <param type="string" name="logfile">
+            <description>List result set to this logfile (only used if verbose=true).</description>
+            <value/>
+        </param>
+        <param type="bool" name="append">
+            <description>If true, append to logfile if it already exists, if false overwrite logfile it it exists. Only used if verbose=true and logfile not blank.</description>
+            <value>false</value>
+        </param>
+    </input>
+    <returns type="spectralline"/>
+    <description>
+    Search the table associated with this tool. The return value is a spectralline tool with a new table containing the search
+    results. This new table can be written to disk by specifying its name in the outfile parameter. If outfile is not specified
+    (ie outfile=""), the resulting table is held in memory and deleted upon a call to close() or done() for the newly created tool
+    or upon exiting casapy. Because Splatalogue does not have values for intensity, smu2, loga, el, and eu
+    for radio recombination lines (rrls), one must specify to include rrls in the specified frequency range in the output. In this case,
+    RRLs will be included ignoring any filters on intensity, smu2, loga, el, and eu. One can also specify to list only RRLs. One can specify
+    to list the search results to the logger via the verbose parameter. If verbose is false, no logger output is listed, although the results
+    can be listed later by running the list() method on the newly created spectral line tool. If verbose=true, one can also specify that
+    the results be listed to a logfile and if this file already exists, one can specify that the results be appended to it or to overwrite
+    it with the results.
+    </description>
+    <example>
+    sl.open("myspectrallines.tbl")
+    # do a search postponing listing the results to the logger.
+    slrestool = sl.search(outfile="myresults.tbl", freqrange = [200,300], species=['HOCN', 'HOCO+'])
+    # now list the results
+    slrestool.list()
+    # or one could also do the following after exiting and restarting casapy
+    sl.open("myresults.tbl")
+    sl.list()
+    </example>
+</method>
+
+<method type="function" name="list">
+    <shortdescription>List the spectral lines in the associated table to the logger.</shortdescription>
+    <description>
+    List the spectral lines in the associated table to the logger. Note that listing tables containing more than 10,000 spectral lines can take quite a bit of time.
+    </description>
+    <returns type="void"/>
+</method>
+
+<method type="function" name="torecord">
+    <shortdescription>Return data on the spectral lines in the table as a record.</shortdescription>
+    <description>
+        Return data on the spectral lines in the table as a record.
+    </description>
+    <returns type="record"/>
+</method>
+
+
+<method type="function" name="species">
+    <shortdescription>List the unique species in the associated table to the logger.</shortdescription>
+    <description>
+    Return the unique species in the associated table as a list.
+    </description>
+    <input>
+        <param type="bool" name="verbose">
+            <description>List result set to logger (and optionally logfile)?</description>
+            <value>false</value>
+        </param>
+        <param type="string" name="logfile">
+            <description>List result set to this logfile (only used if verbose=true).</description>
+            <value/>
+        </param>
+        <param type="bool" name="append">
+            <description>If true, append to logfile if it already exists, if false overwrite logfile it it exists. Only used if show=true and logfile not blank.</description>
+            <value>false</value>
+        </param>
+    </input>
+    <returns type="record"/>
+</method>
+
+<method type="function" name="chemnames">
+    <shortdescription>List the unique chemical names in the associated table to the logger.</shortdescription>
+    <description>
+    Return the unique chemical names in the associated table as a list.
+    </description>
+    <input>
+        <param type="bool" name="verbose">
+            <description>List result set to logger (and optionally logfile)?</description>
+            <value>false</value>
+        </param>
+        <param type="string" name="logfile">
+            <description>List result set to this logfile (only used if verbose=true).</description>
+            <value/>
+        </param>
+        <param type="bool" name="append">
+            <description>If true, append to logfile if it already exists, if false overwrite logfile it it exists. Only used if show=true and logfile not blank.</description>
+            <value>false</value>
+        </param>
+    </input>
+    <returns type="record"/>
+</method>
+
+<method type="function" name="nrows">
+    <shortdescription>Get the number of rows in the associated spectral line table.</shortdescription>
+    <description>
+    Get the number of rows in the associated spectral line table.
+    </description>
+    <returns type="int"/>
+</method>
+
+</tool>
+
+</casaxml>
+

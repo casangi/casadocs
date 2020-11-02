@@ -1,0 +1,2429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+    file:///opt/casa/code/tools/xml/casa.xsd"
+>
+
+<!--   
+ ***************************************************************************
+ ** msmetadata.xml:  defines the interface to the measurement set metadata tool.
+ **
+ ** Copyright (C) 2007
+ ** Associated Universities, Inc. Washington DC, USA.
+ **
+ ** This library is free software; you can redistribute it and/or modify it
+ ** under the terms of the GNU Library General Public License as published by
+ ** the Free Software Foundation; either version 2 of the License, or (at your
+ ** option) any later version.
+ **
+ ** This library is distributed in the hope that it will be useful, but WITHOUT
+ ** ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ ** FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Library General Public
+ ** License for more details.
+ **
+ ** You should have received a copy of the GNU Library General Public License
+ ** along with this library; if not, write to the Free Software Foundation,
+ ** Inc., 675 Massachusetts Ave, Cambridge, MA 02139, USA.
+ **
+ ** Correspondence concerning AIPS++ should be addressed as follows:
+ **        Internet email: aips2-request@nrao.edu.
+ **        Postal address: AIPS++ Project Office
+ **                        National Radio Astronomy Observatory
+ **                        520 Edgemont Road
+ **                        Charlottesville, VA 22903-2475 USA
+ **   
+ ***************************************************************************
+-->
+    <tool name="msmetadata" module="msmd">
+        <shortdescription>Operations to retrieve metadata from a measurment set</shortdescription>
+        <keyword>ms</keyword>
+
+        <code>
+            <include>tools/ms/msmetadata_forward.h</include>
+                <private>
+                	<include>tools/ms/msmetadata_private.h</include>
+                </private>
+        </code>
+
+
+
+        <description>
+
+  The msmd tool provides methods to retrieve metadata from measurement sets.
+
+  \medskip\noindent\textbf{Attaching to a Measurement Set}
+
+    The simplest and most common way to attach an msmd tool to a
+    measurement set is to use the <link
+    anchor="ms:msmd.open">msmd.open</link> method which requires that
+    you specify the name of the measurement set table.
+    
+    NOTE: Any modifications to an MS while an associated msmd tool is open
+    will not be reflected in the msmd tool. You must close and reopen the tool
+    if you want to capture changes made to metadata of an MS if such a change
+    occurs.
+    
+            <example>
+	\begin{verbatim}
+Example:
+
+msmd.open("3C273XC1.MS")
+# get the number of spectral windows
+nspw = msmd.nspw()
+msmd.done()
+	\end{verbatim}
+We open the tool by querying the MS for its metadata. We then get the number of spectral
+windows in the dataset and close the tool.
+            </example>
+        </description>
+
+        <method type="constructor" name="msmetadata">
+          <shortdescription></shortdescription>
+          <description></description>
+          <input></input>
+          <example></example>
+        </method>
+
+        <method type="function" name="almaspws">
+            <shortdescription>Get a list of spectral window IDs with ALMA-specific attributes.</shortdescription>
+            <input>
+                <param type="bool" name="chavg">
+                    <description>Get channel average spectral windows?</description>
+                    <value>false</value>
+                </param>
+                <param type="bool" name="fdm">
+                    <description>Get FDM spectral windows?</description>
+                    <value>false</value>
+                </param>
+                <param type="bool" name="sqld">
+                    <description>Get square law (i.e. total power) detector spectral windows?</description>
+                    <value>false</value>
+                </param>
+                <param type="bool" name="tdm">
+                    <description>Get TDM spectral windows?</description>
+                    <value>false</value>
+                </param>
+                <param type="bool" name="wvr">
+                    <description>Get WVR spectral windows?</description>
+                    <value>false</value>
+                </param>
+                <param type="bool" name="complement">
+                    <description>Return the complement of the selected set?</description>
+                    <value>false</value>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get spectral window IDs based on ALMA-specific criteria. The inputs are or'ed together
+                to form the returned list. If complement=True, then the complement of the selection
+                is returned. The following algorithm is used to identify WVR spwectral windows:
+                1. check for water vapor radiometer (WVR) spectral windows using the spectral window
+                   name "WVR#NOMINAL" and report these.
+                2. If no SPWs match that string, then the names are checked for "WVR" and are reported instead.
+ 
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get all square law detector spectral window IDs
+    msmd.almaspws(sqld=True)
+    # get all spectral window IDs other than those associated with square law detectors
+    msmd.almaspws(sqld=True, complement=True)
+            </example>
+        </method>
+
+        <method type="function" name="antennadiameter">
+            <shortdescription>Get the diameter for the specified antenna.</shortdescription>
+            <input>
+                <param type="any" direction="in" name="antenna">
+                    <description>Zero-based antenna in the ANTENNA table, or antenna name. A negative integer will cause all antenna diameters to be returned.</description>
+                    <any type="variant" limittypes="string int"/>
+                    <value type="int">-1</value>
+                </param>
+            </input>
+            <returns type="record"/>
+            <description>
+                Get the diameter for the specified antenna. The antenna can be specified either by
+                its zero-based ID from the ANTENNA table or by its name in that table. The returned
+                dictionary is a valid quantity. If a negative integer is provided for the antenna, then
+                all atenna diameters will be returned in a dictionary that has keys that are the antenna IDs
+                and values that are dictionaries, each being a valid quantity representing the diameter for
+                that antenna ID.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # Get the diameter of the antenna named "VB2"
+    diameter = msmd.antennadiameter("VB2")
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="antennaids">
+            <shortdescription>Get the zero-based antenna ID for the specfied antenna name.</shortdescription>
+             <input>
+                <param type="any" direction="in" name="name">
+                    <description>Antenna names (string or string array) for which to get the corresponding IDs. Note that * matches any number of characters of all character classes.</description>
+                    <value type="string"/>
+                    <any type="variant" limittypes="string stringArray"/>
+                </param>
+                <param type="any" direction="in" name="mindiameter">
+                    <description>Minimum antenna diameter, expressed as a quantity.</description>
+                    <value type="string">0m</value>
+                    <any type="variant"/>
+                </param>
+                <param type="any" direction="in" name="maxdiameter">
+                    <description>Maximum antenna diameter, expressed as a quantity.</description>
+                    <value type="string">1pc</value>
+                    <any type="variant"/>
+                </param>
+                <param type="int" name="obsid">
+                    <description>Observation ID. If negative, all observation IDs are considered.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get the zero-based antenna IDs for the specfied antenna names and the specified diameter
+                range for the specified observation ID. An array of unique IDs in order of the specified names is returned.
+                Note that if a specified name is listed mulitple times in the ANTENNA table, the largest
+                ID is returned, unless the observation ID is specified to be non-negative, in which case, the
+                returned IDs are filtered based on the specified observation ID.
+                If no names and no diameter range is specified, all IDs are returned.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the zero-based antenna IDs for the antenna named "VB2"
+    antenna_id = msmd.antennaids("VB2")[0]
+    # get the zero-based antenna IDs for all antennas with diameters between 9m and 11m
+    antenna_ids = msmd.antennaids(mindiameter="9m", maxdiameter=qa.quantity("11m"))
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="antennanames">
+            <shortdescription>Get the names of the antennas for the specfied zero-based antenna IDs.</shortdescription>
+             <input>
+                <param type="any" direction="in" name="antennaids">
+                    <description>Zero-based antenna IDs (int or int array) for which to get the antenna names.</description>
+                    <value type="int">-1</value>
+                    <any type="variant" limittypes="int intArray"/>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="stringArray"/>
+            <description>
+                Get the name of the antenna for the specfied zero-based antenna ID. If antennaids is not specified,
+                all antenna names are returned.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the name associated with antenna ID 31
+    antenna_name = msmd.antennanames(31)[0]
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="antennaoffset">
+            <shortdescription>Get the offset position of the specified antenna relative to the array reference position.</shortdescription>
+            <input>
+                <param type="any" direction="in" name="which">
+                    <description>Zero-based antenna in the ANTENNA table, or antenna name.</description>
+                    <any type="variant" limittypes="string int"/>
+                    <value type="int">0</value>
+                    
+                </param>
+            </input>
+            <returns type="record"/>
+            <description>
+                Get the offset position of the specified antenna relative to the array reference position. Antenna may
+                be specified as a zero-based integer (row number in the ANTENNA table) or a string representing a valid
+                antenna name. The returned
+                record contains the longitude, latitude, and elevation offsets as quantity records. The reported longitude and
+                latitude offsets are measured along the surface of a sphere whose center is coincident with the center of
+                the earth and whose surface contains the observatory reference position.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the offset of the (zero-based) 3rd antenna in the ANTENNA table
+    antennna_offset = msmd.antennaoffset(3)
+    # get the offset of antenna DV02
+    antennna_offset = msmd.antennaoffset('DV02')
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="antennaposition">
+            <shortdescription>Get the position of the specified antenna.</shortdescription>
+            <input>
+                <param type="any" direction="in" name="which">
+                    <any type="variant" limittypes="int string"/>
+                    <description>Zero-based antenna ID in the ANTENNA table or antenna name.</description>
+                    <value>0</value>
+                </param>
+            </input>
+            <returns type="record"/>
+            <description>
+                Get the position of the specified antenna. The returned record represents a position measure,
+                and can be used as such by the measures (me) tool.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the position of the (zero-based) 3rd antenna in the ANTENNA table
+    antennna_position = msmd.antennaposition(3)
+    # get the position of the antenna named DV07
+    antennna_position = msmd.antennaposition("DV07")
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="antennastations">
+            <shortdescription>Get the station names of the specified antennas.</shortdescription>
+            <input>
+                <param type="any" direction="in" name="which">
+                    <any type="variant" limittypes="int string intArray stringArray"/>
+                    <description>Zero-based antenna ID(s) in the ANTENNA table or antenna name(s). Single numeric id less than zero retrieves all station names.</description>
+                    <value type="int">-1</value>
+                </param>
+                <param type="int" name="obsid">
+                    <description>Observation ID. If negative, all observation IDs are considered.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="stringArray"/>
+            <description>
+                Get the station names of the specified antennas. If a specified antenna name is listed multiple
+                times in the ANTENNA table, obsid is negative, and which is specified as an array of names, then
+                the station associated with the largest ID for that antenna is returned. If obsid is nonnegative,
+                returned stations are filtered based on that. If which is specified as a string (antenna name),
+                then all the stations associated with that antenna are returned.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get all station names
+    stations = msmd.antennastations(-1)
+    # get the stations of the antennas named DV07 and DV01
+    stations = msmd.antennaposition(["DV07", "DV01"])
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="antennasforscan">
+            <shortdescription>Get an array of the unique antenna IDs for the specified scan, obsservation ID, and array ID.</shortdescription>
+             <input>
+                <param type="int" direction="in" name="scan">
+                    <description>Scan number for which to return the intents.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. If less than 0, all observation IDs are used.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. If less than 0, all array IDs are used.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get an array of the unique antennaIDs for the specified scan, observation ID, and array ID.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the antennas associated with scan 4 (all observation IDs, all array IDs)
+    antennas = msmd.antennasforscan(4)
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="bandwidths">
+            <shortdescription>Get the bandwidths in Hz for the specified spectral windows. If spw less than zero, return bandwidths for all spectral windows.</shortdescription>
+            <input>
+                <param type="any" direction="in" name="spw">
+                <any type="variant" limittypes="int intArray"/>
+                    <description>Spectral window IDs, if integer less than zero, return bandwidths for all spectral windows.</description>
+                    <value type="int">-1</value>
+                </param>
+            </input>
+            <returns type="any">
+                <any type="variant"/>
+            </returns>
+            <description>
+                Get the bandwidths in Hz for the specified spectral windows. If spw less than zero, return bandwidths for all spectral windows.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get bandwdith for spectral window 2.
+    baseband = msmd.bandwidth(2)
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="baseband">
+            <shortdescription>Get the baseband for the specified spectral window.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="spw">
+                    <description>Spectral window ID.</description>
+                </param>
+            </input>
+            <returns type="int"/>
+            <description>
+                Get the baseband for the specified spectral window.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get baseband for spectral window 2.
+    baseband = msmd.baseband(2)
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="baselines">
+            <shortdescription>Get a two dimensional boolean array representing baselines for data recorded in the MS.</shortdescription>
+            <returns type="any"><any type="variant"/></returns>
+            <description>
+                Get a two dimensional boolean array representing baselines for data recorded in the MS. A value of True means
+                there is at least one row in the MS main table for that baseline, False means no rows for that baseline. Autocorrelation
+                "baseline" information is also present via the values along the diagonal.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the baseline matrix for this data set
+    baselines = msmd.baselines()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="chanavgspws">
+            <shortdescription><!-- DEPRECATED. -->Get an array of spectral window IDs used for channel averages. These are windows that do have 1 channel.</shortdescription>
+            <returns type="intArray"/>
+            <description>
+               <!-- DEPRECATED. USE almaspws(chavg=True). -->
+                Get an array of spectral window IDs used for channel averages. These are windows that do have 1 channel.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the spectral window IDs used for channel averages.
+    chan_avg_spws = msmd.chanavgspws()
+    msmd.done()
+            </example>
+        </method>
+                
+        <method type="function" name="chaneffbws">
+            <shortdescription>Get an array of channel effective bandwidths for the specified spectral window.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="spw">
+                    <description>Spectral window ID.</description>
+                </param>
+                <param type="string" direction="in" name="unit">
+                    <description>Desired unit of returned quantities. Empty means "Hz" if asvel=False, "km/s" if asvel=True.</description>
+                    <value/>
+                </param>
+                <param type="bool" direction="in" name="asvel">
+                    <description>Should return values be equivalent velocity widths?</description>
+                    <value>false</value>
+                </param>
+            </input>
+            <returns type="doubleArray"/>
+            <description>
+                Get an array of channel effective bandwidths for the specified spectral window. The parameter
+                asvel indicates if velocity widths (True) or frequency widths (False) should be returned.
+                The unit parameter specifies the units that the returned values should have. If empty (default),
+                "Hz" will be used if asvel=False, or "km/s" will be used if asvel=True.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the channel effective bandwidths for spectral window 2, in m/s
+    chan_ebw = msmd.chaneffbws(2, "m/s", True)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="chanfreqs">
+            <shortdescription>Get an array of channel frequencies for the specified spectral window.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="spw">
+                    <description>Spectral window ID.</description>
+                </param>
+                <param type="string" direction="in" name="unit">
+                    <description>Convert frequencies to this unit.</description>
+                    <value>Hz</value>
+                </param>
+            </input>
+            <returns type="doubleArray"/>
+            <description>
+                Get an array of channel frequencies for the specified spectral window.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the channel frequencies for spectral window 2.
+    chan_freqs = msmd.chanfreqs(2)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="chanres">
+            <shortdescription>Get an array of channel resolutions for the specified spectral window.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="spw">
+                    <description>Spectral window ID.</description>
+                </param>
+                <param type="string" direction="in" name="unit">
+                    <description>Desired unit of returned quantities. Empty means "Hz" if asvel=False, "km/s" if asvel=True.</description>
+                    <value/>
+                </param>
+                <param type="bool" direction="in" name="asvel">
+                    <description>Should return values be equivalent velocity resolutions?</description>
+                    <value>false</value>
+                </param>
+            </input>
+            <returns type="doubleArray"/>
+            <description>
+                Get an array of channel resolutions for the specified spectral window. The parameter
+                asvel indicates if velocity widths (True) or frequency widths (False) should be returned.
+                The unit parameter specifies the units that the returned values should have. If empty (default),
+                "Hz" will be used if asvel=False, or "km/s" will be used if asvel=True.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the channel resolutions for spectral window 2, in m/s
+    chan_res = msmd.chanres(2, "m/s", True)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="chanwidths">
+            <shortdescription>Get an array of channel widths for the specified spectral window.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="spw">
+                    <description>Spectral window ID.</description>
+                </param>
+                <param type="string" direction="in" name="unit">
+                    <description>Convert frequencies to this unit.</description>
+                    <value>Hz</value>
+                </param>
+            </input>
+            <returns type="doubleArray"/>
+            <description>
+                Get an array of channel widths for the specified spectral window.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the channel widths for spectral window 2.
+    chan_freqs = msmd.chanwidths(2)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="close">
+            <shortdescription>Close this tool and reclaim system resources associated with it.</shortdescription>
+            <returns type="bool"/>
+            <description>
+                This method will close the tool and reclaim system resources it has been using. Returns true if successful.
+            </description>
+            <example>
+                msmd.open("my.ms")
+                # do things with tool
+                # finish, close tool and free up resources.
+                msmd.close()
+            </example>
+        </method>
+        
+        <method type="function" name="corrprodsforpol">
+            <shortdescription>Get the correlation products associated with the specified polarization ID</shortdescription>
+            <input>
+                <param type="int" name="pol">
+                    <description>Polarization ID. Must be nonnegative.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="any">
+                <any type="variant"/>
+            </returns>
+            <description>
+                Get the correlation products associated with the specified polarization ID.
+            </description>
+            <example>
+                msmd.open("my.ms")
+                # get correlation products for polarization ID 3
+                corrprods = msmd.corrprodsforpol(3)
+                msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="corrtypesforpol">
+            <shortdescription>Get the correlation types associated with the specified polarization ID</shortdescription>
+            <input>
+                <param type="int" name="pol">
+                    <description>Polarization ID. Must be nonnegative.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get the correlation types associated with the specified polarization ID.
+            </description>
+            <example>
+                msmd.open("my.ms")
+                # get correlation types for polarization ID 3
+                corrtypes = msmd.corrtypesforpol(3)
+                msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="datadescids">
+            <shortdescription>Get the data description IDs associated with the specified spectral window and/or polarization ID</shortdescription>
+            <input>
+                <param type="int" direction="in" name="spw">
+                    <description>Spectral window ID. Less than zero implies any,</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="pol">
+                    <description>Polarization ID. Less than zero implies any.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get a list of data description IDs associated with the specified spectral window ID
+                and/or polarization ID. Values of less than zero for either means all IDs should be used
+                in the selection.
+            </description>
+            <example>
+                msmd.open("my.ms")
+                # get all data description IDs associated with spw 2.
+                msmd.datadescids(spw=2)
+                # same as before but limit the IDs returned to those associated with
+                # polarization ID 3
+                msmd.datadescids(spw=2, pol=3)
+                msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="done">
+            <shortdescription>Close this tool and reclaim system resources associated with it.</shortdescription>
+            <returns type="bool"/>
+            <description>
+                This method will close the tool and reclaim system resources it has been using. Returns true if successful.
+            </description>
+            <example>
+                msmd.open("my.ms")
+                # do things with tool
+                # finish, close tool and free up resources.
+                msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="effexposuretime">
+            <shortdescription>Get the effective exposure (on-source integration time)</shortdescription>
+            <returns type="record"/>
+            <description>
+                Get the effective exposure time (equivalent to what might be more commonly known as total integration
+                time or total sample time) is calculated by summing over all rows in the main MS table, excluding
+                autocorrelations or rows where FLAG\_ROW is false, thusly:
+                
+                sum[over i] (exposure[i]*sum[over j](UFBW[i, j])/ncorrelations[i] )/ nmaxbaselines
+                
+                where exposure[i] is the value of EXPOSURE for the ith row, the inner sum is performed over each correlation
+                for that row, UFBW is the unflagged fractional bandwidth is determined by summing all the widths of the
+                unflagged channels for that correlation and dividing by the total bandwidth of all spectral windows observed
+                at the timestamp of row i, ncorrelations is the number of correlations determined by the number of rows in
+                the FLAG matrix for MS row i, and nmaxbaselines is the maximum number of antenna pairs,
+                nantennas*(nantennas-1)/2, where nantennas is the number of antennas in the ANTENNA table. This method returns
+                a quantity (a dictionary having a numerical value and a string unit).
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the effective exposure time.
+    exposure_time = msmd.effexposuretime()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="exposuretime">
+            <shortdescription>Get the exposure time for the specified scan, spwid, polarization ID, array ID, and observation ID.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="scan">
+                    <description>Scan number.</description>
+                    <value>0</value>
+                </param>
+                <param type="int" direction="in" name="spwid">
+                    <description>Spectral window ID.</description>
+                    <value>0</value>
+                </param>
+                <param type="int" direction="in" name="polid">
+                    <description>Polarization ID.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID.</description>
+                    <value>0</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID.</description>
+                    <value>0</value>
+                </param>
+            </input>
+            <returns type="record"/>
+            <description>
+                Get the exposure time for the specified scan, spwid, polarization ID, array ID, and observation ID.
+                This is the exposure time of the record with the lowest time stamp of the records associated with
+                these parameters. Returns a quantity dictionary. If polid is not specified (or specified and negative)
+                and there is only one polarization ID in for the specified combination of scan, spwid, obsID, and
+                arrayID, then that polarization ID is used. If there are multiple polarization IDs for the
+                combination of other parameters, a list of these is logged and an empty dictionary is returned.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the exposure time for scan 1, spwid 2, and polid 3
+    # for obsid=0 and arrayid=0
+    integration_time = msmd.exposuretime(scan=1, spwid=2, polid=3)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="fdmspws">
+            <shortdescription>Get an array of spectral window IDs used for FDM. These are windows that do not have 64, 128, or 256 channels.</shortdescription>
+            <returns type="intArray"/>
+            <description>
+                <!-- DEPRECATED. USE almaspws(fdm=True) INSTEAD.-->
+                Get an array of spectral window IDs used for FDM. These are windows that do not have 64, 128, or 256 channels.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the spectral window IDs used for FDM.
+    fdm_spws = msmd.fdmspws()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="fieldnames">
+            <shortdescription>Get an array of field names as they appear in the FIELD table.</shortdescription>
+            <returns type="stringArray"/>
+            <description>
+                Get an array of field names as they appear in the FIELD table.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get list of field names in the ms
+    fieldnames = msmd.fieldnames()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="fieldsforintent">
+            <shortdescription>Get an array of the unique fields for the specified intent.</shortdescription>
+             <input>
+                <param type="string" direction="in" name="intent">
+                    <description>Intent (case sensitive) for which to return the fields.</description>
+                    <value/>
+                </param>
+                <param type="bool" direction="in" name="asnames">
+                    <description>If true, return the field names. If false, return the zero-based field IDs.</description>
+                    <value>false</value>
+                </param>
+            </input>
+            <returns type="any"/>
+            <description>
+                Get an array of the unique fields for the specified intent. Note that * matches any number of characters of all character classes.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the field names for intent "observe target"
+    field_names = msmd.fieldsforintent("observe target", True, regex=False)
+    # get the field IDs for intent "observe target"
+    field_IDs = msmd.fieldsforintent("observe target", False, regex=False)
+    # get all field IDs for all intents which contain 'WVR'
+    field_IDs = msmd.fieldsforIntent("*WVR*")
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="fieldsforname">
+            <shortdescription>Get an array of the unique, zero-based field IDs for the specified field name.</shortdescription>
+             <input>
+                <param type="string" direction="in" name="name">
+                    <description>Field name (case sensitive) for which to return the fields.</description>
+                    <value/>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get an array of the unique, zero-based field IDs for the specified field name. If the field name is the
+                empty string (the default), a list of all unique field IDs in the main table of the MS will be returned.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the field IDs for field name "Enceladus"
+    fields = msmd.fieldsforname("Enceladus")
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="fieldsforscan">
+            <shortdescription>Get an array of the unique fields for the specified scan number, observation ID, and array ID.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="scan">
+                    <description>Scan number for which to return the fields.</description>
+                    <value>-1</value>
+                </param>
+                <param type="bool" direction="in" name="asnames">
+                    <description>If true, return the field names. If false, return the zero-based field IDs.</description>
+                    <value>false</value>
+                </param>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. A negative value means use all observation IDs.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. A negative value means use all array IDs.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="any"/>
+            <description>
+                Get an array of the unique fields for the specified scan number, observation ID, and array ID.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the field names for scan number 5 (for all array IDs and all observation IDs).
+    field_names = msmd.fieldsforscan(5, True)
+    # get the field IDs for scan number 5 (for all array IDs and all observation IDs)
+    field_IDs = msmd.fieldsforscan(5, False)
+    msmd.done()
+            </example>
+        </method>
+  
+        <method type="function" name="fieldsforscans">
+            <shortdescription>Get an array or dictionary of the unique fields for the specified scan numbers, observationID, and array ID.</shortdescription>
+             <input>
+                <param type="intArray" name="scans">
+                    <description>Scan numbers for which to return the fields.</description>
+                    <value/>
+                </param>
+                <param type="bool" name="asnames">
+                    <description>If true, return the field names. If false, return the zero-based field IDs.</description>
+                    <value>false</value>
+                </param>
+                <param type="int" name="obsid">
+                    <description>Observation ID. A negative value means use all observation IDs.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" name="arrayid">
+                    <description>Array ID. A negative value means use all array IDs.</description>
+                    <value>-1</value>
+                </param>
+                <param type="bool" name="asmap">
+                    <description>Return a dictionary mapping scan numbers to fields?</description>
+                    <value>false</value>
+                </param>
+            </input>
+            <returns type="any"/>
+            <description>
+                Get an array or dictionary of the unique fields for the specified scan numbers, observation ID, and array ID.
+                If asnames=True, the values returned will be the field names, if False, they will be field IDs.
+                If asmap=True, the structure returned will be a dictionary which maps scan number (as a string) to fields.
+                In this case, both obsid and arrayid must be nonnegative. If asmap=False, a single array of fields is returned
+                that matches the query. In this case, if obsid and/or arrayid are negative, then it indicates that all
+                fields matching any obsid and/or arrayid should be returned. An empty array specified for scans means
+                that all scans for the selected obsid and arrayid should be included.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the field names for scan numbers 5 and 10 (all obsids, all arrayids)
+    field_names = msmd.fieldsforscan([5, 10], True)
+    # get the field IDs for scan numbers 5 and 10 (all obsids, all arrayids)
+    field_IDs = msmd.fieldsforscan([5, 10], False)
+    # get mapping of scans to fields for arrayid=2 and obsid=4
+    scans_to_fields = msmd.fieldsforscan(obsid=4, arrayid=2, asmap=True)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="fieldsforsource">
+            <shortdescription>Get an array of the unique fields for the specified source ID.</shortdescription>
+             <input>
+                <param type="int" direction="in" name="source">
+                    <description>Zero-based source ID for which to return the fields.</description>
+                    <value>-1</value>
+                </param>
+                <param type="bool" direction="in" name="asnames">
+                    <description>If true, return the field names. If false, return the zero-based field IDs.</description>
+                    <value>false</value>
+                </param>
+            </input>
+            <returns type="any"/>
+            <description>
+                Get an array of the unique fields for the specified source.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the field names for source ID 1
+    field_names = msmd.fieldsforsource(1, True)
+    # get the field IDs for source ID 1
+    field_IDs = msmd.fieldsforsource(1, False)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="fieldsforsources">
+            <shortdescription>Get a map of source IDs to fields.</shortdescription>
+             <input>
+                <param type="bool" direction="in" name="asnames">
+                    <description>If true, return the field names. If false, return the zero-based field IDs.</description>
+                    <value>false</value>
+                </param>
+            </input>
+            <returns type="record"/>
+            <description>
+                Get a map of source IDs to fields. The keys (source IDs) will be strings.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the source to field name map
+    sources_to_fields = msmd.fieldsforsources(True)
+    # access the field names for source 1
+    field = sources_to_fields["1"]
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="fieldsforspw">
+            <shortdescription>Get an array of the unique fields for the specified spectral window.</shortdescription>
+             <input>
+                <param type="int" direction="in" name="spw">
+                    <description>Zero-based spectral window ID for which to return the fields.</description>
+                    <value>-1</value>
+                </param>
+                <param type="bool" direction="in" name="asnames">
+                    <description>If true, return the field names. If false, return the zero-based field IDs.</description>
+                    <value>false</value>
+                </param>
+            </input>
+            <returns type="any"/>
+            <description>
+                Get an array of the unique fields for the specified spectral window.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the field names for spectral window 1
+    field_names = msmd.fieldsforspw(1, True)
+    # get the field IDs for spectral window 1
+    field_IDs = msmd.fieldsforspw(1, False)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="fieldsfortimes">
+            <shortdescription>Get an array of the unique, zero-based, field IDs for the specified time range (time-tol to time+tol).</shortdescription>
+             <input>
+                <param type="double" direction="in" name="time">
+                    <description>Time at center of time range.</description>
+                    <value>-1</value>
+                </param>
+                <param type="double" direction="in" name="tol">
+                    <description>Time on either side of center for specifying range.</description>
+                    <value>0</value>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get an array of the unique, zero-based, fieldIDs for the specified time range (time-tol to time+tol).
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the field IDs associated with the specified time range
+    fields = msmd.fieldsfortimes(4.8428293714e+09, 20)
+    msmd.done()
+            </example>
+        </method>
+        
+        
+        <method type="function" name="intents">
+            <shortdescription>Get an array of the unique intents associated with the MS.</shortdescription>
+            <returns type="stringArray"/>
+            <description>
+                Get an array of the unique intents associated with the MS.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the intents associated with the MS
+    intents = msmd.intents()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="intentsforfield">
+            <shortdescription>Get an array of the unique intents for the specified field.</shortdescription>
+             <input>
+                <param type="any" direction="in" name="field">
+                    <any type="variant" limittypes="int string"/>
+                    <description>Field ID or name for which to return the intents.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="stringArray"/>
+            <description>
+                Get an array of the unique intents for the specified field.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the intents associated with field 4
+    intents = msmd.intentsforfield(4)
+    # get intents for field "MOS"
+    intents2 = msmd.intentsforfield("MOS")
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="intentsforscan">
+            <shortdescription>Get an array of the unique intents for the specified scan, obsservation ID, and array ID.</shortdescription>
+             <input>
+                <param type="int" direction="in" name="scan">
+                    <description>Scan number for which to return the intents.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. A negative value means use all observation IDs.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. A negative value means use all array IDs.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="stringArray"/>
+            <description>
+                Get an array of the unique intents for the specified scan, observation ID, and array ID.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the intents associated with scan 4 (all obsids, all arrayids)
+    intents = msmd.intentsforscan(4)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="intentsforspw">
+            <shortdescription>Get an array of the unique intents for the specified spectral window ID.</shortdescription>
+             <input>
+                <param type="int" direction="in" name="spw">
+                    <description>Spectral window ID (\&gt;=0) for which to return the intents.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="stringArray"/>
+            <description>
+                Get an array of the unique intents for the specified spectral window ID.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the intents associated with spectral window ID 3
+    intents = msmd.intentsforspw(3)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="meanfreq">
+            <shortdescription>Get the mean frequency for the specified spectral window.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="spw">
+                    <description>Spectral window ID.</description>
+                </param>
+                <param type="string" direction="in" name="unit">
+                    <description>Convert frequencies to this unit.</description>
+                    <value>Hz</value>
+                </param>
+            </input>
+            <returns type="double"/>
+            <description>
+                Get the mean frequency for the specified spectral window.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the mean frequency for spectral window 2.
+    mean_freq = msmd.meanfreq(2)
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="name">
+            <shortdescription>Get the name of the attached MS.</shortdescription>
+            <returns type="string"/>
+            <description>
+                Get the name of the attached MS.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get its name
+    myname = msmd.name()
+    msmd.done()
+            </example>
+        </method>
+       
+        <method type="function" name="namesforfields" direction="in">
+            <shortdescription>Get the name of the specified field.</shortdescription>
+             <input>
+                <param type="any" direction="in" name="fieldids">
+                    <description>Zero-based field IDs for which to get the names (integer or interger array). Unspecified will return all field names.</description>
+                     <value type="string"/>
+                    <any type="variant" limittypes="string int intArray"/>
+                </param>
+            </input>
+            <returns type="stringArray"/>
+            <description>
+                Get the name of the specified field.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the name for field 8 and 2.
+    field_names = msmd.namesforfields([8, 2])
+    # get all field names
+    all_field_nams = namesforfields()
+    msmd.done()
+            </example>
+        </method>
+         
+        <method type="function" name="namesforspws" direction="in">
+            <shortdescription>Get the name of the specified spws.</shortdescription>
+             <input>
+                <param type="any" direction="in" name="spwids">
+                    <description>Zero-based spw ID(s) for which to get the names (integer or interger array). Unspecified will return all spw names.</description>
+                     <value type="string"/>
+                    <any type="variant" limittypes="string int intArray"/>
+                </param>
+            </input>
+            <returns type="stringArray"/>
+            <description>
+                Get the name of the specified spw(s).
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the name for spws 8 and 2.
+    spw_names = msmd.namesforspws([8, 2])
+    # get all spw names
+    all_spw_names = msmd.namesforspws()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="nantennas">
+            <shortdescription>Get the number of antennas associated with the MS.</shortdescription>
+            <returns type="int"/>
+            <description>
+                Get the number of antennas associated with the MS.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    number_of_antennas = msmd.nantennas()
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="narrays">
+            <shortdescription>Get the number of arrays associated with the MS from the ARRAY table.</shortdescription>
+            <returns type="int"/>
+            <description>
+                Get the number of arrays associated with the MS from the ARRAY table.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    number_of_array_ids = msmd.narrays()
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="nbaselines">
+            <shortdescription>Get the number of baselines represented in the main MS table.</shortdescription>
+            <input>
+                <param type="bool" direction="in" name="ac">
+                    <description>Include auto-correlation "baselines"?</description>
+                    <value>false</value>
+                </param>
+            </input>
+            <returns type="int"/>
+            <description>
+                Get the number of unique baselines (antenna pairs) represented in the main MS table. This can, in theory, be less than
+                n*(n-1)/2 (n being the number of antennas in the ANTENNA table), if data for certain baselines
+                are not included in the main MS table. Autocorrelation "baselines" are included in this count if ac=True.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    number_of_baselines = msmd.nbaselines()
+    number_of_baselines_including_ac = msmd.nbaselines(True)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="nchan">
+            <shortdescription>Get the number of channels associated with the specified spectral window.</shortdescription>
+            <returns type="int"/>
+            <input>
+                <param type="int" direction="in" name="spw">
+                    <description>Zero-based spw ID for which to get the number of channels.</description>
+                </param>
+            </input>
+            <description>
+                Get the number of channels associated with the specified spectral window.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    nchan = msmd.nchan(3)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="ncorrforpol">
+            <shortdescription>Get the number of correlations for the specified polarization ID.</shortdescription>
+             <input>
+                <param type="int" name="polid">
+                    <description>Zero-based polarization ID. A negative number will cause all the numbers of correlations to be returned.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="variant"/>
+            <description>
+                Get the number of correlations for the specified polarization ID. If the specified polarization ID
+                is negative, an array of numbers of correlations is returned. The indices of that array represent polarization IDs.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the number of correlations associated with polarization ID 4
+    polid = msmd.ncorrforpol(4)
+    # get the array of numbers of correlations from the POLARIZATION table
+    polids = msmd.ncorrforpol(-1)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="nfields">
+            <shortdescription>Get the number of fields associated with the MS.</shortdescription>
+            <returns type="int"/>
+            <description>
+                Get the number of fields associated with the MS.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    number_of_fields = msmd.nfields()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="nobservations">
+            <shortdescription>Get the number of observations associated with the MS from the OBSERVATIONS table.</shortdescription>
+            <returns type="int"/>
+            <description>
+                Get the number of observations associated with the MS from the OBSERVATIONS table.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    number_of_obs_ids = msmd.nobservations()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="nspw">
+            <shortdescription>Get the number of spectral windows associated with the MS.</shortdescription>
+            <input>
+                <param type="bool" direction="in" name="includewvr">
+                    <description>Include wvr spectral windows? If false, exclude wvr windows from count.</description>
+                    <value>true</value>
+                </param>
+            </input>
+            <returns type="int"/>
+            <description>
+                This method will return the number of spectral windows in the associated MS.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    number_of_spectral_windows = msmd.nspw()
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="nstates">
+            <shortdescription>Get the number of states (from the STATE table) associated with the MS.</shortdescription>
+            <returns type="int"/>
+            <description>
+                This method will return the number of states (number of rows in the STATES table) in the associated MS.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    number_of_states = msmd.nstates()
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="nscans">
+            <shortdescription>Get the number of scans associated with the MS.</shortdescription>
+            <returns type="int"/>
+            <description>
+                Get the number of scans associated with the MS.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    number_of_scans = msmd.nscans()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="nsources">
+            <shortdescription>Get the number of unique values from the SOURCE_ID column in the SOURCE table.</shortdescription>
+            <returns type="int"/>
+            <description>
+                Get the number of unique values from the SOURCE_ID column in the SOURCE table. The number of rows in the
+                SOURCE table may be greater than this value.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    number_of_unique_source_ids = msmd.nsources()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="nrows">
+            <shortdescription>Get the number of visibilities (from the main table) associated with the MS.</shortdescription>
+            <input>
+                <param type="bool" direction="in" name="autoc">
+                    <description>Include autocorrelation data? If False, only cross correlation rows will be summed.</description>
+                    <value>true</value>
+                </param>
+                <param type="bool" direction="in" name="flagged">
+                    <description>Include flagged data? If False, only unflagged or patially flagged rows will be summed.</description>
+                    <value>true</value>
+                </param>
+            </input>
+            <returns type="double"/>
+            <description>
+                Get the number of visibilities (from the main table) associated with the MS.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the total number of rows
+    nrows = msmd.nrows()
+    # got the number of cross correlation rows
+    ncross = msmd.nrows(auto=False)
+    # get the number of unflagged rows
+    ngood = msmd.nrows(flagged=False)
+    # get the number of unflagged cross correlation rows
+    ncrossunflagged = msmd.nrows(auto=False, flagged=False)
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="observers">
+            <shortdescription>Get an array observers as they are listed in the OBSERVATIONS table.</shortdescription>
+            <returns type="stringArray"/>
+            <description>
+                Get an array of observers as they are listed in the OBSERVATIONS table.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the observers
+    observers = msmd.observers()
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="observatorynames">
+            <shortdescription>Get an array of MS telescope (observatory) names as they are listed in the OBSERVATIONS table.</shortdescription>
+            <returns type="stringArray"/>
+            <description>
+                Get an array of MS telescope (observatory) names as they are listed in the OBSERVATIONS table.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the telescope names
+    telescope_names = msmd.telescopenames()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="observatoryposition">
+            <shortdescription>Get the position of the specified telescope.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="which">
+                    <description>Zero-based telescope position in the OBSERVATIONS table (see msmd.telescopenames()).</description>
+                    <value>0</value>
+                </param>
+            </input>
+            <returns type="record"/>
+            <description>
+                Get the position of the specified telescope.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the position of the 0th telescope
+    telescope_position = msmd.telescopeposition(0)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="open">
+            <shortdescription>Attach the MS metadata tool to the specified MS</shortdescription>
+            <input>
+                <param type="string" direction="in" name="msfile">
+                    <description>Name of the existing measurement set</description>
+                    <value/>
+                </param>
+                <param type="float" direction="in" name="maxcache">
+                    <description>Maximum cache size, in megabytes, to use.</description>
+                    <value>50</value>
+                </param>
+            </input>
+            <returns type="bool"/>
+            <description>
+                Attach this tool to the specified MS. This method runs a few basic MS validation tests, and if any of these
+                fail (which indicates that the MS is invalid), an error occurs and the tool is not attached to the MS.
+                Note that it is ultimately the user's responsibility to ensure that the MS is valid. Running the methods
+                of this tool on an invalid MS may result in incorrect results or even a crash of CASA. Such invalidities
+                include any MS subtable not having appropriate information (eg, an OBSERVATION subtable not having enough rows
+                to account for all the OBSERVATION_IDs in the main table).
+            </description>
+            <example>
+                msmd.open("my.ms")
+                # do stuff and close it
+                msmd.done()
+            </example>
+        </method>
+        
+	<method type="function" name="phasecenter">
+            <shortdescription>Get the phasecenter direction from a field ID and time if necessary</shortdescription>
+             <input>
+                <param type="int" direction="in" name="fieldid">
+                    <description>Zero-based field ID for which to get the phasecenter; default  fieldid=0</description>
+                    <value>0</value>
+                </param>
+                <param type="record" direction="in" name="epoch">
+                    <description>Optional time, expressed as a measures epoch dictionary, if field id has a polynomial in time phasecenter or an ephemerides table attached to the ID. Default value means evaluate at the origin TIME in the FIELD table</description>
+                    <value></value>
+                </param>
+            </input>
+            <returns type="record"/>
+            <description>
+                Get a direction measures for the phasecenter of the field id and time specified
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get phasecenter for field ID 1
+    mydir = msmd.phasecenter(1);
+    # if the phasecenter is a polynomial or has an ephemerides attached to 
+    # it a time is needed to get the phase direction
+    ep=me.epoch('utc', '2015/03/15/15:30:55')
+    mydir2=msmd.phasecenter(2, ep)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="pointingdirection">
+            <shortdescription>Get the pointing direction for antennas at the specified row number in the main MS table.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="rownum">
+                    <description>Row number in the main MS table.</description>
+                    <value>0</value>
+                </param>
+                <param type="bool" direction="in" name="interpolate">
+                    <description>Interpolate pointings in case the interval in the main table is shorter than that in the pointing table (often the case in fast-scanning in single dish observaitions)</description>
+                    <value>false</value>
+                </param>
+                <param type="int" direction="in" name="initialrow">
+                    <description>Initial guess of row index in pointing table to start search.</description>
+                    <value>0</value>
+                </param>
+            </input>
+            <returns type="record"/>
+            <description>
+                Get the pointing direction for antennas at the specified row number in the main MS table. Returns a record
+                containing the time, antenna IDs and corresponding pointing directions.
+            </description>
+            <example>
+                msmd.open("my.ms")
+                # get the pointing directions for row ID 500
+                dirs = msmd.pointingdirection(500)
+                msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="polidfordatadesc">
+            <shortdescription>Get the polarization ID associated with the specified data description ID.</shortdescription>
+             <input>
+                <param type="int" name="ddid">
+                    <description>Zero-based data description ID. A negative number will cause all the polarization IDs to be returned.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="variant"/>
+            <description>
+                Get the polarization ID associated with the specified data description ID. If the specified data description ID
+                is negative, an array of polarization IDs is returned. The indices of that array represent data description IDs.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the polarization ID associated with data description ID 3
+    polid = msmd.polidfordatadesc(3)
+    # get the array of polarization IDs in the order they appear in the DATA_DESCRIPTION table
+    polids = msmd.polidfordatadesc(-1)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="projects">
+            <shortdescription>Get an array projects as they are listed in the OBSERVATIONS table.</shortdescription>
+            <returns type="stringArray"/>
+            <description>
+                Get an array of projects as they are listed in the OBSERVATIONS table.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the projects
+    projects = msmd.projects()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="propermotions">
+            <shortdescription>Get the values of the PROPER_MOTION column from the SOURCE table.</shortdescription>
+            <returns type="record"/>
+            <description>
+                Get the values of the DIRECTION column from the SOURCE table. Returns a dictionary in which the
+                keys are the associated zero-based row numbers, represented as strings, in the SOURCE table. The
+                associated values are two element dictionaries, with keys "longitude" and "latitude", containing
+                the longitudinal and latidinal components of the proper motion, which are valid quantity dictionaries.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get PROPER_MOTION column values from the SOURCE table
+    mu = msmd.propermotions()
+    msmd.done()
+    # the direction associated with zero-based row number 10
+    mu10 = mu["10"]
+            </example>
+        </method>
+
+        <method type="function" name="refdir">
+            <shortdescription>Get the reference direction from a field ID and time if necessary</shortdescription>
+             <input>
+                <param type="any" direction="in" name="field">
+                    <description>Zero-based field ID or field name for which to get the reference direction; default  field=0</description>
+                    <value type="int">0</value>
+                    <any type="variant" limittypes="string int"/>
+                </param>
+                <param type="record" direction="in" name="epoch">
+                    <description>Optional time, expressed as a measures epoch dictionary, if associated field has a polynomial in time reference direction or an ephemerides table attached it. Default value means evaluate at the origin TIME in the FIELD table</description>
+                    <value/>
+                </param>
+            </input>
+            <returns type="record"/>
+            <description>
+                Get a direction measure for the reference direction of the field and time specified
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get reference direction for field ID 1 
+    mydir = msmd.refdir(1);
+    # if the reference direction is a polynomial or has an ephemerides attached to 
+    # it a time is needed to get the reference direction
+    ep=me.epoch('utc', '2015/03/15/15:30:55')
+    mydir2=msmd.phasecenter(2, ep)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="reffreq">
+            <shortdescription>Get the reference frequency of the specified spectral window.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="spw">
+                    <description>Zero-based spectral window ID.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="record"/>
+            <description>
+                Get the reference frequency of the specified spectral window. The returned frequency is in
+                the form of a valid measures dictionary.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the reference frequency for spw ID 20
+    reffreq = msmd.reffreq(20)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="restfreqs">
+            <shortdescription>Get the rest frequencies from the SOURCE table for the specified source and spectral window.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="sourceid">
+                    <description>Zero-based source ID (from the SOURCE::SOURCE_ID column).</description>
+                    <value>0</value>
+                </param>
+                <param type="int" direction="in" name="spw">
+                    <description>Zero-based spectral window ID.</description>
+                    <value>0</value>
+                </param>
+            </input>
+            <returns type="any">
+                <any type="variant"/>
+            </returns>
+            <description>
+                Get the rest frequencies from the SOURCE table for the specified source and spectral window.
+                The return value will be a dictionary of frequency measures if the rest frequencies are
+                defined for the specified inputs, or False if they do not.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the rest frequencies for source ID 2 and spw ID 20
+    reffreq = msmd.restfreqs(2, 20)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="scannumbers">
+            <shortdescription>Get an array of the unique scan numbers associated with the MS for the specified observation ID and array ID.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. A negative value indicates all observation IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. A negative value indicates all array IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                This method will return an array of unique scan numbers in the associated MS for the specified observation ID and array ID.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # scan numbers for all obsids and all arrayids
+    scan_numbers = msmd.scannumbers()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="scansforfield">
+            <shortdescription>Get an array of the unique scan numbers associated with the specified field, observation ID, and array ID.</shortdescription>
+             <input>
+                <param type="any" direction="in" name="field">
+                    <description>Field ID or field name (case sensitive) for which to return the scan numbers.</description>
+                     <value type="string"/>
+                    <any type="variant" limittypes="string int"/>
+                </param>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. A negative value indicates all observation IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. A negative value indicates all array IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get an array of the unique scan numbers associated with the specified field, observation ID, and array ID.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the scan numbers associated with field "planet Z" (all obsids, all arrayids)
+    scan_numbers = msmd.scansforfield("planet Z")
+    # get the scan numbers associated with field ID 5 (all obsids, all arrayids)
+    scan_numbers = msmd.scansforfield(5)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="scansforfields">
+            <shortdescription>Get a dictionary of which maps field ID to scan numbers for the specified observation ID and array ID.</shortdescription>
+             <input>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. Must be non-negative.</description>
+                    <value>0</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. Must be non-negative.</description>
+                    <value>0</value>
+                </param>
+            </input>
+            <returns type="record"/>
+            <description>
+                Get a dictionary of which maps field ID to scan numbers for the specified observation ID 
+                and array ID. The keys (field IDs) will be strings. obsid and arrayid must both
+                be non-negative.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the field - scan map for arrayID 1 and obsID 2
+    field_to_scans = msmd.scansforfields(arrayid=1, obsid=2)
+    # access the scans associated with field ID 2
+    field_to_scans2 = field_to_scans["2"]
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="scansforintent">
+            <shortdescription>Get an array of the unique scan numbers associated with the specified intent, observation ID, and arrayID.</shortdescription>
+             <input>
+                <param type="string" direction="in" name="intent">
+                    <description>Intent (case-sensitive) for which to return the scan numbers.</description>
+                    <value/>
+                </param>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. A negative value indicates all observation IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. A negative value indicates all array IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get an array of the unique scan numbers associated with the specified intent, observation ID, and arrayID.
+                The "*" character matches any number of characters from all character classes.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the scan numbers associated with intent "detect planet X" (all obsids, all arrayids)
+    scan_numbers = msmd.scansforintent("detect planet X", regex=False)
+    # got all the scan numbers associated with all intents which contain 'WVR' (all obsids, all arrayids)
+    scan_numbers = msmd.scansforintent("*WVR*")
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="scansforspw">
+            <shortdescription>Get an array of the unique scan numbers associated with the specified zero-based spectral window ID, observation ID, and array ID.</shortdescription>
+             <input>
+                <param type="int" direction="in" name="spw">
+                    <description>Zero-based spectral window ID for which to return the scan numbers.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. A negative value indicates all observation IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. A negative value indicates all array IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get an array of the unique scan numbers associated with the specified zero-based spectral window ID, observation ID, and array ID.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the scan numbers associated with spectral window ID 14, all obsids, all arrayids
+    scan_numbers = msmd.scansforspw(14)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="scansforspws">
+            <shortdescription>Get a dictionary of which maps spw ID to scan numbers for the specified observation ID and array ID.</shortdescription>
+             <input>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. Must be non-negative.</description>
+                    <value>0</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. Must be non-negative.</description>
+                    <value>0</value>
+                </param>
+            </input>
+            <returns type="record"/>
+            <description>
+                Get a dictionary of which maps spw ID to scan numbers for the specified observation ID 
+                and array ID. The keys (spectral window IDs) will be strings. obsid and arrayid must both
+                be non-negative.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the spw - scan map for arrayID 1 and obsID 2
+    spw_to_scans = msmd.scansforspws(arrayid=1, obsid=2)
+    # access the scans associated with spw ID 2
+    spw_to_scans2 = spw_to_scans["2"]
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="scansforstate">
+            <shortdescription>Get an array of the unique scan numbers for the specified state, observation ID, and array ID.</shortdescription>
+             <input>
+                <param type="int" direction="in" name="state">
+                    <description>ID of state for which to return the scan numbers.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. A negative value indicates all observation IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. A negative value indicates all array IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get an array of the unique scan numbers for the specified state, observation ID, and array ID.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the scan numbers associated with state 2, all obsids, all arrayids
+    scans = msmd.scansforstate(2)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="scansfortimes">
+            <shortdescription>Get an array of the unique scan numbers for the specified time range (time-tol to time+tol), observation ID, and array ID.</shortdescription>
+             <input>
+                <param type="double" direction="in" name="time">
+                    <description>Time at center of time range.</description>
+                    <value>-1</value>
+                </param>
+                <param type="double" direction="in" name="tol">
+                    <description>Time difference on either side of center for specifying range.</description>
+                    <value>0</value>
+                </param>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. A negative value indicates all observation IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. A negative value indicates all array IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get an array of the unique scan numbers for the specified time range (time-tol to time+tol), observation ID, and array ID.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the scan numbers associated with the specified time range (all obsids, all array ids)
+    scans = msmd.scansfortimes(4.84282937e+09, 20)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="schedule">
+            <shortdescription>Get the schedule information for the specified observation ID.</shortdescription>
+            <input>
+                <param type="int" name="obsid">
+                    <description>Observation ID.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="stringArray"/>
+            <description>
+                Get the schedule information for the specified observation ID.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the schdule information for observation ID = 2
+    schedule = msmd.schedule()[2]
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="sideband">
+            <shortdescription>Get the sideband for the specified spectral window.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="spw">
+                    <description>Spectral window ID.</description>
+                </param>
+            </input>
+            <returns type="int"/>
+            <description>
+                Get the sideband for the specified spectral window.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get sideband for spectral window 2.
+    sideband = msmd.sideband(2)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="sourcedirs">
+            <shortdescription>Get the values of the DIRECTION column from the SOURCE table.</shortdescription>
+            <returns type="record"/>
+            <description>
+                Get the values of the DIRECTION column from the SOURCE table. Returns a dictionary in which the
+                keys are the associated row numbers, represented as strings, in the SOURCE table. Each value
+                in the returned dictionary is a valid direction measure.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get DIRECTION column values from the SOURCE table
+    sourcedirs = msmd.sourcedirs()
+    msmd.done()
+    # the direction associated with zero-based row number 10
+    dir10 = sourcedirs["10"]
+    # convert it to B1950, using the measure interface
+    dir10_B1950 = me.convert(dir10, "B1950")
+            </example>
+        </method>
+
+        <method type="function" name="sourcetimes">
+            <shortdescription>Get the values of the TIME column from the SOURCE table.</shortdescription>
+            <returns type="record"/>
+            <description>
+                Get the values of the TIME column from the SOURCE table. Returns a dictionary in which the
+                keys are the associated row numbers, represented as strings, in the SOURCE table. Each value
+                in the returned dictionary is a valid time quantity.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get TIME column values from the SOURCE table
+    sourcetimes = msmd.sourcetimes()
+    msmd.done()
+    # the time associated with zero-based row number 10
+    time10 = sourcetimes["10"]
+            </example>
+        </method>
+        
+        <method type="function" name="sourceidforfield">
+            <shortdescription>Get the source ID from the field table for the specified field ID.</shortdescription>
+             <input>
+                <param type="int" direction="in" name="field">
+                    <description>Zero-based field ID for which to return the source ID from the field table.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="int"/>
+            <description>
+                Get the source ID from the field table for the specified field ID.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get source ID associated with field ID 2
+    sourceid = msmd.sourceidforfield(2)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="sourceidsfromsourcetable">
+            <shortdescription>Get the values of the SOURCE_ID column from the SOURCE table.</shortdescription>
+            <returns type="intArray"/>
+            <description>
+                Get the values of the SOURCE_ID column from the SOURCE table. It is unfortunate that the SOURCE
+                table has a column named SOURCE_ID, because implicitly the "ID" of a row in an MS subtable is
+                generally meant to reflect a row number in that table, but that is not the case for the SOURCE table.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get SOURCE_ID column values from the SOURCE table
+    sourceids = msmd.sourceidsfromsourcetable()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="sourcenames">
+            <shortdescription>Get the values of the SOURCE_NAME column from the SOURCE table.</shortdescription>
+            <returns type="stringArray"/>
+            <description>
+                Get the values of the SOURCE_NAME column from the SOURCE table.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get SOURCE_NAME column values from the SOURCE table
+    sourcenames = msmd.sourcenames()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="spwsforbaseband">
+            <shortdescription>Get the spws associated with the specified baseband or dictionary that maps baseband to spws.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="baseband">
+                    <description>Baseband number. If \&lt;0, return a dictionary mapping basebands to spws.</description>
+                    <value>-1</value>
+                </param>
+                <param type="string" direction="in" name="sqldmode">
+                    <description>If "include", include SQLD windows, if "exclude", exclude SQLD windows, if "only", include only SQLD windows. Case insenstive, inimum match honored.</description>
+                    <value>include</value>
+                </param>
+            </input>
+            <returns type="variant"/>
+            <description>
+                Get the spectral windows associated with the specified baseband or dictionary that maps baseband to spectral windows.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the spectral window IDs associated with all the basebands in this dataset
+    basebandtospwdict = msmd.spwsforbasebands()
+    # get an array of spws associated with baseband 2.
+    spwsforbb2 = msmd.spwsforbasebands(2)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="spwfordatadesc">
+            <shortdescription>Get the spectral window ID associated with the specified data description ID.</shortdescription>
+             <input>
+                <param type="int" name="ddid">
+                    <description>Zero-based data description ID. A negative number will cause all the spectral window IDs to be returned.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="variant"/>
+            <description>
+                Get the spectral window ID associated with the specified data description ID. If the specified data description ID
+                is negative, an array of spectral window IDs is returned. The indices of that array represent data description IDs.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the spectral window ID associated with data description ID 3
+    spw = msmd.spwfordatadesc(3)
+    # get the array of spectral window IDs in the order they appear in the DATA_DESCRIPTION table
+    spws = msmd.spwfordatadesc(-1)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="spwsforfield">
+            <shortdescription>Get an array of the unique spectral window IDs for the specified field.</shortdescription>
+             <input>
+                <param type="any" direction="in" name="field">
+                    <description>Field (case sensitive string or zero-based integer ID) for which to return the spectral window IDs.</description>
+                    <value type="string"/>
+                    <any type="variant" limittypes="string int"/>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get an array of the unique spectral window IDs for the specified field.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the spectral window IDs associated with field "Fomalhaut"
+    spws = msmd.spwsforfield("Fomalhaut")
+    # get spectral window IDs associated with field ID 2
+    spws = msmd.spwsforfield(2)
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="spwsforfields">
+            <shortdescription>Get a dictionary which maps field IDs to spectral window IDs.</shortdescription>
+            <returns type="record"/>
+            <description>
+                Get a dictionary which maps field IDs to spectral window IDs. The field IDs are keys in the
+                returned dictionary. To access a particular element, one must ensure the key is a string.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the map of field IDs to spw IDs
+    field_to_spw_map = msmd.spwsforfields()
+    spws_for_field_5 = field_to_spw_map[str(5)]
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="spwsforintent">
+            <shortdescription>Get an array of the unique spectral window IDs for the specified intent.</shortdescription>
+             <input>
+                <param type="string" direction="in" name="intent">
+                    <description>Intent (case sensitive) for which to return the spectral window IDs.</description>
+                    <value/>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get an array of the unique spectral window IDs for the specified intent. The "*" character matches any number of characters from all character classes.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the spectral window IDs associated with "MY COOL INTENT"
+    spws = msmd.spwsforintent("MY COOL INTENT")
+    # got all the spw IDs associated with all intents which contain 'WVR'
+    scan_numbers = msmd.spwsforintent("*WVR*")
+    msmd.done()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="spwsfornames" direction="in">
+            <shortdescription>Get the IDs of the specified spw names.</shortdescription>
+             <input>
+                <param type="any" direction="in" name="spwids">
+                    <description>Names of the spws for which IDs are needed (string or string array). Unspecified will return all spw names.</description>
+                    <value type="string"/>
+                    <any type="variant" limittypes="string stringArray"/>
+                </param>
+            </input>
+            <returns type="record"/>
+            <description>
+                Get the IDs of the specified spw(s). Returns a dictionary where the keys
+                are the requested spectral window names that are present in the data set
+                and the values are arrays of the spectral window IDs corresponding to the
+                name. If a specified name is not present, a warning message is logged and
+                that name is not included in the returned dictionary. Specifying no names
+                results in a dictionary containing the name to spw ID mapping for the
+                entire data set.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the IDs for spws named "CO" and "HCN"
+    spw_ids = msmd.spwsfornames(["CO", "HCN"])
+    # get the complete spw name to ID map
+    spw_names_to_ids = msmd.spwsfornames()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="spwsforscan">
+            <shortdescription>Get an array of the unique spectral window IDs for the specified scan number, observation ID, and array ID.</shortdescription>
+             <input>
+                <param type="int" direction="in" name="scan">
+                    <description>Scan number for which to return the spectral window IDs.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. A negative value means that all observation IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. A negative value means that all array IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get an array of the unique spectral window IDs for the specified scan number, observation ID, and array ID.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the spectral window IDs associated with scan number 20, all obsids, all arrayids.
+    spws = msmd.spwsforscan(20)
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="spwsforscans">
+            <shortdescription>Get a dictionary of which maps scan number to spectral windows for the specified observation ID and array ID.</shortdescription>
+             <input>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. Must be non-negative.</description>
+                    <value>0</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. Must be non-negative.</description>
+                    <value>0</value>
+                </param>
+            </input>
+            <returns type="record"/>
+            <description>
+                Get a dictionary of which maps scan number to spectral windows for the specified observation ID and array ID. The keys (scan
+                numbers) will be strings. obsid and arrayid must both be non-negative.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the scan - spw map for arrayID 1 and obsID 2
+    scan_to_spws = msmd.spwsforscans(arrayid=1, obsid=2)
+    # access the spws associated with scan 2
+    spws_for_scan2 = scan_to_spws["2"]
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="statesforscan">
+            <shortdescription>Get an array of the unique state IDs for the specified scan number, observation ID, and array ID.</shortdescription>
+             <input>
+                <param type="int" direction="in" name="scan">
+                    <description>Scan number for which to return the state IDs.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. A negative value means that all observation IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. A negative value means that all array IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                Get an array of the unique state IDs for the specified scan number, observation ID, and array ID.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the state IDs associated with scan number 251, all obsids, all arrayids
+    states = msmd.statesforscan(251)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="statesforscans">
+            <shortdescription>Get a dictionary which maps scan numbers to state IDs for the specified array and observation IDs.</shortdescription>
+            <returns type="record"/>
+            <input>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID, must be nonnegative. </description>
+                    <value>0</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID, must be nonnegative.</description>
+                    <value>0</value>
+                </param>
+            </input>
+            <description>
+                Get a dictionary which maps scan numbers to state IDs for the specified array and observation IDs. The returned dictionary
+                will have scan numbers, as strings, as keys.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the map of scan numbers to state IDs for arrayID=1, obsID=2
+    scans_to_states = msmd.statesforscans(obsID=2, arrayID=1)
+    states_for_scan_5 = scans_to_states[str(5)]
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="summary">
+            <shortdescription>Get dictionary summarizing the MS.</shortdescription>
+            <returns type="record"/>
+            <description>
+                Get dictionary summarizing the MS.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the summary
+    summary = msmd.summary()
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="tdmspws">
+            <shortdescription>Get an array of spectral window IDs used for TDM. These are windows that have 64, 128, or 256 channels.</shortdescription>
+            <returns type="intArray"/>
+            <description>
+                <!-- DEPRECATED. USE almaspws(tdm=True) INSTEAD. -->
+                Get an array of spectral window IDs used for TDM. These are windows that have 64, 128, or 256 channels.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the spectral window IDs used for TDM.
+    tdm_spws = msmd.tdmspws()
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="timerangeforobs">
+            <shortdescription>Get the time range for the specified observation ID</shortdescription>
+             <input>
+                <param type="int" direction="in" name="obsid">
+                    <description>Zero-based observation ID for which to get the time range.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="record"/>
+            <description>
+                Get the time range for the specified observation ID. The return value is a dictionary containing
+                keys "begin" and "end". Each of the associated value are dictionaries representing epochs which
+                are valid measure records. The values are taken directly from the OBSERVATION subtable; no
+                half-intervals are added or subtracted.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the time range associated with observation ID 3
+    timerange = msmd.timerangeforobs(3)
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="timesforfield">
+            <shortdescription>Get an array of the unique times for the specified field.</shortdescription>
+             <input>
+                <param type="int" direction="in" name="field">
+                    <description>Zero-based field ID for which to return the times.</description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="doubleArray"/>
+            <description>
+                Get an array of the unique times for the specified field.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the times associated with field 3
+    times = msmd.timesforfields(3)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="timesforintent">
+            <shortdescription>Get an array of the unique times for the specified intent.</shortdescription>
+             <input>
+                <param type="string" direction="in" name="intent">
+                    <description>Intent for which to return the times.</description>
+                    <value/>
+                </param>
+            </input>
+            <returns type="doubleArray"/>
+            <description>
+                Get an array of the unique times for the specified intent.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the times associated with intent "myintent"
+    times = msmd.timesforintent("myintent")
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="timesforscan">
+            <shortdescription>Get the unique times for the specified scan number, observation ID, and array ID.</shortdescription>
+             <input>
+                <param type="int" direction="in" name="scan">
+                    <description>Scan number for which to return the times.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. A negative value indicates all observation IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. A negative value indicates all array IDs should be used. </description>
+                    <value>-1</value>
+                </param>
+                <param type="bool" name="perspw">
+                    <description>Return output dictionary with keys representing spectral window IDs (True), or an array of all times (False).</description>
+                    <value>false</value>
+                </param>
+            </input>
+            <returns type="any"><any type="variant"/></returns>
+            <description>
+                Get the unique times for the specified scan number, observation ID, and array ID. If perspw=True, the returned data structure is
+                a dictionary that has keys representing zero-based spectral window IDs and values representing the unique values of the TIME column
+                corrsponding to the specified scan and that corresponding spectral window ID. If False, an array of unique values from the TIME
+                column for the specified scan is returned; there is no separation into spectral window IDs.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the times associated with scan number 10, all obsids, all arrayids.
+    times = msmd.timesforscan(10)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="timesforscans">
+            <shortdescription>Get an array of the unique times for the specified scan numbers, observation ID, and array ID.</shortdescription>
+             <input>
+                <param type="any" name="scans">
+                    <description>Scan number(s) for which to return the times.</description>
+                    <any type="variant" limittypes="int intArray"/>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="obsid">
+                    <description>Observation ID. A negative value indicates all observation IDs should be used.</description>
+                    <value>-1</value>
+                </param>
+                <param type="int" direction="in" name="arrayid">
+                    <description>Array ID. A negative value indicates all array IDs should be used. </description>
+                    <value>-1</value>
+                </param>
+            </input>
+            <returns type="doubleArray"/>
+            <description>
+                Get an array of the unique times for the specified scan numbers, observation ID, and array ID.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the times associated with scan numbers 10 and 20, all obsids, all arrayids
+    times = msmd.timesforscans([10,20])
+    msmd.done()
+            </example>
+        </method>
+        <method name="timesforspws">
+            <shortdescription>Get the unique times corresponding to the specified spectral window(s).</shortdescription>
+            <input>
+                <param type="any" name="spw">
+                    <description>Zero-based spectral window ID(s). A negative integer will cause the all the times for all spws to be returned.</description>
+                    <any type="variant" limittypes="int intArray"/>
+                    <value type="int">-1</value>
+                </param>
+            </input>
+            <returns type="any">
+                <any type="variant"/>
+            </returns>
+            <description>
+                Get the unique times corresponding to the specified spectral window(s). The input indicates the
+                spws for which times are to be retrieved, and can be a single integer or an array of
+                integers. If a single, non-negative integer, an array of unique times associated with
+                that spectral window are returned. Otherwise, a dictionary of times associated with the
+                specified spectral windows are returned, with the spws (as strings) as the keys and the
+                times as the values. A negative integer will cause a dictionary of all spws and their 
+                associated times to be returned.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the times associated with spws 10 and 20
+    times = msmd.timesforspws([10,20])
+    # print the times for spw 10
+    print times["10"]
+    msmd.done()
+            </example>
+        </method>
+
+        <method type="function" name="transitions">
+            <shortdescription>Get the spectral transitions from the SOURCE table for the specified source and spectral window.</shortdescription>
+            <input>
+                <param type="int" direction="in" name="sourceid">
+                    <description>Zero-based source ID (from the SOURCE::SOURCE_ID column).</description>
+                    <value>0</value>
+                </param>
+                <param type="int" direction="in" name="spw">
+                    <description>Zero-based spectral window ID.</description>
+                    <value>0</value>
+                </param>
+            </input>
+            <returns type="any">
+                <any type="variant"/>
+            </returns>
+            <description>
+                Get the spectral transitions from the SOURCE table for the specified source and spectral window.
+                The return value will be an array of transitions if the transitions are
+                defined for the specified inputs, or False if they do not.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the transitions for source ID 2 and spw ID 20
+    reffreq = msmd.transitions(2, 20)
+    msmd.done()
+            </example>
+        </method>
+        
+        <method type="function" name="wvrspws">
+            <shortdescription>Get an array of spectral window IDs used for WVR. These are windows that have 4 channels.</shortdescription>
+            <input>
+                <param type="bool" direction="in" name="complement">
+                    <description>If True, return all non-wvr spws.</description>
+                    <value>false</value>
+                </param>
+            </input>
+            <returns type="intArray"/>
+            <description>
+                <!-- DEPRECATED. USE almaspws(wvr=True) INSTEAD. -->
+                Get an array of spectral window IDs used for WVR. These are windows that have 4 channels.
+                If complement is True, return the complement set instead (all non-wvr spw IDs). WVR windows
+                are identified using the algorithm
+                1. check for water vapor radiometer (WVR) spectral windows using the spectral window
+                   name "WVR#NOMINAL" and report these.
+                2. If no SPWs match that string, then the names are checked for "WVR" and are reported instead.
+            </description>
+            <example>
+    msmd.open("my.ms")
+    # get the spectral window IDs used for WVR.
+    wvr_spws = msmd.wvrspws()
+    msmd.done()
+            </example>
+        </method>
+
+    </tool>
+</casaxml>
+

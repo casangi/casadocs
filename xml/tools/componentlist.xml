@@ -1,0 +1,2993 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+  
+<tool name="componentlist" module="components">
+<code>
+  <include>tools/components/componentlist_forward.h</include>
+  <private>
+    <include>tools/components/componentlist_private.h</include>
+  </private>
+</code>
+  
+<shortdescription>A tool for the manipulation of groups of components</shortdescription>
+    
+
+<description>
+
+  A componentlist is a tool that contains functions that manipulate
+  components. A component is a functional representation of the sky
+  brightness - point source, disk, Gaussian, etc.
+ 
+  Note for those new to CASA: components are not used explicitly in
+  cleaning, rather the model is stored as an image.  Components are
+  useful for e.g. simulation and modifying images (ia.modify), but one
+  will not in general have a clean component list associated with
+  cleaning data.
+
+  The simplest way to make a componentlist tool is to use cl.addcomponent:
+  cl.done()   # it is safest to close it before beginning
+  # add a single point source component with 
+  # Stokes I=2.3Jy and other Stokes parameters 0  
+  cl.addcomponent(dir='J2000 10h30m00 -20d00m00.0', flux=[2.3,0,0,0])  
+  cl.rename("myList.cl")  # save to disk
+ 
+  One can open a list on disk with cl.open(filename).
+ 
+  Componentlists can be converted to/from records (python dictionaries) 
+  with cl.torecord() and cl.fromrecord(record).
+
+</description>
+
+
+
+<method type="constructor" name="componentlist">
+  <shortdescription>Construct an empty componentlist</shortdescription>
+  <description>  
+    Use this constructor to construct a componentlist tool that does not
+    contain any components. Components can be appended to the list using
+    the addcomponent or simulate functions, 
+    and the list can be stored to disk by giving it a name with cl.rename
+  </description>
+</method>
+ 
+<method type="function" name="open">
+  <shortdescription>Construct a cl from a table on disk</shortdescription>
+  
+  <description>
+    Use this constructor to construct a componentlist tool by reading
+    the data from an table. To ensure that this table contains
+    all the necessary columns and to allow the table format to be
+    enhanced in the future, it is highly recommended that the table be
+    created using a componentlist tool.
+    
+    The table that contains the componentlist may be opened read-only by
+    setting the readonly flag to True. When this is done some of the
+    functions in the componentlist tool cannot be used. These include
+    the ``set'', ``convert'', ``remove'', ``replace'', ``purge'',
+    ``recover'', and ``sort'' functions.
+  </description>
+  <input>
+    
+     <param type="string" name="filename">
+     <description>The filename of the table</description>
+     <value></value>
+     </param>
+  
+     <param type="boolean" name="nomodify">
+     <description>Should the table be opened read only</description>
+     <value>false</value>
+     </param>
+  
+     <param type="boolean" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+</input>
+<returns type="bool"/>
+<example>
+cl.open('crux.cl')
+</example>
+</method>
+
+ 
+<method type="function" name="asciitocomponentlist">
+  <shortdescription>Create a componentlist from an ascii file {\bf (Not implemented yet)}</shortdescription>
+  <description>
+    This constructor will allow conversion of a number of ascii-file-based
+    formats to componentlists. 
+  </description>
+<!--
+The formats currently supported are the
+    AIPS star file format, the Caltech model format, and the WENSS, FIRST,
+    and NVSS surveys.
+    
+    \begin{description}
+    \item[AIPS ST file] The AIPS star file describes positions of ``stars''
+    that one might wish to plot overlaid on some other display. It does
+not contain source strength information.  In the AIPS help file for
+STARS, the format of the star file is described as follows:
+\begin{verbatim}
+    The text file contains one line per star and each line has
+up to 7 logical columns containing, in order:
+   1. X position (Right Ascension 00 00 00.00)
+   2. Y position (Declination +/-00 00 00.0)
+   3. Major axis (Full width in arc seconds on sky)
+   4. Minor axis (Full width in arc seconds on sky)
+   5. Position Angle (E of N, degrees)
+   6. Star Type  (-1 to 20, integer )
+   7. Star label (up to 24 character string)
+If X and Y are not RA-DEC or DEC-RA, then the logical columns
+are also 7 actual columns and the units are in AIPS standard
+units (e.g. degrees, m/s etc. ).  In this case the position
+angle should be given as 0.0, the major axis is the width in the
+Y coordinate and the minor axis is the width in the X
+coordinate.  For RA and DEC positions, the sexagesimal notation
+is used (e.g. HH MM SS.SSS -DD MM SS.S) for the positions and
+arc seconds on the sky are used for the Deltas.
+The last 5 columns are not required.  If the last 5 columns are
+not given, a value of 1 cell is assumed for the deltas.
+If the position angle is not included, the default is 0 degrees.
+If the star type is not included, the default type is a cross.
+The default is no label string.
+There are currently 22 different types of star marks.
+ \&lt; 0: No Mark, only the star label is printed
+   0: Cross             10: Five pointed star
+   1: Ellipse           11: Star of David
+   2: Box               12: Seven pointed star
+   3: Triangle          13: Eight pointed star
+   4: Diamond           14: Nine  pointed star
+   5: Pentagon          15: Ten   pointed star
+   6: Hexagon           16: 11    pointed star
+   7: Septagon          17: 12    pointed star
+   8: Octagon           18: 13    pointed star
+   9: Nine-gon          19: 14    pointed star
+  20: Cross with gap   \&gt;20: Ellipse
+The Box (type=2) is different from the diamond in that the
+star size is the half height and width of the box dimensions.
+The Box and the Null (\&lt;0) are labeled at RA and Dec plus Delta
+RA and Delta Dec.  The other marks are labeled at the right
+edge of the of the Rotated RA axis.  The CROSS WITH GAP
+(type=20) has the inner third of the cross removed so the
+marked object is not over written.
+\end{verbatim}
+
+For more information, see the AIPS help file for
+\htmladdnormallink{STARS}{http://www.cv.nrao.edu/cgi-bin/AIPSHELP?STARS}.
+
+Caveats:
+\begin{itemize}
+\item In AIPS, the following are supported: 1: 1900; 2: B1950; 3: J2000; 4: Galactic
+5: OHLSSON Gal.; 6: VAN TULDER Galactic; 7: Super Galactic; if \&gt; 1000 then year assumed.
+Currently, \aipspp\ can support 2 (refer='b1950'), 3
+(refer='j2000'), 4 (refer='gal'), 7 (refer='supergal'). If you
+need any of the others, please contact us.
+
+\item[Caltech] The 
+\htmladdnormallink{Caltech package}
+{http://astro.caltech.edu/~tjp/citvlb/index.html}
+uses a format for specifying positions relative to an undefined
+position. In the documentation for {\em modelfit}, the format is
+described as follows:
+\end{itemize}
+
+\begin{verbatim}
+     Model files are text files that can be typed or printed directly;
+they  can  be  modified or created using the standard text editors.  A
+model file consists of one line for each component of the model,  with
+up to 7 numbers on each line (in free format):
+
+     1.  Component flux density (Jy)
+
+     2.  Distance of center of component  from  origin  (milliarcsec),
+         "radius"
+
+     3.  Position angle of center of component  with  respect  to  the
+         origin (degrees, North through East), "theta"
+
+     4.  Major axis of component (milliarcsec), "axis"
+
+     5.  Axial ratio (minor/major, i.e.  \&lt; 1), "ratio"
+
+     6.  Position angle of major axis (degrees, North  through  East),
+         "phi"
+
+     7.  Type:
+             0 or 1:  elliptical Gaussian  (major  axis  is  FWHM)  or
+             delta-function (major axis = 0)
+             2:  uniform elliptical disk (major axis is diameter)
+             3:  optically thin spheroid or tapered disk  (major  axis
+             is diameter)
+             4:  elliptical ring (major axis is diameter)
+             5:  line (major axis is length)
+
+For Gaussians and  delta-functions,  the  Type  can  be  omitted;  for
+delta-functions, the major-axis, axial-ratio, position- angle and type
+can be omitted.  (Not all the  programs  understand  types  2-5.)  The
+"origin" is an arbitrary phase-reference point.  The maximum number of
+components varies from 600  to  10000,  depending  on  the  individual
+program.                                                              
+\end{verbatim}
+
+Caveats:
+\begin{itemize}
+\item In \aipspp, directions in componentlist are currently absolute
+only. Hence one must specify the reference direction.
+
+\item[WENSS] The \htmladdnormallink{Westerbork Northern Sky Survey (WENSS)}
+{http://www.strw.leidenuniv.nl/\%7Edpf/wenss/} is a
+low-frequency radio survey that covers the whole sky north of delta=30
+degree at a wavelength of 92cm to a limiting flux density of
+approximately 18 mJy (5 sigma). This survey has a resolution of 54'' x
+54'' cosec (delta) and a positional accuracy for strong sources of
+1.5''.  The WSRT Northern Sky Survey catalog is available via a
+\htmladdnormallink{Web
+interface}{http://www.strw.leidenuniv.nl/\%7Edpf/wenss/search.html}.
+Use this interface to search for sources, choose the plain text
+output, capture the output into a file and then convert.
+
+\item[FIRST] \htmladdnormallink{Faint Images of the Radio Sky at
+Twenty-cm}{http://sundog.stsci.edu/top.html} - is a project designed
+to produce the radio equivalent of the Palomar Observatory Sky Survey
+over 10,000 square degrees of the North and South Galactic Caps. Using
+the NRAO Very Large Array (VLA) and an automated mapping pipeline,
+they produce images with 1.8" pixels, a typical rms of 0.15 mJy, and a
+resolution of 5". At the 1 mJy source detection threshold, there are
+~90 sources per square degree, ~35\% of which have resolved structure
+on scales from 2-30". Go to the \htmladdnormallink{FIRST catalog search
+page}{http://sundog.stsci.edu/cgi-bin/searchfirst}, search for the
+sources that you want, cut out only the lines that include the
+sources, put in a file and then convert.
+
+\item[NVSS] The \htmladdnormallink{NRAO VLA Sky Survey}
+{http://www.cv.nrao.edu/~jcondon/nvss.html} The NRAO VLA Sky Survey
+(NVSS) is a radio continuum survey covering the sky north of -40 deg
+declination. A detailed description appears in the 1998 May issue of
+The Astronomical Journal (Condon, J. J., Cotton, W. D., Greisen,
+E. W., Yin, Q. F., Perley, R. A., Taylor, G. B., \&amp; Broderick,
+J. J. 1998, AJ, 115, 1693). Go to the \htmladdnormallink{NVSS catalog
+search page}{http://www.cv.nrao.edu/NVSS/NVSS.html}, search for the
+sources that you want, cut out only the lines that include the sources
+(you can leave in the alternating lines with error information), put
+in a file and then convert.
+\end{itemize}
+
+Caveats:
+\begin{itemize}
+\item The catalog contains upper limits on some scale sizes. We
+have chosen to represent these as actual sizes.
+\end{itemize}
+\end{description}
+-->
+
+  <input>
+    
+    <param type="string" name="filename">
+      <description>Name of output component list table</description>
+    </param>
+    
+    <param type="string" name="asciifile">
+      <description>Name of input ascii file</description>
+    </param>
+    
+    <param type="string" name="refer">
+      <description>Input reference frame</description>
+      <value>B1950</value>
+      <value>J2000</value>
+    </param>
+    
+    <param type="string" name="format">
+      <description>Name of format (only ST supported)</description>
+      <value>ST</value>
+    </param>
+    
+    <param type="record" name="direction">
+      <description>Direction measure (for relative coordinates)</description>
+      <value/>
+    </param>
+    
+    <param type="record" name="spectrum">
+      <description>Default spectrum field, valid spectrum field
+      [type="Constant", frequency=[type="frequency" , refer="LSR" , m0=[unit="GHz" , value=1.0]]
+      </description>
+      <value/>
+    </param>
+    
+    <param type="record" name="flux">
+      <description>Default flux field, valid flux field
+      [value=[0.0, 0.0, 0.0, 0.0], unit='Jy', polarization="Stokes"]</description>
+      <value/>
+    </param>
+    
+    <param type="bool" name="log">
+      <description>Send a message to the logger</description>
+      <value>true</value>
+    </param> 
+  </input>
+  <returns type="int">Number of components found</returns>
+</method>
+
+ 
+<method type="function" name="concatenate">
+  <shortdescription>Append components from another componentlist.</shortdescription>
+  
+  <keyword>concatenate</keyword>
+  <description>
+    The concatenate function copies the specified component(s), from
+    the specified to list, to the end of the current list.  The
+    components are specified by numbering them from one to the length
+    of the list.  You cannot append components to a list that has been
+    opened read only but the list you are copying from may be
+    readonly.
+
+    You use a vector of indices to copy a number of components at
+    once. By default all components are copied.
+  </description>
+  <input>
+    
+     <param type="any" name="list">
+     <description>list to copy from. Can be a componentlist record or a componentlist file name from disk </description>
+     <value></value>
+     </param> 
+    
+     <param type="intArray" name="which">
+     <description>which components to copy, -1 unset</description>
+     <value>-1</value>
+     </param> 
+    
+     <param type="bool" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+  </input>
+  <returns type="bool"/>
+  <example>    
+       cl.addcomponent(flux=1.0, dir='J2000 19h00m00 -40d00m00')
+       cl.addcomponent(flux=2.0, dir='J2000 19h10m00 -40d00m00')
+       cl.addcomponent(flux=3.0, dir='J2000 19h00m00 -40d00m00')
+       cl2 = cltool();
+       cl2.concatenate(cl.torecord(), [0,2]);
+       cl.done()
+       cl2.rename('part_list.cl');
+       cl2.done()
+    We make a 3 component component list and
+    copies the first and third component to another a componentlist
+    that was initially empty. These components are then saved to the
+    table called part_list.cl.
+
+      cl.close() ### make sure we start with empty componentlist
+      cl.concatenate('crux.cl', [0,2]);
+      cl.rename('crux-copy.cl');
+      cl.done()
+    
+    This example reads a componentlist from a casa table and
+    copies the first and third component to another a componentlist
+    that was initially empty. These components are then saved to the
+    table called crux-copy.cl.
+  </example>
+</method>
+
+<method type="function" name="fromrecord">
+  
+  <shortdescription>make a componentlist tool from a record</shortdescription>
+  
+  <keyword>fromrecord</keyword>
+  <description>
+    
+    This function allows the componentlist records that are returned
+    by other functions (for e.g from imageanalysis tool) be converted
+    to a tool to be manipulated or to be saved on disk
+    
+  </description>
+  <input>
+    
+    <param type="record" name="record">
+      <description> a component list record </description>
+      <value></value>
+    </param> 
+    
+    
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      
+      cl2 = cltool()
+     
+      cl2.fromrecord(ia.findsources())
+      cl2.rename('sourcesfound.cl')
+      cl2.done()
+    
+  </example>
+  <comments>
+    This example uses the image analysis tool source finding function
+    that returns a componentlist record. A componentlist tool is
+    created and the componentlist is saved to disk.
+  </comments>
+</method>
+
+
+<method type="function" name="torecord">
+
+   <shortdescription>convert componentlist to a record</shortdescription>
+   
+  <keyword>fromrecord</keyword>
+  <description>
+
+    This function allows the componentlist to be converted to a
+    record. Usually useful to pass to other functions in image
+    analysis for e.g
+
+  </description>
+  <input>
+    
+    
+     
+  </input>
+  <returns type="record">Componentlist tool </returns>
+  <example>
+    
+      cl2=cltool()
+      cl.open('mycomp.cl')
+     
+      cl2.fromrecord(ia.deconvolvecomponentlist(cl.torecord()))
+      cl2.rename('deconvolved_sources.cl')
+      cl2.done()
+    
+  </example>
+  <comments>
+    This example uses the image analysis tool to deconvolve the
+    components in componentlist 'mycomp.cl' and stores the resultant
+    componentlist in 'deconvolved_sources.cl'
+  </comments>
+</method>
+
+ 
+<method type="function" name="remove">
+  <shortdescription>Remove a component from the list.</shortdescription>
+  
+  <keyword>remove</keyword>
+  <description>
+
+    The remove function removes the specified component(s) from the
+    list. Components are specified by numbering them from one to the
+    length of the list. So removing component one will remove the
+    first component. After using this function all the
+    remaining components will be shuffled down so that component two
+    becomes component one.  You cannot remove components from a list
+    that has been opened read only.
+
+    You can specify a vector of indices to remove a number of
+    components at once. For example in a five element list removing
+    elements [1,3,5] will result in a two element list, now indexed as 
+    elements one and two, containing what was previously the second
+    and fourth components. 
+  
+    Components that have been deleted using this function are not
+    lost. The recover function can be used to get them back unless the
+    purge function has been executed. Then they are completely gone.
+
+  </description>
+  <input>
+    
+     <param type="intArray" name="which">
+     <description>indices of which component(s) to remove
+     a vector containing unique integers between
+     0 and one less than the length of the list, -1 for all</description>
+     <value>-1</value>
+     </param> 
+    
+     <param type="bool" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('crux.cl')
+      cl.remove(1)
+    
+  </example>
+  <comments>
+    This example reads a componentlist from an \aipspp\ table and
+    removes the first element from the list.
+  </comments>
+</method>
+
+ 
+<method type="function" name="purge">
+  <shortdescription>Permanently delete removed components.</shortdescription>
+   
+  <keyword>purge</keyword>
+  <description>
+
+    The remove function deletes components from the list but does not
+    remove them from memory. They remain accessible and can be
+    obtained with the recover function. The purge function frees up
+    the memory occupied by the removed components. You cannot use the
+    recover function to obtain the removed components after the purge
+    function has been called.
+
+  </description>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('crux.cl')
+      cl.remove(1)
+      cl.purge()
+    
+  </example>
+  <comments>
+    This example reads a componentlist from a table and removes the first
+    element from the list and then frees up the memory associated with 
+    the removed component.
+  </comments>
+</method>
+
+ 
+   <method type="function" name="recover">
+   <shortdescription>Obtain removed components.</shortdescription>
+   
+  <keyword>recover</keyword>
+  <description>
+    The recover function appends components to the end of the list
+    that have been deleted with the remove function. This does not
+    include components that were removed before the purge function was
+    last executed.
+  </description>
+  <input>
+    
+     <param type="bool" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('crux.cl')
+      cl.remove(1)
+      cl.recover()
+    
+  </example>
+  <comments> 
+    This example reads a componentlist from a table and removes the
+    first element from the list. The recover function is then called
+    to append the component to the end of the list. Overall the list
+    is unchanged although the first component has been moved to the end.
+  </comments>
+</method>
+
+ 
+   <method type="function" name="length">
+   <shortdescription>Find the number of components in the list.</shortdescription>
+   
+  <keyword>length</keyword>
+  <description>
+    The length function returns a non-negative integer that
+    indicates how many components the list currently contains. 
+  </description>
+  <returns type="int"/>
+  <example>
+    
+      cl.open('crux.cl')
+      n = cl.length()
+    
+  </example>
+  <comments>
+    This example creates an empty componentlist. Hence the variable
+    'n' will be zero after the length function is executed.
+  </comments>
+</method>
+
+ 
+<method type="function" name="indices">
+   <shortdescription>Return a vector of indices. (Not implemented yet)</shortdescription>
+   
+  <keyword>indices</keyword>
+  <description>
+    The indices function will returns a vector of non-negative
+    integers that can be used to index through the list. This vector
+    always contains the integers starting at one and increasing
+    sequentially to the length of the list. Its main use is in for
+    loops as is illustrated in the example below.
+  </description>
+  <returns type="intArray"/>
+</method>
+
+ 
+<method type="function" name="sort">
+   <shortdescription>Sort the components in a list</shortdescription>
+   
+  <keyword>sort</keyword>
+  <description>
+    The sort function can sort all the components in a list using a
+    variety of criteria. Currently the following criteria are
+    available:
+      Flux: Sorts the list so that the brightest components, 
+        as defined by Stokes I, are at the beginning of the list.
+      Position: Sorts the list so that components that are
+        closest to a reference position, which is currently fixed at 
+        (ra,dec)=(0,0), are at the beginning of the list.
+      Polarization: Sorts the list so that components with the
+        largest fractional polarization, sqrt(Q**2+U**2+V**2)/I, are
+        at the front of the list. Components where I=0 are placed at 
+        the end of the list.
+    The parsing of the string containg the sorting criteria is case
+    insensitive. You cannot sort a list that has been opened read only.
+  </description>
+  <input>
+    
+     <param type="string" name="criteria">
+     <description>a string containg the criteria to use to sort the list</description>
+     <value>Polarization</value>
+     <value>Position</value>
+     <value>Flux</value>
+     </param>
+    
+     <param type="bool" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('crux.cl')
+      cl.sort('Polarization')
+    
+  </example>
+  <comments>
+    This example reads a componentlist from disk and then proceeds to
+    sort the components so that the most polarized components are at
+    the front of the list.
+  </comments>
+</method>
+
+ 
+<method type="function" name="isphysical">
+   <shortdescription>Check if a component is physically plausible</shortdescription>
+   
+  <keyword>isphysical</keyword>
+  <description>
+    The isphysical function is used to check if the specified
+    components meet a number of criteria that must be true if the
+    component could be used to model a physical process. These
+    criteria are:
+     1. I >= sqrt(Q**2 + U**2 + V**2)
+     2. That the flux, when represented using the Stokes
+          representation, has a zero imaginary value.
+
+    The ``Flux properties'' section of the ComponentModels module
+    documentation describes how it is possible to generate a
+    component which has non-zero imaginary value in the Stokes
+    representation.
+
+    It is possible to check a number of components at once by
+    specifying the indicies of all the components. The returned value
+    will only be True if all the specified components are physical.
+
+  </description>
+  <input>
+    
+    <param type="intArray" name="which">
+     <description>A vector of indices
+     Indices must be between 0 and one less than the list length, inclusively</description>
+     <value>-1</value>
+     </param>
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl2 = cltool()
+      cl2.simulate(2)
+      cl2.setflux(1, value=[10, 1+3j, 1-4j, 0], polarization="linear");
+      print cl2.isphysical([0,1])
+    
+  </example>
+  <comments>
+    This example creates a non-physical component hence the print
+    statement will return False.
+  </comments>
+</method>
+
+ 
+<method type="function" name="sample">
+   <shortdescription>Sample the flux of the list in a specified direction. (Not implemented yet)</shortdescription>
+   
+  <keyword>sample</keyword>
+  <description>
+
+    The sample function will returns a vector containing the flux in
+    Janskys/pixel of all the components in the list, in the specified
+    direction, at the specified frequency. The returned vector always
+    contains four elements corresponding to the Stokes parameters
+    I,Q,U,V.
+
+  </description>
+  <input>
+    
+     <param type="any" name="direction">
+     <description>The direction to sample
+     any valid direction measure. A valid Direction measure or vector of string or string, e.g me.direction('J2000','19h30m00', '-20d00m00') or ['J2000','19h30m00', '-20d00m00'] or 'J2000 19h30m00 -20d00m00'</description>
+     <value>J2000 00h00m00.00 90d00m00.0</value>
+     </param>
+    
+     <param type="any" name="pixellatsize">
+     <description>the x-size of the in pixels to use when sampling
+     any quantity that has angular units.</description>
+     <value>0.0deg</value>
+     </param>
+    
+     <param type="any" name="pixellongsize">
+     <description>the y-size of the in pixels to use when sampling
+     any quantity that has angular units.</description>
+     <value>0.0deg</value>
+     </param>
+    
+     <param type="any" name="frequency">
+     <description>The frequency to sample at
+     Any frequency measure</description>
+     <value>1.4GHz</value>
+     </param>
+  </input>
+  <returns type="doubleArray">
+  <description>A vector with four elements containing the flux in Janskys/pixel
+    in the I,Q,U,V polarizations
+  </description></returns>
+<!--
+  <example>
+    
+      include 'componentlist.g'
+      include 'measures.g'
+      cl := componentlist('crux.cl', readonly=True);
+      dir := dm.direction('J2000', '12h26m35.9', '-63d5m56');
+      pixelsize := dm.quantity('1arcsec');
+      flux := cl.sample(dir, pixelsize);
+    
+  </example>
+  <comments>
+    In this example the componentlist is sampled at the position of
+    $\alpha$-Cru. The flux will be a vector with four elements. 
+  </comments>
+-->
+</method>
+
+ 
+<method type="function" name="rename">
+  <shortdescription>Give the list a name so it can save itself. use close to save to disk</shortdescription>
+   
+  <keyword>rename</keyword>
+  <description>
+
+    The rename function is used to specify the name of the table
+    associated with this componentlist.
+    
+    When a componentlist is created it is not associated with an casa
+    table. So when the componentlist is removed from memory its
+    contents are lost. But if a name is attached to the componentlist,
+    using the rename function, then its contents are saved in a table
+    with the specified name when the componentlist is closed
+    
+    NOTE: that by just using rename the componentlist is not ensured
+    to be on disk; to be sure use close after rename
+
+    If the componentlist is created using the open() constructor then
+    this function will rename the table associated with the list to
+    the user specified name. You cannot rename a componentlist that
+    has been opened read only.
+    
+    <!--    If the supplied filename is the null string then any table
+    currently associated with the list is removed. But the list itself
+    still contains all its components. -->
+    
+  </description>
+  <input>
+    
+     <param type="string" name="filename">
+     <description>The filename of the table</description>
+     </param>
+    
+     <param type="bool" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+    
+    cl.simulate(1);
+    cl.setshape(0, 'gaussian', '35mas', '27mas', '-10d')
+    cl.setflux(0, [1.0, 0.2, 0.1, 0.01]);
+    cl.rename('smallblob.cl');
+    cl.close();
+    
+    cl.open('smallblob.cl')
+    n=cl.length()
+
+    This example starts with an  empty componentlist tool and then adds
+    one component to it. The parameters of this component are then
+    modified to change the shape and flux and the list saved in the
+    casa table called 'smallblob.cl' The data is not written to
+    disk until the list is closed, and when it is the componentlist is
+    reset. So you need to reopen it if you want to interact with it.
+  </example>
+ 
+
+</method>
+
+ 
+<method type="function" name="simulate">
+   <shortdescription>Add some simulated components to the list</shortdescription>
+   
+  <keyword>simulate</keyword>
+  <description>
+    The simulate function adds simulated components to the list. The
+    simulation criterion is very simple, all the components added are
+    identical! They are point sources at the J2000 north pole with a
+    flux in Stokes I of 1~Jy, and zero in the other polarizations. The
+    spectrum is constant. The 'set' functions (eg. setflux, setfreq)
+    can be used to change these parameters to desired ones.
+
+    The howmany argument indicates how many components to append to
+    the list.
+  </description>
+  <input>
+    
+     <param type="int" name="howmany">
+     <description>How many components to simulate, greater than zero</description>
+     <value>1</value>
+     </param>
+    
+     <param type="bool" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+  </input>
+  <returns type="bool"/>
+  <example>
+
+      cl.simulate(2)
+      cl.setflux(1, [2.78, 0, 0, 0]);
+      cl.rename('test.cl');
+      cl.close();
+    
+  <!-- </example> -->
+  <!-- <comments> -->
+    This example creates a componentlist with two components. <!--The
+    component editor gui is then called on the first component to set the
+    parameters to the desired ones, and--> The setflux function is used to
+    modify the second component.  The list is then saved on disk. 
+    I use short scripts like this a lot during testing. 
+
+    <!--
+    I expect bad things will happen if you save the list to disk,
+    using the <link anchor="componentmodels:componentlist.close.function">close</link>
+    function, before having shut down the editor gui (using the done
+    button) or if you modify the same component using any of the set
+    functions while it is being modified by the gui.
+    -->
+
+  <!-- </comments> -->
+  </example>
+</method>
+
+ 
+<method type="function" name="addcomponent">
+   <shortdescription>Add a component to the list</shortdescription>
+   
+  <keyword>addcomponent</keyword>
+  <description>
+
+    The addcomponent function is a convenience function that ties
+    together the simulate function, and the various set
+    functions. This function adds a component to the end of the
+    list. For a description of the arguments see the following
+    functions.
+      [flux, fluxunit, polarization] See setflux
+      [ra, raunit, dec, decunit] See setrefdir
+      [dirframe] See setrefdirframe
+      [shape, majoraxis, minoraxis, positionangle] See setshape
+      [freq] A frequency quantity which is split into a value and
+        units and passed to the setfreq function 
+      [freqframe] See setfreq 
+      [spectrumtype, index] The spectral index alpha such that flux density S 
+        as a function of frequency nu is: S~nu**alpha.
+	See also the setspectrum or setstokesspectrum functions.
+      [label] See setlabel 
+  </description>
+  <input>
+<!--GOING to variant
+     <param type="complexArray" name="flux">
+-->
+     <param type="any" name="flux">
+     <description>The flux value.
+     A vector with four real or complex numbers</description>
+<!-- DISABLING this for now as it is not a recognized entity 
+     <value type="vector"> 
+          <value type="struct"><value name="re">1.0</value><value name="im">0.0</value></value> 
+          <value type="struct"><value name="re">0.0</value><value name="im">0.0</value></value> 
+          <value type="struct"><value name="re">0.0</value><value name="im">0.0</value></value>
+	  <value type="struct"><value name="re">0.0</value><value name="im">0.0</value></value>
+     </value>
+
+-->
+<!-- No temporary default -->
+   <value></value>
+   </param>
+     <param type="string" name="fluxunit">
+     <description>The units of the flux.
+     Any string with the same dimensions as the Jansky</description>
+     <value>Jy</value>
+     </param>
+    
+     <param type="string" name="polarization">
+     <description>The polarization of the value field.
+     ``Stokes'', ``linear'' or ``circular''</description>
+     <value>Circular</value>
+     <value>Linear</value>
+     <value>Stokes</value>
+     </param>
+    
+     <param type="any" name="dir">
+     <description>The direction measure of the source, it can a be any direction measure from the measures tool or a string of the type 'J2000 10h30m00 -20d00m00.0' or a vector of strings of the type ['J2000', '10:30:00.00', '-20.00.00.0']. Basically the string or strings should have the direction frame and quantities for Ra and Dec</description>
+     <value>J2000 00h00m00.0 90d00m00.0</value>
+     </param>
+
+    
+    
+     <param type="string" name="shape">
+     <description>The new shape type.
+     A string that is either 'point', 'Gaussian', or 'disk'</description>
+     <value>disk</value>
+     <value>Gaussian</value>
+     <value>point</value>
+     </param>
+    
+     <param type="any" name="majoraxis">
+     <description>The width (FWHM in the case of a Gaussian) of the larger axis.
+     A quantity with angular units</description>
+     <value>2.0arcmin</value>
+     </param>
+    
+     <param type="any" name="minoraxis">
+     <description>The width (FWHM in the case of a Gaussian) of the smaller axis.
+     A quantity with angular units</description>
+     <value>1.0arcmin</value>
+     </param>
+    
+     <param type="any" name="positionangle">
+     <description>The rotation of the axes with respect to
+                             the reference frame.
+     A quantity with angular units</description>
+     <value>0.0deg</value>
+     </param>
+    
+     <param type="any" name="freq">
+     <description>The reference frequency.
+     A quantity with units equivalent to the 'Hz' and frame or a frequency measure, e.g ['TOPO', '1.6GHz'], or simply default frame (LSRK) '1.6GHz' </description>
+     <value>LSRK 1.415GHz</value>
+     </param>
+    
+    
+     <param type="string" name="spectrumtype">
+     <description>The spectrum type,
+     a string that is either 'constant' or 'spectral index'</description>
+     <value>spectral index</value>
+     <value>constant</value>
+     </param>
+    
+     <param type="double" name="index">
+     <description>The spectral index</description>
+     <value>1.0</value>
+     </param>
+    
+     <param type="doubleArray" name="optionalparms">
+     <description>optional parameters in vector (for future use)</description>
+     <value>0.0</value>
+     </param>
+
+     <param type="string" name="label">
+     <description>The label for the component</description>
+     <value></value>
+     </param>
+  </input>
+  <returns type="bool"/>
+</method>
+
+ 
+<method type="function" name="close">
+  <shortdescription>Save the componentlist to disk and reset its state.</shortdescription>
+  
+  <keyword>close</keyword>
+  <description>
+    The close function resets the componentlist to its default state. In
+    this state it contains no components and is not associated with
+    any table. <!--This is the same state as a componentlist that has been
+    newly created using the
+    <link anchor="componentmodels:componentlist.emptycomponentlist.constructor">emptycomponentlist</link>
+    constructor.-->
+    
+    This function flushes all the components in memory to disk if the
+    componentlist is associated with a table. The table is then
+    closed, and the contents of the list deleted.
+    
+    If the list is not associated with a table its contents are still
+    deleted and memory used by the list is released.
+  </description>
+  <input>
+    
+     <param type="bool" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+  </input>
+  <returns type="bool"/>
+  <example>
+    See the example for the
+    <link anchor="componentmodels:componentlist.rename.function">rename</link> function.
+  </example>
+</method>
+
+ 
+<method type="function" name="edit">
+   <shortdescription>Start up the component editor gui (Not implemented yet)</shortdescription>
+   
+  <keyword>edit</keyword>
+  <description>
+<!--
+    The edit function starts up a graphical user interface which allows
+    the user to view and manipulate individual components. The which
+    argument specifies the component to edit. 
+
+    The component being edited is copied into the
+    <link anchor="componentmodels:componenteditor">componenteditor</link>
+    tool. Hence if you add or remove components or change the order
+    of components in the list while the component is in the editor it
+    will be put back in the wrong place!  So do not manipulate the
+    list while editting a component. It is also suggested you only
+    edit one component at a time.
+-->
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+       An integer between 0 and one less than the list length</description>
+     <choice>no default</choice>
+     </param>
+    
+     <param type="bool" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+  </input>
+  <returns type="bool"/>
+<!--
+  <example>
+    See the example for the
+    <link anchor="componentmodels:componentlist.simulate.function">simulate</link> function.
+  </example>
+-->
+</method>
+
+ 
+<method type="function" name="done">
+   <shortdescription>Delete the componentlist tool</shortdescription>
+   
+  <keyword>close</keyword>
+  <description>
+    The done function frees up all the memory associated with a
+    componentlist tool. After calling this function the componentlist 
+    tool cannot be used, either to manipulate the current list, or
+    to open a new one. This function does not delete the disk
+    file associated with a componentlist, but it will shut down the
+    server process if there are no other componentlist tools being used.
+  </description>
+  <returns type="bool"/>
+  <example>
+    See the example for the rename function.
+  </example>
+</method>
+
+ 
+<method type="function" name="select">
+   <shortdescription>Mark components in the list</shortdescription>
+   
+  <keyword>select</keyword>
+  <description>
+    The select function is used to mark the specified components as
+    ``selected''. This function will be used in conjunction with the
+    planned graphical user interface. Other functions functions in the
+    componentlist tool will behave no differently if a component is
+    marked as ``selected''.
+
+    Components are not selected when the list is initially read
+    from disk or when a new component is added to the list using the 
+    simulate function.
+  </description>
+  <input>
+    
+    <param type="intArray" name="which">
+      <description>A vector of indices.
+Indices must be between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('crux.cl')
+      cl.select([1,3])
+    
+  </example>
+  <comments>
+    This example reads a list from disk and then marks the first and
+    third component as selected.
+  </comments>
+</method>
+
+ 
+<method type="function" name="deselect">
+   <shortdescription>Unmark components in the list</shortdescription>
+   
+  <keyword>deselect</keyword>
+  <description>
+
+    The deselect function is used to remove the ``selected'' mark from
+    specified components in the list. This function wiil be used in
+    conjunction with the planned graphical user interface and no other
+    functions in the componentlist will behave differently if a
+    component is marked as ``selected'' or not.
+
+    Components are not selected when the list is initially read from
+    disk or when a new component is added to the list using the
+    simulate function.  function. Deselecting a component that is
+    already deselected is perfectly valid and results in no change.
+  </description>
+  <input>
+    
+     <param type="intArray" name="which">
+     <description>A vector of indices
+     Indices must be between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('crux.cl')
+      cl.select([1,3])
+      cl.deselect([2,3])
+    
+  </example>
+  <comments>
+    This example reads a list from disk. After the deselect operation
+    only the first component is still selected.
+  </comments>
+</method>
+
+ 
+<method type="function" name="selected">
+   <shortdescription>Determine which components are selected</shortdescription>
+   
+  <keyword>selected</keyword>
+  <description>
+    The selected function is used to determine which components in a
+    list are selected. It returns a vector with indices that indicate
+    which components are selected. A zero length vector is returned if 
+    no components are selected.
+
+    Components are marked as selected using the
+    <link anchor="componentmodels:componentlist.select.function">select</link>
+    function. This function will be used in conjunction with the
+    graphical user interface and other functions in the componentlist
+    tool will behave no differently if a component is marked as
+    ``selected'' or not.
+
+  </description>
+  <returns type="intArray"><description>A vector of integers between 0 and one less than the list length</description></returns>
+  <example>
+    
+      cl.open('crux.cl')
+      cl.select([1,3])
+      cl.deselect([2,3])
+      cl.selected()
+    
+  </example>
+  <comments>
+    This example reads a list from disk. After the deselect operation
+    only the first component is still selected and the selected
+    function will return [1]
+  </comments>
+</method>
+
+ 
+<method type="function" name="getlabel">
+   <shortdescription>Get the label of the specified component</shortdescription>
+   
+  <keyword>getlabel</keyword>
+  <description>
+     The getlabel function returns the label associated with the specified
+     component. The label is an arbitrary text string that can be used 
+     to tag a component.
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+	     <description>An index specifying which component.
+		     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="string"/>
+  <example>
+    
+      cl.open('crux.cl')
+      cl.getlabel(1)
+    
+  </example>
+  <comments>
+  This example prints the label associated with the first
+  component. It returns 'Alpha Crux'.
+  </comments>
+</method>
+
+ 
+<method type="function" name="setlabel">
+   <shortdescription>Set the label of the specified components</shortdescription>
+   
+  <keyword>setlabel</keyword>
+  <description>
+     The setlabel function is used to reassign the label (an arbitrary
+     text string) of the specified components to
+     a new value. 
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <!--
+     <description>A vector of indices specifying the components to modify.
+     A vector with indices between 0 and one less than the list length, inclusively</description>
+     -->
+     <description>An index specifying the component to modify.
+     An integer between 0 and one less than the list length, inclusively</description>
+     <choice>no default</choice>
+     </param>
+    
+     <param type="string" name="value">
+     <description>The label for the specified components</description>
+     </param>
+    
+     <param type="bool" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('centarusA.cl')
+      cl.setlabel(1, 'Core')
+      <!-- 
+      cl.setlabel(range(2,11), 'Left Lobe')
+      cl.setlabel(range(11,24), 'Right Lobe')
+      --> 
+  </example>
+  <comments>
+    This example reads a model of Centarus A which contains at least
+    23 components. It then marks the first one as the core, the next
+    nine as the left lobe, and the next thirteen as the right lobe. The
+    lobes may, for example, be modelled using a collection of Gaussian
+    shaped components.
+  </comments>
+</method>
+
+ 
+   <method type="function" name="getfluxvalue">
+   <shortdescription>Get the flux value of the specified component</shortdescription>
+   
+  <keyword>getfluxvalue</keyword>
+  <description>
+     The getfluxvalue function returns the value of the flux of the
+     specified component using the current units and the current
+     polarization representation. The functions 
+     <link anchor="componentmodels:componentlist.getfluxunit.function">getfluxunit</link> \&amp;
+     <link anchor="componentmodels:componentlist.getfluxpol.function">getfluxpol</link> \&amp;
+     can be used to get the units and polarization
+     representation that corresponds to the supplied value.
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+     An integer between 0 and one less than the list length, inclusively</description>
+     <choice>no default</choice>
+     </param>
+  </input>
+  <returns type="doubleArray"><description>A vector of length 4 with the flux values in the current
+		  units and polarization representation.</description></returns>
+  <example>
+    
+      cl.open('crux.cl');
+      flux = cl.getfluxvalue(1);
+      unit = cl.getfluxunit(1);
+      <!--
+      pol := cl.getfluxpol(1);
+      err := cl.getfluxerror(1);
+      -->
+    
+    This example returns the values, units, polarization and error of the
+    first component in the list.
+  </example>
+</method>
+
+ 
+   <method type="function" name="getfluxunit">
+   <shortdescription>Get the flux unit of the specified component</shortdescription>
+   
+  <keyword>getfluxunit</keyword>
+  <description>
+     The getfluxunit function returns the units of the flux of the
+     specified component. The actual values are obtained using the 
+     <link anchor="componentmodels:componentlist.getfluxvalue.function">getfluxvalue</link> function.
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="string"><description>A string with the units of the flux for the specified component</description></returns>
+  <example>
+  See the example for the
+  <link anchor="componentmodels:componentlist.getfluxvalue.function">getfluxvalue</link> function.
+  </example>
+</method>
+
+ 
+   <method type="function" name="getfluxpol">
+   <shortdescription>Get the polarization representation for the flux of the specified component {\bf (Not implmented yet)}</shortdescription>
+   
+  <keyword>getfluxpol</keyword>
+  <description>
+     The getfluxunit function returns the polarization representation
+     of the flux of the specified component. The actual values are
+     obtained using the
+     <link anchor="componentmodels:componentlist.getfluxvalue.function">getfluxvalue</link>
+     function.
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="string"><description>A string containing either ``Stokes'', ``linear'' or 
+             ``circular''. If ``Stokes'' is returned, then the flux
+             values are the \verb+[I,Q,U,V]+ components of the
+             polarization and are always real. For ``linear and
+             ``circular'' the values returned are complex. 
+             If the value is
+              ``linear'' then the values returned are the
+             \verb+[XX,XY,YX,YY]+ components of the polarization.
+             The parrallactic angle is assumed to
+             be zero in this case. If the value is ``circular'' then
+             the values returned are the \verb+[RR,RL,LR,LL]+
+	     components of the polarization.</description></returns>
+  <comments>
+  See the example for the
+  <link anchor="componentmodels:componentlist.getfluxvalue.function">getfluxvalue</link> function.
+  </comments>
+</method>
+
+ 
+   <method type="function" name="getfluxerror">
+   <shortdescription>Get the error in the flux of the specified component</shortdescription>
+   
+  <keyword>getfluxerror</keyword>
+  <description>
+     The getfluxerror function returns the error in the flux of the
+     specified component using the current units and the current
+     polarization representation. The functions 
+     <link anchor="componentmodels:componentlist.getfluxvalue.function">getfluxvalue</link> \&amp;
+     <link anchor="componentmodels:componentlist.getfluxunit.function">getfluxunit</link> \&amp;
+     <link anchor="componentmodels:componentlist.getfluxpol.function">getfluxpol</link> \&amp;
+     can be used to get the value, units and polarization
+     representation that corresponds to the specified error.
+
+     No error calculations are done by this tool. The error can be
+     stored and retreived and if any of the parameters of the flux
+     change the user is responsible for updating the errors.
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>Index specifying which component.
+     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="doubleArray"><description>A vector of length 4 with the errors in the flux values
+		  in the current units and polarization representation.</description></returns>
+  <comments>
+  See the example for the
+  <link anchor="componentmodels:componentlist.getfluxvalue.function">getfluxvalue</link> function.
+  </comments>
+</method>
+
+ 
+   <method type="function" name="setflux">
+   <shortdescription>Set the flux of the specified components</shortdescription>
+   
+  <keyword>setflux</keyword>
+  <description>
+     The setflux function is used to reassign the flux of the
+     specified components to a new value. The flux value, unit and
+     polarization can be specified and any number of components can be
+     set to the new value.  (Currently, the parameter, error is
+     ignored.)
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>A vector of indices specifying the components to modify.
+     A vector with indices between 0 and one less than the list length, inclusively</description>
+     </param>
+    
+     <param type="any" name="value">
+     <description>The flux values for the specified components
+     A vector with four real or complex numbers</description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="unit">
+     <description>The units of the flux.
+     Any string with the same dimensions as the Jansky</description>
+     <value>Jy</value>
+     </param>
+    
+     <param type="string" name="polarization">
+     <description>The polarization of the value field</description>
+     <value>circular</value>
+     <value>linear</value>
+     <value>Stokes</value>
+     </param>
+    
+     <param type="any" name="error">
+     <description>The error in the value field.
+     A complex vector of length four.</description>
+<!-- This Default does not work yet
+     <value type="vector">
+	     <value type="struct"><value name="re">0.0</value><value name="im">0.0</value></value>
+	     <value type="struct"><value name="re">0.0</value><value name="im">0.0</value></value>
+	     <value type="struct"><value name="re">0.0</value><value name="im">0.0</value></value>
+	     <value type="struct"><value name="re">0.0</value><value name="im">0.0</value></value>
+     </value>
+-->
+     <value></value>
+     </param>
+    
+     <param type="bool" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('crux.cl');
+      cl.setflux(0, [1,0,0,0], unit='jy', 
+	         polarization='Stokes', error=[.3, 0, 0, 0])
+    
+  </example>
+  <comments>
+  This example sets all the components in the list to a flux of 1 Jy
+  in I and zero in the Q,~U,~\&amp;~V polarizations.
+  </comments>
+</method>
+
+ 
+   <method type="function" name="convertfluxunit">
+   <shortdescription>Change (convert) the flux units of the specified components</shortdescription>
+   
+  <keyword>convertfluxunit</keyword>
+  <description>
+    The convertfluxunit function is used to convert the flux to another 
+    unit. The units \emph{must} have the same dimensions as the Jansky.
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>A vector of indices specifying the components to modify.
+     A vector with indices between 0 and one less than the list length, inclusively</description>
+     </param>
+    
+     <param type="string" name="unit">
+     <description>The units of the flux.
+     Any string with the same dimensions as the Jansky</description>
+     <value>Jy</value>
+     </param>
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('crux.cl')
+      print cl.getfluxvalue(1)
+      cl.convertflux(1, 'WU')
+      print cl.getfluxvalue(1)
+    
+  </example>
+  <comments>
+    This example converts the flux of component 1 to ``Westerbork
+    Units''. Assuming the units were originally Jansky's then the
+    numbers printed before and after the call to the convertfluxunit
+    function will differ by a factor of 200.
+  </comments>
+</method>
+
+ 
+   <method type="function" name="convertfluxpol">
+   <shortdescription>Change (convert) the polarization representation of the specified components</shortdescription>
+   
+  <keyword>convertfluxpol</keyword>
+  <description>
+    The convertfluxpol function is used to convert the flux to another 
+    polarization representation. There are are three representations
+    used, namely , 'Stokes', 'linear' \&amp; 'circular'
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>A vector of indices specifying the components to modify.
+     A vector with indices between 0 and one less than the list length, inclusively</description>
+     </param>
+    
+     <param type="string" name="polarization">
+     <description>The new polarization representation</description>
+     <value>circular</value>
+     <value>linear</value>
+     <value>Stokes</value>
+     </param>
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('centarusA.cl')
+      print cl.getfluxvalue(1)
+      cl.convertfluxpol(1, 'linear')
+      print cl.getfluxvalue(1)
+    
+  </example>
+  <comments>
+    This example converts the flux of the first component to a linear
+    representation. If the flux was originally [1,0.1,0,0.01] (in
+    the Stokes representation) then the resultant flux will be 
+    [1.1, 0.01i, -0.01i, 0.9]. Note that the flux is returned as a
+    complex vector when the polarization representation is not Stokes.
+  </comments>
+</method>
+
+ 
+   <method type="function" name="getrefdir">
+   <shortdescription>Return the reference direction</shortdescription>
+   
+  <keyword>getrefdir</keyword>
+  <description>
+    The getrefdir function returns, as a direction measure, the
+    reference direction for the specified component. The reference
+    direction is for all the currently supported component shapes the
+    direction of the centre of the component.
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="record"><description>Workaround should return an MDirection</description></returns>
+  <example>
+    
+      cl.open('crux.cl')
+      dir = cl.getrefdir(1)
+    
+  </example>
+  <comments>
+    This example returns the direction of the centre of the first
+    component in the componentlist. The returned value is a direction
+    measure that can be used as an argument to many functions.
+  </comments>
+</method>
+
+ 
+   <method type="function" name="getrefdirra">
+   <shortdescription>Get the RA of the reference direction. (Not implemented not)</shortdescription>
+   
+  <keyword>getrefdirra</keyword>
+  <description>
+<!--
+    The getrefdirra function returns the right ascension of the reference
+    direction of the component as a formatted string. If the reference
+    frame is something other than J2000 or B1950 the value returned is
+    the latitude or the azimuthal angle.
+
+    The unit argument specifies the units for the returned value. It
+    can be any angular unit (eg. 'deg', 'rad', 'arcsec', 'mas') or it
+    can be 'angle' or 'time'. If it is 'angle' then the returned
+    string is formatted in degrees, minutes, seconds 
+    ie., '+DDD.MM.SS.sss'. If it is 'angle' then the returned string
+    is formatted in hours, minutes, seconds ie., 'HH:MM:SS.sss'.
+
+    The precision argument controls the numerical precision of the
+    returned value. For the angular units it controls how many digits
+    are in the returned string. For the 'angle' unit, precisions of
+    two, four \&amp; six control whether the degrees, degrees,minutes or
+    degrees, minutes \&amp; seconds are returned. Higher precisions
+    increase the precision of the seconds field. Similarly, for the
+    'time' unit precisions of two, four \&amp; six control whether the
+    hours, hours, minutes or hours, minutes \&amp; seconds are returned.
+  
+    All directions are stored internally in double precision.
+-->
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+    
+     <param type="string" name="unit">
+     <description>The angular unit of the returned value.
+     Any string containing an angular unit or 'angle' or 'time'</description>
+     <value>deg</value>
+     </param>
+    
+     <param type="int" name="precision">
+     <description>The number of digits in the returned string.
+     Numbers between 1 and 16 make the most sense</description>
+     <value>6</value>
+     </param>
+  </input>
+  <returns type="string"><description>A formatted string containing the RA of the reference direction.</description></returns>
+<!--
+  <example>
+    
+      include 'componentlist.g'
+      cl := componentlist('crux.cl');
+      print 'The first component is at RA: ', cl.getrefdirra(1, 'time'),
+            ' Dec: ', cl.getrefdirdec(1, 'angle'), 
+            ' (', cl.getrefdirframe(1), ')'
+    
+  </example>
+  <comments>
+    This example prints the following:
+    \begin{verbatim}
+    The first component is at RA:  12:26:36  Dec:  -063.05.55  ( J2000 )
+    \end{verbatim}
+    which is the direction of the first component.
+  </comments>
+-->
+</method>
+
+ 
+   <method type="function" name="getrefdirdec">
+   <shortdescription>Get the declination of the reference direction.(Not implemented yet)</shortdescription>
+   
+  <keyword>getrefdirdec</keyword>
+  <description>
+
+    The getrefdirdec function returns the declination of the reference
+    direction of the component as a formatted string. If the reference
+    frame is something other than J2000 or B1950 the value returned is
+    the longitude or the altitude.
+
+    See the getrefdirra function for a description of the unit and
+    precision arguments.
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+	     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+    
+     <param type="string" name="unit">
+     <description>The angular unit of the returned value.
+     Any string containing an angular unit or 'angle' or 'time'</description>
+     <value>deg</value>
+     </param>
+    
+     <param type="int" name="precision">
+     <description>The number of digits in the returned string.
+     Numbers between 1 and 16 make the most sense</description>
+     <value>6</value>
+     </param>
+ </input>
+ <returns type="string"><description>A formatted string containing the declination
+		 of the reference direction.</description></returns>
+  <example>
+    See the example for the
+    <link anchor="componentmodels:componentlist.getrefdirra.function">getrefdirra</link> function.
+  </example>
+</method>
+
+ 
+   <method type="function" name="getrefdirframe">
+   <shortdescription>Get the reference frame of the reference direction.</shortdescription>
+   
+  <keyword>getrefdirframe</keyword>
+  <description>
+    The getrefdirframe function returns the reference frame of the reference
+    direction of the component as a string. The returned string is
+    always in upper case. Common frames are, 'J2000', 'B1950' and 'GALACTIC'.
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="string"><description>A formatted string containing the reference frame
+		  of the reference direction.</description></returns>
+  <example>
+    See the example for the
+    <link anchor="componentmodels:componentlist.getrefdirra.function">getrefdirra</link> function.
+  </example>
+</method>
+
+ 
+   <method type="function" name="setrefdir">
+   <shortdescription>Set the reference direction</shortdescription>
+   
+  <keyword>setrefdir</keyword>
+  <description>
+    The setrefdir function sets the reference direction of the
+    specified components to a new value. The direction is defined by
+    separately specifying the right ascension and the declination.
+
+    The right ascension is specified as a string or a real number
+
+    Ra can be in standard angle units 'deg', 'rad', or time formatted as such 'HH:MM:SS.sss'
+    eg., '19:34:63.8' or angle formatted as such  '+DDD.MM.SS.sss' eg.,
+    '127.23.12.37'. 
+
+    Similarly the declination is specified as a string or a real
+    number and the decunit can be any angular unit or 'angle' or
+    'time'.
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>A vector of indices specifying the components to modify.
+     A vector with indices between 0 and one less than the list length, inclusively</description>
+     <value>1</value>
+     </param>
+    
+     <param type="any" name="ra">
+     <description>The RA of the new direction,
+     A formatted string or a number</description>
+     <value></value>
+     </param>
+    
+     <param type="any" name="dec">
+     <description>The declination of the new direction.
+     A formatted string or a number</description>
+     <value></value>
+     </param>
+ 
+    
+     <param type="bool" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.simulate(3)
+      cl.setrefdir(0, '12:26:35.9', '-63.5.56')
+      cl.setrefdir(1, '12h26m35.9', '-63d5m56')
+      cl.setrefdir(2, '-173.35deg', '-1.10128rad')
+      cl.rename('testcls.cl')  
+      cl.close() # write to disk
+    
+  </example>
+  <comments>
+    This example sets the reference direction for three newly created
+    components to the same value.
+  </comments>
+</method>
+
+ 
+   <method type="function" name="setrefdirframe">
+   <shortdescription>Set the reference frame for the direction</shortdescription>
+   
+  <keyword>setrefdirframe</keyword>
+  <description>
+
+    The setrefdirframe function sets the reference frame for the
+    reference direction of the specified components (what a mouthful)!
+
+    Currently the reference frame does not include additional
+    information like when and where the observation took place. Hence
+    only reference frames that are independent of this information can be
+    used. This includes the common ones of 'J2000', 'B1950', and
+    'Galactic'. The <link anchor="measures">measures</link> module contains a
+    complete listing of all possible reference frames. The parsing of
+    the reference frame string is case-insensitive.
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>A vector of indices specifying the components to modify.
+     A vector with indices between 0 and one less than the list length, inclusively</description>
+     </param>
+    
+     <param type="string" name="frame">
+     <description>The new reference frame,
+     A string like 'B1950', 'J2000' or 'galactic'</description>
+     </param>
+    
+     <param type="bool" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('crux.cl');
+      cl.setrefdirframe(0, 'B1950');
+    
+  </example>
+  <comments>
+    This example sets the reference frame for all the components in
+    the list to the B1950 reference frame. You would use this example
+    if you had entered the B1950 coordinates for the direction of all
+    the components in the list but had forgotten that the default
+    reference frame was J2000 for newly created components.
+  </comments>
+</method>
+
+ 
+   <method type="function" name="convertrefdir">
+   <shortdescription>Convert the reference direction to a new frame</shortdescription>
+   
+  <keyword>convertrefdir</keyword>
+  <description>
+    The convertrefdir function changes the specified components to use a
+    new direction reference frame. Using this function will change the
+    right-ascension and declination of the component(s), unlike the
+    setrefdirframe which does not.
+
+    Please see the
+    <link anchor="componentmodels:componentlist.setrefdirframe.function">setrefdirframe</link>
+    function for a description of what frames are allowed.
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>A vector of indices specifying the components to modify.
+     A vector with indices between 0 and one less than the list length, inclusively</description>
+     </param>
+    
+     <param type="string" name="frame">
+     <description>The new reference frame
+     A string like 'B1950', 'J2000' or 'galactic'</description>
+     </param>
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('crux.cl');
+      cl.convertrefdirframe(0, 'J2000');
+    
+  </example>
+  <comments>
+    This example illustrates what you would do if you had a list where
+    all the directions were in the B1950 reference frame but you
+    needed the coordinates in the J2000 reference frame. Unlike the
+    <link anchor="componentmodels:componentlist.setrefdirframe.function">setrefdirframe</link>
+    function this one adjusts the right ascension and declination values.
+  </comments>
+</method>
+
+ 
+   <method type="function" name="shapetype">
+   <shortdescription>Returns the shape type of the component</shortdescription>
+   
+  <keyword>shapetype</keyword>
+  <description>
+    The shapetype function returns the current shape of the specified
+    component. The shape defines how the flux of the component varies
+    with direction on the sky. Currently there are three shapes
+    available. These are 'Point', 'Gaussian', and 'Disk'. This
+    function returns one of these four strings.
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="string"><description>A string specifying the current component shape</description></returns>
+  <example>
+    
+      cl.open('crux.cl')
+      print 'The first component has a', cl.shapetype(0), ' shape'
+    
+  </example>
+  <comments>
+    This example prints the following:
+      The first component has a Point  shape
+  </comments>
+</method>
+
+ 
+   <method type="function" name="getshape">
+   <shortdescription>Return the shape parameters the component</shortdescription>
+   
+  <keyword>getshape</keyword>
+  <description>
+
+    The getshape function returns the shape parameters of a component
+    in a record. As different shapes can have a differing number and
+    type of parameters the shape parameters are returned in a record
+    with fields that correspond to parameters relevant to the current
+    shape.
+
+    For a point shape there are only two fields; type and
+    direction. These are the shape type, and the reference
+    direction. These values are also returned by the
+    <link anchor="componentmodels:componentlist.shapetype.function">shapetype</link> and
+    <link anchor="componentmodels:componentlist.getrefdir.function">getrefdir</link>
+    functions.
+
+    For both the Gaussian and disk shapes there are three additional
+    fields; majoraxis, minoraxis, positionangle. These are angular
+    <link anchor="quanta">quantities</link>, and hence are records with a value
+    and a unit. 
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="record">
+	  <description>A record with fields that contain the parameters of the
+		  component shape.
+  </description>
+</returns>
+  <example>
+    See the examples for the
+    <link anchor="componentmodels:componentlist.setshape.function">setshape</link> and
+    <link anchor="componentmodels:componentlist.convertshape.function">convertshape</link>
+    functions.  
+  </example>
+</method>
+
+ 
+   <method type="function" name="setshape">
+   <shortdescription>Change the shape of the component</shortdescription>
+   
+  <keyword>setshape</keyword>
+  <description>
+    The setshape function changes the shape of the specified components
+    to the user specified shape.
+
+    The type argument defines what the sort of new shape to use. This
+    can be either 'point', 'Gaussian', or 'disk'. 
+    The parsing of this string is case insensitive. 
+    <!-- 
+    COMMENTED OUT UNTIL FURTHER FIXES AND FULL IMPLEMENTATION ARE DONE TO
+    TO SUPPORT THE LIMB DARKENED DISK MODEL:  The 'limbdarkeneddisk'
+    is an experimental disk model with the limb-darkening effect, where 
+    the sky brigtness is described as I=I_o (1-(r/R)**2)**(n/2) with 
+    R being apparent body radius. The n can be set in optionalparms (if it is
+    not set, the default value, 0.0 will be used).
+    -->
+
+    If the shape type is 'point' then the remaining arguments in this
+    function are ignored. There are no other parameters needed to
+    specify a point shape. 
+
+    But if the shape is 'Gaussian', or 'disk', 
+    the remaining arguments are needed to fully specify the shape. 
+    The majoraxis, minoraxis and positionangle arguments are quantities (see the
+    <link anchor="quanta">quanta</link> module for a definition of a
+    quantity). Hence they can be specified either as with string eg.,
+    '1arcsec' or with a record eg., [value=1, unit='deg'].
+
+    The major axis is the width of the larger axis. For the Gaussian
+    shape this is the full width at half maximum. And the minor axis
+    is the width of the orthogonal axis. The positionangle is the
+    specifies the rotation of these two axes with respect to a line
+    connecting the poles of the current direction reference frame. If
+    the angle is positive the the north point of the component moves
+    in the eastern direction.
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>A vector of indices specifying the components to modify.
+     A vector with indices between 0 and one less than the list length, inclusively</description>
+     </param>
+    
+     <param type="string" name="type">
+     <description>The new shape type.
+     A string that is either 'point', 'Gaussian', or 'disk'</description>
+     <value>disk</value>
+     <value>Gaussian</value>
+     <value>Point</value>
+     </param>
+    
+     <param type="any" name="majoraxis">
+     <description>The width of the larger axis.
+     A quantity with angular units</description>
+     <value>1.0arcmin</value>
+     </param>
+    
+     <param type="any" name="minoraxis">
+	     <description>The width of the smaller axis.
+     A quantity with angular units</description>
+     <value>1.0arcmin</value>
+     </param>
+    
+     <param type="any" name="positionangle">
+     <description>The rotation of the axes with respect to
+                             the reference frame.
+     A quantity with angular units</description>
+     <value>0.0deg</value>
+     </param>
+    
+     <param type="any" name="majoraxiserror">
+     <description>Error of width of the larger axis.
+     A quantity with angular units</description>
+     <value>0.0arcmin</value>
+     </param>
+    
+     <param type="any" name="minoraxiserror">
+	     <description>Error of the width of the smaller axis.
+     A quantity with angular units</description>
+     <value>0.0arcmin</value>
+     </param>
+    
+     <param type="any" name="positionangleerror">
+     <description>Error of the rotation of the axes with respect to
+                             the reference frame.
+     A quantity with angular units</description>
+     <value>0.0deg</value>
+     </param>
+    
+     <param type="doubleArray" name="optionalparms">
+     <description>optional parameters in a vector (for future use)
+     </description>
+     <value>0.0</value>
+     </param>
+
+     <param type="bool" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('crux.cl', nomodify=False)
+      cl.setshape(3, 'disk',  '45mas', '45mas')
+      print cl.getshape(3)['majoraxis']
+    
+  </example>
+  <comments>
+    This example revises the model for Gamma-Crux changing its shape
+    from a point to a circular disk of diameter 45mas. The output from 
+    the print statement is "[value=45, unit=mas]".
+  </comments>
+</method>
+
+ 
+   <method type="function" name="convertshape">
+   <shortdescription>Change the units of the shape parameters (Not implemented yet)</shortdescription>
+   
+  <keyword>convertshape</keyword>
+  <description>
+<!--
+    The convertshape function changes the units of the specified shape
+    parameters on the specified components. When changing the units it 
+    also converts the values so that overall the angle has not changed.
+
+    Depending on the component shape some arguments of this function
+    are ignored. If the shape type is 'point', then all but the which
+    argument are ignored. This function is useless for points.
+
+    If the shape is a 'gaussian' or 'disk' then this will modify the
+    units of the major and minor axes and the positionangle. Use the 
+    <link anchor="componentmodels:componentlist.getshape.function">getshape</link> function
+    to see these parameters using the new units.
+-->
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>A vector of indices specifying the components to modify.
+     A vector with indices between 0 and one less than the list length, inclusively</description>
+     </param>
+    
+     <param type="string" name="majoraxis">
+     <description>The units to use on the larger axis.
+     A string with angular units</description>
+     <value>rad</value>
+     <value>deg</value>
+     <value>mas</value>
+     <value>arcsec</value>
+     <value>arcmin</value>
+     </param>
+    
+     <param type="string" name="minoraxis">
+	     <description>The units to use on the smaller axis.
+     A string with angular units</description>
+     <value>rad</value>
+     <value>deg</value>
+     <value>mas</value>
+     <value>arcsec</value>
+     <value>arcmin</value>
+     </param>
+    
+     <param type="string" name="positionangle">
+     <description>The units to use for the rotation of
+                             these axes.
+     A string with angular units</description>
+     <value>rad</value>
+     <value>deg</value>
+     </param>
+  </input>
+  <returns type="bool"/>
+<!--
+  <example>
+    
+      include 'componentlist.g'
+      cl := componentlist('crux.cl');
+      cl.convertshape(3, 'arcsec', 'arcsec');
+      print cl.getshape(3).minoraxis;
+    
+  </example>
+  <comments>
+    This example converts the units for the majoraxis and minor axis
+    widths to arc-seconds. Assuming they where originally set to
+    45mas, as is done in the example for the
+    <link anchor="componentmodels:componentlist.setshape.function">setshape</link> function, 
+    the value printed would be \verb|[value=0.045, unit=arcsec]|.
+  </comments>
+-->
+</method>
+
+ 
+   <method type="function" name="spectrumtype">
+   <shortdescription>Returns the spectral shape of the component</shortdescription>
+   
+  <keyword>spectrumtype</keyword>
+  <description>
+    The spectrumtype function returns the current spectral shape of the
+    specified component. The spectral shape defines how the flux of
+    the component varies with frequency. Currently there are two
+    spectral shapes available. These are 'Constant' and 'Spectral
+    Index'. This function returns one of these two strings.
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="string">
+	  <description>A string specifying the spectral shape of the specified component</description></returns>
+  <example>
+    
+      cl.open('crux.cl')
+      print 'The first component has a', cl.spectrumtype(1), ' spectrum'
+    
+  </example>
+  <comments>
+    This example prints the following:
+      The first component has a Constant  spectrum
+  </comments>
+</method>
+
+ 
+   <method type="function" name="getspectrum">
+   <shortdescription>Return the spectral parameters the component</shortdescription>
+   
+  <keyword>getshape</keyword>
+  <description>
+
+    The getspectrum function returns the spectral parameters of a
+    component in a record. As different spectral shapes can have a
+    differing number and type of parameters the spectral parameters
+    are returned in a record with fields that correspond to parameters
+    relevant to the current spectral shape.
+
+    For a constant spectrum there are only two fields; type and
+    frequency. These are the spectral type, and the reference
+    frequency. These values are also returned by the
+    <link anchor="componentmodels:componentlist.spectrumtype.function">spectrumtype</link> and
+    <link anchor="componentmodels:componentlist.getfreq.function">getfreq</link>
+    functions.
+
+    For the spectral index spectral shape there is also an index
+    field.  This contains a vector with four numbers, these are the
+    spectral indicies for the I,Q,U,V components of the flux.
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="record">
+	  <description>A record with fields that contain the parameters of the
+             spectral type.
+	     </description></returns>
+  <example>
+    See the examples for the
+    <link anchor="componentmodels:componentlist.setspectrum.function">setspectrum</link> and
+    <link anchor="componentmodels:componentlist.getspectrum.function">getspectrum</link>
+    functions.  
+  </example>
+</method>
+
+ 
+ <method type="function" name="setstokesspectrum">
+   <shortdescription>Change the spectrum of the component</shortdescription>
+   
+  <keyword>setstokesspectrum</keyword>
+  <description>
+    The setstokesspectrum function changes the spectrum of the specified components
+    to the user specified spectrum. This is different from <link anchor="componentmodels:componentlist.setspectrum.function">setspectrum</link> as it provides ways to control variation of all 4 Stokes parameters with frequency. If only I variation is needed please use <link anchor="componentmodels:componentlist.setspectrum.function">setspectrum</link>
+
+    The type argument defines what the sort of new spectrum to use. This
+    can be either 'constant' or 'spectral index' or 'tabular'. The parsing of this
+    string is case insensitive.
+
+    If the spectrum type is 'constant' then the remaining arguments in
+    this function are ignored. There are no other parameters needed to
+    specify a constant spectrum.
+
+    But if the spectrum is 'spectral index', the 'index' argument is
+    needed. It is a 4 element vector. 
+ 
+   The first element ($\alpha_0$) is the spectral index of stokes I ($ I(\nu)=I(\nu_0)({{\nu}\over{\nu_0}})^{\alpha_0} $)
+
+    The second element ($\alpha_1$) is a spectral index for the fractional linear polarization ( $\sqrt{{{(Q(\nu)^2+U(\nu)^2)}\over{I(\nu)^2}}} =   \sqrt{{{(Q(\nu_0)^2+U(\nu_0)^2)}\over{I(\nu_0)^2}}}({{\nu}\over{\nu_0}})^{\alpha_1}$). $\alpha_1=0$ implies constant fractional linear polarization w.r.t frequency.
+ 
+    The third element is a "Rotation Measure" factor, i.e angle of rotation $\theta= \alpha_2 (\lambda^2 - \lambda_0^2)$ of the linear polarization at frequency $\nu$ w.r.t  frequency $\nu_0$.   
+
+    The fourth element  is a spectral index for the fractional spectral polarization ( $ {{V(\nu)}\over{I(\nu)}} =   {{V(\nu_0)}\over{I(\nu_0)}}({{\nu}\over{\nu_0}})^{\alpha_3}$
+
+    If the spectrum is 'tabular', then {\tt index} is ignored but the six parameters 
+    {\tt tabularfreqs, tabulari, tabularq, tabularu, tabularv and tabularframe} are considered. {\tt tabularfreqs} and {\tt tabulari, tabularq, tabularu, tabularv} have to be list of same lengths and larger than 2. You need at least 2 samples to interpolate the spectral value in between. 
+    The Stokes parameters  of the source is interpolated from these values. Extrappolation outside the range given in {\tt tabularfreqs} is not done.
+    {\tt tabularfreqs} should be float values in 'Hz'
+    {\tt tabulari, tabularq, tabularu, tabularv} should be float values in 'Jy'
+
+
+    You should ensure that the reference
+    frequency is set to the value you desire, using the
+    <link anchor="componentmodels:componentlist.setfreq.function">setfreq</link>
+    function if you change to the spectral index shape.
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>The index specifying the component to modify.
+     A value between 0 and one less than the list length, inclusively</description>
+     </param>
+    
+     <param type="string" name="type">
+     <description>The new spectrum type.
+     A string that is either 'constant or 'spectral index' or 'tabular'</description>
+     <value>spectral index</value>
+     <allowed kind="enum">
+       <value>spectral index</value>
+       <value>constant</value>
+       <value>tabular</value>
+     </allowed>
+     </param>
+     
+     <param type="doubleArray" name="index"> 
+     <description>The spectral index.</description>
+     A 4-element vector of real numbers 
+     <value type="vector"><value>0.0</value></value>
+     </param>
+
+     <param type="doubleArray" name="tabularfreqs">
+       <description>The frequencies of for the tabular values, in Hz</description>
+       <value type="vector">
+	 <value>1.0e11</value>
+       </value>
+     </param>
+
+     <param type="doubleArray" name="tabulari">
+       <description> tabular Stokes I  values, in Jy (same length as tabularfreqs)</description>
+       <value type="vector">
+	 <value>1.0</value>
+       </value>
+     </param>
+     <param type="doubleArray" name="tabularq">
+       <description> tabular Stokes Q values, in Jy (same length as tabularfreqs)</description>
+       <value type="vector">
+	 <value>0.0</value>
+       </value>
+     </param>
+     <param type="doubleArray" name="tabularu">
+       <description> tabular Stokes U values, in Jy (same length as tabularfreqs)</description>
+       <value type="vector">
+	 <value>0.0</value>
+       </value>
+     </param>
+     <param type="doubleArray" name="tabularv">
+       <description> tabular Stokes V values, in Jy (same length as tabularfreqs)</description>
+       <value type="vector">
+	 <value>0.0</value>
+       </value>
+     </param>
+     
+    <param type="any" name="reffreq">
+     <description> The reference frequency  for spectral index
+     </description>
+     <value>1.4GHz</value>
+     </param>
+
+     <param type="string" name="frame">
+       <description> The frame for which the frequencies given are in</description>
+       <value>LSRK</value>
+     </param>
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      
+     
+
+      This example add a point source model and revises the model point source spectral variation  changing the spectral index  and setting the reference flux to be at 2GHz.
+     I is assigned a spectral index of 1. fractional linear pol is assigned a spectral index of 0.4 and similarly for fraction circular pol and the linear pol angle is kept fixed with frequency.
+
+    cl.addcomponent(shape='point', flux=[10.0, 0.4, -0.2, 0.1], dir='J2000 19h00m00 -20d00m00')
+    cl.setstokesspectrum(which=0, type='spectral index', index=[1.0, 0.4, 0, 0.4], reffreq='2.0GHz')
+    cl.rename('my19hcomp.cl')
+    cl.done()
+
+    
+
+   In this example a componentlist  is created from scratch and 2 sources are added
+   One whose spectral variation is defined by a spectral index and the other one as 
+   tabular values. Both components have full Stokes parameters spectral variation 
+   defined.
+
+   cl.done()  ### effectively resets state of cl tool
+   ###add first component
+   cl.addcomponent(flux=[10, 0.5, -0.3, 0.2], dir='J2000 15h22m00 5d04m00')
+   cl.setstokesspectrum(which=0, type='spectral index', index=[1.0, 0.4, 0, 0.4], reffreq='2.0GHz')
+   ###adding second component; flux value is unimportant as the tabular values will 
+   ###will set it
+   cl.addcomponent(flux=[1.0, 0, 0, 0],dir='J2000 15h22m30 5d05m00')
+   ##define the IQUV flux variation as tabular values at different frequencies.
+   cl.setstokesspectrum(which=1, type='tabular', tabularfreqs=[1.0e9, 1.1e9, 1.2e9, 1.3e9, 1.4e9, 1.5e9, 1.6e9], tabulari=[10.0, 10.1, 10.2, 10.2, 10.25, 10.3, 1.4], tabularq=[0.2, 0.2, 0.22, 0.23, 0.22, 0.24, 0.25], tabularu=[-0.1, -0.12, -0.13, -0.13, -0.12, -0.14, -0.15], tabularv=[0.1, 0.2, 0.2, 0.2, 0.3, 0.1, 0.15])
+   ###saving the componentlist to disk
+   cl.rename('two_comp.cl')
+   cl.done()  ###done is needed to sync to disk
+
+   
+
+  </example>
+</method>
+
+
+   <method type="function" name="setspectrum">
+   <shortdescription>Change the spectrum of the component</shortdescription>
+   
+  <keyword>setspectrum</keyword>
+  <description>
+    The setspectrum function changes the spectrum of the specified components
+    to the user specified spectrum.
+
+    The type argument defines what the sort of new spectrum to use. This
+    can be either 'constant'or 'spectral index'. The parsing of this
+    string is case insensitive.
+
+    If the spectrum type is 'constant' then the remaining arguments in
+    this function are ignored. There are no other parameters needed to
+    specify a constant spectrum.
+
+    But if the spectrum is 'spectral index', the 'index' argument is
+    needed to fully specify the spectrum by using the index argument.  
+
+    If the spectrum is 'tabular', then 'index' is ignored but the
+    three parameters 'tabularfreqs', 'tabularflux' and 'tabularframe'
+    are considered. 'tabularfreqs' and 'tabularflux' have to be list
+    of same lengths and larger than 2. You need at least 2 samples to
+    interpolate the spectral value in between.  The flux of the source
+    is interpolated from these values. Extrapolation outside the range
+    given in 'tabularfreqs' is not done.
+
+    'tabularfreqs' should be float values in 'Hz'
+    'tabularflux' should be float values in 'Jy'
+
+<!-- The line below is a lie ...as the code does not allow for a vector..
+     may be a wish 
+    
+    The index argument is a
+    4-element vector that contains the spectral index of the
+    I,~Q,~U,~\&amp;~V polarizations. 
+-->
+    You should ensure that the reference
+    frequency is set to the value you desire, using the
+    <link anchor="componentmodels:componentlist.setfreq.function">setfreq</link>
+    function if you change to the spectral index shape.
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>The index specifying the component to modify.
+     A value between 0 and one less than the list length, inclusively</description>
+     </param>
+    
+     <param type="string" name="type">
+     <description>The new spectrum type.
+     A string that is either 'constant or 'spectral index' or 'tabular'</description>
+     <value>spectral index</value>
+     <allowed kind="enum">
+       <value>spectral index</value>
+       <value>constant</value>
+       <value>tabular</value>
+     </allowed>
+     </param>
+     
+     <!-- <param type="doubleArray" name="index"> -->
+     <param type="double" name="index">
+     <description>The spectral index.</description>
+     <!-- A 4-element vector or real numbers -->
+     <!-- <value type="vector"><value>1.0</value></value> -->
+     <value>0.0</value>
+     </param>
+
+     <param type="doubleArray" name="tabularfreqs">
+       <description>The frequencies of for the tabular values, in Hz</description>
+       <value type="vector">
+	 <value>1.0e11</value>
+       </value>
+     </param>
+
+     <param type="doubleArray" name="tabularflux">
+       <description> tabular flux density values, in Jy (same length as tabularfreqs)</description>
+       <value type="vector">
+	 <value>1.0</value>
+       </value>
+     </param>
+     <param type="string" name="tabularframe">
+       <description> The frame for which the frequencies given are in</description>
+       <value>LSRK</value>
+     </param>
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      
+      cl.open('centarusA.cl')
+      cl.setspectrum(2, 'spectral index', -0.5)
+      print cl.getcomponent(2)['spectrum']['index']
+      cl.done()
+
+      This example revises the model for Centaurus-A changing the
+      spectral index of all the components in the left lobe. The
+      output from the print statement is "[-0.5 0 0 0]"
+
+      cl.addcomponent(shape='point', flux=[1.0, 0.0, 0.0, 0.0], dir='J2000 19h00m00 -20d00m00')
+      cl.setspectrum(which=0, type='tabular', tabularfreqs=[1.0e9, 1.1e9, 1.4e9], tabularflux=[1.0, 0.9, 0.75])
+      cl.rename('my19hcomp.cl')
+      cl.done()
+    
+      In this example a component is created from scratch as a point
+      source The spectrum is set to, say, measured values at 3
+      frequencies (1GHz, 1.1GHz and 1.4GHz) to 1.0Jy, 0.9Jy, 0.75Jy
+      respectively.  Any frequency in between the range 1 to 1.4 GHz
+      the flux will be estimated by interpolation.
+  </example>
+</method>
+
+ 
+<method type="function" name="getfreq">
+   <shortdescription>Get the reference frequency (Not implemented yet)</shortdescription>
+   
+  <keyword>getfreq</keyword>
+  <description>
+<!--
+    The getfreq function returns, as a frequency measure, the reference
+    frequency for the specified component. At the reference frequency
+    the flux of the component is the value obtained with the
+    getfluxvalue function. The flux may be different at other
+    frequencies, depending on the components spectral shape.
+
+    If the spectral shape is constant then changing the reference
+    frequency will not affect the spectrum of the component.
+-->
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="record"><description>A frequency measure (a record)</description></returns>
+<!--
+  <example>
+    
+      include 'componentlist.g'
+      cl := componentlist('centarusA.cl');
+      f := cl.getfreq(2);
+    
+  </example>
+  <comments>
+    This example returns the reference frequency of the first
+    component in the componentlist. The returned value is a frequency
+    measure that can be used as an argument to many functions within
+    \aipspp .
+  </comments>
+-->
+</method>
+
+ 
+<method type="function" name="getfreqvalue">
+   <shortdescription>Get the reference frequency value (Not implemeted yet)</shortdescription>
+   
+  <keyword>getfreqvalue</keyword>
+  <description>
+<!--
+    The getfreqvalue function returns as a floating point number the
+    value of the reference frequency. To fully interpret this value
+    you should also use the frequency unit, obtained using the
+    <link anchor="componentmodels:componentlist.getfrequnit.function">getfrequnit</link>
+    function and the frequency reference frame, obtained using the
+    <link anchor="componentmodels:componentlist.getfrequnit.function">getfrequnit</link>
+    function
+-->
+  </description>
+  <input>
+    
+    <param type="int" name="which">
+     <description>An index specifying which component.
+     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="double"><description>A number containing the value of the reference frequency.</description></returns>
+<!--
+  <example>
+    
+      include 'componentlist.g'
+      cl := componentlist('centarusA.cl');
+      print 'The reference frequency is ', cl.getfreqvalue(1), ' ', 
+            cl.getfrequnit(1), '(', cl.getfreqframe(1), ')'
+    
+  </example>
+  <comments>
+    This example prints the following:
+    \begin{verbatim}
+    The reference frequency is  1   GHz ( LSR )
+    \end{verbatim}
+    which is the reference frequency of the first component.
+  </comments>
+-->
+</method>
+
+ 
+<method type="function" name="getfrequnit">
+   <shortdescription>Get the reference frequency unit (Not implemeted yet)</shortdescription>
+   
+  <keyword>getfrequnit</keyword>
+  <description>
+<!--
+    The getfrequnit function returns as a string that defines the units
+    of the reference frequency. This unit should be used in
+    conjunction with the
+    <link anchor="componentmodels:componentlist.getfreqvalue.function">getfreqvalue</link>
+    function.
+-->
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="string"><description>A string containing the unit of the reference frequency.</description></returns>
+  <example>
+    See the example for the
+    <link anchor="componentmodels:componentlist.getfreqvalue.function">getfreqvalue</link> function.
+  </example>
+</method>
+
+ 
+<method type="function" name="getfreqframe">
+   <shortdescription>Get the reference frequency frame (Not implemeted yet)</shortdescription>
+   
+  <keyword>getfreqframe</keyword>
+  <description>
+<!--
+    The getfreqframe function returns as a string the reference frame of
+    the reference frequency of the specified component.
+
+    See the <link anchor="measures">measures</link> module for a description of
+    the available frequency reference frames. Common frames are,
+    'LSR', 'TOPO' and 'GEO'.
+
+    The frame string is always returned in upper case.
+-->
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+  </input>
+  <returns type="string"><description>A string containing the reference frame
+		  of the reference frequency.</description></returns>
+  <example>
+    See the example for the
+    <link anchor="componentmodels:componentlist.getfreqvalue.function">getfreqvalue</link> function.
+  </example>
+</method>
+
+ 
+<method type="function" name="setfreq">
+   <shortdescription>Set the reference frequency</shortdescription>
+   
+  <keyword>setfreq</keyword>
+  <description>
+
+    The setfreq function sets the reference frequency of the specified
+    components to a new value. The frequency is defined by separately
+    specifying the value and its units. Use the
+    <link anchor="componentmodels:componentlist.setfreqframe.function">setfreqframe</link>
+    function to set the frequency reference frame
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying the component to modify
+     An integer between 0 and one less than the list length, inclusively</description>
+     <choice>no default</choice>
+     </param>
+    
+     <param type="double" name="value">
+     <description>The new frequency value.
+     A number</description>
+     </param>
+    
+     <param type="string" name="unit">
+     <description>The units of the frequency.
+     Any string with the same dimensions as the 'Hz'</description>
+     <value>GHz</value>
+     </param>
+    
+     <param type="bool" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('centarusA.cl')
+      cl.setfreq(1, 1.415, 'GHz')
+    
+  </example>
+  <comments>
+    This example sets the reference frequency of the first component
+    to 1.415 GHz. If the spectral type is 'spectral index' and the
+    indicies are non-zero then this will change the flux of the
+    component at all frequencies.
+  </comments>
+</method>
+
+ 
+<method type="function" name="setfreqframe">
+   <shortdescription>Set the reference frame for the frequency</shortdescription>
+   
+  <keyword>setfreqframe</keyword>
+  <description>
+
+    The setfreqframe function sets the reference frame for the
+    reference frequency of the specified components.
+
+    Currently the reference frame does not include additional
+    information like when are where the observation took place. Hence
+    no conversion between reference frames is available. In the
+    interim I recommend you always use the same frame.
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying the component to modify.
+     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+    
+     <param type="string" name="frame">
+     <description>The new reference frame,
+     A string like 'LSRK', 'LSRD', 'GEO' or 'TOPO</description>
+     <value>TOPO</value>
+     <value>GEO</value>
+     <value>LSRD</value>
+     <value>LSRK</value>
+     </param>
+    
+     <param type="bool" name="log">
+     <description>Send a message to the logger</description>
+     <value>true</value>
+     </param> 
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('centarusA.cl')
+      cl.setfreqframe(0, 'LSRK')
+    
+  </example>
+  <comments>
+    This example sets the reference frequency frame for the first
+    component to LSR (local standard of rest). 
+  </comments>
+</method>
+
+<method type="function" name="convertfrequnit">
+  <shortdescription>Convert the reference frequency to a new unit</shortdescription>
+   
+  <keyword>convertfrequnit</keyword>
+  <description>
+
+    The convertfrequnit function changes the specified components to use
+    a new unit for the reference frequency. Using this function will
+    change the frequency value also so that the overall reference
+    frequency is not changed. It will affect the values and units
+    obtained with
+    <link anchor="componentmodels:componentlist.setfreq.function">setfreqvalue</link>
+    function.
+
+    Any unit can be used that has the same dimensions as the 'Hz'.
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying the component to modify.
+     An integer between 0 and one less than the list length, inclusively</description>
+     </param>
+    
+     <param type="string" name="unit">
+     <description>The new frequency unit.
+     Any string with the same dimensions as the 'Hz'</description>
+     <value>GHz</value>
+     </param>
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+      cl.open('centarusA.cl');
+      cl.convertfrequnit(1, 'kHz');
+      <!--
+      print 'The reference frequency is ', cl.getfreqvalue(1), ' ', 
+            cl.getfrequnit(1), '(', cl.getfreqframe(1), ')'
+      -->
+    
+  </example>
+  <comments>
+    This example prints, when used in conjunction with example from
+    the <link anchor="componentmodels:componentlist.setfreq.function">setfreq</link> function
+    the following:
+      The reference frequency is  1.415e+06   kHz ( LSR )    
+  </comments>
+</method>
+
+<method type="function" name="getcomponent">
+   <shortdescription>Extract a component from the list.</shortdescription>
+   
+  <keyword>component</keyword>
+  <description>
+
+    The component function returns a record, showing the current state
+    of the specified component in the list.
+
+    Modifying the record that is returned by this function does not
+    modify the component in the list. To do this you must remove the
+    component from the list, using the
+    <link anchor="componentmodels:componentlist.remove.function">remove</link> function,
+    and add the modified component using the
+    <link anchor="componentmodels:componentlist.add.function">add</link> function, or use
+    the <link anchor="componentmodels:componentlist.replace.function">replace</link> object
+    function.  This function will be removed in a future release of
+    and you are urged to use the get functions to extract
+    information about a component.
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>index of which component to extract.
+     integers between 0 and one less than the length of the list, inclusively</description>
+     </param>
+    
+     <param type="bool" name="iknow">
+     <description>Suppress the warning message</description>
+     <value>false</value>
+     </param>
+  </input>
+  <returns type="record"><description>A record representing a component.</description></returns>
+</method>
+
+ 
+   <method type="function" name="add">
+   <shortdescription>Add a component to the list.</shortdescription>
+   
+  <keyword>add</keyword>
+  <description>
+    The add function adds a component to the component
+    list. You cannot add components to a list that has been opened
+    read only. To use this function you need to know the details of
+    the record format. however this has been deprecated and you are
+    urged to use the set functions, in conjunction with the simulate
+    function to add a component to the list.
+    <!--This function will be removed in a future release of aips++.
+     -->
+  </description>
+  <input>
+    
+     <param type="record" name="thecomponent">
+     <description>A record that represents a component.
+     any record that contains the required fields</description>
+     </param>
+    
+     <param type="bool" name="iknow">
+     <description>Suppress the warning message</description>
+     <value>true</value>
+     </param>
+  </input>
+  <returns type="bool"/>
+</method>
+
+ 
+   <method type="function" name="replace">
+   <shortdescription>Replace components in the list. {\bf (Not implemented yet) }</shortdescription>
+   
+  <keyword>replace</keyword>
+  <description>
+
+    The replace function replaces the components from the list with
+    the specified components from another list. The source list can be
+    opened readonly and the length of the vectors in the first and
+    third arguments must the the name.
+
+    You cannot replace components in a list that has been opened read
+    only.
+
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>A vector of indices specifying the components to replace.
+     A vector with indices between 0 and one less than the list length, inclusively</description>
+     </param>
+    
+     <param type="record" name="list">
+     <description>The list containing the components to copy.
+     A componentlist tool</description>
+     </param>
+    
+     <param type="intArray" name="whichones">
+     <description>A vector of indices specifying the components to copy
+     A vector with indices between 1 and the length of the 
+list in the second argument</description>
+     <value>-1</value>
+     </param>
+  </input>
+  <returns type="bool"/>
+</method>
+<!--
+  <example>
+    
+      include 'componentlist.g'
+      newcl := componentlist('core', readonly=False);
+      othercl := componentlist('centarusA.cl', readonly=True);
+      newcl.replace(1:2, othercl, [10,13]);
+    
+  </example>
+  <comments>
+    This example replaces components 1 and 2 in the newcl list with
+    components 10 \&amp; 13 from the othercl list.
+  </comments>
+-->
+<method type="function" name="summarize">
+   <shortdescription>Summarize the specified component to the logger</shortdescription>
+   
+  <keyword>summarize</keyword>
+
+  <description>
+     The summarize function summarizes the contents of the specified components to the logger.
+  </description>
+  <input>
+    
+     <param type="int" name="which">
+     <description>An index specifying which component.
+     Unset or an integer between 0 and one less than the list length, inclusive</description>
+     <value>-1</value>
+     </param>
+  </input>
+  <returns type="bool"/>
+</method>
+
+
+<method name="iscomponentlist" type="function">
+   <shortdescription>Is the argument a componentlist tool? (Not implemented yet)</shortdescription>
+   
+  <keyword>is_componentlist</keyword>
+  <description>
+    This global function can be used to determine if the supplied
+    argument is a componentlist tool. If so it returns True, otherwise 
+    it returns False.
+  </description>
+  <input>
+    
+     <param type="any" name="tool">
+     <description>The variable that you wish to test</description>
+     </param>
+  </input>
+
+  <returns type="bool"><description>T or F, indicating if the argument is a componentlist tool or not.</description></returns>
+<!--
+  <example>
+    
+      include 'componentlist.g'
+      if (iscomponentlist(cl)) {
+        cl.simulate(2);
+      } else { 
+        fail 'Not a componentlist';
+      }
+    
+  </example>
+  <comments>
+    This example shows how you can use this function to determine if
+    the supplied variable is a componentlist.
+  </comments>
+-->
+</method>
+</tool>
+
+
+</casaxml>
+

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+
+        <tool name="synthesismaskhandler" module="synthesismaskhandler">
+        <shortdescription>tool for mask handling in sysnthesis imaging </shortdescription>
+       
+<description>
+synthesismaskhandler is a tool to manupilate mask image used in imager 
+</description>
+
+<code>
+	<include>tools/synthesis/synthesismaskhandler_forward.h</include>
+<private>
+	<include>tools/synthesis/synthesismaskhandler_private.h</include>
+</private>
+
+</code>
+
+
+<!-- ===================================== -->
+ 
+   <method type="constructor" name="synthesismaskhandler">
+   <shortdescription>Construct an synthesismaskhandler tool</shortdescription>
+   
+<description>
+This is used to construct {\tt synthesismaskhandler} tool. 
+
+</description>
+<input>
+
+</input>
+<returns type="synthesismaskhandler"/>
+<example>
+# create a synthesismaskhandler tool
+maskhandler=casac.synthesismaskhandler()
+
+nchan=5 # input mask is a cube of 5 channel
+
+#define channel flag: 1 to skip the channel for pruning
+chanflag = np.zeros(nchan)  # prune every channel
+
+maskhandler.pruneregions('testMask.image',2.0, chanflag)
+
+# output python dictionary contains the number of origin regions
+and the number of regions removed at each channel, and prunesize used.
+For skipped channels, N_reg and N_reg_pruned elements will be -1.
+
+{'N_reg': array([5, 0, 0, 1, 1], dtype=uint32),
+ 'N_reg_pruned': array([4, 0, 0, 1, 1], dtype=uint32),
+ 'prunesize': 2.0}
+
+# the resultant pruned mask is create as  testMask.image.pruned
+maskhandler.done() # to close the synthesismaskhandler tool
+</example>
+</method>
+
+<!-- ===================================== -->
+
+   <method type="function" name="pruneregions">
+   <shortdescription>prune mask regions</shortdescription>
+
+<description>
+</description>
+<input>
+     <param type="string" name="inmaskname">
+     <description>input mask image name </description>
+     <value type="string"></value>
+     </param>
+
+     <param type="double" name="prunesize">
+     <description>size in pixels to apply pruning </description>
+     <value type="double">0.0</value>
+     </param>
+
+     <param type="boolArray" name="chanflag">
+     <description>list of channel flags</description>
+     <value type="boolArray"></value>
+     </param>
+
+     <param type="string" name="outmaskname">
+     <description>optional pruned mask name. If unspecified, use the default name:  inmaskname.pruned </description>
+     <value type="string"></value>
+     </param>
+
+</input>
+<returns type="record"/>
+</method>
+<!-- ===================================== -->
+
+   <method type="function" name="done">
+   <shortdescription>close maskhandler tool</shortdescription>
+<description>
+</description>
+<input>
+
+</input>
+<returns type="bool"/>
+</method>
+
+</tool>
+
+</casaxml>
+

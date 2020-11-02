@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+
+<tool name="mstransformer" module="mstransformer">
+<code>
+	<include>tools/mstransformer/mstransformer_forward.h</include>
+<private>
+	<include>tools/mstransformer/mstransformer_private.h</include>
+</private>
+</code>
+
+        <shortdescription>Tool to apply spw and frame transformations in MS</shortdescription>
+       
+<description>
+	The {\tt mstransformer} tool can apply the following transformations to the MS:
+    
+    * read an input MS or Multi-MS
+    * ability to create an output MS or MMS
+    * spw combination and separation
+    * channel averaging taking weights into account
+    * time averaging taking a minimum number of baselines (to-be-implemented)
+    * reference frame transformation
+    * hanning smoothing
+
+ \medskip\noindent\textbf{Parse the configuration parameters}
+
+  The minimum parameters that the tool accepts are the inputms and outputms. All the 
+  remaining parameters are optional. They are: 
+  data selection parameters (spw, field, scan, state, correlation, observation, array,
+  timerange, uvrange and antenna). Please, see help mstransform for all the available
+  parameters and their types.
+
+\begin{verbatim}
+  # Parse the parameters.
+
+  myparams = {}
+  myparams['inputms']='myfile.ms'
+  myparams['outputms']='myout.ms'
+  myparams['datacolumn']='DATA'
+  myparams['spw']='0,1,2'
+  myparams['combinespws']=True
+  mt.config(myparams)
+\end{verbatim}
+
+
+ \medskip\noindent\textbf{Open the Measurement Set}
+
+  Once all the parameters are parsed, open the MS and run the setup. These first step
+  will check the data columns to fill, initialize the data selection parameters and
+  get the requested input number of channels. These two functions get no parameters.
+
+\begin{verbatim}
+
+  # Open and setup the framework.
+    mt.open()
+    mt.setup()
+\end{verbatim}
+
+
+ \medskip\noindent\textbf{Run the tool}
+
+  Run the tool to apply all the transformations to the data.
+\begin{verbatim}
+
+  # Run the tool.
+    mt.run()
+\end{verbatim}
+
+ \medskip\noindent\textbf{Destroy the tool}
+
+  Do not forget to destroy and close the tool at the end.
+  
+\begin{verbatim}
+  mt.done()
+\end{verbatim}
+
+</description>
+
+
+   <method type="constructor" name="mstransformer">
+   <shortdescription>Construct a mstransformer tool</shortdescription>
+   
+<description>
+Create a {\tt mstransformer} tool, and initialize some variables.
+</description>
+<input>
+
+</input>
+<returns type="unknown">mstransformer tool</returns>
+<example>
+
+mt.mstransformer()      
+
+</example>
+</method>
+
+<!-- ********************************************************************** -->
+
+<method type="function" name="done">
+   <shortdescription>Destroy the mstransformer tool</shortdescription>
+   
+<returns type="bool"/>
+<example>
+mt.done()
+
+</example>
+</method>
+
+<!-- ********************************************************************** -->
+
+<method type="function" name="config">
+   <shortdescription>Configure the mstransformer tool.</shortdescription>
+
+<input>
+
+     <param type="record" name="pars">
+     <description>The record (dictionary) pars must contain at least the
+     input MS name and output MS name. Other parameters that can go in the
+     dictionary are the MS data selection parameters such as: spw, scan, antenna,
+     field, state, correlation, array, uvrange, timerange, observation and any of the 
+     transformation parameters. This function can be run again to change the current 
+     parameters or add new ones. For the full list of parameters, please see
+     help mstransform. Example: myparams = {'inputms':'myfile.ms', 'outputms':'myout.ms',
+     'datacolumn':'DATA', 'spw':'0,1,2', 'combinespws':True}
+   	 </description>
+     <value></value>
+     </param>
+</input>
+
+<example>
+mt.config(pars)
+</example>
+<returns type="bool"/> 
+</method>
+
+<!-- ********************************************************************** -->
+
+<method type="function" name="open">
+   <shortdescription>Open the MS and select the data</shortdescription>
+   <description>It assumes that mt.config() was run before.</description>
+
+<example>
+mt.open()
+</example>
+<returns type="bool"/> 
+</method>
+
+
+
+<!-- ********************************************************************** -->
+
+<method type="function" name="run">
+   <shortdescription>Execute the mstransformer tool and apply the transformations</shortdescription>
+   
+<description>
+Execute the tool and apply the transformations.
+</description>
+<example>
+mt.run()
+</example>
+<returns type="record"/>
+</method>
+
+<!-- ********************************************************************** -->
+
+<method type="function" name="mergespwtables">
+   <shortdescription>Merge the spw sub-tables of a list of subMSs.</shortdescription>
+   
+   <description>
+              Merge the spw sub-tables of a list of subMSs.
+   </description>
+
+        <input>
+                <param name="filenames" type="stringArray">
+                  <description>List of tables/MS names.</description>
+		          <value></value>
+                </param>
+        </input>
+
+<example>
+mt.mergespwtables([])
+</example>
+<returns type="bool"/>
+</method>
+
+</tool>
+</casaxml>
+
+
+
+

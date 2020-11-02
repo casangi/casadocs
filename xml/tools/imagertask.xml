@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+
+<!-- This is the param set for clean -->
+<!-- This does the equivalent of -->
+<!-- imgr:=imager('anyfile.ms'); -->
+<!-- imgr.setdata(mode='channel',nchan=100,start=1,step=1,fieldid=1) -->
+<!-- imgr.setimage(nx=512,ny=,cellx='1arcsec',celly='1arcsec',stokes='I',-->
+<!--               mode='channel',start=35,step=1,nchan=40, -->
+<!--               fieldid=[1]) -->
+<!-- imgr.weight('natural'); -->
+<!-- imgr.clean(algorithm='csclean',niter=500,model='field1') -->
+
+<tool name="imagertask" module="imagertask">
+
+<shortdescription>tool for imager tasks</shortdescription>
+       
+<description>imagertask is a tool that accomplishes common tasks in synthesis processing.</description>
+
+<method type="constructor" name="imagertask">
+
+  <shortdescription>Construct an imagertask tool</shortdescription>
+
+  <description></description>
+
+  <input>
+
+  </input>
+
+  <returns type="imagertask"/>
+
+  <example></example>
+
+</method>
+
+<method type="function" name="clean">
+
+  <shortdescription>Perform clean operations</shortdescription>
+
+  <description>Form images from visibilities. Handles continuum and spectral line cubes.</description>
+
+  <input>
+
+    <param type="string" name="vis">
+    <description>name of input visibility file (MS)</description>
+    <value>Unknown</value>
+    </param>
+
+    <param type="string" name="alg">
+    <description>Algorithm to use (clark, hogbom, csclean, csfast). Default is clark.</description>
+    <value>clark</value>
+    </param>
+
+    <param type="int" name="niter">
+    <description>Number of iterations. Default=1000.</description>
+    <value>1000</value>
+    </param>
+
+    <param type="double" name="gain">
+    <description>The minor iteration loop gain. Default is 0.1.</description>
+    <value>0.1</value>
+    </param>
+
+    <param type="double" name="threshold">
+    <description>Threshold flux level at which to stop cleaning (in Jy). Default is 0.Jy.</description>
+    <value>0.0</value>
+    </param>
+
+    <param type="stringArray" name="residual">
+    <description>name of residual image. Default is model name concatenated with ".residual".</description>
+    <value>residual</value>
+    </param>
+
+    <param type="stringArray" name="image">
+    <description>name of restored image. Default is model name concatenated with ".restored".</description>
+    <value>restored</value>
+    </param>
+
+    <param type="stringArray" name="model">
+    <description>name of model image. No value.</description>
+    <value/>
+    </param>
+
+    <param type="stringArray" name="mask">
+    <description>name of mask image. No value.</description>
+    <value></value>
+    </param>
+
+    <param type="string" name="mode">
+    <description>Type of processing (channel or velocity)</description>
+    <value/>
+    </param>
+
+    <param type="intArray" name="nchan">
+    <description>With mode, this defines the number of channels for mapping of visibilities to image channels</description>
+    <value>1</value>
+    </param>
+
+    <param type="intArray" name="start">
+    <description>With mode, this defines the starting channel for mapping of visibilities to image channels</description>
+    <value>1</value>
+    </param>
+
+    <param type="intArray" name="width">
+    <description>With mode, this defines the width of channels for mapping of visibilities to image channels</description>
+    <value>1</value>
+    </param>
+
+    <param type="intArray" name="step">
+    <description>With mode, this defines the step of channels for mapping of visibilities to image channels</description>
+    <value>1</value>
+    </param>
+
+    <param type="intArray" name="imsize">
+    <description>The size of the output image (pixels). </description>
+    <value type="vector">
+    <value>128</value>
+    <value>128</value>
+    </value>
+    </param>
+
+    <param type="intArray" name="cell">
+    <description>The image cell size (arcseconds). </description>
+    <value type="vector">
+    <value>1</value>
+    <value>1</value>
+    </value>
+    </param>
+
+    <param type="string" name="stokes">
+    <description>Stokes params to image. Default is 'I'. Allowed: I, IV, IQU, IQUV</description>
+    <value>I</value>
+    </param>
+
+    <param type="intArray" name="fieldid">
+    <description>Field IDs to include. Default is 1. Allows a vector of available field ids.</description>
+    <value>1</value>
+    </param>
+
+    <param type="intArray" name="spwid">
+    <description>Spectral Window IDs to include. Default is 1. Allows a vector of available spectral window ids. </description>
+    <value>1</value>
+    </param>
+
+    <param type="string" name="weighting">
+    <description>Type of weighting (natural, uniform, briggs, radial). Default is uniform.</description>
+    <value>uniform</value>
+    </param>
+
+    <param type="string" name="rmode">
+    <description>Mode of Briggs weighting ('norm', 'abs', 'none'). Default is 'none'.</description>
+    <value>none</value>
+    </param>
+
+    <param type="double" name="robust">
+    <description>Parameter in briggs weighting. Range -2.0 to 2.0. Default is 0.0.</description>
+    <value>0.0</value>
+    </param>
+
+  </input>
+
+  <returns type="void"/>
+
+  <example></example>
+
+</method>
+
+<!-- This is the param set for feather -->
+<!-- This does the equivalent of -->
+<!-- imgr:=imager('anyfile.ms'); #shouldn't need this -->
+<!-- imgr.setvp(dovp=T); -->
+<!-- imgr.feather(image='feather.im',highres='orion_vla.im', -->
+<!--              lowres='orion_gbt.im') -->
+
+<method type="function" name="feather">
+
+  <shortdescription>Perform feather operation</shortdescription>
+
+  <description>Feather an interferometer and single dish image in the Fourier plane</description>
+
+  <input>
+
+    <param type="string" name="vis">
+    <description>name of input visibility file (MS)</description>
+    <value></value>
+    </param>
+
+    <param type="string" name="featherimage">
+    <description>name of output image</description>
+    <value></value>
+    </param>
+
+    <param type="string" name="highres">
+    <description>name of high resolution (interferometer) image</description>
+    <value></value>
+    </param>
+
+    <param type="string" name="lowres">
+    <description> name of low resolution (single dish) image </description>
+    <value></value>
+    </param>
+
+    <param type="string" name="lowpsf">
+    <description>image of the single dish beam</description>
+    <value></value>
+    </param>
+
+  </input>
+
+  <returns type="void"/>
+
+  <example></example>
+
+</method>
+
+<!-- This is the param set for invert -->
+<!-- This does the equivalent of -->
+<!-- imgr:=imager('anyfile.ms'); -->
+<!-- imgr.setdata(mode='channel',nchan=100,start=1,step=1,fieldid=1) -->
+<!-- imgr.setimage(nx=512,ny=,cellx='1arcsec',celly='1arcsec',stokes='I',-->
+<!--               mode='channel',start=35,step=1,nchan=40, -->
+<!--               fieldid=[1]) -->
+<!-- imgr.weight('natural'); -->
+<!-- imgr.makeimage(type='corrected',image='mapname'); -->
+<!-- imgr.makeimage(type='psf',image='beamname'); -->
+
+<method type="function" name="invert">
+
+  <shortdescription>Perform invert operation</shortdescription>
+
+  <description>Form images from visibilities. Handles continuum and spectral line</description>
+
+  <input>
+
+    <param type="string" name="vis">
+    <description>name of input visibility file (MS)</description>
+    <value></value>
+    </param>
+
+    <param type="string" name="map">
+    <description>name of output dirty map (image)</description>
+    <value></value>
+    </param>
+
+    <param type="string" name="beam">
+    <description>name of output beam file (image)</description>
+    <value></value>
+    </param>
+
+    <param type="string" name="mode">
+    <description>Type of processing (channel or velocity)</description>
+    <value></value>
+    </param>
+
+    <param type="intArray" name="nchan">
+    <description>With mode, this defines the number of channels for mapping of visibilities to image channels</description>
+    <value>1</value>
+    </param>
+
+    <param type="intArray" name="start">
+    <description>With mode, this defines the starting channel for mapping of visibilities to image channels</description>
+    <value>1</value>
+    </param>
+
+    <param type="intArray" name="width">
+    <description>With mode, this defines the width of channels for mapping of visibilities to image channels</description>
+    <value>1</value>
+    </param>
+
+    <param type="intArray" name="step">
+    <description>With mode, this defines the step of channels for mapping of visibilities to image channels</description>
+    <value>1</value>
+    </param>
+
+    <param type="intArray" name="imsize">
+    <description>The size of the output image (pixels). </description>
+    <value type="vector">
+    <value>128</value>
+    <value>128</value>
+    </value>
+    </param>
+
+    <param type="intArray" name="cell">
+    <description>The image cell size (arcseconds). </description>
+    <value type="vector">
+    <value>1</value>
+    <value>1</value>
+    </value>
+    </param>
+
+    <param type="string" name="stokes">
+    <description>Stokes params to image. Default is 'I'. Allowed: I, IV, IQU, IQUV</description>
+    <value>I</value>
+    </param>
+
+    <param type="intArray" name="fieldid">
+    <description>Field IDs to include. Default is 1. Allows a vector of available field ids.</description>
+    <value>1</value>
+    </param>
+
+    <param type="intArray" name="spwid">
+    <description>Spectral Window IDs to include. Default is 1. Allows a vector of available spectral window ids. </description>
+    <value>1</value>
+    </param>
+
+    <param type="string" name="weighting">
+    <description>Type of weighting (natural, uniform, briggs, radial). Default is uniform.</description>
+    <value>uniform</value>
+    </param>
+
+    <param type="string" name="rmode">
+    <description>Mode of Briggs weighting ('norm', 'abs', 'none'). Default is 'none'.</description>
+    <value>none</value>
+    </param>
+
+    <param type="double" name="robust">
+    <description>Parameter in briggs weighting. Range -2.0 to 2.0. Default is 0.0.</description>
+    <value>0.0</value>
+    </param>
+
+  </input>
+
+  <returns type="void"/>
+
+  <example></example>
+
+</method>
+
+<!-- This is the param set for invert -->
+<!-- This does the equivalent of -->
+<!-- imgr:=imager('anyfile.ms'); -->
+<!-- imgr.setvp(dovp=T); -->
+<!-- imgr.setdata(mode='none',fieldid=[3:7],spwid=[1:3]) -->
+<!-- imgr.setimage(nx=512,ny=,cellx='1arcsec',celly='1arcsec',stokes='I',-->
+<!--               mode='channel',start=35,step=1,nchan=40, -->
+<!--               fieldid=[1]) -->
+<!-- imgr.weight('natural'); -->
+<!-- imgr.setoptions(padding=1.0,ftmachine='mosaic'); -->
+<!-- imgr.setmfcontrol(scaletype='NONE',minpb=0.1); -->
+<!-- imgr.clean(algorithm='csclean',niter=500,model='field1') -->
+
+<method type="function" name="mosaic">
+  <shortdescription>Perform mosaic operation</shortdescription>
+  <description>Form images from multi-field visibilities. Handles continuum and spectral line cubes.</description>
+
+  <input>
+
+    <param type="string" name="vis">
+    <description>name of input visibility file (MS)</description>
+    <value></value>
+    </param>
+
+    <param type="string" name="alg">                      
+    <description>Algorithm to use (mfclark,mfhogbom). Default is 'mfclark'.</description>
+    <value>mfclark</value>
+    </param>
+
+    <param type="int" name="niter">
+    <description>Number of iterations. Default=1000.</description>
+    <value>1000</value>
+    </param>
+
+    <param type="double" name="gain">
+    <description>The minor iteration loop gain. Default is 0.1.</description>
+    <value>0.1</value>
+    </param>
+
+    <param type="double" name="threshold">
+    <description>Threshold flux level at which to stop cleaning (in Jy). Default is 0.Jy.</description>
+    <value>0.0</value>
+    </param>
+
+    <param type="stringArray" name="residual">
+    <description>name of residual image. Default is model name concatenated with ".residual".</description>
+    <value>residual</value>
+    </param>
+
+    <param type="stringArray" name="image">
+    <description>name of restored image. Default is model name concatenated with ".restored".</description>
+    <value>restored</value>
+    </param>
+
+    <param type="stringArray" name="model">
+    <description>name of model image. No value.</description>
+    <value></value>
+    </param>
+
+    <param type="stringArray" name="mask">
+    <description>name of mask image. No value.</description>
+    <value/>
+    </param>
+
+    <param type="string" name="mode">
+    <description>Type of processing (channel or velocity)</description>
+    <value></value>
+    </param>
+
+    <param type="string" name="gridfn">
+    <description>Type of gridding function (spheroidal wave, box car, primary beam</description>
+    <value>SF</value>
+    </param>
+
+    <param type="string" name="grid">
+    <description>Type of gridding mosaic or ft (standard interferometry)</description>
+    <value>mosaic</value>
+    </param>
+
+    <param type="intArray" name="nchan">
+    <description>With mode, this defines the number of channels for mapping of visibilities to image channels</description>
+    <value>1</value>
+    </param>
+
+    <param type="intArray" name="start">
+    <description>With mode, this defines the starting channel for mapping of visibilities to image channels</description>
+    <value>1</value>
+    </param>
+
+    <param type="intArray" name="width">
+    <description>With mode, this defines the width of channels for mapping of visibilities to image channels</description>
+    <value>1</value>
+    </param>
+
+    <param type="intArray" name="step">
+    <description>With mode, this defines the step of channels for mapping of visibilities to image channels</description>
+    <value>1</value>
+    </param>
+
+    <param type="intArray" name="imsize">
+    <description>The size of the output image (pixels). </description>
+    <value type="vector">
+    <value>128</value>
+    <value>128</value>
+    </value>
+    </param>
+
+    <param type="intArray" name="cell">
+    <description>The image cell size (arcseconds). </description>
+    <value type="vector">
+    <value>1</value>
+    <value>1</value>
+    </value>
+    </param>
+
+    <param type="string" name="stokes">
+    <description>Stokes params to image. Default is 'I'. Allowed: I, IV, IQU, IQUV</description>
+    <value>I</value>
+    </param>
+
+    <param type="intArray" name="fieldid">
+    <description>Field IDs to include. Default is 1. Allows a vector of available field ids.</description>
+    <value>1</value>
+    </param>
+
+    <param type="int" name="reffieldid">
+    <description>Reference Field IDs to use. Default is 1.</description>
+    <value>1</value>
+    </param>
+
+    <param type="intArray" name="spwid">
+    <description>Spectral Window IDs to include. Default is 1. Allows a vector of available spectral window ids. </description>
+    <value>1</value>
+    </param>
+
+    <param type="string" name="weighting">
+    <description>Type of weighting (natural, uniform, briggs, radial). Default is uniform.</description>
+    <value>uniform</value>
+    </param>
+
+    <param type="string" name="mosweight">
+    <description>Type of weighting used for the mosaic. T means that each field will be weighted individually.</description>
+    <value>T</value>
+    </param>
+
+    <param type="string" name="rmode">
+    <description>Mode of Briggs weighting ('norm', 'abs', 'none'). Default is 'none'.</description>
+    <value>none</value>
+    </param>
+
+    <param type="double" name="robust">
+    <description>Parameter in briggs weighting. Range -2.0 to 2.0. Default is 0.0.</description>
+    <value>0.0</value>
+    </param>
+
+    <param type="double" name="minpb">
+    <description>Minimum PB level to use. Default is 0.1.</description>
+    <value>0.1</value>
+    </param>
+
+    <param type="string" name="scaletype">
+    <description>Image plane flux scale type ('NONE', 'SAULT'). Default is 'NONE'.</description>
+    <value>NONE</value>
+    </param>
+
+    <param type="int" name="stoplargenegatives">
+    <description>Stop large negatives. Default=-1.</description>
+    <value>-1</value>
+    </param>
+
+    <param type="double" name="cyclefactor">
+    <description>Cycle factor. Default=1.5.</description>
+    <value>1.5</value>
+    </param>
+
+    <param type="double" name="cyclespeedup">
+    <description>Cycle speedup. Default=2.</description>
+    <value>2.0</value>
+    </param>
+
+  </input>
+
+  <returns type="void"/>
+
+  <example></example>
+
+</method>
+
+</tool>
+
+</casaxml>
+

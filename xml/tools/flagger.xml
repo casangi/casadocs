@@ -1,0 +1,1027 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+
+        <tool name="flagger" module="flagger">
+<code>
+	<include>tools/flagging/flagger_forward.h</include>
+<private>
+	<include>tools/flagging/flagger_private.h</include>
+</private>
+</code>
+
+        <shortdescription>DEPRECATED. Tool for manual and automated flagging</shortdescription>
+       
+<description>
+This tool is DEPRECATED. Use the af tool.
+The {\tt flagger} tool performs manual as well as automatic synthesis
+flagging operations within casapy. The {\tt flagger} tool can operate on
+one measurement set at a time.  
+</description>
+
+<!-- ********************************************************************** -->
+
+   <method type="constructor" name="flagger">
+   <shortdescription>DEPRECATED! Construct a flag tool from a
+MeasurementSet</shortdescription>
+   
+<description>
+Create an {\tt flagger} tool, and attach it to a specified measurement
+set.
+</description>
+<input>
+
+     <param type="unknown" name="msname">
+     <description>Measurement set to be processed</description>
+     <value>Table name</value>
+     <choice>none</choice>
+     </param>
+</input>
+<returns type="unknown">flagger tool</returns>
+<example>
+
+fg:=flag('3C273XC1.MS')      
+
+</example>
+</method>
+
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="open">
+   <shortdescription>DEPRECATED! Attaches tool to a measurement set.</shortdescription>
+   
+<description>
+This function attaches the tool to a measurement set. If
+a measurement set is already attached, it will first detach it, 
+and then attach the tool to the new measurement set. 
+</description>
+<input>
+
+     <param type="string" name="msname">
+     <description>Measurement set to be processed</description>
+     <value></value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+fg.open('3C273XC1.MS')
+
+</example>
+</method>
+
+<!-- ********************************************************************** -->
+
+ 
+   <method type="function" name="setdata">
+   <shortdescription>DEPRECATED! Set the data selection parameters to define a
+   subset of the data on which to perform any further selections/operations.
+ For unspecified parameters, the full data range is assumed.
+All data selection parameters follow the ms-selection syntax.
+</shortdescription>
+   
+<description>
+</description>
+
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="string" name="field">
+     <description>Field indices or source names : example : '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names : example : '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names : example : 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name : example : '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number : example : '1,2,3' </description>
+     <value></value>
+     </param>
+    
+
+     <param type="string" name="baseline">
+     <description>Baseline number : example : '2-3,4-5,132 ????' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description> UV-distance range, with a unit : example : '2.0-3000.0 m'</description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="time">
+     <description>Time range, as MJDs or date strings : example : 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations : example : 'RR,LL,RL,LR,XX,YY,XY,YX'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Observing intent : example : '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="observation">
+     <description>Observation Id : example : '2~4' </description>
+     <value></value>
+     </param>
+<!-- Selection parameters : end -->
+     
+</input>
+<returns type="bool"/> 
+</method>
+<!-- ********************************************************************** -->
+
+   <method type="function" name="setmanualflags">
+   <shortdescription>DEPRECATED! This function will select specific data, for manual flagging.
+   </shortdescription>
+   
+<description>
+This function will select specific data, for manual flagging.
+   \n The flags will get applied to the data, after a call to the fg.run() function.
+Note that fg.setmanualflags() can be called multiple times before a call to fg.run(). This will apply flags to all selections during a single pass through the data.
+</description>
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="string" name="field">
+     <description>Field indices or source names : example : '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names : example : '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names : example : 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name : example : '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number : example : '1,2,3' </description>
+     <value></value>
+     </param>
+    
+
+     <param type="string" name="baseline">
+     <description>Baseline number : example : '2-3,4-5,132 ????' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description> UV-distance range, with a unit : example : '2.0-3000.0 m'
+     </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="time">
+     <description>Time range, as MJDs or date strings : example : 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations : example : 'RR,LL,RL,LR,XX,YY,XY,YX'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Observing intent : example : '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="observation">
+     <description>Observation Id : example : '2~4' </description>
+     <value></value>
+     </param>
+<!-- Selection parameters : end -->
+ 
+     <param type="bool" name="autocorrelation">
+     <description>Flag autocorrelations too ? [ True / False ]
+     </description>
+     <value>false</value>
+     </param>
+    
+     <param type="bool" name="unflag">
+     <description>Unflag the specified data ? [ True / False ]
+     </description>
+     <value>false</value>
+     </param>
+
+     <param type="string" name="clipexpr">
+     <description>Data expression for value to clip on  : example : 'abs I'
+     </description>
+     <value></value>
+     </param>
+    
+     <param type="doubleArray" name="cliprange">
+     <description>Clip Range of the value defined by clipExpr [min,max] : example : [100.0,200.0] 
+     </description>
+     <value type="vector">
+     <value>0</value>
+     <value>0</value> </value>
+     </param>
+
+     <param type="string" name="clipcolumn">
+     <description>Data column to use for clipping  : example : 'DATA'
+     </description>
+     <value>DATA</value>
+     </param>
+     
+     <param type="bool" name="outside">
+     <description>Clip points outside this range ? [ True / False ]
+     </description>
+     <value>true</value>
+     </param>
+    
+     <param type="bool" name="channelavg">
+     <description>Average data over channels before clipping ? [ True / False ]
+     </description>
+     <value>false</value>
+     </param>
+    
+     <param type="double" name="quackinterval">
+     <description>Quack Length in seconds : example : 30.0</description>
+     <value>0.0</value>
+     </param>
+
+     <param type="string" name="quackmode">
+     <description>Quack mode</description>
+     <value>beg</value>
+     </param>
+
+     <param type="bool" name="quackincrement">
+     <description>Quack incrementally?</description>
+     <value>false</value>
+     </param>
+
+</input>
+<returns type="bool"/>
+</method>
+
+<!-- ********************************************************************** -->
+
+ 
+<!-- ********************************************************************** -->
+<!-- ********************************************************************** -->
+<!-- ********************************************************************** -->
+   <method type="function" name="printflagselection">
+   <shortdescription>DEPRECATED! Print out a list of current manual and auto flag selections.
+   </shortdescription>
+   
+<description>
+Print out a list of current manual and auto flag selections.
+</description>
+<input>
+</input>
+<returns type="bool"/>
+</method>
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="clearflagselection">
+   <shortdescription>DEPRECATED! Clear current manual and auto flag selections.
+   </shortdescription>
+   
+<description>
+Clears all current manual and auto flag selections.
+</description>
+<input>
+     <param type="int" name="index">
+     <description>Flag selection index to clear. Set index to -1 in order to clear all selections. </description>
+     <value>0</value>
+     </param>
+</input>
+<returns type="bool"/>
+</method>
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="getautoflagparams">
+   <shortdescription>DEPRECATED! Retrieve the current set of input parameters for a specified algorithm.
+   \n This returns a python dictionary of parameters and their values.
+   </shortdescription>
+   
+<description>
+Retrieve the current set of input parameters for a specified algorithm.
+</description>
+<input>
+   <param type="string" name="algorithm">
+   <description>Autoflag Algorithm name</description>
+   <value>timemed</value>
+   <value>freqmed</value>
+   <value>none</value>
+   </param>
+
+</input>
+<returns type="record">record of default parameters</returns>
+</method>
+
+<!-- return type should be a record -->
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="setautoflag">
+   <shortdescription>DEPRECATED! Setup an autoflag algorithm.
+   </shortdescription>
+   
+<description>
+Setup an autoflag algorithm.
+</description>
+<input>
+   <param type="string" name="algorithm">
+   <description>Autoflag Algorithm name</description>
+   <value>timemedian</value>
+   <value>freqmedian</value>
+   <value>spectralreject</value>
+   <value>uvbin</value>
+   <value>none</value>
+   </param>
+
+   <param type="record" name="parameters">
+     <description>Parameters for each autoflag algorithm.
+     \n The following is a description of currently supported autoflag algorithms.
+     \n (1) Time median filtering
+     \n (2) Frequency median filtering
+     \n (3) Spectral rejection
+     \n (4) Uv-binning
+     </description>
+     <value></value>
+     </param>
+</input>
+<returns type="bool"/> 
+</method>
+
+<!-- ********************************************************************** -->
+<!-- ********************************************************************** -->
+
+   <method type="function" name="setshadowflags">
+   <shortdescription>DEPRECATED! Setup data selection parameters for flagging of
+   shadowed antennas
+   </shortdescription>
+   
+<description>
+Defines data selection parameters.
+</description>
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="string" name="field">
+     <description>Field indices or source names : example : '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names : example : '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names : example : 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name : example : '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number : example : '1,2,3' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="baseline">
+     <description>Baseline number : example : '2-3,4-5,132 ????' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description> UV-distance range, with a unit : example : '2.0-3000.0 m'
+     </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="time">
+     <description>Time range, as MJDs or date strings : example : 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations : example : 'RR,LL,RL,LR,XX,YY,XY,YX'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Observing intent : example : '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+
+     <param type="string" name="observation">
+     <description>Observation Id : example : '2~4' </description>
+     <value></value>
+     </param>
+     
+     <param type="double" name="diameter">
+     <description>Antenna diameter to use. If negative,
+     the default dish sizes stored in the MS are used : example : diameter = '30'
+     </description>
+     <value>-1.0</value>
+     </param>
+<!-- Selection parameters : end -->
+ 
+</input>
+<returns type="bool"/>
+</method>
+
+<!-- ********************************************************************** -->
+<!-- ********************************************************************** -->
+   <method type="function" name="setelevationflags">
+   <shortdescription>DEPRECATED! Setup data selection parameters for flagging of
+   antennas pointing at a low elevation
+   </shortdescription>
+   
+<description>
+Defines data selection parameters.
+</description>
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="string" name="field">
+     <description>Field indices or source names : example : '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names : example : '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names : example : 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name : example : '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number : example : '1,2,3' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="baseline">
+     <description>Baseline number : example : '2-3,4-5,132 ????' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description> UV-distance range, with a unit : example : '2.0-3000.0 m'
+     </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="time">
+     <description>Time range, as MJDs or date strings : example : 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations : example : 'RR,LL,RL,LR,XX,YY,XY,YX'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Observing intent : example : '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+
+     <param type="string" name="observation">
+     <description>Observation Id : example : '2~4' </description>
+     <value></value>
+     </param>
+     
+     <param type="double" name="lowerlimit">
+     <description>The limiting elevation in degrees. Data obtained at lower antenna elevations will get flagged. : example : limit = '15'
+     </description>
+     <value>0.0</value>
+     </param>
+
+     <param type="double" name="upperlimit">
+     <description>The limiting elevation in degrees. Data obtained at higher antenna elevations will get flagged. : example : limit = '85'
+     </description>
+     <value>90.0</value>
+     </param>
+<!-- Selection parameters : end -->
+ 
+</input>
+<returns type="bool"/>
+</method>
+
+<!-- ********************************************************************** -->
+<!-- ********************************************************************** -->
+
+   <method type="function" name="setflagsummary">
+   <shortdescription>DEPRECATED! This function produces a summary of the flags. Statistics include
+   percentage of flagged data.
+   </shortdescription>
+   
+<description>
+Flag summary.
+</description>
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="string" name="field">
+     <description>Field indices or source names : example : '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names : example : '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names : example : 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name : example : '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number : example : '1,2,3' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="baseline">
+     <description>Baseline number : example : '2-3,4-5,132 ????' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description> UV-distance range, with a unit : example : '2.0-3000.0 m'
+     </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="time">
+     <description>Time range, as MJDs or date strings : example : 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations : example : 'RR,LL,RL,LR,XX,YY,XY,YX'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Observing intent : example : '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="observation">
+     <description>Observation Id : example : '2~4' </description>
+     <value></value>
+     </param>
+
+<!-- Selection parameters : end -->
+ 
+</input>
+<returns type="bool"/>
+</method>
+
+<!-- ********************************************************************** -->
+<!-- ********************************************************************** -->
+
+   <method type="function" name="setqueryflag">
+   <shortdescription>
+   DEPRECATED! List out a data description corresponding to the result of a flag query.
+   For example, to print out the list of channels with more than 70% of its data flagged.
+   </shortdescription>
+   
+<description>
+Flag query
+</description>
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="string" name="field">
+     <description>Field indices or source names : example : '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names : example : '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names : example : 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name : example : '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number : example : '1,2,3' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="baseline">
+     <description>Baseline number : example : '2-3,4-5,132 ????' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description> UV-distance range, with a unit : example : '2.0-3000.0 m'
+     </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="time">
+     <description>Time range, as MJDs or date strings : example : 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations : example : 'RR,LL,RL,LR,XX,YY,XY,YX'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Observing intent : example : '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="observation">
+     <description>Observation Id : example : '2~4' </description>
+     <value></value>
+     </param>     
+
+<!-- Selection parameters : end -->
+ 
+     <param type="string" name="what">
+     <description>Summary type, corresponding to a data axis. 
+     \n what = 'antenna' will list the percentage of flagged data per antenna
+     </description>
+     <value>antenna</value>
+     <value>channel</value>
+     <value>spwid</value>
+     <value>baseline</value>
+     <value>correlation</value>
+     <value>fieldid</value>
+     </param>
+     
+     <param type="double" name="fractionthreshold">
+     <description> Threshold on the fraction of flagged data. [0-1]
+     \n example : what='antenna', fractionthreshold=0.7
+     </description>
+     <value>0.0</value>
+     </param>
+
+     <!-- silly... -->
+     <param type="int" name="nflagsthreshold">
+     <description> Threshold on the absolute number of flagged points. 
+     \n example : what='antenna', nflagsthreshold=1500
+     </description>
+     <value>0</value>
+     </param>
+
+     <param type="bool" name="morethan">
+     <description> List values corresponding to more-than or less-than the specified threshold fraction.
+     </description>
+     <value>true</value>
+     </param>
+
+
+</input>
+<returns type="bool"/>
+</method>
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="setextendflag">
+   <shortdescription>
+   DEPRECATED! Extend existing flags along a specific direction.
+   </shortdescription>
+   
+<description>
+Extend flags along a specific direction.
+</description>
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="string" name="field">
+     <description>Field indices or source names : example : '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names : example : '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names : example : 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name : example : '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number : example : '1,2,3' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="baseline">
+     <description>Baseline number : example : '2-3,4-5,132 ????' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description> UV-distance range, with a unit : example : '2.0-3000.0 m'
+     </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="time">
+     <description>Time range, as MJDs or date strings : example : 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations : example : 'RR,LL,RL,LR,XX,YY,XY,YX'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Observing intent : example : '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="observation">
+     <description>Observation Id : example : '2~4' </description>
+     <value></value>
+     </param>     
+
+<!-- Selection parameters : end -->
+ 
+     <param type="string" name="along">
+     <description>Extend flags along this axis.
+     \n along='channel' : extends flags across channels, if any channel has a flag. (need 'width')
+     \n along='correlation' : extends flags across polarizations. (need some way to specify which pol)
+     \n along='time' : extend flags across timestamps. (need 'width'). Similarly for hourangle.
+     \n along='antenna1' : For one timestamp, flag all baselines with the same antenna1.
+     \n along='antenna2' : For one timestamp, flag all baselines with the same antenna2.
+     \n along='bothantennas' : For one timestamp, flag all baselines with either antenna1 or antenna2.
+     \n along='allbaselines' : For one timestamp, extend to all baselines. (Note that this is 
+		     different from using rowflags.
+     </description>
+     <value>channel</value>
+     <value>correlation</value>
+     <value>time (hourangle)</value>
+     <value>antenna1</value>
+     <value>antenna2</value>
+     <value>bothantennas</value>
+     <value>allbaselines</value>
+     </param>
+     
+     <param type="int" name="width">
+     <description> The limit to which flags should be extended on either side.
+     \n width=4 : Extend flags to 4 data points on either side.
+     \n width=0 : Extend to all values along the specified axis.
+     </description>
+     <value>0</value>
+     </param>
+
+</input>
+<returns type="bool"/>
+</method>
+
+<!-- ********************************************************************** -->
+
+
+
+
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="run">
+   <shortdescription>DEPRECATED! Executes a flagging run</shortdescription>
+   
+<description>
+Executes a flagging run.
+</description>
+<input>
+
+     <param type="bool" name="trial">
+     <description>Do a trial run only</description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="reset">
+     <description>Reset Flags before flagging</description>
+     <value>false</value>
+     </param>
+</input>
+<returns type="record"/>
+<example>
+</example>
+</method>
+ 
+<!-- ********************************************************************** -->
+    <method type="function" name="writeflagstodisk">
+   <shortdescription>DEPRECATED! Applies flags from trial autoflag runs, to the data.</shortdescription>
+   
+<description>
+Applies flags to the data.
+</description>
+<input>
+</input>
+<returns type="bool"/>
+<example>
+</example>
+</method>
+ 
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="help">
+   <shortdescription>DEPRECATED! Prints help on available flagging methods</shortdescription>
+   
+<description>
+
+This function prints a summary of the available flagging methods
+and their parameters. Use {\tt help()} with no arguments to get help
+of all methods, or {\tt help("method  names")} for specific ones.
+
+</description>
+<input>
+     <param type="string" name="names">
+     <description>Names of methods (all methods, if omitted)</description>
+     <value></value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+fg.help()
+fg.help("timemed freqmed")
+</example>
+</method>
+
+ 
+<!-- ********************************************************************** -->
+
+
+   <method type="function" name="done">
+   <shortdescription>DEPRECATED! Destroys the flag tool</shortdescription>
+   
+<description>
+
+This function destroys the flag tool.
+
+</description>
+<returns type="bool"/>
+<example>
+- fg.done()
+T
+-
+</example>
+</method>
+
+
+ 
+<!-- ********************************************************************** -->
+
+
+   <method type="function" name="saveflagversion">
+   <shortdescription>DEPRECATED! *** \n Save current flags with a version name.*** 
+   			</shortdescription>
+<description> 
+</description>
+<input>
+     <param type="string" name="versionname">
+     <description>Version name </description>
+     <value></value>
+     </param>
+     <param type="string" name="comment">
+     <description>Comment for this flag table </description>
+     <value></value>
+     </param>
+     <param type="string" name="merge">
+     <description>merge type </description>
+     <value></value>
+     </param>
+</input>
+<returns type="bool"/>
+</method>
+
+ 
+<!-- ********************************************************************** -->
+
+    <method type="function" name="restoreflagversion">
+   <shortdescription>DEPRECATED! *** \n Restore flags from a saved flag_version. 
+			\n versionname : name of flag version to restore to main table
+			\n merge : Type of operation to perform during restoration.
+			\n        merge = replace  : replaces the main table flags.
+			\n        merge = and   : logical AND with main table flags
+			\n        merge = or    : logical OR with main table flags
+			\n        Default : replace.
+ 			  \n ***</shortdescription>
+<description> 
+</description>
+<input>
+     <param type="stringArray" name="versionname">
+     <description>Version name </description>
+     <value></value>
+     </param>
+     <param type="string" name="merge">
+     <description>merge type </description>
+     <value></value>
+     </param>
+</input>
+<returns type="bool"/>
+</method>
+
+ 
+<!-- ********************************************************************** -->
+
+
+    <method type="function" name="deleteflagversion">
+   <shortdescription>DEPRECATED! *** \n Delete a saved flag_version. 
+ 			   ***</shortdescription>
+<description> 
+</description>
+<input>
+     <param type="stringArray" name="versionname">
+     <description>Version name </description>
+     <value></value>
+     </param>
+</input>
+<returns type="bool"/>
+</method>
+ 
+<!-- ********************************************************************** -->
+
+    <method type="function" name="getflagversionlist">
+   <shortdescription>DEPRECATED! *** \n Print out a list of saved flag_versions. 
+ 			  ***</shortdescription>
+<description> 
+Print out the list of flag versions in the MS, unless the parameter printflags=False. The list of names is returned.
+</description>
+<input>
+     <param type="bool" name="printflags">
+     <description>Print flagversions in logger?</description>
+     <value>true</value>
+     </param>
+</input>
+<returns type="stringArray"/>
+</method>
+
+</tool>
+
+</casaxml>
+
+
+
+
+

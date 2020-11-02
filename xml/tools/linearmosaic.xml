@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+<!--$Id$-->
+ 
+	<tool name="linearmosaic" module="linearmosaic">
+        <shortdescription>combining images in a weighted fashion</shortdescription>
+       
+<description>
+The {\tt linearmosaic} tool ({\tt lm}) provides a toolkit for stitching images in a weighted fashion.  
+
+The default linear mosaic equation is defined by Equation (6) in  Cornwell, Holdaway et al (Astronomy and Astrophysics, Vol. 271, p. 697 (1993)).
+
+\begin{equation}
+I^{lm}(\theta)={{\sum_p A_p(\theta)(I_p(\theta)A_p(\theta))w_p}\over{\sum_p A_p^2(\theta)w_p}}
+\end{equation}
+
+where $A_p(\theta)$ is the primary beam (PB) of a given pointing $p$, $w_p$ is a sensitivity weight and the image of that pointing is $I_p(\theta)$; the linear mosaic being $I^{lm}(\theta)$
+
+
+</description>
+<code>
+	<include>tools/synthesis/linearmosaic_forward.h</include>
+<private>
+	<include>tools/synthesis/linearmosaic_private.h</include>
+</private>
+</code>
+
+<method type="constructor" name="linearmosaic">
+<shortdescription>Construct a linearmosaic tool</shortdescription>
+
+<returns type="linearmosaic"/>
+
+<description>
+
+Create a {\tt linearmosaic} tool.  
+
+</description>
+
+<example>
+
+lm=casac.linearmosaic()
+
+</example>
+</method>
+
+   <method type="function" name="defineoutputimage">
+   <shortdescription>Set the output direction image parameters and name</shortdescription>
+   
+<description>
+Define the direction axes output image parameters.
+The output image will get the same number of spectral and polarization planes as the input images. This function create a fresh new output image. If an image of the same name exist on disk it will be erased. The spectral and polarization part of the image will be identical to the images that are being mosaiced.
+
+The output image will by default be flux correct and the weight image will be ${\sum_p A_p^2(\theta)}$ where the primary beam is $  A_p(\theta)$
+
+</description>
+<input>
+
+     <param type="int" name="nx">
+     <description>Total number of spatial pixels in x</description>
+     <value>128</value>
+     </param>
+
+     <param type="int" name="ny">
+     <description>Total number of spatial pixels in y</description>
+     <value>-1</value>
+     </param>
+
+     <param type="any" name="cellx">
+     <description>Cellsize in x (e.g. '1arcsec')</description>
+     <any type="variant" />
+     <value>1.0</value>
+     </param>
+
+     <param type="any" name="celly">
+     <description>Cellsize in y (e.g. '1arcsec')</description>
+     <any type="variant" />
+     <value></value>
+     </param>
+
+     <param type="any" name="imagecenter">
+     <description>Direction of phase center as a diretion measure 
+     </description>
+     <any type="variant" />
+     <value>0</value>
+     </param>
+
+<param type="string" name="outputimage">
+     <description>output image name 
+     </description>
+     <value></value>
+     </param>
+
+<param type="string" name="outputweight">
+     <description>output weight image name 
+     </description>
+     <value></value>
+     </param>
+
+
+
+</input>
+<example>
+
+lm.defineoutputimage(nx=3000, cellx='3arcsec', imagecenter='19h13m13.469 4d50m09.649', outputimage='test.linmos', outputweight='test.weightlinmos')
+
+
+</example>
+
+<returns type="bool"/>
+
+</method>
+<method type="function" name="setoutputimage">
+   <shortdescription>Use this function to mosaic on an existing image and weight image</shortdescription>
+   
+<description>
+Use this function if the mosaicing is to be done onto a previous mosaic or image. For now the stokes and spectral characteristic of the images to be mosaic and the output image has to be similar (i.e the user has to regrid them prior to linearmosaic if necessary).
+The weightimage represents the sensitivity image of the image (for example the weighted primary beam coverage of a mosaic)
+
+{\tt imageweighttype} parameter:
+
+If the image is of the type that has been normalized to be flux correct then the imageweighttype should 0.
+If the image has been  apodized by a primary beam then imageweighttype should be 1 
+and if the image is multiplied by $PB^2$ then it should be 2.
+
+{\tt weighttype} parameter:
+This should be 1 if the weight image is the sum of Primary beams or equivalent
+and it should be 2 if it is the sum of of $PB^2$ 
+
+
+
+</description>
+<input>
+
+     <param type="string" name="outputimage">
+     <description>Existing mosaic imagename</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="outputweight">
+     <description>Existing weight image for mosaic</description>
+     <value></value>
+     </param>
+
+     <param type="int" name="imageweighttype">
+     <description>what kind of weight was already applied to image \n
+      0: flux correct \n
+      1:  Primary beam equivalent weight \n
+      2:  $PB^2$ equivalent weight \n
+     </description>
+     <value>1</value>
+     <allowed kind="enum">
+       <value>0</value>
+       <value>1</value>
+       <value>2</value>
+     </allowed>
+     </param>
+
+ <param type="int" name="weighttype">
+     <description>what kind of weight  is weight image  \n
+      1: Primary beam equivalent weight \n
+      2: $PB^2$ equivalent \n
+     </description>
+     <value>1</value>
+     <allowed kind="enum">
+       <value>1</value>
+       <value>2</value>
+     </allowed>
+     </param>
+
+</input>
+<example>
+lm.setoutputimage(outputimage='testoo.linmos', outputweight='testoo.linmos.weight', imageweightype=0, weighttype=2)
+
+
+</example>
+
+<returns type="bool"/>
+
+</method>
+<method type="function" name="saultweightimage">
+   <shortdescription>Use this function to create a Sault-weighted image</shortdescription>
+   
+<description>
+ "Sault weighted" image is one which is more pleasant to view (without high noise at the edges of mosaic images), it is flux correct upto a where the beam coverage becomes low and is tapered off onwards just to keep the noise from rising in the overall image(see  Eq[2] from Sault, Staveley-Smith and Brouw (1996), Astron. Astrophys. Suppl, 120, 375)
+
+</description>
+<input>
+
+     <param type="string" name="outputimage">
+     <description>Name of image to create the Sault-Weighted image</description>
+     <value></value>
+     </param>
+
+     <param type="double" name="fracpeak">
+     <description>Upto what fraction of peak of coverage should the image be flux correct</description>
+     <value>0.1</value>
+     </param>
+
+    
+</input>
+<example>
+
+ lm.defineoutputimage(nx=3000, cellx='3arcsec', imagecenter='19h13m13.469 4d50m09.649', outputimage='test.linmos')
+lm.makemosaic(images=['FIELD_31/img.image', 'FIELD_33/img.image'], weightimages=['FIELD_31/img.pb', 'FIELD_33/img.pb'])
+###the above will make a flux correct mosaic of the 2 images in a flux correct fashion in test.linmos
+#Now make a Sault weighted image to use in the viewer
+lm.saultweightimage('test_sault.linmos')
+
+</example>
+
+<returns type="bool"/>
+
+</method>
+<method type="function" name="setlinmostype">
+   <shortdescription>Use this function to set if you want to mosaic in flatnoise domain</shortdescription>
+   
+<description>
+Use this function if the mosaicing is to be done using a non optimal weighting mode.
+ 
+
+For now {\tt optimal} (which is the default) follows this equation
+\begin{equation}
+I^{lm}(\theta)={{\sum_p A_p(\theta)(I_p(\theta)A_p(\theta))w_p}\over{\sum_p A_p^2(\theta)w_p}}
+\end{equation}
+
+And {\tt pbweight} follows this one
+\begin{equation}
+I^{lm}(\theta)={{\sum_p (I_p(\theta)A_p(\theta))w_p}\over{\sum_p A_p(\theta)w_p}}
+\end{equation}
+
+where $A_p(\theta)$ is the primary beam (PB) of a given pointing $p$, $w_p$ is a sensitivity weight and the image of that pointing is $I_p(\theta)$; the linear mosaic being $I^{lm}(\theta)$
+For now  $w_p=1$
+
+
+</description>
+<input>
+
+     <param type="string" name="linmostype">
+     <description>Type of weighting for linear mosaic</description>
+     <value>optimal</value>
+     <allowed kind="enum">
+       <value>optimal</value>
+       <value>pbweight</value>
+     </allowed>
+     </param>
+
+     
+
+</input>
+
+<returns type="bool"/>
+<example>
+</example>
+<comments>
+</comments>
+</method>
+
+   <method type="function" name="makemosaic">
+   <shortdescription>mosaic images in a weighted fashion onto ouput image</shortdescription>
+   
+<description>
+Put the list of images onto the mosaic image using the weight images
+</description>
+<input>
+
+     <param type="any" name="images">
+     <description>Name of images to mosaic</description>
+      <any type="variant" />
+     <value></value>
+     </param>
+
+     <param type="any" name="weightimages">
+     <description>Name of images to mosaic</description>
+      <any type="variant" />
+     <value></value>
+     </param>
+
+     <param type="int" name="imageweighttype">
+     <description>what kind of weight is already applied to image \n
+      0: flux correct \n
+      1: Primary beam equivalent weight \n
+      2: PB^2 equivalent \n
+     </description>
+     <value>1</value>
+     <allowed kind="enum">
+       <value>0</value>
+       <value>1</value>
+       <value>2</value>
+     </allowed>
+     </param>
+
+     <param type="int" name="weighttype">
+     <description>what kind of weight image it is \n
+      1: Primary beam equivalent weight \n
+      2: PB^2 equivalent \n
+     </description>
+     <value>1</value>
+     <allowed kind="enum">
+       <value>1</value>
+       <value>2</value>
+     </allowed>
+     </param>
+
+
+
+</input>
+
+<returns type="bool"/>
+<example>
+ lm.defineoutputimage(nx=3000, cellx='3arcsec', imagecenter='19h13m13.469 4d50m09.649', outputimage='test.linmos')
+
+###make a mosaic of two fields
+lm.makemosaic(images=['FIELD_31/img.image', 'FIELD_33/img.image'], weightimages=['FIELD_31/img.pb', 'FIELD_33/img.pb'])
+
+####now we have another submosaic (which is flux corrected) we want to add to this mosaic
+
+lm.makemosaic(images='submosaic.image', weightimages='submosaic.flux',  imageweighttype=0, weighttype=1)
+
+
+</example>
+<comments>
+</comments>
+</method>
+
+
+
+
+</tool>
+
+
+
+
+</casaxml>
+

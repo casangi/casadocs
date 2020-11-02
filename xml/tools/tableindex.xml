@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+ 
+        <tool name="tableindex" module="table">
+        <shortdescription>Allows value based table access</shortdescription>
+       
+<code>
+	<include>tools/tables/tableindex_forward.h</include>
+<private>
+	<include>tools/tables/tableindex_private.h</include>
+</private>
+</code>
+
+<description>
+A tableindex makes it possible to find rows in a table based on their
+contents. When constructing the tableindex it has to be specified for
+which column or columns an index has to be built. Those columns will
+be loaded in memory and thereafter row numbers can be found in a fast way
+using a binary search.
+
+<example>
+\begin{verbatim}
+vis:=table("3C273XC1.MS");
+vis.summary();
+visinx:=tableindex(vis, "ANTENNA1");
+rows:=visinx.rownrs(4);
+rows:=visinx.rownrs(4,7);
+\end{verbatim}
+This example builds an index for column ANTENNA1.
+The one but last line returns the row numbers (1-relative) of all rows
+with value 4 for ANTENNA1. There after these row numbers can, for
+example be used in <link anchor="table:table.getcell.function">getcell</link> to read data.
+The last line is similar, but in this case the search interval 4-7 is
+given. So all rows with value 4, 5, 6, or 7 in ANTENNA1 are found.
+An optional 3rd and 4th argument can be given to tell if the interval
+is open or closed (i.e. if the boundaries are part of the interval).
+Note that for indices on floating point numbers it is best to use
+a search interval, because an exact match on such numbers usually fails.
+</example>
+
+<example>
+\begin{verbatim}
+vis:=table("3C273XC1.MS");
+vis.summary();
+visinx:=tableindex(vis, "ANTENNA1 ANTENNA2");
+rows:=visinx.rownrs([ANTENNA1=4, ANTENNA2=5);
+rows:=visinx.rownrs([ANTENNA1=4, ANTENNA2=5), [ANTENNA1=4, ANTENNA2=8];
+\end{verbatim}
+This example builds an index for column ANTENNA1 and ANTENNA2.
+Because multiple columns are used, the arguments for function
+<link anchor="table:tableindex.rownrs.function">rownrs</link> have to be records now.
+So the one but last line returns the row numbers (1-relative) of all rows
+with value 4 for ANTENNA1 and 5 for ANTENNA2.
+The last line defines a search interval again. In this case the
+ordering of the columns in the index is important. It finds the rows
+of ANTENNA1=4 where ANTENNA2 is in the interval 5-8.
+</example>
+
+Normally a column used in a tableindex has to be a scalar column.
+However, if a single column is used that column can contain arrays.
+In such a case the \texttt{rownrs} function finds the rows where
+a value in its array matches the given search value.
+
+If all key values in the index are unique, the function
+<link anchor="table:tableindex.rownr.function">rownr</link> can be used as well. It returns
+a single row number instead of a vector.
+
+</description>
+
+ 
+   <method type="constructor" name="tableindex">
+   <shortdescription>Construct a tableindex</shortdescription>
+   
+<description>
+Construct an index for the given table. The names of one or more
+scalar columns forming the index have to be given.
+If a single name is given, the column can be an array column too.
+Normally a sort will be done to get the key values in the correct order.
+If the table is already in the order of the data in the given columns, the
+argument \texttt{sort} can be set to F to avoid needless sorting.
+</description>
+<input>
+<!--
+     <param type="record" direction="in" name="tab">
+     <description>table to be indexed, wants a table tool</description>
+     </param>
+
+     <param type="stringArray" direction="in" name="columns">
+     <description>column names</description>
+     </param>
+
+     <param type="bool" direction="in" name="sort">
+     <description>is a sort of the key values needed?</description>
+     <value>true</value>
+     </param>
+-->
+</input>
+<return type="bool"/>
+</method>
+
+ 
+   <method type="function" name="set">
+   <shortdescription>Set table and columns to be indexed</shortdescription>
+   
+<description>
+Reset the \texttt{tableindex} tool to index the given table and
+columns. It works similar to the tableindex constructor.
+</description>
+<input>
+
+     <param type="record" direction="in" name="tab">
+     <description>table to be indexed, wants a table tool</description>
+     </param>
+
+     <param type="stringArray" direction="in" name="columns">
+     <description>column names</description>
+     </param>
+
+     <param type="bool" direction="in" name="sort">
+     <description>is a sort of the key values needed?</description>
+     <value>true</value>
+     </param>
+</input>
+<returns type="bool"/>
+</method>
+
+ 
+   <method type="function" name="isunique">
+   <shortdescription>Are all key values in the index unique?</shortdescription>
+   
+<description>
+T is returned if all key values in the index are unique. In that case
+the function <link anchor="table:tableindex.rownr.function">rownr</link> can also be used.
+</description>
+<returns type="bool"/>
+</method>
+
+ 
+   <method type="function" name="setchanged">
+   <shortdescription>Tell the index that columns have changed</shortdescription>
+   
+<description>
+When data are changed in an indexed column, the index should be
+updated. The tableindex tool recognizes addition and deletion of rows
+and updates the index accordingly. However, it does not recognize if data in a
+column are changed. This function can be used to tell the tableindex
+that data in one or more columns are changed and force it to update
+the index. If no column names are given it assumes all columns have changed.
+</description>
+<input>
+
+     <param type="stringArray" direction="in" name="columns">
+     <description>names of changed columns</description>
+     <value>all</value>
+     </param>
+</input>
+<returns type="bool"/>
+</method>
+
+ 
+   <method type="function" name="rownr">
+   <shortdescription>Find the row number matching the search value</shortdescription>
+   
+<description>
+Find the row number (1-relative) of the row containing the given
+search value. If no row is found, 0 is returned.
+This function can only be used if the index contains unique
+key values (thus if <link anchor="table:tableindex.isunique.function">isunique</link>
+returns T), otherwise \texttt{rownrs} should be used. 
+\\Normally the search value should be given as a record in which the
+field names match the column names in the index. However, if the index
+is formed from a single column the search value can be given directly
+as shown in the examples in the introduction. The data type should be
+correct though.
+</description>
+<input>
+
+     <param type="record" direction="in" name="key">
+     <description>search value</description>
+     </param>
+</input>
+<returns type="int"/>
+</method>
+
+ 
+   <method type="function" name="rownrs">
+   <shortdescription>Find the row numbers matching search values</shortdescription>
+   
+<description>
+Find the row numbers of the rows matching the given search value or
+interval. An interval
+is given if the \texttt{upperkey} argument is also given. In that case
+the 3rd and 4th argument determine if the boundaries of the interval
+are inclusive (i.e. part of the interval).
+\\As in function \texttt{rownr} the search values must be given as a
+record if the index consists of multiple columns.
+</description>
+<input>
+
+     <param type="record" direction="in" name="key">
+     <description>search value</description>
+     </param>
+
+     <param type="record" direction="in" name="upperkey">
+     <description>end of search interval</description>
+     <value>0</value>
+     </param>
+
+     <param type="bool" direction="in" name="lowerincl">
+     <description>include lower boundary</description>
+     <value>true</value>
+     </param>
+
+     <param type="bool" direction="in" name="upperincl">
+     <description>include upper boundary?</description>
+     <value>true</value>
+     </param>
+</input>
+<returns type="intArray"/>
+</method>
+
+ 
+   <method type="function" name="close">
+   <shortdescription>Close the tableindex</shortdescription>
+   
+<description>
+Close the tableindex. It can thereafter be reused using the set function.
+</description>
+<returns type="bool"/>
+</method>
+
+ 
+   <method type="function" name="done">
+   <shortdescription>End the tableindex tool</shortdescription>
+   
+<description>
+End the tableindex and free up all memory. It cannot be reused anymore.
+</description>
+<returns type="bool"/>
+</method>
+
+</tool>
+</casaxml>
+

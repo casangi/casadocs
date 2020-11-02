@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+
+ 
+        <tool name="synthesisutils" module="synthesisutils">
+	<needs>synthesisimstore</needs>
+        <shortdescription>tool for synthesis imaging</shortdescription>
+       
+<description>
+synthesisutils is an tool that contains helper functions for synthesisimager
+</description>
+
+<code>
+	<include>tools/synthesis/synthesisutils_forward.h</include>
+<private>
+	<include>tools/synthesis/synthesisutils_private.h</include>
+</private>
+
+</code>
+
+
+<!-- ===================================== -->
+ 
+   <method type="constructor" name="synthesisutils">
+   <shortdescription>Construct an synthesisutils tool</shortdescription>
+   
+<description>
+This is used to construct {\tt synthesisutils} tool. 
+
+</description>
+<input>
+
+</input>
+<returns type="synthesisutils"/>
+<example>
+
+
+</example>
+</method>
+
+<!-- ===================================== -->
+
+   <method type="function" name="contdatapartition">
+   <shortdescription>Partition data selection parameters for continuum imaging</shortdescription>
+
+<description>
+</description>
+<input>
+     <param type="record" name="selpars">
+     <description>All selection parameters for one or more MSs</description>
+     <value type="record"></value>
+     </param>
+
+     <param type="int" name="npart">
+     <description>Number of partitions</description>
+     <value>1</value>
+     </param>
+
+</input>
+<returns type="record"/>
+</method>
+
+<!-- ===================================== -->
+
+   <method type="function" name="cubedatapartition">
+   <shortdescription>Partition data selection parameters for CUBE imaging</shortdescription>
+
+<description>
+  returns a dictionary with data spectral parttiion that maps  data  to  nparts
+  of the input range frequency... usually to be used for doing data selection
+  when imaging a cube from fstart to fend in npart subcubes
+
+</description>
+<input>
+     <param type="record" name="selpars">
+     <description>All selection parameters for one or more MSs</description>
+     <value type="record"></value>
+     </param>
+
+     <param type="int" name="npart">
+     <description>Number of partitions</description>
+     <value>1</value>
+     </param>
+
+       <param type="any" name="fstart">
+     <description>start frequency of cube image</description>
+     <any type="variant" />
+     <value>1GHz</value>
+     </param>
+      
+       <param type="any" name="fend">
+     <description>end frequency of cube image</description>
+     <any type="variant" />
+     <value>1.5GHz</value>
+     </param>
+
+       <param type="string" name="frame">
+     <description>frame of fstart and fend</description>
+     <value>LSRK</value>
+     </param>
+      
+
+</input>
+<example>
+##make a synthesisutils tool
+siu=casac.synthesisutils()
+### define first ms parameters
+msrec={"msname":"ngc5921.ms.contsub", "field":"0", "spw":"0"}
+pars={"ms0":msrec}
+##  can add ms1, ms2 etc for multiple ms  into dictionary pars
+
+##now get the data selections for 20 subpart of a cube that 
+## spans from 1.412787GHz to 1.413287GHz
+siu.cubedatapartition(selprs=pars, npart=20, fstart="1.412787GHz", fend="1.413287GHz", frame="LSRK")
+
+</example>
+<returns type="record"/>
+</method>
+
+<!-- ===================================== -->
+<!-- ===================================== -->
+
+   <method type="function" name="cubeimagepartition">
+   <shortdescription>Partition image cube parameters for CUBE deconvolution</shortdescription>
+
+<description>
+</description>
+<input>
+     <param type="record" name="impars">
+     <description>All imaging parameters for one or more image fields</description>
+     <value type="record"></value>
+     </param>
+
+     <param type="int" name="npart">
+     <description>Number of partitions</description>
+     <value>1</value>
+     </param>
+
+</input>
+<returns type="record"/>
+</method>
+
+<!-- ===================================== -->
+<!-- ===================================== -->
+   <method type="function" name="cubedataimagepartition">
+      <shortdescription>Partition data/image cube parameters for CUBE deconvolution</shortdescription>
+
+<description>
+</description>
+<input>
+
+     <param type="record" name="selpars">
+     <description>All selection parameters for one or more MSs</description>
+     <value type="record"></value>
+     </param>
+
+     <param type="record" name="incsys">
+     <description>input coordinate system</description>
+     <value type="record"></value>
+     </param>
+
+     <param type="int" name="npart">
+     <description>Number of partitions</description>
+     <value>1</value>
+     </param>
+
+     <param type="int" name="nchannel">
+     <description>Number of channels</description>
+     <value>1</value>
+     </param>
+
+ </input>
+<returns type="record"/>
+</method>
+
+<!-- ===================================== -->
+<!-- ===================================== -->
+
+   <method type="function" name="checkselectionparams">
+   <shortdescription>Check and Fix Selection Parameters for one MS</shortdescription>
+
+<description>
+</description>
+<input>
+     <param type="record" name="selpars">
+     <description>All selection parameters for one MS</description>
+     <value type="record"></value>
+     </param>
+
+</input>
+<returns type="record"/>
+</method>
+
+
+<!-- ===================================== -->
+<!-- ===================================== -->
+
+   <method type="function" name="checkimageparams">
+   <shortdescription>Check and Fix Imaging Parameters for one field</shortdescription>
+
+<description>
+</description>
+<input>
+     <param type="record" name="impars">
+     <description>All imaging parameters for one image-field</description>
+     <value type="record"></value>
+     </param>
+
+</input>
+<returns type="record"/>
+</method>
+
+<!-- ===================================== -->
+<!-- ===================================== -->
+
+   <method type="function" name="checkgridparams">
+   <shortdescription>Check and Fix Gridding/FTM Parameters for one field</shortdescription>
+
+<description>
+</description>
+<input>
+     <param type="record" name="gridpars">
+     <description>All gridding/ftm parameters for one image-field</description>
+     <value type="record"></value>
+     </param>
+
+</input>
+<returns type="record"/>
+</method>
+
+<!-- ===================================== -->                                                                                                   
+<!-- ===================================== -->                                                                                                   
+                                                                                                                                                 
+   <method type="function" name="updateimpars">                                                                                                  
+   <shortdescription>check the consistency between the csys record and other impars and update/modify impars if necessary</shortdescription>     
+                                                                                                                                                 
+<description>                                                                                                                                    
+</description>                                                                                                                                   
+<input>                                                                                                                                          
+     <param type="record" name="impars">                                                                                                         
+     <description>All image parameters of one image-field</description>                                                                          
+     <value type="record"></value>                                                                                                               
+     </param>                                                                                                                                    
+                                                                                                                                                 
+</input>                                                                                                                                         
+<returns type="record"/>                                                                                                                         
+</method>                                                                                                                                        
+                                                                                                                                                 
+                                           
+<!-- ===================================== -->
+<!-- ===================================== -->
+
+<!---
+   <method type="function" name="makeimage">
+   <shortdescription>Make an empty image</shortdescription>
+
+<description>
+</description>
+<input>
+     <param type="record" name="impars">
+     <description>All image parameters for one image-field</description>
+     <value type="record"></value>
+     </param>
+
+     <param type="string" name="msname">
+     <description>Name of MS from which to get observatory information (optional) </description>
+     <value></value>
+     </param>
+
+</input>
+<returns type="bool"/>
+</method>
+-->
+<!-- ===================================== -->
+<!-- ===================================== -->
+
+   <method type="function" name="getOptimumSize">
+   <shortdescription>Get Optimum Image size</shortdescription>
+
+<description>
+</description>
+<input>
+     <param type="int" name="size">
+     <description>Input size</description>
+     <value>100</value>
+     </param>
+
+</input>
+<returns type="int"/>
+</method>
+<!-- ===================================== -->
+
+   <method type="function" name="done">
+   <shortdescription>Close the tool</shortdescription>
+
+<description>
+</description>
+<input>
+
+</input>
+<returns type="bool"/>
+</method>
+
+<!-- ===================================== -->
+
+
+</tool>
+
+</casaxml>
+

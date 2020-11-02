@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+
+<tool name="telemetryhelper" module="telemetryhelper">
+
+<method type="constructor" name="telemetryhelper">
+  <shortdescription>Construct a telemetryid tool</shortdescription>
+</method>
+
+<method type="function" name="getUniqueId">
+	<shortdescription>Get a unique id</shortdescription>
+	<description>This id is unique for a given host</description>
+	 <returns type="string"/>
+</method>
+
+</tool>
+
+</casaxml>
+

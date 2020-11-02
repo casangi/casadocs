@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+        <tool name="calplot" module="synthesis">
+        <shortdescription>Plot data from calibration tables</shortdescription>
+<code>
+	<include>tools/calibrater/calplot_forward.h</include>
+<private>
+	<include>tools/calibrater/calplot_private.h</include>
+</private>
+</code>
+       
+<description>
+
+{\tt calplot} is a plotting tool for calibration tables of all types 
+(B=bandpass, G=gain, D=instrumental polarization, P=parallactic angle,
+T=troposphere, M=baseline-based gain, MF=baseline-based bandpass,
+and K=fringe fitting). 
+The default plot style is single-panel, but if an iteration 
+axis is specified, multi-panel plots are supported. 
+Zooming and region-based 
+flagging is possible on single and multi panel plots. 
+
+</description>
+
+
+
+<!-- **************************************************** --> 
+<method type="constructor" name="calplot">
+<shortdescription>Construct a calplot tool</shortdescription>
+   
+<description>
+Create a {\tt calplot} tool.
+</description>
+<returns type="calplotobject">calplot tool</returns>
+<example>
+
+# create a calplot tool
+  cp := calplot();
+
+</example>
+</method>
+
+
+<!-- **************************************************** --> 
+<method type="function" name="close">
+<shortdescription>*** \n Close the current calibration table. \n ***</shortdescription>
+
+<description>
+Close the current calibration table.
+</description>
+<returns type="bool"/>
+</method>
+
+<!-- **************************************************** --> 
+<method type="function" name="done">
+<shortdescription>*** \n Close the current calibration table. \n ***</shortdescription>
+
+<description>
+End the calplot tool.
+</description>
+<returns type="bool"/>
+</method>
+
+<!-- **************************************************** --> 
+<method type="function" name="next">
+<shortdescription>*** \n Continue plotting (iteration mode).\n ***</shortdescription>
+
+<description>
+Continue plotting by stepping through the iteration axes.
+</description>
+<returns type="bool">
+<shortdescription>true if successful</shortdescription>
+</returns>
+</method>
+
+<!-- **************************************************** --> 
+<method type="function" name="open">
+<shortdescription>*** \n Open a calibration table for use. \n
+Supported calibration types: \n
+   G = gain\n
+   B = bandpass\n
+   M = baseline-based gain\n
+   MF= baseline-based bandpass\n
+   P = parallactic angle\n
+   T = troposphere\n
+   K = baseline-based fringe fitting\n *** 
+</shortdescription>
+<description>
+Open a calibration table for use.
+</description>
+<input>
+     <param type="string" name="caltable" direction="in">
+     <description>Calibration Table name</description>
+     <value></value>
+     </param>
+</input>
+<returns type="bool">
+<shortdescription>true if successful</shortdescription>
+</returns>
+</method>
+
+<!-- **************************************************** --> 
+<method type="function" name="plot">
+<shortdescription>*** \n Plot calibration solutions using user inputs from plotoptions, setdata \n
+Options: plottype - AMP, PHASE, REAL, IMAG, SNR\n ***</shortdescription>
+
+<description>
+Draw plots specified via user inputs. If multiplot is turned on and an iteration axis is selected, the {\tt next} method can be used to step through the data.
+specification of the what of the calibration solution to plot is necessary, default is PHASE.
+Supported solution type (AMP, PHASE, RLPHASE, XYPHASE, DELAY, DELAYRATE, DISPDELAY)
+</description>
+<input>
+     <param type="string" name="xaxis" direction="in">
+     <description>Value to plot on the X axis ("time","chan","amp","phase","real","imag","snr")</description>
+     <value>time</value>
+     </param>
+     <param type="string" name="yaxis" direction="in">
+     <description>Value to plot on the Y axis ("amp","phase","real","imag","snr")</description>
+     <value>time</value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+# plot some phase calibration solution 
+  cp.open('caldata.gcal')
+  cp.plot("PHASE")
+
+</example>
+</method>
+
+<!-- **************************************************** --> 
+<method type="function" name="savefig">
+   <shortdescription>
+     Save the currently plotted image.
+   </shortdescription> 
+   <keyword>open</keyword>
+
+   <description>
+    Store the contents of the plot window in a file.  The file format (type)
+    is based on the file name, ie. the file extension given determines the
+    format the file is saved as. The accepted formats are <I>eps</I>,
+    <I>ps</I>, <I>png</I>, <I>pdf</I>, and <I>svg</I>.
+
+    Internally, this function uses the matplotlib pl.savefig function.
+
+    Note that if a full path is not given that the files will be saved in
+    the current working directory.
+   </description>
+
+   <input>
+     <param type="string" name="filename" direction="in">
+     <description>Name the plot image is to be saved to. </description>
+     <value></value>
+     </param>
+
+     <param type="int" name="dpi" direction="in">
+     <description>Number of dots per inch (resolution) to save the image at. 
+     </description>
+     <value>-1</value>
+     </param>
+
+     <param type="string" name="orientation" direction="in">
+     <description>Either <I>landscape</I> or <I>portrait</I>. Supported
+     by the postscript format only.</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="papertype" direction="in">
+     <description>Valid values are: <I>letter</I>, <I>legal</I>, <I>exective</I>,
+          <I>ledger</I>, <I>a0</I>-<I>a10</I> and <I>b0</I>-<I>b10</I>.  This 
+           option is supported byt the postscript format only.
+     </description>
+     <value></value>
+     </param>
+
+     <param type="string" name="facecolor" direction="in">
+     <description>Color of space between the plot and the edge of the
+        square. Valid values are the same as those
+         accepted by the plotcolor option.</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="edgecolor" direction="in">
+     <description>Color of the outer edge. Valid values are the same as those
+         accepted by the plotcolor option.</description>
+     <value></value>
+     </param>
+
+   </input>
+
+   <returns type="bool">
+      <description>True upon success, False otherwise</description>
+   </returns>
+
+</method>
+ 
+<!-- **************************************************** --> 
+<method type="function" name="plotoptions">
+<shortdescription>*** \n Specify list of plot options. \n
+Options: multiplot = true; will use the nxpanels,nypanels setting for display\n***</shortdescription>
+   
+<description> 
+Specify a list of plot options including number of panels in x and y, iteration axis (if any),
+and if it is a multiplot.
+</description>
+<input>
+     <param type="int" name="subplot" direction="in">
+     <description>matplotlib style panel number, e.g 221 means 4 panels 2x2 and plotting on the first panel</description>
+     <value>111</value>
+     </param>
+     <param type="bool" name="overplot" direction="in">
+     <description>Overplot the next plot.</description>
+     <value>false</value>
+     </param>
+
+     <param type="string" name="iteration" direction="in">
+     <description>Iterate plots on antenna, spw, field, and/or time</description>
+     <value></value>
+     </param>
+
+      <param type="doubleArray" name="plotrange" direction="in">
+     <description> integer for the plot symbol.</description>
+     <value>0.0</value>
+     </param> 
+
+     <param type="bool" name="showflags" direction="in">
+     <description>Create multiple pages of plots (per antenna).</description>
+     <value>false</value>
+     </param>
+
+      <param type="string" name="plotsymbol" direction="in">
+     <description>The plot symbol to use</description>
+     <value>.</value>
+     </param> 
+
+      <param type="string" name="plotcolor" direction="in">
+     <description> integer for the plot symbol.</description>
+     <value>green</value>
+     </param> 
+
+      <param type="double" name="markersize" direction="in">
+     <description> integer for the plot symbol.</description>
+     <value>5.0</value>
+     </param> 
+
+      <param type="double" name="fontsize" direction="in">
+     <description> integer for the plot symbol.</description>
+     <value>10.0</value>
+     </param> 
+
+</input>
+<returns type="bool">true, is successful</returns>
+<example>
+
+# create a calplot tool and set the options for subsequent plotting.
+  cp := calplot();
+  cp.setoptions(nxpanels=3,nypanels=3,iteraxis='antenna',multiplot=T);
+
+</example>
+</method>
+
+<!-- **************************************************** --> 
+<method type="function" name="markflags">
+<shortdescription>*** \n Mark a rectangular region to flag. Click left mouse button, drag and release to mark the region. Multiple regions can be marked. Hit ESC to clearregions (not currently enabled).\n *** </shortdescription>
+   
+<description> 
+This function is to be called every time a box is to be drawn to flag data
+</description>
+<input>
+     <param type="int" name="panel">
+     <description>whihc panel to flag on, in case there is more than 1 </description>
+     <value>0</value>
+     </param>
+
+     <param type="doubleArray" direction="in" name="region">
+     <description>[xmin,ymin,xmax,ymax] bounding box</description>
+     <value>0.0</value>
+     </param>
+</input>
+<returns type="bool">true, is successful</returns>
+<example>
+
+# plot some calibration solution and do some flagging
+  cp.open('caldata.gcal')
+  cp.plot()
+  cp.markflags()
+  cp.flagdata()
+
+</example>
+</method>
+
+<!-- **************************************************** --> 
+<method type="function" name="flagdata">
+<shortdescription>*** \n Flag Data for selected flag regions. Flags are not writtento disk unless diskwrite=true (or diskwrite=1) is set.\n ***</shortdescription>
+
+<description>
+Mark the solutions that has been marked by previous calls of markflags as bad in the caltable.
+</description>
+<returns type="bool"/>
+</method>
+ 
+<!-- **************************************************** --> 
+<method type="function" name="locatedata">
+<shortdescription>*** \n Locate and print info about Data for selected flag regions.\n ***</shortdescription>
+
+<description>
+Display information about  the solutions that has been marked by previous calls of markflags.
+</description>
+<returns type="bool"/>
+</method>
+ 
+
+<!-- **************************************************** --> 
+<method type="function" name="selectcal">
+<shortdescription>*** \n Select a subset of the data for plotting and specify calibration type \n ***</shortdescription>
+   
+<description> 
+This method enables plotting of a subset of the caltable.  
+</description>
+<input>
+
+     <param type="any" direction="in" name="antenna">
+     <description>Select on antennas</description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+     <param type="any" direction="in" name="field">
+     <description>Select on field</description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+     <param type="any" direction="in" name="spw">
+     <description>Select on spectral window</description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+     <param type="any" direction="in" name="time">
+     <description>Select on time</description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+     <param type="string" direction="in" name="poln">
+     <description>Polarization to plot ("", "RL", "R", "L", "XY", "X",
+"Y", "/")</description>
+     <value></value>
+     </param>
+
+</input>
+
+<returns type="bool">true, is successful</returns>
+<example>
+
+  cp.open('caltable.gcal');
+  cp.setselect(field="1331+305")
+
+</example>
+</method>
+
+<!-- **************************************************** --> 
+<method type="function" name="stopiter">
+<shortdescription>*** \n Stop plot iterations. \n ***</shortdescription>
+   
+<description> 
+To be called at the end of the plot iterations, or in between if desired.
+</description>
+<input>
+   <param type="bool" name="rmplotter">
+   <description>Indicates of the plot window should be removed (true)from the
+      display or left (false) </description>
+    <value>false</value>
+   </param>
+</input>
+
+<returns type="bool"/>
+</method>
+
+<!-- **************************************************** --> 
+<method type="function" name="clearplot">
+<shortdescription>Clear the plotting window or a particular
+   panel. 
+</shortdescription>   
+<description> 
+   Clear the plotting window. Either clear the whole window (default) 
+   or a particular panel (specified by the subplot parameter). \n ***
+
+</description>
+
+<input>
+     <param type="int" name="subplot">
+     <description>Three digits number: first digit for nrows, 
+         second for ncols, last for pannel number.</description>
+     <value>000</value>
+     </param>
+</input>
+
+<returns type="bool">
+<shortdescription>
+  true, if successful, false, otherwise.
+</shortdescription>
+</returns>
+</method> 
+
+ 
+</tool>
+</casaxml>
+

@@ -1,0 +1,1438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+
+<tool name="agentflagger" module="agentflagger">
+<code>
+	<include>tools/flagging/agentflagger_forward.h</include>
+<private>
+	<include>tools/flagging/agentflagger_private.h</include>
+</private>
+</code>
+
+        <shortdescription>Tool for manual and automated flagging</shortdescription>
+       
+<description>
+The {\tt agentflagger} tool performs manual as well as automatic synthesis
+flagging operations within casapy. The {\tt agentflagger} tool can operate on
+one measurement set at a time.
+
+ \medskip\noindent\textbf{Open the Measurement Set or Calibration Table and Attach it to the Tool}
+
+  The first thing to do is to open the MS or calibration table and attach it to the agentflagger tool.
+  Use the af.open method, which requires the MS name and optionally the time interval,
+  over which to buffer data before running the algorithm. The time interval is set by
+  default to 0.0, which means a 'scan' length. The 'ntime' parameter is important for
+  the modes tfcrop, rflag and extend. 
+
+\begin{verbatim}
+  af.open('uid_X002.ms')
+\end{verbatim}
+
+
+ \medskip\noindent\textbf{Select the Data}
+
+  Once the MS is open, the next step is to select the data. This step will use the MS
+  selection tool to select the portion of the MS given by the parameters. There are two ways
+  of selecting the data:
+
+  1) Create a Python dictionary which internally will be transformed into a record
+     containing the selection parameters.
+\begin{verbatim}
+
+     # Select the whole MS.
+     af.selectdata()
+
+     Select a portion of the MS using a dictionary.
+     myrecord={}
+     myrecord['scan']='1~3'
+     myrecord['spw']='0:1~10'
+     af.selectdata(myrecord)
+\end{verbatim}
+
+   2) Parse the parameter names directly to the function.
+\begin{verbatim}
+     af.selectdata(scan='1~3', spw='0:1~10')
+\end{verbatim}
+
+
+ \medskip\noindent\textbf{Parse the Parameters for the Flagging Mode(s)}
+
+  Each flagging mode is called an agent. The available agents are: manual, clip, quack,
+  shadow, elevation, tfcrop, rflag, extend, unflag and summary. Each one of these agents
+  may or may not take configuration parameters and data selection parameters. Once the desired
+  flagging modes are chosen, it is time to give the configuration parameters to the tool. Ommited
+  parameters will take default values as defined in each agent. There are
+  two ways of parsing the agent's parameters.
+
+  1) Using the general method af.parseagentparameters().
+\begin{verbatim}
+     Construct a dictionary with the parameters for each agent. Each agent's
+     parameters should go to a different 'key' of the dictionary. Example:
+
+     # Create a shadow agent:
+     myagents = {}
+     myagents['mode'] = 'shadow'
+     af.parseagentparameters(myagents)
+
+     # Add a summary agent to the list.
+     myagents = {}
+     myagents['mode'] = 'summary
+     myagents['spwchan'] = True
+     af.parseagentparameters(myagents)
+
+     # Add a manual agent to the same internal list of agents.
+     myagents = {}
+     myagents['mode'] = 'manual'
+     myagents['scan'] = '1~3,18~20'
+     af.parseagentparameters(myagents)
+
+     # Add a clip agent to flag the zero-value data.
+     myagents = {}
+     myagents['mode'] = 'clip'
+     myagents['clipzeros'] = True
+     af.parseagentparameters(myagents)
+     
+     # Add another summary agent to the list.
+     myagents = {}
+     myagents['mode'] = 'summary'
+     myagents['spwchan'] = True
+     af.parseagentparameters(myagents)
+\end{verbatim}
+
+   2) The other way to parse agent's parameters is to use the convenience functions.
+      The above example would become:
+\begin{verbatim}
+     # Create a shadow agent:
+     af.parseshadowparameters()
+
+     # Add a summary agent to the list.
+     af.parsesummaryparameters(spwchan=True)
+
+     # Add a manual agent to the same internal list of agents.
+     af.parsemanualparameters(scan='1~3,18~20')
+
+     # Add a clip agent to flag the zero-value data.
+     af.parseclipparameters(clipzeros=True)
+     
+     # Add another summary agent to the list.
+     af.parsesummaryparameters(spwchan=True)
+\end{verbatim}
+     
+
+ \medskip\noindent\textbf{Initialize the Agents}
+
+  The above step create a list of the agents that the tool will use to process the data.
+  This step will check several parameters and apply constraints. It will set the iteration approach
+  to COMBINE_SCANS_MAP_ANTENNA_PAIRS_ONLY if the agent is either tfcrop or extend and combinescans
+  is set to True. Otherwise it will set it to COMPLETE_SCAN_MAP_ANTENNA_PAIRS_ONLY.
+
+  If the list contains agents that set ntime more than once, this method will get the maximum value
+  of ntime and use it for all agents.
+
+  If a tfcrop agent is present, this method will create one agent per each polarization available,
+  if correlation is set to ALL.
+
+  In the same way, if an agent tfcrop, rflag or clip is present, the asyncio mechanism will be switched
+  on.
+\begin{verbatim}
+  af.init()
+\end{verbatim}
+
+
+ \medskip\noindent\textbf{Run the tool}
+
+  Run the tool to apply or unapply the flags. The run method takes two parameters, writeflags and sequential.
+  The parameter writeflags controls whether to write the flags or not to the MS. By default it is set to True.
+  The sequential parameter tells to apply/unapply the flags in parallel or not. By default it is set to True,
+  which means that the agents will run in sequential.
+
+  The run method gathers several reports, depending on wich agents are run. The display and summary agents
+  produce reports that can be retrieved from calling the run method. The reports are returned via a Python
+  dictionary.
+\begin{verbatim}
+  myreports = af.run(writeflags=True)
+\end{verbatim}
+  
+  The dictionary returned in 'myreports' will contain four reports from the two summary agents that were
+  added previously. The first report is the normal summary for each selection parameter. The second report
+  gives the antenna positions for plotting.
+
+ \medskip\noindent\textbf{Destroy the tool}
+
+  Do not forget to destroy and close the tool at the end.
+  
+\begin{verbatim}
+  af.done()
+\end{verbatim}
+
+
+ \medskip\noindent\textbf{Rflag specific actions}
+
+  Currently the agentflagger does not support the 'calculate' and
+  'apply' actions directly. These actions are distinguished only by
+  the flagdata task. When selecting mode='rflag' the agentflagger will
+  run as 'apply'. The 'calculate' action of the flagdata task can be
+  emulated by setting the tool parameter 'writeflags' to False as
+  follows:
+  \begin{verbatim}
+     myagents = {}
+     myagents['mode'] = 'rflag'
+     myagents['writeflags'] = False
+     ...
+     af.parseagentparameters(myagents)
+\end{verbatim}
+
+  Or, in a more compact example, with the following parameters the
+  agentflagger will run as 'apply'. The default value of writeflags
+  (not given) is True:
+  \begin{verbatim}
+     af.parseagentparameters({'mode':'rflag', 'extend flags': False})
+\end{verbatim}
+  But here, by setting writeflags to False, the agentflagger will run
+  as 'calculate'. That is, it will not flag the MS, but it will
+  calculate and return the thresholds:
+\begin{verbatim}
+     af.parseagentparameters({'mode':'rflag', 'extend flags': False, writeflags=False})
+\end{verbatim}
+  Note that the writeflags parameter needs to be passed in the set of
+  parameters that are parsed initially, before running the
+  agentflagger, for the agentflagger to be able to calculate the RFlag
+  thresholds and return a dictionary with the values calculated.
+
+</description>
+
+
+   <method type="constructor" name="agentflagger">
+   <shortdescription>Construct a flag tool</shortdescription>
+   
+<description>
+Create a {\tt agentflagger} tool, and initialize some variables.
+</description>
+<input>
+
+</input>
+<returns type="unknown">agentflagger tool</returns>
+<example>
+
+af.agentflagger()      
+
+</example>
+</method>
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="done">
+   <shortdescription>Destroy the flag tool</shortdescription>
+   
+<returns type="bool"/>
+<example>
+af.done()
+
+</example>
+</method>
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="open">
+   <shortdescription>Open the MS or a calibration table and attach it to the tool.</shortdescription>
+
+<input>
+
+     <param type="string" name="msname">
+     <description>Measurement set or calibration table to be processed. Default:  </description>
+     <value></value>
+     </param>
+     <param type="double" name="ntime">
+     <description>Time interval. If not given, the default will be used. Default: </description>
+     <value>0.0</value>
+     </param>
+</input>
+
+<example>
+af.open(msname,ntime)
+</example>
+<returns type="bool"/> 
+</method>
+
+
+<!-- ********************************************************************** -->
+
+ 
+   <method type="function" name="selectdata">
+   <shortdescription>Select the data based on the given parameters.
+For unspecified parameters, the full data range is assumed.
+All data selection parameters follow the MS Selection syntax.
+    </shortdescription>
+
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="record" name="config"> 
+     <description>The record (dictionary) config may be given or not. If it is not given, 
+     \n and no specific parameter is given either, the whole MS will be selected. The record 
+     \n may contain any data selection parameters supported by MS Selection such as:\n
+     </description>     
+     <value type="record"></value>
+     </param>
+
+     <param type="string" name="field">
+     <description>Field indices or source names : example : '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names : example : '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names : example : 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name : example : '1,2' (not supported yet) </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number : example : '1,2,3' </description>
+     <value></value>
+     </param>   
+
+     <param type="string" name="antenna">
+     <description>Baseline number : example : '2,3,4,5' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description>UV-distance range, with a unit : example : '2.0-3000.0 m'</description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="timerange">
+     <description>Time range, as MJDs or date strings : example : 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations : example : 'RR,LL,RL,LR,XX,YY,XY,YX,Sol1'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Scan intent : example : '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="observation">
+     <description>Observation Id : example : '2~4' </description>
+     <value></value>
+     </param>
+
+<!-- Selection parameters : end -->
+     
+</input>
+<example>
+Select the whole MS
+af.selectdata()
+
+Select a portion of the MS
+myrecord={}
+myrecord['scan']='1~3'
+myrecord['spw']='0:1~10'
+af.selectdata(myrecord)
+
+Another way to select a portion of the MS
+af.selectdata(scan='3~5', spw='0')
+</example>
+
+<returns type="bool"/> 
+</method>
+
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="parseagentparameters">
+   <shortdescription>Parse the parameters for the agent (flagging mode).</shortdescription>
+   
+<description>The specific data selection parameters for the agent (flagging mode)
+are parsed. These parameters are the data selection and mode-specific parameters.
+See the example below:
+</description>
+
+<input>
+
+     <param type="record" name="aparams">
+     <description>It takes a record (dictionary) with the specific parameters for the flagging mode. 
+     \n The record may contain any data selection parameters supported by MS Selection, as well as 
+     \n mode-specific parameters such as:\n
+     \n (1) array,feed,scan,field,spw,intent,correlation,antenna,uvrange,observation
+     \n (2) mode (which can be: manual,clip,quack,shadow,elevation,tfcrop,extendflags,unflag or summary)
+     \n     For flagging mode=clip, the parameters are: expression, datacolumn, clipminmax, etc.
+     \n     See the documentation of the task flagdata for all the available parameters for each mode.\n
+     \n (3) apply: default is true (true for flagging and false for unflagging)
+     \n Example:\n\n
+myrecord={}\n
+myrecord['mode']='clip'\n
+myrecord['scan']='1~3'\n
+myrecord['clipminmax']=[0.02,0.3]\n
+myrecord['apply']=True\n
+af.parseagentparameters(myrecord)\n
+     
+     </description>
+     </param>
+     
+</input>
+<example>
+myrecord={}
+myrecord['mode']='clip'
+myrecord['scan']='1~3'
+myrecord['clipminmax']=[0.02,0.3]
+myrecord['apply']=True
+af.parseagentparameters(myrecord)
+</example>
+<returns type="bool"/> 
+</method>
+
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="init">
+   <shortdescription>Initialize the agents</shortdescription>
+   
+<description>This method will initialize the agents and create a list of agents
+with their specific parameters. It takes no parameters.
+</description>
+
+<input>
+</input>
+<example>
+af.init()
+</example>
+<returns type="bool"/> 
+</method>
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="run">
+   <shortdescription>Execute a list of flagging agents</shortdescription>
+   
+<description>
+Execute a list of flagging agents and write or not to the MS/cal table. The parameter
+writeflags controls whether or not to write to the MS.
+</description>
+<input>
+     <param type="bool" name="writeflags">
+     <description>Write flags to MS (default: True)</description>
+     <value>true</value>
+     </param>
+
+     <param type="bool" name="sequential">
+     <description>Run the agents in the order they are inserted in the list or not. Default is True to run in the original order.</description>
+     <value>true</value>
+     </param>
+
+</input>
+<example>
+af.run()
+</example>
+<returns type="record"/>
+</method>
+
+
+<!-- ********************************************************************** -->
+
+    <method type="function" name="getflagversionlist">
+   <shortdescription>Print out a list of saved flag_versions.</shortdescription>
+<description> 
+Print out the list of flag versions in the MS, unless the parameter printflags=False. The list of names is returned.
+</description>
+<input>
+     <param type="bool" name="printflags">
+     <description>Print flagversions in logger?</description>
+     <value>true</value>
+     </param>
+</input>
+<returns type="stringArray"/>
+</method>
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="printflagselection">
+   <shortdescription>Print out a list of current flag selections.
+   </shortdescription>
+   
+<description>
+Print out a list of current flag selections.
+</description>
+<input>
+</input>
+<returns type="bool"/>
+</method>
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="saveflagversion">
+   <shortdescription>Save current flags with a version name.
+            </shortdescription>
+<description> 
+</description>
+<input>
+     <param type="string" name="versionname">
+     <description>Version name </description>
+     <value></value>
+     </param>
+     <param type="string" name="comment">
+     <description>Comment for this flag table </description>
+     <value></value>
+     </param>
+     <param type="string" name="merge">
+     <description>merge type </description>
+     <value></value>
+     </param>
+</input>
+<returns type="bool"/>
+</method>
+
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="restoreflagversion">
+   <shortdescription>Restore flags from a saved flag_version. 
+			\n versionname : name of flag version to restore to main table
+			\n merge : Type of operation to perform during restoration.
+			\n        merge = replace  : replaces the main table flags.
+			\n        merge = and   : logical AND with main table flags
+			\n        merge = or    : logical OR with main table flags
+			\n        Default : replace.
+ 			  \n
+   </shortdescription>
+<description> 
+</description>
+<input>
+     <param type="stringArray" name="versionname">
+     <description>Version name </description>
+     <value></value>
+     </param>
+     <param type="string" name="merge">
+     <description>merge type </description>
+     <value></value>
+     </param>
+</input>
+<returns type="bool"/>
+</method>
+
+<!-- ********************************************************************** -->
+
+
+    <method type="function" name="deleteflagversion">
+   <shortdescription>Delete a saved flag_version.</shortdescription>
+<description> 
+</description>
+<input>
+     <param type="stringArray" name="versionname">
+     <description>Version name </description>
+     <value></value>
+     </param>
+</input>
+<returns type="bool"/>
+</method>
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="parsemanualparameters">
+   <shortdescription>Parse data selection parameters and specific parameters
+for the manual mode. Data selection follows the MS Selection syntax.
+    </shortdescription>
+
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="string" name="field">
+     <description>Field indices or source names. Example: '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names. Example: '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names. Example: 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name. Example: '1,2' (not supported yet) </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number. Example: '1,2,3' </description>
+     <value></value>
+     </param>   
+
+     <param type="string" name="antenna">
+     <description>Baseline number. Example: '2,3,4,5,132' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description>UV-distance range, with a unit. Example: '2.0-3000.0 m'</description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="time">
+     <description>Time range, as MJDs or date strings. Example: 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations. Example: 'RR,LL,RL,LR,XX,YY,XY,YX'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Scan intent. Example: '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="observation">
+     <description>Observation Id. Example: '2~4' </description>
+     <value></value>
+     </param>
+
+     <param type="bool" name="autocorr">
+     <description>Parameter to flag only auto-correlations. Default: </description>
+     <value>false</value>
+     </param>
+     
+     <param type="bool" name="apply">
+     <description>Parameter to flag or unflag the data. Default: </description>
+     <value>true</value>
+     </param>
+
+<!-- Selection parameters : end -->
+     
+</input>
+<example>
+af.parsemanualparameters(autocorr=True)
+</example>
+
+<returns type="bool"/> 
+</method>
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="parseclipparameters">
+   <shortdescription>Parse data selection parameters and specific parameters
+for the clip mode. Data selection follows the MS Selection syntax.
+    </shortdescription>
+
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="string" name="field">
+     <description>Field indices or source names. Example: '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names. Example: '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names. Example: 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name. Example: '1,2' (not supported yet) </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number. Example: '1,2,3' </description>
+     <value></value>
+     </param>   
+
+     <param type="string" name="antenna">
+     <description>Baseline number. Example: '2,3,4,5' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description>UV-distance range, with a unit. Example: '2.0-3000.0 m'</description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="time">
+     <description>Time range, as MJDs or date strings. Example: 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations. Example: 'RR,LL,RL,LR,XX,YY,XY,YX'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Scan intent. Example: '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="observation">
+     <description>Observation Id. Example: '2~4' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="datacolumn">
+     <description>Data column to use for clipping. Supported columns for cal tables are
+                  FPARAM,CPARAM,SNR. Example: 'DATA'. Default:
+     </description>
+     <value>DATA</value>
+     </param>
+
+     <param type="doubleArray" name="clipminmax">
+     <description>Range to use for clipping. Example: [100.0,200.0] 
+     </description>
+     <value type="vector"></value>
+     </param>
+     
+     <param type="bool" name="clipoutside">
+     <description>Clip points outside this range? [True/False]. Default:
+     </description>
+     <value>true</value>
+     </param>
+    
+     <param type="bool" name="channelavg">
+     <description>Average data over channels before clipping? [True/False]. Default:
+     </description>
+     <value>false</value>
+     </param>
+     
+     <param type="variant" name="chanbin">
+     <description>Width (bin) of input channels to average to form an output channel.</description>
+     <any type="variant" limittypes="int intArray"/>            
+     <value type="int">1</value>
+     </param>
+
+     <param type="bool" name="timeavg">
+     <description>Average data over time ranges. [True/False]. Default:
+     </description>
+     <value>false</value>
+     </param>
+
+     <param type="string" name="timebin">
+     <description>Bin width for time average. Example: '2s' </description>
+     <value></value>
+     </param>
+          
+     <param type="bool" name="clipzeros">
+     <description>Clip zero-value data. [True/False]. Default:
+     </description>
+     <value>false</value>
+     </param>
+     
+     <param type="bool" name="apply">
+     <description>Parameter to flag or unflag data. Default: </description>
+     <value>true</value>
+     </param>
+
+<!-- Selection parameters : end -->
+     
+</input>
+<example>
+The correlation parameter can be used with an operator for the clip mode.
+The operator should be written only once and it will affect all the polarizations
+given in the string. See the example below:
+
+af.parseclipparameters(clipzeros=True, clipminmax=[0.,4.], correlation='ABS_XX,XY')
+
+or for a calibration table:
+af.parseclipparameters(clipzeros=True, clipminmax=[0.,4.], correlation='Sol1')
+
+</example>
+
+<returns type="bool"/> 
+</method>
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="parsequackparameters">
+   <shortdescription>Parse data selection parameters and specific parameters
+for the quack mode. Data selection follows the MS Selection syntax.
+    </shortdescription>
+
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="string" name="field">
+     <description>Field indices or source names. Example: '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names. Example: '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names. Example: 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name. Example: '1,2' (not supported yet) </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number. Example: '1,2,3' </description>
+     <value></value>
+     </param>   
+
+     <param type="string" name="antenna">
+     <description>Baseline number. Example: '2,3,4,5' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description>UV-distance range, with a unit. Example: '2.0-3000.0 m'</description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="time">
+     <description>Time range, as MJDs or date strings. Example: 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations. Example: 'RR,LL,RL,LR,XX,YY,XY,YX'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Scan intent. Example: '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="observation">
+     <description>Observation Id. Example: '2~4' </description>
+     <value></value>
+     </param>
+
+     <param type="string" name="quackmode">
+     <description>Quack mode. Default: </description>
+     <value>beg</value>
+     </param>
+
+     <param type="double" name="quackinterval">
+     <description>Quack length in seconds. Default: </description>
+     <value>0.0</value>
+     </param>
+
+     <param type="bool" name="quackincrement">
+     <description>Increment quack flagging in time taking into account flagged data or not. Default:</description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="apply">
+     <description>Parameter to flag or unflag the data. Default: </description>
+     <value>true</value>
+     </param>
+
+<!-- Selection parameters : end -->
+     
+</input>
+<example>
+af.parsequackparameters(scan='1~3', quackmode='beg', quackinterval=1)
+</example>
+
+<returns type="bool"/> 
+</method>
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="parseelevationparameters">
+   <shortdescription>Parse data selection parameters and specific parameters
+for the elevation mode. Data selection follows the MS Selection syntax.
+    </shortdescription>
+
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="string" name="field">
+     <description>Field indices or source names. Example: '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names. Example: '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names. Example: 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name. Example: '1,2' (not supported yet) </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number. Example: '1,2,3' </description>
+     <value></value>
+     </param>   
+
+     <param type="string" name="antenna">
+     <description>Baseline number. Example: '2,3,4,5' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description>UV-distance range, with a unit. Example: '2.0-3000.0 m'</description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="time">
+     <description>Time range, as MJDs or date strings. Example: 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations. Example: 'RR,LL,RL,LR,XX,YY,XY,YX'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Scan intent. Example: '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="observation">
+     <description>Observation Id. Example: '2~4' </description>
+     <value></value>
+     </param>
+
+     <param type="double" name="lowerlimit">
+     <description>The limiting elevation in degrees. Data obtained at lower antenna elevations will get flagged. Default: 
+     </description>
+     <value>0.0</value>
+     </param>
+
+     <param type="double" name="upperlimit">
+     <description>The limiting elevation in degrees. Data obtained at higher antenna elevations will get flagged. Default:
+     </description>
+     <value>90.0</value>
+     </param>
+
+     <param type="bool" name="apply">
+     <description>Parameter to flag or unflag the data. Default: </description>
+     <value>true</value>
+     </param>
+
+<!-- Selection parameters : end -->
+     
+</input>
+<example>
+To unflag, set the apply parameter.
+af.parseelevationparameters(upperlimit=50.,lowerlimit=10.0, apply=False)
+</example>
+
+<returns type="bool"/> 
+</method>
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="parsetfcropparameters">
+   <shortdescription>Parse data selection parameters and specific parameters
+for the time and frequency mode. Data selection follows the MS Selection syntax.
+    </shortdescription>
+
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="string" name="field">
+     <description>Field indices or source names. Example: '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names. Example: '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names. Example: 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name. Example: '1,2' (not supported yet) </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number. Example: '1,2,3' </description>
+     <value></value>
+     </param>   
+
+     <param type="string" name="antenna">
+     <description>Baseline number. Example: '2,3,4,5' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description>UV-distance range, with a unit. Example: '2.0-3000.0 m'</description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="time">
+     <description>Time range, as MJDs or date strings. Example: 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations. Example: 'RR,LL,RL,LR,XX,YY,XY,YX'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Scan intent. Example: '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="observation">
+     <description>Observation Id. Example: '2~4' </description>
+     <value></value>
+     </param>
+
+            <param type="double" name="ntime">
+                <description>Time-range to use for each chunk (in seconds or minutes). Default:</description>
+                <value>0.0</value>
+            </param>
+            <param type="bool" name="combinescans">
+                <description>Accumulate data across scans depending on the value of ntime. Default:</description>
+                <value>false</value>
+            </param>
+    
+           <param type="string" name="datacolumn">
+                <description>Data column to use for clipping. Example: 'DATA'. Default:
+                </description>
+                <value>DATA</value>
+            </param>
+            <param type="double" name="timecutoff">
+                <description>Flagging thresholds in units of deviation from the fit. Default:</description>
+                <value>4.0</value>
+            </param>
+            <param type="double" name="freqcutoff">
+                <description>Flagging thresholds in units of deviation from the fit. Default:</description>
+                <value>3.0</value>
+            </param>
+            <param type="string" name="timefit">
+                <description>Fitting function for the time direction (poly/line). Default: </description>
+                <value>line</value>
+            </param>
+            <param type="string" name="freqfit">
+                <description>Fitting function for the frequency direction (poly/line). Default: </description>
+                <value>poly</value>
+            </param>
+            <param type="int" name="maxnpieces">
+                <description>Number of pieces in the polynomial-fits (for \'freqfit\' or \'timefit\' = \'poly\'). Default: </description>
+                <value>7</value>
+            </param>
+            <param type="string" name="flagdimension">
+                <description>Dimensions along which to calculate fits (freq/time/freqtime/timefreq). Default: </description>
+                <value>freqtime</value>
+            </param>
+            <param type="string" name="usewindowstats">
+                <description>Calculate additional flags using sliding window statistics (none,sum,std,both). Default: </description>
+                <value>none</value>
+            </param>
+            <param type="int" name="halfwin">
+                <description>Half-width of sliding window to use with \'usewindowstats\' (1,2,3). Default: </description>
+                <value>1</value>
+            </param>
+            <param type="bool" name="extendflags">
+                <description>Extend the flags in time, frequency and correlations. Default:</description>
+                <value>true</value>
+            </param>
+
+     <param type="bool" name="apply">
+     <description>Parameter to flag or unflag the data. Default: </description>
+     <value>true</value>
+     </param>
+     
+     <param type="bool" name="channelavg">
+     <description>Average data over channels before clipping? [True/False]. Default:
+     </description>
+     <value>false</value>
+     </param>
+     
+     <param type="variant" name="chanbin">
+     <description>Width (bin) of input channels to average to form an output channel.</description>
+     <any type="variant" limittypes="int intArray"/>            
+     <value type="int">1</value>
+     </param>
+
+     <param type="bool" name="timeavg">
+     <description>Average data over time ranges. [True/False]. Default:
+     </description>
+     <value>false</value>
+     </param>
+
+     <param type="string" name="timebin">
+     <description>Bin width for time average. Example: '2s' </description>
+     <value></value>
+     </param>     
+
+<!-- Selection parameters : end -->
+     
+</input>
+<example>
+The correlation parameter can be used with an operator for the tfcrop mode.
+The operator should be written only once and it will affect all the polarizations
+given in the string. Note that if ntime='scan' and combinescans=True, all the scans will
+be loaded at once, thus requesting a lot of memory depending on the available spws.
+The parameter combinescans should be set to True only when ntime is specified as a 
+time-interval (not 'scan'). By default, the flags will be extended in time, if
+more than 50\% of the timeranges are flagged, 80\% of the channels are flagged and
+it will extend to other polarizations too. This is similar to running the extend
+mode after running tfcrop on the MS.
+
+af.parsetfcropparameters(spw='9', ntime=10.0, combinescans=True, correlation='ABS_XX,XY',
+                         extendflags=True)
+</example>
+
+<returns type="bool"/> 
+</method>
+
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="parseantintparameters">
+   <shortdescription>Parse data selection parameters and specific parameters
+for the antint mode. Data selection follows the MS Selection syntax.
+    </shortdescription>
+
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="string" name="field">
+     <description>Field indices or source names. Example: '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names. Example: '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names. Example: 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name. Example: '1,2' (not supported yet) </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number. Example: '1,2,3' </description>
+     <value></value>
+     </param>   
+
+     <param type="string" name="antenna">
+     <description>Baseline number. Example: '2,3,4,5' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description>UV-distance range, with a unit. Example: '2.0-3000.0 m'</description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="time">
+     <description>Time range, as MJDs or date strings. Example: 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations. Example: 'RR,LL,RL,LR,XX,YY,XY,YX'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Scan intent. Example: '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="observation">
+     <description>Observation Id. Example: '2~4' </description>
+     <value></value>
+     </param>
+
+     <param type="string" name="antint_ref_antenna">
+     <description>Antenna for which the fractions of channels flagged will be checked.</description>
+     <value></value>
+     </param>
+
+     <param type="double" name="minchanfrac">
+        <description>Minimum fraction of flagged channels required for a baseline to be deemed as flagged. Default: </description>
+        <value>0.6</value>
+    </param>
+
+    <param type="bool" name="verbose">
+        <description>Print timestamps of flagged integrations to the log. Default: </description>
+        <value>false</value>
+    </param>
+
+    <param type="bool" name="apply">
+       <description>Parameter to flag or unflag the data. Default: </description>
+       <value>true</value>
+   </param>
+
+<!-- Selection parameters : end -->
+     
+</input>
+<example>
+af.parseantintparameters(antint_ref_antenna='ea10', minchanfrac=0.45, verbose=True)
+</example>
+
+<returns type="bool"/> 
+</method>
+
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="parseextendparameters">
+   <shortdescription>Parse data selection parameters and specific parameters
+for the extend mode. Data selection follows the MS Selection syntax.
+    </shortdescription>
+
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="string" name="field">
+     <description>Field indices or source names. Example: '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names. Example: '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names. Example: 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name. Example: '1,2' (not supported yet) </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number. Example: '1,2,3' </description>
+     <value></value>
+     </param>   
+
+     <param type="string" name="antenna">
+     <description>Baseline number. Example: '2,3,4,5' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description>UV-distance range, with a unit. Example: '2.0-3000.0 m'</description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="time">
+     <description>Time range, as MJDs or date strings. Example: 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations. Example: 'RR,LL,RL,LR,XX,YY,XY,YX'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Scan intent. Example: '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="observation">
+     <description>Observation Id. Example: '2~4' </description>
+     <value></value>
+     </param>
+
+    <param type="double" name="ntime">
+        <description>Time-range to use for each chunk (in seconds or minutes). Default: </description>
+        <value>0.0</value>
+    </param>
+    <param type="bool" name="combinescans">
+        <description>Accumulate data across scans.. Default: </description>
+        <value>false</value>
+    </param>
+    <param type="bool" name="extendpols">
+        <description>If any correlation is flagged, flag all correlations. Default: </description>
+        <value>true</value>
+    </param>
+
+   <param type="double" name="growtime">
+        <description>Flag all \'ntime\' integrations if more than X\% of the timerange is flagged (0-100). Default: </description>
+        <value>50.0</value>
+    </param>
+    <param type="double" name="growfreq">
+        <description>Flag all selected channels if more than X\% of the frequency range is flagged(0-100). Default: </description>
+        <value>50.0</value>
+    </param>
+    <param type="bool" name="growaround">
+        <description>Flag data based on surrounding flags. Default: </description>
+        <value>false</value>
+    </param>
+    <param type="bool" name="flagneartime">
+        <description>Flag one timestep before and after a flagged one. Default: </description>
+        <value>false</value>
+    </param>
+    <param type="bool" name="flagnearfreq">
+        <description>Flag one channel before and after a flagged one. Default: </description>
+        <value>false</value>
+    </param>
+
+     <param type="bool" name="apply">
+     <description>Parameter to flag or unflag the data. Default: </description>
+     <value>true</value>
+     </param>
+
+<!-- Selection parameters : end -->
+     
+</input>
+<example>
+af.parseextendparameters(extendpols=True)
+</example>
+
+<returns type="bool"/> 
+</method>
+
+
+<!-- ********************************************************************** -->
+
+   <method type="function" name="parsesummaryparameters">
+   <shortdescription>Parse data selection parameters and specific parameters
+for the summary mode. Data selection follows the MS Selection syntax.
+    </shortdescription>
+
+<input>
+
+<!-- Selection parameters : start -->
+     <param type="string" name="field">
+     <description>Field indices or source names. Example: '2,3C48' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="spw">
+     <description>Spectral Window Indices or names. Example: '1,2' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="array">
+     <description>Array Indices or names. Example: 'VLAA' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="feed">
+     <description>Feed index or name. Example: '1,2' (not supported yet) </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="scan">
+     <description>Scan number. Example: '1,2,3' </description>
+     <value></value>
+     </param>   
+
+     <param type="string" name="antenna">
+     <description>Baseline number. Example: '2,3,4,5' </description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="uvrange">
+     <description>UV-distance range, with a unit. Example: '2.0-3000.0 m'</description>
+     <value></value>
+     </param>
+    
+     <param type="string" name="time">
+     <description>Time range, as MJDs or date strings. Example: 'xx.x.x.x.x~yy.y.y.y.y'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="correlation">
+     <description>Correlations/polarizations. Example: 'RR,LL,RL,LR,XX,YY,XY,YX'</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Scan intent. Example: '*CAL*, *BAND*' </description>
+     <value></value>
+     </param>
+     
+     <param type="string" name="observation">
+     <description>Observation Id. Example: '2~4' </description>
+     <value></value>
+     </param>
+
+     <param type="bool" name="spwchan">
+     <description>List the number of flags per spw and per channel. Default: </description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="spwcorr">
+     <description>List the number of flags per spw and per correlation. Default: </description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="basecnt">
+     <description>List the number of flags per baseline. Default: </description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="fieldcnt">
+     <description>List the number of flags per field. Default: </description>
+     <value>false</value>
+     </param>
+     
+     <param type="string" name="name">
+     <description>Name of this summary report. Default: summary </description>
+     <value></value>
+     </param>
+     
+<!-- Selection parameters : end -->
+     
+</input>
+<example>
+af.parsesummaryparameters(spwchan=True, basecnt=True)
+</example>
+
+<returns type="bool"/> 
+</method>
+
+</tool>
+</casaxml>
+
+
+
+

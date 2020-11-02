@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" ?>
+
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd">
+
+<!--   
+ ***************************************************************************
+ ** dbus.xml: defines the interface to the dbus tool
+ ** Copyright (C) 2009
+ ** Associated Universities, Inc. Washington DC, USA.
+ **
+ ** This library is free software; you can redistribute it and/or modify it
+ ** under the terms of the GNU Library General Public License as published by
+ ** the Free Software Foundation; either version 2 of the License, or (at your
+ ** option) any later version.
+ **
+ ** This library is distributed in the hope that it will be useful, but WITHOUT
+ ** ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ ** FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Library General Public
+ ** License for more details.
+ **
+ ** You should have received a copy of the GNU Library General Public License
+ ** along with this library; if not, write to the Free Software Foundation,
+ ** Inc., 675 Massachusetts Ave, Cambridge, MA 02139, USA.
+ **
+ ** Correspondence concerning AIPS++ should be addressed as follows:
+ **        Internet email: aips2-request@nrao.edu.
+ **        Postal address: AIPS++ Project Office
+ **                        National Radio Astronomy Observatory
+ **                        520 Edgemont Road
+ **                        Charlottesville, VA 22903-2475 USA
+ **   
+ ***************************************************************************
+-->
+
+<tool name="dbus" module="pm">
+<keyword>dbus</keyword>
+
+<code>
+  <include>tools/utils/dbus_forward.h</include>
+  <private>
+	  <include>tools/utils/dbus_private.h</include>
+  </private>
+</code>
+
+<shortdescription />
+<description />
+  
+<example />
+
+
+<method type="constructor" name="dbus">
+  <keyword>db</keyword>
+  
+  <shortdescription>
+Constructs a new dbus tool object.
+  </shortdescription>
+  
+  <description />
+  
+  <returns type="dbusobject">
+    <description>dbus tool</description>
+  </returns>
+</method>
+
+
+<method type="function" name="asyncCallMethod">
+  <keyword>asyncCallMethod</keyword>
+  
+  <shortdescription>Calls a remote method asynchronously.</shortdescription>
+  
+  <description />
+  
+  <input>
+    <param type="string" name="objectName">
+      <description>name of the CASA DBus application to call</description>
+    </param>
+    
+    <param type="string" name="methodName">
+      <description>name of the method to call on the application</description>
+    </param>
+    
+    <param type="record" name="parameters">
+      <description>method parameters to send</description>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns type="bool">
+    <description>whether the sending succeeded or not</description>
+  </returns>
+</method>
+ 
+</tool>
+
+</casaxml>
+

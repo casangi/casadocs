@@ -1,0 +1,2273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" ?>
+
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd">
+
+<!--   
+ ***************************************************************************
+ ** plotms.xml: defines the interface to the PlotMS tool
+ ** Copyright (C) 2009
+ ** Associated Universities, Inc. Washington DC, USA.
+ **
+ ** This library is free software; you can redistribute it and/or modify it
+ ** under the terms of the GNU Library General Public License as published by
+ ** the Free Software Foundation; either version 2 of the License, or (at your
+ ** option) any later version.
+ **
+ ** This library is distributed in the hope that it will be useful, but WITHOUT
+ ** ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ ** FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Library General Public
+ ** License for more details.
+ **
+ ** You should have received a copy of the GNU Library General Public License
+ ** along with this library; if not, write to the Free Software Foundation,
+ ** Inc., 675 Massachusetts Ave, Cambridge, MA 02139, USA.
+ **
+ ** Correspondence concerning AIPS++ should be addressed as follows:
+ **        Internet email: aips2-request@nrao.edu.
+ **        Postal address: AIPS++ Project Office
+ **                        National Radio Astronomy Observatory
+ **                        520 Edgemont Road
+ **                        Charlottesville, VA 22903-2475 USA
+ **   
+ ***************************************************************************
+-->
+
+<tool name="plotms" module="pm">
+<keyword>measurement set</keyword>
+<keyword>plotter</keyword>
+
+<code>
+  <include>tools/plotms/plotms_forward.h</include>
+  <private>
+    <include>tools/plotms/plotms_private.h</include>
+  </private>
+</code>
+
+<shortdescription />
+<description />
+  
+<example />
+
+
+<method type="constructor" name="plotms">
+  <keyword>pm</keyword>
+  
+  <shortdescription>Constructs a new plotms tool object.</shortdescription>
+  
+  <description />
+  
+  <returns type="plotmsobject">
+    <description>plotms tool</description>
+  </returns>
+</method>
+
+
+<!--
+###############################################################################
+Application-Wide Options Methods
+###############################################################################
+-->
+
+<method type="function" name="setLogFilename">
+  <keyword>setLogFilename</keyword>
+  
+  <shortdescription>Sets the log filename to be used by plotms.</shortdescription>
+  
+  <description />
+  
+  <input>
+    <param type="string" name="logFilename">
+      <description>log filename for plotms to use</description>
+      <value>casapy.log</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+<method type="function" name="getLogFilename">
+  <keyword>getLogFilename</keyword>
+  
+  <shortdescription>Gets the log filename used by plotms.</shortdescription>
+  
+  <description />
+  
+  <input />
+  
+  <example />
+  
+  <returns type="string">
+    <description>log filename, or blank for none</description>
+  </returns>  
+</method>
+
+<method type="function" name="setLogFilter">
+  <keyword>setLogFilter</keyword>
+  
+  <shortdescription>Sets the log's priority filter.</shortdescription>
+  
+  <description />
+  
+  <input>
+    <param type="string" name="priority">
+      <description>string representation of minimum priority</description>
+    </param>
+  </input>
+  
+  <example>
+  </example>
+  
+  <returns />
+</method>
+
+<method type="function" name="getLogFilter">
+  <keyword>getLogFilter</keyword>
+  
+  <shortdescription>Gets the log's priority filter.</shortdescription>
+  
+  <description />
+  
+  <input />
+  
+  <example />
+  
+  <returns type="string">
+    <description>string representation of minimum priority</description>
+  </returns>
+</method>
+
+<method type="function" name="setPlotMSPid">
+  <keyword>setPlotMSPid</keyword>
+
+  <shortdescription>Connect dbus to existing plotms process ID.</shortdescription>
+
+  <description />
+
+  <input>
+    <param type="int" name="pid">
+      <description>plotms process ID to use</description>
+    </param>
+  </input>
+
+  <example />
+
+  <returns />
+</method>
+
+<method type="function" name="getPlotMSPid">
+  <keyword>getPlotMSPid</keyword>
+
+  <shortdescription>Get the process ID of attached plotms process.</shortdescription>
+
+  <description />
+
+  <input />
+
+  <example />
+
+  <returns type="int">
+    <description>process ID</description>
+  </returns>
+</method>
+
+<method type="function" name="setClearSelectionOnAxesChange">
+  <keyword>setClearSelectionOnAxesChange</keyword>
+
+  <shortdescription>Sets whether any selections are cleared on an axes change or not.</shortdescription>
+  
+  <description />
+  
+  <input>
+    <param type="bool" name="clearSelection">
+      <description>clear selection flag</description>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+<method type="function" name="getClearSelectionOnAxesChange">
+  <keyword>getClearSelectionOnAxesChange</keyword>
+  
+  <shortdescription>Gets whether any selections are cleared on an axes change or not.</shortdescription>
+  
+  <description />
+  
+  <input />
+  
+  <example />
+  
+  <returns type="bool">
+    <description>clear selection flag</description>
+  </returns>
+</method>
+
+<method type="function" name="setCachedImageSize">
+  <keyword>setCachedImageSize</keyword>
+  
+  <shortdescription>Sets the size for the cached images.</shortdescription>
+  
+  <description />
+  
+  <input>
+    <param type="int" name="width">
+      <description>width of the cached images</description>
+    </param>
+    
+    <param type="int" name="height">
+      <description>height of the cached images</description>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+<method type="function" name="setCachedImageSizeToScreenResolution">
+  <keyword>setCachedImageSizeToScreenResolution</keyword>
+  
+  <shortdescription>Sets the size for the cached images to the current screen resolution.</shortdescription>
+  
+  <description />
+  
+  <input />
+  
+  <example />
+  
+  <returns />
+</method>
+
+<method type="function" name="getCachedImageWidth">
+  <keyword>getCachedImageWidth</keyword>
+  
+  <shortdescription>Gets the width of the cached images.</shortdescription>
+  
+  <description />
+  
+  <input />
+  
+  <example />
+  
+  <returns type="int">
+    <description>width of the cached images</description>
+  </returns>
+</method>
+
+<method type="function" name="getCachedImageHeight">
+  <keyword>getCachedImageHeight</keyword>
+  
+  <shortdescription>Gets the height of the cached images.</shortdescription>
+  
+  <description />
+  
+  <input />
+  
+  <example />
+  
+  <returns type="int">
+    <description>height of the cached images</description>
+  </returns>
+</method>
+
+<method type="function" name="setGridSize">
+  <keyword>setGridSize</keyword>  
+  <shortdescription>Sets the number of rows and columns in multiple plot displays.</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="rowCount">
+      <description>The number of rows in a multiple plot display.</description>
+      <value>1</value>
+    </param>
+    <param type="int" name="colCount">
+      <description>The number of columns in a multiple plot display.</description>
+      <value>1</value>
+    </param>
+  </input>
+  <example />
+  <returns />
+</method>
+
+<method type="function" name="getNumPlots">
+  <keyword>getNumPlots</keyword>
+
+  <shortdescription>Get the number of plots.</shortdescription>
+
+  <description />
+
+  <input />
+
+  <example />
+
+  <returns type="int">
+    <description>Number of plots, useful for determining next plot index.</description>
+  </returns>
+</method>
+
+
+<!--
+###############################################################################
+Plot MS Parameters Methods
+###############################################################################
+-->
+
+<method type="function" name="setPlotMSFilename">
+  <keyword>setPlotMSFilename</keyword>
+  
+  <shortdescription>Sets the MS filename to the given.</shortdescription>
+  
+  <description>
+Sets the MS filename for the plot at the given index.  If updateImmediately is
+true, this change takes effect immediately IF the plotms window is currently
+shown; otherwise it will only be applied next time update() and/or show() is
+called.
+  </description>
+  
+  <input>
+    <param type="string" name="msFilename">
+      <description>MS filename to be plotted</description>
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns>
+  </returns>
+</method>
+
+<method type="function" name="getPlotMSFilename">
+  <keyword>getPlotMSFilename</keyword>
+  
+  <shortdescription>Gets the MS filename.</shortdescription>
+  
+  <description>
+Gets the MS filename for the plot at the given index.
+  </description>
+  
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns type="string">
+    <description>The MS filename for the plot at the given index.</description>
+  </returns>
+</method>
+
+<method type="function" name="setcallib">
+  <keyword>setcallib</keyword>
+  
+  <shortdescription>Sets the calibration parameters.</shortdescription>
+  
+  <description>
+Sets the calibration parameters for the plot at the given index, using a
+string or filename.  If updateImmediately is true, this change takes effect
+immediately IF the plotms window is currently shown; otherwise it will only be
+applied next time update() and/or show() is called.
+  </description>
+  
+  <input>
+    <param type="string" name="callib">
+      <description>calibration parameters, as a string or filename</description>
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+<method type="function" name="setPlotMSSelection">
+  <keyword>setPlotMSSelection</keyword>
+  
+  <shortdescription>Sets the MS selection parameters.</shortdescription>
+  
+  <description>
+Sets the MS selection parameters for the plot at the given index, using
+individual string values.  If updateImmediately is true, this change takes
+effect immediately IF the plotms window is currently shown; otherwise it will
+only be applied next time update() and/or show() is called.
+  </description>
+  
+  <input>
+    <param type="string" name="field">
+      <description>MS selection parameter for field</description>
+      <value />
+    </param>
+    
+    <param type="string" name="spw">
+      <description>MS selection parameter for spw</description>
+      <value />
+    </param>
+    
+    <param type="string" name="timerange">
+      <description>MS selection parameter for timerange</description>
+      <value />
+    </param>
+    
+    <param type="string" name="uvrange">
+      <description>MS selection parameter for uvrange</description>
+      <value />
+    </param>
+    
+    <param type="string" name="antenna">
+      <description>MS selection parameter for antenna</description>
+      <value />
+    </param>
+    
+    <param type="string" name="scan">
+      <description>MS selection parameter for scan</description>
+      <value />
+    </param>
+    
+    <param type="string" name="corr">
+      <description>MS selection parameter for corr</description>
+      <value />
+    </param>
+    
+    <param type="string" name="array">
+      <description>MS selection parameter for array</description>
+      <value />
+    </param>
+    
+    <param type="string" name="observation">
+      <description>MS selection parameter for obsID</description>
+      <value />
+    </param>
+    
+    <param type="string" name="intent">
+      <description>MS selection parameter for intent</description>
+      <value />
+    </param>
+    
+    <param type="string" name="feed">
+      <description>MS selection parameter for feed</description>
+      <value />
+    </param>
+    
+    <param type="string" name="msselect">
+      <description>MS selection parameter for msselect</description>
+      <value />
+    </param>
+
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+<method type="function" name="setPlotMSSelectionRec">
+  <keyword>setPlotMSSelectionRec</keyword>
+  
+  <shortdescription>Sets the MS selection parameters.</shortdescription>
+  
+  <description>
+Sets the MS selection parameters for the plot at the given index, using a
+record (see PlotMSSelection::toRecord()).  If updateImmediately is true, this
+change takes effect immediately IF the plotms window is currently shown;
+otherwise it will only be applied next time update() and/or show() is called.
+  </description>
+  
+  <input>
+    <param type="record" name="selection">
+      <description>MS selection parameters, in record form</description>
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+<method type="function" name="getPlotMSSelection">
+  <keyword>getPlotMSSelection</keyword>
+  
+  <shortdescription>Gets the MS selection parameters.</shortdescription>
+  
+  <description>
+Gets the MS selection parameters for the plot at the given index as a record
+(see PlotMSSelection::toRecord()).
+  </description>
+  
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns type="record">
+    <description>MS selection parameters, in record form</description>
+  </returns>
+</method>
+
+<method type="function" name="setPlotMSAveraging">
+  <keyword>setPlotMSAveraging</keyword>
+  
+  <shortdescription>Sets the MS averaging parameters.</shortdescription>
+  
+  <description>
+Sets the MS averaging parameters for the plot at the given index, using
+individual flags and values.  Baseline and antenna averaging are mutually
+exclusive; only one (or none) can be true at the same time.  If
+updateImmediately is true, this change takes effect immediately IF the plotms
+window is currently shown; otherwise it will only be applied next time update()
+and/or show() is called.
+  </description>
+  
+  <input>
+    <param type="string" name="channel">
+      <description>channel averaging; either blank or a channel value</description>
+      <value />
+    </param>
+    
+    <param type="string" name="time">
+      <description>time averaging; either blank or a value in seconds</description>
+      <value />
+    </param>
+    
+    <param type="bool" name="scan">
+      <description>scan averaging (only valid if time averaging is on)</description>
+      <value>false</value>
+    </param>
+    
+    <param type="bool" name="field">
+      <description>field averaging (only valid if time averaging is on)</description>
+      <value>false</value>
+    </param>
+    
+    <param type="bool" name="baseline">
+      <description>baseline averaging, mutually exclusive with antenna</description>
+      <value>false</value>
+    </param>
+    
+    <param type="bool" name="antenna">
+      <description>antenna averaging, mutually exclusive with baseline</description>
+      <value>false</value>
+    </param>
+    
+    <param type="bool" name="spw">
+      <description>spw averaging</description>
+      <value>false</value>
+    </param>
+
+    <param type="bool" name="scalar">
+      <description>Do scalar averaging instead of vector averaging</description>
+      <value>false</value>
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+<method type="function" name="setPlotMSAveragingRec">
+  <keyword>setPlotMSAveragingRec</keyword>
+  
+  <shortdescription>Sets the MS averaging parameters.</shortdescription>
+  
+  <description>
+Sets the MS averaging parameters for the plot at the given index, using a
+record (see PlotMSAveraging::toRecord()).  If updateImmediately is true, this
+change takes effect immediately IF the plotms window is currently shown;
+otherwise it will only be applied next time update() and/or show() is called.
+  </description>
+  
+  <input>
+    <param type="record" name="averaging">
+      <description>MS averaging parameters, in record form</description>
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+<method type="function" name="getPlotMSAveraging">
+  <keyword>getPlotMSAveraging</keyword>
+  
+  <shortdescription>Gets the MS averaging parameters.</shortdescription>
+  
+  <description>
+Gets the MS averaging parameters for the plot at the given index as a record
+(see PlotMSAveraging::toRecord()).
+  </description>
+  
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns type="record">
+    <description>MS averaging parameters, in record form</description>
+  </returns>
+</method>
+
+
+<method type="function" name="setPlotMSTransformations">
+  <keyword>setPlotMSTransformations</keyword>
+  
+  <shortdescription>Sets the MS transformation parameters.</shortdescription>
+  
+  <description>
+Sets the MS transformation parameters for the plot at the given index, using
+individual values.  Supported transformations currently include frequency
+frame choices (LSRK,LSRD,BARY,GEO,TOPO,GALACTO,LGROUP,CMB), velocity definition choices (RADIO,
+OPTICAL,TRUE) and rest frequency, and approximate phase center shift.  If
+updateImmediately is true, this change takes effect immediately IF the plotms
+window is currently shown; otherwise it will only be applied next time update()
+and/or show() is called.
+  </description>
+  
+  <input>
+    <param type="string" name="freqframe">
+      <description>Frequency frame in which to render frequencies and velocities</description>
+      <value />
+    </param>
+    
+    <param type="string" name="veldef">
+      <description>Velocity definition in which to render velocities</description>
+      <value />
+    </param>
+    
+    <param type="any" name="restfreq">
+      <description>Rest frequency (w/ units) to use when calculating velocities</description>
+      <any type="variant"/>
+      <value></value>
+    </param>
+    
+    <param type="double" name="xshift">
+      <description>Phase center shift in horizontal direction (arcsec)</description>
+      <value>0.0</value>
+    </param>
+    
+
+    <param type="double" name="yshift">
+      <description>Phase center shift in vertical direction (arcsec)</description>
+      <value>0.0</value>
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+<method type="function" name="setPlotMSCalibration">
+  <keyword>setPlotMSCalibration</keyword>
+  
+  <shortdescription>Sets the MS calibration parameters.</shortdescription>
+  
+  <description>
+Sets the MS calibration parameters for the plot at the given index, using
+individual values.  These parameters may be in a string or a file.
+If updateImmediately is true, this change takes effect immediately IF
+the plotms window is currently shown; otherwise it will only be applied next
+time update() and/or show() is called.
+  </description>
+  
+  <input>
+    <param type="bool" name="use">
+      <description>Indicates whether to use a calibration library for on-the-fly calibration.</description>
+      <value>false</value>
+    </param>
+    
+    <param type="string" name="callibrary">
+      <description>Calibration Library as a string or filename</description>
+      <value />
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+<method type="function" name="setPlotMSIterate">
+  <keyword>setPlotMSIterate</keyword>
+  
+  <shortdescription>Sets the iteration parameters.</shortdescription>
+  
+  <description>
+Sets which meta-information axis over which to iterate the plots
+(scan, field, spw, baseline, antenna), and whether to self-scale 
+the axes of each plot or scale them globally.  (TBD: support for 
+specifying multiple plots per page will be added here)
+  </description>
+  
+  <input>
+    <param type="string" name="iteraxis">
+      <description>Axis over which to iterate (or none)</description>
+      <value />
+    </param>
+    
+    <param type="int" name="rowIndex">
+      <description>Row location of the plot (0-based, default=0).</description>
+      <value>0</value>
+    </param>
+
+    <param type="int" name="colIndex">
+      <description>Column location of the plot (0-based, default=0)</description>
+      <value>0</value>
+    </param>
+    
+    <param type="bool" name="xselfscale">
+      <description>When true, iterated plots have a common x-axis range (scale).</description>
+      <value>false</value>
+    </param>
+
+    <param type="bool" name="yselfscale">
+      <description>When true, iterated plots have a common y-axis range (scale).</description>
+      <value>false</value>
+    </param>
+    
+    <param type="bool" name="commonAxisX">
+	  <description>Iterated plots on a grid share a common external x-axis per column. Must also set xselfscale=True and gridrows>1.</description>
+      <value>false</value>
+    </param>
+
+    <param type="bool" name="commonAxisY">
+	  <description>Iterated plots on a grid share a common external y-axis per row. Must also set yselfscale=True and gridcols>1.</description>
+      <value>false</value>
+    </param>
+
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+
+<method type="function" name="setPlotMSTransformationsRec">
+  <keyword>setPlotMSTransformationsRec</keyword>
+  
+  <shortdescription>Sets the MS transformations parameters.</shortdescription>
+  
+  <description>
+Sets the MS transformations parameters for the plot at the given index, using a
+record (see PlotMSTransformations::toRecord()).  If updateImmediately is true, this
+change takes effect immediately IF the plotms window is currently shown;
+otherwise it will only be applied next time update() and/or show() is called.
+  </description>
+  
+  <input>
+    <param type="record" name="transformations">
+      <description>MS transformations parameters, in record form</description>
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+<method type="function" name="getPlotMSTransformations">
+  <keyword>getPlotMSTransformations</keyword>
+  
+  <shortdescription>Gets the MS transformations parameters.</shortdescription>
+  
+  <description>
+Gets the MS transformations parameters for the plot at the given index as a record
+(see PlotMSTransformations::toRecord()).
+  </description>
+  
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns type="record">
+    <description>MS transformations parameters, in record form</description>
+  </returns>
+</method>
+
+<method type="function" name="getPlotMSCalibration">
+  <keyword>getPlotMSCalibration</keyword>
+  
+  <shortdescription>Gets the MS calibration parameters.</shortdescription>
+  
+  <description>
+Gets the MS calibration parameters for the plot at the given index as a record
+(see PlotMSCalibration::toRecord()).
+  </description>
+  
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns type="record">
+    <description>MS calibration parameters, in record form</description>
+  </returns>
+</method>
+
+
+<method type="function" name="setExportRange">
+  <keyword>setExportRange</keyword>
+  
+  <shortdescription>Export all iteration plots or only the current one.</shortdescription>
+  
+  <description>
+    Plot export range (for multiple page iterations): All plots or only the current one (blank).
+  </description>
+  
+  <input>
+    <param type="string" name="range">
+      <description>Iteration plot export range: all or current(blank).</description>
+      <value />
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+<method type="function" name="setPlotMSPageHeaderItems">
+  <keyword>setPlotMSPageHeaderItems</keyword>
+  
+  <shortdescription>Sets page header items to the given.</shortdescription>
+  
+  <description>
+Sets page header items for the plot at the given index.  If updateImmediately is
+true, this change takes effect immediately IF the plotms window is currently
+shown; otherwise it will only be applied next time update() and/or show() is
+called.
+  </description>
+  
+  <input>
+    <param type="string" name="pageHeaderItems">
+      <description>Comma-separated list of items to display in the page header</description>
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns>
+  </returns>
+</method>
+
+<!--
+###############################################################################
+Plot Axes Parameters Methods
+###############################################################################
+-->
+
+
+
+<method type="function" name="setTitle">
+  <keyword>setTitle</keyword>
+  <shortdescription>Sets the title for a plot</shortdescription>
+  <description />
+  <input>
+    <param type="string" name="text">
+      <description>Title (blank for automatic, resembling [yaxis] vs. [x])</description>
+      <value />
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+    
+  </input>
+  <example />  
+  <returns />
+</method>
+
+<method type="function" name="setTitleFont">
+  <keyword>setTitleFont</keyword>
+  <shortdescription>Sets the title font for a plot</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="size">
+      <description>Title font (0 for automatic sizing)</description>
+      <value>0</value>
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+    
+  </input>
+  <example />  
+  <returns />
+</method>
+
+<method type="function" name="setXAxisLabel">
+  <keyword>setXAxisLabel</keyword>
+  <shortdescription>Sets the text to label the horizontal axis</shortdescription>
+  <description />
+  <input>
+    <param type="string" name="text">
+      <description>The title (blank for automatic)</description>
+      <value />
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+    
+  </input>
+  <example />  
+  <returns />
+</method>
+
+<method type="function" name="setXAxisFont">
+  <keyword>setXAxisFont</keyword>
+  <shortdescription>Sets the x-axis font for a plot</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="size">
+      <description>X-axis font (0 for automatic sizing)</description>
+      <value>0</value>
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+    
+  </input>
+  <example />  
+  <returns />
+</method>
+
+<method type="function" name="setYAxisLabel">
+  <keyword>setYAxisLabel</keyword>
+  <shortdescription>Sets the text to label the vertical axis</shortdescription>
+  <description />
+  <input>
+    <param type="string" name="text">
+      <description>The text (blank for automatic)</description>
+      <value />
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+    
+  </input>
+  <example />  
+  <returns />
+</method>
+
+<method type="function" name="setYAxisFont">
+  <keyword>setYLabelFont</keyword>
+  <shortdescription>Sets the y-axis font for a plot</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="size">
+      <description>Y-axis font (0 for automatic sizing)</description>
+      <value>0</value>
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+    
+  </input>
+  <example />  
+  <returns />
+</method>
+
+<method type="function" name="getTitle">
+  <keyword>getTitle</keyword>
+  <shortdescription>Gets the title for the plot</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  <example />
+  <returns type="string">
+    <description>string</description>
+  </returns>
+</method>
+
+
+<method type="function" name="getXAxisLabel">
+  <keyword>getXAxisLabel</keyword>
+  <shortdescription>Gets the text for the horizontal axis</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  <example />
+  <returns type="string">
+    <description>string</description>
+  </returns>
+</method>
+
+
+<method type="function" name="getYAxisLabel">
+  <keyword>getYAxisLabel</keyword>
+  <shortdescription>Gets the text for the vertical axis</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  <example />
+  <returns type="string">
+    <description>string</description>
+  </returns>
+</method>
+
+
+
+
+
+
+<method type="function" name="setPlotAxes">
+
+  <keyword>setPlotAxes</keyword>
+  
+  <shortdescription>Sets the plot axes to the given.</shortdescription>
+  
+  <description>
+Sets the x and y plot axes and data columns, as Strings.  If updateImmediately
+is true, this change takes effect immediately IF the plotms window is currently
+shown; otherwise it will only be applied next time update() and/or show() is
+called.
+  </description>
+  
+  <input>
+    <param type="string" name="xAxis">
+      <description>name of the axis choice for x (blank to keep current)</description>
+      <value />
+    </param>
+    
+    <param type="string" name="yAxis">
+      <description>name of the axis choice for y (blank to keep current)</description>
+      <value />
+    </param>
+    
+    <param type="string" name="xDataColumn">
+      <description>name of the data column to use for the x axis, if applicable (blank to keep current)</description>
+      <value />
+    </param>
+    
+    <param type="string" name="yDataColumn">
+      <description>name of the data column to use for the y axis, if applicable (blank to keep current)</description>
+      <value />
+    </param>
+    
+    <param type="string" name="xFrame">
+      <description>coordinates frame to use for the x axis, if applicable (blank to keep current)</description>
+      <value />
+    </param>
+    
+    <param type="string" name="yFrame">
+      <description>coordinates frame to use for the y axis, if applicable (blank to keep current)</description>
+      <value />
+    </param>
+    
+    <param type="string" name="xInterp">
+      <description>interpolation method to use for the x axis, if applicable (blank to keep current)</description>
+      <value />
+    </param>
+    
+    <param type="string" name="yInterp">
+      <description>interpolation method to use for the y axis, if applicable (blank to keep current)</description>
+      <value />
+    </param>
+    
+     <param type="string" name="yAxisLocation">
+      <description>whether to plot the y-data against a left or right axis (blank for default)</description>
+      <value />
+    </param>
+    
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+    
+    <param type="int" name="dataIndex">
+      <description>When overplotting data, the index of the data being overplotted.</description>
+      <value>0</value>
+    </param>
+    
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+
+
+<method type="function" name="getPlotXAxis">
+  <keyword>getPlotXAxis</keyword>
+  
+  <shortdescription>Gets the x plot axis.</shortdescription>
+  
+  <description />
+  
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns type="string">
+    <description>string representation of the x plot axis</description>
+  </returns>
+</method>
+
+<method type="function" name="getPlotXDataColumn">
+  <keyword>getPlotXDataColumn</keyword>
+  
+  <shortdescription>Gets the data column for the x plot axis.</shortdescription>
+  
+  <description />
+  
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns type="string">
+    <description>string representation of the data column for the x plot axis</description>
+  </returns>
+</method>
+
+<method type="function" name="getPlotYAxis">
+  <keyword>getPlotYAxis</keyword>
+  
+  <shortdescription>Gets the y plot axis.</shortdescription>
+  
+  <description />
+  
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns type="string">
+    <description>string representation of the y plot axis</description>
+  </returns>
+</method>
+
+<method type="function" name="getPlotYDataColumn">
+  <keyword>getPlotYDataColumn</keyword>
+  
+  <shortdescription>Gets the data column for the y plot axis.</shortdescription>
+  
+  <description />
+  
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns type="string">
+    <description>string representation of the data column for the y plot axis</description>
+  </returns>
+</method>
+
+<method type="function" name="getPlotParams">
+  <keyword>getPlotParams</keyword>
+  
+  <shortdescription>Returns the plot params.</shortdescription>
+  
+  <description />
+  
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns type="record">
+    <description>record that contains the plot param information</description>
+  </returns>
+</method>
+
+
+
+
+<method type="function" name="setXRange">
+  <keyword>setXRange</keyword>
+  <shortdescription>Set X axis for auto or manual, and the min/max values of x</shortdescription>
+
+  <input>
+    <param type="bool" name="xautorange">
+      <description>Automatically determine X axrangeis range?</description>
+      <value>true</value>
+    </param>
+    <param type="double" name="xmin">
+      <description>Minimum value of X</description>
+      <value>0</value>
+    </param>
+    <param type="double" name="xmax">
+      <description>Maximum value of X</description>
+      <value>0</value>
+    </param>
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown      </description>
+      <value>true</value>
+    </param>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  <example />
+  <returns />    
+</method>
+
+
+
+<method type="function" name="setYRange">
+  <keyword>setYRange</keyword>
+  <shortdescription>Set Y axis for auto or manual, and the min/max values of y</shortdescription>
+  <input>
+    <param type="bool" name="yautorange">
+      <description>Automatically determine X axis range?</description>
+      <value>true</value>
+    </param>
+    <param type="double" name="ymin">
+      <description>Minimum value of Y</description>
+      <value>0</value>
+    </param>
+    <param type="double" name="ymax">
+      <description>Maximum value of Y</description>
+      <value>0</value>
+    </param>
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown      </description>
+      <value>true</value>
+    </param>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  <example />
+  <returns />    
+</method>
+
+<method type="function" name="setShowCurve">
+  <keyword>setShowCurve</keyword>
+  <shortdescription>Whether to overlay the atm, tsky, and image curves.</shortdescription>
+  <description>
+Request that the atmospheric or sky temperature transmission curve is calculated and overplotted.  Optionally display the image sideband curve.
+If updateImmediately is true, this change takes effect immediately IF the
+plotms window is currently shown; otherwise it will only be applied next time
+update() and/or show() is called.
+  </description>
+  <input>
+    <param type="bool" name="showatm">
+      <description>whether to plot atm curve</description>
+      <value>false</value>
+    </param>
+    <param type="bool" name="showtsky">
+      <description>whether to plot tsky curve</description>
+      <value>false</value>
+    </param>
+    <param type="bool" name="showimage">
+      <description>whether to plot image sideband curve</description>
+      <value>false</value>
+    </param>
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  <example />
+  <returns />
+</method>
+
+<method type="function" name="getShowAtm">
+  <keyword>getShowAtm</keyword>
+  <shortdescription>Get whether atm curve is overlaid</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>  
+  <example />
+  <returns type="bool">
+    <description>showatm flag</description>
+  </returns>
+</method>
+
+<method type="function" name="getShowTsky">
+  <keyword>getShowTsky</keyword>
+  <shortdescription>Get whether tsky curve is overlaid</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>  
+  <example />
+  <returns type="bool">
+    <description>showtsky flag</description>
+  </returns>
+</method>
+
+<method type="function" name="getShowImage">
+  <keyword>getShowImage</keyword>
+  <shortdescription>Get whether image sideband curve is overlaid</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>  
+  <example />
+  <returns type="bool">
+    <description>showimage flag</description>
+  </returns>
+</method>
+
+<!-- void plotms::setColorizeFlag(const bool colorize, const bool updateImmediately, const int plotIndex) -->
+<method type="function" name="setColorizeFlag">
+  <keyword>setColorizeFlag</keyword>
+  <shortdescription>Sets the plot x axis to the given.</shortdescription>
+  <description>
+Sets the colorization plot axis, as Strings.  If updateImmediately is
+true, this change takes effect immediately IF the plotms window is currently
+shown; otherwise it will only be applied next time update() and/or show() is
+called.
+  </description>
+  <input>
+    <param type="bool" name="colorize">
+      <description>name of the axis choice for x (blank to keep current)</description>
+    </param>
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  <example />
+  <returns />
+</method>
+
+
+<!-- bool plotms::getColorizeFlag(const int plotIndex) -->
+<method type="function" name="getColorizeFlag">
+  <keyword>getColorizeFlag</keyword>
+  <shortdescription>Get colorization flag</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>  
+  <example />
+  <returns type="bool">
+    <description>colorization flag</description>
+  </returns>
+</method>
+
+
+
+<!-- void plotms::setColorAxis(const string&  coloraxis, const bool updateImmediately, const int plotIndex)  -->
+<method type="function" name="setColorAxis">
+  <keyword>setColorAxis</keyword>
+  <shortdescription>Sets the plot x axis to the given.</shortdescription>
+  <description>
+Sets the colorization plot axis, as Strings.  If updateImmediately is
+true, this change takes effect immediately IF the plotms window is currently
+shown; otherwise it will only be applied next time update() and/or show() is
+called.
+  </description>
+  <input>
+    <param type="string" name="coloraxis">
+      <description>name of the axis choice for x (blank to keep current)</description>
+    </param>
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  <example />
+  <returns />
+</method>
+
+<!-- void plotms::setSymbol(const string&, int, const string&, const string&, bool) -->
+<method type="function" name="setSymbol">
+  <keyword>setSymbol</keyword>
+  <shortdescription>Sets the unflagged plot symbol</shortdescription>
+  <description>
+Sets the unflagged plot symbol properties: shape, size, color, fill, 
+and outline.
+  </description>
+  <input>
+    <param type="string" name="shape">
+      <description>symbol shape (autoscaling, circle, square, diamond, pixel, nosymbol)</description>
+      <value>autoscaling</value>
+    </param>
+    <param type="int" name="size">
+      <description>size of the symbol in pts</description>
+      <value>2</value>
+    </param>
+    <param type="string" name="color">
+      <description>color of the symbol, in hex (ex. "0000ff")</description>
+      <value>0000ff</value>
+    </param>
+    <param type="string" name="fill">
+      <description>point fill type (fill, mesh1, mesh2, mesh3, no fill)</description>
+      <value>fill</value>
+    </param>
+    <param type="bool" name="outline">
+      <description>sets outline on plotted points</description>
+      <value>false</value>
+    </param>
+
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+    <param type="int" name="dataIndex">
+      <description>the index of the data in an overplot to apply this change</description>
+      <value>0</value>
+    </param>
+  </input>
+  <example />
+  <returns />
+</method>
+
+<!-- void plotms::setFlaggedSymbol(const string&, int, const string&, const string&, bool) -->
+<method type="function" name="setFlaggedSymbol">
+  <keyword>setFlaggedSymbol</keyword>
+  <shortdescription>Sets the flagged plot symbol</shortdescription>
+  <description>
+Sets the flagged plot symbol properties: shape, size, color, fill, 
+and outline.
+  </description>
+  <input>
+    <param type="string" name="shape">
+      <description>flagged symbol shape (autoscaling, circle, square, diamond, pixel, nosymbol)</description>
+      <value>nosymbol</value>
+    </param>
+    <param type="int" name="size">
+      <description>size of the flaggedsymbol in pts</description>
+      <value>2</value>
+    </param>
+    <param type="string" name="color">
+      <description>color of the flagged symbol, in hex (ex. "ff0000")</description>
+      <value>ff0000</value>
+    </param>
+    <param type="string" name="fill">
+      <description>flagged point fill type (fill, mesh1, mesh2, mesh3, no fill)</description>
+      <value>fill</value>
+    </param>
+    <param type="bool" name="outline">
+      <description>sets outline on plotted flagged points</description>
+      <value>false</value>
+    </param>
+
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+    <param type="int" name="dataIndex">
+      <description>the index of the data in an overplot plot to apply this change</description>
+      <value>0</value>
+    </param>
+
+  </input>
+  <example />
+  <returns />
+</method>
+
+<method type="function" name="setConnect">
+  <keyword>setConnect</keyword>
+  <shortdescription>Whether to connect the points in the plot</shortdescription>
+  <description> Sets the point connector and whether to connect dots along x-axis or time axis</description>
+  <input>
+    <param type="string" name="xconnector">
+      <description>connector type (none, line, step)</description>
+      <value>none</value>
+    </param>
+    <param type="bool" name="timeconnector">
+      <description>connect points in time rather than x-axis</description>
+      <value>false</value>
+    </param>
+
+    <param type="bool" name="updateImmediately">
+      <description>whether to apply this change immediately, IF the window is currently shown</description>
+      <value>true</value>
+    </param>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  <example />
+  <returns />
+</method>
+
+<!-- string plotms::getColorAxis(const int plotIndex) -->
+<method type="function" name="getColorAxis">
+  <keyword>getColorAxis</keyword>
+  <shortdescription>What data controls the colorizing?</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>  
+  <example />
+  <returns type="string">
+    <description>string representation of the x plot axis</description>
+  </returns>
+</method>
+
+
+
+
+
+<!--
+###############################################################################
+Flagging Methods
+###############################################################################
+-->
+
+<method type="function" name="setFlagExtension">
+  <keyword>setFlagExtension</keyword>
+  
+  <shortdescription>Sets the flag extension parameters.</shortdescription>
+  
+  <description>
+Sets the flag extension parameters, using individual flags and values.  Takes
+effect next time flagging is done.
+  </description>
+  
+  <input>
+    <param type="bool" name="extend">
+      <description>whether to extend flags or not</description>
+      <value>false</value>
+    </param>
+    
+    <param type="string" name="correlation">
+      <description>extend on correlation; one of: "", "all", "poln-dep"</description>
+      <value />
+    </param>
+    
+    <param type="bool" name="channel">
+      <description>extend on channel</description>
+      <value>false</value>
+    </param>
+    
+    <param type="bool" name="spw">
+      <description>extend on spw</description>
+      <value>false</value>
+    </param>
+    
+    <param type="string" name="antenna">
+      <description>extend on antenna; one of: "", "all", antenna-based value</description>
+      <value />
+    </param>
+    
+    <param type="bool" name="time">
+      <description>extend on time</description>
+      <value>false</value>
+    </param>
+    
+    <param type="bool" name="scans">
+      <description>extend on scans (only valid if time is true)</description>
+      <value>false</value>
+    </param>
+    
+    <param type="bool" name="field">
+      <description>extend on field (only valid if time is true)</description>
+      <value>false</value>
+    </param>
+    
+    <param type="record" name="alternateSelection">
+      <description>alternate MS selection, in record form, or empty record for none</description>
+      <value />
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+<method type="function" name="setFlagExtensionRec">
+  <keyword>setFlagExtensionRec</keyword>
+  
+  <shortdescription>Sets the flag extension parameters.</shortdescription>
+  
+  <description>
+Sets the flag extension parameters, using a record (see
+PlotMSFlagging::toRecord()).  Takes effect next time flagging is done.
+  </description>
+  
+  <input>
+    <param type="record" name="flagExtension">
+      <description>flag extension parameters, in record form</description>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns />
+</method>
+
+<method type="function" name="getFlagExtension">
+  <keyword>getFlagExtension</keyword>
+  
+  <shortdescription>Gets the flag extension parameters.</shortdescription>
+  
+  <description>
+Gets the flag extension parameters as a record (see
+PlotMSFlagging::toRecord()).
+  </description>
+  
+  <input />
+  
+  <example />
+  
+  <returns type="record">
+    <description>flag extension parameters, in record form</description>
+  </returns>
+</method>
+
+<method type="function" name="locateInfo">
+  <keyword>locateInfo</keyword>
+
+  <shortdescription>Locates points in a specified region.</shortdescription>
+
+  <description>
+Locates points in all selected plot regions and returns their meta information as a record (see PlotMSFlagging::toRecord()).  If there are no selections, all plotted points are returned.
+  </description>
+
+  <input />
+
+  <example/>
+
+  <returns type="record">
+    <description>Located point meta information, in record form</description>
+  </returns>
+</method>
+
+
+<!--
+###############################################################################
+Canvas Methods
+###############################################################################
+-->
+
+
+
+<method type="function" name="getGridMajorShown">
+  <keyword>getGridMajorShown</keyword>
+  <shortdescription>Gets state of visibililty of major grid lines</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  <example />
+  <returns type="bool">
+    <description>Boolean state of visibility</description>
+  </returns>
+</method>
+
+
+<method type="function" name="getGridMinorShown">
+  <keyword>getGridMinorShown</keyword>
+  <shortdescription>Gets state of visibililty of minor grid lines</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  <example />
+  <returns type="bool">
+    <description>Boolean state of visibility</description>
+  </returns>
+</method>
+
+
+<method type="function" name="getGridMajorWidth">
+  <keyword>getGridMajorWidth</keyword>
+  <shortdescription>Gets width of major grid lines</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>1</value>
+    </param>
+  </input>
+  <example />
+  <returns type="int">
+    <description>Integer width, pixels</description>
+  </returns>
+</method>
+
+
+<method type="function" name="getGridMinorWidth">
+  <keyword>getGridMinorWidth</keyword>
+  <shortdescription>Gets width of minor grid lines</shortdescription>
+  <description />
+  <input>
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>1</value>
+    </param>
+  </input>
+  <example />
+  <returns type="int">
+    <description>Integer width, pixels</description>
+  </returns>
+</method>
+
+
+
+<method type="function" name="setGridParams">
+    <keyword>setGridParams</keyword>
+    <shortdescription>Set color, style for major and minor grid lines</shortdescription>
+    <description />
+    <input>
+        <param type="bool" name="showmajorgrid">
+          <description>Show major grid lines?</description>
+          <value>false</value>
+        </param>
+        <param type="int" name="majorwidth">
+          <description>Line width for major grid lines, pixels</description>
+          <value>1</value>
+        </param>
+        <param type="string" name="majorstyle">
+          <description>Line style for major grid lines</description>
+          <value>solid</value>
+        </param>
+        <param type="string" name="majorcolor">
+          <description>Color of major grid lines</description>
+          <value>B0B0B0</value>
+        </param>
+
+        <param type="bool" name="showminorgrid">
+          <description>Show minor grid lines?</description>
+          <value>false</value>
+        </param>
+        <param type="int" name="minorwidth">
+          <description>Line width for minor grid lines, pixels</description>
+          <value>1</value>
+        </param>
+        <param type="string" name="minorstyle">
+          <description>Line style for minor grid lines</description>
+          <value>solid</value>
+        </param>
+        <param type="string" name="minorcolor">
+          <description>Color of minor grid lines</description>
+          <value>C0CCE0</value>
+        </param>
+        
+        <param type="bool" name="updateImmediately">
+          <description>whether to apply this change immediately, IF the window is currently shown</description>
+          <value>true</value>
+        </param>
+        <param type="int" name="plotIndex">
+          <description>Index of the plot (0-based).</description>
+          <value>0</value>
+        </param>
+
+    </input>
+  <example />
+  <returns />
+</method>
+
+
+<method type="function" name="setLegend">
+    <keyword>setLegend</keyword>
+    <shortdescription>Set whether or not to display a legend and the position of a legend.</shortdescription>
+    <description />
+    <input>
+        <param type="bool" name="showLegend">
+          <description>Show a legend with the plot?</description>
+          <value>false</value>
+        </param>
+        <param type="string" name="legendPosition">
+          <description>Location for the legend.</description>
+          <value>upperright</value>
+        </param>
+        
+        <param type="bool" name="updateImmediately">
+          <description>whether to apply this change immediately, IF the window is currently shown</description>
+          <value>true</value>
+        </param>
+        <param type="int" name="plotIndex">
+          <description>Index of the plot (0-based).</description>
+          <value>0</value>
+        </param>
+
+    </input>
+  <example />
+  <returns />
+</method>
+
+
+
+<!--
+###############################################################################
+Execution Methods
+###############################################################################
+-->
+
+<method type="function" name="update">
+  <keyword>update</keyword>
+  
+  <shortdescription>Updates the running plotms with any un-applied changes.</shortdescription>
+  
+  <description />
+  
+  <input>
+
+  </input>
+  <example />
+  <returns type="bool">
+    <description>True if the plot was successfully updated, false if not (for example with an invalid selection).</description>
+  </returns>
+</method>
+
+
+<method type="function" name="save">
+  <keyword>save</keyword>
+
+  <shortdescription>save plot to file</shortdescription>
+  
+  <description>Save the plot to a file</description>
+    <input>
+    <param type="string" name="plotfile">
+      <description>name of plot file</description>
+    </param>
+    <param type="string" name="format">
+        <description>Format type, if not provided, attempt will be made to guess from plotfile extension</description>
+     </param>
+     <param type="bool" name="verbose">
+         <description>Use verbose format (txt only)</description>
+         <value>true</value>
+     </param>
+     <param type="bool" name="highres">
+         <description>Use high resolution</description>
+         <value>false</value>
+     </param>
+     <param type="int" name="dpi">
+         <description>DPI of exported plot</description>
+         <value>-1</value>
+     </param>
+     <param type="int" name="width">
+         <description>width of exported plot</description>
+         <value>-1</value>
+     </param>
+     <param type="int" name="height">
+         <description>height of exported plot</description>
+         <value>-1</value>
+     </param>
+  </input>
+  
+  <example />
+  
+  <returns type="bool">
+    <description>True if save successful, false if not.</description>
+  </returns>
+</method>
+
+<!--
+###############################################################################
+State Methods
+###############################################################################
+-->
+
+<method type="function" name="isDrawing">
+  <keyword>isDrawing</keyword>
+  
+  <shortdescription>Is the plot being drawn?</shortdescription>
+  
+  <description />
+  
+  <input>
+
+  </input>
+  <example />
+  
+  <returns type='bool'>
+      <description>True if drawing, false if not</description>
+  
+  </returns>
+</method>
+
+<method type="function" name="isClosed">
+  <keyword>isClosed</keyword>
+  
+  <shortdescription>Has the plot received a closeEvent?</shortdescription>
+  
+  <description />
+  
+  <input>
+
+  </input>
+  <example />
+  
+  <returns type='bool'>
+      <description>True if widget is closed, false if not</description>
+  
+  </returns>
+</method>
+
+
+<!--<method type="function" name="enableIter">
+  <keyword>enableIter</keyword>
+  
+  <shortdescription>A _temporary_ method to enable toggling the interation infrastructure</shortdescription>
+  
+  <description />
+  
+  <input>
+    <param type="bool" name="enable">
+      <description>If true, enable iteration, else disable.</description>
+    </param>
+  </input>
+  <example />
+  
+  <returns type="bool">
+    <description>True if save successful, false if not.</description>
+  </returns>
+</method> -->
+
+<method type="function" name="setShowGui">
+  <keyword>setShowGui</keyword>
+  
+  <shortdescription>Show a GUI supporting user interaction.</shortdescription>
+  
+  <description />
+  
+  <input>
+    <param type="bool" name="show">
+      <description>If true, provide a GUI supporting interaction, else operate in scripting mode.</description>
+    </param>
+  </input>
+  <example />
+  
+  <returns />
+ 
+</method>
+
+<method type="function" name="clearPlots">
+  <keyword>clearPlots</keyword>
+  
+  <shortdescription>Remove existing plots so that new plots can replace them.</shortdescription>
+  
+  <description />
+  
+  <input />
+  <example />
+  <returns />
+ 
+</method>
+
+<method type="function" name="killApp">
+  <keyword>killApp</keyword>
+  
+  <shortdescription>Kill plotms app using SIGTERM</shortdescription>
+  
+  <description />
+  
+  <input />
+  <example />
+  <returns />
+ 
+</method>
+<!--
+###############################################################################
+Miscellaneous Methods
+###############################################################################
+-->
+
+<!-- Unsupported, for now
+<method type="function" name="exportPlot">
+  <keyword>exportPlot</keyword>
+  
+  <shortdescription>Export a single plot to a file.</shortdescription>
+  
+  <description />
+  
+  <input>
+    <param type="string" name="filename">
+      <description>the filename to export to</description>
+    </param>
+    
+    <param type="bool" name="highResolution">
+      <description>
+whether to export using high resolution (true) or screen resolution (false)
+      </description>
+      <value>false</value>
+    </param>
+    
+    <param type="int" name="dpi">
+      <description>dots-per-inch, if applicable (-1 for default)</description>
+      <value>-1</value>
+    </param>
+    
+    <param type="int" name="width">
+      <description>
+width in pixels, if applicable (-1 for default)
+      </description>
+      <value>-1</value>
+    </param>
+    
+    <param type="int" name="height">
+      <description>
+height in pixels, if applicable (-1 for default)
+      </description>
+      <value>-1</value>
+    </param>
+  
+    <param type="int" name="plotIndex">
+      <description>Index of the plot (0-based).</description>
+      <value>0</value>
+    </param>
+  </input>
+  
+  <example />
+  
+  <returns type="bool">
+    <description>true for success, false for failure</description>
+  </returns>
+</method>
+-->
+ 
+</tool>
+
+</casaxml>
+

@@ -1,5 +1,4 @@
 import xml.etree.ElementTree as ET
-import requests
 import re
 import os
 
@@ -8,83 +7,76 @@ import os
 # if running manually, cd docs first
 ########################################################
 
-# grab the index of all the task xml pages
-xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casa5/gcwrap/tools").text
-xmldict = eval(xmlstring.replace('true','True').replace('false', 'False'))
-foldernames = [tool['path']['name'] for tool in xmldict['children']['values'] if tool['type'] == 'DIRECTORY']
+tools = os.listdir('../xml/tools')
 
-# loop through each tool directory
+# loop through each tool
 tooldict = {}
-for ii, folder in enumerate(foldernames):
-    xmldir = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/browse/casa5/gcwrap/tools/%s?raw" % folder).text
-    tools = list(set(re.findall("\w+.xml", xmldir)))
+for tool in tools:
+    with open('../xml/tools/'+tool, 'r') as fid:
+       xmlstring = fid.read()
     
-    # loop through each tool
-    for tool in tools:
-        xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/browse/casa5/gcwrap/tools/%s/%s?raw" % (folder, tool)).text
-        xmlroot = ET.fromstring(xmlstring)
-        print('processing ' + str(ii) + ' - ' + tool)
+    xmlroot = ET.fromstring(xmlstring)
     
-        if '}' not in xmlroot.tag:
-            print('### skipping ' + tool)
-            continue
+    if '}' not in xmlroot.tag:
+        print('### skipping ' + tool)
+        continue
     
-        nps = xmlroot.tag[:xmlroot.tag.rindex('}') + 1]
-        troot = xmlroot.find(nps + 'tool')  # xml root of the task
+    nps = xmlroot.tag[:xmlroot.tag.rindex('}') + 1]
+    troot = xmlroot.find(nps + 'tool')  # xml root of the task
+    
+    # initialize tool dictionary (td)
+    td = dict([(ee.tag.replace(nps, ''), ee.text) for ee in list(troot) if ee.tag not in [nps+'method', nps+'code']])
+    td['methods'] = {}
+    
+    # loop over each method
+    for method in troot.findall(nps + 'method'):
+        md = dict([(ee.tag.replace(nps, ''), ee.text) for ee in list(method) if ee.tag not in [nps+'input']])
+        md['params'] = {}
         
-        # initialize tool dictionary (td)
-        td = dict([(ee.tag.replace(nps, ''), ee.text) for ee in list(troot) if ee.tag not in [nps+'method', nps+'code']])
-        td['methods'] = {}
-    
-        # loop over each method
-        for method in troot.findall(nps + 'method'):
-            md = dict([(ee.tag.replace(nps, ''), ee.text) for ee in list(method) if ee.tag not in [nps+'input']])
-            md['params'] = {}
+        # build parameter dictionary
+        if method.find(nps + 'input') is not None:
+            iroot = method.find(nps + 'input')
             
-            # build parameter dictionary
-            if method.find(nps + 'input') is not None:
-                iroot = method.find(nps + 'input')
-                
-                for param in iroot.findall(nps + 'param'):
-                    pd = param.attrib
-                    pd['shortdescription'] = '' if param.find(nps + 'shortdescription') is None else param.find(nps + 'shortdescription').text
-                    pd['description'] = '' if param.find(nps + 'description') is None else param.find(nps + 'description').text
-            
-                    # overwrite param type with limittype if present
-                    if (param.find(nps + 'any') is not None) and ('limittypes' in param.find(nps + 'any').attrib):
-                        pd['type'] = ', '.join(param.find(nps + 'any').attrib['limittypes'].split(' '))
-                    elif (param.find(nps + 'any') is not None) and ('type' in param.find(nps + 'any').attrib):
-                        pd['type'] = ', '.join(param.find(nps + 'any').attrib['type'].split(' '))
-            
-                    # overwrite param type with value type if it is still 'any', also store value itself as default
-                    if param.find(nps + 'value') is not None:
-                        if ('type' in param.find(nps + 'value').attrib) and (pd['type'] == 'any'):
-                            pd['type'] = param.find(nps + 'value').attrib['type']
-                        pd['value'] = param.find(nps + 'value').text
-                        if pd['value'] is not None:
-                            pd['value'] = pd['value'].strip().replace('true', 'True').replace('false', 'False')
-                        if (len(list(param.find(nps + 'value'))) > 0) and ('string' in pd['type']):
-                            pd['value'] = '[' + ', '.join(['\'' + ee.text + '\'' if ee.text is not None else '\'\'' for ee in list(param.find(nps + 'value'))]) + ']'
-                        elif len(list(param.find(nps + 'value'))) > 0:
-                            pd['value'] = '[' + ', '.join([ee.text if ee.text is not None else '\'\'' for ee in list(param.find(nps + 'value'))]) + ']'
-                        elif ('stringarray' in pd['type'].split(',')[0].lower()) and (not pd['type'].startswith('[')) and (not pd['type'].startswith('\'')):
-                            pd['value'] = '[\'' + pd['value'] + '\']' if pd['value'] is not None else '[\'\']'
-                        elif ('array' in pd['type'].split(',')[0].lower()) and (not pd['type'].startswith('[')):
-                            pd['value'] = '[' + pd['value'] + ']' if pd['value'] is not None else '[\'\']'
+            for param in iroot.findall(nps + 'param'):
+                pd = param.attrib
+                pd['shortdescription'] = '' if param.find(nps + 'shortdescription') is None else param.find(nps + 'shortdescription').text
+                pd['description'] = '' if param.find(nps + 'description') is None else param.find(nps + 'description').text
+        
+                # overwrite param type with limittype if present
+                if (param.find(nps + 'any') is not None) and ('limittypes' in param.find(nps + 'any').attrib):
+                    pd['type'] = ', '.join(param.find(nps + 'any').attrib['limittypes'].split(' '))
+                elif (param.find(nps + 'any') is not None) and ('type' in param.find(nps + 'any').attrib):
+                    pd['type'] = ', '.join(param.find(nps + 'any').attrib['type'].split(' '))
+        
+                # overwrite param type with value type if it is still 'any', also store value itself as default
+                if param.find(nps + 'value') is not None:
+                    if ('type' in param.find(nps + 'value').attrib) and (pd['type'] == 'any'):
+                        pd['type'] = param.find(nps + 'value').attrib['type']
+                    pd['value'] = param.find(nps + 'value').text
+                    if pd['value'] is not None:
+                        pd['value'] = pd['value'].strip().replace('true', 'True').replace('false', 'False')
+                    if (len(list(param.find(nps + 'value'))) > 0) and ('string' in pd['type']):
+                        pd['value'] = '[' + ', '.join(['\'' + ee.text + '\'' if ee.text is not None else '\'\'' for ee in list(param.find(nps + 'value'))]) + ']'
+                    elif len(list(param.find(nps + 'value'))) > 0:
+                        pd['value'] = '[' + ', '.join([ee.text if ee.text is not None else '\'\'' for ee in list(param.find(nps + 'value'))]) + ']'
+                    elif ('stringarray' in pd['type'].split(',')[0].lower()) and (not pd['type'].startswith('[')) and (not pd['type'].startswith('\'')):
+                        pd['value'] = '[\'' + pd['value'] + '\']' if pd['value'] is not None else '[\'\']'
+                    elif ('array' in pd['type'].split(',')[0].lower()) and (not pd['type'].startswith('[')):
+                        pd['value'] = '[' + pd['value'] + ']' if pd['value'] is not None else '[\'\']'
                         
-                        # can't trust any types, wrap as strings
-                        if (pd['type'] == 'any') and (pd['value'] is not None) and (not pd['value'].startswith('\'')):
-                            pd['value'] = '\'' + pd['value'] + '\''
-                        if (pd['type'] == 'unknown') and (pd['value'] is not None) and (not pd['value'].startswith('\'')):
-                            pd['value'] = '\'' + pd['value'] + '\''
-                        if (pd['type'] == 'record') and (pd['value'] is not None) and (not pd['value'].startswith('\'')):
-                            pd['value'] = '\'' + pd['value'] + '\''
+                    # can't trust any types, wrap as strings
+                    if (pd['type'] == 'any') and (pd['value'] is not None) and (not pd['value'].startswith('\'')):
+                        pd['value'] = '\'' + pd['value'] + '\''
+                    if (pd['type'] == 'unknown') and (pd['value'] is not None) and (not pd['value'].startswith('\'')):
+                        pd['value'] = '\'' + pd['value'] + '\''
+                    if (pd['type'] == 'record') and (pd['value'] is not None) and (not pd['value'].startswith('\'')):
+                        pd['value'] = '\'' + pd['value'] + '\''
 
-                    # store parameter dictionary under key equal to parameter name
-                    md['params'][param.attrib['name']] = pd
+                # store parameter dictionary under key equal to parameter name
+                md['params'][param.attrib['name']] = pd
                     
-            td['methods'][method.attrib['name']] = md
-        tooldict[troot.attrib['name']] = td
+        td['methods'][method.attrib['name']] = md
+    tooldict[troot.attrib['name']] = td
 
 
 ####################################################################

@@ -1,0 +1,4538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/tools/xml/casa.xsd">
+
+
+ 
+        <tool name="imager" module="imager">
+        <shortdescription>tool for synthesis imaging</shortdescription>
+       
+<description>
+imager is an tool that accomplishes synthesis processing.
+A {\tt imager} must be constructed for each MeasurementSet for which one
+wishes to do processing. Multiple copies of {\tt imager} may
+be made at any time (provide they are given different names).
+</description>
+
+<code>
+	<include>tools/synthesis/imager_forward.h</include>
+<private>
+	<include>tools/synthesis/imager_private.h</include>
+</private>
+
+</code>
+
+
+ 
+   <method type="constructor" name="imager">
+   <shortdescription>Construct an imager tool</shortdescription>
+   
+<description>
+This is used to construct {\tt imager} tools associated
+with a MeasurementSet. The {\tt imager} tool may then be
+used to generate various types of images. Note that
+a new executable is started every time the constructor
+is called. 
+
+This returns a Glish variable containing the tool functions of
+imager in an alternate universe that you have to tunnel to with a wormhole
+</description>
+<input>
+<!--
+     <param type="string" name="filename">
+     <description>MeasurementSet to be imaged</description>
+     <value></value>
+     </param>
+
+     <param type="bool" name="compress">
+     <description>Compress calibration columns?</description>
+     <value>Bool</value>
+     <choice>F</choice>
+     </param>
+
+     <param type="string" name="host">
+     <description>Host on which to run imager</description>
+     <value></value>
+     </param>
+
+     <param type="bool" name="forcenewserver">
+     <description>Flag to force a new imager client</description>
+     <value>true</value>
+     </param>
+-->
+</input>
+<returns type="imager"/>
+<example>
+
+im.open('3C273XC1.MS')      
+im.defineimage(nx=256, ny=256, cellx='0.7arcsec', celly='0.7arcsec')
+im.image(type='corrected', image='3C273XC1.dirty')
+im.close()
+
+</example>
+</method>
+
+ 
+   <method type="function" name="advise">
+   <shortdescription>Advise (and optionally use) parameter values</shortdescription>
+   
+
+<description>
+Advise on recommended values of certain parameters. Return these
+values and optionally use them in Imager.
+
+The calculations are performed as following:
+
+\begin{description}
+\item[cell] The maximum uv distance in wavelength is found and then half of the
+inverse is taken as the maximum cellsize allowed.
+\item[pixels] The field of view is converted to a number of pixels
+using the calculated cell size.
+\item[facets] The number of facets on an axis is calculated in two
+different ways. The first method simply requires that the peeling of 
+facets away from the celestial sphere should not cause an amplitude
+drop of more than the argument {\tt amplitudeloss}. The positions may
+be incorrect, but all the sources will be removed correctly. The
+second method requires that the source positions be accurate to the
+same fraction of the beam specified by {\tt amplitudeloss}. The 
+second calculates the second moment in w and in uv distance and
+chooses the number of facets correspondingly. The first method does
+the same but after fitting a plane to the sampling: $w = a u + b v$.
+For an approximately coplanar array, the positions may be wrong but
+the removal of sidelobes will be accurate. The number of facets
+returned is the second, usually smaller, number. The formula used
+is:
+\begin{equation}
+N\_{facets} = N\_{pixels} \sqrt{{{\Delta \theta}\over{\sqrt{8 \delta A}}}{w\_{rms}}\over{uv\_{rms}}}
+\end{equation}
+where $\Delta \theta$ is the cellsize in radians, and $\delta A$ is
+the amplitude loss. This formula can be derived from (a) the peeling
+of facets from the celestial sphere, and (b) a quadratic approximation 
+for the beam size both in the plane of the sky and along the $w$ axis.
+\end{description}
+
+</description>
+<input>
+
+     <param type="bool" direction="in" name="takeadvice">
+     <description>Use the advised values?</description>
+     <value>true</value>
+     </param>
+
+     <param type="double" direction="in" name="amplitudeloss">
+     <description>Maximum fractional amplitude loss due to faceting</description>
+     <value>0.05</value>
+     </param>
+
+     <param type="any" direction="in" name="fieldofview">
+     <description>Desired field of view</description>
+     <any type="variant" />
+     <value>1.0deg</value>
+     </param>
+
+</input>
+<output>
+     <param type="int" name="pixels">
+     <description>Number of pixels on a side</description>
+     </param>
+
+     <param type="record" name="cell">
+     <description>Recommended maximum cellsize</description>
+     </param>
+
+     <param type="int" name="facets">
+     <description>Recommended number of facets on one axis</description>
+     </param>
+
+     <param type="string" name="phasecenter">
+     <description>Direction of phase center as a measure</description>
+     </param>
+</output>
+<returns type="bool"/>
+</method>
+
+   <method type="function" name="advisechansel">
+   <shortdescription>Advise on spw and chan selection optimal for the image frequency range wanted</shortdescription>
+   
+
+<description>
+ Basically tells you what channels of which spectral window need to be
+ selected for your image spectral parameters.  The freqstep is used to
+ calulate the extra padding needed for data selection at the begining
+ and end of the range.  The freqframe parameter is the frame in which
+ the frequency range is being given. It will be converted to the frame
+ of the data with time to locate which channel match.
+ A record will be returned with an element for each ms  used in selectvis.
+ Each element of the record will have the spwids and channel start and nchan for each spwid.
+  if the parameter msname is used then the MSs associated associated with
+  this tool (that have been either 'open'ed or 'selectvis'ed) are ignored
+  In this mode it is a helper function to the general world ...no need to
+  open or selectvis. You need to specify the field\_id for which this calculation is 
+  being done for in the helper mode. 
+  If you have already set MS's and selected data and msname="" then 
+  the calulation is done for the field(s) selected in selectvis.
+
+If the parameter {\tt getfreqrange=True} then the reverse is requested. You set {\tt spwselection} to be the range of data selection you want to use and you'll get the range of frequency covered in the frame you set. 
+
+</description>
+<input>
+
+
+     <param type="double" direction="in" name="freqstart">
+     <description>Begining of frequency range in Hz</description>
+     <value>1.0e6</value>
+     </param>
+
+     <param type="double" direction="in" name="freqend">
+     <description>End of frequency range in Hz</description>
+     <value>1.1e6</value>
+     </param>
+     
+     <param type="double" direction="in" name="freqstep">
+       <description>spectral channel resolution of intended image in Hz</description>
+       <value>100.0</value>
+     </param>
+     
+     <param type="string" direction="in" name="freqframe">
+       <description>frame in which frequency is being expressed in other parameters</description>
+       <value>LSRK</value>
+     </param>
+     <param type="string" direction="in" name="msname">
+       <description>name of an ms, if empty string it will use the ms's used in selectvis</description>
+       <value></value>
+     </param>
+     <param type="int" direction="in" name="fieldid">
+       <description>fieldid to use when msname is not empty otherwise ignored and field selected in selectvis is used</description>
+       <value>0</value>
+     </param>
+     <param type="bool" name="getfreqrange">
+     <description>if set then freqrange is returned in the frame requested for the data selected</description>
+     <value>false</value>
+     </param>
+     <param type="string" name="spwselection">
+       <description>if getfreqrange=True then this is needed to find the range of frequency in the frame requested</description>
+       <value></value>
+     </param>
+     
+</input>
+<example>
+In this example, we are interested in an image cube which span 20.0682GHz to 20.1982 in LSRK  which will have a channel resolution of 3.9MHz. The field we are interested is field 4 of each of the ms.
+
+
+#######
+im.selectvis(vis='test1.ms', field='4', spw='*')
+im.selectvis(vis='test2.ms', field='4', spw='*')
+selinfo=im.advisechansel(freqstart=2.00682e10, freqend=2.01982e10, freqstep=3.9e3, freqframe="LSRK")
+####The output "selfinfo" will be a record which will look like thus
+{'ms_0': {'nchan': array([109,  23], dtype=int32),
+          'spw': array([4, 5], dtype=int32),
+          'start': array([19,  0], dtype=int32)},
+ 'ms_1': {'nchan': array([109,  23], dtype=int32),
+          'spw': array([4, 5], dtype=int32),
+          'start': array([19,  0], dtype=int32)}}
+###
+Thus from the first ms a spw selection like  '4:19~127, 5:0~22'  is all that is needed. 
+Similarly from the second ms.
+
+###if you need this info without needing to change the state of the imager tool 
+then you can it as follows
+
+im.advisechansel(freqstart=2.00682e10, freqend=2.01982e10, freqstep=3.9e3, freqframe="LSRK", msname="test1.ms", fieldid=4)
+
+
+####now if you want to see what frequency range is covered, in the frame 
+####defined by freqframe, in spwselection you want to use
+im.selectvis(vis='test3.ms', spw='0:20~210')
+im.advisechansel(getfreqrange=True, freqframe="LSRK")
+### the output will be something
+ {'freqend': 346020345384.64178, 'freqstart': 345683852920.1723}
+
+###and if you just want to use it as a helper function without touching the state 
+###of imager
+
+im.advisechansel(msname='test3.ms', getfreqrange=True, spwselection='0:20~210')
+
+
+</example>
+<returns type="record"/>
+</method>
+
+
+ 
+   <method type="function" name="approximatepsf">
+   <shortdescription>Calculate approximate point spread functions</shortdescription>
+   
+<description>
+Calculate the approximate point spread function.
+{\em Note that the model visibilities are updated}.
+
+Some types of imaging do not yield a well-defined point spread
+function. For example, mosaicing or single dish imaging both yield
+point spread functions that are position dependent. Nevertheless, one
+can still usefully define an {\em approximate} PSF that is of some
+utility. This is calculated by doing the following calculation: a
+point source is located at the center of the specified coordinate
+system and the model data predicted. The approximate PSF is then formed from
+those model data using the full sky equation. For regular sampling in
+the image plane, this approximate PSF is actually quite good. It can
+be used in a deconvolution. For a mosaic with similar uv sampling per
+pointing, the approximate PSF is roughly the PSF per pointing
+multiplied by the primary beam. For a single dish image, it is roughly
+the telescope primary beam convolved with itself (if the
+gridfunction='pb' was selected).
+</description>
+<input>
+
+     <param type="string" name="psf">
+     <description>Name of output point spread function</description>
+     <value></value>
+     </param>
+
+
+</input>
+<returns type="bool"/>
+<example>
+Example of how to make the approximate psf for a mosaic:
+
+im.open('orion.ms')
+im.selectvis(spwid=[0, 1] ,field=range(2,11));
+im.defineimage(nx=300, ny=300, cellx='2.0arcsec',celly='2.0arcsec' , stokes="I", phasecenter=6, spwid=[0,1])
+im.weight('natural')
+im.setvp(dovp=T, usedefaultvp=True)
+im.setoptions(ftmachine='mosaic', padding=1.0)
+im.approximatepsf(psf='LePSF.image')
+
+</example>
+</method>
+
+ 
+   <method type="function" name="boxmask">
+   <shortdescription>Construct a mask image from blc, trc</shortdescription>
+   
+<description>
+A mask image is an image with the same shape as the other images but
+with values between 0.0 and 1.0 as a pixel value. Mask images are used in
+imager to control the region selected in a deconvolution. 
+
+In the Clark CLEAN, the mask image can usefully have any value between
+0.0 and 1.0. Intermediate value discourage but do not rule out
+selection of clean components in that region. This is accomplished by
+multiplying the residual image by the mask prior to entering the minor
+cycle. Note that if you do use a mask for the Clark or Hogbom Clean,
+it must cover only a quarter of the image. boxmask does not enforce
+this requirement.
+
+</description>
+<input>
+
+     <param type="string" name="mask">
+     <description>name of mask image</description>
+     <value></value>
+     </param>
+
+     <param type="intArray" name="blc">
+     <description>Bottom left corner</description>
+     <value type="vector">
+     <value>0</value>
+     <value>0</value>
+     <value>0</value>
+     <value>0</value>
+     </value>
+     </param>
+
+     <param type="intArray" name="trc">
+     <description>Top right corner, should be image shape</description>
+     <value type="vector">
+     </value>
+     </param>
+
+     <param type="double" name="value">
+     <description>Value to fill in</description>
+     <value>1.0</value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+im.boxmask(mask='bigmask', blc=[56,45,1,1], trc=[87,93,4,1])
+im.clean(mask='bigmask', model='3C273XC1.clean.masked', niter=1000)
+
+
+
+Makes the image bigmask, and then sets it to unity for all points in
+the region bounded by the blc and trc.  Then cleans using it as the
+mask.
+</example>
+
+</method>
+
+   <method type="function" name="calcuvw">
+   <shortdescription>Calculates (u, v, w) coordinates for the ms.</shortdescription>
+   
+   <keyword>calcuvw</keyword>
+   <description>
+     This calculates (u, v, w) positions for the visibilities using the antenna
+     and feed positions and offsets, the time, and the phase tracking center(s).
+   </description>
+   <input>
+     <param type="intArray" direction="in" name="fields">
+       <description>
+	 Field IDs (numbered relative to 0) to operate on.  Blank = all.
+       </description>
+       <value>-1</value>
+     </param>
+     <param type="string" direction="in" name="refcode">
+       <description>
+         Reference frame to use for the generated (u, v, w)s.  WARNING: clean
+         and the im tool ignore the reference frame claimed by the UVW column
+         (it is often mislabelled as ITRF when it is really J2000) and instead
+         assume the (u, v, w)s are in the same frame as the phase tracking
+         center.  calcuvw does not yet force the UVW column and field centers to
+         use the same reference frame!  Blank = use the phase tracking frame of
+         vis.
+       </description>
+       <value></value>
+     </param>
+     <param type="bool" direction="in" name="reuse">
+       <description>Start from the UVWs in vis (True) or calculate them from the antenna positions?</description>
+       <value>true</value>
+     </param>
+<!--     <param type="string" direction="in" name="observation">
+       <description>Select by observation ID(s).  Blank = all.</description>
+       <value></value>
+     </param> -->
+   </input>  
+   <returns type="bool"/>
+   <example>
+     
+     im.open("3C273XC1.MS")
+     im.calcuvw()
+     im.done()
+     
+   </example>
+   </method>
+ 
+   <method type="function" name="clean">
+   <shortdescription>Calculate a deconvolved image with selected clean algorithm</shortdescription>
+   
+<description>
+Makes a clean image using either the Hogbom, Clark, multi-scale or multi-field
+algorithms. The Clark algorithm is the default. The clean is performed
+on the residual image calculated from the visibility data currently
+selected. Hence the first step performed in clean is to transform the
+current model or models (optionally including a componentlist) to fill
+in the MODEL\_DATA column, and then inverse transform the residual
+visibilities to get a residual image. This residual image is then
+cleaned using the corresponding point spread function. This means that
+the initial model is used as the starting point for the
+deconvolution. Thus if you want to restart a clean, simply set the
+model to the model that was previously produced by clean.
+
+Rather than explicit CLEAN boxes, mask images are used to constrain
+the region that is to be deconvolved. To make mask images,
+use either <link anchor="imager:imager.boxmask.function">boxmask</link> (to define a mask
+via the corner locations blc and trc) or 
+<link anchor="imager:imager.mask.function">mask</link> (to define a mask via
+thresholding an existing image) or <link anchor="imager:imager.regionmask.function">regionmask</link> (to make masks via regions using the regionmanager or interactively through the viewer)  . The default mask is the inner quarter
+of the image.
+
+The CLEAN deconvolution is joint in whatever Stokes parameters are
+present. Thus it searchs for peaks in either $I$ or $I+|V|$ or
+$I+\sqrt{Q^2+U^2+V^2}$, the rationale for the latter two forms being
+to be biased towards finding strongly polarized pixels first (these
+forms are also the maximum eigenvalue of the coherency matrix).  The
+PSF is constrained to be the same in all polarizations (a feature of
+this implementation, not of the Hamaker-Bregman-Sault formalism). But the option of 
+searching peaks in the stokes planes independently is available via 
+the {\tt clarkstokes} parameter
+
+
+
+The clean algorithms possible are:
+\begin{description}
+\item[Hogbom] The classic algorithm: points are found iteratively
+by searching for the peak. Each point is subtracted from the
+full residual image using the shifted and scaled point spread
+function.
+\item[Multiscale] An experimental multi-scale clean algorithm is invoked.
+The algorithm is fully described in 
+<link anchor="deconvolver:deconvolver.clean.function">deconvolver</link>.
+\item[Clark] The faster algorithm: the cleaning is split into
+minor and major cycles. In the minor cycles only the brightest
+points are cleaned, using a subset of the point spread function.
+In the major cycle, the points thus found are subtracted correctly
+by using an FFT-based convolution.
+\item[Multi-field] Cleaning is split into minor and major
+cycles. For each field, a Clark-style minor cycle is performed. 
+In the major cycle, the points thus found are subtracted
+either from the original visibilities (for multiple fields)
+or using a convolution (for only one field). The latter is
+much faster.  Multi-field imaging has been implemented for
+Clark, Hogbom, and Multi-scale deconvolution algorithms.
+\item[Cotton-Schwab] Cleaning is split into minor and major
+cycles. For each field, a Clark-style minor cycle is performed. 
+In the major cycle, the points thus found are subtracted
+from the original visibilities. A fast variant does a convolution
+using a FFT. This will be faster for large numbers of
+visibilities. Double the image size from that used for Cotton-Schwab
+and set a mask to clean only the inner quarter.
+\item[Wide-field] The user will need to use a wide-field algorithm to
+deconvolve if the array is not coplanar over the field of view being
+imaged . The technique used is to break the field being imaged into
+smaller pieces (facets), over each of which the array appear
+planar. We implement a rectangular facetting scheme. If the number of
+facets specified in <link anchor="imager:imager.defineimage.function">defineimage</link> is
+greater than one, Either wfhogbom or wfclark algorithm has to be
+selected here to perform a wide-field decovolution. The function
+<link anchor="imager:imager.advise.function">advise</link> can be used to calculate or
+check if you need to use a wide-field deconvolution. Note that
+aliasing can be reduced by using the {\tt padding} argument in
+<link anchor="imager:imager.setoptions.function">setoptions</link>. In practice the
+previous sentence means that if you notice the clean to diverge at the
+edges of the facets then you need to use a larger amount of padding
+for the FT; the default being 1.2. Wide-field imaging has been
+implemented for Clark and Hogbom algorithms.
+\end{description}
+
+The multi-field clean should be used if either of two conditions
+hold:
+\begin{enumerate}
+\item Multiple fields are to be cleaned simultaneously {\bf OR}
+\item Primary beam correction is enabled. In this case, a
+mosaiced clean is performed.
+\end{enumerate}
+
+Note that for the single pointing algorithms, only a quarter of the
+image may be cleaned. If no mask is set, then the cleaned region
+defaults to the inner quarter. If a mask larger than a quarter of the
+image is set, then only the inner quarter part of that mask is used.
+However, for the wide-field and multi-field imaging (including the
+Cotton-Schwab algorithm), the entire field may be imaged because the
+major cycles either do an exact subtraction from the visibilities or
+because PSF extent is more than twice the extent of the primary beam
+support.
+
+Before {\tt clean} can be run, you must run {\tt selectvis} and {\tt defineimage}.
+Before {\tt clean} can be run with a multi-field algorithm (especially for mosaic), you should run
+{\tt setvp}.  You may want to run {\tt setmfcontrol} before running {\tt clean}
+with a multi-field or wide-field algorithm, though the default control values
+may be acceptable.  Before {\tt clean} can be run with a multi-scale algorithm,
+{\tt setscales} must be run.
+
+
+Interactive cleaning/masking: If the user wants to see what the clean
+image looks like after npercycle iteration and mask or modify the mask
+each time, he/she should set {\tt interactive=True} and give npercycle to a
+fraction of niter. A viewer with the last residual image along with an
+overlayed mask appear after every npercycle iteration. The user can
+add or delete regions (by clicking on the appropriate button) to the
+mask using the region button and drawing regions and double clicking
+inside the region. When satisfied and ready to continue cleaning press 'DONE
+with masking' (if the user want to terminate the cleaning process use
+the 'STOP' button). The button 'No more mask changes' should be used
+if the user want clean to proceed without any further interruption.
+Even if {\tt interactive=False}, and if the parameter
+'mask' is non-empty, it is still used in limiting the search area for
+clean components.  If the parameter 'masktemplate' is not empty this
+means that the user want to use an apriori image to make the mask the
+first time (e.g a previously cleaned image)
+
+This function returns a record containing convergence, iterations used and threshold reached. 
+
+
+</description>
+<input>
+
+     <param type="string" name="algorithm">
+     <description>Algorithm to use</description>
+     <value>clark</value>
+     <value>clarkstokes</value>
+     <value>hogbom</value>
+     <value>multiscale</value>
+     <value>mfclark</value>
+     <value>mfclarkstokes</value>
+     <value>csclean</value>
+     <value>csfast</value>
+     <value>mfhogbom</value>
+     <value>mfmultiscale</value>
+     <value>wfclark</value>
+     <value>wfhogbom</value>
+     <value>clark</value>
+     </param>
+
+     <param type="int" name="niter">
+     <description>Number of Iterations, set to zero for no CLEANing</description>
+     <value>1000</value>
+     </param>
+
+     <param type="double" name="gain">
+     <description>Loop Gain for CLEANing</description>
+     <value>0.1</value>
+     </param>
+
+     <param type="any" name="threshold">
+     <description>Flux level at which to stop CLEANing</description>
+     <any type="variant" />
+     <value>0.0Jy</value>
+     </param>
+
+     <param type="bool" name="displayprogress">
+     <description>Display the progress of the cleaning?</description>
+     <value>false</value>
+     </param>
+
+     <param type="stringArray" name="model">
+     <description>Names of clean model images</description>
+     <value></value>
+     </param>
+
+     <param type="boolArray" name="keepfixed">
+     <description>Keep one or more models fixed</description>
+     <value>false</value>
+     </param>
+
+     <param type="string" name="complist">
+     <description>Name of component list</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="mask">
+     <description>Names of mask images used for CLEANing</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="image">
+     <description>Names of restored images</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="residual">
+     <description>Names of residual images</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="psfimage">
+     <description>Names of psfs if they are needed</description>
+     <value></value>
+     </param>
+
+     <param type="bool" name="interactive">
+     <description>whether to stop clean and interactively mask</description>
+     <value>false</value>
+     </param>
+
+     <param type="int" name="npercycle">
+     <description>If interactive is 'T', then no of iter of clean 
+before stopping, usually a fraction of niter</description>
+     <value>100</value>
+     </param>
+
+     <param type="string" name="masktemplate">
+     <description>If non empty then will use this image to make
+the mask the first time</description>
+     <value></value>
+     </param>
+
+</input>
+
+<returns type="record"/>
+<example>
+
+im.clean(model='3C273XC1.clean.model',
+mask='3C283XC1.mask', niter=1000, gain=0.25, threshold='0.03Jy')
+
+
+A few points should be noted in this example:
+
+\begin{itemize}
+\item When the mask parameter is specified, the number of mask images
+      listed should be equal to the number of model images.  They
+      should also have the same coordinate system as their
+      corresponding model images.  
+\item If one or more model images are listed in the model parameter
+      but the image and residual parameters are empty, the restored
+      and residual images are automatically named as the model names
+      appended with '.restored' and '.residual', respectively.
+\item No restored or residual image is made if the respective image 
+      string is explicitly unset.
+\end{itemize}
+
+
+include 'imager.g';
+msfile = 'vlac125K.ms';
+im.open(msfile);
+npix = 500; cell='5arcsec';
+#
+# CS on 500 by 500
+#
+im.defineimage(nx=npix, ny=npix, cellx=cell, celly=cell, stokes='I',
+	      spw=[0,1]);
+im.setoptions(padding=1.0);
+im.selectvis(spwid=[0,1]);
+im.clean('cs', model='vlac125K.cs', image='vlac125K.cs.restored',
+	   niter=1000, gain=0.1);
+#
+# CSF on 1000 by 1000, cleaning a given box
+#
+
+im.defineimage(nx=2*npix, ny=2*npix, cellx=cell, celly=cell, stokes='I',
+	      spwid=[1,2]);
+reg=rg.box(blc=[400,500], trc=[450,550])
+im.regionmask('vlac125K.mask', region=reg);
+im.clean('csf', model='vlac125K.csf', image='vlac125K.csf.restored',
+	   mask='vlac125K.mask', niter=1000, gain=0.1);
+
+#
+# CS on 1000 by 1000, cleaning entire image
+#
+
+im.defineimage(nx=2*npix, ny=2*npix, cellx=cell, celly=cell, stokes='I',
+	      spwid=[1,2]);
+im.clean('cs', model='vlac125K.csl', image='vlac125K.csl.restored',
+	   mask='vlac125K.mask', niter=1000, gain=0.1);
+
+im.done();
+
+</example>
+</method>
+
+ 
+   <method type="function" name="clipimage">
+   <shortdescription>Zero all pixels where Stokes I is below
+a threshold</shortdescription>
+   
+<description>
+All pixels in the image with Stokes I less than some threshold
+are set to zero. This is useful prior to self-calibration where one 
+oftens wishes to remove negative pixels from the model. Note that
+if the image has polarization information, then the polarized
+part of a pixel is also set to zero if Stokes I is less than the
+threshold.
+</description>
+<input>
+
+     <param type="string" name="image">
+     <description>name of image</description>
+     <value></value>
+     </param>
+
+     <param type="any" name="threshold" >
+     <description>Threshold</description>
+     <any type="variant" />
+     <value>0.0Jy</value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+im.clipimage(image='clean', threshold='50mJy')
+
+</example>
+</method>
+
+ 
+   <method type="function" name="clipvis">
+   <shortdescription>Flag visibilities where residual exceeds
+a threshold</shortdescription>
+   
+<description>
+All visibilities where the residual exceeds some threshold
+are flagged. This provides a simple way of flagging bad
+data.
+</description>
+<input>
+
+     <param type="any" name="threshold">
+     <description>Threshold</description>
+     <any type="variant" />
+     <value>0.0Jy</value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+im.plotvis('residual')
+# determine threshold then apply it
+im.clipvis(threshold='50mJy')
+
+</example>
+</method>
+
+ 
+   <method type="function" name="close">
+   <shortdescription>Close the imager tool, with data written on disk, keeping imager process running for future use</shortdescription>
+   
+<description>
+This is used to close {\tt imager} tools. Note that the
+data is written to disk. The {\tt imager} process keeps running
+until a <link anchor="imager:imager.done.function">done</link> tool function call is performed.
+</description>
+<returns type="bool"/>
+<example>
+
+im.open('3C273XC1.MS')      
+im.makeimage(image='3C273XC1.dirty',type='corrected')
+im.close()
+
+</example>
+</method>
+
+ 
+ 
+ 
+   <method type="function" name="defineimage">
+   <shortdescription>Set the image parameters for subsequent processing</shortdescription>
+   
+<description>
+Define the default image parameters. If an image is to be
+made, then these parameters are used in the construction
+of the image. Thus, for example, the tool function <link anchor="imager:imager.make.function">make</link>
+makes an (empty) image using these parameters. 
+
+Note that some parameters can be specified either in canonical units
+or via measures. To establish default values, the ids for the default
+spectral window and default field id must be given.
+
+The parameter {\tt mode} can be one of the following:
+\begin{itemize}
+\item mfs
+\item channel
+\item velocity or opticalvelocity
+\item frequency
+\end{itemize}
+
+{\tt imager} can perform multi-frequency synthesis over several
+spectral windows (mode='mfs'). To achieve this, you should set spwid
+to an array of the required spectral windows ({\em e.g.}  {\tt
+spwid=[0,1]}).\\ WARNING: For multifrequency synthesis, 'mfs', it is
+important that the spwid's selected in <link
+anchor="imager:imager.selectvis.function">selectvis</link> be the SAME
+as the one selected in {\tt defineimage}.  Otherwise the frequency at which
+the image is made is not going to be the same as to the one as the one
+used in gridding the visibility and can lead to image artifacts.  For
+{\tt mode='velocity'} and {\tt mode='frequency'} the {\tt step}
+parameter has to be a measure/quantity of velocity or frequency,
+otherwise for {\tt mode='channel'} step is the number of data
+channels to be averaged to make one image channel( see examples
+below).
+
+
+The phase center of the image defaults to that of the specified
+phasecenter (the first fieldid in the ms is taken if none is
+specified), this parameter can be a fieldid or a measure string or the
+record output from the direction function of the measures tool( <link
+ anchor="measures:measures.direction.function">direction</link> ).  
+This is important if you have multiple pointings in the data. The user 
+would have used <link anchor="imager:imager.selectvis.function">selectvis</link> to select which pointings would be used in imaging. If the
+conversion from the observed direction requires frame information then
+this is taken as follows: \begin{itemize} \item Direction information,
+including the coordinate system, is taken from the relevant entry in
+the Field table of the MeasurementSet.  \item The epoch is taken from
+the time of observation of each visibility.  \item A position is
+specified via the {\tt imager} tool function <link
+anchor="imager:imager.setoptions.function">setoptions</link>
+\end{itemize}
+
+If the specified number of facets is greater than unity then the image
+is split into facets (this number along the x and y axes) and
+processed. This is necessary when using wide-field algorithm for
+deconvolving the image, in cases of non-coplanar arrays (e.g the VLA
+at low frequencies but can be safely left at 1 for the ATCA or WSRT).
+This is now recommended only when memory or image size is of a problem, 
+otherwise for widefield issues, wprojection (ftmachine parameter in <link
+anchor="imager:imager.setoptions.function">setoptions</link>) is recommended with a single 
+facet. 
+
+For spectral imaging {\tt defineimage} and {\tt selectvis} defines the
+spectral channels that are imaged. Examples are given in the <link
+anchor="imager:imager.selectvis.function">selectvis</link> section.
+The parameter {\tt restfreq} can be used to define what rest frequency
+to use in the resulting images. If none is specified imager will try
+to use the one that is defined in the ms. It will use the first one
+defined in the first spectral window selected.
+
+For wide-field or 3D imaging see <link anchor="imager:imager.setoptions.function">setoptions</link>
+section for some examples.
+
+If the telescope is observing moving source (e.g planet or moon) over
+a period of time. One may wish to image in a frame where the source is
+fixed. The parameter {\tt movingsource} is for that. Setting it to a
+source that {\tt measures} is aware of will force the imaging to
+realign (shift in SD imaging or phase rotation in interferometry
+imaging) the data so that the source appears fixed in the
+image. Obviously in doing so the background sources will be
+blurred. The coordinate system used to fix the source on is the one where
+the source is at the first time observed in the selected data.
+
+
+</description>
+<input>
+
+     <param type="int" name="nx">
+     <description>Total number of spatial pixels in x</description>
+     <value>128</value>
+     </param>
+
+     <param type="int" name="ny">
+     <description>Total number of spatial pixels in y</description>
+     <value>-1</value>
+     </param>
+
+     <param type="any" name="cellx">
+     <description>Cellsize in x (e.g. '1arcsec')</description>
+     <any type="variant" />
+     <value>1.0</value>
+     </param>
+
+     <param type="any" name="celly">
+     <description>Cellsize in y (e.g. '1arcsec')</description>
+     <any type="variant" />
+     <value></value>
+     </param>
+
+     <param type="string" name="stokes">
+     <description>Stokes parameters to image (e.g. 'IQUV')</description>
+     <value>IV</value>
+     <value>IQU</value>
+     <value>IQUV</value>
+     <value>I</value>
+     </param>
+
+
+     <param type="any" name="phasecenter">
+     <description>Direction of phase center as a diretion measure or a field id 
+     </description>
+     <any type="variant" />
+     <value>0</value>
+     </param>
+
+
+     <param type="string" name="mode">
+     <description>Type of processing (velocity =radiovelocity)</description>
+     <value>frequency</value>
+     <value>radiovelocity</value>
+     <value>opticalvelocity</value>
+     <value>truevelocity</value>
+     <value>mfs</value>
+     </param>
+
+     <param type="int" name="nchan">
+     <description>Number of channels; a -1 (default) means all the channels 
+      as selected in selectvis and combined into one continuum channel
+     </description>
+     <value>-1</value>
+     </param>
+
+     <param type="any" name="start">
+     <description>Start channel; A 0-relative channel number of the spwid  or a frequency quantity      or a velocity quantity or radial velocity measure</description>
+     <any type="variant"/>
+     <value>0</value>
+     </param>
+
+     <param type="any" name="step">
+     <description>Step in channel; integer for number of channels or frequency quantity or velocity quantity or radial velocity measure </description>
+     <any type="variant"/>
+     <value>1</value>
+     </param>
+
+
+     <param type="intArray" name="spw">
+     <description>Spectral Window Id (0 relative) that defines center of image</description>
+     <value>0</value>
+     </param>
+
+
+     <param type="any" name="restfreq">
+     <description>rest frequency to use; default =\&amp; use the one available in ms
+     </description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+
+     <param type="string" name="outframe">
+     <description>frequency frame of output image (default LSRK, "" =\&gt; as input ms or LSRK in case of multiple ms's), options are LSRK, LSRD, BARY, GALACTO, LGROUP, CMB
+     </description>
+     <value>LSRK</value>
+     <allowed kind="enum">
+       <value>LSRK</value>
+       <value>LSRD</value>
+       <value>BARY</value>
+       <value>GALACTO</value>
+       <value>LGROUP</value>
+       <value>CMB</value>
+       <value></value>
+     </allowed>
+     </param>
+
+     <param type="string" name="veltype">
+     <description>velocity definition ('radio' or 'optical' or 'relativistic')</description>
+     <value>optical</value>
+     <value>relativistic</value>
+     <value>radio</value>
+     </param>
+
+     <param type="int" name="facets">
+     <description>Number of facets on each axis</description>
+     <value>1</value>
+     </param>
+
+     <param type="any" name="movingsource">
+     <description>Name of moving source, e.g planet or moon, to keep fixed in image </description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+
+     <param type="any" name="distance">
+     <description>Distance to object: usually ignore this! (m)</description>
+     <any type="variant"/>
+     <value>0.0</value>
+     </param>
+
+     <param type="string" name="projection">
+     <description>map projection type</description>
+     <value>SIN</value>
+     <allowed kind="enum">
+     <value>SIN</value>
+     <value>CAR</value>
+     <value>TAN</value>
+     <value>SFL</value>
+     </allowed>
+     </param>
+
+</input>
+<example>
+
+## Example 1
+im.defineimage(nx=1024,ny=1024, cellx='30marcsec',celly='30marcsec', 
+nchan=1, stokes='IV', phasecenter=me.direction('mars'));
+## Example 2
+im.defineimage(nx=1024,ny=1024, cellx='30marcsec',celly='30marcsec', 
+nchan=1, stokes='IV', phasecenter=['J2000', '19:00:30.5', '-45d00m25.6']);
+## Example 3
+im.selectvis(nchan=10, start=3, spw=[0,1], field=[3, 4, 5, 6, 7, 9, 10])
+im.defineimage(nx=500, ny=500, mode='mfs', spwid=[0,1], fieldid=7)
+im.clean(algorithm='mfclark', niter=1000, model='mosaic.model', image='mosaic.image') 
+
+## Example 4
+
+dir1=me.direction('J2000', '20h00m00', '21d00m00')
+dir2=me.direction('J2000', '20h10m00', '21d00m00')
+dir3=me.direction('J2000', '20h00m00', '21d03m00')
+im.defineimage(nx=100,  cellx='0.1arcsec', phasecenter=dir1)
+im.make('box1')
+im.defineimage(nx=100, cellx='0.1arcsec', phasecenter=dir2)
+im.make('box2')
+im.defineimage(nx=100, cellx='0.1arcsec', celly='0.1arsec', phasecenter=dir3)
+im.make('box3')
+im.clean(algorithm='mfclark', model=['box1', 'box2', 'box3'], 
+	   image=['box1.restored', 'box2.restored', 'box3.restored'],
+	   residual=['box1.residual', 'box2.residual', 'box3.residual'])
+
+
+
+In the first example, the image parameters are set for 1024 by 1024
+pixels of 30milli arcsec, 1 channel will be made, Stokes I and V will be
+imaged, and the phasecenter will be the direction of Mars as given by
+the JPL DE-200 emphemeris. In the second, the phase center is taken
+to be an absolute coordinate value.
+
+The third example shows the use of selectvis and defineimage to setup a mosaic. In 
+the set data we have chosen 10 channels (for each spectral window) of data starting form 
+channel 3. We also have selected spectral windows 0 and 1. We have selected data from 
+fields 3 to 10. In the defineimage we decide to use the data to make a 
+multifrequency synthesis image. We center the image on the field 7 pointing.  
+
+The fourth example is use to clean regions where the user knows the
+sources are and ignore all the other regions. This is very efficient
+in large fields with few sources. Smaller outlier images are made and
+deconvolved around known sources rather than making a big image
+englobing all three fields. 
+
+
+Now here are some examples about defining cubes using different {\tt mode}
+parameters.
+
+
+defining channels cubes use the channel as defined in the data
+
+im.defineimage(cellx=1000, mode='channel', nchan=100, start=10,
+step=1, spwid=range(0,10))
+
+
+now using frequency and overiding the rest frequency defined in
+the ms or if its not defined in the ms
+
+im.defineimage(cellx=1000, mode='frequency', nchan=100, start='1GHz',
+step='10kHz', restfrequency='1.421GHz')
+
+
+in case you have a frame with the frequency
+
+im.defineimage(cellx=1000, mode='frequency', nchan=100, start=['LSRK',
+'1GHz'], step='10kHz', restfrequency='1.421GHz')
+
+
+OR using measures
+
+freqstart=me.frequency('LSRK', '1GHz')
+im.defineimage(cellx=1000, mode='frequency', nchan=100,
+start=freqstart, step='10kHz', restfrequency='1.421GHz')
+
+
+similarly if you want to use  velocity to define your cube
+
+im.defineimage(cellx=1000, mode='velocity', nchan=100, start=['LSRK',
+'10km/s'], step='1m/s', restfrequency='1.421GHz')
+OR using measures
+velstart=me.radialvelocity('LSRK', '10km/s')
+im.defineimage(cellx=1000, mode='velocity', nchan=100, start=velstart,
+step='1m/s')
+
+
+Change mode to 'opticalvelocity' if your velocity values are using  optical definition
+
+</example>
+
+<returns type="bool"/>
+
+</method>
+
+
+
+
+   <method type="function" name="done">
+   <shortdescription>Terminate the imager process</shortdescription>
+   
+<description>
+This is used to totally stop the {\tt imager} process. It is a good idea
+to conserve memory use on your machine by stopping the process once
+you no longer need it.
+</description>
+<returns type="bool"/>
+<example>
+
+im.open('3C273XC1.MS')      
+im.makeimage(image='3C273XC1.dirty',type='corrected')
+im.done()
+
+</example>
+</method>
+ 
+
+   <method type="function" name="drawmask">
+   <shortdescription>Allows you do draw mask using the viewer</shortdescription>
+   
+<description>
+A mask image is an image with the same shape as the other images but
+with values between 0.0 and 1.0 as a pixel value. Mask images are used in
+imager to control the region selected in a deconvolution. 
+
+drawmask  is used to interactively draw  regions over a template image which you want to allow deconvolution to occur.
+</description>
+<input>
+
+     <param type="string" name="image">
+     <description>name of  template image</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="mask">
+     <description>name of image to save mask in
+     </description>
+     <value></value>
+     </param>
+     
+     <param type="int" name="niter">
+     <description>Total  number of iteration to display in box; just for display or python packaging
+     </description>
+     <value>0</value>
+     </param>
+     
+     <param type="int" name="npercycle">
+     <description>npercycle value  to display in box; just for display or python packaging
+     </description>
+     <value>0</value>
+     </param>
+
+     <param type="string" name="threshold">
+       <description>threshold to display in box ; just for display or python packaging
+       </description>
+       <value>0 mJy</value>
+     </param>   
+
+</input>
+<returns type="record"/>
+<example>
+
+im.drawmask(image='mytemplate.image', mask='myregions.mask')
+im.clean(mask='myregions.mask', model='3C273XC1.clean.masked', niter=1000)
+
+
+
+Make mask image by drawing interactively over a given image 'mytemplate.image',   then image and clean the visibilties using it as the
+"clean regions".
+</example>
+
+</method>
+
+
+
+   <method type="function" name="exprmask">
+   <shortdescription>Construct a mask image from a LEL expression</shortdescription>
+   
+<description>
+A mask image is an image with the same shape as the other images but
+with values between 0.0 and 1.0 as a pixel value. Mask images are used in
+imager to control the region selected in a deconvolution. 
+
+In the Clark CLEAN, the mask image can usefully have any value between
+0.0 and 1.0. Intermediate value discourage but do not rule out
+selection of clean components in that region. This is accomplished by
+multiplying the residual image by the mask prior to entering the minor
+cycle. Note that if you do use a mask for the Clark or Hogbom Clean,
+it must cover only a quarter of the image. boxmask does not enforce
+this requirement.
+
+This function allows Lattice Express Language (LEL) expressions to
+be used in defining a mask. See the documentation on 
+<link anchor="images:image.imagecalc.constructor">imagecalc</link> for more details.
+</description>
+<input>
+
+     <param type="string" name="mask">
+     <description>name of mask image</description>
+     <value></value>
+     </param>
+
+     <param type="double" name="expr">
+     <description>Value to set the mask to. Any scalar or LEL expression</description>
+     <value>1.0</value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+im.exprmask(mask='bigmask', expr='3C273XC1.clean>0.5')
+im.clean(mask='bigmask', model='3C273XC1.clean.masked', niter=1000)
+
+
+Makes the image bigmask, and then sets it to unity for all points in
+the region where 3C273XC1.clean is greater than 0.5Jy.
+Then cleans using it as the mask.
+</example>
+<comments>
+</comments>
+
+</method>
+
+ 
+   <method type="function" name="feather">
+   <shortdescription>Feather together an interferometer and a single dish image
+in the Fourier plane</shortdescription>
+    
+
+<description> 
+Basically the "imerg" algorithm of AIPS and SDE, or the "feather"
+algorithm of MIRIAD, we regrid the total power (or low resolution)
+image onto the interferometer (or high resolution) image, Fourier
+transform both the interferometer and single dish images, down weight
+the Fourier transform of the interferometer image by 1.0 - FT(low res psf),
+add the weighted interferometer Fourier plane to the single dish Fourier
+plane, and transform back into the image plane.
+
+The tapering is by the transform of a point spread function. If lowpsf
+is specified, that image is used, otherwise the appropriate telescope
+beam is used. The point spread function for a single dish image may be
+calculated using <link anchor="imager:imager.makeimage.function">makeimage</link>. 
+
+{\tt Advice:} Note that if you are feathering large images, you'd be advised to have
+the number of pixels along the X and Y axes to be composite numbers
+and  definitely not  prime numbers. In general FFTs work much faster on even
+and composite numbers. You may use <link anchor="image:image.subimage.function">subimage function of image
+  tool</link> to trim the number of pixels to something desirable.
+
+</description>
+<input>
+
+     <param type="string" name="image">
+     <description>Name of output feathered image</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="highres">
+     <description>Name of high resolution (interferometer) image</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="lowres">
+     <description>Name of low resolution (single dish) image</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="lowpsf">
+     <description>Name of optional low resolution point spread function</description>
+     <value></value>
+     </param>
+     
+     <param type="double" name="effdishdiam">
+     <description>Optional new SD dish diameter in m to use in feathering; can be smaller than true dish size</description>
+     <value>-1.0</value>
+     </param>
+
+     <param type="bool" name="lowpassfiltersd">
+     <description>Reject the high spatial frequency of the SD image</description>
+     <value>false</value>
+     </param>
+
+</input>
+
+<returns type="bool"/>
+<example>
+
+im.setvp(dovp=True, usedefaultvp=True)
+im.feather(image='feathered.image', highres='casa.vlaonly',
+lowres='casa.sd');
+
+In the above example its using the default beams and the observatory
+information is in the image header.
+
+But if you have a single dish image with a beam which is not defined
+in the casa database then the example below is a guide of how to do
+that, say you know the beam of the single dish as a gaussian.
+
+
+
+#create a beam pattern table using vpmanager
+include 'vpmanager.g'
+vpman=vpmanager();
+vpman.setpbgauss(telescope='OTHER', othertelescope='BONN',
+halfwidth='1arcmin', maxrad='20arcmin', reffreq='1.4GHz');
+vpman.saveastable('bonn.pb')
+vpman.done()
+
+##....would have done  your usual imager setup (defineimage etc) then before feathering
+im.setvp(dovp=True, usedefaultvp=false, vptable='bonn.pb')
+im.feather(image='feathered.image', highres='casa.vlaonly',
+lowres='casa.sd');
+
+###
+
+
+
+</example>
+</method>
+
+ 
+   <method type="function" name="filter">
+   <shortdescription>Apply additional weighting by filtering (u-v taper)</shortdescription>
+   
+<description>
+Apply visibility tapering to emphasize certain scale structures.  The
+imaging tapers are applied to a Table column called IMAGING\_WEIGHT,
+which may be plotted using 
+tb and pl.
+<link anchor="imager:imager.plotweights.function">plotweights</link>. 
+In addition, this column
+may be accessed directly using either the <link anchor="table">table</link>
+or <link anchor="ms">ms</link> modules. Note that the taper is multiplicative and
+so the weights must be calculated first using
+<link anchor="imager:imager.weight.function">weight</link>. The points are not flagged!
+
+Note that the scale size to be emphasized is given in the image plane
+as the parameters of the corresponding Gaussian. Note also use of this
+function provides an optimum detection for the given scale size, which
+is not the same as requiring that the resulting dirty beam have the
+specified Gaussian fit. The resultant fitted beam size will {\em very
+roughly} be the quadratic sum of the original beam and the specified
+beam. If you wish to obtain a specified beam, then the best approach
+is to perform this calculation and check the value obtained using
+<link anchor="imager:imager.fitpsf.function">imager.fitpsf</link>.
+
+</description>
+
+<input>
+     <param type="string" name="type">
+     <description>Type of filtering or u-v tapering</description>
+     <value>gaussian</value>
+     </param>
+
+     <param type="any" name="bmaj" >
+     <description>Major axis of filter</description>
+     <any type="variant" />
+     <value>1arcsec</value>
+     </param>
+
+     <param type="any"  name="bmin" >
+     <description>Minor axis of filter</description>
+     <any type="variant" />
+     <value>1arcsec</value>
+     </param>
+
+     <param type="any" name="bpa" >
+     <description>Position angle of filter</description>
+     <any type="variant" />
+     <value>0deg</value>
+     </param>
+
+</input>
+<returns type="bool"/>
+<example>
+
+im.weight('uniform')
+im.filter(type='gaussian', bmaj='2.3arcsec', bmin='1.67arcsec',
+bpa='-34.5deg')
+
+</example>
+</method>
+ 
+   <method type="function" name="fitpsf">
+   <shortdescription>Fit the point spread function, making psf image first if needed</shortdescription>
+   
+<description>
+This fits an elliptical Gaussian to the point spread function
+and returns the fitted beam parameters. If psf image is not specified
+then a psf is made and used. The values for the beam fit
+are saved internally and used whenever needed (for example in the functions <link anchor="imager:imager.restore.function">restore</link> or <link anchor="imager:imager.smooth.function">smooth</link>) until invalidated. The values
+are invalidated by selectvis, defineimage or any tool function that changes
+the weights. Use the function <link anchor="imager:imager.summary.function">summary</link> to check if there is a valid fitted psf stored internally.
+ 
+</description>
+<output>
+     <param type="record" name="bmaj">
+     <description>Major axis of beam</description>
+     </param>
+
+     <param type="record" name="bmin">
+     <description>Minor axis of beam</description>
+     </param>
+
+     <param type="record" name="bpa">
+     <description>Position angle of beam</description>
+     </param>
+</output>
+
+<input>
+
+     <param type="string" name="psf">
+     <description>Name of input psf</description>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+im.makeimage(type='psf', image='3C273XC1.psf')
+params=im.fitpsf('3C273XC1.psf')
+#This returns a python dict params here 
+print params['bmaj'].value, params['bmin'].value, params['bpa']
+im.restore(model='bla' , complist='', image='bla.restored' , residual='bla2.residual' )
+
+
+Or if one wants to generate a psf from the uv coverage and use that subsequently as in the  following example:
+
+
+- im.fitpsf(psf='')
+- im.restore(model='bla' , complist='', image='bla.restored' , residual='bla2.residual' )
+
+
+</example>
+</method>
+
+   <method type="function" name="fixvis">
+   <shortdescription>Performs visibility adjustments.</shortdescription>
+   
+   <keyword>fixvis</keyword>
+   <description>
+     Corrects UVW coordinates and optionally the visibilities for various
+     effects that can be calculated without fitting a model to the data.
+
+     The effects include:
+     \begin{itemize}
+       \item changing the phase tracking center(s),
+       \item correcting for differential aberration,  (Not yet implemented)
+       \item changing the equinox (i.e. B1950\_VLA to J2000 or APP, etc.) of the UVW coordinates,
+       \item changing the projection, as in (-)NCP to SIN.  (Not yet implemented),
+       \item refocusing.
+     \end{itemize}
+   </description>
+   <input>
+     <param type="intArray" direction="in" name="fields">
+       <description>
+	 Field IDs (numbered relative to 0) to operate on.  Blank = all.
+       </description>
+       <value>-1</value> <!-- <value></value> does not work! -->
+     </param>	
+     <!-- <param type="any" direction="in" name="phasedirs"> -->
+     <!--  <any type="record"/>  -->
+     <param type="stringArray" direction="in" name="phasedirs">
+       <description>
+	 Phase tracking centers for each field in fields, in the same order.
+       </description>
+       <value></value>
+     </param>
+     <param type="string" direction="in" name="refcode">
+       <description>
+         Reference frame to use for the generated UVWs.  WARNING: clean
+         and the im tool ignore the reference frame claimed by the UVW column
+         (it is often mislabelled as ITRF when it is really J2000) and instead
+         assume the (u, v, w)s are in the same frame as the phase tracking
+         center.  calcuvw does not yet force the UVW column and field centers to
+         use the same reference frame!  Blank = use the phase tracking frame of
+         vis.
+       </description>
+       <value></value>
+     </param>
+     <param type="doubleArray" direction="in" name="distances">
+       <description>
+	 A list of distances (in m) for the fields listed in fields.  0 = infinity.
+       </description>
+       <value>0.0</value>
+     </param>	
+     <param type="string" direction="in" name="datacolumn">
+       <description>
+         Which of DATA, MODEL\_DATA, and/or CORRECTED\_DATA to operate on.
+         Default: "all".
+       </description>
+       <value>all</value>
+     </param>
+   </input>  
+   <returns type="bool"/>
+   <example>
+     
+     im.open("3C273XC1.MS")
+     im.fixvis()
+     im.done()
+     
+   </example>
+   </method>
+ 
+   <method type="function" name="ft">
+   <shortdescription>Fourier transform the specified model and componentlist</shortdescription>
+   
+<description>
+Fourier transform the specified model (and optionally componentlist) 
+and insert into the MODEL\_DATA column. The current contents of
+the MODEL\_DATA column are replaced unless incremental is set to
+T (in which case the results are added to the column).
+phasecentertime is optional useful for field which is have time varying phasecenters (polynomials or ephemerides phasecenters). The default is to calculate the phasecenter at each time in the data but the time provided here can be used to calculate phasecenters.
+If the function setvp is run prior to running ft with a componentlist, then the spectral variation of each component in the componentlist will include the multiplicative term of the beam value for each channel frequency. So a flat spectrum component will show the frequency variation of the beam in the predicted visibilities..
+</description>
+<input>
+
+     <param type="stringArray" name="model">
+     <description>Name of image</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="complist">
+     <description>Name of component list</description>
+     <value></value>
+     </param>
+
+     <param type="bool" name="incremental">
+     <description>Add to the existing MODEL\_DATA column?</description>
+     <value>false</value>
+     </param>
+     
+     <param type="double" name="phasecentertime">
+     <description>Time to use for time varying phasecenters</description>
+     <value>-1.0</value>
+     </param>
+     
+</input>
+
+<returns type="bool"/>
+<example>
+
+im.ft(model='3C273XC1.nnls.model')
+im.ft(model='3C273XC1.another.model', incremental=True)
+
+
+Fourier transforms the model in the image 3C273XC1.nnls.model
+and then adds the visibility due to 3C273XC1.another.model
+</example>
+<comments>
+</comments>
+</method>
+
+<method type="function" name="getweightgrid">
+  <shortdescription>get the requested weight grids</shortdescription>
+   
+<description>
+
+This is a utility function when running multi imager processes in parallel on subsection of an ms/data independently
+One would wish to weight the dirty image before averaging or set the imaging weight density (when using unform or
+Brigg's style weighting) to account for all the data being used. This is {\bf NOT} for the general user but for people who 
+are parallelizing at the scripting level.
+
+{\bf imaging}: will return a the weight griddensity \\
+ 
+{\bf ftweight}: will put the FT-machine weight images in the names given in wgtimage parameters..these may be needed to average residual images from different processes running seperately on different section of the data.
+
+
+</description>
+
+<input>
+
+     <param type="string" name="type">
+     <description>Type of weight requested (imaging, ftweight)</description>
+     <value>imaging</value>
+     <allowed kind="enum">
+       <value>imaging</value>
+       <value>ftweight</value>
+     </allowed>
+     </param>
+     <param type="stringArray" name="wgtimages">
+     <description>names of weightimages to save</description>
+     <value></value>
+     </param>
+
+ </input>
+
+<example>
+
+wght=im.getweightgrid('imaging')
+wght2=im2.getweightgrid('imaging')
+wght=wght+wght2
+
+im.setweightgrid(weight=wght, type='imaging')
+
+
+</example>
+<comments>
+</comments>
+<returns type="any"><any type="variant"/></returns>
+</method>
+
+
+ 
+   <method type="function" name="linearmosaic">
+   <shortdescription>Make a linear mosaic of several images</shortdescription>
+   
+
+<description> 
+Make a linear mosaic of several images.
+Currently, the pointing center is not specified in the image, so
+we specify the pointing center in terms of the row numbers of the FIELD subtable.
+</description>
+<input>
+
+     <param type="stringArray" name="images">
+     <description>Input images to be mosaiced</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="mosaic">
+     <description>Output mosaic image</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="fluxscale">
+     <description>Fluxscale image</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="sensitivity">
+     <description>Sensitivity image</description>
+     <value></value>
+     </param>
+
+     <param type="intArray" name="fieldids">
+     <description>List of field ids that correspond each of the  images,used to center the PB of each image. (0-based list)</description>
+     <value>0</value>
+     </param>
+
+     <param type="bool" name="usedefaultvp">
+     <description>Use the default vp type?</description>
+     <value>true</value>
+     </param>
+
+     <param type="string" name="vptable">
+     <description>Voltage pattern table from the vpmanager for detailed specification</description>
+     <value></value>
+     </param>
+
+</input>
+
+<returns type="bool"/>
+<example>
+
+im.linearmosaic(images=['orion.1.cln', 'orion.2.cln', 'orion.4.cln'], mosaic='orion.linmos',
+fluxscale='orion.linmos.fluxscale', fieldid=[1,2,4]);
+
+</example>
+</method>
+
+ 
+   <method type="function" name="make">
+   <shortdescription>Make an empty (i.e. blank) image</shortdescription>
+   
+<description>
+Make an empty image using the current image parameters. Often this is
+unnecessary, but you will typically need to use this if you wish to
+deconvolve a set of images. The steps are to make the empty images
+that you require to be deconvolved, and then pass them into clean as a
+vector of strings.
+</description>
+<input>
+
+     <param type="string" name="image">
+     <description>name of output image</description>
+     <value></value>
+     </param>
+
+</input>
+<returns type="bool"/>
+<example>
+
+im.defineimage(nx=1024,ny=1024, cellx='30marcsec',celly='30marcsec', 
+nchan=1, stokes='IV', phasecenter=me.direction('mars'));
+im.make('mars.moving');
+im.defineimage(nx=1024,ny=1024, cellx='30marcsec',celly='30marcsec', 
+nchan=1, stokes='IV', 
+phasecenter=me.direction('J2000', '12:23:48.7', '-15:56:32.9')
+im.make('mars.fixed');
+im.clean(algorithm='mf', model=['mars.moving', 'mars.fixed'],
+image=['mars.moving.restored', 'mars.fixed.restored'])
+
+
+This makes two empty images, one moving with mars and one fixed
+in J2000, and then deconvolves the two jointly using clean.
+Finally the images are restored.
+</example>
+<comments>
+</comments>
+</method>
+
+<method type="function" name="predictcomp">
+  <shortdescription>Make a component list for a known object</shortdescription>
+<description>
+Make a component list for an object recognized by standard, one of setjy's
+flux density standards.
+</description>
+<input>
+     <param type="string" name="objname">
+     <description>Name of the object</description>
+     <value></value>
+     </param>
+     <param type="string" name="standard">
+     <description>Name of the flux standard</description>
+     <value></value>
+     </param>
+     <param type="any" name="epoch">
+     <description>Time to use, as an epoch measure, e.g. me.epoch('UTC', '55555d'), for Solar System objects</description>
+     <any type="variant"/>
+     <value>55555.0d</value>
+     <choice>epoch measure</choice>
+     </param>
+     <param type="doubleArray" name="freqs">
+     <description>The frequencies to use, in Hz</description>
+     <value type="vector">
+     <value>1.0e11</value>
+     </value>
+     </param>
+     <param type="string" name="pfx">
+     <description>Prefix for the name of the component list</description>
+     <value>predictcomp</value>
+     </param>
+</input>
+<returns type="string"/>
+<example>
+
+clname = im.predictcomp('Ceres', 'Butler-JPL-Horizons 2010',
+                        '2012-02-14/13:33:00', [3.45e11, 6.90e11], 'vd_')
+
+This writes a component "list" named vd_spw0_Ceres_345GHz55971.6d.cl to disk
+containing a uniform disk component for Ceres as it is expected to appear at
+345 and 690 GHz at 2012-02-14/13:33:00 UTC, and returns the name of the
+component list.  Returns '' on error.
+</example>
+<comments>
+</comments>
+</method>
+
+ 
+   <method type="function" name="makeimage">
+   <shortdescription>Calculate images by gridding, etc.</shortdescription>
+   
+<description>
+This tool function actually does gridding (and Fourier inversion if
+needed) of visibility data to make an image. It allows calculation of
+various types of image:
+\begin{description}
+\item[observed] Make the dirty image from the DATA column ({\em default})
+\item[model] Make the dirty image from the MODEL\_DATA column
+\item[corrected] Make the dirty image from the CORRECTED\_DATA column
+\item[residual] Make the dirty image from the difference of the
+CORRECTED\_DATA and MODEL\_DATA columns
+\item[psf] Make the point spread function
+\item[singledish] Make a single dish image
+\item[coverage] Make a single dish coverage image
+\item[holography] Make a complex holography image
+\item[pb] Make the primary beam as defined by <link anchor="imager:imager.setvp.function">setvp</link>
+\end{description}
+
+Note the full {\tt imager} equation is not used and so, for example, the
+primary beam correction is not performed. Use
+<link anchor="imager:imager.restore.function">restore</link> to get a residual image
+using the full {\tt imager} equation where primary beam correction is
+performed.
+
+A position shift can be applied when specifying the image parameters
+with <link anchor="imager:imager.defineimage.function">defineimage</link>. If a shift is specified then
+the uvw coordinates are reprojected prior to gridding, and a phase
+rotation is applied. If the image is a PSF then no phase shift is
+applied but the uvw are recomputed. To see the effects of the uvw
+reprojected, you can use the
+<link anchor="imager:imager.plotuv.function">plotuv</link> function.
+
+If desired, the full complex image (before conversion to stokes
+I,Q,U,V) may be retained. Note that the <link anchor="images:image">image</link>
+tool cannot load a complex image directly. Instead, use the
+<link anchor="images:image.imagecalc.constructor">imagecalc</link> constructor 
+to take {\em e.g.}  the real and imaginary parts of the image.
+
+For making single dish and holography images, the data are convolved onto the
+grid using a one of a number of options:
+\begin{description}
+\item[gridfunction='SF'] Circularly symmetric prolate spheroidal wavefunction. 
+This is always the same function in pixels.  To get this to match to
+the antenna primary beam, the optimum cellsize to use in constructing
+the image is the antenna primary beam half-width-half-maximum times
+1.20192.
+\item[gridfunction='BOX'] Nearest neighbor gridding.
+\item[gridfunction='PB'] The telescope primary beam is used as the
+convolution function. This function is the same in arcseconds,
+independent of the cellsize. This choice is optimum in the least
+squares sense. To override the default choice of telescope primary beam
+for a given telescope, use the function
+<link anchor="synthesis:imager.imager.setvp.function">setvp</link>. Usually the default will be acceptable.
+\end{description}
+
+To make a reasonable approximation to the sky, one should divide
+the type='singledish' image by the type='coverage' image, thresholding
+at some level. For example:
+
+\begin{verbatim}
+
+ia.open('scanweight'); 
+ ia.statistics(s);	
+threshold = s.max / 10.0;
+#
+ia.imagecalc('sdimage',
+	      pixels=spaste('scanimage[scanweight&gt;', threshold,
+			    ']/scanweight[scanweight&gt;', threshold, ']'))
+###ia.view(raster=True, axislabels=True);
+\end{verbatim}
+
+
+</description>
+<input>
+
+     <param type="string" name="type">
+     <description>Type of output image</description>
+     <value>observed</value>
+     </param>
+
+     <param type="string" name="image">
+     <description>Name of output image</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="compleximage">
+     <description>Name of output complex image</description>
+     <value></value>  
+     </param>
+
+     <param type="bool" name="verbose">
+     <description>Report things like the center frequency to the logger</description>
+     <value>true</value>
+     </param>
+
+</input>
+
+<returns type="bool"/>
+<example>
+
+im.ft(model='3C273XC1.model', complist='3C273XC1.complist');
+im.makeimage(type='residual', image='3C273XC1.residual')
+im.makeimage(type='psf', image='3C273XC1.psf')
+
+
+Fill in the MODEL\_DATA column from Fourier transforming the model and
+the componentlist.  Make the residual image and write it to
+3C273XC1.residual. 
+</example>
+<example>
+
+im.setvp(dovp=T, usedefaultvp=T, telescope='GBT');
+im.makeimage(type='pb', image='gbt.pb')
+
+
+
+In the above we may want to see what the primary beam we are using
+look like. May also be useful to deconvolve single dish images in the
+deconvolver tool.
+</example>
+<comments>
+</comments>
+
+</method>
+
+
+ 
+   <method type="function" name="makemodelfromsd">
+   <shortdescription>Make an initial model image from a
+    Single Dish image</shortdescription>
+   
+<description>
+This functions use an image from a single dish and make a model
+(clean component) image out of it. This allows one to use this as the
+starting model in a deconvoltion  function e.g
+<link anchor="imager:imager.clean.function">clean</link> or <link anchor="imager:imager.mem.function">mem</link>
+This provides an alternative to
+<link anchor="imager:imager.feather.function">feather</link>.
+The difference between the two is that in {\tt feather} the
+interferometer image is deconvolved first and the single dish image is 
+put in at the end. Whereas if one starts with a model from the single
+dish image it will give a different starting point for the deconvolving
+algorithm to interpolate the missing short baseline. 
+
+The function <link anchor="imager:imager.setsdoptions.function">setsdoptions</link> may be used to set
+a factor by which to scale the SD image, if necessary.
+
+The {\tt sdpsf} parameter (optional) should be used if an external PSF image of the 
+single dish is needed to calculate the beam parameters of the primary
+beam of the dish. This is usually needed if the dish image is from a
+non standard telescope or the beam is not in the {\tt CASA} system.
+
+The {\tt mask} is a mask image that may be needed to be used for
+clean.  This is usually the case when the dish image does not fully
+cover the field defined by <link anchor="imager:imager.defineimage.function">defineimage</link>.
+
+</description>
+<input>
+
+     <param type="string" name="sdimage">
+     <description>Single Dish image</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="modelimage">
+     <description>Name of output image to be used as model</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="sdpsf">
+     <description>PSF of Single Dish if needed</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="maskimage">
+     <description>mask image</description>
+     <value></value>
+     </param>
+</input>
+
+<returns type="bool"/>
+<example>
+
+
+im.open('orion\_only.ms')
+im.selectvis(field=range(10), spw=range(2))
+im.defineimage(nx=1000, cellx='1arcsec', , phasecenter=4, spwid=[0,1])
+im.setvp(dovp=T)
+im.setoptions(ftmachine='mosaic')
+im.setscales(nscales=3)
+im.setsdoptions(scale=0.9);
+im.makemodelfromsd(sdimage='orion\_gbt.im', modelimage='orion\_model', maskimage='orion.mask')
+im.clean(algorithm='mfmultiscale', model='orion\_model',
+residual='orion.residual', image='orion.restored', gain=0.2, niter=500, mask='orion.mask')
+
+
+In the above example we are making a mosaic with the fields 0 to 9. A
+single dish image {\tt orion\_gbt.im} is used scaled down by a factor 0.9 to
+make the initial model that is passed to multi-scale clean.
+</example>
+<comments>
+</comments>
+</method>
+
+
+ 
+   <method type="function" name="mask">
+   <shortdescription>Construct a mask image by thresholding an image</shortdescription>
+   
+<description>
+A mask image is an image with the same shape as the other images but
+with values between 0.0 and 1.0 as a pixel value. Mask images are used
+in {\tt imager} to control the region selected in a deconvolution.
+One makes a mask image by clipping the I part of the restored image
+(this function) or via the <link anchor="imager:imager.boxmask.function">boxmask</link>,
+<link anchor="imager:imager.regionmask.function">regionmask</link>, and 
+<link anchor="imager:imager.exprmask.function">exprmask</link> functions.  In this
+function, all points greater than the threshold are set to unity. The
+mask is the same in I,Q,U, and V. Note that
+<link anchor="imager:imager.exprmask.function">exprmask</link> is the most powerful
+method for making mask images.
+
+In the Clark CLEAN, the mask image can usefully have any value between
+0.0 and 1.0. Intermediate value discourage but do not rule out
+selection of clean components in that region. This is accomplished by
+multiplying the residual image by the mask prior to entering the minor
+cycle.
+
+Note that if you do use a mask for the Clark or Hogbom Clean, it must
+cover only a quarter of the image. It is particularly important to
+check this when creating an image using a threshold. If it extends
+further, the easiest fix is to use
+<link anchor="images:image.getchunk.function">getchunk</link> and
+<link anchor="images:image.getchunk.function">getchunk</link> to set parts of it to zero.
+</description>
+<input>
+
+     <param type="string" name="image">
+     <description>name of template image</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="mask">
+     <description>name of mask image</description>
+     <value></value>
+     </param>
+
+     <param type="any" name="threshold">
+     <description>threshold for mask</description>
+     <any type="variant" />
+     <value>0.0Jy</value>
+     </param>
+
+</input>
+<returns type="bool"/>
+<example>
+
+im.mask( image='bigimage', mask='bigmask',threshold='0.07Jy')
+im.clean(mask='bigmask', model='3C273XC1.clean.masked', niter=1000)
+
+
+Makes the image bigmask, and then sets it to unity
+for all points where the Stokes I in bigimage is
+greater than 0.07. Then clean using it as the mask.
+</example>
+<comments>
+</comments>
+</method>
+
+ 
+   <method type="function" name="mem">
+   <shortdescription>Calculate a deconvolved image with selected mem (maximum entropy) algorithm</shortdescription>
+   
+<description>
+Makes a mem image using either the Cornwell-Evans maximum entropy or
+maximum emptiness algorithms, using the single field or multi-field
+contexts. The maximum entropy algorithm is the default. The mem is performed
+on the residual image calculated from the visibility data currently
+selected. Hence the first step performed in mem is to transform the
+current model or models (optionally including a componentlist) to fill
+in the MODEL\_DATA column, and then inverse transform the residual
+visibilities to get a residual image. This residual image is then
+deconvolved using the corresponding point spread function. This means that
+the initial model is used as the starting point for the
+deconvolution. Thus if you want to restart a mem, simply set the
+model to the model that was previously produced by clean.
+
+Mask images are used to constrain the region that is to be
+deconvolved. To make mask images, use either
+<link anchor="imager:imager.boxmask.function">boxmask</link> (to define a mask via the
+corner locations blc and trc) or <link anchor="imager:imager.mask.function">mask</link> (to
+define a mask via thresholding an existing image). The default mask is
+the inner quarter of the image.
+
+The MEM deconvolution only operates on one Stokes parameter at a time.
+Joint MEM deconvolution for multiple Stokes parameters will be
+implemented in the future. 
+
+Some reference regarding MEM :
+Cornwell and Evans,
+Astronomy and Astrophysics (ISSN 0004-6361), vol. 143, no. 1, Feb. 1985,
+                    p. 77-83.
+
+Narayan and  Nityananda,
+Annual review of astronomy and astrophysics. Volume 24 (A87-26730
+10-90). Palo Alto, CA, Annual Reviews, Inc., 1986, p. 127-170.
+
+The mem algorithms possible are:
+\begin{description}
+\item[Cornwell-Evans Maximum Entropy (entropy)] The classic "vm" or "vtess" 
+deconvolution algorithm.
+\item[Cornwell-Evans Maximum Emptiness (emptiness)] The historic, but 
+largely undocumented, modification to the Cornwell-Evans algorithm
+which seeks a model image which is consistent with the data and
+simultaneously minimizes the number of pixels with no emission
+(meaning "with pixel values below the noise level").
+\item[Multi-field Maximum Entropy (mfentropy)] Deconvolution is split
+into minor and major cycles. For each field, the MEM analog of a Clark
+Clean minor cycle is performed. In the major cycle, the emission thus
+modelled is subtracted either from the original visibilities (for
+multiple fields) or using a convolution (for only one field). The
+latter is much faster.
+\item[Multi-field Maximum Emptiness (mfemptiness)] Just like {\tt mfentropy},
+but with emptiness.
+\end{description}
+
+The multi-field mem ({\tt mfentropy} or {\tt mfemptiness}) should be
+used if either of two conditions hold:
+\begin{enumerate}
+\item Multiple fields are to be deconvolved simultaneously {\bf OR}
+\item Primary beam correction is enabled. In this case, a
+mosaiced mem is performed.
+\end{enumerate}
+
+Note that for the single pointing algorithms, only a quarter of the
+image may be deconvolved. If no mask is set, then the deconvolved
+region defaults to the inner quarter. If a mask larger than a quarter
+of the image is set, then only the quarter starting at the bottom left
+corner is used.  However, for the multi-field imaging, the entire
+field may be imaged because the major cycles either do an exact
+subtraction from the visibilities or because PSF extent is more than
+twice the extent of the primary beam support.
+
+Before {\tt mem} can be run, you must run {\tt selectvis} and {\tt defineimage}.
+Before {\tt mem} can be run with a multi-field algorithm, you should run
+{\tt setvp}.  You may want to run {\tt setmfcontrol} before running {\tt mem}
+with a multi-field algorithm, though the default control values
+may be acceptable. 
+
+</description>
+<input>
+
+     <param type="string" name="algorithm">
+     <description>Algorithm to use</description>
+     <value>entropy</value>
+     <value>emptiness</value>
+     <value>mfentropy</value>
+     <value>mfemptiness</value>
+     <value>entropy</value>
+     <choice>entropy</choice>
+     </param>
+
+     <param type="int" name="niter">
+     <description>Number of Iterations</description>
+     <value>20</value>
+     </param>
+
+     <param type="any" name="sigma" >
+     <description>Image sigma to try to achieve</description>
+     <any type="variant" />
+     <value>0.001Jy</value>
+     </param>
+
+     <param type="any" name="targetflux" >
+     <description>Target flux for final image</description>
+     <any type="variant" />
+     <value>1.0Jy</value>
+     </param>
+
+     <param type="bool" name="constrainflux">
+     <description>Constrain image to match target flux? else targetflux used only to initialize model</description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="displayprogress">
+     <description>Display the progress of the cleaning?</description>
+     <value>false</value>
+     </param>
+
+     <param type="stringArray" name="model">
+     <description>Names of model images</description>
+     <value></value>
+     </param>
+
+     <param type="boolArray" name="keepfixed">
+     <description>Keep model fixed</description>
+     <value>false</value>
+     </param>
+
+     <param type="string" name="complist">
+     <description>Name of component list</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="prior">
+     <description>Names of mem prior images</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="mask">
+     <description>Names of mask images (0=\&gt;no emission, 1=\&gt;emission permitted</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="image">
+     <description>Names of restored images</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="residual">
+     <description>Names of residual images</description>
+     <value></value>
+     </param>
+
+</input>
+
+<returns type="bool"/>
+<example>
+
+im.mem(model='3C273XC1.mem.model',
+mask='3C283XC1.mask', niter=40, sigma='0.001Jy')
+
+</example>
+</method>
+
+ 
+   <method type="function" name="nnls">
+   <shortdescription>Calculate a deconvolved image using the 
+NNLS algorithm</shortdescription>
+    
+
+<description> 
+
+Solve for the model brightness using the Briggs' Non-Negative Least
+Squares algorithm. Since NNLS works only on the $I$ image, the $I$
+pixels in the current image is set to zero where the fluxmask is $\&gt; 0.0$,
+then NNLS is used to estimate the $I$-pixels for that region.
+The deconvolution is performed on the residual image calculated from
+the visibility data currently selected. Hence the first step performed
+in clean is to transform the current model to fill in the MODEL\_DATA
+column, and then inverse transform the residual visibilities to get a
+residual image. This residual image is then deconvolved using the
+corresponding point spread function.
+
+Some other points to remember are that rather than explicit boxes,
+mask images are used to constrain the region that is to be
+deconvolved.  For NNLS, there are two masks, the fluxmask specifying
+the region within which flux is allowed, and the datamask specifying
+the region of the dirty image to be used as constraints. Typically the
+datamask will be somewhat larger than the fluxmask. On a large
+machine, a practical limit to both will be about 5000-6000
+pixels. Hence NNLS is only useful for compact tools.  (For more
+details, see the \htmladdnormallink{Briggs thesis}{\briggsURL}).  To
+make mask images, use either <link anchor="imager:imager.boxmask.function">boxmask</link> (to
+define a mask via the corner locations blc and trc) or
+<link anchor="imager:imager.mask.function">mask</link> (to define a mask via
+thresholding an existing image).
+
+On the canonical \aipspp\ machine with 64MBytes of physical memory,
+you should try to keep the product of the pixels in the fluxmask
+and the datamask below about 5-10 million. Otherwise the 
+solution phase will swap badly.
+</description>
+<input>
+
+     <param type="stringArray" name="model">
+     <description>Name of image</description>
+     <value></value>
+     </param>
+
+     <param type="boolArray" name="keepfixed">
+     <description>Keep model fixed</description>
+     <value>false</value>
+     </param>
+
+     <param type="string" name="complist">
+     <description>Name of component list</description>
+     <value></value>
+     </param>
+
+     <param type="int" name="niter">
+     <description>Number of Iterations, set to zero for no NNLS</description>
+     <value>0</value>
+     </param>
+
+     <param type="double" name="tolerance">
+     <description>Tolerance for solution</description>
+     <value>1e-06</value>
+     </param>
+
+     <param type="stringArray" name="fluxmask">
+     <description>Name of mask for allowed flux</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="datamask">
+     <description>Name of mask for constraint pixels in dirty image</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="image">
+     <description>Names of restored images</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="residual">
+     <description>Names of restored images</description>
+     <value></value>
+     </param>
+
+</input>
+
+<returns type="bool"/>
+<example>
+
+im.nnls(image='3C273XC1.nnls.image', model='3C273XC1.nnls.model',
+fluxmask='3C283XC1.fluxmask', datamask='3C273XC1.datamask', niter=1000,
+tolerance=0.00001)
+
+</example>
+</method>
+
+ 
+   <method type="function" name="open">
+   <shortdescription>Open a new MeasurementSet, for processing, closing current MeasurementSet</shortdescription>
+   
+<description>
+Close the current MeasurementSet and open a new MeasurementSet
+instead. The current state of {\tt imager} is retained, except for
+the data selection.
+</description>
+<input>
+
+     <param type="string" name="thems">
+     <description>New MeasurementSet to be processed</description>
+     <value></value>
+     </param>
+
+     <param type="bool" name="compress">
+     <description>Compress calibration columns?</description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="usescratch">
+     <description>If true: Imager will use corrected data column and make scratch columns of they donot exist</description>
+     <value>false</value>
+     </param>
+</input>
+<returns type="bool"/>
+</method>
+
+ 
+   <method type="function" name="pb">
+   <shortdescription>Applies or corrects for a primary beam</shortdescription>
+   
+
+<description> 
+
+Multiply ({\tt operation='apply'}) or divide ({\tt operation='correct'})
+by the primary beam function.  The primary beam can be applied to images and/or 
+Componentlists.  
+
+If {\tt pointingcenter==false} then you must specify {\tt inimage}
+and the pointing center is taken from its reference direction.
+Otherwise, {\tt pointingcenter} must be a Direction measure.
+It cannot take on the value {\tt True}.
+
+The applied primary beam function is deterimed as follows.  If you used
+function <link anchor="imager:imager.setvp.function">Imager.setvp</link> to set an external
+voltage pattern table, then this is where the applied primary beam will
+come from (regardless of whether you set {\tt inimage} or not).  If you
+did not run this function, then you must supply argument {\tt inimage}. 
+The telescope name embedded in its Coordinate System will be used to
+determine the primary beam function. 
+
+</description>
+
+<input>
+
+     <param type="string" name="inimage">
+     <description>Input image to apply beam to</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="outimage">
+     <description>Output image after beam is applied</description>
+     <value></value>  
+     </param>
+
+     <param type="string" name="incomps">
+     <description>Input Componentlist table name</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="outcomps">
+     <description>Output Componentlist table name</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="operation">
+     <description>Operation</description>
+     <value>correct</value>
+     <value>apply</value>
+     </param>
+
+     <param type="any" name="pointingcenter">
+     <description>Pointing center for primary beam application: default N.Pole</description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+
+     <param type="any" name="parangle" >
+     <description>Parallactic angle for calculation</description>
+     <any type="variant" />
+     <value>0.0deg</value>
+     </param>
+
+     <param type="string" name="pborvp">
+     <description>Primary Beam or Voltage Pattern </description>
+     <value>vb</value>
+     <value>pb</value>
+     </param>
+
+</input>
+
+<returns type="bool"/>
+<example>
+
+# make a flat image
+im.make('flat.image');
+ia.open('flat.image');
+arr=ia.getchunk();
+arr[0:len(arr), 0:len(arr[0])] = 1.0;
+ia.putchunk(arr);
+ia.done()
+arr = false;
+#
+# as we are using "pointingcenter=F", it defaults to the image center
+im.pb(inimage='flat.image', outimage='pb.image', pointingcenter=F)
+
+</example>
+</method>
+
+  
+   <method type="function" name="plotsummary">
+   <shortdescription>Plot a summary of field and spectral window  ids</shortdescription>
+   
+<description>
+Performs a simple plot of the field and spectral window IDs
+versus time (after sorting).
+</description>
+<returns type="bool"/>
+<example>
+
+m = fitstoms('3C273XC1.ms', '3C273XC1.fits'); m.close()
+im.open('3C273XC1.ms')
+im.plotsummary()
+
+</example>
+<comments>
+</comments>
+</method>
+
+ 
+   <method type="function" name="plotuv">
+   <shortdescription>Plot the uv coverage</shortdescription>
+   
+<description>
+Performs a simple plot of the uv coverage of all selected data.
+
+Optionally, plotuv will rotate the uvw coordinates to the
+specified phase center (set via <link anchor="imager:defineimage">defineimage</link>).
+</description>
+<input>
+
+     <param type="bool" name="rotate">
+     <description>Rotate uvw coordinates to specified phase center?</description>
+     <value>false</value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+im.open('3C273XC1.ms')
+im.plotuv(false)
+
+</example>
+<comments>
+</comments>
+</method>
+
+ 
+   <method type="function" name="plotvis">
+   <shortdescription>Plot the visibility amplitudes as a function of u-v radius (also, see visplot tool</shortdescription>
+   
+<description>
+Performs a simple plot of the visibility amplitudes of all selected data.
+</description>
+<input>
+
+     <param type="string" name="type">
+     <description>Type of plot: can contain all, observed, corrected, model, residual</description>
+     <value>all</value>
+     <value>observed</value>
+     <value>corrected</value>
+     <value>model</value>
+     <value>residual</value>
+     <value>all</value>
+     </param>
+
+     <param type="int" name="increment">
+     <description>Increment in points to plot</description>
+     <value>1</value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+
+im.open('3C273XC1.ms')
+im.plotvis(increment=10)
+
+</example>
+<comments>
+</comments>
+</method>
+
+<method type="function" name="plotweights">
+  <shortdescription>Plot the visibility weights as a function of u-v radius</shortdescription>
+   
+  <description>
+    Performs a plot of the visibility weights of all selected data (stored in
+    the IMAGING\_WEIGHT column of the MeasurementSet).
+    The plot can be of the gridded weights (type='gridded') or
+    ungridded.
+    
+  </description>
+  <input>
+    
+    <param type="bool" name="gridded">
+      <description>Do gridded plot?</description>
+      <value>false</value>
+    </param>
+    
+    <param type="int" name="increment">
+      <description>Increment in points to plot</description>
+      <value>1</value>
+    </param>
+  </input>
+  <returns type="bool"/>
+  <example>
+    
+    im.open('3C273XC1.ms')
+    im.defineimage(cellx='0.7arcsec', celly='0.7arcsec')
+    im.weight('briggs')
+    im.plotweights(gridded=True,increment=10)
+    
+  </example>
+  <comments>
+  </comments>
+</method>
+
+ 
+   <method type="function" name="regionmask">
+   <shortdescription>Construct a mask image from a region</shortdescription>
+   
+<description>
+A mask image is an image with the same shape as the other images but
+with values between 0.0 and 1.0 as a pixel value. Mask images are used in
+imager to control the region selected in a deconvolution. 
+
+In the Clark CLEAN, the mask image can usefully have any value between
+0.0 and 1.0. Intermediate value is discouraged but do not rule out
+selection of clean components in that region. This is accomplished by
+multiplying the residual image by the mask prior to entering the minor
+cycle. Note that if you do use a mask for the Clark or Hogbom Clean,
+it must cover only a quarter of the image. {\tt regionmask} does not enforce
+this requirement. 
+
+The function regionmask also allows multiple regions to be used. A record of the regions can be made as in the example below. 
+
+Regions can be made in many different ways using the
+<link anchor="images:regionmanager">regionmanager</link> functions. An example
+using <link anchor="images:regionmanager.wbox.function">wbox</link> function is given
+below. The default regionmanager tool 'rg' can be used for cases the user want to have flexibility in manipulating regions. The {\tt region} parameter takes a record that comes from the regionmanager output.
+The parameter boxes allow the user to sent in a list of 4 elements numbers representing blc's and trc's 
+
+If both the parameters, {\tt regions} and {\tt boxes} are used the a union is done with the two sets of region thus defined.
+
+
+
+ 
+
+</description>
+<input>
+
+     <param type="string" name="mask">
+     <description>name of mask image</description>
+     <value></value>
+     </param>
+
+     <param type="record" name="region">
+     <description>Region record usually from regionmanager</description>
+     <value></value>
+     <choice>unset</choice>
+     </param>
+
+     <param type="any" name="boxes">
+     <description>list of 4 elements lists e.g [[xblc1, yblc1, xtrc1, ytrc1], [[xblc2, yblc2, xtrc2, ytrc2]]  </description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+    
+
+     <param type="any" name="circles">
+     <description>list of 3 elements lists e.g [[rad0, xcen0, ycen0], [rad1,xcen1, ycen1], .....]  </description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+
+     <param type="double" name="value">
+     <description>Value to set the mask to</description>
+     <value>1.0</value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+
+Makes a mask  then cleans using it.
+
+im.open('test.ms')
+im.selectvis(field=0, spw=0)
+im.defineimage(nx=400, cellx='0.001arcsec', phasecenter=0)
+a=[100.0, 100.0, 200, 200.0]
+b=[50, 50, 80, 80]
+im.regionmask(mask='bigmask', boxes=[a,b])
+im.clean(mask='bigmask', model='3C273XC1.clean.masked', niter=1000)
+
+Another example using rg.wbox function: 
+ia.open('dirty')
+cs = ia.coordsys()
+rg.setcoordinates(cs.record())
+r1 = dg.wbox(blc=['173pix', '347pix'], trc=['183pix', '370pix'])
+im.regionmask(mask='bigmask',region=r1)
+
+Or using a dict of regions:
+
+r2=rg.wbox(blc=['180pix', '344pix'], trc=['191pix', '369pix'])
+r3=rg.wbox(blc=['189pix', '341pix'], trc=['204pix', '364pix'])
+regs={"reg1"':r1, "reg2":r2, "reg3":r3}
+rec=rg.makeunion(regs)
+im.regionmask(mask='bigmask',region=rec)
+
+If quantities are to be used to define regions the following is a an example
+
+im.regionmask(mask='joetest',boxes=['15:23:32.902','+05.19.32.089','15:22:28.631','+05.28.52.474'])
+
+
+
+<!--
+PLEASE IGNORE below...needs updating
+Now one may wish to make regions and later use it with higher
+resolution images etc. Regions can be stored in tables on disk and
+recovered later for re-use (especially if its a long series of regions
+making using the gui as described above. 
+
+
+- drm.fromglobaltotable('mytab.region', 'T', 'F', "myregionoftoday", myregion1) 
+
+
+The above command using the default regionmanager tool saves the
+region 'myregion1' into a table 'mytab.region'
+Subsequently this table is used to recover the region and use it to
+create a mask image as below. We use the function drm.namesintable()
+to remind ourselves under what names the regions was saved and hence
+allow us to pick the one we want.
+
+
+
+- drm.namesintable('mytab.region')
+
+myregionoftoday
+
+- myoldregion = drm.fromtabletoglobal('mytab.region', T, 'myregionoftoday')
+
+- imagr.regionmask(mask='newmask',region=myoldregion)
+
+
+-->
+</example>
+</method>
+
+
+   <method type="function" name="regiontoimagemask">
+   <shortdescription>union a mask image with various regions </shortdescription>
+   
+<description>
+
+
+This function is very similar to <link
+anchor="imager:imager.regionmask.function">regionmask</link> function
+except that the mask image has to be existant already and this is an
+independent helper function (i.e does not care about the state of the imager tool... e.g does not need imager to have an
+attached ms).
+
+
+
+ 
+
+</description>
+<input>
+
+     <param type="string" name="mask">
+     <description>name of mask image</description>
+     <value></value>
+     </param>
+
+     <param type="record" name="region">
+     <description>Region record usually from regionmanager</description>
+     <value></value>
+     <choice>unset</choice>
+     </param>
+
+     <param type="any" name="boxes">
+     <description>list of 4 elements lists e.g [[xblc1, yblc1, xtrc1, ytrc1], [[xblc2, yblc2, xtrc2, ytrc2]]  </description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+    
+     <param type="any" name="circles">
+     <description>list of 3 elements lists e.g [[rad0, xcen0, ycen0], [rad1,xcen1, ycen1], .....]  </description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+
+
+     <param type="double" name="value">
+     <description>Value to set the mask to</description>
+     <value>1.0</value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+
+Makes a mask  then cleans using it.
+
+a=[100.0, 100.0, 200, 200.0]
+b=[50, 50, 80, 80]
+im.regiontoimagemask(mask='bigmask', boxes=[a,b])
+im.clean(mask='bigmask', model='3C273XC1.clean.masked', niter=1000)
+
+Another example using rg.wbox function: 
+ia.open('dirty')
+cs = ia.coordsys()
+rg.setcoordinates(cs.record())
+r1 = dg.wbox(blc=['173pix', '347pix'], trc=['183pix', '370pix'])
+im.regionmask(mask='bigmask',region=r1)
+
+Or using a dict of regions:
+
+r2=rg.wbox(blc=['180pix', '344pix'], trc=['191pix', '369pix'])
+r3=rg.wbox(blc=['189pix', '341pix'], trc=['204pix', '364pix'])
+regs={"reg1"':r1, "reg2":r2, "reg3":r3}
+rec=rg.makeunion(regs)
+im.regionmask(mask='bigmask',region=rec)
+
+If quantities are to be used to define regions the following is a an example
+
+im.regionmask(mask='joetest',boxes=['15:23:32.902','+05.19.32.089','15:22:28.631','+05.28.52.474'])
+
+
+
+<!--
+PLEASE IGNORE below...needs updating
+Now one may wish to make regions and later use it with higher
+resolution images etc. Regions can be stored in tables on disk and
+recovered later for re-use (especially if its a long series of regions
+making using the gui as described above. 
+
+
+- drm.fromglobaltotable('mytab.region', 'T', 'F', "myregionoftoday", myregion1) 
+
+
+The above command using the default regionmanager tool saves the
+region 'myregion1' into a table 'mytab.region'
+Subsequently this table is used to recover the region and use it to
+create a mask image as below. We use the function drm.namesintable()
+to remind ourselves under what names the regions was saved and hence
+allow us to pick the one we want.
+
+
+
+- drm.namesintable('mytab.region')
+
+myregionoftoday
+
+- myoldregion = drm.fromtabletoglobal('mytab.region', T, 'myregionoftoday')
+
+- imagr.regionmask(mask='newmask',region=myoldregion)
+
+
+-->
+</example>
+</method>
+
+
+ 
+   <method type="function" name="residual">
+   <shortdescription>Calculate the residual image with respect to current model and component list</shortdescription>
+   
+<description>
+Calculate the residuals corresponding to the model and
+componentlist. {\em Note that the model visibilities are updated}.
+</description>
+<input>
+
+     <param type="stringArray" name="model">
+     <description>Names of input models</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="complist">
+     <description>Name of component list</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="image">
+     <description>Names of output residual images</description>
+     <value></value>
+     </param>
+
+</input>
+<returns type="bool"/>
+<example>
+
+- im.residual(model='3C273XC1.clean', complist='3C273XC1.cl',
+image='3C273XC1.clean.residual')
+
+</example>
+</method>
+
+   <method type="function" name="restore">
+   <shortdescription>Calculate the restored image with restored model, component list, and  residuals</shortdescription>
+   
+<description>
+Restore the residuals to a smoothed version of the model. The model
+images are convolved with the specified Gaussian beam and then the
+residual images are added.  {\em Note that the model visibilities are
+updated and thus reflect the model and componentlist that was
+used.}. Use <link anchor="imager:imager.setbeam.function">setbeam</link> to set the beam
+parameters.
+</description>
+<input>
+
+     <param type="stringArray" name="model">
+     <description>Names of input model</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="complist">
+     <description>Name of component list</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="image">
+     <description>Names of output restored images</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="residual">
+     <description>Names of residual images</description>
+     <value></value>
+     </param>
+
+</input>
+<returns type="bool"/>
+<example>
+
+- im.setbeam(bmaj='2.0arcsec', bmin='2.0arcsec')
+- im.restore(model='3C273XC1.clean', image='3C273XC1.clean.restored',
+
+</example>
+</method>
+ 
+   <method type="function" name="updateresidual">
+   <shortdescription>Calculate the residual and restored images with new modified model, component list,</shortdescription>
+   
+<description>
+This function is for efficiency and speed purpose only. Same as <link anchor="imager:imager.restore.function">restore</link>
+It is to be used after you have used <link anchor="imager:imager.clean.function">clean</link> or <link anchor="imager:imager.mem.function">mem</link> ...but you wish to tweak the model image, say by clipping unwanted components and it will avoid unnecessary recalculating of psf but will do a proper prediction of the new model visibilities and recalculate residual and restored images.
+
+
+</description>
+<input>
+
+     <param type="stringArray" name="model">
+     <description>Names of input model</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="complist">
+     <description>Name of component list</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="image">
+     <description>Names of output restored images</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="residual">
+     <description>Names of residual images</description>
+     <value></value>
+     </param>
+
+</input>
+<returns type="bool"/>
+<example>
+
+- im.setbeam(bmaj='2.0arcsec', bmin='2.0arcsec')
+- im.restore(model='3C273XC1.clean', image='3C273XC1.clean.restored',
+
+</example>
+</method>
+
+ 
+   <method type="function" name="sensitivity">
+   <shortdescription>Calculate rms  sensitivity</shortdescription>
+   
+<description>
+
+NB: The implementation in this function will be removed for CASA v4.5.
+We now recommend that the im.apparentsens() function be used instead
+of this one, especially if their weights are initialized and
+calibrated.
+
+Calculate the point source sensitivity for the selected data, both
+absolutely and relatively (to that for natural weighting).
+
+To do the calculation, we use the imaging weights (in the 
+column called IMAGING\_WEIGHT) as calculated from the WEIGHT column,
+and an estimate of the effective net bandwidth and integration time.
+The calculation therefore includes all the effects
+of <link anchor="imager:imager.weight.function">weight</link> and 
+<link anchor="imager:imager.filter.function">filter</link>.
+
+The output is an array with mixed elements.  Counting from zero, the
+second element (out[1]) is the net sensitivity, third element is the
+ratio of the reduction in sensitivity due to the chosen weighting
+scheme.  This ratio is 1.0 for Natural weight and greater than one for
+all other weighting schemes.  (NOTE: Further testing is required of
+this value and hence this is kept separate for now).
+
+The sensitivity calculations require Tsys and collecting area of
+the antenna. These quantities are not known from the MS.  The
+sensitivity is therefore returned in units of Jy m\^2/K.  Multiplying the
+second elements with the ration of the Tsys and effective antenna
+collecting area will give the sensitivity in Jy/beam units.
+
+The fourth elements of the return value is a record with the following
+keys: 'nbaselines', 'effectiveintegration', 'effectivebandwidth',
+'sumwt' and 'spwid'.  These can be used to get the number of baselines
+used, effective integration time (in sec), the effective bandwidth (in
+Hz), the sum of weights and the absolute spectral window IDs used.
+
+</description>
+<output>
+     <param type="record" name="pointsource">
+     <description>Calculated point source sensitivity (Jy m\^2 / (K beam))</description>
+     </param>
+
+     <param type="double" name="relative">
+     <description>Calculated relative sensitivity</description>
+     </param>
+
+     <param type="double" name="sumweights">
+     <description>Calculated sum of weights</description>
+     </param>
+
+     <param type="record" name="senrec">
+     <description>Record per SPW per chan sensitivity calculations</description>
+     </param>
+
+</output>
+<returns type="bool"/>
+
+<example>
+
+a=im.sensitivity(false);
+print 'Sensitivity =', a[1];
+print 'Relative to Natural Weighting = ', a[2];
+
+</example>
+
+
+</method>
+   <method type="function" name="apparentsens">
+   <shortdescription>Calculate rms sensitivity directly from weights</shortdescription>
+   
+<description>
+
+This function calculates the point source sensitivity for the data
+selected by im.selectvis(...), and according to the imaging weighting
+parameters specified in im.weight(...) and im.defineimage(...).  The
+calculation is performed solely using the weight information stored in
+the MS WEIGHT column (WEIGHT_SPECTRUM tbd), and as adjusted by the net
+imaging weighting function (natural, uniform, robust, taper, etc.).
+Therefore, it is assumed that the MS WEIGHTs have been properly
+initialized and calibrated along with the visibility data.  As long as
+the WEIGHTs are in the inverse square units of the visibilities (i.e.,
+inverse variance weights), the calculation should yield the real
+theoretical imaging sensitivity for data at any stage of the
+calibration (though data at early and intermediate stages of
+calibration may not be sufficiently coherent for imaging at high--or
+even modest--fidelity).
+
+Two values are reported in the logger and returned (see example
+below). First, the apparent sensitivity (in the units implied by the
+WEIGHTs' units), for the specified imaging weighting scheme.  Second,
+a unitless factor describing the ratio of the apparent sensitivity to
+that obtained with pure 'natural' weighting (the nominal peak
+sensitivity).  When 'natural' weighting is selected, this ratio factor
+will be 1.0; all other weighting choices will yield an apparent
+sensitivity ratio greater than 1.0.
+
+Currently, this function reports only the continuum sensitivity for
+the selected data, and in particular, for the aggregate bandwidth
+indicated by the spectral window selection.  The calculation further
+assumes that the visibility samples are each entirely independent
+(i.e., no redundant samples such as would occur for overlapping
+spectral windows).
+
+A future version of this function will support reporting a sensitivity
+spectrum for the spectral line case (including support for
+WEIGHT_SPECTRUM).  For now, spectral line sensitivity may be
+reasonably estimated by dividing the reported sensitivity by the
+square root of the fractional bandwidth of a single image channel, or
+by selecting a bandwidth matching the width of a single image channel.
+
+
+</description>
+<output>
+     <param type="double" name="pointsource">
+     <description>Calculated apparent point source sensitivity (in units implied by the MS weights)</description>
+     </param>
+
+     <param type="double" name="relative">
+     <description>Ratio of apparent sensitivity relative to natural weighting</description>
+     </param>
+
+</output>
+<returns type="bool"/>
+
+<example>
+
+# open and set up selection and image plane parameters
+im.open('mydata.ms')
+im.selectvis(field='2',spw='0')
+im.defineimage(mode='mfs',spw=0,stokes='I',cellx='15arcsec',celly='15arcsec',nx=256,ny=256)
+
+# report natural weighting sensitivity
+im.weight(type='natural')
+nat=im.apparentsens();
+print 'Natural Sensitivity =', nat[1];
+print 'Relative to Natural Weighting = ', nat[2];
+
+# switch to uniform weighting
+im.weight(type='uniform')
+uni=im.apparentsens();
+print 'Uniform Sensitivity =', uni[1];
+print 'Relative to Natural Weighting = ', uni[2];
+
+# switch to briggs weighting
+im.weight(type='briggs',robust=0.0)
+rob=im.apparentsens();
+print 'Briggs Sensitivity =', rob[1];
+print 'Relative to Natural Weighting = ', rob[2];
+
+im.close()
+
+</example>
+
+
+</method>
+
+ 
+   <method type="function" name="setbeam">
+   <shortdescription>Set the beam parameters for clean restoration</shortdescription>
+   
+<description>
+This sets the clean beam that will be used in all restoration
+operations.
+</description>
+<input>
+
+     <param type="any" name="bmaj" >
+     <description>Major axis of beam</description>
+     <any type="variant" />
+     <value>1.0arcsec</value>
+     </param>
+
+     <param type="any" name="bmin" >
+     <description>Minor axis of beam</description>
+     <any type="variant" />
+     <value>1.0arcsec</value>
+     </param>
+
+     <param type="any" name="bpa" >
+     <description>Position angle of beam</description>
+     <any type="variant" />
+     <value>0deg</value>
+     </param>
+
+</input>
+<returns type="bool"/>
+</method>
+
+ 
+ 
+   <method type="function" name="selectvis">
+   <shortdescription>Select visibilities for subsequent processing</shortdescription>
+   
+<description>
+This setup tool function selects which data are to be used 
+subsequently. After invocation of selectvis, only the selected
+data are operated on. Thus, for example, in imaging, only the selected
+data are gridded into an image, and in plotting, only the
+selected data are plotted.
+
+Data can be selected by field and spectral window ids. Note that
+all data thus selected are passed to imaging, and may or
+may not be imaged, depending on how the image was constructed
+using <link anchor="imager:imager.defineimage.function">defineimage</link>. For example,
+in mosaicing, use fieldid in defineimage to control what pointing
+is used to define the field center, and use fieldid in selectvis
+to control what pointings are used in the imaging.
+
+For spectral processing, it is possible to make cubes out
+multi-spectral window selections but the selection and combination can
+be a bit confusing (any hint at how to make it clearer is welcome).
+
+If the default values are not used, then data to be used can be selected channel wise. The 
+
+\begin{description}
+\item[nchan]   is the number of data channels selected. It
+defaults to -1 (interpreted as all channels).
+\item[start] is the first channel from input dataset that is to be used.
+It defaults to 0 (i.e. first channel).
+\item[step] gives the increment between selected input channels. It defaults to 1 channel. A value of {\tt n}  means that {\tt n-1} data channels will not not be used.  
+\end{description}
+
+
+
+By choosing the parameters for selectvis and defineimage correctly,
+one may obtain various mappings of visibility channels to image
+channels. For example, to average 512 visibility channels into 64 
+image channels (producing image channels consisting of 8
+visibility channels):
+
+
+im.defineimage(mode='channel', spw=0, nchan=64, start=1, step=8);
+im.selectvis(spw=0, nchan=512, start=1, step=1)
+im.clean(.....);
+
+
+This averages the spectral channels during the gridding process. If
+one wanted to only include every 8th channel in the
+deconvolution, one would do:
+
+
+im.selectvis(nchan=64, start=1, step=8)
+im.defineimage(mode='channel', nchan=64, start=1, step=8);
+im.clean(....);
+
+
+For velocity and opticalvelocity modes, the mstart and mstep
+are the start and step velocities as strings.
+
+
+im.defineimage(mode='velocity', nchan=64, start='20 km/s', step='-100m/s');
+im.selectvis(spwid=[-1]); \#\#\#selecting all data spectral windows
+im.clean(...);
+
+
+If the image and data selections differ, then averaging is done during
+the gridding and degridding process in the image deconvolution.
+
+
+im.defineimage(mode='channel', nchan=64, start=1, step=8);
+im.selectvis(nchan=512, start=1, step=1)
+im.clean()
+
+
+Note:  The channels numbers used in {\tt defineimage}
+and {\tt selectvis} refers to the same channel. So if a channel is not
+selected in {\tt selectvis} but is selected in {\tt defineimage}, then
+blank channels image are made. The example below will result in the 
+having the first 6 (0-5) channels in the image to be blank.
+
+
+im.selectvis(nchan=50, start=6, step=1) \#selected chan 6-55
+im.defineimage(mode='channel', nchan=50, start=0, step=1); 
+
+ \# will try to image channel 1-50. But as previously only channel 6-55 
+ \# was selected only channel 6-50 will have data; images of channels
+ \# 1-5 are blank 
+im.clean(....)
+
+
+For multi-spectral window cube imaging the selection of the data can
+be done as follows
+
+
+im.selectvis(nchan=[50,60], start=[0,0], step=[1,1],
+             spw=[0,1]) 
+im.defineimage(mode='channel', nchan=110, start=0, step=1, spw=[0,1]); 
+
+
+
+The above means that you would make a data selection of 50 channels
+(starting from 0 steping 1) from the first spectral window and 60
+channels (starting from 1 steping 1). The defineimage defines the image
+to be a cube of 110 channels. The caveat is the step size in the
+frequency direction is the step size of the first spectral window. If
+the step size of channels of the two spectral windows are different
+then one is better off defining the image cube in velocities (e.g. as below). 
+
+                                                                      
+
+im.selectvis(nchan=[50,60], start=[0,0], step=[1,1],
+             spw=[1,2]) 
+im.defineimage(mode='velocity', nchan=200, mstart='20km/s',
+             mstep='-100m/s'); 
+	
+
+
+
+</description>
+<input>
+     <param type="string" name="vis">
+     <description>Measurementset for which this selection applies; an empty string "" implies that it is to be applied in ms used in open</description>
+     <value></value>
+     </param>
+
+     <param type="intArray" name="nchan">
+     <description>Number of channels to select</description>
+     <value>-1</value>
+     </param>
+
+     <param type="intArray" name="start">
+     <description>Start channels (0-relative)</description>
+     <value>0</value>
+     </param>
+
+     <param type="intArray" name="step">
+     <description>Step in channel number</description>
+     <value>1</value>
+     </param>
+
+     <param type="any" name="spw">
+     <description>Spectral Window Ids (0 relative) to select; -1 interpreted as all</description>
+     <any type="variant"/>
+     <value>-1</value>
+     </param>
+
+     <param type="any" name="field">
+     <description>Field Ids (0 relative) or Field names (msselection syntax and wilcards are used) to select</description>
+     <any type="variant"/>
+     <value>-1</value>
+     </param>
+
+     <param type="any" name="baseline">
+     <description>Antenna Ids (0 relative) or Antenna names (msselection syntax and wilcards are used) to select</description>
+     <any type="variant"/>
+     <value>-1</value>
+     </param>
+
+     <param type="any" name="time">
+     <description>Limit data selected to be within a given time range. The syntax is defined in the msselection link</description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+
+     <param type="any" name="scan">
+     <description>Limit data selected on scan numbers. The syntax is defined in the msselection link</description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Limit data selected on observation intent. The syntax is defined in the msselection link</description>
+     <value></value>
+     </param>
+     
+     <param type="any" name="observation">
+     <description>Limit data using observation IDs.  The syntax is defined in the msselection link</description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+     
+     <param type="any" name="uvrange">
+     <description>Limit data selected on uv distance. The syntax is defined in 
+     the msselection link</description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+
+     <param type="string" name="taql">
+     <description>For the TAQL experts, flexible data selection using the TAQL syntax</description>
+     <value></value>
+     </param>
+
+     <param type="bool" name="usescratch">
+     <description>If True: imager will use CORRECTED\_DATA column and will make scratch columns and store Model visibilities
+      after deconvolution </description>
+     <value>false</value>
+     </param>
+      <param type="bool" name="datainmemory">
+     <description>If True: imager will load the selected ms memory; useful if imaging a few channels that fit in memory </description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="writeaccess">
+       <description>If False: imager will open the ms in readmode; useful for multiple process  access to the MS</description>
+       <value>true</value>
+     </param>
+
+</input>
+<example>
+
+im.open('3C273XC1.MS');
+im.selectvis(nchan=512,start=1,step=1, taql='SCAN_NUMBER &gt; 10 &amp;&amp; FIELD_ID==2')
+
+
+Time range selection
+
+im.selectvis(field=range(0,10), time='> 2000/09/21/12:00:00')
+
+
+select some antennas, for all fields that begins with {\tt 'ngc'} 
+
+im.selectvis(field='ngc*', baseline=[0, 10, 20])
+
+
+And for those that the standard parameters are not flexible enough
+there is the taql parameter. This for people who knows the different
+columns of the MeasurementSet
+
+im.selectvis(taql="ANTENNA1==0 &amp;&amp; ANTENNA2==3")
+
+
+Imager allows the user to make an image from multiple ms, without the
+need to concatenate them. To do this then the im.open method should
+{\bf not} be used at all but multiple calls of selectvis with the
+parameter vis pointing to each ms should be used. The other 
+parameters can be used to make selection on each ms
+
+
+im.selectvis(vis='myms1.ms', field=0, spw=[0,1], nchan=[40, 50], start=[5,10])
+im.selectvis(vis='myms2.ms', field=10, spw=[2], nchan=[40], start=[5])
+im.selectvis(vis='myms3.ms', field=range(0,10), time='> 2002/10/15/20:30:45')
+
+
+</example>
+<returns type="bool"/>
+</method>
+
+<method type="function" name="setjy">
+   <shortdescription>Compute the model visibility for a specified source flux density</shortdescription>
+<description>
+Compute the model visibility for a specified source flux density, and
+insert into the MODEL\_DATA column. The source flux density for
+a set of standard flux density reference sources may optionally
+be pre-computed, by setting the input flux density to -1 (the default).
+At present, these include 3C286, 3C48, 3C147, 3C138, and 1934-638.
+In this case, if the source is not in this set, an unpolarized
+flux density of 1 Jy will be assumed.  Users may also specify
+{\tt standard='SOURCE'} to use the model(s) in the SOURCE\_MODEL column of the
+SOURCE subtable.
+
+Users may also specify a model image that will be scaled to the
+specified total flux density (or that computed for reference sources).
+When a model image is specified, setjy will only permit processing
+one field, and will currently only process Stokes I.  
+
+</description>
+<input>
+     <param type="any" name="field">
+     <description>Field Id (0-relative) or name</description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+
+     <param type="any" name="spw">
+     <description>Spectral Window Id. (0-relative)</description>
+     <any type="variant"/>
+     <value></value>
+     </param>
+
+     <!-- change this to model? -->
+     <param type="string" name="modimage">
+     <description>A model image</description>
+     <value></value>
+     </param>
+
+     <param type="doubleArray" name="fluxdensity">
+     <description>Specified flux density (I,Q,U,V) in Jy
+     (lookup the value; use 1.0 if not found)
+     </description>
+     <value type="vector">
+     <value>0.0</value>
+     <value>0.0</value>
+     <value>0.0</value>
+     <value>0.0</value>
+     </value>
+     </param>
+
+     <param type="string" name="standard">
+     <description>Flux density standard</description>
+     <value>Baars</value>
+     <value>Perley 90</value>
+     <value>Perley-Taylor 95</value>
+     <value>Perley-Taylor 99</value>
+     <value>Perley-Butler 2010</value>
+     <value>SOURCE</value>
+     </param>
+
+     <param type="bool" name="scalebychan">
+     <description>Do the flux scaling on a per channel basis else on a spw basis.
+     Effectively True if fluxdensity is specified.</description>
+     <value>false</value>
+     </param>
+
+     <param type="doubleArray" name="spix">
+       <description>Spectral index for fluxdensity.
+         S = fluxdensity * (freq/reffreq)**spix</description>
+       <value>0.0</value>
+     </param>
+
+     <param type="any" name="reffreq">
+       <description>Reference frequency for spix.</description>
+       <any type="variant"/>
+       <value>1GHz</value>
+     </param>
+
+     <param type="doubleArray" name="polindex">
+       <description>Coefficients for Taylor expansion of Polarization index</description>
+       <value>0.0</value>
+     </param>
+
+     <param type="doubleArray" name="polangle">
+       <description>Coefficients for Taylor expansion of Polarization angle in radians</description>
+       <value>0.0</value>
+     </param>
+
+     <param type="double" name="rotmeas">
+       <description>rotation measure (rad/lambda**2)</description>
+       <value>0.0</value>
+     </param>
+
+
+     <param type="string" name="time">
+     <description>Time range to operate on</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="scan">
+     <description>Scan(s) to operate on</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="intent">
+     <description>Observation intent</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="observation">
+     <description>Observation ID(s) to operate on</description>
+     <value></value>
+     </param>
+
+
+     <param type="string" name="interpolation">
+     <description>interpolation method in the case of time variable calibrator</description>
+     <value>nearest</value>
+     </param>
+</input>
+<returns type="record"/>
+<example>
+
+im.setjy(fieldid=2, spwid=-1, fluxdensity=[2.6,0.2,0.3,0.5],standard='Baars')
+
+
+Compute the model visibility for field id. 2 to the specified
+point-source (I,Q,U,V) for all spectral windows id.'s on the
+Baars flux density scale.
+</example>
+<comments>
+</comments>
+</method>
+
+<method type="function" name="ssoflux">
+   <shortdescription>Use setjy instead.</shortdescription>
+<description>
+*This was an experimental clone of setjy while flux calibration with Solar
+ System objects was being tested.  It has been merged back into setjy.*
+</description>
+<input></input>
+<returns type="bool"/>
+<example></example>
+<comments></comments>
+</method>
+ 
+   <method type="function" name="setmfcontrol">
+   <shortdescription>Set various cycle control parameters for 
+multi-field and wide-field imageing.</shortdescription>
+   
+<description> 
+Control parameters for mosaicing or wide-field imaging which are not
+required in single field deconvolution are set here to streamline the
+user interface.  As multifield and widefield imaging is accomplished
+by deconvolution in cycles, many of these parameters control how the
+deconvolution cycles are ended.
+
+\begin{description}
+\item cyclefactor: this parameter helps in lowering or increasing the
+  threshold at which the deconvolution cycle will stop  and degrid and
+  subtract from the visibilities. For very bad PSFs you may want to
+  reconcile with the visibilties often, thus a larger number is
+  required here...(4 to 5). For very well behaved data you may want to
+  deconvolve deep before reconciling: a lower number is used (1.5 to 2.0). 
+\item cyclespeedup: this is used if the PSF is not well behaved and
+  you want clean to raise by 2 the threshold if it has not reached the
+  threshold in this number of iteration
+\item cyclemaxpsffraction: similar to cyclefactor, but this is an
+explicit fraction of the PSF peak. The final threshold is computed
+using  min( cyclemaxpsffraction, cyclefactor * maxPSFsidelobe).
+Valid values are between 0.0 and 1.0. 
+\item stoplargenegatives: This parameter is exclusively for when using
+  multiscale clean. This is used to stop the component
+  search when the largest scale has found this number of negative
+  components. -1 here means that continue component search even if the
+  largest component is negative. 
+\item stoppointmode: Again exclusively for when using multiscale
+  clean. The clean will stop if the smallest scale receives this
+  number of consecutive components. 
+\item minpb: This is to defined up to what level the voltage pattern
+  is going to applied when  using
+  <link anchor="imager:imager.setvp.function">setvp</link>. The default is 0.1 of the
+  primary beam or the voltage pattern defined for the antenna.
+\item scaletype: This parameter cab be NONE or SAULT. If NONE the
+  image is not scaled, if SAULT is used the image is weighted so that
+  the noise is kept uniform across the image. The next two parameters
+  defines how the SAULT weighting is limited. Obviously then the flux
+  scale is not uniform across the image. To get the right flux
+  multiply the image with the fluxscale image.
+\item constpb: this parameter defines up to what amplitude of the
+  Primary beam the noise floor is kept uniform, when using SAULT as scaletype.
+\item fluxscale: use this to give a filename to store the factor image
+  to apply to the image to get the fluxscale right.
+\item flatnoise: (default true) Set to false if you want clean components for mosaic  to be searched in the residual image that is effectively multiplied by the $beam^2$. This means when the noise is determined after the antenna, searching in the optimum domain of $signal/(sigma^2)$. For meter wavelengths where noise is determined by the sky, it is no longer optimal.
+\end{description}
+
+</description>
+<input>
+
+     <param type="double" name="cyclefactor">
+     <description>Cycle threshold = max\_resid * min(cyclemaxpsffraction,  this * max\_sidelobe) </description>
+     <value>1.5</value>
+     </param>
+
+     <param type="double" name="cyclespeedup">
+     <description>Cycle threshold doubles in this number of iterations</description>
+     <value>-1</value>
+     </param>
+
+     <param type="double" name="cyclemaxpsffraction">
+     <description>Cycle threshold = max\_resid * min(this,  cyclefactor * max\_sidelobe) </description>
+     <value>0.8</value>
+     </param>
+
+     <param type="int" name="stoplargenegatives">
+     <description>Stop the multiscale cycle for the first n cycles when a negative comp is found on the largest scale</description>
+     <value>2</value>
+     </param>
+
+     <param type="int" name="stoppointmode">
+     <description>Stop multiscale altogether if the smallest
+  scale recieves this many consecutive components</description>
+     <value>-1</value>
+     </param>
+
+     <param type="double" name="minpb">
+     <description>Minimum PB level to use</description>
+     <value>0.1</value>
+     </param>
+
+     <param type="string" name="scaletype">
+     <description>Image plane flux scale type</description>
+     <value>SAULT</value>
+     <value>NONE</value>
+
+     <choice>NONE</choice>
+     </param>
+
+     <param type="double" name="constpb">
+     <description>In Sault weighting the flux scale is constant above this PB level</description>
+     <value>0.4</value>
+     </param>
+
+     <param type="stringArray" name="fluxscale">
+     <description>Names of flux scale images for mosaicing</description>
+     <value></value>
+     </param>
+     <param type="bool" name="flatnoise">
+       <description>Set to false if clean component search is to be done in an optimal signal/noise residual image if true will clean in a constant noise image</description>
+     <value>true</value>
+     </param>
+</input>
+
+<returns type="bool"/>
+<example>
+
+im.setmfcontrol(cyclefactor=2.0, cyclespeedup=niter/10, cyclemaxpsffraction=0.8,
+stoplargenegatives=T, stoppointmode=10, fluxscale='image.fluxscale');
+
+</example>
+</method>
+
+ 
+   <method type="function" name="setoptions">
+   <shortdescription>Set some general options for subsequent processing</shortdescription>
+   
+<description>
+This function is for setting different gridding and memory options
+
+\begin{description}
+\item[ftmachine] The options for ftmachine are: 
+\begin{description}
+\item[ft] Standard interferometric gridding
+\item[sd] Standard single dish gridding
+\item[both] ft and sd as appropriate.
+\item[wproject] option for using the wproject algorithm for wide-field
+  imaging; when this option is used the parameter {\tt wprojplanes}
+  define the number of convolution functions to be used
+\item[mosaic] option to use the gridder that uses the primary beam as
+  the convolution function in gridding
+
+\end{description}
+\item[cache] The size of the cache used (in complex pixels) during the
+gridding process. The default is to use half the physical memory of
+the machine as specified by the aipsrc variable system.resources.memory.
+\item[tile] The side of the tile (in complex pixels) during the
+gridding process.
+\item[gridfunction] The gridding function used. Currently only
+Box-car ('BOX') and Prolate Spheriodal Wave Function ('SF')
+are supported.  In the case of Single-Dish imaging the Primary Beam ('PB'), 
+Gaussian ('GAUSS'), and Gaussian * Jinc ('GJINC') also can be used. 
+\item[location] For some unusual types of image, one needs to know the
+location to be used in calculating phase rotations. For example,
+one can specify images to be constructed in azel, in which
+case, an antenna position must be chosen. One can use functions of
+<link anchor="measures">measures</link>: either
+<link anchor="measures:measures.observatory.function">observatory</link> to
+get the position of a named observatory ({\em e.g.}
+me.observatory('ATCA')) or
+<link anchor="measures:measures.position.function">position</link> to set
+the position ({\em e.g.}me.position('wgs84','30deg','40deg','10m')).
+Although this information is available from the MeasurementSet, what
+location is ambiguous in some cases {\em e.g.} VLBI.
+\item[padding] When gridding and transforming, the array may be
+padded by this factor in the image plane. This reduces aliasing,
+especially in wide-field cleaning.
+\item[usemodelcol] if this is false it tells imager to create and use the model
+  visibility on the fly and in memory as far as possible...otherwise
+  if it is True then imager will use the MODEL\_DATA column to do this.
+\item[wprojplanes] this parameter is is used only of {\tt ftmachine}
+  is set to {\tt wproject}. This defines how many convolution functions
+  is used in the Wprojection gridder (a -1 implies an automatic determination).
+\end{description}
+</description>
+
+<input>
+
+     <param type="string" name="ftmachine">
+     <description>Fourier transform
+  machine</description>
+     <value>ft</value>
+     <allowed kind="enum">
+       <value>ft</value>
+       <value>sd</value>
+       <value>both</value>
+       <value>wproject</value>
+       <value>mosaic</value>
+     </allowed>
+     </param>
+
+     <param type="int" name="cache">
+     <description>Size of gridding cache in complex pixels; default use half the memory available on computer</description>
+     <value>-1</value>
+     </param>
+
+     <param type="int" name="tile">
+     <description>Size of a gridding tile in pixels (in 1 dimension)</description>
+     <value>16</value>
+     </param>
+
+     <param type="string" name="gridfunction">
+     <description>Gridding function</description>
+     <value>SF</value>
+     <allowed kind="enum">
+       <value>SF</value>
+       <value>BOX</value>
+       <value>PB</value>
+       <value>GAUSS</value>
+       <value>GJINC</value>
+     </allowed>
+     </param>
+
+     <param type="any" name="location">
+     <description>Location used in phase rotations</description>
+     <any type="variant" />
+     <value></value>
+     </param>
+
+     <param type="double" name="padding">
+     <description>Padding factor in image plane (\&gt;=1.0)</description>
+     <value>1.0</value>
+     </param>
+     <param type="string" name="freqinterp">
+       <description>interpolation mode in frequency;options:- nearest, linear, cubic, spline </description>
+       <value>nearest</value>
+       <allowed kind="enum">
+	 <value>nearest</value>
+	 <value>linear</value>
+	 <value>cubic</value>
+	 <value>spline</value>
+       </allowed>
+     </param>
+
+     <param type="int" name="wprojplanes">
+     <description>No of gridding convolution functions used in
+  wproject-ft machine (-1 means let the code decide this number) </description>
+     <value>-1</value>
+     </param>
+
+     <param type="string" name="epjtablename">
+     <description>E-Jones table name.  This is used if applypointingoffsets is set to True. </description>
+     <value type="string"></value>
+     </param>
+
+     <param type="bool" name="applypointingoffsets">
+     <description>Apply pointing offset corrections during deconvolution.</description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="dopbgriddingcorrections">
+     <description>Correct for PB gridding before prediction of
+visibilities.  This should be True when doing deconvolution.  This
+should be False when predicting visibilities for model sky with no
+primary beam attenuation in the model.</description>
+     <value>true</value>
+     </param>
+
+     <param type="string" name="cfcachedirname">
+     <description>Directory where convolution functions are to be (or
+are being ) cached on the disk.  </description>
+     <value></value>
+     </param>
+
+     <param type="double" name="rotpastep">
+     <description>The PA increment in degree used for on-the-fly (OTF)
+     rotation of the A-term in A-Projection.</description>
+     <value>5.0</value>
+     </param>
+
+     <param type="double" name="pastep">
+     <description>The PA increment in degree used to compute the
+     PA-rotated A-term in A-Projection.</description>
+     <value>360.0</value>
+     </param>
+
+     <param type="double" name="pblimit">
+     <description>Primary beam limit when using PBWProjection</description>
+     <value>0.05</value>
+     </param>
+
+     <param type="int" name="imagetilevol">
+     <description>Tile size on for image on disk  (in pixel, multiply by 
+            4 to get the byte size). It is safe to leave this as default, 
+           meant for usage on filesystem like Lustre, the default (0) implies 32x32x4x32 tile shape. Setting it explicitly to a negative number will also try to avoid using disk templattices when possible.
+     </description>
+     <value>0</value>
+     </param>
+     <param type="bool" name="singleprecisiononly">
+       <description> Set this value to True to force single precision all the time.
+       Otherwise imager may use double precision gridding (ft and wproject only for now) 
+       when it can and deems it fit. Setting to True can be handy  on low memory 
+       machines
+       </description>
+       <value>false</value>
+     </param>
+     <param type="int" name="numthreads">
+       <description>Limit the number of threads used in this run (openmp enabled only)</description>
+       <value>-1</value>
+     </param>
+     <param type="bool" name="psterm">
+       <description>Switch-on the PS-Term?</description>
+       <value>true</value>
+     </param>
+     <param type="bool" name="aterm">
+       <description>Switch-on the A-Term?</description>
+       <value>true</value>
+     </param>
+     <param type="bool" name="mterm">
+       <description>Switch-on the M-Term?</description>
+       <value>true</value>
+     </param>
+     <param type="bool" name="wbawp">
+       <description>Trigger the WB A-Projection algorithm?</description>
+       <value>false</value>
+     </param>
+     <param type="bool" name="conjbeams">
+       <description>Use frequency conjugate beams in WB A-Projection algorithm?</description>
+       <value>true</value>
+     </param>
+     
+</input>
+<returns type="bool"/>
+<example>
+
+- im.setoptions(cache=10000000, tile=32, gridfunction='BOX',
+  location=me.location('vla'))
+
+The above example is to tell imager to use memory to fit 10000000
+complex numbers and tile the image with tiles of 32 pixels on a side. 
+Also it tells imager to use a box function as gridding function.  The
+location parameter will make imager overide the position of the
+telescope to use (the default is the one it gets from the ms). 
+
+
+im.open('n1333.ms')
+im.selectvis(fieldid=[2:6, 8:12], spwid=[1:2])
+im.defineimage(nx=800, ny=800, cellx='0.5arcsec', celly='0.5arcsec', mode='velocity', nchan=30, mstart='-10km/s', mstep='1.8km/s', spwid=[1,2],fieldid=3)
+im.setoptions(ftmachine='mosaic')
+im.setvp(dovp=T)
+im.setoptions(ftmachine='mosaic')
+im.clean(algorithm='mfclark', model='try1', niter=200)
+
+
+
+In the above example we are making a mosaic using the fields
+2,3,4,5,6,8,9,10,11,12 and we use the mosaic ftmachine. This uses the
+primary beam of the telescope as the gridding function.
+
+
+im.open('coma.ms')
+im.selectvis(spwid=1, fieldid=1);
+mydir=me.direction('J2000', '12h30m48', '12d24m0')
+im.defineimage(nx=200, cellx='30arcsec', phasecenter=mydir); 
+im.make('outlier1');
+im.defineimage(nx=1800, cellx='30arcsec');
+im.setoptions(ftmachine='wproject',wprojplanes=512, padding=1.0)
+im.make('main')
+im.clean(algorithm='mfclark',model=['main', 'outlier1'], niter=10000, image=['coma.image', 'outlier1.image'])
+im.done()
+
+
+
+In the above example we are using the Wprojection algorithm for 3-D
+imaging. We are using 512 gridding functions. Sometimes if there is a
+memory issue (very large images and many griding functions) we suggest  
+the use of facetting of the image with wprojection. So the example
+above would be something like below. Note that when using facets only
+the {\tt wfclark} and {\tt wfhogbom} can be used for now. Note on how
+an outlier field (or flanking) field is set on an interfering  source
+outside of the field of interest.
+
+
+im.open('coma.ms')
+
+im.selectvis(spwid=1, fieldid=1);
+mydir = me.direction('J2000', '12h30m48', '12d24m0')
+im.defineimage(nx=200, ny=200, cellx='30arcsec', celly='30arcsec', phasecenter=mydir); 
+im.make('outlier1');
+im.defineimage(nx=3000, ny=3000, cellx='30arcsec',celly='30arcsec',facets=3);
+im.setoptions(ftmachine='wproject',wprojplanes=200, padding=1.2)
+im.make('main')
+im.clean(algorithm='wfclark',model=['main', 'outlier1'], niter=10000)
+im.done()
+
+
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="setscales">
+   <shortdescription>Set the scale sizes for MultiScale Clean</shortdescription>
+   
+<description>
+
+The multiscale clean algorithm cleans an image on a number of
+different scales, decomposing the image into Gaussians of these scale sizes.
+This function allows the user to set the number
+of scales used (using the nscales method), or to directly control the
+sizes of the scales in pixels (using the uservector method).  When using the
+nscales method, the scales are calculated using the following formula:
+\begin{equation}
+\theta_{minor}  10.0 ^{(i- N\_{scales}/2)/2.0}
+\end{equation}
+where $\theta_{min}$ is the fitted minor axis of the clean beam. The
+first value is zero.
+</description>
+
+<input> 
+
+     <param type="string" name="scalemethod">
+     <description>Method by which scales are set</description>
+     <value>nscales</value>
+     <value>uservector</value>
+     <value>nscales</value>
+     </param>
+
+     <param type="int" name="nscales">
+     <description>Number of scales</description>
+     <value>5</value>
+     </param>
+
+     <param type="doubleArray" name="uservector">
+     <description>Vector of scale sizes in pixels to use, defaults should be 0,3,10
+     </description>
+     <value type="vector">
+     <value>0.0</value>
+     <value>3.0</value>
+     <value>10.0</value>
+     </value>
+    
+       
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+- im.setscales(scalemethod='nscales', nscales=6);
+
+Here we make six scales automatically using the method described
+above.
+Or we could manually choose the scales in pixel numbers as follows:
+
+- im.setscales(scalemethod='uservector', uservector=[0,3,10,30]);
+
+
+Note: 0 pixel is the delta function, so if one were to select scale 0 only
+it would be  equivalent to a Hogbom clean.
+
+</example>
+
+</method>
+
+
+   <method type="function" name="setsmallscalebias">
+   <shortdescription>Set bias toward smaller scales for  MultiScale Clean</shortdescription>
+
+<description>
+
+</description>
+
+<input>
+
+     <param type="float" name="inbias">
+     <description>small scale bias</description>
+     <value>0.6</value>
+     </param>
+
+</input>
+<returns type="bool"/>
+<example>
+
+- im.setsmallscalebias(inbias=0.6);
+
+
+
+</example>
+
+</method>
+
+
+   <method type="function" name="settaylorterms">
+   <shortdescription>Set the number of Taylor series terms for Multi-Frequency Clean</shortdescription>
+   
+<description>
+
+The multi-frequency clean algorithm cleans an image by approximating its spectra
+by a Taylor series expansion. This function allows the user to set the number of
+Taylor terms to be used. Options are 1,2,3.
+</description>
+
+<input> 
+
+     <param type="int" name="ntaylorterms">
+     <description>Number of Taylor terms</description>
+     <value>2</value>
+     </param>
+
+     <param type="double" name="reffreq">
+     <description>Reference Frequency</description>
+     <value>0.0</value>
+     </param>
+
+</input>
+<returns type="bool"/>
+<example>
+
+- im.settaylorterms(ntaylorterms=3);
+
+</example>
+
+</method>
+
+
+ 
+   <method type="function" name="setsdoptions">
+   <shortdescription>Set some options for single dish processing</shortdescription>
+   
+<description>
+Various less-often-used options for single dish processing can be set.
+
+\begin{description}
+\item[scale] The overall scale of the single dish data is multiplied by this
+factor.
+\item[weight] The weight given to the single dish data in the imaging
+is multiplied by this factor.
+\item[convsupport] This parameter can be used to change the support used in gridding single dish data in imaging. If 'PB' or 'pb' is used as the 'convtype' in 
+ <link anchor="imager:imager.setoptions.function">setoptions</link> this parameter is ignored as the support is defined by the primary beam. The deafult of -1 mans 1 as convsupport is used for 'box' convolution function and 3 is used for 'SF' convolution function.
+\item[pointingcolumntouse] This parameter is NOT to be changed under normal circumstances. This is to be used by those who know what they are doing and want to try to use different columns in the POINTING table especially if they believe their dish direction is wrong. And if any of the {\tt \_OFFSET} columns is used do not expect to be able to use a different frame in the image setup in <link anchor="imager:imager.defineimage.function">defineimage</link>. Possible values are {\tt DIRECTION, TARGET, ENCODER, POINTING\_OFFSET, SOURCE\_OFFSET} 
+\item[truncate] The truncation radius as a quantity or a float value. This parameter is effective only when 'GAUSS' or 'GJINC' is used as the 'convtype' in <link anchor="imager:imager.setoptions.function">setoptions</link>. You can use an unit 'pixel' to specify truncation radius as pixel value. If float value is set, or quantity without unit is set, its unit will be 'pixel'.
+\item[gwidth] The width of the gaussian beam as a radius of half maximum. This parameter is effective only when 'GAUSS' or 'GJINC' is used as the 'convtype' in <link anchor="imager:imager.setoptions.function">setoptions</link>. You can use an unit 'pixel' to specify truncation radius as pixel value. If float value is set, or quantity without unit is set, its unit will be 'pixel'. Note that, when 'GJINC' is used as the 'convtype', gwidth doesn't directry specify width of the convolution function.
+\item[jwidth] The witdh of the jinc beam as a parameter c, where jinc = J\_1(pi*x/c)/(pi*x/c). This parameter is effective only when 'GJINC' is used as the 'convtype' in <link anchor="imager:imager.setoptions.function">setoptions</link>. You can use an unit 'pixel' to specify truncation radius as pixel value. If float value is set, or quantity without unit is set, its unit will be 'pixel'. Note that jwidth doesn't directly specify width of the convolution function. 
+\end{description}
+</description>
+
+<input>
+
+     <param type="double" name="scale">
+     <description>Scaling applied to single dish data</description>
+     <value>1.0</value>
+     </param>
+
+     <param type="double" name="weight">
+     <description>Weights applied to single dish data</description>
+     <value>1.0</value>
+     </param>
+
+     <param type="int" name="convsupport">
+     <description>number of pixel for convolution support</description>
+     <value>-1</value>
+     </param>
+
+     <param type="string" name="pointingcolumntouse">
+     <description>Which Pointing Table column to use to get direction</description>
+     <value>DIRECTION</value>
+     <allowed kind="enum">
+	    <value>DIRECTION</value>
+	    <value>TARGET</value>
+	    <value>ENCODER</value>
+	    <value>POINTING\_OFFSET</value>
+	    <value>SOURCE\_OFFSET</value>
+     </allowed>
+
+     </param>
+
+     <param type="any" name="truncate">
+     <description>truncation radius (effective only for 'GAUSS' or 'GJINC')</description>
+     <any type="variant" />
+     <value>-1pixel</value>
+     </param>
+
+     <param type="any" name="gwidth">
+     <description>radius of half maximum for gaussian (effective only for 'GAUSS' or 'GJINC')</description>
+     <any type="variant" />
+     <value>-1pixel</value>
+     </param>
+
+     <param type="any" name="jwidth">
+     <description>c-parameter for jinc function (effective only for 'GJINC')</description>
+     <any type="variant" />
+     <value>-1pixel</value>
+     </param>
+
+     <param type="double" name="minweight">
+     <description>Minimum weight level to use for weight correction and weight based masking.</description>
+     <range min="\&gt;=0."/>
+     <value>0.</value>
+     </param>
+
+	 <param type="bool" name="clipminmax">
+	 <description>Clip minimum and maximum values from each grid</description>
+	 <value>false</value>
+	 </param>
+
+</input>
+<returns type="bool"/>
+<example>
+
+- im.setsdoptions(scale=1.0, weight=1.0, convsupport=5)
+
+</example>
+
+</method>
+
+ 
+   <method type="function" name="setvp">
+   <shortdescription>Set the voltage pattern model for subsequent processing</shortdescription>
+   
+<description>
+Set the voltage pattern model (and hence, the primary beam) used for a
+telescope.  There are currently two ways to set the voltage pattern: by using
+the extensive list of defaults which the system knows about, or by creating a
+voltage pattern description with the <link
+anchor="imager:vpmanager">vpmanager</link>.  The default voltage patterns
+include both a high and a low frequency VP for the WSRT, a VP for each
+observing band at the AT, several VP's for the VLA, including the appropriate
+beam squint for each observing band, and Gaussian for the BIMA dishes.  Due to
+temporary limitations in the internal structure of the visibility buffer, only
+one telescope's voltage pattern can be applied to a particular MeasurementSet.
+This will be corrected shortly.
+</description>
+
+<input>
+     <param type="bool" name="dovp">
+     <description>Do voltage pattern (ie, primary beam) correction</description>
+     <value>false</value>
+     </param>
+
+     <param type="bool" name="usedefaultvp">
+     <description>Look up the default VP for this telescope and frequency?</description>
+     <value>true</value>
+     </param>
+
+     <param type="string" name="vptable">
+     <description>If usedefaultvp is False, provide a VP Table made with vpmanager</description>
+     <value></value>
+     </param>
+
+     <param type="bool" name="dosquint">
+     <description>Activate the beam squint in the VP model</description>
+     <value>false</value>
+     </param>
+
+     <param type="any" name="parangleinc" >
+     <description>Parallactice angle increment for squint
+  application</description>
+     <any type="variant" />
+     <value>360deg</value>
+     </param>
+
+     <param type="any" name="skyposthreshold" >
+     <description> Sky position threshold
+  </description>
+     <any type="variant" />
+     <value>180deg</value>
+     </param>
+
+     <param type="string" name="telescope">
+     <description>Which default telescope to use; if empty use the
+  one in encoded in MS </description>
+     <value></value>
+     </param>
+
+     <param type="bool" name="verbose">
+     <description>If false, suppress some messages from being sent to the logger.</description>
+     <value>true</value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+ im.setvp(dovp=True, usedefaultvp=True, dosquint=False)
+
+</example>
+
+</method>
+
+<method type="function" name="setweightgrid">
+  <shortdescription>set the requested weight grids</shortdescription>
+   
+<description>
+
+This is a utility function when running multi imager processes in parallel on subsection of an ms/data independently
+One would wish to weight the dirty image before averaging or set the imaging weight density (when using unform or
+Brigg's style weighting) to account for all the data being used. This is {\bf NOT} for the general user but for people who 
+are parallelizing at the scripting level.
+
+
+</description>
+
+<input>
+
+     <param type="any" direction="in" name="weight">
+	     <any type="variant"/>
+     <description>Numeric array.  Required input.</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="type">
+     <description>Type of weight requested</description>
+     <value>imaging</value>
+     </param>
+
+ </input>
+
+<example>
+
+wght=im.getweightgrid('imaging')
+wght2=im2.getweightgrid('imaging')
+wght=wght+wght2
+
+im.setweightgrid(weight=wght, type='imaging')
+im2.setweightgrid(weight=wght, type='imaging')
+
+
+</example>
+<comments>
+</comments>
+<returns type="bool"/>
+</method>
+
+
+
+ 
+   <method type="function" name="smooth">
+   <shortdescription>Calculate an image smoothed with a Gaussian beam</shortdescription>
+   
+<description>
+The model images are convolved with the specified Gaussian beam.  By
+default (normalize=T), the beam volume is normalized to unity so that
+the smoothing is flux preserving. The smoothing used in restoration is
+not normalized.
+</description>
+<input>
+
+     <param type="stringArray" name="model">
+     <description>Name of input model</description>
+     <value></value>
+     </param>
+
+     <param type="stringArray" name="image">
+     <description>Name of output smoothed images</description>
+     <value></value> 
+    </param>
+
+     <param type="bool" name="usefit">
+     <description>Use the fitted value (rather than that specified</description>
+     <value>true</value>
+     </param>
+
+     <param type="any" name="bmaj" >
+     <description>Major axis of beam</description>
+     <any type="variant" />
+     <value>5.arcsec</value>
+     </param>
+
+     <param type="any" name="bmin">
+     <description>Minor axis of beam</description>
+     <any type="variant" />
+     <value>5.arcsec</value>
+     </param>
+
+     <param type="any" name="bpa">
+     <description>Position angle of beam</description>
+     <any type="variant" />
+     <value>0deg</value>
+     </param>
+
+     <param type="bool" name="normalize">
+     <description>Normalize volume of psf to unity</description>
+     <value>true</value>
+     </param>
+
+</input>
+<returns type="bool"/>
+<example>
+
+- im.smooth(model='3C273XC1.clean', image='3C273XC1.clean.restored',
+bmaj='2.0arcsec', bmin='2.0arcsec')
+
+</example>
+</method>
+
+ 
+   <method type="function" name="stop">
+   <shortdescription>stop the currently executing function asap</shortdescription>
+   
+<description>
+Stop the currently executing function as soon as possible. Note that
+it is not always possible to stop a function. 
+</description>
+<returns type="bool"/>
+</method>
+
+ 
+   <method type="function" name="summary">
+   <shortdescription>Summarize the current state of the imager tool</shortdescription>
+   
+<description>
+Writes a summary of the properties of the imager to the
+default logger. This includes:
+\begin{itemize}
+\item The name of the MeasurementSet (set in construction or via the
+<link anchor="imager:imager.open.function">open</link> function.
+\item The parameters of the image (set via <link anchor="imager:imager.defineimage.function">defineimage</link>)
+\item The current beam (set by <link anchor="imager:imager.fitpsf.function">fitpsf</link>
+or <link anchor="imager:imager.setbeam.function">setbeam</link>.
+\item The selection of an ms (set via <link anchor="imager:imager.selectvis.function">selectvis</link>)
+\item The general processing options (set via <link anchor="imager:imager.setoptions.function">setoptions</link>)
+\end{itemize}
+</description>
+<returns type="bool"/>
+<example>
+
+- im.open('3C273XC1.MS');
+- im.defineimage(nx=256, ny=256)
+- im.summary()
+
+</example>
+</method>
+
+
+   <method type="function" name="uvrange">
+   <shortdescription>Select data within the limit of a given range</shortdescription>
+   
+<description>
+Apply a uvrange so that only points within a given uvrange are selected for further usage.  To be noted <link anchor="imager:imager.selectvis.function">selectvis</link> if used after uvrange will reset the selected range. So selectvis should be used prior to uvrange or can be used 
+
+to reset it if one changes one's mind. The points are not flagged! Further point to be noted for spectral line data the uv distance is calculated using the mean of the wavelengths of the different spectral channels selected. 
+
+</description>
+<input>
+
+     <param type="double" name="uvmin">
+     <description>Minimum uv distance allowed (wavelengths)</description>
+     <value>0.0</value>
+     </param>
+
+     <param type="double" name="uvmax">
+     <description>Maximum uv distance allowed (wavelengths)</description>
+     <value>0.0</value>
+     </param>
+</input>
+<returns type="bool"/>
+<example>
+
+im.weight('uniform')
+im.uvrange(0, 4000.0)
+
+</example>
+</method>
+
+ 
+   <method type="function" name="weight">
+   <shortdescription>Apply additional weighting to the visibility weights</shortdescription>
+   
+<description>
+Apply visibility weighting to correct for the local density of
+sampling in the uv plane. The imaging weights are calculated on the fly 
+when processing the data and can be viewed by
+<link anchor="imager:imager.plotweights.function">plotweights</link>. 
+
+To correct for visibility sampling effects, natural, uniform, radial, and Briggs weighting are supported.  These work as
+follows. Then:
+\begin{description}
+\item[natural]: minimizes the noise in the dirty image. The weight of
+the $i$-th sample is set to the inverse variance:
+\begin{equation}
+w\_i={1\over{\sigma\_i^2}}
+\end{equation}
+where $\sigma_i$ is the noise of the $i$'th sample.
+\item[radial]: approximately minimizes rms sidelobes for an east-west synthesis
+array. The weight of the $i$-th sample is multiplied
+by the radial distance from the center of the $u,v$ plane:
+\begin{equation}
+w\_i=w\_i \sqrt{u\_i^2+v\_i^2}
+\end{equation}
+\item[uniform]: For Briggs and uniform weighting, we first grid the inverse
+variance $w\_i$ for all selected data onto a grid of size given by the
+argument npixels (default to nx) and u,v cell-size given by
+$2/$fieldofview where fieldofview is the specified field of view
+(defaults to the image field of view).  This forms the gridded weights
+$W\_k$. The weight of the $i$-th sample is then changed:
+\begin{equation}
+w\_i={w\_i\over{W\_k}}
+\end{equation}
+where $W\_k$ is the gridded weight of the relevant cell.
+It may be shown that this minimizes rms sidelobes over
+the field of view. By changing the field of view, one may suppress
+the sidelobes over a region different (usually smaller) than the
+image size.
+\item[briggs: rmode='norm']: The weights are changed:
+\begin{equation}
+w\_i={w\_i\over{1 + W\_k f^2}}
+\end{equation}
+where:
+\begin{equation}
+f^2={{(5*10^{-R})^2}\over{{\sum_k W\_k^2}\over{\sum\_i w\_i}}}
+\end{equation}
+and $R$ is the robust parameter. The scaling of $R$ is such that
+$R=0$ gives a good tradeoff between resolution and sensitivity.
+$R$ takes value between -2.0 (close to uniform weighting) to 2.0
+(close to natural).
+\item[briggs: rmode='abs']: The weights are changed:
+\begin{equation}
+w\_i={w\_i\over{W\_k*R^2+2*\sigma_R^2}}
+\end{equation}
+where $R$ is the robust parameter and $\sigma_R$ is the noise
+parameter. 
+\end{description}
+For more details about Briggs (aka robust) weighting, see the \htmladdnormallink{Briggs thesis}
+{\briggsURL}.
+
+Note that this weighting is {\em not} cumulative since the imaging weights are
+calculated from the specified weight (function of noise; usually $1/\sigma^2$) per visibility
+(actually stored in the  WEIGHT column).
+
+</description>
+<input>
+
+     <param type="string" name="type">
+     <description>Type of weighting</description>
+     <value>natural</value>
+     <allowed kind="enum">
+       <value>uniform</value>
+       <value>briggs</value>
+       <value>radial</value>
+       <value>natural</value>
+     </allowed>
+     </param>
+
+     <param type="string" name="rmode">
+     <description>Mode of briggs weighting</description>
+     <value>norm</value>
+     <value>abs</value>
+     <value>none</value>
+     </param>
+
+     <param type="any" name="noise" >
+     <description>Noise used in absolute briggs weighting</description>
+     <any type="variant" />
+     <value>0.0Jy</value>
+     </param>
+
+     <param type="double" name="robust">
+     <description>Parameter in briggs weighting</description>
+     <range min="\&gt;=2.0" max="&lt;=2.0"/>
+     <value>0.0</value>
+     </param>
+
+     <param type="any"  name="fieldofview"  >
+     <description>Field of view for uniform weighting</description>
+     <any type="variant" />
+     <value>0.0arcsec</value>
+     </param>
+
+     <param type="int" name="npixels">
+     <description>Number of pixels in the u and v directions</description>
+     <value>0</value>
+     </param>
+
+     <param type="bool" name="mosaic">
+     <description>Individually weight the fields of a mosaic</description>
+     <value>false</value>
+     </param>
+
+</input>
+<returns type="bool"/>
+<example>
+
+im.weight(type='briggs', rmode='norm', robust=0.5)
+
+
+Applies Briggs (robust) weighting.
+</example>
+<comments>
+</comments>
+</method>
+
+<method type="function" name="mapextent">
+   <shortdescription>Compute map extent from given set of MSs</shortdescription>
+<description>
+TODO: description must be filled
+</description>
+<input>
+     <param type="string" name="ref">
+     <description>direction reference</description>
+     <value>J2000</value>
+     </param>
+
+     <param type="string" name="movingsource">
+     <description>moving source name</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="pointingcolumntouse">
+     <description>POINTING table column to be used for computation</description>
+     <value>DIRECTION</value>
+     </param>
+</input>
+<returns type="record"/>
+<example>
+
+TODO: example must be filled.
+</example>
+<comments>
+</comments>
+</method>
+
+<method type="function" name="pointingsampling">
+   <shortdescription>Calculate Sampling interval of an MS</shortdescription>
+<description>
+Calculate sampling interval of an MS.
+</description>
+<input>
+     <param type="string" name="pattern">
+     <description>scan pattern (NOTE: only raster is supported so far)</description>
+     <value>raster</value>
+     </param>
+
+     <param type="string" name="ref">
+     <description>direction reference</description>
+     <value>J2000</value>
+     </param>
+
+     <param type="string" name="movingsource">
+     <description>moving source name</description>
+     <value></value>
+     </param>
+
+     <param type="string" name="pointingcolumntouse">
+     <description>POINTING table column to be used for computation</description>
+     <value>DIRECTION</value>
+     </param>
+
+     <param type="string" name="antenna">
+     <description>Additional antenna selection</description>
+     <value></value>
+     </param>
+
+</input>
+<returns type="record"/>
+<example>
+im.open(msname)
+im.selectvis(spw='17', field='M100', intent='OBSERVE_TARGET#ON_SOURCE')
+im.pointingsampling(pattern='raster', ref='J2000', antenna='PM03\&amp;\&amp;\&amp;')
+# returns a dictionary of sampling and angle, e.g.,
+# {'angle': {'unit': 'rad', 'value': -0.00014148390015604565},
+# 'sampling': {'unit': 'rad',
+#              'value': array([  1.23216297e-05,   0.00000000e+00])}}
+im.close()
+</example>
+<comments>
+</comments>
+</method>
+
+</tool>
+
+</casaxml>
+
