@@ -26,18 +26,13 @@ Description
    collapsing.
    
    .. rubric:: Parameter descriptions
-      
-   
-   .. rubric:: *imagename
-      *
-      
-   
+
+   .. rubric:: *imagename*
+
    Name of image on which to perform the operation.
    
-   .. rubric:: *function
-      *
-      
-   
+   .. rubric:: *function*
+
    Aggregate function to apply to pixel values. Choices are: 'flux'
    (see below for constraints), 'madm' (median absolute deviation
    from the median), 'max', 'mean', 'median', 'min', 'npts', 'rms',
@@ -66,10 +61,8 @@ Description
       or x*y K, where x is an optional unit (such as km/s for moments
       images) and y is an optional SI prefix.
    
-   .. rubric:: *axes
-      *
-      
-   
+   .. rubric:: *axes*
+
    Image axes along which to perform the aggregation. Axes can be
    specified as a single integer or array of integers indicating the
    zero-based axes along which to collapse the image. Axes may also
@@ -79,10 +72,8 @@ Description
    declination axis or along the right ascension and declination
    axes, respectively).
    
-   .. rubric:: *outfile
-      *
-      
-   
+   .. rubric:: *outfile*
+
    Name of image to write the result of the operation.
    
    .. rubric:: General selection:  *box, chans, stokes, region*
@@ -93,25 +84,19 @@ Description
    Parameters <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/image-selection-parameters>`__
    for details.
    
-   .. rubric:: *mask
-      *
-      
-   
+   .. rubric:: *mask*
+
    On-the-fly mask to use. See section `Image
    Masks <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/image-masks>`__
    for details.
    
-   .. rubric:: *overwrite
-      *
-      
+   .. rubric:: *overwrite*
    
    Automatically overwrite an existing image named *outfile*? If True
    and a file by that name already exists, the application will exit
    with an error. without performing the requested operation.
    
-   .. rubric:: *stretch
-      *
-      
+   .. rubric:: *stretch*
    
    Stretch the specified on-the-fly *mask* along degenerate axes if
    possible and necessary to conform to the shape of the input image?
@@ -124,9 +109,8 @@ Description
 .. _Examples:
 
 Examples
-   .. rubric:: Example: Collapse a Subimage Along the Spectral Axis
-      
-   
+   Example: Collapse a Subimage Along the Spectral Axis
+
    For this example, myimage.im is a 512x512x128x4
    (ra,dec,freq,stokes) image.
    
@@ -141,25 +125,24 @@ Examples
    
    ::
    
-      | box="127,127,383,383"
-      | chans="8~119"
+      box="127,127,383,383"
+      chans="8~119"
    
    We specify to collapse along the spectral axis (zero based
    index),  and to use the "mean" algorithm.
    
    ::
    
-      | function="mean"
-      | axis=2
+      function="mean"
+      axis=2
    
    And finally we specify the output image name and call the
    **imcollapse** function.
    
    ::
    
-      | outfile="collapse_spec_mean.im"
-      | imcollapse(imagename=imagename, outfile=outfile,
-        function=function, axes=axis, box=box, chans=chans)
+      outfile="collapse_spec_mean.im"
+      imcollapse(imagename=imagename, outfile=outfile, function=function, axes=axis, box=box, chans=chans)
    
    The resulting image (collapse_spec_mean.im) is 256x256x1x4 in
    size.
@@ -168,8 +151,6 @@ Examples
 .. _Development:
 
 Development
-   --CASA Developer--
-   
    Here would be a discussion of how imcollapse is implemented.  This
    is intended for the other members of the development team so is a
    technical discussion.  We will work on building these up over

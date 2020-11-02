@@ -3,23 +3,18 @@
 .. _Description:
 
 Description
-   .. rubric:: Joint reconstruction of wideband single dish and
-      interferometer data in CASA
-      is `experimental <https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/tasks-and-tools>`__ .
-      Please use at own discretion.
-      
+   The sdintimaging task allows joint reconstruction of wideband single dish
+   and interferometer data.
+
+   .. warning::
+
+      Joint reconstruction of wideband single dish and interferometer data in
+      CASA is experimental. Please use at own discretion.
    
-   The scope of parameters that has been tested for CASA 5.7/6.1 can
-   be found on the CASA Docs chapter page on " `Joint Single Dish
-   and Interferometer Image
-   Reconstruction <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-combination/joint-sd-and-interferometer-image-reconstruction>`__ "
-   
-    
-   
-   The `sdintimaging <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/>`__ task
-   allowsjoint reconstruction of wideband single dish and
-   interferometer data.
-   
+      The scope of parameters that has been tested for CASA 5.7/6.1 can
+      be found on the CASA Docs chapter page on " `Joint Single Dish
+      and Interferometer Image Reconstruction <../../notebooks/imaging.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`_ "
+
    Interferometer data are gridded into an image cube (and
    corresponding PSF). The single dish image and PSF cubes are
    combined with the interferometer cubes in a feathering step. The
@@ -34,26 +29,20 @@ Description
    primary beam, prior to deconvolution. Therefore, for mosaic
    imaging, this task always implements conjbeams=True and
    normtype=’flatnoise’.
-   
-    
-   
+
    |image1|
-   
-    
-   
-    
-   
+
    A more detailed description of the underlying algorithm, as well
    as results from its testing, can be found on the CASA Docs chapter
    page on "`Joint Single Dish and Interferometer Image
-   Reconstruction <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-combination/joint-sd-and-interferometer-image-reconstruction>`__". 
+   Reconstruction <../../notebooks/imaging.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`_".
    Note that the above diagram shows only the 'mtmfs' variant. Cube
    deconvolution proceeds directly with the cubes in the green box
    above, without the extra conversion back and forth to the
    multi-term basis. Primary beam handling is also not shown in this
    diagram, but full details (via pseudocode) are available in
    the `reference
-   publication. <https://iopscience.iop.org/article/10.3847/1538-3881/ab1aa7>`__
+   publication. <https://iopscience.iop.org/article/10.3847/1538-3881/ab1aa7>`_
    
     
    
@@ -83,9 +72,7 @@ Description
       cell, phasecenter, projection*
    
    -  Spectral dimensions for the major cycle are defined for cubes
-      : *nchan,start, width, outframe, veltype, restfreq,
-      interpolation
-      *
+      : *nchan,start, width, outframe, veltype, restfreq, interpolation*
    
    -  Spectral dimensions for the minor cycle are chosen based on
       specmode.  For *specmode='cube'* the minor cycle follows the
@@ -182,12 +169,9 @@ Description
       This option is useful if only an SD Image cube is available as
       the output of the single dish imaging step.
    
-   Please see the `ALMA M100
-   example <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdintimaging/examples>`__ section
+   Please see the ALMA M100 example below
    for sample code and task calls that illustrates the simplest way
-   of setting up these inputs. 
-   
-    
+   of setting up these inputs.
    
    To use SD PSFs that represent actual SD beam patterns, please read
    the following details.
@@ -266,7 +250,7 @@ Description
    
    
    
-   .. rubric:: Tuning the sdgain parameter :
+   .. rubric:: Tuning the sdgain parameter
       
    
    The *sdgain* parameter acts as an image weighting option by being
@@ -276,14 +260,12 @@ Description
    channel. Initial demonstrations have shown promise, but the
    robustness of this algorithm control will become clearer with more
    practical use.
-   
-    
-   
+
    -  A high sdgain value ( > 1.0 ) has been demonstrated to
       emphasize extended emission without changing the high
       resolution structure (see the ALMA M100 example in the "`Joint
       Single Dish and Interferometer Image
-      Reconstruction <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-combination/joint-sd-and-interferometer-image-reconstruction>`__"
+      Reconstruction <../../notebooks/imaging.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`_"
       page).   However, when using a high sdgain, please remember to
       monitor the shape of the joint PSF to look for signs of angular
       resolution loss due to weighting the SD data much too high. 
@@ -291,18 +273,13 @@ Description
    -  A low sdgain value ( < 1.0 ) has also been shown to be useful
       in reducing the effect of the usually high SD noise in the
       joint reconstruction while still preserving flux correctness
-      (see the `algorithm
-      publication <https://iopscience.iop.org/article/10.3847/1538-3881/ab1aa7/meta>`__)
-      .  This mode could be useful when the SD image signal-to-noise
+      (see the `algorithm publication <https://iopscience.iop.org/article/10.3847/1538-3881/ab1aa7/meta>`_).
+      This mode could be useful when the SD image signal-to-noise
       ratio is high enough to match that of the interferometer
       images, even if the rms noise of the SD data is higher than the
       INT image rms (which can happen when the flux of the SD data is
       higher than that of the INT data).
-   
-    
-   
-    
-   
+
    .. rubric:: Imaging and Deconvolution Options
       
    
@@ -366,7 +343,7 @@ Description
    
     
    
-   .. rubric:: Iteration Control  and Automasking
+   .. rubric:: Iteration Control and Automasking
       
    
    Iteration contol and automasking parameters are identical to those
@@ -422,13 +399,10 @@ Description
    | .tt2 } extensions as appropriate. |                                   |
    +-----------------------------------+-----------------------------------+
    
-    This long list of output and intermediate images is likely to be
+   This long list of output and intermediate images is likely to be
    pruned in a future release.
    
-    
-   
-    
-   
+
    For more information and examples on the functionality of the
    sdintimaging task, see the CASA Docs chapter page on " `Joint
    Single Dish and Interferometer Image
@@ -487,10 +461,6 @@ Examples
 .. _Development:
 
 Development
-   This page gives a brief explanation of the code design.
-   
-   --CASA Developer--
-   
    This page gives an overview of the code design and future
    development work that needs to be done. Detailed information on
    the algorithm can be found on the chapter page on "`Joint Single
@@ -501,13 +471,9 @@ Development
    `sdintimaging <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdintimaging>`__
    task pages.
    
-    
-   
-    
-   
+
    .. rubric:: Code Design
-      
-   
+
    The sdintimaging task is implemented using the PySynthesisImager
    module in CASA.
    
@@ -529,19 +495,14 @@ Development
    preserved.  However, only the above documented subset of modes
    have been tested. 
    
-    
-   
-    
-   
+
    .. rubric:: Future work
       
    
    The following is a list of features that are either not available
    yet or untested with the sdintimaging task in CASA 6.1 (or known
    bugs).
-   
-    
-   
+
    -  Check if restoration can happen with niter=0. If not, say so in
       the docs. 
    -  Line 640 of sdint_helper.py in the log message within the
@@ -657,4 +618,3 @@ Development
       in mtmfs between OSX and Linux. More through testing are needed
       to see if there are issues in the mtmfs imager code for
       specific to OSX.
-   

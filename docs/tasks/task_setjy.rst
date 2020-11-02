@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   setjy task: Set the model of a calibrator in the Measurement Set
-   
    The **setjy** task sets the model visibility amplitude and phase
    associated with a flux density scale and a specified clean
    components image into the model column of the MS data set. The
@@ -12,7 +10,7 @@ Description
    entered explicitly.  If no model is specified, then a point source
    at the phase center is assumed.  For sources that are recognized
    flux calibrators (listed in `Flux Calibrator
-   Models <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material/flux-calibrator-models>`__ ),
+   Models <../../notebooks/memo-series.ipynb#Flux-Calibrator-Models>`_ ),
    setjy can calculate the flux densities as a function of frequency
    (and time, for some extragalactic sources classified as the
    variable sources and Solar System objects). Otherwise, the flux
@@ -25,7 +23,7 @@ Description
    *standard*. As the name indicates, the bulk of its options are
    different flux density standards available in CASA as listed in
    `Flux Calibrator
-   Models <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material/flux-calibrator-models>`__.
+   Models <../../notebooks/memo-series.ipynb#Flux-Calibrator-Models>`_.
    In addition, *standard=’manual’* allows flux density scaling to be
    specified directly instead of using one for the flux density
    standards. And finally, *standard=‘fluxscale’* allows the user to
@@ -41,18 +39,18 @@ Description
    calibrators, to the flux density (assumed unpolarized) appropriate
    to the observing frequency.
    
-   | Optionally, the MODEL_DATA column can be filled with the Fourier
-     transform of the model image. But for any given MeasurementSet,
-     the performance and data storage requirements are less demanding
-     without the MODEL_DATA column. If *usescratch=False*, the model
-     is stored as a 'virtual' model. The model parameters are saved
-     either in the SOURCE_MODEL column in the SOURCE table (if one
-     exists) or in the keyword
-   | of the main table in the MS and model visibilities are evaluated
-     on the fly when processing calibration or plotting in plotms.
-   | The result containing flux densities for each spw is returned as
-     a Python dictionary when it is executed as the function with
-     arguments,
+   Optionally, the MODEL_DATA column can be filled with the Fourier
+   transform of the model image. But for any given MeasurementSet,
+   the performance and data storage requirements are less demanding
+   without the MODEL_DATA column. If *usescratch=False*, the model
+   is stored as a 'virtual' model. The model parameters are saved
+   either in the SOURCE_MODEL column in the SOURCE table (if one
+   exists) or in the keyword
+   of the main table in the MS and model visibilities are evaluated
+   on the fly when processing calibration or plotting in plotms.
+   The result containing flux densities for each spw is returned as
+   a Python dictionary when it is executed as the function with
+   arguments,
    
    ::
    
@@ -69,21 +67,15 @@ Description
    
    ::
    
-      | standard       =   'manual'        #  Flux density standard
-      |      fluxdensity    = [1, 0, 0, 0]      #  Specified flux
-        density in Jy [I,Q,U,V]; (-1 will lookup values)
-      |      spix           =         []        #  Spectral index
-        (including higher terms) of I fluxdensity
-      |      reffreq        =         ''        #  Reference
-        frequency for spix
-      |      polindex       =         []        #  Coefficients of an
-        expansion of frequency-dependent linear polarization fraction
-        expression
-      |      polangle       =         []        #  Coefficients of an
-        expansion of frequency-dependent polarization angle
-        expression (in radians)
-      |      rotmeas        =        0.0        #  Rotation measure
-        (in rad/m^2)
+      standard       =   'manual'        #  Flux density standard
+      fluxdensity    = [1, 0, 0, 0]      #  Specified flux density in Jy [I,Q,U,V]; (-1 will lookup values)
+      spix           =         []        #  Spectral index (including higher terms) of I fluxdensity
+      reffreq        =         ''        #  Reference frequency for spix
+      polindex       =         []        #  Coefficients of an expansion of frequency-dependent linear
+                                         #  polarization fraction expression
+      polangle       =         []        #  Coefficients of an expansion of frequency-dependent polarization
+                                         #  angle expression (in radians)
+      rotmeas        =        0.0        #  Rotation measure (in rad/m^2)
    
        
    
@@ -108,7 +100,7 @@ Description
    p2...]) using the definition of frequency-dependent polarization
    index (PI) , where
    
-   :math:` PI = \frac{\sqrt{Q^2+U^2}}{I} = p0 + p1*\frac{\nu-reffreq}{reffreq} + p2*(\frac{\nu-reffreq}{reffreq})^2 + ...`.
+   :math:`PI = \frac{\sqrt{Q^2+U^2}}{I} = p0 + p1*\frac{\nu-reffreq}{reffreq} + p2*(\frac{\nu-reffreq}{reffreq})^2 + ...`.
    
    Similarly, the *polangle* subparameter takes a list of
    coefficients ([a0,a1,a2, ..]) using the definition of polarization
@@ -116,7 +108,7 @@ Description
    
    :math:`\chi = 0.5arctan\frac{U}{Q} = a0 + a1*\frac{\nu-reffreq}{reffreq} + a2*(\frac{freq-reffreq}{reffreq})^2 + ..`.
    
-   .. note:: The note on some logics how these subparameters are used to
+   .. note:: Some logics how these subparameters are used to
       determine flux densities:
    
       -  When Stokes Q and U flux densities are given in
@@ -139,19 +131,17 @@ Description
       
    
    For the VLA, the default source models are customarily point
-   sources defined by the *’Baars’*, ’ *Perley 90’*, *’Perley-Taylor
-   99’*, ’ *Perley-Butler 2010’*, time-variable *’Perley-Butler
-   2013’*, 'Perley-Butler 2017', *’Scaife-Heald 2012’*, or
+   sources defined by the *’Baars’*, *’Perley 90’*, *’Perley-Taylor
+   99’*, *’Perley-Butler 2010’*, time-variable *’Perley-Butler 2013’*,
+   *'Perley-Butler 2017'*, *’Scaife-Heald 2012’*, or
    *’Stevens-Reynolds 2016’* flux density scales (See `Flux
-   Calibrator
-   Models <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material/flux-calibrator-models>`__
+   Calibrator Models <../../notebooks/memo-series.ipynb#Flux-Calibrator-Models>`_
    for details; *’Perley-Butler 2017’* is the current standard by
    default), or point sources of unit flux density if the flux
    density is unknown. When 'Perley-Bulter 2017' is used and if any
    part of the frequencies of the relevant visibility data are
    outside the valid frequency range for each individual source as
-   listed in `Flux Calibrator
-   Models <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material/flux-calibrator-models>`__,
+   listed in `Flux Calibrator Models <../../notebooks/memo-series.ipynb#Flux-Calibrator-Models>`_,
    **setjy** issues warning log messages while it still proceeds to
    calcuate the flux densities and set the model visibility.
    
@@ -165,13 +155,13 @@ Description
    *standard=’Butler-JPL-Horizons 2010’* and the recommended
    *standard=’Butler-JPL-Horizons 2012’* (for more information on the
    implemented models, see `Flux Calibrator
-   Models <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material/flux-calibrator-models>`__
+   Models <../../notebooks/memo-series.ipynb#Flux-Calibrator-Models>`_
    page and also ALMA Memo 594  `[1] <#cit1>`__.) option of **setjy**
    includes flux density calibration using Solar System objects.
    
    For ’Butler-JPL-Horizons 2012’ CASA currently supports the objects
    listed in `Flux Calibrator
-   Models <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material/flux-calibrator-models>`__
+   Models <../../notebooks/memo-series.ipynb#Flux-Calibrator-Models>`_
    to be applied to ALMA data. These names are recognized when they
    are used in the *’field’* parameter in **setjy**. In that case,
    **setjy** will obtain the geocentric distance and angular diameter
@@ -218,8 +208,8 @@ Description
    
    ::
    
-      | import recipes.ephemerides as eph
-      | help eph
+      import recipes.ephemerides as eph
+      help eph
    
    CASA comes with ephemerides for several more objects, but they are
    intended for use with **me.framecomet()**, and are not
@@ -230,14 +220,9 @@ Description
    above may prove to require more sophisticated flux density models
    than are currently implemented in CASA. For many objects
    running **casalog.filter('INFO1')** before running **setjy** will
-   send more information to the logger.  "`Reference
-   Material <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material>`__"  has
-   section "`Flux Calibrator
-   Models <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material/flux-calibrator-models>`__"
-   with descriptions of the models used by **setjy** (both
-   extragalactic and Solar System).
+   send more information to the logger.
    
-   .. warning:: **Alert**: The apparent brightness of objects in the Solar
+   .. warning:: The apparent brightness of objects in the Solar
       System will vary with time because of the Earth’s varying
       distance to these objects, if nothing else. If the field index
       of a flux calibrator spans several days, **setjy** should be
@@ -247,9 +232,7 @@ Description
       the name. Typically concat assigns moving objects a new field
       index for each observation, so usually it is not necessary to
       select a time range in **setjy**. However, it is worth checking
-      with
-      `listobs <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_listobs>`__,
-      especially for planets.
+      with ``listobs``, especially for planets.
    
    .. rubric:: Using Calibration Models for Resolved Sources
       
@@ -265,8 +248,8 @@ Description
    If available, a model image of the resolved source at the
    observing frequency may be used to generate the appropriate
    visibilities using the *model* subparameter (currently only
-   available for *standard='Perley-Butler 2010' ,*
-   *standard='Perley-Butler 2013’,* and *standard='Perley-Butler
+   available for *standard='Perley-Butler 2010'*,
+   *standard='Perley-Butler 2013’*, and *standard='Perley-Butler
    2017'*).  To do this, the *model* subparameter must include the
    full path to the model image. If the *model* subparameter is given
    only the file name, **setjy** will first search for the model
@@ -276,53 +259,55 @@ Description
    operate on that single source.  Therefore, for different sources,
    **setjy** would need to be run multiple times (with different
    field settings). The default model images available are listed by
-   *listmodel=True * and are found in the
+   *listmodel=True* and are found in the
    .../data/nrao/VLA/CalModels sub-directory of the CASA
    installation.  Note the full path to the flux density calibrators
    may change depending on the installation directory or copies of
    these models can be placed in the current working directory.
+
+   .. note::
+
+      Currently available model images are:
+
+      3C138_P.im
+      3C138_L.im
+      3C138_S.im
+      3C138_C.im
+      3C138_X.im
+      3C138_U.im
+      3C138_K.im
+      3C138_A.im
+      3C138_Q.im
    
-   Currently available model images are:
+      3C286_P.im
+      3C286_L.im
+      3C286_S.im
+      3C286_C.im
+      3C286_X.im
+      3C286_U.im
+      3C286_K.im
+      3C286_A.im
+      3C286_Q.im
    
-   .. note:: | 3C138_P.im
-      | 3C138_L.im
-      | 3C138_S.im
-      | 3C138_C.im
-      | 3C138_X.im
-      | 3C138_U.im
-      | 3C138_K.im
-      | 3C138_A.im
-      | 3C138_Q.im
+      3C48_P.im
+      3C48_L.im
+      3C48_S.im
+      3C48_C.im
+      3C48_X.im
+      3C48_U.im
+      3C48_K.im
+      3C48_A.im
+      3C48_Q.im
    
-      | 3C286_P.im
-      | 3C286_L.im
-      | 3C286_S.im
-      | 3C286_C.im
-      | 3C286_X.im
-      | 3C286_U.im
-      | 3C286_K.im
-      | 3C286_A.im
-      | 3C286_Q.im
-   
-      | 3C48_P.im
-      | 3C48_L.im
-      | 3C48_S.im
-      | 3C48_C.im
-      | 3C48_X.im
-      | 3C48_U.im
-      | 3C48_K.im
-      | 3C48_A.im
-      | 3C48_Q.im
-   
-      | 3C147_P.im
-      | 3C147_L.im
-      | 3C147_S.im
-      | 3C147_C.im
-      | 3C147_X.im
-      | 3C147_U.im
-      | 3C147_K.im
-      | 3C147_A.im
-      | 3C147_Q.im
+      3C147_P.im
+      3C147_L.im
+      3C147_S.im
+      3C147_C.im
+      3C147_X.im
+      3C147_U.im
+      3C147_K.im
+      3C147_A.im
+      3C147_Q.im
    
       3C123_P.im
    
@@ -370,19 +355,16 @@ Description
    details on the use of standard calibrators for the VLA.
    
    
-      Bibliography
-   :sup:`1. Butler 2012,` `ALMA Memo
-   #594 <https://science.nrao.edu/facilities/alma/aboutALMA/Technology/ALMA_Memo_Series/alma594/abs594>`__ `<#ref-cit1>`__
+   .. rubric:: Bibliography
+
+   :sup:`1. Butler 2012,` `ALMA Memo #594 <https://science.nrao.edu/facilities/alma/aboutALMA/Technology/ALMA_Memo_Series/alma594/abs594>`__ `<#ref-cit1>`_
    
 
 .. _Examples:
 
 Examples
-   task examples
-   
-   .. rubric:: Set flux density explictly
-      
-   
+   Set flux density explictly
+
    With standard='manual' (and *selectdata=True*), the parameters
    look like this. fluxdensity takes a list of flux densities, [I, Q,
    U, V] at *reffreq*. The same reffreq will be used as a reference
@@ -392,43 +374,27 @@ Examples
    
       #  setjy :: Fills the model column with the visibilities of a
       calibrator
-      vis                 =         ''        #  Name of input
-      visibility file
+      vis                 =         ''        #  Name of input visibility file
       field               =         ''        #  Field name(s)
-      spw                 =         ''        #  Spectral window
-      identifier (list)
-      selectdata          =       True        #  Other data selection
-      parameters
-           timerange      =         ''        #  Time range to
-      operate on (for usescratch=T)
-           scan           =         ''        #  Scan number range
-      (for usescaratch=T)
+      spw                 =         ''        #  Spectral window identifier (list)
+      selectdata          =       True        #  Other data selection parameters
+           timerange      =         ''        #  Time range to operate on (for usescratch=T)
+           scan           =         ''        #  Scan number range (for usescaratch=T)
            intent         =         ''        #  Observation intent
-           observation    =         ''        #  Observation ID range
-      (for usescratch=T)
-      scalebychan         =       True        #  scale the flux
-      density on a per channel basis or else on
+           observation    =         ''        #  Observation ID range (for usescratch=T)
+      scalebychan         =       True        #  scale the flux density on a per channel basis or else on
                                               #   a per spw basis
       standard            =   'manual'        #  Flux density
       standard
-           fluxdensity    =         -1        #  Specified flux
-      density [I,Q,U,V]; (-1 will lookup values)
-           spix           =        0.0        #  Spectral index
-      (including higher terms) of I fluxdensity
-           reffreq        =     '1GHz'        #  Reference frequency
-      for spix
-           polindex       =         []        #  Coefficients of an
-      expansion of frequency-dependent
-                                              #   linear polarization
-      fraction expression
-           polangle       =         []        #  Coefficients of an
-      expansion of frequency-dependent
-                                              #   polarization angle
-      expression
-           rotmeas        =        0.0        #  Rotation measure (in
-      rad/m^2)
-      usescratch          =      False        #  Will create if
-      necessary and use the MODEL_DATA
+           fluxdensity    =         -1        #  Specified flux density [I,Q,U,V]; (-1 will lookup values)
+           spix           =        0.0        #  Spectral index (including higher terms) of I fluxdensity
+           reffreq        =     '1GHz'        #  Reference frequency for spix
+           polindex       =         []        #  Coefficients of an expansion of frequency-dependent
+                                              #   linear polarization fraction expression
+           polangle       =         []        #  Coefficients of an expansion of frequency-dependent
+                                              #   polarization angle expression
+           rotmeas        =        0.0        #  Rotation measure (in rad/m^2)
+      usescratch          =      False        #  Will create if necessary and use the MODEL_DATA
    
    In the simplest form, setting a constant Stokes I flux density for
    a calibrator ( field='0') for all spw can be done as
@@ -449,42 +415,27 @@ Examples
       polangle=[-1.7233,1.569,-2.282,1.49], rotmeas=-68.0)
    
    .. rubric:: Use one of the predefined standards
-      
-   
-    Current default for *standard* is 'Perley-Butler 2017' and the
+
+   Current default for *standard* is 'Perley-Butler 2017' and the
    parameters look like this (with *selectdata=True*):
    
    ::
    
-      | #  setjy :: Fills the model column with the visibilities of a
-        calibrator
-      | vis                 =         ''        #  Name of input
-        visibility file
-      | field               =         ''        #  Field name(s)
-      | spw                 =         ''        #  Spectral window
-        identifier (list)
-      | selectdata          =       True        #  Other data
-        selection parameters
-      |      timerange      =         ''        #  Time range to
-        operate on (for usescratch=T)
-      |      scan           =         ''        #  Scan number range
-        (for usescaratch=T)
-      |      intent         =         ''        #  Observation intent
-      |      observation    =         ''        #  Observation ID
-        range (for usescratch=T)
-      | scalebychan         =       True        #  scale the flux
-        density on a per channel basis or else on a per spw basis
-      | standard            = 'Perley-Butler 2017' #  Flux density
-        standard
-      |      model          =         ''        #  File location for
-        field model
-      |      listmodels     =      False        #  List the available
-        modimages for VLA calibrators or Tb models for Solar System
-        objects
-      |      interpolation  =  'nearest'        #  method to be used
-        to interpolate in time
-      | usescratch          =      False        #  Will create if
-        necessary and use the MODEL_DATA
+      #  setjy :: Fills the model column with the visibilities of a calibrator
+      vis                 =         ''        #  Name of input visibility file
+      field               =         ''        #  Field name(s)
+      spw                 =         ''        #  Spectral window identifier (list)
+      selectdata          =       True        #  Other data selection parameters
+           timerange      =         ''        #  Time range to operate on (for usescratch=T)
+           scan           =         ''        #  Scan number range (for usescaratch=T)
+           intent         =         ''        #  Observation intent
+           observation    =         ''        #  Observation ID range (for usescratch=T)
+      scalebychan         =       True        #  scale the flux density on a per channel basis or else on a per spw basis
+      standard            = 'Perley-Butler 2017' #  Flux density standard
+           model          =         ''        #  File location for field model
+           listmodels     =      False        #  List the available modimages for VLA calibrators or Tb models for Solar System objects
+           interpolation  =  'nearest'        #  method to be used to interpolate in time
+      usescratch          =      False        #  Will create if necessary and use the MODEL_DATA
    
    In the most simplest case, using the default stanadard, if
    *field='0'* is one of the known sources as listed in Flux
@@ -510,18 +461,16 @@ Examples
    Note that if there is no 3C48_X.im in the current directory, setjy
    looks for it in the default model data image directory.
    
-    An example for a Solar System object as a flux calibrator using
-   using data from `the M99
-   tutorial <http://casaguides.nrao.edu/index.php?title=CARMA_spectral_line_mosaic_M99>`__
+   An example for a Solar System object as a flux calibrator using
+   using data from `the M99 tutorial <http://casaguides.nrao.edu/index.php?title=CARMA_spectral_line_mosaic_M99>`_
    in CASA Guides:
    
    ::
    
-      setjy(vis=’c0104I’, field=’MARS’, spw=’0~2’,
-      standard=’Butler-JPL-Horizons 2012’)
+      setjy(vis=’c0104I’, field=’MARS’, spw=’0~2’, standard=’Butler-JPL-Horizons 2012’)
    
    To list supported models for the relevant standard, set
-   l *istmodels=True* and select standard (no need to set *vis*):
+   *istmodels=True* and select standard (no need to set *vis*):
    
    ::
    
@@ -532,17 +481,17 @@ Examples
    
    ::
    
-      | No candidate modimages matching '*.im\* \*.mod*' found in .
-      | Candidate modimages (*) in
-        /users/ttsutsum/casabuilds/data/nrao/VLA/CalModels:
-      | 3C138_A.im 3C138_L.im 3C138_U.im 3C147_C.im 3C147_Q.im
-        3C147_X.im 3C286_K.im 3C286_S.im 3C48_A.im  3C48_L.im 
-        3C48_U.im
-      | 3C138_C.im 3C138_Q.im 3C138_X.im 3C147_K.im 3C147_S.im
-        3C286_A.im 3C286_L.im 3C286_U.im 3C48_C.im  3C48_Q.im 
-        3C48_X.im
-      | 3C138_K.im 3C138_S.im 3C147_A.im 3C147_L.im 3C147_U.im
-        3C286_C.im 3C286_Q.im 3C286_X.im 3C48_K.im  3C48_S.im  README
+      No candidate modimages matching '*.im\* \*.mod*' found in .
+      Candidate modimages (*) in
+      /users/ttsutsum/casabuilds/data/nrao/VLA/CalModels:
+      3C138_A.im 3C138_L.im 3C138_U.im 3C147_C.im 3C147_Q.im
+      3C147_X.im 3C286_K.im 3C286_S.im 3C48_A.im  3C48_L.im
+      3C48_U.im
+      3C138_C.im 3C138_Q.im 3C138_X.im 3C147_K.im 3C147_S.im
+      3C286_A.im 3C286_L.im 3C286_U.im 3C48_C.im  3C48_Q.im
+      3C48_X.im
+      3C138_K.im 3C138_S.im 3C147_A.im 3C147_L.im 3C147_U.im
+      3C286_C.im 3C286_Q.im 3C286_X.im 3C48_K.im  3C48_S.im  README
    
    Similarly, for Solar System objects (e.g.
    *standard='Butler-JPL-Horizons 2012'*), Tb models and new time
@@ -556,28 +505,24 @@ Examples
    
    ::
    
-      | Tb models of solar system objects available for
-        Butler-JPL-Horizons 2012 (*Tb*.dat) in
-        /users/ttsutsum/casabuilds/data/alma/SolarSystemModels:
-      | Callisto_Tb.dat  Europa_Tb.dat    Io_Tb.dat       
-        Jupiter_Tb.dat   Mars_Tb_time.dat Pallas_Tb.dat   
-        Uranus_Tb.dat    Vesta_Tb.dat
-      | Ceres_Tb.dat     Ganymede_Tb.dat  Juno_Tb.dat     
-        Mars_Tb.dat      Neptune_Tb.dat   Titan_Tb.dat    
-        Venus_Tb.dat
-      | Time variable models of asteroids available for
-        Butler-JPL-Horizons 2012 [only applicable for the observation
-        date 2015.01.01 0UT and beyond] (*fd_time.dat) in
-        /users/ttsutsum/casabuilds/data/alma/SolarSystemModels:
-      | Ceres_fd_time.dat   Lutetia_fd_time.dat Pallas_fd_time.dat 
-        Vesta_fd_time.dat
+      Tb models of solar system objects available for
+      Butler-JPL-Horizons 2012 (*Tb*.dat) in
+      /users/ttsutsum/casabuilds/data/alma/SolarSystemModels:
+      Callisto_Tb.dat  Europa_Tb.dat    Io_Tb.dat
+      Jupiter_Tb.dat   Mars_Tb_time.dat Pallas_Tb.dat
+      Uranus_Tb.dat    Vesta_Tb.dat
+      Ceres_Tb.dat     Ganymede_Tb.dat  Juno_Tb.dat
+      Mars_Tb.dat      Neptune_Tb.dat   Titan_Tb.dat
+      Venus_Tb.dat
+      Time variable models of asteroids available for
+      Butler-JPL-Horizons 2012 [only applicable for the observation
+      date 2015.01.01 0UT and beyond] (*fd_time.dat) in
+      /users/ttsutsum/casabuilds/data/alma/SolarSystemModels:
+      Ceres_fd_time.dat   Lutetia_fd_time.dat Pallas_fd_time.dat
+      Vesta_fd_time.dat
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   None

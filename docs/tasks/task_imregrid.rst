@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   regrid an image onto a template image
-   
    This task will regrid an input image onto a new coordinate system
    from a template image or to a new directional and spectral
    reference frame. If a template image is used, then the input and
@@ -12,12 +10,14 @@ Description
    **imregrid** task currently finds the nearest input pixel center
    and interpolates to the output pixel center.
    
-   .. warning:: **Alert:** No averaging is done in any direction!
-   
-   .. warning:: **Alert:** PV images are not supported. Please first regrid as
+   .. warning:: No averaging is done in any direction!
+
+
+   .. warning:: PV images are not supported. Please first regrid as
       desired the image from which the PV image was generated, and
       then create the PV image from that regridded image.
-   
+
+
    The new coordinate system is defined by the *template* parameter,
    which can be:
    
@@ -98,13 +98,9 @@ Description
    spectral axis, an exception is thrown. One should consider
    convolving all planes to the same resolution in such cases and
    then regridding.
-   
-    
-   
-   .. rubric:: Rules Used for Generating Output Images in Specific
-      Cases
-      
-   
+
+   .. rubric:: Rules Used for Generating Output Images in Specific Cases
+
    There are numerous rules governing the shape and coordinate system
    of the output image depending on the input image, template image,
    and wheher default values of the axes and shape parameters are
@@ -114,35 +110,33 @@ Description
       will get, it is highly recommended you specify both axes and
       shape to avoid any ambiguity.
    
-    
-   
+
    .. rubric:: *1. Rules governing Stokes axes*
-      
-   
-       1.1. If the input image has no stokes axis, then the output
+
+   1.1. If the input image has no stokes axis, then the output
    image will have no stokes axis.
    
-       1.2. If the input image has a stokes axis, but the template
+   1.2. If the input image has a stokes axis, but the template
    image/coordinate system does not, and if the default value of the
    *shape* parameter is used or if *shape* is specified and the
    specified value for the length stokes axis in equal to the length
    of the input image stokes axis, then all stokes in the input image
    will be present in the output image.
    
-       1.3. If the input image has a stokes axis, but the template
+   1.3. If the input image has a stokes axis, but the template
    image/coordinate system does not, and if the value of the *shape*
    parameter is specified but the length of the resulting stokes axis
    is not equal to the length of the input image's stokes axis, a
    failure will occur.
    
-       1.4. If the input image has a stokes axis, if the *template*
+   1.4. If the input image has a stokes axis, if the *template*
    parameter is an image name, and if the template image has a
    degenerate stokes axis, if the *axes* parameter is not specified
    or is specified but does not contain the input stokes axis number,
    and if the *shape* parameter is not specified, then all stokes
    planes in the input image will be present in the output image.
    
-       1.5. If the input image has a stokes axis, if the *template*
+   1.5. If the input image has a stokes axis, if the *template*
    parameter is an image name, and if the template image has a
    degenerate stokes axis, if the *axes* parameter is not specified
    or is specified but does not contain the input stokes axis number,
@@ -150,14 +144,14 @@ Description
    of the stokes axis is not equal to the length of the input stokes
    axis, then a failure will occur.
    
-       1.6. If the input image has a stokes axis, if the *template*
+   1.6. If the input image has a stokes axis, if the *template*
    parameter is an image name, if the template image has a degenerate
    stokes axis, if the *axes* parameter is specified contains the
    input stokes axis number, then use the applicable rule of rules
    1.7. and 1.8. for the template image having a nondegenerate stokes
    axis.
    
-       1.7. If the input image has a stokes axis, if the *template*
+   1.7. If the input image has a stokes axis, if the *template*
    parameter is an image name, if the template image has a
    nondegenerate stokes axis, and if *axes * parameter is not
    specified or if it is, it contains the input stokes axis number,
@@ -169,7 +163,7 @@ Description
    common stokes parameters in the input image and the template
    image, then failure will result.
    
-       1.8. If the input image has a stokes axis, if the *template*
+   1.8. If the input image has a stokes axis, if the *template*
    parameter is an image name, if the template image has a
    nondegenerate stokes axis, and if *axes* parameter is specified
    but does not contain the input image stokes axis number, then all
@@ -178,19 +172,17 @@ Description
    of the specified stokes axis does not equal the length of the
    input stokes axis, then failure will result.
    
-    
-   
+
    .. rubric:: *2. Rules governing spectral axes*
-      
-   
+
    In all cases, if the shape *parameter* is specified, the spectral
    axis length must be consistent with what one would normally expect
    in the special cases, or a failure will result.
    
-       2.1. If the input image does not have a spectral axis, then
+   2.1. If the input image does not have a spectral axis, then
    the output image will not have a spectral axis.
    
-       2.2. If the input image has a degenerate spectral axis, if the
+   2.2. If the input image has a degenerate spectral axis, if the
    *template* parameter is an image name, and if the template image
    has a spectral axis, if the *axes* parameter is not specified or
    if it is and does not contain the input image spectral axis
@@ -198,7 +190,7 @@ Description
    to the output image and the output image will have a degenerate
    spectral axis.
    
-      2.3. If the input image has a degenerate spectral axis, if the
+   2.3. If the input image has a degenerate spectral axis, if the
    *template* parameter is an image name, and if the template image
    has a spectral axis, if the *axes* parameter is specified and it
    contains the input image spectral axis number, then the spectral
@@ -212,7 +204,7 @@ Description
    replicated n times, where n is the number of channels in the
    output image.
    
-       2.4. If the input image has a spectral axis, if the *template*
+   2.4. If the input image has a spectral axis, if the *template*
    parameter is an image name, and if the template image does not
    have a spectral axis, if the *axes* parameter is not specified or
    if it is and does not contain the input image spectral axis
@@ -220,13 +212,13 @@ Description
    to the output image and the output image will have the same number
    of channels as the input image.
    
-       2.5. If the input image has a spectral axis, if the *template*
+   2.5. If the input image has a spectral axis, if the *template*
    parameter is an image name, if the template image does not have a
    spectral axis, if the *axes* parameter is specified and it
    contains the input image spectral axis number, then failure will
    result.
    
-       2.6. If the input image has a spectral axis, if the *template*
+   2.6. If the input image has a spectral axis, if the *template*
    parameter is an image name, if the template image has a degenerate
    spectral axis, and if the *axes* parameter is unspecified or if it
    is but does not contain the spectral axis number of the input
@@ -234,18 +226,16 @@ Description
    output image and the output image will have the same number of
    channels as the input image.
    
-       2.7. If the input image has a spectral axis, if the *template*
+   2.7. If the input image has a spectral axis, if the *template*
    parameter is an image name, if the template image has a
    nondegenerate spectral axis, and if the *axes* parameter is
    unspecified or if it is and contains the spectral axis number of
    the input image, regrid the spectral axis of the input to match
    the spectral axis of the template.
-   
-    
-   
+
+
    .. rubric:: Important Note About Flux Conservation
-      
-   
+
    In general, regridding is inaccurate for images in which the
    angular resolution is poorly sampled.
    
@@ -285,8 +275,7 @@ Description
    done if there is no beam present. To add a restoring beam to an
    image, use **ia.setrestoringbeam**.
    
-    
-   
+
    .. rubric:: Task-specific Parameter Summary
       
    
@@ -305,19 +294,16 @@ Description
    same as input image shape along the axes which  are not regridded.
    
    .. rubric:: *asvelocity*
-      
-   
+
    Regrid spectral axis in velocity space rather than frequency
    space?
    
    .. rubric:: *axes*
-      
-   
+
    The pixel axes to regrid. -1 => all.
    
    .. rubric:: *interpolation*
-      
-   
+
    The interpolation method. One of "nearest", "linear", "cubic".
    
    .. rubric:: *decimate*
@@ -331,29 +317,23 @@ Description
    accuracy.
    
    .. rubric:: *replicate*
-      
-   
+
    Replicate image rather than regrid?
    
 
 .. _Examples:
 
 Examples
-   task examples
-   
-   .. rubric:: Basic Examples
+   Basic Examples
       
    
    ::
    
-      | # Regrid an image to the "B1950" or "GALACTIC" coordinate
-        systems
-      |  imregrid(imagename="input.image", output="output.image",
-        template="B1950")
-      |  imregrid(imagename="input.image", output="output.image",
-        template="GALACTIC")
+      # Regrid an image to the "B1950" or "GALACTIC" coordinate systems
+      imregrid(imagename="input.image", output="output.image", template="B1950")
+      imregrid(imagename="input.image", output="output.image", template="GALACTIC")
    
-   .. note:: **NOTE**: When regridding to another coordinate system in the
+   .. note:: When regridding to another coordinate system in the
       manner above, if the input image's direction coordinate is
       already in the frame specified by template, a straight copy of
       the image is made. No regridding is actually done.
@@ -362,12 +342,9 @@ Examples
    
    ::
    
-      | # Obtain a template dictionary from an image and then use it
-        to regrid another image
-      | temp_dict = imregrid(imagename="target.image",
-        template="get")
-      | imregrid(imagename="input.image", output="output.image",
-        template=temp_dict)
+      # Obtain a template dictionary from an image and then use it to regrid another image
+      temp_dict = imregrid(imagename="target.image", template="get")
+      imregrid(imagename="input.image", output="output.image", template=temp_dict)
    
    In this example, the *template="get"* option is used in the first
    command in order to characterize the desired shape and coordinate
@@ -403,10 +380,8 @@ Examples
    
    ::
    
-      | # Regrid input.image by directly using target.image as a
-        template
-      | imregrid(imagename="input.image", output="output.image",
-        template="target.image", shape=[500,500,40,1])
+      # Regrid input.image by directly using target.image as a template
+      imregrid(imagename="input.image", output="output.image", template="target.image", shape=[500,500,40,1])
    
    In this example, it is assumed that the axis order of the input
    image is of the form (direction_x, direction_y, spectral, Stokes),
@@ -421,9 +396,8 @@ Examples
    
    ::
    
-      | # Regrid only the first two axes of an image
-      | imregrid(imagename="input.image", output="output.image",
-        template="target.image", axes=[0,1])
+      # Regrid only the first two axes of an image
+      imregrid(imagename="input.image", output="output.image", template="target.image", axes=[0,1])
    
    In this example, the user should inspect the type and ordering of
    the axes with **imhead**, and then correct with **imtrans** if
@@ -436,10 +410,8 @@ Examples
    
    ::
    
-      | # Regrid the third axis, considering velocity rather than
-        frequency units
-      | imregrid(imagename="input.image", output="output.image",
-        template="target.image", axes=[2], asvelocity=True)
+      # Regrid the third axis, considering velocity rather than frequency units
+      imregrid(imagename="input.image", output="output.image", template="target.image", axes=[2], asvelocity=True)
    
    This example regrids the spectral axis (zero-based axis number 2)
    with respect to velocity because the *asvelocity* parameter has
@@ -449,12 +421,9 @@ Examples
    
    ::
    
-      | # Regrid the third axis, considering velocity rather than
-        frequency units but first set the rest frequency
-      | imhead("input.image", mode="put", hdkey="restfreq",
-        hdvalue="110GHz")
-      | imregrid(imagename="input.image", output="output.image",
-        template="target.image", axes=[2], asvelocity=True)
+      # Regrid the third axis, considering velocity rather than frequency units but first set the rest frequency
+      imhead("input.image", mode="put", hdkey="restfreq", hdvalue="110GHz")
+      imregrid(imagename="input.image", output="output.image", template="target.image", axes=[2], asvelocity=True)
    
    The first command in this example uses the **imhead** task to set
    the value of the image rest frequency to a value of 110GHz in
@@ -467,8 +436,4 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   None

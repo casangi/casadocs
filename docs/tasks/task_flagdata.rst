@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
    This task can flag a MeasurementSet or a calibration table. It has
    two main types of operation. One type will read the parameters
    from the interface and flag using any of the various available
@@ -28,16 +26,18 @@ Description
    new flags if the parameter *flagbackup* is set. Previous flag
    versions can be recovered using the **flagmanager** task.
    
-   .. note:: | **NOTE** on flagging calibration tables:
-      |         
-      | **flagdata** can flag many types of calibration tables using
-        *mode='manual'*. It can only flag using the auto-flagging
-        algorithms ('clip', 'tfcrop', or 'rflag'), the cal tables
-        that have the following data columns: CPARAM, FPARAM or SNR.
-        The solution elements of the data columns are given in the
-        *correlation* parameter using the names 'Sol1', 'Sol2',
-        'Sol3', or 'Sol4'. See examples at the end of this help on
-        how to flag different cal tables.
+   .. note::
+
+      on flagging calibration tables:
+
+      **flagdata** can flag many types of calibration tables using
+      *mode='manual'*. It can only flag using the auto-flagging
+      algorithms ('clip', 'tfcrop', or 'rflag'), the cal tables
+      that have the following data columns: CPARAM, FPARAM or SNR.
+      The solution elements of the data columns are given in the
+      *correlation* parameter using the names 'Sol1', 'Sol2',
+      'Sol3', or 'Sol4'. See examples at the end of this help on
+      how to flag different cal tables.
    
       When the input is a calibration table, the modes 'elevation'
       and 'shadow' will be disabled. Data selection for calibration
@@ -130,7 +130,7 @@ Description
    0-10,15-60; *spw='0:0~10,1:20~30,2:1;2;3'*; spw 0, channels 0-10,
    spw 1, channels 20-30, and spw 2, channels, 1,2 and 3.
    
-   .. note:: **NOTE** : For modes 'clip', 'tfcrop', and 'rflag',
+   .. note:: For modes 'clip', 'tfcrop', and 'rflag',
       channel-ranges can be excluded from flagging by leaving them
       out of the selection range. This is a way to protect known
       spectral-lines from being flagged by the autoflag algorithms.
@@ -149,7 +149,7 @@ Description
    antenna DV04 and all other available antennas; *antenna='0~2&&&'*
    only the auto-correlation baselines for antennas in range 0~2   
    
-   .. note:: **NOTE**: For some antenna-based calibration tables, selecting
+   .. note:: For some antenna-based calibration tables, selecting
       baselines with the & syntax do not apply.
    
    .. rubric:: *timerange*
@@ -158,7 +158,7 @@ Description
    Select data based on time range. Default: '' (all). Examples:
    *timerange = 'YYYY/MM/DD/hh:mm:ss~YYYY/MM/DD/hh:mm:ss'*;
    
-   .. note:: **NOTE**: if YYYY/MM/DD is missing date defaults to first day
+   .. note:: if YYYY/MM/DD is missing date defaults to first day
       in data set.
    
    *timerange='09:14:0~09:54:0'* picks 40 min on first day;
@@ -180,7 +180,7 @@ Description
    Sol3, Sol4. Correlation selection is not supported for modes other
    than 'clip', 'tfcrop', or 'rflag' in cal tables.
    
-   .. note:: **NOTE**: The operators ABS, ARG, REAL, etc. are written only
+   .. note:: The operators ABS, ARG, REAL, etc. are written only
       once as the first value. If more than one correlation is given,
       the operator will be applied to all of them. The expression is
       used only in modes 'clip', 'tfcrop', and 'rflag'.
@@ -259,7 +259,7 @@ Description
    union of the data selection parameters present in the list and
    select only that portion of the MS.
    
-   .. note:: **NOTE1**: The flag commands will be applied only when
+   .. note:: The flag commands will be applied only when
       *action='apply'*. If *action='calculate'* the flags will be
       calculated, but not applied. This is useful if *display* is set
       to something other than 'none'. If *action=''* or *'none'*, the
@@ -289,7 +289,7 @@ Description
       the commands in the list and considers only existing Python
       types.
    
-   .. note:: **NOTE**: There should be no whitespace between KEY=VALUE since
+   .. note:: There should be no whitespace between KEY=VALUE since
       the parser first breaks command lines on whitespace, then on
       "=". Use only one whitespace to separate the parameters (no
       commas). Scroll down to the bottom to see a detailed
@@ -321,12 +321,11 @@ Description
    
    ::
    
-      | cmd=["scan='1~3' mode='manual'",
-      |      "mode='clip' clipminmax=[0,2] correlation='ABS_XX'
-        clipoutside=False",
-      |      "spw='9' mode='tfcrop' correlation='ABS_YY' ntime=51.0",
-      |      "mode='extend' extendpols=True"]
-      | flagdata(vis,mode='list',inpfile=cmd)
+      cmd=["scan='1~3' mode='manual'",
+           "mode='clip' clipminmax=[0,2] correlation='ABS_XX' clipoutside=False",
+           "spw='9' mode='tfcrop' correlation='ABS_YY' ntime=51.0",
+           "mode='extend' extendpols=True"]
+      flagdata(vis,mode='list',inpfile=cmd)
    
    .. rubric:: *reason*
       
@@ -369,7 +368,7 @@ Description
    .. warning:: **IMPORTANT**: This parameter assumes that timerange = t0 ~ t1,
       therefore it will not work if only t0 or t1 is given.
    
-   .. note:: **NOTE**: The most common use-case for tbuff is to apply the
+   .. note:: The most common use-case for tbuff is to apply the
       online flags that are created by importasdm when savecmds=True.
       The value of a regular time buffer should be
       *tbuff=0.5*max* (integration time).
@@ -416,12 +415,16 @@ Description
    'WEIGHT_SPECTRUM', 'WEIGHT', 'FLOAT_DATA'. Cal table columns:
    'FPARAM', 'CPARAM', 'SNR', 'WEIGHT'.                            
    
-   .. note:: | **NOTE1**: RESIDUAL = CORRECTED - MODEL
-      |              RESIDUAL_DATA = DATA - MODEL
-      | **NOTE2**: When *datacolumn* is WEIGHT, the task will
-        internally use WEIGHT_SPECTRUM. If WEIGHT_SPECTRUM does not
-        exist, it will create one on-the-fly based on the values of
-        WEIGHT.
+   .. note::
+
+      RESIDUAL = CORRECTED - MODEL
+
+      RESIDUAL_DATA = DATA - MODEL
+
+      When *datacolumn* is WEIGHT, the task will
+      internally use WEIGHT_SPECTRUM. If WEIGHT_SPECTRUM does not
+      exist, it will create one on-the-fly based on the values of
+      WEIGHT.
    
    .. rubric:: *channelavg*
       
@@ -434,14 +437,17 @@ Description
    SIGMA_SPECTRUM for DATA). Default: False. Options:
    True/False                   
    
-   .. note:: | NOTE1: Pre-average across channels is meant to be used with
-        the auto-flagging methods (clip, tfcrop, rflag) only. In list
-        mode, if channelavg is enabled and any other method than
-        clip, tfcrop, rflag is used, that is forbidden and flagdata
-        will produce an error message and stop. The same applies to
-        timeavg.
-      | **NOTE2**: Pre-average across channels is not supported for
-        calibration tables.
+   .. note::
+
+      **NOTE1:** Pre-average across channels is meant to be used with
+      the auto-flagging methods (clip, tfcrop, rflag) only. In list
+      mode, if channelavg is enabled and any other method than
+      clip, tfcrop, rflag is used, that is forbidden and flagdata
+      will produce an error message and stop. The same applies to
+      timeavg.
+
+      **NOTE2**: Pre-average across channels is not supported for
+      calibration tables.
    
    .. rubric:: *chanbin*
       
@@ -465,14 +471,17 @@ Description
    average together data from different integrations. Default: False.
    Options: True/False 
    
-   .. note:: | NOTE1: Pre-average across time is meant to be used with the
-        auto-flagging methods (clip, tfcrop, rflag) only. In list
-        mode, if timeavg is enabled and any other method than clip,
-        tfcrop, rflag is used, that is forbidden and flagdata will
-        produce an error message and stop. The same applies to
-        channelavg.
-      | **NOTE2**: Pre-average across time is not supported for
-        calibration tables 
+   .. note::
+
+      **NOTE1:** Pre-average across time is meant to be used with the
+      auto-flagging methods (clip, tfcrop, rflag) only. In list
+      mode, if timeavg is enabled and any other method than clip,
+      tfcrop, rflag is used, that is forbidden and flagdata will
+      produce an error message and stop. The same applies to
+      channelavg.
+
+      **NOTE2**: Pre-average across time is not supported for
+      calibration tables
    
    .. rubric:: *timebin*
       
@@ -545,9 +554,8 @@ Description
       flagging, and unless it is the first item in the list the agent
       doing the quacking in list mode doesn't know about the state of
       prior flags. In this case, the command with quackincrement=True
-       will be ignored and the task will issue a WARNING.
-   
-    
+      will be ignored and the task will issue a WARNING.
+
    
    .. rubric:: *mode='shadow'* expandable parameters
       
@@ -584,8 +592,8 @@ Description
    
    ::
    
-      | import flaghelper as fh
-      | antdic = fh.readAntennaList(antfile)
+      import flaghelper as fh
+      antdic = fh.readAntennaList(antfile)
    
    Where antfile is a text file in disk that contains information
    such as:
@@ -623,8 +631,7 @@ Description
    
     
    
-   .. rubric:: *mode='tfcrop', 'rflag',* or *'extend'* expandable
-      parameters
+   .. rubric:: *mode='tfcrop', 'rflag',* or *'extend'* expandable parameters
       
    
    .. rubric:: *ntime*
@@ -700,7 +707,7 @@ Description
    *timerange* (defined by *ntime*). A 'poly' fit is a robust
    piece-wise polynomial fit across the *timerange*. 
    
-   .. note:: **NOTE**: A robust fit is computed in upto 5 iterations. At
+   .. note:: A robust fit is computed in upto 5 iterations. At
       each iteration, the stddev between the data and the fit is
       computed, values beyond N-stddev are flagged, and the fit and
       stddev are re-calculated with the remaining points. This stddev
@@ -754,13 +761,13 @@ Description
    Use sliding-window statistics to find additional flags. Default:
    'none'. Options: 'none', 'sum', 'std', 'both'
    
-   .. warning:: **WARNING**: This parameter is experimental!
+   .. warning:: This parameter is experimental!
    
    The 'sum' option chooses to flag a point, if the mean-value in a
    window centered on that point deviates from the fit by more than
    N-stddev :math:`/ 2.0`.
    
-   .. note:: **NOTE**: stddev is calculated between the data and fit as
+   .. note:: stddev is calculated between the data and fit as
       explained in Step (2). This option is an attempt to catch
       broad-band or time-persistent RFI  that the above polynomial
       fits will mistakenly fit as the clean band. It is an
@@ -780,7 +787,7 @@ Description
    Half width of sliding window to use with *usewindowstats*.
    Default: 1 (a 3-point window size). Options: 1,2,3
    
-   .. warning:: **WARNING**: This is experimental!
+   .. warning:: This is experimental!
    
     
    
@@ -792,7 +799,7 @@ Description
    
    Extend flags along time, frequency and correlation. Default: True
    
-   .. note:: **NOTE**: It is usually helpful to extend the flags along time,
+   .. note:: It is usually helpful to extend the flags along time,
       frequency, and correlation using this parameter, which will run
       the 'extend' mode after 'tfcrop' and extend the flags if more
       than 50% of the timeranges are already flagged, and if more
@@ -891,33 +898,37 @@ Description
    parameters freqdevscale and timedevscale can be used to re-scale
    the thresholds calculated in the first pass.
    
-   .. note:: | **NOTE1**: The RFlag algorithm was originally developed by
-        Eric Greisen in AIPS `[1] <#cit1>`__ .
-      | **NOTE2**: Since this algorithm operates with two passes
-        through each chunk of data (time and freq axes), some data
-        points get flagged twice. This can affect the flag-percentage
-        estimate printed in the logger at runtime. An accurate
-        estimate can be obtained via the 'summary' mode.
-      | **NOTE3**: RFlag calculates statistics across all selected
-        correlations. Therefore, if there is a significant amplitude
-        difference between parallel-hand and cross-hand correlations,
-        or between different solutions in a gain table, it is
-        advisable to pre-select subsets of correlations (or sols) on
-        which to run one instance of RFlag. For example,
-        *correlation='RR,LL'* or *correlation='ABS sol1,sol2'.*
+   .. note::
+
+      **NOTE1**: The RFlag algorithm was originally developed by
+      Eric Greisen in AIPS `[1] <#cit1>`__ .
+
+      **NOTE2**: Since this algorithm operates with two passes
+      through each chunk of data (time and freq axes), some data
+      points get flagged twice. This can affect the flag-percentage
+      estimate printed in the logger at runtime. An accurate
+      estimate can be obtained via the 'summary' mode.
+
+      **NOTE3**: RFlag calculates statistics across all selected
+      correlations. Therefore, if there is a significant amplitude
+      difference between parallel-hand and cross-hand correlations,
+      or between different solutions in a gain table, it is
+      advisable to pre-select subsets of correlations (or sols) on
+      which to run one instance of RFlag. For example,
+      *correlation='RR,LL'* or *correlation='ABS sol1,sol2'.*
    
-   .. note:: | **NOTE: dictionaries returned by action='calculate'.**
-      | Rflag with action='calculate' (the first pass of the
-        two-passes usage) can return a dictionary. The dictionary
-        holds the freqdev and timedev thresholds calculated in that
-        first pass. For example:
+   .. note:: Dictionaries returned by action='calculate'.
+      Rflag with action='calculate' (the first pass of the
+      two-passes usage) can return a dictionary. The dictionary
+      holds the freqdev and timedev thresholds calculated in that
+      first pass. For example:
    
       thresholds = flagdata(vis='my.ms', mode='rflag',
       action='calculate')
    
       print(thresholds)
    
-         {'type': 'list', 'report0': {'type': 'rflag', 'freqdev':
+      {'type': 'list', 'report0': {'type': 'rflag', 'freqdev':
       array([[  1.0e+00,   0.0e+00,   3.13e-02], ... , 'name':
       'Rflag', 'timedev': array([[  1.0e+00,   0.0e+00,   6.8e-03],
       ... ])}, 'nreport': 1}
@@ -1004,7 +1015,7 @@ Description
    according to the settings of *extendpols*, *growtime*, *growfreq*,
    *growaround*, *flagneartime*, and *flagnearfreq*.
    
-   .. note:: **NOTE** : Runtime summary counts in the logger can sometimes
+   .. note:: Runtime summary counts in the logger can sometimes
       report larger flag percentages than what is actually flagged.
       This is because extensions onto already-flagged data-points are
       counted as new flags. An accurate flag count can be obtained
@@ -1063,22 +1074,21 @@ Description
    .. rubric:: mode='antint' expandable parameters
       
    
-   | This mode flag all integrations in which a specified antenna is
-     flagged. This mode operates for an spectral window. It flags any
-     integration in which all baselines to a specified antenna are
-     flagged, but only if this condition is satisfied in a fraction
-     of channels within the spectral window of interest greater than
-     a nominated fraction. For simplicity, it assumes that all
-     polarization products must be unflagged for a baseline to be
-     deemed unflagged. The antint mode implements the flagging
-     approach introduced in 'antintflag'
-     (https://doi.org/10.5281/zenodo.163546)                                                                              
-      
-   |                                                                                                                                        
-   | The motivating application for introducing this mode is removal
-     of data that will otherwise lead to changes in reference antenna
-     during gain calibration, which will in turn lead to corrupted
-     polarization calibration.
+   This mode flag all integrations in which a specified antenna is
+   flagged. This mode operates for an spectral window. It flags any
+   integration in which all baselines to a specified antenna are
+   flagged, but only if this condition is satisfied in a fraction
+   of channels within the spectral window of interest greater than
+   a nominated fraction. For simplicity, it assumes that all
+   polarization products must be unflagged for a baseline to be
+   deemed unflagged. The antint mode implements the flagging
+   approach introduced in 'antintflag'
+   (https://doi.org/10.5281/zenodo.163546)
+
+   The motivating application for introducing this mode is removal
+   of data that will otherwise lead to changes in reference antenna
+   during gain calibration, which will in turn lead to corrupted
+   polarization calibration.
    
    .. rubric:: antint_ref_antenna
       
@@ -1104,20 +1114,15 @@ Description
    channel.
    
    .. rubric:: verbose
-      
-   
+
    Print timestamps of flagged integrations to the log.
-   
-    
-   
+
    .. rubric:: mode='unflag' expandable parameters
-      
-   
-   | Unflag according to the data selection specified.
+
+   Unflag according to the data selection specified.
    
    .. rubric:: mode='summary' expandable parameters
-      
-   
+
    List the number of rows and flagged data points for the MS's
    meta-data. The resulting summary will be returned as a Python
    dictionary.
@@ -1206,12 +1211,9 @@ Description
    command in a list, one can give different names to each one of
    them so that they can be easily pulled out of the summary's
    dictionary. Default: 'Summary'
-   
-    
-   
+
    .. rubric:: *action*
-      
-   
+
    Action to perform in MS/cal table or in the input list of
    parameters. Options: 'none', 'apply', 'calculate'. Default:
    'apply'
@@ -1228,10 +1230,10 @@ Description
    .. rubric:: *display*
       
    
-   | Display data and/or end-of-MS reports at run-time. It needs to
-     read a *datacolumn* for the plotting. The default for an MS is
-     DATA, but the task will use FLOAT_DATA for a Single-dish MS.
-     Default: 'none'. Options: 'none', 'data', 'report', 'both'
+   Display data and/or end-of-MS reports at run-time. It needs to
+   read a *datacolumn* for the plotting. The default for an MS is
+   DATA, but the task will use FLOAT_DATA for a Single-dish MS.
+   Default: 'none'. Options: 'none', 'data', 'report', 'both'
    
    'none' --> It will not display anything.
    'data' --> display data and flags per-chunk at run-time, within an
@@ -1331,7 +1333,7 @@ Description
    #. Commands are strings (which may contain internal "strings")
       consisting of KEY=VALUE pairs separated by one whitespace only.
    
-   .. note:: **NOTE**: There should be no whitespace between KEY=VALUE.The
+   .. note:: There should be no whitespace between KEY=VALUE.The
       parser first breaks command lines on whitespace, then on "=".
    
    #. Use only ONE white space to separate the parameters (no
@@ -1355,7 +1357,8 @@ Description
       scan='1~3,10~12' mode='quack' quackinterval=1.0
    
    
-      Bibliography
+   .. rubric:: Bibliography
+
    :sup:`1. Greisen, Eric, Dec 31, 2011. AIPS documentation:
    Section E.5 of the AIPS cookbook (Appendix E: Special
    Considerations for EVLA data calibration and imaging in
@@ -1365,16 +1368,12 @@ Description
 .. _Examples:
 
 Examples
-   task flagdata examples
-   
+   Examples of flagging a MeasurementSet
+
    .. note:: **NOTE**: The vector mode of the **flagdata** task (pre-dating
       CASA 3.4) can be achieved with this task by using it with
-      *mode='list'* and the commands given in a list in *inpfile=[
-      ]*.
-   
-   .. rubric:: Examples of flagging a MeasurementSet
-      
-   
+      *mode='list'* and the commands given in a list in *inpfile=[]*.
+
    Flag using the 'list' *mode* and flag commands
    
    ::
@@ -1400,24 +1399,20 @@ Examples
    
    ::
    
-      | cmd = ["scan='1~3' mode='manual'",
-      |                "spw='9' mode='tfcrop' correlation='ABS_RR,LL'
-        ntime=51.0",
-      |                "mode='extend' extendpols=True"]
-      |     
-      | flagdata('my.ms', mode='list', inpfile=cmd)
+      cmd = ["scan='1~3' mode='manual'", "spw='9' mode='tfcrop' correlation='ABS_RR,LL' ntime=51.0",
+             "mode='extend' extendpols=True"]
+
+      flagdata('my.ms', mode='list', inpfile=cmd)
    
    Flag all the commands given in the file called 'flags.txt'.   
    
    ::
    
-      | cat flags.txt
-      |         scan='1~3' mode='manual'
-      |         spw='9' mode='tfcrop' correlation='ABS_RR,LL'
-        ntime=51.0
-      |         mode='extend' extendpols=True
-      |     
-      | flagdata('my.ms', mode='list', inpfile='flags.txt')
+      cat flags.txt
+      scan='1~3' mode='manual' spw='9' mode='tfcrop' correlation='ABS_RR,LL'
+      ntime=51.0 mode='extend' extendpols=True
+
+      flagdata('my.ms', mode='list', inpfile='flags.txt')
    
    Display the data and flags per-chunk and do not write flags to the
    MS.
@@ -1444,8 +1439,7 @@ Examples
    
    ::
    
-      flagdata('my.ms',mode='clip',clipminmax=[0,50],
-      correlation='ABS_WVR')
+      flagdata('my.ms',mode='clip',clipminmax=[0,50], correlation='ABS_WVR')
    
    Clip only zero-value data.
    
@@ -1470,14 +1464,12 @@ Examples
    
    ::
    
-      | This box is intended for CASA Inputs. Insert your text here.>
-        cat flags.txt
-      | scan='1~3' mode='manual' reason='MYREASON'
-      | spw='9' mode='clip' clipzeros=True reason='CLIPZEROS'
-      | mode='manual' scan='4' reason='MYREASON'
-   
-       
-   
+      This box is intended for CASA Inputs. Insert your text here.>
+      cat flags.txt
+      scan='1~3' mode='manual' reason='MYREASON'
+      spw='9' mode='clip' clipzeros=True reason='CLIPZEROS'
+      mode='manual' scan='4' reason='MYREASON'
+
       flagdata('my.ms', mode='list', inpfile='flags.txt',
       reason='MYREASON').
    
@@ -1486,7 +1478,7 @@ Examples
    ::
    
       flagcmd('my.ms', inpmode='file', inpfile='flags.txt',
-      action='apply', reason='MYREASON')
+              action='apply', reason='MYREASON')
    
    Automatic flagging using 'rflag', using auto-thresholds, and
    specifying a threshold scale-factor to use for flagging.
@@ -1503,78 +1495,71 @@ Examples
    
    ::
    
-      | flagdata('my.ms', mode='clip', channelavg=False,
-        clipminmax=[30., 60.], spw='0:0~10',
-      |                   correlation='ABS_XX,XY', action='',
-        savepars=True, cmdreason='CLIPXX_XY')
-      | #Select based on the reason.
-      | flagcmd('my.ms', action='apply', reason='CLIPXX_XY')
+      flagdata('my.ms', mode='clip', channelavg=False,
+               clipminmax=[30., 60.], spw='0:0~10',
+               correlation='ABS_XX,XY', action='',
+               savepars=True, cmdreason='CLIPXX_XY')
+      #Select based on the reason.
+      flagcmd('my.ms', action='apply', reason='CLIPXX_XY')
    
    Flag antennas that are shadowed by antennas not present in the MS.
    
    ::
    
-      | > Create a text file with information about the antennas.
-      | > cat ant.txt
-      |           name=VLA01
-      |           diameter=25.0
-      |           position=[-1601144.96146691, -5041998.01971858,
-        3554864.76811967]
-      |           name=VLA02
-      |           diameter=25.0
-      |           position=[-1601105.7664601889, -5042022.3917835914,
-        3554847.245159178]
-      |           name=VLA09
-      |           diameter=25.0
-      |           position=[-1601197.2182404203, -5041974.3604805721,
-        3554875.1995636248]
-      |           name=VLA10
-      |           diameter=25.0
-      |          
-        position=[-1601227.3367843349,-5041975.7011900628,3554859.1642644769]  
-         
-      |            
-      | flagdata('my.vis', mode='shadow', tolerance=10.0,
-        addantenna='ant.txt')
-      | The antenna information can also be given as a Python
-        dictionary. To create the
-      | dictionary using the flaghelper functions, do the following
-        inside casapy:
-      | > import flaghelper as fh
-      | > antdic = fh.readAntennaList(antfile)
-      | flagdata('my.vis', mode='shadow', tolerance=10.0,
-        addantenna=antdic)
+      > Create a text file with information about the antennas.
+      > cat ant.txt
+                name=VLA01
+                diameter=25.0
+                position=[-1601144.96146691, -5041998.01971858, 3554864.76811967]
+                name=VLA02
+                diameter=25.0
+                position=[-1601105.7664601889, -5042022.3917835914, 3554847.245159178]
+                name=VLA09
+                diameter=25.0
+                position=[-1601197.2182404203, -5041974.3604805721, 3554875.1995636248]
+                name=VLA10
+                diameter=25.0
+
+        position=[-1601227.3367843349,-5041975.7011900628,3554859.1642644769]
+
+      flagdata('my.vis', mode='shadow', tolerance=10.0, addantenna='ant.txt')
+
+   The antenna information can also be given as a Python
+   dictionary. To create the dictionary using the flaghelper functions, do the following
+   inside casapy:
+
+   ::
+
+     > import flaghelper as fh
+     > antdic = fh.readAntennaList(antfile)
+     flagdata('my.vis', mode='shadow', tolerance=10.0, addantenna=antdic)
    
    Apply the online flags that come from **importasdm**.
    
    ::
    
-      | > In importasdm, save the online flags to a file.
-      | importasdm('myasdm', 'asdm.ms', process_flags=True,
-        savecmds=True, outfile='online_flags.txt')
-      | > You can edit the online_flags.txt to add other flagging
-        commands or apply it directly.
-      | flagdata('asdm.ms', mode='list', inpfile='online_flags.txt')
-      | > The same result can be achieved using the task flagcmd.
-      | flagcmd('asdm.ms', inpmode='file',
-        inpfile='online_flags.txt', action='apply')
+      > In importasdm, save the online flags to a file.
+      importasdm('myasdm', 'asdm.ms', process_flags=True,
+                 savecmds=True, outfile='online_flags.txt')
+      > You can edit the online_flags.txt to add other flagging
+      commands or apply it directly.
+      flagdata('asdm.ms', mode='list', inpfile='online_flags.txt')
+      > The same result can be achieved using the task flagcmd.
+      flagcmd('asdm.ms', inpmode='file', inpfile='online_flags.txt', action='apply')
    
    Clip mode pre-averaging data across channels and across time.
    
    ::
    
-      | flagdata(vis='Four_ants_3C286.ms', flagbackup=False,
-        mode='clip', datacolumn='DATA',
-      |         timeavg=True, timebin='2s', channelavg=True,
-        chanbin=2)
+      flagdata(vis='Four_ants_3C286.ms', flagbackup=False, mode='clip', datacolumn='DATA',
+               timeavg=True, timebin='2s', channelavg=True, chanbin=2)
    
-    Reduce the fraction of channels that are required to be flagged,
+   Reduce the fraction of channels that are required to be flagged,
    and print information for every integration that is flagged. 
    
    ::
    
-      flagdata(vis, ..., mode='antint', spw='9',
-      antint_ref_antenna='ea01', minchanfrac=0.3, verbose=True)
+      flagdata(vis, ..., mode='antint', spw='9', antint_ref_antenna='ea01', minchanfrac=0.3, verbose=True)
    
    
    
@@ -1585,15 +1570,13 @@ Examples
    
    ::
    
-      flagdata('cal-X54.B1', mode='clip', clipzeros=True,
-      datacolumn='CPARAM')
+      flagdata('cal-X54.B1', mode='clip', clipzeros=True, datacolumn='CPARAM')
    
    Clip data from a cal table with SNR <4.0.
    
    ::
    
-      flagdata('cal-X54.B1', mode='clip', clipminmax=[0.0,4.0],
-      clipoutside=False, datacolumn='SNR')
+      flagdata('cal-X54.B1', mode='clip', clipminmax=[0.0,4.0], clipoutside=False, datacolumn='SNR')
    
    Clip the g values of a switched power caltable created using the
    gencal task. The g values are usually < 1.0.
@@ -1601,23 +1584,19 @@ Examples
    ::
    
       flagdata('cal.12A.syspower', mode='clip', clipminmax=[0.1,0.3],
-      correlation='Sol1,Sol3', datacolumn='FPARAM')
+               correlation='Sol1,Sol3', datacolumn='FPARAM')
    
    Now, clip the Tsys values of the same table from above. The Tsys
    solutions have values between 10 -- 100s.
    
    ::
    
-      flagdata('cal.12A.syspower', mode='clip',
-      clipminmax=[10.0,95.0],correlation='Sol2,Sol4',
-      datacolumn='FPARAM')
+      flagdata('cal.12A.syspower', mode='clip', clipminmax=[10.0,95.0],
+               correlation='Sol2,Sol4', datacolumn='FPARAM')
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
+   None
    

@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
    This task can manage flag backups of a MeasurementSet.
    flag backups (or versions) are copies of the FLAG column of a
    MeasurementSet, which are saved as a directory on disk with the
@@ -15,7 +13,7 @@ Description
    called 'Original' is produced by default. It is recommended to
    save a flag backup at the beginning or after serious editing.  
    
-   .. warning:: **WARNING**: The flag versions created from one MS should not
+   .. warning:: The flag versions created from one MS should not
       be restored to another MS. They are unique to the MS from which
       they were created. In the case of flags created from a
       `Multi-MS <https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/the-multi-ms>`__,
@@ -58,12 +56,9 @@ Description
    -  'delete': delete the specified flag file
    -  'rename': will rename a specified flag file
    
-   .. rubric:: *mode='save', 'restore', 'delete', 'rename'*
-      expandable parameters
-      
+   .. rubric:: *mode='save', 'restore', 'delete', 'rename'* expandable parameters
    
    .. rubric:: *versionname*
-      
    
    Flag version name. The default is none *.* There should be no
    embedded blanks in the *versionname*.
@@ -100,18 +95,14 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
-   .. rubric:: Examples of using **flagmanager** to manipulate the
-      flag versions of a MeasurementSet
+   Examples of using **flagmanager** to manipulate the flag versions of a MeasurementSet
       
    
    First save the flags from a MS using **flagdata**
    
    ::
    
-      flagdata('my.ms', mode='manual', autocorr=True,
-      flagbackup=True)
+      flagdata('my.ms', mode='manual', autocorr=True, flagbackup=True)
    
    List the existing flag versions of the above MS
    
@@ -126,17 +117,13 @@ Examples
    
    ::
    
-      2018-04-23 18:47:19 INFO flagmanager::agentflagger:: + MS :
-      /Users/casadir/work/my.ms
+      2018-04-23 18:47:19 INFO flagmanager::agentflagger:: + MS : /Users/casadir/work/my.ms
    
-      2018-04-23 18:47:19 INFO flagmanager::agentflagger:: main :
-      working copy in main table
+      2018-04-23 18:47:19 INFO flagmanager::agentflagger:: main : working copy in main table
    
-      2018-04-23 18:47:19 INFO flagmanager::agentflagger:: Original :
-      Original flags at import into CASA
+      2018-04-23 18:47:19 INFO flagmanager::agentflagger:: Original : Original flags at import into CASA
    
-      2018-04-23 18:47:19 INFO flagmanager::agentflagger:: flagdata_1
-      : Flags autosave on 2018-04-23 20:47:14
+      2018-04-23 18:47:19 INFO flagmanager::agentflagger:: flagdata_1 : Flags autosave on 2018-04-23 20:47:14
    
    A captured Python dictionary returns the same content but is
    machine readable: 
@@ -147,18 +134,15 @@ Examples
    
    ::
    
-      {0:{'name': 'Original', 'comment': 'Original flags at import
-      into CASA'}, 1:{'name': 'flagdata_1', 'comment': 'Flags
-      autosave on 2018-04-23 20:47:14'}}
+      {0:{'name': 'Original', 'comment': 'Original flags at import into CASA'},
+       1:{'name': 'flagdata_1', 'comment': 'Flags autosave on 2018-04-23 20:47:14'}}
    
-    
-   
+
    Rename the flag version to a more meaningful name
    
    ::
    
-      flagmanager('my.ms', mode='rename', oldname='flagdata_1',
-      versionname='autocorr', comment='Flags from autocorrelation')
+      flagmanager('my.ms', mode='rename', oldname='flagdata_1', versionname='autocorr', comment='Flags from autocorrelation')
    
    Restore the original flags to the MS
    
@@ -170,11 +154,4 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   planning for 5.4
-   
-   ============
-   
+   None

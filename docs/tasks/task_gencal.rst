@@ -3,16 +3,12 @@
 .. _Description:
 
 Description
-   task description
-   
    The **gencal** task provides a means of specifying antenna-based
    calibration values manually. The values are put in designated
    tables and applied to the data using other tasks (**applycal**,
    **gaincal**, **bandpass**, etc.). Several specialized calibrations
    are also generated with **gencal**.
-   
-    
-   
+
    .. rubric:: Calibration types: *caltype*
       
    
@@ -23,7 +19,7 @@ Description
    and more information about how they work can be found in that
    section.
    
-   .. rubric:: Manual *caltype* s
+   .. rubric:: Manual *caltype*
       
    
    The following enable directly specifying calibration factors for
@@ -42,8 +38,7 @@ Description
    -  'antposvla' = VLA-centric antenna position corrections (3 real
       parameters [in m] for each antenna; see below)
    
-   .. rubric:: Specialized *caltype* s
-      
+   .. rubric:: Specialized *caltype*
    
    The following *caltype* options automatically generate caltables
    from ancilliary information found in the MS or elsewhere. The
@@ -63,8 +58,7 @@ Description
    -  'antpos' = For VLA datasets, automatic lookup of antenna
       position corrections if *antenna=''*
    
-    
-   
+
    .. rubric:: Specifying calibration values: *pol, antenna, spw,
       parameter*
       
@@ -149,9 +143,9 @@ Description
       calculated normally). The 'rq' and 'swp/rq' modes are are
       mainly intended for testing and evaluating the VLA switched
       power systems.
-   -   For *caltype='opac'*, only constant (in time) opacities are
+   -  For *caltype='opac'*, only constant (in time) opacities are
       supported via **gencal**.  
-   -   For gaincurve and efficiency (*caltype='gc'*, *'gceff'*, or
+   -  For gaincurve and efficiency (*caltype='gc'*, *'gceff'*, or
       *'eff'*), observatory-provided factors are determined per spw
       according to the observing frequencies. The parameter argument
       is ignored. These *caltype* s are currently only supported for
@@ -162,10 +156,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
-    
-   
    In the following example, antenna-based gain amplitude corrections
    for all spws, antennas, and polarizations will be multiplied by 3.
    When applied to visibility data, this correction will produce a
@@ -174,12 +164,9 @@ Examples
    
    ::
    
-      | gencal(vis='test.ms',caltable='test.G',caltype='amp',
-      |        spw='',antenna='',pol='',
-      |        parameter=[3])
-   
-    
-   
+      gencal(vis='test.ms',caltable='test.G',caltype='amp',spw='',antenna='',pol='',
+             parameter=[3])
+
    In the following example, gain phase corrections for antennas ea03
    and ea04 will be adjusted (additive) by 45 and 120 degrees
    (respectively), for all spws and polarizations. When these phases
@@ -194,11 +181,8 @@ Examples
    
    ::
    
-      | gencal(vis='test.ms',caltable='test.G',caltype='ph',
-      |        spw='',antenna='ea03,ea04',pol='',
-      |        parameter=[45,120])
-   
-    
+      gencal(vis='test.ms',caltable='test.G',caltype='ph', spw='',antenna='ea03,ea04',pol='',
+             parameter=[45,120])
    
    Gain phase corrections for antennas ea05 and ea06 will be adjusted
    (additive) by 63 and -34 degrees (respectively), in R only, for
@@ -206,11 +190,9 @@ Examples
    
    ::
    
-      | gencal(vis='test.ms',caltable='test.G',caltype='ph',
-      |        spw='',antenna='ea05,ea06',pol='R',
-      |        parameter=[63,-34])
-   
-    
+      gencal(vis='test.ms',caltable='test.G',caltype='ph',spw='',antenna='ea05,ea06',pol='R',
+             parameter=[63,-34])
+
    
    Gain phase corrections in all spws will be adjusted for antenna
    ea09 by 14 deg in R and -23 deg in L, and for antenna ea10 by -130
@@ -218,21 +200,17 @@ Examples
    
    ::
    
-      | gencal(vis='test.ms',caltable='test.G',caltype='ph',
-      |        spw='',antenna='ea09,ea10',pol='R,L',
-      |        parameter=[14,-23,-130,145])
-   
-    
-   
+      gencal(vis='test.ms',caltable='test.G',caltype='ph',spw='',antenna='ea09,ea10',pol='R,L',
+             parameter=[14,-23,-130,145])
+
    Gain phases corrections in both polarizations will be adjusted for
    antenna ea09 by 14 deg in spw 2 and -23 deg in spw 3, and for
    antenna ea10 by -130 deg in spw 2 and 145 deg in spw 3.
    
    ::
    
-      | gencal(vis='test.ms',caltable='test.G',caltype='ph',
-      |        spw='2,3',antenna='ea09,ea10',pol='',
-      |        parameter=[14,-23,-130,145])
+      gencal(vis='test.ms',caltable='test.G',caltype='ph',spw='2,3',antenna='ea09,ea10',pol='',
+             parameter=[14,-23,-130,145])
    
     
    
@@ -244,13 +222,10 @@ Examples
    
    ::
    
-      | gencal(vis='test.ms',caltable='test.G',caltype='sbd',
-      |        spw='2,3',antenna='ea09,ea10',pol='',
-      |        parameter=[14,-23,-130,145])
+      gencal(vis='test.ms',caltable='test.G',caltype='sbd',spw='2,3',antenna='ea09,ea10',pol='',
+             parameter=[14,-23,-130,145])
    
-    
-   
-   \**\* Currently Karl G. Jansky VLA observations only \***  Antenna
+   Currently Karl G. Jansky VLA observations only Antenna
    position corrections will be retrieved automatically over internet
    to generate the caltable with *antenna=''*.
    
@@ -258,8 +233,7 @@ Examples
    
       gencal(vis='test.ms',caltable='test.G',caltype='antpos',antenna='')
    
-    
-   
+
    Antenna position corrections in meters (in ITRF) for antenna ea09
    (dBx=0.01, dBy=0.02, dBz=0.03) and for antenna ea10 (dBx=-0.03,
    dBy=-0.01, dBz=-0.02). See the above example for *caltype='ph'*
@@ -268,12 +242,10 @@ Examples
    
    ::
    
-      | gencal(vis='test.ms',caltable='test.G',caltype='antpos',
-      |        antenna='ea09,ea10',
-      |        parameter=[0.01,0.02,0.03, -0.03,-0.01,-0.02])
+      gencal(vis='test.ms',caltable='test.G',caltype='antpos',antenna='ea09,ea10',
+             parameter=[0.01,0.02,0.03, -0.03,-0.01,-0.02])
    
-    
-   
+
    Antenna position corrections (in the traditional VLA-centric
    frame) will be introduced in meters for antenna ea09 (dBx=0.01,
    dBy=0.02, dBz=0.03) and for antenna ea10 (dBx=-0.03, dBy=-0.01,
@@ -284,52 +256,33 @@ Examples
    
    ::
    
-      | gencal(vis='test.ms',caltable='test.G',caltype='antposvla',
-      |        antenna='ea09,ea10',
-      |        parameter=[0.01,0.02,0.03, -0.03,-0.01,-0.02])
+      gencal(vis='test.ms',caltable='test.G',caltype='antposvla',antenna='ea09,ea10',
+             parameter=[0.01,0.02,0.03, -0.03,-0.01,-0.02])
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-    
-   
-   --- In progress: merge of plotweather ---  
-   
-    
-   
+   **In progress: merge of plotweather**
+
    Aim of the changes:  incorporate plotweather functionalities into
    gencal so plotweather can be retired. Plotweather calculates
    opacities based on the WEATHER table and/or a seasonal model.
    Plotweather also produces a plot of the models opacities, wind,
    temperature, dew point, pwv, and solar elevation. The following is
    the new task description with proposed changes in red color. Green
-   are annotations and dpotential discussion points. 
-   
-    
-   
-   ---
-   
-    
-   
-    
+   are annotations and dpotential discussion points.
+
    
    The **gencal** task provides a means of specifying antenna-based
    calibration values manually. The values are put in designated
    tables and applied to the data using other tasks
-   (`applycal <https://casa.nrao.edu/casadocs-devel/stable/task_applycal>`__, `gaincal <https://casa.nrao.edu/casadocs-devel/stable/task_gaincal>`__, `bandpass <https://casa.nrao.edu/casadocs-devel/stable/task_bandpass>`__,
-   etc.). Several specialized calibrations are also generated
-   with **gencal**.
+   (applycal, gaincal, bandpass, etc.). Several specialized calibrations
+   are also generated with **gencal**.
    
-    
-   
+
    .. rubric:: Calibration types: *caltype*
-      
-   
+
    The **gencal** task supports many different calibration types
    via the *caltype* parameter. These are listed here in two
    groups. Many of these options are part of `Preparing for
@@ -436,8 +389,7 @@ Development
    The calibration tables generated by **gencal** can be applied
    to the data in all other tasks that accept specified
    calibration for (pre-)application,
-   e.g., `applycal. <https://casa.nrao.edu/casadocs-devel/task_applycal>`__ `gaincal <https://casa.nrao.edu/casadocs-devel/stable/task_gaincal>`__, `bandpass <https://casa.nrao.edu/casadocs-devel/stable/task_bandpass>`__,
-   etc.
+   e.g., applycal, gaincal, bandpass, etc.
    
    Consult the Examples for more information on the
    many *caltype* options in **gencal**.
@@ -469,7 +421,7 @@ Development
       (Tsys is calculated normally). The 'rq' and 'swp/rq' modes
       are are mainly intended for testing and evaluating the VLA
       switched power systems.
-   -   For caltype='opac', only constant (in time) opacities are
+   -  For caltype='opac', only constant (in time) opacities are
       supported via gencal.  
    -  caltype='opac' will open a sub-menu with parameters
       seasonal_weight and  plotweather. Default for
@@ -493,7 +445,7 @@ Development
       to generate a plot that is automatically named. Only
       opacities that are constant in time are currently
       supported. 
-   -   For gaincurve and efficiency (*caltype='gc'*, *'gceff'*,
+   -  For gaincurve and efficiency (*caltype='gc'*, *'gceff'*,
       or *'eff'*), observatory-provided factors are determined per
       spw according to the observing frequencies. The parameter
       argument is ignored. These *caltype* s are currently only

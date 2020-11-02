@@ -627,49 +627,34 @@ Examples
         weighting='natural', niter=100 )
    
    .. rubric:: Using Multi-scale CLEAN on a Cube Mosaic image
-      
-   
-      ::
-   
-            tclean(vis='test.ms', imagename='try1', imsize=100,
-            cell='10.0arcsec',specmode='cube',
-   
-                   nchan=10, start='1.0GHz', width='10MHz',
-                   deconvolver='multiscale', scales=[0,3,10,30],
-                   gridder='mosaic', pblimit=0.1,
-                   weighting='natural', niter=100 )
-   
-   .. rubric:: 
-      Using W-Projection with Multi-Term MFS wideband imaging
-      
    
    ::
+
+      tclean(vis='test.ms', imagename='try1', imsize=100,
+             cell='10.0arcsec',specmode='cube', nchan=10,
+             start='1.0GHz', width='10MHz', deconvolver='multiscale',
+             scales=[0,3,10,30], gridder='mosaic', pblimit=0.1,
+             weighting='natural', niter=100 )
    
-      | tclean(vis='test.ms', imagename='try1', imsize=100,
-        cell='10.0arcsec',
-      |        deconvolver='mtmfs', reffreq='1.5GHz', nterms=2,
-      |        gridder='wproject', wprojplanes=64,
-      |        weighting='natural', niter=100 )
+   .. rubric:: Using W-Projection with Multi-Term MFS wideband imaging
+
+   ::
    
-   .. rubric:: 
-      Using automasking with any type of image
-      
+      tclean(vis='test.ms', imagename='try1', imsize=100,
+             cell='10.0arcsec', deconvolver='mtmfs', reffreq='1.5GHz',
+             nterms=2, gridder='wproject', wprojplanes=64,
+             weighting='natural', niter=100 )
    
+   .. rubric:: Using automasking with any type of image
+
    ::
    
       tclean(vis='test.ms', imagename='try1', niter=100, ....,
-      usemask='auto-multithresh')
-   
-   See the `Masks for
-   Deconvolution <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/masks-for-deconvolution>`__
-   section of CASAdocs for more information about the
-   auto-multithresh algorithm.
-   
+             usemask='auto-multithresh')
     
    
    .. rubric:: Scripting using PySynthesisImager
-      
-   
+
    PySynthesisImager (LINK) is a python application built on top
    of the synthesis tools (LINK). The operations of the tclean
    task can be replicated using the following python script.
@@ -678,68 +663,68 @@ Examples
    stage, images are saved on disk. Therefore, any modifications
    done to the images in between steps will be honored. 
    
-    
-   
+
    ::
    
-      | ## (1) Import the python application layer
-      | from imagerhelpers.imager_base import PySynthesisImager
-      | from imagerhelpers.input_parameters import
-        ImagerParameters
-      | ## (2) Set up Input Parameters
-      | ## - List all parameters that you need here
-      | ## - Defaults will be assumed for unspecified parameters
-      | ## - Nearly all parameters are identical to that in the
-        task. Please look at the
-      | ## list of parameters under \__init_\_ using " help
-        ImagerParameters " )
-      | paramList = ImagerParameters(
-      | msname ='DataTest/point.ms',
-      | field='',
-      | spw='',
-      | imagename='try2',
-      | imsize=100,
-      | cell='10.0arcsec',
-      | specmode='mfs',
-      | gridder='standard',
-      | weighting='briggs',
-      | niter=100,
-      | deconvolver='hogbom'
-      | )
-      | ## (3) Construct the PySynthesisImager object, with all
-        input parameters
-      | imager = PySynthesisImager(params=paramList)
-      | ## (4) Initialize various modules.
-      | ## - Pick only the modules you will need later on. For
-        example, to only make
-      | ## the PSF, there is no need for the deconvolver or
-        iteration control modules.
-      | ## Initialize modules major cycle modules
-      | imager.initializeImagers()
-      | imager.initializeNormalizers()
-      | imager.setWeighting()
-      | ## Init minor cycle modules
-      | imager.initializeDeconvolvers()
-      | imager.initializeIterationControl()
-      | ## (5) Make the initial images
-      | imager.makePSF()
-      | imager.makePB()
-      | imager.runMajorCycle() # Make initial dirty / residual
-        image
-      | ## (6) Make the initial clean mask
-      | imager.hasConverged()
-      | imager.updateMask()
-      | ## (7) Run the iteration loops
-      | while ( not imager.hasConverged() ):
-      |     imager.runMinorCycle()
-      |     imager.runMajorCycle()
-      |     imager.updateMask()
-      | ## (8) Finish up
-      | retrec=imager.getSummary();
-      | imager.restoreImages()
-      | imager.pbcorImages()
-      | ## (9) Close tools.
-      | imager.deleteTools()
+      ## (1) Import the python application layer
+      from imagerhelpers.imager_base import PySynthesisImager
+      from imagerhelpers.input_parameters import ImagerParameters
+
+      ## (2) Set up Input Parameters
+      ## - List all parameters that you need here
+      ## - Defaults will be assumed for unspecified parameters
+      ## - Nearly all parameters are identical to that in the task.
+      ## Please look at the list of parameters under __init__
+      ## using "help ImagerParameters"
+      paramList = ImagerParameters(msname ='DataTest/point.ms',
+                                   field='',
+                                   spw='',
+                                   imagename='try2',
+                                   imsize=100,
+                                   cell='10.0arcsec',
+                                   specmode='mfs',
+                                   gridder='standard',
+                                   weighting='briggs',
+                                   niter=100,
+                                   deconvolver='hogbom')
+
+      ## (3) Construct the PySynthesisImager object, with all input parameters
+      imager = PySynthesisImager(params=paramList)
+
+      ## (4) Initialize various modules.
+      ## - Pick only the modules you will need later on. For
+      example, to only make
+      ## the PSF, there is no need for the deconvolver or iteration control modules.
+      ## Initialize modules major cycle modules
+      imager.initializeImagers()
+      imager.initializeNormalizers()
+      imager.setWeighting()
+      ## Init minor cycle modules
+      imager.initializeDeconvolvers()
+      imager.initializeIterationControl()
+
+      ## (5) Make the initial images
+      imager.makePSF()
+      imager.makePB()
+      imager.runMajorCycle() # Make initial dirty / residual image
+
+      ## (6) Make the initial clean mask
+      imager.hasConverged()
+      imager.updateMask()
+
+      ## (7) Run the iteration loops
+      while ( not imager.hasConverged() ):
+          imager.runMinorCycle()
+          imager.runMajorCycle()
+          imager.updateMask()
+
+      ## (8) Finish up
+      retrec=imager.getSummary();
+      imager.restoreImages()
+      imager.pbcorImages()
+
+      ## (9) Close tools.
+      imager.deleteTools()
    
     
    For model prediction (i.e. to only save an input model in
@@ -761,12 +746,12 @@ Examples
    
    ::
    
-      | from imagerhelpers.imager_parallel_continuum import
-        PyParallelContSynthesisImager      # Step (1)
-      | imager =
-        PyParallelContSynthesisImager(params=paramList)                                 
-        # Step (3)
-      |  
+      # Step (1)
+      from imagerhelpers.imager_parallel_continuum import PyParallelContSynthesisImager
+
+      # Step (3)
+      imager = PyParallelContSynthesisImager(params=paramList)
+
    
    For parallelization of both the major and minor cycles for Cube
    imaging, replace steps (1) and (3) with the following, and
@@ -780,37 +765,30 @@ Examples
    
    ::
    
-      | 
-      | from imagerhelpers.imager_parallel_cube import
-        PyParallelCubeSynthesisImager   # Step (1)
-      | imager =
-        PyParallelCubeSynthesisImager(params=paramList)                        
-        # Step (3)
-      | imager.concatImages(type='virtualcopy')                                          
-        # Step (8)
+      from imagerhelpers.imager_parallel_cube import PyParallelCubeSynthesisImager   # Step (1)
+      imager = PyParallelCubeSynthesisImager(params=paramList) # Step (3)
+      imager.concatImages(type='virtualcopy') # Step (8)
    
     
    
    .. rubric:: Using tclean with ephemerides tables in CASA format
-      
-   
+
    When you have an ephermeris table that covers the whole
    observation:
    
    ::
    
-      tclean(vis=['MS1.ms', 'MS2.ms', 'MS3.ms', 'MS4.ms',
-      'MS5.ms'],selectdata=True,field="DES_DEEDEE",spw=['17,19,21,23',
-      '17,19,21,23', '17,19,21,23', '17,19,21,23',
-      '17,19,21,23'],intent="OBSERVE_TARGET#ON_SOURCE",datacolumn="data",imagename="test_track",imsize=[2000,
-      2000],cell=['0.037arcsec'],phasecenter="des_deedee_ephem.tab",stokes="I")
+      tclean(vis=['MS1.ms', 'MS2.ms', 'MS3.ms', 'MS4.ms', 'MS5.ms'],
+             selectdata=True, field="DES_DEEDEE",
+             spw=['17,19,21,23','17,19,21,23','17,19,21,23','17,19,21,23','17,19,21,23'],
+             intent="OBSERVE_TARGET#ON_SOURCE", datacolumn="data",
+             imagename="test_track", imsize=[2000, 2000], cell=['0.037arcsec'],
+             phasecenter="des_deedee_ephem.tab", stokes="I")
    
    You can check whether the ephermeris table is of the format
    that CASA accepts by using the measures tool me.framecomet
    function:
-   
-    
-   
+
    ::
    
       me.framecomet('des_deedee.tab')
@@ -820,18 +798,18 @@ Examples
    If the source you are tracking is one of the ten sources for
    which the CASA measures tool has the ephemerides from the JPL
    DE200 or DE405, then you can use their names directly:
-   
-    
-   
+
    ::
    
       tclean(vis=['uid___A002_Xbc74ea_X175c.ms',
-      'uid___A002_Xbc74ea_X1af4.ms',
-      'uid___A002_Xbc74ea_X1e19.ms',
-      'uid___A002_Xbc74ea_X20b7.ms'],selectdata=True,field="Jupiter",spw=['17,19,21,23',
-      '17,19,21,23', '17,19,21,23',
-      '17,19,21,23'],intent="OBSERVE_TARGET#ON_SOURCE",datacolumn="corrected",imagename="alltogether",imsize=[700,
-      700],cell=['0.16arcsec'],phasecenter="JUPITER",stokes="I")
+                  'uid___A002_Xbc74ea_X1af4.ms',
+                  'uid___A002_Xbc74ea_X1e19.ms',
+                  'uid___A002_Xbc74ea_X20b7.ms'],
+             selectdata=True, field="Jupiter",
+             spw=['17,19,21,23','17,19,21,23','17,19,21,23','17,19,21,23'],
+             intent="OBSERVE_TARGET#ON_SOURCE", datacolumn="corrected",
+             imagename="alltogether", imsize=[700, 700], cell=['0.16arcsec'],
+             phasecenter="JUPITER", stokes="I")
    
    For ALMA data mainly the correlator may have the ephemerides of
    a moving source already attached to the FIELD tables of the
@@ -844,28 +822,22 @@ Examples
    
    ::
    
-      tclean(vis=['MS1.ms', 'MS2.ms', 'MS3.ms', 'MS4.ms',
-      'MS5.ms'],selectdata=True,field="DES_DEEDEE",spw=['17,19,21,23',
-      '17,19,21,23', '17,19,21,23', '17,19,21,23',
-      '17,19,21,23'],intent="OBSERVE_TARGET#ON_SOURCE",datacolumn="data",imagename="test_track",imsize=[2000,
-      2000],cell=['0.037arcsec'],phasecenter="TRACKFIELD",stokes="I")
-   
+      tclean(vis=['MS1.ms', 'MS2.ms', 'MS3.ms', 'MS4.ms', 'MS5.ms'],
+             selectdata=True, field="DES_DEEDEE",
+             spw=['17,19,21,23','17,19,21,23','17,19,21,23','17,19,21,23','17,19,21,23'],
+             intent="OBSERVE_TARGET#ON_SOURCE", datacolumn="data",
+             imagename="test_track", imsize=[2000, 2000],
+             cell=['0.037arcsec'], phasecenter="TRACKFIELD", stokes="I")
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
    task_tclean.py  contains only calls to various steps and the
    controls for different Operating Modes (LINK).  No other logic is
    present in the top level task script.    task_tclean.py uses
    classes defined in refimagerhelper.py ( PySynthesisImager and its
    parallel derivatives ).
-   
-    
-   
+
    Script writers aiming to replicate tclean in an external script
    and be able to insert their own methods or connect their own
    modules, will be able to simply copy and paste the task tclean
@@ -894,90 +866,68 @@ Development
    
    
    
-   .. rubric:: Make PSF and PB : 
+   .. rubric:: Make PSF and PB
       
    
    Make only the PSF, Weight images, and the PB.
    
    ::
    
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec, niter=0
-   
-   .. rubric:: Make a residual/dirty image :
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec, niter=0)
+
+
+   .. rubric:: Make a residual/dirty image
       
-   
    example
+   
+   ::
+   
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
+   
+    
+   
+   .. rubric:: Model Prediction
+
    
    example
    
    ::
    
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
     
    
-   .. rubric:: Model Prediction :
+   .. rubric:: PB-correction
       
-   
    example
+   
+   ::
+   
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
+   
+
+   .. rubric:: Restoration
+
+   example
+   
+   ::
+   
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
+   
+    
+   
+   .. rubric:: Restarts
+
+   ( deconv only,  autonaming, etc )
    
    example
    
    ::
    
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
-    
-   
-   .. rubric:: PB-correction :
-      
-   
-   example
-   
-   example
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
-   
-   | 
-   |  
-   
-   .. rubric:: Restoration :
-      
-   
-   examples
-   
-   example
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
-   
-    
-   
-   .. rubric:: Restarts : 
-      
-   
-    ( deconv only,  autonaming, etc )
-   
-   example
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
-   
-    
-   
-    
-   
-   .. rubric:: Data Selection : 
+
+   .. rubric:: Data Selection
       
    
    one MS, a list of MSs.
@@ -986,69 +936,45 @@ Development
    
    ::
    
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
     
    
-   .. rubric:: Single-Field Image Shapes :
-      
-   
-    Single Field (mfs, cube (basics), phasecenter, stokes planes ? )
+   .. rubric:: Single-Field Image Shapes
+
+   Single Field (mfs, cube (basics), phasecenter, stokes planes ? )
    
    example
    
    ::
    
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
     
    
-   .. rubric:: Defining Spectral Coordinate Systems :
+   .. rubric:: Defining Spectral Coordinate Systems
       
    
    LINK to Synthesis Imaging / Spectral Line Imaging
    
    (examples of all the complicated ways you can do this)
    
-    
+   example ::
    
-   example
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
-   
-   ::
-   
-       
-   
-   .. rubric:: Examples of Multi-Field Imaging :
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
+
+
+   .. rubric:: Examples of Multi-Field Imaging
       
    
    ( 2 single, multiterm, mfs and cube, etc )
    
-    
+   example ::
+
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
+
    
-   example
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
-   
-   example
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
-   
-   
-   
-   .. rubric:: Examples of Iteration Control :
+   .. rubric:: Examples of Iteration Control
       
    
    niter=0,  using cycleniter,  cyclefactor...
@@ -1057,14 +983,11 @@ Development
    
    ::
    
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
+
    
-    
-   
-   .. rubric:: Using a Starting model :
-      
-   
+   .. rubric:: Using a Starting model
+
    single term, multi-term, with restarts, a single-dish model
    (units, etc).
    
@@ -1072,185 +995,113 @@ Development
    
    ::
    
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
     
    
-   .. rubric:: Saving model visibilities in preparation for
-      self-calibration :
+   .. rubric:: Saving model visibilities in preparation for self-calibration
       
    
    use savemodel of various types.
    
-   example
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
+   example ::
+
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
     
    
-   .. rubric:: Making masks for deconvolution :
+   .. rubric:: Making masks for deconvolution
       
    
    LINK to Synthesis Imaging / Masks For Deconvolution
    
    making masks....
    
-    
+   example ::
+
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
+
    
-   example
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
-   
-   ::
-   
-       
-   
-   example
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
-   
-   ::
-   
-   .. rubric:: Primary Beam correction :
+   .. rubric:: Primary Beam correction
       
    
    LINK to Synthesis Imaging / Primary Beams
    
    single term, wideband (connect to wb)
    
-   example
+   example ::
+
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
-   
-   using vpmanager to set a PB model for tclean
-   
-   example
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
-   
-    
-   
-   .. rubric:: Returned dictionary :
+
+   .. rubric:: Returned dictionary
       
    
    example of what is in it...
    
-    
+   example ::
    
-   example
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
-   
-   ::
-   
-   .. rubric:: Examples of Wide-Band Imaging :
-      
-   
+
+   .. rubric:: Examples of Wide-Band Imaging
+
    LINK to Synthesis Imaging / Wide Band Imaging
    
    Choose nterms, ref-freq.  Re-restore outputs. Apply widebandpbcor
    
-   example
+   example::
    
-   ::
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
-   
-    
-   
-   .. rubric:: Examples of Mosaicking :
+
+   .. rubric:: Examples of Mosaicking
       
    
    LINK to Synthesis Imaging / Mosaicking
    
    Setting up mosaic imaging, setup vpmanager to supply external PB.
    
-   example
+   example ::
+
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
-   
-    
-   
+
    .. rubric:: Examples of Wide-field and Full-Beam Imaging
       
    
    facets, wprojection (and wprojplanes),  A-Projection
    
-   example
+   example ::
    
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
     
    
-   .. rubric:: Parallelization for Continuum/MFS and Cube.
-      
+   .. rubric:: Parallelization for Continuum/MFS and Cube
+
+   example ::
+
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec'
    
-   blah...
-   
-   example
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
-   
-   
-   
-   .. rubric:: Channel chunking for very large Spectral Cubes :
-      
-   
-   blah...
-   
-   example
-   
-   ::
-   
-      ::
-   
-         This box is intended for CASA Inputs. Insert your text here.
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-      cell='10.0arcsec',
+
+   .. rubric:: Channel chunking for very large Spectral Cubes
+
+   example ::
+
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
    
    
    .. rubric:: Changes to tclean
-      
-   
+
    10/19/2019:
    
    In the MTMFS deconvolver, the expression used to compute D-Chisq
    can be algebraically reduced. This means that the runtime of the
    minor cycle has been improved ror deconvolver=‘MTMFS’,
    particularly for large imsize, niter, and number of scales for
-   multi-scale deconvolution. This `technical
-   memo <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_tclean/notes_speedup_tests.pdf>`__
+   multi-scale deconvolution. This `technical memo <https://drive.google.com/file/d/1U1zRrmBJ4vYfsi-7IE5orOYHIIRmiFSL/view?usp=sharing>`_
    briefly describes the algorithmic changes and provides examples of
    the speed-up in runtime.
    

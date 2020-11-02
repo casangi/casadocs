@@ -1,5 +1,5 @@
 
-.. _wvrgcalDescription:
+.. _Description:
 
 Description
    Information about the observation and the performance of **wvrgcal** is written to the CASA logger and also returned in a
@@ -165,7 +165,7 @@ Description
    given table.
    
 
-.. _wvrgcalExamples:
+.. _Examples:
 
 Examples
    Usage ::
@@ -176,7 +176,7 @@ Examples
       statsource='1037-295')
    
 
-.. _wvrgcalDevelopment:
+.. _Development:
 
 Development
    None

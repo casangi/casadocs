@@ -21,9 +21,7 @@ Description
    observatory velocity at the start of the observation, and kept
    throughout (Doppler setting). The data will need to be regridded
    to a constant velocity grid to avoid a smearing of spectral
-   features (e.g. to the LSRK or BARYcentric velocity frames,
-   see `Spectral Line
-   Imaging <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/spectral-line-imaging>`__).
+   features (e.g. to the LSRK or BARYcentric velocity frames).
    **cvel2** can perform this operation. Naturally, the
    transformation of channel labels and visibilities into a different
    reference frame will change the shape of the spectral feature to
@@ -45,8 +43,7 @@ Description
    regridding anyways). 
    
    .. rubric:: Gridding modes and parameters
-      
-   
+
    **cvel2** offers four gridding *mode* s: '*channel'*,
    '*velocity'*, '*frequency'*, and '*channel_b'*. All of the modes
    have the same four subparameters *nchan*, *start*, *width*, and
@@ -68,15 +65,11 @@ Description
    The difference between '*channel*' and '*channel_b*' is that
    '*channel*' forces the output to be on an equidistant grid based
    on first selected channel, whereas '*channel_b*' does not (which
-   improves the speed of **cvel2**). Mode '*velocity'* also requires
+   improves the speed of **cvel2**). Mode '*velocity*' also requires
    the specification of a rest frequency (*restfreq* parameter,
    and definition type ('*radio*' or '*optical*') in the
-   *veltype* parameter. See also the relevant sections of the
-   `Spectral Line
-   Imaging <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/spectral-line-imaging>`__ and
-   `Spectral
-   Frames <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material/spectral-frames>`__ chapters. 
-   
+   *veltype* parameter.
+
    *interpolation* specifies the interpolation method between the
    spectral channels. The interpolation method '*fftshift'*
    calculates the transformed visibilities by applying a FFT, then a
@@ -103,9 +96,7 @@ Description
    that Hanning smoothing may not be necessary.
    
    If **cvel2** has already established the grid that is desired for
-   the imaging,
-   `tclean <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_tclean>`__
-   should be run with exactly the same frequency/velocity parameters
+   the imaging, tclean should be run with exactly the same frequency/velocity parameters
    as used in **cvel2** in order to avoid additional regridding in
    clean.
    
@@ -116,8 +107,7 @@ Description
    the value of *keepmms* is explicitly changed to False, **cvel2**
    will create a Multi-MS when the input is a Multi-MS. The output
    Multi-MS will keep the same partition axis of the input MMS. See
-   the task
-   `partition <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_partition>`__
+   the task *partition*
    for more information on the Multi-MS (MMS) format. **NOTE**: It is
    not possible to combine the spws if the input MMS was partitioned
    with separationaxis='spw'. In this case, the task will abort with
@@ -143,20 +133,12 @@ Description
       case of Multi-MS input, the user should use virtualconcat to
       achieve a concatenated MMS.
    -  **cvel2** is based on and implemented in terms of the very
-      general
-      `mstransform <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_mstransform>`__
-      framework (mstransform
-      `tool <https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_mstransformer>`__
-      and
-      `task <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_mstransform>`__).
-   
+      general *mstransform* framework
 
 .. _Examples:
 
 Examples
-   task cvel2 examples
-   
-   **Example 1: **
+   **Example 1:**
    
    Regrid a MeasurementSet 'myMS.ms'  to a new 'myMSregridded.ms',
    using velocity mode and a LSRK radio velocity definition.  The
@@ -167,11 +149,11 @@ Examples
    ::
    
       cvel2(vis='myMS.ms', outputvis='myMSregriddedVelMode.ms',
-      outframe='LSRK', mode='velocity', veltype='radio',
-      restfreq='1.420405GHz', nchan=10, start='123km/s',
-      width='0.1km/s')
+            outframe='LSRK', mode='velocity', veltype='radio',
+            restfreq='1.420405GHz', nchan=10, start='123km/s',
+            width='0.1km/s')
    
-   **Example 2: **
+   **Example 2:**
    
    Regrid the same MS, but this time using channel mode. We start at
    channel 5, and create 10 new output channels, grouping 7 channels
@@ -184,15 +166,12 @@ Examples
    ::
    
       cvel2(vis='myMS.ms', outputvis='myMSregriddedChannelMode.ms',
-      outframe='BARY',  mode='channel', nchan=10, start=5, width=-7,
-      interpolation='fftshift')
+            outframe='BARY',  mode='channel', nchan=10, start=5, width=-7,
+            interpolation='fftshift')
    
 
 .. _Development:
 
 Development
-   task cvel2 developer
-   
-   --CASA Developer--
-   
-   
+   None
+

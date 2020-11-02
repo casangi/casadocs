@@ -7,17 +7,14 @@ Description
    region
    
    Many parameters are determined from the specified region of an
-   image. The region can be specified by a set of `rectangular pixel
+   image. The region can be specified by a set of rectangular pixel
    coordinates, the channel ranges and the
-   Stokes <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/image-selection-parameters>`__ or
-   a `region
-   file <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/region-files>`__.
+   Stokes or a region file.
    
    .. warning:: **Alert:** When both the *region* parameter and any of
       *box*/*chans*/*stokes* are specified simultaneously, the task
       may perform unwanted selections, so this should be avoided. See
-      this chapter on `region
-      files <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/region-files>`__
+      this chapter on region files
       for more information.
    
    For directed output, run as:
@@ -30,12 +27,12 @@ Description
    
    ::
    
-      | #Specify inputs, then
-      | myoutput=imstat()
-      | #or specify inputs directly in calling sequence to task
-      | myoutput=imstat(imagename='image.im', etc)
-      | myoutput['KEYS'] #will contain the result associated with any
-        of the keys given below
+      #Specify inputs, then
+      myoutput=imstat()
+      #or specify inputs directly in calling sequence to task
+      myoutput=imstat(imagename='image.im', etc)
+      myoutput['KEYS'] #will contain the result associated with any
+      of the keys given below
    
    +-----------------------------------+-----------------------------------+
    | KEYS                              | DESCRIPTION                       |
@@ -79,22 +76,22 @@ Description
    |                                   | coordinates instead of pixels     |
    +-----------------------------------+-----------------------------------+
    | sum                               | the sum of the pixel              |
-   |                                   | values: :math:`\sum I_i`         |
+   |                                   | values: :math:`\sum I_i`          |
    +-----------------------------------+-----------------------------------+
    | sumsq                             | the sum of the squares of the     |
-   |                                   | pixel values: :math:`\sum I_i^2` |
+   |                                   | pixel values: :math:`\sum I_i^2`  |
    +-----------------------------------+-----------------------------------+
    | mean                              | the mean of pixel                 |
    |                                   | values                            |
-   |                                   | : :math:`\bar{I} = \sum I_i / n` |
+   |                                   | : :math:`\bar{I} = \sum I_i / n`  |
    +-----------------------------------+-----------------------------------+
    | sigma                             | the standard deviation about the  |
-   |                                   | mean: :math:`\sigma^2            |
+   |                                   | mean: :math:`\sigma^2             |
    |                                   | = (\sum I_i - \bar{I})^2 / (n-1)` |
    +-----------------------------------+-----------------------------------+
    | rms                               | the root mean                     |
    |                                   | square                            |
-   |                                   | : :math:`\sqrt {\sum I_i^2 / n}` |
+   |                                   | : :math:`\sqrt {\sum I_i^2 / n}`  |
    +-----------------------------------+-----------------------------------+
    | median                            | the median pixel value            |
    +-----------------------------------+-----------------------------------+
@@ -116,47 +113,47 @@ Description
    .. rubric:: CURSOR AXES
       
    
-   | The *axes* parameter allows one to set the cursor axes over
-     which statistics are computed. For example, consider a
-     3-dimensional image for which *axes=[0,2]*. The statistics would
-     be computed for each XZ (axes 0 and 2) plane in the image. One
-     could then examine those statistics as a function of the Y (axis
-     1) axis.
-   | Each statistic is stored in an array in its own field in the
-     returned dictionary. The dimensionality of these arrays is equal
-     to the number of axes over which the statistics were not
-     evaluated (called the display axes). For example, if the input
-     image has four axes, and *axes=[0]*, the output statistic arrays
-     will have three dimensions. If *axes=[0, 1]*, the output
-     statistic arrays will have two dimensions.
-   | The shape of the output arrays when axes has a positive number
-     of elements is based on the region selection. If there is no
-     region selection, the shape of the statistic arrays is just the
-     shape of the image along the display (non-cursor) axes. For
-     example, if the input image has dimensions of 300x400x4x80 (RA x
-     Dec x Stokes x Freq) and *axes=[0, 1]*, in the absence of a
-     region selection, the shape of the output statistic arrays will
-     be 4x80. If there is a region selection, the shape of the output
-     statistic arrays will be determined by the number of planes
-     along the display axes chosen in the region selection. For
-     example, continuing with our example, if *axes=[0,1]*,
-     *chans="5~15;30~70"*, and *stokes="IV"*, the output statistic
-     arrays will have shapes of 2x52. Only the selected planes will
-     be displayed in the logger output if *verbose=True*.
-   | In the case where the image has a pixel mask, and/or the *mask*
-     parameter is specified, and because of this specification a
-     plane is entirely masked, this element is included in the
-     statistic arrays (usually with a value of 0). It is not included
-     in the logger output if *verbose=True*. One can exclude such
-     elements from computations on the output arrays by using the
-     numpy.extract() method. For example, to compute the minimum rms
-     value, not including any fully masked planes, one could use
+   The *axes* parameter allows one to set the cursor axes over
+   which statistics are computed. For example, consider a
+   3-dimensional image for which *axes=[0,2]*. The statistics would
+   be computed for each XZ (axes 0 and 2) plane in the image. One
+   could then examine those statistics as a function of the Y (axis
+   1) axis.
+   Each statistic is stored in an array in its own field in the
+   returned dictionary. The dimensionality of these arrays is equal
+   to the number of axes over which the statistics were not
+   evaluated (called the display axes). For example, if the input
+   image has four axes, and *axes=[0]*, the output statistic arrays
+   will have three dimensions. If *axes=[0, 1]*, the output
+   statistic arrays will have two dimensions.
+   The shape of the output arrays when axes has a positive number
+   of elements is based on the region selection. If there is no
+   region selection, the shape of the statistic arrays is just the
+   shape of the image along the display (non-cursor) axes. For
+   example, if the input image has dimensions of 300x400x4x80 (RA x
+   Dec x Stokes x Freq) and *axes=[0, 1]*, in the absence of a
+   region selection, the shape of the output statistic arrays will
+   be 4x80. If there is a region selection, the shape of the output
+   statistic arrays will be determined by the number of planes
+   along the display axes chosen in the region selection. For
+   example, continuing with our example, if *axes=[0,1]*,
+   *chans="5~15;30~70"*, and *stokes="IV"*, the output statistic
+   arrays will have shapes of 2x52. Only the selected planes will
+   be displayed in the logger output if *verbose=True*.
+   In the case where the image has a pixel mask, and/or the *mask*
+   parameter is specified, and because of this specification a
+   plane is entirely masked, this element is included in the
+   statistic arrays (usually with a value of 0). It is not included
+   in the logger output if *verbose=True*. One can exclude such
+   elements from computations on the output arrays by using the
+   numpy.extract() method. For example, to compute the minimum rms
+   value, not including any fully masked planes, one could use
    
    ::
    
-      | stats = imstat(...)
-      | rmsmin = numpy.min(numpy.extract(stats['npts']>0,
-        stats['rms']))
+      stats = imstat(...)
+      rmsmin = numpy.min(numpy.extract(stats['npts']>0,
+      stats['rms']))
    
    Thus in the computation of rmsmin, only the rms elements are
    considered which have associated values of 'npts' that are greater
@@ -263,22 +260,35 @@ Description
    likely that there will be a 5-sigma "noise bump" in a perfectly
    noisy image with one million independent elements.
    
-   ====== ===============
-   z max **npts**
-   1.0    1
-   1.5    3
-   2.0    10
-   2.5    40
-   3.0    185
-   3.5    1,074
-   4.0    7,893
-   4.5    73,579
-   5.0    872,138
-   5.5    13,165,126
-   6.0    253,398,672
-   6.5    6,225,098,696
-   7.0    195,341,107,722
-   ====== ===============
+   +-------+-----------------+
+   | z max | **npts**        |
+   +-------+-----------------+
+   | 1.0   | 1               |
+   +-------+-----------------+
+   | 1.5   | 3               |
+   +-------+-----------------+
+   | 2.0   | 10              |
+   +-------+-----------------+
+   | 2.5   | 40              |
+   +-------+-----------------+
+   | 3.0   | 185             |
+   +-------+-----------------+
+   | 3.5   | 1,074           |
+   +-------+-----------------+
+   | 4.0   | 7,893           |
+   +-------+-----------------+
+   | 4.5   | 73,579          |
+   +-------+-----------------+
+   | 5.0   | 872,138         |
+   +-------+-----------------+
+   | 5.5   | 13,165,126      |
+   +-------+-----------------+
+   | 6.0   | 253,398,672     |
+   +-------+-----------------+
+   | 6.5   | 6,225,098,696   |
+   +-------+-----------------+
+   | 7.0   | 195,341,107,722 |
+   +-------+-----------------+
    
    .. rubric:: BIWEIGHT
       
@@ -297,26 +307,25 @@ Description
    
    .. math:: w_i = (1 - u_i^2)
    
-   | where :math:`u_i` is defined as
-   | 
-   
-     .. math:: u_i = \frac{ x_i - c_{bi} } { c s_{bi} }  
+   where :math:`u_i` is defined as
+
+   .. math:: u_i = \frac{ x_i - c_{bi} } { c s_{bi} }
    
         
    
-   | The variable :math:`x_i` is the data values, :math:`c_{bi}` is
-     the biweight location, :math:`s_{bi}` is the biweight scale, and
-     :math:`c` is a constant. We adopt a value for :math:`c` of 6,
-     which gives zero weight to observations more than 4 standard
-     deviations from the median. For the initial computation of the
-     :math:`u_i` values, :math:`c_{bi}` is set equal to the median of
-     the distribution and :math:`s_{bi}` is set equal to the
-     normalized MAD (median of the absolute deviation about the
-     median), assuming a Gaussian distribution. This value is the MAD
-     multiplied by 1.4826, i.e., the value of the probit function at
-     0.75.
-   |      
-   | The location, :math:`c_{bi}`, is then computed from
+   The variable :math:`x_i` is the data values, :math:`c_{bi}` is
+   the biweight location, :math:`s_{bi}` is the biweight scale, and
+   :math:`c` is a constant. We adopt a value for :math:`c` of 6,
+   which gives zero weight to observations more than 4 standard
+   deviations from the median. For the initial computation of the
+   :math:`u_i` values, :math:`c_{bi}` is set equal to the median of
+   the distribution and :math:`s_{bi}` is set equal to the
+   normalized MAD (median of the absolute deviation about the
+   median), assuming a Gaussian distribution. This value is the MAD
+   multiplied by 1.4826, i.e., the value of the probit function at
+   0.75.
+
+   The location, :math:`c_{bi}`, is then computed from
    
    .. math:: c_{bi} = \frac{ \sum_{w_i > 0} x_i  w_i^2 } { \sum_{w_i > 0} w_i^2  }   
    
@@ -337,44 +346,45 @@ Description
    number of points for the entire distribution, since points beyond
    4 standard deviations are downweights, not removed.
    
-   | The algorithm proceeds as follows.
-   |     1. Compute initial :math:`u_i` values (and hence :math:`w_i`
-     values) from the above equation, setting :math:`c_{bi}` equal to
-     the median of the distribution and :math:`s_{bi}` equal to the
-     normalized MAD.
-   |     2. Compute the initial value of the scale using the
-     :math:`w_i` values computed in step 1 using the equation for
-     :math:`s_{bi}`.
-   |     3. Recompute :math:`u_i` and :math:`w_i` values using the
-     most recent previous scale and location values.
-   |     4. Compute the location using the :math:`u_i` and
-     :math:`w_i` values from step 3 and the equation for
-     :math:`c_{bi}`.
-   |     5. Recompute :math:`u_i` and :math:`w_i` values using the
-     most recent previous scale and location values.
-   |     6. Compute the new scale value using the the :math:`u_i` and
-     :math:`w_i` values computed in step 5 and the value of the
-     location computed in step 4.
-   |     7. Steps 3 - 6 are repeated until convergence occurs or the
-     maximum number of iterations (specified in the *niter*
-     parameter) is reached. The convergence criterion is given by
+   The algorithm proceeds as follows.
+
+   1. Compute initial :math:`u_i` values (and hence :math:`w_i`
+      values) from the above equation, setting :math:`c_{bi}` equal to
+      the median of the distribution and :math:`s_{bi}` equal to the
+      normalized MAD.
+   2. Compute the initial value of the scale using the
+      :math:`w_i` values computed in step 1 using the equation for
+      :math:`s_{bi}`.
+   3. Recompute :math:`u_i` and :math:`w_i` values using the
+      most recent previous scale and location values.
+   4. Compute the location using the :math:`u_i` and
+      :math:`w_i` values from step 3 and the equation for
+      :math:`c_{bi}`.
+   5. Recompute :math:`u_i` and :math:`w_i` values using the
+      most recent previous scale and location values.
+   6. Compute the new scale value using the the :math:`u_i` and
+      :math:`w_i` values computed in step 5 and the value of the
+      location computed in step 4.
+   7. Steps 3 - 6 are repeated until convergence occurs or the
+      maximum number of iterations (specified in the *niter*
+      parameter) is reached. The convergence criterion is given by
    
            
    
    .. math:: | (s_{bi} - s_{bi,prev})/s_{bi,prev} | < 0.03  \sqrt{ \frac{0.5}{n - 1}}
    
-          where :math:`s_{bi,prev}` is the value of the scale
+   where :math:`s_{bi,prev}` is the value of the scale
    computed in the previous iteration.
    
    In the special case where *niter* is specified to be negative, the
    scale and location will be computed directly with no iteration.
    
-   |     1. Compute :math:`u_i` and :math:`w_i` values using the
-     median for the location and the normalized MAD as the scale.
-   |     2. Compute the location and scale (which can be carried out
-     simultaneously) using the :math:`u_i` and :math:`w_i` values
-     computed in step 1. The value of the location used in the scale
-     computation is just the median.
+   1. Compute :math:`u_i` and :math:`w_i` values using the
+      median for the location and the normalized MAD as the scale.
+   2. Compute the location and scale (which can be carried out
+      simultaneously) using the :math:`u_i` and :math:`w_i` values
+      computed in step 1. The value of the location used in the scale
+      computation is just the median.
    
    The only keys present in the returned dictionary are 'mean'
    (location), 'sigma' (scale), 'npts', 'min', and 'max' to maximize
@@ -392,15 +402,18 @@ Description
    .. rubric:: NOTES ON FLUX DENSITIES AND FLUXES
       
    
-   .. note:: | Explanation of terminology:
-      | The terms "intensity" or "brightness" refer to quantities
-        with a unit such as Jy/beam or Kelvin (K).
-      | The term "flux density" refers to quantities with a unit such
-        as Janskys (Jy). This is dimensionally equivalent to
-        W/m**2/Hz.
-      | The term "flux" refers to a flux density integrated over the
-        spectral or velocity axis, such as Jy*km/s or Jy*Hz. These
-        are dimensionally equivalent to W/m**2.
+   .. note:: Explanation of terminology:
+
+      The terms "intensity" or "brightness" refer to quantities
+      with a unit such as Jy/beam or Kelvin (K).
+
+      The term "flux density" refers to quantities with a unit such
+      as Janskys (Jy). This is dimensionally equivalent to
+      W/m**2/Hz.
+
+      The term "flux" refers to a flux density integrated over the
+      spectral or velocity axis, such as Jy*km/s or Jy*Hz. These
+      are dimensionally equivalent to W/m**2.
    
    Fluxes and flux densities are not computed if any of the following
    conditions is met:
@@ -540,15 +553,9 @@ Description
    computation (see description). Ignored if the algorithm is not
    "biweight".
    
-   
-   
-   =============== =============================
-   Footnote Number a
-   Footnote Text   May be removed in the future.
-   =============== =============================
-   
-   
-      Bibliography
+
+   .. rubric:: Bibliography
+
    :sup:`1. Beers, T., Flynn, K., and Gebhardt, K. 1990. AJ, 100,
    1, 32.` `<#ref-cit1>`__
    
@@ -557,17 +564,11 @@ Description
    Exploratory Data Analysis, eds. Hoaglin, David; Mosteller,
    Frederick; and Tukey, John W., John Wiley and Sons,
    Inc.` `<#ref-cit2>`__
-   
-   Footnote(s)
-   
-   :sup:`a. May be removed in the future.` `<#refa>`__
-   
+
 
 .. _Examples:
 
 Examples
-   task examples
-   
    Select two-box region: box 1 (bottom-left coord is 2,3 and
    top-right coord is 14,15) and box 2 (bottom-left coord is 30,31
    and top-right coord is 42,43)
@@ -587,9 +588,9 @@ Examples
    
    ::
    
-      | results = imstat('myImage', chans='>20;0')
-      | print "Mean is: ", results['mean'], " s.d. ",
-        results['sigma']
+      results = imstat('myImage', chans='>20;0')
+      print "Mean is: ", results['mean'], " s.d. ",
+      results['sigma']
    
    Find statistical information for the Q stokes value only, then the
    I stokes values only, and printing out the statistical values that
@@ -597,13 +598,13 @@ Examples
    
    ::
    
-      | s1 = imstat('myimage', stokes='Q')
-      | s2 = imstat('myimage', stokes='I')
-      | print " \| MIN \| MAX \| MEAN"
-      | print " Q \| ",s1['min'][0]," \| ",s1['max'][0]," \| ",," \|
-        ",s1['mean'][0]
-      | print " I \| ",s2['min'][0]," \| ",s2['max'][0]," \| ",," \|
-        ",s2['mean'][0]
+      s1 = imstat('myimage', stokes='Q')
+      s2 = imstat('myimage', stokes='I')
+      print " | MIN | MAX | MEAN"
+      print " Q | ",s1['min'][0]," | ",s1['max'][0]," | ",," |
+      ",s1['mean'][0]
+      print " I | ",s2['min'][0]," | ",s2['max'][0]," | ",," |
+      ",s2['mean'][0]
    
    Evaluate statistics for each spectral plane in an ra x dec x
    frequency image
@@ -612,50 +613,39 @@ Examples
    
       myim = "noisy.im"
    
-      | # generate an image
-      | ia.fromshape(myim, [20,30,40])
-      | # give pixels non-zero values
-      | ia.addnoise()
-      | ia.done()
-      | # These are the display axes, the calculation of statistics
-        occurs
-      | # for each (hyper)plane along axes not listed in the axes
-        parameter,
-      | # in this case axis 2 (the frequency axis)
-      | # display the rms for each frequency plane (your mileage will
-        vary with
-      | # the values).
-      | stats = imstat(imagename=myim, axes=[0,1])
+      # generate an image
+      ia.fromshape(myim, [20,30,40])
+      # give pixels non-zero values
+      ia.addnoise()
+      ia.done()
+      # These are the display axes, the calculation of statistics
+      occurs
+      # for each (hyper)plane along axes not listed in the axes
+      parameter,
+      # in this case axis 2 (the frequency axis)
+      # display the rms for each frequency plane (your mileage will
+      vary with
+      # the values).
+      stats = imstat(imagename=myim, axes=[0,1])
    
     Printing the produced statistics using the desired KEY
    
    ::
    
-      | CASA <1>:stats["rms"]
-      |   Out[10]:
-      | array([ 0.99576014, 1.03813124, 0.97749186, 0.97587883,
-        1.04189885,
-      |         1.03784776, 1.03371549, 1.03153074, 1.00841606,
-        0.947155 ,
-      |         0.97335404, 0.94389403, 1.0010221 , 0.97151822,
-        1.03942156,
-      |         1.01158476, 0.96957082, 1.04212773, 1.00589049,
-        0.98696715,
-      |         1.00451481, 1.02307892, 1.03102005, 0.97334671,
-        0.95209879,
-      |         1.02088714, 0.96999902, 0.98661619, 1.01039267,
-        0.96842754,
-      |         0.99464947, 1.01536798, 1.02466023, 0.96956468,
-        0.98090756,
-      |         0.9835844 , 0.95698935, 1.05487967, 0.99846411,
-        0.99634868])
+      CASA <1>:stats["rms"]
+      Out[10]:
+      array([ 0.99576014, 1.03813124, 0.97749186, 0.97587883, 1.04189885,
+              1.03784776, 1.03371549, 1.03153074, 1.00841606, 0.947155 ,
+              0.97335404, 0.94389403, 1.0010221 , 0.97151822, 1.03942156,
+              1.01158476, 0.96957082, 1.04212773, 1.00589049, 0.98696715,
+              1.00451481, 1.02307892, 1.03102005, 0.97334671, 0.95209879,
+              1.02088714, 0.96999902, 0.98661619, 1.01039267, 0.96842754,
+              0.99464947, 1.01536798, 1.02466023, 0.96956468, 0.98090756,
+              0.9835844 , 0.95698935, 1.05487967, 0.99846411, 0.99634868])
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
+   None
    

@@ -3,23 +3,16 @@
 .. _Description:
 
 Description
-   Fit one or more elliptical Gaussian components on an image region(s)
-   
-   .. rubric:: OVERVIEW
-      
-   
-   This application is used to fit one or more two dimensional
+   This task is used to fit one or more two dimensional
    Gaussians to sources in an image as well as an optional zero-level
    offset. Fitting is limited to a single polarization but can be
    performed over several contiguous spectral channels. If the image
    has a clean beam, the report and returned dictionary will contain
    both the convolved and the deconvolved fit results. For examples
    and explanation of the dictionary, see the `Image Plane
-   Analysis <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/image-plane-analysis>`__
+   Analysis <../../notebooks/imaging.ipynb#Image-Plane-Analysis>`_
    pages.
-   
-    
-   
+
    When dooff is False, the method returns a dictionary with keys
    named 'converged', 'pixelsperarcsec', 'results', and
    'deconvolved'. The value of 'converged' is a boolean array which
@@ -43,8 +36,7 @@ Description
    
       cl.fromrecord(res['results'])
    
-    
-   
+
    although this only works if the flux density units are conformant
    with Jy.
    
@@ -168,7 +160,7 @@ Description
    
    .. math:: \begin{equation} \frac{\pi}{4 \rm{ln} 2} \, b_{\rm maj} \,b_{\rm min} \end{equation}
    
-   where :math:` b_{\rm maj}` and :math:`b_{\rm min}` are the major
+   where :math: `b_{\rm maj}` and :math:`b_{\rm min}` are the major
    and minor axes of the beam, and convert to steradians (=rad*rad).
    This value is included in the beam portion of the component
    subdictionary (key '*beamster*'). Then divide the numerical value
@@ -177,12 +169,11 @@ Description
    
    ::
    
-      | # run on an image with K brightness units
-      | res = imfit(...)
-      | # get the I flux density in K*beam of component 0
-      | comp = res['results']['component0']
-      | flux_density_kbeam =
-        comp['flux']['value'][0]/comp['beam']['beamster']
+      # run on an image with K brightness units
+      res = imfit(...)
+      # get the I flux density in K*beam of component 0
+      comp = res['results']['component0']
+      flux_density_kbeam = comp['flux']['value'][0]/comp['beam']['beamster']
    
     
    
@@ -225,25 +216,25 @@ Description
    position angle) may be specified via an estimates text file. Each
    line of this file should contain a set of parameters for a single
    Gaussian. Optionally, some of these parameters can be fixed during
-   the fit. The format of each line is
+   the fit. The format of each line is: peak intensity, peak x-pixel
+   value, peak y-pixel value, major axis, minor axis, position angle,
+   fixed.
    
-   peak intensity, peak x-pixel value, peak y-pixel value, major
-   axis, minor axis, position angle, fixed
-   
-   | The fixed parameter is optional. The peak intensity is assumed
-     to be in the same units as the image pixel values (eg Jy/beam).
-     The peak coordinates are specified in pixel coordinates. The
-     major and minor axes and the position angle are the convolved
-     parameters if the image has been convolved with a clean beam and
-     are specified as quantities. The fixed parameter is optional and
-     is a string. It may contain any combination of the following
-     characters 'f' (peak intensity), 'x' (peak x position), 'y'
-     (peak y position), 'a' (major axis), 'b' (axial ratio, R =
-     (major axis FWHM)/(minor axis FWHM)), 'p' (position angle).
-     **NOTE: One cannot hold the minor axis fixed without holding the
-     major axis fixed.** If the major axis is not fixed, specifying
-     'b' in the fixed string will hold the axial ratio fixed during
-     the fit.
+   The fixed parameter is optional. The peak intensity is assumed
+   to be in the same units as the image pixel values (eg Jy/beam).
+   The peak coordinates are specified in pixel coordinates. The
+   major and minor axes and the position angle are the convolved
+   parameters if the image has been convolved with a clean beam and
+   are specified as quantities. The fixed parameter is optional and
+   is a string. It may contain any combination of the following
+   characters 'f' (peak intensity), 'x' (peak x position), 'y'
+   (peak y position), 'a' (major axis), 'b' (axial ratio, R =
+   (major axis FWHM)/(minor axis FWHM)), 'p' (position angle).
+
+   **NOTE: One cannot hold the minor axis fixed without holding the
+   major axis fixed.** If the major axis is not fixed, specifying
+   'b' in the fixed string will hold the axial ratio fixed during
+   the fit.
    
    In addition, lines in the file starting with a # are considered
    comments.
@@ -269,7 +260,7 @@ Description
    
     
    
-     Key assumptions made are:
+   Key assumptions made are:
    
    -  The given model (elliptical Gaussian, or elliptical Gaussian
       plus constant offset) is an adequate representation of the data
@@ -512,7 +503,8 @@ Description
    not be written.
    
    
-      Bibliography
+   .. rubric:: Bibliography
+
    :sup:`1. Condon
    (1997) ` http://adsabs.harvard.edu/abs/1997PASP..109..166C `<#ref-cit1>`__
    
@@ -528,27 +520,25 @@ Examples
    
    ::
    
-      | default imfit
-      | imagename = "co_cube.im"
+      default imfit
+      imagename = "co_cube.im"
    
-      | # specify box around source
-      | box = "50,50,100,100"
-      | chans = "2~20"
-      | # only use pixels with positive values in the fit
-      | excludepix = [-1e10,0]
-      | # estimates file contains initial parameters for two
-        Gaussians in channel 2
-      | estimates = "initial_estimates.txt"
-      | # append results to the log file for all the channels
-      | append = "True"
-      | imfit()
+      # specify box around source
+      box = "50,50,100,100"
+      chans = "2~20"
+      # only use pixels with positive values in the fit
+      excludepix = [-1e10,0]
+      # estimates file contains initial parameters for two
+      Gaussians in channel 2
+      estimates = "initial_estimates.txt"
+      # append results to the log file for all the channels
+      append = "True"
+      imfit()
    
 
 .. _Development:
 
 Development
-   --CASA Developer--
-   
    Here would be a discussion of how applycal is implemented.  This
    is intended for the other members of the development team so is a
    technical discussion.  We will work on building these up over

@@ -72,17 +72,17 @@ Description
    +-------------------+-------------------------------------------------+
    | bunit             | Image units (K, Jy/beam, etc).                  |
    +-------------------+-------------------------------------------------+
-   | cdelt *n*        | Pixel size, *n* th axis. *n* is one-based.     |
+   | cdelt *n*        | Pixel size, *n* th axis. *n* is one-based.       |
    +-------------------+-------------------------------------------------+
-   | crpix *n*        | The pixel designated as the reference location, |
-   |                   | *n* th axis *n* is one-based.                  |
+   | crpix *n*        | The pixel designated as the reference location,  |
+   |                   | *n* th axis *n* is one-based.                   |
    +-------------------+-------------------------------------------------+
-   | crval *n*        | World coordinate value of the reference pixel   |
-   |                   | for the *n* th axis. *n* is one-based.         |
+   | crval *n*        | World coordinate value of the reference pixel    |
+   |                   | for the *n* th axis. *n* is one-based.          |
    +-------------------+-------------------------------------------------+
-   | ctype *n*        | Name of *n* th axis. *n* is one-based.         |
+   | ctype *n*        | Name of *n* th axis. *n* is one-based.           |
    +-------------------+-------------------------------------------------+
-   | cunit *n*        | Units of *n* th axis. *n* is one based.        |
+   | cunit *n*        | Units of *n* th axis. *n* is one based.          |
    +-------------------+-------------------------------------------------+
    | datamax           | Maximum pixel value.                            |
    +-------------------+-------------------------------------------------+
@@ -148,10 +148,10 @@ Description
    |                          | the operation fails and False is         |
    |                          | returned. Examples of acceptable values  |
    |                          | of *hdvalue* are "4arcsec",              |
-   |                          | **qa.quantity** ("4arcsec"), {'unit':   |
+   |                          | **qa.quantity** ("4arcsec"), {'unit':    |
    |                          | 'arcsec', 'value': 4.0}. If you wish an  |
    |                          | image to have multiple beams, use        |
-   |                          | **ia.setrestoringbeam** ().             |
+   |                          | **ia.setrestoringbeam** ().              |
    +--------------------------+------------------------------------------+
    | beamminor or bmin        | Behavior is the same as that for         |
    |                          | beammajor or bmaj.                       |
@@ -213,7 +213,7 @@ Description
    |                          | Dispersion".                             |
    +--------------------------+------------------------------------------+
    | masks                    | No effect. Addition of masks is not      |
-   |                          | supported. Use **ia.calcmask** ().      |
+   |                          | supported. Use **ia.calcmask** ().       |
    +--------------------------+------------------------------------------+
    | maxpos                   | No effect. Addition of statistical       |
    |                          | parameters is not supported.             |
@@ -246,7 +246,7 @@ Description
    |                          | CASA quantity with frequency units. Else |
    |                          | do nothing and return False. Examples of |
    |                          | valid values are "1GHz",                 |
-   |                          | **qa.quantity** ("1GHz"), {'unit':      |
+   |                          | **qa.quantity** ("1GHz"), {'unit':       |
    |                          | 'GHz', 'value': 1.0}.                    |
    +--------------------------+------------------------------------------+
    | shape                    | No effect.                               |
@@ -441,7 +441,7 @@ Description
    | **Values**               |  **Description**                         |
    +--------------------------+------------------------------------------+
    | beammajor or bmaj        | Will always fail if image has multiple   |
-   |                          | beams. Use **ia.setrestoringbeam** ()   |
+   |                          | beams. Use **ia.setrestoringbeam** ()    |
    |                          | in this case. If image has no beam(s), a |
    |                          | single, global, circular beam of         |
    |                          | diameter specified in *hdvalue* is       |
@@ -455,7 +455,7 @@ Description
    |                          | existing beam, in which case nothing is  |
    |                          | modified and False is returned. Examples |
    |                          | of acceptable values of *hdvalue* are    |
-   |                          | "4arcsec", **qa.quantity** ("4arcsec"), |
+   |                          | "4arcsec", **qa.quantity** ("4arcsec"),  |
    |                          | {'unit': 'arcsec', 'value': 4.0}.        |
    +--------------------------+------------------------------------------+
    | beamminor or bmin        | Behavior is the same as that for bmaj,   |
@@ -473,7 +473,7 @@ Description
    | bunit                    | Fails if *hdvalue* is not a supported    |
    |                          | CASA unit.                               |
    +--------------------------+------------------------------------------+
-   | cdelt *n*               | One-based axis *n* must be less than or  |
+   | cdelt *n*                | One-based axis *n* must be less than or  |
    |                          | equal to the number of axes in the       |
    |                          | image. *hdvalue* type must be a number   |
    |                          | (in which case the unit of the           |
@@ -482,13 +482,13 @@ Description
    |                          | quantity, the unit must conform to the   |
    |                          | existing axis unit.                      |
    +--------------------------+------------------------------------------+
-   | crpix *n*               | One-based axis *n* must be less than or  |
+   | crpix *n*                | One-based axis *n* must be less than or  |
    |                          | equal to the number of axes in the       |
    |                          | image. *hdvalue* type must be a number.  |
    |                          | Will fail if the polarization axis is    |
    |                          | specified.                               |
    +--------------------------+------------------------------------------+
-   | crval *n*               | One-based axis *n* must be less than or  |
+   | crval *n*                | One-based axis *n* must be less than or  |
    |                          | equal to the number of axes in the       |
    |                          | image. If not the polarization/stokes    |
    |                          | axis, *hdvalue* type must be a number    |
@@ -508,11 +508,11 @@ Description
    |                          | alternatively provide a string           |
    |                          | indicating the stokes value (e.g. "U").  |
    +--------------------------+------------------------------------------+
-   | ctype *n*               | One-based axis *n* must be less than or  |
+   | ctype *n*                | One-based axis *n* must be less than or  |
    |                          | equal to the number of axes in the       |
    |                          | image. *hdvalue* type must be a string.  |
    +--------------------------+------------------------------------------+
-   | cunit *n*               | One-based axis *n* must be less than or  |
+   | cunit *n*                | One-based axis *n* must be less than or  |
    |                          | equal to the number of axes in the       |
    |                          | image. Specified unit must conform to    |
    |                          | the existing axis unit. Will fail if     |
@@ -567,7 +567,7 @@ Description
    |                          | lines), but only one is active (for      |
    |                          | velocity conversion) at any time. For    |
    |                          | more functionality, please use           |
-   |                          | **cs.setrestfrequency** ().             |
+   |                          | **cs.setrestfrequency** ().              |
    +--------------------------+------------------------------------------+
    | shape                    | This cannot be modified.                 |
    +--------------------------+------------------------------------------+
@@ -728,8 +728,6 @@ Examples
 .. _Development:
 
 Development
-   --CASA Developer--
-   
    Here would be a discussion of how applycal is implemented.  This
    is intended for the other members of the development team so is a
    technical discussion.  We will work on building these up over
