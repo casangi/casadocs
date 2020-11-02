@@ -143,7 +143,7 @@ for task in tasklist:
             # must exist params don't have default values
             if ('mustexist' not in task['params'][param]) or (task['params'][param]['mustexist'] == 'false'):
                 proto += '%s%s, ' % (param, ParamSpec(param)[ParamSpec(param).rindex('='):-1])
-        fid.write('def %s(%s):\n    """\n' % (task['name'], proto[:-2]))
+        fid.write('def %s(%s):\n    r"""\n' % (task['name'], proto[:-2]))
         
         # populate function description
         if 'shortdescription' in task.keys():
@@ -154,7 +154,7 @@ for task in tasklist:
             fid.write(' \n\n')
 
         # populate a horizontal toc nav bar
-        fid.write('[' + '] ['.join(['%s_' % section for section in ['Description', 'Examples', 'Development', 'Details']]) + ']\n\n')
+        fid.write('[' + '] ['.join(['`%s`_' % section for section in ['Description', 'Examples', 'Development', 'Details']]) + ']\n\n')
 
         # populate function parameters
         fid.write('\nParameters\n')

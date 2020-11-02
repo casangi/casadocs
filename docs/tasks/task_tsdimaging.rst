@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   SD task: imaging for total power and spectral data.
-   
    The **tsdimaging** task grids/images total power and spectral data
    according to a specified gridding kernel. The input data should be
    calibrated and bandpass corrected (where necessary), and the
@@ -119,8 +117,7 @@ Description
    (gnomonic), and SFL (Sanson-Flamsteed). 
    
    .. rubric:: Image Definition (specmode)
-      
-   
+
    The image coordinate system(s) and shape(s) can be set up to form
    single images. The different modes for imaging include:
    
@@ -161,9 +158,8 @@ Description
    these examples represent future work. Currently, effort is
    underway to make **tsdimaging** compatible with **sdimaging** and
    convert it to a "regular" (non-experimental) task.
-   
-   
-      Bibliography
+
+   **Bibliography**
    :sup:`1. Mangum, et al. 2007, A&A, 474,
    679-687` `(A&A) <http://www.aanda.org/articles/aa/pdf/2007/41/aa7811-07.pdf>`__ `<#ref-cit1>`__
    
@@ -171,30 +167,27 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To generate a spectral line cube with 500 channels selected from
    channel 200 to 700:
    
    ::
    
-      | spw='0'
-      | pol='XX'
-      | src='Moon'
+      spw='0'
+      pol='XX'
+      src='Moon'
    
-      | tsdimaging(infiles='mydata.ms',
-      |     spw=spw,
-      |     nchan=500,
-      |     start='200',
-      |     width='1',
-      |     cell=['30.0arcsec','30.0arcsec'],
-      |     outfile='mydata.ms.im',
-      |     imsize=[80,80],
-      |     gridfunction='GAUSS',
-      |     gwidth='4arcsec',
-      |     stokes=pol,
-      |     ephemsrcname=src)
-   
+      tsdimaging(infiles='mydata.ms',
+                 spw=spw,
+                 nchan=500,
+                 start='200',
+                 width='1',
+                 cell=['30.0arcsec','30.0arcsec'],
+                 outfile='mydata.ms.im',
+                 imsize=[80,80],
+                 gridfunction='GAUSS',
+                 gwidth='4arcsec',
+                 stokes=pol,
+                 ephemsrcname=src)
     
    
    The *start* parameter can be specified in different units:
@@ -225,8 +218,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   None
+

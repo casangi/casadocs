@@ -3,11 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
-   .. rubric:: Summary
-      
-   
    This task allows the user to search a specified spectral line
    table. If no spectral line table is specified, the default is to
    use a subset of the `Splatalogue spectral line
@@ -47,8 +42,7 @@ Description
    Input spectral line table name to search. If not specified, use
    the default table in the system.
    
-   .. rubric:: *outfile
-      *
+   .. rubric:: *outfile*
       
    
    Results table name. Blank means do not write the table to disk.
@@ -58,32 +52,27 @@ Description
    
    Frequency range in GHz.
    
-   .. rubric:: *species
-      *
+   .. rubric:: *species*
       
    
    Species to search for.
    
-   .. rubric:: *reconly
-      *
+   .. rubric:: *reconly*
       
    
    List only NRAO recommended frequencies.
    
-   .. rubric:: *chemnames
-      *
+   .. rubric:: *chemnames*
       
    
    Chemical names to search for.
    
-   .. rubric:: *qns
-      *
+   .. rubric:: *qns*
       
    
    Resolved quantum numbers to search for.
    
-   .. rubric:: *intensity
-      *
+   .. rubric:: *intensity*
       
    
    CDMS/JPL intensity range. -1 -> do not use an intensity range.
@@ -114,20 +103,17 @@ Description
    
    Include Radio Recombination Lines (RRLs) in the result set?
    
-   .. rubric:: *rrlonly
-      *
+   .. rubric:: *rrlonly*
       
    
    Include only RRLs in the result set?
    
-   .. rubric:: *verbose
-      *
+   .. rubric:: *verbose*
       
    
    List result set to logger (and optionally logfile)
    
-   .. rubric:: *logfile
-      *
+   .. rubric:: *logfile*
       
    
    List result set to this logfile (only used if verbose=True).
@@ -143,8 +129,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To search the `Splatalogue
    database <http://www.cv.nrao.edu/php/splat/>`__ for spectral
    lines in the frequency range 90 - 92 GHz, and write the result to
@@ -159,8 +143,4 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   None

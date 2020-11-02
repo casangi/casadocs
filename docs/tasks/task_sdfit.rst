@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   Basic line fitter for single-dish spectra
-   
    Task **sdfit** is a basic line fitter for single-dish spectra.
    While it's possible to run **sdfit** on uncalibrated data, the
    structure of the raw bandpass is likely to return complicated
@@ -86,14 +84,14 @@ Description
    *minwidth* parameter. The line detection is iteratively invoked
    for channel-averaged spectra up to *avg_limit*.
    
-   | *thresh* -- [default 5] S/N threshold for linefinder.
-   | *avg_limit* -- [default 4] channel averaging for broad lines. A
-     number of consecutive channels up to this value will be averaged
-     to search for broad lines
-   | *minwidth* --[default: 4]  minimum number of consecutive
-     channels required to pass threshold
-   | *edge* -- [default 0] channels to drop at beginning and end of
-     spectrum
+   *thresh* -- [default 5] S/N threshold for linefinder.
+   *avg_limit* -- [default 4] channel averaging for broad lines. A
+   number of consecutive channels up to this value will be averaged
+   to search for broad lines
+   *minwidth* --[default: 4]  minimum number of consecutive
+   channels required to pass threshold
+   *edge* -- [default 0] channels to drop at beginning and end of
+   spectrum
    
    .. note:: **NOTE**: For bad baselines, *thresh* should be increased, and
       *avg_limit* decreased (or even switched off completely by
@@ -107,8 +105,6 @@ Description
 .. _Examples:
 
 Examples
-   Example usage of sdfit.
-   
    This example is to fit two Gaussian (default) components to all
    integrations in scan 4, polarization 'XX' only, and write the
    output to a file.  The output (sdfitout) is a python dictionary.
@@ -121,13 +117,13 @@ Examples
    
    ::
    
-      | #SCAN   TIME            ANT     BEAM    SPW     POL    
-        Function        P0              P1              P2
-      | 4       4873839081.0780 2       0       6       0      
-        gauss0          2.58050537      15.00975037     3.89437151  
+      #SCAN   TIME            ANT     BEAM    SPW     POL
+      Function        P0              P1              P2
+      4       4873839081.0780 2       0       6       0
+      gauss0          2.58050537      15.00975037     3.89437151
            
-      | 4       4873839081.0780 2       0       6       0      
-        gauss1          0.72443587      61.37811279     8.87286472
+      4       4873839081.0780 2       0       6       0
+      gauss1          0.72443587      61.37811279     8.87286472
    
    In this example, only a spectrum is selected in an MS. Each row of
    the output file stores the results of fitting a line in the
@@ -145,28 +141,24 @@ Examples
    
       sdfitout
    
-   ::
+      Out[1]:
    
-      Out[**1**]: 
-   
-      | {'cent': [[[15.00975037, 0.04713312], [61.37811279,
+      {'cent': [[[15.00975037, 0.04713312], [61.37811279,
         0.25342196]]],
-      |  'fwhm': [[[3.89437151, 0.11099002], [8.87286472,
-        0.59676313]]],
-      |  'nfit': [2],
-      |  'peak': [[[2.58050537, 0.06369157], [0.72443587,
-        0.04219575]]]}
+       'fwhm': [[[3.89437151, 0.11099002], [8.87286472,
+      0.59676313]]],
+       'nfit': [2],
+       'peak': [[[2.58050537, 0.06369157], [0.72443587,
+      0.04219575]]]}
    
-    To obtain the peak of the second line in the first spectrum from
+   To obtain the peak of the second line in the first spectrum from
    the dictionary,
    
    ::
    
       sdfitout['peak'][0][1]
    
-   ::
-   
-      Out[**2**]: [0.72443587, 0.04219575]
+      Out[2]: [0.72443587, 0.04219575]
    
    The first entry is the fitted value and the second one is the
    error on the fitted value.
@@ -198,16 +190,10 @@ Examples
    ::
    
       sdfitout=sdfit(infile=mymeasurement_set,outfile='mysd.fit')
-   
-   | 
-   |
-   
+
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
+   None
    

@@ -3,12 +3,6 @@
 .. _Description:
 
 Description
-   For imaging and analyzing MeasurementSets simulated with simobserve
-   or simalma.
-   
-   .. rubric:: Summary
-      
-   
    This task is for imaging and analyzing MeasurementSets (MSs)
    simulated with **simobserve** or **simalma**.
    
@@ -31,6 +25,7 @@ Description
       `tclean <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_tclean>`__
       task. Most of the parameters are passed to the wrapper method
       **simutil.imtclean**, which in turn calls **tclean**.
+
    #. Analyze - Calculate and display the difference between output
       and input, and the fidelity image. Different diagnostic images
       can be chosen to plot on a multi-panel figure, with the
@@ -367,12 +362,11 @@ Description
    model sky image convolved with an output clean beam.
    
    .. rubric:: *showfidelity*
-      
-   
+
    Displays the fidelity image. The fidelity image is defined by the
    following equation:
    
-   :math:`fidelity = \frac{| input |}{max[| input-output |  0.7*rms(output)]}`
+   :math:`fidelity = \frac{|input|}{max[|input-output|,0.7*rms(output)]}`
    
    .. note:: **NOTE**: The RMS is calculated in the lower quarter of the
       image which is likely not the best choice. It is encouraged to
@@ -416,30 +410,25 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    This example was taken from the simulation CASAguide located
    `here <https://casaguides.nrao.edu/index.php/Simulation_Guide_Component_Lists_(CASA_5.1)>`__.
    
    ::
    
-      | default("simanalyze")
-      | project = "FITS_list"
-      | vis="FITS_list.alma.cycle5.1.ms"
-      | imsize = [256,256]
-      | imdirection = "J2000 10h00m00.0s -30d00m00.0s"
-      | cell = '0.1arcsec'
-      | niter = 5000
-      | threshold = '10.0mJy/beam'
-      | analyze = True
-      | simanalyze()
+      default("simanalyze")
+      project = "FITS_list"
+      vis="FITS_list.alma.cycle5.1.ms"
+      imsize = [256,256]
+      imdirection = "J2000 10h00m00.0s -30d00m00.0s"
+      cell = '0.1arcsec'
+      niter = 5000
+      threshold = '10.0mJy/beam'
+      analyze = True
+      simanalyze()
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
+   None
    

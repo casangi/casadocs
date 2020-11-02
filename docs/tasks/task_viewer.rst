@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task viewer description
-   
    Displays images, data cubes and MeasurementSets.
    
    The **viewer** will display images in raster, contour, vector or
@@ -48,8 +46,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To simply create a CASA viewer to set up interactively, you can
    type within CASA:
    
@@ -85,8 +81,6 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
+   None
    
    

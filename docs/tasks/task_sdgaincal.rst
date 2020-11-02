@@ -3,9 +3,6 @@
 .. _Description:
 
 Description
-   Computes the gain variation in ALMA single-dish data taken with the
-   double-circle, fast-mapped observing mode
-   
    **sdgaincal** computes and removes a time-dependent gain variation
    in single-dish data on a per-spectral-window and per-antenna
    basis. Presently the task operates only on data taken with the
@@ -43,11 +40,8 @@ Description
    to use all data for the gain calibration. The caltable can be
    output with the '*outfile*' parameter.
    
-   | 
-   |
-   
-   
-      Bibliography
+   .. rubric::  Bibliography
+
    :sup:`1. Phillips et al, 2015. Fast Single-Dish Scans of the
    Sun Using
    ALMA.` `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?2015ASPC..499..347P&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__ `<#ref-cit1>`__
@@ -56,8 +50,6 @@ Description
 .. _Examples:
 
 Examples
-   Example usage of sdgaincal
-   
    There are two ways to generate and apply double-circle gaintable.
    One is to calibrate and apply atmosphere and sky calibrations
    separately, and the other is to apply them on-the-fly during
@@ -82,12 +74,12 @@ Examples
    
    ::
    
-      | sdcal(infile=inputvis, calmode='ps,tsys,apply')
-      | split(vis=inputvis, outputvis=calibratedvis,
-        datacolumn='corrected')
-      | sdgaincal(infile=calibratedvis, outfile='DCgaintable',
-        calmode='doublecircle')
-      | applycal(vis=calibratedvis, gaintable='DCgaintable')
+      sdcal(infile=inputvis, calmode='ps,tsys,apply')
+      split(vis=inputvis, outputvis=calibratedvis,
+      datacolumn='corrected')
+      sdgaincal(infile=calibratedvis, outfile='DCgaintable',
+      calmode='doublecircle')
+      applycal(vis=calibratedvis, gaintable='DCgaintable')
    
    .. rubric:: Apply atmosphere and sky caltables on-the-fly
       
@@ -111,20 +103,18 @@ Examples
    
    ::
    
-      | sdcal(infile=inputvis, calmode='ps', outfile='sky.tbl')
-      | sdcal(infile=inputvis, calmode='tsys',
-        outfile='tsys.tbl')
-        sdgaincal(infile=inputvis, applytable=['sky.tbl',
-        'tsys.tbl'],outfile='DCgaintable',
-        calmode='doublecircle')
-      | applycal(vis=inputvis, gaintable='DCgaintable')
+      sdcal(infile=inputvis, calmode='ps', outfile='sky.tbl')
+      sdcal(infile=inputvis, calmode='tsys',
+      outfile='tsys.tbl')
+      sdgaincal(infile=inputvis, applytable=['sky.tbl',
+      'tsys.tbl'],outfile='DCgaintable',
+      calmode='doublecircle')
+      applycal(vis=inputvis, gaintable='DCgaintable')
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
+   None
    
    

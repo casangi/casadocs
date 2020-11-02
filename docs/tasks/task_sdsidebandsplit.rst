@@ -4,10 +4,7 @@
 
 Description
    Perform sideband separation using FFT
-   
-   .. rubric:: Summary
-      
-   
+
    .. warning:: **WARNING**: This task is EXPERIMENTAL. Interface and
       capabilities may change frequently.
    
@@ -33,12 +30,9 @@ Description
    as two images. The name of output image(s) is defined by *outfile*
    and suffixed by '.signalband' and '.imageband' for the signal and
    image sidebands, respectively.
-   
-    
-   
+
    .. rubric:: How to prepare input images
-      
-   
+
    This task can only be used with spectral line data and not
    continuum. Therefore input images must be appropriately
    calibrated, for example, by using **sdcal** (and **applycal**),
@@ -68,7 +62,7 @@ Description
    imagename.  The parameter *imageshift* is the same as
    *signalshift* but for the image sideband.
    
-   .. note:: **NOTE**: *signalshift* and *imageshift* must be defined in the
+   .. note:: *signalshift* and *imageshift* must be defined in the
       unit of channel numbers in the image. The **sdsidebandsplit**
       task relies on these values to shift back the spectra and
       construct a group of spectra whose signal (or image) sideband
@@ -155,57 +149,56 @@ Description
    :math:`f`, :math:`g` represent contributions from signal and image
    sidebands, respectively. Then, 
    
-   :math:`h_{\rm k} = f_{\rm k} + g_{\rm k}`,  
-    :math:`k=0,1,2,...,N-1`,
+   :math:`h_{m k} = f_{m k} + g_{m k}`, :math:`k=0,1,2,...,N-1`,
    
    where :math:`k` denotes channel index and :math:`N` is a number
    of spectral channels. If LO frequency shift by x causes
-   :math:`f_{\rm k}` and :math:`g_{\rm k}` to shift by
-   :math:`\Delta^{\rm x}_{\rm f}` and :math:`\Delta^{\rm x}_{\rm g}`
+   :math:`f_{m k}` and :math:`g_{m k}` to shift by
+   :math:`\Delta^{m x}_{m f}` and :math:`\Delta^{m x}_{m g}`
    with respect to its original spectra, respectively, output
    spectrum with shift is wrtten as,
    
-   :math:`h^{\rm x}_{\rm k} = f_{\rm k - \Delta^x_f} + g_{\rm k - \Delta^x_g}`.
+   :math:`h^{m x}_{m k} = f_{m k - \Delta^x_f} + g_{m k - \Delta^x_g}`.
    
-   We can shift :math:`h^{\rm x}_{\rm k}` as if the contribution from
+   We can shift :math:`h^{m x}_{m k}` as if the contribution from
    image sideband, :math:`g`, is being unshifted. By
-   shifting :math:`h^{\rm x}_{\rm k}`
-   by :math:`-\Delta^{\rm x}_{\rm g}`, we can construct such
+   shifting :math:`h^{m x}_{m k}`
+   by :math:`-\Delta^{m x}_{m g}`, we can construct such
    spectrum,
    
-   :math:`h^{\rm x,imag}_{\rm k} = f_{\rm k - \Delta^x} + g_{\rm k}`,
+   :math:`h^{m x,imag}_{m k} = f_{m k - \Delta^x} + g_{m k}`,
    
    where
-   :math:`\Delta^{\rm x} = \Delta^{\rm x}_{\rm f} - \Delta^{\rm x}_{\rm g}`.
+   :math:`\Delta^{m x} = \Delta^{m x}_{m f} - \Delta^{m x}_{m g}`.
    Channel shift in the signal sideband is represented as a
    modulation in Fourier (time) domain. Thus, Fourier transform of
    the above is written as,
    
-   :math:`H^{\rm x,imag}_{\rm t} = F_{\rm t} \exp(-i\frac{2\pi t \Delta^{\rm x}}{N}) + G_{\rm t}`,
+   :math:`H^{m x,imag}_{m t} = F_{m t} \exp(-i \frac{2\pi t \Delta^{m x}}{N}) + G_{m t}`,
    
-   where :math:`H^{\rm x,imag}_{\rm t}`, :math:`F_{\rm t}`, and
-   :math:`G_{\rm t}` are Fourier transform
-   of :math:`h^{\rm x,imag}_{\rm k}`, :math:`f_{\rm k}`, and
-   :math:`g_{\rm k}`, respectively. Applying similar procedure for
+   where :math:`H^{m x,imag}_{m t}`, :math:`F_{m t}`, and
+   :math:`G_{m t}` are Fourier transform
+   of :math:`h^{m x,imag}_{m k}`, :math:`f_{m k}`, and
+   :math:`g_{m k}`, respectively. Applying similar procedure for
    the different LO frequency offset, y, we can obtain another
    result:
    
-   :math:`H^{\rm y,imag}_{\rm t} = F_{\rm t} \exp(-i\frac{2\pi t \Delta^{\rm y}}{N}) + G_{\rm t}`.
+   :math:`H^{m y,imag}_{m t} = F_{m t} \exp(-i \frac{2\pi t \Delta^{m y}}{N}) + G_{m t}`.
    
-   we can obtain :math:`G_{\rm t}`, Fourier transform of the
-   contribution from image sideband, :math:`g_{\rm k}`, from the
+   we can obtain :math:`G_{m t}`, Fourier transform of the
+   contribution from image sideband, :math:`g_{m k}`, from the
    above two results,
    
-   :math:`G_{\rm t} = \frac{1}{2} (H^{\rm x,imag}_{\rm t} + H^{\rm y,imag}_{\rm t}) + \frac{1}{2} \frac{\cos\theta}{i\sin\theta} (H^{\rm x,imag}_{\rm t} - H^{\rm y,imag}_{\rm t})`,
+   :math:`G_{m t} = \frac{1}{2} (H^{m x,imag}_{m t} + H^{m y,imag}_{m t}) + \frac{1}{2} \frac{\cos\theta}{i\sin\theta} (H^{m x,imag}_{m t} - H^{m y,imag}_{m t})`,
    
    where
-   :math:`\theta = 2\pi t (\Delta^{\rm x} - \Delta^{\rm y}) / N`. 
+   :math:`\theta = 2\pi t (\Delta^{m x} - \Delta^{m y}) / N`.
    
    There are two ways to obtain the contribution from signal
    sideband. One is to solve signal sideband exactly same procedure
    with the above. By doing that, we obtain,
    
-   :math:`F_{\rm t} = \frac{1}{2} (H^{\rm x,sig}_{\rm t} + H^{\rm y,sig}_{\rm t}) - \frac{1}{2} \frac{\cos\theta}{i\sin\theta} (H^{\rm x,sig}_{\rm t} - H^{\rm y,sig}_{\rm t})`,
+   :math:`F_{m t} = \frac{1}{2} (H^{m x,sig}_{m t} + H^{m y,sig}_{m t}) - \frac{1}{2} \frac{\cos\theta}{i\sin\theta} (H^{m x,sig}_{m t} - H^{m y,sig}_{m t})`,
    
    where the quantity with superscript "sig" corresponds to the
    shifted spectrum so that contribution from the signal sideband
@@ -223,7 +216,7 @@ Description
    case, the task takes average of those solutions to get a final
    solution. 
    
-   Note that, when :math:`\Delta^{\rm x}` and :math:`\Delta^{\rm y}`
+   Note that, when :math:`\Delta^{m x}` and :math:`\Delta^{m y}`
    are so close that :math:`\theta` becomes almost zero, the above
    solution could diverge. Such a solution must be avoided to obtain
    a finite result. The parameter *threshold* is introduced for this
@@ -232,7 +225,7 @@ Description
    *threshold*.
    
    
-      Bibliography
+   Bibliography
    :sup:`1. Emerson, Klein, & Haslam 1979, A&A, 76, 92
    (` `ADS <http://adsabs.harvard.edu/abs/1979A%26A....76...92E>`__ :sup:`)` `<#ref-cit1>`__
    
@@ -240,47 +233,41 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    Obtain an image of signal sideband (side band supression):
    
    ::
    
-      sdsidebandsplit(imagename=['shift_0ch.image',
-      'shift_132ch.image', 'shift_neg81ch.image'],
-      outfile='separated.image', signalshift=[0.0, +132.0,
-      -81.0],imageshift=[0.0, -132.0, +81.0])
+      sdsidebandsplit(imagename=['shift_0ch.image', 'shift_132ch.image',
+                      'shift_neg81ch.image'], outfile='separated.image',
+                      signalshift=[0.0, +132.0, -81.0],
+                      imageshift=[0.0, -132.0, +81.0])
    
    The output image is 'separated.image.signalband'.
-   
-    
-   
+
    To solve both signal and image sidebands, set frequency of image
    sideband explicitly in addtion to *getbothside=True*.
    
    ::
    
-      sdsidebandsplit(imagename=['shift_0ch.image',
-      'shift_132ch.image', 'shift_neg81ch.image'],
-      outfile='separated.image', signalshift=[0.0, +132.0, -81.0],
-      imageshift=[0.0, -132.0, +81.0], getbothside=True, refpix=0.0,
-      refval='805.8869GHz')
+      sdsidebandsplit(imagename=['shift_0ch.image', 'shift_132ch.image',
+                      'shift_neg81ch.image'], outfile='separated.image',
+                      signalshift=[0.0, +132.0, -81.0],
+                      imageshift=[0.0, -132.0, +81.0], getbothside=True,
+                      refpix=0.0, refval='805.8869GHz')
    
    The output images are 'separated.image.signalband' and
    'separated.image.imageband' for signal and image sideband,
    respectively.
-   
-    
-   
+
    To obtain signal sideband image by solving image sideband, set
    *otherside=True*:
    
    ::
    
-      sdsidebandsplit(imagename=['shift_0ch.image',
-      'shift_132ch.image', 'shift_neg81ch.image'],
-      outfile='separated.image', signalshift=[0.0, +132.0, -81.0],
-      imageshift=[0.0, -132.0, +81.0], otherside=True)
+      sdsidebandsplit(imagename=['shift_0ch.image', 'shift_132ch.image',
+                      'shift_neg81ch.image'], outfile='separated.image',
+                      signalshift=[0.0, +132.0, -81.0],
+                      imageshift=[0.0, -132.0, +81.0], otherside=True)
    
    Solution of image sideband is obtained and subtracted from the
    original (double sideband) spectra to derive spectra of signal
@@ -290,8 +277,4 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   None

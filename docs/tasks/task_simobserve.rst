@@ -3,11 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
-   .. rubric:: Summary
-      
-   
    This task simulates interferometric or total power
    MeasurementSets. The general steps for simulation in CASA are
    described on the top
@@ -75,13 +70,13 @@ Description
    
    ::
    
-      | importfits(fitsimage='myfile.fits',imagename='testimage',overwrite=T)
-      | default 'immath'
-      | imagename = 'testimage'
-      | expr = 'IM0'
-      | box = '0,0,299,299'
-      | outfile = 'testimage2'
-      | immath()
+      importfits(fitsimage='myfile.fits',imagename='testimage',overwrite=T)
+      default 'immath'
+      imagename = 'testimage'
+      expr = 'IM0'
+      box = '0,0,299,299'
+      outfile = 'testimage2'
+      immath()
    
    You can use **imhead** to modify the header parameters of the new
    image, or you can use the parameters in the **simobserve** task to
@@ -160,9 +155,8 @@ Description
       predicted visibilities.
    
    .. rubric:: Task output
-      
-   
-    Below is a list of the products produced by the **simobserve**
+
+   Below is a list of the products produced by the **simobserve**
    task. Not all of these will necessarily be produced, depending on
    input parameters selected.
    
@@ -188,7 +182,8 @@ Description
     
    
    .. rubric:: Parameter descriptions
-      
+
+   Detailed parameter descriptions
    
    .. rubric:: *project*
       
@@ -589,26 +584,24 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    This example was taken from the simulation CASAguide located
    `here <https://casaguides.nrao.edu/index.php/Simulation_Guide_Component_Lists_(CASA_5.1)>`__.
    
    ::
    
-      | default("simobserve")
-      | project = "FITS_list"
-      | skymodel = "Gaussian.fits"
-      | inwidth = "1GHz"
-      | complist = 'point.cl'
-      | compwidth = '1GHz'
-      | direction = "J2000 10h00m00.0s -30d00m00.0s"
-      | obsmode = "int"
-      | antennalist = 'alma.cycle5.1.cfg'
-      | totaltime = "28800s"
-      | mapsize = "10arcsec"
-      | thermalnoise = ''
-      | simobserve()
+      default("simobserve")
+      project = "FITS_list"
+      skymodel = "Gaussian.fits"
+      inwidth = "1GHz"
+      complist = 'point.cl'
+      compwidth = '1GHz'
+      direction = "J2000 10h00m00.0s -30d00m00.0s"
+      obsmode = "int"
+      antennalist = 'alma.cycle5.1.cfg'
+      totaltime = "28800s"
+      mapsize = "10arcsec"
+      thermalnoise = ''
+      simobserve()
    
    This example demonstrates the use of the *comp_nchan* parameter to
    simulate a disk and produce a multi-channel MS (with a flat
@@ -632,8 +625,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
+   None
    

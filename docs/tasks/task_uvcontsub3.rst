@@ -3,17 +3,9 @@
 .. _Description:
 
 Description
-   task description
-   
-    
-   
    .. warning:: **ALERT: uvcontsub3** is an experimental task and will
       eventually replace the current **uvcontsub** code with the
       goal of taking less time and temporary disk space.
-   
-    
-   
-    
    
    **uvcontsub3** is a task to perform continuum fitting and
    subtraction in the uv plane
@@ -64,14 +56,14 @@ Description
    Name of input MS. Output goes to vis + ".contsub" (will be
    overwritten if already exists)
    
-   *fitspw  *
+   *fitspw*
    
    Selection of spectral windows and channels to use in the fit for
    the continuum, using general `MS selection
    syntax <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__ for
    spectral windows, e.g. in spw:chan format (spw ids are required
-   but *'*'* can be used) or as frequencies. See the note
-   under *combine*. default: *fitspw='' * (all)
+   but '\*' can be used) or as frequencies. See the note
+   under *combine*. default: *fitspw=''* (all)
    
    .. warning:: **WARNING:** The *fitspw* selection is based on the channel
       numbers in the uv-data of the input MS file, which are most
@@ -82,75 +74,59 @@ Description
       
    
    Continuum solutions will break at scan, field, and spw boundaries
-   according to *solint. * To allow solutions across these
-   boundaries, *combine* can be set to '*spw*', '*scan*', or *'spw,
-   scan'.  combine * must include *'spw'*  if spw contains spws that
-   are not in *fitspw*!  default:* ''*  which is that solutions will
+   according to *solint. To allow solutions across these
+   boundaries, *combine* can be set to '*spw*', '*scan*', or 'spw,
+   scan'.  combine must include *'spw'*  if spw contains spws that
+   are not in *fitspw*!  default: '' which is that solutions will
    break at scan, field, and spw
    
    .. rubric:: *fitorder*
       
    
-   | Polynomial order for the fits of the continuum w.r.t.
-     frequency. *fitorders* > 1 are strongly discouraged because high
-     order polynomials have more flexibility, may
-   | absorb line emission, and tend to go wild at the edges
-     of *fitspw*, which is not what you want. default: *0* (constant)
+   Polynomial order for the fits of the continuum w.r.t.
+   frequency. *fitorders* > 1 are strongly discouraged because high
+   order polynomials have more flexibility, may
+   absorb line emission, and tend to go wild at the edges
+   of *fitspw*, which is not what you want. default: *0* (constant)
    
    .. rubric:: *field*
-      
-   
-   `Field
-   selection <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__ for
+
+   Field selection for
    continuum estimation and subtraction. The estimation and
    subtraction is done for each selected field separately in turn.
-   default:* ''*  (all fields). (See `Data Selection in a
-   MeasurementSet <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__)
+   default: ''  (all fields).
    
    .. rubric:: *spw*
-      
-   
+
    Optional per spectral window selection of channels to include in
    the output. See the note under *combine*. The sub-MS output
    spectral windows will be renumbered to start from 0, as
-   in **split**. default: *''* (all spws)   (See `Data Selection in a
-   MeasurementSet <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__)
-   
+   in **split**. default: '' (all spws)
+
    .. rubric:: *scan*
-      
-   
-   Scan id selection. default: *''* (all scans) (See `Data Selection
-   in a
-   MeasurementSet <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__)
-   
+
+   Scan id selection. default: '' (all scans)
+
    .. rubric:: *intent*
-      
-   
-   Selection by scan intent. default: *''* (all intents)  (See `Data
-   Selection in a
-   MeasurementSet <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__)
-   
+
+   Selection by scan intent. default: '' (all intents)
+
    .. rubric:: *correlation*
       
    
-   Selection by correlation. default: *''* (all correlations) 
-   (polarization products)  (See `Data Selection in a
-   MeasurementSet <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__)
-   
+   Selection by correlation. default: '' (all correlations)
+   (polarization products)
+
    .. rubric:: *observation*
       
    
-   Selection by observation id. default: *''* (all obs ids) 
-   (See `Data Selection in a
-   MeasurementSet <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__)
-   
+   Selection by observation id. default: '' (all obs ids)
+
 
 .. _Examples:
 
 Examples
-   task examples
-   
-   **Example 1: **
+   **Example 1:**
    
    Subtract the continuum of channels 10~100 and 300~350 in spw 0
    (assuming that the line is in channels 101~299). Note that we also
@@ -165,8 +141,4 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   None

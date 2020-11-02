@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
    .. warning:: **WARNING** *:* The task **oldstatwt** is identical to the
       task statwt in previous CASA versions, given that the current
       statwt underwent significant development for CASA 5.4.
@@ -67,7 +65,7 @@ Description
    
    If solving by antenna, treat autocorrelations separately.
    (Acknowledge that what autocorrelations "see" is very different
-   from what crosscorrelations see.) Default: True (**\* not yet
+   from what crosscorrelations see.) Default: True (not yet
    implemented).
    
     
@@ -82,7 +80,7 @@ Description
       
    
    The (ideally) signal-free correlations to estimate the scatter
-   from. Default: '' (All) (**\* not yet implemented)
+   from. Default: '' (All) (not yet implemented)
    
    .. rubric:: *combine*
       
@@ -107,7 +105,7 @@ Description
       
    
    Sample interval. Default: '0s' or '-1s' (1 integration at a time).
-   Examples: *timebin='30s'*, '10' means '10s' (**\* not yet
+   Examples: *timebin='30s'*, '10' means '10s' (not yet
    implemented)
    
    .. rubric:: *minsamp*
@@ -127,7 +125,7 @@ Description
    to be a field index otherwise, it is assumed to be a field name.
    Examples: *field='0~2'*, field ids 0,1,2; *field='0,4,5~7'*, field
    ids 0,4,5,6,7; *field='3C286,3C295'*, field named 3C286 and 3C295;
-   *field = '3,4C*'*, field id 3 and all names starting with 4C.
+   *field = '3,4C\*'*, field id 3 and all names starting with 4C.
    
    .. rubric:: *spw*
       
@@ -222,8 +220,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To run **oldstatwt** on all targets in an MS and estimate the
    scatter using the standard deviation (not the RMS):
    
@@ -236,8 +232,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
+   None
    

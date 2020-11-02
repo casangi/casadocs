@@ -1,8 +1,6 @@
 casatools
 ====================
 
-CASA class interface definition.
-
 The CASA toolkit is the foundation of the functionality in the package, and consists of a suite of
 functions that are callable from Python. The tools are used by the tasks, and can be used by advanced
 users to perform operations that are not available through the tasks.
@@ -18,7 +16,7 @@ parameters that are not to be defaulted given as arguments. For example: ::
 
 uses the image tool (**ia**) to turn a clean mask image into an image mask.
 
-
+.. rubric:: Tool Listing
 
 .. automodsumm:: casatools
    :toctree: tt

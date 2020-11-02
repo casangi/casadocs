@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   remove artefacts in raster-scanned SD images
-   
    Task **sdfixscan** is used to remove a striping pattern generated
    along the scan direction in raster scan data. By default, the
    scanning noise is removed using the FFT-based 'Basket-Weaving'
@@ -45,7 +43,7 @@ Description
       combining orthogonal scan noise images only (It is possible,
       but, at least, this function has not been tested enough).
    
-    For 'Pressed-out', the scanning must be in a single direction.
+   For 'Pressed-out', the scanning must be in a single direction.
    There are two ways to specify the size of the smoothing beam used
    for this process. One is to specify smoothing size directly. To do
    this, *smoothsize* should be specified as a string of a numerical
@@ -70,7 +68,8 @@ Description
    ('sdfixscan.out.im') will be used.
    
    
-      Bibliography
+   .. rubric:: Bibliography
+
    :sup:`1.  Emerson & Grave 1988
    (` `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1988A%26A...190..353E&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__ :sup:`)` `<#ref-cit1>`__
    
@@ -81,11 +80,8 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
-   .. rubric:: Examples for 'Basket-Weaving'
-      
-   
+   Examples for 'Basket-Weaving'
+
    ::
    
       sdfixscan(mode='fft_mask', infiles = ['scan_0deg.im',
@@ -98,7 +94,7 @@ Examples
    
    
    
-   .. rubric:: Example for  'Pressed-out'
+   Example for  'Pressed-out'
       
    
    ::
@@ -110,8 +106,4 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   None

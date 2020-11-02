@@ -1,33 +1,16 @@
 
-
-.. _Description:
+.. _wvrgcalDescription:
 
 Description
-   task wvrgcal description
-   
-   .. rubric:: Summary
-      
-   
-   | Information about the observation and the performance of
-     **wvrgcal** is written to the CASA logger and also returned in a
-     dictionary; see the `Water Vapor Radiometer Gain
-     Calibration <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration/water-vapor-radiometer-gain-calibration-wvrgcal>`__ chapter
-     in `Synthesis
-     Calibration <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration>`__ for
-     a more detailed description of these parameters. The dictionary
-     element 'success' is True if no errors occured.
-   | Of particular note is the discrepancy statistic (Disc): high
-     values (> a few hundred microns) may indicate some levels of
-     cloud contamination and the effect of applying the **wvrgcal**
-     correction should be checked; values > 1000 :math:`\mu` m in
-     all antennas have currently been found to indicate that
-     **wvrgcal** correction should not be used.
-   
-    
-   
+   Information about the observation and the performance of **wvrgcal** is written to the CASA logger and also returned in a
+   dictionary. The dictionary element 'success' is True if no errors occured. Of particular note is the discrepancy statistic
+   (Disc), where high values (> a few hundred microns) may indicate some levels of cloud contamination and the effect of
+   applying the **wvrgcal** correction should be checked; values > 1000 :math:`\mu` m in all antennas have currently been
+   found to indicate that **wvrgcal** correction should not be used.
+
    .. rubric:: Parameter descriptions
-      
-   
+
+
    .. rubric:: *vis*
       
    
@@ -182,24 +165,19 @@ Description
    given table.
    
 
-.. _Examples:
+.. _wvrgcalExamples:
 
 Examples
-   task wvrgcal examples
-   
-   ::
-   
+   Usage ::
+
       wvrgcal(vis='uid___A002_X1d54a1_X5.ms',
       caltable='cal-wvr-uid___A002_X1d54a1_X5.W',toffset=-1,
       segsource=True, tie=['Titan,1037-295,NGC3256'],
       statsource='1037-295')
    
 
-.. _Development:
+.. _wvrgcalDevelopment:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
+   None
    

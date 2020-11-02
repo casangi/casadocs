@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
    partition is a task that creates
    a `Multi-MS <https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/the-multi-ms>`__ out
    of a MeasurementSet. General selection parameters are included,
@@ -113,10 +111,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
-    
-   
    Other examples of running CASA in parallel can be
    found `here <https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/examples-of-running-casa-in-parallel>`__ .
    Use task listpartition to see the content of the Multi-MS.
@@ -150,7 +144,7 @@ Examples
    where user_hostfile contains the names of the nodes and the number
    of engines to use in each one of them. Example:
    
-   .. code:: p1
+   .. code::
    
       cvpost001, slots=5
       cvpost002, slots=4
@@ -211,8 +205,6 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
+   None
    
    
