@@ -1,0 +1,38 @@
+# This workflow will update the xml directory with the latest task and tool definitions
+# from the casa source code repository
+# For more information see: 
+#   https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Fetch Updated XML
+
+on:
+  push:
+    branches: [ master ]
+    paths: 
+    - "xml/**"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: pip install requests
+    - name: Run script
+      run: python ./scripts/download_xml.py
+    - name: Commit files
+      run: |
+        git config --local user.name  ${{ github.actor }}
+        git add ./xml
+        git commit -m "automatic xml update"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        force: true
