@@ -6,7 +6,7 @@
 name: Update_XML
 
 on:
-  push:
+  workflow_dispatch:
     branches: [ master ]
     paths: 
     - "xml/**"
