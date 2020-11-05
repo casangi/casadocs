@@ -30,7 +30,8 @@ Astronomy (ASTRON), under the guidance of NRAO.
    notebooks/casa-fundamentals
    notebooks/external-data
    calibration
-   notebooks/imaging
+   imaging
+   notebooks/carta
    notebooks/pipeline
    notebooks/simulation
    notebooks/parallel-processing
