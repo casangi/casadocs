@@ -103,9 +103,15 @@ def ParamSpec(method, param):
 
 # remove weird formatting issues in the xml descriptions
 # separate first line from rest for using the dropdown expander
-def cleanxml(text):
+def cleanxml(text, block=False):
     text = re.sub(r'<.*?>', '', text, flags=re.DOTALL).replace('\\', '').strip()
-    #text = re.sub('\n', '\n| ', text, flags=re.DOTALL)
+    text = text.replace('begin{equation}', '').replace('end{equation}','')
+    #text = text.replace('begin{verbatim}', '').replace('end{verbatim}', '')
+    text = text.replace('*', '\\*').replace('`', '\'').replace('|', r'\|')
+    if block:
+        text = '|   ' + re.sub('\n', '\n|   ', text.strip(), flags=re.DOTALL)
+    else:
+        text = re.sub('\s+', ' ', text.strip(), flags=re.DOTALL)
     return text.strip()
 
 
@@ -140,7 +146,9 @@ for name in tooldict.keys():
         # populate class description
         if ('shortdescription' in tool.keys()) and (tool['shortdescription'] is not None) and (len(tool['shortdescription'].strip()) > 0):
             fid.write(cleanxml(tool['shortdescription']) + '\n\n')
-        if ('description' in tool.keys()) and (tool['description'] is not None) and (len(tool['description'].strip()) > 0):
+            if ('description' in tool.keys()) and (tool['description'] is not None) and (len(tool['description'].strip()) > 0):
+                fid.write(cleanxml(tool['description'], block=True) + '\n\n')
+        elif ('description' in tool.keys()) and (tool['description'] is not None) and (len(tool['description'].strip()) > 0):
             fid.write(cleanxml(tool['description']) + '\n\n')
         fid.write('    """\n\n')
         
@@ -154,7 +162,10 @@ for name in tooldict.keys():
             if ('shortdescription' in tm.keys()) and (tm['shortdescription'] is not None):
                 desc = cleanxml(tm['shortdescription']) + '\n\n'
             if ('description' in tm.keys()) and (tm['description'] is not None) and (len(tm['description'].strip()) > 0):
-                desc = desc + cleanxml(tm['description']) + '\n'
+                if (len(desc) == 0) or ((len(desc) > 0) and (cleanxml(tm['description']).startswith(desc.strip()))):  # remove duplicate info
+                    desc = cleanxml(tm['description']) + '\n'
+                else:
+                    desc = desc + cleanxml(tm['description'], block=True) + '\n'
                 
             # some methods have no parameters
             if ('params' not in tm.keys()) or (len(tm['params']) == 0):
