@@ -379,7 +379,7 @@ Examples
       spw                 =         ''        #  Spectral window identifier (list)
       selectdata          =       True        #  Other data selection parameters
            timerange      =         ''        #  Time range to operate on (for usescratch=T)
-           scan           =         ''        #  Scan number range (for usescaratch=T)
+           scan           =         ''        #  Scan number range (for usescratch=T)
            intent         =         ''        #  Observation intent
            observation    =         ''        #  Observation ID range (for usescratch=T)
       scalebychan         =       True        #  scale the flux density on a per channel basis or else on
@@ -427,7 +427,7 @@ Examples
       spw                 =         ''        #  Spectral window identifier (list)
       selectdata          =       True        #  Other data selection parameters
            timerange      =         ''        #  Time range to operate on (for usescratch=T)
-           scan           =         ''        #  Scan number range (for usescaratch=T)
+           scan           =         ''        #  Scan number range (for usescratch=T)
            intent         =         ''        #  Observation intent
            observation    =         ''        #  Observation ID range (for usescratch=T)
       scalebychan         =       True        #  scale the flux density on a per channel basis or else on a per spw basis
