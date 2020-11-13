@@ -11,5 +11,7 @@ and subsequent image manipulation and analysis routines.
    notebooks/single_dish_imaging
    notebooks/image_combination
    notebooks/image_analysis
+   notebooks/image_visualization
+
 
 
