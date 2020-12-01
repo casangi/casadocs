@@ -191,7 +191,7 @@ Description
       
    
    Interpolation algorithm to use. One of "nearest", "linear",
-   "cubic", or "lanczos". Minimum match supported.
+   or "cubic". Minimum match supported.
    
    .. rubric:: *stattype*
       
