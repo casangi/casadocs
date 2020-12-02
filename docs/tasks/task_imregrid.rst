@@ -24,11 +24,8 @@ Description
    -  a recognized directional reference frame string. Supported
       case-insensitive values are J2000', 'B1950', 'B1950_VLA',
       'GALACTIC', 'HADEC', 'AZEL', 'AZELSW', 'AZELNE', 'ECLIPTIC',
-      'MECLIPTIC', 'TECLIPTIC', 'SUPERGAL', 'ICRS'. Note that the
-      conversion between one frame and another is only possible for a
-      subset of these reference frames ('J2000', 'B1950' ,
-      'B1950_VLA', 'BMEAN', 'ECLIPTIC', 'GALACTIC', 'SUPERGAL',
-      'ICRS') and in general becomes less accurate as distance from
+      'MECLIPTIC', 'TECLIPTIC', 'SUPERGAL'. Note that the
+      conversion between one frame and another in general becomes less accurate as distance from
       the output image's reference pixel increases. After the image
       is regridded, any masked slices remaining along the edges of
       the image in the directional coordinate are cropped, so that
