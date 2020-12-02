@@ -22,7 +22,7 @@ Description
    which can be:
    
    -  a recognized directional reference frame string. Supported
-      case-insensitive values are J2000', 'B1950', 'B1950_VLA',
+      case-insensitive values are 'J2000', 'B1950', 'B1950_VLA',
       'GALACTIC', 'HADEC', 'AZEL', 'AZELSW', 'AZELNE', 'ECLIPTIC',
       'MECLIPTIC', 'TECLIPTIC', 'SUPERGAL'. Note that the
       conversion between one frame and another in general becomes less accurate as distance from
