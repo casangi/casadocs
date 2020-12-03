@@ -12,7 +12,7 @@ Description
    `Visibility Data
    Selections <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__
    for details). The task also returns a dictionary with the
-   metadata, see Examples for the content and structure of the
+   metadata; see Examples for the content and structure of the
    dictionary. Note that the dictionary does not include antenna
    related metadata.
    
