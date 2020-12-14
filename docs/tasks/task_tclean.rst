@@ -591,8 +591,9 @@ Description
    to all the images found with the name given in the 'imagename'
    parameter of tclean and any extension.
 
-   The image history can be inspected using the task imhistory (see
-   API), similarly as with other image analysis tasks.
+   The image history can be inspected using the task imhistory (`see
+   API ../casatasks.rst`_), similarly as with other image analysis
+   tasks.
 
    As a lower level interface, the image history can be also inspected
    and manipulated using CASA tools such as the image analysis tool
