@@ -488,7 +488,7 @@ Description
    .. rubric:: *logfile*
       
    
-   Name of file to write fit results.
+   Name of file to write statistic results.
    
    .. rubric:: *append*
       
