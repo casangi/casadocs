@@ -45,7 +45,7 @@ you can also call the task with no arguments, e.g. ::
    vis='ngc5921.ms'
    xaxis='channel'
    yaxis='amp'
-   datacolumn='data'
+   ydatacolumn='data'
    plotms()
 
 which will also use the global parameter values.
