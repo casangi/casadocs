@@ -1034,7 +1034,21 @@ tests if a table with the given name is writable.-->
 <returns type="bool"/>
 </method>
 
- 
+    <method type="function" name="isopened">
+   <shortdescription>Is the table name open in this process</shortdescription>
+   
+<description>
+Test if the table is opened in the  process this function is invoked
+
+</description>
+<input>
+
+     <param type="string" name="tablename">
+     <description>table name to see if it is opened</description>
+     </param>
+</input>
+<returns type="bool"/>
+</method>
    <method type="function" name="endianformat">
    <shortdescription>get the endian format used for this table</shortdescription>
    

@@ -687,7 +687,7 @@
                        convolution functions. Gridding (degridding) runtime will rise in
                        proportion to the support size of these convolution functions (in uv-pixels).
 
-                       standard : Prolate Spheroid with 3x3 uv pixel support size
+                       standard : Prolate Spheroid with 7x7 uv pixel support size
 
                                         [ This mode can also be invoked using 'ft' or 'gridft' ]
 
