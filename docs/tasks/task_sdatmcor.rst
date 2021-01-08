@@ -28,13 +28,15 @@ Description
 
    .. rubric:: References
 
-   - Sawada et al., 2021, submitted to PASP
+
+   | Sawada et al., 2021, submitted to PASP
 
 
 
 .. _Examples:
 
 Examples
+   task examples
 
    .. rubric::   Example 1
 
