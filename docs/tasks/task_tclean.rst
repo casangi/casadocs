@@ -581,7 +581,26 @@ Description
    Data <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/ephemeris-data>`__.
    
    .. |image1| image:: _apimedia/26ad14d4f63ff633dbd5d9e92d40a5059ab46a67.png
-   
+
+
+   .. rubric:: Processing information
+
+   Several parameters related to runtime processing are added to the
+   miscinfo (miscellaneous information) record of the images produced
+   by tclean. These are technical parameters related to processes and
+   memory use:
+   -  mpiprocs: integer, number of processes (>1 for parallel runs)
+   -  chnchnks: integer, number of sub-cubes or chanchunks into which cubes
+      are partitioned in the major cycles
+   -  memreq: float, estimate of memory required, as a function of cube size
+      and a few heuristic scale factors. Expressed in GBs.
+   -  memavail: float, memory available, as found by tclean at the beginning of
+      the first major cycle.
+
+   Similarly as with other parameters included in the miscinfo record,
+   these parameters are exported to FITS images by the exportfits
+   task, if the parameter history is True.  The miscinfo record can be
+   inspected using the image tool (`see API ../casatools.rst`_)
 
 .. _Examples:
 
