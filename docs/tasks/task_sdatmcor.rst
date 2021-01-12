@@ -85,7 +85,9 @@ Examples
    .. rubric::   Example 5
 
    This example specifies scaling factor for the correction. The scaling factor can be
-   single float value, dictionary, or name of the caltable. Float value is set in this
+   single float value, dictionary of the key-value pair of spw id and the float value
+   (e.g. *gainfactor={'23': 50.0, '25': 45.0}*), or name of the caltable that stores
+   scaling factor (e.g. *gainfactor='caltablename.tbl'*). Float value is set in this
    example.
 
    ::
