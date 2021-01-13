@@ -4,8 +4,8 @@
 Description
    The task sdatmcor provides the capability of offline correction of
    residual atmospheric features in the calibrated single-dish spectra
-   which results from the subtle difference of elevation angle between
-   ON_SOURCE and OFF_SOURCE measurements.
+   which result from the difference of elevation angle between ON_SOURCE
+   and OFF_SOURCE measurements.
 
    The correction factor is derived from the atmosphere model based on
    the atmospheric properties (temperature, pressure, etc.) measured
@@ -50,7 +50,7 @@ Examples
 
    .. rubric::   Example 2
 
-   This example applies correction only to spw 23 but output all the data. Other spws are
+   This example applies correction only to spw 23 but outputs all the data. Other spws are
    included in outfile but are not corrected.
 
    ::
@@ -61,8 +61,8 @@ Examples
 
    .. rubric::   Example 3
 
-   This example applies correction only to spw 23 and output only spw 23. Note that only
-   difference from Example 2 is that *outputspw* is set instead of *spw*.
+   This example applies correction only to spw 23 and output only spw 23. Note that the
+   only difference from Example 2 is that *outputspw* is set instead of *spw*.
 
    ::
 
