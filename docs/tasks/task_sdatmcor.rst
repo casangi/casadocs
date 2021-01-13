@@ -16,7 +16,7 @@ Description
    written to the outfile. For spw, two selection parameters, *spw* and
    *outputspw*, are available. The former specifies the data to be
    corrected while the latter corresponds to the spw for output.
-   In practice, intersection between *spw* and *outputspw* are corrected.
+   In practice, intersection of *spw* and *outputspw* is corrected.
    For example, when `spw='19,23'` and `outputspw='19'`, spw 23 is not
    corrected because data for spw 23 is not written to outfile so
    that the correction is not meaningful.
