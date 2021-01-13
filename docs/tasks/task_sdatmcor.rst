@@ -29,7 +29,7 @@ Description
    .. rubric:: References
 
 
-   | Sawada et al., 2021, submitted to PASP
+   | Sawada, T. et al., 2021, submitted to PASP
 
 
 
