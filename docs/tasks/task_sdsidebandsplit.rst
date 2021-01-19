@@ -14,7 +14,7 @@ Description
    by utilizing the feature that spectral lines in the two sidebands
    shift in different amounts between observations with different LO
    offsets. The algorithm used in the task is analogous to that of
-   Emerson, Klein, & Haslam (1979) `[1] <#cit1>`__ with shifts in the
+   Emerson, Klein, & Haslam (1979) :ref:`[1] <cit1>` with shifts in the
    frequency domain instead of spatial one as described in the paper.
    The details of algorithm is also discussed in the section, `Brief
    description of the mathematics behind the
@@ -227,8 +227,10 @@ Description
 
    .. rubric:: Bibliography
 
-   :sup:`1. Emerson, Klein, & Haslam 1979, A&A, 76, 92
-   (` `ADS <http://adsabs.harvard.edu/abs/1979A%26A....76...92E>`__ :sup:`)` `<#ref-cit1>`__
+   .. _cit1:
+
+   `1. Emerson, Klein, & Haslam 1979, A&A, 76, 92
+   (` `ADS <http://adsabs.harvard.edu/abs/1979A%26A....76...92E>`__ `)`
 
 
 .. _Examples:
