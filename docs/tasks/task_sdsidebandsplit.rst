@@ -225,7 +225,8 @@ Description
    *threshold*.
    
    
-   Bibliography
+   .. rubric:: Bibliography
+
    :sup:`1. Emerson, Klein, & Haslam 1979, A&A, 76, 92
    (` `ADS <http://adsabs.harvard.edu/abs/1979A%26A....76...92E>`__ :sup:`)` `<#ref-cit1>`__
    
