@@ -45,8 +45,7 @@ Examples
 
    ::
 
-      sdatmcor(infile='sd_data.ms', datacolumn='float_data', outfile='sd_data.atmcor.ms',
-      overwrite=True)
+      sdatmcor(infile='sd_data.ms', datacolumn='float_data', outfile='sd_data.atmcor.ms', overwrite=True)
 
 
    .. rubric::   Example 2
@@ -57,7 +56,7 @@ Examples
    ::
 
       sdatmcor(infile='sd_data.ms', datacolumn='float_data', outfile='sd_data.atmcor.ms',
-      spw='23', overwrite=True)
+               spw='23', overwrite=True)
 
 
    .. rubric::   Example 3
@@ -68,7 +67,7 @@ Examples
    ::
 
       sdatmcor(infile='sd_data.ms', datacolumn='float_data', outfile='sd_data.atmcor.ms',
-      outputspw='23', overwrite=True)
+               outputspw='23', overwrite=True)
 
 
    .. rubric::   Example 4 (not practical)
@@ -80,7 +79,7 @@ Examples
    ::
 
       sdatmcor(infile='sd_data.ms', datacolumn='float_data', outfile='sd_data.atmcor.ms',
-      spw='19,23', outputspw='23', overwrite=True)
+               spw='19,23', outputspw='23', overwrite=True)
 
 
    .. rubric::   Example 5
@@ -94,7 +93,7 @@ Examples
    ::
 
       sdatmcor(infile='sd_data.ms', datacolumn='float_data', outfile='sd_data.atmcor.ms',
-      outputspw='23', gainfactor=50.0, overwrite=True)
+               outputspw='23', gainfactor=50.0, overwrite=True)
 
 
    .. rubric::   Example 6
@@ -104,11 +103,11 @@ Examples
    ::
 
       sdatmcor(infile='sd_data.ms', datacolumn='float_data', outfile='sd_data.atmcor.ms',
-      outputspw='23', overwrite=True
-      atmtype=1, dtem_dh='-5.7K/km', h0='2010m',
-      atmdetail=True,
-      altitude='5.1km', temperature='290K', pressure='700hPa', humidity=30, pwv='0.1cm',
-      dp='10hPa', dpm=1.2, layerboundaries='800m,1.5km', layertemperature='250K,200K')
+               outputspw='23', overwrite=True
+               atmtype=1, dtem_dh='-5.7K/km', h0='2010m',
+               atmdetail=True,
+               altitude='5.1km', temperature='290K', pressure='700hPa', humidity=30, pwv='0.1cm',
+               dp='10hPa', dpm=1.2, layerboundaries='800m,1.5km', layertemperature='250K,200K')
 
 
 
