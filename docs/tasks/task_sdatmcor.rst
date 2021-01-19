@@ -12,14 +12,15 @@ Description
    during the observation. The model is constructed by the atmosphere
    (at) tool.
 
-   Only data selected by data selection parameters are corrected and
-   written to the outfile. For spw, two selection parameters, *spw* and
-   *outputspw*, are available. The former specifies the data to be
+   For spw selection, two selection parameters, *spw* and *outputspw*,
+   are available. The former specifies the data to be
    corrected while the latter corresponds to the spw for output.
    In practice, intersection of *spw* and *outputspw* is corrected.
    For example, when `spw='19,23'` and `outputspw='19'`, spw 23 is not
    corrected because data for spw 23 is not written to outfile so
    that the correction is not meaningful.
+   For data selection parameters other than spw, only data selected
+   by data selection parameters are corrected and written to the outfile.
 
    Note that *outfile* will have the data column DATA regardless of
    what data column exists in *infile*.
