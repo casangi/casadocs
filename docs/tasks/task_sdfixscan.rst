@@ -6,13 +6,13 @@ Description
    Task **sdfixscan** is used to remove a striping pattern generated
    along the scan direction in raster scan data. By default, the
    scanning noise is removed using the FFT-based 'Basket-Weaving'
-   method `[1] <#cit1>`__ that requires multiple images observed over
+   method :ref:`[1] <cit1>` that requires multiple images observed over
    exactly the same area with a different scanning direction. When
    doing 'Basket-Weaving', you can mask small structures and protect
    them using the *maskwidth* parameter. If only one image is
-   available, the 'Pressed-out' method `[2] <#cit2>`__ can be used to
+   available, the 'Pressed-out' method :ref:`[2] <cit2>` can be used to
    remove the scanning effect.
-   
+
    For 'Basket-Weaving', scans must have been conducted in at least
    two different directions. Normally, the scanning direction should
    be specified for each input image. As *direction* parameters, you
@@ -34,7 +34,7 @@ Description
    direction. Larger *maskwidth* values may also remove the emission
    from the scientific target at the same time, so careful adjustment
    and characterization by the user is necessary.
-   
+
    .. note:: **NOTE**: Such masks are applied for each input scan image and
       the combined image is returned. If the size of the mask is
       large, the improvements to the noise level by combining images
@@ -42,7 +42,7 @@ Description
       processing. And note that 'Basket-Weaving' mode supports
       combining orthogonal scan noise images only (It is possible,
       but, at least, this function has not been tested enough).
-   
+
    For 'Pressed-out', the scanning must be in a single direction.
    There are two ways to specify the size of the smoothing beam used
    for this process. One is to specify smoothing size directly. To do
@@ -55,7 +55,7 @@ Description
    unit is assumed to 'arcsec'. It is also possible to set the
    *beamsize* as a string consisting of the numerical value and the
    unit. The *smoothsize* must be a float value.
-   
+
    The *infiles* must be an image (CASA or FITS), and does not work
    with MS or Scantable. The *direction* is an angle with respect to
    horizontal, in units of degrees. Preferred entries should range
@@ -66,16 +66,22 @@ Description
    default (0.0) is to apply no threshold. The *outfile* specifies an
    output CASA image name. If *outfile* is empty, the default name
    ('sdfixscan.out.im') will be used.
-   
-   
+
+
    .. rubric:: Bibliography
 
-   :sup:`1.  Emerson & Grave 1988
-   (` `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1988A%26A...190..353E&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__ :sup:`)` `<#ref-cit1>`__
-   
-   :sup:`2. Sofue & Reich 1979
-   (` `PDF <http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1979A%26AS...38..251S&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf>`__ :sup:`)` `<#ref-cit2>`__
-   
+
+   .. _cit1:
+
+   `1. Emerson & Grave 1988, A&A, 190, 353
+   (` `ADS <https://ui.adsabs.harvard.edu/abs/1988A%26A...190..353E/abstract>`__ `)`
+
+
+   .. _cit2:
+
+   `2. Sofue & Reich 1979, A&AS, 38, 251
+   (` `ADS <https://ui.adsabs.harvard.edu/abs/1979A%26AS...38..251S/abstract>`__ `)`
+
 
 .. _Examples:
 
@@ -83,25 +89,22 @@ Examples
    Examples for 'Basket-Weaving'
 
    ::
-   
-      sdfixscan(mode='fft_mask', infiles = ['scan_0deg.im',
-      'scan_90deg.im'], direction=[0., 90.], maskwidth=5.0,
-      outfile='basket_0_90.im')
-   
-      sdfixscan(mode='fft_mask', infiles = ['scan_30deg.im',
-      'scan_120deg.im'], direction=[30., 120.], maskwidth=10.0,
-      outfile='basket_30_120.im')
-   
-   
-   
+
+      sdfixscan(mode='fft_mask', infiles=['scan_0deg.im', 'scan_90deg.im'], direction=[0., 90.],
+                maskwidth=5.0, outfile='basket_0_90.im')
+
+      sdfixscan(mode='fft_mask', infiles=['scan_30deg.im', 'scan_120deg.im'], direction=[30., 120.],
+                maskwidth=10.0, outfile='basket_30_120.im')
+
+
+
    Example for  'Pressed-out'
-      
-   
+
+
    ::
-   
-      sdfixscan(mode='model', infiles = 'scan_0deg.im',
-      direction=90., smoothsize='100arcsec', outfile='press_0.im')
-   
+
+      sdfixscan(mode='model', infiles='scan_0deg.im', direction=90., smoothsize='100arcsec', outfile='press_0.im')
+
 
 .. _Development:
 

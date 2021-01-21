@@ -4,7 +4,7 @@
 
 Description
    task description
-   
+
    | Task **importnro** enables one to convert the data obtained with
      the NRO45m telescope into the CASA MS2 format. Usage of this
      task is very simple. Set *infile* and *outputvis*, then run the
@@ -18,7 +18,7 @@ Description
      beam!). When using other tasks such as **plotms** or
      **sdbaseline**, individual beams can be specified in the
      following ways:
-   
+
    | (When you specify beam 1,)
    | antenna = ‘0&&&’,
    | antenna = ‘0&&0’, or
@@ -30,7 +30,7 @@ Description
      result, every MS2 file generated via **importnro** has sixteen
      spw IDs due to the high flexibility of the frequency setting in
      SAM45.
-   
+
    | On the other hand, in the data obtained using FOREST,
      assignments of four beams, two polarizations, and two sidebands
      (4 x 2 x 2 = 16) to SAM45’s sixteen arrays are fixed, and there
@@ -44,28 +44,26 @@ Description
    | The other parameters can be specified in the same manner as in
      the ALMA data. The results of the data import can be checked
      using task **listobs**.
-   
+
 
 .. _Examples:
 
 Examples
    To import NRO45m OTF data:
-   
+
    ::
-   
-      infile = 'OriKLA.OriKL.20170101235959.32.Y'  # The NRO45m OTF
-      data obtained using the SAM45 spectrometer has an extention of
-      "Y".
+
+      # The NRO45m OTF data obtained using the SAM45 spectrometer
+      # has an extention of "Y".
+      infile = 'OriKLA.OriKL.20170101235959.32.Y'
       outputvis = 'OriKLA.OriKL.20170101235959.32.Y.ms'
-      importnro(infile = infile, outputvis = outputvis, overwrite =
-      True, parallel = False)
-   
+      importnro(infile=infile, outputvis=outputvis, overwrite=True, parallel=False)
+
 
 .. _Development:
 
 Development
    task developer
-   
+
    --CASA Developer--
-   
-   
+
