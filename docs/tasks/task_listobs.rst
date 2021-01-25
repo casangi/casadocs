@@ -6,15 +6,18 @@ Description
    listobs task: List the summary of a data set in the logger or in a
    file
    
-   This task reports various metadata related to an MS. The listing
-   is sent to the logger or can be saved to a file. Standard MS
-   selection parameters can be used to limit the listing (see
-   `Visibility Data
-   Selections <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__
-   for details). The task also returns a dictionary with the
-   metadata; see Examples for the content and structure of the
-   dictionary. Note that the dictionary does not include antenna
-   related metadata.
+   This task reports various metadata related to an MS. The listing is
+   sent to the logger or can be saved to a file. Standard MS selection
+   parameters can be used to limit the listing (see `Visibility Data
+   Selections
+   <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__
+   for details). The task also returns a dictionary with the metadata;
+   see Examples for the content and structure of the dictionary. Note
+   that the dictionary does not include antenna related metadata, as
+   well as other details that are included in the output log or file,
+   when using verbose=True, such as the per-subscan integration
+   times. The report included in the dictionary is closer to the
+   information listed when using verbose=False.
    
    The report begins with information such as the observer, the
    project ID, the number of records, the length of the observation,
