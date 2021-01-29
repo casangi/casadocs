@@ -30,7 +30,7 @@ Description
    .. rubric:: References
 
 
-   | Sawada, T. et al., 2021, submitted to PASP
+   | Sawada, T. et al., 2021, accepted for publication in PASP ( `arXiv:2101.11450 <https://arxiv.org/abs/2101.11450>`__ )
 
 
 
