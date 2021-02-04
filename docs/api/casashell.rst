@@ -8,6 +8,7 @@ CASA shell environment for interactive Python-based analysis using CASA tasks.
 
    casashell/buildmytasks
    casashell/default
+   casashell/doc
    casashell/execfile
    casashell/go
    casashell/inp

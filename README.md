@@ -12,7 +12,7 @@ It can take 5 to 10 minutes to complete.
 Most of the casadocs content is written in markdown format using the Google
 Colab web service to edit Jupyter notebooks of text cells.  Jupyter notebook
 pages have a link at the top to "Open in Colab" for editing.  Modified pages
-can be saved back in to the casadocs repository from the Colab -> File menu.
+can be saved back in to the casadocs repository from the Colab window under ```File -> Save a copy in Github```.
 
 The nbsphinx package is used to convert notebooks to Sphinx/readthedocs format.
 There is some special markdown syntax available that may not render in Google 
@@ -26,11 +26,36 @@ The xml can only be updated through development branches of the source code,
 while the rst files can be edited directly in the Github repository browser
 window.
 
+- Task descriptions can be found under ```docs/tasks```
+- Tool descriptions can be found under ```docs/tools```
+- Shell descriptions can be found under ```docs/api/casashell```
+
 Sphinx RST syntax and examples can be found here:
 - https://sphinx-rtd-theme.readthedocs.io/en/stable/demo/demo.html
 
+### Updating XML
+When the XML is updated in the CASA source code repo, the files need to be synced back 
+to the casadocs repo. This is done through a manually triggered Github Action rather 
+than automatically to allow for specific updates to different release branches if necessary.
 
-## Generating from Scratch
+To update the xml file sync from the CASA source code repo, go to the ```Actions``` tab in
+Github, select ```Update_XML``` and click ```Run Workflow```
+
+Verify the files have been updated by navigating to the ```xml``` folder in the root of the
+Github repo.
+
+### Adding/Removing/Hiding Tasks
+Tasks will only appear in the readthedocs site if they have both an xml file in the ```xml```
+folder and a matching rst file in the ```docs/tasks``` folder.  A task can be removed or hidden
+from readthedocs by deleting or renaming the rst file to something that does not match the
+xml file name.
+
+When a new task is added to CASA, the new xml file will be picked up by the Action described 
+above. A new ```rst``` file must also be added to ```docs/tasks``` using the same format as
+the others (with sections for Description/Examples/Developer).
+
+
+## Re-generating Plone content from Scratch
 This should not be necessary and is here only for reference on how
 to regenerate the original content from Plone.
 
