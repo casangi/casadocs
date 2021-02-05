@@ -597,7 +597,7 @@ Description
 
    As a lower level interface, the image history can be also inspected
    and manipulated using CASA tools such as the image analysis tool
-   and the table tool (`see API <../casatools.rst>`_. The history
+   and the table tool (`see API <../casatools.rst>`_). The history
    entries are written into the 'logtable' subtable of the images.
    
 
