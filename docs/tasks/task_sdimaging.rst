@@ -32,14 +32,14 @@ Description
    image cube with each plane containing the image of one of the
    polarizations, while stokes='I' produces a "total intensity", or
    Stokes I image.
-   
+
    The parameter *gridfunction* sets the gridding function
    (convolution kernel) for imaging. Currently, the task supports
    'BOX' (boxcar), 'SF' (Prolate Spheroidal Wave Function), 'GAUSS'
    (Gaussian), 'GJINC' (Gaussian*Jinc), where Jinc(x) =
    :math:`J_1(π*x/c)/(π*x/c)` with a first order Bessel function J_1,
    and 'PB' (Primary Beam).
-   
+
    There are four subparameters for *gridfunction*: *convsupport,
    truncate, gwidth*, and *jwidth*. The *convsupport* parameter is
    an integer specifying the cutoff radius for 'SF' in units of
@@ -65,11 +65,11 @@ Description
    GAUSS: :math:`\exp[-\log(2)*(|r|/gwidth)^2]`
 
    GJINC: :math:`J_1(π*|r|/jwidth)/(π*|r|/jwidth)* \exp[-\log(2)*(|r|/gwidth)^2]`
-   
+
    The *imagename* should be unique. Clean will stop with an
    Exception error (e.g. Exception: Unable to open lattice) if
-   *imagename* is the same as the *vis* name.   
-   
+   *imagename* is the same as the *vis* name.
+
    The *ephemsrcname* parameter can be set to specifiy an ephemeris
    for a moving source (solar sytem objects).  If the source name
    in the data matches one of the solar system objects known by
@@ -83,35 +83,38 @@ Description
    incidence of spurious data points is approximately equal to or
    greater than the number of beams (in area) encompassed by the
    expected image.
-   
+
    The *minweight* parameter defines a threshold of weight values to
    mask. The pixels in *outfile* whose weight is smaller than
    *minweight* \*median (*weight*) are masked out. The task also
    creates a weight image with the name outfile.weight.
-   
+
    The *projection* parameter allows to specify what kind of map
    projection is applied. The default is SIN (slant orthographic)
    projection. Besides that, the task supports CAR (plate carrée),
-   TAN (gnomonic), and SFL (Sanson-Flamsteed). 
-   
+   TAN (gnomonic), and SFL (Sanson-Flamsteed).
+
    .. rubric:: Bibliography
 
-   :sup:`1. Mangum, et al. 2007, A&A, 474,
-   679-687` `(A&A) <http://www.aanda.org/articles/aa/pdf/2007/41/aa7811-07.pdf>`__ `<#ref-cit1>`__
-   
+
+   .. _cit1:
+
+   `1. Mangum, et al. 2007, A&A, 474, 679
+   (` `ADS <https://ui.adsabs.harvard.edu/abs/2007A%26A...474..679M/abstract>`__ `)`
+
 
 .. _Examples:
 
 Examples
    To generate a spectral line cube with 500 channels selected from
    channel 200 to 700:
-   
+
    ::
-   
+
       spw='0'
       pol='XX'
       src='Moon'
-   
+
       sdimaging(infiles='mydata.ms',
                 spw=spw,
                 nchan=500,
@@ -126,21 +129,21 @@ Examples
                 ephemsrcname=src)
 
    The *start* parameter can be specified in different units:
-   
+
    ::
-   
-      start=100 (mode='channel')
-      start='22.3GHz' (mode='frequency')
-      start='5.0km/s' (mode='velocity')
-   
-    
-   
+
+      start=100  # mode='channel'
+      start='22.3GHz'  # mode='frequency'
+      start='5.0km/s'  # mode='velocity'
+
+
+
    The parameter *ephemsrcname* can be set to a solar system object:
-   
+
    ::
-   
+
       ephemsrcname ='MERCURY'
-   
+
 
 .. _Development:
 
@@ -149,4 +152,3 @@ Development
    is intended for the other members of the development team so is a
    technical discussion.  We will work on building these up over
    time.
-   

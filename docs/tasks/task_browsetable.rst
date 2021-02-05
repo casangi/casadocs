@@ -25,6 +25,7 @@ Description
    and Calibration
    Tables" <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/browse-a-table>`__.
    
+   **Warning:** the inp/go functionality does not work for browsetable in CASA 6. Use the argument browstable(tablename='filename.ms') to invoke browsetable.
     
    
    .. rubric:: Parameters
@@ -56,6 +57,8 @@ Description
    
    TaQL query string for prefiltering the table (see "Examples" tab
    at the top-right)
+   
+   For more information about the Table Query Language (TaQL) string, see [this note](https://casa.nrao.edu/aips2_docs/notes/199/199.html).
    
    .. rubric:: *skipcols*
       

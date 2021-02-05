@@ -8,7 +8,7 @@ Description
    calibrated and bandpass corrected (where necessary), and the
    output is a CASA image format dataset, either 2-D, 3-D, or 4-D
    depending on the input parameters.
-   
+
    The output image contains up to four axes: two spatial axes,
    frequency, and polarization. By default, the spatial coordinates
    are determined such that the imaged area is covered with a cell
@@ -17,7 +17,7 @@ Description
    the image by specifying the image center direction
    (*phasecenter*), the number of image pixels (*imsize*), and the
    pixel size (*cell*).
-   
+
    The frequency coordinate of the image is defined by three
    parameters: the number of channels (*nchan*), the channel
    number/frequency/velocity of the first channel (*start*), and the
@@ -27,7 +27,7 @@ Description
    *start*, and *width* are set so that all selected spectral windows
    are covered with a channel width equal to the separation of the
    first two channels selected.
-   
+
    Finally, the polarization axis of the image is determined by the
    *stokes* parameter. For example, *stokes='XXYY'* produces an image
    cube with each plane containing the image of one of the
@@ -41,20 +41,20 @@ Description
    though the remaining correlations are valid. On the other hand,
    the 'pseudoI' option allows Stokes I images to include data for
    which either of the parallel hand data are unflagged.
-   
+
    .. note:: **NOTE**: Users should set *stokes='pseudoI'* if you want to
       get the equivalent result to the one obtained by setting
       *stokes='I'* for **sdimaging**. Setting *stokes='I'* in
       **sdimaging** is implemented the same way as *stokes='pseudoI'*
       in **tsdimaging**.
-   
+
    The parameter *gridfunction* sets the gridding function
    (convolution kernel) for imaging. Currently, the task supports
    'BOX' (boxcar), 'SF' (Prolate Spheroidal Wave Function), 'GAUSS'
    (Gaussian), 'GJINC' (Gaussian*Jinc), where Jinc(x) =
    :math:`J_1(π*x/c)/(π*x/c)` with a first order Bessel function J_1,
    and 'PB' (Primary Beam).
-   
+
    There are four subparameters for *gridfunction*: *convsupport,
    truncate, gwidth*, and *jwidth*. The *convsupport* parameter is an
    integer specifying the cutoff radius for 'SF' in units of pixels.
@@ -73,21 +73,21 @@ Description
    *gwidth* and *jwidth* allow integer, float, or string values,
    where the string would be a number plus unit. The default values
    for *gwidth* and *jwidth* are taken from Mangum, et al. 2007
-   `[1] <#cit1>`__ . The formula for 'GAUSS' and 'GJINC' are taken
+   :ref:`[1] <cit1>` . The formula for 'GAUSS' and 'GJINC' are taken
    from Table 1 in the paper, and are written as follows using
    *gwidth* and *jwidth*:
-   
+
    GAUSS: :math:`\exp[-\log(2)*(|r|/gwidth)^2]`,
-   
+
    GJINC:
    :math:`J_1(π*|r|/jwidth)/(π*|r|/jwidth)* \exp[-\log(2)*(|r|/gwidth)^2]`,
-   
-   where :math:`r` is the radial distance from the origin. 
-   
+
+   where :math:`r` is the radial distance from the origin.
+
    The *outfile* should be unique. **tsdimaging** will stop with an
    Exception error (e.g., Exception: Unable to open lattice) if
    *outfile* is the same as the *infiles* name.
-   
+
    The *phasecenter* parameter sets the center direction of the
    image. If the phasecenter is the name known major solar system
    object ('MERCURY', 'VENUS', 'MARS', 'JUPITER', 'SATURN', 'URANUS',
@@ -97,7 +97,7 @@ Description
    a special case, when phasecenter='TRACKFIELD', which will use the
    ephemerides or polynomial phasecenter in the FIELD table of the
    MeasurementSets as the source center to track.
-   
+
    The *clipminmax* function can clip minimum and maximum values from
    each pixel. This function makes the computed output slightly more
    robust to noise and spurious data. Note that the benefit of
@@ -105,22 +105,22 @@ Description
    each gridded pixel is small, or where the incidence of spurious
    data points is approximately equal to or greater than the number
    of beams (in area) encompassed by the expected image.
-   
+
    The *minweight* parameter defines a threshold of weight values to
    mask. The pixels in *outfile* whose weight is smaller than
    *minweight* \*median (*weight*) are masked out. The task also
    creates a weight image with the name outfile.weight.
-   
+
    The *projection* parameter allows to specify what kind of map
    projection is applied. The default is SIN (slant orthographic)
    projection. The task also supports CAR (plate carrée), TAN
-   (gnomonic), and SFL (Sanson-Flamsteed). 
-   
+   (gnomonic), and SFL (Sanson-Flamsteed).
+
    .. rubric:: Image Definition (specmode)
 
    The image coordinate system(s) and shape(s) can be set up to form
    single images. The different modes for imaging include:
-   
+
    -  *'cube'*: Spectral line imaging with one or more channels. The
       fixed spectral frame, LSRK, will be used for automatic internal
       software Doppler tracking so that a spectral line observed over
@@ -135,10 +135,10 @@ Description
       objects <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/ephemeris-data>`__).
       The velocity of the source is accounted and the frequency
       reported is in the source frame.
-   
+
    .. rubric:: Technical Note: sdimaging and tsdimaging
-      
-   
+
+
    The **tsdimaging** task is supposed to replace **sdimaging**. The
    initial version of this task was intended to be fully compatible
    with **sdimaging**. Technically speaking, those tasks share
@@ -159,23 +159,27 @@ Description
    underway to make **tsdimaging** compatible with **sdimaging** and
    convert it to a "regular" (non-experimental) task.
 
-   **Bibliography**
-   :sup:`1. Mangum, et al. 2007, A&A, 474,
-   679-687` `(A&A) <http://www.aanda.org/articles/aa/pdf/2007/41/aa7811-07.pdf>`__ `<#ref-cit1>`__
-   
+   .. rubric:: Bibliography
+
+
+   .. _cit1:
+
+   `1. Mangum, et al. 2007, A&A, 474, 679
+   (` `ADS <https://ui.adsabs.harvard.edu/abs/2007A%26A...474..679M/abstract>`__ `)`
+
 
 .. _Examples:
 
 Examples
    To generate a spectral line cube with 500 channels selected from
    channel 200 to 700:
-   
+
    ::
-   
+
       spw='0'
       pol='XX'
       src='Moon'
-   
+
       tsdimaging(infiles='mydata.ms',
                  spw=spw,
                  nchan=500,
@@ -188,23 +192,23 @@ Examples
                  gwidth='4arcsec',
                  stokes=pol,
                  ephemsrcname=src)
-    
-   
+
+
    The *start* parameter can be specified in different units:
-   
+
    ::
-   
-      start=100 #(mode='channel')
-      start='22.3GHz' #(mode='frequency')
-      start='5.0km/s' #(mode='velocity')
-   
-    
-   
+
+      start=100  # mode='channel'
+      start='22.3GHz'  # mode='frequency'
+      start='5.0km/s'  # mode='velocity'
+
+
+
    The parameter *phasecenter* sets the center direction of the
    image:
-   
+
    ::
-   
+
       phasecenter=6
       phasecenter='J2000 19h30m00 -40d00m00'
       phasecenter='J2000 292.5deg -40.0deg'
@@ -213,7 +217,7 @@ Examples
       phasecenter='myComet_ephem.tab'
       phasecenter='MOON'
       phasecenter='TRACKFIELD'
-   
+
 
 .. _Development:
 

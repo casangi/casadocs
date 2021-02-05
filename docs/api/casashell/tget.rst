@@ -4,12 +4,13 @@ tget
 .. currentmodule:: casashell
 
 
-.. function:: tget(taskname=None)
+.. function:: tget(taskname=None, savefile='')
 
    Recover saved values of the inputs to a task
 
    Parameters
       - **taskname** (*obj* or *None*) - task object, None will use current default
+      - **savefile** (str) - Output file for the task inputs. default: task.last then task.saved. example: savefile=task.orion
 
    Description
       This is a convenient alternative to using the Python execfile command. Typing ``tget`` without a

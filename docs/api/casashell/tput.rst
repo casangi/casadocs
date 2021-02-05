@@ -4,12 +4,13 @@ tput
 
 .. currentmodule:: casashell
 
-.. function:: tput(taskname=None)
+.. function:: tput(taskname=None, outfile='')
 
    Save the current parameter values of a task to its ``<taskname>.last`` file
 
    Parameters
       - **taskname** (*obj* or *None*) - task object, None will use current default
+      - **outfile** (str) - Output file for the task inputs. default: task.last example: savefile=task.orion
 
    Description
       This is a shorthand to ``saveinputs`` and is a counterpart to ``tget``. Typing

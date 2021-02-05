@@ -8,6 +8,7 @@ CASA shell environment for interactive Python-based analysis using CASA tasks.
 
    casashell/buildmytasks
    casashell/default
+   casashell/doc
    casashell/execfile
    casashell/go
    casashell/inp
@@ -45,7 +46,7 @@ you can also call the task with no arguments, e.g. ::
    vis='ngc5921.ms'
    xaxis='channel'
    yaxis='amp'
-   datacolumn='data'
+   ydatacolumn='data'
    plotms()
 
 which will also use the global parameter values.
