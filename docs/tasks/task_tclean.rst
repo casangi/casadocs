@@ -590,13 +590,14 @@ Description
    by tclean. These are technical parameters related to processes and
    memory use:
 
-   -  mpiprocs: integer, number of processes (>1 for parallel runs)
-   -  chnchnks: integer, number of sub-cubes or chanchunks into which cubes
-      are partitioned in the major cycles
-   -  memavail: float, memory available, as found by tclean at the beginning of
-      the first major cycle.
-   -  memreq: float, estimate of memory required, as a function of cube size
-      and a few heuristic scale factors. Expressed in GBs.
+   - mpiprocs: integer, number of processes (>1 for parallel runs)
+   - chnchnks: integer, number of sub-cubes or chanchunks into which
+     cubes are partitioned in the major cycles
+   - memavail: float, memory available, as found by tclean at the
+     beginning of the first major cycle.
+   - memreq: float, estimate of memory required, as a function of cube
+     size, number of processors, and a few heuristic scale
+     factors. Expressed in GBs.
 
    These parameters are added to the miscinfo record of the output
    images by the tclean command that creates them, and represent the
