@@ -84,7 +84,7 @@ Description
    handling heterogeneous arrays. Use **plotms** to inspect the "Wt"
    column as a reference for determining the scaling factors. See the
    CASA Docs Chapter Pages on `Data
-   Weights <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-weights>`__
+   Weights <../../notebooks/data_weights.ipynb>`__
    for more details. Example: *visweightscale=[1.,3.,3.]*, which
    scales the weights of the second and third MS by a factor 3.
    Default: [] (empty list) or no scaling

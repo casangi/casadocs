@@ -43,30 +43,24 @@ Description
    diagram, but full details (via pseudocode) are available in
    the `reference
    publication. <https://iopscience.iop.org/article/10.3847/1538-3881/ab1aa7>`_
-   
-    
+
    
    .. rubric:: Task Specification : sdintimaging
-      
    
    The sdintimaging task shares a significant number of parameters
    with the tclean task. In the description below, parameters that
    are specific to sdintimaging are listed with full details, but all
    others will reference the existing tclean parameter documentation.
-   
-    
+
    
    .. rubric:: Data Selection
-      
    
    -  All data selection options allowed for interferometer data.
       This set of parameters is identical to those in task
       **tclean**.
-   
-    
+
    
    .. rubric:: Image Definition
-      
    
    -  Spatial dimensions are defined via the parameters : *imsize,
       cell, phasecenter, projection*
@@ -83,9 +77,7 @@ Description
       cycle. For *deconvolver='mtmfs'* the appropriate cube-to-taylor
       (and reverse) conversions are applied.
    
-   .. rubric:: Specifying Both Cube and MFS settings (for
-      *specmode='mfs'*) :
-      
+   .. rubric:: Specifying Both Cube and MFS settings (for *specmode='mfs'*) :
    
    In **sdintimaging**, with MFS deconvolution, one *needs to specify
    both cube and mfs settings for frequency coordinates because in
@@ -118,10 +110,7 @@ Description
       The internal automation of some of these settings is on our
       'Future Work' list.
    
-    
-   
-   .. rubric:: Single Dish data input 
-      
+   .. rubric:: Single Dish data input
    
    -  Image cubes that represent the observed SD image per channel
       and the corresponding SD beam :  *sdimage, sdpsf*
@@ -248,7 +237,6 @@ Description
 
    
    .. rubric:: Tuning the sdgain parameter
-      
    
    The *sdgain* parameter acts as an image weighting option by being
    applied both to the data as well as the PSFs during combination.
@@ -398,7 +386,7 @@ Description
    For more information and examples on the functionality of the
    sdintimaging task, see the CASA Docs chapter page on " `Joint
    Single Dish and Interferometer Image
-   Reconstruction <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-combination/joint-sd-and-interferometer-image-reconstruction>`__ "
+   Reconstruction <../../notebooks/image_combination.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`__ "
    
    .. |image1| image:: _apimedia/c914c39a74a69699c2ae1d84231e2133af6d7081.png
    
