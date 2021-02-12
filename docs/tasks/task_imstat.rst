@@ -3,9 +3,6 @@
 .. _Description:
 
 Description
-   imstat task: Displays statistical information from an image or image
-   region
-   
    Many parameters are determined from the specified region of an
    image. The region can be specified by a set of rectangular pixel
    coordinates, the channel ranges and the
@@ -29,11 +26,12 @@ Description
    
       #Specify inputs, then
       myoutput=imstat()
-      #or specify inputs directly in calling sequence to task
+
+      # or specify inputs directly in calling sequence to task
       myoutput=imstat(imagename='image.im', etc)
-      myoutput['KEYS'] #will contain the result associated with any
-      of the keys given below
-   
+      myoutput['KEYS']   # will contain the result associated with any of the keys given below
+
+
    +-----------------------------------+-----------------------------------+
    | KEYS                              | DESCRIPTION                       |
    +-----------------------------------+-----------------------------------+
@@ -111,7 +109,6 @@ Description
     
    
    .. rubric:: CURSOR AXES
-      
    
    The *axes* parameter allows one to set the cursor axes over
    which statistics are computed. For example, consider a
@@ -158,16 +155,13 @@ Description
    Thus in the computation of rmsmin, only the rms elements are
    considered which have associated values of 'npts' that are greater
    than zero.
-   
-    
+
    
    .. rubric:: ALGORITHMS
-      
    
    Several types of statistical algorithms are supported:
    
    .. rubric:: CLASSIC
-      
    
    This is the familiar algorithm, in which all unmasked pixels are
    used. One may choose one of two methods, which vary only by
@@ -187,7 +181,6 @@ Description
    pixels in the image and the choice of the *axes* parameter.
    
    .. rubric:: FIT-HALF
-      
    
    This algorithm calculates statistics on a dataset created from
    real and virtual pixel values. The real values are determined by
@@ -210,7 +203,6 @@ Description
    record.
    
    .. rubric:: HINGES-FENCES
-      
    
    This algorithm calculates statistics by including data in a range
    between :math:`Q1 - f*D` and :math:`Q3 + f*D`, inclusive, where Q1
@@ -225,7 +217,6 @@ Description
    of fence is silently ignored if algorithm is not "HINGES-FENCES".
    
    .. rubric:: CHAUVENET
-      
    
    The idea behind this algorithm is to eliminate outliers based on a
    maximum *z-score* parameter value. A *z-score* is the number of
@@ -291,7 +282,6 @@ Description
    +-------+-----------------+
    
    .. rubric:: BIWEIGHT
-      
    
    The biweight is a robust method to determine the center and width
    of a distribution. It uses the median and median absolute
@@ -301,7 +291,7 @@ Description
    width (i.e., "scale") of the distribution. These quantities are
    analogous to the mean and the standard deviation for a standard
    normal distribution. Our implementation is based on the equations
-   in Beers 1990  `[1] <#cit1>`__ and Iglewicz 1983 `[2] <#cit2>`__ .
+   in Beers 1990  [1]_ and Iglewicz 1983 [2]_.
    
    The data weights in this algorithm are
    
@@ -310,8 +300,6 @@ Description
    where :math:`u_i` is defined as
 
    .. math:: u_i = \frac{ x_i - c_{bi} } { c s_{bi} }
-   
-        
    
    The variable :math:`x_i` is the data values, :math:`c_{bi}` is
    the biweight location, :math:`s_{bi}` is the biweight scale, and
@@ -368,8 +356,7 @@ Description
    7. Steps 3 - 6 are repeated until convergence occurs or the
       maximum number of iterations (specified in the *niter*
       parameter) is reached. The convergence criterion is given by
-   
-           
+
    
    .. math:: | (s_{bi} - s_{bi,prev})/s_{bi,prev} | < 0.03  \sqrt{ \frac{0.5}{n - 1}}
    
@@ -396,11 +383,9 @@ Description
    want to compute these quantities in addition those values
    calculated here, re-run **imstat** with selecting another
    algorithm.
-   
-    
+
    
    .. rubric:: NOTES ON FLUX DENSITIES AND FLUXES
-      
    
    .. note:: Explanation of terminology:
 
@@ -464,88 +449,73 @@ Description
    where ln() is the natural logarithm and :math:`FWHM_{major}` and
    :math:`FWHM_{minor}` are the major and minor full width at half
    maximum (FWHM) axes of the beam, respectively.
-   
-    
+
    
    .. rubric:: Task-specific Parameters Summary
-      
    
-   .. rubric:: *axes*
-      
+   *axes*
    
    Cursor axes over which to evaluate statistics.
    
-   .. rubric:: *listit*
-      
+   *listit*
    
    Print stats and bounding box to logger?
    
-   .. rubric:: *verbose*
-      
+   *verbose*
    
    Print additional, possibly useful, messages to logger?
    
-   .. rubric:: *logfile*
-      
-   
+   *logfile*
+
    Name of file to write statistic results.
    
-   .. rubric:: *append*
-      
+   *append*
    
    If logfile exists, append to it if True or overwrite it if False.
    
-   .. rubric:: *algorithm*
-      
-   
+   *algorithm*
+
    Algorithm to use. Supported values are "biweight", "chauvenet",
    "classic", "fit-half", and "hinges-fences". Minimum match is
    supported.
    
-   .. rubric:: *fence*
-      
-   
+   *fence*
+
    Fence value for hinges-fences. A negative value means use the
    entire data set (ie default to the "classic" algorithm). Ignored
    if algorithm is not "hinges-fences".
    
-   .. rubric:: *center*
-      
+   *center*
    
    Center to use for fit-half. Valid choices are "mean", "median",
    and "zero". Ignored if algorithm is not "fit-half".
    
-   .. rubric:: *lside*
-      
+   *lside*
    
    For fit-half, use values <= center for real data if True? If
    False, use values >= center as real data. Ignored if algorithm is
    not "fit-half".
    
-   .. rubric:: *zscore*
-      
+   *zscore*
    
    For chauvenet, this is the target maximum number of standard
    deviations data may have to be included. If negative, use 
    Chauvenet's criterion. Ignored if algorithm is not "chauvenet".
    
-   .. rubric:: *maxiter*
-      
+   *maxiter*
    
    For chauvenet, this is the maximum number of iterations to
    attempt. Iterating will stop when either this limit is reached, or
    the zscore criterion is met. If negative, iterate until the zscore
    criterion is met. Ignored if algorithm is not "chauvenet".
    
-   .. rubric:: *clmethod*
-      
+   *clmethod*
    
    Method to use for calculating classical statistics. Supported
    methods are "auto", "tiled", and "framework". Ignored if algorithm
    is not "classic".
    
-   .. rubric:: *niter*
-      
+   *niter*
    
    For biweight, this is the maximum number of iterations to attempt.
    Iterating will stop when either this limit is reached, or the
@@ -556,14 +526,13 @@ Description
 
    .. rubric:: Bibliography
 
-   :sup:`1. Beers, T., Flynn, K., and Gebhardt, K. 1990. AJ, 100,
-   1, 32.` `<#ref-cit1>`__
+   .. [1] Beers, T., Flynn, K., and Gebhardt, K. 1990. AJ, 100, 1, 32.
    
-   :sup:`2. Iglewicz, Boris. 1983. “Robust Scale Estimators and
-   Confidence Intervals for Location” in Understanding Robust and
-   Exploratory Data Analysis, eds. Hoaglin, David; Mosteller,
-   Frederick; and Tukey, John W., John Wiley and Sons,
-   Inc.` `<#ref-cit2>`__
+   .. [2] Iglewicz, Boris. 1983. “Robust Scale Estimators and
+      Confidence Intervals for Location” in Understanding Robust and
+      Exploratory Data Analysis, eds. Hoaglin, David; Mosteller,
+      Frederick; and Tukey, John W., John Wiley and Sons,
+      Inc.
 
 
 .. _Examples:
@@ -589,8 +558,7 @@ Examples
    ::
    
       results = imstat('myImage', chans='>20;0')
-      print "Mean is: ", results['mean'], " s.d. ",
-      results['sigma']
+      print "Mean is: ", results['mean'], " s.d. ", results['sigma']
    
    Find statistical information for the Q stokes value only, then the
    I stokes values only, and printing out the statistical values that
@@ -601,10 +569,8 @@ Examples
       s1 = imstat('myimage', stokes='Q')
       s2 = imstat('myimage', stokes='I')
       print " | MIN | MAX | MEAN"
-      print " Q | ",s1['min'][0]," | ",s1['max'][0]," | ",," |
-      ",s1['mean'][0]
-      print " I | ",s2['min'][0]," | ",s2['max'][0]," | ",," |
-      ",s2['mean'][0]
+      print " Q | ",s1['min'][0]," | ",s1['max'][0]," | ",," | ",s1['mean'][0]
+      print " I | ",s2['min'][0]," | ",s2['max'][0]," | ",," | ",s2['mean'][0]
    
    Evaluate statistics for each spectral plane in an ra x dec x
    frequency image
@@ -615,16 +581,15 @@ Examples
    
       # generate an image
       ia.fromshape(myim, [20,30,40])
+
       # give pixels non-zero values
       ia.addnoise()
       ia.done()
-      # These are the display axes, the calculation of statistics
-      occurs
-      # for each (hyper)plane along axes not listed in the axes
-      parameter,
+
+      # These are the display axes, the calculation of statistics occurs
+      # for each (hyper)plane along axes not listed in the axes parameter,
       # in this case axis 2 (the frequency axis)
-      # display the rms for each frequency plane (your mileage will
-      vary with
+      # display the rms for each frequency plane (your mileage will vary with
       # the values).
       stats = imstat(imagename=myim, axes=[0,1])
    
@@ -647,5 +612,5 @@ Examples
 .. _Development:
 
 Development
-   None
-   
+   No additional development details
+

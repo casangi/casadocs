@@ -4,7 +4,7 @@
 
 Description
    partition is a task that creates
-   a `Multi-MS <https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/the-multi-ms>`__ out
+   a `Multi-MS <../../notebooks/parallel-processing.ipynb#The-Multi-MS>`__ out
    of a MeasurementSet. General selection parameters are included,
    and one or all of the various data columns (DATA, FLAG_DATA and/or
    FLOAT_DATA, and possibly MODEL_DATA and/or CORRECTED_DATA) can be
@@ -13,7 +13,7 @@ Description
    The partition task creates a Multi-MS in parallel using the
    Message Passing Interface ( `MPI <http://mpi-forum.org/>`__ ),
    enabled via
-   the `mpi4casa <https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/casa-parallelization-interface-mpi4casa>`__ framework.
+   the `mpi4casa <../../notebooks/parallel-processing.ipynb#Advanced:-Interface-Framework>`__ framework.
    
    .. note:: When partition or any other task processes an MMS in parallel,
       each Sub-MS is processed independently in a parallel
@@ -22,37 +22,31 @@ Description
       engine running that process. When the task runs sequentially,
       it shows the MPIClient text in the origin of the log messages
       or does not show anything.
-   
-   
+
    
    .. rubric:: Parameter Descriptions
-      
    
-   .. rubric:: *vis*
-      
+   *vis*
    
    Name of input MeasurementSet.
    
-   .. rubric:: *outputvis*
-      
+   *outputvis*
    
    Name of output Multi-MS.
    
-   .. rubric:: *createmms*
-      
+   *createmms*
    
    By default, this parameter is set to True to create an output
    Multi-MS, which is the basic step for running CASA in parallel.
    See more about this in the
-   `Parallelization <https://casa.nrao.edu/casadocs-devel/stable/parallel-processing>`__
+   `Parallelization <../../notebooks/parallel-processing.ipynb>`__
    chapter. The task will obey the settings of the parameters listed
    below if set to True. If set to False, it will work as the
    **split** task and create a normal MS, split according to the
    given data selection parameters. Note that, when this parameter is
    set to False, a cluster will not be used.
    
-   .. rubric:: *separationaxis*
-      
+   *separationaxis*
    
    Axis to do parallelization across. Namely, it is how the MS will
    be partitioned to form separated entities, called Sub-MSs.
@@ -64,8 +58,7 @@ Description
    balanced. This is the recommended axis to partition an MS.
    
    -  The 'auto' option will partition the MS per scan and spw to
-      obtain optimal load balancing with the following criteria:     
-       
+      obtain optimal load balancing with the following criteria:
    
    1. Maximize the scan/spw/field distribution across sub-MSs
    
@@ -84,8 +77,7 @@ Description
       baseline, set the numsubms parameter to a number higher than
       the number of baselines to achieve this.        
    
-   .. rubric:: *numsubms*
-      
+   *numsubms*
    
    The number of sub-MSs to create in the Multi-MS. The default
    'auto' is to partition the MS using the number of available
@@ -95,12 +87,11 @@ Description
    can create any number of Sub-MSs, regardless of the number of
    cores used to create the cluster with mpicasa.
    
-   .. rubric:: *flagbackup*
-      
-   
+   *flagbackup*
+
    Make a backup of the FLAG column of the output MMS. When the MMS
    is created, the `flag
-   versions <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/managing-flag-versions-flagmanager>`__  (the
+   versions <../../notebooks/data_examination.ipynb#Manage-flag-versions>`__  (the
    .flagversions file) of the input MS are not transferred; therefore
    it is necessary to re-create it for the new MMS. Note that
    multiple backups from the input MS will not be preserved.
@@ -112,13 +103,11 @@ Description
 
 Examples
    Other examples of running CASA in parallel can be
-   found `here <https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/examples-of-running-casa-in-parallel>`__ .
+   found `here <../../notebooks/parallel-processing.ipynb#Examples-parallelization>`__ .
    Use task listpartition to see the content of the Multi-MS.
-   
-    
+
    
    .. rubric:: Start CASA on a single node with 16 engines
-      
    
    The first engine will be used as the MPIClient, where the user
    will see the CASA prompt. All other engines will be used as
@@ -129,11 +118,9 @@ Examples
       mpicasa -n 16 casa --nogui --log2term
    
       partition(vis='uid__A1__X33993.ms', outputvis='test.mms')
-   
-   
+
    
    .. rubric:: Run CASA on a group of nodes in a cluster
-      
    
    ::
    
@@ -148,12 +135,9 @@ Examples
    
       cvpost001, slots=5
       cvpost002, slots=4
+
    
-    
-   
-   .. rubric:: Create a Multi-MS of selected spws, partitioned per
-      spw
-      
+   .. rubric:: Create a Multi-MS of selected spws, partitioned per spw
    
    The first example will create 4 Sub-MSs by default, if CASA is
    started with 5 engines. In the second example, use the numsubms
@@ -167,44 +151,36 @@ Examples
       # Ex 1: The following example will create 4 Sub-MSs by default
    
       partition('uid001.ms', outpuvis='source.mms',
-      spw='1,3,5,7,9,11,13,15', separationaxis='spw')
+                spw='1,3,5,7,9,11,13,15', separationaxis='spw')
    
       # *Ex 2: force the creation of one spw per Sub-MS*
    
       partition('uid001.ms', outpuvis='source.mms',
-      spw='1,3,5,7,9,11,13,15', separationaxis='spw', numsubms=8)
+                spw='1,3,5,7,9,11,13,15', separationaxis='spw', numsubms=8)
    
      
    
-   .. rubric:: Create a Multi-MS with only a certain channel range of
-      all spws but do not back up the FLAG column
-      
+   .. rubric:: Create a Multi-MS with only a certain channel range of all spws but do not back up the FLAG column
    
    ::
    
       partition('uid0001.ms', outputvis='fewchans.mms', spw='*:1~10',
-      flagbackup=False)
+                flagbackup=False)
+
    
-        
-   
-   .. rubric:: Create a single-dish Multi-MS using the baseline axis
-      only for auto-correlations
-      
+   .. rubric:: Create a single-dish Multi-MS using the baseline axis only for auto-correlations
    
    ::
    
       partition('uid0001.ms', outputvis='myuid.ms', createmms=True,
-      separationaxis='baseline', antenna='*&&&')
+                separationaxis='baseline', antenna='*&&&')
+
    
-     
-   
-   .. note:: NOTE: If CASA is started without mpicasa, it is still possible
-      to create an MMS, but the processing will be done in serial.
+   .. note:: NOTE: If CASA is started without mpicasa, it is still possible to create an MMS, but the processing will be done in serial.
    
 
 .. _Development:
 
 Development
-   None
-   
-   
+   No additional development details
+

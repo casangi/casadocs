@@ -3,59 +3,38 @@
 .. _Description:
 
 Description
-   Import ATCA RPFITS files into a MeasurementSet
-   
    The data from the ATCA is available from the archive using the
    RPFITS file format. These files can be imported into CASA with the
    **importatca** task. 
    
    ::
    
-      | #In CASA
-      | #  importatca :: Import ATCA RPFITS file(s) to a
-        MeasurementSet
-      | files               =['*.C1234']        #  Name of input ATCA
-        RPFits file(s)
-      | vis                 = 'c1234.ms'        #  Name of output
-        visibility file
-      |                                         #   (MeasurementSet)
-      | options             =         ''        #  Processing
-        options: birdie, reweight,
-      |                                         #   noxycorr,
-        fastmosaic, hires, noac
-      |                                         #   (comma separated
-        list)
-      | spw                 =       [-1]        #  Specify the
-        spectral windows to use,
-      |                                         #   default=all
-      | nscans              =     [0, 0]        #  Number of scans to
-        skip followed by
-      |                                         #   number of scans
-        to read
-      | lowfreq             =   '0.1GHz'        #  Lowest reference
-        frequency to select
-      | highfreq            =   '999GHz'        #  Highest reference
-        frequency to select
-      | fields              =       ['']        #  List of field
-        names to select
-      | edge                =          8        #  Percentage of edge
-        channels to flag.
-      |                                         #  For combined
-        zooms, this specifies the
-      |                                         #   percentage for a
-        single zoom window
+      #In CASA
+      #  importatca :: Import ATCA RPFITS file(s) to a MeasurementSet
+      files               =['*.C1234']        #  Name of input ATCA RPFits file(s)
+      vis                 = 'c1234.ms'        #  Name of output visibility file
+                                              #   (MeasurementSet)
+      options             =         ''        #  Processing options: birdie, reweight,
+                                              #   noxycorr, fastmosaic, hires, noac
+                                              #   (comma separated list)
+      spw                 =       [-1]        #  Specify the spectral windows to use,
+                                              #   default=all
+      nscans              =     [0, 0]        #  Number of scans to skip followed by
+                                              #   number of scans to read
+      lowfreq             =   '0.1GHz'        #  Lowest reference frequency to select
+      highfreq            =   '999GHz'        #  Highest reference frequency to select
+      fields              =       ['']        #  List of field names to select
+      edge                =          8        #  Percentage of edge channels to flag.
+                                              #  For combined zooms, this specifies the
+                                              #   percentage for a single zoom window
    
    The *files* parameter can take a string or a list of strings as
    input and also allows the use of wildcards as shown in the
    example above.
    
-    
-   
    For older ATCA continuum data (before the CABB correlator,
    April 2009), use *options='birdie,reweight'* to suppress
-   internally generated RFI. 
-   
-    
+   internally generated RFI.
    
    The *options* parameter:
    
@@ -83,23 +62,19 @@ Description
    zoom bands for the second frequency. Note that this *spw*
    parameter does not take a string with wildcards. Use *spw=-1*
    to get all the data.
-   
-    
+
    
    The *nscans* parameter can be used to select part of a file,
    e.g., to retrieve a few test scans for a quick look.
-   
-    
+
    
    The *lowfreq* and *highfreq* parameters select data based on
    the reference frequency.
-   
-    
+
    
    The *fields* parameter selects data based on the field/source
    name.
-   
-    
+
    
    The *edge* parameter specifies how many edge channels to
    discard as a percentage of the number of channels in each band,
@@ -115,10 +90,7 @@ Description
 .. _Examples:
 
 Examples
-   importatca task examples
-   
-   .. rubric:: Reading a pre-CABB ATCA archive file (RPFITS format)
-      
+   **Reading a pre-CABB ATCA archive file (RPFITS format)**
    
    ::
    
@@ -128,11 +100,9 @@ Examples
    measurement set. We are applying birdie flagging and lag spectrum
    re-weighting (as appropriate for old 33 channel continuum data),
    as well as flagging the 10% edge channels.
+
    
-    
-   
-   .. rubric:: Reading an ATCA/CABB archive file (RPFITS format)
-      
+   **Reading an ATCA/CABB archive file (RPFITS format)**
    
    ::
    
@@ -146,8 +116,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

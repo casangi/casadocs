@@ -3,11 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
-   .. rubric:: Summary
-      
-   
    The complex time-dependent gains for each antenna/spwid are
    determined from the ratio of the data column (raw data), divided
    by the model column, for the specified data selection. The gains
@@ -17,8 +12,7 @@ Description
    will be applied on the fly.
    
    .. rubric:: Introduction
-      
-   
+
    The fundamental calibration to be done on your interferometer data
    is to calibrate the antenna-based gains as a function of time,
    using **gaincal**. Systematic time-dependent complex gain errors
@@ -46,10 +40,9 @@ Description
    corrections, opacity, etc.).
    
    .. rubric:: Common calibration solve parameters
-      
    
    See `Solving for
-   Calibration <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration/solving-for-calibration>`__ for
+   Calibration <../../notebooks/synthesis_calibration.ipynb#Solve-for-Calibration>`__ for
    more information on the task parameters **gaincal** shares with
    all solving tasks, including data selection, general solving
    properties and arranging prior calibration. Also see the
@@ -58,7 +51,6 @@ Description
    **gaincal**, and those common parameters with unique properties.
    
    .. rubric:: Gain calibration types: *gaintype*
-      
    
    The *gaintype* parameter selects the type of gain solution to
    compute. For complex gain calibration, the choices are *'T'*,
@@ -66,7 +58,6 @@ Description
    rudimetary delay solutions using *'K'* and *'KCROSS'*.
    
    .. rubric:: Polarization-dependent sampled gain (*gaintype='G'*)
-      
    
    Generally speaking, *gaintype='G'* can represent any
    multiplicative polarization- and time-dependent complex gain
@@ -78,7 +69,6 @@ Description
    each spectral window).
    
    .. rubric:: Polarization-independent sampled gain (*gaintype='T'*)
-      
    
    At high radio frequencies (>10 GHz), it is often the case that the
    most rapid time-dependent gain errors are introduced by the
@@ -95,7 +85,6 @@ Description
    a prior G or (unnormalized) bandpass calibration. 
    
    .. rubric:: Spline gains (*gaintype='GSPLINE'*)
-      
    
    At high radio frequencies, where tropospheric phase fluctuates
    rapidly, it is often the case that there is insufficient
@@ -118,14 +107,10 @@ Description
    
    ::
    
-      | gaintype         =  'GSPLINE'   #   Type of solution (G, T,
-        or GSPLINE)
-      |      splinetime  =     3600.0   #   Spline (smooth) timescale
-        (sec), default=1 hours
-      |      npointaver  =          3   #   Points to average for
-        phase wrap
-      |      phasewrap   =        180   #   Wrap phase when greater
-        than this
+      gaintype         =  'GSPLINE'   #   Type of solution (G, T, or GSPLINE)
+           splinetime  =     3600.0   #   Spline (smooth) timescale (sec), default=1 hours
+           npointaver  =          3   #   Points to average for phase wrap
+           phasewrap   =        180   #   Wrap phase when greater than this
    
    The duration of each spline segment is controlled by *splinetime*.
    The *splinetime* will be adjusted automatically such that an
@@ -156,7 +141,6 @@ Description
       tracking algorithm in GSPLINE needs some improvement.
    
    .. rubric:: Single- and multi-band delay (*gaintype='K'*)
-      
    
    With *gaintype='K'* **gaincal** solves for simple antenna-based
    delays via Fourier transforms of the spectra on baselines to
@@ -176,7 +160,6 @@ Description
    and amplitude.
    
    .. rubric:: Cross-hand delays (*gaintype='KCROSS'*)
-      
    
    With *gaintype='KCROSS',* **gaincal** solves for a global
    cross-hand delay. This is used only when doing polarimetry. Use
@@ -189,9 +172,7 @@ Description
    channelizations, etc.).
    
    
-   
    .. rubric:: Solution normalization: *solnorm, normtype*
-      
    
    Nominally, gain solution amplitudes are implicitly scaled in
    amplitude to satisfy the the effective amplitude ratio between the
@@ -214,138 +195,119 @@ Description
    useful to avoid biasing of the normalization by outlier
    amplitudes.  The default for *solnorm* is *solnorm=False*, which
    means no normalization.
-   
-    
+
    
    .. rubric:: Robust solving:  *solmode, rmsthresh*
-      
    
    .. warning:: Robust solving modes in gaincal are considered experimental in
       CASA 5.5.  With more experience and testing in the coming
       development cycles, we will provide more refined advice for use
       of these options.
    
-   | Nominally (*solmode=''*), gaincal performs an iterative,
-     steepest-descent chi-squared minimization for its antenna-based
-     gain solution, i.e., minimizaiton of the L2 norm.  Visibility
-     outliers (i.e., data not strictly consistent with the assumption
-     of antenna-based gains and the supplied visibility model within
-     the available SNR) can significantly distort the chi-squared
-     gradient calculation, and thereby bias the resulting solution. 
-     For an outlier on a single baseline, the solutions for the
-     antennas in that baseline will tend to be biased in the
-     direction of the outlier, and all other antenna solutions in the
-     other direction (by a lesser amount consistent with the fraction
-     of normal, non-outlying baselines to them).  It is thus
-     desirable to dampen the influence of such outliers, and
-     solmode/rmshresh provide a mechanism for achieving this.  These
-     options apply only to *gaintype='G'* and *'T'*, and will be
-     ignored for other options.
-   | Use of *solmode='L1'* invokes an approximate form of
-     minimization of the aggregate absolute deviation of visibilities
-     with respect to the model, i.e., the L1 norm.  This is achieved
-     by accumulating the nominal chi-squared and its gradient using
-     weights divided by (at each iteration of the steepest descent
-     process) the current per-baseline absolute residual (i.e., the
-     square-root of each baseline's chi-square contribution).  (NB: 
-     It is not possible to analytically accumulate the gradient of L1
-     since the absolute value is not differentiable.)   To avoid an
-     over-reliance on baselines with atypically small residuals at
-     each interation, the weight adjustments are clamped to a minimum
-     (divided) value, and the steepest descent convergence is
-     repeated three times with increasingly modest clamping. The net
-     effect is to gently but effectively render the weight of
-     relative outliers to appropriately damped influence in the
-     solution.
-   | Using *solmode='R'* invokes the normal L2 solution, but attempts
-     to identify outliers (relative to apparent aggregate rms) upon
-     steepest descent convergence, flag them, and repeat the steepest
-     descent.  Since outliers will tend to bias the rms calculation
-     initially (and thus possibly render spuriously large rms
-     residuals for otherwise good data), outlier detection and
-     re-covergence is repeated with increasingly aggressive rms
-     thresholds, a sequence specifiable in *rmsthresh*.  By default
-     *(rmsthresh=[])* invokes a sequence of 10 thresholds borrowed
-     from a traditional implementation found in AIPS:
-     [7.0,5.0,4.0,3.5,3.0,2.8,2.6,2.4,2.2,2.5].  Note that the lower
-     threshold values are likely to cull visibilites not formally
-     outliers, but merely with modestly large residuals still
-     consistent with gaussian statistitics, and thereby unnecessarily
-     decrease net effective sensitivity in the gain solution (cf
-     normal L2), especially for larger arrays where the number of
-     baselines likely implies a larger number of visibility residuals
-     falling in the modest wings of the distribution.  Thus, it may
-     be desirable to set *rmsthresh* manually to a more modest
-     sequence of thresholds.  Optimization of *rmsthresh* for modern
-     arrays and conditions is an area of ongoing study.
-   | Use of *solmode='L1R'* combines both the L1 and R modes
-     described above, with the iterative clamped L1 loop occuring
-     inside the R outliner excision threshold sequence loop.
-   
-   | 
-   |
+   Nominally (*solmode=''*), gaincal performs an iterative,
+   steepest-descent chi-squared minimization for its antenna-based
+   gain solution, i.e., minimizaiton of the L2 norm.  Visibility
+   outliers (i.e., data not strictly consistent with the assumption
+   of antenna-based gains and the supplied visibility model within
+   the available SNR) can significantly distort the chi-squared
+   gradient calculation, and thereby bias the resulting solution.
+   For an outlier on a single baseline, the solutions for the
+   antennas in that baseline will tend to be biased in the
+   direction of the outlier, and all other antenna solutions in the
+   other direction (by a lesser amount consistent with the fraction
+   of normal, non-outlying baselines to them).  It is thus
+   desirable to dampen the influence of such outliers, and
+   solmode/rmshresh provide a mechanism for achieving this.  These
+   options apply only to *gaintype='G'* and *'T'*, and will be
+   ignored for other options.
+
+   Use of *solmode='L1'* invokes an approximate form of
+   minimization of the aggregate absolute deviation of visibilities
+   with respect to the model, i.e., the L1 norm.  This is achieved
+   by accumulating the nominal chi-squared and its gradient using
+   weights divided by (at each iteration of the steepest descent
+   process) the current per-baseline absolute residual (i.e., the
+   square-root of each baseline's chi-square contribution).  (NB:
+   It is not possible to analytically accumulate the gradient of L1
+   since the absolute value is not differentiable.)   To avoid an
+   over-reliance on baselines with atypically small residuals at
+   each interation, the weight adjustments are clamped to a minimum
+   (divided) value, and the steepest descent convergence is
+   repeated three times with increasingly modest clamping. The net
+   effect is to gently but effectively render the weight of
+   relative outliers to appropriately damped influence in the
+   solution.
+
+   Using *solmode='R'* invokes the normal L2 solution, but attempts
+   to identify outliers (relative to apparent aggregate rms) upon
+   steepest descent convergence, flag them, and repeat the steepest
+   descent.  Since outliers will tend to bias the rms calculation
+   initially (and thus possibly render spuriously large rms
+   residuals for otherwise good data), outlier detection and
+   re-covergence is repeated with increasingly aggressive rms
+   thresholds, a sequence specifiable in *rmsthresh*.  By default
+   *(rmsthresh=[])* invokes a sequence of 10 thresholds borrowed
+   from a traditional implementation found in AIPS:
+   [7.0,5.0,4.0,3.5,3.0,2.8,2.6,2.4,2.2,2.5].  Note that the lower
+   threshold values are likely to cull visibilites not formally
+   outliers, but merely with modestly large residuals still
+   consistent with gaussian statistitics, and thereby unnecessarily
+   decrease net effective sensitivity in the gain solution (cf
+   normal L2), especially for larger arrays where the number of
+   baselines likely implies a larger number of visibility residuals
+   falling in the modest wings of the distribution.  Thus, it may
+   be desirable to set *rmsthresh* manually to a more modest
+   sequence of thresholds.  Optimization of *rmsthresh* for modern
+   arrays and conditions is an area of ongoing study.
+
+   Use of *solmode='L1R'* combines both the L1 and R modes
+   described above, with the iterative clamped L1 loop occuring
+   inside the R outliner excision threshold sequence loop.
    
 
 .. _Examples:
 
 Examples
-   task examples
-   
    To solve for G on, say, fields 1 & 2, on a 90s timescale, and do
    so relative to gaincurve and bandpass corrections:
    
    ::
    
-      | gaincal('data.ms',
-      |         caltable='cal.G90s',          # Write solutions to
-        disk file 'cal.G'
-      |         field='0,1',                  # Restrict field
-        selection
-      |         solint='90s',                 # Solve for phase and
-        amp on a 90s timescale
-      |         gaintable=['cal.B','cal.gc'], # prior bandpass and
-        gaincurve tables
-      |         refant='3')                   # reference antenna
+      gaincal('data.ms',
+              caltable='cal.G90s',          # Write solutions to disk file 'cal.G'
+              field='0,1',                  # Restrict field selection
+              solint='90s',                 # Solve for phase and amp on a 90s timescale
+              gaintable=['cal.B','cal.gc'], # prior bandpass and gaincurve tables
+              refant='3')                   # reference antenna
    
    To solve for more rapid tropopheric gains (3s timescale) using the
    above G solution, use *gaintype='T'*:
    
    ::
    
-      | gaincal(vis='data.ms',
-      |         caltable='cal.T',             # Output table name
-      |         gaintype='T',                 # Solve for T
-        (polarization-independent)
-      |         field='0,1',                  # Restrict data
-        selection to calibrators
-      |         solint='3s',                  # Obtain solutions on a
-        3s timescale
-      |         gaintable=['cal.B','cal.gc','cal.G90s'],   # all
-        prior cal
-      |         refant='3')                   # reference antenna
-   
-    
+      gaincal(vis='data.ms',
+              caltable='cal.T',             # Output table name
+              gaintype='T',                 # Solve for T (polarization-independent)
+              field='0,1',                  # Restrict data selection to calibrators
+              solint='3s',                  # Obtain solutions on a 3s timescale
+              gaintable=['cal.B','cal.gc','cal.G90s'],   # all prior cal
+              refant='3')                   # reference antenna
    
    To solve for GSPLINE phase and amplitudes, with splines of
    duration 600 seconds:
    
    ::
    
-      | gaincal('data.ms',
-      |         caltable='cal.spline.ap',
-      |         gaintype='GSPLINE'       #   Solve for GSPLINE
-      |         calmode='ap'             #   Solve for amp & phase
-      |         field='0,1',             #   Restrict data selection
-        to calibrators
-      |         splinetime=600.)         #   Set spline timescale to
-        10min
-   
+      gaincal('data.ms',
+              caltable='cal.spline.ap',
+              gaintype='GSPLINE'       #   Solve for GSPLINE
+              calmode='ap'             #   Solve for amp & phase
+              field='0,1',             #   Restrict data selection to calibrators
+              splinetime=600.)         #   Set spline timescale to 10min
+
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

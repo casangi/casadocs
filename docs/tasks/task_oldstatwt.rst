@@ -23,20 +23,16 @@ Description
    
    .. note:: **NOTE**: Some of the parameters (*byantenna*, *sepacs*,
       *fitcorr*, and *timebin*) are not yet fully implemented.
-   
-    
+
    
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: *vis*
-      
+   *vis*
    
    Name of input visibility file. Default: none. Examples:
    *vis='ngc5921.ms'*
    
-   .. rubric:: *dorms*
-      
+   *dorms*
    
    Estimate the scatter using RMS instead of the standard deviation.
    
@@ -49,8 +45,7 @@ Description
    because they require sorting by value, which is not possible for
    complex numbers. Default: False.
    
-   .. rubric:: *byantenna*
-      
+   *byantenna*
    
    Assume that the noise is factorable by antenna (feed). If False,
    treat it separately for each baseline (recommended if there is
@@ -58,32 +53,25 @@ Description
    implemented)
    
    .. rubric:: *byantenna=True* expandable parameters
-      
    
-   .. rubric:: *sepacs*
-      
+   *sepacs*
    
    If solving by antenna, treat autocorrelations separately.
    (Acknowledge that what autocorrelations "see" is very different
    from what crosscorrelations see.) Default: True (not yet
    implemented).
    
-    
-   
-   .. rubric:: *fitspw*
-      
+   *fitspw*
    
    The (ideally) signal-free spectral window:channels to estimate the
    scatter from. Default: '' (All).
    
-   .. rubric:: *fitcorr*
-      
+   *fitcorr*
    
    The (ideally) signal-free correlations to estimate the scatter
    from. Default: '' (All) (not yet implemented)
    
-   .. rubric:: *combine*
-      
+   *combine*
    
    Let samples span multiple spws, corrs, scans, and/or states.
    Examples:
@@ -101,23 +89,20 @@ Description
    
    Default: '' (None).
    
-   .. rubric:: *timebin*
-      
+   *timebin*
    
    Sample interval. Default: '0s' or '-1s' (1 integration at a time).
    Examples: *timebin='30s'*, '10' means '10s' (not yet
    implemented)
    
-   .. rubric:: *minsamp*
-      
+   *minsamp*
    
    Minimum number of unflagged visibilities for estimating the
    scatter. Selected visibilities for which the weight cannot be
    estimated will be flagged. Note that *minsamp* is effectively at
    least 2 if *dorms* is False, and 1 if it is True.
    
-   .. rubric:: *field*
-      
+   *field*
    
    Select fields in mosaic. Use field id(s) or field name(s). [go
    listobs to obtain the list id's or names] Default: '' = all
@@ -127,8 +112,7 @@ Description
    ids 0,4,5,6,7; *field='3C286,3C295'*, field named 3C286 and 3C295;
    *field = '3,4C\*'*, field id 3 and all names starting with 4C.
    
-   .. rubric:: *spw*
-      
+   *spw*
    
    Select spectral window/channels. Default: '' => all spectral
    windows and channels. Examples: *spw='0~2,4'*, spectral windows
@@ -140,8 +124,7 @@ Description
    *spw='0:0~10,1:20~30,2:1;2;3'*; spw 0, channels 0-10, spw 1,
    channels 20-30, and spw 2, channels, 1,2 and 3.
    
-   .. rubric:: *antenna*
-      
+   *antenna*
    
    Select data based on antenna/baseline. Default: '' (all). If
    antenna string is a non-negative integer, it is assumed to be an
@@ -153,8 +136,7 @@ Description
    antenna number 05 (VLA old name); *antenna='5,6,9'*, all baselines
    with antennas 5,6,9 index numbers.
    
-   .. rubric:: *timerange*
-      
+   *timerange*
    
    Select data based on time range. Default: '' (all). Examples:
    *timerange = 'YYYY/MM/DD/hh:mm:ss~YYYY/MM/DD/hh:mm:ss'*;
@@ -167,14 +149,12 @@ Description
    day; *timerange='09:44:00'* pick data within one integration of
    time; *timerange='>10:24:00'* data after this time.
    
-   .. rubric:: *scan*
-      
+   *scan*
    
    Scan number range. Default: '' (all). Examples: *scan='1~5'*.
    Check 'go listobs' to insure the scan numbers are in order.
    
-   .. rubric:: *intent*
-      
+   *intent*
    
    Select by scan intent (state). Case sensitive. Default: '' = all.
    Examples: *intent = 'CALIBRATE_ATMOSPHERE_REFERENCE'*; *intent =
@@ -183,13 +163,11 @@ Description
    OBSERVE_TARGET_ON_SOURCE; *intent = 'CALIBRATE_WVR.REFERENCE,
    OBSERVE_TARGET_ON_SOURCE'*
    
-   .. rubric:: *array*
-      
+   *array*
    
    (Sub)array number range. Default: ''=all.
    
-   .. rubric:: *correlation*
-      
+   *correlation*
    
    Select correlations, e.g. 'RR, LL' or ['XY', 'YX']. Default ''
    (all).
@@ -198,16 +176,13 @@ Description
       been disabled since it was not working correctly, and it is
       likely undesirable to set the weights in a
       correlation-dependent way.
+
    
-    
-   
-   .. rubric:: *observation*
-      
+   *observation*
    
    Select by observation ID(s). Default: '' = all.
    
-   .. rubric:: *datacolumn*
-      
+   *datacolumn*
    
    Which data column to calculate the scatter from. Default:
    *datacolumn='corrected'*. Examples: *datacolumn='data'*. Options:
@@ -226,11 +201,11 @@ Examples
    ::
    
       oldstatwt(vis='example.ms', dorms=False, intent='*TARGET*',
-      datacolumn='corrected', minsamp=2)
+                datacolumn='corrected', minsamp=2)
    
 
 .. _Development:
 
 Development
-   None
-   
+   No additional development details
+

@@ -36,20 +36,17 @@ Description
    
    For a detailed explanation of the **plotms** GUI and its
    corresponding task parameters, see the `documentation on using
-   plotms <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/using-plotms-to-plot-and-edit-visibilities-and-calibration-tables>`__
+   plotms <../../notebooks/data_examination.ipynb#Browse-MS/Calibration-Tables>`__
    under Data Examination and Editing.
    
    .. rubric:: Parameter Descriptions
-      
    
    The options for each parameter are explained in detail below. The
    parameter’s default value, if any, will be described.
    
    .. rubric:: Plotter settings
-      
    
-   -  .. rubric:: *showgui*
-         
+   -  *showgui*
    
       -  Whether to show or hide the GUI window
       -  True (default): show the GUI window (False=hide).
@@ -57,10 +54,8 @@ Description
          GUI is shown or not.
    
    .. rubric:: Input Dataset
-      
    
-   -  .. rubric:: *vis*
-         
+   -  *vis*
    
       -  The directory name of the input MeasurementSet or CalTable.
          The path is needed if this directory is not in the current
@@ -70,40 +65,34 @@ Description
          not launch or, if already launched, does not update.
    
    .. rubric:: Page and Subplot Settings
-      
    
-   -  .. rubric:: *gridrows*
-         
+   -  *gridrows*
    
       -  Number of subplot rows in each page of plots. There is no
          maximum, but consider legibility for larger grids.
       -  1 (default): one plot per row
    
-   -  .. rubric:: *gridcols*
-         
+   -  *gridcols*
    
       -  Number of subplot columns in each page of plots There is no
          maximum, but consider legibility for larger grids.
       -  1 (default): one plot per column
    
-   -  .. rubric:: *rowindex*
-         
+   -  *rowindex*
    
       -  Row location of this subplot (0-based), used to indicate
          location of plot in grid.  If *iteraxis* is enabled for the
          subplot, this indicates where to put the first plot.
       -  0 (default): locate the plot in the first row.
    
-   -  .. rubric:: *colindex*
-         
+   -  *colindex*
    
       -  Column location of this subplot (0-based), used to indicate
          location of plot in grid.  If *iteraxis* is enabled for the
          subplot, this indicates where to put the first plot.
       -  0 (default): locate the plot in the first column.
    
-   -  .. rubric:: *plotindex*
-         
+   -  *plotindex*
    
       -  Index of subplot (0-based). When there is more than one plot
          on a page (overplot or on a grid without iteration), each
@@ -112,18 +101,15 @@ Description
          adjust the plotindex with a message to the user.
       -  0 (default): first (and possibly only) plot
    
-   -  .. rubric:: *clearplots*
-         
+   -  *clearplots*
    
       -  Make a new plot (remove existing plots) or overplot/add plot
          to grid.
       -  True (default): make a new plot.
    
    .. rubric:: Iteration
-      
    
-   .. rubric:: *iteraxis*
-      
+   *iteraxis*
    
    -  axis over which to iterate plots, one per page or per grid
       location.
@@ -139,15 +125,13 @@ Description
       the iteration value, e.g. “Amp vs .Time Spw: 9”.
    -  Subparameters are enabled when iteraxis is set:
    
-   -  .. rubric:: *xselfscale, yselfscale*
-         
+   -  *xselfscale, yselfscale*
    
       -  all axes in iterated plots will have the same scale (axis
          range and tick marks).
       -  False (default) : scale the each plot individually.
    
-   -  .. rubric:: *xsharedaxis, ysharedaxis*
-         
+   -  *xsharedaxis, ysharedaxis*
    
       -  iterated plots on a grid share a single x-axis (top or
          bottom of the grid) in each column, or a single y-axis (left
@@ -156,12 +140,11 @@ Description
       -  False (default) : each plot has its own x-axis and y-axis.
       -  *xsharedaxis=True* ignored with warning when *gridrows=1.*
       -  *ysharedaxis=True* ignored with warning when *gridcols=1*.
-   
+
+
    .. rubric:: Axes and Calibration
-      
    
-   -  .. rubric:: *xaxis, yaxis*
-         
+   -  *xaxis, yaxis*
    
       -  What to plot on the xaxis and yaxis
       -  “” (default) : use the default axis for the dataset
@@ -193,18 +176,17 @@ Description
       are in the following subsections.
    
    .. rubric:: Metadata Axes
-      
    
    -  *‘scan’*
    
       -  scan number from the *SCAN_NUMBER* column, as shown in
-         `listobs <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_listobs>`__.
+         `listobs <../../api/casatasks.rst>`__.
    
    -  *‘field’*
    
       -  index from the *FIELD_ID* column which references a row in
          the *FIELD* subtable, as shown in
-         `listobs <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_listobs>`__.
+         `listobs <../../api/casatasks.rst>`__.
    
    -  *‘time’*
    
@@ -221,7 +203,7 @@ Description
    -  *‘spw’*
    
       -  spectral window IDs, as shown in
-         `listobs <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_listobs>`__.
+         `listobs <../../api/casatasks.rst>`__.
       -  For MeasurementSets, the data description ID is used to
          reference a row in the *DATA_DESCRIPTION* subtable, then the
          spw index value is retrieved from the row’s
@@ -247,7 +229,7 @@ Description
       -  velocity in km/s, as defined by the *freqframe*, *veldef*,
          and *restfreq* parameters. Converted from frequencies
          ('*freq*') using the
-         `measures <https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_measures>`__
+         `measures <../../api/casatools.rst>`__
          (me) tool.
       -  Not supported for CalTables.
    
@@ -272,14 +254,14 @@ Description
    -  *‘ant1’* (*‘antenna1’*)
    
       -  the ID of the first antenna in a baseline pair, as shown in
-         `listobs <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_listobs>`__.
+         `listobs <../../api/casatasks.rst>`__.
       -  index from the *ANTENNA1* column which references a row in
          the *ANTENNA* subtable.
    
    -  *‘ant2’* (*‘antenna2’*)
    
       -  the ID of the second antenna in a baseline pair, as shown in
-         `listobs <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_listobs>`__.
+         `listobs <../../api/casatasks.rst>`__.
       -  index from the *ANTENNA2* column which references a row in
          the *ANTENNA* subtable.
       -  Some CalTables have antenna2 IDs of -1, indicating this
@@ -305,7 +287,7 @@ Description
          row in the *OBSERVATION* subtable, which contains
          information about the observer, project, and telescope as
          shown in
-         `listobs <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_listobs>`__.
+         `listobs <../../api/casatasks.rst>`__.
       -  Some CalTables have observation IDs of -1, indicating this
          column is irrelevant to the table. Often there is no
          *OBSERVATION* subtable.
@@ -315,7 +297,7 @@ Description
       -  index from the *STATE_ID* column which references a row in
          the *STATE* subtable.  This includes OBS_MODE information
          about the Scan Intent as shown in
-         `listobs <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_listobs>`__.
+         `listobs <../../api/casatasks.rst>`__.
       -  Some MeasurementSets and CalTables have state IDs of -1,
          indicating this column is irrelevant to the table. Often
          there is no *STATE* subtable or it has zero rows.
@@ -337,7 +319,6 @@ Description
       -  Not supported for CalTables.
    
    .. rubric:: Visibility and Flag Axes
-      
    
    -  *‘amp’* (*‘amplitude’*)
    
@@ -409,7 +390,7 @@ Description
          weight each corrected data sample (*CORRECTED_DATA* column)
          should receive when combined, e.g. in averaging. See also
          chapter on `Data
-         Weights <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-weights>`__.
+         Weights <../../notebooks/data_weights.ipynb>`__.
       -  Not supported for CalTables.
    
    -  *‘wtamp’* (*‘wt*amp’*)
@@ -425,14 +406,14 @@ Description
          per-channel frequency variations of the *WEIGHT* column. If
          this column does not exist, a warning is issued and *WEIGHT*
          is plotted instead. See also chapter on `Data
-         Weights <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-weights>`__.
+         Weights <../../notebooks/data_weights.ipynb>`__.
       -  Not supported for CalTables.
    
    -  *‘sigma’*
    
       -  values from the *SIGMA* column, which reflects the rms noise
          of the *DATA* column.  See also chapter on `Data
-         Weights <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-weights>`__.
+         Weights <../../notebooks/data_weights.ipynb>`__.
       -  Not supported for CalTables.
    
    -  *‘sigmasp’* (*‘sigmaspectrum’*)
@@ -441,7 +422,7 @@ Description
          per-channel frequency variations of the *SIGMA* column. If
          this column does not exist, the values are derived.  See
          also chapter on `Data
-         Weights <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-weights>`__.
+         Weights <../../notebooks/data_weights.ipynb>`__.
       -  Not supported for CalTables.
    
    -  *‘flag’*
@@ -507,7 +488,7 @@ Description
       -  azimuth for the entire array, in degrees. Calculated from
          the *FIELD* table’s *PHASE_DIR* column and the observatory
          position, using the
-         `measures <https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_measures>`__
+         `measures <../../api/casatools.rst>`__
          (me) tool.
       -  Not supported for CalTables.
    
@@ -516,7 +497,7 @@ Description
       -  elevation for the entire array, in degrees. Calculated from
          the *FIELD* table’s *PHASE_DIR* column and the observatory
          position, using the
-         `measures <https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_measures>`__
+         `measures <../../api/casatools.rst>`__
          (me) tool.
       -  Not supported for CalTables.
    
@@ -525,7 +506,7 @@ Description
       -  hour angle for the entire array, in units of hours.
          Calculated from the FIELD table’s *PHASE_DIR* column and the
          observatory position, using
-         the `measures <https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_measures>`__
+         the `measures <../../api/casatools.rst>`__
          (me) tool.
       -  Not supported for CalTables.
    
@@ -534,7 +515,7 @@ Description
       -  parallactic angle for the entire array, in degrees.
          Calculated from the FIELD table’s *PHASE_DIR* column and the
          observatory position, using
-         the `measures <https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_measures>`__
+         the `measures <../../api/casatools.rst>`__
          (me) tool .
       -  Not supported for CalTables.
    
@@ -550,7 +531,7 @@ Description
       -  azimuth for each antenna, in degrees. Calculated from the
          *FIELD* table’s *PHASE_DIR* column and the positions in the
          *ANTENNA* table, using
-         the `measures <https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_measures>`__
+         the `measures <../../api/casatools.rst>`__
          (me) tool.
       -  Not supported for CalTables.
    
@@ -559,7 +540,7 @@ Description
       -  elevation for each antenna, in degrees. Calculated from the
          *FIELD* table’s *PHASE_DIR* column and the positions in the
          *ANTENNA* table, using
-         the `measures <https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_measures>`__
+         the `measures <../../api/casatools.rst>`__
          (me) tool.
       -  Not supported for CalTables.
    
@@ -594,12 +575,11 @@ Description
       -  parallactic angle for each antenna, in degrees. Calculated
          from the *FIELD* table’s *PHASE_DIR* column and the
          positions in the *ANTENNA* table, using
-         the `measures <https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_measures>`__
+         the `measures <../../api/casatools.rst>`__
          (me) tool.
       -  Not supported for CalTables.
    
    .. rubric:: Calibration Axes
-      
    
    -  *‘gainamp’* (*‘gamp’*)
    
@@ -680,7 +660,6 @@ Description
          from the *FPARAM* column. Invalid for other CalTable types.
    
    .. rubric:: Ephemeris Axes
-      
    
    -  *‘radialvelocity’*
    
@@ -697,10 +676,8 @@ Description
       -  Invalid for CalTables.
    
    .. rubric:: Other Axis Settings
-      
    
-   -  .. rubric:: *xdatacolumn, ydatacolumn*
-         
+   -  *xdatacolumn, ydatacolumn*
    
       -  data column in the MeasurementSet from which to retrieve
          visibilities
@@ -759,8 +736,7 @@ Description
                MeasurementSet. Primarily for single-dish data.
             -  Fails if *FLOAT_DATA* does not exist.
    
-         -  *’corrected-model’* ('*corrected-model_vector'*,
-            *’residual’)*
+         -  *’corrected-model’* ('*corrected-model_vector'*, *’residual’)*
    
             -  subtract the model data from the corrected data before
                the amplitude, phase, etc. is calculated.
@@ -844,7 +820,7 @@ Description
             -  Invalid for singledish datasets: no data or  model
                columns.  An error is issued and no plot is made.
    
-   -  .. rubric:: *xinterp, yinterp*
+   -  *xinterp, yinterp*
    
       -  *Sub-parameter of xaxis (resp. yaxis) when xaxis='ant-ra' or
          xaxis='ant-dec' (resp. yaxis='ant-ra' or yaxis='ant-dec')*
@@ -857,15 +833,14 @@ Description
    
          -  *'spline' is a synonym for 'cubic spline'*
    
-   -  .. rubric:: *xframe, yframe*
+   -  *xframe, yframe*
    
       -  *Sub-parameter of xaxis (resp. yaxis) when xaxis='ant-ra' or xaxis='ant-dec' (resp. yaxis='ant-ra' or yaxis='ant-dec')*
       -  *Convert antennas' interpolated pointing directions to the supplied reference frame*
       -  *“” (default) : ‘icrs’*
       -  *Options: 'icrs', 'j2000','b1950','galactic','azelgeo'*
    
-   -  .. rubric:: *yaxislocation*
-         
+   -  *yaxislocation*
    
       -  whether to put the yaxis on the left or right.
       -  “” (default) : left.
@@ -877,7 +852,7 @@ Description
       -  xaxis location can be set in the GUI but there is no
          corresponding parameter.
    
-   -  .. rubric:: *plotrange*
+   -  *plotrange*
 
       -  format is [xmin, xmax, ymin, ymax]; when min=max=0,
          autoscaling is used.
@@ -886,14 +861,14 @@ Description
          [0,0,0,10] will autoscale the xaxis but set the yaxis range
          to [0,10].
    
-   -  .. rubric:: *callib*
+   -  *callib*
 
       -  calibration library string or filename to use for on-the-fly
          (OTF) calibration to produce calibrated data (the
          ‘ *corrected* ’ datacolumn).
       -  "" (default): no calibration library
       -  See `Cal Library Syntax
-         documentation <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/cal-library-syntax>`__.
+         documentation <../../notebooks/cal_library_syntax.ipynb>`__.
          When this parameter is set, OTF calibration is enabled. 
          Plotms will prefer OTF calibration over an existing
          *CORRECTED_DATA* column.
@@ -908,7 +883,7 @@ Description
       -  Only one overlay may be chosen. If both are True, only the
          atmospheric curve is computed and plotted.
       -  Overlays are computed with the
-         `atmosphere <https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_atmosphere>`__
+         `atmosphere <../../api/casatools.rst>`__
          (atm) tool using pressure, humidity, temperature, and
          precipitable water vapor (pwv) computed from the
          MeasurementSet subtables:
@@ -929,77 +904,70 @@ Description
          curve is plotted without the sideband curve.
    
    .. rubric:: Data Selection
-      
    
-   .. rubric:: *selectdata*
-      
+   .. *selectdata*
    
    -  parameter to enable data selection.
    -  True (default) : data selection always enabled.
    -  See
-      `MSSelection <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__
+      `MSSelection <../../notebooks/visibility_data_selection.ipynb>`__
       for syntax of subparameters below.  All arguments are strings.
    -  For all subparameters, “” (default) selects all (no selection).
    -  Selection is done before averaging, calibration, plotting, etc.
    -  Selection by uvrange, array, intent, and feed is invalid for
       CalTables, which do not have these columns.
    
-   -  .. rubric:: *field*
-         
+   -  *field*
    
       -  select fields by name or ID.
    
-   -  .. rubric:: *spw*
-         
+   -  *spw*
    
       -  select spectral windows/channels.
       -  For CalTables, select spw only; channel selection is
          currently not implemented.
    
-   -  .. rubric:: *timerange*
-         
+   -  *timerange*
    
       -  select data based on time range.
    
-   -  .. rubric:: *uvrange*
-         
+   -  *uvrange*
    
       -  select data within uvrange (default meters), or include
          units: ‘0~1000klamba’.
       -  Not supported for CalTables.
    
-   -  .. rubric:: *antenna*
-         
+   -  *antenna*
    
       -  select baselines and auto/cross-correlations for
          MeasurementSet.
       -  select antenna1 for CalTables.
    
-   -  .. rubric:: *scan*
+   -  *scan*
 
       -  select scan numbers.
    
-   -  .. rubric:: *correlation*
+   -  *correlation*
 
       -  select correlations for MeasurementSet.
       -  select polarizations for CalTable, including ratio plots. 
          Options include "RL", "R", "L", "XY", "X", "Y", and "/".
    
-   -  .. rubric:: *array*
+   -  *array*
 
       -  select array ID.
       -  Not supported for CalTables.
    
-   -  .. rubric:: *observation*
+   -  *observation*
 
       -  select observation ID.
    
-   -  .. rubric:: *intent*
+   -  *intent*
 
       -  select state ID or intent by name.
       -  Not supported for CalTables.
    
-   -  .. rubric:: *feed*
+   -  *feed*
 
       -  select feed IDs by number.
       -  Note: as with antenna IDs, a single feed ID selection (e.g.
@@ -1008,13 +976,13 @@ Description
          syntax is used .
       -  Not supported for CalTables.
    
-   -  .. rubric:: *msselect*
+   -  *msselect*
 
       -  select using TaQL expression.
    
    .. rubric:: Data Averaging
 
-   .. rubric:: *averagedata*
+   *averagedata*
 
    -  parameter to enable data averaging.  Not implemented for
       CalTables.
@@ -1043,12 +1011,12 @@ Description
       plotted.  To compute the average of the amplitude or phase
       values instead, set *scalar=True*.
    
-   -  .. rubric:: *avgchannel*
+   -  *avgchannel*
 
       -  Average data across the channel axis; value is number of
          channels to average together to form one output channel.
       -  see
-         `mstransform <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_mstransform>`__
+         `mstransform <../../api/casatasks.rst>`__
          description for channel averaging.
       -  When plotting the *‘channel’* axis, output channel numbers
          are reindexed 0~nAvgChan, rather than using the average of
@@ -1058,7 +1026,7 @@ Description
          averaged together for a point in the plot, e.g.
          “Chan=<7~13>” which may be shown as channel 1 on the plot.
    
-   -  .. rubric:: *avgtime*
+   -  *avgtime*
 
       -  Average data across the time axis; value string is number of
          seconds to average together.
@@ -1066,7 +1034,7 @@ Description
       -  The “bins” of averaged data have the same scan number and
          field ID unless avgscan or avgfield are True.
    
-   -  .. rubric:: *avgscan*
+   -  *avgscan*
 
       -  Ignore scan boundaries when time-averaging data; parameter
          ignored when *avgtime* is not set.
@@ -1075,7 +1043,7 @@ Description
          scan number of scans averaged together is used for the
          value, independent of unflagged/flagged data.
    
-   -  .. rubric:: *avgfield*
+   -  *avgfield*
 
       -  Ignore field boundaries when time-averaging data; parameter
          ignored when *avgtime* is not set.
@@ -1084,7 +1052,7 @@ Description
          field number of fields averaged together is used for the
          value, independent of unflagged/flagged data.
    
-   -  .. rubric:: *avgbaseline*
+   -  *avgbaseline*
 
       -  Average data for all baselines together in each "chunk"
          (rows having the same scan number, field ID, spw, and
@@ -1092,7 +1060,7 @@ Description
       -  False (default): do not average data over baseline.
       -  Exclusive with avgantenna.
    
-   -  .. rubric:: *avgantenna*
+   -  *avgantenna*
 
       -  Average data for each antenna separately in each "chunk"
          (rows having the same scan number, field ID, spw, and
@@ -1100,15 +1068,14 @@ Description
       -  False (default): do not average data per antenna.
       -  Exclusive with avgbaseline.
    
-   -  .. rubric:: *avgspw*
-         
+   -  *avgspw*
    
       -  Average data over spectral window. For a given channel
          number, the channels in the spectral windows with that
          number are averaged together.
       -  False (default): do not average data over spectral window.
    
-   -  .. rubric:: *scalar*
+   -  *scalar*
 
       -  Values like amplitude or phase of the individual complex
          values are calculated before averaging.
@@ -1119,46 +1086,45 @@ Description
    
    .. rubric:: Data Transformations
 
-   .. rubric:: *transform*
+   *transform*
 
    -  parameter to enable transformations.  Not implemented for
       CalTables.
    -  False (default) disables subparameters below.
    
-   -  .. rubric:: *freqframe*
+   -  *freqframe*
 
       -  the coordinate frame in which to render frequency and
          velocity axes.
       -  “” (default) : use frame in which data were taken.
       -  Options: *"LSRK", "LSRD", "BARY", "GEO", "TOPO", "GALACTO", "LGROUP", "CMB"*
    
-   -  .. rubric:: *restfreq*
+   -  *restfreq*
 
       -  the rest frequency to use in velocity conversions (MHz).
       -  “” (default) : use spw central frequency and show relative
          velocity.
    
-   -  .. rubric:: *veldef*
+   -  *veldef*
 
       -  the velocity definition (Doppler ratio) to use in velocity
          conversions.
       -  "*RADIO*" (default)
       -  Options: *“RADIO”, “OPTICAL”, “TRUE”* (Relativistic)
    
-   -  .. rubric:: *shift*
+   -  *shift*
 
       -  phase center shift, in arcseconds. Format is [dx, dy].
       -  [0.0, 0.0] (default) : no shift.
    
    .. rubric:: Interactive Flagging Extensions
-      
    
-   .. rubric:: *extendflag*
+   *extendflag*
 
    -  parameter to enable flag extensions according to subparameters.
    -  False (default): do not extend flags.
    
-   -  .. rubric:: *extcorr*
+   -  *extcorr*
 
       -  Extend flagging to unplotted correlations when
          *extendflag=True*, else ignored.
@@ -1167,7 +1133,7 @@ Description
          and interactively flagged, correlations RL, LR, and LL will
          be flagged for the points in the marked region.
    
-   -  .. rubric:: *extchannel*
+   -  *extchannel*
 
       -  Extend flagging to unplotted channels in the same spw when
          *extendflag=True*, else ignored.
@@ -1179,7 +1145,7 @@ Description
    
    .. rubric:: Display: Symbols
 
-   .. rubric:: *coloraxis*
+   *coloraxis*
 
    -  colorize the symbols based on the given axis. Points with the
       same value for that axis will be the same color.
@@ -1191,14 +1157,14 @@ Description
       colorization.  Flagged points will be colorized according to
       the *coloraxis*.
    
-   .. rubric:: *customsymbol*
+   *customsymbol*
 
    -  parameter to enable custom symbol for unflagged data.
    
    -  False (default) : disables subparameters below, symbols use
       default values (“blue” autoscaling).
    
-   -  .. rubric:: *symbolshape*
+   -  *symbolshape*
 
       -  set the shape of the symbol for points plotted.
       -  *“autoscaling”* (default) changes the size according to the
@@ -1207,27 +1173,27 @@ Description
       -  Options: *“autoscaling”, “circle”, “square”, “diamond”,
          “pixel”, “nosymbol”* (do not show points)
    
-   -  .. rubric:: *symbolsize*
+   -  *symbolsize*
 
       -  set size in number of pixels.
    
-   -  .. rubric:: *symbolcolor*
+   -  *symbolcolor*
 
       -  set color by RGB hex code or string color name e.g. ‘red’.
       -  *"0000ff"* (default) is blue.
    
-   -  .. rubric:: *symbolfill*
+   -  *symbolfill*
 
       -  set fill pattern for symbol.
       -  *"fill"* (default).
       -  Options: *“fill”, “mesh1”, “mesh2”, “mesh3”, “nofill”*
    
-   -  .. rubric:: *symboloutline*
+   -  *symboloutline*
 
       -  outline the symbol.
       -  False (default).
    
-   .. rubric:: *customflaggedsymbol*
+   *customflaggedsymbol*
 
    -  parameter to enable custom symbol for flagged data.
    -  False (default) : disables subparameters below, shape is
@@ -1235,12 +1201,12 @@ Description
    -  True: show flagged points as red circles of size 2 (default),
       unless subparameters are set otherwise.
    
-   -  .. rubric:: *flaggedsymbolshape="circle", flaggedsymbolsize=2, flaggedsymbolcolor="ff0000" (‘red’), flaggedsymbolfill="fill", flaggedsymboloutline=False*
+   -  *flaggedsymbolshape="circle", flaggedsymbolsize=2, flaggedsymbolcolor="ff0000" (‘red’), flaggedsymbolfill="fill", flaggedsymboloutline=False*
 
       -  Subparameter defaults are shown.  Their options are the same
          as for unflagged symbols, when *customflaggedsymbol=True*.
    
-   .. rubric:: *xconnector*
+   *xconnector*
 
    -  parameter to enable connecting the data points by line or step
       along the xaxis; connected points will have the same metadata
@@ -1255,17 +1221,15 @@ Description
    
    -  "none" (default), "line", or "step".
    
-   -  .. rubric:: *timeconnector*
+   -  *timeconnector*
 
       -  subparameter when xconnector is not "none".
       -  False (default).  When True, connect the points which change
          by time only, irrespective of the x-axis value.
    
    .. rubric:: Display: Title, Axis Labels
-      
    
-   -  .. rubric:: *title*
-         
+   -  *title*
    
       -  Set title text.
       -  “” (default) : yaxis vs. xaxis
@@ -1274,31 +1238,26 @@ Description
       -  Will append iteration axis and value to title, if *iteraxis*
          set.
    
-   -  .. rubric:: *titlefont*
-         
+   -  *titlefont*
    
       -  set the size of the title text.
       -  0 (default) : autosize the title according to the plot size,
          especially important when making a grid of plots.
    
-   -  .. rubric:: *xlabel, ylabel*
-         
+   -  *xlabel, ylabel*
    
       -  set the xaxis or yaxis label.
       -  “” (default) : label string for the axis plotted, e.g. use
          the label “Amp” for the axis ‘amp’.
    
-   -  .. rubric:: *xaxisfont, yaxisfont*
-         
+   -  *xaxisfont, yaxisfont*
    
       -  set the axis label font size.
       -  0 (default) : autosize depending on the plot size.
    
    .. rubric:: Display: Plot Gridlines, Legend, Header
-      
    
-   .. rubric:: *showmajorgrid*
-      
+   *showmajorgrid*
    
    -  parameter to enable major gridlines (at labeled tick marks) and
       subparameters.
@@ -1308,26 +1267,24 @@ Description
    -  Not to be confused with *gridrows* and *gridcols*, for making
       plots in a grid.
    
-   -  .. rubric:: *majorwidth*
-         
+   -  *majorwidth*
    
       -  width of major gridlines, when major grid is enabled.
       -  0 (default) : automatically sets width to 1.
    
-   -  .. rubric:: *majorstyle*
-         
+   -  *majorstyle*
    
       -  style of major gridlines, when major grid is enabled.
       -  *“solid”* (default) when *showmajorgrid=True*.
       -  Options: *“solid”, “dash”, “dot”, “none”*.
    
-   -  .. rubric:: *majorcolor*
+   -  *majorcolor*
 
       -  set color by RGB hex code or string color name, e.g.
          *‘blue’*, when major grid is enabled.
       -  *"B0B0B0"* (default): dark gray.
    
-   .. rubric:: *showminorgrid*
+   *showminorgrid*
 
    -  parameter to enable minor gridlines (between labeled tick
       marks) and subparameters.
@@ -1335,12 +1292,12 @@ Description
    -  True: show solid light gray gridlines of width 1 unless
       subparameters are set otherwise.
    
-   -  .. rubric:: *minorwidth=1, minorstyle="" (“solid”), minorcolor="D0D0D0"* (light gray)
+   -  *minorwidth=1, minorstyle="" (“solid”), minorcolor="D0D0D0"* (light gray)
 
       -  Subparameter defaults are shown.  Options are the same as
          for major gridlines, when *showminorgrid=True*.
    
-   .. rubric:: *showlegend*
+   *showlegend*
 
    -  Show legend; useful when setting two y-axes or overplotting two
       plots on one canvas, with different colors for each yaxis/plot.
@@ -1348,7 +1305,7 @@ Description
    -  Legend is shown at upper right unless subparameter
       *legendposition* is set.
    
-   .. rubric:: *legendposition*
+   *legendposition*
 
    -  position of the legend, either inside the plot canvas (may
       cover part of the plot) or exterior to it.
@@ -1358,7 +1315,7 @@ Description
       “lowerLeft”, “exteriorRight”, “exteriorLeft”, “exteriorTop”,
       “exteriorBottom”*
    
-   .. rubric:: *headeritems*
+   *headeritems*
 
    -  Add plot header: comma-separated list of options in a string,
       e.g. headeritems=“filename, telescope”.
@@ -1376,7 +1333,7 @@ Description
 
    .. rubric:: Plot Export
 
-   .. rubric:: *plotfile*
+   *plotfile*
 
    -  filename for plot export. Enables subparameters to be set.
    -  “” (default) : do not export the plot.
@@ -1388,8 +1345,7 @@ Description
       given filename will be used and the extension will not be
       added.
    
-   -  .. rubric:: *expformat*
-         
+   -  *expformat*
    
       -  export format type.
       -  “” (default) : use *plotfile* extension to determine type.
@@ -1405,14 +1361,12 @@ Description
          effect; a jpg file will be created with the name “test.pdf”.
          Not recommended!
    
-   -  .. rubric:: *verbose*
-         
+   -  *verbose*
    
       -  include metadata in text export
       -  True (default): When False, export only x and y values.
    
-   -  .. rubric:: *exprange*
-         
+   -  *exprange*
    
       -  range of iteration plots to export, one plotfile per page.
          Multipage pdf exports are not supported. Ignored if iteraxis
@@ -1420,29 +1374,25 @@ Description
       -  “” (default) : current page only.
       -  Options: *“current”, “all”*
    
-   -  .. rubric:: *highres*
-         
+   -  *highres*
    
       -  Export .jpg or .png plot in high resolution.
       -  False (default) : screen resolution export not implemented. 
          Plotms always exports a high resolution plot (high quality,
          no compression) for .png and .jpg formats.
    
-   -  .. rubric:: *dpi*
-         
+   -  *dpi*
    
       -  set DPI (dots per inch) of exported plot.
       -  -1 (default) : use Qt default settings.
    
-   -  .. rubric:: *width, height*
-         
+   -  *width, height*
    
       -  set size of exported plot, in pixels (does not affect GUI
          plot).
       -  -1 (default) : use default settings.
    
-   -  .. rubric:: *overwrite*
-         
+   -  *overwrite*
    
       -  overwrite existing *plotfile*.
       -  False (default) : do not overwrite existing *plotfile*.
@@ -1456,12 +1406,11 @@ Examples
    NOTE: These examples are not comprehensive, as **plotms** has a
    substantial list of parameters and allowed values!  See the
    `documentation on using
-   plotms <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/using-plotms-to-plot-and-edit-visibilities-and-calibration-tables>`__
+   plotms <../../notebooks/data_examination.ipynb#Plot/Edit-using-plotms>`__
    under Data Examination and Editing for details of the task
    parameters and how they correspond to settings in the GUI.
    
    .. rubric:: Default Plots (unflagged data only)
-      
    
    All that is really required is a dataset or cal table to plot. 
    The first example will plot Amp vs. Time, the default axes for a
@@ -1477,19 +1426,16 @@ Examples
       plotms(vis='uid___A002_X99c183_X25b6.ms.tsys')
    
    .. rubric:: Change Default Axis and Datacolumn
-      
    
    Here we change the default datacolumn and axes. In the first
    example, *yaxis='amp'* is implied since it is the default.
    
    ::
    
-      plotms(vis='test.ms', ydatacolumn='corrected',
-      xaxis='channel')
+      plotms(vis='test.ms', ydatacolumn='corrected', xaxis='channel')
       plotms(vis='test.ms', xaxis='elevation', yaxis='azimuth')
    
    .. rubric:: Plot Flagged Data
-      
    
    By setting *customflaggedsymbol=True*, **plotms** uses the default
    red circles for the flagged data. In the second example, a custom
@@ -1498,12 +1444,10 @@ Examples
    ::
    
       plotms(vis='test.ms', customflaggedsymbol=True)
-      plotms(vis='test.ms', customflaggedsymbol=True,
-      flaggedsymbolshape='diamond', flaggedsymbolsize=5,
-      flaggedsymbolcolor='00ff00', flaggedsymbolfill='mesh3')
+      plotms(vis='test.ms', customflaggedsymbol=True, flaggedsymbolshape='diamond', flaggedsymbolsize=5,
+             flaggedsymbolcolor='00ff00', flaggedsymbolfill='mesh3')
    
    .. rubric:: Plot with Colorized Data
-      
    
    Note that the colorization overrides the default or custom color
    for all data, unflagged or flagged.  In the following example, all
@@ -1511,15 +1455,13 @@ Examples
    
    ::
    
-      plotms(vis='test.ms', customflaggedsymbol=True,
-      coloraxis='spw')
+      plotms(vis='test.ms', customflaggedsymbol=True, coloraxis='spw')
    
    .. rubric:: Plot with Data Selection
-      
    
    Note that all selections are strings, including numerical values. 
    Refer to the documentation on `Data
-   Selection <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__
+   Selection <../../notebooks/visibility_data_selection.ipynb>`__
    for an explanation of MeasurementSet selection.  In the second
    example, the *correlation* parameter is used for polarization
    selection on a calibration table, and the result is plotted with
@@ -1527,12 +1469,10 @@ Examples
    
    ::
    
-      | plotms(vis='test.ms', field='1', spw='0:3~10', antenna='1&2',
-        scan='2~4', corr='XX,YY')
-      | plotms(vis='bpphase.gcal', correlation='R')
+      plotms(vis='test.ms', field='1', spw='0:3~10', antenna='1&2', scan='2~4', corr='XX,YY')
+      plotms(vis='bpphase.gcal', correlation='R')
    
    .. rubric:: Plot with Iteration
-      
    
    The first example plots one plot per page.  The second example
    demonstrates iteration plots on a 2x2 grid.  In the third example,
@@ -1543,13 +1483,10 @@ Examples
    ::
    
       plotms(vis='test.ms', xaxis='freq', iteraxis='baseline')
-      plotms(vis='test.ms', xaxis='freq', iteraxis='baseline',
-      gridrows=2, gridcols=2)
-      plotms(vis='test.ms', scan='2~4', iteraxis='scan',
-      plotfile='test.jpg', exprange='all')
+      plotms(vis='test.ms', xaxis='freq', iteraxis='baseline', gridrows=2, gridcols=2)
+      plotms(vis='test.ms', scan='2~4', iteraxis='scan', plotfile='test.jpg', exprange='all')
    
    .. rubric:: Plot with Averaging
-      
    
    In the first example, the *avgtime* value is in seconds.  In the
    second example, the channel numbers plotted on the x-axis
@@ -1563,7 +1500,6 @@ Examples
       plotms(vis='test.ms', xaxis='chan', avgchannel='128')
    
    .. rubric:: Using On-the-Fly Calibration
-      
    
    The calibration library to apply is contained in the file
    *calibration.txt*.  By default, this sets Calibration to "On" in
@@ -1572,12 +1508,10 @@ Examples
    
    ::
    
-      plotms(vis='ngc5921.ms', xaxis='frequency', yaxis='amp',
-      ydatacolumn='corrected', field='N5921_2', antenna='*&*',
-      callib='calibration.txt')
+      plotms(vis='ngc5921.ms', xaxis='frequency', yaxis='amp', ydatacolumn='corrected',
+             field='N5921_2', antenna='*&*', callib='calibration.txt')
    
    .. rubric:: Overplot Two Datasets on One Plot
-      
    
    This is **one example** with two **plotms** calls.  Be sure to
    increment *plotindex* and set *clearplots* to False on the second
@@ -1587,15 +1521,11 @@ Examples
    
    ::
    
-      plotms(vis='test1.ms', yaxis='scan', showlegend=True,
-      legendposition='lowerRight')
-      plotms(vis='test2.ms', yaxis='field', plotindex=1,
-      clearplots=False, showlegend=True,
-      legendposition='lowerRight', customsymbol=True,
-      symbolcolor='00FF00')
+      plotms(vis='test1.ms', yaxis='scan', showlegend=True, legendposition='lowerRight')
+      plotms(vis='test2.ms', yaxis='field', plotindex=1, clearplots=False, showlegend=True,
+             legendposition='lowerRight', customsymbol=True, symbolcolor='00FF00')
    
    .. rubric:: Plot Two Datasets on One Page
-      
    
    Here we use a grid with 2 rows, 1 column, and specify the plot for
    each row.  The first **plotms** call uses the defaults
@@ -1608,12 +1538,10 @@ Examples
    ::
    
       plotms(vis='test1.ms', yaxis='field', gridrows=2, gridcols=1)
-      plotms(vis='test2.ms', yaxis='field', gridrows=2, gridcols=1,
-      rowindex=1, plotindex=1, clearplots=False,
-      plotfile='fields.jpg')
+      plotms(vis='test2.ms', yaxis='field', gridrows=2, gridcols=1, rowindex=1,
+             plotindex=1, clearplots=False, plotfile='fields.jpg')
    
    .. rubric:: Saving your plot
-      
    
    The export format can be indicated in the plotfile name or by
    using the *expformat* parameter.  Allowed extensions include jpg,
@@ -1648,8 +1576,7 @@ Examples
    
    ::
    
-      plotms(vis='ngc5921.ms', iteraxis='baseline',
-      plotfile='ngc5921.jpg', exprange='all')
+      plotms(vis='ngc5921.ms', iteraxis='baseline', plotfile='ngc5921.jpg', exprange='all')
    
 
 .. _Development:
@@ -1663,7 +1590,6 @@ Development
    arguments and GUI text boxes, check boxes, etc.
    
    .. rubric:: C++ layers
-      
    
    The main C++ code body for plotms is in **code/plotms**.  This
    directory contains several subdirectories:
@@ -1700,7 +1626,6 @@ Development
    `PlotmsDocs. <https://safe.nrao.edu/wiki/bin/view/Main/PlotMSDocs>`_
    
    .. rubric:: Python layer
-      
    
    Within CASA, **plotms** is set up like other tasks.  Briefly, the
    parameters and allowed values are defined in
@@ -1725,7 +1650,6 @@ Development
    supposedly ended.
    
    .. rubric:: Plotms tests
-      
    
    Python regression tests for all of the plotms parameters and some
    bug fixes are in **gcwrap/python/scripts/tests/test_plotms.py**. 
@@ -1745,7 +1669,6 @@ Development
    tests.
    
    .. rubric:: Debugging
-      
    
    Whether you run a plotms command in a casa session or run
    *casaplotms * from the command line, a casaplotms process is

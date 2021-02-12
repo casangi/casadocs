@@ -6,7 +6,7 @@ Description
    This task simulates interferometric or total power
    MeasurementSets. The general steps for simulation in CASA are
    described on the top
-   `Simulation <https://casa.nrao.edu/casadocs-devel/stable/simulation>`__
+   `Simulation <../../notebooks/simulation.ipynb>`__
    page. We describe the first two steps in more detail here.
    
    #. Make a model image or componentlist representation of the sky
@@ -15,7 +15,6 @@ Description
       data).
    
    .. rubric:: Generating a Model Image
-      
    
    A "model image" is a CASA image or FITS file that contains a
    representation of the sky brightness distribution, and it
@@ -23,7 +22,6 @@ Description
    are several ways to generate a model image.
    
    .. rubric:: Starting from an existing FITS image
-      
    
    The simplest option is to begin with an existing FITS image. The
    image can be either a single plane (i.e., one observed frequency
@@ -36,7 +34,6 @@ Description
    channel, and channel width.
    
    .. rubric:: Starting from a component list
-      
    
    .. warning:: **WARNING**: **simobserve** does not currently handle component
       lists correctly for single-dish-only simulations. It is advised
@@ -52,7 +49,6 @@ Description
    guide <http://casaguides.nrao.edu/index.php?title=Simulation_Guide_Component_Lists_%28CASA_4.1%29>`__.
    
    .. rubric:: Starting from a GIF or JPG image
-      
    
    A user may wish to convert a GIF or JPG image to a FITS file for
    simulation in CASA. The image should be converted to a 32-bit FITS
@@ -71,6 +67,7 @@ Description
    ::
    
       importfits(fitsimage='myfile.fits',imagename='testimage',overwrite=T)
+
       default 'immath'
       imagename = 'testimage'
       expr = 'IM0'
@@ -83,11 +80,9 @@ Description
    modify the peak flux density, coordinates on the sky, pixel size,
    frequency of the center channel, and channel width. See the
    discussion below.
-   
-    
+
    
    .. rubric:: Generating visibilities with simobserve
-      
    
    The task **simobserve** takes several steps to generate observed
    visibilities. The major steps are:
@@ -178,22 +173,17 @@ Description
       and visibilities
    -  [project].[cfg].simobserve.last = saved input parameters for
       **simobserve** task
-   
-    
+
    
    .. rubric:: Parameter descriptions
 
-   Detailed parameter descriptions
-   
-   .. rubric:: *project*
-      
+   *project*
    
    The root filename for all output files. This parameter should be
    set to the same name as used when running **simanalyze** or
    **simalma** for the directory of results generated.
    
-   .. rubric:: *skymodel*
-      
+   *skymodel*
    
    The input image (used as a model of the sky). **simobserve** uses
    a CASA or FITS image. If you merely have a grid of numbers, you
@@ -214,10 +204,8 @@ Description
    that.
    
    .. rubric:: *skymodel* expandable parameters
-      
-   
-   .. rubric:: *inbright*
-      
+
+   *inbright*
    
    Scales the model flux densities by setting the peak brightness of
    the britest pixel in Jy/pixel, or '' for unchanged.
@@ -226,27 +214,23 @@ Description
       image and assume they are in Jy/pixel, even if it says some
       other unit in the header.
    
-   .. rubric:: *indirection*
-      
+   *indirection*
    
    The central direction to place the sky model image, or '' to use
    whatever is in the image already.
    
-   .. rubric:: *incell*
-      
+   *incell*
    
    The spatial pixel size to scale the skymodel image, or '' to use
    whatever is in the image already.
    
-   .. rubric:: *incenter*
-      
+   *incenter*
    
    The frequency to use for the center channel (or only channel, if
    the skymodel is 2D). Examples: *incenter='89GHz'*, or '' to use
    what is in the header.
    
-   .. rubric:: *inwidth*
-      
+   *inwidth*
    
    The width of the channels to use, or '' to use what is in the
    image should be a string representing a quantity with units.
@@ -259,11 +243,9 @@ Description
       spectral planes of the sky model, only to relabel them with
       different frequencies. That kind of regridding can be
       accomplished with the CASA toolkit.
+
    
-   
-   
-   .. rubric:: *complist*
-      
+   *complist*
    
    A component list model of the sky, added to or instead of
    *skymodel*.
@@ -273,16 +255,13 @@ Description
       to convert the component list to an image or FITS file.
    
    .. rubric:: complist expandable parameters
-      
    
-   .. rubric:: *compwidth*
-      
+   *compwidth*
    
    The bandwidth of components; if simulating from components only,
    this defines the bandwidth of the MS and output images.
    
-   .. rubric:: *comp_nchan*
-      
+   *comp_nchan*
    
    The number of channels in the output MS. Validated only for a
    positive integer number of channels, this parameter assumes a flat
@@ -291,21 +270,17 @@ Description
    frequency is not currently supported, it is not advised to use
    this parameter to simulate observations with spectral index or
    large fractional bandwidth (use a skymodel image instead).
+
    
-    
-   
-   .. rubric:: *setpointings*
-      
+   *setpointings*
    
    If True, **simobserve** calculates a map of pointings based on a
    set of sub-parameters and generates a pointing file. If False, it
    will read the pointings from the parameter *ptgfile*.
    
    .. rubric:: *setpointings=True* expandable parameters
-      
    
-   .. rubric:: *integration*
-      
+   *integration*
    
    Sets the time interval for each integration. Also used with
    *setpointings=False*. Examples: *integration='10s'*
@@ -315,8 +290,7 @@ Description
       file to increase the time at each point to be larger than the
       parameter integration time.
    
-   .. rubric:: *direction*
-      
+   *direction*
    
    The mosaic center direction. If left unset, **simobserve** will
    use the center of the skymodel image. Examples: *direction= 'J2000
@@ -324,22 +298,19 @@ Description
    otherwise **simobserve** will cover a region of size *mapsize*
    according to *maptype*.
    
-   .. rubric:: *mapsize*
-      
+   *mapsize*
    
    The angular size of mosaic map to simulate. Set to '' to cover the
    model image.
    
-   .. rubric:: *maptype*
-      
+   *maptype*
    
    How to calculate the pointings for the mosaic observation.
    'hexagonal', 'square' (rectangular raster), 'ALMA' for the same
    hex algorithm as the ALMA Cycle 1 OT or 'ALMA2012' for the
    algorithm used in the Cycle 0 OT.
    
-   .. rubric:: *pointingspacing*
-      
+   *pointingspacing*
    
    Spacing in between primary beams. "0.25PB" to use 1/4 of the
    primary beam FWHM, "nyquist" will use :math:`\lambda/d/2`, '' will
@@ -347,10 +318,8 @@ Description
    SD.
    
    .. rubric:: *setpointings=False* expandable parameters
-      
    
-   .. rubric:: *ptgfile*
-      
+   *ptgfile*
    
    A text file specifying directions in the following format, with
    optional integration times, e.g.,
@@ -367,11 +336,9 @@ Description
       pointings: **simobserve** will observe these, then optionally
       the calibrator, then the list of science pointings again, etc,
       until totaltime is used up.
+
    
-    
-   
-   .. rubric:: *obsmode*
-      
+   *obsmode*
    
    Sets the observation mode to calculate visibilities from a
    skymodel image (which may have been modified above), an optional
@@ -387,34 +354,28 @@ Description
    componentlist only will be continuum (1 chan).
    
    .. rubric:: *obsmode* expandable parameters ('int' or 'sd')
-      
    
-   .. rubric:: *refdate*
-      
+   *refdate*
    
    The date of simulated observation. Examples:
    *refdate='2014/05/21'*
    
-   .. rubric:: *hourangle*
-      
+   *hourangle*
    
    The hour angle of observation, given as a string of various
    possible formats. E.g., "-3:00:00", or "5h". The default setting
    for this parameter is *hourangle='transit'*, which is equivalent
    to 0h.
    
-   .. rubric:: *totaltime*
-      
+   *totaltime*
    
    The total time of an observation. Examples: *totaltime='7200s'* or
    if a number without units, interpreted as the number of times to
    repeat the mosaic.
    
    .. rubric:: *obsmode='int' expandable parameters*
-      
    
-   .. rubric:: *antennalist*
-      
+   *antennalist*
    
    ASCII file containing antenna positions. Each row has x, y, and z
    coordinates and antenna diameter and name; header lines are
@@ -443,25 +404,21 @@ Description
    observations, be sure to accurately set the parameter
    *sdantlist*. 
    
-   .. rubric:: *caldirection*
-      
+   *caldirection*
    
    An unresolved calibrator can be observed interleaved with the
    science pointings. The calibrator is implemented as a point source
    clean component with this specified direction and
    flux= *calflux*.
    
-   .. rubric:: *calflux*
-      
+   *calflux*
    
    Sets the flux density for the calibrator. Default is set to
    *calflux='1Jy'*.
    
    .. rubric:: *obsmode='sd' expandable parameters*
-      
    
-   .. rubric:: *sdantlist*
-      
+   *sdantlist*
    
    Single-dish antenna position file. If simulating total power
    observations, be sure to accurately set the
@@ -470,16 +427,13 @@ Description
    dish simulation (even if the configuration file is explicitly
    specified in *antennalist*). Default: *sdantlist='aca.tp.cfg'.*
    
-   .. rubric:: *sdant*
-      
+   *sdant*
    
    The index of the antenna in the list to use for total power.
    Defaults to the first antenna on the list (*sdant=0*).
    Heterogeneous total power "arrays" are not currently supported.
    
-   .. rubric:: 
-      *thermalnoise*
-      
+   *thermalnoise*
    
    Adds thermal noise to the synthesized data. This parameter takes
    two possible values (not including unset ' '):
@@ -519,63 +473,50 @@ Description
    proposals.
    
    .. rubric:: *thermalnoise* expandable parameters
-      
    
-   .. rubric:: *t_ground*
-      
+   *t_ground*
    
    The ambient ground/spillover temperature in K.
    
-   .. rubric:: *seed*
-      
+   *seed*
    
    Random number seed for noise generation.
    
    .. rubric:: *thermalnoise='tsys-atm'* expandable parameters
-      
    
-   .. rubric:: *user_pwv*
-      
+   *user_pwv*
    
    The precipitable water vapor at zenith if constructing an
    atmospheric model.
    
-   .. rubric:: *thermalnoise='tsys-manual'* expandable parameters
-      
+   *thermalnoise='tsys-manual'* expandable parameters
    
-   .. rubric:: *t_sky*
-      
+   *t_sky*
    
    The atmospheric temperature in K.
    
-   .. rubric:: *tau0*
-      
+   *tau0*
    
    The zenith opacity at observing frequency. See
    `here <https://casaguides.nrao.edu/index.php/Corrupt>`__ for more
    information on noise, in particular how to add a phase screen
    using the toolkit.
+
    
-    
-   
-   .. rubric:: *leakage*
-      
+   *leakage*
    
    Adds cross polarization corruption of this fractional magnitude.
    
-   .. rubric:: *graphics*
-      
+   *graphics*
    
    View plots on the screen, saved to file, both, or neither.
    
-   .. rubric:: *verbose*
-      
+   *verbose*
    
    Turns on or off the printing of extra information to the logger
    and terminal.
    
-   .. rubric:: *overwrite*
-      
+   *overwrite*
    
    Overwrites existing files in the project subdirectory. Default:
    False
@@ -625,5 +566,5 @@ Examples
 .. _Development:
 
 Development
-   None
-   
+   No additional development details
+

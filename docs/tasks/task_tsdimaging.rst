@@ -73,7 +73,7 @@ Description
    *gwidth* and *jwidth* allow integer, float, or string values,
    where the string would be a number plus unit. The default values
    for *gwidth* and *jwidth* are taken from Mangum, et al. 2007
-   :ref:`[1] <cit1>` . The formula for 'GAUSS' and 'GJINC' are taken
+   [1]_. The formula for 'GAUSS' and 'GJINC' are taken
    from Table 1 in the paper, and are written as follows using
    *gwidth* and *jwidth*:
 
@@ -132,12 +132,11 @@ Description
       frequency.
    -  *'cubesource'*: Spectral line imaging while tracking moving
       source (near field or solar system `ephemeris
-      objects <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/ephemeris-data>`__).
+      objects <../../notebooks/ephemeris_data.ipynb>`__).
       The velocity of the source is accounted and the frequency
       reported is in the source frame.
 
    .. rubric:: Technical Note: sdimaging and tsdimaging
-
 
    The **tsdimaging** task is supposed to replace **sdimaging**. The
    initial version of this task was intended to be fully compatible
@@ -161,11 +160,7 @@ Description
 
    .. rubric:: Bibliography
 
-
-   .. _cit1:
-
-   `1. Mangum, et al. 2007, A&A, 474, 679
-   (` `ADS <https://ui.adsabs.harvard.edu/abs/2007A%26A...474..679M/abstract>`__ `)`
+   .. [1] Mangum, et al. 2007, A&A, 474, 679 `ADS <https://ui.adsabs.harvard.edu/abs/2007A%26A...474..679M/abstract>`__
 
 
 .. _Examples:
@@ -203,7 +198,6 @@ Examples
       start='5.0km/s'  # mode='velocity'
 
 
-
    The parameter *phasecenter* sets the center direction of the
    image:
 
@@ -222,5 +216,5 @@ Examples
 .. _Development:
 
 Development
-   None
+   No additional development details
 

@@ -3,11 +3,9 @@
 .. _Description:
 
 Description
-   task description
-   
    This task provides for initialization of the weight information in
    the MS. An overview on weights in CASA is provided in the `Data
-   Weights <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-weights>`__
+   Weights <../../notebooks/data_weights.ipynb>`__
    section of CASAdocs. For ALMA interferometry and EVLA data, it
    should not generally be necessary to use this task, as the
    per-spectral window weight information should have been
@@ -15,28 +13,29 @@ Description
    per-channel weights, use
    initweights(vis=finalvis,wtmode='weight',dowtsp=True).
    
-   | Several initialization modes are supported via the *wtmode*
-     parameter. If *wtmode='nyq'* (the default), the SIGMA and WEIGHT
-     will be initialized according to bandwidth and integration time.
-     This is the theoretically correct mode for raw normalized
-     visibilities (e.g., ALMA). For the EVLA, this is correct if
-     switched-power and bandpass calibration will later be applied.
-     If *wtmode='sigma'*, WEIGHT will be initialized according to
-     the existing SIGMA column. If *wtmode='weight'*, WEIGHT_SPECTRUM
-     will be initialized according to the existing WEIGHT column;
-     *dowtspec=True* must be specified in this case. If
-     *wtmode='ones'*, SIGMA and WEIGHT will be initialized with
-     1.0, globally. This is a traditional means of initializing
-     weight information, and is adequate when the integration time
-     and bandwidth are uniform. It is not recommended for
-     modern instruments (ALMA, EVLA), where variety in observational
-     setups is common, and properly initialized and calibrated
-     weights will be used for imaging sensitivity estimates.
-   | There are two EXPERIMENTAL modes, *wtmode='tsys'* and
-     *'tinttsys'*. In the modes, SIGMA and WEIGHT will be initialized
-     according to :math:`T_{sys}`, bandwidth :math:`\Delta\nu`, and
-     integration time :math:`t_{int}` (used only in
-     '*tinttsys*'), i.e.:
+   Several initialization modes are supported via the *wtmode*
+   parameter. If *wtmode='nyq'* (the default), the SIGMA and WEIGHT
+   will be initialized according to bandwidth and integration time.
+   This is the theoretically correct mode for raw normalized
+   visibilities (e.g., ALMA). For the EVLA, this is correct if
+   switched-power and bandpass calibration will later be applied.
+   If *wtmode='sigma'*, WEIGHT will be initialized according to
+   the existing SIGMA column. If *wtmode='weight'*, WEIGHT_SPECTRUM
+   will be initialized according to the existing WEIGHT column;
+   *dowtspec=True* must be specified in this case. If
+   *wtmode='ones'*, SIGMA and WEIGHT will be initialized with
+   1.0, globally. This is a traditional means of initializing
+   weight information, and is adequate when the integration time
+   and bandwidth are uniform. It is not recommended for
+   modern instruments (ALMA, EVLA), where variety in observational
+   setups is common, and properly initialized and calibrated
+   weights will be used for imaging sensitivity estimates.
+
+   There are two EXPERIMENTAL modes, *wtmode='tsys'* and
+   *'tinttsys'*. In the modes, SIGMA and WEIGHT will be initialized
+   according to :math:`T_{sys}`, bandwidth :math:`\Delta\nu`, and
+   integration time :math:`t_{int}` (used only in
+   '*tinttsys*'), i.e.:
    
    -  *tsys* : :math:`weight=\frac{\Delta\nu}{T_{sys}^2}`
    -  *tinttsys*:
@@ -101,9 +100,7 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
-   **Example 1: **
+   **Example 1:**
    
    Initialize the WEIGHT and the SIGMA column of myMS.ms based on the
    channel widths and integration time of each visibility.
@@ -113,10 +110,9 @@ Examples
    ::
    
       initweights(vis='myMS.ms', wtmode='nyq', dowtsp=True)
+
    
-    
-   
-   **Example 2: **
+   **Example 2:**
    
    Use **initweights** to create WEIGHT_SPECTRUM column if it does
    not exist and fill the WEIGHT values into WEIGHT_SPECTRUM 
@@ -136,8 +132,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

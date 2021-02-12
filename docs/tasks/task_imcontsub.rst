@@ -23,30 +23,23 @@ Description
    line data set can also be done in the *(u,v)*-domain using the
    task **uvcontsub**.
    
-    
-   
    .. rubric:: Task-specific Parameter Descriptions
-      
    
-   .. rubric:: *linefile*
-      
+   *linefile*
    
    Name of image to which to save the result of subtracting the
    computed continuum from the input image.
    
-   .. rubric:: *contfile*
-      
+   *contfile*
    
    The computed continuum image.
    
-   .. rubric:: *fitorder*
-      
+   *fitorder*
    
    Order of polynomial to fit to the specified spectral channels to
    determine the continuum.
    
-   .. rubric:: *chans*
-      
+   *chans*
    
    Spectral channels to use for fitting a polynomial to determine
    continuum.
@@ -61,18 +54,12 @@ Examples
    
    ::
    
-      | ch = '3~8, 54~60'
-      | imcontsub(imagename="myimage.im", linefile="mycontsub.im",
-        fitorder=2, chans=ch, fitorder=2, stokes="I")
-   
+      ch = '3~8, 54~60'
+      imcontsub(imagename="myimage.im", linefile="mycontsub.im",
+                fitorder=2, chans=ch, fitorder=2, stokes="I")
 
 .. _Development:
 
 Development
-   --CASA Developer--
-   
-   Here would be a discussion of how applycal is implemented.  This
-   is intended for the other members of the development team so is a
-   technical discussion.  We will work on building these up over
-   time.
-   
+   No additional development details
+

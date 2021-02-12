@@ -3,10 +3,6 @@
 .. _Description:
 
 Description
-   importuvfits task: Convert a UVFITS file to a CASA measurement set
-   
-   Convert a UVFITS file to a CASA visibility data set.
-   
    This is primarily designed for importing AIPS data into CASA, but
    also works for other UVFITS data (e.g., MIRIAD).
    
@@ -37,8 +33,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    ::
    
       importuvfits(fitsfile="my.uvfits", vis="my.ms")
@@ -47,8 +41,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

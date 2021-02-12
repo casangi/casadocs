@@ -27,11 +27,11 @@ Description
    
    .. rubric:: Parameter descriptions
 
-   .. rubric:: *imagename*
+   *imagename*
 
    Name of image on which to perform the operation.
    
-   .. rubric:: *function*
+   *function*
 
    Aggregate function to apply to pixel values. Choices are: 'flux'
    (see below for constraints), 'madm' (median absolute deviation
@@ -61,7 +61,7 @@ Description
       or x*y K, where x is an optional unit (such as km/s for moments
       images) and y is an optional SI prefix.
    
-   .. rubric:: *axes*
+   *axes*
 
    Image axes along which to perform the aggregation. Axes can be
    specified as a single integer or array of integers indicating the
@@ -72,7 +72,7 @@ Description
    declination axis or along the right ascension and declination
    axes, respectively).
    
-   .. rubric:: *outfile*
+   *outfile*
 
    Name of image to write the result of the operation.
    
@@ -81,22 +81,22 @@ Description
    
    Region of interest in which the computation should be performed.
    See `Image Selection
-   Parameters <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/image-selection-parameters>`__
+   Parameters <../../notebooks/image_analysis.ipynb#Image-Selection-Parameters>`__
    for details.
    
-   .. rubric:: *mask*
+   *mask*
 
    On-the-fly mask to use. See section `Image
-   Masks <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/image-masks>`__
+   Masks <../../notebooks/image_analysis.ipynb#Image-Masks>`__
    for details.
    
-   .. rubric:: *overwrite*
+   *overwrite*
    
    Automatically overwrite an existing image named *outfile*? If True
    and a file by that name already exists, the application will exit
    with an error. without performing the requested operation.
    
-   .. rubric:: *stretch*
+   *stretch*
    
    Stretch the specified on-the-fly *mask* along degenerate axes if
    possible and necessary to conform to the shape of the input image?
@@ -151,8 +151,5 @@ Examples
 .. _Development:
 
 Development
-   Here would be a discussion of how imcollapse is implemented.  This
-   is intended for the other members of the development team so is a
-   technical discussion.  We will work on building these up over
-   time.
-   
+   No additional development details
+

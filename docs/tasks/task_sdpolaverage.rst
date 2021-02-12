@@ -3,14 +3,11 @@
 .. _Description:
 
 Description
-   Averaging over different polarizations for Single Dish MS data
-
    Task **sdpolaverage** is used to export Single Dish MS data
    averaged over different polarizations, to obtain Stokes I from
    orthogonal autocorrelation pairs (XXYY/LLRR).
 
    .. rubric:: Polarization Average
-
 
    Two modes of polarizaton averaging are available. One is 'stokes'
    which is an average based on a formulation of Stokes parameter. In
@@ -40,7 +37,6 @@ Examples
 .. _Development:
 
 Development
-   Template
+   No additional development details
 
-   --CASA Developer--
 

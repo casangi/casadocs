@@ -3,9 +3,6 @@
 .. _Description:
 
 Description
-   spxfit task: Fit a 1-dimensional model(s) to an image(s) or region
-   for determination of spectral index.
-   
    This task fits a power logarithmic polynomial or a logarithmic
    tranformed polynomial to one-dimensional profiles for
    determination of spectral indices.
@@ -14,8 +11,8 @@ Description
    the Levenberg-Marquardt algorithm of either a power logarithmic
    polynomial or a logarithmic tranformed polynomial to pixel values
    along a specified axis of an image or images. A description of the
-   fitting algorithm may be found in AIPS++ Note 224 `[1] <#cit1>`__
-   and in Numerical Recipes `[2] <#cit2>`__. These functions are most
+   fitting algorithm may be found in AIPS++ Note 224 [1]_
+   and in Numerical Recipes [2]_. These functions are most
    often used for fitting the spectral index and higher order terms
    of a spectrum. A power logarithmic polynomial (plp) has the form
    
@@ -66,9 +63,7 @@ Description
    *spxest=[0.405, -0.8]* and *div=1e9* if fitting an ltp function
    close to ln(1.5) - 0.8*ln(x/div).
    
-   .. rubric:: 
-      A CAUTIONARY NOTE
-      
+   .. rubric:: A CAUTIONARY NOTE
    
    Note that the likelihood of getting a reliable solution increases
    with the number of good data points as well as the goodness of the
@@ -81,14 +76,12 @@ Description
    likely the best solution.
    
    .. rubric:: AXIS
-      
    
    The *axis* parameter indicates on which axis profiles should be
    fit; a negative value indicates the spectral axis should be used,
    or if one does not exist, that the zeroth axis should be used.
    
    .. rubric:: MINIMUM NUMBER OF PIXELS
-      
    
    The *minpts* parameter indicates the minimum number of unmasked
    pixels that must be present in order for a fit to be attempted.
@@ -96,7 +89,6 @@ Description
    masked in any output images.
    
    .. rubric:: ONE FIT OF REGION AVERAGE OR PIXEL BY PIXEL FIT
-      
    
    The *multifit* parameter indicates if profiles should be fit at
    each pixel in the selected region (true), or if the profiles in
@@ -104,7 +96,6 @@ Description
    profile (false).
    
    .. rubric:: FUNCTION TYPE
-      
    
    Which function to fit is specified in the *spxtype* parameter.
    Only two values (case insensitive) are supported. A value of "plp"
@@ -113,7 +104,6 @@ Description
    should be fit.
    
    .. rubric:: INCLUDING STANDARD DEVIATIONS OF PIXEL VALUES
-      
    
    If the standard deviations of the pixel values in the input image
    are known and they vary in the image (e.g. they are higher for
@@ -151,7 +141,6 @@ Description
    used as sigma for subsequent runs.
    
    .. rubric:: RETURNED DICTIONARY STRUCTURE
-      
    
    The returned dictionary has a (necessarily) complex structure.
    First, there are keys "xUnit" and "yUnit" whose values are the
@@ -161,18 +150,18 @@ Description
    along the fit axis with the axis corresponding to the fit axis
    having length of 1:
    
-   | ATTEMPTED: a boolean array indicating which fits were attempted
-     (e.g. if too few unmasked points, a fit will not be attempted).
-   | CONVERGED: a boolean array indicating which fits converged.
-     False if the fit was not attempted.
-   | VALID: a boolean array indicating which solutions fall within
-     the specified valid ranges of parameter space (any solution for
-     which a value or error is NaN is automatically marked as
-     invalid)
-   | NITER: an int array indicating the number of iterations for each
-     profile, <0 if the fit did not converge
-   | DIRECTION: a string array containing the world direction
-     coordinate for each profile
+   ATTEMPTED: a boolean array indicating which fits were attempted
+   (e.g. if too few unmasked points, a fit will not be attempted).
+   CONVERGED: a boolean array indicating which fits converged.
+   False if the fit was not attempted.
+   VALID: a boolean array indicating which solutions fall within
+   the specified valid ranges of parameter space (any solution for
+   which a value or error is NaN is automatically marked as
+   invalid)
+   NITER: an int array indicating the number of iterations for each
+   profile, <0 if the fit did not converge
+   DIRECTION: a string array containing the world direction
+   coordinate for each profile
    
    There is a "type" array having number of dimensions equal to the
    number of dimensions in the above arrays plus one. The shape of
@@ -195,7 +184,6 @@ Description
    attempted or did not converge, a value of NAN will be present.
    
    .. rubric:: OUTPUT IMAGES
-      
    
    In addition to the returned dictionary, optionally one or more of
    any combination of output images can be written. The model and
@@ -214,7 +202,6 @@ Description
    will be masked as bad.
    
    .. rubric:: LPT vs PLP
-      
    
    Ultimately, the choice of which functional form to use in
    determining the spectral index is up to the user and should be
@@ -232,40 +219,31 @@ Description
    preferred. However, this does not work well in low signal-to-noise
    regions. A conservative mask could be created such that only high
    S/N areas are fit, but this could hinder many science objectives.
-   
-   
-   
-    
+
    
    .. rubric:: Task specific parameters summary
-      
    
-   .. rubric:: *axis*
-      
+   *axis*
    
    The profile axis. Default (<0): use the spectral axis if one
    exists, axis 0 otherwise.
    
-   .. rubric:: *minpts*
-      
+   *minpts*
    
    Minimum number of unmasked points necessary to attempt fit.
    
-   .. rubric:: *multifit*
-      
+   *multifit*
    
    If true, fit a profile along the desired axis at each pixel in the
    specified region. If false, average the non-fit axis pixels and do
    a single fit to that average profile. Default False.
    
-   .. rubric:: *spxtype*
-      
+   *spxtype*
    
    Type of function to fit. "plp" = power logarithmic polynomial,
    "ltp" = logarithmic transformed polynomial.
    
-   .. rubric:: *spxest*
-      
+   *spxest*
    
    REQUIRED. Initial estimates as array of numerical values for the
    spectral index function coefficients. eg [1.5, -0.8] if fitting a
@@ -278,99 +256,79 @@ Description
    Fix the corresponding spectral index function coefficients during
    the fit. True means hold fixed.
    
-   .. rubric:: *div*
-      
+   *div*
    
    Divisor (numerical value or quantity) to use in the logarithmic
    terms of the plp or ltp function. 0 means calculate a useful value
    on the fly.
    
-   .. rubric:: *spxsol*
-      
+   *spxsol*
    
    Name of the spectral index function coefficient solution image to
    write.
    
-   .. rubric:: *spxerr*
-      
+   *spxerr*
    
    Name of the spectral index function coefficient error image to
    write.
    
-   .. rubric:: *model*
-      
+   *model*
    
    Name of model image. Default (""): do not write the model image.
    
-   .. rubric:: *residual*
-      
+   *residual*
    
    Name of residual image. Default (""): do not write the residual
    image.
    
-   .. rubric:: *wantreturn*
-      
+   *wantreturn*
    
    Should a record summarizing the results be returned?
    
-   .. rubric:: *logresults*
-      
+   *logresults*
    
    Output results to logger?
    
-   .. rubric:: *logfile*
-      
+   *logfile*
    
    File in which to log results. Default is not to write a logfile.
    
-   .. rubric:: *append*
-      
+   *append*
    
    Append results to logfile? Logfile must be specified. Default is
    to append. False means overwrite existing file if it exists.
    
-   .. rubric:: *sigma*
-      
+   *sigma*
    
    Standard deviation array or image name(s).
    
-   .. rubric:: *outsigma*
-      
+   *outsigma*
    
    Name of output image used for standard deviation. Ignored if sigma
    is empty.
    
    
-      Bibliography
-   :sup:`1. Brouw, Wim, 1999
-   (` `Web <http://www.astron.nl/casacore/trunk/casacore/doc/notes/224.html>`__ :sup:`)` `<#ref-cit1>`__
+   Bibliography
+
+   .. [1] Brouw, Wim, 1999 `Web <http://www.astron.nl/casacore/trunk/casacore/doc/notes/224.html>`__
    
-   :sup:`2. W.H. Press et al. 1988, Cambridge University Press
-   (` `PDF <http://www2.units.it/ipl/students_area/imm2/files/Numerical_Recipes.pdf>`__ :sup:`)` `<#ref-cit2>`__
+   .. [2] W.H. Press et al. 1988, Cambridge University Press `PDF <http://www2.units.it/ipl/students_area/imm2/files/Numerical_Recipes.pdf>`__
    
 
 .. _Examples:
 
 Examples
-   task examples
-   
    ::
    
-      # fit c0, c1, and c2 in a power log polynomial using two
-      images. Do a pixel by pixel fit. Use initial estimates of
-      c0=0.5, c1=2, and c2=0.1. Scale frequencies by dividing them by
-      1GHz. Write the solution images.
+      # fit c0, c1, and c2 in a power log polynomial using two images. Do a pixel by pixel fit. Use initial estimates of
+      # c0=0.5, c1=2, and c2=0.1. Scale frequencies by dividing them by 1GHz. Write the solution images.
    
-      res = spxfit(imagename=["im0.im","im1.im"], multifit=True,
-      spxtype="plp", spxest=[0.5,2,0.1], div="1GHz",
-      spxsol="myplpsolutions.im")
+      res = spxfit(imagename=["im0.im","im1.im"], multifit=True, spxtype="plp", spxest=[0.5,2,0.1], div="1GHz",
+                   spxsol="myplpsolutions.im")
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

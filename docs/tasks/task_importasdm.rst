@@ -3,21 +3,16 @@
 .. _Description:
 
 Description
-   importasdm task: Convert data from ASDM to MS format
-   
    .. note:: NOTE: **importevla** has now been deprecated, and
       **importasdm** combined with **flagdata** should be used to
       import JVLA data, as explained in a dedicated section below.
-   
-   .. rubric:: Overview
-      
-   
+
    The **importasdm** task will fill SDM1.2 and SDM1.3 format data
    into a CASA visibility data set (MS). The importasdm task supports
    all changes in the ALMA ASDM made since the previous CASA release
    (an up-to-date description of the most recent tables of the SDM
    can be found
-   `here <https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/the-science-data-model>`__).
+   `here <../../notebooks/casa-fundamentals.ipynb#Science-Data-Model>`__).
    ALMA data were recorded in SDM1.2 format from October 2009 until
    May 2011. Since May 2011, ALMA is using the SDM1.3 format. In
    particular, all science data from Cycle 0 onward will be in
@@ -65,7 +60,7 @@ Description
       detailed documentation on partition, Multi-MS, and the MPI use
       in CASA, please see the global task list pages describing
       **partition** and **mstransform**. `The
-      Multi-MS <https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/the-multi-ms>`__ also
+      Multi-MS <../../notebooks/parallel-processing.ipynb#The-Multi-MS>`__ also
       contains more information on Multi-MS creation. 
    -  When setting the values for *wvr_corrected_data*, the task will
       read the SDM binary data and fill the DATA column in the MAIN
@@ -81,9 +76,7 @@ Description
       cycles which provided both corrected and uncorrected data
       streams.
    
-   .. rubric:: Import of JVLA data with importasdm *
-      *
-      
+   .. rubric:: Import of JVLA data with importasdm
    
    As of CASA 5.4, the task importevla is no longer available to
    import JVLA data. The functionality is replaced by importasdm,
@@ -130,7 +123,7 @@ Description
    reason using the cmdreason argument, e.g.
    *cmdreason="CLIP_ZERO_ALL".*
    
-   .. warning:: **WARNING** *:* The task **flagdata** can only write out the
+   .. warning:: **WARNING**: The task **flagdata** can only write out the
       flag commands for that invocation of flagdata. The default
       *overwrite=True* must be used to overwrite an existing file. In
       order to save the commands from all 3 possible flagging steps
@@ -139,7 +132,6 @@ Description
       file to be used to flag the data.
    
    .. rubric:: Import of ASDM data with option *lazy=True*
-      
    
    For the parameter *lazy*, if the default value False is chosen,
    **importasdm** will fill the visibilities into a newly created
@@ -196,9 +188,9 @@ Description
    
    ::
    
-      | ms.open(’uid___A12345_X678_X910.ms’,False)
-      | ms.asdmref(’/home/alma/myanalysis/uid___A12345_X678_X910’)
-      | ms.close()
+      ms.open(’uid___A12345_X678_X910.ms’,False)
+      ms.asdmref(’/home/alma/myanalysis/uid___A12345_X678_X910’)
+      ms.close()
    
    will set the new location of the referenced ASDM to
    /home/alma/myanalysis/uid___A12345_X678_X910.
@@ -217,9 +209,8 @@ Examples
    ::
    
       importasdm(asdm='uid___A002_Xbbadbe_X88ec.asdm.sdm',
-      vis='uid___A002_Xbbadbe_X88ec.ms', bdfflags=True, verbose=True)
-   
-    
+                 vis='uid___A002_Xbbadbe_X88ec.ms', bdfflags=True, verbose=True)
+
    
    Import both the corrected and uncorrected WVR data from an ALMA
    dataset with wvr_corrected_data='both' and setting bdfflags=True
@@ -228,14 +219,13 @@ Examples
    ::
    
       importasdm(asdm='uid___A002_Xbbadbe_X88ec.asdm.sdm',
-      vis='uid___A002_Xbbadbe_X88ec.ms', wvr_corrected_data='both',
-      bdfflags=True, verbose=True)
+                 vis='uid___A002_Xbbadbe_X88ec.ms', wvr_corrected_data='both',
+                 bdfflags=True, verbose=True)
    
    In this case, two MeasurementSets are created, one with
    WVR-uncorrected data filled in the MAIN table and the other with
    WVR-corrected data filled in the MAIN table.
-   
-    
+
    
    To import data from the VLA (and replicate the behaviour of the
    deprecated task **importevla**):
@@ -243,14 +233,14 @@ Examples
    ::
    
       importasdm(asdm='19A-119.sb123243.58235.79924266203',
-      vis='19A-119.sb123243.58235.79924266203.ms', ocorr_mode='co',
-      with_pointing_correction=True, process_flags=True)
+                 vis='19A-119.sb123243.58235.79924266203.ms', ocorr_mode='co',
+                 with_pointing_correction=True, process_flags=True)
    
       flagdata(vis='19A-119.sb123243.58235.79924266203.ms',
-      mode='shadow')
+               mode='shadow')
    
       flagdata(vis='19A-119.sb123243.58235.79924266203.ms',
-      mode='clip', correlation='ABS_ALL', and clipzeros=True)
+               mode='clip', correlation='ABS_ALL', and clipzeros=True)
    
    Note that while online flags can thus be created by leaving the
    parameter *process_flags = True* by default, the additional
@@ -258,13 +248,12 @@ Examples
    zero values and shadowing of antennas, in order to replicate the
    behavior of the deprecated task **importevla**. See the CASA Docs
    pages on `importing
-   (u,v)-data <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/visibility-data-import-export/uv-data-import>`__
+   (u,v)-data <../../notebooks/visibilities_import_export.ipynb#UV-Data-Import>`__
    for details.
    
 
 .. _Development:
 
 Development
-   --CASA Developer--
-   
-   
+   No additional development details
+

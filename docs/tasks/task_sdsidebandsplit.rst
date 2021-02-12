@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   Perform sideband separation using FFT
-
    .. warning:: **WARNING**: This task is EXPERIMENTAL. Interface and
       capabilities may change frequently.
 
@@ -14,11 +12,11 @@ Description
    by utilizing the feature that spectral lines in the two sidebands
    shift in different amounts between observations with different LO
    offsets. The algorithm used in the task is analogous to that of
-   Emerson, Klein, & Haslam (1979) :ref:`[1] <cit1>` with shifts in the
+   Emerson, Klein, & Haslam (1979) [1]_ with shifts in the
    frequency domain instead of spatial one as described in the paper.
-   The details of algorithm is also discussed in the section, `Brief
+   The details of algorithm is also discussed in the section \"Brief
    description of the mathematics behind the
-   task <#brief-description-of-the-mathematics-behind-the-task>`__,
+   task\",
    below.
 
    The task takes two or more images as inputs and is able to
@@ -49,7 +47,6 @@ Description
 
    .. rubric:: Definition of *signalshift* and *imageshift*
 
-
    Since the input images do not have information on how much the
    frequency is offset in the spectral window in each observation,
    **sdsidebandsplit** relies on user to provide it. Currently, the
@@ -74,7 +71,6 @@ Description
       regridding and/or by converting frequency frame.
 
    .. rubric:: Solution flag: *otherside*
-
 
    There are two ways to obtain a spectrum of a sideband of interest
    in **sdsidebandsplit**. The parameter *otherside* allows a user to
@@ -107,7 +103,6 @@ Description
 
    .. rubric:: Frequency definition of image sideband
 
-
    Since the input images do not have information of the frequency
    settings of the output image of the image sideband,
    **sdsidebandsplit** relies on user inputs when solving for the
@@ -121,9 +116,7 @@ Description
    use case showing how to specify *refpix* and *refval*.
 
 
-
    .. rubric:: Brief description of the mathematics behind the task
-
 
    The algorithm to split signals from two sidebands is based on the
    following criteria:
@@ -227,10 +220,7 @@ Description
 
    .. rubric:: Bibliography
 
-   .. _cit1:
-
-   `1. Emerson, Klein, & Haslam 1979, A&A, 76, 92
-   (` `ADS <http://adsabs.harvard.edu/abs/1979A%26A....76...92E>`__ `)`
+   .. [1] Emerson, Klein, & Haslam 1979, A&A, 76, 92 `ADS <http://adsabs.harvard.edu/abs/1979A%26A....76...92E>`__
 
 
 .. _Examples:
@@ -280,4 +270,5 @@ Examples
 .. _Development:
 
 Development
-   None
+   No additional development details
+

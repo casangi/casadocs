@@ -3,11 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
-   .. rubric:: Summary
-      
-   
    This task reads one or more spectral line lists downloaded from
    the `Splatalogue spectral line
    database <http://www.cv.nrao.edu/php/splat/>`__ and loads them
@@ -58,19 +53,15 @@ Description
    conducted.  By selecting this option, regardless of how the search
    was conducted on the webpage, the correct fields in the proper
    format will be exported for use by splattotable.
-   
-    
+
    
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: filenames 
-      
+   *filenames*
    
    Files containing Splatalogue spectral line lists.
    
-   .. rubric:: table 
-      
+   *table*
    
    Output table name. Must be specfied.
    
@@ -78,8 +69,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To write two spectral line lists, 'mysplatlist1.txt' and
    'mysplatlist2.txt', into a single spectral line table
    'mynewsl.tbl':
@@ -87,14 +76,11 @@ Examples
    ::
    
       splattotable(filenames=['mysplatlist1.txt',mysplatlist2.txt'],
-      table='mynewsl.tbl')
+                   table='mynewsl.tbl')
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

@@ -3,11 +3,6 @@
 .. _Description:
 
 Description
-   Simple plotter of antenna positions
-   
-   .. rubric:: Summary
-      
-   
    This task is a simple plotting interface to produce plots of the
    antenna positions at the time that the data were taken. The
    antenna positions are taken from the ANTENNA sub-table of a
@@ -17,7 +12,6 @@ Description
    its ID when requested, is shown next to its respective location.
    
    .. rubric:: Interactive display
-      
    
    The antennas will be plotted in a plotter window as shown below.
    Tool buttons allow you to interactively pan, zoom, stretch,
@@ -26,7 +20,6 @@ Description
    back).
    
    .. rubric:: Task parameters
-      
    
    When using **plotants**, you must specify the MeasurementSet to
    plot (*vis* parameter). The plot can be exported by specifying
@@ -52,34 +45,22 @@ Description
    
    For more information and sample plots, see the Chapter Pages on
    `"Plotting Antenna
-   Positions" <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/plotting-antenna-positions>`__.
+   Positions" <../../notebooks/data_examination.ipynb#Plot-Antenna-Positions>`__.
    
-   |image1|
+   .. figure:: _apimedia/f05dc15d6cf9628b4e2f819d7e5530c7f27d3bd2.png
    
-   +---------+-----------------------------------------------------------+
-   | Type    | Figure 1                                                  |
-   +---------+-----------------------------------------------------------+
-   | ID      | examination-fig-plotants                                  |
-   +---------+-----------------------------------------------------------+
-   | Caption | The **plotants** GUI for a VLA dataset, with              |
-   |         | *antindex=True*. Tool buttons allow the user to           |
-   |         | manipulate and export the plot.                           |
-   +---------+-----------------------------------------------------------+
-   
-   .. |image1| image:: _apimedia/f05dc15d6cf9628b4e2f819d7e5530c7f27d3bd2.png
-   
+      The **plotants** GUI for a VLA dataset, with *antindex=True*.
+      Tool buttons allow the user to manipulate and export the plot.
 
 .. _Examples:
 
 Examples
-   task examples
-   
    Plot antenna positions and make a plot in a ps-file:
    
    ::
    
-      | # In CASA
-      | plotants(vis='ngc5921.ms', figfile='ngc5921ants.ps')
+      # In CASA
+      plotants(vis='ngc5921.ms', figfile='ngc5921ants.ps')
    
    Plot logarithmic positions of antennas in main table, labeled with
    antenna ID:
@@ -87,7 +68,7 @@ Examples
    ::
    
       plotants(vis='ngc5921.ms', antindex=True, logpos=True,
-      checkbaselines=True)
+               checkbaselines=True)
    
    Plot antenna positions but exclude antennas 1, 2, 3, 5, and 7:
    
@@ -99,8 +80,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

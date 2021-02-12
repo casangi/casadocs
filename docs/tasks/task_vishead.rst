@@ -3,14 +3,13 @@
 .. _Description:
 
 Description
-   task vishead description
-   
-   |         This task allows the user to manipulate some meta-data
-     keywords in a measurement set. The mode='list' shows those
-     keywords that are presently implemented, with their values. The
-     contents associated with the keywords can be obtained with
-     mode='get' and changed with mode='put'.
-   |         The modes that are available are:
+   This task allows the user to manipulate some meta-data
+   keywords in a measurement set. The mode='list' shows those
+   keywords that are presently implemented, with their values. The
+   contents associated with the keywords can be obtained with
+   mode='get' and changed with mode='put'.
+
+   The modes that are available are:
    
    -  list: List all keywords that are recognized, and list the
       value(s) for each.  Only these keywords can be obtained (get)
@@ -20,7 +19,7 @@ Description
    -  get: Get the specified keyword value(s) from the ms
    -  put: Put the specified keyword value(s) into the ms
    
-           Keywords currently implemented are:
+   Keywords currently implemented are:
    
    -  cal_grp             
    -  field (Field names)
@@ -37,56 +36,48 @@ Description
    -  source_name         
    -  telescope (Telescope Name)
    
-   |         Note that the default list of keywords is a subset of
-     the former list. To get
-   |         all the keywords mentioned above set listitemts=[]. See
-     the Parameter pages of vishead for more details.
+   Note that the default list of keywords is a subset of the former list. To get
+   all the keywords mentioned above set listitemts=[]. See
+   the Parameter pages of vishead for more details.
    
    More information can also be found in the CASA Docs pages on
    `Listing and Changing MS
-   Metadata <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/listing-and-manipulating-ms-metadata>`__.
+   Metadata <../../notebooks/data_examination.ipynb>`__.
    
 
 .. _Examples:
 
 Examples
-   task examples
-   
    To list the available keywords in a MeasurementSet:
    
    ::
    
       vishead(vis='measurementset.ms',mode='list')
-   
-    
+
    
    To get the values for the phase center:
    
    ::
    
-      vishead(vis='measurementset.ms',mode='get',hdkey='ptcs',hdindex
-      = '1')
+      vishead(vis='measurementset.ms',mode='get',hdkey='ptcs',hdindex='1')
    
    In this example, hdvalue [0][0] gives the RA,
    while hdvalue [0][1] gives the DEC in field '1'.
-   
-    
+
    
    To get the name for field 2:
    
    ::
    
       vishead(vis='measurementset.ms',mode='get',hdkey='field',hdindex='2')
-   
-    
+
    
    To change the name for field 2 into "junk".
    
    ::
    
       vishead(vis='measurementset.ms',mode='put',hdkey='field',hdindex='2',hdvalue='junk')
-   
-    
+
    
    .. note:: NOTE: To transfer the parameters to useful python items
       requires some care. Changing a number (e.g. RA of field=1 to
@@ -96,8 +87,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

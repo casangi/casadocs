@@ -3,18 +3,13 @@
 .. _Description:
 
 Description
-   Determine amplitude calibration from auto-correlations
-   
-   .. rubric:: Summary
-      
-   
+   **accor** determines the amplitude calibration from
+   auto-correlations.
+
    .. warning:: **WARNING: accor** is currently an experimental task. Use with
       care and report issues back to the CASA team via the `NRAO
       helpdesk <http://help.nrao.edu>`__. 
-   
-   **accor** determines the amplitude calibration from
-   auto-correlations. 
-   
+
    The **accor** task determines the amplitude corrections from the
    apparent normalization of the mean autocorrelation spectra.
    Mis-normalization of the autocorrelations (and thus also the
@@ -32,7 +27,7 @@ Description
    seconds to minutes.
    
    See `Solving for
-   Calibration <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration/solving-for-calibration>`__ for
+   Calibration <../../notebooks/synthesis_calibration.ipynb#Solve-for-Calibration>`__ for
    more information on the task parameters **accor** shares with all
    calibration solving tasks, including data selection, general
    solving properties, and arranging prior calibration
@@ -45,8 +40,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    The following example creates a caltable with **accor** solutions
    on a 30s timescale. 
    
@@ -58,8 +51,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
+   No additional development details
    

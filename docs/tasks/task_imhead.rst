@@ -50,10 +50,7 @@ Description
       That is, PROCEED AT YOUR OWN RISK when using modes add, del, or
       put.
    
-   
-   
    .. rubric:: Notes for *mode='list'*
-      
    
    Supported keywords that can be listed with parameter 'hdkey' when
    using mode='list':
@@ -72,17 +69,17 @@ Description
    +-------------------+-------------------------------------------------+
    | bunit             | Image units (K, Jy/beam, etc).                  |
    +-------------------+-------------------------------------------------+
-   | cdelt *n*        | Pixel size, *n* th axis. *n* is one-based.       |
+   | cdelt *n*         | Pixel size, *n* th axis. *n* is one-based.      |
    +-------------------+-------------------------------------------------+
-   | crpix *n*        | The pixel designated as the reference location,  |
+   | crpix *n*         | The pixel designated as the reference location, |
    |                   | *n* th axis *n* is one-based.                   |
    +-------------------+-------------------------------------------------+
-   | crval *n*        | World coordinate value of the reference pixel    |
+   | crval *n*         | World coordinate value of the reference pixel   |
    |                   | for the *n* th axis. *n* is one-based.          |
    +-------------------+-------------------------------------------------+
-   | ctype *n*        | Name of *n* th axis. *n* is one-based.           |
+   | ctype *n*         | Name of *n* th axis. *n* is one-based.          |
    +-------------------+-------------------------------------------------+
-   | cunit *n*        | Units of *n* th axis. *n* is one based.          |
+   | cunit *n*         | Units of *n* th axis. *n* is one based.         |
    +-------------------+-------------------------------------------------+
    | datamax           | Maximum pixel value.                            |
    +-------------------+-------------------------------------------------+
@@ -122,9 +119,7 @@ Description
    | telescope         | Telescope name.                                 |
    +-------------------+-------------------------------------------------+
    
-   .. rubric:: 
-      Notes for *mode='add'*
-      
+   .. rubric:: Notes for *mode='add'*
    
    The behavior of *mode='add'* depends on the keyword that the user
    specifies under 'hdkey'. Below is a summary of the per keyword
@@ -260,9 +255,7 @@ Description
    |                          | False.                                   |
    +--------------------------+------------------------------------------+
    
-   .. rubric:: 
-      Notes for *mode='del'*
-      
+   .. rubric:: Notes for *mode='del'*
    
    The behavior of *mode='del'* depends on the keyword that the user
    specifies under 'hdkey'. Below is a summary of the per keyword
@@ -348,11 +341,9 @@ Description
    +--------------------------+------------------------------------------+
    | any user defined keyword | Deletes the key-value pair.              |
    +--------------------------+------------------------------------------+
-   
-   
+
    
    .. rubric:: Notes for *mode='get'*
-      
    
    The data type of the value returned by **imhead** when
    *mode='get'* depends on the keyword that the user specifies under
@@ -422,11 +413,9 @@ Description
    +-------------------------+-------------------------------------------+
    | any user defined keword | Returns string.                           |
    +-------------------------+-------------------------------------------+
-   
-   
+
    
    .. rubric:: Notes for *mode='put'*
-      
    
    In general, *mode='put'* will modify the specified key to the
    specified value that the user specifies under 'hdkey'. True is
@@ -576,11 +565,9 @@ Description
    | any user defined keyword | *hdvalue* can be practically any         |
    |                          | supported input parameter type.          |
    +--------------------------+------------------------------------------+
-   
-   
+
    
    .. rubric:: Notes for *mode='summary'*
-      
    
    If *mode='summary'*, various metadata will be listed to the
    logger, and a dictionary containing some metadata will be
@@ -637,29 +624,24 @@ Description
     
    
    .. rubric:: Task-specific Parameters Summary
-      
-   
-   .. rubric:: *mode*
-      
+
+   *mode*
    
    Mode of operation. See above for details. Modes which involve
    writing parameters will fail on read-only images, such as FITS
    images.
    
-   .. rubric:: *hdkey*
-      
+   *hdkey*
    
    The associated keyword for modes *"add"*, *"del"*, *"get"*, or
    *"put"*. Only *mode="get"* will succeed for read-only images. See
    above for supported values.
    
-   .. rubric:: *hdvalue*
-      
+   *hdvalue*
    
    Value of keyword used only for modes add or put.
    
-   .. rubric:: *verbose*
-      
+   *verbose*
    
    Give a full listing of beams or just a short summary? Only used
    when the image has multiple beams and *mode="summary"*.
@@ -672,64 +654,52 @@ Examples
    
    ::
    
-      | epoch = imhead(imagename=imagename, mode="get",
-        hdkey="date-obs")
-      | observer = imhead(imagename=imagename, mode="get",
-        hdkey="observer")
-      | projection = imhead(imagename=imagename, mode="get",
-        hdkey="projection")
-      | restfreq = imhead(imagename=imagename, mode="get",
-        hdkey="restfreq")
+      epoch = imhead(imagename=imagename, mode="get", hdkey="date-obs")
+      observer = imhead(imagename=imagename, mode="get", hdkey="observer")
+      projection = imhead(imagename=imagename, mode="get", hdkey="projection")
+      restfreq = imhead(imagename=imagename, mode="get", hdkey="restfreq")
    
    mode='add'
    
    ::
-   
-      | 
-      | if imhead(imagename=imagename, mode="add", hdkey="mykey",
-        hdvalue="myvalue"):
-      |      print "mykey added".
-      | else:
-      |      print "addition of mykey failed."
+
+      if imhead(imagename=imagename, mode="add", hdkey="mykey", hdvalue="myvalue"):
+           print "mykey added".
+      else:
+           print "addition of mykey failed."
    
    mode="del"
    
    ::
    
-      | if imhead(imagename=imagename, mode="del", hdkey="mykey"):
-      |      print "mykey deleted".
-      | else:
-      |      print "deletion of mykey failed."
+      if imhead(imagename=imagename, mode="del", hdkey="mykey"):
+           print "mykey deleted".
+      else:
+           print "deletion of mykey failed."
    
    mode="put"
    
    ::
    
-      | # change the reference RA value
-      | key = 'crval1'
-      | imhead(imagename=imagename, mode="put", hdkey=key,
-        hdvalue="3:00:00")
-      | # or equivalently
-      | imhead(imagename=imagename, mode="put", hdkey=key,
-        hdvalue="45deg")
-      | # change the direction reference frame (NOTE, no precession
-        of the existing
-      | # reference values is done!)
-      | imhead(imagename=imagename, mode="put", hdkey="equinox",
-        hdvalue="GALACTIC")
-      | # change the object
-      | imhead(imagename=imagename, mode="put", hdkey="object",
-        hdvalue="Milliways, also known as The Restaurant at the End
-        of the Universe")
-   
-   |
+      # change the reference RA value
+      key = 'crval1'
+      imhead(imagename=imagename, mode="put", hdkey=key, hdvalue="3:00:00")
+
+      # or equivalently
+      imhead(imagename=imagename, mode="put", hdkey=key, hdvalue="45deg")
+
+      # change the direction reference frame (NOTE, no precession of the existing
+      # reference values is done!)
+      imhead(imagename=imagename, mode="put", hdkey="equinox", hdvalue="GALACTIC")
+
+      # change the object
+      imhead(imagename=imagename, mode="put", hdkey="object",
+             hdvalue="Milliways, also known as The Restaurant at the End of the Universe")
+
    
 
 .. _Development:
 
 Development
-   Here would be a discussion of how applycal is implemented.  This
-   is intended for the other members of the development team so is a
-   technical discussion.  We will work on building these up over
-   time.
-   
+   No additional development details
+

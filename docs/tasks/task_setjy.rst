@@ -17,7 +17,6 @@ Description
    densities should be manually specified ( standard=’manual’).
    
    .. rubric:: Overview
-      
    
    The basic modes of operations are specified by the parameter,
    *standard*. As the name indicates, the bulk of its options are
@@ -54,12 +53,12 @@ Description
    
    ::
    
-      #For Example
+      # For Example
    
       setjy(vis=‘my.ms’…)
-   
+
+
    .. rubric:: Manually setting Flux Densities: standard=‘manual’
-      
    
    With this mode, the flux densities and other relevant parameters
    necessary to describe the model can be entered manually. The
@@ -156,7 +155,7 @@ Description
    *standard=’Butler-JPL-Horizons 2012’* (for more information on the
    implemented models, see `Flux Calibrator
    Models <../../notebooks/memo-series.ipynb#Flux-Calibrator-Models>`_
-   page and also ALMA Memo 594  `[1] <#cit1>`__.) option of **setjy**
+   page and also ALMA Memo 594  [1]_.) option of **setjy**
    includes flux density calibration using Solar System objects.
    
    For ’Butler-JPL-Horizons 2012’ CASA currently supports the objects
@@ -180,7 +179,7 @@ Description
    Each model contains temperatures at tabulated frequencies except
    for Mars. For Mars, the model temperatures are tabulated in time
    and frequency (see `Flux Calibrator Models - Conventions, Data
-   Formats <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material/flux-density-calibrator-models-conventions-data-formats>`__
+   Formats <../../notebooks/memo-series.ipynb#Flux-Calibrator-Models---Data-Formats>`__
    for more details).
    
    For selected asteroids, time variable models are available based
@@ -194,7 +193,7 @@ Description
    *standard=‘Butler-JPL-Horizons 2012’* and *listmodels=True*. These
    model data files contain flux densities tabulated in time and
    frequency (see `Flux Calibrator Models - Conventions, Data
-   Formats <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material/flux-density-calibrator-models-conventions-data-formats>`__
+   Formats <../../notebooks/memo-series.ipynb#Flux-Calibrator-Models---Data-Formats>`__
    for more details).  
    
    Flux density calculation with Solar System objects depends on
@@ -235,7 +234,6 @@ Description
       with ``listobs``, especially for planets.
    
    .. rubric:: Using Calibration Models for Resolved Sources
-      
    
    For observations of Solar System objects using the
    *’Butler-JPL-Horizons 2010’* and *’Butler-JPL-Horizons 2012’*
@@ -357,7 +355,7 @@ Description
    
    .. rubric:: Bibliography
 
-   :sup:`1. Butler 2012,` `ALMA Memo #594 <https://science.nrao.edu/facilities/alma/aboutALMA/Technology/ALMA_Memo_Series/alma594/abs594>`__ `<#ref-cit1>`_
+   .. [1] Butler 2012,` `ALMA Memo #594 <https://science.nrao.edu/facilities/alma/aboutALMA/Technology/ALMA_Memo_Series/alma594/abs594>`__
    
 
 .. _Examples:
@@ -525,4 +523,5 @@ Examples
 .. _Development:
 
 Development
-   None
+   No additional development details
+

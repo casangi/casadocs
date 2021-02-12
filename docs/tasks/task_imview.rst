@@ -3,14 +3,6 @@
 .. _Description:
 
 Description
-   imval task: Get the data value(s) and/or mask value in an image.
-   
-   .. rubric:: Summary
-      
-   
-   Displays images and data cubes in raster, contour, vector
-   or marker form.
-   
    Executing the imview task will bring up a display panel window,
    which can be resized. If no data file was specified, a Load Data
    window will also appear. Click on the desired data file and choose
@@ -31,21 +23,18 @@ Description
    configuration options for loading and configuring the display of
    images in the casaviewer, but support for this task is limited.
    See the chapter pages on `Image Cube
-   Visualization <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-cube-visualization>`__ for
+   Visualization <../../notebooks/image_visualization.ipynb>`__ for
    more information.
-   
-    
+
    
    .. rubric:: Parameter descriptions
-      
    
    There are five optional parameters for imview -- raster, contour,
    zoom, axes, and out. Each of these parameters are optional, can
    take a few different forms, and are treated as python
    dictionaries:
    
-   .. rubric:: *raster*
-      
+   *raster*
    
    Raster filename (string) or complete raster config dictionary. The
    allowed dictionary keys are:
@@ -56,8 +45,7 @@ Description
    -  colormap (string) => name of colormap
    -  colorwedge (bool) => show color wedge?
    
-   .. rubric:: *contour*
-      
+   *contour*
    
    Contour filename (string) or complete contour config dictionary.
    The allowed dictionary keys are:
@@ -67,9 +55,8 @@ Description
    -  base (numeric) => zero in relative levels
    -  unit (numeric) => one in the relative levels
    
-   .. rubric:: *zoom*
-      
-   
+   *zoom*
+
    Zoom can specify incremental zoom (integer), zoom region read from
    a file (string), or dictionary specifying the zoom region. The
    dictionary can have different forms. It can be a simple region
@@ -89,8 +76,7 @@ Description
    -  (dict) <region record> => record loaded, e.g.,
       rg.fromfiletorecord ( )
    
-   .. rubric:: *axes*
-      
+   *axes*
    
    This can either be a three-element vector (string) where each
    element describes what should be found on each of the x, y, and z
@@ -100,8 +86,7 @@ Description
    -  y => dimension for y-axes
    -  z => dimension for z-axes
    
-   .. rubric:: *out*
-      
+   *out*
    
    Output filename or complete output config dictionary. If a string
    is passed, the file extension is used to determine the output type
@@ -116,23 +101,16 @@ Description
    -  scale (numeric) => scale for non-eps, non-ps output
    -  dpi (numeric) => dpi for eps or ps output
    -  orient (string) => portrait or landscape
+
    
-    
+   .. figure:: _apimedia/imview.png
    
-   imview interactive display
-   
-   ======= ==============================
-   Type    Figure
-   ID      1
-   Caption **imview** interactive display
-   ======= ==============================
-   
+      imview interactive display
+
 
 .. _Examples:
 
 Examples
-   task examples
-   
    To simply create a CASA viewer to set up interactively, you can
    use:
    
@@ -157,7 +135,7 @@ Examples
    ::
    
       imview(raster="ngc5921.clean.image",
-      contour="ngc5921.clean.image")
+             contour="ngc5921.clean.image")
    
    To output an image:
    
@@ -171,7 +149,7 @@ Examples
    ::
    
       imview(raster="ngc5921.clean.image", out="ngc5921-02.png",
-      zoom={'channel': 10, 'blc': [113,109], 'trc': [141,136]} )
+             zoom={'channel': 10, 'blc': [113,109], 'trc': [141,136]} )
    
    To make an overlay of a raster image (ngc5921.clean.image) with a
    contour map of the same image (ngc5921.clean.image). Data ranges,
@@ -182,30 +160,33 @@ Examples
    
    ::
    
-      imview(raster={'file': 'ngc5921.clean.image', 'range':
-      [-0.01,0.03], 'colormap': 'Hot Metal 2', 'scaling': -1},
-      contour={'file': 'ngc5921.clean.image'},
-      axes={'x':'Declination'}, zoom={'channel': 7, 'blc': [75,75],
-      'trc': [175,175], 'coord': 'pixel'}, out='myout.png')
+      imview(raster={'file': 'ngc5921.clean.image', 'range': [-0.01,0.03],
+                     'colormap': 'Hot Metal 2', 'scaling': -1},
+             contour={'file': 'ngc5921.clean.image'},
+             axes={'x':'Declination'}, zoom={'channel': 7, 'blc': [75,75],
+                   'trc': [175,175], 'coord': 'pixel'},
+             out='myout.png')
    
    Same as the previous example, but with an integral zoom level and
    no output to a file:
    
    ::
    
-      imview(raster={'file': 'ngc5921.clean.image', 'range':
-      [-0.01,0.03], 'colormap': 'Hot Metal 2'},contour={'file':
-      'ngc5921.clean.image'}, axes={'x':'Declination'}, zoom=2)
+      imview(raster={'file': 'ngc5921.clean.image', 'range': [-0.01,0.03],
+                     'colormap': 'Hot Metal 2'},
+             contour={'file': 'ngc5921.clean.image'},
+             axes={'x':'Declination'},
+             zoom=2)
    
    Here, the contour levels are explicitely given, and a region file
    is used to define the zoom area:
    
    ::
    
-      imview(raster={'file': 'ngc5921.clean.image', 'range':
-      [-0.01,0.03], 'colormap': 'Hot Metal 2'}, contour={'file':
-      'ngc5921.clean.image', 'levels': [-0.2, 0.2, 0.25, 0.3, 0.35,
-      0.4, 0.6, 0.8] }, zoom='myregion.rgn')
+      imview(raster={'file': 'ngc5921.clean.image', 'range': [-0.01,0.03],
+                     'colormap': 'Hot Metal 2'},
+             contour={'file': 'ngc5921.clean.image', 'levels': [-0.2, 0.2, 0.25, 0.3, 0.35, 0.4, 0.6, 0.8] },
+             zoom='myregion.rgn')
    
    Specifying zoom={'file': 'myregion.rgn', 'channel': 10} would
    result in the same level of zoom and would display channel number
@@ -215,8 +196,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

@@ -58,7 +58,7 @@ Description
    *gwidth* and *jwidth* allow integer, float, or string values,
    where the string would be a number plus unit.  The default
    values for *gwidth* and *jwidth* are taken from Mangum, et al.
-   2007 `[1] <#cit1>`__ . The formula for 'GAUSS' and 'GJINC' are
+   2007 [1]_ . The formula for 'GAUSS' and 'GJINC' are
    taken from Table 1 in the paper, and are written as follows
    using *gwidth* and *jwidth*:
 
@@ -96,11 +96,7 @@ Description
 
    .. rubric:: Bibliography
 
-
-   .. _cit1:
-
-   `1. Mangum, et al. 2007, A&A, 474, 679
-   (` `ADS <https://ui.adsabs.harvard.edu/abs/2007A%26A...474..679M/abstract>`__ `)`
+   .. [1] Mangum, et al. 2007, A&A, 474, 679 `ADS <https://ui.adsabs.harvard.edu/abs/2007A%26A...474..679M/abstract>`__
 
 
 .. _Examples:
@@ -148,7 +144,5 @@ Examples
 .. _Development:
 
 Development
-   Here would be a discussion of how applycal is implemented.  This
-   is intended for the other members of the development team so is a
-   technical discussion.  We will work on building these up over
-   time.
+   No additional development details
+

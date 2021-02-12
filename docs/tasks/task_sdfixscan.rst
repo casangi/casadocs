@@ -6,11 +6,11 @@ Description
    Task **sdfixscan** is used to remove a striping pattern generated
    along the scan direction in raster scan data. By default, the
    scanning noise is removed using the FFT-based 'Basket-Weaving'
-   method :ref:`[1] <cit1>` that requires multiple images observed over
+   method [1]_ that requires multiple images observed over
    exactly the same area with a different scanning direction. When
    doing 'Basket-Weaving', you can mask small structures and protect
    them using the *maskwidth* parameter. If only one image is
-   available, the 'Pressed-out' method :ref:`[2] <cit2>` can be used to
+   available, the 'Pressed-out' method [2]_ can be used to
    remove the scanning effect.
 
    For 'Basket-Weaving', scans must have been conducted in at least
@@ -70,17 +70,9 @@ Description
 
    .. rubric:: Bibliography
 
+   .. [1] Emerson & Grave 1988, A&A, 190, 353 `ADS <https://ui.adsabs.harvard.edu/abs/1988A%26A...190..353E/abstract>`__
 
-   .. _cit1:
-
-   `1. Emerson & Grave 1988, A&A, 190, 353
-   (` `ADS <https://ui.adsabs.harvard.edu/abs/1988A%26A...190..353E/abstract>`__ `)`
-
-
-   .. _cit2:
-
-   `2. Sofue & Reich 1979, A&AS, 38, 251
-   (` `ADS <https://ui.adsabs.harvard.edu/abs/1979A%26AS...38..251S/abstract>`__ `)`
+   .. [2] Sofue & Reich 1979, A&AS, 38, 251 `ADS <https://ui.adsabs.harvard.edu/abs/1979A%26AS...38..251S/abstract>`__
 
 
 .. _Examples:
@@ -100,7 +92,6 @@ Examples
 
    Example for  'Pressed-out'
 
-
    ::
 
       sdfixscan(mode='model', infiles='scan_0deg.im', direction=90., smoothsize='100arcsec', outfile='press_0.im')
@@ -109,4 +100,5 @@ Examples
 .. _Development:
 
 Development
-   None
+   No additional development details
+
