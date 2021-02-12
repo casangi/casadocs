@@ -220,6 +220,22 @@ pipeline processing for huge dataset.
         <value>False</value>
     </param>
 
+    <param name="updateweight" type="bool">
+        <shortdescription>update WEIGHT column [True, False]</shortdescription>
+        <description>update WEIGHT column based on sigmavalue computed over unmasked range</description>
+        <value>False</value>
+    </param>
+
+    <param subparam="true" name="sigmavalue" type="string">
+        <shortdescription>value used for computing weight</shortdescription>
+        <description>value used for computing weight</description>
+        <value>stddev</value>
+        <allowed kind="enum">
+            <value>stddev</value>
+            <value>rms</value>
+        </allowed>
+    </param>
+
     <param name="showprogress" type="bool">
         <shortdescription>(NOT SUPPORTED YET) show progress status for large data [True, False] (NOT SUPPORTED YET)</shortdescription>
         <description>(NOT SUPPORTED YET) show progress status for large data</description>
@@ -291,6 +307,12 @@ pipeline processing for huge dataset.
                 <equals value="variable">
                         <default param="blparam"><value type="string"/></default>
                         <default param="verbose"><value>False</value></default>
+                </equals>
+            </when>
+            <when param="updateweight">
+                <equals value="False" type="bool"/>
+                <equals value="True" type="bool">
+                        <default param="sigmavalue"><value type="string">stddev</value></default>
                 </equals>
             </when>
             <when param="showprogress">
@@ -547,6 +569,16 @@ blfunc -- baseline model function. In cases blmode='apply' or blparam is
            not output to the CASA logger.
             options: (bool) True, False
             default: False
+updateweight -- update WEIGHT column of output MS based on sigmavalue
+                computed over unmasked ranges of post-subtraction 
+                spectra for each row. Note that SIGMA_SPECTRUM and 
+                WEIGHT_SPECTRUM columns are removed if they exist.
+        options: (bool) True, False
+        default: False
+    &gt;&gt;&gt; updateweight expandable parameter
+        sigmavalue -- value used to compute weight as 1/(sigmavalue)^2
+                 options: stddev, rms
+                 default: stddev
 showprogress -- (NOT SUPPORTED YET) show progress status for large data
         options: (bool) False (this capability is currently unavailable.)
         default: False
@@ -636,3 +668,4 @@ example:
 </task>
 
 </casaxml>
+
