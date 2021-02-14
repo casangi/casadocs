@@ -12,8 +12,8 @@ Description
       CASA is experimental. Please use at own discretion.
    
       The scope of parameters that has been tested for CASA 5.7/6.1 can
-      be found on the CASA Docs chapter page on " `Joint Single Dish
-      and Interferometer Image Reconstruction <../../notebooks/imaging.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`_ "
+      be found on the CASA Docs chapter page on  `Joint Single Dish
+      and Interferometer Image Reconstruction <../../notebooks/image_combination.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`_
 
    Interferometer data are gridded into an image cube (and
    corresponding PSF). The single dish image and PSF cubes are
@@ -34,8 +34,8 @@ Description
 
    A more detailed description of the underlying algorithm, as well
    as results from its testing, can be found on the CASA Docs chapter
-   page on "`Joint Single Dish and Interferometer Image
-   Reconstruction <../../notebooks/imaging.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`_".
+   page on `Joint Single Dish and Interferometer Image
+   Reconstruction <../../notebooks/image_combination.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`_.
    Note that the above diagram shows only the 'mtmfs' variant. Cube
    deconvolution proceeds directly with the cubes in the green box
    above, without the extra conversion back and forth to the
@@ -248,9 +248,9 @@ Description
 
    -  A high sdgain value ( > 1.0 ) has been demonstrated to
       emphasize extended emission without changing the high
-      resolution structure (see the ALMA M100 example in the "`Joint
+      resolution structure (see the ALMA M100 example in the `Joint
       Single Dish and Interferometer Image
-      Reconstruction <../../notebooks/imaging.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`_"
+      Reconstruction <../../notebooks/image_combination.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`__
       page).   However, when using a high sdgain, please remember to
       monitor the shape of the joint PSF to look for signs of angular
       resolution loss due to weighting the SD data much too high. 
@@ -384,9 +384,9 @@ Description
    
 
    For more information and examples on the functionality of the
-   sdintimaging task, see the CASA Docs chapter page on " `Joint
+   sdintimaging task, see the CASA Docs chapter page on `Joint
    Single Dish and Interferometer Image
-   Reconstruction <../../notebooks/image_combination.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`__ "
+   Reconstruction <../../notebooks/image_combination.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`__
    
    .. |image1| image:: _apimedia/c914c39a74a69699c2ae1d84231e2133af6d7081.png
    
@@ -443,9 +443,9 @@ Examples
 Development
    This page gives an overview of the code design and future
    development work that needs to be done. Detailed information on
-   the algorithm can be found on the chapter page on "`Joint Single
+   the algorithm can be found on the chapter page on `Joint Single
    Dish and Interferometer Image
-   Reconstruction <../../notebooks/image_combination.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`__",
+   Reconstruction <../../notebooks/image_combination.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`__,
    while a description of the **sdintimaging** task and associated
    parameters can be found on the
    `sdintimaging <../../api/casatasks.rst>`__
