@@ -54,6 +54,8 @@ Description
    in the *FLAG_ROW* column is not counted in the number of unflagged
    rows.
    
+   **WARNING** *:* The *'listfile'* is adjusted for visual/manual inspection but not for precise programmatic use in scripts. Values in the listfile have been processed and formatted, and some of the original information has been lost and/or distorted. For this reason, if a user or script needs some particular values from the MS, those values should be taken form the dict rather than taking them manually (or loading them with a parser) from the text file. The dictionary values are floating point values in IEEE double precision (decimal) format, reflecting the real machine precision. 
+   
 
 .. _Examples:
 
@@ -102,6 +104,9 @@ Examples
                                                                   'IntegrationTime': 3.023999999999993,
                                                                   'SpwIds': np.array([0, 1], dtype=np.int32),
                                                                   'StateId': 5, 'nRow': 360, 'scanId': 2}}, 'timeref': 'UTC'}}
+                                                                  
+         *Note: Time is provided in Modified Julian Date. The CASA/casacore reference epoch (0 time)*
+         *for timestamps in MeasurementSets is always the MJD epoch (1858/11/17).*
    
 
 .. _Development:
