@@ -91,6 +91,20 @@ Description
    fit.
 
 
+   .. rubric:: Update Weight
+
+   Setting the parameter *updateweight = True*, the WEIGHT column is
+   updated as 1/(stddev^2) or 1/(RMS^2) of each baseline-subtracted
+   spectrum, depending on the parameter *sigmavalue*. The calculation
+   is done with unflagged channels only.
+
+   Note that the SIGMA column is not updated; it keeps the values of
+   the input MS data. In case the user wants to refer to the
+   standard deviation of the output MS data, she or he needs to
+   compute it using WEIGHT column values as 1/sqrt(WEIGHT) - the
+   SIGMA column should not be refered to.
+
+
 .. _Examples:
 
 Examples
@@ -140,6 +154,17 @@ Examples
       0,0,100~750;1250~1900,0,3.,false,0.,0,0,0,chebyshev,2,0,[]
       0,1,,0,3.,false,0.,0,0,0,chebyshev,0,0,[]
       1,0,0~500;1500~2000,0,3.,false,0.,0,0,0,poly,1,0,[]
+
+   .. rubric::   Example 4
+
+   This is an example of fitting and subtracting a polynomial
+   baseline, and also updating the WEIGHT column of the output MS
+   'sd_data.ms.bl' as 1/(RMS^2).
+
+   ::
+
+      sdbaseline(infile='sd_data.ms', blfunc='poly', updateweight=True, sigmavalue='rms',
+                 outfile='sd_data.ms.bl', overwrite=True)
 
 
 .. _Development:
