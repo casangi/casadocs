@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   Convert a CASA visibility data set to a UVFITS file
-   
    The task **exportuvfits** takes a MeasurementSet and exports it to
    a UVFITS format file.
    
@@ -91,7 +89,7 @@ Description
 .. _Examples:
 
 Examples
-    # create a uvfits file from an MS, overwriting the output file if
+   Create a uvfits file from an MS, overwriting the output file if
    it already exists.
    
    ::
@@ -103,10 +101,5 @@ Examples
 .. _Development:
 
 Development
-   --CASA Developer--
-   
-   Here would be a discussion of how applycal is implemented.  This
-   is intended for the other members of the development team so is a
-   technical discussion.  We will work on building these up over
-   time.
-   
+   No additional development details
+

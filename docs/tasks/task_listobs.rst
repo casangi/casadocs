@@ -3,14 +3,11 @@
 .. _Description:
 
 Description
-   listobs task: List the summary of a data set in the logger or in a
-   file
-   
    This task reports various metadata related to an MS. The listing is
    sent to the logger or can be saved to a file. Standard MS selection
    parameters can be used to limit the listing (see `Visibility Data
    Selections
-   <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__
+   <../../notebooks/visibility_data_selection.ipynb>`__
    for details). The task also returns a dictionary with the metadata;
    see Examples for the content and structure of the dictionary. Note
    that the dictionary does not include antenna related metadata, as
@@ -39,12 +36,9 @@ Description
    
    Note: The 'Average Interval (s)' column in the scan table is the
    average of the MS's *INTERVAL* column for each scan.
+
    
-    
-   
-   .. rubric:: Description of algorithm to calculate the number of
-      unflagged rows
-      
+   .. rubric:: Description of algorithm to calculate the number of unflagged rows
    
    The number of unflagged rows is only computed and reported in the
    scan and field table if *listunfl=True*. Computing these
@@ -60,69 +54,63 @@ Description
    in the *FLAG_ROW* column is not counted in the number of unflagged
    rows.
    
+   **WARNING** *:* The *'listfile'* is adjusted for visual/manual inspection but not for precise programmatic use in scripts. Values in the listfile have been processed and formatted, and some of the original information has been lost and/or distorted. For this reason, if a user or script needs some particular values from the MS, those values should be taken form the dict rather than taking them manually (or loading them with a parser) from the text file. The dictionary values are floating point values in IEEE double precision (decimal) format, reflecting the real machine precision. 
+   
 
 .. _Examples:
 
 Examples
-   task examples
+   ::
+   
+      # generate standard listobs listing
+      listobs(vis="my.ms")
    
    ::
    
-      | # generate standard listobs listing
-      | listobs(vis="my.ms")
+      # generate listobs listing with more detail
+      listobs(vis="my.ms", verbose=True)
    
    ::
    
-      | # generate listobs listing with more detail
-      | listobs(vis="my.ms", verbose=True)
+      # save the listobs output into a text file
+      listobs(vis="my.ms", verbose=True, listfile="my.listobs.out")
    
    ::
    
-      | # save the listobs output into a text file
-      | listobs(vis="my.ms", verbose=True, listfile="my.listobs.out")
+      # Get metadata and print it
+      metadata = listobs(vis="uid__X02_X3d737_X1_01_small.ms")
+      print(metadata)
    
    ::
    
-      | # Get metadata and print it
-      | metadata = listobs(vis="uid__X02_X3d737_X1_01_small.ms")
-      | print(metadata)
-   
-   ::
-   
-      | {'BeginTime': 55248.126073333326, 'EndTime':
-        55248.130800000006, 'IntegrationTime': 408.38400173187256,
-      |  'field_0': {'code': 'none',
-      |    'direction':
-      |       {'m0': {'unit': 'rad', 'value': 1.4433872913993107},
-      |        'm1': {'unit': 'rad', 'value': 0.2361430477948328},
-      |       'refer': 'J2000', 'type': 'direction'},
-      |    'name': 'J0530+135'},
-      |  'field_1': {'code': 'none',
-      |    'direction':
-      |       {'m0': {'unit': 'rad', 'value': 0.0},
-      |        'm1': {'unit': 'rad', 'value': 0.0},
-      |       'refer': 'J2000', 'type': 'direction'},
-      |    'name': 'Mars'},
-      |  'nfields': 2, 'numrecords': 1080,
-      |  'scan_1': {'0': {'BeginTime': 55248.126073333326, 'EndTime':
-        55248.12846666667, 'FieldId': 0, 'FieldName': 'J0530+135',
-        'IntegrationTime': 3.0240000000000187, 'SpwIds': np.array([0,
-        1], dtype=np.int32), 'StateId': 0, 'nRow': 600, 'scanId':
-        1}},
-      |  'scan_2': {'0': {'BeginTime': 55248.12877055556, 'EndTime':
-        55248.13014111111, 'FieldId': 1, 'FieldName': 'Mars',
-        'IntegrationTime': 3.023999999999993, 'SpwIds': np.array([0,
-        1], dtype=np.int32), 'StateId': 5, 'nRow': 360, 'scanId':
-        2}},
-      |  'timeref': 'UTC'}
-      | }
+      {'BeginTime': 55248.126073333326, 'EndTime': 55248.130800000006, 'IntegrationTime': 408.38400173187256,
+       'field_0': {'code': 'none', 'direction': {'m0': {'unit': 'rad', 'value': 1.4433872913993107},
+                                                 'm1': {'unit': 'rad', 'value': 0.2361430477948328},
+                                                 'refer': 'J2000', 'type': 'direction'},
+                                                 'name': 'J0530+135'},
+                                                 'field_1': {'code': 'none',
+                                                             'direction': {'m0': {'unit': 'rad', 'value': 0.0},
+                                                             'm1': {'unit': 'rad', 'value': 0.0},
+                                                             'refer': 'J2000', 'type': 'direction'},
+                                                             'name': 'Mars'},
+                                                 'nfields': 2, 'numrecords': 1080,
+                                                 'scan_1': {'0': {'BeginTime': 55248.126073333326,
+                                                                  'EndTime': 55248.12846666667, 'FieldId': 0,
+                                                                  'FieldName': 'J0530+135', 'IntegrationTime': 3.0240000000000187,
+                                                                  'SpwIds': np.array([0, 1], dtype=np.int32),
+                                                                  'StateId': 0, 'nRow': 600, 'scanId': 1}},
+                                                 'scan_2': {'0': {'BeginTime': 55248.12877055556, 'EndTime': 55248.13014111111,
+                                                                  'FieldId': 1, 'FieldName': 'Mars',
+                                                                  'IntegrationTime': 3.023999999999993,
+                                                                  'SpwIds': np.array([0, 1], dtype=np.int32),
+                                                                  'StateId': 5, 'nRow': 360, 'scanId': 2}}, 'timeref': 'UTC'}}
+                                                                  
+         *Note: Time is provided in Modified Julian Date. The CASA/casacore reference epoch (0 time)*
+         *for timestamps in MeasurementSets is always the MJD epoch (1858/11/17).*
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

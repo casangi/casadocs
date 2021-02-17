@@ -3,26 +3,21 @@
 .. _Description:
 
 Description
-   task description
-   
    makemask manages Boolean masks in an image, converts and regrids
    Boolean to value-based masks (and vice versa), stretches
    single-plane masks to cubes, and generates masks from CASA region
    files. Detailed background information on masks, and examples on
    how to create them, can be found in the CASA Docs Chapter pages
    on `image
-   masks <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/image-masks>`__ (image
+   masks <../../notebooks/image_analysis.ipynb#Image-Masks>`__ (image
    analysis) and `masks for
-   deconvolution <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/masks-for-deconvolution>`__ (synthesis
+   deconvolution <../../notebooks/synthesis_imaging.ipynb#Masks-for-Deconvolution>`__ (synthesis
    imaging).
-   
-    
+
    
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: *mode*
-      
+   *mode*
    
    Mask method to use by makemask task. Below are the allowed
    values: 
@@ -45,8 +40,7 @@ Description
    processing, the mask will be re-gridded to the output coordinate
    system.
    
-   .. rubric:: inpimage
-      
+   *inpimage*
    
    Name of input image to use as a reference for the output
    coordinates (if output does not exist). Also used as a reference
@@ -56,15 +50,12 @@ Description
    and the regions specified in inpmask are merged (if multiple
    regions specified) and treated as a valid region, therefore will
    be UNMASKED in output.
+
    
-    
+   .. rubric:: Expandable parameters for mode='copy', 'expand', 'delete' and 'setdefaultmask':
+
    
-   .. rubric:: Expandable parameters for mode='copy', 'expand',
-      'delete' and 'setdefaultmask':
-      
-   
-   .. rubric:: inpmask
-      
+   *inpmask*
    
    Name(s) of input mask(s).The default is set to inpmask='', for
    when no mask is given. To specify an image (zero/non-zero) mask,
@@ -79,8 +70,7 @@ Description
    The regions can be specified directly in the CASA region format or
    in the text file(s) contains the regions.
    
-   .. rubric:: output
-      
+   *output*
    
    Name of output image (no default value). Ifthe output is a plain
    image name, the resultant mask is written as an image (zero/one)
@@ -109,8 +99,7 @@ Description
       internal mask is translated to the pixels with value of 0 in
       output image mask.
    
-   .. rubric:: overwrite
-      
+   *overwrite*
    
    Overwrite the mask specified in output (see also the output rules
    above). The default value is False.
@@ -118,14 +107,11 @@ Description
    .. note:: NOTE: For a cube mask, overwrite=True generally overwrites in
       the specified channel planes only and so any pre-existed masks
       in other channels will be remain untouched.
-   
-    
+
    
    .. rubric:: Additional expandable parameters for mode='expand'
-      
    
-   .. rubric:: inpfreqs
-      
+   *inpfreqs*
    
    Input channel/frequency/velocity range. Specify channels in a list
    of integers. For frequency/velocity, a range is specified in a
@@ -139,8 +125,7 @@ Description
       then the range will be, e.g. '1.6MHz~1.5MHz' or
       '-14km/s~-8km/s'.
    
-   .. rubric:: outfreqs
-      
+   *outfreqs*
    
    Output channel/frequency/velocity range. Specify same way as
    inpfreqs. The default is all channels.
@@ -149,16 +134,13 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    (1) list mode: prints out a list of the internal mask(s) that
    exist in mymask.im to the log
    
    ::
    
       makemask(mode='list', inpimage='mymask.im')
-   
-    
+
    
    (2) copy mode: Regrid a Boolean (True/False) mask from one
    coordinate system to another and save as Boolean mask in the
@@ -167,9 +149,8 @@ Examples
    ::
    
       makemask(mode='copy', inpimage='oldmask.im',
-      inpmask='oldmask.im:mask0', output='newmask.im:mask0')
-   
-    
+               inpmask='oldmask.im:mask0', output='newmask.im:mask0')
+
    
    (3) copy mode: Same as (2), but save as integer (one/zero) mask in
    the output image.
@@ -177,14 +158,13 @@ Examples
    ::
    
       makemask(mode='copy', inpimage='oldmask.im',
-      inpmask='oldmask.im:mask0', output='newmask.im')
+               inpmask='oldmask.im:mask0', output='newmask.im')
    
    mask0 is translated so that pixels in oldmask.im that appears as
    'masked' in the viewer orhas the pixel mask value = False when
    extracted in imval, are to have pixel value of 1 inthe output
    image, newmask.im.
-   
-    
+
    
    (4) copy mode: Convert a Boolean mask to an integer mask in the
    same image
@@ -192,9 +172,8 @@ Examples
    ::
    
       makemask(mode='copy', inpimage='oldmask.im',
-      inpmask='oldmask.im:mask0', output='', overwrite=True)
-   
-    
+               inpmask='oldmask.im:mask0', output='', overwrite=True)
+
    
    (5) copy mode: Convert an integer mask to a Boolean mask in the
    same image
@@ -202,9 +181,8 @@ Examples
    ::
    
       makemask(mode='copy', inpimage='oldmask.im',
-      inpmask='oldmask.im', output='oldmask.im:mask0')
-   
-    
+               inpmask='oldmask.im', output='oldmask.im:mask0')
+
    
    (6) copy mode: Copy a CRTF mask defined in mybox.txt to a Boolean
    mask in a new image
@@ -212,12 +190,11 @@ Examples
    ::
    
       makemask(mode='copy', inpimage='image1.im',
-      inpmask='mybox.txt', output='image2.im:mask0')
+               inpmask='mybox.txt', output='image2.im:mask0')
    
    The pixel values of image1.im will be copied to image2.im and the
    region outside mybox.txt will be masked.
-   
-    
+
    
    (7) copy mode: Apply a region defined in a CRTF file to mask part
    of an image
@@ -225,12 +202,11 @@ Examples
    ::
    
       makemask(mode='copy', inpimage='image1.im',
-      inpmask='myregion.crtf', output='image1.im:mask0')
+               inpmask='myregion.crtf', output='image1.im:mask0')
    
    The region is copied as a Boolean mask (mask0) inside the image,
    image1.im. The region outside myregion.crtf will be masked.
-   
-    
+
    
    (8) copy mode:Merge integer andBoolean masks, using the input
    coordinate-sys of inpimage and saving in a new output file.
@@ -255,10 +231,9 @@ Examples
    ::
    
       makemask(mode='copy', inpimage='image1.im',
-      inpmask=['image1.im', image1.im:mask0','image2.mask:mask1',
-      'circle[[15pix , 15pix] ,8pix ]'], output='newmask.im)
-   
-    
+               inpmask=['image1.im', image1.im:mask0','image2.mask:mask1',
+                        'circle[[15pix , 15pix] ,8pix ]'], output='newmask.im)
+
    
    (9) expand mode: Expand an integer mask from continuum imaging to
    use as an input mask image for spectral line imaging. Use an
@@ -269,10 +244,9 @@ Examples
    ::
    
       makemask(mode='expand', inpimage='spec.clean.image',
-      inpmask='cont.clean.mask' outfreqs=[4,5,6,7],
-      output='spec.clean.mask')
-   
-    
+               inpmask='cont.clean.mask' outfreqs=[4,5,6,7],
+               output='spec.clean.mask')
+
    
    (10) expand mode: Expand a Boolean mask from one range of channels
    to another range in the same image.
@@ -280,10 +254,9 @@ Examples
    ::
    
       makemask(mode='expand', inpimage='oldmask.im',
-      inpmask='oldmask.im:mask0', inpfreqs=[5,6],
-      outfreqs=[4,5,6,7],output='oldmask.im:mask0', overwrite=True)
-   
-    
+               inpmask='oldmask.im:mask0', inpfreqs=[5,6],
+               outfreqs=[4,5,6,7],output='oldmask.im:mask0', overwrite=True)
+
    
    (11) expand mode: Expand a Boolean mask from a range of channels
    in the input image to another range of channels in a different
@@ -302,27 +275,25 @@ Examples
    ::
    
       makemask(mode='expand', inpimage='bigmask.im',
-      inpmask='smallmask.im:mask0', inpfreqs='1.5MHz~1.6MHz',
-      outfreqs='1.2MHz~1.8MHz', output='bigmask.im', overwrite=True)
+               inpmask='smallmask.im:mask0', inpfreqs='1.5MHz~1.6MHz',
+               outfreqs='1.2MHz~1.8MHz', output='bigmask.im', overwrite=True)
    
    or to specify the ranges in velocities,
    
    ::
    
       makemask(mode='expand', inpimage='bigmask.im',
-      inpmask='smallmask.im:mask0', inpfreqs=4.0km/s~0.5km/s',
-      outfreqs='6.5km/s~-2.4km/s', output='bigmask.im',
-      overwrite=True)
-   
-    
+               inpmask='smallmask.im:mask0', inpfreqs=4.0km/s~0.5km/s',
+               outfreqs='6.5km/s~-2.4km/s', output='bigmask.im',
+               overwrite=True)
+
    
    (12) delete mode: Delete an internal mask from an image.
    
    ::
    
       makemask(mode='delete', inpmask='newmask.im:mask0')
-   
-    
+
    
    (13) setdefaultmask mode: Set an internal mask as a default
    internal mask.
@@ -335,8 +306,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

@@ -51,7 +51,6 @@ Description
    performed, output pixels are masked where the interpolation fails.
    
    .. rubric:: ANCHORING THE GRID
-      
    
    The user may choose at which pixel to *anchor* the grid. For
    example, if one specifies *grid=[4,4]* and *anchor=[0,0]*, grid
@@ -64,7 +63,6 @@ Description
    if necessary.
    
    .. rubric:: SUPPORTED STATISTICS AND STATISTICS ALGORITHMS
-      
    
    One may specify which statistic should be represented using the
    *stattype* parameter. The following values are recognized (minimum
@@ -99,123 +97,98 @@ Description
    algorithm to compute the desired statistic (see the help for
    **ia.statistics** or **imstat** for a full description of these
    algorithms; see `this
-   page <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/mathematical-operation-on-images-and-image-statistics>`__
+   page <../../notebooks/image_analysis.ipynb#Math-Operations-/-Statistics>`__
    for further information on Operations and Statistics on CASA
    images).
    
-    
-   
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: *imagename*
-      
+   *imagename*
    
    The name of the input image that **imdev** will use.
    
-   .. rubric:: *outfile*
-      
+   *outfile*
    
    Output image file name. If left blank (the default), no image is
    written but a new image tool referencing the collapsed image is
    returned.
    
-   .. rubric:: *region*
-      
+   *region*
    
    Region selection. Default is to use the full image.
    
-   .. rubric:: *box*
-      
+   *box*
    
    Rectangular region(s) to select in direction plane. Default is to
    use the entire direction plane.
    
-   .. rubric:: *chans*
-      
+   *chans*
    
    Channels from the input image to use. Default is to use all
    channels.
    
-   .. rubric:: *stokes*
-      
+   *stokes*
    
    Stokes planes to use. Default is to use all Stokes planes.
    
-   .. rubric:: *mask*
-      
+   *mask*
    
    Mask to use. Default setting is none.
    
    .. rubric:: *mask* expandable parameters
-      
    
-   .. rubric:: *stretch*
-      
+   *stretch*
    
    Stretch the mask if necessary and possible. Default value is
    False.
-   
-    
-   
-   .. rubric:: *overwrite*
-      
-   
+
+   *overwrite*
+
    Overwrite (unprompted) pre-existing output file. Ignored if
    *outfile* is left blank.
    
-   .. rubric:: *grid*
-      
+   *grid*
    
    x,y grid spacing. Array of exactly two positive integers.
    
-   .. rubric:: *anchor*
-      
+   *anchor*
    
    x,y anchor pixel location. Either "ref" to use the image reference
    pixel, or an array of exactly two integers.
    
-   .. rubric:: *xlength*
-      
+   *xlength*
    
    Either x coordinate length of box, or diameter of circle. Circle
    is used if *ylength* is empty string.
    
-   .. rubric:: *ylength*
-      
+   *ylength*
    
    y coordinate length of box. Use a circle if *ylength* is empty
    string.
    
-   .. rubric:: *interp*
-      
+   *interp*
    
    Interpolation algorithm to use. One of "nearest", "linear",
    or "cubic". Minimum match supported.
    
-   .. rubric:: *stattype*
-      
+   *stattype*
    
    Statistic to compute. Accepted values discussed in the section
    above.
    
-   .. rubric:: *statalg*
-      
+   *statalg*
    
    Statistics computation algorithm to use. Supported values are
    "chauvenet" and "classic", Minimum match is supported.
    
    .. rubric:: *statalg='chauvenet'* expandable parameters
-      
-   
-   .. rubric:: *zscore*
-      
+
+   *zscore*
    
    This is the target maximum number of standard deviations data may
    have to be included. If negative, use Chauvenet"s criterion.
    
-   .. rubric:: *maxiter*
-      
+   *maxiter*
    
    This is the maximum number of iterations to attempt. Iterating
    will stop when either this limit is reached, or the *zscore*
@@ -226,8 +199,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    Compute standard deviations in circles of diameter 10arcsec around
    grid pixels spaced every 4 x 5 pixels and anchored at pixel [30,
    40], and use linear interpolation to compute values at
@@ -236,8 +207,8 @@ Examples
    ::
    
       imdev("my.im", "sigma.im", grid=[4, 5], anchor=[30, 40],
-      xlength="10arcsec", stattype="sigma", interp="lin",
-      statalg="cl")
+            xlength="10arcsec", stattype="sigma", interp="lin",
+            statalg="cl")
    
    Compute median of the absolute deviations from the median values
    using the z-score/Chauvenet algorithm, by fixing the maximum
@@ -250,15 +221,12 @@ Examples
    ::
    
       imdev("my.im", "madm.im", grid=[4, 5], anchor=[30, 40],
-      xlength="5arcsec", ylength="20arcsec, stattype="madm",
-      interp="cub", statalg="ch", zscore=5)
+            xlength="5arcsec", ylength="20arcsec, stattype="madm",
+            interp="cub", statalg="ch", zscore=5)
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

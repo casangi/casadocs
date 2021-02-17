@@ -15,40 +15,32 @@ Description
    If the dataset does not yet have the scratch columns, they will be
    created (MODEL_DATA only if *addmodel=True*) and initilized for
    the whole dataset. In this case, the arguments *field*, *spw*, and
-   *intent* will be ignored.  
-   
-    
+   *intent* will be ignored.
    
    .. rubric:: Parameters
-      
-   
-   .. rubric:: *vis*
-      
-   
+
+   *vis*
+
    Name of input visibility file.
    
-   .. rubric:: *field*
-      
-   
+   *field*
+
    Standard selection of fields using the field id(s) or field
    name(s).
    
-   .. rubric:: *spw*
-      
+   *spw*
    
    Standard selection of spectral windows.
    
    .. note:: **NOTE:** Multiple channel ranges per spw are not supported in
       **clearcal**.
    
-   .. rubric:: *intent*
-      
-   
+   *intent*
+
    Select observing intent. For example, *intent='*BANDPASS*'* 
    selects data labelled with BANDPASS intent.
    
-   .. rubric:: *addmodel*
-      
+   *addmodel*
    
    If True, add a MODEL_DATA column along with CORRECTED_DATA column.
    If False, only the CORRECTED_DATA will be added and reset, model
@@ -59,8 +51,6 @@ Description
 .. _Examples:
 
 Examples
-   task clearcal examples
-   
    To reinitialize the CORRECTED_DATA and fill the column with the
    (original) observed DATA, and in addition also add a MODEL_DATA
    column that is set to unity in total intensity and zero in
@@ -80,8 +70,5 @@ Examples
 .. _Development:
 
 Development
-   task clearcal developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

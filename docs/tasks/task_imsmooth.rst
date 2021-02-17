@@ -3,41 +3,31 @@
 .. _Description:
 
 Description
-   imsmooth task: Smooth an image or portion of an image
-   
    This task performs a Fourier-based convolution to 'smooth' the
    direction plane of an image. Smoothing is typically performed in
    order to reduce the noise in an image.
    
-   | A deconvolved image :math:`\bf{I}` can be smoothed to a target
-     resolution by convolving it with a `Gaussian
-     beam <https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/definition_synthesized_beam>`__
-     :math:`\bf{B}_{\rm tar}`. If the image is already convolved with
-     another smaller beam :math:`\bf{B}_{\rm cur}` a correcting beam 
-     :math:`\bf{B}_{\rm cor}` can be calculated so that
-   | 
-   
-     .. math:: \begin{align} \bf{B}_{\rm tar} * \bf{I} = \bf{B}_{\rm cor} * (\bf{B}_{\rm cur} * \bf{I}),  \end{align}
-   | where :math:`*` is the convolution operator.  The Fourier
-     transform of the above equation is
-   | 
-   
-     .. math:: \begin{align} \bf{B}_{\rm tar}^f  \bf{I}^f = \bf{B}_{\rm cor}^f  (\bf{B}_{\rm cur}^f  \bf{I}^f), \end{align}
-   | where the superscript :math:`f` indicates the Fourier transform.
-     The correcting beam can then be obtained by
-   | 
-   
-     .. math:: \begin{align} \bf{B}_{\rm cor} = \mathcal{F}^{-1} \left( \frac{\bf{B}_{\rm tar}^f}{\bf{B}_{\rm cur}^f} \right). \end{align}
-   
-    
-   
+   A deconvolved image :math:`\bf{I}` can be smoothed to a target
+   resolution by convolving it with a `Gaussian
+   beam <../../notebooks/casa-fundamentals.ipynb#Definition-Synthesized-Beam>`__
+   :math:`\bf{B}_{\rm tar}`. If the image is already convolved with
+   another smaller beam :math:`\bf{B}_{\rm cur}` a correcting beam
+   :math:`\bf{B}_{\rm cor}` can be calculated so that
+
+   .. math:: \begin{align} \bf{B}_{\rm tar} * \bf{I} = \bf{B}_{\rm cor} * (\bf{B}_{\rm cur} * \bf{I}),  \end{align}
+   where :math:`*` is the convolution operator.  The Fourier
+   transform of the above equation is
+
+   .. math:: \begin{align} \bf{B}_{\rm tar}^f  \bf{I}^f = \bf{B}_{\rm cor}^f  (\bf{B}_{\rm cur}^f  \bf{I}^f), \end{align}
+   where the superscript :math:`f` indicates the Fourier transform.
+   The correcting beam can then be obtained by
+
+   .. math:: \begin{align} \bf{B}_{\rm cor} = \mathcal{F}^{-1} \left( \frac{\bf{B}_{\rm tar}^f}{\bf{B}_{\rm cur}^f} \right). \end{align}
+
    Below we provide details of how the task imsmooth implements this
    concept.
    
-   
-   
    .. rubric:: Gaussian Kernel
-      
    
    The direction pixels must be square. If they are not, use imregrid
    to regrid your image onto a grid of square pixels.
@@ -89,14 +79,12 @@ Description
    convolution kernel rescaling is done.
    
    .. rubric:: Boxcar Kernel
-      
    
    *major* is the length of the box along the y-axis, and *minor* is
    length of the box along the x-axis. *pa* is not used and beam
    should not be specified. The value of *targetres* is not used.
    
    .. rubric:: General
-      
    
    The *major, minor,* and *pa* parameters can be specified in one of
    three ways:
@@ -114,7 +102,6 @@ Description
    units.
    
    .. rubric:: Image Kernel
-      
    
    If *kernel="i"* or *"image"*, the image specified by *kimage* is
    used to convolve the input image. The coordinate system of the
@@ -144,37 +131,27 @@ Description
 .. _Examples:
 
 Examples
-   task examples
+   ::
+   
+      # smoothing with a gaussian kernel 20arseconds by 10 arseconds
+      imsmooth(imagename='my.image', kernel='gauss',
+               major='20arcsec', minor='10arcsec', pa="0deg")
    
    ::
    
-      | # smoothing with a gaussian kernel 20arseconds by 10
-        arseconds
-      | imsmooth( imagename='my.image', kernel='gauss',
-        major='20arcsec', minor='10arcsec', pa="0deg")
+      # the same as before, just a different way of specifying the kernel parameters
+      mybeam = {'major': '20arcsec', 'minor': '10arcsec', 'pa': '0deg'}
+      imsmooth( imagename='my.image', kernel='gauss', beam=mybeam)
    
    ::
    
-      | # the same as before, just a different way of specifying the
-        kernel parameters
-      | mybeam = {'major': '20arcsec', 'minor': '10arcsec', 'pa':
-        '0deg'}
-      | imsmooth( imagename='my.image', kernel='gauss', beam=mybeam)
-   
-   ::
-   
-      | # Smoothing using pixel coordinates and a boxcar kernel.
-      | imsmooth( imagename='new.image', major='20pix',
-        minor='10pix', kernel='boxcar')
-   
-   ::
-   
+      # Smoothing using pixel coordinates and a boxcar kernel.
+      imsmooth(imagename='new.image', major='20pix', minor='10pix', kernel='boxcar')
+
+
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

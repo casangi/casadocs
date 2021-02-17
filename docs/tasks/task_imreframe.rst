@@ -3,34 +3,27 @@
 .. _Description:
 
 Description
-   Changes the spectral reference frame of an image (cube).
-   
    The spectral values assigned to an object depend on the spectral
    reference frame. This task can change the frame in which the image
    reports its spectral values.
-   
-    
+
    
    .. rubric:: Parameter descriptions
-      
-   
-   .. rubric:: *imagename*
-      
+
+   *imagename*
    
    Name of the input image.
    
-   .. rubric:: *output*
-      
+   *output*
    
    Name of the output image. Default (no output) is to modify the
    input image.
    
-   .. rubric:: *outframe*
-      
+   *outframe*
    
    Spectral frame in which the frequency or velocity values will be
    reported by default. See `Spectral
-   Frames <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material/spectral-frames>`__
+   Frames <../../notebooks/memo-series.ipynb#Spectral-Frames>`__
    for more information on the frame definitions. 
    
    +-----------------------------------+-----------------------------------+
@@ -55,14 +48,12 @@ Description
    |                                   | dipole                            |
    +-----------------------------------+-----------------------------------+
    
-   .. rubric:: *epoch*
-      
+   *epoch*
    
    Epoch to be associated with this image (only with outframe='geo'
    or 'topo'). For example: '2000/12/25/18:30:00.10'.
    
-   .. rubric:: *restfreq*
-      
+   *restfreq*
    
    Rest-frequency to use for velocity value. For example:
    restfreq='1.420405752GHz' for the HI 21cm line of neutral
@@ -73,8 +64,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To change the spectral reference frame of an image
    ('linecube.image') to the Local Group reference frame using the
    rest-frequency values already stored in the original image, and
@@ -84,7 +73,7 @@ Examples
    ::
    
       imreframe(imagename='linecube.image',
-      output='linecube_new.image' outframe='lgroup')
+                output='linecube_new.image' outframe='lgroup')
    
    To change the spectral reference frame of an image that contains
    the NH 3 (1,1) line into the barycentric values, and overwrite
@@ -93,14 +82,11 @@ Examples
    ::
    
       imreframe(imagename='NH3_cube.image', outframe='bary',
-      restfreq='23.694496GHz')
+                restfreq='23.694496GHz')
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

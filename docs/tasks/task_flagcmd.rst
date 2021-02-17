@@ -3,13 +3,11 @@
 .. _Description:
 
 Description
-   task flagcmd description
-   
    The **flagcmd** task will flag the visibility data or the
    calibration table based on several batch-operations using flag
    commands. There is an extensive and detailed description of this
    task on the `Data Examination and Editing
-   chapter <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing>`__.
+   chapter <../../notebooks/data_examination.ipynb>`__.
    
    Flag commands follow the mode and parameter names from the
    **flagdata** task. Please refer to the **flagdata** task for a
@@ -35,9 +33,9 @@ Description
       use by flagcmd (not the recommended approach). Consider the use
       of the recommended task **flagdata** instead, as explained in
       the CASA Docs chapters on
-      `"importasdm" <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_importasdm>`__
+      `"importasdm" <../../api/casatasks.rst>`__
       and `"importing
-      uv-data" <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/visibility-data-import-export/uv-data-import>`__.
+      uv-data" <../../notebooks/visibilities_import_export.ipynb#UV-Data-Import>`__.
    
       **IMPORTANT**: The FLAG_CMD sub-table is meant only for
       meta-data selections such as online flags. Using it to save
@@ -76,14 +74,11 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    More examples of using the flagcmd task can be found
-   `here <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/flagging-based-on-a-list-of-commands-flagcmd>`__.
+   `here <../../notebooks/data_examination.ipynb#Flag-using-flagcmd>`__.
    
    .. rubric:: Use *inpmode='table'*
-      
-   
+
    Use *action='list'* first to see what is in the MS before doing
    anything else.
    
@@ -99,14 +94,14 @@ Examples
    ::
    
       flagcmd(vis='example.ms', inpmode='table', action='apply',
-      useapplied=False)
+              useapplied=False)
    
    To re-apply the flags stored in the FLAG_CMD table in the MS.
    
    ::
    
       flagcmd(vis='example.ms', inpmode='table', action='apply',
-      useapplied=True)
+              useapplied=True)
    
    To save flag commands from one MS to another without applying
    them. Flag commands will be copied from "other.ms" to the
@@ -115,14 +110,14 @@ Examples
    ::
    
       flagcmd(vis='example.ms', inpmode='table', inpfile='other.ms',
-      action='list')
+              action='list')
    
    To save flag commands from a file into the MS without applying.
    
    ::
    
       flagcmd(vis='example.ms', inpmode='list', inpfile='flags.txt',
-      action='list')
+              action='list')
    
    Select only certain rows from the FLAG_CMD table. Currently this
    must be a list of individual row numbers (0-based).
@@ -130,10 +125,10 @@ Examples
    ::
    
       flagcmd(vis='example.ms', inpmode='table', action='apply',
-      useapplied=False, tablerows=[0,1,2,3,10,11])
+              useapplied=False, tablerows=[0,1,2,3,10,11])
    
       flagcmd(vis='example.ms', inpmode='table', action='apply',
-      useapplied=False, tablerows=range(29))
+              useapplied=False, tablerows=range(29))
    
    .. note:: **NOTE**: The *useapplied=True/False* parameter is important if
       you are going to (re)apply flags marked as APPLIED True in
@@ -150,12 +145,11 @@ Examples
    ::
    
       flagcmd(vis='mycaltable', inpmode='table',
-      inpfile='example.ms', action='apply')
+              inpfile='example.ms', action='apply')
    
    .. rubric::        
       Use *inpmode='xml'*
-      
-   
+
    List the online flags stored in the Flag.xml file of a VLA MS. 
    
    ::
@@ -168,7 +162,7 @@ Examples
    ::
    
       flagcmd(vis='example.ms', inpmode='xml', action='apply',
-      tbuff=1.0)
+              tbuff=1.0)
    
    Apply the flags using a specific set of reasons (a comma separated
    list).
@@ -176,7 +170,7 @@ Examples
    ::
    
       flagcmd(vis='example.ms', inpmode='xml', action='apply',
-      reason='FOCUS_ERROR,SUBREFLECTOR_ERROR')
+              reason='FOCUS_ERROR,SUBREFLECTOR_ERROR')
    
    .. note:: **NOTE**: The online flag time buffer *tbuff* is specified
       in seconds, but in fact should be keyed to the intrinsic online
@@ -184,11 +178,8 @@ Examples
       a *tbuff* value of 0.5x to 1.5x the integration time is needed
       (currently you should use 1.5x for data taken in early 2011 or
       before).
-   
-    
-   
+
    .. rubric:: Use *inpmode='list'*
-      
    
    Apply the flags given in an ASCII file such as the one below,
    which will be saved in a file called "myflags.txt":
@@ -210,22 +201,14 @@ Examples
    
    ::
    
-      | flagcmd(vis='example.ms',inpmode='list',inpfile=["mode='shadow'",
-      |                                                "mode='clip'
-        clipminmax=[0,5] correlation='ABS_ALL'",
-      |                                                "mode='quack'
-        quackmode='end' quackinterval=1.0",
-      |                                              
-         "antenna='ea01' timerange='00:00:00~01:00:00'",
-      |                                              
-         "antenna='ea11' timerange='00:00:00~03:00:00' spw='0~4'"])
-   
+      flagcmd(vis='example.ms',inpmode='list',inpfile=["mode='shadow'", "mode='clip'
+              clipminmax=[0,5] correlation='ABS_ALL'", "mode='quack'
+              quackmode='end' quackinterval=1.0",
+              "antenna='ea01' timerange='00:00:00~01:00:00'",
+              "antenna='ea11' timerange='00:00:00~03:00:00' spw='0~4'"])
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

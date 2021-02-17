@@ -3,9 +3,6 @@
 .. _Description:
 
 Description
-   regrid an MS or MMS to a new spectral window, channel structure or
-   frame
-   
    .. warning:: ALERT: **cvel2** is currently an experimental task and will
       replace the current **cvel** in the near future. We will then
       remove current **cvel** and rename **cvel2** to **cvel**.
@@ -101,8 +98,7 @@ Description
    clean.
    
    .. rubric:: Multi-MS support
-      
-   
+
    The option *keepmms* is set by default. This implies that unless
    the value of *keepmms* is explicitly changed to False, **cvel2**
    will create a Multi-MS when the input is a Multi-MS. The output
@@ -114,8 +110,7 @@ Description
    an error.
    
    .. rubric:: cvel and cvel2
-      
-   
+
    **cvel2** replicates the functionality of **cvel**, although the
    following differences should be noted:
    
@@ -173,5 +168,5 @@ Examples
 .. _Development:
 
 Development
-   None
+   No additional development details
 

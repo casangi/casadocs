@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   Convert ASAP Scantable data into a CASA visibility file (MS).
-   
    This is the task to convert single-dish scantable data format
    (ATNF Spectral Analysis Package, ASAP) into a CASA visibility data
    format (MeasurementSet, MS) to enable processing of
@@ -21,18 +19,16 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To convert an ASAP (scantable) based format file into
    MeasurementSet format:
    
    ::
    
       importasap(infile='mydata.asap',
-          outputvis='mydata.ms',
-          flagbackup=True,
-          overwrite=False,
-          parallel=False)
+                 outputvis='mydata.ms',
+                 flagbackup=True,
+                 overwrite=False,
+                 parallel=False)
    
    By default, importasap preserves flags, will not overwrite any
    existing files with the output, and will not engage parallel
@@ -43,8 +39,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

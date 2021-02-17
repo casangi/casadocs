@@ -10,7 +10,7 @@ Description
    has a clean beam, the report and returned dictionary will contain
    both the convolved and the deconvolved fit results. For examples
    and explanation of the dictionary, see the `Image Plane
-   Analysis <../../notebooks/imaging.ipynb#Image-Plane-Analysis>`_
+   Analysis <../../notebooks/image_analysis.ipynb#Image-Plane-Analysis>`__
    pages.
 
    When dooff is False, the method returns a dictionary with keys
@@ -132,7 +132,6 @@ Description
    parameter uncertainties.
    
    .. rubric:: SUPPORTED UNITS
-      
    
    Currently only images with brightness units conformant with
    Jy/beam, Jy/beam km/s, and K are fully supported for fitting. If
@@ -178,7 +177,6 @@ Description
     
    
    .. rubric:: FITTING OVER MULTIPLE CHANNELS
-      
    
    For fitting over multiple channels, the result of the previous
    successful fit is used as the estimate for the next channel. The
@@ -187,11 +185,10 @@ Description
    smooth in frequency to produce reliable fit results.
    
    .. rubric:: MASK SPECIFICATION
-      
    
-   `Mask <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/image-masks>`__
+   `Mask <../../notebooks/image_analysis.ipynb#Image-Masks>`__
    specification can be done using an `LEL
-   expression <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/lattice-expression-language-lel/lattice-expression-language>`__.
+   expression <../../notebooks/image_analysis.ipynb#Lattice-Expression-Language>`__.
    For example
    
    ::
@@ -201,7 +198,6 @@ Description
    will use only pixels with values greater than 5.
    
    .. rubric:: INCLUDING AND EXCLUDING PIXELS
-      
    
    Pixels can be included or excluded from the fit based on their
    values using these parameters. Note that specifying both is not
@@ -209,7 +205,6 @@ Description
    array of two numeric values.
    
    .. rubric:: ESTIMATES
-      
    
    Initial estimates of fit parameters (peak intensity, peak x pixel
    coordinate, peak y pixel coordinate, major axis, minor axis,
@@ -253,12 +248,8 @@ Description
    during the fit.
    
    .. rubric:: ERROR ESTIMATES
-      
    
-   Error estimates are based on the work of  Condon (1997)  `[1]
-   . <#cit1%20.>`__
-   
-    
+   Error estimates are based on the work of  Condon (1997)  [1]_
    
    Key assumptions made are:
    
@@ -383,39 +374,31 @@ Description
    combinations produces a deconvolved size, no upper limit is
    reported.
    
-    
-   
    .. rubric:: Task-specific Parameter Descriptions
-      
    
-   .. rubric:: *includepix*
-      
+   *includepix*
    
    Two element array giving the range of pixel values to include in
    the fit. Only one range of pixel values may be specified in
    includepix or excludepix.
    
-   .. rubric:: *excludepix*
-      
+   *excludepix*
    
    Two element array giving the range of pixel values to exclude in
    the fit. Only one range of pixel values may be specified in
    includepix or excludepix.
    
-   .. rubric:: *residual*
-      
+   *residual*
    
    Name of output residual image. Empty string indicates that the
    residual image should not be written.
    
-   .. rubric:: *model*
-      
+   *model*
    
    Name of output model image. Empty string indicates that the model
    image should not be written.
    
-   .. rubric:: *estimates*
-      
+   *estimates*
    
    Name of the text file that contains the initial parameter
    estimates. See the above description describing the format for
@@ -424,63 +407,54 @@ Description
    desired that more than one Gaussian be fit simultaneously, an
    estimates file must be specified.
    
-   .. rubric:: *logfile*
-      
-   
+   *logfile*
+
    Name of output file to which to write results. If set to the empty
    string, no logfile is written, although the results can still be
    obtained from the logger output.
    
-   .. rubric:: *append*
-      
+   *append*
    
    If True, append results to the specified logfile if it already
    exists. If False, overwrite an existing logfile if it already
    exists.
    
-   .. rubric:: *newestimates*
-      
+   *newestimates*
    
    Name of file to which to write the results of the fit in an
    estimates file format, so that the written file can be used as the
    estimates file on subsequent runs. The empty string means do not
    write such a file.
    
-   .. rubric:: *complist*
-      
+   *complist*
    
    Name of the component list table to which to write the fitted
    model. The empty string indicates that a component list table
    should not be written.
    
-   .. rubric:: *overwrite*
-      
+   *overwrite*
    
    Indicates if an existing component list table should be
    overwritten. If False and a component list table of the name
    specified by the complist parameter already exists, an exception
    will be thrown.
    
-   .. rubric:: *dooff*
-      
+   *dooff*
    
    Indicates if a constant zero-level offset should also be
    simultaneously fit.
    
-   .. rubric:: *offset*
-      
+   *offset*
    
    Initial estimate for the zero level offset, in the same units as
    the values in the image.
    
-   .. rubric:: *fixoffset*
-      
+   *fixoffset*
    
    Indicates if the specified zero-level offset should be held fixed
    during the fit.
    
-   .. rubric:: *rms*
-      
+   *rms*
    
    RMS to use in calculation of uncertainties. Numeric or valid
    quantity (record or string). If numeric, it is given units of the
@@ -488,15 +462,13 @@ Description
    not positive, the rms of the residual image, in the region of the
    fit, is used. See the above discussion for more details.
    
-   .. rubric:: *noisefwhm*
-      
+   *noisefwhm*
    
    Noise correlation beam FWHM. If numeric value, interpreted as
    pixel widths. If quantity (dictionary, string), it must have
    angular units. See the above discussion for more details.
    
-   .. rubric:: *summary*
-      
+   *summary*
    
    Name of file to which to write a plain text table summary of the
    fit parameters. The empty string indicates that such a file should
@@ -505,8 +477,7 @@ Description
    
    .. rubric:: Bibliography
 
-   :sup:`1. Condon
-   (1997) ` http://adsabs.harvard.edu/abs/1997PASP..109..166C `<#ref-cit1>`__
+   .. [1] Condon (1997) `http://adsabs.harvard.edu/abs/1997PASP..109..166C <http://adsabs.harvard.edu/abs/1997PASP..109..166C>`__
    
 
 .. _Examples:
@@ -539,8 +510,5 @@ Examples
 .. _Development:
 
 Development
-   Here would be a discussion of how applycal is implemented.  This
-   is intended for the other members of the development team so is a
-   technical discussion.  We will work on building these up over
-   time.
-   
+   No additional development details
+

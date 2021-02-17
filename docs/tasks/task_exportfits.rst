@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   Convert a CASA image to a FITS file
-   
    The exportfits task exports CASA-produced images as FITS files for
    transporting to other software packages or publication. 
    
@@ -78,10 +76,4 @@ Examples
 .. _Development:
 
 Development
-   --CASA Developer--
-   
-   Here would be a discussion of how applycal is implemented.  This
-   is intended for the other members of the development team so is a
-   technical discussion.  We will work on building these up over
-   time.
-   
+   No additional development details

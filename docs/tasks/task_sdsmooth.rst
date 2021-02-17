@@ -41,4 +41,5 @@ Examples
 .. _Development:
 
 Development
-   None
+   No additional development details
+

@@ -3,10 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
-   List the visibility data in a MeasurementSet.
-   
    This task lists MeasurementSet visibility data under a number
    of input selection conditions. The MeasurementSet data columns
    that can be listed are: raw data, float_data, corrected data,
@@ -52,89 +48,73 @@ Description
    +---------------------------+-----------------------------------------+
    | UVW                       | UVW coordinates (meters)                |
    +---------------------------+-----------------------------------------+
-   
-    
+
    
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: *vis*
-      
+   *vis*
    
    Name of input visibility file.
    
-   .. rubric:: *options*
-      
+   *options*
    
    List options: default = 'ap'. Not yet implemented for suboptions.
    
-   .. rubric:: *datacolumn*
-      
+   *datacolumn*
    
    Visibility file data column. Options are 'data' (default),
    'float_data', 'corrected', 'model', 'residual' (corrected-model).
    
-   .. rubric:: *field*
-      
+   *field*
    
    Select data based on field id(s) or name(s). Example: field='0~2'
    includes field ids 0 to 2; field='3C*' includes all field names
    starting with 3C. Default is all fields.
    
-   .. rubric:: *spw*
-      
+   *spw*
    
    Select spectral windows and channels to list.
    Example: spw='2:34~46' includes channels 34 to 46 of spectral
    window 2. Default is all spws and channels.
    
-   .. rubric:: *selectdata*
-      
+   *selectdata*
    
    If selectdata=True, toggle the below 7 selection parameters. If
    selectdata=False, thefollowing parameters are reset to default
    values.
    
-   .. rubric:: *antenna*
-      
+   *antenna*
    
    Select data based on antenna. For example: antenna = '5,6'
    includes antenna index 5 and 6 solutions; antenna = '05,06'
    includes antenna names '05' and '06' solutions.
    
-   .. rubric:: *timerange*
-      
-   
+   *timerange*
+
    Select time range to list. For example: timerange='10:37:50.1'
    lists data for this particular sampling interval;
    timerange='<10:37:25' list data before 10:37:25.
    
-   .. rubric:: *correlation*
-      
+   *correlation*
    
    Select polarization correlations to list. For example:
    correlation='RR LL' list RR and LL correlations; correlation='XX
    XY' list XX and XY correlations.
    
-   .. rubric:: *scan*
-      
+   *scan*
    
    Select scans to list.For example: scan='2' lists scan 2;
    scan='>2' list scan numbers greater than 2.
    
-   .. rubric:: feed (not yet implemented)
-      
+   *feed (not yet implemented)*
    
-   .. rubric:: array (not yet implemented)
-      
+   *array (not yet implemented)*
    
-   .. rubric:: *observation*
-      
+   *observation*
    
    Select by observation ID.
    
-   .. rubric:: *uvrange*
-      
+   *uvrange*
    
    Select baseline lengths to list. For example: uvrange='<5klambda'
    lists all data from baselines less than 5 kilo-wavelengths;
@@ -144,20 +124,16 @@ Description
    .. warning:: CAUTION: Input units default to meters, but listed units are
       always wavelengths!
    
-   .. rubric:: average (not yet implemented)
-      
+   *average (not yet implemented)*
+
+   *showflags (not yet implemented)*
    
-   .. rubric:: showflags (not yet implemented)
-      
-   
-   .. rubric:: *pagerows*
-      
+   *pagerows*
    
    Rows per page of listing. Default: 50; pagerows=0 means do not
    paginate.
    
-   .. rubric:: listfile
-      
+   *listfile*
    
    Write output file to disk (will not overwrite). The default is to
    write to the screen.
@@ -166,8 +142,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To list the visibilities from the DATA column of a MeasurementSet,
    including all data from spectral windows 2 to 4 which have RR
    correlation:
@@ -175,8 +149,8 @@ Examples
    ::
    
       listvis(vis='filename.ms', datacolumn='data', spw='2~4',
-      selectdata=True, correlation='RR', pagerows=5,
-      listfile='listfile.txt')
+              selectdata=True, correlation='RR', pagerows=5,
+              listfile='listfile.txt')
    
    The visibilities are listed with 5 rows per page and written out
    in a text file called 'listfile.txt'.
@@ -185,8 +159,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

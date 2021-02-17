@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
    The **polcal** task supports solving for systematic calibration
    relating to the linear and circular polarization sensitivity of
    synthesis observations, namely, the instrumental polarization and
@@ -12,13 +10,12 @@ Description
    
    The heuristics of polarization calibration are described in more
    detail
-   `here <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration/instrumental-polarization-calibration>`__.
+   `here <../../notebooks/synthesis_calibration.ipynb#Polarization-Calibration>`__.
    
    .. rubric:: Common calibration solve parameters
-      
    
    See `"Solving for
-   Calibration" <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration/solving-for-calibration>`__
+   Calibration" <../../notebooks/synthesis_calibration.ipynb#Solve-for-Calibration>`__
    for more information on the task parameters **polcal** shares with
    all solving tasks, including data selection, general solving
    properties and arranging prior calibration. Below we describe
@@ -29,7 +26,6 @@ Description
    parameter.
    
    .. rubric:: Polarization Calibration type: *poltype*
-      
    
    The *poltype* parameter supports a range of modes to accommodate a
    variety of situations. Except where noted, these options are not
@@ -107,18 +103,13 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    Please click
-   `here <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration/instrumental-polarization-calibration>`__
+   `here <../../notebooks/synthesis_calibration.ipynb#Polarization-Calibration>`__
    for some **polcal** examples.
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

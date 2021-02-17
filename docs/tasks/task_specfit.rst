@@ -11,7 +11,7 @@ Description
    one or more Lorentzian singlets, one or more Gaussian multiplets,
    and/or a polynomial to one dimensional spectral profiles. A
    description of the fitting algorithm may be found in AIPS++ Note
-   224 `[1] <#cit1>`__ and in Numerical Recipes `[2] <#cit2>`__ . A
+   224 [1]_ and in Numerical Recipes [2]_ . A
    Gaussian/Lorentzian singlet is a Gaussian/Lorentzian function
    whose parameters (amplitude, center position, and width) are all
    independent from any other parameters that may be simultaneously
@@ -32,7 +32,6 @@ Description
    tied to.
    
    .. rubric:: AXIS
-      
    
    The *axis* parameter indicates along which axis the profiles
    should be fit; a negative value indicates that the spectral axis
@@ -40,7 +39,6 @@ Description
    should be used.
    
    .. rubric:: MINIMUM NUMBER OF PIXELS
-      
    
    The *minpts* parameter indicates the minimum number of unmasked
    pixels that must be present in order for a fit to be attempted.
@@ -48,7 +46,6 @@ Description
    masked in any output images.
    
    .. rubric:: ONE FIT OF REGION AVERAGE OR PIXEL BY PIXEL FIT
-      
    
    The *multifit* parameter indicates if profiles should be fit at
    each pixel position in the selected region (true), or if the
@@ -56,7 +53,6 @@ Description
    the fit done to that averaged spectral profile (false).
    
    .. rubric:: POLYNOMIAL FITTING
-      
    
    The order of the polynomial to fit is specified via the *poly*
    parameter. If *poly<0*, no polynomial fit will be attempted. No
@@ -64,12 +60,11 @@ Description
    determined automatically.
    
    .. rubric:: Gaussian SINGLET FITTING
-      
    
    The *ngauss* parameter specifies the maximum number of Gaussian
    singlets to be fitted, if no estimates are specified by the
    profile's initial parameter estimates pampest, pcenterest and
-   pfwhmest (the so-called *p*est* parameters) `[a] <#fna>`__ or by
+   pfwhmest (the so-called *p\*est* parameters) or by
    an estimates file, and if gmncomps=0 or is empty. The initial
    estimates of the parameters for these Gaussians will be
    determined automatically in this case. If it deems it appropriate,
@@ -90,7 +85,6 @@ Description
    
    .. rubric:: SPECIFYING INITIAL ESTIMATES FOR Gaussian AND
       Lorentzian SINGLETS (RECOMMENDED METHOD)
-      
    
    One may specify initial estimates via the *pampest*, *pcenterest*,
    and *pfwhmest* parameters. In the case of a single Gaussian or
@@ -149,10 +143,8 @@ Description
    zeroth and last of which were Lorentzians, one would specify
    *pfunc=["L", "G", "G", "L"]*.
    
-   .. rubric:: ESTIMATES FILE FOR Gaussian SINGLETS (NONRECOMMENDED
-      METHOD)
-      
-   
+   .. rubric:: ESTIMATES FILE FOR Gaussian SINGLETS (NONRECOMMENDED METHOD)
+
    Initial estimates for Gaussian singlets can be specified in an
    estimates file via the *estimates* parameter, which contains the
    name of the file. Estimates files may be deprecated in the future
@@ -189,19 +181,16 @@ Description
    
    ::
    
-      | # estimates file indicating that two Gaussians should be fit
-      | # first Gaussian estimate, peak=40, center at pixel number
-        10.5, fwhm = 5.8 pixels, all parameters allowed to vary
-        during
-      | # fit
-      | 40, 10.5, 5.8
-      | # second Gaussian, peak = 4, center at pixel number 90.2,
-        fwhm = 7.2 pixels, hold fwhm constant
-      | 4, 90.2, 7.2, f
-      | # end file
+      # estimates file indicating that two Gaussians should be fit
+      # first Gaussian estimate, peak=40, center at pixel number
+      #  10.5, fwhm = 5.8 pixels, all parameters allowed to vary during
+      # fit 40, 10.5, 5.8
+
+      # second Gaussian, peak = 4, center at pixel number 90.2,
+      # fwhm = 7.2 pixels, hold fwhm constant 4, 90.2, 7.2, f
+      # end file
    
    .. rubric:: Gaussian MULTIPLET FITTING
-      
    
    Any number of Gaussian multiplets, each containing any number of
    two or more components, can be simultaneously fit, optionally with
@@ -266,10 +255,10 @@ Description
    
    ::
    
-      | gmncomps=[2, 4, 3]
-      | gmampcon= [ 0 , 0.2, 0 , 0.1, 4.5, 0 ]
-      | gcentercon=[24.2, 45.6, 92.7, 0 , -22.8, -33.5]
-      | gfwhmcon=""
+      gmncomps=[2, 4, 3]
+      gmampcon= [ 0 , 0.2, 0 , 0.1, 4.5, 0 ]
+      gcentercon=[24.2, 45.6, 92.7, 0 , -22.8, -33.5]
+      gfwhmcon=""
    
    In this case we have our previous example of one doublet, one
    quadruplet, and one triplet. The first component of the doublet
@@ -304,17 +293,16 @@ Description
    
    ::
    
-      | gmampest = [ 1, .2, 2, .1, .1, .5, 3, 2, 5]
-      | gmcenterest = [20, 10 , 30, 45.2, 609 , -233, 30, -859, 1]
+      gmampest = [ 1, .2, 2, .1, .1, .5, 3, 2, 5]
+      gmcenterest = [20, 10 , 30, 45.2, 609 , -233, 30, -859, 1]
    
    Before any fitting is done, the constraints would be taken into
    account and these arrays would be implicitly rewritten as:
    
    ::
    
-      | gmampest = [ 1, .2, 2, .4, .1, .2, 3, 13.5, 5 ]
-      | gmcenterest = [20, 44.2, 30, 75.6, 127.7, -233, 30, 7.2,
-        -3.5]
+      gmampest = [ 1, .2, 2, .4, .1, .2, 3, 13.5, 5 ]
+      gmcenterest = [20, 44.2, 30, 75.6, 127.7, -233, 30, 7.2, -3.5]
    
    The value of *gmfwhmest* would be unchanged since there are no
    FWHM constraints in this example.
@@ -351,7 +339,6 @@ Description
    to multiplets.
    
    .. rubric:: LIMITING RANGES FOR SOLUTION PARAMETERS
-      
    
    In cases of low (or no) signal to noise spectra, it is still
    possible for the fit to converge, but often to a nonsensical
@@ -382,7 +369,6 @@ Description
    as invalid.
    
    .. rubric:: INCLUDING STANDARD DEVIATIONS OF PIXEL VALUES
-      
    
    If the standard deviations of the pixel values in the input image
    are known and they vary in the image (e.g. they are higher for
@@ -420,7 +406,6 @@ Description
    used as *sigma* for subsequent runs.
    
    .. rubric:: RETURNED DICTIONARY STRUCTURE
-      
    
    The dictionary returned (if *wantreturn=True*) has a (necessarily)
    complex structure. First, there are keys "xUnit" and "yUnit" whose
@@ -489,7 +474,6 @@ Description
    although they are logged.
    
    .. rubric:: OUTPUT IMAGES
-      
    
    In addition to the returned dictionary, optionally one or more of
    any combination of output images can be written. The *model* and
@@ -522,50 +506,18 @@ Description
    
    Writing analogous images for polynomial coefficients is not
    supported.
+
+
+   Bibliography
+
+   .. [1] [Brouw, Wim, 1999 `Web <http://www.astron.nl/casacore/trunk/casacore/doc/notes/224.html>`__
    
-   =============== ==================================================
-   Citation Number 2
-   Citation Text   W.H. Press et al 1988., Cambridge University Press
-   =============== ==================================================
-   
-   +-----------------+---------------------------------------------------+
-   | Footnote Number | a                                                 |
-   +-----------------+---------------------------------------------------+
-   | Footnote Text   | p*est refers to the various task parameters       |
-   |                 | *pampest, pcenterest,* and *pfwhmest*             |
-   +-----------------+---------------------------------------------------+
-   
-    
-   
-   +-----------------+---------------------------------------------------+
-   | Footnote Number | b                                                 |
-   +-----------------+---------------------------------------------------+
-   | Footnote Text   | gm*est refers to the various task parameters      |
-   |                 | *gmampest*, *gmcenterest*, and *gmfwhmest*        |
-   +-----------------+---------------------------------------------------+
-   
-   
-      Bibliography
-   :sup:`1. [Brouw, Wim, 1999
-   (` `Web <http://www.astron.nl/casacore/trunk/casacore/doc/notes/224.html>`__ :sup:`)]` `<#ref-cit1>`__
-   
-   :sup:`2. W.H. Press et al 1988., Cambridge University
-   Press` `<#ref-cit2>`__
-   
-   Footnote(s)
-   
-   :sup:`a. p*est refers to the various task parameters pampest,
-   pcenterest, and pfwhmest` `<#refa>`__
-   
-   :sup:`b. gm*est refers to the various task parameters gmampest,
-   gmcenterest, and gmfwhmest` `<#refb>`__
+   .. [2] W.H. Press et al 1988., Cambridge University Press
    
 
 .. _Examples:
 
 Examples
-   task examples
-   
    To fit a maximum of 2 Gaussian singlets plus a second order
    polynomial function to a 1-dimensional spectral profile of an
    image, and return a dictionary of the fit:
@@ -579,8 +531,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

@@ -52,21 +52,6 @@ square.
       <value type="string">gain</value>
     </param>
 
-    <param type="bool" name="useflags">
-<shortdescription>Take flagging into account? (not implemented)</shortdescription>
-<description>Take flagging into account? (not implemented, this
-parameter  has no effect!)
-                     Default: False
-                    
-                     If useflags=False, flagged values are included in
-                     the statistics. 
-                     If useflags=True, any flagged values are not used
-                     in the statistics.
-</description>
-        <value>True</value>
-        <example>useflags=True</example>
-    </param>
-
     <constraints>
     <when param="axis">
       <equals type="string" value="amp">

@@ -87,27 +87,22 @@ Description
     
    
    .. rubric:: Parameter descriptions
-      
-   
-   .. rubric:: *vis*
-      
-   
+
+   *vis*
+
    Name of input visibility file or calibration table. Default: ''
    (none). Examples: *vis='uid___A002_X2a5c2f_X54.ms'*,
    *vis='cal-X54.B1'*
    
-   .. rubric:: *mode*
-      
+   *mode*
    
    Mode of operation. Options: 'list', 'manual', 'clip', 'quack',
    'shadow', 'elevation', 'tfcrop', 'extend', 'unflag', 'summary'.
    Default: 'manual'
    
    .. rubric:: *mode* expandable parameters (except *mode='list'*)
-      
-   
-   .. rubric:: *field*
-      
+
+   *field*
    
    Select fields in mosaic. Use field id(s) or field name(s). [go
    listobs to obtain the list id's or names] Default: '' = all
@@ -117,9 +112,8 @@ Description
    ids 0,4,5,6,7; *field='3C286,3C295'*, field named 3C286 and 3C295;
    *field = '3,4C*'*, field id 3 and all names starting with 4C.
    
-   .. rubric:: *spw*
-      
-   
+   *spw*
+
    Select data based on spectral window and channels. Default: '' =>
    all spectral windows and channels. Examples: *spw='0~2,4'*,
    spectral windows 0,1,2,4 (all channels); *spw='0:5~61'*, spw 0,
@@ -135,8 +129,7 @@ Description
       out of the selection range. This is a way to protect known
       spectral-lines from being flagged by the autoflag algorithms.
    
-   .. rubric:: *antenna*
-      
+   *antenna*
    
    Select data based on baseline. Default: '' (all). Examples:
    *antenna='DV04&DV06'* baseline DV04-DV06;
@@ -152,9 +145,8 @@ Description
    .. note:: For some antenna-based calibration tables, selecting
       baselines with the & syntax do not apply.
    
-   .. rubric:: *timerange*
-      
-   
+   *timerange*
+
    Select data based on time range. Default: '' (all). Examples:
    *timerange = 'YYYY/MM/DD/hh:mm:ss~YYYY/MM/DD/hh:mm:ss'*;
    
@@ -166,8 +158,7 @@ Description
    day; *timerange='09:44:00'* pick data within one integration of
    time; *timerange='>10:24:00'* data after this time.
    
-   .. rubric:: *correlation*
-      
+   *correlation*
    
    Correlation types or expression. Default: '' (all correlations).
    For modes clip, tfcrop or rflag, the default means ABS_ALL. If the
@@ -185,65 +176,52 @@ Description
       the operator will be applied to all of them. The expression is
       used only in modes 'clip', 'tfcrop', and 'rflag'.
    
-   .. rubric:: *scan*
-      
+   *scan*
    
    Scan number range. Default: '' (all). Examples: *scan='1~5'*.
    Check 'go listobs' to insure the scan numbers are in order.
    
-   .. rubric:: *intent*
-      
-   
+   *intent*
+
    Select data based on scan intent. Intent selection is not
    supported for cal tables. Default: '' (all). Examples:
    *intent='*CAL*,*BAND*'*
    
-   .. rubric:: *array*
-      
+   *array*
    
    Selection based on the antenna array. Array selection is not
    supported for cal tables. Default: '' (all).
    
-   .. rubric:: *uvrange*
-      
+   *uvrange*
    
    Select data within uvrange (default units meters). Default: ''
    (all). Examples: *uvrange='0~1000klambda'*, uvrange from 0-1000
    kilo-lambda; *uvrange='>4klambda'*, uvranges greater than 4 kilo
    lambda. *uvrange* selection is not supported for cal tables.
    
-   .. rubric:: *observation*
-      
+   *observation*
    
    Selection based on the observation ID. Default: '' (all).
    Examples: *observation='1'* or *observation=1*
    
-   .. rubric:: *feed*
-      
+   *feed*
    
    Selection based on the feed - NOT IMPLEMENTED YET
    
-    
-   
    .. rubric:: *mode='manual'* expandable parameters
-      
-   
+
    Flag according to the data selection specified. This is the
    default mode (used when the mode is not specified).
    
-   .. rubric:: *autocorr*
-      
+   *autocorr*
    
    Flag only the auto-correlations. Note that this parameter is only
    active when set to True. If set to False it does NOT mean "do not
    flag auto-correlations". When set to True, it will only flag data
    from a processor of type CORRELATOR. Default: False. Otions: True,
    False
-   
-    
-   
+
    .. rubric:: *mode='list'* expandable parameters
-      
    
    Flag according to the data selection and flag commands specified
    in the input list. The input list may come from a text file, a
@@ -274,8 +252,7 @@ Description
       quackincrement=True  will be ignored and the task will issue a
       WARNING.
    
-   .. rubric:: *inpfile*
-      
+   *inpfile*
    
    Input ASCII file, list of files or a Python list of command
    strings. Default: ''. Options: [ ] with flag commands or [ ] with
@@ -313,8 +290,7 @@ Description
    
    ::
    
-      flagdata(vis, mode='list', inpfile=['onlineflags.txt'
-      ,'otherflags.txt'])
+      flagdata(vis, mode='list', inpfile=['onlineflags.txt','otherflags.txt'])
    
    Example2: The same commands can be given in a Python list on the
    command line to the task.
@@ -326,9 +302,9 @@ Description
            "spw='9' mode='tfcrop' correlation='ABS_YY' ntime=51.0",
            "mode='extend' extendpols=True"]
       flagdata(vis,mode='list',inpfile=cmd)
-   
-   .. rubric:: *reason*
-      
+
+
+   *reason*
    
    Select flag commands based on REASON(s). Can be a string, or list
    of strings. If *inpfile* is a list of files, the reasons given in
@@ -342,8 +318,7 @@ Description
       string only. See the syntax for writing flag commands at the
       end of this help. 
    
-   .. rubric:: *tbuff*
-      
+   *tbuff*
    
    A time buffer or list of time buffers to pad the *timerange*
    parameters in flag commands. When a list of 2 time buffers is
@@ -372,43 +347,33 @@ Description
       online flags that are created by importasdm when savecmds=True.
       The value of a regular time buffer should be
       *tbuff=0.5*max* (integration time).
-   
-    
-   
+
+
    .. rubric:: *mode='clip'* expandable parameters
-      
    
    Clip data according to values of the following subparameters. The
    polarization expression is given by the *correlation* parameter.
    For calibration tables, the solutions are also given by the
    *correlation* parameter.
    
-   .. rubric:: *clipminmax*
-      
-   
+   *clipminmax*
+
    Range of data (Jy) that will NOT be flagged. It will always flag
    the NaN/Inf data, even when a range is specified. Default: [ ].
    Example: *clipminmax=[0.0,1.5]*
    
-   .. rubric:: *clipoutside*
-      
+   *clipoutside*
    
    Clip OUTSIDE the range. Default: True. Example:
    *clipoutside=False*, flag data WITHIN the *clipminmax* range.
    
-   .. rubric:: *clipzeros*
-      
+   *clipzeros*
    
    Clip zero-value data. Default: False.
-   
-    
-   
-   .. rubric:: *mode='clip', 'tfcrop', or 'rflag'* expandable
-      parameters
-      
-   
-   .. rubric:: *datacolumn*
-      
+
+   .. rubric:: *mode='clip', 'tfcrop', or 'rflag'* expandable parameters
+
+   *datacolumn*
    
    Column to use for clipping. Default: 'DATA'. Options: MS columns:
    'DATA', 'CORRECTED', 'MODEL', 'RESIDUAL', 'RESIDUAL_DATA',
@@ -426,8 +391,7 @@ Description
       exist, it will create one on-the-fly based on the values of
       WEIGHT.
    
-   .. rubric:: *channelavg*
-      
+   *channelavg*
    
    Pre-average data across channels before analyzing visibilities for
    flagging. Partially flagged data is not be included in the average
@@ -449,9 +413,8 @@ Description
       **NOTE2**: Pre-average across channels is not supported for
       calibration tables.
    
-   .. rubric:: *chanbin*
-      
-   
+   *chanbin*
+
    Bin width for channel average in number of input channels. If a
    list is given, each bin applies to one of the selected SPWs. When
    chanbin is set to 1 all input channels are used considered for the
@@ -459,8 +422,7 @@ Description
    be preserve backwards compatibility with the previous
    pre-averaging feature of clip mode. Default: 1    
    
-   .. rubric:: *timeavg*
-      
+   *timeavg*
    
    Pre-average data across time before analyzing visibilities for
    flagging. Partially flagged data is not be included in the average
@@ -483,8 +445,7 @@ Description
       **NOTE2**: Pre-average across time is not supported for
       calibration tables
    
-   .. rubric:: *timebin*
-      
+   *timebin*
    
    Bin width for time average in seconds. Default: '0s'
    
@@ -499,19 +460,16 @@ Description
    of clip, rflag, or tfcrop for this.
    
    .. rubric:: *mode='quack'* expandable parameters
-      
    
    Option to remove specified part of scan beginning/end.
    
-   .. rubric:: *quackinterval*
-      
-   
+   *quackinterval*
+
    Time in seconds from scan beginning or end to flag. Make time
    slightly smaller than the desired time. Default: 0.0. Type: int or
    float.
    
-   .. rubric:: *quackmode*
-      
+   *quackmode*
    
    Quack mode. Default: 'beg'. Options:
    
@@ -538,8 +496,7 @@ Description
       end
       +++++++++++++++++++++++++++++++++-----------
    
-   .. rubric:: q *uackincrement*
-      
+   *quackincrement*
    
    Increment quack flagging in time taking into account flagged data
    or not. Default: False. Type: bool
@@ -558,7 +515,6 @@ Description
 
    
    .. rubric:: *mode='shadow'* expandable parameters
-      
    
    Option to flag data of shadowed antennas. This mode is not
    available for cal tables.
@@ -572,8 +528,7 @@ Description
    behind the other. The phase-reference center is used for
    antenna-pointing direction.
    
-   .. rubric:: *tolerance*
-      
+   *tolerance*
    
    Amount of shadowing allowed (or tolerated), in meters. A positive
    number allows antennas to overlap in projection. A negative number
@@ -581,8 +536,7 @@ Description
    radius :math:`_{1}` :math:`+` radius :math:`_{2}` between
    antenna centers. Default: 0.0
    
-   .. rubric:: *addantenna*
-      
+   *addantenna*
    
    It can be either a file name with additional antenna names,
    positions and diameters, or a Python dictionary with the same
@@ -606,36 +560,28 @@ Description
       name=VLA02
       diameter=25.0
       position=[-1601105.7664601889, -5042022.3917835914, 3554847.245159178]
-   
-    
+
    
    .. rubric:: *mode='elevation'* expandable parameters
-      
-   
+
    Option to flag based on antenna elevation. This mode is not
    available for cal tables.
    
-   .. rubric:: *lowerlimit*
-      
+   *lowerlimit*
    
    Lower limiting elevation in degrees. Data coming from a baseline
    where one or both antennas were pointing at a strictly lower
    elevation (as function of time), will be flagged. Default: 0.0
    
-   .. rubric:: *upperlimit*
-      
+   *upperlimit*
    
    Upper limiting elevation in degrees. Data coming from a baseline
    where one or both antennas were pointing at a strictly higher
    elevation (as function of time), will be flagged. Default: 90.0
    
-    
-   
    .. rubric:: *mode='tfcrop', 'rflag',* or *'extend'* expandable parameters
-      
-   
-   .. rubric:: *ntime*
-      
+
+   *ntime*
    
    Time range (in seconds or minutes) over which to buffer data
    before running the algorithm. Options: 'scan' or any other float
@@ -647,8 +593,7 @@ Description
       scans will be loaded at once, thus requesting a lot of memory
       depending on the available spws.
    
-   .. rubric:: *combinescans*
-      
+   *combinescans*
    
    Accumulate data across scans depending on the value of *ntime*.
    Default: False. This parameter should be set to True only when
@@ -656,10 +601,7 @@ Description
    True, it will remove SCAN from the sorting columns, therefore it
    will only accumulate across scans if *ntime* is not set to 'scan'.
    
-    
-   
    .. rubric:: *mode='tfcrop'* expandable parameters
-      
    
    Flag using the TFCrop autoflag algorithm. For each field, spw,
    timerange (specified by ntime), and baseline:
@@ -676,9 +618,8 @@ Description
    flags after running this algorithm. See the sub-parameter
    *extendflags* below.
    
-   .. rubric:: *timecutoff*
-      
-   
+   *timecutoff*
+
    Flag threshold in time. Flag all data-points further than N-stddev
    from the fit. This threshold catches time-varying RFI spikes
    (narrow and broad-band), but will not catch RFI that is persistent
@@ -689,16 +630,14 @@ Description
    no RFI. At each iteration, the same relative threshold is applied
    to detect flags. (Step (3) of the algorithm).
    
-   .. rubric:: *freqcutoff*
-      
-   
+   *freqcutoff*
+
    Flag threshold in frequency. Flag all data-points further than
    N-stddev from the fit. Same as *timecutoff*, but along the
    frequency-dimension. This threshold catches narrow-band RFI that
    may or may not be persistent in time. Default: 3.0
    
-   .. rubric:: *timefit*
-      
+   *timefit*
    
    Fitting function for the time direction. Default: 'line'. Options:
    'line', 'poly'
@@ -719,11 +658,9 @@ Description
       timerange selected by *ntime*, or if there is a lot of strong
       but intermittent RFI.
    
-    
-   
-   .. rubric:: *freqfit*
-      
-   
+
+   *freqfit*
+
    Fitting function for the frequency direction. Same as for the
    *timefit* parameter. Default: 'poly'. Options: 'line', 'poly'.
    Choose 'line' only if you are operating on bandpass-corrected
@@ -731,8 +668,7 @@ Description
    'poly' option works better on uncalibrated bandpasses with
    narrow-band RFI spikes.
    
-   .. rubric:: *maxnpieces*
-      
+   *maxnpieces*
    
    Maxinum number of pieces to allow in the piecewise-polynomial
    fits. Default: 7. Options: 1 - 9. This parameter is used only if
@@ -743,8 +679,7 @@ Description
    piece, so for best results, please ensure that
    *nchan*/*maxnpieces* is at-least 10.
    
-   .. rubric:: *flagdimension*
-      
+   *flagdimension*
    
    Choose the directions along which to perform flagging. Default:
    'freqtime'; first flag along frequency, and then along time.
@@ -755,8 +690,7 @@ Description
    dominant RFI first. If there are very few (less than 5) channels
    of data, then choose 'time'. Similarly for 'freq'.
    
-   .. rubric:: *usewindowstats*
-      
+   *usewindowstats*
    
    Use sliding-window statistics to find additional flags. Default:
    'none'. Options: 'none', 'sum', 'std', 'both'
@@ -781,21 +715,16 @@ Description
    increases the global stddev, and results in fewer flags (based on
    the N-stddev threshold).
    
-   .. rubric:: *halfwin*
-      
+   *halfwin*
    
    Half width of sliding window to use with *usewindowstats*.
    Default: 1 (a 3-point window size). Options: 1,2,3
    
    .. warning:: This is experimental!
-   
-    
-   
+
    .. rubric:: *mode='tfcrop'* or *'rflag'* expandable parameters
-      
-   
-   .. rubric:: *extendflags*
-      
+
+   *extendflags*
    
    Extend flags along time, frequency and correlation. Default: True
    
@@ -807,12 +736,10 @@ Description
       extend the flags to the other polarizations. The user may also
       set extendflags to False and run the 'extend' mode in a second
       step within the same flagging run. See the example below.
-   
-    
+
    
    .. rubric:: *mode='rflag'* expandable parameters
-      
-   
+
    Detect outliers based on the RFlag algorithm `[1] <#cit1>`__. The
    polarization expression is given by the *correlation* parameter.
    Iterate through the data in chunks of time. For each chunk,
@@ -944,15 +871,13 @@ Description
       This is an alternative approach (and fully equivalent) to using
       two files to save and reuse the timedev and freqdev values.
    
-   .. rubric:: *winsize*
-      
+   *winsize*
    
    Number of timesteps in the sliding time window (fparm(1) in AIPS).
    Default: 3
    
-   .. rubric:: *timedev*
-      
-   
+   *timedev*
+
    Time-series noise estimate (noise in AIPS). Default: [ ].
    Examples: *timedev = 0.5*: Use this noise-estimate to calculate
    flags. Do not recalculate; *timedev = [[1,9,0.2], [1,10,0.5]]*:
@@ -962,15 +887,13 @@ Description
    and write them into a file with the name given (any string will be
    interpreted as a file name which will be checked for existence).
    
-   .. rubric:: *freqdev*
-      
+   *freqdev*
    
    Spectral noise estimate (scutoff in AIPS). This step depends on
    having a relatively-flat bandshape. Same parameter-options as
    *timedev*. Default: [ ]
    
-   .. rubric:: *timedevscale*
-      
+   *timedevscale*
    
    For Step 1 (time analysis), flag a point if local RMS around it is
    larger than *timedevscale* :math:`x` *timedev* (fparm(0) in AIPS).
@@ -980,8 +903,7 @@ Description
    files (*action='calculate'*, as in the two-passes usage pattern of
    AIPS). Default: 5.0
    
-   .. rubric:: *freqdevscale*
-      
+   *freqdevscale*
    
    For Step 2 (spectral analysis), flag a point if local rms around
    it is larger than *freqdevscale* :math:`x` *freqdev* (fparm(10) in
@@ -990,22 +912,18 @@ Description
    (*action='calculate',* as in the two-passes usage pattern of
    AIPS). Default: 5.0
    
-   .. rubric:: *spectralmax*
-      
+   *spectralmax*
    
    Flag whole spectrum if *freqdev* is greater than *spectralmax*
    (fparm(6) in AIPS). Default: 1E6
    
-   .. rubric:: *spectralmin*
-      
+   *spectralmin*
    
    Flag whole spectrum if *freqdev* is less than *spectralmin*
    (fparm(5) in AIPS). Default: 0.0
-   
-    
+
    
    .. rubric:: *mode='extend'* expandable parameters
-      
    
    Extend and/or grow flags beyond what the basic algorithms detect.
    This mode will extend the accumulated flags available in the MS,
@@ -1021,32 +939,28 @@ Description
       counted as new flags. An accurate flag count can be obtained
       via the 'summary' mode.
    
-   .. rubric:: *extendpols*
-      
+   *extendpols*
    
    Extend flags to all selected correlations. Default: True. Options:
    True/False. For example, to extend flags from RR to only RL and
    LR, a data-selection of *correlation='RR,LR,RL'* is required along
    with *extendpols=True*.
    
-   .. rubric:: *growtime*
-      
+   *growtime*
    
    For any channel, flag the entire timerange in the current 2D chunk
    (set by *ntime*) if more than X% of the *timerange* is already
    flagged. Default: 50.0. Options: 0.0 - 100.0. This option catches
    the low-intensity parts of time-persistent RFI.
    
-   .. rubric:: g *rowfreq*
-      
+   *growfreq*
    
    For any timestep, flag all channels in the current 2D chunk (set
    by data-selection) if more than X% of the channels are already
    flagged. Default: 50.0. Options: 0.0 - 100.0. This option catches
    broad-band RFI that is partially identified by earlier steps.
    
-   .. rubric:: *growaround*
-      
+   *growaround*
    
    Flag a point based on the number of flagged points around it.
    Default: False. Options: True/False. For every un-flagged point on
@@ -1054,25 +968,20 @@ Description
    already flagged, flag that point. This option catches some wings
    of strong RFI spikes.
    
-   .. rubric:: *flagneartime*
-      
+   *flagneartime*
    
    Flag points before and after every flagged one, in the
    time-direction. Default: False. Options: True/False. Note that
    this can result in excessive flagging.
    
-   .. rubric:: *flagnearfreq*
-      
+   *flagnearfreq*
    
    Flag points before and after every flagged one, in the
    frequency-direction. Default: False. Options: True/False. This
    option allows flagging of wings in the spectral response of strong
    RFI. Note that this can result in excessive flagging.
    
-    
-   
    .. rubric:: mode='antint' expandable parameters
-      
    
    This mode flag all integrations in which a specified antenna is
    flagged. This mode operates for an spectral window. It flags any
@@ -1090,8 +999,7 @@ Description
    during gain calibration, which will in turn lead to corrupted
    polarization calibration.
    
-   .. rubric:: antint_ref_antenna
-      
+   *antint_ref_antenna*
    
    Check the baselines to this antenna. Note that this is not the
    same as the general 'antenna' parameter of flagdata. The parameter
@@ -1099,8 +1007,7 @@ Description
    chooses the antenna for which the fraction of channels flagged
    will be checked.
    
-   .. rubric:: minchanfrac
-      
+   *minchanfrac*
    
    Minimum fraction of flagged channels required for a baseline  to
    be deemed as flagged. Takes values between 0-1 (float). In this
@@ -1113,7 +1020,7 @@ Description
    that timestamp). This parameter will be ignored if spw specifies a
    channel.
    
-   .. rubric:: verbose
+   *verbose*
 
    Print timestamps of flagged integrations to the log.
 
@@ -1156,54 +1063,45 @@ Description
    -  s['report0']['name']: 'InitFlags'
    -  s['report1']['name']: 'Autocorr'
    
-   .. rubric:: *minrel*
-      
+   *minrel*
    
    Minimum number of flags (relative) to include in histogram.
    Default: 0.0
    
-   .. rubric:: *maxrel*
-      
+   *maxrel*
    
    Maximum number of flags (relative) to include in histogram.
    Default: 1.0
    
-   .. rubric:: *minabs*
-      
+   *minabs*
    
    Minimum number of flags (absolute, inclusive) to include in
    histogram. Default: 0
    
-   .. rubric:: *maxabs*
-      
+   *maxabs*
    
    Maximum number of flags (absolute, inclusive) to include in
    histogram. To indicate infinity, use any negative number. Default:
    -1
    
-   .. rubric:: *spwchan*
-      
+   *spwchan*
    
    List the number of flags per spw and per channel. Default: False
    
-   .. rubric:: *spwcorr*
-      
+   *spwcorr*
    
    Llist the number of flags per spw and per correlation. Default:
    False
    
-   .. rubric:: *basecnt*
-      
+   *basecnt*
    
    List the number of flags per baseline. Default: False
    
-   .. rubric:: *fieldcnt*
-      
+   *fieldcnt*
    
    Produce a separated breakdown per field. Default: False
    
-   .. rubric:: *name*
-      
+   *name*
    
    Name for this summary, to be used as a key in the returned Python
    dictionary. It is possible to call the 'summary' *mode* multiple
@@ -1212,7 +1110,7 @@ Description
    them so that they can be easily pulled out of the summary's
    dictionary. Default: 'Summary'
 
-   .. rubric:: *action*
+   *action*
 
    Action to perform in MS/cal table or in the input list of
    parameters. Options: 'none', 'apply', 'calculate'. Default:
@@ -1220,15 +1118,13 @@ Description
    
    .. rubric:: *action='apply'* or *'calculate'* expandable
       parameters
-      
    
    action='apply' applies the flags to the MS. action='calculate'
    only calculates the flags but does not write them to the MS. This
    is useful if used together with the display to analyze the results
    before writing to the MS.
    
-   .. rubric:: *display*
-      
+   *display*
    
    Display data and/or end-of-MS reports at run-time. It needs to
    read a *datacolumn* for the plotting. The default for an MS is
@@ -1252,19 +1148,14 @@ Description
    'report' --> displays end-of-MS reports on the screen.
    'both' --> displays data per chunk and end-of-MS reports on the
    screen
-    
    
    .. rubric:: *action='apply'* expandable parameters
-      
-   
-   .. rubric:: *flagbackup*
-      
+
+   *flagbackup*
    
    Automatically backup flags before running the tool. Flagversion
    names are chosen automatically, and are based on the *mode* being
    used. Default: True. Options: True/False
-   
-    
    
    .. rubric:: action='' or 'none' description
       
@@ -1274,11 +1165,8 @@ Description
    done either. This is useful when used together with the parameter
    *savepars* to only save the current parameters (or list of
    parameters) to the FLAG_CMD sub-table or to an external file.  
-   
-    
-   
-   .. rubric:: *savepars*
-      
+
+   *savepars*
    
    Save the current parameters to the FLAG_CMD table of the MS or to
    an output text file.
@@ -1293,10 +1181,8 @@ Description
    Default: False. Options: True/False
    
    .. rubric:: savepars=True expandable parameters
-      
    
-   .. rubric:: *cmdreason*
-      
+   *cmdreason*
    
    A string containing a reason to save to the FLAG_CMD table or to
    an output text file given by the *outfile* sub-parameter. If the
@@ -1305,16 +1191,14 @@ Description
    Default: ' ', no *reason* will be added to output. Examples:
    *cmdreason='CLIP_ZEROS'*
    
-   .. rubric:: *outfile*
-      
+   *outfile*
    
    Name of output file to save the current parameters. Default: ' ',
    will save the parameters to the FLAG_CMD table of the MS.
    Examples: *outfile='flags.txt'* will save the parameters in a text
    file.
    
-   .. rubric:: *overwrite*
-      
+   *overwrite*
    
    Overwrite the existing file given in *outfile*. Options:
    True/False. Default: True, it will remove the existing file given
@@ -1322,13 +1206,9 @@ Description
    the same name. When set to False, the task will exit with an error
    message if the file exist.
    
-    
-   
    .. rubric:: SYNTAX FOR COMMANDS GIVEN IN A FILE or LIST OF STRINGS
-      
-   
+
    .. rubric:: Basic Syntax Rules
-      
    
    #. Commands are strings (which may contain internal "strings")
       consisting of KEY=VALUE pairs separated by one whitespace only.
@@ -1379,7 +1259,7 @@ Examples
    ::
    
       flagdata('my.ms', inpmode='list', inpfile=["mode='clip'
-      clipzeros=True","mode='shadow'])
+               clipzeros=True","mode='shadow'])
    
    Manually flag scans 1~3 and save the parameters to the FLAG_CMD
    sub-table.
@@ -1393,7 +1273,7 @@ Examples
    ::
    
       flagdata('my.ms', scan='1~3, mode='manual', savepars=True,
-      outfile='flags.txt')
+               outfile='flags.txt')
    
    Flag all the commands given in the Python list of strings.
    
@@ -1420,7 +1300,7 @@ Examples
    ::
    
       flagdata('my.ms', mode='list', inpfile='flags.txt',
-      action='calculate', display='data')
+               action='calculate', display='data')
    
    Flag all the antennas except *antenna=5*.
    
@@ -1471,7 +1351,7 @@ Examples
       mode='manual' scan='4' reason='MYREASON'
 
       flagdata('my.ms', mode='list', inpfile='flags.txt',
-      reason='MYREASON').
+               reason='MYREASON').
    
    The same result of 10a can be achieved using the task **flagcmd**.
    
@@ -1486,7 +1366,7 @@ Examples
    ::
    
       flagdata('my.ms', mode='rflag', spw='9', timedevscale=4.0,
-      action='apply')
+               action='apply')
    
    Save the interface parameters to the FLAG_CMD sub-table of the MS.
    Add a *reason* to the flag command. This *cmdreason* will be added
@@ -1598,5 +1478,7 @@ Examples
 .. _Development:
 
 Development
-   None
+   No additional development details
+
+
    

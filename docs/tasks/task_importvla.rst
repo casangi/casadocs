@@ -3,11 +3,6 @@
 .. _Description:
 
 Description
-   task importvla description
-   
-   Imports an arbitrary number of VLA archive-format data sets into a
-   CASA MeasurementSet.
-   
    The task **importvla** reads in VLA data in archive format, as
    downloaded from the VLA data archive. It will handle archival VLA
    data in both old style (before July 2007) and new style (after
@@ -23,14 +18,11 @@ Description
       to unflagged data, use **flagmanager** to save the flags (if
       you wish), and then use **flagdata** with *mode=’manualflag’*
       and *unflag=True* to toggle off the flags.
-   
-    
+
    
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: *archivefiles*
-      
+   *archivefiles*
    
    The parameter *archivefiles* is used to specify the input VLA
    Archive format file names, as can be found in the `NRAO
@@ -42,13 +34,11 @@ Description
    after the June 2007 Modcomp-turnoff is fully supported, based on
    the value of *applytsys*.
    
-   .. rubric:: *vis*
-      
+   *vis*
    
    Name of output visibility file.
    
-   .. rubric:: *bandname*
-      
+   *bandname*
    
    The **importvla** task allows selection on the frequency band. The
    *bandname* indicates the VLA Frequency band(s) to load, using the
@@ -71,8 +61,7 @@ Description
       JVLA <https://science.nrao.edu/facilities/vla/docs/manuals/oss2017B/performance/vla-frequency-bands-and-tunability>`__
       bands for details.
    
-   .. rubric:: *frequencytol*
-      
+   *frequencytol*
    
    The *frequencytol* parameter specifies the frequency separation
    tolerated when assigning data to spectral windows. The default is
@@ -80,8 +69,7 @@ Description
    sky frequency changes with time, a *frequencytol* < 10000 Hz may
    produce too many unnecessary spectral windows.
    
-   .. rubric:: *project*
-      
+   *project*
    
    You can specify a specific project name to import from archive
    files. The default ’’ will import data from all projects in
@@ -93,16 +81,14 @@ Description
    .. note:: **NOTE**: project=’AL0519’ will NOT work (even though that is
       what queries to the VLA Archive will print it as).
    
-   .. rubric:: *starttime* and *stoptime*
-      
+   *starttime* and *stoptime*
    
    You can specify start and stop times for the data, e.g.,
    *starttime='1970/1/31/00:00:00'* and
    *stoptime='2199/1/31/23:59:59'*. The blank defaults will load all
    data fitting other criteria.
    
-   .. rubric:: *applytsys*
-      
+   *applytsys*
    
    The *applytsys* parameter controls whether the nominal sensitivity
    scaling (based on the measured TSYS, with the weights scaled
@@ -122,8 +108,7 @@ Description
       *applytsys=False* and look at the correlation coefficients to
       see if the behavior is as expected.
    
-   .. rubric:: *autocorr*
-      
+   *autocorr*
    
    Autocorrelations are written to the MeasurementSet if
    *autocorr=True*. Generally for the VLA, autocorrelation data is
@@ -132,22 +117,19 @@ Description
    will swamp any real signal. Thus, if you do fill the
    autocorrelations, you will have to flag them before imaging.
    
-   .. rubric:: *antnamescheme*
-      
+   *antnamescheme*
    
    The *antnamescheme* parameter controls whether **importvla** will
    try to use a naming scheme where JVLA antennas are prefixed with
    EA (e.g., ’EA16’) and old VLA antennas have names prefixed with VA
    (e.g., ’VA11’).
    
-   .. rubric:: *keepblanks*
-      
+   *keepblanks*
    
    Turns on or off whether **importvla** fills the scans with blank
    (empty) source names (e.g., tipping scans).
    
-   .. rubric:: *evlabands*
-      
+   *evlabands*
    
    The *evlabands=True* option is provided to allow users to access
    JVLA frequencies outside the standard VLA tunings (e.g., the
@@ -157,13 +139,9 @@ Description
       cause unexpected associations, such as X-band data below 8 GHz
       being extracted to C-band (as the JVLA C-band is 4–8 GHz). Use
       with care.
-   
-    
-   
-    
+
    
    .. rubric:: Notes
-      
    
    If the output *vis* parameter (MeasurementSet) already exists or
    is an illegal name, the following SEVERE warning is shown.
@@ -171,10 +149,9 @@ Description
    
    ::
    
-      | SEVERE \**\* Error importing <*archivefiles*> to <*vis*>
-      | SEVERE Need valid visibility file name (bad name or already
-        exists)
-      | SEVERE An error occurred running task importvla.
+      SEVERE \*\* Error importing <*archivefiles*> to <*vis*>
+      SEVERE Need valid visibility file name (bad name or already exists)
+      SEVERE An error occurred running task importvla.
    
    When **importvla** finishes without writing any rows to the output
    MeasurementSet (because of the data selection resulting from the
@@ -184,8 +161,8 @@ Description
    
    ::
    
-      | SEVERE \**\* visibility file is empty: <*vis*>
-      | SEVERE An error occurred running task importvla.
+      SEVERE \*\* visibility file is empty: <*vis*>
+      SEVERE An error occurred running task importvla.
    
    This task has not been tested on VLA archive data with revisions
    less than 23. Using **importvla** to import older revisions
@@ -194,12 +171,9 @@ Description
    
    ::
    
-      | WARN This function has not been tested on VLA archive data
-        with revisions less
-      | WARN than 23 & the data in this record has a revision level
-        of 5
-      | WARN It is very likely that the correlation data will be
-        scaled incorrectly
+      WARN This function has not been tested on VLA archive data with revisions less
+      WARN than 23 & the data in this record has a revision level of 5
+      WARN It is very likely that the correlation data will be scaled incorrectly
    
    The *epoch* value is set to zero in archive data for revsions less
    than 10. **importvla** assumes a value of 1950 in that case,
@@ -234,10 +208,10 @@ Description
    
    ::
    
-      | SEVERE Unable to determine polarization information for some
-        or all correlator modes.
-      | SEVERE That data can not be filled and the resulting
-        visibility file may be empty.
+      SEVERE Unable to determine polarization information for some
+      or all correlator modes.
+      SEVERE That data can not be filled and the resulting
+      visibility file may be empty.
    
    The folllowing warning appears to be limited to revisions 03 and
    04 and it may indicate other problems wtih the output
@@ -248,13 +222,12 @@ Description
    
    ::
    
-      | WARN The IF transfer switch for antenna VA04 is different
-        from the setting for antenna VA01.
-      | WARN Correlations involving this antenna may have incorrect
-        polarization labelling.
+      WARN The IF transfer switch for antenna VA04 is different
+      from the setting for antenna VA01.
+      WARN Correlations involving this antenna may have incorrect
+      polarization labelling.
    
    .. rubric:: Unsupported Observing Modes
-      
    
    -  "D " : delay center determination mode
    -  "IR" : interferometer reference pointing mode
@@ -272,8 +245,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To import all K-band data from two archival VLA data-sets and
    write them out in a single MeasurementSet, taking into account all
    bands (and placing them in different spectral windows), applying
@@ -282,14 +253,11 @@ Examples
    ::
    
       importvla(archivefiles=['inputfile1','inputfile2'],
-      vis='output.ms', bandname='K', applytsys=True, autocorr=False)
+                vis='output.ms', bandname='K', applytsys=True, autocorr=False)
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

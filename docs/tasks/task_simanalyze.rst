@@ -8,7 +8,7 @@ Description
    
    **simanalyze** analyzes one or more MeasurementSets -
    interferometric and/or single dish, using CASA's
-   `tclean <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_tclean>`__
+   `tclean <../../api/casatasks.rst>`__
    task. It can also calculate and display the difference between the
    simulated observation and the original model data, and generate a
    "fidelity image". Fidelity is defined as:
@@ -22,7 +22,7 @@ Description
    grouped by the two main pieces of functionality:
    
    #. Image - Image the visibility data with CASA's
-      `tclean <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_tclean>`__
+      `tclean <../../api/casatasks.rst>`__
       task. Most of the parameters are passed to the wrapper method
       **simutil.imtclean**, which in turn calls **tclean**.
 
@@ -42,7 +42,6 @@ Description
       and fidelity images by setting *image=False*.
    
    .. rubric:: Task output
-      
    
    Below is a list of the products produced by the **simanalyze**
    task. Not all of these will necessarily be produced, depending on
@@ -86,19 +85,14 @@ Description
          convolved model and flattened output
       -  [project].[cfg].image.flat = 2D integrated intensity image,
          not corrected for primary beam; see
-         `simutil.modifymodel <https://casa.nrao.edu/casadocs-devel/stable/simulation/simutil>`__
+         `simutil.modifymodel <../../api/casatasks.rst>`__
       -  [project].[cfg].simanalyze.last = saved input parameters for
          **simanalyze** task, available in CASAshell
-   
-    
-   
-    
+
    
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: *project*
-      
+   *project*
    
    This parameter should be set to the same name as used when running
    **simobserve** or **simalma** for the directory of results
@@ -114,8 +108,7 @@ Description
       user may have to copy their sky model image into the project
       subdirectory and call it [project].skymodel.
    
-   .. rubric:: *image*
-      
+   *image*
    
    This parameter determines if **simanalyze** produces images or
    not. Note that this task always uses *deconvolver='clark'* in
@@ -133,10 +126,8 @@ Description
       boxing bright sources.
    
    .. rubric:: *image=True* expandable parameters
-      
    
-   .. rubric:: *vis*
-      
+   *vis*
    
    Single or list of input MeasurementSets, which can include a total
    power MS. **simanalyze** will grid any total power MS, **tclean**
@@ -154,8 +145,7 @@ Description
    and attempt to image all MeasurementSets (interferometric and
    single dish) in the [project]/ directory.
    
-   .. rubric:: *modelimage*
-      
+   *modelimage*
    
    It is often preferable to use a low resolution (single dish or
    synthesis) image as a prior model during clean deconvolution of a
@@ -171,50 +161,43 @@ Description
    .. note:: **NOTE 2**: *modelimage* will not be used if the MS to be
       imaged is total power.
    
-   .. rubric:: *imsize*
-      
+   *imsize*
    
    The output image size in pixels (x,y), or set to 0 to match model
    (default). Examples: *imsize=[500,500]* or *imsize=500* result in
    the same image size.
    
-   .. rubric:: *imdirection*
-      
+   *imdirection*
    
    Sets the output image direction. If left unset (default), the
    model center will be used. Examples: *imdirection='J2000
    10h00m00.0s -30d00m00.0s'*
    
-   .. rubric:: *cell*
-      
+   *cell*
    
    Sets the cell size of the image with units. If left unset
    (default), the model cell size will be used. Examples:
    *cell='10arcsec'*
    
-   .. rubric:: *interactive*
-      
+   *interactive*
    
    Turns interactive cleaning off or on. The default setting for this
    parameter is *interactive=False* (no interactive cleaning). If
    True, make sure to set *niter>0*.
    
-   .. rubric:: *niter*
-      
+   *niter*
    
    The maximum number of iterations to perform. This value can be
    changed for interactive cleaning (*interactive=True*) in the
    viewer GUI. Examples: *niter=5000*
    
-   .. rubric:: *threshold*
-      
+   *threshold*
    
    This parameter sets the upper threshold for cleaning (**clean**
    will stop if this level is reached). The default is 0.1 mJy.
    Examples: *threshold='0.5mJy'*
    
-   .. rubric:: *weighting*
-      
+   *weighting*
    
    This parameter sets the weighting that is to be applied to the
    visibility data. Options: 'natural' (+2.0 robust, default),
@@ -225,8 +208,7 @@ Description
    available, it is suggested to set *image* to False and to clean
    manually with **clean**/**tclean**.
    
-   .. rubric:: *mask*
-      
+   *mask*
    
    Specification of cleanbox(es), mask image(s), primary beam
    coverage level, and/or region(s) to be used for cleaning.
@@ -237,8 +219,7 @@ Description
    *mask='myimage.mask'*; or a file with mask regions
    *mask='mymask.txt'*.
    
-   .. rubric:: *outertaper*
-      
+   *outertaper*
    
    *outertaper* sets an outer threshold on baselines in the uv-plane,
    usually to achieve a lower angular resolution and to recover more
@@ -249,16 +230,14 @@ Description
    Gaussian; *outertaper=[’10arcsec’]* on-sky FWHM of 10 arcsecs;
    *outertaper=[’300.0’]* 300m in aperture plane
    
-   .. rubric:: *pbcor*
-      
+   *pbcor*
    
    The *pbcor* parameter determines whether or not **simanalyze**
    corrects the flux based on the primary beam. If *pbcor=True*, a
    .pbcor image will be produced with the primary beam correction
    applied. This is set to True by default.
    
-   .. rubric:: *stokes*
-      
+   *stokes*
    
    The *stokes* parameter specifies the Stokes parameters for the
    resulting images. Note that forming Stokes Q and U images requires
@@ -273,28 +252,23 @@ Description
    *stokes = ’RR’* right hand polarization only; *stokes = ’XXYY’*
    both linear polarizations
    
-   .. rubric:: *featherimage*
-      
+   *featherimage*
    
    Sometimes it is preferable to grid the single dish MS using the
    **sdimaging** task for more control. In that case, the user can
    input the resulting single dish imaging under *featherimage*, only
    put interferometric MSs in *vis*, and **simanalyze** will clean
    the interferometric and feather with the *featherimage*.
-   
-    
+
    
    .. rubric:: *image=False* expandable parameters
-      
    
-   .. rubric:: *imagename*
-      
+   *imagename*
    
    If the user already has a synthesized image they wish to use, it
    can be input using the parameter *imagename*.
    
-   .. rubric:: *skymodel*
-      
+   *skymodel*
    
    **simanalyze** will attempt to find an appropriate skymodel image
    - this is the \*.skymodel image created by **simobserve** or
@@ -302,17 +276,14 @@ Description
    was used to create the MeasurementSet. If a *skymodel* is not
    explicitedly assigned, **simanalyze** will look in the project
    directory.
+
    
-    
-   
-   .. rubric:: *analyze*
-      
+   *analyze*
    
    This parameter is used to turn on or off the creation of
    analytical images pertaining to the simulation.
    
    .. rubric:: analyze=True expandable parameters
-      
    
    When the *analyze* parameter is set to True, **simanalyze** will
    display the first 6 of the following analysis images, based on
@@ -323,45 +294,38 @@ Description
    or has already been generated, and **simanalyze** is being called
    with *image=False*).
    
-   .. rubric:: *showuv*
-      
+   *showuv*
    
    Displays a plot of the uv coverage for the simulation.
    
-   .. rubric:: *showpsf*
-      
+   *showpsf*
    
    Displays a synthesized (dirty) beam (ignored in single dish
    simulation).
    
-   .. rubric:: *showmodel*
-      
+   *showmodel*
    
    Displays the sky model at its original resolution.
    
-   .. rubric:: *showconvolved*
-      
+   *showconvolved*
    
    Displays the sky model convolved with an output beam.
    
-   .. rubric:: *showclean*
-      
+   *showclean*
    
    Displays the synthesized image.
    
-   .. rubric:: *showresidual*
-      
+   *showresidual*
    
    Displays the clean residual image (ignored in single dish
    simulation).
    
-   .. rubric:: *showdifference*
-      
+   *showdifference*
    
    Displays the difference between output cleaned image and input
    model sky image convolved with an output clean beam.
    
-   .. rubric:: *showfidelity*
+   *showfidelity*
 
    Displays the fidelity image. The fidelity image is defined by the
    following equation:
@@ -372,40 +336,34 @@ Description
       image which is likely not the best choice. It is encouraged to
       measure RMS manually in an off-source region using the
       **viewer**.
+
    
-    
-   
-   .. rubric:: *graphics*
-      
+   *graphics*
    
    Displays graphics based on the manner in which the parameter is
    set. Options: 'screen', 'file', 'both', 'none'
    
-   .. rubric:: *verbose*
-      
+   *verbose*
    
    Turns on or off the reporting of task activity in the log.
    Examples: *verbose=False* (default)
    
-   .. rubric:: *overwrite*
-      
+   *overwrite*
    
    If the user would like **simanalyze** to replace the previously
    created files starting with the *project* name, set this parameter
    to True (default).
    
-   .. rubric:: *dryrun*
-      
+   *dryrun*
    
    *dryrun=True* is an advanced technical mode only useful for
    interferometric (not single dish) data.
    
-   .. rubric:: *logfile*
-      
+   *logfile*
    
    Allows for a user-defined log file naming convention if
    *verbose=True*.
-   
+
 
 .. _Examples:
 
@@ -430,5 +388,5 @@ Examples
 .. _Development:
 
 Development
-   None
-   
+   No additional development details
+

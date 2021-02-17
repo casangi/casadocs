@@ -6,7 +6,7 @@ Description
    **sdgaincal** computes and removes a time-dependent gain variation
    in single-dish data on a per-spectral-window and per-antenna
    basis. Presently the task operates only on data taken with the
-   ALMA fast-mapped, double-circle observation modes :ref:`[1] <cit1>`
+   ALMA fast-mapped, double-circle observation modes [1]_
    . This task exploits the fact that the double-circle mode observes
    the same position in the center of the mapped field, approximately
    circular every sub-cycle, and normalizes the gains throughout the
@@ -42,11 +42,8 @@ Description
 
    .. rubric::  Bibliography
 
-
-   .. _cit1:
-
-   `1. Phillips et al, 2015, in ASP Conf. Ser. 499, Revolution in Astronomy with ALMA: The Third Year, 347
-   (` `ADS <https://ui.adsabs.harvard.edu/abs/2015ASPC..499..347P/abstract>`__ `)`
+   .. [1] Phillips et al, 2015, in ASP Conf. Ser. 499, Revolution in Astronomy with ALMA: The Third Year, 347
+      `ADS <https://ui.adsabs.harvard.edu/abs/2015ASPC..499..347P/abstract>`__
 
 
 .. _Examples:
@@ -59,7 +56,6 @@ Examples
    efficient. Examples for these two procedures are shown below.
 
    .. rubric:: Apply atmosphere and sky caltables separately
-
 
    To compute a gaintable and subsequently apply it using
    **applycal**:
@@ -82,7 +78,6 @@ Examples
       applycal(vis=calibratedvis, gaintable='DCgaintable')
 
    .. rubric:: Apply atmosphere and sky caltables on-the-fly
-
 
    To compute a gaintable and subsequently apply it using
    **applycal**:
@@ -113,5 +108,5 @@ Examples
 .. _Development:
 
 Development
-   None
+   No additional development details
 

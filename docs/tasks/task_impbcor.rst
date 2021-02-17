@@ -3,9 +3,6 @@
 .. _Description:
 
 Description
-   impbcor task: Construct a primary beam corrected image from an image
-   and a primary beam pattern.
-   
    Corrects an image for primary beam attenuation using an image of
    the primary beam pattern. The primary beam pattern can be provided
    as an image, in which case:
@@ -42,12 +39,11 @@ Examples
    ::
    
       impbcor(imagename="attenuated.im", pbimage="mypb.im",
-      outfile="pbcorred.im", mode="divide", cutoff=0.1)
+              outfile="pbcorred.im", mode="divide", cutoff=0.1)
    
 
 .. _Development:
 
 Development
-   --CASA Developer--
-   
-   
+   No additional development details
+

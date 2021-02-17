@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   Convert a Miriad visibility dataset into a CASA MeasurementSet
-   
    The task **importmiriad** allows one to import visibilities in the
    MIRIAD data format to be converted to a MeasurementSet. The task
    has mainly been tested on data from the ATCA and CARMA telescopes
@@ -13,27 +11,18 @@ Description
    ::
    
       #In CASA
-      #  importmiriad :: Convert a Miriad visibility file into a CASA
-      MeasurementSet
-      mirfile             =         ''        #  Name of input Miriad
-      visibility file
-      vis                 =         ''        #  Name of output
-      MeasurementSet
-      tsys                =      False        #  Use the Tsys to set
-      the visibility
+      #  importmiriad :: Convert a Miriad visibility file into a CASA MeasurementSet
+      mirfile             =         ''        #  Name of input Miriad visibility file
+      vis                 =         ''        #  Name of output MeasurementSet
+      tsys                =      False        #  Use the Tsys to set the visibility
                                               #   weights
-      spw                 =       [-1]        #  Select spectral
-      windows, default is
+      spw                 =       [-1]        #  Select spectral windows, default is
                                               #   all
-      vel                 =         ''        #  Select velocity
-      reference
+      vel                 =         ''        #  Select velocity reference
                                               #   (TOPO,LSRK,LSRD)
-      linecal             =      False        #  (CARMA) Apply line
-      calibration
-      wide                =         []        #  (CARMA) Select wide
-      window averages
-      debug               =          0        #  Display increasingly
-      verbose debug
+      linecal             =      False        #  (CARMA) Apply line calibration
+      wide                =         []        #  (CARMA) Select wide window averages
+      debug               =          0        #  Display increasingly verbose debug
                                               #   messages
    
    -  The *mirfile* parameter specifies a single MIRIAD visibility
@@ -64,9 +53,7 @@ Description
 .. _Examples:
 
 Examples
-   .. rubric:: Reading a MIRIAD file and converting it into a
-      MeasurementSet   
-      
+   **Reading a MIRIAD file and converting it into a MeasurementSet**
    
    ::
    
@@ -81,6 +68,5 @@ Examples
 .. _Development:
 
 Development
-   --CASA Developer--
-   
-   
+   No additional development details
+

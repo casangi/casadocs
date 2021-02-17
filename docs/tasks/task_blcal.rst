@@ -3,11 +3,6 @@
 .. _Description:
 
 Description
-   Calculate a baseline-based calibration solution (gain or bandpass)
-   
-   .. rubric:: Summary
-      
-   
    The **blcal** task determines baseline-based time- and/or
    frequency-dependent gains for all baselines in the data set. Such
    solutions are in contrast to **gaincal** and **bandpass**
@@ -30,16 +25,14 @@ Description
       cosmetic last step in calibration.
    
    .. rubric:: Common calibration solve parameters
-      
-   
+
    The **blcal** task uses all of the same parameters as gaincal and
    bandpass, which the exception of gaintype and bandtype,
    respectively. See `"Solving for
-   Calibration" <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration/solving-for-calibration>`__
+   Calibration" <../../notebooks/synthesis_calibration.ipynb#Solve-for-Calibration>`__
    for general information about calibration solving parameters.
    
    .. rubric:: Controlling frequency-dependence in blcal: *freqdep*
-      
    
    The parameter *freqdep* controls whether or not a
    channel-dependent solution should be obtained. If *freqdep=True*,
@@ -51,34 +44,22 @@ Description
 .. _Examples:
 
 Examples
-   task blcal examples
-   
-    
-   
    In this example, we solve for constant (*solint='inf'*)
    frequency-independent (*freqdep=False*) baseline-based solutions
    relative to ordinary gain, bandpass, and gaincurve calibration:
    
    ::
    
-      | blcal(vis='data.ms',
-      |       caltable='cal.M',                        # Output table
-        name
-      |       field='2',                               # A field with
-        a very good model
-      |       solint='inf',                            # single
-        solution per baseline, spw
-      |       gaintable=['cal.B','cal.gc','cal.G90s'], # all prior
-        cal
-      |       freqdep=False)                           #
-        frequency-independent solution
+      blcal(vis='data.ms',
+            caltable='cal.M',                        # Output table name
+            field='2',                               # A field with a very good model
+            solint='inf',                            # single solution per baseline, spw
+            gaintable=['cal.B','cal.gc','cal.G90s'], # all prior cal
+            freqdep=False)                           # frequency-independent solution
    
 
 .. _Development:
 
 Development
-   task blcal developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

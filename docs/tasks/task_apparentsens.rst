@@ -3,9 +3,6 @@
 .. _Description:
 
 Description
-   Estimate imaging sensitivity from visibility weights and imaging
-   parameters
-   
    The **apparentsens** task calculates the point source sensitivity
    for the specified selected data, and according to the desired
    imaging geometry and uv grid weighting. The calculation is
@@ -67,48 +64,31 @@ Description
    (with exceptions noted below), and the **tclean** documentation
    should be consulted for details on how to set them.
    
-   .. rubric:: *specmode*
-      
+   - *specmode* : For now, it is only meaningful to use specmode='mfs'.  Use of
+     specmode='cube' will be supported in future (and a apparent
+     sensitivity spectrum will be returned and reported).
    
-   For now, it is only meaningful to use specmode='mfs'.  Use of
-   specmode='cube' will be supported in future (and a apparent
-   sensitivity spectrum will be returned and reported).
-   
-   .. rubric:: *stokes*
-      
-   
-   Currently, **apparentsens** will report the sensitivity for
-   stokes='I' only.  Support for polarization-dependent sensitivity
-   estimates will be added in future.
-   
-    
-   
-   .. rubric:: * *
-      
-   
-   .. rubric:: * *
-      :name: section-1
-   
+   - *stokes* : Currently, **apparentsens** will report the sensitivity for
+     stokes='I' only.  Support for polarization-dependent sensitivity
+     estimates will be added in future.
 
 .. _Examples:
 
 Examples
-   task examples
-   
    For a MeasurementSet 'calibrated.ms', the continuum imaging
    sensitivity using natural weighting for field id 3 and a subset of
    channels in spw 0 can be obtained as follows:
    
    ::
    
-      | aps=apparentsens(vis='calibrated.ms',
-      |                  spw='0:0~30;40~80',
-      |                  field='3',
-      |                  specmode='mfs',
-      |                  cell='0.007arcsec',imsize=[2048, 2048],
-      |                  weighting='natural')
-   
-       print aps
+      aps=apparentsens(vis='calibrated.ms',
+                       spw='0:0~30;40~80',
+                       field='3',
+                       specmode='mfs',
+                       cell='0.007arcsec',imsize=[2048, 2048],
+                       weighting='natural')
+
+      print aps
    
     
    
@@ -125,14 +105,14 @@ Examples
    
    ::
    
-      | aps=apparentsens(vis='calibrated.ms',
-      |                  spw='0:0~30;40~80',
-      |                  field='3',
-      |                  specmode='mfs',
-      |                  cell='0.007arcsec',imsize=[2048, 2048],
-      |                  weighting='briggs',
-      |                  robust=0.5)
-   
+      aps=apparentsens(vis='calibrated.ms',
+                       spw='0:0~30;40~80',
+                       field='3',
+                       specmode='mfs',
+                       cell='0.007arcsec',imsize=[2048, 2048],
+                       weighting='briggs',
+                       robust=0.5)
+
       print aps
    
    The returned dictionary is (also reported in logger):
@@ -148,8 +128,4 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details

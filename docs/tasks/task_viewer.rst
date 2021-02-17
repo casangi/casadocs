@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   Displays images, data cubes and MeasurementSets.
-   
    The **viewer** will display images in raster, contour, vector or
    marker form. Images can be blinked, and movies are available for
    spectral-line image cubes. For MeasurementSets, many display and
@@ -24,24 +22,17 @@ Description
    on the command line or select it from the Load Data window.
    
    See the `Image Cube
-   Visualization <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-cube-visualization>`__ and
+   Visualization <../../notebooks/image_visualization.ipynb>`__ and
    `Data Examination and
-   Editing <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing>`__
+   Editing <../../notebooks/data_examination.ipynb>`__
    chapters in CASAdocs for (many) more details on using the
    **viewer** to display images and MSes.
+
    
-    
+   .. figure:: _apimedia/c21233cc58158c9088713800a5694cfaf3f94963.png
    
-   |image1|
-   
-   ======= ===============
-   Type    Figure
-   ID      1
-   Caption The CASA viewer
-   ======= ===============
-   
-   .. |image1| image:: _apimedia/c21233cc58158c9088713800a5694cfaf3f94963.png
-   
+      The CASA viewer
+
 
 .. _Examples:
 
@@ -59,7 +50,7 @@ Examples
    
       viewer "myimage.im"
    
-    To open a MeasurementSet:
+   To open a MeasurementSet:
    
    ::
    
@@ -81,6 +72,5 @@ Examples
 .. _Development:
 
 Development
-   None
-   
-   
+   No additional development details
+

@@ -122,6 +122,7 @@ for task in tasklist:
     
     # change image links
     rst = re.sub('(\.\. \|.*?\| image:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', rst, flags=re.DOTALL)
+    rst = re.sub('(\.\. figure:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', rst, flags=re.DOTALL)
     
     # add this task to the __init__.py
     with open('../casatasks/'+task['category']+'/'+'__init__.py', 'a') as fid:
@@ -185,7 +186,7 @@ for task in tasklist:
         
         # add long descriptions of each parameter as footnotes at the bottom
         fid.write('.. _Details:\n\n')
-        fid.write('\nParameter Details\n   This section provides a more detailed description of each function parameter\n\n')
+        fid.write('\nParameter Details\n   Detailed descriptions of each function parameter\n\n')
         for param in task['params'].keys():
             if ('description' in task['params'][param].keys()) and (task['params'][param]['description'] is not None):
                 fid.write('.. _%s:\n\n' % param)

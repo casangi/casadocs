@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
    .. note:: **NOTE**: This is the new implementation of **split**.  The old
       implementation is available for a short time as oldsplit.
    
@@ -21,19 +19,15 @@ Description
    **split** also supports the Multi-MS (MMS) format as input. For
    more information about MMS, see the help of **partition** and
    **mstransform**.
-   
-    
+
    
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: *vis*
-      
+   *vis*
    
    Name of input MeasurementSet or Multi-MS.
    
-   .. rubric:: *outputvis*
-      
+   *outputvis*
    
    Name of output MeasurementSet or Multi-MS.
    
@@ -42,24 +36,20 @@ Description
       rename or remove the existing flagbackup or choose a different
       output name for the MS.
    
-   .. rubric:: *keepmms*
-      
+   *keepmms*
    
    If the input is a Multi-MS the output will also be a Multi-MS. The
    default value is set to True. The output Multi-MS will have the
    same partition axis of the input MMS.
    
-   .. rubric:: General selection:  *field, spw, antenna, timerange*,
-      scan
-      
+   .. rubric:: General selection:  *field, spw, antenna, timerange*, scan
    
    The **split** task uses the same selection syntax as the solving
    tasks for these parameters. See
-   `here <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__
+   `here <../../notebooks/visibility_data_selection.ipynb>`__
    for more information.
    
-   .. rubric:: *datacolumn*
-      
+   *datacolumn*
    
    Give the name of the input data column(s) to process. The default
    is set to "corrected_data". Allowed values are:
@@ -83,8 +73,7 @@ Description
       reason is that the newly created MS needs a DATA  column to be
       valid.
    
-   .. rubric:: *keepflags*
-      
+   *keepflags*
    
    Keep completely flagged rows in the output or drop them. This has
    no effect on partially flagged rows. All of the channels and
@@ -101,16 +90,14 @@ Description
       to True, while only unflagged data is used on averages where
       there is some unflagged data with the flag set to False.
    
-   .. rubric:: Channel averaging parameter: *width*
-      
+   Channel averaging parameter: *width*
    
    This parameter gives the number of input channels to average to
    create one output channel. If a list is given, each bin will apply
    to one spw in the selection. The default 1 means that no averaging
    will be applied.
    
-   .. rubric:: Time averaging parameters: *timebin, combine*
-      
+   Time averaging parameters: *timebin, combine*
    
    The parameter *timebin* gives the width for time averaging. When
    *timebin* is greater than 0s, the task will average data in time.
@@ -132,7 +119,7 @@ Description
       state to the *combine* parameter.
    
    To see the number of states in an MS, use the
-   `msmd <https://casa.nrao.edu/casadocs-devel/stable/global-tool-list/tool_msmetadata/about>`__
+   `msmd <../../api/casatools.rst>`__
    tool. The default is set to *combine=''*, which will not cross the
    scan or state boundaries when averaging in time. Options are:
    'scan', 'state', 'state,scan'.
@@ -141,10 +128,7 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    .. rubric:: Split with field selections
-      
    
    Create a new MS with field ID 3 and all field names starting with
    4C.
@@ -154,7 +138,6 @@ Examples
       split(vis='example.ms',outputvis='test.ms',field='3,4C*')
    
    .. rubric:: Split with spectral window and channel selections
-      
    
    Split channels 3 through 64 for all SPW IDs.
    
@@ -186,11 +169,9 @@ Examples
    ::
    
       split('example.ms',outputvis='test.ms',spw='4~6:4~59')
-   
-    
+
    
    .. rubric:: Split with antenna selections
-      
    
    Split using antenna selection. Non-negative integers are assumed
    to be antenna indices, and anything else is taken as an antenna
@@ -199,22 +180,18 @@ Examples
    
    ::
    
-      split(vis='example.ms', outputvis='test.ms',
-      antenna='VA05&VA06')
+      split(vis='example.ms', outputvis='test.ms', antenna='VA05&VA06')
    
    .. rubric:: Channel Averaging
-      
    
    Average 2 channels of first selected SPW and 3 channels in second
    SPW.
    
    ::
    
-      split(vis='example.ms', outputvis='test.ms',spw='0,1',
-      width=[2,3])
+      split(vis='example.ms', outputvis='test.ms',spw='0,1', width=[2,3])
    
    .. rubric:: Time Averaging
-      
    
    Average in time across scans. The following example can be useful
    when the scan number goes up with each integration as in many WSRT
@@ -222,15 +199,11 @@ Examples
    
    ::
    
-      split(vis='example.ms', outputvis='test.ms',timebin='20s',
-      combine='scan')
+      split(vis='example.ms', outputvis='test.ms',timebin='20s', combine='scan')
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

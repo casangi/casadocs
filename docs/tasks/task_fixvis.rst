@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task fixvis description
-   
    **fixvis** recalculates (u, v, w) in an MS based on antenna
    positions, time and source position. **fixvis** can also change
    the phase center of visibilities.
@@ -22,30 +20,23 @@ Description
       when applicable.
    
    See also `the description in section UV
-   Manipulation <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/uv-manipulation/recalculation-of-uvw-values-fixvis>`__. 
-   
-    
-   
+   Manipulation <../../notebooks/uv_manipulation.ipynb#Recalculate-UVW-Values>`__.
+
    .. rubric:: Parameter descriptions
       
-   
-   .. rubric:: *vis*
-      
-   
+   *vis*
+
    Name of the input visibility MS. 
    
-   .. rubric:: *outputvis*
-      
-   
+   *outputvis*
+
    Name of the output MS. Default: same as *vis*
    
-   .. rubric:: *field*
-      
-   
+   *field*
+
    The field selection string. Default: '' = all.
    
-   .. rubric:: *refcode*
-      
+   *refcode*
    
    The UVW coordinates are calculated based on a celestial position,
    the phase direction of the given field. This direction has a
@@ -54,8 +45,7 @@ Description
    coordinates are recalculated. Default: the refcode of PHASE_DIR in
    the FIELD table. Example: *refcode='B1950'*
    
-   .. rubric:: *reuse*
-      
+   *reuse*
    
    If *True* and the given *refcode* is different from the original,
    the present UVW coordinates are just rotated to the new *refcode*.
@@ -63,8 +53,7 @@ Description
    direction. Default: True; The parameter is ignored when the
    parameter *phasecenter* is set.
    
-   .. rubric:: *phasecenter*
-      
+   *phasecenter*
    
    If set to a valid direction: change the phase center for the
    given field to this value. Example: *phasecenter='J2000 9h25m00s
@@ -79,8 +68,7 @@ Description
       divided by the cos(DEC) before it is applied.
    
    .. rubric:: *distances*
-      
-   
+
    *(experimental)* List of the distances (as quanta) of the fields
    selected by field to be used for refocusing. If empty, the
    distances of all fields are assumed to be infinity. If not a list
@@ -99,8 +87,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    **Example 1:**
    
    Recalculate the UVW coordinates for all fields based on the
@@ -118,14 +104,11 @@ Examples
    ::
    
        fixvis(vis='Moon.ms',outputvis='Moon-fixed.ms',field='Moon',
-      phasecenter='J2000 9h25m00s 05d12m00s')
-   
+              phasecenter='J2000 9h25m00s 05d12m00s')
+
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

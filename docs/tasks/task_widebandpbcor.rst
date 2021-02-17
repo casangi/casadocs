@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task widebandpbcor description
-   
    The task **widebandpbcor** performs a WideBand Primary-beam
    correction. It computes a set of PBs at the specified frequencies,
    calculates Taylor-coefficient images that represent the PB
@@ -27,13 +25,11 @@ Description
    
    For more information about the widebandpbcor task, please see
    the `Wide Band
-   Imaging <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/wide-band-imaging>`__ page
+   Imaging <../../notebooks/synthesis_imaging.ipynb#Wide-Band-Imaging>`__ page
    in the Synthesis Imaging section of CASAdocs.  
-   
-   
+
    
    .. rubric:: Choosing *spwlist*, *chanlist*, and *weightlist*
-      
    
    The basic principles at work here are:
    
@@ -59,14 +55,11 @@ Description
    may be close enough to using all 3 spws. Or, you could also
    pick the middle channel of all 3 spws, and assign weights as [1.0,
    0.1, 1.0].
-   
-    
+
    
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: *vis*
-      
+   *vis*
    
    Name of input visibility file. Default: none. Examples:
    *vis='ngc5921.ms'.* Only one MS can be specified here, and it must
@@ -85,16 +78,14 @@ Description
       the full frequency range. This task uses the MS only for
       frequency meta-data.
    
-   .. rubric:: *imagename*
-      
+   *imagename*
    
    Pre-name of input and output images. Same as in the **clean** or
    **tclean** task. Examples: *imagename = 'run1'*; Restored-images
    (run1.image.tt0, etc.) and residual images (run1.residual.tt0,
    etc... ) must be available on disk.
    
-   .. rubric:: *nterms*
-      
+   *nterms*
    
    Number of Taylor terms to be used to model the
    frequency-dependence of the primary beam. Examples: *nterms = 2*;
@@ -103,14 +94,12 @@ Description
    a standard division by the average PB computed over all specified
    frequencies.
    
-   .. rubric:: *threshold*
-      
+   *threshold*
    
    Flux level in the restored intensity map, below which to not
    recalculate spectral index. Examples: *threshold = '0.1Jy'*
    
-   .. rubric:: *action*
-      
+   *action*
    
    Choice of PB-correction with spectral-index recalculation or only
    spectral-index recalculation (using the specified threshold).
@@ -138,10 +127,8 @@ Description
    -  imagename.image.alpha.error: New error map.
    
    .. rubric:: action='pbcor' expandable parameters
-      
    
-   .. rubric:: *reffreq*
-      
+   *reffreq*
    
    Reference frequency about which the Taylor-expansion is defined.
    Examples: reffreq = '1.5GHz'. If left unspecified, it is picked
@@ -150,26 +137,22 @@ Description
    .. note:: **NOTE**: If *reffreq* was specified during task clean to
       produce the images it must be specified here.
    
-   .. rubric:: *pbmin*
-      
+   *pbmin*
    
    PB gain level below which to not compute Taylor-coefficients or
    apply PB-corrections. Examples: *pbmin = 0.1*
    
-   .. rubric:: *field*
-      
+   *field*
    
    Field selection for the Primary Beam calculation. Examples: *field
    = '3C291'*. This field selection must be identical to that used in
    **clean** or **tclean**.
    
-   .. rubric:: *spwlist*
-      
+   *spwlist*
    
    List of SPW ids for which to make separate Primary Beam.
    
-   .. rubric:: *chanlist*
-      
+   *chanlist*
    
    List of channel ids, within the above SPW ids, at which to make
    PBs. Examples: *spwlist=[0,1,2] chanlist=[32,32,32]*, make PBs at
@@ -181,8 +164,7 @@ Description
    pointings selected by *field*. Taylor-coefficients that represent
    the PB spectrum are computed from these images.
    
-   .. rubric:: *weightlist*
-      
+   *weightlist*
    
    List of relative weights to apply to the PBs selected via the
    *spwlist* and *chanlist* parameters. Weights should approximately
@@ -199,17 +181,14 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    Run the MTMFS deconvolver to generate wideband Taylor coefficient
    solutions from spectral windows 0, 1 and 2 of a dataset:
    
    ::
    
       tclean(vis='xxx.ms', imagename='try', spw='0~3', imsize=200,
-      cell='10.0arcsec', deconvolver='mtmfs', nterms=2, niter=20)
-   
-    
+             cell='10.0arcsec', deconvolver='mtmfs', nterms=2, niter=20)
+
    
    Apply wideband PB correction using the middle channel (for
    example, channel number 32) from each spectral window to compute a
@@ -218,8 +197,8 @@ Examples
    ::
    
       widebandpbcor(vis='xxx.ms', imagename='try', nterms=2,
-      threshold='0.1Jy', action='pbcor', spwlist=[0,1,2],
-      chanlist=[32,32,32], weightlist=[1.0,1.0,1.0])
+                    threshold='0.1Jy', action='pbcor', spwlist=[0,1,2],
+                    chanlist=[32,32,32], weightlist=[1.0,1.0,1.0])
    
     
    
@@ -230,14 +209,11 @@ Examples
    ::
    
       widebandpbcor(vis='xxx.ms', imagename='try', nterms=2,
-      threshold='0.05Jy', action='calcalpha')
+                    threshold='0.05Jy', action='calcalpha')
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

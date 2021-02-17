@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task description
-
    Task **sdbaseline** fits and/or subtracts a baseline from
    single-dish spectra in MS format. Given parameters that define the
    baseline to be fit (function type, order or the polynomial, etc.),
@@ -22,9 +20,7 @@ Description
    processing of huge datasets.
 
 
-
    .. rubric:: Baseline Model Functions
-
 
    The user can specify the function to be used for the baseline with
    the *blfunc* keyword (e.g. *blfunc = 'poly'*). In general,
@@ -55,24 +51,21 @@ Description
       blfunc='sinusoid'
 
 
-
    .. rubric:: Output Files
 
+   The task outputs the baseline-subtracted MS data set.  Users
+   should specify the output data file name with the *outfile*
+   keyword.
 
-   | The task outputs the baseline-subtracted MS data set.  Users
-     should specify the output data file name with the *outfile*
-     keyword.
-   | Also, the fit parameters, terms, and rms of the baseline can be
-     saved into an ascii text file (in human-readable format or CSV
-     format) or a baseline table (a CASA table). By default, a text
-     file named  <infile name> + '\_ blparam.txt' is output. The
-     saved baseline table can be used later to subtract the baselines
-     from an MS.
-
+   Also, the fit parameters, terms, and rms of the baseline can be
+   saved into an ascii text file (in human-readable format or CSV
+   format) or a baseline table (a CASA table). By default, a text
+   file named  <infile name> + '\_ blparam.txt' is output. The
+   saved baseline table can be used later to subtract the baselines
+   from an MS.
 
 
    .. rubric:: Fitting and Clipping
-
 
    In general, least-squares fitting is strongly affected by extreme
    data points, making the resulting fit poor. Sigma clipping is an
@@ -98,13 +91,26 @@ Description
    fit.
 
 
+   .. rubric:: Update Weight
+
+   Setting the parameter *updateweight = True*, the WEIGHT column is
+   updated as :math:`1/(sigmavalue)^2` according to the *sigmavalue*
+   parameter ("stddev" or "rms"), where "stddev" calculates the
+   standard deviation of the baseline-subtracted spectrum and "rms"
+   does the root mean square. The calculation is done with unflagged
+   channels only.
+
+   Note that the SIGMA column is not updated; it keeps the values of
+   the input MS data. In case the user wants to refer to the
+   standard deviation of the output MS data, she or he needs to
+   compute it using WEIGHT column values as :math:`1/\sqrt{WEIGHT}`
+   - the SIGMA column should not be refered to.
+
+
 .. _Examples:
 
 Examples
-   task examples
-
    .. rubric::   Example 1
-
 
    This is one of the simplest examples. To fit and remove a
    Chebyshev polynomial function (default is 5th order) from the data
@@ -120,7 +126,6 @@ Examples
 
    .. rubric::  Example 2
 
-
    This example shows fitting and subtracting a sinusoidal baseline.
    To fit and remove a sinusoid from the data 'sd_data.ms', using
    spectral window 0 and scan number 0. Wave numbers of sinusoids are
@@ -132,7 +137,6 @@ Examples
                  fftmethod='fft', outfile='sd_data.ms.bl', overwrite=True)
 
    .. rubric::  Example 3
-
 
    In this example, the user specifies different fitting parameters
    per spectrum, using blfunc='variable' and specifying the fit
@@ -153,11 +157,20 @@ Examples
       0,1,,0,3.,false,0.,0,0,0,chebyshev,0,0,[]
       1,0,0~500;1500~2000,0,3.,false,0.,0,0,0,poly,1,0,[]
 
+   .. rubric::   Example 4
+
+   This is an example of fitting and subtracting a polynomial
+   baseline, and also updating the WEIGHT column of the output MS
+   'sd_data.ms.bl' as :math:`1/RMS^2` .
+
+   ::
+
+      sdbaseline(infile='sd_data.ms', blfunc='poly', updateweight=True, sigmavalue='rms',
+                 outfile='sd_data.ms.bl', overwrite=True)
+
 
 .. _Development:
 
 Development
-   task developer
-
-   --CASA Developer--
+   No additional development details
 

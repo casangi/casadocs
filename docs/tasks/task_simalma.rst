@@ -26,26 +26,22 @@ Description
    tasks to create the simulated data, or run the other tasks
    individually one at a time to better understand and control the
    process. More information on running **simalma** can be found
-   `here <https://casa.nrao.edu/casadocs-devel/stable/simulation/simalma>`__.
+   `here <../../notebooks/simulation.ipynb#ALMA-simulations>`__.
    
    .. note:: **NOTE**: The ALMA project is refining the optimal method of
       combining the three types of data. If that best practice is
       changed after this release of CASA, the user can control the
       process by modifying the calls to the other CASA tasks.
-   
-    
-   
+
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: *project*
-      
+   *project*
    
    The root filename for all output files. A subdirectory will be
    created, and all created files will be placed in that subdirectory
    including the informational report.
-   
-   .. rubric:: *skymodel*
+
+   *skymodel*
    
    An input image used as a model of the sky. **simalma** requires a
    CASA or FITS image. If you merely have a grid of numbers, you will
@@ -66,7 +62,7 @@ Description
    according to the specified user parameters. You can manipulate
    an image header manually with the **imhead** task.
    
-   .. rubric:: *inbright*
+   *inbright*
    
    The peak brightness to scale the image to in Jy/pixel, or " " to
    keep it unchanged.
@@ -75,23 +71,23 @@ Description
       image and assume they are in Jy/pixel, even if it says some
       other unit in the header.   
    
-   .. rubric:: *indirection*
+   *indirection*
    
    The central direction to place the sky model image, or " " to use
    whatever is in the image already.
    
-   .. rubric:: *incell*
+   *incell*
    
    The spatial pixel size to scale the skymodel image, or " " to use
    whatever is in the image already.
    
-   .. rubric:: *incenter*
+   *incenter*
    
    The frequency to use for the center channel (or only channel, if
    the skymodel is 2D). E.g., "89GHz", or " " to use what is in the
    header. Required even for a 2D model.
    
-   .. rubric:: *inwidth*
+   *inwidth*
    
    The width of channels to use, or " " to use what is in the image.
    Should be a string representing a quantity with units e.g.,
@@ -103,19 +99,19 @@ Description
       That kind of regridding can be accomplished with the CASA
       toolkit.
    
-   .. rubric:: *complist*
+   *complist*
    
    A component list model of the sky, added to or instead of
    skymodel. Click
    `here <https://casaguides.nrao.edu/index.php/Simulation_Guide_Component_Lists_(CASA_5.1)>`__
    for more information.
    
-   .. rubric:: *compwidth*
+   *compwidth*
    
    The bandwidth of components. If simulating from components only,
    this defines the bandwidth of the MS and output images.
    
-   .. rubric:: *setpointings*
+   *setpointings*
    
    If True, calculate a map of pointings and write *ptgfile*. If
    graphics are on, display the pointings shown on the model image.
@@ -127,7 +123,7 @@ Description
    lattice grids of spacing 0.33 lambda/D. If *setpointings=False*,
    read pointings from ptgfile.  
    
-   .. rubric:: *ptgfile*
+   *ptgfile*
    
    A text file specifying directions in the same format as the
    example, and optional integration times, e.g.,
@@ -144,7 +140,7 @@ Description
       pointings. **simalma** will observe these until totaltime is
       used up. 
    
-   .. rubric:: *integration*
+   *integration*
    
    Time interval for each integration e.g., '10s'.
    
@@ -153,19 +149,19 @@ Description
       file to increase the time at each point to be larger than the
       parameter integration time. 
    
-   .. rubric:: *direction*
+   *direction*
    
    Mosaic center direction. e.g., 'J2000 19h00m00 -40d00m00'. If
    unset, will use the center of the skymodel image. Can optionally
    be a list of pointings, otherwise **simobserve** will cover a
    region of size *mapsize* according to *maptype*.
    
-   .. rubric:: *mapsize*
+   *mapsize*
    
    Angular size of mosaic map to simulate. Set to " " to cover the
    model image.
    
-   .. rubric:: *antennalist*
+   *antennalist*
    
    A vector of ASCII files containing antenna positions, one for each
    configuration of 7m or 12m dishes.In this task, it should be an
@@ -176,11 +172,11 @@ Description
    ['alma.cycle2.5.cfg','aca.cycle2.i.cfg'],
    ['alma.cycle1;0.3arcsec','alma.cycle1.1.cfg','aca.i.cfg']  
    
-   .. rubric:: *hourangle*
+   *hourangle*
    
    Hour angle of observation e.g., '-3h'.
    
-   .. rubric:: *totaltime*
+   *totaltime*
    
    The total time of observations. This should either be a scalar
    time quantity expressed as a string e.g., '1h', '3600sec',
@@ -192,11 +188,11 @@ Description
    configurations will have observing times relative to totaltime of
    0.5, 2,and 4, respectively.  
    
-   .. rubric:: *tpnant*
+   *tpnant*
    
    The number of total power antennas to use in simulation.  
    
-   .. rubric:: *tptime*
+   *tptime*
    
    If *tpnant>0*, the user must specify the observing time for total
    power as a CASA quantity e.g., '4h'.
@@ -205,7 +201,7 @@ Description
       track will include observations below the horizon,  which is
       probably not what is desired.  
    
-   .. rubric:: *pwv*
+   *pwv*
    
    Precipitable water vapor. If constructing an atmospheric model,
    set 0 for noise-free simulation. When *pwv*>0, thermal noise is
@@ -216,7 +212,7 @@ Description
    ATM, and internally tabulated receiver temperatures. See the
    documentation of **simobserve** for more details.  
    
-   .. rubric:: *image*
+   *image*
    
    An option to invert and deconvolve the simulated MeasurementSet(s)
    
@@ -228,39 +224,38 @@ Description
    uses Cotton-Schwab clean for single fields and Mosaic gridding for
    multiple fields (with Clark PSF calculation in minor cycles).  
    
-   .. rubric:: *imsize*
+   *imsize*
    
    The image size in spatial pixels (x,y). 0 or -1 will use the model
    image size. Examples: imsize=[500,500]
    
-   .. rubric:: *imdirection*
+   *imdirection*
    
    The phase center for synthesized image. Default is to center on
    the sky model.
    
-   .. rubric:: *cell*
+   *cell*
    
    Cell size e.g., "10arcsec". *cell = " "* defaults to the skymodel
    cell.
    
-   .. rubric:: *niter*
+   *niter*
    
    The number of clean/deconvolution iterations, 0 for no cleaning.
    
-   .. rubric:: *threshold*
+   *threshold*
    
    The flux level at which to stop cleaning.
    
-   .. rubric:: *graphics*
+   *graphics*
    
    View plots on the screen, saved to file, both, or neither.
    
-   .. rubric:: *verbose*
+   *verbose*
    
    Print extra information to the logger and terminal.
    
-   .. rubric:: *overwrite*
-      
+   *overwrite*
    
    Overwrite existing files in the project subdirectory. Please see
    the documents of **simobserve** and **simanalyze** for the list of
@@ -278,15 +273,15 @@ Examples
    
       # Set simalma to default parameters
       default("simalma")
-      # Our project name will be "m51", and all simulation products
-      will be placed in a subdirectory "m51/"
+
+      # Our project name will be "m51", and all simulation products will be placed in a subdirectory "m51/"
       project="m51"
       overwrite=True
+
       # Model sky = H_alpha image of M51
-      os.system('curl
-      https://casaguides.nrao.edu/images/3/3f/M51ha.fits.txt -f -o
-      M51ha.fits')
+      os.system('curl https://casaguides.nrao.edu/images/3/3f/M51ha.fits.txt -f -o M51ha.fits')
       skymodel="M51ha.fits"
+
       # Set model image parameters:
       indirection="J2000 23h59m59.96s -34d59m59.50s"
       incell="0.1arcsec"
@@ -306,5 +301,5 @@ Examples
 .. _Development:
 
 Development
-   None
+   No additional development details
 

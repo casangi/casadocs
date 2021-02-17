@@ -3,43 +3,29 @@
 .. _Description:
 
 Description
-   task description
-   
    **mstransform** is a multipurpose task that provides all the
    functionality of
-   `split <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_split>`__,
-   `partition <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_partition>`__,
-   `cvel <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_cvel2>`__,
-   `hanningsmooth <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_hanningsmooth>`__ **,** `uvcontsub <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_uvcontsub3>`__
-   and
-   `applycal <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_applycal>`__
+   `split, partition, cvel, hanningsmooth, uvcontsub and applycal <../../api/casatasks.rst>`__
    with the possibility of applying each of these transformations
    separately or together in an in-memory pipeline, thus avoiding
    unnecessary I/O steps. Each transformation can be activated
    through a boolean parameter in the task interface. Below are the
    main parameter descriptions. See also how to run **mstransform**
-   for some use-cases in the
-   `Examples <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_mstransform/examples>`__
-   tab menu.
-   
-    
+   for some use-cases in the Examples section below.
+
    
    .. rubric:: Parameter Descriptions
-      
    
-   .. rubric:: *createmms*
-      
+   *createmms*
    
    When set to True, this parameter will create an output Multi-MS,
    which is the basic step for running CASA in parallel. See more
    about this in the
-   `Parallelization <https://casa.nrao.edu/casadocs-devel/stable/parallel-processing>`__
+   `Parallelization <../../notebooks/parallel-processing.ipynb>`__
    chapter.
-   
-    
+
    
    .. rubric:: Combination of spws: *combinespws*
-      
    
    Combine the input spectral windows into a new output spectral
    window. Whenever the data to be combined has different *EXPOSURE*
@@ -54,11 +40,9 @@ Description
       number of channels is the same for all the spws. Using this
       option with different numbers of channels for different spws
       will result in an error.
-   
-    
+
    
    .. rubric:: Channel averaging: *chanaverage*
-      
    
    Average data across channels. Partially flagged data is not
    included in the average unless all data contributing to a given
@@ -81,15 +65,12 @@ Description
    .. math:: Average = \frac{\sum(Chan_{i}*Flag_{i})}{\sum(Flag_{i})}
    
    #. When WEIGHT_SPECTRUM/SIGMA_SPECTRUM are present:
-   
-           
+
    
    .. math:: Average = \sum(Chan_i*Flag_i*WeightSpectrum_i) \sum(Flag_i*WeightSpectrum_i)
-   
-    
+
    
    .. rubric:: Hanning smoothing: *hanning*
-      
    
    This function Hanning smooths the frequency channels with a
    weighted running average to remove Gibbs ringing. The weights are
@@ -99,11 +80,9 @@ Description
    By default, all visibility data columns available in the MS will
    be smoothed, unless a specific column is given in the *datacolumn*
    parameter.
-   
-    
+
    
    .. rubric:: Reference frame transformation: *regridms*
-      
    
    Transform channel labels and visibilities to a different spectral
    reference frame, which is appropriate for science analysis. For
@@ -150,11 +129,9 @@ Description
    create a regular grid of spws in the output MS. If *nchan* is set,
    it will refer to the number of output channels in each of the
    separated spws.
-   
-    
+
    
    .. rubric:: Time averaging: *timeaverage*
-      
    
    Average data across time by setting *timeaverage=True* and giving
    the bin for averaging using the sub-parameter *timebin*. Partially
@@ -176,30 +153,25 @@ Description
    is to provide a maximum separation of start-to-end baselines that
    can be included in an average with the use of the *maxuvwdistance*
    sub-parameter.
-   
-    
+
    
    .. rubric:: On-the-fly calibration parameters: *docallib*
-      
    
    **mstransform** is able to apply the calibrations on the fly,
    similar to the **applycal** task. This is possible by specifying a
    `Cal
-   Library <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/uv-manipulation/on-the-fly-calibration>`__
+   Library <../../notebooks/uv_manipulation.ipynb#On-the-fly-calibration>`__
    filename that contains the actual specification for the
    calibrations to be applied. See more about the Cal Library file
-   syntax `here <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/cal-library-syntax>`__.
-   See also an
-   `example <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_mstransform/examples>`__
-   of applying the Cal library in mstransform.
-   
-    
-   
+   syntax `here <../../build/notebooks/cal_library_syntax.ipynb>`__.
+   See also the examples section below for how to apply the Cal library in
+   mstransform.
+
+
    .. rubric:: Multi-MS Processing using mstransform
-      
    
    Task **mstransform** will process an input
-   `Multi-MS <https://casa.nrao.edu/casadocs-devel/stable/parallel-processing/the-multi-ms>`__
+   `Multi-MS <../../notebooks/parallel-processing.ipynb#The-Multi-MS>`__
    (MMS) in parallel whenever possible. Each Sub-MS of the MMS will
    be processed in a separate computer core and the results will be
    post-processed at the end to create an output MMS. The output MMS
@@ -236,11 +208,11 @@ Description
    using **mstransform**.
    
    +-----------------+-----------------+-----------------+-----------------+
-   | **input MMS     | **com           | **nspw > 1**    | **tim           |
-   | axis**          | binespws=True** |                 | eaverage=True** |
+   | **input MMS     | **combinespws = | **nspw > 1**    | **timeaverage = |
+   | axis**          | True**          |                 | True**          |
    |                 |                 |                 |                 |
-   |                 |                 |                 | **ti            |
-   |                 |                 |                 | mespan='scan'** |
+   |                 |                 |                 | **timespan =    |
+   |                 |                 |                 | 'scan'**        |
    +-----------------+-----------------+-----------------+-----------------+
    | scan            | YES             | YES             | NO              |
    +-----------------+-----------------+-----------------+-----------------+
@@ -258,21 +230,19 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    Split out a single channel:
    
    ::
    
       mstransform(vis='ctb80-vsm.ms', outputvis='mychn.ms',
-      datacolumn='data', spw='0:25')
+                  datacolumn='data', spw='0:25')
    
    Combine the selected spws into a single output spw:
    
    ::
    
       mstransform(vis='Four_ants.ms', outputvis='myspw.ms',
-      combinespws=True, spw='0~3')
+                  combinespws=True, spw='0~3')
    
    Combine two spws and regrid one field, using two input channels to
    make one output:
@@ -280,7 +250,7 @@ Examples
    ::
    
       mstransform(vis='jupiter6cm.demo.ms',outputvis='test1.ms',datacolumn='DATA',field='11',
-      spw='0,1', combinespws=True, regridms=True, nchan=1, width=2)
+                  spw='0,1', combinespws=True, regridms=True, nchan=1, width=2)
    
    Combine 24 spws and regrid in frequency mode to create 21 output
    channels, change the phase center:
@@ -288,16 +258,16 @@ Examples
    ::
    
       mstransform(vis='g19_d2usb_targets_line.ms',
-      outputvis='test2.ms', datacolumn='DATA', combinespws=True,
-      regridms=True, mode='frequency', nchan=21, start='229587.0MHz',
-      width='1600kHz', phasecenter="J2000 18h25m56.09 -12d04m28.20")
+                  outputvis='test2.ms', datacolumn='DATA', combinespws=True,
+                  regridms=True, mode='frequency', nchan=21, start='229587.0MHz',
+                  width='1600kHz', phasecenter="J2000 18h25m56.09 -12d04m28.20")
    
    Apply Hanning smoothing to an MS:
    
    ::
    
       mstransform(vis='g19_d2usb_targets_line.ms',
-      outputvis='test3.ms', datacolumn='DATA', hanning=True)
+                  outputvis='test3.ms', datacolumn='DATA', hanning=True)
    
    Change the reference frame and apply Hanning smoothing after
    combining all spws:
@@ -305,9 +275,9 @@ Examples
    ::
    
       mstransform(vis='g19_d2usb_targets_line.ms',
-      outputvis='test4.ms', datacolumn='DATA', combinespws=True,
-      regridms=True, mode="channel", outframe="BARY",
-      phasecenter="J2000 18h25m56.09 -12d04m28.20", hanning = True)
+                  outputvis='test4.ms', datacolumn='DATA', combinespws=True,
+                  regridms=True, mode="channel", outframe="BARY",
+                  phasecenter="J2000 18h25m56.09 -12d04m28.20", hanning = True)
    
    Apply time averaging using a bin of 30 seconds on the default
    *CORRECTED* column:
@@ -315,15 +285,15 @@ Examples
    ::
    
       mstransform(vis='g19_d2usb_targets_line.ms',
-      outputvis='test5.ms', timeaverage=True, timebin='30s')
+                  outputvis='test5.ms', timeaverage=True, timebin='30s')
    
    Apply OTF calibration to ngc5921 using a calibration library:
    
    ::
    
       mstransform(vis='ngc5921.ms',
-      outputvis='ngc5921_calibrated.ms',docallib=True,
-      callib='./ngc5921_callib.txt')
+                  outputvis='ngc5921_calibrated.ms',docallib=True,
+                  callib='./ngc5921_callib.txt')
    
    The calibration file (ngc5921_callib.txt) used in the above
    example contains the following information:
@@ -339,8 +309,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

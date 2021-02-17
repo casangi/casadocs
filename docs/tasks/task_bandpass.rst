@@ -3,11 +3,6 @@
 .. _Description:
 
 Description
-   calculates a bandpass calibration solution
-   
-   .. rubric:: Summary
-      
-   
    Determines the amplitude and phase as a function of frequency for
    each spectral window containing more than one channel. Strong
    sources (or many observations of moderately strong sources) are
@@ -16,12 +11,9 @@ Description
    polynomial fit over the channels 'BPOLY'. The 'B' solutions can be
    determined at any specified time interval, and is recommended in
    most applications.
-   
-    
-   
+
    .. rubric:: Introduction
-      
-   
+
    For channelized data, it is usually desirable to solve for the
    gain variations in frequency as well as in time. Variation in
    frequency arises as a result of non-uniform filter passbands or
@@ -40,10 +32,9 @@ Description
    the examples section for more on how to do this.
    
    .. rubric:: Common calibration solve parameters
-      
-   
+
    See `"Solving for
-   Calibration" <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration/solving-for-calibration>`__
+   Calibration" <../../notebooks/synthesis_calibration.ipynb#Solve-for-Calibration>`__
    for more information on the task parameters **bandpass** shares
    with all solving tasks, including data selection, general solving
    properties and arrange prior calibration. Below we describe
@@ -56,20 +47,15 @@ Description
       not to be taken into account in the further data processing. If
       edge channels are excluded by the spw selection but not
       flagged, then solutions for those channels will be
-      extrapolated. **
-      **
-   
-    
+      extrapolated.
    
    .. rubric:: Bandpass types: *bandtype*
-      
    
    The *bandtype* parameter selects the type of solution used for the
    **bandpass**. The choices are 'B' and 'BPOLY'.
    
    .. rubric:: *bandtype='B'*
-      
-   
+
    Use of *bandtype='B'* in **bandpass** differs from *gaintype='G'*
    in **gaincal** only in that it is determined for each channel in
    each spectral window. It is possible to solve for it as a function
@@ -98,8 +84,7 @@ Description
    *bandtype='BPOLY'* can be considered.
    
    .. rubric:: *bandtype='BPOLY'*
-      
-   
+
    For some observations, it may be the case that the SNR per channel
    is insufficient to obtain a usable per-channel B solution. In this
    case it is desirable to solve instead for a best-fit functional
@@ -113,59 +98,50 @@ Description
    usually most meaningful to do per-spw solutions, unless groups of
    adjacent spectral windows are known *a priori* to share a single
    continuous bandpass response over their combined frequency
-   range. *
-   *
+   range.
    
    The BPOLY solver requires a number of unique sub-parameters
    (default values are given below):
    
    ::
    
-      | bandtype        =    'BPOLY'   #   Type of bandpass solution
-        (B or BPOLY)
-      |      degamp     =          3   #   Polynomial degree for
-        BPOLY amplitude solution
-      |      degphase   =          3   #   Polynomial degree for
-        BPOLY phase solution
-      |      visnorm    =      False   #   Normalize data prior to
-        BPOLY solution
-      |      maskcenter =          0   #   Number of channels in
-        BPOLY to avoid in center of band
-      |      maskedge   =          0   #   Percent of channels in
-        BPOLY to avoid at each band edge
+      bandtype        =    'BPOLY'   #   Type of bandpass solution (B or BPOLY)
+           degamp     =          3   #   Polynomial degree for BPOLY amplitude solution
+           degphase   =          3   #   Polynomial degree for BPOLY phase solution
+           visnorm    =      False   #   Normalize data prior to BPOLY solution
+           maskcenter =          0   #   Number of channels in BPOLY to avoid in center of band
+           maskedge   =          0   #   Percent of channels in BPOLY to avoid at each band edge
    
-   | The *degamp* and *degphase* parameters indicate the polynomial
-     degree desired for the amplitude and phase solutions. The
-     *maskcenter* parameter is used to indicate the number of
-     channels in the center of the band to avoid passing to the
-     solution (e.g., to avoid Gibbs ringing in central channels for
-     PdBI data). The *maskedge* parameter drops beginning and end
-     channels. The *visnorm* parameter turns on normalization of the
-     visibilities before the solution is obtained (rather than after
-     as for *solnorm*).
-   | The *combine* parameter can be used to combine data across
-     spectral windows, scans, and fields.
-   | Note that **bandpass** will allow you to use multiple fields,
-     and can determine a single solution for all specified fields
-     using *combine='field'.* If you want to use more than one field
-     in the solution, it is prudent to use an initial **gaincal**
-     using proper flux densities for all sources (not just 1 Jy) and
-     use this table as an input to **bandpass** because in general
-     the phase towards two (widely separated) sources will not be
-     sufficiently similar to combine them, and you want the same
-     amplitude scale. If you do not include amplitude in the initial
-     **gaincal**, you probably want to set *visnorm=True* also to
-     take out the amplitude normalization change. Note also in the
-     case of multiple fields, that the BPOLY solution will be labeled
-     with the field ID of the first field used in the BPOLY solution.
-   
-    
-   
+   The *degamp* and *degphase* parameters indicate the polynomial
+   degree desired for the amplitude and phase solutions. The
+   *maskcenter* parameter is used to indicate the number of
+   channels in the center of the band to avoid passing to the
+   solution (e.g., to avoid Gibbs ringing in central channels for
+   PdBI data). The *maskedge* parameter drops beginning and end
+   channels. The *visnorm* parameter turns on normalization of the
+   visibilities before the solution is obtained (rather than after
+   as for *solnorm*).
+
+   The *combine* parameter can be used to combine data across
+   spectral windows, scans, and fields.
+
+   Note that **bandpass** will allow you to use multiple fields,
+   and can determine a single solution for all specified fields
+   using *combine='field'.* If you want to use more than one field
+   in the solution, it is prudent to use an initial **gaincal**
+   using proper flux densities for all sources (not just 1 Jy) and
+   use this table as an input to **bandpass** because in general
+   the phase towards two (widely separated) sources will not be
+   sufficiently similar to combine them, and you want the same
+   amplitude scale. If you do not include amplitude in the initial
+   **gaincal**, you probably want to set *visnorm=True* also to
+   take out the amplitude normalization change. Note also in the
+   case of multiple fields, that the BPOLY solution will be labeled
+   with the field ID of the first field used in the BPOLY solution.
+
    .. rubric:: Bandpass calibration considerations
-      
-   
-   .. rubric:: Bandpass normalization (*solnorm*)
-      
+
+   **Bandpass normalization (*solnorm*)**
    
    The *solnorm* parameter requires more explanation in the context
    of the bandpass. Most users are used to seeing a normalized
@@ -202,7 +178,6 @@ Description
    
    .. rubric:: What if the bandpass calibrator has a significant
       spectral variation?
-      
    
    The bandpass calibrator may have a spectral slope that will change
    the spectral properties of the solutions if a flat-spectrum model
@@ -222,8 +197,7 @@ Description
    the newly created internal bandpass model.
    
    .. rubric:: Combining spectral windows for bandpass calibration
-      
-   
+
    It may sometimes be desirable to combine spectral windows in
    **bandpass** solving, using *combine='spw'*.   This is useful,
    e.g., for calibrating the bandpass for HI observations (e.g.,
@@ -246,7 +220,7 @@ Description
    interpolation string for the **bandpass** table in the *interp*
    parameter.  See the section on "Prior calibration" at `Solve
    for
-   Calibration <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration/solving-for-calibration>`__
+   Calibration <../../notebooks/synthesis_calibration.ipynb#Solve-for-Calibration>`__
    for more information about the mechanics of applying bandpass
    solutions of this sort.
    
@@ -254,28 +228,22 @@ Description
 .. _Examples:
 
 Examples
-   task bandpass examples
-   
    To solve for a B-bandpass using a single short scan on the
    calibrator (with no prior gain calibration available):
    
    ::
    
-      | bandpass(vis = 'n5921.ms',
-      |          caltable='n5921.bcal',
-      |          gaintable='',                   # No gain tables yet
-      |          gainfield='',
-      |          interp='',
-      |          field='0',                      # Calibrator
-        1331+305 = 3C286 (FIELD_ID 0)
-      |          spw='',                         # all channels
-      |          selectdata=False,               # No other selection
-      |          bandtype='B',                   # standard
-        time-binned B (rather than BPOLY)
-      |          solint='inf',                   # set solution
-        interval arbitrarily long
-      |          refant='15')                    # ref antenna 15
-        (=VLA:N2) (ID 14)
+      bandpass(vis = 'n5921.ms',
+               caltable='n5921.bcal',
+               gaintable='',                   # No gain tables yet
+               gainfield='',
+               interp='',
+               field='0',                      # Calibrator 1331+305 = 3C286 (FIELD_ID 0)
+               spw='',                         # all channels
+               selectdata=False,               # No other selection
+               bandtype='B',                   # standard time-binned B (rather than BPOLY)
+               solint='inf',                   # set solution interval arbitrarily long
+               refant='15')                    # ref antenna 15 (=VLA:N2) (ID 14)
    
    On the other hand, we might have a number of scans on the bandpass
    calibrator spread over time, but we want a single bandpass
@@ -285,25 +253,18 @@ Examples
    
    ::
    
-      | bandpass(vis='n5921.ms',
-      |          caltable='n5921.bcal',
-      |          field='0',                      # Calibrator
-        1331+305 = 3C286 (FIELD_ID 0)
-      |          spw='',                         # all channels
-      |          selectdata=False,               # No other selection
-      |          bandtype='B',                   # standard
-        time-binned B (rather than BPOLY)
-      |          solint='inf',                   # set solution
-        interval arbitrarily long
-      |          combine='scan',                 # Solution crosses
-        scans(ID 14)
-      |          refant='15',                    # ref antenna 15
-        (=VLA:N2)
-      |          gaintable='n5921.init.gcal',    # Our previously
-        determined G table
-      |          gainfield='0',
-      |          interp='linear')                # Do linear
-        interpolation
+      bandpass(vis='n5921.ms',
+               caltable='n5921.bcal',
+               field='0',                      # Calibrator 1331+305 = 3C286 (FIELD_ID 0)
+               spw='',                         # all channels
+               selectdata=False,               # No other selection
+               bandtype='B',                   # standard time-binned B (rather than BPOLY)
+               solint='inf',                   # set solution interval arbitrarily long
+               combine='scan',                 # Solution crosses scans(ID 14)
+               refant='15',                    # ref antenna 15 (=VLA:N2)
+               gaintable='n5921.init.gcal',    # Our previously determined G table
+               gainfield='0',
+               interp='linear')                # Do linear interpolation
    
    To solve for a single bandpass from two spectral windows (0 and 1)
    that is intended for a third (2), we add 'spw' to combine (also
@@ -311,35 +272,25 @@ Examples
    
    ::
    
-      | bandpass(vis='n5921.ms',
-      |          caltable='n5921.bcal2',
-      |          field='0',                      # Calibrator
-        1331+305 = 3C286 (FIELD_ID 0)
-      |          spw='0,1',                      # all channels in
-        spws 0 and 1
-      |          selectdata=False,               # No other selection
-      |          bandtype='B',                   # standard
-        time-binned B (rather than BPOLY)
-      |          solint='inf',                   # set solution
-        interval arbitrarily long
-      |          combine='scan,spw',             # Combine scans and
-        spws into a single solution
-      |          refant='15',                    # ref antenna 15
-        (=VLA:N2)
-      |          gaintable='n5921.init.gcal',    # Our previously
-        determined G table
-      |          gainfield='0',
-      |          interp='linear')                # Do linear
-        interpolation on gaintable
+      bandpass(vis='n5921.ms',
+               caltable='n5921.bcal2',
+               field='0',                      # Calibrator 1331+305 = 3C286 (FIELD_ID 0)
+               spw='0,1',                      # all channels in spws 0 and 1
+               selectdata=False,               # No other selection
+               bandtype='B',                   # standard time-binned B (rather than BPOLY)
+               solint='inf',                   # set solution interval arbitrarily long
+               combine='scan,spw',             # Combine scans and spws into a single solution
+               refant='15',                    # ref antenna 15 (=VLA:N2)
+               gaintable='n5921.init.gcal',    # Our previously determined G table
+               gainfield='0',
+               interp='linear')                # Do linear interpolation on gaintable
    
    The resulting bandpass table will have average channels labeled
    with the average frequencies of the input spectral windows
    channels.  Applying this solution will require use of relative
    frequency interpolation.   See
-   `here <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration/solving-for-calibration>`__,
+   `here <../../notebooks/synthesis_calibration.ipynb#Solve-for-Calibration>`__,
    for more information.
-   
-    
    
    To solve for a BPOLY (5th order in amplitude, 7th order in phase),
    using data from field 2, with prior **gaincal** corrections
@@ -347,26 +298,18 @@ Examples
    
    ::
    
-      | bandpass(vis='data.ms',          # input data set
-      |          caltable='cal.BPOLY',   #
-      |          spw='0:2~56',           # Use channels 3-57 (avoid
-        end channels)
-      |          field='0',              # Select bandpass calibrator
-        (field 0)
-      |          bandtype='BPOLY',       # Select bandpass
-        polynomials
-      |          degamp=5,               #   5th order amp
-      |          degphase=7,             #   7th order phase
-      |          gaintable='cal.G',      # Pre-apply gain solutions
-        derived previously
-      |          refant='14')            #
-   
+      bandpass(vis='data.ms',          # input data set
+               caltable='cal.BPOLY',   #
+               spw='0:2~56',           # Use channels 3-57 (avoid end channels)
+               field='0',              # Select bandpass calibrator (field 0)
+               bandtype='BPOLY',       # Select bandpass polynomials
+               degamp=5,               #   5th order amp
+               degphase=7,             #   7th order phase
+               gaintable='cal.G',      # Pre-apply gain solutions derived previously
+               refant='14')            #
 
 .. _Development:
 
 Development
-   task bandpass developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

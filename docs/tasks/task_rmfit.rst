@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   rmfit task: Calculate rotation measure.
-   
    This task generates the rotation measure (RM) image from stokes Q
    and U measurements at several different frequencies. You are
    required to specify the name of at least one image with a
@@ -21,11 +19,10 @@ Description
    need not be contiguous from one image to another.
    
    Rotation measure algorithms that work robustly are few. The main
-   problem is in trying to account for the n-pi ambiguity
-   `[1] <#cit1>`__ .
+   problem is in trying to account for the n-pi ambiguity [1]_.
    
    This task uses the algorithm published in Appendix A.1 of Leahy et
-   al. `[1] <#cit1>`__ But as in all these algorithms, the basic
+   al. [1]_ But as in all these algorithms, the basic
    process is that for each spatial pixel, the position angle vs
    frequency data is fit to determine the rotation measure and the
    position angle at zero wavelength (and associated errors). An
@@ -70,17 +67,15 @@ Description
    some apriori information should be supplied; this is the basic
    problem with rotation measure algorithms.
    
-   
-      Bibliography
-   :sup:`1. Leahy et al. 1986, Astronomy & Astrophysics, 156,
-   234` `(ADS) <http://adsabs.harvard.edu/full/1986A%26A...156..234L>`__ `<#ref-cit1>`__
+
+   Bibliography
+
+   .. [1] Leahy et al. 1986, Astronomy & Astrophysics, 156, 234 `(ADS) <http://adsabs.harvard.edu/full/1986A%26A...156..234L>`__
    
 
 .. _Examples:
 
 Examples
-   task examples
-   
    Calculate the rotation measure for a single polarization image.
    
    ::
@@ -93,14 +88,11 @@ Examples
    ::
    
       rmfit(imagename=["pol1.im", "pol2.im", "pol3.im"],
-      rm="myrm2.im", rmmax=50.0)
+            rm="myrm2.im", rmmax=50.0)
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

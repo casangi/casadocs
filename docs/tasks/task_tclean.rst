@@ -3,15 +3,12 @@
 .. _Description:
 
 Description
-   The **tclean** task forms images from visibilities and
-   reconstructs a sky model.
-   
    tclean handles continuum images and spectral line cubes, full
    Stokes polarization imaging, supports outlier fields, contains
    point-source CLEAN
-   based `algorithms <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/deconvolution-algorithms>`__ as
+   based `algorithms <../../notebooks/synthesis_imaging.ipynb#Deconvolution-Algorithms>`__ as
    well as options for multi-scale and `wideband image
-   reconstruction <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/wide-band-imaging>`__ ,
+   reconstruction <../../notebooks/synthesis_imaging.ipynb#Wide-Band-Imaging>`__ ,
    widefield imaging correcting for the w-term, full primary-beam
    imaging and joint mosaic imaging (with heterogeneous array support
    for ALMA). Parallelization of the major cycle is also available.
@@ -30,19 +27,20 @@ Description
    the minor cycle operates purely in the image domain. Together,
    they implement an iterative weighted :math:`\chi^2` minimization
    that `solves the measurement
-   equation <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/imaging-overview>`__.
+   equation <../../notebooks/synthesis_imaging.ipynb#Introduction>`__.
    Minor cycle algorithms can have their own (different) optimization
    schemes and the imaging framework and task interface allow for
    considerable freedom in choosing options separately for each step
    of the process.
    
-   |image1|
+   .. figure:: _apimedia/26ad14d4f63ff633dbd5d9e92d40a5059ab46a67.png
+
 
    .. rubric:: Operating Modes
 
    The tclean task can be configured to perform either full iterative
    image reconstructions
-   (see `synthesis-imaging <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging>`__ )
+   (see `synthesis-imaging <../../notebooks/synthesis_imaging.ipynb>`__ )
    or to run each step separately. Parameters for data selection,
    image definition, gridding and deconvolution algorithms,
    restoration and primary beam setup are shared between all
@@ -51,7 +49,6 @@ Description
    The main usage modes of tclean are:
    
    -  .. rubric:: Imaging and Deconvolution Iterations:
-         
    
    Construct the PSF and Dirty image and apply a deconvolution
    algorithm to reconstruct a Sky model. A series of major and minor
@@ -60,7 +57,6 @@ Description
    optionally be saved in the MS during the last major cycle.
    
    -  .. rubric:: Make PSF and PB:
-         
    
    Make only the Point Spread Function and the Primary Beam, along
    with auxiliary weight images (a single pixel image containing
@@ -68,7 +64,6 @@ Description
    image containing the weighted sum of PB square).
    
    -  .. rubric:: Make a Residual/Dirty Image:
-         
    
    Make a dirty image, or a new residual image using an existing or
    specified model image. This step requires the presence of the
@@ -76,7 +71,6 @@ Description
    during the PSF and PB generation step.
    
    -  .. rubric:: Model Prediction:
-         
    
    Save a sky model in the MeasurementSet for later use in
    calibration (virtual model or by actual prediction into a model
@@ -91,41 +85,38 @@ Description
       MS, as this will likely corrupt the MS.  
    
    -  .. rubric:: PB-Correction:
-         
    
    Divide out the Primary Beam from the restored Sky image.
    
    .. rubric:: pblimit
-      
    
-   | The pblimit is a parameter used to define the value of the
-     antenna primary beam gain, below which wide-field gridding
-     algorithms such as *'mosaic'* and *'awproject'* will not apply
-     normalization (and will therefore set to zero).  For
-     *gridder='standard'*, there is no pb-based normalization during
-     gridding and so the value of this parameter is ignored.
-   | The sign of the pblimit parameter is used for a different
-     purpose. If positive, it defines a T/F pixel mask that is
-     attached to the output residual and restored images.  If
-     negative, this T/F pixel mask is not included.  Please note that
-     this pixel mask is different from the deconvolution mask used to
-     control the region where CLEAN based algorithms will search for
-     source peaks.  In order to set a deconvolution mask based on pb
-     level, please use the *'pbmask'* parameter.
+   The pblimit is a parameter used to define the value of the
+   antenna primary beam gain, below which wide-field gridding
+   algorithms such as *'mosaic'* and *'awproject'* will not apply
+   normalization (and will therefore set to zero).  For
+   *gridder='standard'*, there is no pb-based normalization during
+   gridding and so the value of this parameter is ignored.
+
+   The sign of the pblimit parameter is used for a different
+   purpose. If positive, it defines a T/F pixel mask that is
+   attached to the output residual and restored images.  If
+   negative, this T/F pixel mask is not included.  Please note that
+   this pixel mask is different from the deconvolution mask used to
+   control the region where CLEAN based algorithms will search for
+   source peaks.  In order to set a deconvolution mask based on pb
+   level, please use the *'pbmask'* parameter.
    
    .. warning:: **WARNING** *:* Certain values of pblimit should be avoided!
       These values are 1, -1, and 0. Details can be found
-      `here <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/data-weighting>`__. *
-      *
+      `here <../../notebooks/synthesis_imaging.ipynb#Imaging-Algorithms>`__.
    
    .. rubric:: widebandpbcor
-      
    
-   `Widebandpbcor <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_widebandpbcor>`__
+   `Widebandpbcor <../../api/casatasks.rst>`__
    is a separate task, and will eventually be implemented as a
    parameter in **tclean**. It allows correction of the primary beam
    as part of `wideband
-   imaging <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/wide-band-imaging>`__.
+   imaging <../../notebooks/synthesis_imaging.ipynb#Wide-Band-Imaging>`__.
    It computes a set of PBs at the specified frequencies, calculates
    Taylor-coefficient images that represent the PB spectrum, performs
    a polynomial division to PB-correct the output Taylor-coefficient
@@ -134,7 +125,6 @@ Description
    curvature) using the PB-corrected Taylor-coefficient images.
    
    -  .. rubric:: Pointing Corrections:
-         
    
    Heterogeneous Pointing Corrections can optionally be applied with
    the *usepointing* and *pointingoffsetsigdev* parameters. These
@@ -144,24 +134,20 @@ Description
    as is typically observed with the VLA and ALMA telescopes. An
    overview of pointing corrections is given in the CASA Docs page on
    `Widefield
-   Imaging <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/wide-field-imaging-full-primary-beam>`__.
+   Imaging <../../notebooks/synthesis_imaging.ipynb#Wide-Field-Imaging>`__.
    
    -  .. rubric:: Restoration:
-         
    
    Specify a restoring beam and re-restore the model image.
    
    -  .. rubric:: Auto-masking:
-         
    
    Automatically mask emission during clean; see `Masks for
-   Deconvolution <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/masks-for-deconvolution>`__
+   Deconvolution <../../notebooks/synthesis_imaging.ipynb#Masks-for-Deconvolution>`__
    for more information.
-   
-    
+
    
    .. rubric:: Output Images
-      
    
    Depending on the operation being run, a subset of the following
    output images will be written to disk.
@@ -209,8 +195,7 @@ Description
    |                                   |                                   |
    |                                   |                                   |
    +-----------------------------------+-----------------------------------+
-   
-    
+
    
    .. warning:: WARNING: If an image with that name already exists, it will in
       general be overwritten. Beware using names of existing images
@@ -222,7 +207,6 @@ Description
       imagename, then the cleaning is incremental.
    
    .. rubric:: Stokes polarization products
-      
    
    It is possible to make polarization images of various Stokes
    parameters, based on the R/L circular (e.g., VLA) or the X/Y
@@ -238,14 +222,13 @@ Description
    
    ::
    
-      | stokes = 'I' # Intensity only (default)
-      | stokes = 'IQU' # Intensity and linear polarization
-      | stokes = 'IV' # Intensity and circular polarization
-      | stokes = 'IQUV' # All Stokes imaging
-      | stokes = 'RR' # Right hand polarization only
-      | stokes = 'XXYY' # Both linear polarizations
-      | stokes = 'pseudoI' # Intensity only, but including data with
-        one of the parallel polarizations flagged
+      stokes = 'I' # Intensity only (default)
+      stokes = 'IQU' # Intensity and linear polarization
+      stokes = 'IV' # Intensity and circular polarization
+      stokes = 'IQUV' # All Stokes imaging
+      stokes = 'RR' # Right hand polarization only
+      stokes = 'XXYY' # Both linear polarizations
+      stokes = 'pseudoI' # Intensity only, but including data with one of the parallel polarizations flagged
    
    For imaging the total intensity, the stokes='I' option is stricter
    than the stokes='pseudoI' option in the sense that it excludes all
@@ -258,17 +241,15 @@ Description
    time-stamps where RR are flagged, while stokes='pseudoI' will
    include all unflagged data in the total intensity image. See the
    CASA Docs pages on `Types of
-   Images <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/image-definition>`__ and `Single
+   Images <../../notebooks/synthesis_imaging.ipynb#Types-of-images>`__ and `Single
    Dish Imaging
-   (tsdimaging) <https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_tsdimaging>`__ for
+   (tsdimaging) <../../api/casatasks.rst>`__ for
    more information. It is also possible to split out a polarization
    product with split and image separately, but you will not be able
    to combine these part-flagged data in the uv-domain. 
-   
-    
+
    
    .. rubric:: Functional Parameter Blocks
-      
    
    The **tclean** parameters are arrangedin the functional blocks
    described below. More details on the individual parameters and
@@ -283,21 +264,17 @@ Description
    task interface be used even when constructing tclean scripts that
    call the task as a python call " tclean(....) " to understand
    which parameters are relevant to the run and which are not.
-   
-    
+
    
    .. rubric:: Data Selection (selectdata)
-      
    
    Selection parameters allow the definition of a subset of the
    supplied MS (or list of MSs) on which the imaging is to operate.
    Details can be found on the `CASA Docs pages of Image
-   Selection <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__.
-   
-    
+   Selection <../../notebooks/visibility_data_selection.ipynb>`__.
+
    
    .. rubric:: Image Definition (specmode)
-      
    
    The image coordinate system(s) and shape(s) can be set up to form
    single images (from a single field or from multiple fields forming
@@ -316,7 +293,7 @@ Description
       frequency.
    -  'cubesource': Spectral line imaging while tracking moving
       source (near field or solar system `ephemeris
-      objects <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/ephemeris-data>`__ ).
+      objects <../../notebooks/ephemeris_data.ipynb>`__ ).
       The velocity of the source is accounted and the frequency
       reported is in the source frame.
    
@@ -329,13 +306,11 @@ Description
    supported.
    
    The  `CASA Docs pages on Image
-   Types <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/image-definition>`__  provide
+   Types <../../notebooks/synthesis_imaging.ipynb#Types-of-images>`__  provide
    more details.
-   
-    
+
    
    .. rubric:: Gridding Options (gridder)
-      
    
    Options for convolutional resampling include standard gridding
    using a prolate spheroidal function, the use of FTs of Fresnel
@@ -359,20 +334,18 @@ Description
    
    Combinations of these options are also available. See the `CASA
    Docs pages on Widefield
-   Imaging <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/wide-field-imaging-full-primary-beam>`__ for
+   Imaging <../../notebooks/synthesis_imaging.ipynb#Wide-Field-Imaging>`__ for
    more information.
    
    For mosaicing and AW-projection, the frequency dependence of the
    primary beam within the data being imaged is included in the
    calculations and can optionally also be corrected for during
    gridding. See the CASA Docs page on `Wideband
-   Imaging <https://casa.nrao.edu/casadocs-devel/imaging/synthesis-imaging/wide-band-imaging>`__ for
+   Imaging <../../notebooks/synthesis_imaging.ipynb#Wide-Band-Imaging>`__ for
    details.
-   
-    
+
    
    .. rubric:: Deconvolution Options (deconvolver)
-      
    
    All our algorithms follow the Cotton-Schwab CLEAN style of major
    and minor cycles with the details of the deconvolution algorithm
@@ -402,16 +375,14 @@ Description
    sequentially, while deconvolver ='clark' will deconvolve jointly.
    
    For more details, see the `CASA Docs pages on Deconvolution
-   Algorithms <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/deconvolution-algorithms>`__.
+   Algorithms <../../notebooks/synthesis_imaging.ipynb#Deconvolution-Algorithms>`__.
    
    Several options for `making masks, including
-   automasking <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/masks-for-deconvolution>`__,
+   automasking <../../notebooks/synthesis_imaging.ipynb#Masks-for-Deconvolution>`__,
    are also provided.
-   
-    
+
    
    .. rubric:: Data Weighting (weighting)
-      
    
    Data weighting during imaging allows for the improvement of the
    dynamic range and the ability to adjust the synthesized beam
@@ -478,13 +449,11 @@ Description
       large VLA mosaics.
    
    More details on data weighting can be found on the `Image
-   Algorithm <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/data-weighting>`__ pages
+   Algorithm <../../notebooks/synthesis_imaging.ipynb#Imaging-Algorithms>`__ pages
    of CASA Docs
-   
-    
+
    
    .. rubric:: Iteration Control (niter)
-      
    
    Iterations are controlled by user parameters (gain, niter, etc..)
    as well as stopping criteria that decide when to exit minor cycle
@@ -493,17 +462,12 @@ Description
    reaching iteration limits, convergence thresholds, and signs of
    divergence with appropriate messages displayed in the log. For
    more details, see the `CASA Docs pages on Iteration
-   Control <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/user-interaction>`__ .
-   
-    
-   
-    
-   
+   Control <../../notebooks/synthesis_imaging.ipynb#Iteration-Control>`__ .
+
+
    .. rubric:: Other Options
-      
    
    .. rubric:: Handling Large Data and Image Sizes
-      
    
    Parallelization of the major cycle is available for continuum
    imaging and of both major and minor cycles for cube imaging. In
@@ -514,7 +478,7 @@ Description
    approach used by other tasks in that it does not require a
    partitioned MMS file. Details can be found in the `CASA Docs
    chapter on Parallel
-   Processing <https://casa.nrao.edu/casadocs-devel/stable/parallel-processing>`__ .
+   Processing <../../notebooks/parallel-processing.ipynb>`__ .
    
    For large image cubes, the gridders can run into memory limits as
    they loop over all available image planes for each row of data
@@ -525,12 +489,11 @@ Description
    the cube into.
    
    .. rubric:: User Interaction
-      
    
    Options for user interaction include `interactive
-   masking <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/masks-for-deconvolution>`__
+   masking <../../notebooks/synthesis_imaging.ipynb#Masks-for-Deconvolution>`__
    and editing of iteration control parameters. The `output log
-   files <https://casa.nrao.edu/casadocs-devel/stable/usingcasa/casa-logger>`__ can
+   files <../../notebooks/usingcasa.ipynb#Logging>`__ can
    also be used to diagnose some problems.
    
    Several convenience features are also available, such as operating
@@ -541,7 +504,6 @@ Description
    that contains the convergence history of the run.
    
    .. rubric:: Scripting Controls
-      
    
    Finer control can be achieved using the PySynthesisImager tools to
    run (for example) only image domain deconvolution or to insert
@@ -549,9 +511,7 @@ Description
    existing major/minor cycle loops or to connect external methods or
    algorithms for either the minor or major cycles.
    
-   .. rubric:: Tracking moving sources or sources with ephemeris
-      tables
-      
+   .. rubric:: Tracking moving sources or sources with ephemeris tables
    
    If the phasecenter is a known major solar system object
    ('MERCURY', 'VENUS', 'MARS', 'JUPITER', 'SATURN', 'URANUS',
@@ -577,11 +537,8 @@ Description
       beginning of the experimient.
    
    More information can be found in the `CASA Docs chapter on
-   Ephemeris
-   Data <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/ephemeris-data>`__.
+   Ephemeris Data <../../notebooks/ephemeris_data.ipynb>`__.
    
-   .. |image1| image:: _apimedia/26ad14d4f63ff633dbd5d9e92d40a5059ab46a67.png
-
    .. rubric:: History
 
    At the end of a successful tclean run, the history of the output
@@ -600,12 +557,9 @@ Description
    and the table tool (`see API <../casatools.rst>`_). The history
    entries are written into the 'logtable' subtable of the images.
    
-
 .. _Examples:
 
 Examples
-   task examples
-   
    The following examples, to be expanded, highlight modes and
    options that the tclean task supports.
    The examples below are written as scripts that may be copied
@@ -623,52 +577,41 @@ Examples
    By default, tclean will run with niter=0, making the PSF, a
    primary beam, the initial dirty (or residual) image and a
    restored version of the image.
-   
-    
+
    
    For examples running tclean on ALMA data, see also the CASA
    Guide `"Tclean and
    ALMA" <https://casaguides.nrao.edu/index.php?title=TCLEAN_and_ALMA>`__.
    
-   .. rubric:: 
-      Imaging and Deconvolution Iterations
-      
+   .. rubric:: Imaging and Deconvolution Iterations
    
    .. rubric:: Using Hogbom CLEAN on a single MFS image
-      
    
    ::
    
-      | tclean(vis='test.ms', imagename='try1', imsize=100,
-        cell='10.0arcsec', specmode='mfs',
-      |        deconvolver='hogbom', gridder='standard',
-        weighting='natural', niter=100 )
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec', specmode='mfs',
+             deconvolver='hogbom', gridder='standard', weighting='natural', niter=100 )
    
    .. rubric:: Using Multi-scale CLEAN on a Cube Mosaic image
    
    ::
 
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-             cell='10.0arcsec',specmode='cube', nchan=10,
-             start='1.0GHz', width='10MHz', deconvolver='multiscale',
-             scales=[0,3,10,30], gridder='mosaic', pblimit=0.1,
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec',specmode='cube', nchan=10,
+             start='1.0GHz', width='10MHz', deconvolver='multiscale', scales=[0,3,10,30], gridder='mosaic', pblimit=0.1,
              weighting='natural', niter=100 )
    
    .. rubric:: Using W-Projection with Multi-Term MFS wideband imaging
 
    ::
    
-      tclean(vis='test.ms', imagename='try1', imsize=100,
-             cell='10.0arcsec', deconvolver='mtmfs', reffreq='1.5GHz',
-             nterms=2, gridder='wproject', wprojplanes=64,
-             weighting='natural', niter=100 )
+      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec', deconvolver='mtmfs', reffreq='1.5GHz',
+             nterms=2, gridder='wproject', wprojplanes=64, weighting='natural', niter=100 )
    
    .. rubric:: Using automasking with any type of image
 
    ::
    
-      tclean(vis='test.ms', imagename='try1', niter=100, ....,
-             usemask='auto-multithresh')
+      tclean(vis='test.ms', imagename='try1', niter=100, ...., usemask='auto-multithresh')
     
    
    .. rubric:: Scripting using PySynthesisImager
@@ -679,8 +622,7 @@ Examples
    Subsets of the script can thus be chosen, and extra external
    methods can be inserted in between as desired.  After each
    stage, images are saved on disk. Therefore, any modifications
-   done to the images in between steps will be honored. 
-   
+   done to the images in between steps will be honored.
 
    ::
    
@@ -759,8 +701,7 @@ Examples
    
    For major cycle parallelization for continuum imaging
    (specmode='mfs'), replace steps (1) and (3) with the following
-   
-    
+
    
    ::
    
@@ -779,15 +720,12 @@ Examples
    have to go one layer deeper. For this, please contact our team
    for assistance.)
    
-    
-   
    ::
    
       from imagerhelpers.imager_parallel_cube import PyParallelCubeSynthesisImager   # Step (1)
       imager = PyParallelCubeSynthesisImager(params=paramList) # Step (3)
       imager.concatImages(type='virtualcopy') # Step (8)
-   
-    
+
    
    .. rubric:: Using tclean with ephemerides tables in CASA format
 
@@ -836,8 +774,6 @@ Examples
    phasecenter parameter, and then the internal ephemerides will
    be used to track the source.
    
-    
-   
    ::
    
       tclean(vis=['MS1.ms', 'MS2.ms', 'MS3.ms', 'MS4.ms', 'MS5.ms'],
@@ -861,15 +797,11 @@ Development
    modules, will be able to simply copy and paste the task tclean
    code (the lines containing  " imager.xxxx " )
    
-    
-   
    The tclean task interface is meant to show (and use) subparameters
    only when their parent options are turned on. This way, at any
    given time, the only parameters a user should see via inp() are
    those that are relevant to the current set of algorithm and
-   operational choices. 
-   
-    
+   operational choices.
    
    Additional examples to be added to the Examples tab (from testing
    suite at
@@ -880,12 +812,9 @@ Development
    line, to ensure readability. Note that each multiline command has
    to be edited outside of plone and copied in here, such that the
    spacing is preserved and the reader can copy/paste at the casa
-   prompt. 
-   
-   
+   prompt.
    
    .. rubric:: Make PSF and PB
-      
    
    Make only the PSF, Weight images, and the PB.
    
@@ -896,29 +825,19 @@ Development
 
    .. rubric:: Make a residual/dirty image
       
-   example
-   
    ::
    
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-    
    
    .. rubric:: Model Prediction
 
-   
-   example
-   
    ::
    
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-    
+
    
    .. rubric:: PB-correction
       
-   example
-   
    ::
    
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
@@ -926,19 +845,14 @@ Development
 
    .. rubric:: Restoration
 
-   example
-   
    ::
    
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-    
+
    
    .. rubric:: Restarts
 
    ( deconv only,  autonaming, etc )
-   
-   example
    
    ::
    
@@ -946,59 +860,47 @@ Development
    
 
    .. rubric:: Data Selection
-      
    
    one MS, a list of MSs.
-   
-   example
    
    ::
    
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-    
+
    
    .. rubric:: Single-Field Image Shapes
 
    Single Field (mfs, cube (basics), phasecenter, stokes planes ? )
    
-   example
-   
    ::
    
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-    
+
    
    .. rubric:: Defining Spectral Coordinate Systems
-      
    
    LINK to Synthesis Imaging / Spectral Line Imaging
    
    (examples of all the complicated ways you can do this)
    
-   example ::
+   ::
    
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
 
 
    .. rubric:: Examples of Multi-Field Imaging
-      
    
    ( 2 single, multiterm, mfs and cube, etc )
    
-   example ::
+   ::
 
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
 
    
    .. rubric:: Examples of Iteration Control
-      
    
    niter=0,  using cycleniter,  cyclefactor...
-   
-   example
-   
+
    ::
    
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
@@ -1009,55 +911,47 @@ Development
    single term, multi-term, with restarts, a single-dish model
    (units, etc).
    
-   example
-   
    ::
    
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-    
+
    
    .. rubric:: Saving model visibilities in preparation for self-calibration
-      
    
    use savemodel of various types.
    
-   example ::
+   ::
 
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
-    
-   
+
    .. rubric:: Making masks for deconvolution
-      
    
    LINK to Synthesis Imaging / Masks For Deconvolution
    
    making masks....
    
-   example ::
+   ::
 
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
 
-   
+
    .. rubric:: Primary Beam correction
-      
    
    LINK to Synthesis Imaging / Primary Beams
    
    single term, wideband (connect to wb)
    
-   example ::
+   ::
 
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
 
    .. rubric:: Returned dictionary
-      
    
    example of what is in it...
    
-   example ::
+   ::
    
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
@@ -1068,29 +962,27 @@ Development
    
    Choose nterms, ref-freq.  Re-restore outputs. Apply widebandpbcor
    
-   example::
+   ::
    
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
 
    .. rubric:: Examples of Mosaicking
-      
    
    LINK to Synthesis Imaging / Mosaicking
    
    Setting up mosaic imaging, setup vpmanager to supply external PB.
    
-   example ::
+   ::
 
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
 
    .. rubric:: Examples of Wide-field and Full-Beam Imaging
-      
    
    facets, wprojection (and wprojplanes),  A-Projection
    
-   example ::
+   ::
    
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
    
@@ -1098,18 +990,17 @@ Development
    
    .. rubric:: Parallelization for Continuum/MFS and Cube
 
-   example ::
+   ::
 
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec'
    
 
    .. rubric:: Channel chunking for very large Spectral Cubes
 
-   example ::
+   ::
 
       tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-   
+
    
    .. rubric:: Changes to tclean
 

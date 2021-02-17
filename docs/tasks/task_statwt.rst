@@ -3,11 +3,6 @@
 .. _Description:
 
 Description
-   statwt
-   
-   .. rubric:: Summary
-      
-   
    .. warning:: WARNING: If not run in preview mode, this application can
       modify the WEIGHT, WEIGHT_SPECTRUM, SIGMA, SIGMA_SPECTRUM,
       FLAG, and FLAG_ROW columns of the input MS. If you want a
@@ -34,12 +29,12 @@ Description
       \* V :math:`_i`)/sum(e :math:`_i`) is the weighted mean of
       all the visibilities in the set, and N is the number of
       (unflagged) visibilities (see also this `Knowledgebase
-      Article) <https://casa.nrao.edu/casadocs-devel/stable/memo-series/casa-knowledgebase/calculation-of-weights-for-data-with-varying-integration-time>`__
+      Article) <../../notebooks/memo-series.ipynb#Calculation-of-Weights-for-Data-with-Varying-Integration-Time>`__
    #. Compute v :math:`_{eq}` :math:`=` (v :math:`_{r}` :math:`+`
       v :math:`_{i}`) :math:`/` 2.
    #. The associated weight of visibility V :math:`_i`  is 
       e :math:`_i` / V (see`Knowledgebase
-      Article) <https://casa.nrao.edu/casadocs-devel/stable/memo-series/casa-knowledgebase/calculation-of-weights-for-data-with-varying-integration-time>`__.
+      Article) <../../notebooks/memo-series.ipynb#Calculation-of-Weights-for-Data-with-Varying-Integration-Time>`__.
       The weight will have unit of (data unit), e.g., Jy. The
       visibility weights are what this application computes and
       writes.
@@ -50,9 +45,7 @@ Description
    separate correlations are aggregated separately. This behavior can
    be overriden by specifying combine="corr" (see below).
    
-   .. rubric:: Rules regarding creating/initializing WEIGHT_SPECTRUM
-      column
-      
+   .. rubric:: Rules regarding creating/initializing WEIGHT_SPECTRUM column
    
    #. If run in preview mode (preview=True), no data are modified and
       no columns are added.
@@ -97,12 +90,9 @@ Description
       user should close the ms tool, and then reopen it using the
       same data set and configure the same selection, and rerun
       ms.statwt(). The tool method should then complete as expected.
+
    
-    
-   
-   .. rubric:: Rules for modifying WEIGHT, WEIGHT_SPECTRUM, SIGMA,
-      and SIGMA_SPECTRUM
-      
+   .. rubric:: Rules for modifying WEIGHT, WEIGHT_SPECTRUM, SIGMA, and SIGMA_SPECTRUM
    
    #. If datacolumn='corrected' or 'residual', then values are
       written to the WEIGHT and WEIGHT_SPECTRUM (if applicable)
@@ -128,11 +118,9 @@ Description
       rows are initialized (have values) and other rows have no data.
       It is recommended to run the initweights task to completely
       initialize these columns if you encounter this error.
-   
-    
+
    
    .. rubric:: Time Binning
-      
    
    One of two algorithms can be used for time binning. If
    slidetimebin=True, then a sliding time bin of the specified width
@@ -149,7 +137,6 @@ Description
    that must have time conformant units.
    
    .. rubric:: Block Time Processing
-      
    
    The data are processed in contiguous time blocks in this case.
    This means that all WEIGHT_SPECTRUM values will be set to the same
@@ -183,7 +170,6 @@ Description
    by combining data in rows 6, 7, and 8.
    
    .. rubric:: Sliding Time Window Processing
-      
    
    In the sliding time window case, in the case where timebin is a
    time quantity, the time window is always centered on the timestamp
@@ -203,9 +189,7 @@ Description
    rows, but includes the number of rows specified by the timebin
    value.
    
-   .. rubric:: Overriding Default Block Boundaries **
-      **
-      
+   .. rubric:: Overriding Default Block Boundaries
    
    Rows with the same baselines and data description IDs which are
    included in that window are used for determining the weight of
@@ -224,11 +208,9 @@ Description
    channel and correlation bin) be processed individually, so in
    general the sliding window method will take longer than the block
    processing method.
-   
-    
+
    
    .. rubric:: Channel Binning
-      
    
    The width of channel bins is specified via the chanbin parameter.
    Channel binning occurs within individual spectral windows; bins
@@ -237,27 +219,26 @@ Description
    that all channels in each spectral window are to be included in a
    single bin.
    
-   | Any other string value is interpreted as a quantity, and so
-     should have frequency units, e.g., "1MHz". In this case, the
-     channel frequencies from the CHAN_FREQ column of the
-     SPECTRAL_WINDOW subtable of the MS are used to determine the
-     bins. The first bin starts at the channel frequency of the 0th
-     channel in the spectral window. Channels with frequencies that
-     differ by less than the value specified by the chanbin parameter
-     are included in this bin. The next bin starts at the frequency
-     of the first channel outside the first bin, and the process is
-     repeated until all channels have been binned.
-   | If specified as an integer, the value is interpreted as the
-     number of channels to include in each bin. The final bin in the
-     spectral window may not necessarily contain this number of
-     channels. For example, if a spectral window has 15 channels, and
-     chanbin is specified to be 6, then channels 0-5 will comprise
-     the first bin, channels 6-11 the second, and channels 12-14 the
-     third, so that only three channels will comprise the final bin.
+   Any other string value is interpreted as a quantity, and so
+   should have frequency units, e.g., "1MHz". In this case, the
+   channel frequencies from the CHAN_FREQ column of the
+   SPECTRAL_WINDOW subtable of the MS are used to determine the
+   bins. The first bin starts at the channel frequency of the 0th
+   channel in the spectral window. Channels with frequencies that
+   differ by less than the value specified by the chanbin parameter
+   are included in this bin. The next bin starts at the frequency
+   of the first channel outside the first bin, and the process is
+   repeated until all channels have been binned.
+
+   If specified as an integer, the value is interpreted as the
+   number of channels to include in each bin. The final bin in the
+   spectral window may not necessarily contain this number of
+   channels. For example, if a spectral window has 15 channels, and
+   chanbin is specified to be 6, then channels 0-5 will comprise
+   the first bin, channels 6-11 the second, and channels 12-14 the
+   third, so that only three channels will comprise the final bin.
    
-   .. rubric:: 
-      Minimum required number of visibilities
-      
+   .. rubric:: Minimum required number of visibilities
    
    The minsamp parameter allows the user to specify the minimum
    number of unflagged visibilities that must be present in a sample
@@ -275,11 +256,9 @@ Description
       aggregate enough samples to satisfy minsamp (e.g., by setting
       combine='corr' if there are multiple correlation products, or
       timebin>1).
-   
-    
+
    
    .. rubric:: Aggregating data across boundaries
-      
    
    By default, data are not aggregated across changes in values in
    the columns ARRAY_ID, SCAN_NUMBER, STATE_ID, FIELD_ID, and
@@ -294,11 +273,9 @@ Description
    parameter. Any combination and permutation of "scan", "field",
    "state", and "corr" are supported by the combine parameter. Other
    values will be silently ignored.
-   
-    
+
    
    .. rubric:: Statistics algorithms
-      
    
    The supported statistics algorithms are described in detail in the
    imstat and ia.statistics() help. For the current application,
@@ -309,11 +286,9 @@ Description
    way that will discard significant portions of the tails of the
    underlying noise distribution (e.g., fence < 2 for the
    'HINGES-FENCES' algorithm).
-   
-    
+
    
    .. rubric:: Range of acceptable weights
-      
    
    The wtrange parameter allows one to specify the acceptable range
    (inclusive, except for zero) for weights. Data with weights
@@ -324,11 +299,9 @@ Description
    are always flagged. The units of the wtrange parameter will always
    match that of the WEIGHT column, even if the task is modifying the
    SIGMA column.
-   
-    
+
    
    .. rubric:: Including/excluding channels
-      
    
    Channels can be included in the computation of the weights by
    specifying the fitspw parameter. This parameter accepts a valid MS
@@ -343,21 +316,17 @@ Description
    .. warning:: CAUTION: Use of fitspw, when chanbin is not 'spw', may lead to
       the excluded channels being flagged for having less than the
       minimum number of samples (minsamp).
-   
-    
+
    
    .. rubric:: Preview mode
-      
    
    By setting preview=True, the application is run in preview mode.
    In this mode, no data in the input MS are changed, although the
    amount of data that the application would have flagged is
    reported.
-   
-    
+
    
    .. rubric:: DATA column
-      
    
    The datacolumn parameter can be specified to indicate which data
    column should be used for computing the weights. The values
@@ -381,11 +350,9 @@ Description
    .. note:: NOTE: It is the user's responsibility to ensure that a model
       has been set for all selected fields before using
       datacolumn='residual' or 'residual_data'.
-   
-    
+
    
    .. rubric:: Return value
-      
    
    In all cases, the mean and variance of the set of all weights
    computed by the application is reported and returned in a
@@ -399,11 +366,9 @@ Description
    computed. The units of the the returned statistics will always
    match that of the WEIGHT column, even if the task is modifying the
    SIGMA column.
-   
-    
+
    
    .. rubric:: Other considerations
-      
    
    Flagged values are not used in computing the weights, although the
    associated weights of these values are updated. If the variance
@@ -414,16 +379,13 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    Update the weights of a MS as in the **statwt** task. All channels
    in a SPW will receive equal weight:
    
    ::
    
       statwt("my.ms")
-   
-    
+
    
    Update the weights of a MS, using a calculation that disregards
    visibilities in spectral window 2 between channels 7 and 16. All
@@ -433,8 +395,7 @@ Examples
    ::
    
       statwt("my.ms", fitspw='2:7~16’, excludechans=True)
-   
-    
+
    
    Update the weights of a MS using an algorithm robust to outliers.
    All channels in a SPW will receive equal weight:
@@ -442,8 +403,7 @@ Examples
    ::
    
       statwt("my.ms", statalg='chauvenet')
-   
-    
+
    
    Update the weights of a MS using time binning of 300s. All
    channels in a SPW will receive equal weight, and all times within
@@ -452,8 +412,7 @@ Examples
    ::
    
       statwt("my.ms", timebin="300s")
-   
-    
+
    
    Update the weights of a MS using time binning of 10 integrations.
    Each channel and integration will receive a unique weight. The
@@ -463,8 +422,7 @@ Examples
    ::
    
       statwt("my.ms", timebin=10, slidetimebin=True, chanbin=1)
-   
-    
+
    
    Calculate, but do not update the weights of spectral window 3 of a
    MS. Return statistics which summarize the calculated weights as a
@@ -478,8 +436,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

@@ -3,9 +3,6 @@
 .. _Description:
 
 Description
-   **uvcontsub** is a task to perform continuum fitting and
-   subtraction in the uv plane
-   
    This task estimates the continuum emission by fitting
    polynomials to the real and imaginary parts of the spectral
    windows and channels selected by *fitspw*. This fit represents
@@ -14,14 +11,10 @@ Description
    the result (presumably only line emission) is stored in a new
    MS that is always called vis + ".contsub". If an MS with the
    output name already exists, it will be overwritten.
-   
-    
-   
+
    **uvcontsub** will read from the CORRECTED_DATA column of *vis*
    if it is present, or DATA if it is not. Whichever column is
    read is presumed to have already been calibrated.
-   
-     
    
    .. warning:: Strictly speaking, the **uvcontsub** model
       is only a good representation of the continuum at the
@@ -47,25 +40,23 @@ Description
       in **tclean**.
    
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: *vis*
-      
+   *vis*
    
    Name of input MS. Output goes to vis + ".contsub" (will be
    overwritten if already exists)
    
-   .. rubric:: *field*
+   *field*
 
    Field selection for continuum estimation and subtraction. The estimation and
    subtraction is done for each selected field separately in
    turn. default: '' (all fields)
 
-   .. rubric:: *fitspw*
+   *fitspw*
 
    Selection of spectral windows and channels to use in the fit for
    the continuum, using general `MS selection
-   syntax <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__ for
+   syntax <../../notebooks/visibility_data_selection.ipynb>`__ for
    spectral windows, e.g. in spw:chan format (spw ids are required
    but '\*' can be used) or as frequencies. See the note under
    *combine*. default: *fitspw=''* (all)
@@ -75,16 +66,14 @@ Description
       likely different from the channel numbers in the image plane
       after running **tclean**. 
    
-   .. rubric:: *excludechans (fitspw subparameter)*
-      
+   *excludechans (fitspw subparameter)*
    
    if *True*, it will exclude the channels (or frequency range) that
    is specified in *fitspw* for the fit; this is useful to specify
    the line channels to exclude rather than the continuum channels to
    include in the fit. (default: *False*)
    
-   .. rubric:: *combine*
-      
+   *combine*
    
    Continuum solutions will break at scan, field, and spw boundaries
    according to *solint.* To allow solutions across these boundaries,
@@ -93,8 +82,7 @@ Description
    in *fitspw*!  default: *''*  which is that solutions will break at
    scan, field, and spw
    
-   .. rubric:: *solint*
-      
+   *solint*
    
    Timescale for per-baseline fit (units optional) options are time
    ranges, e.g. '*10s*', or '*inf*' per scan, or '*int*' per
@@ -104,8 +92,7 @@ Description
    than '*int*', the continuum estimate can be
    corrupted by time smearing.
    
-   .. rubric:: *fitorder*
-      
+   *fitorder*
    
    Polynomial order for the fits of the continuum w.r.t. frequency.
    *fitorders* > 1 are strongly discouraged because high order
@@ -113,16 +100,14 @@ Description
    absorb line emission, and tend to go wild at the edges of
    *fitspw*, which is not what you want. default: *0* (constant)
    
-   .. rubric:: *spw*
-      
+   *spw*
    
    Optional per spectral window selection of channels to include in
    the output. See the note under *combine*. The sub-MS output
    spectral windows will be renumbered to start from 0, as in
    **split**. default: *''* (all spws)
 
-   .. rubric:: *want_cont*
-      
+   *want_cont*
    
    Create vis + '.cont' to hold the continuum estimate.
    
@@ -140,8 +125,7 @@ Examples
    ::
    
       uvcontsub(vis='myMS.ms',fitspw='0:10~100;300~350')
-   
-    
+
    
    **Example 2:**
    
@@ -151,12 +135,11 @@ Examples
    
    ::
    
-      uvcontsub(vis='myMS.ms', fitspw='23.684~23.704GHz',
-      excludechans=True, combine='spw', fitorder=1)
+      uvcontsub(vis='myMS.ms', fitspw='23.684~23.704GHz', excludechans=True, combine='spw', fitorder=1)
    
 
 .. _Development:
 
 Development
-   None
-   
+   No additional development details
+

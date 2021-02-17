@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
    .. note:: **NOTE**: This task behaves mostly like the task **concat**,
       except that the result is an MMS and that the original MSs
       become part of the concatenated MS (unless you set
@@ -35,18 +33,14 @@ Description
    observation ID if the corresponding rows in the observation table
    are not the same.
    
-    
-   
+
    .. rubric:: Parameter descriptions
       
-   
-   .. rubric:: *vis*
-      
+   *vis*
    
    Name of input visibility files to be combined. No default
    
-   .. rubric:: *concatvis*
-      
+   *concatvis*
    
    Name of visibility file that will contain the concatenated data.
    
@@ -57,8 +51,7 @@ Description
    
    No default.
    
-   .. rubric:: *freqtol*
-      
+   *freqtol*
    
    Frequency shift tolerance for considering data to be in the same
    spw ID. The number of channels must also be the same. Default: '',
@@ -70,8 +63,7 @@ Description
       with very slight frequency differences caused by Doppler
       tracking, for example.
    
-   .. rubric:: *dirtol*
-      
+   *dirtol*
    
    Direction shift tolerance for considering data as the same field.
    Default: '' means always combine. Example: *dirtol='1.arcsec'*
@@ -80,33 +72,29 @@ Description
    input data sets, the name in the output data set will be the first
    relevant data set in the list.
    
-   .. rubric:: *respectname*
-      
+   *respectname*
    
    If True, fields with a different name are not merged even if their
    direction agrees (within *dirtol*). Default: True
    
-   .. rubric:: *visweightscale*
-      
+   *visweightscale*
    
    The weights of the individual MSs will be scaled in the
    concatenated output MS by the factors in this list. Useful for
    handling heterogeneous arrays. Use **plotms** to inspect the "Wt"
    column as a reference for determining the scaling factors. See the
    CASA Docs Chapter Pages on `Data
-   Weights <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-weights>`__
+   Weights <../../notebooks/data_weights.ipynb>`__
    for more details. Example: *visweightscale=[1.,3.,3.]*, which
    scales the weights of the second and third MS by a factor 3.
    Default: [] (empty list) or no scaling
    
-   .. rubric:: *keepcopy*
-      
+   *keepcopy*
    
    If True, a copy of the input MSs is kept in their original place.
    Default: False
    
-   .. rubric:: *copypointing*
-      
+   *copypointing*
    
    If True, the POINTING table information will be present in the
    output. If False, the result is an empty POINTING table. Default:
@@ -116,22 +104,17 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To concatenate the two MeasurementSets 'ngc5921.ms' and 'src2.ms'
    into a file named 'out.mms':
    
    ::
    
-      virtualconcat(vis=['src2.ms','ngc5921.ms'],
-      concatvis='out.mms')
+      virtualconcat(vis=['src2.ms','ngc5921.ms'], concatvis='out.mms')
    
    The original 'ngc5921.ms' and 'src2.ms' are gone. The output data
    'out.mms' is a Multi-MS. As most of the data is only moved, not
    copied, this is faster and subsequent tasks can run in parallel on
    the Sub-MSs of 'out.mms'.
-   
-    
    
    To concatenate the two MeasurementSets 'ngc5921.ms' and 'src2.ms'
    into a file named 'out.mms', but keeping the original
@@ -139,8 +122,7 @@ Examples
    
    ::
    
-      virtualconcat(vis=['src2.ms','ngc5921.ms'],
-      concatvis='out.mms', keepcopy=True)
+      virtualconcat(vis=['src2.ms','ngc5921.ms'], concatvis='out.mms', keepcopy=True)
    
    Compared to the first example, this consumes more disk space and
    time for the copy.    
@@ -151,8 +133,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

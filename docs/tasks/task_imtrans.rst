@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   imtrans task: Reorder image axes
-   
    This task reorders (transposes) the axes in the input image to the
    specified order. The associated pixel values and coordinate system
    are transposed.
@@ -49,8 +47,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    ::
    
          # Swap the stokes and spectral axes in an
@@ -59,14 +55,17 @@ Examples
          outfile = "outim.im"
          order = "0132"
          imtrans()
+
          # or
          outfile = "myim_2.im"
          order = 132
          imtrans()
+
          # or
          outfile = "myim_3.im"
          order = ["r", "d", "f", "s"]
          imtrans()
+
          # or
          outfile = "myim_4.im"
          order = ["rig", "declin", "frequ", "stok"]
@@ -76,8 +75,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

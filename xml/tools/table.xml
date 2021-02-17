@@ -3178,11 +3178,6 @@ Failure (returning F) is a sign of a bug.
      <description>Which derived value to use for complex columns (amp, amplitude, phase, imag, real, imaginary)</description>
      <value></value>
      </param>
-    
-     <param type="bool" name="useflags">
-     <description>Use the data flags</description>
-     <value>true</value>
-     </param>
 
   </input>
   <returns type="record"/>
@@ -3193,6 +3188,7 @@ Failure (returning F) is a sign of a bug.
     column name must be a numerical column.
     If it is a complex valued column, the parameter complex\_value defines
     which derived real value is used for the statistics computation.
+    This method does not honor any flags in the input table. 
   </description>
   <example>
     

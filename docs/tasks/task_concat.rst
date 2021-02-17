@@ -3,16 +3,11 @@
 .. _Description:
 
 Description
-   concatenate several visibility data sets.
-   
    This task concatenates several visibility data sets into a single
    MeasurementSet (MS).
-   
-    
-   
+
    .. rubric:: Input and output MeasurementSets
-      
-   
+
    The list of data sets given in the *vis* argument are
    chronologically concatenated into an output data set (named in
    *concatvis*), i.e. the data sets in *vis* are first ordered by the
@@ -34,12 +29,9 @@ Description
       input files are added to this file. Otherwise the new file
       contains the concatenated data. Be careful here when
       concatenating to an existing file.
-   
-    
-   
+
    .. rubric:: Spectral and position shift tolerances
-      
-   
+
    Spectral windows for each data set with the same channelization
    (equal numbers of channels), and within a specified frequency
    tolerance (parameter *freqtol*) of another data set, will be
@@ -73,12 +65,9 @@ Description
    .. note:: **NOTE**: There is no constraint on data that is simultaneously
       observed for more than one field; for example multi-source
       correlation of VLBA data.
-   
-   
-   
+
    .. rubric:: Operations performed on output MeasurementSets 
-      
-   
+
    Use the parameter *timesort = True* to sort the output visibility
    table in time. 
    
@@ -105,13 +94,11 @@ Description
    *forcesingleephemfield*. For example, *forcesingleephemfield
    =* ['Neptune'] will make sure that there is only one joint
    ephemeris for field Neptune in the output MS.
-   
+
 
 .. _Examples:
 
 Examples
-   task concat examples
-   
    Concatenate 'ngc5921.ms' into 'src2.ms' (the original src2.ms is
    lost):
    
@@ -140,8 +127,8 @@ Examples
    
    ::
    
-      | concat(vis=['v1.ms','v2.ms'], concatvis = 'vall.ms') #then
-      | concat(vis=['v3.ms','v4.ms'], concatvis = 'vall.ms')
+      concat(vis=['v1.ms','v2.ms'], concatvis = 'vall.ms') #then
+      concat(vis=['v3.ms','v4.ms'], concatvis = 'vall.ms')
    
    vall.ms will contain v1.ms+v2.ms+v3.ms+v4.ms .
    
@@ -151,8 +138,5 @@ Examples
 .. _Development:
 
 Development
-   task concat developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+
