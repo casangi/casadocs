@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   imhistory task: Retrieve and modify image history
-   
    This task prints out the history information contained in the
    image file.
    
@@ -24,22 +22,16 @@ Description
 Examples
    ::
    
-      | # get image history, print to log window, and store as an
-        array of
-      | # strings in variable x
-      | x = imhistory("my.im", mode="list", verbose=True)
-      | # append a message
-      | imhistory("my.im", origin="myorigin", message="ETI signal
-        found in this image!", mode="append")
+      # get image history, print to log window, and store as an array of
+      # strings in variable x
+      x = imhistory("my.im", mode="list", verbose=True)
+
+      # append a message
+      imhistory("my.im", origin="myorigin", message="ETI signal found in this image!", mode="append")
    
 
 .. _Development:
 
 Development
-   --CASA Developer--
-   
-   Here would be a discussion of how applycal is implemented.  This
-   is intended for the other members of the development team so is a
-   technical discussion.  We will work on building these up over
-   time.
-   
+   No additional development details
+

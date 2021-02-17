@@ -3,17 +3,12 @@
 .. _Description:
 
 Description
-   plot calibration solutions
-   
-   .. rubric:: Most of the functionality of plotcal is now
-      implemented in plotms.
-      
+   .. rubric:: Most of the functionality of plotcal is now implemented in plotms.
    
    We recommend the use of plotms for plotting calibration tables,
    except for certain VLBI cases that still need plotcal. Plotcal
    will be deprecated in the near future.
-   
-    
+
    
    The **plotcal** task is available for examining solutions of all
    of the basic solvable types.
@@ -30,36 +25,27 @@ Description
       selection. 
    
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: *caltable*
-      
+   *caltable*
    
    Specify the name of the calibration table to be plotted as a
    string in *caltable*.
-   
-    
-   
+
    .. rubric:: Axis choices: *xaxis, yaxis*
-      
    
    Specify the axes to be plotted in *xaxis* and *yaxis*.  The
    possible choices are listed in the Parameters section.
-   
-    
+
    
    .. rubric:: General selection:  *field, spw, antenna, timerange*
-      
    
    The **plotcal** task uses the same selection syntax as the solving
    tasks for these parameters.  See
-   `here <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__
+   `here <../../notebooks/visibility_data_selection.ipynb>`__
    for more information.
-   
-    
+
    
    .. rubric:: Polarization selection: *poln*
-      
    
    The *poln* parameter determines what polarization or combination
    of polarizations is being plotted. Choosing *poln='RL'* plots both
@@ -67,12 +53,9 @@ Description
    do equivalent things. The *poln='/'* option plots amplitude ratios
    or phase differences between whatever polarizations are in the MS
    (R and L or X and Y).
+
    
-    
-   
-   .. rubric:: Plot control: *subplot, iteration, overplot,
-      plotrange*
-      
+   .. rubric:: Plot control: *subplot, iteration, overplot, plotrange*
    
    The *subplot* parameter is particularly helpful in making
    multi-panel plots. The format is *subplot=yxn* where *yxn* is an
@@ -114,16 +97,13 @@ Description
    If the both values for either axis are zeros, the plot range on
    that axis will be set automatically.
    
-   .. rubric:: Symbol control:  *plotsymbol, plotcolor, markersize,
-      fontsize*
-      
+   .. rubric:: Symbol control:  *plotsymbol, plotcolor, markersize, fontsize*
    
    Symbol type, color, and size, as well as fontsize for labels can
    be set with these parameters, which are adopted from the general
    matplotlib interface.
    
    .. rubric:: Plot files:  *showgui, figfile*
-      
    
    If *showgui=True*, an interactive plot window will be generated to
    show the plot.  If a filename is specified in *figfile,* a plot
@@ -135,28 +115,22 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To plot amplitude and phase as a fuction of time on two panels of
    a single page, for 'G' solutions in a caltable called
    'ngc5121.usecase.fluxscale':
    
    ::
    
-      | plotcal(caltable='ngc5921.usecase.fluxscale',
-      |         xaxis='time',yaxis = 'amp',
-      |         subplot = 211)
-      | plotcal(caltable='ngc5921.usecase.fluxscale',
-      |         xaxis='time',yaxis = 'phase',
-      |         subplot = 212)
+      plotcal(caltable='ngc5921.usecase.fluxscale',
+              xaxis='time',yaxis = 'amp', subplot = 211)
+
+      plotcal(caltable='ngc5921.usecase.fluxscale',
+              xaxis='time',yaxis = 'phase', subplot = 212)
    
-   The result is shown in the following figure: |image1|
-   
-    
-   
-    
-   
-    
+   The result is shown in the following figure:
+
+   .. figure:: _apimedia/8ee76c738355edb7136d886ab6f37cdfeee0fd71.png
+
    
    Similarly, to plot amplitude, phase and SNR as a function of
    frequency on a three-panel plot, for a 'B' solution for a single
@@ -164,47 +138,33 @@ Examples
    
    ::
    
-      | plotcal(caltable='ngc5921.usecase.bcal',antenna='0',
-      |         xaxis='freq',yaxis='amp',
-      |         subplot=311)
-      | plotcal(caltable='ngc5921.usecase.bcal',antenna='0',
-      |         xaxis='freq',yaxis='phase',
-      |         subplot=312)
-      | plotcal(caltable='ngc5921.usecase.bcal',antenna='0',
-      |         xaxis='freq',yaxis='snr',
-      |         subplot=313)
+      plotcal(caltable='ngc5921.usecase.bcal',antenna='0', xaxis='freq',yaxis='amp', subplot=311)
+
+      plotcal(caltable='ngc5921.usecase.bcal',antenna='0', xaxis='freq',yaxis='phase', subplot=312)
+
+      plotcal(caltable='ngc5921.usecase.bcal',antenna='0', xaxis='freq',yaxis='snr', subplot=313)
    
    This will generate the following figure:
    
-   |image2|
-   
-    
-   
-    
+   .. figure:: _apimedia/6efc81647da94725b6e55ab7f57234a0dfa0ae17.png
+
    
    To show one amplitude vs. freq bandpass per plot, with 6 plots per
    page, iterating over antennas:
    
    ::
    
-      | plotcal(caltable='ngc5921.usecase.bcal',antenna='0',
-      |         xaxis='freq',yaxis='amp',
-      |         iteration='antenna',subplot=231)
+      plotcal(caltable='ngc5921.usecase.bcal',antenna='0', xaxis='freq',yaxis='amp',
+              iteration='antenna',subplot=231)
+
+
+   This will generate the following figure:
    
-    This will generate the following figure:
-   
-   |image3|
-   
-   .. |image1| image:: _apimedia/8ee76c738355edb7136d886ab6f37cdfeee0fd71.png
-   .. |image2| image:: _apimedia/6efc81647da94725b6e55ab7f57234a0dfa0ae17.png
-   .. |image3| image:: _apimedia/f7fdc5b2f708731d83827fe05276126078f2c8c5.png
+   .. figure:: _apimedia/f7fdc5b2f708731d83827fe05276126078f2c8c5.png
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

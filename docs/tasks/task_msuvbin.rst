@@ -3,12 +3,7 @@
 .. _Description:
 
 Description
-   task description
-   
    .. warning:: **WARNING**: This task is currently experimental.
-   
-   .. rubric:: Summary
-      
    
    **msuvbin** is a uv gridding task. It is primarily designed to be
    used for large volumes of data from multiple observing epochs that
@@ -27,68 +22,55 @@ Description
    limitations. In particular, note the issue/limitation of creating
    a uv grid with wprojection and then using Cotton-Schwab major
    cycles to image it; see the EVLA Memo 198 for more details.
-   
-    
+
    
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: *vis*
-      
-   
+   *vis*
+
    Name of input visibility file
    
-   .. rubric:: *field*
-      
+   *field*
    
    Field name list; note that this position will define the phase
    center of the output uv grid
    
-   .. rubric:: *spw
-      *
-      
+   *spw*
    
    Spectral window selection
    
-   .. rubric:: *taql* 
-      
+   *taql*
    
    TaQl expression for data selection (see  `Data Selection in a
    Measurement
-   Set <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-selection-in-a-measurementset>`__  or `CASAcore NOTE
+   Set <../../notebooks/visibility_data_selection.ipynb>`__  or `CASAcore NOTE
    199: Table Query
    Language <https://casacore.github.io/casacore-notes/199.html>`__  for
    more information)
    
-   .. rubric:: *outvis*
-      
+   *outvis*
    
    Name of output grid
    
-   .. rubric:: *phasecenter*
-      
+   *phasecenter*
    
    Phase center of the grid, to be used when the phase center of the
    selected field is not the desired output phase center.
    Example: phasecenter='J2000 18h03m04 -20d00m45.1'
    
-   .. rubric:: *nx*
-      
+   *nx*
    
    Number of pixels along the x axis of the grid. Default: 1000
    
-   .. rubric:: *ny*
-      
+   *ny*
    
    Number of pixels along the y axis of the grid. Default: 1000
    
-   .. rubric:: *cell*
-      
+   *cell*
    
    Cellsize of the grid (given in sky units). Default: '1arcsec'
    
-   .. rubric:: *ncorr*
-      
+   *ncorr*
    
    Number of correlation/polarization plane in uv grid (allowed 1, 2,
    4). For example, if the input data set has the correlations RR and
@@ -96,29 +78,24 @@ Description
    Stokes I. If *ncorr=* 2, then the output grid will have both the
    RR and LL correlations. Default: 1
    
-   .. rubric:: *nchan*
-      
+   *nchan*
    
    Number of spectral channels in the output uv grid. Default: 1
    
-   .. rubric:: *fstart*
-      
+   *fstart*
    
    Frequency of the first channel. Default: '1GHz' (the user needs to
    give a useful input here)
    
-   .. rubric:: *fstep*
-      
+   *fstep*
    
    Width of spectral channel. Default: '1kHz'
    
-   .. rubric:: *wproject*
-      
+   *wproject*
    
    Do wprojection correction while gridding. Default: False
    
-   .. rubric:: *memfrac*
-      
+   *memfrac*
    
    Controls how much of computer's memory is available for gridding.
    Default=0.5
@@ -127,8 +104,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    Let's assume we have multi-epoch observations on a particular
    field of interest with measurement sets vis_1.ms, vis_2.ms, ...
    vis_n.ms. The task **msuvbin** needs to be executed n times, one
@@ -138,21 +113,21 @@ Examples
    
    ::
    
-      | vis = 'vis_1.ms'
-      | field = '0'
-      | spw = ''
-      | taql = ''
-      | outvis = "uvgrid.ms'
-      | phasecenter = ''
-      | nx = 2048
-      | ny = 2048
-      | cell = '2.0arcsec'
-      | ncorr = 2
-      | nchan = 320
-      | fstart = "1025.00MHz"
-      | fstep = "62.5kHz"
-      | wproject = False
-      | memfrac = 0.9
+      vis = 'vis_1.ms'
+       field = '0'
+      spw = ''
+      taql = ''
+      outvis = "uvgrid.ms'
+      phasecenter = ''
+      nx = 2048
+      ny = 2048
+      cell = '2.0arcsec'
+      ncorr = 2
+      nchan = 320
+      fstart = "1025.00MHz"
+      fstep = "62.5kHz"
+      wproject = False
+      memfrac = 0.9
    
    Here we note the following:
    
@@ -202,8 +177,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

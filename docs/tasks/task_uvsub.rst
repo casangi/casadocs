@@ -3,11 +3,6 @@
 .. _Description:
 
 Description
-   task uvsub description
-   
-   Subtracts model visibilities from the corrected visibility data in
-   a MeasurementSet.
-   
    This task subtracts the model visibilities in the MODEL_DATA
    column of a MeasurementSet from the corrected visbilities in the
    CORRECTED_DATA column. The MODEL_DATA column can either be the
@@ -40,20 +35,16 @@ Description
    
    See also the CASA Docs chapter pages on `Subtracting and Adding
    Model
-   Visibilities <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/uv-manipulation/subtracting-or-adding-model-visibilities>`__.
-   
-    
+   Visibilities <../../notebooks/uv_manipulation.ipynb>`__.
+
    
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: vis
-      
+   *vis*
    
    Name of input visibility file (MS).
    
-   .. rubric:: *reverse*
-      
+   *reverse*
    
    Reverse the operation (add rather than subtract). Default is
    reverse=False.
@@ -62,8 +53,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To subtract model visibilities stored in the MODEL_DATA column
    from the corrected visibility data in the CORRECTED_DATA column of
    a MeasurementSet, and write the residual visibilities back into
@@ -77,8 +66,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

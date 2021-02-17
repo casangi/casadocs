@@ -3,9 +3,6 @@
 .. _Description:
 
 Description
-   impv task: Construct a position-velocity image by choosing two points
-   in the direction plane.
-   
    Create a position-velocity image. The way the slice is specified
    is controlled by the *mode* parameter. When *mode="coords"*, start
    and end are used to specify the points between which slice is
@@ -48,36 +45,38 @@ Description
    both must be at least 2 pixels from the edge of the input image to
    facilite rotation (see below).
    
-   | One may specify a *width*, which represents the number of pixels
-     centered along and perpendicular to the direction slice that are
-     used for averaging along the slice. The *width* may be specified
-     as an integer, in which case it must be positive and odd.
-     Alternatively, it may be specified as a valid quantity string
-     (e.g., "4arcsec") or quantity record (e.g.
-     qa.quantity("4arcsec")). In this case, units must be conformant
-     to the direction axes units (usually angular units) and the
-     specified quantity will be rounded up, if necessary, to the next
-     highest equivalent odd integer number of pixels. The default
-     value of 1 represents no averaging. A value of 3 means average
-     one pixel on each side of the slice and the pixel on the slice.
-     Note that this *width* is applied to pixels in the image after
-     it has been rotated (see below for a description of how rotation
-     is applied).
-   | One may specify the *unit* for the angular offset axis.
-   | Internally, the image is first rotated, padding if necessary to
-     include relevant pixels that would otherwise be excluded by the
-     rotation operation, so that the slice is horizontal, with the
-     starting pixel left of the ending pixel. Then, the pixels within
-     the specified width of the slice are averaged and the resulting
-     image is written and/or returned. The output image has a linear
-     coordinate in place of the direction coordinate of the input
-     image, and the corresponding axis represents angular offset with
-     the center pixel having a value of 0.
-   | The equivalent coordinate system, with a (usually) rotated
-     direction coordinate (e.g., RA and Dec) is written to the output
-     image as a table record. It can be retrieved using the table
-     tool (see the examples tab, which is linked from the top of this
-     page).
+   One may specify a *width*, which represents the number of pixels
+   centered along and perpendicular to the direction slice that are
+   used for averaging along the slice. The *width* may be specified
+   as an integer, in which case it must be positive and odd.
+   Alternatively, it may be specified as a valid quantity string
+   (e.g., "4arcsec") or quantity record (e.g.
+   qa.quantity("4arcsec")). In this case, units must be conformant
+   to the direction axes units (usually angular units) and the
+   specified quantity will be rounded up, if necessary, to the next
+   highest equivalent odd integer number of pixels. The default
+   value of 1 represents no averaging. A value of 3 means average
+   one pixel on each side of the slice and the pixel on the slice.
+   Note that this *width* is applied to pixels in the image after
+   it has been rotated (see below for a description of how rotation
+   is applied).
+
+   One may specify the *unit* for the angular offset axis.
+   Internally, the image is first rotated, padding if necessary to
+   include relevant pixels that would otherwise be excluded by the
+   rotation operation, so that the slice is horizontal, with the
+   starting pixel left of the ending pixel. Then, the pixels within
+   the specified width of the slice are averaged and the resulting
+   image is written and/or returned. The output image has a linear
+   coordinate in place of the direction coordinate of the input
+   image, and the corresponding axis represents angular offset with
+   the center pixel having a value of 0.
+
+   The equivalent coordinate system, with a (usually) rotated
+   direction coordinate (e.g., RA and Dec) is written to the output
+   image as a table record. It can be retrieved using the table
+   tool (see the examples tab, which is linked from the top of this
+   page).
    
    Note that because the ouput image does not have a direction
    coordinate, other image analysis tasks and tool methods may not be
@@ -93,17 +92,15 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    ::
    
-      # create a pv image with the position axis running from ra, dec
-      pixel positions of [45, 50] to [100, 120]
-      # in the input image
-      impv(imagename="my_spectral_cube.im", outfile="mypv.im",
-      start=[45,50], end=[100,120])
+      # create a pv image with the position axis running from ra,
+      # dec pixel positions of [45, 50] to [100, 120] in the input image
+      impv(imagename="my_spectral_cube.im", outfile="mypv.im", start=[45,50], end=[100,120])
+
       # analyze the pv image, such as get statistics
       pvstats = imstat("mypv.im")
+
       # get the alternate coordinate system information
       tb.open("mypv.im")
       alternate_csys_record =
@@ -114,8 +111,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task fixplanets description
-   
    The main purpose of this task is to correct observations which
    were performed with correct pointing and correlation but for which
    incorrect direction information was entered in the FIELD and
@@ -17,29 +15,22 @@ Description
    
    If you actually want to change the phase center of the visibilties
    in an MS, you should use task **fixvis**.
-   
-    
-   
+
    .. rubric:: Parameter descriptions
-      
-   
-   .. rubric:: *vis*
-      
-   
+
+   *vis*
+
    Name of the input visibility set.
    
-   .. rubric:: *field*
-      
-   
+   *field*
+
    Field selection string.
    
-   .. rubric:: *fixuvw*
-      
-   
+   *fixuvw*
+
    Recalculates the uvw coordinates (default: False).
    
-   .. rubric:: *direction*
-      
+   *direction*
    
    If set, **fixplanets** doesn't use the pointing table but sets the
    direction to this value.
@@ -57,14 +48,13 @@ Description
    
    ::
    
-      | import recipes.ephemerides.request as jplreq
-      | jplreq.request_from_JPL(objnam='Mars',
-        startdate='2012-01-01', enddate='2013-12-31', date_incr='0.1
-        d', get_axis_orientation=False, 
-        get_axis_ang_orientation=True, get_sub_long=True,
-        use_apparent=False, get_sep=False,
-        return_address='YOUR_EMAIL_ADDESS', 
-        mailserver='YOUR_MAIL_SERVER_ADDRESS')
+      import recipes.ephemerides.request as jplreq
+      jplreq.request_from_JPL(objnam='Mars', startdate='2012-01-01', enddate='2013-12-31',
+                              date_incr='0.1d', get_axis_orientation=False,
+                              get_axis_ang_orientation=True, get_sub_long=True,
+                              use_apparent=False, get_sep=False,
+                              return_address='YOUR_EMAIL_ADDESS',
+                              mailserver='YOUR_MAIL_SERVER_ADDRESS')
    
    .. note:: **NOTE**: Some mail clients may not save the JPL mail properly.
       Confirmed to work in Thunderbird.
@@ -138,16 +128,14 @@ Description
    must be adapted to the case. See the Examples tab for how to use
    the returned ephemeris. 
    
-   .. rubric:: *refant*
-      
+   *refant*
    
    If using pointing table information, use it from this antenna.
    default: 0 (antenna id 0); examples: 'DV06' (antenna with name
    DV06); 3 (antenna id 3).
    
-   .. rubric:: *reftime*
-      
-   
+   *reftime*
+
    If using pointing table information, use it from this timestamp.
    default: 'first'; examples: 'median' will use the median timestamp
    for the given field using only the unflagged maintable rows;
@@ -158,8 +146,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To look up the pointing direction from antenna 0 for field 'Titan'
    in the POINTING table based on the first timestamp in the main
    table rows for this field, write this direction in the FIELD and
@@ -168,8 +154,7 @@ Examples
    
    ::
    
-      fixplanets(vis='uid___A002_X1c6e54_X223.ms', field='Titan',
-      fixuvw=True)
+      fixplanets(vis='uid___A002_X1c6e54_X223.ms', field='Titan', fixuvw=True)
    
    To attach the ephemeris table 'Titan_55438-56292dUTC.tab' to field
    'Titan' and then recalculate the UVW coordinates for this field:
@@ -177,7 +162,7 @@ Examples
    ::
    
       fixplanets(vis='uid___A002_X1c6e54_X223.ms', field='Titan',
-      fixuvw=True, direction='Titan_55438-56292dUTC.tab')
+                 fixuvw=True, direction='Titan_55438-56292dUTC.tab')
    
    To set the directions for field 'Titan' in the FIELD and SOURCE
    table to the given direction and not recalculate the UVW
@@ -188,7 +173,7 @@ Examples
    ::
    
       fixplanets(vis='uid___A002_X1c6e54_X223.ms', field='Titan',
-      fixuvw=False, direction='J2000 12h30m15 -02d12m00')
+                 fixuvw=False, direction='J2000 12h30m15 -02d12m00')
    
    To use an ephemeris file returned from JPL via the email query
    described in the Description tab in the case where the source is
@@ -200,14 +185,11 @@ Examples
    ::
    
       fixplanets(vis='uid___A002_X1c6e54_X223.ms', fixuvw=True,
-      direction='target.eph')
+                 direction='target.eph')
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

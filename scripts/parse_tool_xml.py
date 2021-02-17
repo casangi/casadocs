@@ -133,6 +133,7 @@ for name in tooldict.keys():
     
     # change image links
     rst = re.sub('(\.\. \|.*?\| image:: )_apimedia/(\S*)\s*?\n', r'\1../../tools/_apimedia/\2\n', rst, flags=re.DOTALL)
+    rst = re.sub('(\.\. figure:: )_apimedia/(\S*)\s*?\n', r'\1../../tools/_apimedia/\2\n', rst, flags=re.DOTALL)
     
     # add this tool to the __init__.py
     with open('../casatools/' + '__init__.py', 'a') as fid:

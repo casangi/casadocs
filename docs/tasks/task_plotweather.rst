@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
    This task is intended for VLA use only. Plots elements of the
    weather table; estimates opacity.
    
@@ -38,22 +36,16 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To generate and plot opacity estimates, using the mean between
    predictions based on the weather data and seasonal model:
    
    ::
    
-      myTau = plotweather(vis='myMS.ms', seasonal_weight=0.5,
-      doPlot=True)
+      myTau = plotweather(vis='myMS.ms', seasonal_weight=0.5, doPlot=True)
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

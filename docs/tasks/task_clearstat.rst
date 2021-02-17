@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   clear all autolock locks
-   
    Clears all autolocking file locks.
    
    Some tasks (e.g., **browsetable**) need to obtain table locks in
@@ -21,12 +19,8 @@ Description
 .. _Examples:
 
 Examples
-   task clearstat examples
-   
    To run **clearstat**, no parameters need to be specified.
-   
-    
-   
+
    The basic way to run the task is 
    
    ::
@@ -34,9 +28,7 @@ Examples
       go clearstat()
    
    as this will not change the current task being scrutinized.
-   
-    
-   
+
    Note that 
    
    ::
@@ -50,8 +42,5 @@ Examples
 .. _Development:
 
 Development
-   task clearstat developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

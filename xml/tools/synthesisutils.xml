@@ -67,6 +67,237 @@ This is used to construct {\tt synthesisutils} tool.
 
 <!-- ===================================== -->
 
+<method type="function" name="advisechansel">
+   <shortdescription>Advise on spw and chan selection optimal for the image frequency range wanted</shortdescription>
+   
+
+<description>
+It is a helper function, for cube imaging, that allows you to
+determine the spectral window data selection you may need to cover a
+given range of frequencies.
+   
+In the mode with getfreqrange=False, the freqstep can be used (i.e., set to the channel width) to achieve the extra padding needed for data selection at the beginning and end of the desired cube range in order to retrieve all channels that will potentially contribute to the edge channels of the cube (to maximize S/N). If freqstep is not specified, it is taken as zero, and the output channel range will typically be slightly smaller.
+
+The meaning of freqframe parameter is dependent on the value of getfreqrange.
+When getfreqrange=False, frequency parameters are considered as input parameters that are known to be in the frame specified by freqframe; but when getfreqrange=True, the frequency parameters are output parameters that will be determined in the frame specified by freqframe. In the former case, the frequencies will be converted to the frame of the data as a function of time in order to locate which channels match.
+
+You need to specify the field\_id for which this calculation is 
+ being done. 
+  
+If the parameter {\tt getfreqrange=True} then the reverse is requested. You set {\tt spwselection} to be the range of data selection you want to use and you'll get the range of frequency covered in the frame you set. The freqstart and freqend output values correspond to the frequency of the extreme edges of the requested channel range. 
+Inputs
+----------------
+freqstart 	
+Begining of frequency range
+allowed:  double, string, quantity
+example: freqstart='1.0GHz'
+Default:
+----------------
+freqend 	
+End of frequency range
+allowed:  double, string, quantity
+example: freqend='2.0GHz'
+Default:''
+-----------------
+freqstep 	
+spectral channel resolution of intended image
+allowed:  double, string, quantity
+example: freqstep='1.0MHz'
+Default:''
+-----------------	
+freqframe 	
+frame in which frequency is being expressed in other parameters. For solar system  moving sources if the frame of the source is intended then this parameter can be 'SOURCE'
+allowed : one of the following strings 'LSRK', 'LSRD', 'BARY', 'GEO', 'TOPO', 'GALACTO', 'LGROUP','CMB', 'SOURCE'
+Default: 'LSRK'
+----------------
+msname 	
+name of a valid measurement set.	
+allowed: string
+Default: ''
+-----------------
+ephemtable
+when freqframe='SOURCE' this parameter is used 
+name of a valid ephemeris table or 'TRACKFIELD' to use the ephemeris table attached to the FIELD subtable of the ms or one of the following solar system object: 'MERCURY', 'VENUS', 'MARS', 'JUPITER', 'SATURN', 'URANUS', 'NEPTUNE', 'PLUTO', 'SUN', 'MOON'
+allowed: string
+Default: ''
+-----------------
+fieldid 		
+fieldid to use (needed to get the direction on the sky for any spectral frame conversion)
+allowed: integer
+Default: 0
+-------------------
+getfreqrange		
+if set then freqrange is returned in the frame requested for the data selected
+allowed: bool
+Default: False
+-----------------
+spwselection		
+if getfreqrange=True then this is needed to find the range of frequency in the frame requested. It should have the spectral window selection syntax as defined in the msselection (Casa memo 3)
+allowed: string
+Default: ''
+
+Example 1
+In this example, we are interested in an image cube which span 20.0682GHz to 20.1982 in LSRK  which will have a channel resolution of 3.9MHz. The field we are interested the one with fieldid=4  
+ 
+############################# 
+>>> from casatools import synthesisutils
+>>> syut=synthesisutils()
+>>> syut.advisechansel(freqstart=&quot;20.0682GHz&quot;, freqend=&quot;20.1982GHz&quot;, freqstep=&quot;3.9kHz&quot;, freqframe=&quot;LSRK&quot;, msname=&quot;test1.ms&quot;)
+{&quot;nchan&quot;: array([109,  23], dtype=int32),  &quot;spw&quot;: array([4, 5], dtype=int32),  
+          &quot;start&quot;: array([19,  0], dtype=int32)}
+# implies 108 channels of spw 4 starting channel 19 and 23 channels of spw 5 starting at channel 0 would contribute data to the frequency range under consideration
+#############################
+  
+Example 2
+
+To determine what is the frequency range in a given frame is covered by a given spwselection of the ms
+
+##############
+>>> syut.advisechansel(msname=&quot;test3.ms&quot;, freqframe=&quot;LSRK&quot;, getfreqrange=True, spwselection=&quot;0:20~210&quot;)
+
+{&quot;freqend&quot;: {&quot;unit&quot;: &quot;Hz&quot;, &quot;value&quot;: 362746224619.3091}, &quot;freqstart&quot;: {&quot;unit&quot;: &quot;Hz&quot;, &quot;value&quot;: 362512788988.5036}}
+
+##############
+
+Example 3:
+
+Same as Example 1 but with a solar system moving source and the frequency range provided is in the frame of the source. We are using the ephemeris table attached to the FIELD subtable of the ms.
+
+##########
+>>> syut.advisechansel(msname="uid___A002_Xc05f54_X142a_target.spw31.contsub.ms", freqstart=&quot;362.5145206GHz&quot;, freqend=&quot;362.7476643GHz&quot;, freqstep=&quot;122.064714kHz&quot;, fieldid=3, freqframe=&quot;SOURCE&quot;, ephemtable=&quot;TRACKFIELD&quot;)
+###########
+Now one can do the same with a valid ephemeris table
+###########
+>>> syut.advisechansel(msname="uid___A002_Xc05f54_X142a_target.spw31.contsub.ms", freqstart=&quot;362.5145206GHz&quot;, freqend=&quot;362.7476643GHz&quot;, freqstep=&quot;122.064714kHz&quot;, fieldid=3, freqframe=&quot;SOURCE&quot;, ephemtable=&quot;EPHEM0_Titan_57889.1.tab&quot;)
+###########
+
+Or if we want it in the frame of a solar system source known by casa, e.g &quot;SATURN&quot;
+############
+>>> syut.advisechansel(msname="uid___A002_Xc05f54_X142a_target.spw31.contsub.ms", freqstart=&quot;362.5145206GHz&quot;, freqend=&quot;362.7476643GHz&quot;, freqstep=&quot;122.064714kHz&quot;, fieldid=3, freqframe=&quot;SOURCE&quot;, ephemtable=&quot;SATURN&quot;)
+############
+
+Example 4:
+
+Same as Example 2  but with a solar system moving source and the frequency range we want to find is in the frame of the source.
+
+############
+>>> syut.advisechansel(msname="uid___A002_Xc05f54_X142a_target.spw31.contsub.ms", fieldid=3, freqframe=&quot;SOURCE&quot;, ephemtable=&quot;TRACKFIELD&quot;, getfreqrange=True, spwselection=&quot;31:9~1919&quot;)
+#############
+similarly if we want it in the frame of a solar system source known casa e.g saturn
+#############
+>>> syut.advisechansel(msname="uid___A002_Xc05f54_X142a_target.spw31.contsub.ms", fieldid=3, freqframe=&quot;SOURCE&quot;, ephemtable=&quot;SATURN&quot;, getfreqrange=True, spwselection=&quot;31:9~1919&quot;)
+#############
+</description>
+<input>
+
+
+     <param name="freqstart" direction="in" type="any">
+       <description>Begining of frequency range in Hz</description>
+       <any type="variant"/>
+     <value>1.0e6</value>
+     </param>
+
+     <param name="freqend" direction="in" type="any">
+       <description>End of frequency range in Hz</description>
+        <any type="variant"/>
+     <value>1.1e6</value>
+     </param>
+     
+     <param name="freqstep" direction="in" type="any">
+       <description>spectral channel resolution of intended image in Hz</description>
+        <any type="variant"/>
+       <value>100.0</value>
+     </param>
+     
+     <param name="freqframe" direction="in" type="string">
+       <description>frame in which frequency is being expressed in other parameters</description>
+       <value>LSRK</value>
+     </param>
+     
+      <param name="ephemtable" direction="in" type="string">
+       <description>valid ephemeris table name or TRACKFIELD (use ephemeris in FIELD subtable) if freqframe is SOURCE </description>
+       <value></value>
+      </param>
+      
+     <param name="msname" direction="in" type="string">
+       <description>name of an ms, if empty string it will use the ms's used in selectvis</description>
+       <value/>
+     </param>
+     <param name="fieldid" direction="in" type="int">
+       <description>fieldid to use when msname is not empty otherwise ignored and field selected in selectvis is used</description>
+       <value>0</value>
+     </param>
+     <param name="getfreqrange" type="bool">
+     <description>if set then freqrange is returned in the frame requested for the data selected</description>
+     <value>false</value>
+     </param>
+     <param name="spwselection" type="string">
+       <description>if getfreqrange=True then this is needed to find the range of frequency in the frame requested</description>
+       <value/>
+     </param>
+
+
+</input>
+<example>
+
+Example 1
+In this example, we are interested in an image cube which span 20.0682GHz to 20.1982 in LSRK  which will have a channel resolution of 3.9MHz. The field we are interested the one with fieldid=4  
+ 
+############################# 
+>>> from casatools import synthesisutils
+>>> syut=synthesisutils()
+>>> syut.advisechansel(freqstart=&quot;20.0682GHz&quot;, freqend=&quot;20.1982GHz&quot;, freqstep=&quot;3.9kHz&quot;, freqframe=&quot;LSRK&quot;, msname=&quot;test1.ms&quot;)
+{&quot;nchan&quot;: array([109,  23], dtype=int32),  &quot;spw&quot;: array([4, 5], dtype=int32),  
+          &quot;start&quot;: array([19,  0], dtype=int32)}
+# implies 108 channels of spw 4 starting channel 19 and 23 channels of spw 5 starting at channel 0 would contribute data to the frequency range under consideration
+#############################
+  
+Example 2
+
+To determine what is the frequency range in a given frame is covered by a given spwselection of the ms
+
+##############
+>>> syut.advisechansel(msname=&quot;test3.ms&quot;, freqframe=&quot;LSRK&quot;, getfreqrange=True, spwselection=&quot;0:20~210&quot;)
+
+{&quot;freqend&quot;: {&quot;unit&quot;: &quot;Hz&quot;, &quot;value&quot;: 362746224619.3091}, &quot;freqstart&quot;: {&quot;unit&quot;: &quot;Hz&quot;, &quot;value&quot;: 362512788988.5036}}
+
+##############
+
+Example 3:
+
+Same as Example 1 but with a solar system moving source and the frequency range provided is in the frame of the source. We are using the ephemeris table attached to the FIELD subtable of the ms.
+
+##########
+>>> syut.advisechansel(msname="uid___A002_Xc05f54_X142a_target.spw31.contsub.ms", freqstart=&quot;362.5145206GHz&quot;, freqend=&quot;362.7476643GHz&quot;, freqstep=&quot;122.064714kHz&quot;, fieldid=3, freqframe=&quot;SOURCE&quot;, ephemtable=&quot;TRACKFIELD&quot;)
+###########
+Now one can do the same with a valid ephemeris table
+###########
+>>> syut.advisechansel(msname="uid___A002_Xc05f54_X142a_target.spw31.contsub.ms", freqstart=&quot;362.5145206GHz&quot;, freqend=&quot;362.7476643GHz&quot;, freqstep=&quot;122.064714kHz&quot;, fieldid=3, freqframe=&quot;SOURCE&quot;, ephemtable=&quot;EPHEM0_Titan_57889.1.tab&quot;)
+###########
+
+Or if we want it in the frame of a solar system source known by casa, e.g &quot;SATURN&quot;
+############
+>>> syut.advisechansel(msname="uid___A002_Xc05f54_X142a_target.spw31.contsub.ms", freqstart=&quot;362.5145206GHz&quot;, freqend=&quot;362.7476643GHz&quot;, freqstep=&quot;122.064714kHz&quot;, fieldid=3, freqframe=&quot;SOURCE&quot;, ephemtable=&quot;SATURN&quot;)
+############
+
+Example 4:
+
+Same as Example 2  but with a solar system moving source and the frequency range we want to find is in the frame of the source.
+
+############
+>>> syut.advisechansel(msname="uid___A002_Xc05f54_X142a_target.spw31.contsub.ms", fieldid=3, freqframe=&quot;SOURCE&quot;, ephemtable=&quot;TRACKFIELD&quot;, getfreqrange=True, spwselection=&quot;31:9~1919&quot;)
+#############
+similarly if we want it in the frame of a solar system source known casa e.g saturn
+#############
+>>> syut.advisechansel(msname="uid___A002_Xc05f54_X142a_target.spw31.contsub.ms", fieldid=3, freqframe=&quot;SOURCE&quot;, ephemtable=&quot;SATURN&quot;, getfreqrange=True, spwselection=&quot;31:9~1919&quot;)
+#############
+</example>
+<returns type="record"/>
+</method>
+
+
+<!-- ===================================== -->
+
    <method type="function" name="cubedatapartition">
    <shortdescription>Partition data selection parameters for CUBE imaging</shortdescription>
 

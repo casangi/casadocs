@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
    The msview task will display a MeasurementSet in raster form. Many
    display and editing options are available. Executing the
    **msview** task will bring up a display panel window, which can be
@@ -24,11 +22,8 @@ Description
    For more detailed on how to use the msview task, please read the
    dedicated CASADocs chapter on `2-D Visualization and Flagging of
    Visibility Data
-   (viewer/msview) <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-examination-and-editing/2-d-visualization-of-visibility-data-msview>`__.
-   
-    
-   
-    
+   (viewer/msview) <../../notebooks/data_examination.ipynb#2-D-Plot/Flag:-viewer/msview>`__.
+
    
    +---------+-----------------------------------------------------------+
    | Type    | Figure                                                    |
@@ -45,15 +40,12 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    .. rubric:: Display a MeasurementSet as a raster image
-      
-   
+
    ::
    
-      | # In CASA
-      | msview(infile='my_MeasurementSet.ms', displaytype='raster')
+      # In CASA
+      msview(infile='my_MeasurementSet.ms', displaytype='raster')
    
    This displays the MeasurementSet as a raster image. Settings
    (e.g., axes) can then be manually adjusted using the interactive
@@ -64,15 +56,12 @@ Examples
    rendering data visually using one of the following settings:
    raster (default), contour, vector or marker. You can also set this
    parameter to 'lel' to provide a `Lattice Expression
-   Language <https://casa.nrao.edu/casadocs-devel/stable/imaging/image-analysis/lattice-expression-language-lel/lattice-expression-language>`__ expression for
+   Language <../../notebooks/image_analysis.html#Lattice-Expression-Language>`__ expression for
    *infile* (advanced).
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

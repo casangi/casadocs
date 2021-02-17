@@ -74,8 +74,6 @@ Description
 .. _Examples:
 
 Examples
-   Template
-
    ::
 
       sdtimeaverage(infile='sd_data.ms', outfile='sd_data_TimeAve.ms')
@@ -92,6 +90,5 @@ Examples
 .. _Development:
 
 Development
-   None
-
+   No additional development details
 

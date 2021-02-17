@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
    The **plotprofilemap** makes a spectral profile map from a
    specified image. The task accepts both a CASA image or a FITS cube
    as an input. Output is to the screen, or to image file (specified
@@ -32,15 +30,15 @@ Description
    vertical axes, you should give two numbers as a string separated
    by comma.
    
-   | If the number of panels is less than the number of pixels of
-     input image, more than one pixel is assigned to one panel. In
-     that case, spectra to be shown are the average of the assigned
-     spectra in each pixel.
-   |               
-   | Default value for *numpanels* is empty string ('') which
-     corresponds to an auto calculation of the number of panels based
-     on the number of pixels of input image. Formulas for the number
-     of horizontal and vertical panels, nh and nv, are as follows:
+   If the number of panels is less than the number of pixels of
+   input image, more than one pixel is assigned to one panel. In
+   that case, spectra to be shown are the average of the assigned
+   spectra in each pixel.
+
+   Default value for *numpanels* is empty string ('') which
+   corresponds to an auto calculation of the number of panels based
+   on the number of pixels of input image. Formulas for the number
+   of horizontal and vertical panels, nh and nv, are as follows:
    
    ::
    
@@ -72,15 +70,11 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    **plotprofilemap** chooses the size and number of subplots based
    on that specified by the user, though blank data in the set may
    produce unexpected results. The appearance of the blank data can
    be changed using the *plotmasked* function, as shown below.
-   
-    
-   
+
    The default case for the M100 CSV data:
    
    ::
@@ -88,8 +82,6 @@ Examples
       plotprofilemap(imagename='M100_TP_CO_cube.spw3.image')
    
    |image1|
-   
-    
    
    Obviously, the inner 4x5 region only, contains data that is not
    blanked. A naive solution is to select only those:
@@ -120,8 +112,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

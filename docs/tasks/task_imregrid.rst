@@ -274,37 +274,33 @@ Description
    
 
    .. rubric:: Task-specific Parameter Summary
-      
    
-   .. rubric:: *template*
-      
+   *template*
    
    Indicates how the template coordinate system is being specified.
    See above for details.
    
-   .. rubric:: *shape*
-      
-   
+   *shape*
+
    Shape of the output image. Only used if template is an image. If
    not specified (-1), the output image shape will be the same as the
    template image shape along the axes that are regridded and the
    same as input image shape along the axes which  are not regridded.
    
-   .. rubric:: *asvelocity*
+   *asvelocity*
 
    Regrid spectral axis in velocity space rather than frequency
    space?
    
-   .. rubric:: *axes*
+   *axes*
 
    The pixel axes to regrid. -1 => all.
    
-   .. rubric:: *interpolation*
+   *interpolation*
 
    The interpolation method. One of "nearest", "linear", "cubic".
    
-   .. rubric:: *decimate*
-      
+   *decimate*
    
    Decimation factor for coordinate grid computation. A value of 10
    is sufficient in most cases, except for images in which the length
@@ -313,7 +309,7 @@ Description
    these cases, a smaller factor will give signficantly better
    accuracy.
    
-   .. rubric:: *replicate*
+   *replicate*
 
    Replicate image rather than regrid?
    
@@ -321,8 +317,7 @@ Description
 .. _Examples:
 
 Examples
-   Basic Examples
-      
+   **Basic Examples**
    
    ::
    
@@ -334,8 +329,7 @@ Examples
       manner above, if the input image's direction coordinate is
       already in the frame specified by template, a straight copy of
       the image is made. No regridding is actually done.
-   
-    
+
    
    ::
    
@@ -348,11 +342,9 @@ Examples
    system used, and a new dictionary, TEMP_DICT, is generated
    accordingly. This is then used when performing the actual
    regridding of input.image in the second command.
+
    
-    
-   
-   .. rubric:: More Advanced Examples
-      
+   **More Advanced Examples**
    
    It is also possible to directly use a template image for
    regridding with **imregrid**. For this to work reliably and
@@ -433,4 +425,5 @@ Examples
 .. _Development:
 
 Development
-   None
+   No additional development details
+

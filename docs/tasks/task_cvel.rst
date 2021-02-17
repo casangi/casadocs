@@ -3,9 +3,7 @@
 .. _Description:
 
 Description
-   regrid an MS to a new spectral window / channel structure or frame
-   
-   .. warning:: **ALERT: ** The task **cvel** will soon be replaced by the
+   .. warning:: **ALERT:** The task **cvel** will soon be replaced by the
       functionality (and underlying code) currently offered by
       **cvel2. cvel2** is using the mstransform framework for optimal
       performance and will be renamed **cvel** after complete
@@ -20,7 +18,7 @@ Description
    to a constant velocity grid to avoid a smearing of spectral
    features (e.g. to the LSRK or BARYcentric velocity frames,
    see `Spectral Line
-   Imaging <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/spectral-line-imaging>`__).
+   Imaging <../../notebooks/synthesis_imaging.ipynb#Spectral-Line-Imaging>`__).
    **cvel** can perform this operation. We advise that for spectral
    regridding to a standard velocity system like LSRK or BARY the
    expected spectral features are oversampled at least by a factor of
@@ -38,8 +36,7 @@ Description
    regridding anyways). 
    
    .. rubric:: Gridding modes and parameters
-      
-   
+
    **cvel** offers four gridding *mode* s: '*channel'*,
    '*velocity'*, '*frequency'*, and '*channel_b'*. All of the modes
    have the same four subparameters *nchan*, *start*, *width*, and
@@ -66,9 +63,9 @@ Description
    and definition type ('*radio*' or '*optical*') in the
    *veltype* parameter. See also the relevant sections of the
    `Spectral Line
-   Imaging <https://casa.nrao.edu/casadocs-devel/stable/imaging/synthesis-imaging/spectral-line-imaging>`__ and
+   Imaging <../../notebooks/synthesis_imaging.ipynb#Spectral-Line-Imaging>`__ and
    `Spectral
-   Frames <https://casa.nrao.edu/casadocs-devel/stable/memo-series/reference-material/spectral-frames>`__ chapters. 
+   Frames <../../notebooks/memo-series.ipynb#Spectral-Frames>`__ chapters.
    
    *interpolation* specifies the interpolation method between the
    spectral channels. The interpolation method '*fftshift'*
@@ -96,8 +93,7 @@ Description
    that Hanning smoothing may not be necessary.
    
    .. rubric:: cvel and cvel2
-      
-   
+
    Development of cvel has stopped. For a more up to date version
    please see task **cvel2**. The regridding calculations of
    **cvel2** have been modified in order to better align it with
@@ -109,8 +105,6 @@ Description
 .. _Examples:
 
 Examples
-   task cvel examples
-   
    **Example 1: **
    
    Regrid 'myMS.ms' to a new 'myMSregridded.ms' using veolicty mode
@@ -143,8 +137,5 @@ Examples
 .. _Development:
 
 Development
-   task cvel developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

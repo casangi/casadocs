@@ -30,15 +30,13 @@ Description
    .. rubric:: References
 
 
-   | Sawada, T. et al., 2021, accepted for publication in PASP ( `arXiv:2101.11450 <https://arxiv.org/abs/2101.11450>`__ )
+   Sawada, T. et al., 2021, accepted for publication in PASP ( `arXiv:2101.11450 <https://arxiv.org/abs/2101.11450>`__ )
 
 
 
 .. _Examples:
 
 Examples
-   task examples
-
    .. rubric::   Example 1
 
    The simplest example that processes all the data.
@@ -114,5 +112,5 @@ Examples
 .. _Development:
 
 Development
-   task developer info
+   No additional development details
 

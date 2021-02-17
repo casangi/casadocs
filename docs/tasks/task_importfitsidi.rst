@@ -3,16 +3,11 @@
 .. _Description:
 
 Description
-   Convert a FITS-IDI file to a CASA MeasurementSet
-   
-   .. rubric:: Summary
-      
-   
    The **importfitsidi** task converts FITS files in Interferometry
    Data Interchange (IDI) format to CASA MeasurementSets.
    
    It permits CASA users to process visibility data provided in the
-   FITS-IDI standard `[1] <#cit1>`__. If several files are given,
+   FITS-IDI standard [1]_. If several files are given,
    they will be concatenated into one MS.
    
    For data correlated with the DiFX correlator (such as the VLBA
@@ -39,33 +34,27 @@ Description
    information or opacity corrections using weather information is
    desired. Meta-data from GAIN_CURVE, PHASE-CAL, FLAG, BASELINE,
    BANDPASS, CALIBRATION and MODEL_COMPS tables is currently ignored.
-   
-    
+
    
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: *fitsidifile*
-      
+   *fitsidifile*
    
    Name(s) of input FITS-IDI file(s). No default.  If more than one
    input file is specified, they will be filled into a single MS.
    
-   .. rubric:: *vis*
-      
+   *vis*
    
    Name of output visibility file (MS). No default.
    
-   .. rubric:: *constobsid*
-      
+   *constobsid*
    
    Controls the conversion with respect to the observation IDs. If
    True, a constant obs id == 0 is given to the data from all input
    FITS-IDI files. If False, separate observations IDs are given for
    each input file. Default = False.
    
-   .. rubric:: *scanreindexgap_s*
-      
+   *scanreindexgap_s*
    
    Controls the conversion with respect to the division into scans.
    If *scanreindexgap_s > 0.*, a new scan is started (on a
@@ -74,9 +63,8 @@ Description
    starts, or whenever the ARRAY_ID changes. The default = 0, which
    results in no reindexing.
    
-   .. rubric:: *specframe*
-      
-   
+   *specframe*
+
    Set the spectral reference frame for all spectral windows in the
    MS.  Default = *'GEO'*.   Other options:  *'TOPO', 'LSRK',
    'BARY'*.  NOTE: If *specframe='TOPO',
@@ -84,18 +72,14 @@ Description
    table in the CASA data repository for the given name of the
    observatory.
    
-   
-      Bibliography
-   :sup:`1. E. Greisen,` `AIPS
-   memo <http://www.aips.nrao.edu/aipsmemo.html>`__ :sup:`114,
-   revised version` `<#ref-cit1>`__
+   Bibliography
+
+   .. [1] E. Greisen, `AIPS memo <http://www.aips.nrao.edu/aipsmemo.html>`__ 114, revised version
    
 
 .. _Examples:
 
 Examples
-   task examples
-   
    To convert a single observation spread across two FITS-IDI files
    into a single CASA MeasurementSet while treating gaps of 15
    seconds or more as scan boundaries:
@@ -103,14 +87,11 @@ Examples
    ::
    
       importfitsidi(fitsidifile=['N18C1_1.IDI', 'N18C1_2.IDI'],
-      vis='n18c1.ms', constobsid=True, scanreindexgap_s=15)
+                    vis='n18c1.ms', constobsid=True, scanreindexgap_s=15)
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

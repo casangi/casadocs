@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
    This task removes tables (MS, caltables, images) cleanly.
    
    rmtables is preferred over rm -rf for removing tables because it
@@ -16,7 +14,7 @@ Description
    gets confused. Also clean sometimes claims that files still exist
    after they have been removed from disk using rm -rf. Use rmtables
    instead. See the Chapter pages on `CASA
-   Data <https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/casa-data>`__ for
+   Data <../../notebooks/casa-fundamentals.ipynb#Working-with-MS-Data>`__ for
    more details.
    
    .. note:: NOTE: If you have multiple sessions running, bad things could
@@ -26,23 +24,19 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To cleanly remove the table 'tablename':
    
    ::
    
       rmtables('tablename')
-   
-    
+
    
    To cleanly remove two tables:
    
    ::
    
       rmtables(tablenames=['tablename1','tablename2'])
-   
-    
+
    
    Arguments may contain \* or ?. Ranges [ ] are supported but not ~
    expansion.
@@ -51,8 +45,5 @@ Examples
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

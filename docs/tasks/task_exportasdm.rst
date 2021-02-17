@@ -3,16 +3,13 @@
 .. _Description:
 
 Description
-   convert a CASA visibility file (MS) into an ALMA or EVLA Science Data
-   Model
-   
    This task serves to convert a CASA visibility file (MS) into an
    ALMA or EVLA `Science Data
-   Model <https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/the-science-data-model>`__
+   Model <../../notebooks/casa-fundamentals.ipynb#Science-Data-Model>`__
    dataset. They are mostly identical and mostly use the general SDM
    and ALMA ASDM terms interchangibly. A description of the SDM
    format can be found
-   `here <https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/the-science-data-model>`__. 
+   `here <../../notebooks/casa-fundamentals.ipynb#Science-Data-Model>`__.
    
    The main purpose of creating this task was to (a) enable the
    creation of simulated ASDMs and (b) facilitate the testing of
@@ -39,25 +36,18 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    To produce an ASDM named 'uid___S021_X1418_X1' using the
    datacolumn 'corrected' in the MS 'ngc4826.ms' with minimal log
    output:
    
    ::
    
-      | exportasdm(vis=’ngc4826.ms’, asdm=’uid___S021_X1418_X1’,  
-      |              datacolumn=’corrected’, archiveid=’S021’, rangeid=’X1418’,
-         
-      |              verbose=False)
-   
+      exportasdm(vis=’ngc4826.ms’, asdm=’uid___S021_X1418_X1’,
+                 datacolumn=’corrected’, archiveid=’S021’, rangeid=’X1418’,
+                 verbose=False)
+
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details

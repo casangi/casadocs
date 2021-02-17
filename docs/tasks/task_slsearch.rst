@@ -30,96 +30,77 @@ Description
    to a logfile. If this file already exists, one can specify that
    the results be appended to it, or to overwrite it with the
    results.
-   
-    
+
    
    .. rubric:: Parameter descriptions
-      
    
-   .. rubric:: tablename
-      
+   *tablename*
    
    Input spectral line table name to search. If not specified, use
    the default table in the system.
    
-   .. rubric:: *outfile*
-      
+   *outfile*
    
    Results table name. Blank means do not write the table to disk.
    
-   .. rubric:: *freqrange*
-      
+   *freqrange*
    
    Frequency range in GHz.
    
-   .. rubric:: *species*
-      
+   *species*
    
    Species to search for.
    
-   .. rubric:: *reconly*
-      
+   *reconly*
    
    List only NRAO recommended frequencies.
    
-   .. rubric:: *chemnames*
-      
+   *chemnames*
    
    Chemical names to search for.
    
-   .. rubric:: *qns*
-      
+   *qns*
    
    Resolved quantum numbers to search for.
    
-   .. rubric:: *intensity*
-      
+   *intensity*
    
    CDMS/JPL intensity range. -1 -> do not use an intensity range.
    
-   .. rubric:: smu2 
-      
+   *smu2*
    
    Sμ 2 range in Debye 2. -1 -> do not use an Sμ 2 range.
    
-   .. rubric:: loga 
-      
+   *loga*
    
    log(A) (Einstein A coefficient) range. -1 -> do not use a loga
    range.
    
-   .. rubric:: el 
-      
+   *el*
    
    Lower energy state range in Kelvin. -1 -> do not use an el range.
    
-   .. rubric:: eu 
-      
+   *eu*
    
    Upper energy state range in Kelvin. -1 -> do not use an eu range.
    
-   .. rubric:: rrlinclude 
-      
+   *rrlinclude*
    
    Include Radio Recombination Lines (RRLs) in the result set?
    
-   .. rubric:: *rrlonly*
-      
+   *rrlonly*
    
    Include only RRLs in the result set?
    
-   .. rubric:: *verbose*
-      
+   *verbose*
    
    List result set to logger (and optionally logfile)
    
-   .. rubric:: *logfile*
-      
+   *logfile*
    
    List result set to this logfile (only used if verbose=True).
    
-   .. rubric:: append 
-      
+   *append*
    
    If True, append to logfile if it already exists, if False
    overwrite logfile it it exists. Only used if verbose=True and
@@ -136,11 +117,11 @@ Examples
    
    ::
    
-      slsearch(outfile="myspectrallines.tbl", freqrange=[90,92],
-      verbose=True)
+      slsearch(outfile="myspectrallines.tbl", freqrange=[90,92], verbose=True)
    
 
 .. _Development:
 
 Development
-   None
+   No additional development details
+

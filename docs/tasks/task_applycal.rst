@@ -9,7 +9,7 @@ Description
    *CORRECTED_DATA* column, where imaging or other analysis can find
    it for further processing. All supplied calibration is applied in
    one step, according to the `Measurement
-   Equation <https://casa.nrao.edu/casadocs-devel/stable/casa-fundamentals/the-measurement-equation-calibration>`__.
+   Equation <../../notebooks/casa-fundamentals.ipynb#Measurement-Equation>`__.
    The existing contents of the *CORRECTED_DATA* (for the specified
    selection) will be overwritten.  
    
@@ -17,7 +17,7 @@ Description
    selection and (prior) calibration parameters with the solving
    tasks; detailed information about setting these parameters can be
    found the section on `"Solving for
-   Calibration" <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/synthesis-calibration/solving-for-calibration>`__.
+   Calibration" <../../notebooks/synthesis_calibration.ipynb#Solve-for-Calibration>`__.
    Several parameters unique to **applycal** are described below.
    
    In the traditional interface (*docallib=False*), all calibration
@@ -49,11 +49,10 @@ Description
    calibrate the weights, as this should ensure achieving the full
    natural sensitivity of the observation. Information about weight
    calibration conventions can be found
-   `here <https://casa.nrao.edu/casadocs-devel/stable/calibration-and-visibility-data/data-weights>`__.
+   `here <../../notebooks/data_weights.ipynb>`__.
    
    .. rubric:: Calibration application modes: *applymode*
-      
-   
+
    The **applycal** task supports different modes of application via
    the *applymode* parameter:
    
@@ -74,8 +73,7 @@ Description
    unflagged. 
    
    .. rubric:: Flag control: *flagbackup*
-      
-   
+
    Since the MS stores only one copy of the flags (in the *FLAG*
    column), saving flags prior to **applycal** is often desirable.
    Use *flagbackup=True* for this. The pre-applycal flags will be
@@ -122,4 +120,4 @@ Examples
 .. _Development:
 
 Development
-   None
+   No additional development details

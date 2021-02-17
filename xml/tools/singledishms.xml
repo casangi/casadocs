@@ -137,6 +137,16 @@ Fit baseline and subtract it from selected spectra
       <value></value>
     </param>
 
+    <param type="bool" name="updateweight">
+      <description>Update weight based on sigmavalue of residual data</description>
+      <value>false</value>
+    </param>
+
+    <param type="string" name="sigmavalue">
+      <description>sigma value for computing weight</description>
+      <value>stddev</value>
+    </param>
+
     <param type="string" name="blfunc">
       <description>baseline function</description>
       <value>poly</value>
@@ -230,6 +240,16 @@ Fit baseline and subtract it from selected spectra
       <value></value>
     </param>
 
+    <param type="bool" name="updateweight">
+      <description>Update weight based on sigmavalue of residual data</description>
+      <value>false</value>
+    </param>
+
+    <param type="string" name="sigmavalue">
+      <description>sigma value for computing weight</description>
+      <value>stddev</value>
+    </param>
+
     <param type="int" name="npiece">
       <description>cspline npiece</description>
       <value>5</value>
@@ -319,6 +339,16 @@ Fit baseline and subtract it from selected spectra
       <value></value>
     </param>
 
+    <param type="bool" name="updateweight">
+      <description>Update weight based on sigmavalue of residual data</description>
+      <value>false</value>
+    </param>
+
+    <param type="string" name="sigmavalue">
+      <description>sigma value for computing weight</description>
+      <value>stddev</value>
+    </param>
+
     <param type="string" name="addwn">
       <description>additional wave numbers to use</description>
       <value>0</value>
@@ -385,7 +415,7 @@ Fit baseline and subtract it from selected spectra
   <example>
 sdms.open('m100_sd.ms')
 sdms.set_selection(field='M100')
-sdms.subtract_baseline(order=3,clip_threshold_sigma=5.0,num_fitting_max=6)
+sdms.subtract_baseline_sinusoid(applyfft=True,clip_threshold_sigma=5.0,num_fitting_max=6)
   </example>
 </method>
 
@@ -427,6 +457,16 @@ Fit parameters for each spectrum are obtained from a text file.
       <description>Spectral Window Ids (0 relative) to select; -1 interpreted as all</description>
       <any type="variant"/>
       <value></value>
+    </param>
+
+    <param type="bool" name="updateweight">
+      <description>Update weight based on sigmavalue of residual data</description>
+      <value>false</value>
+    </param>
+
+    <param type="string" name="sigmavalue">
+      <description>sigma value for computing weight</description>
+      <value>stddev</value>
     </param>
 
     <param type="string" name="blparam" mustexist="True">
@@ -477,6 +517,16 @@ in the MS.
       <description>Spectral Window Ids (0 relative) to select; -1 interpreted as all</description>
       <any type="variant"/>
       <value></value>
+    </param>
+
+    <param type="bool" name="updateweight">
+      <description>Update weight based on sigmavalue of residual data</description>
+      <value>false</value>
+    </param>
+
+    <param type="string" name="sigmavalue">
+      <description>sigma value for computing weight</description>
+      <value>stddev</value>
     </param>
 
     <param type="string" name="outfile">

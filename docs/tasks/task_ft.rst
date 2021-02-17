@@ -3,11 +3,6 @@
 .. _Description:
 
 Description
-   task description
-   
-   .. rubric:: Summary
-      
-   
    **ft** converts a source model or a components list into model
    visibilities that is inserted into the MODEL_DATA column of the
    MS. Alternatively (*usescratch=False*) it can be stored in the
@@ -61,9 +56,7 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
-   **Example 1: **
+   **Example 1:**
    
    Add a multi-term model (image.model from clean) to an MS
    ('myMS.ms'), spectral window 3, writing directly to the MODEL
@@ -72,11 +65,10 @@ Examples
    ::
    
       ft(vis='myMS.ms', spw=3, nterms=2,
-      model=['image.model.tt0','image.model.tt1'], usescratch=True) 
+         model=['image.model.tt0','image.model.tt1'], usescratch=True)
+
    
-    
-   
-   **Example 2: **
+   **Example 2:**
    
    Create a component list with a point source at position J2000
    12h33m45.3s -23d01m11.2s with a spectral index of -0.8 and a flux
@@ -85,24 +77,20 @@ Examples
    
    ::
    
-      | #first create the component list
-      | cl.addcomponent(shape='point', flux='13.4Jy', spectrum
-        type='spectral index', index=-0.8, freq'1.25GHz', dir='J2000
-        12h33m45.3s -23d01m11.2s')
-      | # save the component list under the name 'mycomplist.cl'
-      | cl.rename('mycomplist.cl')
-      | cl.close()
-      | #now insert the component list into myMS.ms as a virtual
-        MODEL
-      | ft(vis='myMS.ms', field='3', complist='mycomplist.cl',
-        usescratch=True)
-   
+      # first create the component list
+      cl.addcomponent(shape='point', flux='13.4Jy', spectrum type='spectral index',
+                      index=-0.8, freq'1.25GHz', dir='J2000 12h33m45.3s -23d01m11.2s')
+
+      # save the component list under the name 'mycomplist.cl'
+      cl.rename('mycomplist.cl')
+      cl.close()
+
+      # now insert the component list into myMS.ms as a virtual MODEL
+      ft(vis='myMS.ms', field='3', complist='mycomplist.cl', usescratch=True)
+
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

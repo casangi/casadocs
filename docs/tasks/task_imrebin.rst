@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   imrebin task: Rebin an image by the specified integer factors
-   
    This application rebins the specified image by the specified
    integer binning factors for each axis. It supports both float
    valued and complex valued images. The corresponding output pixel
@@ -12,18 +10,19 @@ Description
    will be masked False if there were no good input pixels. A
    polarization axis cannot be rebinned.
    
-   | The binning factors array must contain at least one element and
-     no more elements than the number of input image axes. If the
-     number of elements specified is less than the number of image
-     axes, then the remaining axes not specified are not rebinned.
-     All specified values must be positive. A value of one indicates
-     that no rebinning of the associated axis will occur.
-   | Should this array contain any float values, they will be rounded
-     to the next lowest integer. Note that in many images with both
-     frequency and polarization axes, the polarization axis preceeds
-     the frequency axis. If you wish to rebin the frequency axis, it
-     is recommended that you inspect your image with **imhead** or
-     **ia.summary** to determine the axis ordering.
+   The binning factors array must contain at least one element and
+   no more elements than the number of input image axes. If the
+   number of elements specified is less than the number of image
+   axes, then the remaining axes not specified are not rebinned.
+   All specified values must be positive. A value of one indicates
+   that no rebinning of the associated axis will occur.
+
+   Should this array contain any float values, they will be rounded
+   to the next lowest integer. Note that in many images with both
+   frequency and polarization axes, the polarization axis preceeds
+   the frequency axis. If you wish to rebin the frequency axis, it
+   is recommended that you inspect your image with **imhead** or
+   **ia.summary** to determine the axis ordering.
    
    Binning starts from the origin pixel of the bounding box of the
    selected region or the origin pixel of the input image if no
@@ -46,24 +45,18 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    ::
    
-      | # rebin the first two axes (normally the direction axes)
-      | imrebin(imagename="my.im", outfile="rebinned.im",
-        factor=[2,3])
-      | # rebin the frequency axis, which is the fourth axis in this
-        image
-      | imrebin(imagename="my2.im", outfile="rebinned2.im",
-        factor=[1,1,1,4])
+      # rebin the first two axes (normally the direction axes)
+      imrebin(imagename="my.im", outfile="rebinned.im",
+              factor=[2,3])
+
+      # rebin the frequency axis, which is the fourth axis in this image
+      imrebin(imagename="my2.im", outfile="rebinned2.im", factor=[1,1,1,4])
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

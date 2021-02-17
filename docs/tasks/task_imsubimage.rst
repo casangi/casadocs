@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   imsubimage task: Create a (sub)image from a region of the image
-   
    This task copies all or part of the image to a new image specified
    by *outfile*. Both float and complex valued images are supported.
    
@@ -31,25 +29,19 @@ Description
    10]. However if the mask has shape [100, 200, 2], stretching is
    not possible and an error will result.
    
-    
-   
    .. rubric:: Task-specific parameters
-      
    
-   .. rubric:: *dropdeg*
-      
+   *dropdeg*
    
    Exclude axes from output image if they would have a length of one
    pixel.
    
-   .. rubric:: *verbose*
-      
+   *verbose*
    
    Post additional informative, possibly useful, messages to the
    logger?
    
-   .. rubric:: *keepaxes*
-      
+   *keepaxes*
    
    If dropdeg=True, these are the degenerate axes to keep.
    Nondegenerate axes are implicitly always kept. Ignored if
@@ -59,8 +51,6 @@ Description
 .. _Examples:
 
 Examples
-   task examples
-   
    ::
    
       # make a subimage containing only channels 4 to 6 of the
@@ -69,41 +59,36 @@ Examples
    
    ::
    
-      # Same as above command, just specifying chans in an alternate,
-      more verbose way
-      imsubimage(imagename="my.im", outfile="second.im",
-      chans="range=[4pix,6pix]")
+      # Same as above command, just specifying chans in an alternate, more verbose way
+      imsubimage(imagename="my.im", outfile="second.im", chans="range=[4pix,6pix]")
    
    ::
    
       # Same as the above command, but even more verbose way of
-      specifying the spectral selection. Assumes the direction axes
-      are axes numbers 0 and 1.
-      ia.open("my.im")shape = ia.shape()axes = ia.coordsys().names()
-      ia.done()xmax = shape[axes.index("Right Ascension")] - 1ymax =
-      shape[axes.index("Declination")] - 1reg = "box[[0pix,0pix],[" +
-      str(xmax) + "pix, " + str(ymax) + "pix]] range=[4pix,6pix]"
+      # specifying the spectral selection. Assumes the direction axes
+      # are axes numbers 0 and 1.
+      ia.open("my.im")
+      shape = ia.shape()
+      axes = ia.coordsys().names()
+      ia.done()
+      xmax = shape[axes.index("Right Ascension")] - 1
+      ymax = shape[axes.index("Declination")] - 1
+      reg = "box[[0pix,0pix],[" + str(xmax) + "pix, " + str(ymax) + "pix]]
+      range=[4pix,6pix]"
       imsubimage(imagename="my.im", outfile="third.im", region=reg)
    
    ::
    
-      # As an example of the usage of the keepaxes parameter,
-      consider an image
-      # that has axes RA, Dec, Stokes, and Freq. The Stokes and Freq
-      axes are both
-      # degenerate while the RA and Dec axes are not, and it is
-      desired to make a
-      # subimage in which the Stokes axis is discarded. The following
-      command will accomplish that.
-      imsubimage(imagename="my.im", outfile="discarded_stokes.im",
-      dropdeg=True, keepaxes=[3])
+      # As an example of the usage of the keepaxes parameter, consider an image
+      # that has axes RA, Dec, Stokes, and Freq. The Stokes and Freq axes are both
+      # degenerate while the RA and Dec axes are not, and it is desired to make a
+      # subimage in which the Stokes axis is discarded. The following command will
+      # accomplish that.
+      imsubimage(imagename="my.im", outfile="discarded_stokes.im", dropdeg=True, keepaxes=[3])
    
 
 .. _Development:
 
 Development
-   task developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

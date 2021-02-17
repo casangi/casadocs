@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   immoments task: Compute moments from an image
-   
    The spectral moment distributions at each pixel are
    determined. The main control of the calculation is given by the
    parameter *moments*:
@@ -44,30 +42,24 @@ Description
    beam that has a minimum area necessary to contain each of the
    image beams, ie, it is the minimum area common beam to which all
    the beams in the image can be convolved.
-   
     
    
    .. rubric:: Task-specific parameter summary
-      
-   
-   .. rubric:: *moments*
-      
+
+   *moments*
    
    List of moments to compute. See above for details.
    
-   .. rubric:: *axis*
-      
+   *axis*
    
    Axis along which to compute the specified moments.
    
-   .. rubric:: *includepix*
-      
-   
+   *includepix*
+
    Range of pixel values to include in the computation. A range can
    only be given for one of includepix or excludepix.
    
-   .. rubric:: *excludepix*
-      
+   *excludepix*
    
    Range of pixel values to exclude in the computation. A range can
    only be given for one of includepix or excludepix.
@@ -83,29 +75,29 @@ Examples
    ::
    
       immoments(axis='spec', imagename='myimage', moment=[1],
-      outfile='velocityfields')
+                outfile='velocityfields')
    
-    Example for finding the spectral mean, -1 moment, on a specified
+   Example for finding the spectral mean, -1 moment, on a specified
    region of the image as defined by the *box* and *stokes*
    parameters:
    
    ::
    
-      | taskname='immoments'
-      | default()
-      | imagename = 'myimage'
-      | moment = [-1]
-      | axis = 'spec'
-      | stokes = 'I'
-      | box = '55,12,97,32'
-      | go
+      taskname='immoments'
+      default()
+      imagename = 'myimage'
+      moment = [-1]
+      axis = 'spec'
+      stokes = 'I'
+      box = '55,12,97,32'
+      go
    
    Example using a box
    
    ::
    
       immoments('clean.image', axis='spec', box="40,40,120,120",
-      outfile='mom_withmask.im')
+                outfile='mom_withmask.im')
    
    Example using a CRTF elliptical region with specified axis lengths
    and a position angle of 30 degrees.
@@ -113,8 +105,8 @@ Examples
    ::
    
       immoments('clean.image', axis='spec',
-      region="ellipse[[00:00:13.47460, +000.02.20.3571],
-      [10arcsec,15arcsec], 30deg]", outfile='mom_withmask.im')
+                region="ellipse[[00:00:13.47460, +000.02.20.3571],
+                [10arcsec,15arcsec], 30deg]", outfile='mom_withmask.im')
    
    Example using a mask created with a second file to select the data
    used to calculate the 0-moments, integrated values. In this case,
@@ -124,16 +116,11 @@ Examples
    ::
    
       immoments('clean.image', axis='spec',
-      mask='"calibrated.im">0.5', outfile='mom_withmask.im')
+                mask='"calibrated.im">0.5', outfile='mom_withmask.im')
    
 
 .. _Development:
 
 Development
-   --CASA Developer--
-   
-   Here would be a discussion of how applycal is implemented.  This
-   is intended for the other members of the development team so is a
-   technical discussion.  We will work on building these up over
-   time.
-   
+   No additional development details
+

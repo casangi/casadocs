@@ -715,7 +715,8 @@
                                         nfacets=1, wprojplanes=1 : Same as standard,ft,gridft
 
                                         A combination of facetting and W-Projection is relevant only for
-                                        very large fields of view.
+                                        very large fields of view. (In our current version of tclean, this 
+					combination runs only with parallel=False. 
 
                        mosaic : A-Projection with azimuthally symmetric beams without
                                         sidelobes, beam rotation or squint correction.
@@ -833,6 +834,9 @@
                        are gridded separately using their respective phase centers
                        (to minimize max W). Deconvolution is done on the joint
                        full size image, using a PSF from the first subregion/facet.
+
+		       In our current version of tclean, facets>1 may be used only
+		       with parallel=False. 
 
 </description>
       <value type="int">1</value>
@@ -1816,6 +1820,8 @@ to use the correct direction in which the antenna is pointing with respect to th
                        The top level parameter, fastnoise is relevant for the rms noise calculation which is used 
                        to determine the threshold. 
 
+		       The parameter 'nsigma' may be an int, float, or a double.
+
 </description>
       <value type="double">0.0</value>
     </param>
@@ -2648,3 +2654,4 @@ to use the correct direction in which the antenna is pointing with respect to th
 </task>
 
 </casaxml>
+
