@@ -536,8 +536,27 @@ Description
       location at an unspecified time, although usually near the
       beginning of the experimient.
    
-   More information can be found in the `CASA Docs chapter on Ephemeris Data <../../notebooks/ephemeris_data.ipynb>`__.
+   More information can be found in the `CASA Docs chapter on
+   Ephemeris Data <../../notebooks/ephemeris_data.ipynb>`__.
+   
+   .. rubric:: History
 
+   At the end of a successful tclean run, the history of the output
+   images is updated. For every tclean command a series of entries is
+   recorded, including the task name (tclean), the CASA version used,
+   and every parameter-value pair of the task. The history is written
+   to all the images found with the name given in the 'imagename'
+   parameter of tclean and any extension.
+
+   The image history entries added by tclean can be inspected using
+   the task imhistory (`see API <../casatasks.rst>`_), similarly as
+   with the history entries added by other image analysis tasks.
+
+   As a lower level interface, the image history can be also inspected
+   and manipulated using CASA tools such as the image analysis tool
+   and the table tool (`see API <../casatools.rst>`_). The history
+   entries are written into the 'logtable' subtable of the images.
+   
 .. _Examples:
 
 Examples
@@ -994,4 +1013,3 @@ Development
    multi-scale deconvolution. This `technical memo <https://drive.google.com/file/d/1U1zRrmBJ4vYfsi-7IE5orOYHIIRmiFSL/view?usp=sharing>`_
    briefly describes the algorithmic changes and provides examples of
    the speed-up in runtime.
-   
