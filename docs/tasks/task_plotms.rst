@@ -984,8 +984,7 @@ Description
 
    *averagedata*
 
-   -  parameter to enable data averaging.  Not implemented for
-      CalTables.
+   -  parameter to enable data averaging.  
    -  True (default) : averaging always enabled.
    -  For all subparameters, “” or False (default) does no averaging.
    -  When averaging, plotms will prefer unflagged data. If an
