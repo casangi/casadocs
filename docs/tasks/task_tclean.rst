@@ -567,8 +567,8 @@ Description
    - mpiprocs: integer, number of processes (>1 for parallel runs)
    - chnchnks: integer, number of sub-cubes or chanchunks into which
      cubes are partitioned in the major cycles
-   - memavail: float, memory available, as found by tclean at the
-     beginning of the first major cycle.
+   - memavail: float, estimated available memory, as found by tclean
+     at the beginning of the first major cycle.
    - memreq: float, estimate of memory required, as a function of cube
      size, number of processors, and a few heuristic scale
      factors. Expressed in GBs.
@@ -594,8 +594,8 @@ Description
    number of sub-cubes into which the data are partitioned in the
    major cycles. `chnchnks` is roughly estimated as the result from
    dividing `memreq` by `memavail`. The amount of memory effectively
-   used is kept below the amount of memory available, thanks to the
-   partitioning of the data in sub-cubes and further finer
+   used is kept below the estimated amount of memory available, thanks
+   to the partitioning of the data in sub-cubes and further finer
    partitioning done in the minor cycles. The `memreq` estimate grows
    proportionally to the data dimensions, type of gridder, and number
    of processes in parallel mode.
