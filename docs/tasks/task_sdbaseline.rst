@@ -159,7 +159,7 @@ Examples
 
    This is an example of fitting and subtracting a polynomial
    baseline, and also updating the WEIGHT column of the output MS
-   'sd_data.ms.bl' as 1/(RMS^2).
+   'sd_data.ms.bl' as :math:`1/RMS^2` .
 
    ::
 
