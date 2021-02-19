@@ -10,7 +10,7 @@ execfile
 
    Parameters
       - **filename** (*string*) - name of file to execute
-      - **globals** (*dictionary*) - the global environment for evaluation
+      - **globals** (*dictionary*) - the environment for evaluation
 
    Description
       Python 3 removed the ``execfile`` builtin function. CASA provides a convenience function that
