@@ -33,8 +33,16 @@ tget
          inp() #task is now bandpass, with recovered inputs
 
       A ``savefile`` parameter can be used to cause ``tget`` to retrieve parameter values from a file
-      with a different name. However, the active task should be set with ``default(<task>)`` before
-      loading the defaults with ``tget``. For example, ::
+      with a different name. Supplying both the ``taskname`` and ``savefile`` parameters makes the
+      specified task the active task and loads the defaults saved in the specified ``savefile``, for
+      example, ::
+
+         tget(gaincal,"ngc-calib.last")
+
+      If the ``taskname`` parameter is omitted, The active tasks is used. For example ::
 
          default(tclean)
          tget(savefile='good-clean.last')
+
+      Here, the active task is set with ``default(<task>)`` before loading the parameter values
+      with ``tget``.
