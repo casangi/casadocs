@@ -6,7 +6,7 @@ default
 
 .. function:: default(taskname)
 
-   Set the current default task for inp and go commands amd reset task parameter values
+   Set the current default task for inp and go commands and reset task parameter values
 
    Parameters
       - **taskname** (*string*) - name of task
