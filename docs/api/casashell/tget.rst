@@ -32,7 +32,7 @@ tget
          tget bandpass #now get from bandpass.last (or bandpass.saved)
          inp() #task is now bandpass, with recovered inputs
 
-      A ``savefile`` parameter can be used to cause ``tget`` to retrieve parameter values from a file
+      The ``savefile`` parameter can be used to cause ``tget`` to retrieve parameter values from a file
       with a different name. Supplying both the ``taskname`` and ``savefile`` parameters makes the
       specified task the active task and loads the defaults saved in the specified ``savefile``, for
       example, ::
