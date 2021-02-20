@@ -151,18 +151,12 @@ Description
       -  Default xaxis
    
          -  For MeasurementSets, the default xaxis is *‘time’*.
-         -  For CalTables, the default xaxis depends on the cal table
-            type, i.e. *‘time’* for G Jones and GSPLINE; *‘chan’* for
-            B Jones and B TSYS; *‘freq’* for BPOLY; *‘ant1’* for D Jones, K Jones, and KAntPos (this is for CASA 6.2 and later, previous behavior had Gain Amp vs Channel as the default for both K Jones and KAntPos Jones tables).
+         -  For CalTables, the default xaxis depends on the cal table type, i.e. ‘time’ for G Jones and GSPLINE; ‘chan’ for B Jones and B TSYS; ‘freq’ for BPOLY; ‘ant1’ for D Jones, K Jones, and KAntPos.
    
       -  Default yaxis
    
          -  For MeasurementSets, the default yaxis is *‘amp’*.
-         -  For CalTables, the default yaxis depends on the cal table
-            type. For most types, this is *‘gainamp’*. For GSPLINE
-            tables, the default yaxis depends on the *POLY_MODE*
-            column: if “AMP”or “A&P” the default is *‘gainamp’*, if
-            “PHAS” the default is *‘gainphase’*. For K Jones and KAntPos Jones tables, the defaults as of CASA 6.2 are *'delay'* and *'antpos'*, respectively (this is for CASA 6.2 and later, previous behavior had Gain Amp vs Channel as the default for both K Jones and KAntPos Jones tables).
+         -  For CalTables, the default yaxis depends on the cal table type. For most types, this is ‘gainamp’. For K Jones tables the default is ‘delay’. For KAntPos Jones tables, the default is ‘antpos’. For GSPLINE tables, the default yaxis depends on the POLY_MODE column: if “AMP”or “A&P” the default is ‘gainamp’, if “PHAS” the default is ‘gainphase’.
    
       -  yaxis can be a list, e.g. *yaxis=[‘amp’,’phase’]* to plot
          more than one yaxis for a dataset on the same plot. You may
