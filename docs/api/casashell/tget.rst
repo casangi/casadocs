@@ -9,8 +9,8 @@ tget
    Recover saved values of the inputs to a task. If given a taskname, sets taskname as the current active (default) task.
 
    Parameters
-      - **taskname** (*obj* , *string*, or *None*) - task object or task name, None will use current active (default) task
-      - **savefile** (str) - Output file for the task inputs. default: task.last then task.saved. example: savefile=task.orion
+      - **taskname** (*obj* , *string*, or *None*) - task object or task name. None will use current active (default) task.
+      - **savefile** (str) - Output file for the task inputs. default: <taskname>.last then <taskname>.saved. example: savefile='tclean.orion'
 
    Description
       This is a convenient way to retrieve the paramaters used in a previous task invocation. Typing
@@ -26,7 +26,7 @@ tget
 
       and then executing the Python in these files. For example, ::
 
-         default('gaincal') #set current task to gaincal and default
+         default('gaincal') #set current active task to gaincal and default
          tget #read saved inputs from gaincal.last (or gaincal.saved)
          inp() #see these inputs!
          tget bandpass #now get from bandpass.last (or bandpass.saved)
@@ -46,3 +46,6 @@ tget
 
       Here, the active task is set with ``default(<task>)`` before loading the parameter values
       with ``tget``.
+      
+      **Note:** ``tget`` does not check whether the parameters in a named ``savefile`` came from the ``taskname``
+      or active task. The global parameters set in that file will be set by ``tget``.
