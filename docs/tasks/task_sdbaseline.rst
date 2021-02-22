@@ -94,15 +94,17 @@ Description
    .. rubric:: Update Weight
 
    Setting the parameter *updateweight = True*, the WEIGHT column is
-   updated as 1/(stddev^2) or 1/(RMS^2) of each baseline-subtracted
-   spectrum, depending on the parameter *sigmavalue*. The calculation
-   is done with unflagged channels only.
+   updated as :math:`1/(sigmavalue)^2` according to the *sigmavalue*
+   parameter ("stddev" or "rms"), where "stddev" calculates the
+   standard deviation of the baseline-subtracted spectrum and "rms"
+   does the root mean square. The calculation is done with unflagged
+   channels only.
 
    Note that the SIGMA column is not updated; it keeps the values of
    the input MS data. In case the user wants to refer to the
    standard deviation of the output MS data, she or he needs to
-   compute it using WEIGHT column values as 1/sqrt(WEIGHT) - the
-   SIGMA column should not be refered to.
+   compute it using WEIGHT column values as :math:`1/\sqrt{WEIGHT}`
+   - the SIGMA column should not be refered to.
 
 
 .. _Examples:
@@ -159,7 +161,7 @@ Examples
 
    This is an example of fitting and subtracting a polynomial
    baseline, and also updating the WEIGHT column of the output MS
-   'sd_data.ms.bl' as 1/(RMS^2).
+   'sd_data.ms.bl' as :math:`1/RMS^2` .
 
    ::
 

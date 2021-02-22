@@ -229,6 +229,29 @@ necessary.
                 <value></value>
         </param>
 
+        <param type="bool" name="corrdepflags">
+<shortdescription>Respect correlation-dependent flags</shortdescription>
+<description> If False (default), if any correlation is flagged, treat all correlations in
+              the visibility vector as flagged when solving (per channel, per baseline).
+              If True, use unflagged correlations in a visibility vector, even if one or more
+              other correlations are flagged.
+              
+                     Default: False (treat correlation vectors with one or more correlations flagged as entirely flagged)
+  
+                     Traditionally, CASA has observed a strict interpretation of 
+                     correlation-dependent flags: if one or more correlations 
+                     (for any baseline and channel) is flagged, then all available 
+                     correlations for the same baseline and channel are 
+                     treated as flagged.  However, it is desirable in some 
+                     circumstances to relax this stricture, e.g., to preserve use
+                     of data from antennas with only one good polarization (e.g., one polarization
+                     is bad or entirely absent).  Solutions for the bad or missing polarization 
+                     will be rendered as flagged.
+
+</description>
+                <value>False</value>
+        </param>
+
         <param type="bool" name="append">
 <shortdescription>Append solutions to the (existing) table</shortdescription>
 <description>Append solutions to the (existing) table

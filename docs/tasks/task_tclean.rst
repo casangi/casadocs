@@ -536,7 +536,69 @@ Description
       location at an unspecified time, although usually near the
       beginning of the experimient.
    
-   More information can be found in the `CASA Docs chapter on Ephemeris Data <../../notebooks/ephemeris_data.ipynb>`__.
+   More information can be found in the `CASA Docs chapter on
+   Ephemeris Data <../../notebooks/ephemeris_data.ipynb>`__.
+   
+   .. rubric:: History
+
+   At the end of a successful tclean run, the history of the output
+   images is updated. For every tclean command a series of entries is
+   recorded, including the task name (tclean), the CASA version used,
+   and every parameter-value pair of the task. The history is written
+   to all the images found with the name given in the 'imagename'
+   parameter of tclean and any extension.
+
+   The image history entries added by tclean can be inspected using
+   the task imhistory (`see API <../casatasks.rst>`_), similarly as
+   with the history entries added by other image analysis tasks.
+
+   As a lower level interface, the image history can be also inspected
+   and manipulated using CASA tools such as the image analysis tool
+   and the table tool (`see API <../casatools.rst>`_). The history
+   entries are written into the 'logtable' subtable of the images.
+
+   .. rubric:: Processing information
+
+   Several parameters related to runtime processing are added to the
+   miscinfo (miscellaneous information) record of the images produced
+   by tclean. These are technical parameters related to processes and
+   memory use:
+
+   - mpiprocs: integer, number of processes (>1 for parallel runs)
+   - chnchnks: integer, number of sub-cubes or chanchunks into which
+     cubes are partitioned in the major cycles
+   - memavail: float, estimated available memory, as found by tclean
+     at the beginning of the first major cycle.
+   - memreq: float, estimate of memory required, as a function of cube
+     size, number of processors, and a few heuristic scale
+     factors. Expressed in GBs.
+
+   These parameters are added to the miscinfo record of the output
+   images by the tclean command that creates them, and represent the
+   runtime processing information of that command.
+
+   Similarly as with other parameters included in the miscinfo record,
+   these are exported to FITS images by the exportfits task, if the
+   parameter history is True.  The miscinfo record can be inspected
+   using the image tool (`see API <../casatools.rst>`_).
+
+   The same values are written to the CASA log at the beginning of
+   every major cycle. The `memreq` estimate should not be interpreted
+   as the amount of memory that tclean is going to use. It is an
+   estimate of memory that would be required to fit all the data in
+   memory, also accounting for the fact that that multiple processes
+   would work on the data simultaneously if running in parallel
+   mode.
+
+   The `memreq` value is used to estimate the required `chnchnks` or
+   number of sub-cubes into which the data are partitioned in the
+   major cycles. `chnchnks` is roughly estimated as the result from
+   dividing `memreq` by `memavail`. The amount of memory effectively
+   used is kept below the estimated amount of memory available, thanks
+   to the partitioning of the data in sub-cubes and further finer
+   partitioning done in the minor cycles. The `memreq` estimate grows
+   proportionally to the data dimensions, type of gridder, and number
+   of processes in parallel mode.
 
 .. _Examples:
 
@@ -994,4 +1056,3 @@ Development
    multi-scale deconvolution. This `technical memo <https://drive.google.com/file/d/1U1zRrmBJ4vYfsi-7IE5orOYHIIRmiFSL/view?usp=sharing>`_
    briefly describes the algorithmic changes and provides examples of
    the speed-up in runtime.
-   

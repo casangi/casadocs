@@ -13,12 +13,13 @@ tget
       - **savefile** (str) - Output file for the task inputs. default: task.last then task.saved. example: savefile=task.orion
 
    Description
-      This is a convenient alternative to using the Python execfile command. Typing ``tget`` without a
-      taskname will recover the saved values of the inputs for the current task as given in the current
-      value of the taskname parameter.
+      This is a convenient way to retrieve the paramaters used in a previous task invocation. Typing
+      ``tget`` without a taskname will recover the saved parameter values for the task that is currently
+      active. If a task (or task name) is provided for the taskname parameter, e.g. ``tget <task>``,
+      that task will become the active task and the parameter values will be restored for it.
 
-      Adding a task name, e.g. ``tget <taskname>`` will recover values for the specified task. This is
-      done by searching for
+      The previous task parameter values are stored in files. By default, they are retrieved based upon
+      the name of the task. This is done by searching for
 
       1. a ``<taskname>.last`` file
       2. a ``<taskname>.saved`` file
@@ -31,3 +32,17 @@ tget
          tget bandpass #now get from bandpass.last (or bandpass.saved)
          inp() #task is now bandpass, with recovered inputs
 
+      The ``savefile`` parameter can be used to cause ``tget`` to retrieve parameter values from a file
+      with a different name. Supplying both the ``taskname`` and ``savefile`` parameters makes the
+      specified task the active task and loads the defaults saved in the specified ``savefile``, for
+      example, ::
+
+         tget(gaincal,"ngc-calib.last")
+
+      If the ``taskname`` parameter is omitted, The active tasks is used. For example ::
+
+         default(tclean)
+         tget(savefile='good-clean.last')
+
+      Here, the active task is set with ``default(<task>)`` before loading the parameter values
+      with ``tget``.

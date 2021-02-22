@@ -151,19 +151,12 @@ Description
       -  Default xaxis
    
          -  For MeasurementSets, the default xaxis is *‘time’*.
-         -  For CalTables, the default xaxis depends on the cal table
-            type, i.e. *‘time’* for G Jones and GSPLINE; *‘chan’* for
-            B Jones and B TSYS; *‘ant1’* for D Jones, K Jones, and
-            KAntPos; *‘freq’* for BPOLY.
+         -  For CalTables, the default xaxis depends on the cal table type, i.e. ‘time’ for G Jones and GSPLINE; ‘chan’ for B Jones and B TSYS; ‘freq’ for BPOLY; ‘ant1’ for D Jones, K Jones, and KAntPos.
    
       -  Default yaxis
    
          -  For MeasurementSets, the default yaxis is *‘amp’*.
-         -  For CalTables, the default yaxis depends on the cal table
-            type. For most types, this is *‘gainamp’*. For GSPLINE
-            tables, the default yaxis depends on the *POLY_MODE*
-            column: if “AMP”or “A&P” the default is *‘gainamp’*, if
-            “PHAS” the default is *‘gainphase’*.
+         -  For CalTables, the default yaxis depends on the cal table type. For most types, this is ‘gainamp’. For K Jones tables the default is ‘delay’. For KAntPos Jones tables, the default is ‘antpos’. For GSPLINE tables, the default yaxis depends on the POLY_MODE column: if “AMP”or “A&P” the default is ‘gainamp’, if “PHAS” the default is ‘gainphase’.
    
       -  yaxis can be a list, e.g. *yaxis=[‘amp’,’phase’]* to plot
          more than one yaxis for a dataset on the same plot. You may
@@ -984,8 +977,7 @@ Description
 
    *averagedata*
 
-   -  parameter to enable data averaging.  Not implemented for
-      CalTables.
+   -  parameter to enable data averaging.  
    -  True (default) : averaging always enabled.
    -  For all subparameters, “” or False (default) does no averaging.
    -  When averaging, plotms will prefer unflagged data. If an
