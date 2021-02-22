@@ -917,8 +917,6 @@ Description
    -  *spw*
    
       -  select spectral windows/channels.
-      -  For CalTables, select spw only; channel selection is
-         currently not implemented.
    
    -  *timerange*
    
