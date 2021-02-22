@@ -302,9 +302,9 @@ or (since the current active task is ``listobs``) ::
 
 or ::
 
-   CASA <19>: run listobs.last
+   CASA <20>: run listobs.last
 
-Note that the .last file in generally not created until the task actually finished (successfully), so it is often best
-to manually create a save file beforehand using the ``saveinputs`` command if you are running a critical task that you
+Note that the .last file is generally not created until the task actually finished (successfully), so it is often best
+to manually create a save file beforehand using the ``saveinputs`` or ``tput`` command if you are running a critical task that you
 strongly desire to have the inputs saved for.
 
