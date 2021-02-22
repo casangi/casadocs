@@ -36,7 +36,7 @@ Description
    
    For a detailed explanation of the **plotms** GUI and its
    corresponding task parameters, see the `documentation on using
-   plotms <../../notebooks/data_examination.ipynb#Browse-MS/Calibration-Tables>`__
+   plotms <../../notebooks/data_examination.ipynb#Plot/Edit-using-plotms>`__
    under Data Examination and Editing.
    
    .. rubric:: Parameter Descriptions
