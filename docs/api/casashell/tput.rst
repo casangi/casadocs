@@ -6,16 +6,17 @@ tput
 
 .. function:: tput(taskname=None, outfile='')
 
-   Save the current parameter values of a task to its ``<taskname>.last`` file
+   Save the current parameter values of a task to its ``<taskname>.last`` file. If given a taskname, sets 
+   taskname as the current active (default) task.
 
    Parameters
-      - **taskname** (*obj* or *None*) - task object, None will use current default
-      - **outfile** (str) - Output file for the task inputs. default: task.last example: savefile=task.orion
+      - **taskname** (*obj*, *string*, or *None*) - task object or task name. None will use current active (default)
+      - **outfile** (str) - Output file for the task inputs. default: <taskname>.last example: savefile='tclean.orion'
 
    Description
       This is a shorthand to ``saveinputs`` and is a counterpart to ``tget``. Typing
-      ``tput`` without a taskname will save the values of the inputs for the current
-      task as given in the current value of the taskname parameter.
+      ``tput`` without a taskname will save the values of the inputs for the current active (default)
+      task.
 
       Adding a task name, e.g. ``tput <taskname>`` will save the values for the specified task.
       For example, ::
