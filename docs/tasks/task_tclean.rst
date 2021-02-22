@@ -270,7 +270,7 @@ Description
    
    Selection parameters allow the definition of a subset of the
    supplied MS (or list of MSs) on which the imaging is to operate.
-   Details can be found on the `CASA Docs pages of Image
+   Details can be found on the `CASA Docs pages of Visibility
    Selection <../../notebooks/visibility_data_selection.ipynb>`__.
 
    
