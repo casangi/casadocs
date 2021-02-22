@@ -294,7 +294,11 @@ above, then ::
 
 You can restore the parameter values from the save file using ::
 
-   CASA <18>: execfile('listobs.last')
+   CASA <18>: tget("listobs")
+   
+or (since the current active task is ``listobs``) ::
+
+   CASA <19>: tget
 
 or ::
 
