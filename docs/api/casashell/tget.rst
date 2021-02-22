@@ -6,16 +6,16 @@ tget
 
 .. function:: tget(taskname=None, savefile='')
 
-   Recover saved values of the inputs to a task
+   Recover saved values of the inputs to a task. If given a taskname, sets taskname as the current active (default) task.
 
    Parameters
-      - **taskname** (*obj* or *None*) - task object, None will use current default
+      - **taskname** (*obj* , *string*, or *None*) - task object or task name, None will use current active (default) task
       - **savefile** (str) - Output file for the task inputs. default: task.last then task.saved. example: savefile=task.orion
 
    Description
       This is a convenient way to retrieve the paramaters used in a previous task invocation. Typing
       ``tget`` without a taskname will recover the saved parameter values for the task that is currently
-      active. If a task (or task name) is provided for the taskname parameter, e.g. ``tget <task>``,
+      active (default). If a task (or task name) is provided for the taskname parameter, e.g. ``tget <task>``,
       that task will become the active task and the parameter values will be restored for it.
 
       The previous task parameter values are stored in files. By default, they are retrieved based upon
@@ -39,7 +39,7 @@ tget
 
          tget(gaincal,"ngc-calib.last")
 
-      If the ``taskname`` parameter is omitted, The active tasks is used. For example ::
+      If the ``taskname`` parameter is omitted, The active task is used. For example ::
 
          default(tclean)
          tget(savefile='good-clean.last')
