@@ -10,7 +10,7 @@ tput
    taskname as the current active (default) task.
 
    Parameters
-      - **taskname** (*obj*, *string*, or *None*) - task object or task name. None will use current active (default)
+      - **taskname** (*obj*, *string*, or *None*) - task object or task name. None will use current active (default) task.
       - **outfile** (str) - Output file for the task inputs. default: <taskname>.last example: savefile='tclean.orion'
 
    Description
