@@ -10,7 +10,7 @@ tget
 
    Parameters
       - **taskname** (*obj* , *string*, or *None*) - task object or task name. None will use current active (default) task.
-      - **savefile** (str) - Output file for the task inputs. default: <taskname>.last then <taskname>.saved. example: savefile='tclean.orion'
+      - **savefile** (str) - Input file for the task inputs. default: <taskname>.last then <taskname>.saved. example: savefile='tclean.orion'
 
    Description
       This is a convenient way to retrieve the paramaters used in a previous task invocation. Typing
