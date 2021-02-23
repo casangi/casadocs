@@ -16,27 +16,81 @@ the yourtask.xml and task_yourtask.py file. The yourtask.xml file is used to gen
 these. You would make the name of the function in the yourtask.py be **yourtask** in this example.
 
 We have provided the **buildmytasks** command in order to assemble your Python and XML into a loadable Python file.
-Thus, the steps you need to execute (again for an example task named "yourtask"):
+The steps you need to execute (again for an example task
+named "yourtask"):
 
 1.  Create python code for task as task_yourtask.py
-2.  Create xml for task as yourtask.xml
-3.  Execute **buildmytasks** from the CASA prompt: !buildmytasks
-4.  Initialize your new task inside CASA: execfile 'mytasks.py'
+2.  Create XML for task as yourtask.xml
+3.  Execute **buildmytasks**
+4.  Import your new task into CASA
 
-After this, you should see the help and inputs inside CASA, e.g. **inp** **yourtask** should work. Note that for the final
-step you invoke the file called mytasks.py, regardless of what you named the actual task. You now have a shiny new task
-**yourtask** that you can run and use in the same way as all other CASA tasks.
+We will work through these steps now with the assumption that you already have your XML file and task implementation.
+If you need to create these from scratch, the documentation below will provide help.
 
-Note that if multiple custom tasks are stored in the same directory, they will all be built by ``!buildmytasks`` and will all
-be initialized by executing *mytasks.py*. To build and initialize only a single task, instead use ``!buildmytasks taskname;``
-you are then free to rename *mytasks.py* (e.g. load_taskname.py) and repeat this procedure for your other tasks. Our
-recommendation, for those of you who are managing multiple custom tasks, is to have each task live in its own directory.
-The mytasks.py file need not be in the current working directory to initialize your task, since you can provide the full path
-upon initialization ::
+The first thing that you need to do is add the **bin** directory for CASA to your path:
 
-   #Example
-   execfile('/full_path_to_my_task/mytasks.py')
+   #Setup your environment for Linux
+   -bash$ cd  casa-6.2.0-94/bin
+   -bash$ PATH=`pwd`:$PATH
 
+If your XML file is from CASA 5, then it needs to be updated for CASA 6:
+
+   #Upgrading the XML in <your-development-path>
+   -bash$ cd <your-development-path>
+   -bash$ buildmytasks --upgrade yourtask.xml
+   upgrading yourtask.xml
+   -bash$ 
+
+This step only need to be done once. The old version is stored in **yourtask.xml.bak**. The update is done with an XML
+processor which modifies the XML without changing the content. However, if you had large sections of comments you should
+copy these from **yourtask.xml.bak** back into the updated **yourtask.xml** since these comments are not retained in the
+conversion.
+
+In CASA 6, **buildmytasks** generates tasks that are designed to be inside of a Python package. You should decide what you
+want your package to be called, create it, and copy your XML file into it:
+
+   #Create a package
+   -bash$ mkdir -p yourpkg/private
+   -bash$ cp yourtask.xml yourpkg
+   -bash$ cp task_yourtask.py yourtask/private
+   -bash$ cd yourpkg
+
+Now **buildmytask** can be used to create **yourtask** along with the code needed to support **inp**/**go**/etc.
+
+   #Generate task
+   -bash$ buildmytasks --module yourpkg yourtask.xml 
+   generating task for yourtask.xml
+   generating 'go task' for yourtask.xml
+   -bash$
+
+This adds **yourtask** to the **yourpkg** package, but you still have to export **yourtask** to allow it to be
+accessible by users:
+
+   #Export task
+   -bash$ echo '__name__ = "yourpkg"' > __init__.py
+   -bash$ echo '__all__ = [ "yourtask" ]' >> __init__.py
+   -bash$ echo 'from .yourtask import yourtask' >> __init__.py
+
+At this point, you should find a **yourtask.py** in the current directory and a **gotasks** subdirectory with
+the **inp**/**go** implementation inside it. The commands we just executed created a minimal initialization file
+for **yourpkg**, and we can now test our new task:
+
+   #Test new task
+   -bash$ cd ..
+   -bash$ ls -p yourpkg
+   gotasks/  yourtask.py  yourtask.xml  __init__.py  private/
+   -bash$ casa
+   CASA <1>: sys.path.insert(0,'.')
+   CASA <2>: from yourpkg.gotasks.yourtask import yourtask
+   CASA <3>: inp(yourtask)
+
+This should display the help and inputs for **yourtask** inside CASA. Now you can set the parameters with **inp**,
+reset the defaults with **default**, save and restore parameters with **tput** and **tget** and run the task with **go**.
+The location of **yourpkg** must be in your **PYTHONPATH**; the first **CASA <1>** command added the current directory
+to the path used for imports.
+
+If you have other tasks, you can put their XML files in **yourpkg**. Generate the bindings with **buildmytasks**, and then
+edit **__init__.py** to export any that you want the user to have available. 
 
 .. rubric:: The XML file
 
@@ -196,15 +250,4 @@ Inside a *\<task\>* tags you will need to specify the following elements: ::
 You must write the python code that does the actual work. The ``task_*.py`` file function call sequence must be the
 same as specified in the XML file. We may relax the requirement that the function call sequence exactly match the
 sequence in the XML file in a future release.
-
-The ``task_*.py`` file should contain the following preamble ::
-
-   import osfrom taskinit import *
-
-plus any other global function imports you will need such as ::
-
-   import time
-
-followed by the task function **def**. See below for an example.
-
 
