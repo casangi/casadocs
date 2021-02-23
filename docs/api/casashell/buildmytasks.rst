@@ -27,13 +27,13 @@ named "yourtask"):
 We will work through these steps now with the assumption that you already have your XML file and task implementation.
 If you need to create these from scratch, the documentation below will provide help.
 
-The first thing that you need to do is add the **bin** directory for CASA to your path:
+The first thing that you need to do is add the **bin** directory for CASA to your path: ::
 
    #Setup your environment for Linux
    -bash$ cd  casa-6.2.0-94/bin
    -bash$ PATH=`pwd`:$PATH
 
-If your XML file is from CASA 5, then it needs to be updated for CASA 6:
+If your XML file is from CASA 5, then it needs to be updated for CASA 6: ::
 
    #Upgrading the XML in <your-development-path>
    -bash$ cd <your-development-path>
@@ -47,7 +47,7 @@ copy these from **yourtask.xml.bak** back into the updated **yourtask.xml** sinc
 conversion.
 
 In CASA 6, **buildmytasks** generates tasks that are designed to be inside of a Python package. You should decide what you
-want your package to be called, create it, and copy your XML file into it:
+want your package to be called, create it, and copy your XML file into it: ::
 
    #Create a package
    -bash$ mkdir -p yourpkg/private
@@ -55,7 +55,7 @@ want your package to be called, create it, and copy your XML file into it:
    -bash$ cp task_yourtask.py yourtask/private
    -bash$ cd yourpkg
 
-Now **buildmytask** can be used to create **yourtask** along with the code needed to support **inp**/**go**/etc.
+Now **buildmytask** can be used to create **yourtask** along with the code needed to support **inp**/**go**/etc: ::
 
    #Generate task
    -bash$ buildmytasks --module yourpkg yourtask.xml 
@@ -64,7 +64,7 @@ Now **buildmytask** can be used to create **yourtask** along with the code neede
    -bash$
 
 This adds **yourtask** to the **yourpkg** package, but you still have to export **yourtask** to allow it to be
-accessible by users:
+accessible by users: ::
 
    #Export task
    -bash$ echo '__name__ = "yourpkg"' > __init__.py
@@ -73,7 +73,7 @@ accessible by users:
 
 At this point, you should find a **yourtask.py** in the current directory and a **gotasks** subdirectory with
 the **inp**/**go** implementation inside it. The commands we just executed created a minimal initialization file
-for **yourpkg**, and we can now test our new task:
+for **yourpkg**, and we can now test our new task: ::
 
    #Test new task
    -bash$ cd ..
