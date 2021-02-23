@@ -81,7 +81,7 @@ inp
 
       The Figure below shows how this will look to you on your terminal. Note that some parameters are in
       boldface with a gray background. This means that some values for this parameter will cause it to expand,
-      revealing new sub-parameters to be set. Some default values cause the related sub-parameteers to be revealed.
+      revealing new sub-parameters to be set. Some default values cause the related sub-parameters to be revealed.
 
       |image1|
 
