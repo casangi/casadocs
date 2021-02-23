@@ -41,7 +41,7 @@ If your XML file is from CASA 5, then it needs to be updated for CASA 6: ::
    upgrading yourtask.xml
    -bash$ 
 
-This step only need to be done once. The old version is stored in **yourtask.xml.bak**. The update is done with an XML
+This step only needs to be done once. The old version is stored in **yourtask.xml.bak**. The update is done with an XML
 processor which modifies the XML without changing the content. However, if you had large sections of comments you should
 copy these from **yourtask.xml.bak** back into the updated **yourtask.xml** since these comments are not retained in the
 conversion.
