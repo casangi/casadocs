@@ -932,8 +932,10 @@ Description
    -  *spw*
    
       -  select spectral windows/channels.
-      -  channel selection with averaging not implemented yet
-         for CalTables.
+      -  For CalTables, spw selection may be used with averaging,
+         but channel selection with averaging is not implemented
+         yet and will result in an error.  Channel selection may
+         be used without averaging.
    
    -  *timerange*
    
@@ -948,8 +950,10 @@ Description
    -  *antenna*
    
       -  select baselines and auto/cross-correlations for
-         MeasurementSet.
-      -  select antenna1 for CalTables.
+         MeasurementSet and baseline-based CalTable.
+      -  select antenna1 for antenna-based CalTable.  Antenna-based
+         CalTable with a reference antenna may use the ANT1&ANT2
+         syntax to select a reference antenna.
    
    -  *scan*
 
@@ -1017,8 +1021,8 @@ Description
       visibilities, then the amplitude or phase of the result is
       plotted.  To compute the average of the amplitude or phase
       values instead, set *scalar=True*.
-   -  averaging with channel selection not implemented yet for
-      CalTables.
+   -  For CalTables, averaging with channel selection is not yet
+      implemented. Averaging with spw and other selection is supported.
    
    -  *avgchannel*
 
@@ -1165,6 +1169,10 @@ Description
    -  Overrides custom symbol settings below and xconnector
       colorization.  Flagged points will be colorized according to
       the *coloraxis*.
+   -  For CalTables, colorization by *"corr"* usually refers to 
+      polarization.  For an antenna position (KAntPos Jones) table,
+      the first axis contains the x, y, and z offsets so
+      *coloraxis="corr"* may be used to distinguish these values.
    
    *customsymbol*
 
