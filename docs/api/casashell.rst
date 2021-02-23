@@ -233,20 +233,24 @@ For example, suppose we have been running CASA on a particular dataset, e.g.
 
 ::
 
-   CASA <40>: inp clean
-   ---------> inp('clean')
-   #clean :: Deconvolve an image with selected algorithm
-   vis = 'ngc5921.demo.src.split.ms.contsub' #name of input visibility file
-   imagename = 'ngc5921.demo.cleanimg' #Pre-name of output images
-   field = '0' #Field Name
-   spw = '' #Spectral windows:channels: '' is all
-   selectdata = False #Other data selection parameters
-   mode = 'channel' #Type of selection (mfs, channel, velocity, frequency)
-   nchan = 46 #Number of channels (planes) in output image
-   start = 5 #first input channel to use
-   width = 1 #Number of input channels to average
-   interpolation = 'nearest' #Spectral interpolation (nearest, linear, cubic)
-   niter = 6000 #Maximum number of iterations
+   CASA <26>: inp tclean                                                                                                                                                    
+   ---------> inp(tclean)
+   ---------> inp(tclean)
+   # tclean -- Radio Interferometric Image Reconstruction
+   vis = 'ngc5921.demo.src.split.ms.contsub' # Name of input visibility file(s)
+   selectdata = True # Enable data selection parameters
+   field = '0' # field(s) to select
+   spw = '' # spw(s)/channels to select
+   timerange = '' # Range of time to select from data
+   uvrange = '' # Select data within uvrange
+   antenna = '' # Select data based on antenna/baseline
+   scan = '' # Scan number range
+   observation  = '' # Observation ID range
+   intent = '' # Scan Intent(s)
+   datacolumn = 'corrected' # Data column to image(data,corrected)
+   imagename = 'ngc5921.demo.cleaning' # Pre-name of output images
+   imsize = [] # Number of pixels
+   cell = [15.0, 15.0] # Cell size
    ...
 
 and now we wish to switch to a different one. We can reset the parameter values using
@@ -254,19 +258,24 @@ and now we wish to switch to a different one. We can reset the parameter values 
 
 ::
 
-   CASA <41>: default()
-   ---------> default()
+   CASA <27>: default()                                                                                                                                                     
 
-   CASA <42>: inp()
-   ---------> inp()
-   #clean :: Deconvolve an image with selected algorithm
-   vis = '' #name of input visibility file
-   imagename = '' #Pre-name of output images
-   field = '' #Field Name
-   spw = '' #Spectral windows:channels: '' is all
-   selectdata = False #Other data selection parameters
-   mode = 'mfs' #Type of selection (mfs, channel, velocity, frequency)
-   niter = 500 #Maximum number of iterations
+   CASA <28>: inp()                                                                                                                                                         
+   # tclean -- Radio Interferometric Image Reconstruction
+   vis = '' # Name of input visibility file(s)
+   selectdata = True # Enable data selection parameters
+   field = '' # field(s) to select
+   spw = '' # spw(s)/channels to select
+   timerange = '' # Range of time to select from data
+   uvrange = '' # Select data within uvrange
+   antenna = '' # Select data based on antenna/baseline
+   scan = '' # Scan number range
+   observation = '' # Observation ID range
+   intent = '' # Scan Intent(s)
+   datacolumn = 'corrected' # Data column to image(data,corrected)
+   imagename = '' # Pre-name of output images
+   imsize = [] # Number of pixels
+   cell = [] # Cell size
    ...
 
 It is good practice to use ``default()`` before running a task if you are unsure what state the CASA global
