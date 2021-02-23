@@ -14,9 +14,8 @@ tput
       - **outfile** (str) - Output file for the task inputs. default: <taskname>.last example: savefile='tclean.orion'
 
    Description
-      This is a shorthand to ``saveinputs`` and is a counterpart to ``tget``. Typing
-      ``tput`` without a taskname will save the values of the inputs for the current active (default)
-      task.
+      This is a counterpart to ``tget``. Typing ``tput`` without a taskname will save the values of the inputs 
+      for the current active (default) task.
 
       Adding a task name, e.g. ``tput <taskname>`` will save the values for the specified task.
       For example, ::
