@@ -48,4 +48,4 @@ tget
       with ``tget``.
       
       **Note:** ``tget`` does not check whether the parameters in a named ``savefile`` came from the ``taskname``
-      or active task. The global parameters set in that file will be set by ``tget``.
+      or active task.
