@@ -81,11 +81,11 @@ inp
 
       The Figure below shows how this will look to you on your terminal. Note that some parameters are in
       boldface with a gray background. This means that some values for this parameter will cause it to expand,
-      revealing new sub-parameters to be set.
+      revealing new sub-parameters to be set. Some default values cause the related sub-parameteers to be revealed.
 
       |image1|
 
-      .. |image1| image:: ../../notebooks/media/e0fa0682fce60b01cb671d3bead80a659d00eca1.png
+      .. |image1| image:: ../../notebooks/media/tclean_inp_default.png
 
       CASA uses color and font to indicate different properties of parameters and their values:
 
@@ -94,23 +94,24 @@ inp
          <table><colgroup><col style="width: 20%" /><col style="width: 20%" /><col style="width: 20%" /><col style="width: 20%" /><col style="width: 20%" /></colgroup><thead><tr class="header"><th><h4 id="text-font">Text Font</h4></th><th><h4 id="text-color">Text Color</h4></th><th><h4 id="highlight">Highlight</h4></th><th><h4 id="indentation">Indentation</h4></th><th><h4 id="meaning">Meaning</h4></th></tr></thead><tbody><tr class="odd"><td><h4 id="parameters">Parameters:</h4></td><td> </td><td> </td><td> </td><td> </td></tr><tr class="even"><td>plain</td><td>black</td><td>none</td><td>none</td><td>standard parameter</td></tr><tr class="odd"><td>bold</td><td>black</td><td>grey</td><td>none</td><td>expandable parameter</td></tr><tr class="even"><td>plain</td><td>green</td><td>none</td><td>yes</td><td>sub-parameter</td></tr><tr class="odd"><td><h4 id="values">Values:</h4></td><td> </td><td> </td><td> </td><td> </td></tr><tr class="even"><td>plain</td><td>black</td><td>none</td><td>none</td><td>default value</td></tr><tr class="odd"><td>plain</td><td>blue</td><td>none</td><td>none</td><td>non-default value</td></tr><tr class="even"><td>plain</td><td>red</td><td>none</td><td>none</td><td>invalid value</td></tr></tbody></table>
 
       The Figure below shows what happens when you set some of the **tclean** parameters to non-default values.
-      Some have opened up sub-parameters, which can now be seen and set. The Figure thereafter shows what
-      happens when you set a parameter, in this case *vis* and *specmode*, to an invalid value. Its value now
+      Some have opened up sub-parameters, which can now be seen and set. Some have closed sub-parameters because
+      that non-default value has no related sub-parameters. The Figure thereafter shows what
+      happens when you set a parameter to an invalid value. Its value now
       appears in red. Reasons for invalidation include incorrect type, an invalid menu choice, or a filename
       that does not exist. For example, since *vis* expects a filename, it will be invalidated (red) if it is
-      set to a non-string value, or a string that is not the name of a file that can be found. The *specmode='happy'*
-      is invalid because it's not a supported choice (*'mfs', 'cube', 'cubedata', or 'cubesource'*).
+      set to a non-string value, or a string that is not the name of a file that can be found. The *deconvolver*
+      value is invalid because it's not a supported choice (*'hogbom', 'clark', 'multiscale', 'mtmfs', 'mem', 'clarkstokes'*).
 
       |image2|
 
-      .. |image2| image:: ../../notebooks/media/4999580bbc7b35124cbad59dee1cec5c975bde1e.png
+      .. |image2| image:: ../../notebooks/media/tclean_inp_set.png
 
       The **tclean** inputs after setting values away from their defaults (blue text). Note that some of the
       boldface ones have opened up new dependent sub-parameters (indented and green).
 
       |image3|
 
-      .. |image3| image:: ../../notebooks/media/a1c7b7cef488ae5a8e53fa7c43fac4cab28b9170.png
+      .. |image3| image:: ../../notebooks/media/tclean_inp_invalid.png
 
       The **tclean** inputs where one parameter has been set to an invalid value. This is drawn in red to draw
       attention to the problem. This hapless user probably confused the *'hogbom'* clean algorithm with Harry Potter.
