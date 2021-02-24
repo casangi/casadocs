@@ -1021,8 +1021,10 @@ Description
       visibilities, then the amplitude or phase of the result is
       plotted.  To compute the average of the amplitude or phase
       values instead, set *scalar=True*.
-   -  For CalTables, averaging with channel selection is not yet
-      implemented. Averaging with spw and other selection is supported.
+   -  Averaging is supported for calibration tables except BPOLY and
+      GSPLINE, which have an older table format.  Most selection may
+      be used with averaging, but averaging with channel selection
+      is not yet implemented; spw selection is allowed.
    
    -  *avgchannel*
 
