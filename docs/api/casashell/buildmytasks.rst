@@ -52,7 +52,7 @@ want your package to be called, create it, and copy your XML file into it: ::
    #Create a package
    -bash$ mkdir -p yourpkg/private
    -bash$ cp yourtask.xml yourpkg
-   -bash$ cp task_yourtask.py yourtask/private
+   -bash$ cp task_yourtask.py yourpkg/private
    -bash$ cd yourpkg
 
 Now **buildmytask** can be used to create **yourtask** along with the code needed to support **inp**/**go**/etc: ::
