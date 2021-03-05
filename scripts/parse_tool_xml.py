@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import re
 import os
+import pypandoc
 
 ########################################################
 # this is meant to be run from the docs folder
@@ -13,7 +14,9 @@ tools = os.listdir('../xml/tools')
 tooldict = {}
 for tool in tools:
     with open('../xml/tools/'+tool, 'r') as fid:
-       xmlstring = fid.read()
+        xmlstring = fid.read()
+        xmlstring = re.sub('\<link.*?\>(.+?)\<\/link>', r'\1', xmlstring, flags=re.DOTALL)
+        xmlstring = re.sub('\"\"\"', '', xmlstring, flags=re.DOTALL)
     
     xmlroot = ET.fromstring(xmlstring)
     
@@ -25,7 +28,8 @@ for tool in tools:
     troot = xmlroot.find(nps + 'tool')  # xml root of the task
     
     # initialize tool dictionary (td)
-    td = dict([(ee.tag.replace(nps, ''), ee.text) for ee in list(troot) if ee.tag not in [nps+'method', nps+'code']])
+    td = [(ee.tag.replace(nps, ''), ee.text) for ee in list(troot) if ee.tag not in [nps+'method', nps+'code']]
+    td = dict([(ee[0], '' if ee[1] is None else pypandoc.convert_text(ee[1].replace('_', '\_'), 'rst', format='latex', extra_args=['--wrap=none'])) for ee in td])
     td['methods'] = {}
     
     # loop over each method
@@ -104,14 +108,15 @@ def ParamSpec(method, param):
 # remove weird formatting issues in the xml descriptions
 # separate first line from rest for using the dropdown expander
 def cleanxml(text, block=False):
-    text = re.sub(r'<.*?>', '', text, flags=re.DOTALL).replace('\\', '').strip()
-    text = text.replace('begin{equation}', '').replace('end{equation}','')
+    #text = re.sub(r'<.*?>', '', text, flags=re.DOTALL).replace('\\', '').strip()
+    #text = text.replace('begin{equation}', '').replace('end{equation}','')
     #text = text.replace('begin{verbatim}', '').replace('end{verbatim}', '')
-    text = text.replace('*', '\\*').replace('`', '\'').replace('|', r'\|')
-    if block:
-        text = '|   ' + re.sub('\n', '\n|   ', text.strip(), flags=re.DOTALL)
-    else:
-        text = re.sub('\s+', ' ', text.strip(), flags=re.DOTALL)
+    #text = text.replace('*', '\\*').replace('`', '\'').replace('|', r'\|')
+    #if block:
+    #    text = '|   ' + re.sub('\n', '\n|   ', text.strip(), flags=re.DOTALL)
+    #else:
+    #text = re.sub('\s+', ' ', text.strip(), flags=re.DOTALL)
+    text = re.sub('(\n   )   (\+|\|)', r'\1\2', text, flags=re.DOTALL)
     return text.strip()
 
 
