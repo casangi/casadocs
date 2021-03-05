@@ -165,10 +165,6 @@ latex_documents = [
 ## this is kind of a lame way to integrate things, but it works better
 ## than the standard solutions
 #######################################################################
-if not os.path.exists('pandoc-2.11.4-1-amd64.deb'):
-    os.system('wget https://github.com/jgm/pandoc/releases/download/2.11.4/pandoc-2.11.4-1-amd64.deb')
-    os.system('sudo dpkg -i pandoc-2.11.4-1-amd64.deb')
-
 if not os.path.exists('../casatasks'):
     os.system("python ../scripts/parse_task_xml.py")
 
