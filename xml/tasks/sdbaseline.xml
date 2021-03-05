@@ -228,7 +228,7 @@ pipeline processing for huge dataset.
 
     <param subparam="true" name="sigmavalue" type="string">
         <shortdescription>value used for computing weight</shortdescription>
-        <description>value used for computing weight</description>
+        <description>value used for computing weight [&quot;stddev&quot; or &quot;rms&quot;]</description>
         <value>stddev</value>
         <allowed kind="enum">
             <value>stddev</value>

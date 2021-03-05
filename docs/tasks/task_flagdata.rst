@@ -449,7 +449,7 @@ Description
    
    Bin width for time average in seconds. Default: '0s'
    
-   [NOTE ADDED FROM CAS-12294] The auto-flagging methods (clip,
+   [NOTE ADDED FROM CAS-12294 for CASA 6.3:] The auto-flagging methods (clip,
    tfcrop, rflag) can be used together with timeavg and channelavg,
    and other modes or agents. But when timeavg, channelavg (or both)
    are enabled the set of other modes or agents that can be used

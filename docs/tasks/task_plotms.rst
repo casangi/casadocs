@@ -15,28 +15,28 @@ Description
    flagging operations in the plotter.
    
    Support for calibration table plotting is included in plotms. 
-   Most basic plotms functions (plotting, selection, iteration,
-   locate, summary, flagging) will work for most CalTables.
-   Parameterized CalTables (delays, antpos, gaincurve, opacity) will
-   currently just plot the simple parameters contained in the table.
-   Baseline-based A, M, and X tables are not yet supported. Features
-   currently unsupported for CalTables include averaging,
-   transformations (velocity conversions, etc.), and some selection
-   and axes choices. In the **plotms** GUI, many options irrelevant
-   for CalTables are not hidden when interacting with a calibration
-   table, and such settings will be ignored (when benign) or cause an
-   error message.
+   Most basic plotms functions (plotting, selection, averaging,
+   iteration, locate, summary, flagging) will work for most CalTables.
+   Parameterized CalTables (delay, antpos, gaincurve, opacity, fringefit)
+   will currently just plot the simple parameters contained in the table.
+   Baseline-based A and M tables are supported; X tables are not yet
+   supported. Transformations (velocity conversions, etc.) are
+   currently unsupported for CalTables.  In the **plotms** GUI, many 
+   options irrelevant for CalTables (some selection and axis choices)
+   are not hidden when interacting with a calibration table, and such
+   settings will be ignored (when benign) or cause an error message.
    
-   The return value of plotms is a Boolean *True* or *False*, where
-   *True* indicates that the supplied parameters were processed
+   In CASA5, the return value of **plotms** is a Boolean *True* or *False*,
+   where *True* indicates that the supplied parameters were processed
    successfully with no errors; however, a plot may or may not have
    been produced.  For example, a null selection returns *True* with
    no plot, but an invalid argument or combination of arguments
-   returns *False*.
+   returns *False*.  In CASA6, **plotms** has no return value but
+   may throw an exception.
    
    For a detailed explanation of the **plotms** GUI and its
    corresponding task parameters, see the `documentation on using
-   plotms <../../notebooks/data_examination.ipynb#Browse-MS/Calibration-Tables>`__
+   plotms <../../notebooks/data_examination.ipynb#Plot/Edit-using-plotms>`__
    under Data Examination and Editing.
    
    .. rubric:: Parameter Descriptions
@@ -122,7 +122,7 @@ Description
       antenna shows all of the other antennas, since their baselines
       include the reference antenna.
    -  Iteration changes the plot title, appending the iteraxis and
-      the iteration value, e.g. “Amp vs .Time Spw: 9”.
+      the iteration value, e.g. “Amp vs. Time Spw: 9”.
    -  Subparameters are enabled when iteraxis is set:
    
    -  *xselfscale, yselfscale*
@@ -151,17 +151,17 @@ Description
       -  Default xaxis
    
          -  For MeasurementSets, the default xaxis is *‘time’*.
-         -  For CalTables, the default xaxis depends on the cal table type, i.e. ‘time’ for G Jones and GSPLINE; ‘chan’ for B Jones and B TSYS; ‘freq’ for BPOLY; ‘ant1’ for D Jones, K Jones, and KAntPos.
+         -  For CalTables, the default xaxis depends on the cal table type.  For most types, this is *‘time’*, i.e. for G Jones and GSPLINE; *‘chan’* for B Jones and B TSYS; *‘freq’* for BPOLY; *‘ant1’* for D Jones, K Jones, and KAntPos.
    
       -  Default yaxis
    
          -  For MeasurementSets, the default yaxis is *‘amp’*.
-         -  For CalTables, the default yaxis depends on the cal table type. For most types, this is ‘gainamp’. For K Jones tables the default is ‘delay’. For KAntPos Jones tables, the default is ‘antpos’. For GSPLINE tables, the default yaxis depends on the POLY_MODE column: if “AMP”or “A&P” the default is ‘gainamp’, if “PHAS” the default is ‘gainphase’.
+         -  For CalTables, the default yaxis depends on the cal table type. For most types, this is *‘gainamp’*. For K Jones (delay) and Fringe Jones (fringefit) tables the default is *‘delay’*. For KAntPos Jones tables, the default is *‘antpos’*. For GSPLINE tables, the default yaxis depends on the POLY_MODE column: if “AMP”or “A&P” the default is *‘gainamp’*, if “PHAS” the default is *‘gainphase’*.
    
       -  yaxis can be a list, e.g. *yaxis=[‘amp’,’phase’]* to plot
          more than one yaxis for a dataset on the same plot. You may
-         want to have different axis locations for this (see
-         *yaxislocation*).
+         choose to set different axis locations for multiple yaxes
+         (see *yaxislocation*).
       -  Subparameters *xdatacolumn* and *ydatacolumn* are enabled
          when *xaxis* and *yaxis* are visibility axes, respectively.
    
@@ -235,14 +235,17 @@ Description
          polarization index value is retrieved from the row’s
          *POLARIZATION_ID* column. This index references a row in the
          *POLARIZATION* subtable and the values are obtained from the
-         *CORR_TYPE* column.    These IDs correspond to values RR
-         (5), RL (6), LR (7), LL (8), XX (9), XY (10), YX (11), and
+         *CORR_TYPE* column. These IDs correspond to values RR (5),
+         RL (6), LR (7), LL (8), XX (9), XY (10), YX (11), and
          YY (12).
       -  For CalTables, this is the index into the number of
          polarizations in the first axis of the array in the
          *CPARAM/FPARAM* column. The CalTable’s PolBasis keyword may
          indicate whether the polarizations are linear (0=X, 1=Y) or
-         circular (0=R, 1=L).
+         circular (0=R, 1=L).  If not, the index 0 or 1 is used.
+         For antenna position (KAntPos Jones) tables, *'corr'* refers
+         to the x, y, and z position offsets in the first axis of the
+         *FPARAM* column.
    
    -  *‘ant1’* (*‘antenna1’*)
    
@@ -537,7 +540,7 @@ Description
          (me) tool.
       -  Not supported for CalTables.
    
-   -  'ant-ra'
+   -  *'ant-ra'*
    
       -  Only implemented for ALMA, ASTE, and NRO data.
       -  longitude of the direction to which the first antenna of a
@@ -547,10 +550,10 @@ Description
          user-specified reference frame. See xinterp, yinterp and
          xframe, yframe parameters below for supported interpolation
          methods and reference frames.
-      -  Not supported for CalTables
-      -  Averaging not supported
+      -  Not supported for CalTables.
+      -  Averaging not supported.
    
-   -   'ant-dec'
+   -  *'ant-dec'*
    
       -  Only implemented for ALMA, ASTE, and NRO data.
       -  latitude of the direction to which the first antenna of a
@@ -560,8 +563,8 @@ Description
          user-specified reference frame. See xinterp, yinterp and
          xframe, yframe parameters below for supported interpolation
          methods and reference frames.
-      -  Not supported for CalTables
-      -  Averaging not supported
+      -  Not supported for CalTables.
+      -  Averaging not supported.
    
    -  *‘ant-parang’* (*‘ant-parangle’, ‘ant-parallacticangle’*)
    
@@ -620,7 +623,19 @@ Description
    -  *‘delay* ’ (*‘del’*)
    
       -  Invalid for MeasurementSets.
-      -  delay values of a delay CalTable, from the *FPARAM* column.
+      -  delay values of a delay or fringefit CalTable, from the *FPARAM* column.
+         Invalid for other CalTable types.
+   
+   -  *‘delayrate* ’ (*‘rate’*)
+   
+      -  Invalid for MeasurementSets.
+      -  delay rates of a fringefit CalTable, from the *FPARAM* column.
+         Invalid for other CalTable types.
+   
+   -  *‘dispdelay* ’ (*‘disp’*)
+   
+      -  Invalid for MeasurementSets.
+      -  dispersive delay values of a fringefit CalTable, from the *FPARAM* column.
          Invalid for other CalTable types.
    
    -  *‘swpower’* (*‘swp’, ‘switchedpower’, ‘spgain’*)
@@ -917,8 +932,10 @@ Description
    -  *spw*
    
       -  select spectral windows/channels.
-      -  For CalTables, select spw only; channel selection is
-         currently not implemented.
+      -  For CalTables, spw selection may be used with averaging,
+         but channel selection with averaging is not implemented
+         yet and will result in an error.  Channel selection may
+         be used without averaging.
    
    -  *timerange*
    
@@ -933,8 +950,10 @@ Description
    -  *antenna*
    
       -  select baselines and auto/cross-correlations for
-         MeasurementSet.
-      -  select antenna1 for CalTables.
+         MeasurementSet and baseline-based CalTable.
+      -  select antenna1 for antenna-based CalTable.  Antenna-based
+         CalTable with a reference antenna may use the ANT1&ANT2
+         syntax to select a reference antenna.
    
    -  *scan*
 
@@ -1002,6 +1021,10 @@ Description
       visibilities, then the amplitude or phase of the result is
       plotted.  To compute the average of the amplitude or phase
       values instead, set *scalar=True*.
+   -  Averaging is supported for calibration tables except BPOLY and
+      GSPLINE, which have an older table format.  Most selection may
+      be used with averaging, but averaging with channel selection
+      is not yet implemented; spw selection is allowed.
    
    -  *avgchannel*
 
@@ -1148,6 +1171,10 @@ Description
    -  Overrides custom symbol settings below and xconnector
       colorization.  Flagged points will be colorized according to
       the *coloraxis*.
+   -  For CalTables, colorization by *"corr"* usually refers to 
+      polarization.  For an antenna position (KAntPos Jones) table,
+      the first axis contains the x, y, and z offsets so
+      *coloraxis="corr"* may be used to distinguish these values.
    
    *customsymbol*
 

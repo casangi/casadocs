@@ -51,7 +51,7 @@ Description
    TaQL query string for prefiltering the table (see "Examples" tab
    at the top-right)
    
-   For more information about the Table Query Language (TaQL) string, see [this note](https://casa.nrao.edu/aips2_docs/notes/199/199.html).
+   For more information about the Table Query Language (TaQL) string, see this note: https://casa.nrao.edu/aips2_docs/notes/199/199.html
    
    *skipcols*
 

@@ -6,15 +6,16 @@ default
 
 .. function:: default(taskname)
 
-   Set the current default task for inp and go commands and reset task parameter values
+   Reset task parameter values to the task's default parameter values.  If given a taskname, sets taskname 
+   as the current active (default) task.
 
    Parameters
-      - **taskname** (*string*) - name of task
+      - **taskname** (*obj*, *string*, or *None*) - task object or task name. None will use current active (default) task.
 
    Description
-      Each task has a special set of default parameters defined for its parameters. You can
+      Each task has a special set of default values defined for its parameters. You can
       use the **default()** command to reset the parameters for a specified task (or the
-      current task as defined by the taskname variable) to their default.
+      current active task) to their default.
 
       The ``default()`` command resets the values of the task parameters to a set
       of "defaults" as specified in the task code. Some defaults are blank strings '' or empty
