@@ -8,6 +8,8 @@ import pypandoc
 # if running manually, cd docs first
 ########################################################
 
+pypandoc.pandoc_download.download_pandoc(version='2.10.1')
+
 tools = os.listdir('../xml/tools')
 
 # loop through each tool
