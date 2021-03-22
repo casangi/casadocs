@@ -951,9 +951,9 @@ Description
    
       -  select baselines and auto/cross-correlations for
          MeasurementSet and baseline-based CalTable.
-      -  select antenna1 for antenna-based CalTable.  Antenna-based
-         CalTable with a reference antenna may use the ANT1&ANT2
-         syntax to select a reference antenna.
+      -  select antenna1 for antenna-based CalTable, including single-dish
+         skycal table. Antenna-based CalTable with a reference antenna may
+         use the ANT1&ANT2 syntax to select a reference antenna.
    
    -  *scan*
 
