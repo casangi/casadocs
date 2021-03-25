@@ -3,6 +3,8 @@
 .. _Description:
 
 Description
+   **The VIEWER task is deprecated in lieu of IMVIEW and MSVIEW, which contain the exact same functionality. Please invoke the imview (msview) task for visualizing images or image cubes (visibility data).**  
+
    The **viewer** will display images in raster, contour, vector or
    marker form. Images can be blinked, and movies are available for
    spectral-line image cubes. For MeasurementSets, many display and
