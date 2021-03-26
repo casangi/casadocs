@@ -283,7 +283,7 @@ variables are in.
 
 .. warning:: You can only reset ALL of the parameters for a given task to their defaults.
 
-Please be aware that in CASA 6, integers were promoted to doubles, but for tasks CASA 6 ensures that the parameter values are converted to the requested type.
+CASA 6 internally promotes integers to doubles, and for tasks CASA 6 ensures that the parameter values are converted to the internally acceptable type.
 
 
 .. rubric::  The .last file
