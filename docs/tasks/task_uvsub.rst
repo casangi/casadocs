@@ -4,7 +4,7 @@
 
 Description
    This task subtracts the model visibilities in the MODEL_DATA
-   column of a MeasurementSet from the corrected visbilities in the
+   column of a MeasurementSet from the corrected visibilities in the
    CORRECTED_DATA column. The MODEL_DATA column can either be the
    scratch column or a virtual one. The residuals after subtraction
    are placed in the CORRECTED_DATA column. If the parameter
