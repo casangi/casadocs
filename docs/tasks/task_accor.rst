@@ -6,10 +6,6 @@ Description
    **accor** determines the amplitude calibration from
    auto-correlations.
 
-   .. warning:: **WARNING: accor** is currently an experimental task. Use with
-      care and report issues back to the CASA team via the `NRAO
-      helpdesk <http://help.nrao.edu>`__. 
-
    The **accor** task determines the amplitude corrections from the
    apparent normalization of the mean autocorrelation spectra.
    Mis-normalization of the autocorrelations (and thus also the
