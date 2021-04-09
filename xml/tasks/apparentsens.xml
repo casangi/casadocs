@@ -212,7 +212,7 @@ file:///opt/casa/code/xmlcasa/xml/casa.xsd">
          number of pixels must be even and factorizable by 2,3,5,7 only.
 </description>
       <any type="variant" limittypes="int intArray"/>
-      <value type="intArray">100</value>
+      <value type="intArray"><value>100</value></value>
     </param>
 
     <param type="any" name="cell" > <!-- subparam="true"> -->

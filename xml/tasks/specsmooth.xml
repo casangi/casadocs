@@ -57,7 +57,7 @@
     </param>
     <param name="function" type="string"><shortdescription>Convolution function. hanning and boxcar are supported functions. Minimum match is supported.</shortdescription><description>Convolution function. hanning and boxcar are supported functions. Minimum match is supported.</description>
         
-        <value>boxcar</value>
+        <value>hanning</value>
         <example>function=&quot;boxcar&quot;</example>
     </param>
     <param subparam="True" name="width" type="int"><shortdescription>Width of boxcar, in pixels.</shortdescription><description>Width of boxcar, in pixels.</description>
@@ -240,3 +240,4 @@ axis=2, dmethod=&quot;&quot;,&quot; overwrite=True)
 </task>
 
 </casaxml>
+

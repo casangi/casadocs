@@ -37,34 +37,34 @@
             <value>i</value>
         </allowed>
     </param>
-    <param subparam="yes" name="major" type="any"><shortdescription>Major axis for the kernels. Standard quantity representation. Must be specified for kernel=&quot;boxcar&quot;.</shortdescription><description>Major axis for the kernels. Standard quantity representation. Must be specified for kernel=&quot;boxcar&quot;.</description>
+    <param subparam="true" name="major" type="any"><shortdescription>Major axis for the kernels. Standard quantity representation. Must be specified for kernel=&quot;boxcar&quot;.</shortdescription><description>Major axis for the kernels. Standard quantity representation. Must be specified for kernel=&quot;boxcar&quot;.</description>
         
         <any limittype="string int float record" type="variant"/>
         <value type="string"/>
         <example>&quot;4arcsec&quot;</example>
     </param>
-    <param subparam="yes" name="minor" type="any"><shortdescription>Minor axis. Standard quantity representation. Must be specified for kernel=&quot;boxcar&quot;.</shortdescription><description>Minor axis. Standard quantity representation. Must be specified for kernel=&quot;boxcar&quot;.</description>
+    <param subparam="true" name="minor" type="any"><shortdescription>Minor axis. Standard quantity representation. Must be specified for kernel=&quot;boxcar&quot;.</shortdescription><description>Minor axis. Standard quantity representation. Must be specified for kernel=&quot;boxcar&quot;.</description>
         
         <any limittype="string int float record" type="variant"/>
         <value type="string"/>
         <example>&quot;2arcsec&quot;</example>
     </param>
-    <param subparam="yes" name="pa" type="any"><shortdescription>Position angle used only for gaussian kernel. Standard quantity representation.</shortdescription><description>Position angle used only for gaussian kernel. Standard quantity representation.</description>
+    <param subparam="true" name="pa" type="any"><shortdescription>Position angle used only for gaussian kernel. Standard quantity representation.</shortdescription><description>Position angle used only for gaussian kernel. Standard quantity representation.</description>
         
         <any limittype="string int float record" type="variant"/>
         <value type="string"/>
         <example>&quot;40deg&quot;</example>
     </param>
-    <param subparam="yes" name="targetres" type="bool"><shortdescription>If gaussian kernel, specified parameters are to be resolution of output image (True) or parameters of gaussian to convolve with input image (False).</shortdescription><description>If gaussian kernel, specified parameters are to be resolution of output image (True) or parameters of gaussian to convolve with input image (False).</description>
+    <param subparam="true" name="targetres" type="bool"><shortdescription>If gaussian kernel, specified parameters are to be resolution of output image (True) or parameters of gaussian to convolve with input image (False).</shortdescription><description>If gaussian kernel, specified parameters are to be resolution of output image (True) or parameters of gaussian to convolve with input image (False).</description>
         
         
         <value type="bool">False</value>
     </param>
-    <param subparam="yes" name="kimage" type="string"><shortdescription>Kernel image name. Only used if kernel=&quot;i&quot; or &quot;image&quot;.</shortdescription><description>Kernel image name. Only used if kernel=&quot;i&quot; or &quot;image&quot;.</description>
+    <param subparam="true" name="kimage" type="string"><shortdescription>Kernel image name. Only used if kernel=&quot;i&quot; or &quot;image&quot;.</shortdescription><description>Kernel image name. Only used if kernel=&quot;i&quot; or &quot;image&quot;.</description>
         
         <value/>
     </param>
-    <param subparam="yes" name="scale" type="double"><shortdescription>Scale factor. -1.0 means auto-scale. Only used if kernel=&quot;i&quot; or &quot;image&quot;.</shortdescription><description>Scale factor. -1.0 means auto-scale. Only used if kernel=&quot;i&quot; or &quot;image&quot;.</description>
+    <param subparam="true" name="scale" type="double"><shortdescription>Scale factor. -1.0 means auto-scale. Only used if kernel=&quot;i&quot; or &quot;image&quot;.</shortdescription><description>Scale factor. -1.0 means auto-scale. Only used if kernel=&quot;i&quot; or &quot;image&quot;.</description>
         
         <value>-1.0</value>
     </param>
@@ -101,7 +101,7 @@
         
         <value>False</value>
     </param>
-    <param subparam="yes" name="beam" type="any"><shortdescription>Alternate way of describing a Gaussian. If specified, must be a dictionary with keys &quot;major&quot;, &quot;minor&quot;, and &quot;pa&quot; (or &quot;positionangle&quot;). Do not specify beam if specifying major, minor, and pa.</shortdescription><description>Alternate way of describing a Gaussian. If specified, must be a dictionary with keys &quot;major&quot;, &quot;minor&quot;, and &quot;pa&quot; (or &quot;positionangle&quot;). Do not specify beam if specifying major, minor, and pa.</description>
+    <param subparam="true" name="beam" type="any"><shortdescription>Alternate way of describing a Gaussian. If specified, must be a dictionary with keys &quot;major&quot;, &quot;minor&quot;, and &quot;pa&quot; (or &quot;positionangle&quot;). Do not specify beam if specifying major, minor, and pa.</shortdescription><description>Alternate way of describing a Gaussian. If specified, must be a dictionary with keys &quot;major&quot;, &quot;minor&quot;, and &quot;pa&quot; (or &quot;positionangle&quot;). Do not specify beam if specifying major, minor, and pa.</description>
         <any limittype="string record" type="variant"/>
         
         <value type="string"/>
@@ -316,3 +316,4 @@ imsmooth( imagename='new.image', major='20pix', minor='10pix', kernel='boxcar')
 </task>
 
 </casaxml>
+

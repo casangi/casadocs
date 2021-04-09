@@ -534,6 +534,12 @@ variable sources (3C48,3C138,3C147).
                      NOTE: for usescratch=False, timerange, scan, and
                      observation are ignored (i.e. time-specific
                      virtual model is not possible.).
+
+                     VERY IMPORTANT: The current implementation of
+                     time-dependent models (e.g. ephemerides sources)
+                     within setjy is incompatible with the use of the
+                     virtual model column. Please use ephemerides source
+                     models only with usescratch=True
 </description>
       <value>False</value>
       </param>

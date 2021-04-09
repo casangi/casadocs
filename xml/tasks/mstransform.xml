@@ -85,26 +85,29 @@
         
         <value/>
     </param>
-        <param name="createmms" type="bool"><shortdescription>Create a multi-MS output from an input MS.</shortdescription><description>Create a multi-MS output from an input MS.</description>
-            
-            <value>False</value>
-        </param>
-        <param subparam="true" ignorecase="true" name="separationaxis" type="string"><shortdescription>Axis to do parallelization across(scan,spw,auto,baseline).</shortdescription><description>Axis to do parallelization across(scan,spw,auto,baseline).</description>
-            
-            <value>auto</value>
-            <allowed ignorecase="true" kind="enum">
-                <value>auto</value>
-                <value>spw</value>
-                <value>scan</value>
-                <value>baseline</value>
-            </allowed>
-        </param>
-        <param subparam="true" name="numsubms" type="any"><shortdescription>The number of Sub-MSs to create (auto or any number)</shortdescription><description>The number of Sub-MSs to create (auto or any number)</description>
-            
-        <any limittypes="string int" type="variant"/>
-         <value type="string">auto</value>
-        </param>
-                
+
+
+    <param name="createmms" type="bool"><shortdescription>Create a multi-MS output from an input MS.</shortdescription><description>Create a multi-MS output from an input MS.</description>
+    <value>False</value>
+    </param>
+
+    <param subparam="true" ignorecase="true" name="separationaxis" type="string"><shortdescription>Axis to do parallelization across(scan,spw,auto,baseline).</shortdescription><description>Axis to do parallelization across(scan,spw,auto,baseline).</description>
+
+    <value>auto</value>
+    <allowed ignorecase="true" kind="enum">
+      <value>auto</value>
+      <value>spw</value>
+      <value>scan</value>
+      <value>baseline</value>
+    </allowed>
+    </param>
+
+    <param subparam="true" name="numsubms" type="any"><shortdescription>The number of Sub-MSs to create (auto or any number)</shortdescription><description>The number of Sub-MSs to create (auto or any number)</description>
+
+    <any limittypes="string int" type="variant"/>
+    <value type="string">auto</value>
+    </param>
+
     <param name="tileshape" type="intArray"><shortdescription>List with 1 or 3 elements giving the tile shape of the disk data columns.</shortdescription><description>List with 1 or 3 elements giving the tile shape of the disk data columns.</description>
         
         <value type="intArray">0</value>
@@ -321,10 +324,10 @@
             </allowed>
         </param>
 
-    <param name="preaverage" type="bool"><shortdescription>Pre-average channels before regridding, when the ratio between the output and and input widths is greater than 2.</shortdescription><description>Pre-average channels before regridding, when the ratio between the output and and input widths is greater than 2.</description>
-          
+        <param subparam="True" name="preaverage" type="bool">
+          <shortdescription>Pre-average channels before regridding, when the ratio between the output and and input widths is greater than 2.</shortdescription><description>Pre-average channels before regridding, when the ratio between the output and and input widths is greater than 2.</description>
           <value>False</value>
-    </param>
+        </param>
 
     
     <param name="timeaverage" type="bool"><shortdescription>Average data in time.</shortdescription><description>Average data in time.</description>
@@ -359,9 +362,9 @@
             
             <value type="string"/>
         </param>       
-        
-        
-        
+
+
+
         <param name="douvcontsub" type="bool"><shortdescription>Enable continuum subtraction as in task uvcontsub</shortdescription><description>Enable continuum subtraction as in task uvcontsub</description>
             
             <value>False</value>
@@ -397,49 +400,58 @@
             <value>1</value>
         </param>
 
-        
+
         <param visibility="hidden" subparam="true" name="disableparallel" type="bool"><shortdescription>Hidden parameter for internal use only. Do not change it!</shortdescription><description>Hidden parameter for internal use only. Do not change it!</description>
-            
             <value>False</value>
-        </param>        
+        </param>
         <param visibility="hidden" subparam="true" name="ddistart" type="int"><shortdescription>Hidden parameter for internal use only. Do not change it!</shortdescription><description>Hidden parameter for internal use only. Do not change it!</description>
-            
+        <value>-1</value>
+
             <value>-1</value>
         </param>
         <param visibility="hidden" subparam="true" name="taql" type="string"><shortdescription>Table query for nested selections</shortdescription><description>Table query for nested selections</description>
-            
+
             <value type="string"/>
-        </param>             
+        </param>
         <param visibility="hidden" subparam="true" name="monolithic_processing" type="bool"><shortdescription>Hidden parameter for internal use only. Do not change it!</shortdescription><description>Hidden parameter for internal use only. Do not change it!</description>
-            
+
             <value>False</value>
         </param>
         <param visibility="hidden" subparam="true" name="reindex" type="bool"><shortdescription>Hidden parameter for use in the pipeline context only</shortdescription><description>Hidden parameter for use in the pipeline context only</description>
-            
+
             <value>True</value>
-        </param>        
-                        
+        </param>
+
     <constraints>
-          <when param="createmms">
-            <equals value="False" type="bool">
-                  <default param="separationaxis"><value type="string">auto</value></default>
-                  <default param="numsubms"><value type="string">auto</value></default>
 
-                  <default param="disableparallel"><value type="bool">False</value></default>
-                  <default param="ddistart"><value type="int">-1</value></default>
-                  <default param="taql"><value type="string"/></default>
-                  <default param="reindex"><value type="bool">True</value></default>
-            </equals>
-            <equals value="True" type="bool">
-                  <default param="separationaxis"><value type="string">auto</value></default>
-                  <default param="numsubms"><value type="string">auto</value></default>
+      <when param="createmms">
+        <equals value="False" type="bool">
+          <!-- The first two suparameters, separationaxis and numsubms
+               are legitimate suparameters of createmms, although it
+               should not be necessary to give them a value when
+               createmms is False (but keeping them in here for
+               consistency in the 'inp'.listing). The other 4,
+               disableparallel, ddistart, taql, reindex (all
+               supposedly hidden) have complex interactions. See
+               CAS-13397 -->
+          <default param="separationaxis"><value type="string">auto</value></default>
+          <default param="numsubms"><value type="string">auto</value></default>
 
-                  <default param="disableparallel"><value type="bool">False</value></default>
-                  <default param="ddistart"><value type="int">-1</value></default>
-                  <default param="taql"><value type="string"/></default>
-                  <default param="reindex"><value type="bool">True</value></default>
-            </equals>
-          </when>
+          <default param="disableparallel"><value type="bool">False</value></default>
+          <default param="ddistart"><value type="int">-1</value></default>
+          <default param="taql"><value type="string"/></default>
+          <default param="reindex"><value type="bool">True</value></default>
+        </equals>
+        <equals value="True" type="bool">
+          <default param="separationaxis"><value type="string">auto</value></default>
+          <default param="numsubms"><value type="string">auto</value></default>
+
+          <default param="disableparallel"><value type="bool">False</value></default>
+          <default param="ddistart"><value type="int">-1</value></default>
+          <default param="taql"><value type="string"/></default>
+          <default param="reindex"><value type="bool">True</value></default>
+        </equals>
+      </when>
 
           <when param="datacolumn">
             <equals value="corrected" type="string"/>
@@ -501,50 +513,10 @@
                   <default param="fitorder"><value type="int">0</value></default>
                   <default param="want_cont"><value type="bool">False</value></default>
                   <default param="denoising_lib"><value type="bool">True</value></default>   
-                  <default param="nthreads"><value type="int">1</value></default>                     
+                  <default param="nthreads"><value type="int">1</value></default>
                   <default param="niter"><value type="int">1</value></default>          
             </equals>
-        </when>      
-
-    <when param="mode">
-      <equals value="channel">
-        <default param="nchan"><value type="int">-1</value></default>
-        <default param="start"><value type="int">0</value>
-        <description>First input channel to use</description>
-        </default>
-        <default param="width"><value type="int">1</value></default>
-        <default param="interpolation"><value type="string">linear</value></default>
-      </equals>
-      <equals value="channel_b">
-        <default param="nchan"><value type="int">-1</value></default>
-        <default param="start"><value type="int">0</value>
-        <description>First input channel to use</description>
-        </default>
-        <default param="width"><value type="int">1</value></default>
-        <default param="interpolation"><value type="string">linear</value></default>
-      </equals>
-      <equals value="velocity">
-        <default param="nchan"><value type="int">-1</value></default>
-        <default param="start"><value type="string"/>
-        <description>Velocity of first channel: e.g \'0.0km/s\'</description>
-        </default>
-        <default param="width"><value type="string"/>
-        <description>Channel width of the output visibilities, in velocity units, e.g \'-1.0km/s\'</description>
-        </default>
-        <default param="interpolation"><value type="string">linear</value></default>
-      </equals>
-      <equals value="frequency">
-        <default param="nchan"><value type="int">-1</value></default>
-        <default param="start"><value type="string"/>
-        <description>Frequency of first channel: e.q. \'1.4GHz\'</description>
-        </default>
-        <default param="width"><value type="string"/>
-        <description>Channel width of the output visibilities, in frequency units, e.g \'1.0kHz\'</description>
-        </default>
-        <default param="interpolation"><value type="string">linear</value></default>
-      </equals>
-    </when>
-
+        </when>
     </constraints>
 
 </input>
@@ -1013,3 +985,4 @@ http://www.eso.org/~scastro/ALMA/casa/MST/MSTransformDocs/MSTransformDocs.html
 </example> 
 </task>
 </casaxml>
+

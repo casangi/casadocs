@@ -722,6 +722,8 @@ HPX HEALPix grid.  -->
               <value>cubic</value>
       </allowed>
     </param>
+
+<!--
     <param type="int" name="chanchunks">
      <shortdescription>Number of channel chunks</shortdescription>
 <description>Number of channel chunks to grid separately
@@ -742,6 +744,8 @@ HPX HEALPix grid.  -->
 </description>
       <value type="int">1</value>
     </param>
+-->
+
 
 <param type="bool" name="perchanweightdensity">
            <shortdescription>whether to calculate weight density per channel in Briggs style weighting or not</shortdescription>
@@ -872,6 +876,9 @@ HPX HEALPix grid.  -->
                                             aperture illumination models per antenna and optionally
                                             combined with W-Projection kernels and a prolate spheroid.
                                             This gridder can be run on single fields as well as mosaics.
+					   
+                                        The awproject gridder is current not supported in the sdintimaging task.
+                                        This feature will be added in the near future. 
 
                                         VLA : Uses ray traced model (VLA and EVLA) including feed
                                                  leg and subreflector shadows, off-axis feed location
@@ -909,7 +916,6 @@ HPX HEALPix grid.  -->
                            antnames=['DV'+'%02d'%k for k in range(25)])
                            vp.saveastable('mypb.tab')
                            Then, supply vptable='mypb.tab' to tclean.
-                           ( Currently this will work only for non-parallel runs )
 
 
                 ------ Note on PB masks :
@@ -2030,9 +2036,6 @@ to use the correct direction in which the antenna is pointing with respect to th
                        interactive=True will trigger an interactive GUI at every major cycle
                        boundary (after the major cycle and before the minor cycle).
 
-                       The interactive mode is currently not available for parallel cube imaging (please also
-                       refer to the Note under the documentation for 'parallel' below).
-
                        Options for runtime parameter modification are :
 
                        Interactive clean mask : Draw a 1/0 mask (appears as a contour) by hand.
@@ -2612,7 +2615,7 @@ to use the correct direction in which the antenna is pointing with respect to th
 
     -->
 
-
+<!--
     <param type="bool" name="parallel">
       <shortdescription>Run major cycles in parallel</shortdescription>
       <description>Run major cycles in parallel (this feature is experimental)
@@ -2646,7 +2649,7 @@ to use the correct direction in which the antenna is pointing with respect to th
 </description>
       <value type="bool">False</value>
     </param>
-
+--> 
 
 
 <!--    <param type="string" name="clusterdef" subparam="true">

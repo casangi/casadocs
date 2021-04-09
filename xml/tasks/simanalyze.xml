@@ -114,7 +114,7 @@
       <value type="string"></value>
     </param>
 
-    <param subparam="true" name="cell" type="string"><shortdescription>cell size with units</shortdescription><description>Specify the cell size with units, e.g., &quot;10arcsec&quot;. If left unset (an empty string), the model cell size will be used. This is the default setting.</description>
+    <param subparam="true" name="cell" type="any"><shortdescription>cell size with units</shortdescription><description>Specify the cell size with units, e.g., &quot;10arcsec&quot;. If left unset (an empty string), the model cell size will be used. This is the default setting.</description>
 
       <value type="string"></value>
     </param>

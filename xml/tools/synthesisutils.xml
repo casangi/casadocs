@@ -526,6 +526,32 @@ siu.cubedatapartition(selprs=pars, npart=20, fstart="1.412787GHz", fend="1.41328
 </method>
 <!-- ===================================== -->
 
+
+   <method type="function" name="fitPsfBeam">
+   <shortdescription>Fit a restoring beam to the PSF, and save it in the PSF image.</shortdescription>
+
+<description>
+</description>
+<input>
+     <param type="string" name="imagename">
+     <description>Image Prefix name</description>
+     <value></value>
+     </param>
+     <param type="int" name="nterms">
+     <description>Single or Multi-Term (to pick namng conventions)</description>
+     <value>1</value>
+     </param>
+     <param type="float" name="psfcutoff">
+     <description>A fractional cut-off level to determine what part of the PSF is sent to the beam fitter</description>
+     <value>0.35</value>
+     </param>
+
+</input>
+<returns type="bool"/>
+</method>
+
+<!-- ===================================== -->
+
    <method type="function" name="done">
    <shortdescription>Close the tool</shortdescription>
 

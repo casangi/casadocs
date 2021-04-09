@@ -100,7 +100,7 @@ For measurement sets, the task vishead should be used.
         </allowed>
         <value>summary</value>
     </param>
-    <param subparam="yes" name="hdkey" type="string">
+    <param subparam="true" name="hdkey" type="string">
 <shortdescription>The associated keyword for modes &quot;add&quot;, &quot;del&quot;, &quot;get&quot;, or &quot;put&quot;. Only &quot;get&quot; will work if the image is read-only (eg, a FITS image).</shortdescription>
 <description>Keyword to use with get, put, add, or del.
                      Subparameter of mode=get|put|add|del
@@ -114,7 +114,7 @@ For measurement sets, the task vishead should be used.
         <example>hdkey='telescope'</example>
     </param>
 
-    <param subparam="yes" name="hdvalue" type="any">
+    <param subparam="true" name="hdvalue" type="any">
     <any type="variant"/>
 <shortdescription>Value of keyword for modes add or put.</shortdescription>
 <description>Keyword value used for modes 'put' and 'add'. 
@@ -128,7 +128,7 @@ For measurement sets, the task vishead should be used.
         <example>hdvalue='VLA'</example>
     </param>
     
-    <param subparam="yes" name="verbose" type="bool"><shortdescription>Give a full listing of beams or just a short summary? Only used when the image has multiple beams and mode=&quot;summary&quot;.</shortdescription><description>Give a full listing of beams or just a short summary? Only used when the image has multiple beams and mode=&quot;summary&quot;.</description>
+    <param subparam="true" name="verbose" type="bool"><shortdescription>Give a full listing of beams or just a short summary? Only used when the image has multiple beams and mode=&quot;summary&quot;.</shortdescription><description>Give a full listing of beams or just a short summary? Only used when the image has multiple beams and mode=&quot;summary&quot;.</description>
         
         <value>False</value>
     </param>

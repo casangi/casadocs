@@ -1,110 +1,105 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" ?>
-<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
-file:///opt/casa/code/xmlcasa/xml/casa.xsd">
+<casaxml xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd file:///opt/casa/code/xmlcasa/xml/casa.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://casa.nrao.edu/schema/psetTypes.html">
 
 
-  <task type="function" name="wvrgcal" category="calibration">
+  <task category="calibration" name="wvrgcal" type="function">
 
     <shortdescription>Generate a gain table based on Water Vapour Radiometer data</shortdescription>
     
     <input>
       
-      <param type="string" name="vis" kind="ms" mustexist="true">
-      <description>Name of input visibility file</description>
-      <value></value>
+      <param mustexist="true" kind="ms" name="vis" type="string"><shortdescription>Name of input visibility file</shortdescription><description>Name of input visibility file</description>
+      
+      <value/>
       </param>
       
-      <param type="string" name="caltable" mustexist="false">
-      <description>Name of output gain calibration table</description>
-      <value></value>
+      <param mustexist="false" name="caltable" type="string"><shortdescription>Name of output gain calibration table</shortdescription><description>Name of output gain calibration table</description>
+      
+      <value/>
       </param>
       
-      <param type="double" name="toffset">
-      <description>Time offset (sec) between interferometric and WVR data</description>
+      <param name="toffset" type="double"><shortdescription>Time offset (sec) between interferometric and WVR data</shortdescription><description>Time offset (sec) between interferometric and WVR data</description>
+      
       <value>0</value>
       </param>
       
-      <param type="bool" name="segsource">
-      <description>Do a new coefficient calculation for each source</description>
+      <param name="segsource" type="bool"><shortdescription>Do a new coefficient calculation for each source</shortdescription><description>Do a new coefficient calculation for each source</description>
+      
       <value>True</value>
       </param>
       
-      <param type="stringArray" name="sourceflag" subparam="true">
-      <description>Regard the WVR data for these source(s) as bad and do not produce corrections for it (requires segsource=True)</description>
-      <value></value>
+      <param subparam="true" name="sourceflag" type="stringArray"><shortdescription>Regard the WVR data for these source(s) as bad and do not produce corrections for it (requires segsource=True)</shortdescription><description>Regard the WVR data for these source(s) as bad and do not produce corrections for it (requires segsource=True)</description>
+      
+      <value/>
       </param>
       
-      <param type="stringArray" name="tie" subparam="true">
-      <description>Prioritise tieing the phase of these sources as well as possible (requires segsource=True)</description>
-      <value></value>
+      <param subparam="true" name="tie" type="stringArray"><shortdescription>Prioritise tieing the phase of these sources as well as possible (requires segsource=True)</shortdescription><description>Prioritise tieing the phase of these sources as well as possible (requires segsource=True)</description>
+      
+      <value/>
       </param>
       
-      <param type="int" name="nsol" subparam="true">
-      <description>Number of solutions for phase correction coefficients (nsol>1 requires segsource=False)</description>
+      <param subparam="true" name="nsol" type="int"><shortdescription>Number of solutions for phase correction coefficients (nsol&gt;1 requires segsource=False)</shortdescription><description>Number of solutions for phase correction coefficients (nsol&gt;1 requires segsource=False)</description>
+      
       <value>1</value>
       </param>
             
-      <param type="bool" name="disperse">
-      <description>Apply correction for dispersion</description>
+      <param name="disperse" type="bool"><shortdescription>Apply correction for dispersion</shortdescription><description>Apply correction for dispersion</description>
+      
       <value>False</value>
       </param>
             
-      <param type="stringArray" name="wvrflag">
-      <description>Regard the WVR data for these antenna(s) as bad and replace its data with interpolated values from neighbouring antennas</description>
-      <value></value>
+      <param name="wvrflag" type="stringArray"><shortdescription>Regard the WVR data for these antenna(s) as bad and replace its data with interpolated values from neighbouring antennas</shortdescription><description>Regard the WVR data for these antenna(s) as bad and replace its data with interpolated values from neighbouring antennas</description>
+      
+      <value/>
       </param>
       
-      <param type="string" name="statfield">
-      <description>Compute the statistics (Phase RMS, Disc) on this field only</description>
-      <value></value>
+      <param name="statfield" type="string"><shortdescription>Compute the statistics (Phase RMS, Disc) on this field only</shortdescription><description>Compute the statistics (Phase RMS, Disc) on this field only</description>
+      
+      <value/>
       </param>
       
-      <param type="string" name="statsource">
-      <description>Compute the statistics (Phase RMS, Disc) on this source only</description>
-      <value></value>
+      <param name="statsource" type="string"><shortdescription>Compute the statistics (Phase RMS, Disc) on this source only</shortdescription><description>Compute the statistics (Phase RMS, Disc) on this source only</description>
+      
+      <value/>
       </param>
       
-      <param type="string" name="smooth">
-      <description>Smooth calibration solution on the given timescale</description>
-      <value></value>
+      <param name="smooth" type="string"><shortdescription>Smooth calibration solution on the given timescale</shortdescription><description>Smooth calibration solution on the given timescale</description>
+      
+      <value/>
       </param>
       
-      <param type="double" name="scale">
-      <description>Scale the entire phase correction by this factor</description>
+      <param name="scale" type="double"><shortdescription>Scale the entire phase correction by this factor</shortdescription><description>Scale the entire phase correction by this factor</description>
+      
       <value>1.</value>
       </param>
 
-      <param type="intArray" name="spw">
-      <description>List of the spectral window IDs for which solutions should be saved into the caltable</description>
-      <value></value>
+      <param name="spw" type="intArray"><shortdescription>List of the spectral window IDs for which solutions should be saved into the caltable</shortdescription><description>List of the spectral window IDs for which solutions should be saved into the caltable</description>
+      
+      <value/>
       </param>
       
-      <param type="intArray" name="wvrspw">
-      <description>List of the spectral window IDs from which the WVR data should be taken</description>
-      <value></value>
+      <param name="wvrspw" type="intArray"><shortdescription>List of the spectral window IDs from which the WVR data should be taken</shortdescription><description>List of the spectral window IDs from which the WVR data should be taken</description>
+      
+      <value/>
       </param>
       
       
-      <param type="string" name="reversespw">
-      <description>Reverse the sign of the correction for the listed SPWs (only needed for early ALMA data before Cycle 0)</description>
-      <value></value>
+      <param name="reversespw" type="string"><shortdescription>Reverse the sign of the correction for the listed SPWs (only needed for early ALMA data before Cycle 0)</shortdescription><description>Reverse the sign of the correction for the listed SPWs (only needed for early ALMA data before Cycle 0)</description>
+      
+      <value/>
       </param>
 
-      <param type="bool" name="cont">
-      <description>Estimate the continuum (e.g., due to clouds) (experimental)</description>
+      <param name="cont" type="bool"><shortdescription>Estimate the continuum (e.g., due to clouds) (experimental)</shortdescription><description>Estimate the continuum (e.g., due to clouds) (experimental)</description>
+      
       <value>False</value>
       </param>
 
-      <param type="double" name="maxdistm">
-      <description>maximum distance (m) of an antenna used for interpolation for a flagged antenna</description>
+      <param name="maxdistm" type="double"><shortdescription>maximum distance (m) of an antenna used for interpolation for a flagged antenna</shortdescription><description>maximum distance (m) of an antenna used for interpolation for a flagged antenna</description>
+      
       <value>500.</value>
       </param>
       
-      <param type="int" name="minnumants">
-      <description>minimum number of near antennas (up to 3) required for interpolation</description>
+      <param name="minnumants" type="int"><shortdescription>minimum number of near antennas (up to 3) required for interpolation</shortdescription><description>minimum number of near antennas (up to 3) required for interpolation</description>
+      
       <value>2</value>
         <allowed kind="enum">
             <value>1</value>
@@ -113,36 +108,36 @@ file:///opt/casa/code/xmlcasa/xml/casa.xsd">
         </allowed>
       </param>
 
-      <param type="double" name="mingoodfrac">
-      <description>If the fraction of unflagged data for an antenna is below this value (0. to 1.), the antenna is flagged.</description>
+      <param name="mingoodfrac" type="double"><shortdescription>If the fraction of unflagged data for an antenna is below this value (0. to 1.), the antenna is flagged.</shortdescription><description>If the fraction of unflagged data for an antenna is below this value (0. to 1.), the antenna is flagged.</description>
+      
       <value>0.8</value>
       </param>
       
-      <param type="bool" name="usefieldtab">
-      <description>derive the antenna AZ/EL values from the FIELD rather than the POINTING table</description>
+      <param name="usefieldtab" type="bool"><shortdescription>derive the antenna AZ/EL values from the FIELD rather than the POINTING table</shortdescription><description>derive the antenna AZ/EL values from the FIELD rather than the POINTING table</description>
+      
       <value>False</value>
       </param>
 
-      <param type="stringArray" name="refant">
-      <description>use the WVR data from this antenna for calculating the dT/dL parameters (can give ranked list)</description>
-      <value></value>
+      <param name="refant" type="stringArray"><shortdescription>use the WVR data from this antenna for calculating the dT/dL parameters (can give ranked list)</shortdescription><description>use the WVR data from this antenna for calculating the dT/dL parameters (can give ranked list)</description>
+      
+      <value/>
       </param>
       
-      <param type="string" name="offsetstable">
-      <description>(experimental) subtract the temperature offsets in this table from the WVR measurements before calculating the phase corrections</description>
-      <value></value>
+      <param name="offsetstable" type="string"><shortdescription>(experimental) subtract the temperature offsets in this table from the WVR measurements before calculating the phase corrections</shortdescription><description>(experimental) subtract the temperature offsets in this table from the WVR measurements before calculating the phase corrections</description>
+      
+      <value/>
       </param>
 
 
-      <!-- ================================================================= -->
+      
     
       <constraints>
       <when param="segsource">
-        <equals type="bool" value="True">
-          <default param="tie"><value type="stringArray"></value></default>
-          <default param="sourceflag"><value type="stringArray"></value></default>
+        <equals value="True" type="bool">
+          <default param="tie"><value type="stringArray"/></default>
+          <default param="sourceflag"><value type="stringArray"/></default>
         </equals>
-        <equals type="bool" value="False">
+        <equals value="False" type="bool">
           <default param="nsol"><value type="int">1</value></default>
         </equals>
       </when>
@@ -150,7 +145,7 @@ file:///opt/casa/code/xmlcasa/xml/casa.xsd">
 
     </input>
 
-    <returns type="variant" limittypes="void record"/>
+    <returns limittypes="void record" type="variant"/>
 
     <description>
 
@@ -158,9 +153,9 @@ Information about the observation and the performance of WVRGCAL is written to t
 and also returned in a dictionary; see the CASA cookbook for a more detailed description of these parameters.
 The dictionary element 'success' is True if no errors occured.
 
-Of particular note is the discrepancy parameter (Disc): high values (> a few hundred microns) 
+Of particular note is the discrepancy parameter (Disc): high values (&gt; a few hundred microns) 
 may indicate some levels of cloud contamination and the effect of applying the WVRGCAL correction 
-should be checked; values > 1000 um in all antennas have currently been found to indicate that 
+should be checked; values &gt; 1000 um in all antennas have currently been found to indicate that 
 WVRGCAL correction should not be used.
 
       
@@ -187,7 +182,7 @@ WVRGCAL correction should not be used.
   nsol -- Number of solutions for phase correction coefficients during this observation.
           By default only one set of coefficients is generated for the entire observation. 
           If more sets are requested, then they will be evenly distributed in time throughout 
-          the observation. Values > 1 require segsource=False.
+          the observation. Values &gt; 1 require segsource=False.
           default: 1
 
   disperse -- Apply correction for dispersion

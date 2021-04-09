@@ -140,6 +140,21 @@ file:///opt/casa/code/tools/xml/casa.xsd">
     selectchannel function.  Similarly to select specific
     polarizations you should use the selectpolarization function.
 
+    Please note that selection of data should be done prior to 
+    reading data from the MS. If a column is read with a given
+    selection setup, including the default empty one, it won't be 
+    compatible on a row by row basis with other column read with a 
+    different selection setup. These functions change the
+    internal mstool setup:
+    (<link anchor="ms:ms.select.function">select</link>),
+    (<link anchor="ms:ms.selectinit.function">selectinit</link>),
+    (<link anchor="ms:ms.selectchannel.function">selectchannel</link>),
+    (<link anchor="ms:ms.selectfrequency.function">selectfrequency</link>),
+    (<link anchor="ms:ms.selecttaql.function">selecttaql</link>),
+    (<link anchor="ms:ms.selectpolarization.function">selectpolarization</link>),
+    (<link anchor="ms:ms.msselect.function">msselect</link>),
+    (<link anchor="ms:ms.iterinit.function">iterinit</link>).
+
   \medskip\noindent\textbf{Reading and writing data}
 
     The getdata function is used to read data from the measurement set
@@ -182,8 +197,9 @@ file:///opt/casa/code/tools/xml/casa.xsd">
     You can iterate through a measurement set you have previously
     selected using <link anchor="ms:ms.select.function">select</link>, but if you
     use <link anchor="ms:ms.select.function">select</link> while iterating, you
-    cannot get back the unselected iteration (without reiterating
-    through the table until the current point).
+    cannot get back the unselected iteration. It is not guaranteed
+    that the iteration sequence will be the same or in a similar
+    order when different iterations schemes are used.
 
     The writehistory function allows messages to be appended to the
     measurement set history table should you wish to do so.  The

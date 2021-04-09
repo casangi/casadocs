@@ -321,7 +321,7 @@ more information.
                         calwt=[True,False,True] (specified per
                         gaintable)
 </description>
-                <value>True</value>
+                <value><value>True</value></value>
         </param>
 
         <param type="bool" name="parang">
@@ -396,7 +396,7 @@ more information.
                         <default param="gainfield"><value type="stringArray"/></default>
                         <default param="interp"><value type="stringArray"/></default>
                         <default param="spwmap"><value type="intArray"/></default>
-                        <default param="calwt"><value type="boolArray">True</value></default>
+                        <default param="calwt"><value type="boolArray"><value>True</value></value></default>
                 </equals>
                 <equals type="bool" value="True">
                         <default param="callib"><value type="string"/></default>
