@@ -61,12 +61,19 @@ Description
    
    *combine*
    
-   Continuum solutions will break at scan, field, and spw boundaries
-   according to *solint. To allow solutions across these
-   boundaries, *combine* can be set to '*spw*', '*scan*', or 'spw,
-   scan'.  combine must include *'spw'*  if spw contains spws that
-   are not in *fitspw*!  default: '' which is that solutions will
-   break at scan, field, and spw
+   Continuum solutions will by default break at scan, field, and spw
+   boundaries.  To allow solutions across spw boundaries, *combine*
+   can be set to '*spw*'. '*combine*' must include *'spw'* if spw
+   contains spws that are not in *fitspw*!  default: '' which is that
+   solutions will break at scan, field, and spw
+
+   .. warning:: **WARNING:** uvcontsub3 (deliberately) does not
+                support combination by anything except '*spw*'. Other
+                combination options supported in uvcontsub, '*scan*',
+                or '*spw*', are not supported in this experimental
+                uvcontsub3 version. Also, combination by spw is only
+                expected to work correctly for spws with the same
+                number of channels.
    
    *fitorder*
    
