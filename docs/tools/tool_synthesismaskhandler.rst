@@ -3,7 +3,7 @@
 .. _Description:
 
 Description
-   tool synthesismaskhandler description
+   synthesismaskhandler tool
 
 .. _Examples:
 
@@ -13,4 +13,4 @@ Examples
 .. _Development:
 
 Development
-   None
+   No additional development details
