@@ -251,7 +251,7 @@ Description
    
    .. rubric:: Functional Parameter Blocks
    
-   The **tclean** parameters are arrangedin the functional blocks
+   The **tclean** parameters are arranged in the functional blocks
    described below. More details on the individual parameters and
    sub-parameters can be found under the Parameters tab at the top of
    this page.
@@ -499,7 +499,7 @@ Description
    Several convenience features are also available, such as operating
    on the MS in read-only mode (which does not require write
    permissions), the ability to restart and continue imaging runs
-   without incuring the unnecessary cost of an inital major cycle or
+   without incuring the unnecessary cost of an initial major cycle or
    PSF construction and the optional return of a python dictionary
    that contains the convergence history of the run.
    
