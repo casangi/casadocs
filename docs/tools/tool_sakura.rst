@@ -3,10 +3,6 @@
 .. _Description:
 
 Description
-   tool sakura description
-   
-   --CASA Developer--
-   
    The **sakura** tool is intended to be an interface to functions
    that sakura library provide. Since, however, sakura functions are
    responsible for low level data processing such as interpolation,
@@ -32,8 +28,6 @@ Description
 .. _Examples:
 
 Examples
-   --CASA Developer--
-   
    No example is provided since current version of **sakura** tool is
    not available to users in general.
    
@@ -41,5 +35,4 @@ Examples
 .. _Development:
 
 Development
-   --CASA Developer--
-   
+   No additional development details

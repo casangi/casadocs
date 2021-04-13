@@ -3,11 +3,6 @@
 .. _Description:
 
 Description
-   applycal task: Apply calibrations solution(s) to data
-   
-   .. rubric:: Summary
-      
-   
    | A Coordsys tool is used to store and manipulate a Coordinate
      System (we will use the term \`Coordinate System'
      interchangeably with \`Coordsys tool'). A Coordinate System is a
@@ -45,7 +40,6 @@ Description
      become available.
    
    .. rubric:: Coordinate formatting
-      
    
    | Many of the Coordsys tool functions use a world coordinate value
      as an argument. This world value can be formatted in many ways.
@@ -56,7 +50,6 @@ Description
    | Possibilities for format are :
    
    .. rubric:: Items:
-      
    
    | **'n' -** means the world coordinate is given as a numeric
      vector (actually doubles). The units are implicitly those
@@ -103,7 +96,6 @@ Description
      need this.
    
    .. rubric:: **Stokes Coordinates**
-      
    
    | Stokes axes don't fit very well into our Coordinate model since
      they are not interpolatable. The alternative to having a Stokes
@@ -143,7 +135,6 @@ Description
      vectors might have more values than the referencepixel vector).
    
    .. rubric:: Overview of Coordsys tool functions
-      
    
    | **Items:**
    | **Get/set -** Functions to get and set various items within the
@@ -243,10 +234,9 @@ Description
 .. _Examples:
 
 Examples
-   
+   None
 
 .. _Development:
 
 Development
-   --CASA Developer--
-   
+   No additional development details

@@ -3,7 +3,7 @@
 .. _Description:
 
 Description
-   linearmosaic tool
+   imagepol tool
 
 
 .. _Examples:

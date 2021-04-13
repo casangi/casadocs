@@ -124,16 +124,13 @@ Description
 .. _Examples:
 
 Examples
-   tool agentflagger examples
-   
-   af.parsesummaryparameters(spwchan=True, basecnt=True)
+   ::
+
+      af.parsesummaryparameters(spwchan=True, basecnt=True)
    
 
 .. _Development:
 
 Development
-   tool agentflagger developer
-   
-   --CASA Developer--
-   
-   
+   No additional development details
+

@@ -3,10 +3,6 @@
 .. _Description:
 
 Description
-   tool simulator description
-   
-   --CASA Developer--
-   
    **simulator** provides a unified interface for simulation of
    telescope processing. It can create a MeasurementSet from scratch
    or read in an existing MeasurementSet, it can predict synthesis
@@ -17,8 +13,8 @@ Description
    
    ::
    
-      | #Import simulator:
-      | import simulator as sm
+      # Import simulator:
+      import simulator as sm
    
    #. In **sm.observe**, **simulator** creates a MeasurementSet and
       calculates uvw values. You first make a **simulator** tool,
@@ -73,10 +69,10 @@ Description
 .. _Examples:
 
 Examples
-   
+   None
 
 .. _Development:
 
 Development
-   --CASA Developer--
+   No additional development details
    

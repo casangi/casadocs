@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   tool table description
-   
    table is the tool that contains all the functions relevant for
    table handling
    
@@ -12,10 +10,10 @@ Description
 .. _Examples:
 
 Examples
-   
+   None
 
 .. _Development:
 
 Development
-   --CASA Developer--
-   
+   No additional development details
+

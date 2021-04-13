@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   tool atmosphere description
-   
    Tool **atmosphere** returns atmospheric transmission of a given
    atmospheric profile and frequencies. The transmission is
    calculated based on `the Atmospheric Transmission at Microwaves

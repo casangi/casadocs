@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   tool functional description
-   
    A functional is a function with parameters, defined as
    :math:`f(p;x)`, where :math:`p` are the parameters, and :math:`x`
    the arguments. Methods are available to calculate the value of a
@@ -77,10 +75,9 @@ Description
 .. _Examples:
 
 Examples
-   
+   None
 
 .. _Development:
 
 Development
-   --CASA Developer--
-   
+   No additional development details

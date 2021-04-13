@@ -3,14 +3,10 @@
 .. _Description:
 
 Description
-   tool componentlist description
-   
    A componentlist is a tool that contains functions that
    manipulate components. A component is a functional
    representation of the sky brightness - point source, disk,
    Gaussian, etc.
-   
-    
    
    Note for those new to CASA: components are not used explicitly
    in cleaning, rather the model is stored as an image. 
@@ -34,11 +30,7 @@ Description
    
    cl.done() # flush buffers and ensure the table is written.
    
-    
-   
    One can open a list on disk with cl.open(filename).
-   
-    
    
    Componentlists can be converted to/from records (python
    dictionaries) with cl.torecord() and cl.fromrecord(record).
@@ -47,15 +39,16 @@ Description
 .. _Examples:
 
 Examples
-   tool componentlist example
-   
-   include 'componentlist.g' newcl := componentlist('core',
-   readonly=F); othercl := componentlist('centarusA.cl', readonly=T);
-   newcl.replace(1:2, othercl, [10,13]);
+   ::
+
+      include 'componentlist.g'
+
+      newcl := componentlist('core', readonly=F);
+      othercl := componentlist('centarusA.cl', readonly=T);
+      newcl.replace(1:2, othercl, [10,13]);
    
 
 .. _Development:
 
 Development
-   --CASA Developer--
-   
+   No additional development details

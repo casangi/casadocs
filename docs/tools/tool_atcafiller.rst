@@ -3,18 +3,16 @@
 .. _Description:
 
 Description
-   tool atcafiller description
-   
    filler for ATNF/ATCA RPFITS data
    
 
 .. _Examples:
 
 Examples
-   
+   None
 
 .. _Development:
 
 Development
-   --CASA Developer--
+   No additional development details
    

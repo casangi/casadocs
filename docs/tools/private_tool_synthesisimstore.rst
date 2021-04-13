@@ -3,8 +3,7 @@
 .. _Description:
 
 Description
-   linearmosaic tool
-
+   synthesisimstore tool
 
 .. _Examples:
 

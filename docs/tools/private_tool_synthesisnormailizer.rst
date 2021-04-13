@@ -3,8 +3,7 @@
 .. _Description:
 
 Description
-   linearmosaic tool
-
+   synthesisnormalizer tool
 
 .. _Examples:
 

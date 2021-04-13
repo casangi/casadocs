@@ -3,128 +3,143 @@
 .. _Description:
 
 Description
-   applycal task: Apply calibrations solution(s) to data
-   
-   .. rubric:: Overall Description
-      
-   
-   | The calibration analysis (ca) tool is a standardized interface
-     to the new format (CASA 3.4 and later) calibration tables. It is
-     designed to handle all types of tables, e.g., gain, bandpass,
-     Tsys, etc. The ca tool takes advantages of newly implemented
-     features in the CASA C++ code tree, e.g., iteration and
-     parameter selection, which means that calibration tables can be
-     accessed in a manner very similar to measurement sets.
-   | The ca tool was originally designed to facilitate getting and/or
-     processing data from an entire calibration table in an organized
-     fashion so that the information could be written to other files.
-     Additional features, e.g. introspective member functions, were
-     added so that scripters and general users can easily employ the
-     ca tool without using iteration (get one piece of data at a
-     time).
-   | Like the imaging tool (im), image analysis tool (ia),
-     calibration tool (cb), etc., a native calibration analysis tool
-     (ca) is created when CASA starts up. Other instances of the
-     calibration analysis tool can be created, if required, using the
-     command:
-   | \\begin{center from casac import casac caLoc =
-     casac.calanalysis() \\end{center
+   The calibration analysis (ca) tool is a standardized interface
+   to the new format (CASA 3.4 and later) calibration tables. It is
+   designed to handle all types of tables, e.g., gain, bandpass,
+   Tsys, etc. The ca tool takes advantages of newly implemented
+   features in the CASA C++ code tree, e.g., iteration and
+   parameter selection, which means that calibration tables can be
+   accessed in a manner very similar to measurement sets.
+
+   The ca tool was originally designed to facilitate getting and/or
+   processing data from an entire calibration table in an organized
+   fashion so that the information could be written to other files.
+   Additional features, e.g. introspective member functions, were
+   added so that scripters and general users can easily employ the
+   ca tool without using iteration (get one piece of data at a
+   time).
+
+   Like the imaging tool (im), image analysis tool (ia),
+   calibration tool (cb), etc., a native calibration analysis tool
+   (ca) is created when CASA starts up. Other instances of the
+   calibration analysis tool can be created, if required, using the
+   command:
+
+   ::
+
+      from casac import casac caLoc = casac.calanalysis()
    
    .. rubric:: Open/Close Member Functions
-      
    
-   | The purpose of the open() and close() member functions is
-     obvious, i.e., they open and close the new format calibration
-     table. Each ca tool instance can have only one open table. If no
-     table has been opened, the other member functions don't return
-     anything.
-   | The member function definitions are:
-   | ca.open( '' ) - This member function opens the calibration
-     table. If successful True is returned, otherwise False is
-     returned.
-   | ca.close() - This member function closes the calibration table.
-     If a table was open True is returned, otherwise False is
-     returned.
+   The purpose of the open() and close() member functions is
+   obvious, i.e., they open and close the new format calibration
+   table. Each ca tool instance can have only one open table. If no
+   table has been opened, the other member functions don't return
+   anything.
+
+   The member function definitions are:
+   ca.open( '' ) - This member function opens the calibration
+   table. If successful True is returned, otherwise False is
+   returned.
+
+   ca.close() - This member function closes the calibration table.
+   If a table was open True is returned, otherwise False is
+   returned.
    
    .. rubric:: Introspective Member Functions
-      
-   
-   | The introspective member functions provide information about the
-     shape and contents of the file. For example, the numchannel()
-     member function returns the number of channels corresponding to
-     each spectral window. Also, the field() member function returns
-     the field names or numbers. With this information, users can
-     easily select and keep track of limited regions of the
-     calibration table, even from the command line, by minimizing the
-     number of iterations.
-   | The member function definitions are:
-   | ca.antenna( name=True ) - This member function returns the
-     antenna numbers or names as a python list of strings.
-   | ca.calname() - This member function returns the new format
-     calibration table name as a python string.
-   | ca.feed() - This member function returns the feed names as a
-     python list of strings ('X', 'Y' for linear; 'R', 'L' for
-     circular; 'S' for "scalar", when the calibration solutions are
-     performed simultaneously for both polarizations). If the basis
-     is unknown, then the basis functions are '1' and '2'. This
-     kludge was added to handle incomplete calibration tables.
-   | ca.field( name=True ) - This member function returns the field
-     numbers or names as a python list of strings.
-   | ca.freq() - This member function returns the frequencies in the
-     table as a python dictionary (the keys are the spectral window
-     numbers and the elements are numpy float arrays containing the
-     frequencies).
-   | ca.msname() - This member function returns the parent
-     measurement set name as a python string.
-   | ca.numantenna() - This member function returns the number of
-     antennas as a python integer.
-   | ca.numchannel() - This member function returns the number of
-     channels for each spectral window as a list of python integers.
-   | ca.numfeed() - This member function returns the number of feeds
-     as a python integer.
-   | ca.numfield() - This member function returns the number of
-     fields as a python integer.
-   | ca.numspw() - This member function returns the number of
-     spectral windows as a python integer.
-   | ca.numtime() - This member function returns the number of times
-     as a python integer.
-   | ca.partype() - This member function returns the parameter column
-     type ('Float' or 'Complex').
-   | ca.polbasis() - This member function returns the polarization
-     basis ('L' for linear or 'C' for circular). If the basis is
-     unknown, 'U' is returned. This kludge was added to handle
-     incomplete calibration tables.
-   | ca.spw( name=True ) - This member function returns the spectral
-     window numbers or names as a python list of strings.
-   | ca.time() - This member function returns the times as a python
-     list of floats (in units of MJD seconds). In the future, date
-     strings will be available.
-   | ca.viscal() - This member function returns the type of new
-     formation calibration table as a python string. For example 'B'
-     is a bandpass table, 'G' is a gain table, etc.
+
+   The introspective member functions provide information about the
+   shape and contents of the file. For example, the numchannel()
+   member function returns the number of channels corresponding to
+   each spectral window. Also, the field() member function returns
+   the field names or numbers. With this information, users can
+   easily select and keep track of limited regions of the
+   calibration table, even from the command line, by minimizing the
+   number of iterations.
+
+   The member function definitions are:
+   ca.antenna( name=True ) - This member function returns the
+   antenna numbers or names as a python list of strings.
+   ca.calname() - This member function returns the new format
+   calibration table name as a python string.
+   ca.feed() - This member function returns the feed names as a
+   python list of strings ('X', 'Y' for linear; 'R', 'L' for
+   circular; 'S' for "scalar", when the calibration solutions are
+   performed simultaneously for both polarizations). If the basis
+   is unknown, then the basis functions are '1' and '2'. This
+   kludge was added to handle incomplete calibration tables.
+
+   ca.field( name=True ) - This member function returns the field
+   numbers or names as a python list of strings.
+
+   ca.freq() - This member function returns the frequencies in the
+   table as a python dictionary (the keys are the spectral window
+   numbers and the elements are numpy float arrays containing the
+   frequencies).
+
+   ca.msname() - This member function returns the parent
+   measurement set name as a python string.
+
+   ca.numantenna() - This member function returns the number of
+   antennas as a python integer.
+
+   ca.numchannel() - This member function returns the number of
+   channels for each spectral window as a list of python integers.
+
+   ca.numfeed() - This member function returns the number of feeds
+   as a python integer.
+
+   ca.numfield() - This member function returns the number of
+   fields as a python integer.
+
+   ca.numspw() - This member function returns the number of
+   spectral windows as a python integer.
+
+   ca.numtime() - This member function returns the number of times
+   as a python integer.
+
+   ca.partype() - This member function returns the parameter column
+   type ('Float' or 'Complex').
+
+   ca.polbasis() - This member function returns the polarization
+   basis ('L' for linear or 'C' for circular). If the basis is
+   unknown, 'U' is returned. This kludge was added to handle
+   incomplete calibration tables.
+
+   ca.spw( name=True ) - This member function returns the spectral
+   window numbers or names as a python list of strings.
+
+   ca.time() - This member function returns the times as a python
+   list of floats (in units of MJD seconds). In the future, date
+   strings will be available.
+
+   ca.viscal() - This member function returns the type of new
+   formation calibration table as a python string. For example 'B'
+   is a bandpass table, 'G' is a gain table, etc.
    
    .. rubric:: Process Member Functions
-      
    
-   | The process member functions process data. As of CASA 3.4, there
-     are two: get() and fit(). The get() member function iterates
-     through the calibration table and returns the selected data. The
-     fit() member function does the same as the get() member function
-     and returns the fits as well. Tables with complex parameters are
-     converted to either amplitudes or phases.
-   | The get() and fit() member functions employ two levels of
-     iteration. The first level involves field, antenna 1, and
-     antenna2 (slowest to fastest). The data for each first-level
-     iteration are placed in a cube whose dimensions are feed x
-     frequency x time. Two of these dimensions represent the second
-     level of iteration. The feed axis is always an iteration axis,
-     and the user can select either frequency or time as the other
-     one.
-   | In addition to providing a logical way of getting data, this
-     two-level iteration scheme also allows users to fit along the
-     non-iteration axis. For example, a fit can be peformed along the
-     frequency axis for each iteration of the selected field, antenna
-     1, antenna 2, feed, and time.
+   The process member functions process data. As of CASA 3.4, there
+   are two: get() and fit(). The get() member function iterates
+   through the calibration table and returns the selected data. The
+   fit() member function does the same as the get() member function
+   and returns the fits as well. Tables with complex parameters are
+   converted to either amplitudes or phases.
+
+   The get() and fit() member functions employ two levels of
+   iteration. The first level involves field, antenna 1, and
+   antenna2 (slowest to fastest). The data for each first-level
+   iteration are placed in a cube whose dimensions are feed x
+   frequency x time. Two of these dimensions represent the second
+   level of iteration. The feed axis is always an iteration axis,
+   and the user can select either frequency or time as the other
+   one.
+
+   In addition to providing a logical way of getting data, this
+   two-level iteration scheme also allows users to fit along the
+   non-iteration axis. For example, a fit can be peformed along the
+   frequency axis for each iteration of the selected field, antenna
+   1, antenna 2, feed, and time.
    
    .. rubric:: Inputs
       
@@ -304,10 +319,9 @@ Description
 .. _Examples:
 
 Examples
-   
+   None
 
 .. _Development:
 
 Development
-   --CASA Developer--
-   
+   No additional development details

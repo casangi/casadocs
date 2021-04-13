@@ -3,18 +3,14 @@
 .. _Description:
 
 Description
-   applycal task: Apply calibrations solution(s) to data
-   
-   **test**
-   
+   ms tool
 
 .. _Examples:
 
 Examples
-   
+   None
 
 .. _Development:
 
 Development
-   --CASA Developer--
-   
+   No additional development details

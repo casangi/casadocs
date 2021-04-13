@@ -3,8 +3,6 @@
 .. _Description:
 
 Description
-   tool singledisms
-   
    The **sdms** tool offers an interface to process MS-formatted
    single-dish (hereafter SD) data. The provided capabilities include
    importing data to CASA in MS format from other formats (NRO's
@@ -62,8 +60,6 @@ Description
 .. _Examples:
 
 Examples
-   examples how to use sdms tool functions.
-   
    If you already have your SD data in MS format, you can operate on
    that data as follows. Here is an example to fit 3rd order
    polynomials to spectra stored in the FLOAT_DATA column with
@@ -103,5 +99,5 @@ Examples
 .. _Development:
 
 Development
-   --CASA Developer--
-   
+   No additional development details
+
