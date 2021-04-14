@@ -17,6 +17,7 @@ The following parameters can be set in the configuration file. Finer control ove
 as described `here <../../notebooks/usingcasa.ipynb#telemetry>`__.
 
 - *datapath*              : list of paths where CASA should search for runtime data
+- *rundata*               : location to update runtime data
 - *logfile*               : log file path/name
 - *telemetry_enabled*     : allow anonymous usage reporting, default True
 - *crashreporter_enabled* : allow anonymous crash reporting, default True
@@ -30,7 +31,8 @@ might look something like this:
 
    import time
 
-   datapath=["/home/casa/data/casa-data", "/home/casa/data/casa-data-req"]
+   datapath=["/home/casa/data/casa-data", "~/.casa/mydata"]
+   rundata="~/.casa/mydata"
    logfile='casalog-%s.log' % time.strftime("%Y%m%d-%H",time.localtime())
    telemetry_enabled = True
    crashreporter_enabled = True
