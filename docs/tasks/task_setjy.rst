@@ -184,11 +184,11 @@ Description
    
    For selected asteroids, time variable models are available based
    on thermophysical modeling by T. Mueller (private communication)
-   for January 1st, 2015 and beyond. Currently, the new models are
+   for January 1st, 2014 and beyond. Currently, the new models are
    available for Ceres, Pallas, and Vesta. A model is also available
    for Lutetia but using this source for ALMA absolute flux
    calibration is not advised. These new models are automatically
-   chosen for the data taken after 2015 January 1, 0 hr UT. These
+   chosen for the data taken after 2014 January 1, 0 hr UT. These
    models are also listed when the **setjy** task is executed with
    *standard=‘Butler-JPL-Horizons 2012’* and *listmodels=True*. These
    model data files contain flux densities tabulated in time and
@@ -514,7 +514,7 @@ Examples
       Venus_Tb.dat
       Time variable models of asteroids available for
       Butler-JPL-Horizons 2012 [only applicable for the observation
-      date 2015.01.01 0UT and beyond] (*fd_time.dat) in
+      date 2014.01.01 0UT and beyond] (*fd_time.dat) in
       /users/ttsutsum/casabuilds/data/alma/SolarSystemModels:
       Ceres_fd_time.dat   Lutetia_fd_time.dat Pallas_fd_time.dat
       Vesta_fd_time.dat
