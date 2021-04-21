@@ -11,4 +11,5 @@ This section is verified prior to each release
    api/casatools
    api/casashell
    api/casadata
+   api/casalith
    api/configuration
