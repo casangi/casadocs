@@ -27,16 +27,17 @@ The following third party libraries are included in the python distribution of m
    almatasks==1.1.17
    attrs==19.3.0
    backcall==0.1.0
-   casadata==2021.4.12
+   casadata==2021.4.19
    casampi==0.4.2
    casaplotms==1.1.16
    casaplotserver==1.0.5
-   casashell @ file:///wheeldirectory/casashell-6.2.0.114-py3-none-any.whl
-   casatasks @ file:///wheeldirectory/casatasks-6.2.0.114-py3-none-any.whl
+   casashell @ file:///wheeldirectory/casashell-6.2.0.115-py3-none-any.whl
+   casatasks @ file:///wheeldirectory/casatasks-6.2.0.115-py3-none-any.whl
    casatelemetry==1.2.3
-   casatestutils @ file:///wheeldirectory/casatestutils-6.2.0.114-py3-none-any.whl
-   casatools @ file:///wheeldirectory/casatools-6.2.0.114-cp36-cp36m-manylinux2010_x86_64.whl
-   casaviewer==1.1.7
+   casatestutils @ file:///wheeldirectory/casatestutils-6.2.0.115-py3-none-any.whl
+   casatools @ file:///wheeldirectory/casatools-6.2.0.115-cp36-cp36m-manylinux2010_x86_64.whl
+   casaviewer==1.1.8
+   certifi==2020.12.5
    cycler==0.10.0
    decorator==4.4.2
    grpcio==1.29.0
@@ -69,6 +70,7 @@ The following third party libraries are included in the python distribution of m
    traitlets==4.3.3
    wcwidth==0.2.2
    zipp==3.1.0
+
 
 
 The definition is provided here in pip compatible format such that one could save the preceding list to a list.txt file and
