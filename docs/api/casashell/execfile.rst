@@ -14,12 +14,7 @@ execfile
 
    Description
       Python 3 removed the ``execfile`` builtin function. CASA provides a convenience function that
-      attempts to reproduce the behavior of the Python 2.7 builtin ``execfile`` function. While casashell 
-      tasks (tasks run in the CASA shell environment) could be treated as scriptable in the 
-      Python 2.7/CASA 5 version of execfile, in Python 3/CASA 6 this behavior is not supported. 
-      Python replacements for execfile exist [i.e., "%run -i" or "exec(open(read..."] 
-      which provide some scripting capabilities for casashell commands, though these Python alternatives 
-      are not tested in any internal CASA regression tests.
+      attempts to reproduce the behavior of the Python 2.7 builtin ``execfile`` function.
 
       ``execfile`` evaluates contents of ``filename`` in the environment specified by ``globals``.
 
