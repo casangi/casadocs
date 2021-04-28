@@ -54,10 +54,24 @@ When a new task is added to CASA, the new xml file will be picked up by the Acti
 above. A new ```rst``` file must also be added to ```docs/tasks``` using the same format as
 the others (with sections for Description/Examples/Developer).
 
+## Building Documentation Locally
+This documentation repository can be edited and built locally by users with access to Python3. First clone the repo, then navigate to the root of the cloned directory in a terminal and use the following commands:
+
+```
+$: python3 -m venv docvenv
+$: source docvenv/bin/activate
+(docvenv) $: pip install --upgrade pip wheel
+(docvenv) $: pip install -r requirements.txt
+(docvenv) $: cd docs
+(docvenv) $: sphinx-build -a -E -b html . ./build
+```
 
 ## Re-generating Plone content from Scratch
 This should not be necessary and is here only for reference on how
-to regenerate the original content from Plone.
+to regenerate the original content from Plone.  
+
+Scrapy and Docker must installed ahead of time, then install the 
+python prerequisites from the local build instructions.
 
 1. Scrape the latest Plone CASAdocs (creates html folder):
    ```
