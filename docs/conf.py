@@ -109,7 +109,7 @@ html_logo = 'casa_logo-small.png'
 #
 html_theme_options = {
     'collapse_navigation': True,
-    'navigation_depth': 3,
+    'navigation_depth': 5,
     'style_nav_header_background': 'white',
     'logo_only': True
 }
