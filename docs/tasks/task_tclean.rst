@@ -391,8 +391,8 @@ Description
    are several reasons to adjust the weighting, including improving
    sensitivity to extended sources or accounting for noise variation
    between samples. The user can adjust the weighting by changing the
-   *weighting* parameter with six options: 'natural', 'uniform',
-   'briggs',  'superuniform', 'briggsabs', and 'radial'. Optionally,
+   *weighting* parameter with seven options: 'natural', 'uniform',
+   'briggs',  'superuniform', 'briggsabs', 'briggsbwtaper', and 'radial'. Optionally,
    a UV taper can be applied, and various parameters can be set to
    further adjust the weight calculations.
    
