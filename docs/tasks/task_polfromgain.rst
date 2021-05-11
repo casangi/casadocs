@@ -40,7 +40,12 @@ is not correctly stored in the MS.  This option should be used with great care s
 .. _Examples:
 
 Examples
-   None
+   To derive Q,U estimates from gaintable 'gaintable.gcal' (gaintype='G' in task gaincal), based on a point-source calibrator from the MS 'inputvis.ms' that has significant time/parallactic angle-dependence but no linear polarization model supplied during calibration, and to create a new gain caltable 'optional_newtable.gcal' that contains gains corrected for the polarization signature:
+   
+   ::
+   
+      polfromgain(vis='inputvis.ms', tablein='gaintable.gcal', caltable='optional_newtable.gcal')
+
    
    
 .. _Development:
