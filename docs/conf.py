@@ -171,8 +171,8 @@ if not os.path.exists('../casatasks'):
 if not os.path.exists('../casatools'):
     os.system("python ../scripts/parse_tool_xml.py")
 
-if not os.path.exists('examples'):
-    os.system("git clone https://github.com/casangi/examples.git")
+#if not os.path.exists('examples'):
+#    os.system("git clone https://github.com/casangi/examples.git")
 
 # tweak the default readthedocs theme
 def setup(app):
