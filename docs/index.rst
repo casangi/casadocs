@@ -36,3 +36,4 @@ Astronomy (ASTRON), under the guidance of NRAO.
    notebooks/simulation
    notebooks/parallel-processing
    notebooks/memo-series
+   examples/index
