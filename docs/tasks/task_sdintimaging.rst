@@ -11,7 +11,7 @@ Description
       Joint reconstruction of wideband single dish and interferometer data in
       CASA is experimental. Please use at own discretion.
    
-      The scope of parameters that has been tested for CASA 5.7/6.1 can
+      A description of tested usage modes can
       be found on the CASA Docs chapter page on  `Joint Single Dish
       and Interferometer Image Reconstruction <../../notebooks/image_combination.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`_
 
@@ -231,9 +231,8 @@ Description
       rescaling to apply a common primary beam to all channels, and
       subsequently collapsing into taylor images for deconvolution.
       This option is experimental and has passed only the most basic
-      tests. Further characterization and comparison to the
-      equivalent imaging modes in tclean will be done after the CASA
-      6.1 release.  Therefore, please use only with caution.
+      tests and comparisons with equivalent modes in tclean.
+      Therefore, please use only with caution.
 
    
    .. rubric:: Tuning the sdgain parameter
@@ -310,7 +309,7 @@ Description
       deconvolver is relevant only when used with *usedata=’sdonly’*
       to deconvolve unresolved sources.
    
-   -  **Gridders** :  Any gridder supported by task tclean may be
+   -  **Gridders** :  All gridders supported by task tclean may be
       used with **sdintimaging**. Two options that represent
       different normalization schemes are *'standard'* and *'mosaic'*
       (or *'awproject'*). Similar to tclean, the  *‘standard’*
@@ -321,9 +320,10 @@ Description
       full-beam or joint mosaic images.  For these two A-Projection
       gridders, the normtype is always *'flatnoise'* and conjbeams is
       implemented via an image-domain scheme not offered by task
-      tclean.  Note also that although the *‘awproject’* gridder may
-      be used interchangeably with *‘mosaic’*, this mode will not be
-      tested for the initial release of this task (CASA 5.7/6.1).
+      tclean.  **Note** also that the *‘awproject’* gridder is currently 
+      unavailable with the sdintimaging task. This usage mode will be
+      commissioned in a future release when it is enabled for cube 
+      imaging in tclean as well. 
 
    
    .. rubric:: Iteration Control and Automasking
@@ -425,8 +425,8 @@ Examples
                    specmode="cube", reffreq="", nchan=70,
                    start="114732899312.0Hz", width="-1922516.74324Hz",
                    outframe="LSRK", veltype="radio", restfreq="115.271201800GHz",
-                   interpolation="linear", chanchunks=1,
-                   perchanweightdensity=True, gridder="mosaic", mosweight=True,
+                   interpolation="linear", perchanweightdensity=True, 
+                   gridder="mosaic", mosweight=True,
                    pblimit=0.2, deconvolver="multiscale", scales=[0, 5, 10, 15, 20],
                    smallscalebias=0.0, pbcor=False, weighting="briggs",
                    robust=0.5, niter=5000, gain=0.1, threshold=0.0, nsigma=3.0,
@@ -479,121 +479,66 @@ Development
    .. rubric:: Future work
    
    The following is a list of features that are either not available
-   yet or untested with the sdintimaging task in CASA 6.1 (or known
+   yet or currently untested with the sdintimaging task (or known
    bugs).
 
-   -  Check if restoration can happen with niter=0. If not, say so in
-      the docs. 
-   -  Line 640 of sdint_helper.py in the log message within the
-      'allowshift' clause of the checkpsf method : The input psf
-      should be "inpsf" and not sdpsf. This path through the code
-      wasn't tested and this error in variable name (which causes a
-      python error) was not caught. 
+   -  Single Plane Imaging : The ability to work with single channel images needs more testing and debugging. Internal code assumes cubes. While ideally, a single plane cube is still a valid cube, some of the internal methods are not prepared for some types of input single plane images. 
    
-   -  The ability to work with single channel images needs more
-      testing and debugging. Internal code assumes cubes. While
-      ideally, a single plane cube is still a valid cube, some of the
-      internal methods are not prepared for some types of input
-      single plane images. 
+      -  For example, it expects per plane restoring beams only. We need to add the ability to pick a 'regular' restoringbeam in the case of nchan=1 as that information resides in a different keyword of the ia.coordsys() dictionary.
+      -  Ensure these checks happen at the beginning (similar to the other image/psf consistency checks)
+
+   -  Check Inputs : Check that all input images are present at the start !  Currently, if the sdimage/psf are invalid, it will do the whole interferometer major cycle and only then complain. 
    
-      -  For example, it expects per plane restoring beams only. We
-         need to add the ability to pick a 'regular' restoringbeam in
-         the case of nchan=1 as that information resides in a
-         different keyword of the ia.coordsys() dictionary.
-      -  Ensure these checks happen at the beginning (similar to the
-         other image/psf consistency checks)
+   -  Use of task_deconvolve for sdonly : Try the sdonly case with deconvolve (use sdint libs to convert from cube to mtmfs) ). Add demo script to task_deconvolve docs for the mtmfs case.  For multi-term, we need a cube-to-taylor convertor that works standalone and the current one from sdintlib does not.   [ Note : This has already been done for cube mode ]
    
-   -  Add the ability to specify only the SD image cube and have the
-      interferometer cube coordinate system be generated to match it.
-      This is to simplify the interface and not require the user to
-      specify interferometer cube settings as well.
+   -  Parallel Runtime :  All three test real-data sets showed no appreciable improvement from parallelization via the cube refactor. The three runs covered situations of 70+hrs,  1.5hrs and ~3hrs. This needs testing against guidelines listed for Image Parallelization resource allocation, and documentation added accordingly. 
    
-      -  Use  sdint_helper:: setup_cube_params() to autogenerate
-         nchan/start/width and then remove some parameters from the
-         sdintimaging task interface.
-   
-   -  Support for parallelization
-   
-      -  Enable parallelization of the major and minor cycle via
-         PySynthesisImaer after the Cube Refactor work of CAS-9386 is
-         complete
-      -  Remove the parameter trap in task_sdintimaging, and enable
-         functional verification tests for the mpicasa case
-   
-   -  Check for validity of the input Single Dish image and PSF cubes
-      (some checks already exist regarding coordinate system
-      consistency).
-   
-      -  If it is not possible to run 'imregrid' provide guidance to
-         users on what to do
-   
-   -  Make PSFs based on input parameters (already partially
-      supported via per-plane restoringbeams)
-   
-      -  Allow the user to specify a dish diameter and ask the task
-         to generate an Airy Disk SD PSF cube that may be used along
-         with the supplied SD image cube. The purpose is to help the
-         user in a situation where a SD PSF isn't already available
-         or easy to generate.
-   
-   -  Connect to tsdimaging internally for ALMA data
-   
-      -  Option 1 : A one-step calculation to generate the starting
-         SD image and PSF inputs directly from a SD MeasurementSet
-         for ALMA.
-      -  Option 2 : Implement a 'degrid' equivalent for SD data and
-         use sdimaging code within the major/minor cycle loops.
-   
-   -  Fully test ‘int-only’ as a  wideband mosaic option.
-   
-      -  Test in comparison with gridder='mosaic' and 'awproject'
-         with conjbeams=True as offered by tclean.  task_sdintimaging
-         implements conjbeams in the image domain. It is expected
-         that in situations of widely varying data weights across
-         frequency, this version of conjbeams=True will be more
-         robust to PSF variation across the face of the mosaic,
-         especially for spectral PSFs.  This requires careful testing
-         and characterization.
-   
+   -  Fully test ‘int-only’ as a  wideband mosaic option : Test in comparison with gridder='mosaic' and 'awproject' with conjbeams=True as offered by tclean.  task_sdintimaging implements conjbeams in the image domain. It is expected that in situations of widely varying data weights across frequency, this version of conjbeams=True will be more robust to PSF variation across the face of the mosaic, especially for spectral PSFs.  This requires careful testing and characterization.
+
    -  Fix issues in the usage of task_feather
    
-      -  The feather task is used within te major/minor cycle
-         iterations.  But, it is incorrect if used as is on a cube
-         with per-plane restoring beams. Hence the current code uses
-         imsubimage in a loop over channel. This is likely a
-         performance bottleneck.  CAS-5883 contains a branch with a
-         potential fix to task_feather.
-      -  Once task_feather works on cubes with per-plane beams,
-         replace the channel loops in task_sdintimaging with single
-         task_feather calls.
-      -  Understand why the feather step results in NaNs if the
-         pblimit is set to a negative value for joint mosaic imaging
-         of the INT data.  Check if this is a generic issue (i.e. in
-         tclean as well) or just here.   For now, document this.
-      -  Feather produces 'imageregrid' warnings for every single
-         run, suggesting that the SD cell size and beam size aren't
-         compatible, even when they are clearly compatible. 
-      -  sdintimaging produces tmp_sdplane, tmp_joint,tmp_intplane
-         temporary images because of the need to send feather only
-         one channel at a time. Eliminate the need for this by
-         calling feather on the cube, after the above fixes.
+      -  The feather task is used within te major/minor cycle iterations.  But, it is incorrect if used as is on a cube with per-plane restoring beams. Hence the current code uses imsubimage in a loop over channel. This is likely a performance bottleneck.  CAS-5883 contains a branch with a potential fix to task_feather. Once task_feather works on cubes with per-plane beams, replace the channel loops in task_sdintimaging with single task_feather calls.
+
+      -  Understand why the feather step results in NaNs if the pblimit is set to a negative value for joint mosaic imaging of the INT data.  Check if this is a generic issue (i.e. in tclean as well) or just here.   For now, document this.
+      
+      -  Feather produces 'imageregrid' warnings for every single run, suggesting that the SD cell size and beam size aren't compatible, even when they are clearly compatible. 
+      
+      -  sdintimaging produces tmp_sdplane, tmp_joint,tmp_intplane temporary images because of the need to send feather only one channel at a time. Eliminate the need for this by calling feather on the cube, after the above fixes.
+ 
+
+   -  Add tools to check the relative flux densities of single-dish and interferometer visibility data to verify the results of joint deconvolution and other combination techniques.
+ 
+   -  Check if restoration can happen with niter=0. If not, say so in the docs. 
+
+   -  Add something to catch the error-inducing situation of a non-centered PSF and scale sizes large enough to render the MatrixCleaner support size = imsize/2.
+
+   -  Add the ability to specify only the SD image cube and have the interferometer cube coordinate system be generated to match it. This is to simplify the interface and not require the user to specify interferometer cube settings as well.
+
+   -  Use  sdint_helper:: setup_cube_params() to autogenerate nchan/start/width and then remove some parameters from the sdintimaging task interface.Check for validity of the input Single Dish image and PSF cubes (some checks already exist regarding coordinate system consistency).
+
+   -  If it is not possible to run 'imregrid' provide guidance to users on what to do.
    
+   -  Make PSFs based on input parameters (already partially supported via per-plane restoringbeams)
+   
+      -  Allow the user to specify a dish diameter and ask the task to generate an Airy Disk SD PSF cube that may be used along with the supplied SD image cube. The purpose is to help the user in a situation where a SD PSF isn't already available or easy to generate
+      
+   -  Connect to tsdimaging internally for ALMA data
+   
+      -  Option 1 : A one-step calculation to generate the starting SD image and PSF inputs directly from a SD MeasurementSet for ALMA.
+      
+      -  Option 2 : Implement a 'degrid' equivalent for SD data and use sdimaging code within the major/minor cycle loops.
+
    -  Manage imageanalysis warning message
    
-      -  Warning from imregrid about being approximate for images
-         that are larger than 1 degree on a side.  This needs a
-         ticket to change the threshold for this message.
-   
+      -  Warning from imregrid about being approximate for images that are larger than 1 degree on a side.  This needs a ticket to change the threshold for this message.
+
    -  Simplify the output image names
    
-      -  Delete some of the intermediate products and ensure the
-         output images follow the standard tclean-like naming scheme
-   
-   -  Re-implementation of lower level C++ code will be done only in
-      CNGI. i.e. For current CASA, we will continue to use
-      PySynthesisImager and Python for cube->mfs conversions.
-   
-   -  Investigate the difference in the results (i.e. \*.alpha image)
-      in mtmfs between OSX and Linux. More through testing are needed
-      to see if there are issues in the mtmfs imager code for
-      specific to OSX.
+      -  Delete some of the intermediate products and ensure the output images follow the standard tclean-like naming scheme
+      
+      -  Re-implementation of lower level C++ code will be done only in CNGI. i.e. For current CASA, we will continue to use PySynthesisImager and Python for cube->mfs conversions.
+      
+   -  Investigate the difference in the results (i.e. *.alpha image) in mtmfs between OSX and Linux. More through testing are needed to see if there are issues in the mtmfs imager code for specific to OSX. 
+
+
+
