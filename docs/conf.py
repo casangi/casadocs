@@ -24,9 +24,9 @@ copyright = u'2020, National Radio Astronomy Observatory'
 author = u'National Radio Astronomy Observatory'
 
 # The short X.Y version
-version = u''
+version = u'6.2.0'
 # The full version, including alpha/beta/rc tags
-release = ''
+release = '6.2'
 
 
 # -- General configuration ---------------------------------------------------
