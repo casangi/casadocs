@@ -44,7 +44,7 @@ Description
    
    Alternatively, for most sources, the ephemeris file can also be
    provided as mime format file, i.e., a saved email as obtained via
-   the following commands:
+   the following commands (The request function is only availble in CASA 5.8):
    
    ::
    
