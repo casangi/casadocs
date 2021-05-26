@@ -9,9 +9,31 @@ Jansky Very Large Array
 (`VLA <https://public.nrao.edu/venue/the-very-large-array/>`__),
 and is often used also for other radio telescopes.
 
-6.2.0 Release - Modified
-   You are viewing an updated copy of the 6.2 Release of CASA
-   
+6.2.0/5.8.0 Release
+
+CASA 6.2.0/5.8.0 can now be (`downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__) for general use. CASA 6.2.0 and 5.8.0 are scientifically equivalent, but CASA 6.2.0 is based on Python 3, while CASA 5.8.0 is the final version of the CASA 5 series that is based on Python 2. CASA 6.2.0 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
+
+New Features
+
+- Inclusion of remaining tasks in CASA 6, including interactive flagdata GUI.
+- Refactor of cube imaging in tclean (reliability, flexibility, peformance)
+- New task sdatmcor for the atmospheric correction of single dish data
+- Support of the new parameter corrdepflags in accor
+- New parameters ‘updateweight’ and ‘sigmavalue’ in sdbaseline
+- New option ‘briggsbwtaper’ and improved 'briggs’ weighting in tclean
+- Improved algorithm for fitting the PSF in tclean
+- Improved plotms on avaraging, channel selection, and Mueller/Jones tables
+- GAIN_CURVE subtable (caltype=’gc’) made available in gencal
+- updates to multiscale imaging to account for channel-dependence of the PSF
+- Updates to simalma to produce the expected output
+- Extended output MS metadata in listobs.
+- Consistency in error handling among tasks
+- Porting of the tec_maps script for ionospheric calibration in CASA 6
+- Updated of the model for Mars.
+- Fixes to a number of bugs.
+
+For more details on these and other new features, see the CASA 6.2.0 (`Release Notes <https://casadocs.readthedocs.io/en/v6.2.0/notebooks/introduction.html>`__).
+
 CASA is developed by an international consortium of scientists
 based at the National Radio Astronomical Observatory (NRAO), the
 European Southern Observatory (ESO), the National Astronomical
