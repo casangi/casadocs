@@ -9,11 +9,11 @@ Jansky Very Large Array
 (`VLA <https://public.nrao.edu/venue/the-very-large-array/>`__),
 and is often used also for other radio telescopes.
 
-6.2.0/5.8.0 Release
+**6.2.0/5.8.0 Release**
 
 CASA 6.2.0/5.8.0 can now be (`downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__) for general use. CASA 6.2.0 and 5.8.0 are scientifically equivalent, but CASA 6.2.0 is based on Python 3, while CASA 5.8.0 is the final version of the CASA 5 series that is based on Python 2. CASA 6.2.0 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
 
-New Features
+**New Features:**
 
 - Inclusion of remaining tasks in CASA 6, including interactive flagdata GUI.
 - Refactor of cube imaging in tclean (reliability, flexibility, peformance)
