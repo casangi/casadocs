@@ -403,14 +403,7 @@ Description
    
    .. note::
 
-      **NOTE1:** Pre-average across channels is meant to be used with
-      the auto-flagging methods (clip, tfcrop, rflag) only. In list
-      mode, if channelavg is enabled and any other method than
-      clip, tfcrop, rflag is used, that is forbidden and flagdata
-      will produce an error message and stop. The same applies to
-      timeavg.
-
-      **NOTE2**: Pre-average across channels is not supported for
+      **NOTE**: Pre-average across channels is not supported for
       calibration tables.
    
    *chanbin*
@@ -435,14 +428,7 @@ Description
    
    .. note::
 
-      **NOTE1:** Pre-average across time is meant to be used with the
-      auto-flagging methods (clip, tfcrop, rflag) only. In list
-      mode, if timeavg is enabled and any other method than clip,
-      tfcrop, rflag is used, that is forbidden and flagdata will
-      produce an error message and stop. The same applies to
-      channelavg.
-
-      **NOTE2**: Pre-average across time is not supported for
+      **NOTE**: Pre-average across time is not supported for
       calibration tables
    
    *timebin*
