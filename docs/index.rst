@@ -15,21 +15,21 @@ CASA 6.2.0/5.8.0 can now be (`downloaded <https://casa.nrao.edu/casa_obtaining.s
 
 **New Features:**
 
-- Inclusion of remaining tasks in CASA 6, including interactive flagdata GUI.
-- Refactor of cube imaging in tclean (reliability, flexibility, peformance)
-- New task sdatmcor for the atmospheric correction of single dish data
-- Support of the new parameter corrdepflags in accor
-- New parameters ‘updateweight’ and ‘sigmavalue’ in sdbaseline
-- New option ‘briggsbwtaper’ and improved 'briggs’ weighting in tclean
-- Improved algorithm for fitting the PSF in tclean
-- Improved plotms on avaraging, channel selection, and Mueller/Jones tables
-- GAIN_CURVE subtable (caltype=’gc’) made available in gencal
-- updates to multiscale imaging to account for channel-dependence of the PSF
-- Updates to simalma to produce the expected output
-- Extended output MS metadata in listobs.
+- CASA 6: inclusion of remaining tasks, including interactive flagdata GUI
+- tclean: refactor of cube imaging (reliability, flexibility, peformance)
+- tclean: new option 'briggsbwtaper' and improved 'briggs' weighting
+- tclean: improved algorithm for fitting the PSF 
+- tclean: updates to multiscale imaging to account for channel-dependence of the PSF
+- sdatmcor: new task for atmospheric correction of single dish data
+- sdbaseline: new parameters 'updateweight' and 'sigmavalue'
+- accor: support of the new parameter 'corrdepflags'
+- gencal: GAIN_CURVE subtable (caltype='gc') made available
+- plotms: improvements on avaraging, channel selection, and Mueller/Jones tables
+- simalma: updates to produce the expected output
+- listobs: extended output MS metadata
+- tec_maps: porting of 'tec_maps' script for ionospheric calibration in CASA 6
 - Consistency in error handling among tasks
-- Porting of the tec_maps script for ionospheric calibration in CASA 6
-- Updated of the model for Mars.
+- Updates to the model for Mars.
 - Fixes to a number of bugs.
 
 For more details on these and other new features, see the CASA 6.2.0 (`Release Notes <https://casadocs.readthedocs.io/en/v6.2.0/notebooks/introduction.html>`__).
