@@ -584,6 +584,24 @@ Description
    and the table tool (`see API <../casatools.rst>`_). The history
    entries are written into the 'logtable' subtable of the images.
 
+   .. note:: Because history is written into all the images found with
+             the 'imagename' prefix and a dot-separated extension,
+             there is a corner case where history entries can be
+             written in images that are not related to the tclean
+             command just executed. For example, if a first tclean
+             command used imagename='tst.mfs.hogbom', and a second
+             command uses imagename='tst.mfs'. This can happen if the
+             tclean commands use the same directory, the imagename
+             string is a shorter version of a previously used
+             imagename, and the longer name is used first and is the
+             shorter name (to be used afterwards) followed by a dot
+             '.' and more characters. This naming scheme produces an
+             ambiguity with the rules used to name output images
+             (imagename + '.' + multiple extensions) and is risky, as
+             it can be very difficult for the user to anticipate all
+             the possible conflicts and confusions with image
+             extensions used by tclean and other imaging tasks.
+
    .. rubric:: Processing information
 
    Several parameters related to runtime processing are added to the
