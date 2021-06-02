@@ -222,6 +222,17 @@ Description
       multiple runs of tclean are run consecutively with the same
       imagename, then the cleaning is incremental.
 
+   .. tip:: To organize the output images produced by one or multiple
+             runs of tclean and/or other imaging tasks, a subdirectory
+             can be added to 'imagename'.  All output images will be
+             sent to that directory instead of the current working
+             directory. Example: imagename=’mydir/try’. This is a
+             simple way to group together a set of images (different
+             extensions) corresponding to a same sequence of tclean
+             runs, preventing confusion and conflicts with the
+             potentially long list of other images from related or
+             unrelated tclean runs that used similar 'imagename'.
+
    .. rubric:: Stokes polarization products
 
    It is possible to make polarization images of various Stokes
