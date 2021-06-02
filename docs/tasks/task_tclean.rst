@@ -75,7 +75,7 @@ Description
    Save a sky model in the MeasurementSet for later use in
    calibration (virtual model or by actual prediction into a model
    column).
-   
+
    .. warning:: **WARNING** *:* While tclean is generally safe to kill at
       almost any time (ctrl-c), the possible exceptions are the brief
       instances in which the data-writes back to the MS are in
@@ -183,6 +183,22 @@ Description
    | try.residual.tt1, try.image.tt0,  | spectrum)                         |
    | try.image.tt1, etc...             |                                   |
    +-----------------------------------+-----------------------------------+
+   | try.alpha                         | Spectral index, for multi-term    |
+   |                                   | wideband imagging                 |
+   +-----------------------------------+-----------------------------------+
+   | try.alpha.error                   | Estimate of error on spectral     |
+   |                                   | index                             |
+   +-----------------------------------+-----------------------------------+
+   | try.beta                          | Spectral curvature for multi-term |
+   |                                   | wideband images (if nterms > 2)   |
+   +-----------------------------------+-----------------------------------+
+   | try_1.\*, try_2.\*, try_3\.*,     | Auto-incremented image names when |
+   | etc.                              | restart=False                     |
+   +-----------------------------------+-----------------------------------+
+   | try1_1.\*, try1_2.\*,             | Auto-incremented image names with |
+   | try1_3.\*, etc.                   | multiple fields when              |
+   |                                   | restart=False                     |
+   +-----------------------------------+-----------------------------------+
    | try.workdirectory                 | Scratch images written within a   |
    |                                   | 'work directory' for parallel     |
    | ( try.n1.psf, try.n2.psf,         | imaging runs for cube imaging.    |
@@ -196,7 +212,7 @@ Description
    |                                   |                                   |
    +-----------------------------------+-----------------------------------+
 
-   
+
    .. warning:: WARNING: If an image with that name already exists, it will in
       general be overwritten. Beware using names of existing images
       however. If the tclean is run using an imagename where
@@ -205,9 +221,9 @@ Description
       restarting from the end of the previous tclean). Thus, if
       multiple runs of tclean are run consecutively with the same
       imagename, then the cleaning is incremental.
-   
+
    .. rubric:: Stokes polarization products
-   
+
    It is possible to make polarization images of various Stokes
    parameters, based on the R/L circular (e.g., VLA) or the X/Y
    linear (e.g., ALMA) polarization products. When specifying
