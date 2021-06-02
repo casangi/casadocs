@@ -74,7 +74,7 @@ Examples
    
    ::
    
-      immoments(axis='spec', imagename='myimage', moment=[1],
+      immoments(axis='spec', imagename='myimage', moments=[1],
                 outfile='velocityfields')
    
    Example for finding the spectral mean, -1 moment, on a specified
@@ -86,7 +86,7 @@ Examples
       taskname='immoments'
       default()
       imagename = 'myimage'
-      moment = [-1]
+      moments = [-1]
       axis = 'spec'
       stokes = 'I'
       box = '55,12,97,32'
@@ -109,7 +109,7 @@ Examples
                 [10arcsec,15arcsec], 30deg]", outfile='mom_withmask.im')
    
    Example using a mask created with a second file to select the data
-   used to calculate the 0-moments, integrated values. In this case,
+   used to calculate the 0-moment, integrated values. In this case,
    the mask is from the calibrated.im file and all values that have a
    value greater than 0.5 will be positive in the mask:
    
