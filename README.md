@@ -178,6 +178,37 @@ https://github.com/casangi/casadocs/tree/master/docs/tasks
 
 - Then edit the .rst file to fill in the appropriate description and other relevant info (see *Editing API Content*).
 
+## Branch and pull request
+
+#### Branching CASA Docs
+
+Updates made to master ('latest') are immediately public. This can be useful for minor or urgent updates to the documentation that do not require a review. Making a documentation *branch* is useful for larger documentation updates, updates that require a reviewe, or updates that should be merged at a later stage (e.g., simulateneously with the code).
+
+To make a branch, go to: https://github.com/casangi/casadocs/tree/master/docs
+
+Under the default *“master”* label on the top-left, go to *“find or create a branch”*, add a name (e.g., “test_branch”) and press *“create branch: test_branch” from “master”*.
+
+One can then update the text on the branch. This is easiest to do through Colab:
+https://colab.research.google.com/github/casangi/casadocs/ <br>
+Open the “test_branch” that you have just created, then edit the Notebook.
+
+There are two ways to save the updates:
+- Direct save to “master”, by choosing *“Branch: master”*. This will surpass any reviews and trigger an automatic new build. 
+- Save back to the branch, by choosing *“Branch:  test_branch_instructions”*. This can now go through review and pull request, as explained below.
+
+*Warning:* the default is to save updated straight to “master”, so be careful to save material that needs to pass review back to the branch first!
+
+#### Review and pull request
+
+After saving the updates, one automatically is reverted back to github. When clicking *“pull requests”* on the top bar of the github page, the updated notebook now appears as *“test_branch had recent pushed 1 minute ago”*.
+
+Clicking *“compare and pull request”* allows you to see the changes, leave comments, and *“request”* colleagues to review the updates. Then click *“create pull request”*.
+
+After all reviewers have completed their reviews, press *“merge pull request”* to merge the updates to *“master”*. 
+
+Once approved, the pull request can be merged to master (either by the reviewer or yourself) by pressing *“merge pull request”*. As instructed on github, the pull request can then be safely deleted by clicking *“delete branch”*. 
+
+
 ## Building Documentation Locally
 This documentation repository can be edited and built locally by users with access to Python3. First clone the repo, then navigate to the root of the cloned directory in a terminal and use the following commands:
 
