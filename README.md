@@ -4,10 +4,11 @@ Common Astronomy Software Applications Documentation
 - view latest master build at: https://casadocs.readthedocs.io/en/latest  [![Documentation Status](https://readthedocs.org/projects/casadocs/badge/?version=latest)](https://casadocs.readthedocs.io/en/latest/?badge=latest)
 - view stable release build at: https://casadocs.readthedocs.io/en/stable  [![Documentation Status](https://readthedocs.org/projects/casadocs/badge/?version=stable)](https://casadocs.readthedocs.io/en/stable/?badge=stable)
 
-## Editing CASA Docs
+## Editing CASADocs
 
 Always edit the **master** ('latest') build at https://casadocs.readthedocs.io/en/latest [![Documentation Status](https://readthedocs.org/projects/casadocs/badge/?version=latest)](https://casadocs.readthedocs.io/en/latest/?badge=latest).
 
+Most of the casadocs content is written in markdown format using the Google Colab web service to edit Jupyter notebooks of text cells. 
 Go to the chapter page, and click the *“Open in Colab”* link at the top to update documentation within the Notebook environment. 
 To save updates, select as default ```File -> Save a copy in Github```. This will save the updated notebook to the master (‘latest’) build of CASA Docs. 
 A new documentation build is triggered for every commit to the repository. 
@@ -15,13 +16,6 @@ A new documentation build is triggered for every commit to the repository.
 It can take 5 to 10 minutes to complete and for changes to propagate to master.
 
 **Note: API pages (e.g., casatasks and casatools) are handled differently, as will be explained later in this document.**
-
-
-## Editing Regular Content
-Most of the casadocs content is written in markdown format using the Google
-Colab web service to edit Jupyter notebooks of text cells.  Jupyter notebook
-pages have a link at the top to *"Open in Colab"* for editing.  Modified pages
-can be saved back in to the casadocs repository from the Colab window under ```File -> Save a copy in Github```.
 
 The nbsphinx package is used to convert notebooks to Sphinx/readthedocs format.
 There is some special markdown syntax available that may not render in Google 
