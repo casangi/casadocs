@@ -6,7 +6,7 @@ Common Astronomy Software Applications Documentation
 
 ## Editing CASADocs
 
-Always edit the **master** ('latest') build at https://casadocs.readthedocs.io/en/latest [![Documentation Status](https://readthedocs.org/projects/casadocs/badge/?version=latest)](https://casadocs.readthedocs.io/en/latest/?badge=latest).
+Editing CASA Docs can be done on branches, where pull requests can be triggered to merge changes back to master (see information below), or it can be done directly on master ('latest') itself: https://casadocs.readthedocs.io/en/latest [![Documentation Status](https://readthedocs.org/projects/casadocs/badge/?version=latest)](https://casadocs.readthedocs.io/en/latest/?badge=latest).
 
 Most of the casadocs content is written in markdown format using the Google Colab web service to edit Jupyter notebooks of text cells. 
 Go to the chapter page, and click the *“Open in Colab”* link at the top to update documentation within the Notebook environment. 
