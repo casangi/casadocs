@@ -2,13 +2,13 @@ import requests
 import re
 import os
 
-if os.path.exists('xml'): os.system('rm -fr xml')
-os.system('mkdir xml')
-os.system('mkdir xml/tasks')
-os.system('mkdir xml/tools')
+if os.path.exists('../xml'): os.system('rm -fr ../xml')
+os.system('mkdir ../xml')
+os.system('mkdir ../xml/tasks')
+os.system('mkdir ../xml/tools')
 
 try:
-    with open('.git/HEAD', 'r') as fid:
+    with open('../.git/HEAD', 'r') as fid:
         branch_name = fid.readlines()[-1].strip().split('/')[-1]
 except:
     print('Cant determine documentation branch, defaulting to master')
@@ -41,7 +41,7 @@ for ii, task in enumerate(tasknames):
     xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/raw/casa5/gcwrap/tasks/" + task + '?at=refs/heads/%s'%branch_name).text
     #xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/browse/casa5/gcwrap/tasks/" + task + '?raw').text
 
-    with open('xml/tasks/'+task, 'w') as fid:
+    with open('../xml/tasks/'+task, 'w') as fid:
         fid.write(xmlstring + '\n')
 
 
@@ -66,7 +66,7 @@ for ii, folder in enumerate(foldernames):
         print('processing ' + str(ii) + ' - ' + tool)
         #xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/browse/casa5/gcwrap/tools/%s/%s?raw" % (folder, tool)).text
         xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/raw/casa5/gcwrap/tools/%s/%s"%(folder, tool) + '?at=refs/heads/%s'%branch_name).text
-        with open('xml/tools/'+tool, 'w') as fid:
+        with open('../xml/tools/'+tool, 'w') as fid:
             fid.write(xmlstring + '\n')
 
 print('complete')
