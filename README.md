@@ -141,16 +141,6 @@ API uses RestructuredText format:
 Sphinx RST syntax and examples can be found here:
 - https://sphinx-rtd-theme.readthedocs.io/en/stable/demo/demo.html
 
-### Updating XML
-When the XML is updated in the CASA source code repo, the files need to be synced back 
-to the casadocs repo. This is done through a manually triggered Github Action rather 
-than automatically to allow for specific updates to different release branches if necessary.
-
-To update the xml file sync from the CASA source code repo, go to the ```Actions``` tab in
-Github, select ```Update_XML``` and click ```Run Workflow```
-
-Verify the files have been updated by navigating to the ```xml``` folder in the root of the
-Github repo.
 
 ### Adding/Removing/Hiding Tasks
 Tasks will only appear in the readthedocs site if they have both an xml file in the ```xml```
@@ -172,15 +162,18 @@ https://github.com/casangi/casadocs/tree/master/docs/tasks
 
 - Then edit the .rst file to fill in the appropriate description and other relevant info (see *Editing API Content*).
 
-## Branch and pull request
 
-#### Branching CASA Docs
+## Branching CASAdocs
 
-Updates made to master ('latest') are immediately public. This can be useful for minor or urgent updates to the documentation that do not require a review. Making a documentation *branch* is useful for larger documentation updates, updates that require a reviewe, or updates that should be merged at a later stage (e.g., simulateneously with the code).
+Updates made to master ('latest') are immediately public. This can be useful for minor or urgent updates to the documentation that do not require a review. Making a documentation *branch* is useful for larger documentation updates, updates that require a review, or updates that should be merged at a later stage (e.g., simulateneously with the code).
+
+When a new branch is created, readthedocs will automatically activate it, build it, and then hide it from public display. This prevents developer branches from appearing on the casadocs website. But they can still be viewed by directly navigating to the URL of the same name as the branch that was created.
 
 To make a branch, go to: https://github.com/casangi/casadocs/tree/master/docs
 
 Under the default *“master”* label on the top-left, go to *“find or create a branch”*, add a name (e.g., “test_branch”) and press *“create branch: test_branch” from “master”*.
+
+To view the documentation for this branch, navigate to: https://casadocs.readthedocs.io/en/test_branch (example only, not a real link)
 
 One can then update the text on the branch. This is easiest to do through Colab:
 https://colab.research.google.com/github/casangi/casadocs/ <br>
@@ -192,7 +185,13 @@ There are two ways to save the updates:
 
 *Warning:* the default is to save updated straight to “master”, so be careful to save material that needs to pass review back to the branch first!
 
-#### Review and pull request
+### Corresponding code branches
+
+To create new documentation for a Jira ticket development branch (ie CAS-12345) that is not yet merged to (Bitbucket) master, a corresponding casadocs branch of the **same name** should be made. The casadocs build script attempts to find a corresponding source code Bitbucket branch of the same name. If found, it will use the XML from that Bitbucket branch when building the API casatools and casatasks pages. If no corresponding branch is found, casadocs will default to the Bitbucket master.
+
+This allows developers to see the effects of their tool/task parameter changes.
+
+### Review and pull request
 
 After saving the updates, one automatically is reverted back to github. When clicking *“pull requests”* on the top bar of the github page, the updated notebook now appears as *“test_branch had recent pushed 1 minute ago”*.
 
@@ -204,7 +203,7 @@ Once approved, the pull request can be merged to master (either by the reviewer 
 
 
 ## Building Documentation Locally
-This documentation repository can be edited and built locally by users with access to Python3. First clone the repo, then navigate to the root of the cloned directory in a terminal and use the following commands:
+This documentation repository can be edited and built locally by users with access to Python3. First clone the repo (git clone `https://github.com/casangi/casadocs.git`), then navigate to the root of the cloned directory in a terminal and use the following commands:
 
 ```
 $: python3 -m venv docvenv
@@ -214,6 +213,10 @@ $: source docvenv/bin/activate
 (docvenv) $: cd docs
 (docvenv) $: sphinx-build -a -E -b html . ./build
 ```
+The **Pandoc** library must be installed or the build will error out. The build script attempts to install it through Python commands. If that doesn't work, then it will need to be manually installed by finding the appropriate distro for the OS being used.
+
+After building the documentation, it can be viewed in a web browser by pasting the full file path to the **index.html** in the URL field. The **index.html** file is in the `build` directory created under `docs` (i.e. */home/user/test_docs/casadocs/docs/build/index.html*). 
+
 
 ## Re-generating Plone content from Scratch
 This should not be necessary and is here only for reference on how
