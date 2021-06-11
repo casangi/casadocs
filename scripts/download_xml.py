@@ -7,12 +7,9 @@ os.system('mkdir ../xml')
 os.system('mkdir ../xml/tasks')
 os.system('mkdir ../xml/tools')
 
-try:
-    with open('../.git/HEAD', 'r') as fid:
-        branch_name = fid.readlines()[-1].strip().split('/')[-1]
-except:
-    print('Cant determine documentation branch, defaulting to master')
-    branch_name = 'master'
+os.system('git describe --all > branch_name.txt')
+with open('branch_name.txt', 'r') as fid:
+    branch_name = fid.readlines()[-1].strip().split('/')[-1]
     
 # see if this branch_name exists in the code repo
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casa5/gcwrap/tasks?at=refs/heads/%s"%branch_name).text
