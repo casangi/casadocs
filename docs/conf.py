@@ -56,11 +56,18 @@ autodoc_member_order = 'bysource'
 #napoleon_google_docstring = False
 #napoleon_numpy_docstring = False
 
-nbsphinx_prolog = """
-Open in Colab: https://colab.research.google.com/github/casangi/{{ ('casadocs/blob/master/docs/'+env.doc2path(env.docname, base=None)).replace('casadocs/blob/master/docs/examples', 'examples/blob/master') }}
+#############
+# create the "open in colab" header on top of each notebook page
+#############
+try:
+    with open('../.git/HEAD', 'r') as fid:
+        branch_name = fid.readlines()[-1].strip().split('/')[-1]
+except:
+    branch_name = 'master'
 
-----
-"""
+blob_url = 'casadocs/blob/%s/docs' % branch_name
+nbsphinx_prolog = "\nOpen in Colab: https://colab.research.google.com/github/casangi/{{ ('%s/'+env.doc2path(env.docname, base=None)).replace('%s/examples', 'examples/blob/master') }}\n\n----"%(blob_url, blob_url)
+
 
 #List of imports to mock (this ensures readthedocs works)
 autodoc_mock_imports = ['numcodecs','os','numpy','time','xarray','numba','itertools','zarr']
@@ -165,11 +172,13 @@ latex_documents = [
 ## this is kind of a lame way to integrate things, but it works better
 ## than the standard solutions
 #######################################################################
-if not os.path.exists('../casatasks'):
-    os.system("python ../scripts/parse_task_xml.py")
+os.system("python ../scripts/download_xml.py")
 
-if not os.path.exists('../casatools'):
-    os.system("python ../scripts/parse_tool_xml.py")
+#if not os.path.exists('../casatasks'):
+os.system("python ../scripts/parse_task_xml.py")
+
+#if not os.path.exists('../casatools'):
+os.system("python ../scripts/parse_tool_xml.py")
 
 if not os.path.exists('examples'):
     os.system("git clone https://github.com/casangi/examples.git")
