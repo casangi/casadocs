@@ -7,9 +7,9 @@ os.system('mkdir ../xml')
 os.system('mkdir ../xml/tasks')
 os.system('mkdir ../xml/tools')
 
-os.system('git describe --all > branch_name.txt')
+os.system('git branch > branch_name.txt')
 with open('branch_name.txt', 'r') as fid:
-    branch_name = fid.readlines()[-1].strip().split('/')[-1]
+    branch_name = [ll for ll in fid.readlines() if ll.startswith('*')][0].strip().split('/')[-1].split(' ')[-1].replace(')','')
     
 # see if this branch_name exists in the code repo
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casa5/gcwrap/tasks?at=refs/heads/%s"%branch_name).text

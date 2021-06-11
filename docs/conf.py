@@ -59,9 +59,9 @@ autodoc_member_order = 'bysource'
 #############
 # create the "open in colab" header on top of each notebook page
 #############
-os.system('git describe --all > branch_name.txt')
+os.system('git branch > branch_name.txt')
 with open('branch_name.txt', 'r') as fid:
-    branch_name = fid.readlines()[-1].strip().split('/')[-1]
+    branch_name = [ll for ll in fid.readlines() if ll.startswith('*')][0].strip().split('/')[-1].split(' ')[-1].replace(')','')
 
 blob_url = 'casadocs/blob/%s/docs' % branch_name
 nbsphinx_prolog = "\nOpen in Colab: https://colab.research.google.com/github/casangi/{{ ('%s/'+env.doc2path(env.docname, base=None)).replace('%s/examples', 'examples/blob/master') }}\n\n----"%(blob_url, blob_url)
