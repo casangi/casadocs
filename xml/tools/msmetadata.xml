@@ -118,10 +118,31 @@ windows in the dataset and close the tool.
             <description>
                 Get spectral window IDs based on ALMA-specific criteria. The inputs are or'ed together
                 to form the returned list. If complement=True, then the complement of the selection
-                is returned. The following algorithm is used to identify WVR spwectral windows:
+                is returned.
+
+                If the SPECTRAL_WINDOW table has the optional BBC_NO column and if the name
+                of the spectral window matches the regular expression "BB_[0-9]#SQLD", where
+                [0-9] indicates that a single integer matches, the window is classified as
+                a square law detector spectral window.
+
+                The following algorithm is used to identify WVR spwectral windows:
                 1. check for water vapor radiometer (WVR) spectral windows using the spectral window
                    name "WVR#NOMINAL" and report these.
                 2. If no SPWs match that string, then the names are checked for "WVR" and are reported instead.
+                If the window is not found to be a WVR window, it is then checked if
+                
+                The window is classified as a channel average spectral window if it is not
+                a WVR window, if the number of channels is one, and the spectral window name
+                does not contain the string "FULL_RES"
+
+                The window is classifed as an FDM window if it is neither a WVR window nor
+                a channel average window and if either 
+                1. its bandwidth is less than 2 GHz, or
+                2. the number of channels it contains is greater than or equal to 15 but not
+                   equal to 256, 128, 64, 32, 16, 248, 124, 62, or 31.
+
+                The window is classified as a TDM spectral window if it is neither a WVR window,
+                a channel average window, nor an FDM window.
  
             </description>
             <example>
