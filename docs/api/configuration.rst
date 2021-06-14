@@ -44,8 +44,8 @@ might look something like this:
    logfile='casalog-%s.log' % time.strftime("%Y%m%d-%H",time.localtime())
    telemetry_enabled = True
    crashreporter_enabled = True
-   log2term = True
-   nologger = True
+   log2term=True
+   nologger=True
 
 
 At runtime the datapath(s) are expanded through a resolve(\...) function to find the needed data tables. For example
@@ -60,9 +60,9 @@ The command line arguments discussed later take precendence over the equivalent 
 
 Some options imply or take precedence over other options:
 
--   *nologfile* takes precedence over *logfile*
--   *nogui* implies *nologger*
--   *pipeline* implies *agg*
+-   *nologfile* of True takes precedence over any *logfile* value
+-   *nogui* of True implies *nologger* is also True
+-   *pipeline* of True implies *agg*is also True
 
 .. note::
 
