@@ -62,7 +62,7 @@ Some options imply or take precedence over other options:
 
 -   *nologfile* of True takes precedence over any *logfile* value
 -   *nogui* of True implies *nologger* is also True
--   *pipeline* of True implies *agg*is also True
+-   *pipeline* of True implies *agg* is also True
 
 .. note::
 
