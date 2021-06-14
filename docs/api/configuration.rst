@@ -19,8 +19,16 @@ as described `here <../../notebooks/usingcasa.ipynb#telemetry>`__.
 - *datapath*              : list of paths where CASA should search for runtime data
 - *rundata*               : location to update runtime data
 - *logfile*               : log file path/name
+- *nologfile*             : do not create a log file when True, default False
+- *log2term*              : print log output to terminal when True (in addition to any logfile and CASA logger), default False
+- *nologger*              : do not start the CASA logger when True, default False
+- *nogui*                 : the IPython prompt color scheme. Must be one of "Neutral", "NoColor", "Linux" or "LightBG", default "Neutral". If an invalid color is given a warning message is printed and logged but CASA continues using the default color.
+- *agg*                   : startup without a graphical backend if True, default False
+- *pipeline*              : attempt to load the pipeline modules if True, default False. 
+- *iplog*                 : create and use an IPython log in the current directory if True, default False.
 - *telemetry_enabled*     : allow anonymous usage reporting, default True
 - *crashreporter_enabled* : allow anonymous crash reporting, default True
+- *user_site*             : include the user's local site-packages in the python path if True. Normally these are excluded to avoid any conflicts with CASA modules (when False, the default).
 
 The configuration file is a standard python script, so any valid python syntax and libraries can be used.  A typical config.py file
 might look something like this:
@@ -36,6 +44,8 @@ might look something like this:
    logfile='casalog-%s.log' % time.strftime("%Y%m%d-%H",time.localtime())
    telemetry_enabled = True
    crashreporter_enabled = True
+   log2term = True
+   nologger = True
 
 
 At runtime the datapath(s) are expanded through a resolve(\...) function to find the needed data tables. For example
@@ -46,8 +56,19 @@ At runtime the datapath(s) are expanded through a resolve(\...) function to find
 
    '/home/casa/data/casa-data/geodetic/IERSpredict'
 
-The command line arguments take precendence over the equivalent config.py value.
+The command line arguments discussed later take precendence over the equivalent config.py value.
 
+Some options imply or take precedence over other options:
+
+-   *nologfile* takes precedence over *logfile*
+-   *nogui* implies *nologger*
+-   *pipeline* implies *agg*
+
+.. note::
+
+   *rcdir* is used to change the location of the root .casa folder to something other than **\~/.casa**. In addition to the startup
+   files (config.py and startup.py) the root .casa folder contains working files and directories used by CASA components (e.g. ipython,
+   telemetry). It is expected to be writable by the user for use by those components.
 
 .. warning::
 
@@ -98,7 +119,7 @@ This ./bin/casa executable can be provided the following options to change confi
    --nologger            do not start CASA logger
    --nologfile           do not create a log file
    --nogui               avoid starting GUI tools
-   --rcdir RCDIR         location for startup files
+   --rcdir RCDIR         location for startup files, internal working files
    --norc                do not load user config.py (startup.py is unaffected)
    --colors {Neutral,NoColor,Linux,LightBG} prompt color
    --pipeline            load CASA pipeline modules on startup
@@ -112,19 +133,8 @@ This ./bin/casa executable can be provided the following options to change confi
    -c ...                python eval string or python script to execute
 
 
-These options **take precedence over the configuration files.**
-
-Some options imply or take precedence over other options:
-
--   \--nologfile takes precedence over \--logfile
--   \--nogui implies \--nologger
--   \--pipeline implies \--agg
-
-.. note::
-
-   --rcdir is used to change the location of the root .casa folder to something other than **\~/.casa**. In addition to the startup
-   files (config.py and startup.py) the root .casa folder contains working files and directories used by CASA components (e.g. ipython,
-   telemetry).
+These options **take precedence over the configuration files.** See the discussion of equivalent config.py parameters 
+for more details on these command line options.
 
 .. warning::
 
