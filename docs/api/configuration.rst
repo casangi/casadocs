@@ -60,9 +60,9 @@ The command line arguments discussed later take precendence over the equivalent 
 
 Some options imply or take precedence over other options:
 
--   *nologfile* of True takes precedence over any *logfile* value
--   *nogui* of True implies *nologger* is also True
--   *pipeline* of True implies *agg* is also True
+-   If *nologfile* is True then any *logfile* value is ignored and there is no log file.
+-   If *nogui* is True then that implies that *nologger* is also True and it is not necessary to set *nologger* explicitly.
+-   If *pipeline* is True then that implies that *agg* is also True and it is not necessary to set *agg* explicitly.
 
 .. note::
 
