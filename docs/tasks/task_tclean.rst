@@ -83,6 +83,12 @@ Description
       *savemodel='modelcolumn’*, ensure that you do not interrupt the
       tclean process (ctrl-c) while the model is being written to the
       MS, as this will likely corrupt the MS.  
+      
+      Please note that tclean may be safely interrupted using a Ctrl-C at all times except when it is in the middle of writing the model data column during a major cycle. To avoid concerns about corrupting your MS by trying to interrupt tclean during a disk write, please run image-reconstruction and model-saving in two separate steps, with model writing turned off during the iterative image reconstruction step. 
+      For example : 
+      tclean(vis='xxx.ms', imagename='try',......., niter=20,savemodel='none'); 
+      tclean(vis='xxx.ms', imagename='try',...., niter=0, savemodel='modelcolumn', calcpsf=False, calcres=False, restoration=False). 
+      This sequence will show a message in the logger that says "Predict Model Column". Note that while this "predict-only" major cycle is ongoing, Ctrl-C should not be used. 
    
    -  .. rubric:: PB-Correction:
    
