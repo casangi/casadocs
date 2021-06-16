@@ -22,7 +22,7 @@ Description
    For more detailed on how to use the msview task, please read the
    dedicated CASADocs chapter on `2-D Visualization and Flagging of
    Visibility Data
-   (viewer/msview) <../../notebooks/data_examination.ipynb#2-D-Plot/Flag:-viewer/msview>`__.
+   (viewer/msview)<../../notebooks/data_examination.ipynb#2-D-Plot/Flag:-viewer/msview>`__.
 
    
    +---------+-----------------------------------------------------------+
