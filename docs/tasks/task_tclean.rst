@@ -79,13 +79,13 @@ Description
    When savemodel=’modelcolumn’ is chosen, the message, “Saving model column” will appear in the casa log
    during the last major cycle. The model will be written to MODEL_DATA column of the main table of the MS
    for relevant field and spw(s). Similarly, with savemodel=‘virtual’, the message, "Saving virtual model" will appear in the casa log.
-   In the case of the virtual model, the model parameters are saved as keyword in the MS or in SOURCE subtable.
-   SOURCE subtable is an optional table and if it exists and the row for the correspond SOURCE ID which is mapped from FIELD table also exists prior to 
-   a tclean run with savemodel=‘virtual’, the model parameters are written to SOURCE_MODEL column of the row of the corresponding SOURCE ID.
+   In the case of the virtual model, the model parameters are saved in a keyword of the main table in the MS or in SOURCE subtable.
+   SOURCE subtable is an optional table and if it exists and containing non-zero number of rows, the model parameters are written to SOURCE_MODEL 
+   column in the row for the corresponding SOURCE ID.
    When the virtual model is stored in the keyword of the MS, they are stored with key name such as ‘model_0’. 
    In the case of multiple models exist, say for multiple fields, one can associate particular model key name with a specific field id 
    by looking up the key, ‘definedmodel_field_#’, where # is the field id. 
-   Please also refer [Virtual Model Visibilities](synthesis_calibration.ipynb#Virtual-Model-Visibilities).
+   Addtional information is avaialbe at `Virtual Model Visibilities <../../notebooks/synthesis_calibration.ipynb#Virtual-Model-Visibilities>`__.
    
    To check if model visibility data is present in the MS, ::
           
