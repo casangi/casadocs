@@ -181,7 +181,7 @@ os.system("python ../scripts/parse_tool_xml.py")
 if not os.path.exists('examples'):
     os.system("git clone https://github.com/casangi/examples.git")
 
-#os.system("sphinx-build -b text . ./build -c ./api")
+os.system(" sphinx-build -d _build/doctrees -b text . _build/html -c ./api")
 
 # sphinx-build -b text . ./build -C -D master_doc='api' -D extensions='sphinx_automodapi.automodapi' -D exclude_patterns=build,tasks,tools,examples,notebooks
 
