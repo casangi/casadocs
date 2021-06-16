@@ -76,9 +76,9 @@ Description
    calibration (virtual model or by actual prediction into a model
    column).
    
-   When savemodel=’modelcolumn’ is chosen, the message, “Saving model column” will appear in the casa log
+   When savemodel=’modelcolumn’ is chosen, the message, “Saving model column” will appear in the logger
    during the last major cycle. The model will be written to MODEL_DATA column of the main table of the MS
-   for relevant field and spw(s). Similarly, with savemodel=‘virtual’, the message, "Saving virtual model" will appear in the casa log.
+   for relevant field and spw(s). Similarly, with savemodel=‘virtual’, the message, "Saving virtual model" will appear in the logger.
    In the case of the virtual model, the model parameters are saved in a keyword of the main table in the MS or in SOURCE subtable.
    SOURCE subtable is an optional table and if it exists and containing non-zero number of rows, the model parameters are written to SOURCE_MODEL 
    column in the row for the corresponding SOURCE ID.
@@ -110,13 +110,13 @@ Description
  
 
    
-   .. warning:: **WARNING** *:* Please note that tclean may be safely interrupted using a Ctrl-C at all times except when it is in the middle of writing the model data column during a major cycle. To avoid concerns about corrupting your MS by trying to interrupt tclean during a disk write, please run image-reconstruction and model-saving in two separate steps, with model writing turned off during the iterative image reconstruction step. 
+   .. warning:: Please note that tclean may be safely interrupted using a Ctrl-C at all times except when it is in the middle of writing the model data column during a major cycle. To avoid concerns about corrupting your MS by trying to interrupt tclean during a disk write, please run image-reconstruction and model-saving in two separate steps, with model writing turned off during the iterative image reconstruction step. 
       For example: ::
       
           tclean(vis='xxx.ms', imagename='try',......., niter=20,savemodel='none')
           tclean(vis='xxx.ms', imagename='try',...., niter=0, savemodel='modelcolumn', calcpsf=False, calcres=False, restoration=False)
       
-      This sequence will show a message in the logger that says "Predict Model Column". Note that while this "predict-only" major cycle is ongoing, Ctrl-C should not be used. 
+      This sequence will show a message in the logger that says "Saving Model Column". Note that while this "predict-only" major cycle is ongoing, Ctrl-C should not be used. 
    
    -  .. rubric:: PB-Correction:
    
