@@ -140,7 +140,7 @@ Description
    source peaks.  In order to set a deconvolution mask based on pb
    level, please use the *'pbmask'* parameter.
    
-   .. warning:: **WARNING** *:* Certain values of pblimit should be avoided!
+   .. warning:: Certain values of pblimit should be avoided!
       These values are 1, -1, and 0. Details can be found
       `here <../../notebooks/synthesis_imaging.ipynb#Imaging-Algorithms>`__.
    
@@ -231,7 +231,7 @@ Description
    +-----------------------------------+-----------------------------------+
 
    
-   .. warning:: WARNING: If an image with that name already exists, it will in
+   .. warning:: If an image with that name already exists, it will in
       general be overwritten. Beware using names of existing images
       however. If the tclean is run using an imagename where
       <imagename>.residual and <imagename>.model already exist, then
@@ -561,7 +561,7 @@ Description
    in the frame of the image to that initial time. Examples of usage
    are presented in the **tclean** examples tab.
    
-   .. note:: **NOTE**: When displaying ephemeris images, it is good practice
+   .. note:: When displaying ephemeris images, it is good practice
       to use relative coordinates to determine the average offset of
       emission from the ephemeris path over the observation, i.e.,
       axis label properties: world coordinate, relative position. The
