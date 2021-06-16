@@ -181,6 +181,10 @@ os.system("python ../scripts/parse_tool_xml.py")
 if not os.path.exists('examples'):
     os.system("git clone https://github.com/casangi/examples.git")
 
+os.system("sphinx-build -b text . ./build -c ./api")
+
+# sphinx-build -b text . ./build -C -D master_doc='api' -D extensions='sphinx_automodapi.automodapi' -D exclude_patterns=build,tasks,tools,examples,notebooks
+
 # tweak the default readthedocs theme
 def setup(app):
     app.add_css_file('customization.css')
