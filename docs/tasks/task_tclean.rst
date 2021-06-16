@@ -85,7 +85,7 @@ Description
    When the virtual model is stored in the keyword of the MS, they are stored with key name such as ‘model_0’. 
    In the case of multiple models exist, say for multiple fields, one can associate particular model key name with a specific field id 
    by looking up the key, ‘definedmodel_field_#’, where # is the field id. 
-   Addtional information is avaialbe at `Virtual Model Visibilities <../../notebooks/synthesis_calibration.ipynb#Virtual-Model-Visibilities>`__.
+   Additional information is avaialbe at `Virtual Model Visibilities <../../notebooks/synthesis_calibration.ipynb#Virtual-Model-Visibilities>`__.
    
    To check if model visibility data is present in the MS, ::
           
