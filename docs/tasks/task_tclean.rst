@@ -76,6 +76,40 @@ Description
    calibration (virtual model or by actual prediction into a model
    column).
    
+   When savemodel=’modelcolumn’ is chosen, the message, “Saving model column” will appear in the casa log
+   during the last major cycle. The model will be written to MODEL_DATA column of the main table of the MS
+   for relevant field and spw(s). Similarly, with savemodel=‘virtual’, the message, "Saving virtual model" will appear in the casa log.
+   In the case of the virtual model, the model parameters are saved as keyword in the MS or in SOURCE subtable.
+   SOURCE subtable is an optional table and if it exists and the row for the correspond SOURCE ID which is mapped from FIELD table also exists prior to 
+   a tclean run with savemodel=‘virtual’, the model parameters are written to SOURCE_MODEL column of the row of the corresponding SOURCE ID.
+   When the virtual model is stored in the keyword of the MS, they are stored with key name such as ‘model_0’. 
+   In the case of multiple models exist, say for multiple fields, one can associate particular model key name with a specific field id 
+   by looking up the key, ‘definedmodel_field_#’, where # is the field id. 
+   Please also refer [Virtual Model Visibilities](synthesis_calibration.ipynb#Virtual-Model-Visibilities).
+   
+   To check if model visibility data is present in the MS, ::
+          
+          tb.open('xxx.ms')
+          tb.colnames()  # will show MODEL_DATA in the the returned column names if MODEL_DATA column exists
+          tb.keywordnames() # if you see, definedmodel_field_{fieldid}, there is a virtual model exists for the field 
+          # Also the model parameters (e.g. for 'model_0') can be retrieved by
+          mymodel=tb.getkeyword('model_0')
+          tb.done()
+         
+          # If SOURCE is listed in the keywordnames listing in the above command, and if SOURCE has non-zero rows, virtual model(s) 
+          # may exist in SOURCE_MODEL column of SOURCE, 
+          # e.g. to get a virutal model for field id=0 (source id=0)
+          tb.open('xxx.ms/SOURCE')
+          mymodel=tb.getcell('SOURCE_MODEL',0)   # note that since the model parameter are stored in the record (Python dictionaruy)tb.getcol cannot be used)
+          tb.done()
+          
+   To check the content of the model data ( either from MODEL_DATA or virutal model generated on the fly), ::
+   
+          plotms(vis=‘xxx.ms’, field=‘your_field_that_model_expected_to_be_stored’, spw=.., xaxis=‘uvidist’, yaxis=‘amp’,ydatacolumn=‘model’)
+          
+ 
+
+   
    .. warning:: **WARNING** *:* Please note that tclean may be safely interrupted using a Ctrl-C at all times except when it is in the middle of writing the model data column during a major cycle. To avoid concerns about corrupting your MS by trying to interrupt tclean during a disk write, please run image-reconstruction and model-saving in two separate steps, with model writing turned off during the iterative image reconstruction step. 
       For example: ::
       
