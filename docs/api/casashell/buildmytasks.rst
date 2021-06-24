@@ -44,7 +44,8 @@ If your XML file is from CASA 5, then it needs to be updated for CASA 6: ::
 This step only needs to be done once. The old version is stored in **yourtask.xml.bak**. The update is done with an XML
 processor which modifies the XML without changing the content. However, if you had large sections of comments you should
 copy these from **yourtask.xml.bak** back into the updated **yourtask.xml** since these comments are not retained in the
-conversion.
+conversion. A discussion of XML changes between CASA 5 and CASA 6 can be found in the
+`casatools bitbucket page <https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/browse/casatools>`_.
 
 In CASA 6, **buildmytasks** generates tasks that are designed to be inside of a Python package. You should decide what you
 want your package to be called, create it, and copy your XML file into it: ::
