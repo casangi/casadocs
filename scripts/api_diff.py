@@ -9,14 +9,16 @@ stable = requests.get('https://casadocs.readthedocs.io/en/%s/genindex.html' % ba
 stable_soup = BeautifulSoup(stable, 'html.parser')
 stable_set = stable_soup.find_all('a')
 
-tasklist, toollist = [], []
+tasklist, toollist, shelllist = [], [], []
 for ll in stable_set:
     page = ll.get('href')
     if not '.html' in page: continue
     task = re.sub('.*?(casatasks\..+?\..+?)?\.html.*', r'\1', page, flags=re.DOTALL)
     tool = re.sub('.*?(casatools\..+?)?\.html.*', r'\1', page, flags=re.DOTALL)
+    shell = re.sub('.*?(casashell/.+?)?\.html.*', r'\1', page, flags=re.DOTALL).replace('/','.')
     if len(task) > 0: tasklist += [task]
     if len(tool) > 0: toollist += [tool]
+    if len(shell) > 0: shelllist += [shell]
 
 
 ostr = ''
@@ -37,6 +39,14 @@ for tool in set(toollist):
         stable_spec = method.get_text()
         stable_spec = re.sub('\[docs\]\s*def\s|\)\:\s+.*', '', stable_spec, flags=re.DOTALL).replace('\n', '') + ')'
         ostr += tool + '.' + stable_spec + '\n'
+
+for shell in set(shelllist):
+    print(shell)
+    stable = requests.get('https://casadocs.readthedocs.io/en/%s/_sources/api/%s.rst.txt' % (baseline_version, shell.replace('.', '/'))).text
+    stable_spec = re.search('\.\. function:: (.+?)\n', stable, flags=re.DOTALL).group(1)
+    ostr += 'casashell.' + stable_spec + '\n'
+
+
 
 with open('docs/api_baseline.txt', 'w') as fid:
     fid.write(baseline_version + '\n\n' + ostr)

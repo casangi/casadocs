@@ -25,7 +25,7 @@ Astronomy (ASTRON), under the guidance of NRAO.
    :maxdepth: 3
 
    notebooks/introduction
-   api_difflog
+   changelog
    api
    notebooks/usingcasa
    notebooks/casa-fundamentals

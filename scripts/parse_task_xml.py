@@ -233,7 +233,7 @@ for stable_task in stable_tasks:
         difflog += '   <li><p><b>' + stable_task + '</b> - Deleted Task</p></li>\n\n'
 
 # write out log of task API diffs
-with open('api_difflog.rst', 'a') as fid:
+with open('changelog.rst', 'a') as fid:
     fid.write('\n\nAPI Changes\n+++++++++++\n\n.. rubric:: casatasks\n\n')
     fid.write('.. raw:: html\n\n   <ul>\n' + difflog + '   </ul>\n\n|\n')
 

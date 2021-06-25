@@ -237,6 +237,6 @@ for stable_tool in stable_tools:
 
 
 # write out log of tool API diffs
-with open('api_difflog.rst', 'a') as fid:
+with open('changelog.rst', 'a') as fid:
     fid.write('\n\n.. rubric:: casatools\n\n')
     fid.write('.. raw:: html\n\n   <ul>' + difflog + '   </ul>\n\n|\n')

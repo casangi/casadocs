@@ -22,6 +22,6 @@ for ticket in list(xmlroot):
     
 
 # write out log of tool API diffs
-with open('api_difflog.rst', 'w') as fid:
+with open('changelog.rst', 'w') as fid:
     fid.write('Change Log\n==========\n\nSummary of differences from ' + diffversion + '\n\nPull Requests\n+++++++++++++\n\n')
     fid.write('.. raw:: html\n\n   <ul>\n' + difflog + '   </ul>\n\n|\n')
