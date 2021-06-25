@@ -26,13 +26,8 @@ for task in sorted(tasklist):
     stable_soup = BeautifulSoup(stable, 'html.parser')
     stable_spec = stable_soup.find(id=task.split('.')[-1]).get_text().strip()
     stable_spec = re.sub('\[docs\]def\s|\:\s*.*', '', stable_spec, flags=re.DOTALL).replace('\n','')
-    ostr += stable_spec + '\n'
+    ostr += '.'.join(task.split('.')[:2]) + '.' + stable_spec + '\n'
     
-with open('docs/casatasks_baseline.txt', 'w') as fid:
-    fid.write(baseline_version +'\n\n' + ostr)
-
-
-ostr = ''
 for tool in set(toollist):
     print(tool)
     stable = requests.get('https://casadocs.readthedocs.io/en/%s/_modules/%s.html' % (baseline_version, tool.replace('.', '/'))).text
@@ -41,9 +36,9 @@ for tool in set(toollist):
     for method in stable_methods:
         stable_spec = method.get_text()
         stable_spec = re.sub('\[docs\]\s*def\s|\)\:\s+.*', '', stable_spec, flags=re.DOTALL).replace('\n', '') + ')'
-        ostr += tool.split('.')[-1] + '.' + stable_spec + '\n'
+        ostr += tool + '.' + stable_spec + '\n'
 
-with open('docs/casatools_baseline.txt', 'w') as fid:
+with open('docs/api_baseline.txt', 'w') as fid:
     fid.write(baseline_version + '\n\n' + ostr)
 
 

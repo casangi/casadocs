@@ -172,6 +172,8 @@ latex_documents = [
 #######################################################################
 os.system("python ../scripts/download_xml.py")
 
+os.system("python ../scripts/parse_pull_requests.py")
+
 #if not os.path.exists('../casatasks'):
 os.system("python ../scripts/parse_task_xml.py")
 

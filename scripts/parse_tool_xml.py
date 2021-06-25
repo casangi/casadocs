@@ -98,10 +98,10 @@ for tool in tools:
 # and marry up the Plone description page to the bottom
 
 # read in old baseline task specs for comparison change log
-with open('casatools_baseline.txt', 'r') as fid:
+with open('api_baseline.txt', 'r') as fid:
     lines = fid.readlines()
-    stable_tools = dict([(line.split('(')[0], line.strip()) for line in lines[2:]])
-    difflog, diffversion = '', lines[0].strip()
+    stable_tools = dict([(line.split('(')[0][10:], line.strip()[10:]) for line in lines[2:] if line.startswith('casatools')])
+    difflog = ''
     dd = difflib.Differ()
 
 # helper function to return a string of type and default value for a given parameter
@@ -135,7 +135,7 @@ def cleanxml(text, block=False):
     return text.strip()
 
 
-
+toolnames = []
 for name in tooldict.keys():
     
     # grab rst description page if it exists, otherwise skip this task
@@ -172,6 +172,7 @@ for name in tooldict.keys():
         
         # build the class definition
         for method in tool['methods'].keys():
+            toolnames += [name + '.' + method]
             # build method stub, start with params that have no default
             tm = tool['methods'][method]
             
@@ -217,19 +218,25 @@ for name in tooldict.keys():
             # populate the global changelog if necessary
             proto = name+'.'+method+'(self, '+proto[:-2]+')'
             if name+'.'+method not in stable_tools:
-                difflog += '   <p>' + name + '.<b>' + method + '</b> - New Tool Method</p>\n\n'
+                difflog += '   <li><p>' + name + '.<b>' + method + '</b> - New Tool Method</p></li>\n\n'
             elif stable_tools[name+'.'+method] != proto:
                 stable_params = re.sub('.+?\((.*?)\)$', r'\1', stable_tools[name+'.'+method], flags=re.DOTALL).split(', ')
                 new_params = re.sub('.+?\((.*?)\)$', r'\1', proto.replace('\n', ''), flags=re.DOTALL).split(', ')
                 diff_params = ['<b><del>' + pp.replace('- ', '') + '</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
                 diff_params = ['<b><ins>' + pp.replace('+ ', '') + '</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
-                difflog += '   <p>' + name + '.<b>' + method + '</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p>\n\n'
+                difflog += '   <li><p>' + name + '.<b>' + method + '</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p></li>\n\n'
 
         # marry up the Plone content to the bottom Notes section
         fid.write('\n\n    """' + rst + '\n\n    """')
 
 
+# look for deleted tool methods
+for stable_tool in stable_tools:
+    if stable_tool not in toolnames:
+        difflog += '   <li><p><b>' + stable_tool + '</b> - Deleted Tool</p></li>\n\n'
+
+
 # write out log of tool API diffs
 with open('api_difflog.rst', 'a') as fid:
     fid.write('\n\n.. rubric:: casatools\n\n')
-    fid.write('.. raw:: html\n\n' + difflog + '\n|\n')
+    fid.write('.. raw:: html\n\n   <ul>' + difflog + '   </ul>\n\n|\n')

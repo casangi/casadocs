@@ -92,10 +92,10 @@ for ii, task in enumerate(tasknames):
 # and marry up the Plone description page to the bottom
 
 # read in old baseline task specs for comparison change log
-with open('casatasks_baseline.txt', 'r') as fid:
+with open('api_baseline.txt', 'r') as fid:
     lines = fid.readlines()
-    stable_tasks = dict([(line.split('(')[0], line.strip()) for line in lines[2:]])
-    difflog, diffversion = '', lines[0].strip()
+    stable_tasks = dict([(line.split('(')[0].split('.')[-1], line.strip().replace('.'.join(line.split('.')[:2])+'.','')) for line in lines[2:] if line.startswith('casatasks')])
+    difflog = ''
     dd = difflib.Differ()
 
 
@@ -117,11 +117,13 @@ def ParamSpec(param):
     return proto
 
 
+tasknames = []
 for task in tasklist:
     
     # grab rst description page if it exists, otherwise skip this task
     rst = ''
     if os.path.exists('tasks/task_' + task['name'] + '.rst'):
+        tasknames += [task['name']]
         with open('tasks/task_' + task['name'] + '.rst', 'r') as fid:
             rst = fid.read()
     else:
@@ -208,7 +210,7 @@ for task in tasklist:
         fid.write('.. _Change Log:\n\n')
         fid.write('\nChange Log\n')
         if task['name'] not in stable_tasks:
-            difflog += '   <p><b>' + task['name'] + '</b> - New Task</p>\n\n'
+            difflog += '   <li><p><b>' + task['name'] + '</b></li> - New Task</p>\n\n'
             fid.write('   New Task\n\n')
         elif stable_tasks[task['name']] == proto.replace('\n',''):
             fid.write('   No API change\n\n')
@@ -218,14 +220,20 @@ for task in tasklist:
             diff_params = ['<b><del>'+pp.replace('- ','')+'</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
             diff_params = ['<b><ins>' + pp.replace('+ ', '')+'</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
             diff_proto = '<p><b>'+task['name']+'</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p>'
-            difflog += '   ' + diff_proto + '\n\n'
+            difflog += '   <li>' + diff_proto + '</li>\n\n'
             fid.write('   .. raw:: html\n\n      ' + diff_proto + '\n\n')
 
         # close docstring stub
         fid.write('\n    """\n    pass\n')
 
+
+# look for deleted tasks
+for stable_task in stable_tasks:
+    if stable_task not in tasknames:
+        difflog += '   <li><p><b>' + stable_task + '</b> - Deleted Task</p></li>\n\n'
+
 # write out log of task API diffs
-with open('api_difflog.rst', 'w') as fid:
-    fid.write('Change Log\n==========\n\nSummary of differences from ' + diffversion + '\n\n.. rubric:: casatasks\n\n')
-    fid.write('.. raw:: html\n\n' + difflog + '\n|\n')
+with open('api_difflog.rst', 'a') as fid:
+    fid.write('\n\nAPI Changes\n+++++++++++\n\n.. rubric:: casatasks\n\n')
+    fid.write('.. raw:: html\n\n   <ul>\n' + difflog + '   </ul>\n\n|\n')
 
