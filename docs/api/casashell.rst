@@ -183,9 +183,9 @@ All task parameters have global scope within CASA: the parameter values are comm
 to all tasks and also at the CASA command line. This allows the convenience of not
 changing parameters that are shared between tasks but does require care when
 chaining together sequences of task invocations (to ensure proper values are
-provided). Some task parameters accept a specific collection of strings. These
-parameters are generally case sensitive, but sometimes both fully upper and
-fully lower case versions of the same string may be accepted (i.e.
+provided). Some task parameters accept a specific string from a collection of
+possible strings. These parameters are generally case sensitive, but sometimes both
+fully upper and fully lower case versions of the same string may be accepted (i.e.
 ``datacolumn='data'`` or ``'DATA'``). When in doubt, use the case specified in the
 default setting of that parameter.
 
