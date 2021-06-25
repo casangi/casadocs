@@ -170,7 +170,7 @@ latex_documents = [
 ## this is kind of a lame way to integrate things, but it works better
 ## than the standard solutions
 #######################################################################
-#os.system("python ../scripts/download_xml.py")
+os.system("python ../scripts/download_xml.py")
 
 #if not os.path.exists('../casatasks'):
 os.system("python ../scripts/parse_task_xml.py")
