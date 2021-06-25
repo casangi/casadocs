@@ -170,7 +170,7 @@ latex_documents = [
 ## this is kind of a lame way to integrate things, but it works better
 ## than the standard solutions
 #######################################################################
-os.system("python ../scripts/download_xml.py")
+#os.system("python ../scripts/download_xml.py")
 
 #if not os.path.exists('../casatasks'):
 os.system("python ../scripts/parse_task_xml.py")
@@ -181,9 +181,8 @@ os.system("python ../scripts/parse_tool_xml.py")
 if not os.path.exists('examples'):
     os.system("git clone https://github.com/casangi/examples.git")
 
-os.system(" sphinx-build -d _build/doctrees -b text . _build/html -c ./api")
-
-# sphinx-build -b text . ./build -C -D master_doc='api' -D extensions='sphinx_automodapi.automodapi' -D exclude_patterns=build,tasks,tools,examples,notebooks
+# this can build a txt version of the API
+#os.system("sphinx-build -d _build/doctrees -b text . _build/html -c ./api")
 
 # tweak the default readthedocs theme
 def setup(app):

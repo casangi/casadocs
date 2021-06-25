@@ -2,6 +2,7 @@ import xml.etree.ElementTree as ET
 import re
 import os
 import pypandoc
+import difflib
 
 ########################################################
 # this is meant to be run from the docs folder
@@ -9,6 +10,11 @@ import pypandoc
 ########################################################
 
 pypandoc.pandoc_download.download_pandoc(version='2.10.1')
+
+# clean out old data
+if os.path.exists('../casatools'): os.system('rm -fr ../casatools')
+os.system('mkdir ../casatools')
+
 
 tools = os.listdir('../xml/tools')
 
@@ -91,6 +97,13 @@ for tool in tools:
 # write the parameters to docstring format
 # and marry up the Plone description page to the bottom
 
+# read in old baseline task specs for comparison change log
+with open('casatools_baseline.txt', 'r') as fid:
+    lines = fid.readlines()
+    stable_tools = dict([(line.split('(')[0], line.strip()) for line in lines[2:]])
+    difflog, diffversion = '', lines[0].strip()
+    dd = difflib.Differ()
+
 # helper function to return a string of type and default value for a given parameter
 def ParamSpec(method, param):
     pd = tool['methods'][method]['params'][param]
@@ -122,9 +135,6 @@ def cleanxml(text, block=False):
     return text.strip()
 
 
-# clean out old data
-if os.path.exists('../casatools'): os.system('rm -fr ../casatools')
-os.system('mkdir ../casatools')
 
 for name in tooldict.keys():
     
@@ -204,5 +214,22 @@ for name in tooldict.keys():
             # close docstring stub
             fid.write('\n        """\n\n        pass\n\n\n')
             
+            # populate the global changelog if necessary
+            proto = name+'.'+method+'(self, '+proto[:-2]+')'
+            if name+'.'+method not in stable_tools:
+                difflog += '   <p>' + name + '.<b>' + method + '</b> - New Tool Method</p>\n\n'
+            elif stable_tools[name+'.'+method] != proto:
+                stable_params = re.sub('.+?\((.*?)\)$', r'\1', stable_tools[name+'.'+method], flags=re.DOTALL).split(', ')
+                new_params = re.sub('.+?\((.*?)\)$', r'\1', proto.replace('\n', ''), flags=re.DOTALL).split(', ')
+                diff_params = ['<b><del>' + pp.replace('- ', '') + '</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
+                diff_params = ['<b><ins>' + pp.replace('+ ', '') + '</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
+                difflog += '   <p>' + name + '.<b>' + method + '</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p>\n\n'
+
         # marry up the Plone content to the bottom Notes section
-        #fid.write('\n\n    """' + rst + '\n\n    """')
+        fid.write('\n\n    """' + rst + '\n\n    """')
+
+
+# write out log of tool API diffs
+with open('api_difflog.rst', 'a') as fid:
+    fid.write('\n\n.. rubric:: casatools\n\n')
+    fid.write('.. raw:: html\n\n' + difflog + '\n|\n')

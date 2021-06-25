@@ -1,11 +1,17 @@
 import xml.etree.ElementTree as ET
 import re
 import os
+import difflib
 
 ########################################################
 # this is meant to be run from the docs folder
 # if running manually, cd docs first
 ########################################################
+
+# clean out old data
+if os.path.exists('../casatasks'): os.system('rm -fr ../casatasks')
+os.system('mkdir ../casatasks')
+
 
 tasknames = os.listdir('../xml/tasks')
 
@@ -85,6 +91,14 @@ for ii, task in enumerate(tasknames):
 # write the parameters to docstring format
 # and marry up the Plone description page to the bottom
 
+# read in old baseline task specs for comparison change log
+with open('casatasks_baseline.txt', 'r') as fid:
+    lines = fid.readlines()
+    stable_tasks = dict([(line.split('(')[0], line.strip()) for line in lines[2:]])
+    difflog, diffversion = '', lines[0].strip()
+    dd = difflib.Differ()
+
+
 # helper function to return a string of type and default value for a given parameter
 def ParamSpec(param):
     pd = task['params'][param]
@@ -102,10 +116,6 @@ def ParamSpec(param):
     
     return proto
 
-
-# clean out old data
-if os.path.exists('../casatasks'): os.system('rm -fr ../casatasks')
-os.system('mkdir ../casatasks')
 
 for task in tasklist:
     
@@ -139,7 +149,8 @@ for task in tasklist:
             # must exist params don't have default values
             if ('mustexist' not in task['params'][param]) or (task['params'][param]['mustexist'] == 'false'):
                 proto += '%s%s, ' % (param, ParamSpec(param)[ParamSpec(param).rindex('='):-1])
-        fid.write('def %s(%s):\n    r"""\n' % (task['name'], proto[:-2]))
+        proto = '%s(%s)' % (task['name'], proto[:-2])
+        fid.write('def ' + proto + ':\n    r"""\n')
         
         # populate function description
         if 'shortdescription' in task.keys():
@@ -150,7 +161,7 @@ for task in tasklist:
             fid.write(' \n\n')
 
         # populate a horizontal toc nav bar
-        fid.write('[' + '] ['.join(['`%s`_' % section for section in ['Description', 'Examples', 'Development', 'Details']]) + ']\n\n')
+        fid.write('[' + '] ['.join(['`%s`_' % section for section in ['Description', 'Examples', 'Development', 'Details', 'Change Log']]) + ']\n\n')
 
         # populate function parameters
         fid.write('\nParameters\n')
@@ -192,6 +203,29 @@ for task in tasklist:
                 fid.write('.. _%s:\n\n' % param)
                 fid.write('| ``%s`` - ' % ParamSpec(param).replace('_ ', ' '))
                 fid.write('%s\n\n' % re.sub('\n+', '\n|    ', task['params'][param]['description'].strip(), flags=re.DOTALL))
-            
+                
+        # populate changelog by diffing this task to the last release
+        fid.write('.. _Change Log:\n\n')
+        fid.write('\nChange Log\n')
+        if task['name'] not in stable_tasks:
+            difflog += '   <p><b>' + task['name'] + '</b> - New Task</p>\n\n'
+            fid.write('   New Task\n\n')
+        elif stable_tasks[task['name']] == proto.replace('\n',''):
+            fid.write('   No API change\n\n')
+        else:
+            stable_params = re.sub('.+?\((.*?)\)', r'\1', stable_tasks[task['name']], flags=re.DOTALL).split(', ')
+            new_params = re.sub('.+?\((.*?)\)', r'\1', proto.replace('\n',''), flags=re.DOTALL).split(', ')
+            diff_params = ['<b><del>'+pp.replace('- ','')+'</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
+            diff_params = ['<b><ins>' + pp.replace('+ ', '')+'</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
+            diff_proto = '<p><b>'+task['name']+'</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p>'
+            difflog += '   ' + diff_proto + '\n\n'
+            fid.write('   .. raw:: html\n\n      ' + diff_proto + '\n\n')
+
         # close docstring stub
         fid.write('\n    """\n    pass\n')
+
+# write out log of task API diffs
+with open('api_difflog.rst', 'w') as fid:
+    fid.write('Change Log\n==========\n\nSummary of differences from ' + diffversion + '\n\n.. rubric:: casatasks\n\n')
+    fid.write('.. raw:: html\n\n' + difflog + '\n|\n')
+
