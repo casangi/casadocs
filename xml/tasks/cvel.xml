@@ -109,10 +109,12 @@ Hanning smoothing may not be necessary.
             <value type="int">1</value>
         </param>
 
-        <param ignorecase="True" subparam="true" name="interpolation" type="string"><shortdescription>Spectral interpolation method</shortdescription><description>Spectral interpolation method</description>
+        <param type="string" name="interpolation" subparam="true">
+        <shortdescription>Spectral interpolation method</shortdescription>
+        <description>Spectral interpolation method</description>
             
             <value>linear</value>
-            <allowed kind="enum">
+            <allowed kind="enum" ignorecase="True">
                <value>nearest</value>
                <value>linear</value>
                <value>cubic</value>
@@ -132,7 +134,9 @@ Hanning smoothing may not be necessary.
             <value/>
         </param>
         
-        <param ignorecase="True" name="outframe" type="string"><shortdescription>Output frame (not case-sensitive, \'\'=keep input frame)</shortdescription><description>Output frame (not case-sensitive, \'\'=keep input frame)</description>
+        <param type="string" name="outframe">
+        <shortdescription>Output frame (not case-sensitive, \'\'=keep input frame)</shortdescription>
+        <description>Output frame (not case-sensitive, \'\'=keep input frame)</description>
                 
                 <value/>
                 <allowed ignorecase="True" kind="enum">
@@ -149,10 +153,12 @@ Hanning smoothing may not be necessary.
                 </allowed>
         </param>
 
-        <param ignorecase="True" name="veltype" type="string"><shortdescription>velocity definition</shortdescription><description>velocity definition</description>
+        <param type="string" name="veltype">
+        <shortdescription>velocity definition</shortdescription>
+        <description>velocity definition</description>
             
             <value>radio</value>
-            <allowed kind="enum">
+            <allowed kind="enum" ignorecase="True">
                <value>optical</value>
                <value>radio</value>
             </allowed>

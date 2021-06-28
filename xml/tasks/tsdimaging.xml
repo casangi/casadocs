@@ -150,11 +150,11 @@ values. See description below for details of gridfunction available.
         </allowed>
     </param>
 
-    <param ignorecase="true" subparam="true" name="outframe" type="string">
+    <param type="string" name="outframe" subparam="true">
             <shortdescription>velocity frame of output image [\'lsrk\', \'lsrd\', \'bary\', \'geo\', \'topo\', \'galacto\', \'lgroup\', \'cmb\'] (\'\'=current frame or LSRK for multiple-MS inputs) </shortdescription>
             <description>velocity frame of output image (''=current frame or LSRK for multiple-MS inputs)</description>
-            <value/>
-            <allowed kind="enum">
+            <value></value>
+            <allowed kind="enum" ignorecase="true">
                     <value>lsrk</value>
                     <value>lsrd</value>
                     <value>bary</value>

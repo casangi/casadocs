@@ -33,7 +33,7 @@ Convert a CASA visibility file (MS) into an ALMA or EVLA Science Data Model
           <value></value>
     </param>
 
-    <param type="string" name="datacolumn"  ignorecase="True">
+    <param type="string" name="datacolumn">
 <shortdescription>Which data column(s) to process.</shortdescription>
 <description>Which data column(s) to use for processing
                      (case-insensitive).
@@ -49,7 +49,7 @@ Convert a CASA visibility file (MS) into an ALMA or EVLA Science Data Model
                      the task will exit with an error.
 </description>
       <value>data</value>
-      <allowed kind="enum">
+      <allowed kind="enum"  ignorecase="True">
          <value>data</value>
          <value>corrected</value>
          <value>model</value>

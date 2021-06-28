@@ -865,27 +865,6 @@
       <value type="string"/>
     </param>
 
-    <param subparam="true" name="chanchunks" type="int">
-     <shortdescription>Number of channel chunks</shortdescription>
-<description>Number of channel chunks to grid separately
-
-                       For large image cubes, the gridders can run into memory limits
-                       as they loop over all available image planes for each row of data
-                       accessed. To prevent this problem, we can grid subsets of channels
-                       in sequence so that at any given time only part of the image cube
-                       needs to be loaded into memory. This parameter controls the
-                       number of chunks to split the cube into.
-
-                       Example :  chanchunks = 4
-
-                       [ This feature is experimental and may have restrictions on how
-                          chanchunks is to be chosen. For now, please pick chanchunks so
-                          that nchan/chanchunks is an integer. ]
-
-</description>
-      <value type="int">1</value>
-    </param>
-
     <param subparam="true" name="wprojplanes" type="int">
      <shortdescription>Number of distinct w-values for convolution functions</shortdescription>
 <description>Number of distinct w-values at which to compute and use different
@@ -2380,19 +2359,15 @@ to use the correct direction in which the antenna is pointing with respect to th
             (This is not the support size for clark clean.)
         </description>
         <value type="double">0.35</value>
-        <allowed kind="range">
+<!--       <allowed kind="range">
           <value range="min">0.01</value>
           <value range="max">0.99</value>
-        </allowed>
+          </allowed>
+-->
     </param>
     
     
-    <when param="calcpsf">
-           <equals value="True" type="bool">
-             <default param="psfcutoff"><value>0.35</value></default>
-           </equals>
-    </when>
-    
+  
 
     <param name="parallel" type="bool">
       <shortdescription>Run major cycles in parallel</shortdescription>
@@ -2438,7 +2413,12 @@ to use the correct direction in which the antenna is pointing with respect to th
 
    <constraints>
 
-
+     <when param="calcpsf">
+           <equals value="True" type="bool">
+             <default param="psfcutoff"><value>0.35</value></default>
+           </equals>
+    </when>
+    
 
      <when param="selectdata">
       <equals value="True" type="bool">
@@ -2468,7 +2448,6 @@ to use the correct direction in which the antenna is pointing with respect to th
          <default param="veltype"><value>&quot;radio&quot;</value></default>
          <default param="restfreq"><value>[]</value></default>
          <default param="interpolation"><value>&quot;linear&quot;</value></default>
-         <default param="chanchunks"><value>1</value></default>
          <default param="perchanweightdensity"><value>True</value></default>
        </equals>
        <equals value="cubesource" type="string">
@@ -2479,7 +2458,6 @@ to use the correct direction in which the antenna is pointing with respect to th
          <default param="veltype"><value>&quot;radio&quot;</value></default>
          <default param="restfreq"><value>[]</value></default>
          <default param="interpolation"><value>&quot;linear&quot;</value></default>
-         <default param="chanchunks"><value>1</value></default>
          <default param="perchanweightdensity"><value>True</value></default>
        </equals>
        
@@ -2490,7 +2468,6 @@ to use the correct direction in which the antenna is pointing with respect to th
          <default param="veltype"><value>&quot;radio&quot;</value></default>
          <default param="restfreq"><value>[]</value></default>
          <default param="interpolation"><value>&quot;linear&quot;</value></default>
-         <default param="chanchunks"><value>1</value></default>
          <default param="perchanweightdensity"><value>False</value></default>
        </equals>
      </when>

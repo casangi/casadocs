@@ -30,10 +30,12 @@ pipeline processing for huge dataset.
         <value/>
     </param>
 
-    <param ignorecase="true" name="datacolumn" type="string"><shortdescription>name of data column to be used [&quot;data&quot;, &quot;float_data&quot;, or &quot;corrected&quot;]</shortdescription><description>name of data column to be used [&quot;data&quot;, &quot;float_data&quot;, or &quot;corrected&quot;]</description>
+    <param name="datacolumn" type="string">
+    <shortdescription>name of data column to be used [&quot;data&quot;, &quot;float_data&quot;, or &quot;corrected&quot;]</shortdescription>
+    <description>name of data column to be used [&quot;data&quot;, &quot;float_data&quot;, or &quot;corrected&quot;]</description>
         
         <value>data</value>
-        <allowed kind="enum">
+        <allowed kind="enum" ignorecase="true">
             <value>data</value>
             <value>float_data</value>
             <value>corrected</value>
@@ -81,12 +83,12 @@ pipeline processing for huge dataset.
         <value>True</value>
     </param>
 
-    <param ignorecase="true" name="maskmode" type="string">
+    <param type="string" name="maskmode">
         <shortdescription>mode of setting additional channel masks</shortdescription>
 
         <description>mode of setting additional channel masks. &quot;list&quot; and &quot;auto&quot; are available now.</description>
         <value>list</value>
-        <allowed kind="enum">
+        <allowed kind="enum" ignorecase="true">
             <value>auto</value>
             <value>list</value>
 
@@ -123,12 +125,12 @@ pipeline processing for huge dataset.
         <value>True</value>
     </param>
 
-    <param subparam="true" ignorecase="true" name="blformat" type="any">
+    <param type="any" name="blformat" subparam="true">
         <shortdescription>format(s) of file(s) in which best-fit parameters are written</shortdescription>
         <description>format(s) of file(s) in which best-fit parameters are written [&quot;text&quot;, &quot;csv&quot;, &quot;table&quot; or &quot;&quot;]</description>
         <any limittypes="string stringArray" type="variant"/>
         <value type="string">text</value>
-        <allowed kind="enum">
+        <allowed kind="enum" ignorecase="true">
             <value>table</value>
             <value>text</value>
             <value>csv</value>
@@ -147,11 +149,11 @@ pipeline processing for huge dataset.
         <value/>
     </param>
 
-    <param ignorecase="true" name="blfunc" type="string">
+    <param type="string" name="blfunc">
         <shortdescription>baseline model function</shortdescription>
         <description>baseline model function [&quot;poly&quot;, &quot;chebyshev&quot;, &quot;cspline&quot;, &quot;sinusoid&quot;, or &quot;variable&quot;(expert mode)]</description>
         <value>poly</value>
-        <allowed kind="enum">
+        <allowed kind="enum" ignorecase="true">
             <value>poly</value>
             <value>chebyshev</value>
             <value>cspline</value>
@@ -175,11 +177,11 @@ pipeline processing for huge dataset.
         <value>True</value>
     </param>
 
-    <param subparam="true" ignorecase="true" name="fftmethod" type="string">
-        <shortdescription>method for automatically set wave numbers of sinusoids [&quot;fft&quot;]</shortdescription>
+    <param type="string" name="fftmethod" subparam="true">
+        <shortdescription>method for automatically set wave numbers of sinusoids ["fft"]</shortdescription>
         <description>method for automatically set wave numbers of sinusoids</description>
         <value>fft</value>
-        <allowed kind="enum">
+        <allowed kind="enum" ignorecase="true">
             <value>fft</value>
         </allowed>
     </param>

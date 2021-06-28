@@ -14,7 +14,7 @@ os.system('mkdir xml/tools')
 #############################################################
 
 # grab the index of all the task xml pages
-xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casa5/gcwrap/tasks").text
+xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casa5/gcwrap/tasks?at=refs/heads/release/6.2.0").text
 tasknames = list(set(re.findall("\w+.xml", xmlstring)))
 
 # loop through each task xml webpage and parse the xml to python dictionaries
@@ -36,7 +36,7 @@ for ii, task in enumerate(tasknames):
 #############################################################
 
 # grab the index of all the task xml pages
-xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casa5/gcwrap/tools").text
+xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casa5/gcwrap/tools?at=refs/heads/release/6.2.0").text
 xmldict = eval(xmlstring.replace('true','True').replace('false', 'False'))
 foldernames = [tool['path']['name'] for tool in xmldict['children']['values'] if tool['type'] == 'DIRECTORY']
 

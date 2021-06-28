@@ -91,7 +91,7 @@
     <value>False</value>
     </param>
 
-    <param subparam="true" ignorecase="true" name="separationaxis" type="string"><shortdescription>Axis to do parallelization across(scan,spw,auto,baseline).</shortdescription><description>Axis to do parallelization across(scan,spw,auto,baseline).</description>
+    <param subparam="true" name="separationaxis" type="string"><shortdescription>Axis to do parallelization across(scan,spw,auto,baseline).</shortdescription><description>Axis to do parallelization across(scan,spw,auto,baseline).</description>
 
     <value>auto</value>
     <allowed ignorecase="true" kind="enum">
@@ -107,6 +107,7 @@
     <any limittypes="string int" type="variant"/>
     <value type="string">auto</value>
     </param>
+
 
     <param name="tileshape" type="intArray"><shortdescription>List with 1 or 3 elements giving the tile shape of the disk data columns.</shortdescription><description>List with 1 or 3 elements giving the tile shape of the disk data columns.</description>
         
@@ -180,7 +181,9 @@
         <value type="string"/>
     </param>
 
-    <param ignorecase="True" name="datacolumn" type="string"><shortdescription>Which data column(s) to process.</shortdescription><description>Which data column(s) to process.</description>
+    <param type="string" name="datacolumn" >
+    <shortdescription>Which data column(s) to process.</shortdescription>
+    <description>Which data column(s) to process.</description>
         
         <value>corrected</value>
         <allowed ignorecase="True" kind="enum">
@@ -275,7 +278,9 @@
             <value type="int">1</value>
         </param>
 
-        <param ignorecase="True" subparam="true" name="interpolation" type="string"><shortdescription>Spectral interpolation method.</shortdescription><description>Spectral interpolation method.</description>
+        <param type="string" name="interpolation" subparam="true">
+        <shortdescription>Spectral interpolation method.</shortdescription>
+        <description>Spectral interpolation method.</description>
             
             <value>linear</value>
             <allowed kind="enum">
@@ -298,7 +303,9 @@
             <value/>
         </param>
     
-        <param ignorecase="True" subparam="true" name="outframe" type="string"><shortdescription>Output reference frame (''=keep input frame).</shortdescription><description>Output reference frame (''=keep input frame).</description>
+        <param type="string" name="outframe" subparam="true">
+        <shortdescription>Output reference frame (''=keep input frame).</shortdescription>
+        <description>Output reference frame (''=keep input frame).</description>
             
             <value/>
             <allowed ignorecase="True" kind="enum">
@@ -315,10 +322,12 @@
             </allowed>
         </param>
 
-        <param ignorecase="True" subparam="true" name="veltype" type="string"><shortdescription>Velocity definition.</shortdescription><description>Velocity definition.</description>
+        <param type="string" name="veltype" subparam="true">
+        <shortdescription>Velocity definition.</shortdescription>
+        <description>Velocity definition.</description>
             
             <value>radio</value>
-            <allowed kind="enum">
+            <allowed kind="enum" ignorecase="True">
                <value>optical</value>
                <value>radio</value>
             </allowed>

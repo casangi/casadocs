@@ -16,15 +16,15 @@ file:///opt/casa/code/tools/xml/casa.xsd">
 	<include>tools/singledish/singledishms_private.h</include>
 </private>
 </code>
- 
+
    <method type="constructor" name="singledishms">
    <shortdescription>Construct singledishms tool</shortdescription>
-   
+
 <description>
-This is used to construct a singledishms tool instance. The created instance is 
-just like the default one ('sdms') but physically independent from it. 
-This is useful when users want to create their own tool instance inside scripts/modules 
-to avoid possible conflicts that may happen when using the default tool instance 
+This is used to construct a singledishms tool instance. The created instance is
+just like the default one ('sdms') but physically independent from it.
+This is useful when users want to create their own tool instance inside scripts/modules
+to avoid possible conflicts that may happen when using the default tool instance
 from various places.
 </description>
 <input>
@@ -492,8 +492,8 @@ sdms.subtract_baseline_variable('m100_fitparam.txt')
   <shortdescription>Apply baseline table to MS.
   </shortdescription>
   <description>
-For each row of given baseline table, read baseline parameters, 
-construct baseline, then subtract it from the corresponding spectrum 
+For each row of given baseline table, read baseline parameters,
+construct baseline, then subtract it from the corresponding spectrum
 in the MS.
   </description>
   <input>
@@ -574,10 +574,10 @@ Fit line profile to selected spectra and obtain the best-fit parameter values
     </param>
 
     <param type="string" name="timebin">
-        <description>Bin width for time averaging</description>     
+        <description>Bin width for time averaging</description>
         <value></value>
     </param>
-    
+
     <param type="string" name="timespan">
         <description>Span the timebin across 'scan', 'state', 'field', or a combination of them (e.g., 'scan,state')</description>
         <value></value>
@@ -653,12 +653,12 @@ sdms.fit_line(fitfunc='gauss',spw='0:1000~2000;4000~5000',nfit=[1,1])
 
 <method type="function" name="set_selection">
   <shortdescription>Select Measurementset to process</shortdescription>
-  
+
   <description>
 
   </description>
   <input>
-    
+
      <param type="any" name="spw">
      <description>Spectral Window Ids (0 relative) to select; -1 interpreted as all</description>
      <any type="variant"/>
@@ -689,19 +689,19 @@ sdms.fit_line(fitfunc='gauss',spw='0:1000~2000;4000~5000',nfit=[1,1])
      <any type="variant"/>
      <value></value>
      </param>
-     
+
      <param type="any" name="observation">
      <description>Select data by observation ID(s). Syntax is the same as for scan numbers.</description>
      <any type="variant"/>
      <value></value>
      </param>
-     
+
      <param type="any" name="polarization">
      <description>Select data by polarization(s)</description>
      <any type="variant"/>
      <value></value>
      </param>
-     
+
      <param type="any" name="beam">
      <description>Beam Ids (0 relative) to select; CURRENTLY NOT AVAILABLE!!!</description>
      <any type="variant"/>
@@ -710,6 +710,11 @@ sdms.fit_line(fitfunc='gauss',spw='0:1000~2000;4000~5000',nfit=[1,1])
 
      <param type="any" name="intent">
      <description>Select data by intent(s)</description>
+     <value></value>
+     </param>
+
+     <param type="any" name="feed">
+     <description>Select data by feed(s)</description>
      <value></value>
      </param>
 
@@ -722,7 +727,7 @@ sdms.fit_line(fitfunc='gauss',spw='0:1000~2000;4000~5000',nfit=[1,1])
       <description>Re-index indices in subtables based on data selection</description>
       <value>true</value>
     </param>
- 
+
   </input>
   <returns type="bool"/>
   <example>
@@ -732,7 +737,7 @@ sdms.set_selection(field='M100', spw='3,5')
 
 <method type="function" name="smooth">
   <shortdescription>Smooth data with arbitrary smoothing kernel</shortdescription>
-  
+
   <description>
   NOTE: currently only Gaussian kernel is supported.
   </description>
@@ -744,12 +749,12 @@ sdms.set_selection(field='M100', spw='3,5')
         <value>gaussian</value>
       </allowed>
     </param>
-    
+
     <param type="float" name="width">
       <description>Smoothing kernel width</description>
       <value>0.0</value>
     </param>
-      
+
     <param type="string" name="datacolumn">
       <description>The name of data column to process ('data', 'float_data', or 'corrected')</description>
       <value>data</value>
@@ -764,16 +769,49 @@ sdms.set_selection(field='M100', spw='3,5')
       <description>The name of output MeasurementSet</description>
       <value></value>
     </param>
-  </input> 
-  
+  </input>
+
   <returns type="bool"/>
   <example>
-  </example> 
+  </example>
+</method>
+
+<method type="function" name="atmcor">
+  <shortdescription>Offline atmospheric correction of calibrated data</shortdescription>
+
+  <description>
+  Offline atmospheric correction of calibrated data
+  </description>
+  <input>
+    <param type="record" name="config">
+      <description>Configuration for atmospheric correction</description>
+      <value></value>
+    </param>
+
+    <param type="string" name="datacolumn">
+      <description>The name of data column to process ('data', 'float_data', or 'corrected')</description>
+      <value>data</value>
+      <allowed kind="enum">
+	    <value>data</value>
+	    <value>float_data</value>
+	    <value>corrected</value>
+      </allowed>
+    </param>
+
+    <param type="string" name="outfile">
+      <description>The name of output MeasurementSet</description>
+      <value></value>
+    </param>
+  </input>
+
+  <returns type="bool"/>
+  <example>
+  </example>
 </method>
 
 <method type="function" name="importasap">
   <shortdescription>Import ASAP Scantable to MS.</shortdescription>
-  
+
   <description>
   Import ASAP Scantable data to MeasurementSet.
   </description>
@@ -782,26 +820,26 @@ sdms.set_selection(field='M100', spw='3,5')
       <description>The name of input ASAP Scantable</description>
       <value></value>
     </param>
-    
+
     <param type="string" name="outfile">
       <description>The name of output MeasurementSet</description>
       <value></value>
     </param>
-    
+
     <param type="bool" name="parallel">
       <description>Turn on parallel execution</description>
       <value>false</value>
     </param>
-  </input> 
-  
+  </input>
+
   <returns type="bool"/>
   <example>
-  </example> 
+  </example>
 </method>
 
 <method type="function" name="importnro">
   <shortdescription>Import NOSTAR data to MS.</shortdescription>
-  
+
   <description>
   Import NOSTAR data to MeasurementSet.
   </description>
@@ -810,7 +848,7 @@ sdms.set_selection(field='M100', spw='3,5')
       <description>The name of input NOSTAR data</description>
       <value></value>
     </param>
-    
+
     <param type="string" name="outfile">
       <description>The name of output MeasurementSet</description>
       <value></value>
@@ -820,11 +858,11 @@ sdms.set_selection(field='M100', spw='3,5')
       <description>Turn on parallel execution</description>
       <value>false</value>
     </param>
-  </input> 
-  
+  </input>
+
   <returns type="bool"/>
   <example>
-  </example> 
+  </example>
 </method>
 
 </tool>
