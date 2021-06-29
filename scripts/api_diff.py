@@ -43,7 +43,8 @@ for tool in set(toollist):
 for shell in set(shelllist):
     print(shell)
     stable = requests.get('https://casadocs.readthedocs.io/en/%s/_sources/api/%s.rst.txt' % (baseline_version, shell.replace('.', '/'))).text
-    stable_spec = re.search('\.\. function:: (.+?)\n', stable, flags=re.DOTALL).group(1)
+    stable_spec = re.search('\.\. function:: (.+?)\n', stable, flags=re.DOTALL)
+    stable_spec = re.search('\.\. data:: (.+?)\n', stable, flags=re.DOTALL).group(1) if stable_spec is None else stable_spec.group(1)
     ostr += 'casashell.' + stable_spec + '\n'
 
 

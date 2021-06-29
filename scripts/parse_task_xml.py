@@ -163,7 +163,7 @@ for task in tasklist:
             fid.write(' \n\n')
 
         # populate a horizontal toc nav bar
-        fid.write('[' + '] ['.join(['`%s`_' % section for section in ['Description', 'Examples', 'Development', 'Details', 'Change Log']]) + ']\n\n')
+        fid.write('[' + '] ['.join(['`%s`_' % section for section in ['Description', 'Examples', 'Development', 'Details']]) + ']\n\n')
 
         # populate function parameters
         fid.write('\nParameters\n')
@@ -205,27 +205,19 @@ for task in tasklist:
                 fid.write('.. _%s:\n\n' % param)
                 fid.write('| ``%s`` - ' % ParamSpec(param).replace('_ ', ' '))
                 fid.write('%s\n\n' % re.sub('\n+', '\n|    ', task['params'][param]['description'].strip(), flags=re.DOTALL))
-                
-        # populate changelog by diffing this task to the last release
-        fid.write('.. _Change Log:\n\n')
-        fid.write('\nChange Log\n')
-        if task['name'] not in stable_tasks:
-            difflog += '   <li><p><b>' + task['name'] + '</b></li> - New Task</p>\n\n'
-            fid.write('   New Task\n\n')
-        elif stable_tasks[task['name']] == proto.replace('\n',''):
-            fid.write('   No API change\n\n')
-        else:
-            stable_params = re.sub('.+?\((.*?)\)', r'\1', stable_tasks[task['name']], flags=re.DOTALL).split(', ')
-            new_params = re.sub('.+?\((.*?)\)', r'\1', proto.replace('\n',''), flags=re.DOTALL).split(', ')
-            diff_params = ['<b><del>'+pp.replace('- ','')+'</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
-            diff_params = ['<b><ins>' + pp.replace('+ ', '')+'</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
-            diff_proto = '<p><b>'+task['name']+'</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p>'
-            difflog += '   <li>' + diff_proto + '</li>\n\n'
-            fid.write('   .. raw:: html\n\n      ' + diff_proto + '\n\n')
 
         # close docstring stub
         fid.write('\n    """\n    pass\n')
 
+        # populate changelog by diffing this task to the last release
+        if task['name'] not in stable_tasks:
+            difflog += '   <li><p><b>' + task['name'] + '</b> - New Task</p></li>\n\n'
+        elif not (stable_tasks[task['name']] == proto.replace('\n','')):
+            stable_params = re.sub('.+?\((.*?)\)', r'\1', stable_tasks[task['name']], flags=re.DOTALL).split(', ')
+            new_params = re.sub('.+?\((.*?)\)', r'\1', proto.replace('\n',''), flags=re.DOTALL).split(', ')
+            diff_params = ['<b><del>'+pp.replace('- ','')+'</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
+            diff_params = ['<b><ins>' + pp.replace('+ ', '')+'</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
+            difflog += '   <li><p><b>'+task['name']+'</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p></li>\n\n'
 
 # look for deleted tasks
 for stable_task in stable_tasks:

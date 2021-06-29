@@ -165,20 +165,18 @@ latex_documents = [
 ]
 
 
-#######################################################################
-## Regenerate Task XML and Examples
-## this is kind of a lame way to integrate things, but it works better
-## than the standard solutions
-#######################################################################
+#############################################################################################################
+##
+## Sync XML from casa source code repo and diff this build with previous casa release
+##
+## this is kind of a lame way to integrate things, but it works better than the standard solutions
+##
+#############################################################################################################
 os.system("python ../scripts/download_xml.py")
-
 os.system("python ../scripts/parse_pull_requests.py")
-
-#if not os.path.exists('../casatasks'):
 os.system("python ../scripts/parse_task_xml.py")
-
-#if not os.path.exists('../casatools'):
 os.system("python ../scripts/parse_tool_xml.py")
+os.system("python ../scripts/parse_api_functions.py")
 
 if not os.path.exists('examples'):
     os.system("git clone https://github.com/casangi/examples.git")
