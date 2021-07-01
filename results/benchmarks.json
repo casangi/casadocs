@@ -1,0 +1,37 @@
+{
+    "casademo.flagdata_suite.time_flagdata_list": {
+        "code": "class flagdata_suite:\n    def time_flagdata_list(self):\n        flagdata(vis=self.datapath, mode='list', inpfile=self.flags_cmd, tbuff=[0.048, 0.0],\n                 action='apply', flagbackup=False, savepars=False)\n\n    def setup(self):\n        # run for each repeated test\n    \n        # Delete the MS if already exists\n        if os.path.exists(self.input_ms):\n            shutil.rmtree(self.input_ms)\n    \n        # Copy the flagcmd text file into temporary test directory\n        if not os.path.exists(self.flags_cmd):\n            shutil.copyfile(os.path.join(self.dataroot, self.flags_cmd), self.flags_cmd)\n    \n        # assign our test dataset\n        self.datapath = os.path.join(self.dataroot, self.input_ms)\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass",
+        "min_run_count": 2,
+        "name": "casademo.flagdata_suite.time_flagdata_list",
+        "number": 0,
+        "param_names": [],
+        "params": [],
+        "processes": 2,
+        "repeat": 0,
+        "sample_time": 0.01,
+        "setup_cache_key": "/export/home/mano/Workspace/clones/casabench/benchmarks/casademo.py:15",
+        "timeout": 1000,
+        "type": "time",
+        "unit": "seconds",
+        "version": "bd55c82d0855b8b6346bacb17a081527d8002c9eab9c6a8848985099b740ca3f",
+        "warmup_time": -1
+    },
+    "casademo.flagdata_suite.time_flagdata_summary": {
+        "code": "class flagdata_suite:\n    def time_flagdata_summary(self):\n        summary_dict = flagdata(vis=self.datapath, flagbackup=False, mode='summary')\n\n    def setup(self):\n        # run for each repeated test\n    \n        # Delete the MS if already exists\n        if os.path.exists(self.input_ms):\n            shutil.rmtree(self.input_ms)\n    \n        # Copy the flagcmd text file into temporary test directory\n        if not os.path.exists(self.flags_cmd):\n            shutil.copyfile(os.path.join(self.dataroot, self.flags_cmd), self.flags_cmd)\n    \n        # assign our test dataset\n        self.datapath = os.path.join(self.dataroot, self.input_ms)\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass",
+        "min_run_count": 2,
+        "name": "casademo.flagdata_suite.time_flagdata_summary",
+        "number": 0,
+        "param_names": [],
+        "params": [],
+        "processes": 2,
+        "repeat": 0,
+        "sample_time": 0.01,
+        "setup_cache_key": "/export/home/mano/Workspace/clones/casabench/benchmarks/casademo.py:15",
+        "timeout": 1000,
+        "type": "time",
+        "unit": "seconds",
+        "version": "e61d6996a7a97d8fccc994f67518e5be7385aad13177a14cd8590ff1951e5f71",
+        "warmup_time": -1
+    },
+    "version": 2
+}

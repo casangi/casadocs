@@ -20,7 +20,7 @@
     // the empty string, the project is assumed to be located at the root
     // of the repository.
     // "repo_subdir": "",
-    "repo_subdir": "casatools",
+    //"repo_subdir": "casatools",
 
     // Customizable commands for building, installing, and
     // uninstalling the project. See asv.conf.json documentation.
@@ -31,7 +31,7 @@
     //     "python setup.py build",
     //     "PIP_NO_BUILD_ISOLATION=false python -mpip wheel --no-deps --no-index -w {build_cache_dir} {build_dir}"
     // ],
-    "install_command": ["in-dir={env_dir} python -m pip install --index-url https://casa-pip.nrao.edu/repository/pypi-casa-release/simple casatools"],
+    "install_command": ["in-dir={env_dir} python -m pip install --force-reinstall --index-url https://casa-pip.nrao.edu/repository/pypi-casa-release/simple casatasks"],
     "build_command": [],
     //"build_commmand": [
     //	"scripts/gcw-pick",
