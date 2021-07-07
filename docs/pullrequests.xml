@@ -1,0 +1,309 @@
+<records>
+  <ticket id='CAS-13428'>
+    <createddate>06/30/21</createddate>
+    <updateddate>07/02/21</updateddate>
+    <state>MERGED</state>
+    <title>Enable read only cfcache for tclean(gridder='awproject').</title>
+    <releasenote>The casarc variable CFCache.READONLY was added. When AWProject is run with an existing CFCache, if there are write permissions on the CFCache, it will work as before, reading the existing cfs and writing new cfs as needed. If write permission does not exist, earlier it would fail, and now it will run if CFCache.READONLY:1 is set in the .casarc and be able to read existing cfs (the default is CFCache.READONLY:0). Only if the AWProject run needs to add more convolution functions to the existing cfcache but does not have write permission, will it fail, and this will happen during the run, as and when the AWProject code detects the need to write a new cf.
+
+Therefore, CFCache.READONLY:1 is meant to be used only for situations where it is known and expected that AWProject will never need to add new cfs during the run (e.g. in test programs).</releasenote>
+    <components>Imaging, SciDev, Verification</components>
+  </ticket>
+  <ticket id='CAS-13437'>
+    <createddate>06/30/21</createddate>
+    <updateddate>06/30/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13437</title>
+    <releasenote>*Public release notes*
+* A significant slow down in flagdata command present in 6.2 (up to 3-4x, specially in 'summary' mode) has now been fixed, bringing CASA 6.3 flagdata command to a performance comparable with CASA 6.1.
+
+*(Internal use only)*
+* The use of the MSIter class for the inner (subchunk) loop in VisibilityIteratorImpl2 since CAS-12879 added an extra overhead mainly due to the extra metadata computed in each iteration. This metadata computation is now performed lazily only on demand if the application so requires it.
+* Also, for each iteration the casacore TableIterator class was reevaluating the comparison functions used for sorting. Now this information is cached from the time sorting is performed.
+* Additionally, a RefTable is now reused for each iteration rather than created anew.
+* All these performance improvements have been merged to casacore in 5 PRs (#1103, #1104, 1106, #1108, #1109).
+</releasenote>
+    <components>flagdata</components>
+  </ticket>
+  <ticket id='CAS-13433'>
+    <createddate>06/25/21</createddate>
+    <updateddate>06/28/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13433</title>
+    <releasenote>There is a genuine trade-off in the current implementation when satisfying multiple criteria. Documentation of the code situation (with reasons) has been provided, and a few options are being implemented and evaluated by CASA and the PLWG together. 
+
+Implementation is ongoing for "option 4" and we expect a testing tarball (later in the week of June 7)</releasenote>
+    <components>tclean</components>
+  </ticket>
+  <ticket id='CAS-12985'>
+    <createddate>06/25/21</createddate>
+    <updateddate>06/28/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-12985</title>
+    <releasenote>To increase the consistency of task parameter behavior across CASA (and with CASA5) some enum parameters in cvel, cvel2, exportasdm, imreframe, mstransform, sdbaseline, sdsmooth and tsdimaging tasks were modified to allow for upper and lower case versions.</releasenote>
+    <components>Infrastructure</components>
+  </ticket>
+  <ticket id='CAS-13335'>
+    <createddate>06/22/21</createddate>
+    <updateddate>06/25/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13335</title>
+    <releasenote>Appears to be done and ready to verify, somewhat mixed in with the standardized build environment effort also underway</releasenote>
+    <components>Infrastructure</components>
+  </ticket>
+  <ticket id='CAS-13492'>
+    <createddate>06/23/21</createddate>
+    <updateddate>06/24/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13492</title>
+    <releasenote></releasenote>
+    <components>Infrastructure</components>
+  </ticket>
+  <ticket id='CAS-13467'>
+    <createddate>06/22/21</createddate>
+    <updateddate>06/23/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13467: Fix MMS-parallel mstransform with chanaverage and separationaxis='spw' (test_mms_freqavg)</title>
+    <releasenote>Fixed a bug whereby mstransform with createmms=True, separationaxis='spw', chanaverage=True, and a list of bins in chanbin, could produce an output MMS with mismatched channel bins.
+
+Possible known issue to include in previous releases: A bug – which was present in CASA 5, CASA 6.1, and CASA 6.2 – whereby mstransform with createmms=True, separationaxis='spw', chanaverage=True, and a list of bins in chanbin could produce an output MMS with mismatched channel bins has been fixed in CASA 6.3. </releasenote>
+    <components>HPC, mstransform</components>
+  </ticket>
+  <ticket id='CAS-9908'>
+    <createddate>06/22/21</createddate>
+    <updateddate>06/23/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-9908</title>
+    <releasenote>Note from UR :  Please connect this verification test with CAS-12618, a development item scheduled for CASA 5.8/6.2 for the purpose of cleaning up the way users are able to save models. The "ft" task will be upgraded soon : https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_ft/planning</releasenote>
+    <components>Verification</components>
+  </ticket>
+  <ticket id='CAS-13471'>
+    <createddate>06/18/21</createddate>
+    <updateddate>06/21/21</updateddate>
+    <state>MERGED</state>
+    <title>Disabled check on maximum data value for VLA records for all cases.</title>
+    <releasenote>In previous CASA 6 releases (6.1 and 6.2), importvla failed for some historical VLA data. This bug has been fixed.</releasenote>
+    <components>importvla, Infrastructure</components>
+  </ticket>
+  <ticket id='CAS-13442'>
+    <createddate>06/17/21</createddate>
+    <updateddate>06/21/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13442</title>
+    <releasenote>*(Internal use only)*:
+* casacore pointer has been updated to the latest available as of 2021-06-21.
+* During testing a problem was identified in casacore. This was fixed by reverting the suspect casacore commit (https://github.com/casacore/casacore/pull/1113).
+* Also it was identified that the IPosition constructor was changed in a API compatible way. However there were a few places in the C++ tests the use of the old constructor was wrong and needed to be changed.</releasenote>
+    <components>casacore, Infrastructure</components>
+  </ticket>
+  <ticket id='CAS-13423'>
+    <createddate>06/18/21</createddate>
+    <updateddate>06/21/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13423</title>
+    <releasenote>*18 Jun 2021*
+
+This branch changes the check_final function to be a boolean return. Allows the test to have a conditional check ( assertTrue(check_final ) ) instead of allowing the test case to fail independently </releasenote>
+    <components>tclean, Verification</components>
+  </ticket>
+  <ticket id='CAS-13473'>
+    <createddate>06/16/21</createddate>
+    <updateddate>06/17/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13473</title>
+    <releasenote>Calibration tables produced by the accor task can now be smoothed using the smoothcal task.</releasenote>
+    <components>accor, SciDev, smoothcal</components>
+  </ticket>
+  <ticket id='CAS-13323'>
+    <createddate>06/11/21</createddate>
+    <updateddate>06/14/21</updateddate>
+    <state>MERGED</state>
+    <title>Minor fix to sprintf function in BeamCalc.cc and move build state files to build directory (CAS-13323)</title>
+    <releasenote>Minor fix to sprintf function in BeamCalc.cc, likely not covered by a current test case. Discussion on if/how to verify the change before merge to trunk</releasenote>
+    <components>Infrastructure</components>
+  </ticket>
+  <ticket id='CAS-13459'>
+    <createddate>06/10/21</createddate>
+    <updateddate>06/11/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13459</title>
+    <releasenote>The error "{{symbol lookup error: /lib64/libfontconfig.so.1: undefined symbol: FT_Done_MM_Var}}" was resolved by removing operating system libraries the CASA linux distribution. This change will enable subsequent support for casaviewer, casaplotms, and casaplotserver on RH8.</releasenote>
+    <components>plotms, viewer</components>
+  </ticket>
+  <ticket id='CAS-13352'>
+    <createddate>06/10/21</createddate>
+    <updateddate>06/11/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13352</title>
+    <releasenote></releasenote>
+    <components>HPC, Verification</components>
+  </ticket>
+  <ticket id='CAS-13368'>
+    <createddate>06/10/21</createddate>
+    <updateddate>06/10/21</updateddate>
+    <state>MERGED</state>
+    <title>Modified to completely delete temporary files generated by unit test for single-dish.</title>
+    <releasenote></releasenote>
+    <components>Single Dish, Verification</components>
+  </ticket>
+  <ticket id='CAS-12808'>
+    <createddate>06/09/21</createddate>
+    <updateddate>06/10/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-12808</title>
+    <releasenote></releasenote>
+    <components>Verification</components>
+  </ticket>
+  <ticket id='CAS-12961'>
+    <createddate>06/02/21</createddate>
+    <updateddate>06/04/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-12961</title>
+    <releasenote>If the shifted channel frequencies contain 'nan' caused by the incorrect radial velocity provided in the MS data (e.g. attached ephemeris table), this will be caught and the error message will be printed.</releasenote>
+    <components>SciDev, tclean</components>
+  </ticket>
+  <ticket id='CAS-13462'>
+    <createddate>06/02/21</createddate>
+    <updateddate>06/03/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13462 plotms cal table averaging fixes</title>
+    <releasenote>6.2 Known Issue: Channel averaging for a caltable in plotms can be very slow when no antenna selection is set, and crashes may be encountered when using channel averaging and avgantenna=True in the same plotms call for a caltable. These issues will be fixed in CASA 6.3.
+
+6.3 Release Note (NOTE this development is also being merged to 6.2.1): A bug in plotms has been fixed that previously caused a) channel averaging for a caltable in plotms to be very slow when no antenna selection is set, and b) crashes when using channel averaging and avgantenna=True in the same plotms call for a caltable.
+  </releasenote>
+    <components>Infrastructure, plotms</components>
+  </ticket>
+  <ticket id='CAS-13328'>
+    <createddate>05/25/21</createddate>
+    <updateddate>05/26/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13328</title>
+    <releasenote></releasenote>
+    <components>Verification</components>
+  </ticket>
+  <ticket id='CAS-13396'>
+    <createddate>05/25/21</createddate>
+    <updateddate>05/25/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13396</title>
+    <releasenote>This branch only make changes to verification code. Nothing is needed in the documentation.</releasenote>
+    <components>Verification</components>
+  </ticket>
+  <ticket id='CAS-8550'>
+    <createddate>05/25/21</createddate>
+    <updateddate>05/25/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-8550</title>
+    <releasenote>Bug fixes associated with this ticket (fixed in casacore):
+ * A bug in importfitsidi that prevented data with a single spectral window withgain curve information present from being loaded has been fixed.
+ * A bug in importfitsidi that prevented pulsar-binned data from the VLBA from being loaded has been fixed.</releasenote>
+    <components>Calibration, SciDev</components>
+  </ticket>
+  <ticket id='CAS-13383'>
+    <createddate>05/21/21</createddate>
+    <updateddate>05/25/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13383</title>
+    <releasenote>This ticket does not introduce a feature that is visible to normal users. Therefore the note below does not necessarily need to be added to the official release notes.
+
+A frequency-dependent version of the generic Jones matrix calibration class has been added to the calibration infrastructure. Like its frequency-independent counterpart, this functionality isn't used by any of the CASA tasks, but can be used to generate fully generic calibration tables thought the createcaltable() method of the calibrater tool.</releasenote>
+    <components>Calibration, SciDev</components>
+  </ticket>
+  <ticket id='CAS-13317'>
+    <createddate>05/20/21</createddate>
+    <updateddate>05/21/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13317</title>
+    <releasenote>The new tests added:
+
+test_standard_cube_pcwdT
+ test_standard_cube_briggsbwtaper
+ test_standard_cube_eph_pcwdT
+ test_standard_cube_eph_briggsbwtaper
+ test_mosaic_cube_pcwdT
+ test_mosaic_cube_briggsbwtaper
+ test_mosaic_cube_eph_pcwdT
+ test_mosaic_cube_eph_briggsbwtaper
+
+In addition the updates request for CAS-13445 and CAS-13457 are included.
+ These changes are
+ * 1st iter1 tclean now runs with restoringbeam='common' and 2nd iter1 tclean call was removed.  Since there is no need to separate the cases for parallel and serial in iter1 tclean command, the if-else block and the serial specific iter1 tclean command was removed, and parallel parameter for the remaining iter1 command was set to self.parallel. 
+ Modified tests: test_standard_cube, test_standard_cube_pcwdT, test_standard_cube_briggsbwtaper
+ test_mosaic_cube, test_mosaic_cube_pcwdT, test_mosaic_cube_briggsbwtaper
+
+ * Changed start and width parameter values from channel to freuency specification
+ Modified tests: test_standard_cube_eph, test_standard_cube_eph_pcwdT, test_standard_cube_eph_briggsbwtaper, test_mosaic_cube_eph, test_mosaic_cube_eph_pcwdT, test_mosaic_cube_eph_briggsbwtaper
+
+After all the above changes, the fiducial metric values were updated based on the test results 
+ on 6.2.0-118.
+
+ </releasenote>
+    <components>Verification</components>
+  </ticket>
+  <ticket id='CAS-13270'>
+    <createddate>05/18/21</createddate>
+    <updateddate>05/19/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13270</title>
+    <releasenote>Tsys ingestion, as performed in the gencal task, has been made robust to NaNs which can appear in the Tsys values delivered with VLBI datasets. Previously, NaNs were sneaking through and causing downstream calibration operations to fail.</releasenote>
+    <components>Calibration, SciDev</components>
+  </ticket>
+  <ticket id='CAS-13306'>
+    <createddate>05/17/21</createddate>
+    <updateddate>05/18/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13306</title>
+    <releasenote>Previously the apply modes 'flagonly', 'flagonlystrict', and 'trial' would generate a CORRECTED_DATA column in the MS despite no calibration being done on the data.
+
+These modes no longer create a CORRECTED_DATA column if none exists in the MS. The tests for these modes in test_req_task_applycal.py have also been adjusted to ensure this column is not added.</releasenote>
+    <components>applycal</components>
+  </ticket>
+  <ticket id='CAS-13438'>
+    <createddate>05/14/21</createddate>
+    <updateddate>05/17/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13438 - to master</title>
+    <releasenote>A bug in the gather and calc-pb-from-weight step for parallel continuum imaging with gridder='mosaic'/'awproject' was fixed here. The bug was introduced earlier in the 6.2 cycle and so no previous releases were affected. </releasenote>
+    <components>tclean</components>
+  </ticket>
+  <ticket id='CAS-13346'>
+    <createddate>05/11/21</createddate>
+    <updateddate>05/13/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13346</title>
+    <releasenote></releasenote>
+    <components>Verification</components>
+  </ticket>
+  <ticket id='CAS-13345'>
+    <createddate>05/11/21</createddate>
+    <updateddate>05/12/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13345</title>
+    <releasenote></releasenote>
+    <components>Verification</components>
+  </ticket>
+  <ticket id='CAS-13347'>
+    <createddate>05/11/21</createddate>
+    <updateddate>05/12/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13347</title>
+    <releasenote></releasenote>
+    <components>Verification</components>
+  </ticket>
+  <ticket id='CAS-13344'>
+    <createddate>05/11/21</createddate>
+    <updateddate>05/12/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13344</title>
+    <releasenote></releasenote>
+    <components>Verification</components>
+  </ticket>
+  <ticket id='CAS-13362'>
+    <createddate>03/12/21</createddate>
+    <updateddate>05/10/21</updateddate>
+    <state>MERGED</state>
+    <title>CAS-13362 stakeholder update to msmd.almaspws() algorithm</title>
+    <releasenote>Updated ALMA spw classification algorithm to allow spws with bandwidths of &lt; 2 GHz to be classified as FDM windows, whereas they were classified as TDM windows before change.</releasenote>
+    <components>casacore, Infrastructure, msmd</components>
+  </ticket>
+</records>
