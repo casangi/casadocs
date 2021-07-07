@@ -1,0 +1,9 @@
+{
+    "arch": "x86_64",
+    "cpu": "Intel(R) Core(TM) i5-8210Y CPU @ 1.60GHz",
+    "machine": "macbook_air",
+    "num_cpu": "4",
+    "os": "macOS 10.15.7",
+    "ram": "16 GB 2133 MHz LPDDR3",
+    "version": 1
+}
