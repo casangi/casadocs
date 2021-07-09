@@ -2,7 +2,7 @@ import xml.etree.ElementTree as ET
 import re
 import os
 import requests
-
+from datetime import datetime
 
 with open('api_baseline.txt', 'r') as fid:
     diffversion = fid.readlines()[0].strip()
@@ -28,15 +28,15 @@ difflog = ''
 for ii, raw_line in enumerate(raw_prs):
     if len(raw_line.strip()) == 0: continue
     prdict = eval(raw_line.replace('true', 'True').replace('false', 'False').replace('null','None'))
-    date = raw_dates[ii][4:-11]
+    date = datetime.strptime(raw_dates[ii][4:-6], '%b %d %H:%M:%S %Y').strftime('%m/%d/%y')
     build = re.findall('.*?tag: (\d\.\d\.\d\.\d+).*', raw_builds[ii], flags=re.DOTALL)
-    build = ' <sub>['+build[0]+']</sub> ' if len(build) > 0 else ' '
+    build = ' <sup>['+build[0]+']</sup> ' if len(build) > 0 else ' '
     id = prdict['key']
     components = [cc['name'] for cc in prdict['fields']['components']]
     if (len(components) == 1) and (components[0] == 'Verification'): continue
     note = prdict['fields']['customfield_10500']
     if note is not None: note = note.replace('\n','\n   ')
-    difflog += '   <li><p><i>%s</i>%s<b>%s</b> - %s</p></li>\n\n' % (date, build, id, note)
+    difflog += '   <li><p><i>%s</i> <b>%s</b>%s- %s</p></li>\n\n' % (date, id, build, note)
 
 # write out log of tool API diffs
 with open('changelog.rst', 'w') as fid:
