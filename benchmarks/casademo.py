@@ -30,17 +30,21 @@ class flagdata_suite:
         # assign our test dataset
         self.datapath = os.path.join(self.dataroot, self.input_ms)
 
-    def time_flagdata_hifa_flagdata(self):
+    def time_flagdata_hifa_importdata(self):
         summary_dict = flagdata(vis=self.datapath, flagbackup=False, mode='summary')
 
-    def time_flagdata_hifa_rawflagchans(self):
+    def time_flagdata_hifa_flagdata(self):
         flagdata(vis=self.datapath, mode='list', inpfile=self.flags_cmd, tbuff=[0.048, 0.0], 
                  action='apply', flagbackup=False, savepars=False)
+
+    def time_flagdata_hifa_rawflagchans(self):
+        summary_dict = flagdata(vis=input_ms, mode='list', inpfile=["mode='summary' name='before'"], 
+                                reason='any', action='apply', flagbackup=False, savepars=False)
 
     def time_flagdata_hifa_bandpassflag(self):
         flagdata(vis=self.datapath, mode='list',
                  inpfile=["intent='CALIBRATE_BANDPASS#ON_SOURCE' spw='16' antenna='CM05' \
-                timerange='20:09:50~20:09:52' field='J1924-2914' reason='bad antenna timestamp'", 
+                 timerange='20:09:50~20:09:52' field='J1924-2914' reason='bad antenna timestamp'", 
                           "intent='CALIBRATE_BANDPASS#ON_SOURCE' spw='20' antenna='CM05' \
                           timerange='20:09:20~20:09:22' field='J1924-2914' reason='bad antenna timestamp'", 
                           "intent='CALIBRATE_BANDPASS#ON_SOURCE' spw='20' antenna='CM05' \
