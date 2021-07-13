@@ -25,6 +25,8 @@ for tool in tools:
         xmlstring = fid.read()
         xmlstring = re.sub('\<link.*?\>(.+?)\<\/link>', r'\1', xmlstring, flags=re.DOTALL)
         xmlstring = re.sub('\"\"\"', '', xmlstring, flags=re.DOTALL)
+        xmlstring = re.sub('&quot;&quot;&quot;', '', xmlstring, flags=re.DOTALL)
+        xmlstring = xmlstring.replace('false', 'False').replace('true', 'True')
     
     xmlroot = ET.fromstring(xmlstring)
     
