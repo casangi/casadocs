@@ -18,8 +18,9 @@ class flagdata_suite:
 
     def setup(self):
         # run for each repeated test
-
-        number = 10
+        
+        # iterations per sample
+        self.number = 10
 
         # Delete the MS if already exists
         if os.path.exists(self.input_ms):
