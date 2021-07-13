@@ -33,6 +33,7 @@
     // ],
     "install_command": ["in-dir={env_dir} python -m pip install --force-reinstall --index-url https://casa-pip.nrao.edu/repository/pypi-casa-release/simple casatasks"],
     "build_command": [],
+    "uninstall_command": ["return-code=any python -mpip uninstall -y casatasks casatools"],
     //"build_commmand": [
     //	"scripts/gcw-pick",
     //	"autoconf",

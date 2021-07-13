@@ -1,8 +1,8 @@
 {
-    "casademo.flagdata_suite.time_flagdata_hifa_bandpassflag": {
-        "code": "class flagdata_suite:\n    def time_flagdata_hifa_bandpassflag(self):\n        flagdata(vis=self.datapath, mode='list',\n                 inpfile=[\"intent='CALIBRATE_BANDPASS#ON_SOURCE' spw='16' antenna='CM05' \\\n                timerange='20:09:50~20:09:52' field='J1924-2914' reason='bad antenna timestamp'\",\n                          \"intent='CALIBRATE_BANDPASS#ON_SOURCE' spw='20' antenna='CM05' \\\n                          timerange='20:09:20~20:09:22' field='J1924-2914' reason='bad antenna timestamp'\",\n                          \"intent='CALIBRATE_BANDPASS#ON_SOURCE' spw='20' antenna='CM05' \\\n                          timerange='20:10:21~20:10:22' field='J1924-2914' reason='bad antenna timestamp'\",\n                          \"intent='CALIBRATE_BANDPASS#ON_SOURCE' spw='22' antenna='CM05' \\\n                          timerange='20:09:30~20:09:32' field='J1924-2914' reason='bad antenna timestamp'\"],\n                 reason='any', action='apply', flagbackup=False, savepars=False)\n\n    def setup(self):\n        # run for each repeated test\n    \n        # Delete the MS if already exists\n        if os.path.exists(self.input_ms):\n            shutil.rmtree(self.input_ms)\n    \n        # Copy the flagcmd text file into temporary test directory\n        if not os.path.exists(self.flags_cmd):\n            shutil.copyfile(os.path.join(self.dataroot, self.flags_cmd), self.flags_cmd)\n    \n        # assign our test dataset\n        self.datapath = os.path.join(self.dataroot, self.input_ms)\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass",
+    "casademo.flagdata_suite.time_flagdata_bandpassflag": {
+        "code": "class flagdata_suite:\n    def time_flagdata_bandpassflag(self):\n        \"\"\"hifa_bandpassflag\"\"\"\n        flagdata(vis=self.datapath, mode='list',\n                 inpfile=[\"intent='CALIBRATE_BANDPASS#ON_SOURCE' spw='16' antenna='CM05' \\\n                 timerange='20:09:50~20:09:52' field='J1924-2914' reason='bad antenna timestamp'\",\n                          \"intent='CALIBRATE_BANDPASS#ON_SOURCE' spw='20' antenna='CM05' \\\n                          timerange='20:09:20~20:09:22' field='J1924-2914' reason='bad antenna timestamp'\",\n                          \"intent='CALIBRATE_BANDPASS#ON_SOURCE' spw='20' antenna='CM05' \\\n                          timerange='20:10:21~20:10:22' field='J1924-2914' reason='bad antenna timestamp'\",\n                          \"intent='CALIBRATE_BANDPASS#ON_SOURCE' spw='22' antenna='CM05' \\\n                          timerange='20:09:30~20:09:32' field='J1924-2914' reason='bad antenna timestamp'\"],\n                 reason='any', action='apply', flagbackup=False, savepars=False)\n\n    def setup(self):\n        # run for each repeated test\n    \n        number = 10\n    \n        # Delete the MS if already exists\n        if os.path.exists(self.input_ms):\n            shutil.rmtree(self.input_ms)\n    \n        # Copy the flagcmd text file into temporary test directory\n        if not os.path.exists(self.flags_cmd):\n            shutil.copyfile(os.path.join(self.dataroot, self.flags_cmd), self.flags_cmd)\n    \n        # assign our test dataset\n        self.datapath = os.path.join(self.dataroot, self.input_ms)\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass",
         "min_run_count": 2,
-        "name": "casademo.flagdata_suite.time_flagdata_hifa_bandpassflag",
+        "name": "casademo.flagdata_suite.time_flagdata_bandpassflag",
         "number": 0,
         "param_names": [],
         "params": [],
@@ -13,13 +13,13 @@
         "timeout": 10000,
         "type": "time",
         "unit": "seconds",
-        "version": "63b161f848beb1f9f845a9d28eeb3081b8ff931cbf8e751b0827ac47e44b7e52",
+        "version": "824484065f80daecec4d252656e0318d111b6349cf44f5302a66fbbf3544837e",
         "warmup_time": -1
     },
-    "casademo.flagdata_suite.time_flagdata_hifa_flagdata": {
-        "code": "class flagdata_suite:\n    def time_flagdata_hifa_flagdata(self):\n        summary_dict = flagdata(vis=self.datapath, flagbackup=False, mode='summary')\n\n    def setup(self):\n        # run for each repeated test\n    \n        # Delete the MS if already exists\n        if os.path.exists(self.input_ms):\n            shutil.rmtree(self.input_ms)\n    \n        # Copy the flagcmd text file into temporary test directory\n        if not os.path.exists(self.flags_cmd):\n            shutil.copyfile(os.path.join(self.dataroot, self.flags_cmd), self.flags_cmd)\n    \n        # assign our test dataset\n        self.datapath = os.path.join(self.dataroot, self.input_ms)\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass",
+    "casademo.flagdata_suite.time_flagdata_list": {
+        "code": "class flagdata_suite:\n    def time_flagdata_list(self):\n        \"\"\"hifa_flagdata\"\"\"\n        flagdata(vis=self.datapath, mode='list', inpfile=self.flags_cmd, tbuff=[0.048, 0.0],\n                 action='apply', flagbackup=False, savepars=False)\n\n    def setup(self):\n        # run for each repeated test\n    \n        number = 10\n    \n        # Delete the MS if already exists\n        if os.path.exists(self.input_ms):\n            shutil.rmtree(self.input_ms)\n    \n        # Copy the flagcmd text file into temporary test directory\n        if not os.path.exists(self.flags_cmd):\n            shutil.copyfile(os.path.join(self.dataroot, self.flags_cmd), self.flags_cmd)\n    \n        # assign our test dataset\n        self.datapath = os.path.join(self.dataroot, self.input_ms)\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass",
         "min_run_count": 2,
-        "name": "casademo.flagdata_suite.time_flagdata_hifa_flagdata",
+        "name": "casademo.flagdata_suite.time_flagdata_list",
         "number": 0,
         "param_names": [],
         "params": [],
@@ -30,13 +30,13 @@
         "timeout": 10000,
         "type": "time",
         "unit": "seconds",
-        "version": "7178c0fcad9bdc23d52de2e4a70b5128cb0cf524e5cce0caef163c879a668d27",
+        "version": "9e1ade09c980235f21b30562b68125f61596ef816e958b2005971bb9abf459e9",
         "warmup_time": -1
     },
-    "casademo.flagdata_suite.time_flagdata_hifa_rawflagchans": {
-        "code": "class flagdata_suite:\n    def time_flagdata_hifa_rawflagchans(self):\n        flagdata(vis=self.datapath, mode='list', inpfile=self.flags_cmd, tbuff=[0.048, 0.0],\n                 action='apply', flagbackup=False, savepars=False)\n\n    def setup(self):\n        # run for each repeated test\n    \n        # Delete the MS if already exists\n        if os.path.exists(self.input_ms):\n            shutil.rmtree(self.input_ms)\n    \n        # Copy the flagcmd text file into temporary test directory\n        if not os.path.exists(self.flags_cmd):\n            shutil.copyfile(os.path.join(self.dataroot, self.flags_cmd), self.flags_cmd)\n    \n        # assign our test dataset\n        self.datapath = os.path.join(self.dataroot, self.input_ms)\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass",
+    "casademo.flagdata_suite.time_flagdata_list_summary": {
+        "code": "class flagdata_suite:\n    def time_flagdata_list_summary(self):\n        \"\"\"hifa_rawflagchans\"\"\"\n        summary_dict = flagdata(vis=input_ms, mode='list', inpfile=[\"mode='summary' name='before'\"],\n                                reason='any', action='apply', flagbackup=False, savepars=False)\n\n    def setup(self):\n        # run for each repeated test\n    \n        number = 10\n    \n        # Delete the MS if already exists\n        if os.path.exists(self.input_ms):\n            shutil.rmtree(self.input_ms)\n    \n        # Copy the flagcmd text file into temporary test directory\n        if not os.path.exists(self.flags_cmd):\n            shutil.copyfile(os.path.join(self.dataroot, self.flags_cmd), self.flags_cmd)\n    \n        # assign our test dataset\n        self.datapath = os.path.join(self.dataroot, self.input_ms)\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass",
         "min_run_count": 2,
-        "name": "casademo.flagdata_suite.time_flagdata_hifa_rawflagchans",
+        "name": "casademo.flagdata_suite.time_flagdata_list_summary",
         "number": 0,
         "param_names": [],
         "params": [],
@@ -47,7 +47,24 @@
         "timeout": 10000,
         "type": "time",
         "unit": "seconds",
-        "version": "a11160ac9910561cdf2f441c2aa1bd398228a05dccdc1fb256a3e6375d4afa7f",
+        "version": "27804bea3d9405a9833b0b53254c6e5795764cdc018ae8e5e49410e017f654c6",
+        "warmup_time": -1
+    },
+    "casademo.flagdata_suite.time_flagdata_summary": {
+        "code": "class flagdata_suite:\n    def time_flagdata_summary(self):\n        \"\"\"hifa_importdata\"\"\"\n        summary_dict = flagdata(vis=self.datapath, flagbackup=False, mode='summary')\n\n    def setup(self):\n        # run for each repeated test\n    \n        number = 10\n    \n        # Delete the MS if already exists\n        if os.path.exists(self.input_ms):\n            shutil.rmtree(self.input_ms)\n    \n        # Copy the flagcmd text file into temporary test directory\n        if not os.path.exists(self.flags_cmd):\n            shutil.copyfile(os.path.join(self.dataroot, self.flags_cmd), self.flags_cmd)\n    \n        # assign our test dataset\n        self.datapath = os.path.join(self.dataroot, self.input_ms)\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass",
+        "min_run_count": 2,
+        "name": "casademo.flagdata_suite.time_flagdata_summary",
+        "number": 0,
+        "param_names": [],
+        "params": [],
+        "processes": 2,
+        "repeat": 0,
+        "sample_time": 0.01,
+        "setup_cache_key": "/export/home/mano/Workspace/clones/casabench/benchmarks/casademo.py:15",
+        "timeout": 10000,
+        "type": "time",
+        "unit": "seconds",
+        "version": "c1463724171bf1f01a53834a5e05670c75b16d22946511a9e8fdccf05687f71b",
         "warmup_time": -1
     },
     "version": 2
