@@ -1,4 +1,4 @@
-API, tasks/tools
+API
 ====================
 
 External Interface definition of CASA.
