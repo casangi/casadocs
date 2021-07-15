@@ -78,6 +78,8 @@ for tool in tools:
                         pd['value'] = '[\'' + pd['value'] + '\']' if pd['value'] is not None else '[\'\']'
                     elif ('array' in pd['type'].split(',')[0].lower()) and (not pd['type'].startswith('[')):
                         pd['value'] = '[' + pd['value'] + ']' if pd['value'] is not None else '[\'\']'
+                    elif ('vec' in pd['type'].split(',')[0].lower()) and (not pd['type'].startswith('[')):
+                        pd['value'] = '[' + pd['value'] + ']' if pd['value'] is not None else '[\'\']'
                         
                     # can't trust any types, wrap as strings
                     if (pd['type'] == 'any') and (pd['value'] is not None) and (not pd['value'].startswith('\'')):
