@@ -44,7 +44,7 @@ class flagdata_suite:
 
     def time_flagdata_list_summary(self):
         """hifa_rawflagchans"""
-        summary_dict = flagdata(vis=input_ms, mode='list', inpfile=["mode='summary' name='before'"], 
+        summary_dict = flagdata(vis=self.datapath, mode='list', inpfile=["mode='summary' name='before'"], 
                                 reason='any', action='apply', flagbackup=False, savepars=False)
 
     def time_flagdata_bandpassflag(self):
