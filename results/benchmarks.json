@@ -34,7 +34,7 @@
         "warmup_time": -1
     },
     "casademo.flagdata_suite.time_flagdata_list_summary": {
-        "code": "class flagdata_suite:\n    def time_flagdata_list_summary(self):\n        \"\"\"hifa_rawflagchans\"\"\"\n        summary_dict = flagdata(vis=input_ms, mode='list', inpfile=[\"mode='summary' name='before'\"],\n                                reason='any', action='apply', flagbackup=False, savepars=False)\n\n    def setup(self):\n        # run for each repeated test\n    \n        # iterations per sample\n        self.number = 10\n    \n        # Delete the MS if already exists\n        if os.path.exists(self.input_ms):\n            shutil.rmtree(self.input_ms)\n    \n        # Copy the flagcmd text file into temporary test directory\n        if not os.path.exists(self.flags_cmd):\n            shutil.copyfile(os.path.join(self.dataroot, self.flags_cmd), self.flags_cmd)\n    \n        # assign our test dataset\n        self.datapath = os.path.join(self.dataroot, self.input_ms)\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass",
+        "code": "class flagdata_suite:\n    def time_flagdata_list_summary(self):\n        \"\"\"hifa_rawflagchans\"\"\"\n        summary_dict = flagdata(vis=self.datapath, mode='list', inpfile=[\"mode='summary' name='before'\"],\n                                reason='any', action='apply', flagbackup=False, savepars=False)\n\n    def setup(self):\n        # run for each repeated test\n    \n        # iterations per sample\n        self.number = 10\n    \n        # Delete the MS if already exists\n        if os.path.exists(self.input_ms):\n            shutil.rmtree(self.input_ms)\n    \n        # Copy the flagcmd text file into temporary test directory\n        if not os.path.exists(self.flags_cmd):\n            shutil.copyfile(os.path.join(self.dataroot, self.flags_cmd), self.flags_cmd)\n    \n        # assign our test dataset\n        self.datapath = os.path.join(self.dataroot, self.input_ms)\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass",
         "min_run_count": 2,
         "name": "casademo.flagdata_suite.time_flagdata_list_summary",
         "number": 0,
@@ -47,7 +47,7 @@
         "timeout": 10000,
         "type": "time",
         "unit": "seconds",
-        "version": "0ac4a46d35338a202286d3bc72fa4123e52cac669dad8d45cc0c832d1d8e3467",
+        "version": "b898196d3f59179fa2b64d1810040242d17fe7775e0175f6bd5387b7b41f2f7a",
         "warmup_time": -1
     },
     "casademo.flagdata_suite.time_flagdata_summary": {
