@@ -1,0 +1,9 @@
+{
+    "arch": "x86_64",
+    "cpu": "Intel(R) Xeon(R) Gold 6136 CPU @ 3.00GHz",
+    "machine": "cvpost121",
+    "num_cpu": "24",
+    "os": "Linux 3.10.0-1127.13.1.el7.x86_64",
+    "ram": "496GB",
+    "version": 1
+}
