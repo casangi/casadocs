@@ -1,9 +1,0 @@
-{
-    "arch": "x86_64",
-    "cpu": "Intel(R) Xeon(R) CPU E5-1660 v4 @ 3.20GHz",
-    "machine": "NRAO workstation",
-    "num_cpu": "16",
-    "os": "Linux 3.10.0-1160.15.2.el7.x86_64",
-    "ram": "32GB",
-    "version": 1
-}
