@@ -20,7 +20,7 @@
     // the empty string, the project is assumed to be located at the root
     // of the repository.
     // "repo_subdir": "",
-    //"repo_subdir": "casatools",
+    "repo_subdir": "casatasks",
 
     // Customizable commands for building, installing, and
     // uninstalling the project. See asv.conf.json documentation.
@@ -31,15 +31,13 @@
     //     "python setup.py build",
     //     "PIP_NO_BUILD_ISOLATION=false python -mpip wheel --no-deps --no-index -w {build_cache_dir} {build_dir}"
     // ],
-    "install_command": ["in-dir={env_dir} python -m pip install --force-reinstall --index-url https://casa-pip.nrao.edu:443/repository/pypi-group/simple casatasks"],
-    "build_command": [],
-    "uninstall_command": ["return-code=any python -mpip uninstall -y casatasks casatools"],
-    //"build_commmand": [
-    //	"scripts/gcw-pick",
-    //	"autoconf",
-    //	"configure",
-    //	"setup.py build",
-    //  ],
+    //"install_command": ["in-dir={env_dir} python -m pip install --force-reinstall casatasks --index-url https://casa-pip.nrao.edu:443/repository/pypi-group/simple --extra-index-url https://casa-pip.nrao.edu/repository/pypi-casa-release/simple "],
+    //"build_command": [],
+    //"build_commmand": [ "in-dir='./casatools' scripts/gcw-pick && autoconf && configure && setup.py build",
+    //			"in-dir='./casatasks' PYTHONPATH=../casatools/build/lib.macosx-10.12-x86_64-3.6 ./setup.py build"
+    //		      ],
+    "build_command": ["python ./setup.py build"],
+    "uninstall_command": ["return-code=any python -mpip uninstall -y casatasks"],
 
     // List of branches to benchmark. If not provided, defaults to "master"
     // (for git) or "default" (for mercurial).
@@ -66,12 +64,11 @@
     // the base URL to show a commit for the project.
     // "show_commit_url": "http://github.com/owner/project/commit/",
     "show_commit_url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/commits/",
-    //"show_commit_url": "https://github.com/casangi/cngi_prototype/commits/",
 
     // The Pythons you'd like to test against.  If not provided, defaults
     // to the current version of Python used to run `asv`.
     // "pythons": ["2.7", "3.6"],
-    "pythons": ["3.6", "3.7", "3.8"],
+    "pythons": ["3.6"],
 
     // The list of conda channel names to be searched for benchmark
     // dependency packages in the specified order
@@ -94,8 +91,8 @@
     // },
     "matrix": {
 	// casawheels are not available on conda yet
-        "pip+casatools": ["6.1.1.15", "6.2.0.43", "6.3.0.24"],
-        "pip+casatasks": ["6.1.1.15", "6.2.0.43", "6.3.0.24"],
+        //"pip+casatasks": ["6.0.0.27", "6.2.0.124"],
+	"pip+casatools": ["6.2.0.124"],
     }
 
     // Combinations of libraries/python versions can be excluded/included
