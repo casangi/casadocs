@@ -31,12 +31,28 @@
     //     "python setup.py build",
     //     "PIP_NO_BUILD_ISOLATION=false python -mpip wheel --no-deps --no-index -w {build_cache_dir} {build_dir}"
     // ],
+
     //"install_command": ["in-dir={env_dir} python -m pip install --force-reinstall casatasks --index-url https://casa-pip.nrao.edu:443/repository/pypi-group/simple --extra-index-url https://casa-pip.nrao.edu/repository/pypi-casa-release/simple "],
     //"build_command": [],
     //"build_commmand": [ "in-dir='./casatools' scripts/gcw-pick && autoconf && configure && setup.py build",
     //			"in-dir='./casatasks' PYTHONPATH=../casatools/build/lib.macosx-10.12-x86_64-3.6 ./setup.py build"
     //		      ],
-    "build_command": ["python ./setup.py build"],
+    "build_command": [
+	// // If only our bdist_wheel subclass supported the --target-dir flag e.g., 
+	// //"python setup.py bdist_wheel -d {build_cache_dir} {build_dir}",
+	"python setup.py bdist_wheel", // creates {build_dir}/dist/*.whl
+	// // this is all I want to do but it's unclear how to get shell commands into env/bin/:
+	//"cp dist/*.whl {build_cache_dir}"
+	// // This works as a one-off, but must be generalized to programatically reference the filenames. Also needs wheel installed via 'matrix'
+	//"wheel unpack ./dist/casatasks-6.3.0.31a100.dev0+dirty-py3-none-any.whl",
+	//"wheel pack ./casatasks-6.3.0.31a100.dev0+dirty/ --dest-dir {build_cache_dir}"
+	// // This escaped command actually works as expected when run outside of this JSON file (hand-setting env vars to match their expected values...)
+	//"python -c \"import shutil, os; full_path_source=os.environ['ASV_BUILD_DIR']+'/dist/'; full_path_target=os.environ['ASV_BUILD_CACHE_DIR']; fname=[ff for ff in os.listdir(full_path_source) if ff.endswith('whl')][0]; src=f'{full_path_source}/{fname}'; dst=f'{full_path_target}/{fname}'; shutil.copyfile(src, dst)\""
+	// // This is adapted directly from asv/environment.py and uses better string escaping
+	"python -c 'import shutil, os; WHLS = os.listdir(os.environ[\"ASV_BUILD_DIR\"]+\"/dist/\"); wheel = [fn for fn in WHLS if fn.lower().endswith(\".whl\")]; wheel = wheel[0]; shutil.copyfile((os.path.abspath(\"./dist/\"+wheel)), (os.path.join(os.environ[\"ASV_BUILD_CACHE_DIR\"],wheel)))'",
+    ],
+    // {wheel_file} is only defined for use in this shlex when exactly one wheel is present in {build_cache_dir}
+    "install_command": ["in-dir={env_dir} python -mpip -v install --force-reinstall {wheel_file}"],
     "uninstall_command": ["return-code=any python -mpip uninstall -y casatasks"],
 
     // List of branches to benchmark. If not provided, defaults to "master"
@@ -93,6 +109,7 @@
 	// casawheels are not available on conda yet
         //"pip+casatasks": ["6.0.0.27", "6.2.0.124"],
 	"pip+casatools": ["6.2.0.124"],
+	//"wheel": ["0.36.2"],
     }
 
     // Combinations of libraries/python versions can be excluded/included
