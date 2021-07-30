@@ -77,7 +77,7 @@ At runtime the datapath(s) are expanded through a resolve(\...) function to find
 
 The command line arguments discussed later take precendence over the equivalent config.py value.
 
-. note::
+.. note::
 
    *rcdir* is used to change the location of the root .casa folder to something other than **\~/.casa**. In addition to the startup
    files (config.py and startup.py) the root .casa folder contains working files and directories used by CASA components (e.g. ipython,
