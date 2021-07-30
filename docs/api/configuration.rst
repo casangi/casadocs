@@ -35,6 +35,7 @@ The configuration file is a standard python script, so any valid python syntax a
 might look something like this:
 
 ::
+
    datapath=["/home/casa/data/casa-data", "~/.casa/mydata"]
    rundata="~/.casa/mydata"
    log2term=True
@@ -43,6 +44,7 @@ might look something like this:
 An example config.py file showing all recognized configurable parameters is shown here, this also illustrates that config.py can contain other python commands. This shows setting logfile using the time module. Note that some of the parameters shown here are set to the their default values.
 
 ::
+
    import time
    
    datapath=["/home/casa/data/casa-data", "~/.casa/mydata"]
@@ -50,8 +52,19 @@ An example config.py file showing all recognized configurable parameters is show
    logfile='casalog-%s.log' % time.strftime("%Y%m%d-%H",time.localtime())
    telemetry_enabled = True
    crashreporter_enabled = True
-   
-   *NOTE THIS IS STILL BEING EDITED*
+   nologfile = False
+   log2term = True
+   nologger = True
+   nogui = False
+   colors = "LightBG"
+   agg = False
+   pipeline = False
+   iplog = True
+   user_site = False
+   telemetry_log_directory = /tmp
+   telemetry_log_limit = 1650
+   telemetry_log_size_interval = 30
+   telemetry_submit_interval = 20
    
 
 At runtime the datapath(s) are expanded through a resolve(\...) function to find the needed data tables. For example
