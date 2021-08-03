@@ -52,11 +52,6 @@ At runtime the datapath(s) are expanded through a resolve(\...) function to find
 The command line arguments take precendence over the equivalent config.py value.
 
 
-.. warning::
-
-   **WARNING**: CASA 5 does not use config.py. Instead ~/.casa/prelude.py is evaluated during startup before anything else
-   and ~/.casa/init.py is evaluated just before the CASA prompt is presented. The configuration options are different and more limited.
-
 
 startup.py
 ^^^^^^^^^^
@@ -65,7 +60,7 @@ startup.py
 
 *This section only applies to the monolithic/tar-file CASA distribution, and it only applies to CASA 6.*
 
-For CASA 5, use *\~/.casa/init.py* instead. *startup.py* should be Python 3 compliant whereas *init.py* is assumed to be Python 2.7.
+For CASA 5, please see `an earlier version of CASA Docs <https://casadocs.readthedocs.io/en/v6.2.0/api/configuration.html#startup-py>`__.
 
 The \'*startup.py*\' file found in *\$HOME/.casa* (i.e. *\~/.casa/startup.py*) is evaluated by the CASA shell just before the CASA
 prompt is presented to the user. This allows users to customize their CASA shell environment beyond the standard settings in
@@ -132,27 +127,5 @@ Some options imply or take precedence over other options:
    --rcdir is used to change the location of the root .casa folder to something other than **\~/.casa**. In addition to the startup
    files (config.py and startup.py) the root .casa folder contains working files and directories used by CASA components (e.g. ipython,
    telemetry).
-
-.. warning::
-
-   the command line arguments listed above apply to CASA 6. In CASA 5 (including CASA 5.7):
-
-
-- The following command line arguments are still available (removed/replaced in CASA 6):
-
-::
-
-   --telemetry (removed in favor of --notelemetry in CASA 6)
-   --trace
-   --maclogger
-
-- the following command line arguments are not available:
-
-::
-
-   --norc
-   --notelemetry
-   --datapath
-   --user-site
 
 
