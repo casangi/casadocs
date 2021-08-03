@@ -17,29 +17,58 @@ placed in the user root .casa folder (**\~/.casa**) prior to starting the casa i
 python environment for the first time.
 
 The following parameters can be set in the configuration file. Finer control over telemetry can also be set in the configuration file,
-as described `here <../../notebooks/usingcasa.ipynb#telemetry>`__.
+as described `here <../notebooks/usingcasa.ipynb#Information-Collection>`__.
 
 - *datapath*              : list of paths where CASA should search for runtime data
 - *rundata*               : location to update runtime data
 - *logfile*               : log file path/name
+- *nologfile*             : do not create a log file when True, default False. If *nologfile* is true, then any *logfile* value is ignored and there is no log file.
+- *log2term*              : print log output to terminal when True (in addition to any logfile and CASA logger), default False
+- *nologger*              : do not start the CASA logger when True, default False
+- *nogui*                 : avoid starting GUI tools when True, default False. If *nogui* is True then the CASA logger is not started even if *nologger* is False.
+- *colors*                : the IPython prompt color scheme. Must be one of "Neutral", "NoColor", "Linux" or "LightBG", default "Neutral". If an invalid color is given a warning message is printed and logged but CASA continues using the default color.
+- *agg*                   : startup without a graphical backend if True, default False
+- *pipeline*              : attempt to load the pipeline modules and set other options appropriate for pipeline use if True, default False. When *pipeline* is True then *agg* will be assumed to be true even if *agg* is set to False here or on the command line.
+- *iplog*                 : create and use an IPython log in the current directory if True, default False.
 - *telemetry_enabled*     : allow anonymous usage reporting, default True
 - *crashreporter_enabled* : allow anonymous crash reporting, default True
+- *user_site*             : include the user's local site-packages in the python path if True. Normally these are excluded to avoid any conflicts with CASA modules (when False, the default).
 
 The configuration file is a standard python script, so any valid python syntax and libraries can be used.  A typical config.py file
 might look something like this:
 
 ::
 
-   $ cat ~/.casa/config.py
+   datapath=["/home/casa/data/casa-data", "~/.casa/mydata"]
+   rundata="~/.casa/mydata"
+   log2term=True
+   nologger=True
+   
+An example config.py file showing all recognized configurable parameters is shown here, this also illustrates that config.py can contain other python commands. This shows setting logfile using the time module. Note that some of the parameters shown here are set to the their default values.
+
+::
 
    import time
-
+   
    datapath=["/home/casa/data/casa-data", "~/.casa/mydata"]
    rundata="~/.casa/mydata"
    logfile='casalog-%s.log' % time.strftime("%Y%m%d-%H",time.localtime())
    telemetry_enabled = True
    crashreporter_enabled = True
-
+   nologfile = False
+   log2term = True
+   nologger = True
+   nogui = False
+   colors = "LightBG"
+   agg = False
+   pipeline = False
+   iplog = True
+   user_site = False
+   telemetry_log_directory = /tmp
+   telemetry_log_limit = 1650
+   telemetry_log_size_interval = 30
+   telemetry_submit_interval = 20
+   
 
 At runtime the datapath(s) are expanded through a resolve(\...) function to find the needed data tables. For example
 
@@ -51,6 +80,11 @@ At runtime the datapath(s) are expanded through a resolve(\...) function to find
 
 The command line arguments take precendence over the equivalent config.py value.
 
+.. note::
+
+   *rcdir* is used to change the location of the root .casa folder to something other than **\~/.casa**. In addition to the startup
+   files (config.py and startup.py) the root .casa folder contains working files and directories used by CASA components (e.g. ipython,
+   telemetry). It is expected to be writable by the user for use by those components.
 
 
 startup.py
@@ -100,7 +134,7 @@ This ./bin/casa executable can be provided the following options to change confi
    --nologger            do not start CASA logger
    --nologfile           do not create a log file
    --nogui               avoid starting GUI tools
-   --rcdir RCDIR         location for startup files
+   --rcdir RCDIR         location for startup files, internal working files
    --norc                do not load user config.py (startup.py is unaffected)
    --colors {Neutral,NoColor,Linux,LightBG} prompt color
    --pipeline            load CASA pipeline modules on startup
@@ -114,18 +148,5 @@ This ./bin/casa executable can be provided the following options to change confi
    -c ...                python eval string or python script to execute
 
 
-These options **take precedence over the configuration files.**
-
-Some options imply or take precedence over other options:
-
--   \--nologfile takes precedence over \--logfile
--   \--nogui implies \--nologger
--   \--pipeline implies \--agg
-
-.. note::
-
-   --rcdir is used to change the location of the root .casa folder to something other than **\~/.casa**. In addition to the startup
-   files (config.py and startup.py) the root .casa folder contains working files and directories used by CASA components (e.g. ipython,
-   telemetry).
-
-
+These options **take precedence over the configuration files.** See the discussion of equivalent config.py parameters 
+for more details on these command line options.
