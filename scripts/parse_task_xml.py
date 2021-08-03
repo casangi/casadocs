@@ -1,11 +1,17 @@
 import xml.etree.ElementTree as ET
 import re
 import os
+import difflib
 
 ########################################################
 # this is meant to be run from the docs folder
 # if running manually, cd docs first
 ########################################################
+
+# clean out old data
+if os.path.exists('../casatasks'): os.system('rm -fr ../casatasks')
+os.system('mkdir ../casatasks')
+
 
 tasknames = os.listdir('../xml/tasks')
 
@@ -85,6 +91,14 @@ for ii, task in enumerate(tasknames):
 # write the parameters to docstring format
 # and marry up the Plone description page to the bottom
 
+# read in old baseline task specs for comparison change log
+with open('api_baseline.txt', 'r') as fid:
+    lines = fid.readlines()
+    stable_tasks = dict([(line.split('(')[0].split('.')[-1], line.strip().replace('.'.join(line.split('.')[:2])+'.','')) for line in lines[2:] if line.startswith('casatasks')])
+    difflog = ''
+    dd = difflib.Differ()
+
+
 # helper function to return a string of type and default value for a given parameter
 def ParamSpec(param):
     pd = task['params'][param]
@@ -103,15 +117,13 @@ def ParamSpec(param):
     return proto
 
 
-# clean out old data
-if os.path.exists('../casatasks'): os.system('rm -fr ../casatasks')
-os.system('mkdir ../casatasks')
-
+tasknames = []
 for task in tasklist:
     
     # grab rst description page if it exists, otherwise skip this task
     rst = ''
     if os.path.exists('tasks/task_' + task['name'] + '.rst'):
+        tasknames += [task['name']]
         with open('tasks/task_' + task['name'] + '.rst', 'r') as fid:
             rst = fid.read()
     else:
@@ -139,7 +151,8 @@ for task in tasklist:
             # must exist params don't have default values
             if ('mustexist' not in task['params'][param]) or (task['params'][param]['mustexist'] == 'false'):
                 proto += '%s%s, ' % (param, ParamSpec(param)[ParamSpec(param).rindex('='):-1])
-        fid.write('def %s(%s):\n    r"""\n' % (task['name'], proto[:-2]))
+        proto = '%s(%s)' % (task['name'], proto[:-2])
+        fid.write('def ' + proto + ':\n    r"""\n')
         
         # populate function description
         if 'shortdescription' in task.keys():
@@ -192,6 +205,27 @@ for task in tasklist:
                 fid.write('.. _%s:\n\n' % param)
                 fid.write('| ``%s`` - ' % ParamSpec(param).replace('_ ', ' '))
                 fid.write('%s\n\n' % re.sub('\n+', '\n|    ', task['params'][param]['description'].strip(), flags=re.DOTALL))
-            
+
         # close docstring stub
         fid.write('\n    """\n    pass\n')
+
+        # populate changelog by diffing this task to the last release
+        if task['name'] not in stable_tasks:
+            difflog += '   <li><p><b>' + task['name'] + '</b> - New Task</p></li>\n\n'
+        elif not (stable_tasks[task['name']] == proto.replace('\n','')):
+            stable_params = re.sub('.+?\((.*?)\)', r'\1', stable_tasks[task['name']], flags=re.DOTALL).split(', ')
+            new_params = re.sub('.+?\((.*?)\)', r'\1', proto.replace('\n',''), flags=re.DOTALL).split(', ')
+            diff_params = ['<b><del>'+pp.replace('- ','')+'</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
+            diff_params = ['<b><ins>' + pp.replace('+ ', '')+'</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
+            difflog += '   <li><p><b>'+task['name']+'</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p></li>\n\n'
+
+# look for deleted tasks
+for stable_task in stable_tasks:
+    if stable_task not in tasknames:
+        difflog += '   <li><p><b>' + stable_task + '</b> - Deleted Task</p></li>\n\n'
+
+# write out log of task API diffs
+with open('changelog.rst', 'a') as fid:
+    fid.write('\n\nAPI Changes\n+++++++++++\n\n.. rubric:: casatasks\n\n')
+    fid.write('.. raw:: html\n\n   <ul>\n' + difflog + '   </ul>\n\n|\n')
+

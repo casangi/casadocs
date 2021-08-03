@@ -2,6 +2,7 @@ import xml.etree.ElementTree as ET
 import re
 import os
 import pypandoc
+import difflib
 
 ########################################################
 # this is meant to be run from the docs folder
@@ -9,6 +10,11 @@ import pypandoc
 ########################################################
 
 pypandoc.pandoc_download.download_pandoc(version='2.10.1')
+
+# clean out old data
+if os.path.exists('../casatools'): os.system('rm -fr ../casatools')
+os.system('mkdir ../casatools')
+
 
 tools = os.listdir('../xml/tools')
 
@@ -31,7 +37,8 @@ for tool in tools:
     
     # initialize tool dictionary (td)
     td = [(ee.tag.replace(nps, ''), ee.text) for ee in list(troot) if ee.tag not in [nps+'method', nps+'code']]
-    td = dict([(ee[0], '' if ee[1] is None else pypandoc.convert_text(ee[1].replace('_', '\_'), 'rst', format='latex', extra_args=['--wrap=none'])) for ee in td])
+    #td = dict([(ee[0], '' if ee[1] is None else pypandoc.convert_text(ee[1].replace('_', '\_'), 'rst', format='latex', extra_args=['--wrap=none'])) for ee in td])
+    td = dict([(ee[0], '' if ee[1] is None else ee[1]) for ee in td])
     td['methods'] = {}
     
     # loop over each method
@@ -91,6 +98,13 @@ for tool in tools:
 # write the parameters to docstring format
 # and marry up the Plone description page to the bottom
 
+# read in old baseline task specs for comparison change log
+with open('api_baseline.txt', 'r') as fid:
+    lines = fid.readlines()
+    stable_tools = dict([(line.split('(')[0][10:], line.strip()[10:]) for line in lines[2:] if line.startswith('casatools')])
+    difflog = ''
+    dd = difflib.Differ()
+
 # helper function to return a string of type and default value for a given parameter
 def ParamSpec(method, param):
     pd = tool['methods'][method]['params'][param]
@@ -122,11 +136,9 @@ def cleanxml(text, block=False):
     return text.strip()
 
 
-# clean out old data
-if os.path.exists('../casatools'): os.system('rm -fr ../casatools')
-os.system('mkdir ../casatools')
-
+toolnames = []
 for name in tooldict.keys():
+    print(name)
     
     # grab rst description page if it exists, otherwise skip this task
     rst = ''
@@ -146,63 +158,92 @@ for name in tooldict.keys():
     with open('../casatools/' + '__init__.py', 'a') as fid:
         fid.write('from .' + name + ' import *\n')
     
+    # start output string to write new stub class
+    ostr = '#\n# stub class definition file for docstring parsing\n#\n\n'
+    ostr += 'class %s:\n    """\n' % name
+
+    # populate class description
+    if ('shortdescription' in tool.keys()) and (tool['shortdescription'] is not None) and (len(tool['shortdescription'].strip()) > 0):
+        ostr += ' '*4 + cleanxml(tool['shortdescription']).replace('\n','\n'+' '*4) + '\n\n'
+    else:
+        ostr += ' '*4 + tool + ' class\n\n'
+        
+    if ('description' in tool.keys()) and (tool['description'] is not None) and (len(tool['description'].strip()) > 0):
+        desc = pypandoc.convert_text(tool['description'].replace('_','\_').replace(r'\\_','\_'), 'rst', format='latex', extra_args=['--wrap=none'])
+        ostr += ' '*4 + desc.replace('\n','\n'+' '*4) + '\n\n'
+    ostr += ' '*4 + '"""\n\n'
+        
+    # build the class definition
+    for method in tool['methods'].keys():
+        toolnames += [name + '.' + method]
+        # build method stub, start with params that have no default
+        tm = tool['methods'][method]
+            
+        # create a method description
+        desc = ' '*8 + method + ' method\n\n'
+        if ('description' in tm.keys()) and (tm['description'] is not None) and (len(tm['description'].strip()) > 0):
+            try:
+                desc = ' '*8 + pypandoc.convert_text(tm['description'].replace('_','\_').replace(r'\\_','\_'), 'rst', format='latex', extra_args=['--wrap=none']).replace('\n','\n'+' '*8) + '\n\n'
+            except:
+                desc = ' '*8 + pypandoc.convert_text(tm['description'], 'rst', format='markdown', extra_args=['--wrap=none']).replace('\n', '\n'+ ' '*8) + '\n\n'
+        elif ('shortdescription' in tm.keys()) and (tm['shortdescription'] is not None) and (len(tm['shortdescription'].strip()) > 0):
+            desc = ' ' * 8 + cleanxml(tm['shortdescription']).replace('\n', '\n' + ' '*8) + '\n\n' + ' '*8 + '\n\n'
+
+        # some methods have no parameters
+        if ('params' not in tm.keys()) or (len(tm['params']) == 0):
+            ostr += '    def %s(self):\n        """\n%s\n\n        """\n\n        pass\n\n' % (method, desc)
+            continue
+            
+        proto = [pp for pp in tm['params'] if ('mustexist' in tm['params'][pp]) and (tm['params'][pp]['mustexist'] == 'true')]
+        proto = ', '.join(proto) + ', ' if len(proto) > 0 else ''
+        for param in tm['params'].keys():
+            # must exist params don't have default values
+            if ('mustexist' not in tm['params'][param]) or (tm['params'][param]['mustexist'] == 'false'):
+                proto += '%s%s, ' % (param, ParamSpec(method, param)[ParamSpec(method, param).rindex('='):-1])
+            
+        # populate method protoype and description
+        ostr += '    def %s(self, %s):\n        """\n%s\n\n' % (method, proto[:-2], desc)
+            
+        # populate method parameters
+        ostr += ' '*8 + '.. rubric:: Parameters\n\n'
+        for param in tm['params'].keys():
+            ostr += ' '*8 + '- ``%s``' % ParamSpec(method, param)
+            if ('description' in tm['params'][param].keys()) and (tm['params'][param]['description'] is not None) and (len(tm['params'][param]['description'].strip()) > 0):
+                ostr += ' - %s' % cleanxml(tm['params'][param]['description']).replace('\n','  ')
+            elif ('shortdescription' in tm['params'][param].keys()) and (tm['params'][param]['shortdescription'] is not None):
+                if len(tm['params'][param]['shortdescription'].strip()) > 0:
+                    ostr += ' - %s' % cleanxml(tm['params'][param]['shortdescription'])
+            ostr += '\n'
+            
+        # close docstring stub
+        ostr += '\n'+' '*8 + '"""\n\n' + ' '*8 + 'pass\n\n\n'
+            
+        # populate the global changelog if necessary
+        proto = name+'.'+method+'(self, '+proto[:-2]+')'
+        if name+'.'+method not in stable_tools:
+            difflog += '   <li><p>' + name + '.<b>' + method + '</b> - New Tool Method</p></li>\n\n'
+        elif stable_tools[name+'.'+method] != proto:
+            stable_params = re.sub('.+?\((.*?)\)$', r'\1', stable_tools[name+'.'+method], flags=re.DOTALL).split(', ')
+            new_params = re.sub('.+?\((.*?)\)$', r'\1', proto.replace('\n', ''), flags=re.DOTALL).split(', ')
+            diff_params = ['<b><del>' + pp.replace('- ', '') + '</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
+            diff_params = ['<b><ins>' + pp.replace('+ ', '') + '</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
+            difflog += '   <li><p>' + name + '.<b>' + method + '</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p></li>\n\n'
+
+    # marry up the Plone content to the bottom Notes section
+    #fid.write('\n\n    """' + rst + '\n\n    """')
+
     # write the python stub class
     with open('../casatools/' + name + '.py', 'w') as fid:
-        fid.write('#\n# stub class definition file for docstring parsing\n#\n\n')
-        fid.write('class %s:\n    """\n' % name)
+        fid.write(ostr)
 
-        # populate class description
-        if ('shortdescription' in tool.keys()) and (tool['shortdescription'] is not None) and (len(tool['shortdescription'].strip()) > 0):
-            fid.write(cleanxml(tool['shortdescription']) + '\n\n')
-            if ('description' in tool.keys()) and (tool['description'] is not None) and (len(tool['description'].strip()) > 0):
-                fid.write(cleanxml(tool['description'], block=True) + '\n\n')
-        elif ('description' in tool.keys()) and (tool['description'] is not None) and (len(tool['description'].strip()) > 0):
-            fid.write(cleanxml(tool['description']) + '\n\n')
-        fid.write('    """\n\n')
-        
-        # build the class definition
-        for method in tool['methods'].keys():
-            # build method stub, start with params that have no default
-            tm = tool['methods'][method]
-            
-            # create a method description
-            desc = ''
-            if ('shortdescription' in tm.keys()) and (tm['shortdescription'] is not None):
-                desc = cleanxml(tm['shortdescription']) + '\n\n'
-            if ('description' in tm.keys()) and (tm['description'] is not None) and (len(tm['description'].strip()) > 0):
-                if (len(desc) == 0) or ((len(desc) > 0) and (cleanxml(tm['description']).startswith(desc.strip()))):  # remove duplicate info
-                    desc = cleanxml(tm['description']) + '\n'
-                else:
-                    desc = desc + cleanxml(tm['description'], block=True) + '\n'
-                
-            # some methods have no parameters
-            if ('params' not in tm.keys()) or (len(tm['params']) == 0):
-                fid.write('    def %s(self):\n        """\n%s\n\n        """\n\n        pass\n\n' % (method, desc))
-                continue
-            
-            proto = [pp for pp in tm['params'] if ('mustexist' in tm['params'][pp]) and (tm['params'][pp]['mustexist'] == 'true')]
-            proto = ', '.join(proto) + ', ' if len(proto) > 0 else ''
-            for param in tm['params'].keys():
-                # must exist params don't have default values
-                if ('mustexist' not in tm['params'][param]) or (tm['params'][param]['mustexist'] == 'false'):
-                    proto += '%s%s, ' % (param, ParamSpec(method, param)[ParamSpec(method, param).rindex('='):-1])
-            
-            # populate method protoype and description
-            fid.write('    def %s(self, %s):\n        """\n%s\n\n' % (method, proto[:-2], desc))
-            
-            # populate method parameters
-            fid.write('.. rubric:: Parameters\n\n')
-            for param in tm['params'].keys():
-                fid.write('- ``%s``' % ParamSpec(method, param))
-                if ('description' in tm['params'][param].keys()) and (tm['params'][param]['description'] is not None) and (len(tm['params'][param]['description'].strip()) > 0):
-                    fid.write(' - %s' % cleanxml(tm['params'][param]['description']))
-                elif ('shortdescription' in tm['params'][param].keys()) and (tm['params'][param]['shortdescription'] is not None):
-                    if len(tm['params'][param]['shortdescription'].strip()) > 0:
-                        fid.write(' - %s' % cleanxml(tm['params'][param]['shortdescription']))
-                fid.write('\n')
-            
-            # close docstring stub
-            fid.write('\n        """\n\n        pass\n\n\n')
-            
-        # marry up the Plone content to the bottom Notes section
-        #fid.write('\n\n    """' + rst + '\n\n    """')
+
+# look for deleted tool methods
+for stable_tool in stable_tools:
+    if stable_tool not in toolnames:
+        difflog += '   <li><p><b>' + stable_tool + '</b> - Deleted Tool</p></li>\n\n'
+
+
+# write out log of tool API diffs
+with open('changelog.rst', 'a') as fid:
+    fid.write('\n\n.. rubric:: casatools\n\n')
+    fid.write('.. raw:: html\n\n   <ul>' + difflog + '   </ul>\n\n|\n')

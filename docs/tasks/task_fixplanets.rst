@@ -47,14 +47,11 @@ Description
    the following commands:
    
    ::
-      # for CASA5
-      
+   
+      # for CASA5  
       import recipes.ephemerides.request as jplreq
-      
       # for CASA6
-      
       import casatasks.private.request as jplreq
-      
       jplreq.request_from_JPL(objnam='Mars', startdate='2012-01-01', enddate='2013-12-31',
                               date_incr='0.1d', get_axis_orientation=False,
                               get_axis_ang_orientation=True, get_sub_long=True,
@@ -62,7 +59,7 @@ Description
                               return_address='YOUR_EMAIL_ADDESS',
                               mailserver='YOUR_MAIL_SERVER_ADDRESS')
    
-   .. note:: **NOTE**: Some mail clients may not save the JPL mail properly.
+   .. note:: Some mail clients may not save the JPL mail properly.
       Confirmed to work in Thunderbird.
    
    In cases where the source is not included in

@@ -58,9 +58,9 @@ Description
    *inpmask*
    
    Name(s) of input mask(s).The default is set to inpmask='', for
-   when no mask is given. To specify an image (zero/non-zero) mask,
+   when no mask is given. To specify an image (zero=bad/non-zero=good) mask,
    just give a image name (e.g. myimage1.im). To specify an internal
-   (True/False) mask, you must give a parent image name and the
+   (True=good/False=bad) mask, you must give a parent image name and the
    internal mask name separated by a colon. (e.g. myimage1.im:mask0).
    The internal mask names can be found by running the makemask task
    in mode='list'. For mode='expand', use the inpimage values to make

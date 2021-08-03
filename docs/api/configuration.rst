@@ -5,9 +5,12 @@ CASA accepts a variety of options through two mechanisms: configuration files an
 typically stored in a \~/.casa folder while command line options (only applicable to the full installation) are specified after the
 casa command at startup.
 
+.. currentmodule:: configuration
 
 config.py
 ^^^^^^^^^
+
+.. data:: config.py(datapath, rundata, logfile, telemetry_enabled, crashreporter_enabled)
 
 Each modular CASA 6 package as well as the full installation reads a single **config.py** configuration file. This file should be
 placed in the user root .casa folder (**\~/.casa**) prior to starting the casa installation or importing the packages in to a standard
@@ -75,7 +78,7 @@ At runtime the datapath(s) are expanded through a resolve(\...) function to find
 
    '/home/casa/data/casa-data/geodetic/IERSpredict'
 
-The command line arguments discussed later take precendence over the equivalent config.py value.
+The command line arguments take precendence over the equivalent config.py value.
 
 .. note::
 
@@ -83,10 +86,15 @@ The command line arguments discussed later take precendence over the equivalent 
    files (config.py and startup.py) the root .casa folder contains working files and directories used by CASA components (e.g. ipython,
    telemetry). It is expected to be writable by the user for use by those components.
 
+
 startup.py
 ^^^^^^^^^^
 
-*This section only applies to the monolithic/tar-file CASA distribution.*
+.. data:: startup.py()
+
+*This section only applies to the monolithic/tar-file CASA distribution, and it only applies to CASA 6.*
+
+For CASA 5, please see `an earlier version of CASA Docs <https://casadocs.readthedocs.io/en/v6.2.0/api/configuration.html#startup-py>`__.
 
 The \'*startup.py*\' file found in *\$HOME/.casa* (i.e. *\~/.casa/startup.py*) is evaluated by the CASA shell just before the CASA
 prompt is presented to the user. This allows users to customize their CASA shell environment beyond the standard settings in
@@ -112,6 +120,8 @@ and objects will then be available for the user within the CASA shell environmen
 
 command line
 ^^^^^^^^^^^^
+
+.. data:: command line(-h, --help, --logfile, --log2term, --nologger, --nologfile, --nogui, --rcdir, --norc, --colors, --pipeline, --agg, --iplog, --notelemetry, --nocrashreport, --datapath, --user-site, -c)
 
 With the full installation of CASA from a tar file, the python environment itself is included and started through ./bin/casa.
 This ./bin/casa executable can be provided the following options to change configuration values at run time:
