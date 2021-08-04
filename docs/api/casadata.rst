@@ -46,5 +46,5 @@ rsync
 
    ::
 
-      rsync -avz rsync://casa-rsync.nrao.edu/casa-data-repository <location of casadata tables>
+      rsync -avz rsync://casa-rsync.nrao.edu/casa-data <location of casadata tables>
 
