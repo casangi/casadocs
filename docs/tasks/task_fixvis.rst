@@ -1,8 +1,9 @@
-
-
 .. _Description:
 
 Description
+
+   .. danger:: **ALERT:** **fixvis** is deprecated in CASA 5.9/6.3. Please use task **phaseshift** instead.
+
    **fixvis** recalculates (u, v, w) in an MS based on antenna
    positions, time and source position. **fixvis** can also change
    the phase center of visibilities.
