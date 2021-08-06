@@ -78,13 +78,12 @@ class calibration_suite:
                          'uid___A002_Xe1f219_X6d0b.ms.hifa_bandpassflag.s12_1.spw16_18_20_22.channel.solintinf.bcal.tbl',
                          'uid___A002_Xe1f219_X6d0b.ms.hifa_bandpassflag.s12_3.spw16_18_20_22.solintinf.gacal.tbl',
                          'uid___A002_Xe1f219_X6d0b.ms.hifa_bandpassflag.s12_4.spw16_18_20_22.solintint.gpcal.tbl']
-    gaincal_table = 'uid___A002_Xe1f219_X6d0b.ms.hifa_bandpassflag.s12_4.spw16_18_20_22.solintint.gpcal.tbl'
+    gaincal_table = library_subtables[3]
 
     timeout = 10000
 
     def setup_cache(self):
         # only run once for repeated tests
-        os.makedirs("BATMAN", exist_ok=True)
         pass
 
     def setup(self):
