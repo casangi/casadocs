@@ -106,11 +106,16 @@
     //     "pip+emcee": [""],   // emcee is only available for install with pip.
     // },
     "matrix": {
-	// casawheels are not available on conda yet
-        //"pip+casatasks": ["6.0.0.27", "6.2.0.124"],
-	"pip+casatools": ["6.2.0.124"],
+	// // In case the `wheel unpack && wheel repack --dest-dir` build procedure is needed
 	//"wheel": ["0.36.2"],
-    }
+	// // casawheels are not available on conda yet
+        //"pip+casatasks": ["6.0.0.27", "6.2.0.124"],
+        "pip+casatasks": ["6.2.0.124"],
+	// // This doesn't work but it would be great if it did
+	//"pip+casatools": [
+	//    "6.3.0.32 --extra-index-url \"https://casa-pip.nrao.edu:443/repository/pypi-group/simple\" "
+	//],
+    },
 
     // Combinations of libraries/python versions can be excluded/included
     // from the set to test. Each entry is a dictionary containing additional
