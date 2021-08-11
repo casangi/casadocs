@@ -46,6 +46,8 @@ for tool in tools:
     for method in troot.findall(nps + 'method'):
         md = dict([(ee.tag.replace(nps, ''), ee.text) for ee in list(method) if ee.tag not in [nps + 'input']])
         md['params'] = {}
+        md['returns'] = None
+        md['examples'] = None
 
         # build parameter dictionary
         if method.find(nps + 'input') is not None:
@@ -92,6 +94,16 @@ for tool in tools:
 
                 # store parameter dictionary under key equal to parameter name
                 md['params'][param.attrib['name']] = pd
+
+        # get the return value of this method
+        if method.find(nps + 'returns') is not None:
+            iroot = method.find(nps + 'returns')
+            md['returns'] = iroot.attrib['type'] if 'type' in iroot.attrib else None
+
+        # get anything in the example section for this method
+        if method.find(nps + 'example') is not None:
+            iroot = method.find(nps + 'example')
+            md['examples'] = iroot.text
 
         td['methods'][method.attrib['name']] = md
     tooldict[troot.attrib['name']] = td
@@ -216,12 +228,32 @@ for name in tooldict.keys():
         ostr += ' ' * 8 + '.. rubric:: Parameters\n\n'
         for param in tm['params'].keys():
             ostr += ' ' * 8 + '- ``%s``' % ParamSpec(method, param)
-            if ('description' in tm['params'][param].keys()) and (tm['params'][param]['description'] is not None) and (len(tm['params'][param]['description'].strip()) > 0):
+            if ('description' in tm['params'][param].keys()) and (tm['params'][param]['description'] is not None) and (
+                    len(tm['params'][param]['description'].strip()) > 0):
                 ostr += ' - %s' % cleanxml(tm['params'][param]['description']).replace('\n', '  ')
-            elif ('shortdescription' in tm['params'][param].keys()) and (tm['params'][param]['shortdescription'] is not None):
+            elif ('shortdescription' in tm['params'][param].keys()) and (
+                    tm['params'][param]['shortdescription'] is not None):
                 if len(tm['params'][param]['shortdescription'].strip()) > 0:
-                    ostr += ' - %s' % cleanxml(tm['params'][param]['shortdescription'])
+                    ostr += ' - %s' % cleanxml(tm['params'][param]['shortdescription']).replace('\n', '  ')
             ostr += '\n'
+
+        # populate method Returns
+        if (tm['returns'] is not None) and (len(str(tm['returns']).strip()) > 0):
+            ostr += '\n\n' + ' '*8 + '.. rubric:: Returns\n\n'
+            ostr += ' ' * 8 + '``%s``\n\n' % str(tm['returns'])
+
+        # populate method Examples
+        if (tm['examples'] is not None) and (len(str(tm['examples']).strip()) > 0):
+            ostr += ' '*8 + '.. rubric:: Examples\n\n'
+            ostr += ' '*8 + '::\n\n'
+            ostr += ' ' * 11 + tm['examples'].replace('\n', '\n' + ' ' * 11)
+            #try:
+            #    examples = ' ' * 11 + pypandoc.convert_text(tm['examples'].replace('_', '\_').replace(r'\\_', '\_'), 'rst', format='latex',
+            #                                           extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 11) + '\n\n'
+            #except:
+            #    examples = ' ' * 11 + pypandoc.convert_text(tm['examples'], 'rst', format='markdown',
+            #                                               extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 11) + '\n\n'
+            #ostr += examples
 
         # close docstring stub
         ostr += '\n' + ' ' * 8 + '"""\n\n' + ' ' * 8 + 'pass\n\n\n'
