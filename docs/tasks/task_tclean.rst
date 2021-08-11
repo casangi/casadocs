@@ -76,13 +76,7 @@ Description
    calibration (virtual model or by actual prediction into a model
    column).
    
-   .. warning:: **WARNING** *:* While tclean is generally safe to kill at
-      almost any time (ctrl-c), the possible exceptions are the brief
-      instances in which the data-writes back to the MS are in
-      progress. Therefore, when setting the parameter
-      *savemodel='modelcolumn’*, ensure that you do not interrupt the
-      tclean process (ctrl-c) while the model is being written to the
-      MS, as this will likely corrupt the MS.  
+   .. note:: **Note** *:* it is generally safe to kill tclean (ctrl-c) at any instance, except during the last few seconds that the task is writing the model back to the MS (for *savemodel='modelcolumn’*). This behavior has been optimized in CASA 6.3 to make it safer for users to kill tclean.  
    
    -  .. rubric:: PB-Correction:
    
