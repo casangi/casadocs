@@ -19,8 +19,7 @@
     // The Python project's subdirectory in your repo.  If missing or
     // the empty string, the project is assumed to be located at the root
     // of the repository.
-    // "repo_subdir": "",
-    "repo_subdir": "casatasks",
+    // "repo_subdir": "casatasks",
 
     // Customizable commands for building, installing, and
     // uninstalling the project. See asv.conf.json documentation.
@@ -40,7 +39,7 @@
     "build_command": [
 	// // If only our bdist_wheel subclass supported the --target-dir flag e.g., 
 	// //"python setup.py bdist_wheel -d {build_cache_dir} {build_dir}",
-	"python setup.py bdist_wheel", // creates {build_dir}/dist/*.whl
+	"in-dir={build_dir}/casatasks python setup.py bdist_wheel",
 	// // this is all I want to do but it's unclear how to get shell commands into env/bin/:
 	//"cp dist/*.whl {build_cache_dir}"
 	// // This works as a one-off, but must be generalized to programatically reference the filenames. Also needs wheel installed via 'matrix'
@@ -49,7 +48,7 @@
 	// // This escaped command actually works as expected when run outside of this JSON file (hand-setting env vars to match their expected values...)
 	//"python -c \"import shutil, os; full_path_source=os.environ['ASV_BUILD_DIR']+'/dist/'; full_path_target=os.environ['ASV_BUILD_CACHE_DIR']; fname=[ff for ff in os.listdir(full_path_source) if ff.endswith('whl')][0]; src=f'{full_path_source}/{fname}'; dst=f'{full_path_target}/{fname}'; shutil.copyfile(src, dst)\""
 	// // This is adapted directly from asv/environment.py and uses better string escaping
-	"python -c 'import shutil, os; WHLS = os.listdir(os.environ[\"ASV_BUILD_DIR\"]+\"/dist/\"); wheel = [fn for fn in WHLS if fn.lower().endswith(\".whl\")]; wheel = wheel[0]; shutil.copyfile((os.path.abspath(\"./dist/\"+wheel)), (os.path.join(os.environ[\"ASV_BUILD_CACHE_DIR\"],wheel)))'",
+	"in-dir={build_dir}/casatasks python -c 'import shutil, os; WHLS = os.listdir(os.environ[\"ASV_BUILD_DIR\"]+\"/casatasks/dist/\"); wheel = [fn for fn in WHLS if fn.lower().endswith(\".whl\")]; wheel = wheel[0]; shutil.copyfile((os.path.abspath(\"./dist/\"+wheel)), (os.path.join(os.environ[\"ASV_BUILD_CACHE_DIR\"],wheel)))'",
     ],
     // {wheel_file} is only defined for use in this shlex when exactly one wheel is present in {build_cache_dir}
     "install_command": ["in-dir={env_dir} python -mpip -v install --force-reinstall {wheel_file}"],
