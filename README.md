@@ -6,8 +6,17 @@ Common Astronomy Software Applications Documentation
 
 **Table of Contents**
 - [Editing CASADocs](#editing-casadocs) : How to edit the user manual sections of CASAdocs stored in Jupyter notebooks
+    - [Common syntax](#common-syntax)
+    - [Adding chapters and paragraphs](#adding-chapters-and-paragraphs)
+    - [Adding figures](#adding-figures)
+    - [Adding links](#adding-links)
+    - [Adding in-chapter references](#adding-in-chapter-references)
 - [Editing API Content](#editing-api-content) : How to edit the CASA interface specifications stored as RestructuredText files
+    - [Adding/Removing/Hiding tasks](#addingremovinghiding-tasks)
 - [Branching CASADocs](#branching-casadocs) : How to make CASADocs edits on a branch and see them on Readthedocs
+    - [Corresponding code branches](#corresponding-code-branches)
+    - [Viewing a branch on Readthedocs](#viewing-a-branch-on-readthedocs)
+    - [Review and pull request](#review-and-pull-request)
 - [Building Documentation Locally](#building-documentation-locally) : How to make CASADocs edits on a local clone
 
 **Quick Links**
