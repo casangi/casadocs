@@ -65,9 +65,9 @@ for ii, task in enumerate(tasknames):
                 elif len(list(param.find(nps + 'value'))) > 0:
                     pd['value'] = '['+', '.join([ee.text if ee.text is not None else '\'\'' for ee in list(param.find(nps + 'value'))])+']'
                 elif ('array' in pd['type'].split(',')[0].lower()) and (not pd['type'].startswith('[')):
-                    pd['value'] = '[' + pd['value'] + ']' if pd['value'] is not None else '[\'\']'
+                    pd['value'] = '[' + pd['value'] + ']' if pd['value'] is not None else \'\' #'[\'\']'
                 elif ('vec' in pd['type'].split(',')[0].lower()) and (not pd['type'].startswith('[')):
-                    pd['value'] = '[' + pd['value'] + ']' if pd['value'] is not None else '[\'\']'
+                    pd['value'] = '[' + pd['value'] + ']' if pd['value'] is not None else \'\' #'[\'\']'
             # store parameter dictionary under key equal to parameter name
             td['params'][param.attrib['name']] = pd
         
