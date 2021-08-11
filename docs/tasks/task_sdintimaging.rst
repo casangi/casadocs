@@ -384,8 +384,8 @@ Description
    
    .. rubric:: Model Prediction
    
-   For usedata=‘int’ , one may wish to save a sky model to the MeasurementSet for later use such as self-calibration.  The tclean task can be used 
-   in such instances after executing sdintimaging. As described in the tclean section, model prediction can be done by running tclean by niter=0 and 
+   For usedata=‘int’ , one may wish to save a sky model to the MeasurementSet for later use such as self-calibration.  The **tclean** task can be used 
+   in such instances after executing sdintimaging. As described in [the tclean section](../tasks/task_tclean.rst), model prediction can be done by running tclean by niter=0 and 
    specifying savemodel=‘modelcolumn’ or ’ virtual’. For example,
    
    ::
