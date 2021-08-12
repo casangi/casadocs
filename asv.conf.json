@@ -31,28 +31,37 @@
     //     "PIP_NO_BUILD_ISOLATION=false python -mpip wheel --no-deps --no-index -w {build_cache_dir} {build_dir}"
     // ],
 
-    //"install_command": ["in-dir={env_dir} python -m pip install --force-reinstall casatasks --index-url https://casa-pip.nrao.edu:443/repository/pypi-group/simple --extra-index-url https://casa-pip.nrao.edu/repository/pypi-casa-release/simple "],
-    //"build_command": [],
+    // "uninstall_command": ["return-code=any python -mpip uninstall -y casatasks casatools"],
+    // "build_command": [],
+    // "install_command": ["pip install --force-reinstall --index-url https://casa-pip.nrao.edu:443/repository/pypi-group/simple --extra-index-url https://casa-pip.nrao.edu/repository/pypi-casa-release/simple casatools=={commit} casatasks=={commit}"],
+
     //"build_commmand": [ "in-dir='./casatools' scripts/gcw-pick && autoconf && configure && setup.py build",
     //			"in-dir='./casatasks' PYTHONPATH=../casatools/build/lib.macosx-10.12-x86_64-3.6 ./setup.py build"
     //		      ],
-    "build_command": [
+
+    // "build_command": [
 	// // If only our bdist_wheel subclass supported the --target-dir flag e.g., 
 	// //"python setup.py bdist_wheel -d {build_cache_dir} {build_dir}",
-	"in-dir={build_dir}/casatasks python setup.py bdist_wheel",
-	// // this is all I want to do but it's unclear how to get shell commands into env/bin/:
-	//"cp dist/*.whl {build_cache_dir}"
-	// // This works as a one-off, but must be generalized to programatically reference the filenames. Also needs wheel installed via 'matrix'
-	//"wheel unpack ./dist/casatasks-6.3.0.31a100.dev0+dirty-py3-none-any.whl",
-	//"wheel pack ./casatasks-6.3.0.31a100.dev0+dirty/ --dest-dir {build_cache_dir}"
-	// // This escaped command actually works as expected when run outside of this JSON file (hand-setting env vars to match their expected values...)
-	//"python -c \"import shutil, os; full_path_source=os.environ['ASV_BUILD_DIR']+'/dist/'; full_path_target=os.environ['ASV_BUILD_CACHE_DIR']; fname=[ff for ff in os.listdir(full_path_source) if ff.endswith('whl')][0]; src=f'{full_path_source}/{fname}'; dst=f'{full_path_target}/{fname}'; shutil.copyfile(src, dst)\""
-	// // This is adapted directly from asv/environment.py and uses better string escaping
-	"in-dir={build_dir}/casatasks python -c 'import shutil, os; WHLS = os.listdir(os.environ[\"ASV_BUILD_DIR\"]+\"/casatasks/dist/\"); wheel = [fn for fn in WHLS if fn.lower().endswith(\".whl\")]; wheel = wheel[0]; shutil.copyfile((os.path.abspath(\"./dist/\"+wheel)), (os.path.join(os.environ[\"ASV_BUILD_CACHE_DIR\"],wheel)))'",
-    ],
-    // {wheel_file} is only defined for use in this shlex when exactly one wheel is present in {build_cache_dir}
-    "install_command": ["in-dir={env_dir} python -mpip -v install --force-reinstall {wheel_file}"],
-    "uninstall_command": ["return-code=any python -mpip uninstall -y casatasks"],
+	// // casatools
+	// "in-dir={build_dir}/casatools/scripts python -c 'import os, subprocess; subprocess.call(os.path.join(os.getcwd(), \"gcw-pick\"))'",
+	// "in-dir={build_dir}/casatools python -c 'import os, subprocess; subprocess.call(os.path.join(os.getcwd(), \"autoconf\"))'",
+	// "in-dir={build_dir}/casatools python -c 'import os, subprocess; subprocess.call(os.path.join(os.getcwd(), \"configure\"))'",
+	// "in-dir={build_dir}/casatools python setup.py bdist_wheel",
+	// "in-dir={build_dir}/casatasks python -c 'import shutil, os; WHLS = os.listdir(os.environ[\"ASV_BUILD_DIR\"]+\"/casatools/dist/\"); wheel = [fn for fn in WHLS if fn.lower().endswith(\".whl\")]; wheel = wheel[0]; shutil.copyfile((os.path.abspath(\"./dist/\"+wheel)), (os.path.join(os.environ[\"ASV_BUILD_CACHE_DIR\"],wheel)))'",
+	// 	// casatasks
+	// 	"in-dir={build_dir}/casatasks python setup.py bdist_wheel",
+	// 	"in-dir={build_dir}/casatasks python -c 'import shutil, os; WHLS = os.listdir(os.environ[\"ASV_BUILD_DIR\"]+\"/casatasks/dist/\"); wheel = [fn for fn in WHLS if fn.lower().endswith(\".whl\")]; wheel = wheel[0]; shutil.copyfile((os.path.abspath(\"./dist/\"+wheel)), (os.path.join(os.environ[\"ASV_BUILD_CACHE_DIR\"],wheel)))'",
+	 // ],
+    // // {wheel_file} is only defined for use in this shlex when exactly one wheel is present in {build_cache_dir}
+    // "install_command": ["in-dir={env_dir} python -mpip -v install --force-reinstall {wheel_file}"],
+    // "install_command": [],
+    // "uninstall_command": ["return-code=any python -mpip uninstall -y casatasks"],
+
+    // if both casatasks and casatools will be installed via matrix/includes config,
+    // then we won't build from source/wheels and won't uninstall
+    "install_command": [],
+    "uninstall_command": [],
+    "build_command": [],
 
     // List of branches to benchmark. If not provided, defaults to "master"
     // (for git) or "default" (for mercurial).
@@ -104,17 +113,23 @@
     //     "six": ["", null],        // test with and without six installed
     //     "pip+emcee": [""],   // emcee is only available for install with pip.
     // },
-    "matrix": {
+    //"matrix": {
 	// // In case the `wheel unpack && wheel repack --dest-dir` build procedure is needed
 	//"wheel": ["0.36.2"],
-	// // casawheels are not available on conda yet
-        //"pip+casatasks": ["6.0.0.27", "6.2.0.124"],
-        "pip+casatasks": ["6.2.0.124"],
 	// // This doesn't work but it would be great if it did
 	//"pip+casatools": [
 	//    "6.3.0.32 --extra-index-url \"https://casa-pip.nrao.edu:443/repository/pypi-group/simple\" "
 	//],
-    },
+	// // the workaround is to ensure you have the correct channels included in pip.conf
+	// // https://pip.pypa.io/en/stable/topics/configuration/#location
+	// // casawheels are not available from conda yet, so prepend both with pip+
+        //"pip+casatools": [
+	//    "6.2.0.43", "6.3.0.23", // CAS-13428
+	//],
+        //"pip+casatasks": [
+	//    "6.2.0.43", "6.3.0.23", // CAS-13428
+	//],
+    //}
 
     // Combinations of libraries/python versions can be excluded/included
     // from the set to test. Each entry is a dictionary containing additional
@@ -148,6 +163,16 @@
     //     // additional env if run on windows+conda
     //     {"platform": "win32", "environment_type": "conda", "python": "2.7", "libpython": ""},
     // ],
+    "exclude": [
+         {"environment_type": "virtualenv", "casatools": null}, // don't run without casatools installed
+    ],
+    "include": [
+	//  CAS-13428
+        {"python":"3.6", "pip+casatools": "6.1.1.15", "pip+casatasks":"6.1.1.15"},
+        {"python":"3.6", "pip+casatools": "6.2.0.43", "pip+casatasks":"6.2.0.43"},
+        {"python":"3.6", "pip+casatools": "6.3.0.23", "pip+casatasks":"6.3.0.23"},
+    ],
+
 
     // The directory (relative to the current directory) that benchmarks are
     // stored in.  If not provided, defaults to "benchmarks"
