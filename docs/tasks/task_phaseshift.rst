@@ -54,7 +54,9 @@ Examples
           phasecenter='J2000 04:52:16 -02.04.55'
       )
 
-  There is a memo [link to be provided] describing in detail the numerical characterization of
+  There is a Jupyter notebook in Google Colab
+  (https://colab.research.google.com/github/casangi/casadocs/blob/master/docs/notebooks/phaseshift.ipynb#scrollTo=HjQnMfcFrqM-)
+  describing in detail the numerical characterization of
   phaseshift, which provides a complete script and detailed results regarding the correctness
   of the results produced by phaseshift. In summary, in a 1.0 GHz VLA simulation in which the
   phase center and a source were initially separated by 2.7 degrees, using phaseshift to shift
