@@ -2,8 +2,8 @@
 Tracking performance metrics of CASA
 
 ## Setup
-Once the repository is cloned, an additonal step is required to configure access to test data:
-.. code-block:: console
+Once the repository is cloned, an additonal step is required to configure access to test data::
+
     git clone --no-checkout https://open-bitbucket.nrao.edu/scm/casa/casatestdata.git
     cd casatestdata/
     git config core.sparseCheckout true
@@ -22,4 +22,4 @@ To run a particular class of benchmarks::
 
     asv run master^! --bench "calibration" --machine "NRAO workstation"
 
-If adding a new benchmark on a new machine, you will need to follow the prompts for contributing machine information. For more details see the `asv docs<https://asv.readthedocs.io/en/stable/using.html#running-benchmarks>`_
+If running tests on a new machine (i.e., not the sandbox), you will need to follow the prompts for contributing machine information. For more details see the [asv docs](https://asv.readthedocs.io/en/stable/using.html#running-benchmarks).
