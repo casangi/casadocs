@@ -88,7 +88,7 @@ Description
    antenna primary beam gain, below which wide-field gridding
    algorithms such as *'mosaic'* and *'awproject'* will not apply
    normalization (and will therefore set to zero).  For
-   *gridder='standard'*,*'wproject'*,*'widefield'* there is no pb-based 
+   *gridder='standard'*, *'wproject'* , *'widefield'* there is no pb-based 
    normalization during gridding and so the absolute value of 
    this parameter is ignored.
 
