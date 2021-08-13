@@ -25,7 +25,9 @@ Astronomy (ASTRON), under the guidance of NRAO.
    :maxdepth: 3
 
    notebooks/introduction
+   genindex
    api
+   Task List <api/casatasks>
    notebooks/usingcasa
    notebooks/casa-fundamentals
    notebooks/external-data
@@ -37,3 +39,4 @@ Astronomy (ASTRON), under the guidance of NRAO.
    notebooks/parallel-processing
    notebooks/memo-series
    examples/index
+   changelog

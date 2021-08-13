@@ -4,6 +4,25 @@ Common Astronomy Software Applications Documentation
 - view latest master build at: https://casadocs.readthedocs.io/en/latest  [![Documentation Status](https://readthedocs.org/projects/casadocs/badge/?version=latest)](https://casadocs.readthedocs.io/en/latest/?badge=latest)
 - view stable release build at: https://casadocs.readthedocs.io/en/stable  [![Documentation Status](https://readthedocs.org/projects/casadocs/badge/?version=stable)](https://casadocs.readthedocs.io/en/stable/?badge=stable)
 
+**Table of Contents**
+- [Editing CASADocs](#editing-casadocs) : How to edit the user manual sections of CASAdocs stored in Jupyter notebooks
+    - [Common syntax](#common-syntax)
+    - [Adding chapters and paragraphs](#adding-chapters-and-paragraphs)
+    - [Adding figures](#adding-figures)
+    - [Adding links](#adding-links)
+    - [Adding in-chapter references](#adding-in-chapter-references)
+- [Editing API Content](#editing-api-content) : How to edit the CASA interface specifications stored as RestructuredText files
+    - [Adding/Removing/Hiding tasks](#addingremovinghiding-tasks)
+- [Branching CASADocs](#branching-casadocs) : How to make CASADocs edits on a branch and see them on Readthedocs
+    - [Corresponding code branches](#corresponding-code-branches)
+    - [Viewing a branch on Readthedocs](#viewing-a-branch-on-readthedocs)
+    - [Review and pull request](#review-and-pull-request)
+- [Building Documentation Locally](#building-documentation-locally) : How to make CASADocs edits on a local clone
+
+**Quick Links**
+- [View Branches](https://readthedocs.org/projects/casadocs/versions/) : See branch builds on Readthedocs
+- [View Builds](https://readthedocs.org/projects/casadocs/builds/) : See the status of your build on Readthedocs
+
 ## Editing CASADocs
 
 Editing CASA Docs can be done on branches, where pull requests can be triggered to merge changes back to master (see information below), or it can be done directly on master ('latest') itself: https://casadocs.readthedocs.io/en/latest [![Documentation Status](https://readthedocs.org/projects/casadocs/badge/?version=latest)](https://casadocs.readthedocs.io/en/latest/?badge=latest).
@@ -165,13 +184,14 @@ https://github.com/casangi/casadocs/tree/master/docs/tasks
 
 ## Branching CASAdocs
 
-Updates made to master ('latest') are immediately public. This can be useful for minor or urgent updates to the documentation that do not require a review. Making a documentation *branch* is useful for larger documentation updates, updates that require a review, or updates that should be merged at a later stage (e.g., simulateneously with the code).
-
-When a new branch is created, readthedocs will automatically activate it, build it, and then hide it from public display. This prevents developer branches from appearing on the casadocs website. But they can still be viewed by directly navigating to the URL of the same name as the branch that was created.
+Updates made to master ('latest') are immediately public. This can be useful for minor or urgent updates to the documentation 
+that do not require a review. Making a documentation *branch* is useful for larger documentation updates, updates that require 
+a review, or updates that should be merged at a later stage (e.g., simulateneously with the code).
 
 To make a branch, go to: https://github.com/casangi/casadocs/tree/master/docs
 
-Under the default *“master”* label on the top-left, go to *“find or create a branch”*, add a name (e.g., “test_branch”) and press *“create branch: test_branch” from “master”*.
+Under the default *“master”* label on the top-left, go to *“find or create a branch”*, add a name (e.g., “test_branch”) and 
+press *“create branch: test_branch” from “master”*.
 
 To view the documentation for this branch, navigate to: https://casadocs.readthedocs.io/en/test_branch (example only, not a real link)
 
@@ -187,9 +207,23 @@ There are two ways to save the updates:
 
 ### Corresponding code branches
 
-To create new documentation for a Jira ticket development branch (ie CAS-12345) that is not yet merged to (Bitbucket) master, a corresponding casadocs branch of the **same name** should be made. The casadocs build script attempts to find a corresponding source code Bitbucket branch of the same name. If found, it will use the XML from that Bitbucket branch when building the API casatools and casatasks pages. If no corresponding branch is found, casadocs will default to the Bitbucket master.
+To create new documentation for a Jira ticket development branch (ie CAS-12345) that is not yet merged to (Bitbucket) master, a corresponding 
+casadocs branch of the **same name** should be made. The casadocs build script attempts to find a corresponding source code Bitbucket branch of the 
+same name. If found, it will use the XML from that Bitbucket branch when building the API casatools and casatasks pages. If no corresponding branch 
+is found, casadocs will default to the Bitbucket master.
 
 This allows developers to see the effects of their tool/task parameter changes.
+
+### Viewing a branch on Readthedocs
+
+When a new branch is created, readthedocs will automatically activate it, build it, and then hide it from public display. This 
+prevents developer branches from appearing on the casadocs website. But they can still be viewed by directly navigating to the 
+URL of the same name as the branch that was created.
+
+Branches will NOT appear in the version list flyout box on the bottom left corner of Readthedocs, nor will they be indexed by search engines.
+However they can be found (by anyone) by navigating directly to the Readthedocs CASADocs project dashboard:
+
+[https://readthedocs.org/projects/casadocs/versions/](https://readthedocs.org/projects/casadocs/versions/)
 
 ### Review and pull request
 

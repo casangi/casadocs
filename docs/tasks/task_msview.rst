@@ -21,21 +21,8 @@ Description
    
    For more detailed on how to use the msview task, please read the
    dedicated CASADocs chapter on `2-D Visualization and Flagging of
-   Visibility Data
-   (viewer/msview) <../../notebooks/data_examination.ipynb#2-D-Plot/Flag:-viewer/msview>`__.
+   Visibility Data <../../notebooks/data_examination.ipynb>`__.
 
-   
-   +---------+-----------------------------------------------------------+
-   | Type    | Figure                                                    |
-   +---------+-----------------------------------------------------------+
-   | ID      | examination-fig-plotants                                  |
-   +---------+-----------------------------------------------------------+
-   | Caption | Display panel of **msview**, showing the MeasurementSet   |
-   |         | when plotting channel against baseline. The color-coding  |
-   |         | shows the amplitudes. A variety of data display options   |
-   |         | are available.                                            |
-   +---------+-----------------------------------------------------------+
-   
 
 .. _Examples:
 

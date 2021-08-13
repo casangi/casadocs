@@ -26,8 +26,8 @@ Description
    sum of the absolute values of the associated WEIGHT_SPECTRUM
    values. 
    
-   .. note:: **NOTE**: Don't forget to flag autocorrections using the
-      task **flagdata**, *autocorr = true*
+   .. note:: **NOTE**: Remember to flag the autocorrelations if you do not want them, using the
+      task **flagdata** with parameter *autocorr = true*
    
 
 .. _Examples:
