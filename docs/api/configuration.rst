@@ -80,6 +80,18 @@ At runtime the datapath(s) are expanded through a resolve(\...) function to find
 
 The command line arguments take precendence over the equivalent config.py value.
 
+The variables *rundata* and *datapath* are related but different. *rundata* is a single path, does not change after CASA has started, and it is meant to point to essential data that is required for CASA to run, such as the casacore Measures data (see `External Data <../notebooks/external-data.ipynb>`__). In contrast,  *datapath* is a list of paths and can be changed at runtime to include multiple data locations. The function resolve will search for files and directories through the *datapath* in list order.
+
+When using a monolithic/tar-file CASA distribution, if *rundata* is left as default, it points to the data included in the distribution.
+*rundata* can be used to set up and update custom data locations, see `Updating a custom location <../notebooks/external-data.ipynb#Updating-a-custom-location>`__.
+The value of *rundata* in a CASA session can be checked via the function rundata:
+
+::
+   >>> casatools.ctsys.rundata()
+
+   '/home/casa/data/casa-data
+
+
 .. note::
 
    *rcdir* is used to change the location of the root .casa folder to something other than **\~/.casa**. In addition to the startup
