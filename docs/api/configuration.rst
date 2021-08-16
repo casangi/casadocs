@@ -87,9 +87,10 @@ When using a monolithic/tar-file CASA distribution, if *rundata* is left as defa
 The value of *rundata* in a CASA session can be checked via the function rundata:
 
 ::
+
    >>> casatools.ctsys.rundata()
 
-   '/home/casa/data/casa-data
+   '/home/casa/data/casa-data'
 
 
 .. note::
