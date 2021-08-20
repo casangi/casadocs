@@ -27,6 +27,7 @@ Astronomy (ASTRON), under the guidance of NRAO.
    notebooks/introduction
    genindex
    api
+   Task List <api/casatasks>
    notebooks/usingcasa
    notebooks/casa-fundamentals
    notebooks/external-data

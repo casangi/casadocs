@@ -88,16 +88,23 @@ Description
    antenna primary beam gain, below which wide-field gridding
    algorithms such as *'mosaic'* and *'awproject'* will not apply
    normalization (and will therefore set to zero).  For
-   *gridder='standard'*, there is no pb-based normalization during
-   gridding and so the value of this parameter is ignored.
+   *gridder='standard'*, *'wproject'* , *'widefield'* there is no pb-based 
+   normalization during gridding and so the absolute value of 
+   this parameter is ignored.
 
    The sign of the pblimit parameter is used for a different
    purpose. If positive, it defines a T/F pixel mask that is
    attached to the output residual and restored images.  If
-   negative, this T/F pixel mask is not included.  Please note that
-   this pixel mask is different from the deconvolution mask used to
-   control the region where CLEAN based algorithms will search for
-   source peaks.  In order to set a deconvolution mask based on pb
+   negative, this T/F pixel mask is not included. For the *'mosaic'* and 
+   *'awproject'* gridders, the zeros in the regions outside the 
+   absolute pblimit level will be visible without the T/F mask, and 
+   for other gridders that do not do any pblimit-based normalizations
+   (*'standard'*, *'wproject'*, *'widefield'*) those regions will 
+   contain valid image pixels.
+   
+   Please note that this pixel mask is different from the deconvolution 
+   mask used to control the region where CLEAN based algorithms will search
+   for source peaks.  In order to set a deconvolution mask based on pb
    level, please use the *'pbmask'* parameter.
    
    .. warning:: **WARNING** *:* Certain values of pblimit should be avoided!
