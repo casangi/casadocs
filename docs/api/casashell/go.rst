@@ -37,4 +37,6 @@ go
          ---------> tclean()
          Executing: tclean()
          ...
+         
+.. warning:: When using the inp/go syntax, CASA 6 no longer supports the handling of subparameters when executing a task. Some related Known Issues can be found `here <../notebooks/introduction.ipynb#General>`__.
 
