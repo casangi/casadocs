@@ -26,7 +26,7 @@ capabilities than tools. Tasks require input parameters which maybe be specified
 or be set as parameters in the interface. A task, like a tool, is a function under Python and may be written in Python,
 C, or C++ (the CASA toolkit is made up of C++ functions).
 
-There are two distinct ways to run tasks. You can either call the task as a function with one or more arguments specified, or set the global CASA parameters relevant to the task and tell
+There are distinct ways to run tasks. You can either call the task as a function with one or more arguments specified, or set the global CASA parameters relevant to the task and tell
 the task to ``go()``. These two invocation
 methods differ in whether the global parameter values are used or not.
 
@@ -69,7 +69,7 @@ Alternatively, one can use inp/go to manually execute a task using an interface 
 
 will execute **plotms** with the set values for the parameters, which will appear in the terminal when re-typing 'inp'. 
 
-.. warning:: When using the inp/go syntax, CASA 6 no longer support the handling of subparameters. Some related Known Issues can be found `here <../../notebooks/introduction.ipynb#General>`__.
+.. warning:: When using the inp/go syntax, CASA 6 no longer supports the handling of subparameters. Some related Known Issues can be found `here <../notebooks/introduction.ipynb#General>`__.
 
 .. rubric:: Aborting Tasks
 
