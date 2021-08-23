@@ -19,8 +19,8 @@ python environment for the first time.
 The following parameters can be set in the configuration file. Finer control over telemetry can also be set in the configuration file,
 as described `here <../notebooks/usingcasa.ipynb#Information-Collection>`__.
 
-- *datapath*              : list of paths where CASA should search for runtime data
-- *rundata*               : location to update runtime data
+- *datapath*              : list of paths where CASA should search for data subdirectories
+- *rundata*               : location of required runtime measures data, takes precedence over location(s) in datapath list
 - *logfile*               : log file path/name
 - *nologfile*             : do not create a log file when True, default False. If *nologfile* is true, then any *logfile* value is ignored and there is no log file.
 - *log2term*              : print log output to terminal when True (in addition to any logfile and CASA logger), default False
@@ -39,8 +39,8 @@ might look something like this:
 
 ::
 
-   datapath=["/home/casa/data/casa-data", "~/.casa/mydata"]
-   rundata="~/.casa/mydata"
+   datapath=["/home/casa/data/casa-data", "~/.casa/my_additional_data"]
+   rundata="/home/casa/data/rsync"
    log2term=True
    nologger=True
    
@@ -51,7 +51,7 @@ An example config.py file showing all recognized configurable parameters is show
    import time
    
    datapath=["/home/casa/data/casa-data", "~/.casa/mydata"]
-   rundata="~/.casa/mydata"
+   rundata="/home/casa/data/rsync"
    logfile='casalog-%s.log' % time.strftime("%Y%m%d-%H",time.localtime())
    telemetry_enabled = True
    crashreporter_enabled = True
@@ -76,9 +76,23 @@ At runtime the datapath(s) are expanded through a resolve(\...) function to find
 
    >>> casatools.ctsys.resolve('geodetic/IERSpredict')
 
-   '/home/casa/data/casa-data/geodetic/IERSpredict'
+   '/home/casa/data/rsync/geodetic/IERSpredict'
 
 The command line arguments take precendence over the equivalent config.py value.
+
+The variables *rundata* and *datapath* are related but different. *rundata* is a single path, does not change after CASA has started, and it is meant to point to essential data that is required for CASA to run, such as the casacore Measures data (see `External Data <../notebooks/external-data.ipynb>`__).
+In contrast,  *datapath* is a list of paths and can be changed at runtime to include multiple data locations. The function resolve will search for files and directories through the *datapath* in list order. The idea is to allow users to add directories that contain the data they want to use during their session. After adding directories where they want to load data from, fully qualified paths are no longer needed for example for imaging tasks. Since there is no longer a single data path, users can add shared image directories, etc.
+
+When using a monolithic/tar-file CASA distribution, if *rundata* is left as default, it points to the data included in the distribution.
+*rundata* can be used to set up and update custom data locations, see `Updating a custom location <../notebooks/external-data.ipynb#Updating-a-custom-location>`__.
+The value of *rundata* in a CASA session can be checked via the function rundata:
+
+::
+
+   >>> casatools.ctsys.rundata()
+
+   '/home/casa/data/rsync'
+
 
 .. note::
 
