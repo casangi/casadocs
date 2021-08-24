@@ -69,8 +69,6 @@ Alternatively, one can use inp/go to manually execute a task using an interface 
 
 will execute **plotms** with the set values for the parameters, which will appear in the terminal when re-typing 'inp'. 
 
-.. warning:: When using the inp/go syntax, CASA 6 no longer supports the handling of subparameters. Some related Known Issues can be found `here <../notebooks/introduction.ipynb#General>`__.
-
 .. rubric:: Aborting Tasks
 
 If you are running CASA tasks, you can usually use *CTRL-C* to abort execution of the task. If this does not work, try *CTRL-Z*
