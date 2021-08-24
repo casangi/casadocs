@@ -50,7 +50,7 @@ asv run tags/6.4.0.2^! --machine "NRAO workstation"
 ```
 To run a particular class of benchmarks, use the `--bench` (or `-b`) parameter, which accepts multiple arguments each of which is handled as a regular expression:
 ```
-asv run --bench "flagdata" -b "applycal" -b "gaincal" tags/6.4.0.2^! --machine "NRAO workstation"
+asv run --bench "flagdata" -b "calibration" tags/6.4.0.2^! --machine "NRAO workstation"
 ```
 For now it is necessary to remove the build number from the casatools/casatasks specifications in the `params` and `requirements` dictionaries contained by the generated JSON results file corresponding to a given test configuration. This allows `asv publish` to build HTML that treats the results from different environments as contiguous tests instead of separate entries in a dependency matrix. For example,
 ```
