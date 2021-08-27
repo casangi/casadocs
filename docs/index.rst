@@ -9,8 +9,21 @@ Jansky Very Large Array
 (`VLA <https://public.nrao.edu/venue/the-very-large-array/>`__),
 and is often used also for other radio telescopes.
 
-6.3.0 Development Build
-   You are viewing the latest build of master, currently in the 6.3.0 development cycle
+**6.3.0 Release**
+
+CASA 6.3.0 can now be (`downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__) for general use. CASA 6.3.0 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
+
+**Highlights:**
+
+- CASA 6.3 is supported on Mac OS 11 with x86 processors
+- A new task phaseshift supports shifting of the phase center by arbitrary amounts, and replaces the task fixvis.
+- A timerange parameter was added to task tsdimaging
+- The smoothcal task can now smooth calibration tables produced by the accor task.
+- Interactive tclean now works in parallel mode.
+- The savemodel step in tclean has been improved.
+- config.py can now specify most of the startup options.
+
+For more details on these and other new features, see the CASA 6.3.0 (`Release Notes <https://casadocs.readthedocs.io/en/v6.3.0/notebooks/introduction.html>`__).
    
 CASA is developed by an international consortium of scientists
 based at the National Radio Astronomical Observatory (NRAO), the
