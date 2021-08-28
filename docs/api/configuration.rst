@@ -10,7 +10,7 @@ casa command at startup.
 config.py
 ^^^^^^^^^
 
-.. data:: config.py(datapath, rundata, logfile, telemetry_enabled, crashreporter_enabled)
+.. data:: config.py(datapath, rundata, logfile, nologfile, log2term, nologger, nogui, colors, agg, pipeline, iplog, telemetry_enabled, crashreporter_enabled)
 
 Each modular CASA 6 package as well as the full installation reads a single **config.py** configuration file. This file should be
 placed in the user root .casa folder (**\~/.casa**) prior to starting the casa installation or importing the packages in to a standard
@@ -104,7 +104,7 @@ The value of *rundata* in a CASA session can be checked via the function rundata
 startup.py
 ^^^^^^^^^^
 
-.. data:: startup.py()
+.. data:: startup.py
 
 *This section only applies to the monolithic/tar-file CASA distribution, and it only applies to CASA 6.*
 
@@ -132,10 +132,10 @@ and objects will then be available for the user within the CASA shell environmen
 
 
 
-command line
-^^^^^^^^^^^^
+terminal
+^^^^^^^^
 
-.. data:: command line(-h, --help, --logfile, --log2term, --nologger, --nologfile, --nogui, --rcdir, --norc, --colors, --pipeline, --agg, --iplog, --notelemetry, --nocrashreport, --datapath, --user-site, -c)
+.. data:: terminal(-h, --help, --logfile, --log2term, --nologger, --nologfile, --nogui, --rcdir, --norc, --colors, --pipeline, --agg, --iplog, --notelemetry, --nocrashreport, --datapath, --user-site, -c)
 
 With the full installation of CASA from a tar file, the python environment itself is included and started through ./bin/casa.
 This ./bin/casa executable can be provided the following options to change configuration values at run time:
