@@ -330,7 +330,9 @@
 	//{"python":"3.6", "pip+casatools": "6.3.0.45", "pip+casatasks":"6.3.0.45"},
 	//{"python":"3.6", "pip+casatools": "6.3.0.48", "pip+casatasks":"6.3.0.48"},
 	// 6.4.0
-	//{"python":"3.6", "pip+casatools": "6.4.0.2", "pip+casatasks":"6.4.0.2"},
+	//{"python":"3.6", "pip+casatasks":"6.4.0.2"},
+	//{"python":"3.6", "pip+casatasks":"6.4.0.3"},
+	//{"python":"3.6", "pip+casatasks":"6.4.0.5"},
     ],
 
 
