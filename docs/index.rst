@@ -11,9 +11,17 @@ and is often used also for other radio telescopes.
 
 **6.2.1 Release**
 
-CASA 6.2.1 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.2.1 is based on the prior 6.2.0 release and includes the **Pipeline** software package for `ALMA <https://almascience.nrao.edu/processing/science-pipeline>`__ and `VLA <https://science.nrao.edu/facilities/vla/data-processing/pipeline>`__ operations. CASA 6.2.1 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
+CASA 6.2.1 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.2.1 includes a pipeline that has been validated for `ALMA <https://almascience.nrao.edu/processing/science-pipeline>`__ and `VLA <https://science.nrao.edu/facilities/vla/data-processing/pipeline>`__ operations. CASA 6.2.1 and its included pipeline is functionally equivalent to CASA 6.2.0, and has the following added fixes and features:
 
-**New Features:**
+-  Fixed known issue with channel averaging of a caltable in PlotMS. Resolved slow performance and crashes.
+-  A significant slow down in flagdata command present in 6.2 (up to 3-4x, specially in 'summary' mode) has now been fixed, bringing CASA 6.2.1 flagdata command to a performance comparable with CASA 6.1.
+-  Updated ALMA spw classification algorithm to allow spws with bandwidths of < 2 GHz to be classified as FDM windows, whereas they were classified as TDM windows before change.
+-  Fix defects that prevented using the Splatalogue offline database with spectral profile tool in the CASA viewer.
+-  Running tclean using a list of ALMA MeasurementSets which exhibit very large Doppler frequency changes between them (i.e., large TOPO offsets in channels) was found to result in crashes due to memory limits being crossed. A fix was implemented to switch to a different mode when such situations might occur (specifically, if the weight density grid is larger than 10% of the cube grid in memory usage). This different mode uses less memory but results in a longer runtime as tclean must make multiple passes through all MSs.
+
+
+
+**6.2 New Features:**
 
 - CASA 6: inclusion of remaining tasks, including interactive flagdata GUI
 - tclean: refactor of cube imaging (reliability, flexibility, peformance)
