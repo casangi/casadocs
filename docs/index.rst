@@ -21,7 +21,7 @@ CASA 6.2.1 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`_
 -  Minor bug fixes to plotbandpass and log messages upon startup to report measures table version.
 
 
-**For more details on these and other new features, see the CASA 6.2.1** `Release Notes <https://casadocs.readthedocs.io/en/v6.2.1/notebooks/introduction.html>`__.
+**For more details on these and other new features, see the CASA 6.2** `Release Notes <https://casadocs.readthedocs.io/en/v6.2.1/notebooks/introduction.html>`__.
 
 CASA is developed by an international consortium of scientists
 based at the National Radio Astronomical Observatory (NRAO), the
