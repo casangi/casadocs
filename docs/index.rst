@@ -15,7 +15,7 @@ CASA 6.2.1 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`_
 
 -  Fixed known issue with channel averaging of a caltable in PlotMS. Resolved slow performance and crashes.
 -  A significant slow down in the flagdata task present in 6.2 (up to 3-4x, especially in 'summary' mode) has now been fixed, bringing the CASA 6.2.1 flagdata task to a performance comparable with CASA 6.1.
--  Fix spw classification algorithm to correctly identify 256 channel (ACA correlator) spws with bandwidths of < 2 GHz as FDM windows and not (incorrectly) TDM
+-  Fix spw classification algorithm to correctly identify 256 channel (ACA correlator) spws with bandwidths of < 2 GHz as FDM windows and not (incorrectly) TDM.
 -  Fix defects that prevented using the Splatalogue offline database with spectral profile tool in the CASA viewer.
 -  Running tclean using a list of MeasurementSets which exhibit very large Doppler frequency changes between them (i.e., large TOPO offsets in channels) was found to result in crashes due to memory limits being crossed. A fix was implemented to switch to a different mode when such situations might occur (specifically, if the weight density grid is larger than 10% of the cube grid in memory usage). This different mode uses less memory but results in a longer runtime as tclean must make multiple passes through all MSs.
 -  Minor bug fixes to plotbandpass and log messages upon startup to report measures table version.
