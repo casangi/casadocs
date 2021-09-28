@@ -25,10 +25,10 @@ Description
    If such a file or directory already exists with that name, it will
    be removed **without warning**. 
    
-   **Note**: **exportasdm** requires that the input MS (*vis*) all have
-   the same value for the PROCESSOR_ID column (only a single PROCESSOR
-   row can be exported). The **split** task should can be used to produce
-   such a MS, often by chosing appropriate SPWs.
+   **Note**: **exportasdm** requires that all rows in the MAIN table of
+   the input MS (*vis*) have the same value for the PROCESSOR_ID column 
+   (only a single PROCESSOR can be exported). The **split** task can be 
+   used to produce such an MS, often by chosing appropriate SPWs.
    
    Note concerning ALMA data: **exportasdm** presently is only able to
    export from MSs containing processor type "CORRELATOR" data (e.g. WVR 
