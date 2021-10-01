@@ -26,32 +26,11 @@ capabilities than tools. Tasks require input parameters which maybe be specified
 or be set as parameters in the interface. A task, like a tool, is a function under Python and may be written in Python,
 C, or C++ (the CASA toolkit is made up of C++ functions).
 
-There are two distinct ways to run tasks. You can either set the global CASA parameters relevant to the task and tell
-the task to ``go()``, or you can call the task as a function with one or more arguments specified. These two invocation
+There are distinct ways to run tasks. You can either call the task as a function with one or more arguments specified, or set the global CASA parameters relevant to the task and tell
+the task to ``go()``. These two invocation
 methods differ in whether the global parameter values are used or not.
 
-For example, ::
-
-   default('plotms')
-   vis='ngc5921.ms'
-   xaxis='channel'
-   yaxis='amp'
-   datacolumn='data'
-   go()
-
-will execute **plotms** with the set values for the parameters. Instead of using the ``go()`` command to invoke the task,
-you can also call the task with no arguments, e.g. ::
-
-   default('plotms')
-   vis='ngc5921.ms'
-   xaxis='channel'
-   yaxis='amp'
-   ydatacolumn='data'
-   plotms()
-
-which will also use the global parameter values.
-
-Second, one may call tasks and tools by name with parameters set on the same line. Parameters may be set either as explicit
+One may call tasks and tools by name with parameters set on the same line. Parameters may be set either as explicit
 ``<parameter>=<value>`` arguments, or as a series of comma delimited \<value\>s in the correct order for that task or tool.
 Note that missing parameters will use the default values for that task. For example, the following are equivalent: ::
 
@@ -67,6 +46,28 @@ Note that missing parameters will use the default values for that task. For exam
 This non-use of globals when calling as a function is so that robust scripts can be written. One need only cut-and-paste the
 calls and need not worry about the state of the global variables or what has been run previously. It is also more like the
 standard behavior of function calls in Python and other languages.
+
+One may also invoke the tasks as follows: ::
+
+   default('plotms')
+   vis='ngc5921.ms'
+   xaxis='channel'
+   yaxis='amp'
+   ydatacolumn='data'
+   plotms()
+
+Similar to the input as a function, the above invokation also calls the task with no arguments, and will thus use the global parameter values.
+
+Alternatively, one can use inp/go to manually execute a task using an interface format. For example, ::
+
+   inp('plotms')
+   vis='ngc5921.ms'
+   xaxis='channel'
+   yaxis='amp'
+   datacolumn='data'
+   go()
+
+will execute **plotms** with the set values for the parameters, which will appear in the terminal when re-typing 'inp'. 
 
 .. rubric:: Aborting Tasks
 
@@ -183,7 +184,11 @@ All task parameters have global scope within CASA: the parameter values are comm
 to all tasks and also at the CASA command line. This allows the convenience of not
 changing parameters that are shared between tasks but does require care when
 chaining together sequences of task invocations (to ensure proper values are
-provided).
+provided). Some task parameters accept a specific string from a collection of
+possible strings. These parameters are generally case sensitive, but sometimes both
+fully upper and fully lower case versions of the same string may be accepted (i.e.
+``datacolumn='data'`` or ``'DATA'``). When in doubt, use the case specified in the
+default setting of that parameter.
 
 If you want to reset the input keywords for a single task, use the ``default()``
 command. For example, to set the defaults for the **bandpass** task, type: ::

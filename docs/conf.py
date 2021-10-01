@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = u'CASAdocs'
-copyright = u'2020, National Radio Astronomy Observatory'
+copyright = u'2021, Associated Universities, Inc'
 author = u'National Radio Astronomy Observatory'
 
 # The short X.Y version
@@ -56,11 +56,16 @@ autodoc_member_order = 'bysource'
 #napoleon_google_docstring = False
 #napoleon_numpy_docstring = False
 
-nbsphinx_prolog = """
-Open in Colab: https://colab.research.google.com/github/casangi/{{ ('casadocs/blob/master/docs/'+env.doc2path(env.docname, base=None)).replace('casadocs/blob/master/docs/examples', 'examples/blob/master') }}
+#############
+# create the "open in colab" header on top of each notebook page
+#############
+os.system('git branch > branch_name.txt')
+with open('branch_name.txt', 'r') as fid:
+    branch_name = [ll for ll in fid.readlines() if ll.startswith('*')][0].strip().split('/')[-1].split(' ')[-1].replace(')','')
 
-----
-"""
+blob_url = 'casadocs/blob/%s/docs' % branch_name
+nbsphinx_prolog = "\nOpen in Colab: https://colab.research.google.com/github/casangi/{{ ('%s/'+env.doc2path(env.docname, base=None)).replace('%s/examples', 'examples/blob/master') }}\n\n----"%(blob_url, blob_url)
+
 
 #List of imports to mock (this ensures readthedocs works)
 autodoc_mock_imports = ['numcodecs','os','numpy','time','xarray','numba','itertools','zarr']
@@ -160,19 +165,24 @@ latex_documents = [
 ]
 
 
-#######################################################################
-## Regenerate Task XML and Examples
-## this is kind of a lame way to integrate things, but it works better
-## than the standard solutions
-#######################################################################
-if not os.path.exists('../casatasks'):
-    os.system("python ../scripts/parse_task_xml.py")
-
-if not os.path.exists('../casatools'):
-    os.system("python ../scripts/parse_tool_xml.py")
+#############################################################################################################
+##
+## Sync XML from casa source code repo and diff this build with previous casa release
+##
+## this is kind of a lame way to integrate things, but it works better than the standard solutions
+##
+#############################################################################################################
+os.system("python ../scripts/download_xml.py")
+os.system("python ../scripts/parse_pull_requests.py")
+os.system("python ../scripts/parse_task_xml.py")
+os.system("python ../scripts/parse_tool_xml.py")
+os.system("python ../scripts/parse_api_functions.py")
 
 if not os.path.exists('examples'):
     os.system("git clone https://github.com/casangi/examples.git")
+
+# this can build a txt version of the API
+#os.system("sphinx-build -d _build/doctrees -b text . _build/html -c ./api")
 
 # tweak the default readthedocs theme
 def setup(app):
