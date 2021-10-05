@@ -1,3 +1,4 @@
+# intended for everything else that does not use xml
 # parses the docs/api rst files and diffs with previous release
 # note that tasks and tools are handled separately in the parse_task_xml and parse_tool_xml scripts
 import re
@@ -8,7 +9,7 @@ with open('api_baseline.txt', 'r') as fid:
     lines = fid.readlines()
     stable_shell = dict([(ll.split('(')[0].split('.')[-1].strip(), ll[ll.index('.')+1:].strip()) for ll in lines[2:] if ll.startswith('casashell')])
     stable_data = dict([(ll.split('(')[0].split('.')[-1].strip(), ll[ll.index('.')+1:].strip()) for ll in lines[2:] if ll.startswith('casadata')])
-    stable_lith = dict([(ll.split('(')[0].split('.')[-1].strip(), ll[ll.index('.')+1:].strip()) for ll in lines[2:] if ll.startswith('casalith')])
+    #stable_lith = dict([(ll.split('(')[0].split('.')[-1].strip(), ll[ll.index('.')+1:].strip()) for ll in lines[2:] if ll.startswith('casalith')])
     stable_config = dict([(ll[ll.index('.')+1:ll.index('(') if '(' in ll else None].strip(), ll[ll.index('.')+1:].strip()) for ll in lines[2:] if ll.startswith('configuration')])
     dd = difflib.Differ()
 
@@ -46,7 +47,7 @@ difflog += '   </ul>'
 with open('api/casadata.rst') as fid:
     rst = fid.read()
     
-difflog += '   </ul>\n\n|\n\n.. rubric:: casadata\n\n.. raw:: html\n\n   <ul>\n\n'
+difflog += '\n\n|\n\n.. rubric:: casadata\n\n.. raw:: html\n\n   <ul>\n\n'
 protos = re.findall('\.\. data:: (.+?)\n', rst, flags=re.DOTALL)
 for proto in protos:
     fname = proto.split('(')[0]
@@ -66,29 +67,31 @@ for ff in stable_data:
 difflog += '   </ul>'
 
 
-################################################3
+#################################################
+# moved to parse_task_xml.py
+#################################################
 # parse the casalith rst file for specs
-with open('api/casalith.rst') as fid:
-    rst = fid.read()
+#with open('api/casalith.rst') as fid:
+#    rst = fid.read()
 
-difflog += '   </ul>\n\n|\n\n.. rubric:: casalith\n\n.. raw:: html\n\n   <ul>\n\n'
-protos = re.findall('\.\. data:: (.+?)\n', rst, flags=re.DOTALL)
-for proto in protos:
-    fname = proto.split('(')[0]
-    if fname not in stable_lith:
-        difflog += '   <li><p><b>' + fname.split('.')[0] + '</b> - New Function</p></li>\n\n'
-    elif not (stable_lith[fname] == proto.replace('\n', '')):
-        stable_params = re.sub('.+?\((.*?)\)', r'\1', stable_lith[fname], flags=re.DOTALL).split(', ')
-        new_params = re.sub('.+?\((.*?)\)', r'\1', proto.replace('\n', ''), flags=re.DOTALL).split(', ')
-        diff_params = ['<b><del>' + pp.replace('- ', '') + '</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
-        diff_params = ['<b><ins>' + pp.replace('+ ', '') + '</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
-        difflog += '   <li><p><b>' + fname + '</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p></li>\n\n'
+#difflog += '   </ul>\n\n|\n\n.. rubric:: casalith\n\n.. raw:: html\n\n   <ul>\n\n'
+#protos = re.findall('\.\. data:: (.+?)\n', rst, flags=re.DOTALL)
+#for proto in protos:
+#    fname = proto.split('(')[0]
+#    if fname not in stable_lith:
+#        difflog += '   <li><p><b>' + fname.split('.')[0] + '</b> - New Function</p></li>\n\n'
+#    elif not (stable_lith[fname] == proto.replace('\n', '')):
+#        stable_params = re.sub('.+?\((.*?)\)', r'\1', stable_lith[fname], flags=re.DOTALL).split(', ')
+#        new_params = re.sub('.+?\((.*?)\)', r'\1', proto.replace('\n', ''), flags=re.DOTALL).split(', ')
+#        diff_params = ['<b><del>' + pp.replace('- ', '') + '</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
+#        diff_params = ['<b><ins>' + pp.replace('+ ', '') + '</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
+#        difflog += '   <li><p><b>' + fname + '</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p></li>\n\n'
 
 # look for deleted functions
-for ff in stable_lith:
-    if ff not in [pp.split('(')[0] for pp in protos]:
-        difflog += '   <li><p><b>' + ff + '</b> - Deleted Function</p></li>\n\n'
-difflog += '   </ul>'
+#for ff in stable_lith:
+#    if ff not in [pp.split('(')[0] for pp in protos]:
+#        difflog += '   <li><p><b>' + ff + '</b> - Deleted Function</p></li>\n\n'
+#difflog += '   </ul>'
 
 
 ################################################3
@@ -96,7 +99,7 @@ difflog += '   </ul>'
 with open('api/configuration.rst') as fid:
     rst = fid.read()
 
-difflog += '   </ul>\n\n|\n\n.. rubric:: configuration\n\n.. raw:: html\n\n   <ul>\n\n'
+difflog += '\n\n|\n\n.. rubric:: configuration\n\n.. raw:: html\n\n   <ul>\n\n'
 protos = re.findall('\.\. data:: (.+?)\n', rst, flags=re.DOTALL)
 for proto in protos:
     fname = proto.split('(')[0]

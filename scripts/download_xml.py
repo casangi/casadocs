@@ -19,47 +19,37 @@ if len(tasknames) == 0:
 
 print('Cloning source for %s code branch' % branch_name)
 
-#############################################################
-##
-## task xml download from bitbucket code repository
-##
-#############################################################
-
-# grab the index of all the task xml pages
-#xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casatasks/xml?at=refs/heads/%s"%branch_name).text
-#tasknames = list(set(re.findall("\w+\.xml", xmlstring)))
-
-# loop through each task xml webpage and parse the xml to python dictionaries
-#tasklist = []
-#for ii, task in enumerate(tasknames):
-#    print('processing ' + str(ii) + ' - ' + task)
-#    #xmlstring = requests.get("https://casa.nrao.edu/PloneResource/stable/taskXml/" + task).text
-#    xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/raw/casatasks/xml/" + task + '?at=refs/heads/%s'%branch_name).text
-#    #xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/browse/casa5/gcwrap/tasks/" + task + '?raw').text
-#
-#    with open('../xml/tasks/'+task, 'w') as fid:
-#        fid.write(xmlstring + '\n')
-
-#############################################################
-##
-## tool xml download from bitbucket code repository
-##
-#############################################################
-
-# grab the index of all the tool xml pages
-#xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casatools/xml?at=refs/heads/%s"%branch_name).text
-#toolnames = list(set(re.findall("\w+\.xml", xmlstring)))
-
-#for ii, tool in enumerate(toolnames):
-#    print('processing ' + str(ii) + ' - ' + tool)
-#    #xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/browse/casa5/gcwrap/tools/%s/%s?raw" % (folder, tool)).text
-#    xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/raw/casatools/xml/%s"%tool + '?at=refs/heads/%s'%branch_name).text
-#
-#    with open('../xml/tools/'+tool, 'w') as fid:
-#        fid.write(xmlstring + '\n')
-
+# cloning the repo is a bit faster than retrieving each xml file one at a time
 repo = git.Repo.clone_from('https://open-bitbucket.nrao.edu/scm/casa/casa6.git', '../casasource/casa6', branch=branch_name)
 
-print('complete')
+
+##################################################################################
+# get xml from other packages (formerly in casatasks) from their proper places
+##################################################################################
+print('Downloading ALMAtasks...')
+os.system('mkdir ../casasource/almatasks')
+xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/almatasks/browse/xml?at=refs/heads/%s"%branch_name).text
+for name in set(re.findall("\w+\.xml", xmlstring)):
+    xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/almatasks/raw/xml/%s"%name + '?at=refs/heads/%s'%branch_name).text
+    with open('../casasource/almatasks/'+name, 'w') as fid:
+        fid.write(xmlstring + '\n')
+
+print('Downloading CASAplotms...')
+os.system('mkdir ../casasource/casaplotms')
+xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaplotms/browse/src/xml?at=refs/heads/%s"%branch_name).text
+for name in set(re.findall("\w+\.xml", xmlstring)):
+    xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casaplotms/raw/src/xml/%s"%name + '?at=refs/heads/%s'%branch_name).text
+    with open('../casasource/casaplotms/'+name, 'w') as fid:
+        fid.write(xmlstring + '\n')
+
+print('Downloading CASAviewer...')
+os.system('mkdir ../casasource/casaviewer')
+xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaviewer/browse/src/xml?at=refs/heads/%s"%branch_name).text
+for name in set(re.findall("\w+\.xml", xmlstring)):
+    xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casaviewer/raw/src/xml/%s"%name + '?at=refs/heads/%s'%branch_name).text
+    with open('../casasource/casaviewer/'+name, 'w') as fid:
+        fid.write(xmlstring + '\n')
+
+
 
 
