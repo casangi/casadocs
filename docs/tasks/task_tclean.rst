@@ -613,9 +613,15 @@ Description
    At the end of a successful tclean run, the history of the output
    images is updated. For every tclean command a series of entries is
    recorded, including the task name (tclean), the CASA version used,
-   and every parameter-value pair of the task. The history is written
-   to all the images found with the name given in the 'imagename'
-   parameter of tclean and any extension.
+   and every parameter-value pair of the task.
+
+   The history is written to all the images associated with the
+   current run, identified by the image base name given in the
+   imagename parameter. This feature searches for all the images with
+   names starting with that basename and followed by a dot-separated
+   extension (imagename.*). In addition it also searches for
+   imagename[INTEGERS]_[INTEGERS].*, to cover auto-incremented image
+   names (see the table of possible image names above).
 
    The image history entries added by tclean can be inspected using
    the task imhistory (`see API <../casatasks.rst>`_), similarly as
