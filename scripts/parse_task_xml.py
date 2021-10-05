@@ -12,12 +12,12 @@ import difflib
 if os.path.exists('../casatasks'): os.system('rm -fr ../casatasks')
 os.system('mkdir ../casatasks')
 
-tasknames = os.listdir('../xml/tasks')
+tasknames = os.listdir('../casasource/casa6/casatasks/xml')
 
 # loop through each task xml webpage and parse the xml to python dictionaries
 tasklist = []
 for ii, task in enumerate(tasknames):
-    with open('../xml/tasks/' + task, 'r') as fid:
+    with open('../casasource/casa6/casatasks/xml/' + task, 'r') as fid:
         xmlstring = fid.read()
 
     xmlroot = ET.fromstring(xmlstring)

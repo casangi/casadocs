@@ -15,12 +15,12 @@ pypandoc.pandoc_download.download_pandoc(version='2.10.1')
 if os.path.exists('../casatools'): os.system('rm -fr ../casatools')
 os.system('mkdir ../casatools')
 
-tools = os.listdir('../xml/tools')
+tools = os.listdir('../casasource/casa6/casatools/xml')
 
 # loop through each tool
 tooldict = {}
 for tool in tools:
-    with open('../xml/tools/' + tool, 'r') as fid:
+    with open('../casasource/casa6/casatools/xml/' + tool, 'r') as fid:
         xmlstring = fid.read()
         xmlstring = re.sub('\<link.*?\>(.+?)\<\/link>', r'\1', xmlstring, flags=re.DOTALL)
         xmlstring = re.sub('\"\"\"', '', xmlstring, flags=re.DOTALL)
