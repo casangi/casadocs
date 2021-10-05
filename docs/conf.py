@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = u'CASAdocs'
-copyright = u'2020, National Radio Astronomy Observatory'
+copyright = u'2021, Associated Universities, Inc'
 author = u'National Radio Astronomy Observatory'
 
 # The short X.Y version

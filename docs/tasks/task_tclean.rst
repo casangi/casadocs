@@ -76,13 +76,48 @@ Description
    calibration (virtual model or by actual prediction into a model
    column).
    
-   .. warning:: **WARNING** *:* While tclean is generally safe to kill at
-      almost any time (ctrl-c), the possible exceptions are the brief
-      instances in which the data-writes back to the MS are in
-      progress. Therefore, when setting the parameter
-      *savemodel='modelcolumn’*, ensure that you do not interrupt the
-      tclean process (ctrl-c) while the model is being written to the
-      MS, as this will likely corrupt the MS.  
+   When savemodel=’modelcolumn’ is chosen, the message, “Saving model column” will appear in the logger
+   during the last major cycle. The model will be written to MODEL_DATA column of the main table of the MS
+   for relevant field and spw(s). Similarly, with savemodel=‘virtual’, the message, "Saving virtual model" will appear in the logger.
+   In the case of the virtual model, the model parameters are saved in a keyword of the main table in the MS or in SOURCE subtable.
+   SOURCE subtable is an optional table and if it exists and containing non-zero number of rows, the model parameters are written to SOURCE_MODEL 
+   column in the row for the corresponding SOURCE ID.
+   When the virtual model is stored in the keyword of the MS, they are stored with key name such as ‘model_0’. 
+   In the case of multiple models exist, say for multiple fields, one can associate particular model key name with a specific field id 
+   by looking up the key, ‘definedmodel_field_#’, where # is the field id. 
+   Additional information is avaialbe at `Virtual Model Visibilities <../../notebooks/synthesis_calibration.ipynb#Virtual-Model-Visibilities>`__.
+   
+   To check if model visibility data is present in the MS, ::
+          
+          tb.open('xxx.ms')
+          tb.colnames()  # will show MODEL_DATA in the the returned column names if MODEL_DATA column exists
+          tb.keywordnames() # if you see, definedmodel_field_{fieldid}, there is a virtual model exists for the field 
+          # Also the model parameters (e.g. for 'model_0') can be retrieved by
+          mymodel=tb.getkeyword('model_0')
+          tb.done()
+         
+          # If SOURCE is listed in the keywordnames listing in the above command, and if SOURCE has non-zero rows, virtual model(s) 
+          # may exist in SOURCE_MODEL column of SOURCE, 
+          # e.g. to get a virutal model for field id=0 (source id=0)
+          tb.open('xxx.ms/SOURCE')
+          mymodel=tb.getcell('SOURCE_MODEL',0)   # note that since the model parameter are stored in the record (Python dictionaruy)tb.getcol cannot be used)
+          tb.done()
+          
+   To check the content of the model data ( either from MODEL_DATA or virutal model generated on the fly), ::
+   
+          plotms(vis=‘xxx.ms’, field=‘your_field_that_model_expected_to_be_stored’, spw=.., xaxis=‘uvidist’, yaxis=‘amp’,ydatacolumn=‘model’)
+          
+ 
+
+   
+   .. warning:: Please note that tclean may be safely interrupted using a Ctrl-C at all times except when it is in the middle of writing the model data column during a major cycle. To avoid concerns about corrupting your MS by trying to interrupt tclean during a disk write, please run image-reconstruction and model-saving in two separate steps, with model writing turned off during the iterative image reconstruction step. 
+      For example: ::
+      
+          tclean(vis='xxx.ms', imagename='try',......., niter=20,savemodel='none')
+          tclean(vis='xxx.ms', imagename='try',...., niter=0, savemodel='modelcolumn', calcpsf=False, calcres=False, restoration=False)
+      
+      This sequence will show a message in the logger that says "Saving Model Column". Note that while this "predict-only" major cycle is ongoing, Ctrl-C should not be used. 
+
    
    -  .. rubric:: PB-Correction:
    
@@ -94,19 +129,26 @@ Description
    antenna primary beam gain, below which wide-field gridding
    algorithms such as *'mosaic'* and *'awproject'* will not apply
    normalization (and will therefore set to zero).  For
-   *gridder='standard'*, there is no pb-based normalization during
-   gridding and so the value of this parameter is ignored.
+   *gridder='standard'*, *'wproject'* , *'widefield'* there is no pb-based 
+   normalization during gridding and so the absolute value of 
+   this parameter is ignored.
 
    The sign of the pblimit parameter is used for a different
    purpose. If positive, it defines a T/F pixel mask that is
    attached to the output residual and restored images.  If
-   negative, this T/F pixel mask is not included.  Please note that
-   this pixel mask is different from the deconvolution mask used to
-   control the region where CLEAN based algorithms will search for
-   source peaks.  In order to set a deconvolution mask based on pb
+   negative, this T/F pixel mask is not included. For the *'mosaic'* and 
+   *'awproject'* gridders, the zeros in the regions outside the 
+   absolute pblimit level will be visible without the T/F mask, and 
+   for other gridders that do not do any pblimit-based normalizations
+   (*'standard'*, *'wproject'*, *'widefield'*) those regions will 
+   contain valid image pixels.
+   
+   Please note that this pixel mask is different from the deconvolution 
+   mask used to control the region where CLEAN based algorithms will search
+   for source peaks.  In order to set a deconvolution mask based on pb
    level, please use the *'pbmask'* parameter.
    
-   .. warning:: **WARNING** *:* Certain values of pblimit should be avoided!
+   .. warning:: Certain values of pblimit should be avoided!
       These values are 1, -1, and 0. Details can be found
       `here <../../notebooks/synthesis_imaging.ipynb#Imaging-Algorithms>`__.
    
@@ -197,7 +239,7 @@ Description
    +-----------------------------------+-----------------------------------+
 
    
-   .. warning:: WARNING: If an image with that name already exists, it will in
+   .. warning:: If an image with that name already exists, it will in
       general be overwritten. Beware using names of existing images
       however. If the tclean is run using an imagename where
       <imagename>.residual and <imagename>.model already exist, then
@@ -527,7 +569,7 @@ Description
    in the frame of the image to that initial time. Examples of usage
    are presented in the **tclean** examples tab.
    
-   .. note:: **NOTE**: When displaying ephemeris images, it is good practice
+   .. note:: When displaying ephemeris images, it is good practice
       to use relative coordinates to determine the average offset of
       emission from the ephemeris path over the observation, i.e.,
       axis label properties: world coordinate, relative position. The

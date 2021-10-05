@@ -382,7 +382,19 @@ Description
    This long list of output and intermediate images is likely to be
    pruned in a future release.
    
+   .. rubric:: Model Prediction
+   
+   For usedata=‘int’ , one may wish to save a sky model to the MeasurementSet for later use such as self-calibration.  The **tclean** task can be used 
+   in such instances after executing sdintimaging. The model prediction can be done by 
+   running tclean with niter=0 and 
+   specifying savemodel=‘modelcolumn’ or ’ virtual’. For example,
+   
+   ::
+   
+       sdintimaging(usedata=‘int’, vis=‘xxx.ms’, imagename=‘tst-intonly’, ... niter=1000, ...)
+       tclean(vis=‘xxx.ms’, imagename=‘tst-intonly', ... niter=0, savemodel=‘modelcolumn’, calcpsf=False, calcres=False, restoration=False)
 
+   
    For more information and examples on the functionality of the
    sdintimaging task, see the CASA Docs chapter page on `Joint
    Single Dish and Interferometer Image
