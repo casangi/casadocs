@@ -82,7 +82,7 @@ Examples
 
    .. code-block:: python
 
-      uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', firtorder=1, fitspw='0:10~100;300~350')
+      uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', fitorder=1, fitspw='0:10~100;300~350')
 
    **Example 3:**
 
