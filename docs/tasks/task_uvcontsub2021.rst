@@ -18,7 +18,7 @@ Description
    MeasurementSet. Polynomial models are fitted and subtracted per
    integration, per baseline, correlation.
 
-   The input MeasurementSet is not modified (is onl read). The data
+   The input MeasurementSet is not modified (is only read). The data
    column from the input MeasurementSet that is read can be selected
    using the *datacolumn* parameter. The continuum subtracted data are
    written into the DATA column of the output MS. Optinally, and to
