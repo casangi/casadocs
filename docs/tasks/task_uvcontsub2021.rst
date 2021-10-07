@@ -36,6 +36,17 @@ Description
    see the `MS selection syntax
    <../../notebooks/visibility_data_selection.ipynb>`__.
 
+   In addition to the *fitspw* parameter, the channelized data flags
+   and data weights also influence how the channels will be used for
+   the purpose of fitting the continuum. Channels that are flagged are
+   effectively excluded for the purpose of fitting (equivalent to
+   excluding them from fitspw). The channel weights, adjusted for
+   example using the statwt task, also influence how relevant
+   different channels will be for the fitting, in a more gradual
+   way. See `UV Continuum Subtraction
+   <../../notebooks/uv_manipulation.ipynb#UV-Continuum-Subtraction>`__
+   for more details.
+
 ..
     Notes taken from the pages of uvcontsub(1) and uvcontsub3:
 
