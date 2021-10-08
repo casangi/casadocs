@@ -18,6 +18,7 @@ decorator==4.4.2
 defusedxml==0.6.0
 docutils==0.16
 entrypoints==0.3
+GitPython==3.1.18
 idna==2.10
 imagesize==1.2.0
 importlib-metadata==2.0.0
