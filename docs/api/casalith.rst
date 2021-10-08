@@ -5,6 +5,20 @@ CASA monolithic environment bundling Python and library dependencies into a sing
 
 .. currentmodule:: casalith
 
+
+
+tasks
+^^^^^
+
+A few remaining tasks are found only in the monolithic environment
+
+.. automodsumm:: casalith
+   :toctree: tt
+   :nosignatures:
+   :functions-only:
+
+
+
 executables
 ^^^^^^^^^^^
 

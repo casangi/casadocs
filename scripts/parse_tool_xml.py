@@ -15,12 +15,12 @@ pypandoc.pandoc_download.download_pandoc(version='2.10.1')
 if os.path.exists('../casatools'): os.system('rm -fr ../casatools')
 os.system('mkdir ../casatools')
 
-tools = os.listdir('../xml/tools')
+tools = os.listdir('../casasource/casa6/casatools/xml')
 
 # loop through each tool
 tooldict = {}
 for tool in tools:
-    with open('../xml/tools/' + tool, 'r') as fid:
+    with open('../casasource/casa6/casatools/xml/' + tool, 'r') as fid:
         xmlstring = fid.read()
         xmlstring = re.sub('\<link.*?\>(.+?)\<\/link>', r'\1', xmlstring, flags=re.DOTALL)
         xmlstring = re.sub('\"\"\"', '', xmlstring, flags=re.DOTALL)
@@ -38,7 +38,6 @@ for tool in tools:
 
     # initialize tool dictionary (td)
     td = [(ee.tag.replace(nps, ''), ee.text) for ee in list(troot) if ee.tag not in [nps + 'method', nps + 'code']]
-    # td = dict([(ee[0], '' if ee[1] is None else pypandoc.convert_text(ee[1].replace('_', '\_'), 'rst', format='latex', extra_args=['--wrap=none'])) for ee in td])
     td = dict([(ee[0], '' if ee[1] is None else ee[1]) for ee in td])
     td['methods'] = {}
 
@@ -201,11 +200,9 @@ for name in tooldict.keys():
         desc = ' ' * 8 + method + ' method\n\n'
         if ('description' in tm.keys()) and (tm['description'] is not None) and (len(tm['description'].strip()) > 0):
             try:
-                desc = ' ' * 8 + pypandoc.convert_text(tm['description'].replace('_', '\_').replace(r'\\_', '\_'), 'rst', format='latex',
-                                                       extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 8) + '\n\n'
+                desc = ' ' * 8 + pypandoc.convert_text(tm['description'].replace('_', '\_').replace(r'\\_', '\_'), 'rst', format='latex', extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 8) + '\n\n'
             except:
-                desc = ' ' * 8 + pypandoc.convert_text(tm['description'], 'rst', format='markdown',
-                                                       extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 8) + '\n\n'
+                desc = ' ' * 8 + pypandoc.convert_text(tm['description'], 'rst', format='markdown', extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 8) + '\n\n'
         elif ('shortdescription' in tm.keys()) and (tm['shortdescription'] is not None) and (len(tm['shortdescription'].strip()) > 0):
             desc = ' ' * 8 + cleanxml(tm['shortdescription']).replace('\n', '\n' + ' ' * 8) + '\n\n' + ' ' * 8 + '\n\n'
 
@@ -247,13 +244,6 @@ for name in tooldict.keys():
             ostr += ' '*8 + '.. rubric:: Examples\n\n'
             ostr += ' '*8 + '::\n\n'
             ostr += ' ' * 11 + tm['examples'].replace('\n', '\n' + ' ' * 11)
-            #try:
-            #    examples = ' ' * 11 + pypandoc.convert_text(tm['examples'].replace('_', '\_').replace(r'\\_', '\_'), 'rst', format='latex',
-            #                                           extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 11) + '\n\n'
-            #except:
-            #    examples = ' ' * 11 + pypandoc.convert_text(tm['examples'], 'rst', format='markdown',
-            #                                               extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 11) + '\n\n'
-            #ostr += examples
 
         # close docstring stub
         ostr += '\n' + ' ' * 8 + '"""\n\n' + ' ' * 8 + 'pass\n\n\n'
