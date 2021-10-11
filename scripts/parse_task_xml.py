@@ -122,7 +122,7 @@ for task in os.listdir('../casasource/casaviewer'):
 ### Temporary (I hope)
 if os.path.exists('../casalith'): os.system('rm -fr ../casalith')
 os.system('mkdir ../casalith')
-for task in ['browsetable.xml', 'msuvbin.xml', 'viewer.xml']:
+for task in ['browsetable.xml', 'msuvbin.xml']:
     with open('../casasource/casa6/casa5/gcwrap/tasks/' + task, 'r') as fid:
         xmlstring = fid.read()
     td = parse_xml(xmlstring)
