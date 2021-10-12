@@ -4,12 +4,14 @@ doc
 .. currentmodule:: casashell
 
 
-.. function:: doc(topic)
+.. function:: doc(topic, version)
 
    Open a web browser pointing to the location of the given named task or tool API documentation
 
    Parameters
       - **topic** (*string*) - name of task or tool or "start" or "toc"
+      - **version** (*string*) - a casadocs version string, defaults to the casa version being used
+
 
    Description
       Each task has built in inline help that can be seen with the standard Python help command. 
@@ -28,6 +30,18 @@ doc
       An empty argument, "toc", or an unrecognized topic directs the browser to the casatasks 
       API page.
       
+      The version argument can be used to direct doc to use something other than the 
+      documentation for the version of CASA being used. Version strings typically look like 
+      "v6.4.1" with the numbers corresponding to the first 3 elements of the ctsys.version() value.
+      A value of "latest" will be used to find the documentation of the most recent version of 
+      casadocs and "stable" will be used to find the document of the most recent release. The "latest"
+      version is typically the version under development. 
+      
+      If the documentation for the current version can not be found, doc will try and use the
+      latest CASA documentation. If the documentation for a specific verison is requested and can
+      not be found, doc will not use the "latest" version and the user will be directed to the 
+      top of the casa site. A warning message is printed when doc can not use the
+      documentation for the requested release.
       If the documentation for the current release can not be found, doc will try and use the
       latest CASA documentation. A warning message is printed when doc can not use the
       documentation for the current release.
