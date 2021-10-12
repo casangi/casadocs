@@ -19,6 +19,14 @@ if len(re.findall('v\d\.', branch_name)) > 0:
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casa5/gcwrap/tasks?at=refs/heads/%s"%branch_name).text
 tasknames = list(set(re.findall("\w+.xml", xmlstring)))
 if len(tasknames) == 0:
+    # this could be a tag (like a stable build) instead of a real branch, try to resolve the hash and see
+    os.system('git name-rev %s > branch_tag.txt' % branch_name)
+    with open('branch_tag.txt', 'r') as fid:
+        branch_name = 'release/' + fid.readlines()[0].strip().split('/')[-1].split('-')[0][1:]
+
+xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casa5/gcwrap/tasks?at=refs/heads/%s" % branch_name).text
+tasknames = list(set(re.findall("\w+.xml", xmlstring)))
+if len(tasknames) == 0:
     print('Cant find corresponding code repository, defaulting to master')
     branch_name = 'master'
 
