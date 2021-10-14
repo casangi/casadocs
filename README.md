@@ -8,6 +8,14 @@ The scope of this study is to use performance and benchmarking tests to satisfy 
 This prototype makes use of the [airspeed-velocity](https://asv.readthedocs.io/en/stable/) framework to satisfy use case 1 (UC2 is a work in progress). This repository could be modified to work with other tools in the future.  Right now casabench is pre-alpha software, not intended for general use.
 
 ## Setup
+The user's [pip configuration](https://pip.pypa.io/en/stable/topics/configuration/#location) needs to have the CASA wheel server included in the list of repository URLs to search. Using the global level ensures that the configuration is respected by test executions inside each of the virtual environments created by asv.
+```
+[global]
+extra-index-url = 
+		https://casa-pip.nrao.edu:443/repository/pypi-group/simple
+		https://casa-pip.nrao.edu/repository/pypi-casa-release/simple
+```
+
 Once the repository is cloned, it can be used from any conda or pip virtual environment that has `asv>=0.4.2` installed (to be reflected in a pyproject.toml or requirements.txt file soon).
 
 An additonal step is required to configure access to test data:
