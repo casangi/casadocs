@@ -15,7 +15,7 @@ doc
 
    Description
       Each task has built in inline help that can be seen with the standard Python help command. 
-      However, given the complexity of many tasks, with lengthy descriptions, images, table, 
+      However, given the complexity of many tasks, with lengthy descriptions, images, tables, 
       and large numbers of parameters and subparameters (not a standard Python feature), the 
       web-based casadocs API documentation provides more functionality.
       
@@ -40,11 +40,11 @@ doc
       The **version** argument can be used to direct doc to use something other than the 
       documentation for the version of CASA being used. Version strings typically look like 
       "v6.4.1" with the numbers corresponding to the first 3 elements of the ctsys.version() value.
-      A value of "latest" can be used to find the documentation of the most recent version of 
-      casadocs and "stable" will be used to find the document of the most recent release. 
+      A value of "latest" is used to find the documentation of the most recent version of 
+      casadocs and "stable" is used to find the documentation of the most recent release. 
       
       If the documentation for a specific verison is requested and can not be found, the browser will 
-      be directed to the top of the casa site. 
+      be directed to the top of the CASA site. 
       
       A warning message is printed when doc can not use the documentation for the requested release.
       
