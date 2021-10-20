@@ -21,7 +21,9 @@ if len(tasknames) == 0:
     # this could be a tag (like a stable build) instead of a real branch, try to resolve the hash and see
     os.system('git name-rev %s > branch_tag.txt' % branch_name)
     with open('branch_tag.txt', 'r') as fid:
-        branch_name = 'release/' + fid.readlines()[0].strip().split('/')[-1].split('-')[0][1:]
+        tag = fid.read()
+        if len(tag) > 0:
+            branch_name = 'release/' + tag.split('\n')[0].strip().split('/')[-1].split('-')[0][1:]
 
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casatasks/xml?at=refs/heads/%s" % branch_name).text
 tasknames = list(set(re.findall("\w+.xml", xmlstring)))
