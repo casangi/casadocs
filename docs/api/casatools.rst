@@ -21,7 +21,7 @@ instantiated as stateful objects in Python.
 .. rubric:: Special Cases
 
 In some cases, the state within a tool must be maintained singularly for an entire CASA session. In these cases,
-a singleton object is instantiate and provided directly to the user.
+a singleton object is instantiated and provided directly to the user.
 
 .. data:: ctsys
 
