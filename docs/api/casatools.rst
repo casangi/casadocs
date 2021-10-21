@@ -39,7 +39,7 @@ a singleton object is instantiated and provided directly to the user.
    Singleton object from logsink tool. See logsink tool documentation for methods
 
    Examples
-      casalog is already instantiated and provides access to the methods of the utils tool class. For example: ::
+      casalog is already instantiated and provides access to the methods of the logsink tool class. For example: ::
 
          >>> from casatools import casalog   # modular casa only, already imported in monolithic
          >>> casalog.post('my example log message', 'INFO')
