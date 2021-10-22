@@ -8,7 +8,7 @@ Description
    This task can perform continuum fitting and subtraction in the uv
    domain.
 
-   The task estimates the continuum emission by fitting polynomials to
+   The function estimates the continuum emission by fitting polynomials to
    the real and imaginary parts of the data. The spectral windows and
    channels on which the fitting is calculated can be selected using
    the parameter *fitspw*. The resulting fit represents a model of the
@@ -18,10 +18,16 @@ Description
    MeasurementSet. Polynomial models are fitted and subtracted per
    integration, per baseline, correlation.
 
+   The function returns a dictionary with goodness of fit metrics,
+   grouped by field, scan, SPW, polarization, and real and imaginary
+   part. The dictionary includes chi-square values as calculated and
+   minimized by the fitting algorithms. [NOTE/TODO: details to be
+   finalized, see discussion in development documents].
+
    The input MeasurementSet is not modified (is only read). The data
    column from the input MeasurementSet that is read can be selected
    using the *datacolumn* parameter. The continuum subtracted data are
-   written into the DATA column of the output MS. Optinally, and to
+   written into the DATA column of the output MS. Optionally, and to
    support inspection of results and debugging, the fitted model data
    can be written into the MODEL column of the output MS, using the
    parameter *writemodel*.
@@ -55,7 +61,6 @@ Description
       center. Residuals may be visible for sources far away and one
       may try **imcontsub** in the image domain for improved results.
 
-
    .. note:: values of *fitorder* > 1 should be used with care. Higher
       order polynomials are more flexible, and may overfit and absorb
       line emission. They also tend to go wild at the edges of
@@ -66,9 +71,6 @@ Description
       reduced in some strange way. Images of the continuum should be
       made by simply excluding the line channels (and probably
       averaging the remaining ones) in **tclean**.
-
-   .. rubric:: Parameter descriptions
-   
 
 .. _Examples:
 
