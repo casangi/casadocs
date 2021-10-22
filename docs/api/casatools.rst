@@ -2,19 +2,9 @@ casatools
 ====================
 
 The CASA toolkit is the foundation of the functionality in the package, and consists of a suite of
-functions that are callable from Python. The tools are used by the tasks, and can be used by advanced
-users to perform operations that are not available through the tasks.
-
-It is beyond the scope of this reference to describe the toolkit in detail. Occasionally, examples
-will be given that utilize the tools. In short, tools are always called as functions, with any
-parameters that are not to be defaulted given as arguments. For example: ::
-
-   ia.open('ngc5921.chan21.clean.cleanbox.mask')
-   ia.calcmask('"ngc5921.chan21.clean.cleanbox.mask">0.5','mymask')
-   ia.summary()
-   ia.close()
-
-uses the image tool (**ia**) to turn a clean mask image into an image mask.
+C++ classes that wrapped and imported in Python. The tools are typically used inside casatasks, but they can also be
+used directly by advanced users to perform operations that are not available through the tasks.  Tools are typically
+instantiated as stateful objects in Python.
 
 .. rubric:: Tool Listing
 
@@ -24,4 +14,33 @@ uses the image tool (**ia**) to turn a clean mask image into an image mask.
    :classes-only:
    :template: tooldoc.rst
 
+
+.. currentmodule:: casatools
+
+
+.. rubric:: Special Cases
+
+In some cases, the state within a tool must be maintained singularly for an entire CASA session. In these cases,
+a singleton object is instantiated and provided directly to the user.
+
+.. data:: ctsys
+
+   Singleton object from utils tool. See utils tool documentation for methods
+
+   Examples
+      ctsys is already instantiated and provides access to the methods of the utils tool class. For example: ::
+
+         >>> from casatools import ctsys   # modular casa only, already imported in monolithic
+         >>> ctsys.hostinfo()
+
+
+.. data:: casalog
+
+   Singleton object from logsink tool. See logsink tool documentation for methods
+
+   Examples
+      casalog is already instantiated and provides access to the methods of the logsink tool class. For example: ::
+
+         >>> from casatools import casalog   # modular casa only, already imported in monolithic
+         >>> casalog.post('my example log message', 'INFO')
 
