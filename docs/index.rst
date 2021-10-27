@@ -9,8 +9,22 @@ Jansky Very Large Array
 (`VLA <https://public.nrao.edu/venue/the-very-large-array/>`__),
 and is often used also for other radio telescopes.
 
-6.4 Development Build
-   You are viewing the latest build of master, currently in the 6.4 development cycle
+**6.4.0 Release**
+
+CASA 6.4.0 can now be (`downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__) for general use. CASA 6.4.0 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
+
+**Highlights:**
+
+- OS Support: CASA now supports RedHat 8, and Mac OS with Python 3.8, for both monolithic and modular versions.
+- plotcal/plotms: Funtionality for plotcal has been migrated to plotms, and plotcal was deprecated.
+- plotms: calibration table averaging with channel selection is now supported.
+- fringefit: memory usage of fringefit has been reduced, allowing larger datasets to be processed.
+- imhead: updated to display micro-arcsecond precision.
+- caltables: the storage of frequency meta information in caltables improved, making certain frequency-dependent calibration solutions more accurate.
+- sdintimaging: now adds information to the history of produced images
+- T+dT timerange selection improved in accuracy.
+
+For more details on these and other new features, see the CASA 6.4.0 (`Release Notes <https://casadocs.readthedocs.io/en/v6.4.0/notebooks/introduction.html>`__).
    
 CASA is developed by an international consortium of scientists
 based at the National Radio Astronomical Observatory (NRAO), the
