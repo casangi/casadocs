@@ -127,7 +127,7 @@ Examples
 
    .. code-block:: python
    
-      uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', savemodel=True)
+      uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', writemodel=True)
 
 
    Placeholder (work in progress) paragraph about numerical
