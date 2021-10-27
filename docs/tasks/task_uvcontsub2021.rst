@@ -157,9 +157,14 @@ Development
 
    - SPW combination, related to the *combine* parameter of the tasks
      **uvcontsub(1)** and **uvcontsub3**.
-     
+
    - Phase shifting related features and parameters (see task
      **phaseshift**).
+
+   - Some CASA tasks have a parameter **excludechans** that inverts
+     the channel specification of fitspw (the channels given in fitswp
+     are excluded from the fitting instead of included). This
+     functionality would be provided separately in a helper function.
 
    - It is expected that additional tests and support will be needed
      as future work once higher order polynomials and robust fitting
