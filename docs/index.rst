@@ -15,11 +15,11 @@ CASA 6.4.0 can now be (`downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`
 
 **Highlights:**
 
-- OS Support: CASA now supports RedHat 8, and Mac OS with Python 3.8, for both monolithic and modular versions.
+- OS Support: CASA now supports RedHat 8, and Mac OS with Python 3.8, for both monolithic and modular versions. Note the Linux tarballs with different Python versions will extract to the same directory name.
 - plotcal/plotms: Funtionality for plotcal has been migrated to plotms, and plotcal was deprecated.
 - plotms: calibration table averaging with channel selection is now supported.
 - fringefit: memory usage of fringefit has been reduced, allowing larger datasets to be processed.
-- imhead: updated to display micro-arcsecond precision.
+- imhead: updated to display microsecond precision.
 - caltables: the storage of frequency meta information in caltables improved, making certain frequency-dependent calibration solutions more accurate.
 - sdintimaging: now adds information to the history of produced images
 - T+dT timerange selection improved in accuracy.
