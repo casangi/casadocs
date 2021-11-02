@@ -1,11 +1,17 @@
-configuration
-=====================
-
-CASA accepts a variety of options through two mechanisms: configuration files and command line arguments.  Configuration files are
-typically stored in a \~/.casa folder while command line options (only applicable to the full installation) are specified after the
-casa command at startup.
+casadata
+====================
 
 .. currentmodule:: configuration
+
+Routines for handling the runtime configuration and external data dependencies in CASA. These functions are needed to manipulate the runtime data
+necessary for proper CASA operation.
+
+.. automodsumm:: casaconfig
+   :toctree: tt
+   :nosignatures:
+   :functions-only:
+
+
 
 config.py
 ^^^^^^^^^
@@ -43,13 +49,13 @@ might look something like this:
    rundata="/home/casa/data/rsync"
    log2term=True
    nologger=True
-   
+
 An example config.py file showing all recognized configurable parameters is shown here, this also illustrates that config.py can contain other python commands. This shows setting logfile using the time module. Note that some of the parameters shown here are set to the their default values.
 
 ::
 
    import time
-   
+
    datapath=["/home/casa/data/casa-data", "~/.casa/mydata"]
    rundata="/home/casa/data/rsync"
    logfile='casalog-%s.log' % time.strftime("%Y%m%d-%H",time.localtime())
@@ -68,37 +74,8 @@ An example config.py file showing all recognized configurable parameters is show
    telemetry_log_limit = 1650
    telemetry_log_size_interval = 30
    telemetry_submit_interval = 20
-   
-
-At runtime the datapath(s) are expanded through a resolve(\...) function to find the needed data tables. For example
-
-::
-
-   >>> casatools.ctsys.resolve('geodetic/IERSpredict')
-
-   '/home/casa/data/rsync/geodetic/IERSpredict'
-
-The command line arguments take precendence over the equivalent config.py value.
-
-The variables *rundata* and *datapath* are related but different. *rundata* is a single path, does not change after CASA has started, and it is meant to point to essential data that is required for CASA to run, such as the casacore Measures data (see `External Data <../notebooks/external-data.ipynb>`__).
-In contrast,  *datapath* is a list of paths and can be changed at runtime to include multiple data locations. The function resolve will search for files and directories through the *datapath* in list order. The idea is to allow users to add directories that contain the data they want to use during their session. After adding directories where they want to load data from, fully qualified paths are no longer needed for example for imaging tasks. Since there is no longer a single data path, users can add shared image directories, etc.
-
-When using a monolithic/tar-file CASA distribution, if *rundata* is left as default, it points to the data included in the distribution.
-*rundata* can be used to set up and update custom data locations, see `Updating a custom location <../notebooks/external-data.ipynb#Updating-a-custom-location>`__.
-The value of *rundata* in a CASA session can be checked via the function rundata:
-
-::
-
-   >>> casatools.ctsys.rundata()
-
-   '/home/casa/data/rsync'
 
 
-.. note::
-
-   *rcdir* is used to change the location of the root .casa folder to something other than **\~/.casa**. In addition to the startup
-   files (config.py and startup.py) the root .casa folder contains working files and directories used by CASA components (e.g. ipython,
-   telemetry). It is expected to be writable by the user for use by those components.
 
 
 startup.py
@@ -162,5 +139,5 @@ This ./bin/casa executable can be provided the following options to change confi
    -c ...                python eval string or python script to execute
 
 
-These options **take precedence over the configuration files.** See the discussion of equivalent config.py parameters 
+These options **take precedence over the configuration files.** See the discussion of equivalent config.py parameters
 for more details on these command line options.
