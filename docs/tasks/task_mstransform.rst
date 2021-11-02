@@ -67,7 +67,7 @@ Description
    #. When WEIGHT_SPECTRUM/SIGMA_SPECTRUM are present:
 
    
-   .. math:: Average = \sum(Chan_i*Flag_i*WeightSpectrum_i) \sum(Flag_i*WeightSpectrum_i)
+   .. math:: Average = \frac{\sum(Chan_i*Flag_i*WeightSpectrum_i)}{\sum(Flag_i*WeightSpectrum_i)}
 
    
    .. rubric:: Hanning smoothing: *hanning*

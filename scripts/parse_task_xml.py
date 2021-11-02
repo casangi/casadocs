@@ -261,14 +261,40 @@ def render_rst(component, category, text, task, diffsource, difflog):
             difflog += '   <li><p><b>' + task['name'] + '</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p></li>\n\n'
 
     return difflog
+
+
 ##################################################################################
 
-# render casatasks
-tasknames = []
-difflog += '.. rubric:: casatasks\n\n'+'.. raw:: html\n\n   <ul>\n'
-for task in tasklist:
+# render casatasks, almatasks, casaplotms, and casaviewer
+for mname, mlist, mstable in [('casatasks', tasklist, stable_tasks), ('almatasks', almalist, stable_alma), ('casaplotms', plotmslist, stable_plotms), ('casaviewer', viewerlist, stable_viewer)]:
+    tasknames = []
+    difflog += '.. rubric:: %s\n\n' % mname + '.. raw:: html\n\n   <ul>\n'
+    for task in mlist:
+        # grab rst description page if it exists, otherwise skip this task
+        rst = ''
+        if os.path.exists('tasks/task_' + task['name'] + '.rst'):
+            tasknames += [task['name']]
+            with open('tasks/task_' + task['name'] + '.rst', 'r') as fid:
+                rst = fid.read()
+        else:
+            continue
 
-    # grab rst description page if it exists, otherwise skip this task
+        category = task['category']+'/' if mname == 'casatasks' else ''
+        difflog = render_rst(mname, category, rst, task, mstable, difflog)
+
+    # look for deleted tasks
+    for stable_task in mstable:
+        if stable_task not in tasknames:
+            difflog += '   <li><p><b>' + stable_task + '</b> - Deleted Task</p></li>\n\n'
+    difflog += '   </ul>\n\n|\n'
+
+
+
+##############################
+# render casalith
+tasknames = []
+difflog += '.. rubric:: casalith\n\n'+'.. raw:: html\n\n   <ul>\n'
+for task in lithlist:
     rst = ''
     if os.path.exists('tasks/task_' + task['name'] + '.rst'):
         tasknames += [task['name']]
@@ -276,31 +302,7 @@ for task in tasklist:
             rst = fid.read()
     else:
         continue
-
-    difflog = render_rst('casatasks', task['category']+'/', rst, task, stable_tasks, difflog)
-
-# look for deleted tasks
-for stable_task in stable_tasks:
-    if stable_task not in tasknames:
-        difflog += '   <li><p><b>' + stable_task + '</b> - Deleted Task</p></li>\n\n'
-difflog += '   </ul>\n\n|\n'
-
-
-# render ALMAtasks
-difflog += '.. rubric:: almatasks\n\n'+'.. raw:: html\n\n   <ul>\n'
-for task in almalist:
-    difflog = render_rst('almatasks', '', '', task, stable_alma, difflog)
-
-for st in stable_alma:
-    if st not in [task['name'] for task in almalist]:
-        difflog += '   <li><p><b>' + st + '</b> - Deleted Task</p></li>\n\n'
-difflog += '   </ul>\n\n|\n'
-
-
-# render casalith
-difflog += '.. rubric:: casalith\n\n'+'.. raw:: html\n\n   <ul>\n'
-for task in lithlist:
-    difflog = render_rst('casalith', '', '', task, stable_lith, difflog)
+    difflog = render_rst('casalith', '', rst, task, stable_lith, difflog)
 
 with open('api/casalith.rst') as fid:
     rst = fid.read()
@@ -318,34 +320,13 @@ for proto in protos:
         difflog += '   <li><p><b>' + fname + '</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p></li>\n\n'
 
 for st in stable_lith:
-    if (st not in [task['name'] for task in lithlist]) and (st not in [pp.split('(')[0] for pp in protos]):
+    if (st not in tasknames) and (st not in [pp.split('(')[0] for pp in protos]):
         difflog += '   <li><p><b>' + st + '</b> - Deleted Function</p></li>\n\n'
 difflog += '   </ul>\n\n|\n'
 
 
-# render casaplotms
-difflog += '.. rubric:: casaplotms\n\n'+'.. raw:: html\n\n   <ul>\n'
-for task in plotmslist:
-    difflog = render_rst('casaplotms', '', '', task, stable_plotms, difflog)
 
-for st in stable_plotms:
-    if st not in [task['name'] for task in plotmslist]:
-        difflog += '   <li><p><b>' + st + '</b> - Deleted Task</p></li>\n\n'
-difflog += '   </ul>\n\n|\n'
-
-
-# render casaviewer
-difflog += '.. rubric:: casaviewer\n\n'+'.. raw:: html\n\n   <ul>\n'
-for task in viewerlist:
-    difflog = render_rst('casaviewer', '', '', task, stable_viewer, difflog)
-
-for st in stable_viewer:
-    if st not in [task['name'] for task in viewerlist]:
-        difflog += '   <li><p><b>' + st + '</b> - Deleted Task</p></li>\n\n'
-difflog += '   </ul>\n\n|\n'
-
-
-
+#######################################
 # write out log of task API diffs
 with open('changelog.rst', 'a') as fid:
     fid.write('\n\nAPI Changes\n+++++++++++\n\n')
