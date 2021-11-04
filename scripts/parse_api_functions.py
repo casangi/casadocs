@@ -10,6 +10,7 @@ with open('api_baseline.txt', 'r') as fid:
     stable_shell = dict([(ll.split('(')[0].split('.')[-1].strip(), ll[ll.index('.')+1:].strip()) for ll in lines[2:] if ll.startswith('casashell')])
     stable_data = dict([(ll.split('(')[0].split('.')[-1].strip(), ll[ll.index('.')+1:].strip()) for ll in lines[2:] if ll.startswith('casadata')])
     #stable_lith = dict([(ll.split('(')[0].split('.')[-1].strip(), ll[ll.index('.')+1:].strip()) for ll in lines[2:] if ll.startswith('casalith')])
+    stable_cc = dict([(ll.split('(')[0].split('.')[-1].strip(), ll[ll.index('.') + 1:].strip()) for ll in lines[2:] if ll.startswith('casaconfig')])
     stable_config = dict([(ll[ll.index('.')+1:ll.index('(') if '(' in ll else None].strip(), ll[ll.index('.')+1:].strip()) for ll in lines[2:] if ll.startswith('configuration')])
     dd = difflib.Differ()
 
@@ -43,75 +44,43 @@ difflog += '   </ul>'
 
 
 ################################################3
-# parse the casadata rst file for specs
-with open('api/casadata.rst') as fid:
+# parse the casaconfig rst file and each python file for specs
+with open('api/casaconfig.rst') as fid:
     rst = fid.read()
     
-difflog += '\n\n|\n\n.. rubric:: casadata\n\n.. raw:: html\n\n   <ul>\n\n'
+difflog += '\n\n|\n\n.. rubric:: casaconfig\n\n.. raw:: html\n\n   <ul>\n\n'
 protos = re.findall('\.\. data:: (.+?)\n', rst, flags=re.DOTALL)
 for proto in protos:
     fname = proto.split('(')[0]
-    if fname not in stable_data:
+    if fname not in stable_cc:
         difflog += '   <li><p><b>' + fname.split('.')[0] + '</b> - New Function</p></li>\n\n'
-    elif not (stable_data[fname] == proto.replace('\n', '')):
-        stable_params = re.sub('.+?\((.*?)\)', r'\1', stable_data[fname], flags=re.DOTALL).split(', ')
+    elif not (stable_cc[fname] == proto.replace('\n', '')):
+        stable_params = re.sub('.+?\((.*?)\)', r'\1', stable_cc[fname], flags=re.DOTALL).split(', ')
         new_params = re.sub('.+?\((.*?)\)', r'\1', proto.replace('\n', ''), flags=re.DOTALL).split(', ')
         diff_params = ['<b><del>' + pp.replace('- ', '') + '</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
         diff_params = ['<b><ins>' + pp.replace('+ ', '') + '</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
         difflog += '   <li><p><b>' + fname + '</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p></li>\n\n'
 
 # look for deleted functions
-for ff in stable_data:
+for ff in stable_cc:
     if ff not in [pp.split('(')[0] for pp in protos]:
         difflog += '   <li><p><b>' + ff + '</b> - Deleted Function</p></li>\n\n'
 difflog += '   </ul>'
 
 
-#################################################
-# moved to parse_task_xml.py
-#################################################
-# parse the casalith rst file for specs
-#with open('api/casalith.rst') as fid:
-#    rst = fid.read()
 
-#difflog += '   </ul>\n\n|\n\n.. rubric:: casalith\n\n.. raw:: html\n\n   <ul>\n\n'
-#protos = re.findall('\.\. data:: (.+?)\n', rst, flags=re.DOTALL)
-#for proto in protos:
-#    fname = proto.split('(')[0]
-#    if fname not in stable_lith:
-#        difflog += '   <li><p><b>' + fname.split('.')[0] + '</b> - New Function</p></li>\n\n'
-#    elif not (stable_lith[fname] == proto.replace('\n', '')):
-#        stable_params = re.sub('.+?\((.*?)\)', r'\1', stable_lith[fname], flags=re.DOTALL).split(', ')
-#        new_params = re.sub('.+?\((.*?)\)', r'\1', proto.replace('\n', ''), flags=re.DOTALL).split(', ')
-#        diff_params = ['<b><del>' + pp.replace('- ', '') + '</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
-#        diff_params = ['<b><ins>' + pp.replace('+ ', '') + '</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
-#        difflog += '   <li><p><b>' + fname + '</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p></li>\n\n'
+########################################################
+# parse deprecated configuration and casadata rst files
 
+difflog += '\n\n|\n\n.. rubric:: casadata\n\n.. raw:: html\n\n   <ul>\n\n'
+protos = [] #re.findall('\.\. data:: (.+?)\n', rst, flags=re.DOTALL)
 # look for deleted functions
-#for ff in stable_lith:
-#    if ff not in [pp.split('(')[0] for pp in protos]:
-#        difflog += '   <li><p><b>' + ff + '</b> - Deleted Function</p></li>\n\n'
-#difflog += '   </ul>'
-
-
-################################################3
-# parse the configuration rst file for specs
-with open('api/configuration.rst') as fid:
-    rst = fid.read()
+for ff in stable_config:
+    if ff not in [pp.split('(')[0] for pp in protos]:
+        difflog += '   <li><p><b>' + ff + '</b> - Deleted Function</p></li>\n\n'
+difflog += '   </ul>'
 
 difflog += '\n\n|\n\n.. rubric:: configuration\n\n.. raw:: html\n\n   <ul>\n\n'
-protos = re.findall('\.\. data:: (.+?)\n', rst, flags=re.DOTALL)
-for proto in protos:
-    fname = proto.split('(')[0]
-    if fname not in stable_config:
-        difflog += '   <li><p><b>' + fname.split('.')[0] + '</b> - New Function</p></li>\n\n'
-    elif not (stable_config[fname] == proto.replace('\n', '')):
-        stable_params = re.sub('.+?\((.*?)\)', r'\1', stable_config[fname], flags=re.DOTALL).split(', ')
-        new_params = re.sub('.+?\((.*?)\)', r'\1', proto.replace('\n', ''), flags=re.DOTALL).split(', ')
-        diff_params = ['<b><del>' + pp.replace('- ', '') + '</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
-        diff_params = ['<b><ins>' + pp.replace('+ ', '') + '</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
-        difflog += '   <li><p><b>' + fname + '</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p></li>\n\n'
-
 # look for deleted functions
 for ff in stable_config:
     if ff not in [pp.split('(')[0] for pp in protos]:
@@ -119,6 +88,7 @@ for ff in stable_config:
 difflog += '   </ul>'
 
 
+###########################################################
 # write out log of task API diffs
 with open('changelog.rst', 'a') as fid:
     fid.write(difflog + '\n\n')

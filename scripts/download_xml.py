@@ -1,10 +1,10 @@
+##########################################################################
+# download the xml and/or source code for all the various casa packages
+##########################################################################
 import requests
 import re
 import os
 import git
-
-if os.path.exists('../casasource'): os.system('rm -fr ../casasource')
-os.system('mkdir ../casasource')
 
 os.system('git branch > branch_name.txt')
 with open('branch_name.txt', 'r') as fid:
@@ -31,10 +31,25 @@ if len(tasknames) == 0:
     print('Cant find corresponding code repository, defaulting to master')
     branch_name = 'master'
 
-print('Cloning source for %s code branch' % branch_name)
+if os.path.exists('../casasource'): os.system('rm -fr ../casasource')
+os.system('mkdir ../casasource')
 
 # cloning the repo is a bit faster than retrieving each xml file one at a time
+print('Cloning source for %s code branch' % branch_name)
 repo = git.Repo.clone_from('https://open-bitbucket.nrao.edu/scm/casa/casa6.git', '../casasource/casa6', branch=branch_name)
+
+
+##################################################################################
+# for casaconfig, download the pip package instead of cloning
+##################################################################################
+if os.path.exists('../casaconfig'): os.system('rm -fr ../casaconfig')
+os.system('mkdir ../casaconfig')
+
+print('Downloading casaconfig package')
+os.system('pip download --no-dependencies -d ../casaconfig casaconfig')
+os.system('tar -xf ../casaconfig/casaconfig* --directory ../casaconfig/')
+os.system('mv ../casaconfig/casaconfig*/casaconfig/*.py ../casaconfig/.')
+os.system('rm -fr ../casaconfig/casaconfig*')
 
 
 ##################################################################################
