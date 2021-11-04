@@ -34,12 +34,14 @@ Description
 
    The fitting method and polynomial order are selected via the
    parameters *fitmethod* and *fitorder*. The line-free channels are
-   given in the *fitspw* parameter, which can take a list of line-free
-   channel specifications, with an item per field or group or
-   fields. This is to be able to produce an output MeasurementSet with
-   multiple sources and/or fields in one single call. The per-SPW
-   line-free channels are specified using the spw:channel notation,
-   see the `MS selection syntax
+   given in the *fitspw* parameter. In it simplest form, it is a
+   line-free channel specification string that applies to all
+   fields. It can also take a list of line-free channel
+   specifications, with an item per field or group or fields. This is
+   to be able to produce an output MeasurementSet with multiple
+   sources and/or fields in one single call. The per-SPW line-free
+   channels are specified using the spw:channel notation, see the `MS
+   selection syntax
    <../../notebooks/visibility_data_selection.ipynb>`__.
 
    In addition to the *fitspw* parameter, the channelized data flags
@@ -56,8 +58,8 @@ Description
 ..
     Notes taken from the pages of uvcontsub(1) and uvcontsub3:
 
-   .. note:: Strictly speaking, the model produced by this task is
-      only a good representation of the continuum at the phase
+   .. note:: Strictly speaking, the continuum fitted produced by this
+      task is only a good representation of the continuum at the phase
       center. Residuals may be visible for sources far away and one
       may try **imcontsub** in the image domain for improved results.
 
@@ -112,8 +114,8 @@ Examples
 
    **Example 4:**
 
-   Alternative to previous example, give fitspw as array and produce a
-   2 fields MS:
+   Alternative to previous example, give fitspw as array and produce
+   an output MS with 2 fields:
 
    .. code-block:: python
    
