@@ -44,13 +44,13 @@ Description
    :math: `S` is the user-specified factor by which to scale the low resolution image
    brightness scale, :math:`B` is the ratio of the high resolution beam area to the low
    resolution beam area, :math:`\mathcal{F}` denotes the Fast Fourier Transform,
-   and :math: `\mathcal{F}^{-1}` denotes the Inverse Fast Fourier Transform. In the case
+   and :math:`\mathcal{F}^{-1}` denotes the Inverse Fast Fourier Transform. In the case
    where the high resolution and low resolution images have a single beam each,
    :math:`B` is a scalar. In the case one of them has multiple (per-plane) beams,
    :math:`B` is a matrix with each element corresponding to the beam ratios for
    each frequency channel/polarization pair, and the multiplication and division
    of terms with :math:`B` are done element-wise, so that the above equation is
-   valid for every frequency channel/polarization pair :math: `(f, p)`:
+   valid for every frequency channel/polarization pair :math:`(f, p)`:
 
 
    .. math::
