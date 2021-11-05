@@ -50,6 +50,7 @@ os.system('pip download --no-dependencies -d ../casaconfig casaconfig')
 os.system('tar -xf ../casaconfig/casaconfig* --directory ../casaconfig/')
 os.system('mv ../casaconfig/casaconfig*/casaconfig/*.py ../casaconfig/.')
 os.system('rm -fr ../casaconfig/casaconfig*')
+os.system('cp ../casaconfig/config.py .')
 
 
 ##################################################################################
