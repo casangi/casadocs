@@ -10,9 +10,9 @@ Description
    image must include a well-defined beam shape (clean beam) in order
    for feathering to work well; these could be a 'clean beam' for
    interferometric images, and a 'primary-beam' for a single-dish
-   image. Images with multiple (per-plane) beams are supported. The
-   two images must have the same flux density
-   normalization scale.
+   image. Images (both single dish and interferometer) with multiple
+   (per-plane) beams are supported. The two images must have the same
+   flux density normalization scale.
    
    Currently, the following constraints are imposed on the two input
    images:
@@ -30,33 +30,34 @@ Description
    low resolution image to coincide with the coordinate system of
    the high resolution image and to ensure that the resulting
    regridded image is of reasonable quality to use in feather.
-   This can be achieved via the imregrd task for the image.regrid()
+   This can be achieved via the imregrd task or the image.regrid()
    tool method.
    
-   Mathematically, the feathered image, :math:`I_{feather}`, is produced via
+   Mathematically, the feathered image, :math:`I^{feather}`, is produced via
 
    .. math::
 
-        I_{feather} = \frac{\mathcal{F}^{-1}[\mathcal{F}(I_{highres}) + B*\mathcal{F}(S*I_{lowres})]}{1 + B}
+        I^{feather} = \frac{\mathcal{F}^{-1}[\mathcal{F}(I^{highres}) + B\mathcal{F}(SI^{lowres})]}{1 + B}
 
-   where  :math:`I_{highres}` and :math:`I_{lowres}` are the high resolution
+   where  :math:`I^{highres}` and :math:`I^{lowres}` are the high resolution
    (interferometer) and low resolution (single dish) images, respectively,
    :math: `S` is the user-specified factor by which to scale the low resolution image
    brightness scale, :math:`B` is the ratio of the high resolution beam area to the low
-   resolution beam area, :math:`\mathcal{F}` denotes the Fast Fourier Transform,
-   and :math:`\mathcal{F}^{-1}` denotes the Inverse Fast Fourier Transform. In the case
+   resolution beam area, :math:`\mathcal{F}` denotes the Fourier Transform,
+   and :math:`\mathcal{F}^{-1}` denotes the Inverse Fourier Transform. In the case
    where the high resolution and low resolution images have a single beam each,
-   :math:`B` is a scalar. In the case one of them has multiple (per-plane) beams,
-   :math:`B` is a matrix with each element corresponding to the beam ratios for
-   each frequency channel/polarization pair, and the multiplication and division
-   of terms with :math:`B` are done element-wise, so that the above equation is
+   :math:`B` is a scalar. In the case in which at least one of them has multiple
+   (per-plane) beams, :math:`B` is a matrix with each element corresponding to the beam
+   area ratios for each frequency channel/polarization pair, and the multiplication and
+   division of terms with :math:`B` are done element-wise, so that the above equation is
    valid for every frequency channel/polarization pair :math:`(f, p)`:
-
 
    .. math::
 
-        I_{{feather}_{(f, p)}} = \frac{\mathcal{F}^{-1}[\mathcal{F}(I_{{highres}_{(f, p)}}) + B_{(f, p)}*\mathcal{F}(S*I_{{lowres}_{(f, p)}})]}{1 + B_{(f, p)}}
+        I^{feather}_{(f, p)} = \frac{\mathcal{F}^{-1}[\mathcal{F}(I^{highres}_{(f, p)}) + B_{(f, p)}\mathcal{F}(SI^{lowres}_{(f, p)})]}{1 + B_{(f, p)}}
 
+   In the case where one image has per-plane beams and the other has a single beam, the
+   beam of the second image is used for avery channel/polarization pair.
    The output image will have an identical resolution to the high resolution image.
 
     
@@ -84,23 +85,21 @@ Description
    
    *sdfactor*
    
-   Value by which to scale the Single Dish image. Default is 1.0.
-   Basically modifying the flux scale of the SD image.
+   Value by which to scale the intensity (pixel values) of the Single Dish
+   image. Default is 1.0.
    
    *effdishdiam*
    
-   **I am not certain how to factor this into the math/algorithm**
-   New effective SingleDish diameter to use in meters [m]. One can
-   only reduce the dish effective dish diameter in feathering.
-   Default is -1.0 which means leave as is.
-   
+   <Holding off on this for now, since it should in general be implemented by
+   convolving the sd image prior to the FT and by not just modifying B. Not
+   sure if the convolution is a step that should be hidden from the user.>
+
    *lowpassfiltersd*
    
-   **I am not certain how to factor this into the math/algorithm**
-   If True the high spatial frequency in the SD image is rejected.
-   Any data outside the maximum uv distance that the SD has
-   illuminated is filtered out.
-   
+   If true, remove high spatial frequencies not sampled from the
+   SD FT image by masking pixels that lie beyond (dish diameter)/lambda
+   wavelengths from the origin before combining the SD FT image with the
+   interferometer FT image. if false, no such masking is performed.
 
 .. _Examples:
 
@@ -118,7 +117,7 @@ Examples
    
    Creating an image called 'feather.im' by combining the cleaned,
    synthesis image, 'synth.im' and the SD image, 'single_dish.im'
-   while increasing the flux scale of the SD image by setting
+   while increasing the intensity scale of the SD image by setting
    sdfactor = 1.2.
    
    ::
