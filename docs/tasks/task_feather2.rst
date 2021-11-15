@@ -37,11 +37,11 @@ Description
 
    .. math::
 
-        I^{feather} = \frac{\mathcal{F}^{-1}[\mathcal{F}(I^{highres}) + B\mathcal{F}(SI^{lowres})]}{1 + B}
+        I^{feather} = \mathcal{F}^{-1}[\mathcal{F}(I^{highres}) + SB\mathcal{F}(I^{lowres})]
 
    where  :math:`I^{highres}` and :math:`I^{lowres}` are the high resolution
    (interferometer) and low resolution (single dish) images, respectively,
-   :math: `S` is the user-specified factor by which to scale the low resolution image
+   :math:`S` is the user-specified factor by which to scale the low resolution image
    brightness scale, :math:`B` is the ratio of the high resolution beam area to the low
    resolution beam area, :math:`\mathcal{F}` denotes the Fourier Transform,
    and :math:`\mathcal{F}^{-1}` denotes the Inverse Fourier Transform. In the case
@@ -54,14 +54,29 @@ Description
 
    .. math::
 
-        I^{feather}_{(f, p)} = \frac{\mathcal{F}^{-1}[\mathcal{F}(I^{highres}_{(f, p)}) + B_{(f, p)}\mathcal{F}(SI^{lowres}_{(f, p)})]}{1 + B_{(f, p)}}
+        I^{feather}_{(f, p)} = \mathcal{F}^{-1}[\mathcal{F}(I^{highres}_{(f, p)}) + SB_{(f, p)}\mathcal{F}(I^{lowres}_{(f, p)})]
 
    In the case where one image has per-plane beams and the other has a single beam, the
    beam of the second image is used for avery channel/polarization pair.
    The output image will have an identical resolution to the high resolution image.
 
-    
-
+   If *lowpassfiltersd* is set to True, then spatial frequencies not sampled by
+   the single dish will be omitted. In this case, the Fourier Transform of the
+   single dish image, :math:`\mathcal{F}(I^{lowres})`, will have all pixels with
+   *uv* distances greater than :math:`d/\lambda` wavelengths from the origin
+   masked before combination with :math:`\mathcal{F}(I^{highres})`. Here,
+   :math:`d` and :math:`\lambda` are the single dish diameter and observing
+   wavelength respectively, and :math:`d` is computed from the provided beam of
+   the single dish image via :math:`d = \lambda/\theta^{lowres}`, where
+   :math:`\theta^{lowres}`: is the provided FWHM of the single dish beam.
+   **[NOTE: This is a bit of a fuzzy way of determining the dish diameter, so
+   perhaps this is where another input parameter, say dishdiam, should be used
+   and required, since then there is no ambiguity of what dish diameter and
+   what resolution(s) are being used for the computations, because both would
+   be required inputs. There doesn't seem to be data in casa-data which maps
+   telescope name to dish diameter, so I'm not sure the dish diameter can
+   be easily determined if not specified, short of implementing a long
+   conditional block]**
 
    .. rubric:: Parameter descriptions
 
