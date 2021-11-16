@@ -932,10 +932,6 @@ Description
    -  *spw*
    
       -  select spectral windows/channels.
-      -  For CalTables, spw selection may be used with averaging,
-         but channel selection with averaging is not implemented
-         yet and will result in an error.  Channel selection may
-         be used without averaging.
    
    -  *timerange*
    
@@ -1022,17 +1018,12 @@ Description
       plotted.  To compute the average of the amplitude or phase
       values instead, set *scalar=True*.
    -  Averaging is supported for calibration tables except BPOLY and
-      GSPLINE, which have an older table format.  Most selection may
-      be used with averaging, but averaging with channel selection
-      is not yet implemented; spw selection is allowed.
+      GSPLINE, which have an older table format.
    
    -  *avgchannel*
 
       -  Average data across the channel axis; value is number of
          channels to average together to form one output channel.
-      -  see
-         `mstransform <../../api/casatasks.rst>`__
-         description for channel averaging.
       -  When plotting the *‘channel’* axis, output channel numbers
          are reindexed 0~nAvgChan, rather than using the average of
          the channel numbers (channels are integer values). The axis
@@ -1040,7 +1031,69 @@ Description
       -  The plotms Locate tool indicates which channels were
          averaged together for a point in the plot, e.g.
          “Chan=<7~13>” which may be shown as channel 1 on the plot.
+      -  see
+         `mstransform <../../api/casatasks.rst>`__
+         description for channel averaging.
+      -  Combining channel averaging with channel selection is handled
+         differently for MeasurementSets and calibration tables.
+
+         -  *‘MeasurementSet’*
    
+            -  Each selected channel range is averaged separately.
+            -  When the avgchannel value is less than the number of
+               channels selected in a range, the channels in each
+               range are binned together and extra channels are 
+               dropped. For example, (spw='0:10~20; 30~40',
+               avgchannel='8') will average channel bins [10~17] and
+               [30~37] but drop channels [18~20] and [38~40]. Since
+               each range is treated separately, the order of the
+               channel ranges does not matter; (spw='0:30~40; 10~20',
+               avgchannel='8') will have the same result.
+            -  When the avgchannel value is greater than the
+               number of channels selected in a range, if a single
+               range is selected, all selected channels are binned;
+               if multiple ranges are selected and the binning fails
+               for both ranges, an error is issued: "Channel selection
+               does not allow to produce any output channel with the
+               requested width."  For example, (spw='0:10~20',
+               avgchannel='15') will average channels [10~20].
+               (spw='0:10~20; 30~40', avgchannel='15') will produce
+               the error. (spw='0:10~20; 30~50', avgchannel='15') will
+               average [30~44] only.
+
+         -  *‘Calibration Table’*
+   
+            -  Selected channel ranges are treated as contiguous to
+               increase SNR.
+            -  When the avgchannel value is less than the number of
+               channels selected, the channels are binned as if there
+               were no gaps and extra channels are dropped. For
+               example, (spw='0:10~20; 30~40', avgchannel='8') will
+               average channel bins [10~17], [18~20, 30~34] to
+               complete the bin, and drop [35~40]. The Locate tool
+               will show the output channels as <10~17> and <18~34>.
+               The order of the channel ranges does matter:
+               (spw='0:30~40; 10~20', avgchannel='8') will bin
+               [30~37], [38~40, 10~14] and drop [15~20].  The Locate
+               tool will show the output channels as <30~37> and
+               <38~14>.
+            -  When the avgchannel value is greater than the
+               number of channels selected in a range, if a single
+               range is selected, all selected channels are binned;
+               if multiple ranges are selected, the channels are
+               binned as if there were no gaps.  For example,
+               (spw='0:10~20', avgchannel='15') will average channels
+               [10~20].  (spw='0:10~20; 30~40', avgchannel='15') will
+               bin [10~20, 30~33] and drop [34~40].  The Locate tool
+               will show the output channel as <10~33>.
+               (spw='0:10~20; 30~50', avgchannel='15') will bin
+               [10~20, 30~33], [34~48] and drop [49~50].  The Locate
+               tool will show the output channels as <10~33> and
+               <34~48>.  Changing the selection order changes the
+               averaging: (spw='0:30~40; 10~20', avgchannel='15') will
+               bin [30~40, 10~13] and drop [14~20].  The Locate tool
+               will show the output channel as <30~13>.
+    
    -  *avgtime*
 
       -  Average data across the time axis; value string is number of

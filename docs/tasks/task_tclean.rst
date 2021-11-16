@@ -225,6 +225,22 @@ Description
    | try.residual.tt1, try.image.tt0,  | spectrum)                         |
    | try.image.tt1, etc...             |                                   |
    +-----------------------------------+-----------------------------------+
+   | try.alpha                         | Spectral index, for multi-term    |
+   |                                   | wideband imagging                 |
+   +-----------------------------------+-----------------------------------+
+   | try.alpha.error                   | Estimate of error on spectral     |
+   |                                   | index                             |
+   +-----------------------------------+-----------------------------------+
+   | try.beta                          | Spectral curvature for multi-term |
+   |                                   | wideband images (if nterms > 2)   |
+   +-----------------------------------+-----------------------------------+
+   | try_1.\*, try_2.\*, try_3\.*,     | Auto-incremented image names when |
+   | etc.                              | restart=False                     |
+   +-----------------------------------+-----------------------------------+
+   | try1_1.\*, try1_2.\*,             | Auto-incremented image names with |
+   | try1_3.\*, etc.                   | multiple fields when              |
+   |                                   | restart=False                     |
+   +-----------------------------------+-----------------------------------+
    | try.workdirectory                 | Scratch images written within a   |
    |                                   | 'work directory' for parallel     |
    | ( try.n1.psf, try.n2.psf,         | imaging runs for cube imaging.    |
@@ -247,9 +263,20 @@ Description
       restarting from the end of the previous tclean). Thus, if
       multiple runs of tclean are run consecutively with the same
       imagename, then the cleaning is incremental.
-   
+
+   .. tip:: To organize the output images produced by one or multiple
+             runs of tclean and/or other imaging tasks, a subdirectory
+             can be added to 'imagename'.  All output images will be
+             sent to that directory instead of the current working
+             directory. Example: imagename=’mydir/try’. This is a
+             simple way to group together a set of images (different
+             extensions) corresponding to a same sequence of tclean
+             runs, preventing confusion and conflicts with the
+             potentially long list of other images from related or
+             unrelated tclean runs that used similar 'imagename'.
+
    .. rubric:: Stokes polarization products
-   
+
    It is possible to make polarization images of various Stokes
    parameters, based on the R/L circular (e.g., VLA) or the X/Y
    linear (e.g., ALMA) polarization products. When specifying
@@ -586,9 +613,15 @@ Description
    At the end of a successful tclean run, the history of the output
    images is updated. For every tclean command a series of entries is
    recorded, including the task name (tclean), the CASA version used,
-   and every parameter-value pair of the task. The history is written
-   to all the images found with the name given in the 'imagename'
-   parameter of tclean and any extension.
+   and every parameter-value pair of the task.
+
+   The history is written to all the images associated with the
+   current run, identified by the image base name given in the
+   imagename parameter. This feature searches for all the images with
+   names starting with that basename and followed by a dot-separated
+   extension (imagename.*). In addition it also searches for
+   imagename[INTEGERS]_[INTEGERS].*, to cover auto-incremented image
+   names (see the table of possible image names above).
 
    The image history entries added by tclean can be inspected using
    the task imhistory (`see API <../casatasks.rst>`_), similarly as
@@ -598,6 +631,24 @@ Description
    and manipulated using CASA tools such as the image analysis tool
    and the table tool (`see API <../casatools.rst>`_). The history
    entries are written into the 'logtable' subtable of the images.
+
+   .. note:: Because history is written into all the images found with
+             the 'imagename' prefix and a dot-separated extension,
+             there is a corner case where history entries can be
+             written in images that are not related to the tclean
+             command just executed. For example, if a first tclean
+             command used imagename='tst.mfs.hogbom', and a second
+             command uses imagename='tst.mfs'. This can happen if the
+             tclean commands use the same directory, the imagename
+             string is a shorter version of a previously used
+             imagename, and the longer name is used first and is the
+             shorter name (to be used afterwards) followed by a dot
+             '.' and more characters. This naming scheme produces an
+             ambiguity with the rules used to name output images
+             (imagename + '.' + multiple extensions) and is risky, as
+             it can be very difficult for the user to anticipate all
+             the possible conflicts and confusions with image
+             extensions used by tclean and other imaging tasks.
 
    .. rubric:: Processing information
 
