@@ -33,31 +33,76 @@ Description
    This can be achieved via the imregrd task or the image.regrid()
    tool method.
    
-   Mathematically, the feathered image, :math:`I^{feather}`, is produced via
+   The feathered image, :math:`I^{feather}`, is given by
 
    .. math::
 
-        I^{feather} = \mathcal{F}^{-1}[\mathcal{F}(I^{highres}) + SB\mathcal{F}(I^{lowres})]
+        I^{feather} = \mathcal{F}^{-1}[
+            (1-w)\mathcal{F}(I^{highres}) + SB\mathcal{F}(I^{lowres})
+        ]
 
    where  :math:`I^{highres}` and :math:`I^{lowres}` are the high resolution
    (interferometer) and low resolution (single dish) images, respectively,
-   :math:`S` is the user-specified factor by which to scale the low resolution image
-   brightness scale, :math:`B` is the ratio of the high resolution beam area to the low
-   resolution beam area, :math:`\mathcal{F}` denotes the Fourier Transform,
-   and :math:`\mathcal{F}^{-1}` denotes the Inverse Fourier Transform. In the case
-   where the high resolution and low resolution images have a single beam each,
-   :math:`B` is a scalar. In the case in which at least one of them has multiple
-   (per-plane) beams, :math:`B` is a matrix with each element corresponding to the beam
-   area ratios for each frequency channel/polarization pair, and the multiplication and
-   division of terms with :math:`B` are done element-wise, so that the above equation is
-   valid for every frequency channel/polarization pair :math:`(f, p)`:
+   :math:`S` is the user-specified factor by which to scale the low resolution
+   image brightness scale, :math:`B` is the ratio of the high resolution beam
+   area to the low resolution beam area, :math:`\mathcal{F}` denotes the Fourier
+   Transform, :math:`\mathcal{F}^{-1}` denotes the Inverse Fourier Transform,
+   and :math:`w` is the Fourier Transform of the single dish psf scaled to a
+   maximum of unity
+
+   .. math::
+  
+        w \equiv \mathcal{F}(I^{lowres, psf})/max(\mathcal{F}(I^{lowres, psf})
+
+   It is assumed that :math:`I^{lowres, psf}` is an elliptical Gaussian with
+   major and minor FWHM (:math:`\alpha` and :math:`\beta`) and position angle
+   (:math:`\phi`, measured from north to east) equal to the beam
+   parameters provided in the metadata of the single dish image. In this case,
 
    .. math::
 
-        I^{feather}_{(f, p)} = \mathcal{F}^{-1}[\mathcal{F}(I^{highres}_{(f, p)}) + SB_{(f, p)}\mathcal{F}(I^{lowres}_{(f, p)})]
+        I^{lowres, psf} = exp\left\{
+            -4ln(2)\left[
+                \left(\frac{x\sin(\phi)}{\alpha}\right)^2
+                + \left(\frac{y\cos(\phi)}{\beta}\right)^2
+            \right]
+        \right\}
 
-   In the case where one image has per-plane beams and the other has a single beam, the
-   beam of the second image is used for avery channel/polarization pair.
+   and so if *x, y*, :math:`\alpha`, and :math:`\beta` are measured in radians,
+   then, if *u* and *v* are measured in wavelengths
+
+   .. math::
+
+        w \equiv
+            \frac{\mathcal{F}(I^{lowres, psf})}{max(\mathcal{F}(I^{lowres, psf}))}
+            = exp\left\{
+                -\pi\left[
+                    \left(u\alpha\cos(\phi)\right)^2
+                    + \left(v\beta\sin(\phi)\right)^2
+                \right]
+            \right\}
+
+   The effect of the :math:`(1-w)` term is to provide uniform weighting to
+   :math:`\mathcal{F}(I^{highres})`, which also has the benefit of
+   down-weighting shorter spacing data which are not well sampled by the
+   interferometer.
+
+   In the case where the single dish image has multiple beams, *w* must be
+   computed for each frequency/polarization (:math:`\nu`, p) pair. In the case
+   where the high resolution and low resolution images have a single beam each,
+   :math:`B` is a scalar. In the case in which at least one of them has multiple
+   (per-plane) beams, :math:`B` is a matrix with each element corresponding to
+   the beam area ratios for each (:math:`\nu`, p) pair, and the multiplication
+   of the term with :math:`B` is done (:math:`\nu`, p) pair-wise. So, in 
+   the general case where at least one image has multiple beams
+
+   .. math::
+
+        I^{feather}_{\nu, p} = \mathcal{F}^{-1}[
+            (1-w_{\nu, p})\mathcal{F}(I^{highres}_{\nu, p})
+            + SB_{\nu, p}\mathcal{F}(I^{lowres}_{\nu, p})
+        ]
+
    The output image will have an identical resolution to the high resolution image.
 
    If *lowpassfiltersd* is set to True, then spatial frequencies not sampled by
@@ -68,7 +113,7 @@ Description
    :math:`d` and :math:`\lambda` are the single dish diameter and observing
    wavelength respectively, and :math:`d` is computed from the provided beam of
    the single dish image via :math:`d = \lambda/\theta^{lowres}`, where
-   :math:`\theta^{lowres}`: is the provided FWHM of the single dish beam.
+   :math:`\theta^{lowres}` is the provided FWHM of the single dish beam.
    **[NOTE: This is a bit of a fuzzy way of determining the dish diameter, so
    perhaps this is where another input parameter, say dishdiam, should be used
    and required, since then there is no ambiguity of what dish diameter and
