@@ -177,16 +177,22 @@ for name in tooldict.keys():
 
     # start output string to write new stub class
     ostr = '#\n# stub class definition file for docstring parsing\n#\n\n'
-    ostr += 'class %s:\n    """\n' % name
+    ostr += 'class %s:\n    r"""\n' % name
 
     # populate class description
     if ('shortdescription' in tool.keys()) and (tool['shortdescription'] is not None) and (len(tool['shortdescription'].strip()) > 0):
-        ostr += ' ' * 4 + cleanxml(tool['shortdescription']).replace('\n', '\n' + ' ' * 4) + '\n\n'
+        ostr += ' '*4 + cleanxml(tool['shortdescription']).replace('\n', '\n' + ' ' * 4) + '\n\n'
     else:
-        ostr += ' ' * 4 + tool + ' class\n\n'
+        ostr += ' '*4 + tool + ' class\n\n'
 
     if ('description' in tool.keys()) and (tool['description'] is not None) and (len(tool['description'].strip()) > 0):
-        desc = pypandoc.convert_text(tool['description'].replace('_', '\_').replace(r'\\_', '\_'), 'rst', format='latex', extra_args=['--wrap=none'])
+        #desc = pypandoc.convert_text(tool['description'].replace('_', '\_').replace(r'\\_', '\_'), 'rst', format='latex', extra_args=['--wrap=none'])
+        try:
+            desc = pypandoc.convert_text(re.sub('(\s\w*?)\_(\w*?)', r'\1\_\2', tool['description'], flags=re.DOTALL), 'rst', format='latex', extra_args=['--wrap=none'])
+        except:
+            desc = tool['description']
+        #desc = re.sub('(\s\\\\w*?)\_(\w*?)', r'\1_\2', tool['description'].replace('_', '\_'), flags=re.DOTALL)
+        #desc = pypandoc.convert_text(desc, 'rst', format='latex', extra_args=['--wrap=none'])
         ostr += ' ' * 4 + desc.replace('\n', '\n' + ' ' * 4) + '\n\n'
     ostr += ' ' * 4 + '"""\n\n'
 
@@ -200,9 +206,11 @@ for name in tooldict.keys():
         desc = ' ' * 8 + method + ' method\n\n'
         if ('description' in tm.keys()) and (tm['description'] is not None) and (len(tm['description'].strip()) > 0):
             try:
-                desc = ' ' * 8 + pypandoc.convert_text(tm['description'].replace('_', '\_').replace(r'\\_', '\_'), 'rst', format='latex', extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 8) + '\n\n'
+                # desc = ' ' * 8 + pypandoc.convert_text(tm['description'].replace('_', '\_').replace(r'\\_', '\_'), 'rst', format='latex', extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 8) + '\n\n'
+                desc = ' ' * 8 + pypandoc.convert_text(re.sub('(\s\w*?)\_(\w*?)', r'\1\_\2', tm['description'], flags=re.DOTALL).replace('\\\\','\\'), 'rst', format='latex', extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 8) + '\n\n'
             except:
-                desc = ' ' * 8 + pypandoc.convert_text(tm['description'], 'rst', format='markdown', extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 8) + '\n\n'
+                # desc = ' ' * 8 + pypandoc.convert_text(tm['description'], 'rst', format='markdown', extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 8) + '\n\n'
+                desc = ' ' * 8 + tm['description'].replace('\n', '\n' + ' ' * 8) + '\n\n'
         elif ('shortdescription' in tm.keys()) and (tm['shortdescription'] is not None) and (len(tm['shortdescription'].strip()) > 0):
             desc = ' ' * 8 + cleanxml(tm['shortdescription']).replace('\n', '\n' + ' ' * 8) + '\n\n' + ' ' * 8 + '\n\n'
 
