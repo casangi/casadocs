@@ -216,7 +216,7 @@ for name in tooldict.keys():
 
         # some methods have no parameters
         if ('params' not in tm.keys()) or (len(tm['params']) == 0):
-            ostr += '    def %s(self):\n        """\n%s\n\n        """\n\n        pass\n\n' % (method, desc)
+            ostr += '    def %s(self):\n        r"""\n%s\n\n        """\n\n        pass\n\n' % (method, desc)
             continue
 
         proto = [pp for pp in tm['params'] if ('mustexist' in tm['params'][pp]) and (tm['params'][pp]['mustexist'] == 'true')]
