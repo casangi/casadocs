@@ -86,19 +86,21 @@ Description
    of logging
    <../../notebooks/usingcasa.ipynb#Setting-priority-levels-in-the-logger>`_.
 
-  .. tip::
-   The partial or on-the-fly summaries are calculated from the flags
-   as they are processed, and, as a consequence, they can report
-   misleading counts under certain circumstances, for example when
-   using the extend mode (see explanations below). Also, when using
-   channel or time averaging the on-the-fly summaries can be difficult
-   to interpret as they report flag counts for the on-the-fly binned
-   data (see `Flags and data averaging
-   <../../docs/notebooks/uv_manipulation.ipynb#Flags-and-data-averaging>`_
-   for an explanation of how this can distort the counts or
-   percentages of flags). Accurate flag counts for the flags once
-   written back to the MeasurementSet can be obtained afterwards via
-   the 'summary' mode.
+   .. tip::
+
+      The partial or on-the-fly summaries are calculated from the
+      flags as they are processed, and, as a consequence, they can
+      report misleading counts under certain circumstances, for
+      example when using the extend mode (see explanations
+      below). Also, when using channel or time averaging the
+      on-the-fly summaries can be difficult to interpret as they
+      report flag counts for the on-the-fly binned data (see `Flags
+      and data averaging
+      <../../notebooks/uv_manipulation.ipynb#Flags-and-data-averaging>`_
+      for an explanation of how this can distort the counts or
+      percentages of flags). Accurate flag counts for the flags once
+      written back to the MeasurementSet can be obtained afterwards
+      via the 'summary' mode.
    
    .. rubric:: Parameter descriptions
 
