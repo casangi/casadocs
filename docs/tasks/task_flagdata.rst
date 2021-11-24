@@ -417,10 +417,10 @@ Description
 
    Bin width for channel average in number of input channels. If a
    list is given, each bin applies to one of the selected SPWs. When
-   chanbin is set to 1 all input channels are used considered for the
-   average to produce a single output channel, this behaviour aims to
-   be preserve backwards compatibility with the previous
-   pre-averaging feature of clip mode. Default: 1    
+   chanbin is set to 1 all input channels are used for the average to
+   produce a single output channel, this behaviour aims to preserve
+   backwards compatibility with the previous pre-averaging feature of
+   clip mode. Default: 1
    
    *timeavg*
    
