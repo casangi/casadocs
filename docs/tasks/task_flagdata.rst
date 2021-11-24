@@ -86,7 +86,7 @@ Description
    of logging
    <../../notebooks/usingcasa.ipynb#Setting-priority-levels-in-the-logger>`_.
 
-.. tip::
+  .. tip::
    The partial or on-the-fly summaries are calculated from the flags
    as they are processed, and, as a consequence, they can report
    misleading counts under certain circumstances, for example when
