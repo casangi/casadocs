@@ -227,7 +227,7 @@ for name in tooldict.keys():
                 proto += '%s%s, ' % (param, ParamSpec(method, param)[ParamSpec(method, param).rindex('='):-1])
 
         # populate method protoype and description
-        ostr += '    def %s(self, %s):\n        """\n%s\n\n' % (method, proto[:-2], desc)
+        ostr += '    def %s(self, %s):\n        r"""\n%s\n\n' % (method, proto[:-2], desc)
 
         # populate method parameters
         ostr += ' ' * 8 + '.. rubric:: Parameters\n\n'
