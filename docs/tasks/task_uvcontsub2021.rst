@@ -132,15 +132,16 @@ Examples
       uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', writemodel=True)
 
 
-   Placeholder (work in progress) paragraph about numerical
-   characterization. This will link to a Jupyter notebook with demo
-   scripts. The notebook will be available online, hosted on `Google
-   Colab
-   <https://colab.research.google.com/github/casangi/casadocs/blob/master/docs/notebooks/>`_,
+   **Placeholder** (work in progress) paragraph about numerical
+   characterization. Simulations and numerical tests based on the
+   simulated data. Simulations of datasets to evaluate uvcontsub are
+   available as a Jupyter notebook with demo scripts. The notebook is
+   available online, hosted on `Google Colab
+   <https://colab.research.google.com/github/casangi/casadocs/blob/CAS-13631/docs/notebooks/Simulations_ALMA_uvcontsub_WIP.ipynb>`_,
    where the demo scripts can be run from the browser (or retrieved to
-   be run locally). The notebook will characterize the correctness of
-   the results produced by uvcontsub based on simulated data. The
-   scripts contained in the notebook can also be used to run
+   be run locally). The notebook characterizes the correctness and
+   accuracy of the results produced by uvcontsub based on simulated
+   data. The scripts included in the notebook can also be used to run
    experiments with the task, see the task **phaseshift** for an
    example.
 
