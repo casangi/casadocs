@@ -63,7 +63,7 @@ Description
       unit of channel numbers in the image. The **sdsidebandsplit**
       task relies on these values to shift back the spectra and
       construct a group of spectra whose signal (or image) sideband
-      contribution are aligned. ** ** The solution significantly
+      contribution are aligned. The solution significantly
       degrades if the values are inaccurate. It is the user's
       responsibility to calculate and provide appropriate numbers of
       shifts especially in case the frequency coordinate of input
