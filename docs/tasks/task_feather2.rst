@@ -54,6 +54,38 @@ Description
   
         w \equiv \mathcal{F}(I^{lowres, psf})/max[|\mathcal{F}(I^{lowres, psf})|]
    
+   ..
+        It is assumed that :math:`I^{lowres, psf}` is an elliptical Gaussian with
+        major and minor FWHM (:math:`\alpha` and :math:`\beta`) and position angle
+        (:math:`\phi`, measured from north to east) equal to the beam
+        parameters provided in the metadata of the single dish image. In this case,
+
+        .. math::
+
+            I^{lowres, psf} = exp\left\{
+                -4ln(2)\left[
+                    \left(\frac{x\sin(\phi)}{\alpha}\right)^2
+                    + \left(\frac{y\cos(\phi)}{\beta}\right)^2
+                \right]
+            \right\}
+
+        and so if *x, y*, :math:`\alpha`, and :math:`\beta` are measured in radians,
+        then, if *u* and *v* are measured in wavelengths
+
+        .. math::
+
+            w \equiv
+                \frac{\mathcal{F}(I^{lowres, psf})}{max(\mathcal{F}(I^{lowres, psf}))}
+                = exp\left\{
+                    -\pi\left[
+                        \left(u\alpha\cos(\phi)\right)^2
+                        + \left(v\beta\sin(\phi)\right)^2
+                    \right]
+                \right\}
+
+
+
+
    The effect of the :math:`(1-w)` term is to provide uniform weighting to
    :math:`\mathcal{F}(I^{highres})`, which also has the benefit of
    down-weighting shorter spacing data which are not well sampled by the
