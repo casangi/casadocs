@@ -82,9 +82,25 @@ Description
    A progress report line and a partial flagging summary is produced
    in the CASA logger every approximate 10% of the input data (since
    CASA 6.2), when the logger priority level is INFO (default).
-   Additional messages are visible when setting a more detailed
-   `level of logging <../../notebooks/usingcasa.ipynb#Setting-priority-levels-in-the-logger>`_.
-    
+   Additional messages are visible when setting a more detailed `level
+   of logging
+   <../../notebooks/usingcasa.ipynb#Setting-priority-levels-in-the-logger>`_.
+
+   .. tip::
+
+      The partial or on-the-fly summaries are calculated from the
+      flags as they are processed, and, as a consequence, they can
+      report misleading counts under certain circumstances, for
+      example when using the extend mode (see explanations
+      below). Also, when using channel or time averaging the
+      on-the-fly summaries can be difficult to interpret as they
+      report flag counts for the on-the-fly binned data (see `Flags
+      and data averaging
+      <../../notebooks/uv_manipulation.ipynb#Flags-and-data-averaging>`_
+      for an explanation of how this can distort the counts or
+      percentages of flags). Accurate flag counts for the flags once
+      written back to the MeasurementSet can be obtained afterwards
+      via the 'summary' mode.
    
    .. rubric:: Parameter descriptions
 
@@ -417,10 +433,10 @@ Description
 
    Bin width for channel average in number of input channels. If a
    list is given, each bin applies to one of the selected SPWs. When
-   chanbin is set to 1 all input channels are used considered for the
-   average to produce a single output channel, this behaviour aims to
-   be preserve backwards compatibility with the previous
-   pre-averaging feature of clip mode. Default: 1    
+   chanbin is set to 1 all input channels are used for the average to
+   produce a single output channel, this behaviour aims to preserve
+   backwards compatibility with the previous pre-averaging feature of
+   clip mode. Default: 1
    
    *timeavg*
    
@@ -444,11 +460,27 @@ Description
 
       **NOTE2**: Pre-average across time is not supported for
       calibration tables
-   
+
    *timebin*
-   
+
    Bin width for time average in seconds. Default: '0s'
-   
+
+   .. note::
+
+      The auto-flagging methods (clip, tfcrop, rflag) can be used
+      together with timeavg and channelavg, and other methods. But
+      when one of the auto-flagging methods are employed and timeavg,
+      channelavg (or both) are enabled the set of other methods or
+      agents that can be used simultaneously is limited to the
+      following ones: extendflags, antint, and the display='data' GUI.
+
+      display=’data’ can be added as a parameter in the flagdata call.
+      extendflags can be added either in the flagdata call (as a
+      subparameter of *tfcrop* or *rflag*) or in the list of commands
+      in list mode. antint can only be added in the list of commands
+      in list mode, as there is no subparameter of clip, rflag, or
+      tfcrop for this.
+
    .. rubric:: *mode='quack'* expandable parameters
    
    Option to remove specified part of scan beginning/end.
