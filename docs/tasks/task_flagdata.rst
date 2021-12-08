@@ -468,11 +468,11 @@ Description
    .. note::
 
       The auto-flagging methods (clip, tfcrop, rflag) can be used
-      together with timeavg and channelavg, and other modes or
-      agents. But when timeavg, channelavg (or both) are enabled the
-      set of other modes or agents that can be used simultaneously is
-      limited to the following ones: extendflags, antint, and the
-      display='data' GUI.
+      together with timeavg and channelavg, and other methods. But
+      when one of the auto-flagging methods are employed and timeavg,
+      channelavg (or both) are enabled the set of other methods or
+      agents that can be used simultaneously is limited to the
+      following ones: extendflags, antint, and the display='data' GUI.
 
       display=’data’ can be added as a parameter in the flagdata call.
       extendflags can be added either in the flagdata call (as a
