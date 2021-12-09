@@ -7,12 +7,11 @@ Description
    interferometric images after they have been separately made.
    The algorithm converts each image to the gridded visibility plane,
    combines them, and reconverts them into a combined image. Each
-   image must include a well-defined beam shape (clean beam) in order
-   for feathering to work well; these could be a 'clean beam' for
-   interferometric images, and a 'primary-beam' for a single-dish
-   image. Images (both single dish and interferometer) with multiple
-   (per-plane) beams are supported. The two images must have the same
-   flux density normalization scale.
+   image must include a beam shape in its metadata in order for;
+   these could be a 'clean beam' for interferometric images, and a
+   'primary-beam' for a single-dish image. Images (both single dish
+   and interferometer) with multiple (per-plane) beams are supported.
+   The two images must have the same flux density normalization scale.
    
    Currently, the following constraints are imposed on the two input
    images:
@@ -33,7 +32,8 @@ Description
    This can be achieved via the imregrd task or the image.regrid()
    tool method.
    
-   The feathered image, :math:`I^{feather}`, is given by
+   The feathered image, :math:`I^{feather}`, is given by (cf. Rao,
+   Naik, & Braun, AJ 2019, 158, 3)
 
    .. math::
 
@@ -53,41 +53,38 @@ Description
    .. math::
   
         w \equiv \mathcal{F}(I^{lowres, psf})/max[|\mathcal{F}(I^{lowres, psf})|]
+
    
-   ..
-        It is assumed that :math:`I^{lowres, psf}` is an elliptical Gaussian with
-        major and minor FWHM (:math:`\alpha` and :math:`\beta`) and position angle
-        (:math:`\phi`, measured from north to east) equal to the beam
-        parameters provided in the metadata of the single dish image. In this case,
+   For the present application, :math:`I^{lowres, psf}` is taken to be the
+   elliptical Gaussian beam defined in the low resolution image metadata, with
+   major and minor FWHM (:math:`\alpha` and :math:`\beta`) and position angle
+   (:math:`\phi`, measured from north to east). In this case,
 
-        .. math::
+   .. math::
 
-            I^{lowres, psf} = exp\left\{
-                -4ln(2)\left[
-                    \left(\frac{x\sin(\phi)}{\alpha}\right)^2
-                    + \left(\frac{y\cos(\phi)}{\beta}\right)^2
+        I^{lowres, psf} = exp\left\{
+            -4ln(2)\left[
+                \left(\frac{x\sin(\phi)}{\alpha}\right)^2
+                + \left(\frac{y\cos(\phi)}{\beta}\right)^2
+            \right]
+        \right\}
+
+   and so if :math:`x, y, \alpha`, and :math:`\beta` are measured in radians,
+   then, if *u* and *v* are measured in wavelengths
+
+   .. math::
+
+        w \equiv
+            \frac{\mathcal{F}(I^{lowres, psf})}{max(\mathcal{F}(I^{lowres, psf}))}
+            = exp\left\{
+                -\pi\left[
+                    \left(u\alpha\cos(\phi)\right)^2
+                    + \left(v\beta\sin(\phi)\right)^2
                 \right]
             \right\}
 
-        and so if *x, y*, :math:`\alpha`, and :math:`\beta` are measured in radians,
-        then, if *u* and *v* are measured in wavelengths
-
-        .. math::
-
-            w \equiv
-                \frac{\mathcal{F}(I^{lowres, psf})}{max(\mathcal{F}(I^{lowres, psf}))}
-                = exp\left\{
-                    -\pi\left[
-                        \left(u\alpha\cos(\phi)\right)^2
-                        + \left(v\beta\sin(\phi)\right)^2
-                    \right]
-                \right\}
-
-
-
-
    The effect of the :math:`(1-w)` term is to provide uniform weighting to
-   :math:`\mathcal{F}(I^{highres})`, which also has the benefit of
+   :math:`\mathcal{F}(I^{highres})`, which has the benefit of
    down-weighting shorter spacing data which are not well sampled by the
    interferometer.
 
@@ -113,11 +110,12 @@ Description
    the single dish will be omitted. In this case, the Fourier Transform of the
    single dish image, :math:`\mathcal{F}(I^{lowres})`, will have all pixels with
    *uv* distances greater than :math:`d/\lambda` wavelengths from the origin
-   masked before combination with :math:`\mathcal{F}(I^{highres})`. Here,
+   masked before combination with :math:`\mathcal{F}(I^{highres})`, so that
+   :math:`\mathcal{F}(I^{lowres}) \equiv 0` for these *u-v* distances. Here,
    :math:`d` and :math:`\lambda` are the single dish diameter and observing
    wavelength respectively, and :math:`d` is computed from the provided beam of
-   the single dish image via :math:`d = \lambda/\theta^{lowres}`, where
-   :math:`\theta^{lowres}` is the provided FWHM of the single dish beam.
+   the single dish image via :math:`d = \lambda/\sqrt{\alpha\beta}`. 
+
    **[NOTE: This is a bit of a fuzzy way of determining the dish diameter, so
    perhaps this is where another input parameter, say dishdiam, should be used
    and required, since then there is no ambiguity of what dish diameter and
