@@ -75,7 +75,7 @@ Description
    .. math::
 
         w \equiv
-            \frac{\mathcal{F}(I^{lowres, psf})}{max(\mathcal{F}(I^{lowres, psf}))}
+            \frac{\mathcal{F}(I^{lowres, psf})}{max|\mathcal{F}(I^{lowres, psf})|}
             = exp\left\{
                 -\pi\left[
                     \left(u\alpha\cos(\phi)\right)^2
@@ -150,11 +150,12 @@ Description
    Value by which to scale the intensity (pixel values) of the Single Dish
    image. Default is 1.0.
    
-   *effdishdiam*
+   ..
+        *effdishdiam*
    
-   <Holding off on this for now, since it should in general be implemented by
-   convolving the sd image prior to the FT and by not just modifying B. Not
-   sure if the convolution is a step that should be hidden from the user.>
+        <Holding off on this for now, since it should in general be implemented by
+        convolving the sd image prior to the FT and by not just modifying B. Not
+        sure if the convolution is a step that should be hidden from the user.>
 
    *lowpassfiltersd*
    
@@ -163,33 +164,34 @@ Description
    wavelengths from the origin before combining the SD FT image with the
    interferometer FT image. if false, no such masking is performed.
 
-.. _Examples:
+..
+    .. _Examples:
 
-Examples
-   Creating a image called 'M100_Feather_CO.image' from an ALMA
-   interferometric cube, 'M100_combine_CO_cube.image.subim', and a
-   single dish ALMA total power image,
-   'M100_TP_CO_cube.regrid.subim.depb'. The inputs have been
-   appropriately cleaned, regridded, and cropped beforehand.
+    Examples
+        Creating a image called 'M100_Feather_CO.image' from an ALMA
+        interferometric cube, 'M100_combine_CO_cube.image.subim', and a
+        single dish ALMA total power image,
+        'M100_TP_CO_cube.regrid.subim.depb'. The inputs have been
+        appropriately cleaned, regridded, and cropped beforehand.
    
-   ::
+        ::
 
-      feather(imagename='M100_Feather_CO.image',highres='M100_combine_CO_cube.image.subim',
-              lowres='M100_TP_CO_cube.regrid.subim.depb')
+            feather(imagename='M100_Feather_CO.image',highres='M100_combine_CO_cube.image.subim',
+                    lowres='M100_TP_CO_cube.regrid.subim.depb')
    
-   Creating an image called 'feather.im' by combining the cleaned,
-   synthesis image, 'synth.im' and the SD image, 'single_dish.im'
-   while increasing the intensity scale of the SD image by setting
-   sdfactor = 1.2.
+        Creating an image called 'feather.im' by combining the cleaned,
+        synthesis image, 'synth.im' and the SD image, 'single_dish.im'
+        while increasing the intensity scale of the SD image by setting
+        sdfactor = 1.2.
    
-   ::
+        ::
 
-      feather(imagename ='feather.im', highres ='synth.im', lowres ='single_dish.im'sdfactor = 1.2)
-
+            feather(imagename ='feather.im', highres ='synth.im', lowres ='single_dish.im'sdfactor = 1.2)
 
 .. _Development:
 
 Development
    No additional development details
+
 
    
