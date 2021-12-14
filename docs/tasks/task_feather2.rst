@@ -33,18 +33,21 @@ Description
    tool method.
    
    The feathered image, :math:`I^{feather}`, is given by (cf. Rao,
-   Naik, & Braun, AJ 2019, 158, 3)
+   Naik, & Braun 2019 AJ, 158, 3)
 
    .. math::
 
-        I^{feather} = \mathcal{F}^{-1}[
-            (1-w)\mathcal{F}(I^{highres}) + SB\mathcal{F}(I^{lowres})
-        ]
+        I^{feather} = \mathcal{F}^{-1}\left[
+            \frac
+                {(1-w)\mathcal{F}(I^{highres}) + SB\mathcal{F}(I^{lowres})}
+                {(1-w) + Sw}
+        \right]
 
    where  :math:`I^{highres}` and :math:`I^{lowres}` are the high resolution
    (interferometer) and low resolution (single dish) images, respectively,
-   :math:`S` is the user-specified factor by which to scale the low resolution
-   image brightness scale, :math:`B` is the ratio of the high resolution beam
+   :math:`S` is the user-specified weight to give the Fourier Transform of
+   low resolution image relative to the Fourier Transform of the high
+   resolution image, :math:`B` is the ratio of the high resolution beam
    area to the low resolution beam area, :math:`\mathcal{F}` denotes the Fourier
    Transform, :math:`\mathcal{F}^{-1}` denotes the Inverse Fourier Transform,
    and :math:`w` is the Fourier Transform of the single dish psf scaled to a
@@ -88,6 +91,16 @@ Description
    down-weighting shorter spacing data which are not well sampled by the
    interferometer.
 
+   A reasonable starting value for *S* is given by
+
+   .. math::
+
+        S = (RMS^{highres}/RMS^{lowres})^2
+
+   where :math:`RMS^{highres}` and :math:`RMS^{lowres}` are the root mean
+   square noise measured in the high resolution and low resolution images,
+   respectively.
+
    In the case where the single dish image has multiple beams, *w* must be
    computed for each frequency/polarization (:math:`\nu`, p) pair. In the case
    where the high resolution and low resolution images have a single beam each,
@@ -99,31 +112,36 @@ Description
 
    .. math::
 
-        I^{feather}_{\nu, p} = \mathcal{F}^{-1}[
-            (1-w_{\nu, p})\mathcal{F}(I^{highres}_{\nu, p})
-            + SB_{\nu, p}\mathcal{F}(I^{lowres}_{\nu, p})
-        ]
+        I^{feather}_{\nu, p} = \mathcal{F}^{-1}\left[
+            \frac
+                {
+                    (1-w_{\nu, p})\mathcal{F}(I^{highres}_{\nu, p})
+                    + SB_{\nu, p}\mathcal{F}(I^{lowres}_{\nu, p})
+                }
+                {(1-w_{\nu, p}) + Sw_{\nu, p}}
+        \right]
 
    The output image will have an identical resolution to the high resolution image.
 
-   If *lowpassfiltersd* is set to True, then spatial frequencies not sampled by
-   the single dish will be omitted. In this case, the Fourier Transform of the
-   single dish image, :math:`\mathcal{F}(I^{lowres})`, will have all pixels with
-   *uv* distances greater than :math:`d/\lambda` wavelengths from the origin
-   masked before combination with :math:`\mathcal{F}(I^{highres})`, so that
-   :math:`\mathcal{F}(I^{lowres}) \equiv 0` for these *u-v* distances. Here,
-   :math:`d` and :math:`\lambda` are the single dish diameter and observing
-   wavelength respectively, and :math:`d` is computed from the provided beam of
-   the single dish image via :math:`d = \lambda/\sqrt{\alpha\beta}`. 
+   ..
+        If *lowpassfiltersd* is set to True, then spatial frequencies not sampled by
+        the single dish will be omitted. In this case, the Fourier Transform of the
+        single dish image, :math:`\mathcal{F}(I^{lowres})`, will have all pixels with
+        *uv* distances greater than :math:`d/\lambda` wavelengths from the origin
+        masked before combination with :math:`\mathcal{F}(I^{highres})`, so that
+        :math:`\mathcal{F}(I^{lowres}) \equiv 0` for these *u-v* distances. Here,
+        :math:`d` and :math:`\lambda` are the single dish diameter and observing
+        wavelength respectively, and :math:`d` is computed from the provided beam of
+        the single dish image via :math:`d = \lambda/\sqrt{\alpha\beta}`. 
 
-   **[NOTE: This is a bit of a fuzzy way of determining the dish diameter, so
-   perhaps this is where another input parameter, say dishdiam, should be used
-   and required, since then there is no ambiguity of what dish diameter and
-   what resolution(s) are being used for the computations, because both would
-   be required inputs. There doesn't seem to be data in casa-data which maps
-   telescope name to dish diameter, so I'm not sure the dish diameter can
-   be easily determined if not specified, short of implementing a long
-   conditional block]**
+        **[NOTE: This is a bit of a fuzzy way of determining the dish diameter, so
+        perhaps this is where another input parameter, say dishdiam, should be used
+        and required, since then there is no ambiguity of what dish diameter and
+        what resolution(s) are being used for the computations, because both would
+        be required inputs. There doesn't seem to be data in casa-data which maps
+        telescope name to dish diameter, so I'm not sure the dish diameter can
+        be easily determined if not specified, short of implementing a long
+        conditional block]**
 
    .. rubric:: Parameter descriptions
 
@@ -145,10 +163,10 @@ Description
    a single-dish observations or a clean image obtained from lower
    resolution synthesis observations.
    
-   *sdfactor*
+   *sdweight*
    
-   Value by which to scale the intensity (pixel values) of the Single Dish
-   image. Default is 1.0.
+   Weight to give the Fourier Transform of the single dish image relative to
+   the Fourier Transform of the interferometer image. Default is 1.0.
    
    ..
         *effdishdiam*
@@ -157,12 +175,12 @@ Description
         convolving the sd image prior to the FT and by not just modifying B. Not
         sure if the convolution is a step that should be hidden from the user.>
 
-   *lowpassfiltersd*
+        *lowpassfiltersd*
    
-   If true, remove high spatial frequencies not sampled from the
-   SD FT image by masking pixels that lie beyond (dish diameter)/lambda
-   wavelengths from the origin before combining the SD FT image with the
-   interferometer FT image. if false, no such masking is performed.
+        If true, remove high spatial frequencies not sampled from the
+        SD FT image by masking pixels that lie beyond (dish diameter)/lambda
+        wavelengths from the origin before combining the SD FT image with the
+        interferometer FT image. if false, no such masking is performed.
 
 ..
     .. _Examples:
