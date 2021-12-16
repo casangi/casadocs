@@ -65,9 +65,9 @@ An example config.py file showing all recognized configurable parameters is show
    iplog = True
    user_site = False
    telemetry_log_directory = /tmp
-   telemetry_log_limit = 1650
-   telemetry_log_size_interval = 30
-   telemetry_submit_interval = 20
+   telemetry_log_limit = 20000
+   telemetry_log_size_interval = 60
+   telemetry_submit_interval = 604800
    
 
 At runtime the datapath(s) are expanded through a resolve(\...) function to find the needed data tables. For example
