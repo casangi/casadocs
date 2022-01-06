@@ -174,18 +174,27 @@ Description
    
       -  scan number from the *SCAN_NUMBER* column, as shown in
          `listobs <../../api/casatasks.rst>`__.
-   
+      -  When averaging over scan is enabled, the first scan number
+         of the averaged scans is used for the scan value,
+         independent of unflagged/flagged data.
+
    -  *‘field’*
    
       -  index from the *FIELD_ID* column which references a row in
          the *FIELD* subtable, as shown in
          `listobs <../../api/casatasks.rst>`__.
+      -  When averaging over fields is enabled, the first field
+         number of the averaged fields is used for the field value,
+         independent of unflagged/flagged data.
    
    -  *‘time’*
    
       -  timestamps from the *TIME* column, converted for display to
          time format HH:MM:SS.S (precision depends on the interval
          between tick marks).
+      -  When time averaging is enabled, the average of the timestamps
+         in each bin is used for the time values, independent of
+         unflagged/flagged data.
    
    -  *‘interval’* (*‘timeint’, ‘timeinterval’, ‘time_interval’*)
    
@@ -210,13 +219,17 @@ Description
    
       -  index into the number of channels in the selected spws,
          ranging 0~nChan.
+      -  When channel averaging is enabled, the channel numbers
+         are re-indexed, starting at 0, for each channel bin.
    
    -  ‘ *freq’* (*‘frequency’*)
    
       -  the *CHAN_FREQ* column in the *SPECTRAL_WINDOW* subtable, in
          GHz.  This is an array of frequencies, one per channel.
       -  The frame can be set with the *freqframe* parameter.
-   
+      -  When channel averaging is enabled, the average of the
+         frequencies in each bin is used for the frequency values.
+
    -  *‘vel’* (*‘velocity’*)
    
       -  velocity in km/s, as defined by the *freqframe*, *veldef*,
@@ -225,6 +238,8 @@ Description
          `measures <../../api/casatools.rst>`__
          (me) tool.
       -  Not supported for CalTables.
+      -  When channel averaging is enabled, the average of the
+         velocities in each bin is used for the velocity values.
    
    -  *‘corr’* (*‘correlation’*)
    
@@ -1026,11 +1041,15 @@ Description
          channels to average together to form one output channel.
       -  When plotting the *‘channel’* axis, output channel numbers
          are reindexed 0~nAvgChan, rather than using the average of
-         the channel numbers (channels are integer values). The axis
-         label is changed to “Average Channel”.
+         the channel numbers in each bin; channels are integer values.
+         The axis label is changed to “Average Channel”. When plotting
+         the *‘frequency‘* or *‘velocity‘* axis, the average of the
+         frequency or velocity values n each bin is used for the values.
       -  The plotms Locate tool indicates which channels were
          averaged together for a point in the plot, e.g.
          “Chan=<7~13>” which may be shown as channel 1 on the plot.
+         The frequency of the point is labelled "Avg Freq" in the
+         Locate output.
       -  see
          `mstransform <../../api/casatasks.rst>`__
          description for channel averaging.
@@ -1101,6 +1120,8 @@ Description
       -  "" (default): do not time-average data.
       -  The “bins” of averaged data have the same scan number and
          field ID unless avgscan or avgfield are True.
+      -  The value of each bin is the average of the timestamps in
+         that bin.
    
    -  *avgscan*
 
@@ -1287,7 +1308,7 @@ Description
       Unflagged points are not connected to flagged points, even when
       not displayed.
    
-   -  Supported for calibration tables only at present.  When enabled
+   -  Supported for calibration tables *only* at present.  When enabled
       for a MeasurementSet, a warning will be issued and the plot
       will complete without connection.
    
