@@ -174,7 +174,7 @@ Description
    
       -  scan number from the *SCAN_NUMBER* column, as shown in
          `listobs <../../api/casatasks.rst>`__.
-      -  When averaging over scan is enabled, the first scan number
+      -  When averaging over scans is enabled, the first scan number
          of the averaged scans is used for the scan value,
          independent of unflagged/flagged data.
 
@@ -183,8 +183,8 @@ Description
       -  index from the *FIELD_ID* column which references a row in
          the *FIELD* subtable, as shown in
          `listobs <../../api/casatasks.rst>`__.
-      -  When averaging over fields is enabled, the first field
-         number of the averaged fields is used for the field value,
+      -  When averaging over fields is enabled, the first field id
+         of the averaged fields is used for the field value,
          independent of unflagged/flagged data.
    
    -  *‘time’*
@@ -220,7 +220,8 @@ Description
       -  index into the number of channels in the selected spws,
          ranging 0~nChan.
       -  When channel averaging is enabled, the channel numbers
-         are re-indexed, starting at 0, for each channel bin.
+         are re-indexed, starting at 0, to reflect the bin
+         number, not the averaged channel number.
    
    -  ‘ *freq’* (*‘frequency’*)
    
@@ -228,7 +229,7 @@ Description
          GHz.  This is an array of frequencies, one per channel.
       -  The frame can be set with the *freqframe* parameter.
       -  When channel averaging is enabled, the average of the
-         frequencies in each bin is used for the frequency values.
+         frequencies in each bin is used.
 
    -  *‘vel’* (*‘velocity’*)
    
@@ -239,7 +240,7 @@ Description
          (me) tool.
       -  Not supported for CalTables.
       -  When channel averaging is enabled, the average of the
-         velocities in each bin is used for the velocity values.
+         velocities in each bin is used.
    
    -  *‘corr’* (*‘correlation’*)
    
@@ -1041,10 +1042,10 @@ Description
          channels to average together to form one output channel.
       -  When plotting the *‘channel’* axis, output channel numbers
          are reindexed 0~nAvgChan, rather than using the average of
-         the channel numbers in each bin; channels are integer values.
-         The axis label is changed to “Average Channel”. When plotting
-         the *‘frequency‘* or *‘velocity‘* axis, the average of the
-         frequency or velocity values n each bin is used for the values.
+         the channel numbers in each bin, and the axis label is
+         changed to “Average Channel”. When plotting the *‘frequency‘*
+         or *‘velocity‘* axis, the average of the frequency or
+         velocity values in each bin is used.
       -  The plotms Locate tool indicates which channels were
          averaged together for a point in the plot, e.g.
          “Chan=<7~13>” which may be shown as channel 1 on the plot.
@@ -1128,18 +1129,18 @@ Description
       -  Ignore scan boundaries when time-averaging data; parameter
          ignored when *avgtime* is not set.
       -  False (default): time-average data within individual scans.
-      -  When scan number is used in plotting or locate, the first
-         scan number of scans averaged together is used for the
-         value, independent of unflagged/flagged data.
+      -  When scan number is used in plotting or locate, the scan
+         number is the first scan number in the bin, independent of
+         unflagged/flagged data.
    
    -  *avgfield*
 
       -  Ignore field boundaries when time-averaging data; parameter
          ignored when *avgtime* is not set.
       -  False (default): time-average data within individual fields.
-      -  When field number is used in plotting or locate, the first
-         field number of fields averaged together is used for the
-         value, independent of unflagged/flagged data.
+      -  When field id is used in plotting or locate, the field
+         number is the first field id in the bin, independent of
+         unflagged/flagged data.
    
    -  *avgbaseline*
 
