@@ -174,8 +174,8 @@ Description
    
       -  scan number from the *SCAN_NUMBER* column, as shown in
          `listobs <../../api/casatasks.rst>`__.
-      -  When averaging over scans is enabled, the first scan number
-         of the averaged scans is used for the scan value,
+      -  When averaging over scans is enabled, the scan value for
+         each bin is the first scan number in the averaged data,
          independent of unflagged/flagged data.
 
    -  *‘field’*
@@ -183,19 +183,18 @@ Description
       -  index from the *FIELD_ID* column which references a row in
          the *FIELD* subtable, as shown in
          `listobs <../../api/casatasks.rst>`__.
-      -  When averaging over fields is enabled, the first field id
-         of the averaged fields is used for the field value,
+      -  When averaging over fields is enabled, the field value for
+         each bin is the first field id in the averaged data,
          independent of unflagged/flagged data.
-   
+
    -  *‘time’*
    
       -  timestamps from the *TIME* column, converted for display to
          time format HH:MM:SS.S (precision depends on the interval
          between tick marks).
       -  When time averaging is enabled, the average of the timestamps
-         in each bin is used for the time values, independent of
-         unflagged/flagged data.
-   
+         in each bin is used for the time values.
+
    -  *‘interval’* (*‘timeint’, ‘timeinterval’, ‘time_interval’*)
    
       -  integration time values from the *INTERVAL* column, in
@@ -220,7 +219,7 @@ Description
       -  index into the number of channels in the selected spws,
          ranging 0~nChan.
       -  When channel averaging is enabled, the channel numbers
-         are re-indexed, starting at 0, to reflect the bin
+         are re-indexed starting at 0 to reflect the bin
          number, not the averaged channel number.
    
    -  ‘ *freq’* (*‘frequency’*)
@@ -1121,27 +1120,25 @@ Description
       -  "" (default): do not time-average data.
       -  The “bins” of averaged data have the same scan number and
          field ID unless avgscan or avgfield are True.
-      -  The value of each bin is the average of the timestamps in
-         that bin.
-   
+      -  The time value of each bin is the average of the timestamps
+         in that bin.
+
    -  *avgscan*
 
       -  Ignore scan boundaries when time-averaging data; parameter
          ignored when *avgtime* is not set.
       -  False (default): time-average data within individual scans.
-      -  When scan number is used in plotting or locate, the scan
-         number is the first scan number in the bin, independent of
-         unflagged/flagged data.
-   
+      -  The scan value of each bin is the first scan number in the
+         bin, independent of unflagged/flagged data.
+
    -  *avgfield*
 
       -  Ignore field boundaries when time-averaging data; parameter
          ignored when *avgtime* is not set.
       -  False (default): time-average data within individual fields.
-      -  When field id is used in plotting or locate, the field
-         number is the first field id in the bin, independent of
-         unflagged/flagged data.
-   
+      -  The field value of each bin is the first field id in the
+         bin, independent of unflagged/flagged data.
+
    -  *avgbaseline*
 
       -  Average data for all baselines together in each "chunk"
