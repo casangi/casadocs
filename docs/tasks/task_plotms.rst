@@ -1183,7 +1183,7 @@ Description
    -  *phasecenter*
 
       -  Direction coordinates of the desired phase center.
-      -  "" (default) : use phasecenter in field table.
+      -  "" (default) : use phase center in MeasurementSet.
    
    .. rubric:: Interactive Flagging Extensions
    
