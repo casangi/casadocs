@@ -20,9 +20,9 @@ Description
 
    The function returns a dictionary with goodness of fit metrics,
    grouped by field, scan, SPW, polarization, and real and imaginary
-   part. The dictionary includes chi-square values as calculated and
-   minimized by the fitting algorithms. [NOTE/TODO: details to be
-   finalized, see discussion in development documents].
+   part. The goodness of fit metric included in the dictionary is the
+   chi-square values as calculated and minimized by the fitting
+   algorithms.
 
    The input MeasurementSet is not modified (is only read). The data
    column from the input MeasurementSet that is read can be selected
@@ -86,7 +86,26 @@ Examples
 
    .. code-block:: python
 
-      uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', fitspw='0:10~100;300~350')
+      result = uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', fitspw='0:10~100;300~350')
+      # result has contents as in the following (excerpt) example:
+      result
+      {'description': 'summary of data fitting results in uv-continuum subtraction',
+       'goodness_of_fit': {'field': {'0': {'scan': {'1': {'spw': {'0': {'polarization':
+       {'0': {'chi_squared': {'average': {'imag': 1.05,
+                                           'real': 0.964},
+                              'max': {'imag': 1.11,
+                                      'real': 1.08},
+                               'min': {'imag': 1.02,
+                                       'real': 0.74}},
+              'count': 40},
+        '1': {'chi_squared': {'average': {'imag': 1.05,
+                                          'real': 1.04},
+                              'max': {'imag': 1.06,
+                                      'real': 1.15},
+                              'min': {'imag': 0.992,
+                                      'real': 0.954}},
+              'count': 40}}}}}}}}}
+      }
 
    **Example 2:**
 
