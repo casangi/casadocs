@@ -8,15 +8,15 @@ Description
    This task can perform continuum fitting and subtraction in the uv
    domain.
 
-   The function estimates the continuum emission by fitting polynomials to
-   the real and imaginary parts of the data. The spectral windows and
-   channels on which the fitting is calculated can be selected using
-   the parameter *fitspw*. The resulting fit represents a model of the
-   continuum in all channels. The fitted continuum spectrum is
-   subtracted from all channels selected in *spw*, and the result
-   (intended as line emission only) is produced in an output
-   MeasurementSet. Polynomial models are fitted and subtracted per
-   integration, per baseline, correlation.
+   The function estimates the continuum emission by fitting
+   polynomials to the real and imaginary parts of the data. The
+   spectral windows and channels on which the fitting is calculated
+   can be specified using the parameter *fitspw*. The resulting fit
+   represents a model of the continuum in all channels. The fitted
+   continuum spectrum is subtracted from all channels selected in
+   *spw*, and the result (intended as line emission only) is produced
+   in an output MeasurementSet. Polynomial models are fitted and
+   subtracted per integration, per baseline, correlation.
 
    The function returns a dictionary with goodness of fit metrics,
    grouped by field, scan, SPW, polarization, and real and imaginary
@@ -32,7 +32,7 @@ Description
    can be written into the MODEL column of the output MS, using the
    parameter *writemodel*.
 
-   The fitting method and polynomial order are selected via the
+   The fitting method and polynomial order are chosen via the
    parameters *fitmethod* and *fitorder*. The line-free channels are
    given in the *fitspw* parameter. In it simplest form, it is a
    line-free channel specification string that applies to all
@@ -87,7 +87,7 @@ Examples
    .. code-block:: python
 
       result = uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', fitspw='0:10~100;300~350')
-      # result has contents as in the following (excerpt) example:
+      # result has contents as in the following example (excerpt):
       result
       {'description': 'summary of data fitting results in uv-continuum subtraction',
        'goodness_of_fit': {'field': {'0': {'scan': {'1': {'spw': {'0': {'polarization':
@@ -172,8 +172,8 @@ Development
    identified throughout 2021. Additional features (or use modes) can
    be considered:
 
-   - Channel selections in *fitspw* are supported in the native frame
-     of the input MeasurementSet. The suggestion is that frame
+   - Channel specifications in *fitspw* are supported in the native
+     frame of the input MeasurementSet. The suggestion is that frame
      conversions, when needed, be handled in separate (helper)
      functions rather than embedded in the task.
 
