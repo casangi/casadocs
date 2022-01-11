@@ -54,7 +54,7 @@ Description
       subparameter
    -  'antpos' = For VLA datasets, automatic lookup of antenna
       position corrections if *antenna=''*
-   - 'jyperk' = Jy/K factors via Jy/K database Web API if infile=''
+   -  'jyperk' = Jy/K factors via Jy/K database Web API if infile=''
       (ALMA only)
       
    For the VLA, *caltype='gc'* will do auto-lookup the gain curve information.
