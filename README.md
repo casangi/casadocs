@@ -186,7 +186,7 @@ https://github.com/casangi/casadocs/tree/master/docs/tasks
 
 Updates made to master ('latest') are immediately public. This can be useful for minor or urgent updates to the documentation 
 that do not require a review. Making a documentation *branch* is useful for larger documentation updates, updates that require 
-a review, or updates that should be merged at a later stage (e.g., simulateneously with the code).
+a review, or updates that should be merged at a later stage (e.g., simultaneously with the code).
 
 To make a branch, go to: https://github.com/casangi/casadocs/tree/master/docs
 
