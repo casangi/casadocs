@@ -30,7 +30,9 @@ Description
    written into the DATA column of the output MS. Optionally, and to
    support inspection of results and debugging, the fitted model data
    can be written into the MODEL column of the output MS, using the
-   parameter *writemodel*.
+   parameter *writemodel*. When selectionn parameters (field, spw,
+   scan, etc.) are used, the output MS includes only the data selected
+   via those selection parameters.
 
    The fitting method and polynomial order are chosen via the
    parameters *fitmethod* and *fitorder*. The line-free channels are
