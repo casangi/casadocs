@@ -228,7 +228,7 @@ Description
    
    The frequency to use for the center channel (or only channel, if
    the skymodel is 2D). Examples: *incenter='89GHz'*, or '' to use
-   what is in the header.
+   what is in the header. This will also become the default rest frequency, e.g. when imaging with tclean.
    
    *inwidth*
    
@@ -561,7 +561,14 @@ Examples
                  antennalist="antennalist.cfg2",
                  sdantlist="aca.tp.cfg",
                  thermalnoise="")
+                 
+   This example shows how to assign a central rest-frequency and channel width to a simulated image cube.
    
+   ::
+   
+      imobserve(project=‘model_cube’, skymodel=‘skymodel.image', inwidth='0.4MHz', antennalist='alma.cycle6.1.cfg', direction="J2000 16h59m41.63s -40d03m43.61s", obsmode="int", mapsize="2arcmin", totaltime="1800s", thermalnoise='', incenter='86.6425GHz')
+      
+   This produces a data cube with a central rest-frequency of 86.6425 GHz and a channel width of 0.4 MHz. Note the `Known Issue for simobserve <../../notebooks/introduction.ipynb#Known-Issues>`__ that inwidth should not be specified in km/s.
 
 .. _Development:
 
