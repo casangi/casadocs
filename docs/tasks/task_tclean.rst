@@ -437,6 +437,11 @@ Description
    -  'mem': Maximum Entropy Method (Cornwell and Evans, 1985). Note:
       The MEM implementation in CASA is not very robust, improvements
       will be made in the future.
+   -  'asp': Adaptive Scale Pixel Clean.       
+      The Adaptive Scale Pixel(ASP) decomposition algorithm is designed
+      to reconstruct the sky brightness by adaptively determining the
+      optimal scales. The implementation of ASP algorithm is aimed to 
+      improve both image resolution and computation efficiency.
    
    If as input to tclean the stokes parameter includes polarization
    planes other than I, then choosing deconvolver='hogbom' or
