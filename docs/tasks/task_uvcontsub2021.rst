@@ -56,8 +56,7 @@ Description
 
    For more details on how continuum subtraction is performed in the
    uv domain, use of flags and weights, fitting methods, goodness of
-   fit, etc. see `UV Continuum Subtraction
-   <../../notebooks/uv_manipulation.ipynb#UV-Continuum-Subtraction>`__.
+   fit, etc. see `UV Continuum Subtraction <../../notebooks/uv_manipulation.ipynb#UV-Continuum-Subtraction>`__.
 
 ..
     Notes taken from the pages of uvcontsub(1) and uvcontsub3:
