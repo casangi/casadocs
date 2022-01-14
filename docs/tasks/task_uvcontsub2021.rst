@@ -158,7 +158,7 @@ Examples
    simulated data. Simulations of datasets to evaluate uvcontsub are
    available as a Jupyter notebook with demo scripts. The notebook is
    available online, hosted on `Google Colab
-   <https://colab.research.google.com/github/casangi/casadocs/blob/CAS-13631/docs/notebooks/Simulations_ALMA_uvcontsub_WIP.ipynb>`_,
+   <https://colab.research.google.com/github/casangi/casadocs/blob/CAS-13631/docs/notebooks/simulations_uvcontsub_ALMA_WIP.ipynb>`_,
    where the demo scripts can be run from the browser (or retrieved to
    be run locally). The notebook characterizes the correctness and
    accuracy of the results produced by uvcontsub based on simulated
