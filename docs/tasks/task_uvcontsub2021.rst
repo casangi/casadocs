@@ -16,12 +16,12 @@ Description
    continuum spectrum is subtracted from all channels selected in
    *spw*, and the result (intended as line emission only) is produced
    in an output MeasurementSet. Polynomial models are fitted and
-   subtracted per integration, per baseline, correlation.
+   subtracted per integration, per baseline, per correlation.
 
    The function returns a dictionary with goodness of fit metrics,
    grouped by field, scan, SPW, polarization, and real and imaginary
    part. The goodness of fit metric included in the dictionary is the
-   chi-square values as calculated and minimized by the fitting
+   chi-squared values as calculated and minimized by the fitting
    algorithms.
 
    The input MeasurementSet is not modified (is only read). The data
@@ -38,13 +38,12 @@ Description
    parameters *fitmethod* and *fitorder*. The line-free channels are
    given in the *fitspw* parameter. In it simplest form, it is a
    line-free channel specification string that applies to all
-   fields. It can also take a list of line-free channel
-   specifications, with an item per field or group or fields. This is
-   to be able to produce an output MeasurementSet with multiple
-   sources and/or fields in one single call. The per-SPW line-free
-   channels are specified using the spw:channel notation, see the `MS
-   selection syntax
-   <../../notebooks/visibility_data_selection.ipynb>`__.
+   fields. It can also be a list of line-free channel specifications,
+   with an item per field or group or fields. This is to be able to
+   produce an output MeasurementSet with multiple sources and/or
+   fields in one single call. The per-SPW line-free channels are
+   specified using the spw:channel notation, see the `MS selection
+   syntax <../../notebooks/visibility_data_selection.ipynb>`__.
 
    In addition to the *fitspw* parameter, the channelized data flags
    and data weights also influence how the channels will be used for
@@ -53,9 +52,12 @@ Description
    excluding them from fitspw). The channel weights, adjusted for
    example using the statwt task, also influence how relevant
    different channels will be for the fitting, in a more gradual
-   way. See `UV Continuum Subtraction
-   <../../notebooks/uv_manipulation.ipynb#UV-Continuum-Subtraction>`__
-   for more details.
+   way.
+
+   For more details on how continuum subtraction is performed in the
+   uv domain, use of flags and weights, fitting methods, goodness of
+   fit, etc. see `UV Continuum Subtraction
+   <../../notebooks/uv_manipulation.ipynb#UV-Continuum-Subtraction>`__.
 
 ..
     Notes taken from the pages of uvcontsub(1) and uvcontsub3:
