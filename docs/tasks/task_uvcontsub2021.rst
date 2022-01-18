@@ -155,18 +155,24 @@ Examples
       uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', writemodel=True)
 
 
-   **Placeholder** (work in progress) paragraph about numerical
-   characterization. Simulations and numerical tests based on the
-   simulated data. Simulations of datasets to evaluate uvcontsub are
+   Examples of simulations that can be used to evaluate uvcontsub are
    available as a Jupyter notebook with demo scripts. The notebook is
-   available online, hosted on `Google Colab
+   hosted on `Google Colab
    <https://colab.research.google.com/github/casangi/casadocs/blob/CAS-13631/docs/notebooks/simulations_uvcontsub_ALMA_WIP.ipynb>`_,
    where the demo scripts can be run from the browser (or retrieved to
-   be run locally). The notebook characterizes the correctness and
-   accuracy of the results produced by uvcontsub based on simulated
-   data. The scripts included in the notebook can also be used to run
-   experiments with the task, see the task **phaseshift** for an
-   example.
+   be run locally). The verification tests of this task include
+   numerical tests based on simulated data from the notebook. These
+   numerical verification tests check the accuracy of the continuum
+   fits produced by uvcontsub2021. For example, for polynomials of
+   known coefficients, for order 0, 1, and 2, added artificially to
+   the visibilities, the accuracy of the fitted polynomials is better
+   than 10e-5 (measured as relative residual values through all
+   channels and rows). For a polynomial of order 0, with added
+   Gaussian random noise and continuum SNR of ~3.5, the relative
+   residuals are of the order of 1% (~3% for the 75th percentile). The
+   scripts included in the notebook can also be used to further
+   characterize the behavior of the task for different data
+   properties, and to run other experiments with the task.
 
 .. _Development:
 
