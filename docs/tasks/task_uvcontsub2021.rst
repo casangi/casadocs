@@ -155,9 +155,10 @@ Examples
       uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', writemodel=True)
 
 
-   Examples of simulations that can be used to evaluate uvcontsub are
-   available as a Jupyter notebook with demo scripts. The notebook is
-   hosted on `Google Colab
+   Examples of simulated MeasurementSets that can be used to evaluate
+   uvcontsub are included in this `Jupyter notebook
+   <../../notebooks/simulations_uvcontsub_ALMA_WIP.ipynb`__ with demo
+   scripts. The notebook is available on `Google Colab
    <https://colab.research.google.com/github/casangi/casadocs/blob/CAS-13631/docs/notebooks/simulations_uvcontsub_ALMA_WIP.ipynb>`_,
    where the demo scripts can be run from the browser (or retrieved to
    be run locally). The verification tests of this task include
