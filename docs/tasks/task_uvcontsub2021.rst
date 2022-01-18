@@ -154,6 +154,7 @@ Examples
    
       uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', writemodel=True)
 
+   **Example notebook**
 
    Examples of simulated MeasurementSets that can be used to evaluate
    uvcontsub are included in this `Jupyter notebook
