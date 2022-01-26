@@ -3,7 +3,7 @@
 .. _Description:
 
 Description
-   **feather** can be used as one method of combining single-dish and
+   **feather2** can be used as one method of combining single-dish and
    interferometric images after they have been separately made.
    The algorithm converts each image to the gridded visibility plane,
    combines them, and reconverts them into a combined image. Each
@@ -28,9 +28,9 @@ Description
    In general, it is the responsibility of the user to regrid the
    low resolution image to coincide with the coordinate system of
    the high resolution image and to ensure that the resulting
-   regridded image is of reasonable quality to use in feather.
-   This can be achieved via the imregrd task or the image.regrid()
-   tool method.
+   regridded image is of reasonable quality to use in **feather2**.
+   This can be achieved via the **imregrid** task or the
+   **image.regrid()** tool method.
    
    The feathered image, :math:`I^{feather}`, is given by (cf. Rao,
    Naik, & Braun 2019 AJ, 158, 3)
@@ -57,6 +57,15 @@ Description
   
         w \equiv \mathcal{F}(I^{lowres, psf})/max[|\mathcal{F}(I^{lowres, psf})|]
 
+   As justification the form of the first equation, one can consider that if the
+   two images are the result of simply splitting an interferometer dataset into
+   two pieces, then B=1 and w=1 for all uv-cells (since there is no relative
+   *uv*-coverage difference for which to account), and so the expression in
+   square brackets simplifies to 
+   :math:`[\mathcal{F}(im_1)+S\mathcal{F}(im_2)]/(1+S)`. For natural
+   weighting, S can be interpreted simply as the ratio of the number of data
+   points that were used to create the two images, and so this expression is just
+   the weighted average, as expected. 
    
    For the present application, :math:`I^{lowres, psf}` is taken to be the
    elliptical Gaussian beam defined in the low resolution image metadata, with
@@ -99,7 +108,11 @@ Description
 
    where :math:`RMS^{highres}` and :math:`RMS^{lowres}` are the root mean
    square noise measured in the high resolution and low resolution images,
-   respectively.
+   respectively. This relationship can be derived by considering that the
+   canonical combination of the flux measurements from the two images is
+   just the weighted mean of the two images, where the weight for each
+   image is equal to the reciprocal of the square of the rms of each
+   image.
 
    In the case where the single dish image has multiple beams, *w* must be
    computed for each frequency/polarization (:math:`\nu`, p) pair. In the case
@@ -123,6 +136,16 @@ Description
 
    The output image will have an identical resolution to the high resolution image.
 
+   The application requires that beam information be present in the image
+   metadata. Should the beam information be known but absent from the metadata,
+   it can be added via task **imhead** using mode='put' or via tool method
+   **image.setrestoringbeam()**.
+
+   Should absolute scaling be necessary for the flux densities of the two images to
+   be equal, this should be addressed prior to running **feather2**. One can use task
+   **immath** or tool method **image.imagecalc()** to scale the pixel values in an
+   image.
+
    ..
         If *lowpassfiltersd* is set to True, then spatial frequencies not sampled by
         the single dish will be omitted. In this case, the Fourier Transform of the
@@ -143,30 +166,31 @@ Description
         be easily determined if not specified, short of implementing a long
         conditional block]**
 
-   .. rubric:: Parameter descriptions
+..
+        .. rubric:: Parameter descriptions
 
-   *imagename*
+        *imagename*
 
-   Name of output feathered image. Default is none; example:
-   *imagename='orion_combined.im'*.
+        Name of output feathered image. Default is none; example:
+        *imagename='orion_combined.im'*.
    
-   *highres*
+        *highres*
 
-   Name of high resolution (interferometer) image. Default is none;
-   example: *highres='orion_vla.im'*. This image is often a clean
-   image obtained from synthesis observations.
+        Name of high resolution (interferometer) image. Default is none;
+        example: *highres='orion_vla.im'*. This image is often a clean
+        image obtained from synthesis observations.
    
-   *lowres*
+        *lowres*
    
-   Name of low resolution (single dish) image. Default is none;
-   example: *lowres='orion_gbt.im'*. This image is often a image from
-   a single-dish observations or a clean image obtained from lower
-   resolution synthesis observations.
+        Name of low resolution (single dish) image. Default is none;
+        example: *lowres='orion_gbt.im'*. This image is often a image from
+        a single-dish observations or a clean image obtained from lower
+        resolution synthesis observations.
    
-   *sdweight*
+        *sdweight*
    
-   Weight to give the Fourier Transform of the single dish image relative to
-   the Fourier Transform of the interferometer image. Default is 1.0.
+        Weight to give the Fourier Transform of the single dish image relative to
+        the Fourier Transform of the interferometer image. Default is 1.0.
    
    ..
         *effdishdiam*
@@ -182,7 +206,6 @@ Description
         wavelengths from the origin before combining the SD FT image with the
         interferometer FT image. if false, no such masking is performed.
 
-..
     .. _Examples:
 
     Examples
