@@ -11,7 +11,7 @@ and is often used also for other radio telescopes.
 
 **6.4.3 Release**
 
-CASA 6.4.3 can now be (`downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__) for general use. CASA 6.4.3 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
+CASA 6.4.3 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.4.3 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
 
 **Highlights:**
 
@@ -21,7 +21,7 @@ CASA 6.4.3 can now be (`downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`
 - importasdm/exportasdm: parameters 'showversion' and 'useversion' were deprecated and removed from the task-code and sdm tool.
 - a number of bugs were fixed.
 
-For more details on these and other new features, see the CASA 6.4.3 (`Release Notes <https://casadocs.readthedocs.io/en/v6.4.3/notebooks/introduction.html>`__).
+For more details on these and other new features, see the CASA 6.4.3 `Release Notes <https://casadocs.readthedocs.io/en/v6.4.3/notebooks/introduction.html>`__.
    
 CASA is developed by an international consortium of scientists
 based at the National Radio Astronomical Observatory (NRAO), the
