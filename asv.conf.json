@@ -1,26 +1,36 @@
 {
-    "version": 1,
-    "project": "casa6",
-    "project_url": "https://casa.nrao.edu/",
-    "repo": "https://open-bitbucket.nrao.edu/scm/casa/casa6.git",
-    "build_command": [],
-    "install_command": [],
-    "uninstall_command": [],
-    "branches": ["master"],
-    "environment_type": "virtualenv",
-    "show_commit_url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/commits/",
-    "install_timeout": 600,
-    "pythons": ["3.6"],
-    "exclude": [
-          {"environment_type": "virtualenv", "casatools": null},
-    ],
-    "include": [
-	{"python":"3.6", "pip+casatasks":"6.4.3.5"},
-    ],
-    "benchmark_dir": "benchmarks",
-    "env_dir": "env",
-    "results_dir": "results",
-    "html_dir": "html",
-    "hash_length": 8,
-    "build_cache_size": 2,
+  "version": 1,
+  "project": "casa6",
+  "project_url": "https://casa.nrao.edu/",
+  "repo": "https://open-bitbucket.nrao.edu/scm/casa/casa6.git",
+  "build_command": [],
+  "install_command": [],
+  "uninstall_command": [],
+  "branches": [
+    "master"
+  ],
+  "environment_type": "virtualenv",
+  "show_commit_url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/commits/",
+  "install_timeout": 600,
+  "pythons": [
+    "3.6"
+  ],
+  "exclude": [
+    {
+      "environment_type": "virtualenv",
+      "casatools": null
+    }
+  ],
+  "include": [
+    {
+      "python": "3.6",
+      "pip+casatasks": "6.4.3.5"
+    }
+  ],
+  "benchmark_dir": "benchmarks",
+  "env_dir": "env",
+  "results_dir": "results",
+  "html_dir": "html",
+  "hash_length": 8,
+  "build_cache_size": 2
 }
