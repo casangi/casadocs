@@ -9,6 +9,7 @@ necessary for proper CASA operation.
    :nosignatures:
    :functions-only:
 
+.. warning:: Users must ensure they have an up-to-date config.py in their ~/.casa directory (or delete it to utilize the default). Use write_default_config() to update.
 
 
 config.py
