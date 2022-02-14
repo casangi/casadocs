@@ -179,6 +179,16 @@ Examples
 
       sdbaseline(infile='sd_data.ms', blfunc='poly', dosubtract=False, blformat=['text','table'])
 
+   .. rubric::  Example 6
+
+   This example shows applying a baseline table to a MS to actually execute
+   baseline-subtraction. 
+
+   ::
+
+      sdbaseline(infile='sd_data.ms', blmode='apply', bltable='sd_data_blparam.bltable',
+                 outfile='sd_data.ms.bl')
+
 
 .. _Development:
 
