@@ -168,6 +168,17 @@ Examples
       sdbaseline(infile='sd_data.ms', blfunc='poly', updateweight=True, sigmavalue='rms',
                  outfile='sd_data.ms.bl', overwrite=True)
 
+   .. rubric::  Example 5
+
+   This example shows fitting a polynomial baseline but not subtracting it,
+   instead, saving the fitting results as a text file 'sd_data_blparam.txt'
+   and a baseline table 'sd_data_blparam.bltable' which can be used to actually
+   subtract baseline afterwards.
+
+   ::
+
+      sdbaseline(infile='sd_data.ms', blfunc='poly', dosubtract=False, blformat=['text','table'])
+
 
 .. _Development:
 
