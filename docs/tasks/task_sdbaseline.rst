@@ -113,11 +113,11 @@ Examples
    .. rubric::   Example 1
 
    This is one of the simplest examples. To fit and remove a
-   Chebyshev polynomial function (default is 5th order) from the data
-   'sd_data.ms', using only spectral window 0, and fitting channels
-   100-800 and 1200-2000 (to avoid, for example, band-pass roll off
-   at the edges, and perhaps an emission line that might occur over
-   channels 800-1200).
+   Chebyshev polynomial function (default is of 5th order) from the
+   data 'sd_data.ms', using only spectral window 0, and fitting
+   channels 100-800 and 1200-2000 (to avoid, for example, band-pass
+   roll off at the edges, and perhaps an emission line that might
+   occur over channels 800-1200).
 
    ::
 
