@@ -170,10 +170,10 @@ Examples
 
    .. rubric::  Example 5
 
-   This example shows fitting a polynomial baseline but not subtracting it,
-   instead, saving the fitting results as a text file 'sd_data_blparam.txt'
-   and a baseline table 'sd_data_blparam.bltable' which can be used to actually
-   subtract baseline afterwards (see Example 6 also).
+   This example shows a polynomial baseline fitting, but without subtraction;
+   instead, the fitting results are saved as a text file 'sd_data_blparam.txt'
+   and a baseline table 'sd_data_blparam.bltable', which can be used for
+   actual baseline subtraction afterwards (see also Example 6).
 
    ::
 
