@@ -181,8 +181,8 @@ Examples
 
    .. rubric::  Example 6
 
-   This example shows applying a baseline table to a MS to actually execute
-   baseline-subtraction. 
+   This example shows applying a baseline table to a MS to actually subtract
+   the best-fit baseline.
 
    ::
 
