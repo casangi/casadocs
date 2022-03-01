@@ -1,0 +1,9 @@
+{
+    "arch": "x86_64",
+    "cpu": "Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz",
+    "machine": "cvpost029",
+    "num_cpu": "32",
+    "os": "Linux 3.10.0-957.5.1.el7.x86_64",
+    "ram": "264033420",
+    "version": 1
+}
