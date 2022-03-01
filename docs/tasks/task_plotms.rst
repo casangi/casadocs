@@ -1199,10 +1199,10 @@ Description
       -  "*RADIO*" (default)
       -  Options: *“RADIO”, “OPTICAL”, “TRUE”* (Relativistic)
    
-   -  *shift*
+   -  *phasecenter*
 
-      -  phase center shift, in arcseconds. Format is [dx, dy].
-      -  [0.0, 0.0] (default) : no shift.
+      -  Direction coordinates of the desired phase center.
+      -  "" (default) : use phase center in MeasurementSet.
    
    .. rubric:: Interactive Flagging Extensions
    
