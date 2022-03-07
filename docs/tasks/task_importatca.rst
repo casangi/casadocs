@@ -11,7 +11,7 @@ Description
    
       #In CASA
       #  importatca :: Import ATCA RPFITS file(s) to a MeasurementSet
-      files               =['*.C1234']        #  Name of input ATCA RPFits file(s)
+      files               =['\*.C1234']        #  Name of input ATCA RPFits file(s)
       vis                 = 'c1234.ms'        #  Name of output visibility file
                                               #   (MeasurementSet)
       options             =         ''        #  Processing options: birdie, reweight,

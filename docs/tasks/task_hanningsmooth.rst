@@ -32,7 +32,7 @@ Description
    *vis* parameters will be Hanning smoothed and saved in an output
    given by the *outputvis* parameter.
    
-   For example, *vis* = ['ngc5921.ms'] *, output vis* =
+   For example, *vis* = ['ngc5921.ms'], *output vis* =
    'out_ngc5921.mms'. 
    
    .. rubric:: Output MS or Multi-MS: keepmms parameter
@@ -98,25 +98,29 @@ Development
        --- Data selection parameters ---
 
        field -- Select field using field id(s) or field name(s).
-                [run listobs to obtain the list iof d's or names]
-           default: ''=all fields If field string is a non-negative
-              integer, it is assumed to be a field index
-              otherwise, it is assumed to be a field name
-              field='0~2'; field ids 0,1,2
-              field='0,4,5~7'; field ids 0,4,5,6,7
-              field='3C286,3C295'; fields named 3C286 and 3C295
-              field = '3,4C*'; field id 3, all names starting with 4C
+           [run listobs to obtain the list iof d's or names]
+           
+           If field string is a non-negative integer then it is assumed to be a field index.
+           Otherwise, it is assumed to be a field name.
+           
+           default: ''=all fields
+           field='0~2'; field ids 0,1,2
+           field='0,4,5~7'; field ids 0,4,5,6,7
+           field='3C286,3C295'; fields named 3C286 and 3C295
+           field = '3,4C\*'; field id 3, all names starting with 4C
        spw -- Select spectral window/channels
            default: ''=all spectral windows and channels
-              spw='0~2,4'; spectral windows 0,1,2,4 (all channels)
-              spw='&lt;2';  spectral windows less than 2 (i.e. 0,1)
-              spw='0:5~61'; spw 0, channels 5 to 61
-              spw='0,10,3:3~45'; spw 0,10 all channels, spw 3 - chans 3 to 45.
-              spw='0~2:2~6'; spw 0,1,2 with channels 2 through 6 in each.
-              spw = '*:3~64'  channels 3 through 64 for all sp id's
-                      spw = ' :3~64' will NOT work.
-                  NOTE: mstransform does not support multiple channel ranges per
-                        spectral window (';').
+           spw='0~2,4'; spectral windows 0,1,2,4 (all channels)
+           spw='&lt;2';  spectral windows less than 2 (i.e. 0,1)
+           spw='0:5~61'; spw 0, channels 5 to 61
+           spw='0,10,3:3~45'; spw 0,10 all channels, spw 3 - chans 3 to 45.
+           spw='0~2:2~6'; spw 0,1,2 with channels 2 through 6 in each.
+           spw = '\*:3~64'  channels 3 through 64 for all sp id's
+           spw = ' :3~64' will NOT work.
+           
+           NOTE: mstransform does not support multiple channel ranges per
+           spectral window (';').
+
        scan -- Scan number range
            default: ''=all
        antenna -- Select data based on antenna/baseline
@@ -130,12 +134,12 @@ Development
                antenna='5': all baselines with antenna 5
                antenna='5,6,10': all baselines including antennas 5, 6, or 10
                antenna='5,6,10&amp;': all baselines with \*only\* antennas 5, 6, or
-                                      10.  (cross-correlations only.  Use &amp;&amp;
-                                      to include autocorrelations, and &amp;&amp;&amp;
-                                      to get only autocorrelations.)
+               .                      10.  (cross-correlations only.  Use &amp;&amp;
+               .                      to include autocorrelations, and &amp;&amp;&amp;
+               .                      to get only autocorrelations.)
                antenna='!ea03,ea12,ea17': all baselines except those that
-                                          include EVLA antennas ea03, ea12, or
-                                          ea17.
+               .                          include EVLA antennas ea03, ea12, or
+               .                          ea17.
        correlation -- Correlation types or expression.
            default: '' (all correlations)
            example: correlation='XX,YY'

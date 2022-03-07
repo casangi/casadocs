@@ -226,7 +226,7 @@ Description
    extended emission that may be resolved out. Examples:
    *outertaper=[ ]* no outer taper applied; *outertaper=[’5klambda’]*
    circular uv taper FWHM at 5 kilo-lambda;
-   *outertaper=[’5klambda’,’3klambda’,’45.0deg’*] elliptical
+   *outertaper=[’5klambda’,’3klambda’,’45.0deg’]* elliptical
    Gaussian; *outertaper=[’10arcsec’]* on-sky FWHM of 10 arcsecs;
    *outertaper=[’300.0’]* 300m in aperture plane
    
@@ -330,7 +330,7 @@ Description
    Displays the fidelity image. The fidelity image is defined by the
    following equation:
    
-   :math:`fidelity = \frac{|input|}{max[|input-output|,0.7*rms(output)]}`
+   :math:`fidelity = \frac{|input|}{max[|input-output|,0.7\*rms(output)]}`
    
    .. note:: **NOTE**: The RMS is calculated in the lower quarter of the
       image which is likely not the best choice. It is encouraged to

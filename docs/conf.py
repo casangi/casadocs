@@ -14,6 +14,7 @@
 #
 import os
 import sys
+import re
 sys.path.insert(0, os.path.abspath('..'))
 
 
@@ -94,6 +95,21 @@ language = None
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['build', 'tasks', 'tools', 'examples/README.md', 'examples/cngi', 'examples/casa6',
                     '../casasource','examples/community/_template.ipynb', 'Thumbs.db', '.DS_Store']
+exclude_patterns += [
+    # 'api',
+    # 'examples',
+]
+
+# limit the tools and tasks to the ones we want to process
+tools = [f for f in os.listdir('api/tt/') if re.match(r"casatools\..*", f)]
+tasks = [f for f in os.listdir('api/tt/') if re.match(r"casatasks\..*", f)]
+notebooks = os.listdir('notebooks')
+for fnames, dirname, prefix, postfix, selection_fname in [(tools, 'api/tt/', 'casatools.', '.rst', 'tools'), (tasks, 'api/tt/', 'casatasks.', '.rst', 'tasks'), (notebooks, 'notebooks/', '', '.ipynb', 'notebooks')]:
+    if os.path.exists(f"{selection_fname}_selection.csv"):
+        with open(f"{selection_fname}_selection.csv", 'r') as fin:
+            selection = [f"{prefix}{name}{postfix}" for name in fin.readlines()[0].strip().split(',')]
+        exclusions = [name for name in fnames if (name not in selection)]
+        exclude_patterns += [f"{dirname}{name}" for name in exclusions]
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
