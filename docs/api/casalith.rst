@@ -110,8 +110,10 @@ of ALMA analysis. It is typically imported and instantiated in startup.py:
    $ cat ~/.casa/startup.py
 
    import sys, os
+   import analysisUtils as aU
+   
    sys.path.append("/home/casa/contrib/AIV/science/analysis_scripts/")
-   import analysisUtils as aUes = aU.stuffForScienceDataReduction()
+   es = aU.stuffForScienceDataReduction()
 
 
 In this example, the standard python modules *os* and *sys* are made available in the CASA shell. The path where the *analysisUtils*
