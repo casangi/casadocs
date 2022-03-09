@@ -96,10 +96,6 @@ language = None
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['build', 'tasks', 'tools', 'examples/README.md', 'examples/cngi', 'examples/casa6',
                     '../casasource','examples/community/_template.ipynb', 'Thumbs.db', '.DS_Store']
-exclude_patterns += [
-    # 'api',
-    # 'examples',
-]
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -187,6 +183,19 @@ os.system("python ../scripts/parse_api_functions.py")
 if not os.path.exists('examples'):
     os.system("git clone https://github.com/casangi/examples.git")
 
+# this can build a txt version of the API
+#os.system("sphinx-build -d _build/doctrees -b text . _build/html -c ./api")
+
+# tweak the default readthedocs theme
+def setup(app):
+    app.add_css_file('customization.css')
+
+#############################################################################################################
+##
+## Include/exclude files from the build, to decrease build time.
+##
+#############################################################################################################
+
 # limit the tools and tasks to the ones we want to process
 for dirname, prefix, postfix, group in [('api/tt/', 'casatools.', '.rst', 'tools'), ('api/tt/', 'casatasks.', '.rst', 'tasks'), ('notebooks/', '', '.ipynb', 'notebooks')]:
     if os.path.exists(f"{group}_selection.csv"):
@@ -206,9 +215,5 @@ for dirname, prefix, postfix, group in [('api/tt/', 'casatools.', '.rst', 'tools
         exclusions = [name for name in fnames if (name not in selection)]
         exclude_patterns += [f"{dirname}{name}" for name in exclusions]
 
-# this can build a txt version of the API
-#os.system("sphinx-build -d _build/doctrees -b text . _build/html -c ./api")
-
-# tweak the default readthedocs theme
-def setup(app):
-    app.add_css_file('customization.css')
+# uncomment this line to prevent the examples from being built
+#exclude_patterns += ['examples']
