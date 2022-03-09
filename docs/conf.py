@@ -15,6 +15,7 @@
 import os
 import sys
 import re
+import glob
 sys.path.insert(0, os.path.abspath('..'))
 
 
@@ -99,17 +100,6 @@ exclude_patterns += [
     # 'api',
     # 'examples',
 ]
-
-# limit the tools and tasks to the ones we want to process
-tools = [f for f in os.listdir('api/tt/') if re.match(r"casatools\..*", f)]
-tasks = [f for f in os.listdir('api/tt/') if re.match(r"casatasks\..*", f)]
-notebooks = os.listdir('notebooks')
-for fnames, dirname, prefix, postfix, selection_fname in [(tools, 'api/tt/', 'casatools.', '.rst', 'tools'), (tasks, 'api/tt/', 'casatasks.', '.rst', 'tasks'), (notebooks, 'notebooks/', '', '.ipynb', 'notebooks')]:
-    if os.path.exists(f"{selection_fname}_selection.csv"):
-        with open(f"{selection_fname}_selection.csv", 'r') as fin:
-            selection = [f"{prefix}{name}{postfix}" for name in fin.readlines()[0].strip().split(',')]
-        exclusions = [name for name in fnames if (name not in selection)]
-        exclude_patterns += [f"{dirname}{name}" for name in exclusions]
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -196,6 +186,25 @@ os.system("python ../scripts/parse_api_functions.py")
 
 if not os.path.exists('examples'):
     os.system("git clone https://github.com/casangi/examples.git")
+
+# limit the tools and tasks to the ones we want to process
+for dirname, prefix, postfix, group in [('api/tt/', 'casatools.', '.rst', 'tools'), ('api/tt/', 'casatasks.', '.rst', 'tasks'), ('notebooks/', '', '.ipynb', 'notebooks')]:
+    if os.path.exists(f"{group}_selection.csv"):
+        fnames = []
+        if group == 'tools':
+            fnames = ['casatools.'+fn for fn in os.listdir('../casatools') if fn != '__init__.py']
+        elif group == 'tasks':
+            files = glob.glob('../casatasks/**/*.py', recursive=True)
+            fnames = map(lambda fn: re.match(r".*?([^/]*/[^/]*\.py)", fn)[1].replace('/','.'), files)
+            fnames = ['casatasks.'+fn for fn in fnames if '__init__' not in fn]
+        elif group == 'notebooks':
+            files = glob.glob('notebooks/*.ipynb')
+            fnames = [os.path.basename(fn) for fn in files]
+        fnames = [fn.replace('.py',postfix) for fn in fnames]
+        with open(f"{group}_selection.csv", 'r') as fin:
+            selection = [f"{prefix}{name}{postfix}" for name in fin.readlines()[0].strip().split(',')]
+        exclusions = [name for name in fnames if (name not in selection)]
+        exclude_patterns += [f"{dirname}{name}" for name in exclusions]
 
 # this can build a txt version of the API
 #os.system("sphinx-build -d _build/doctrees -b text . _build/html -c ./api")
