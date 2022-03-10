@@ -23,7 +23,20 @@ Description
    * The image coordinate systems must have identical coordinate
      types in the same order
    * image coordinate systems must have coincident world and pixel
-     coordinates at all pixels.
+     coordinates at all pixels,
+   * the brightness units of both images should be Jy/beam. If
+     an image has another brightness unit (eg K), it is the user's
+     responsibility to convert pixel values to Jy/beam and to set
+     the brightness unit to Jy/beam in the image metadata. Image
+     pixel values can be manipulated using task immath. The
+     brightness unit can be set using task imhead or via the
+     setbrightnessunit() method of the image tool.
+   * each image must have a global beam of per-plane beams defined
+     in its metadata. Both images may have global beams, per-plane 
+     beams, or one image may havee a global beam and the other
+     can have per-plane beams. Note that the user can add or 
+     modify beam information by using imhead or the
+     setrestoringbeam() method of the image tool.
 
    In general, it is the responsibility of the user to regrid the
    low resolution image to coincide with the coordinate system of
@@ -112,7 +125,20 @@ Description
    canonical combination of the flux measurements from the two images is
    just the weighted mean of the two images, where the weight for each
    image is equal to the reciprocal of the square of the rms of each
-   image.
+   image. Note that the image RMSes should be computed using a common
+   solid angle unit, such as in Jy/sr or :math:`Jy/arcsec^2`, not
+   Jy/beam or K because the beam areas will, in general, be different for
+   the two images. To obtain the desired quantity without explicity
+   converting to eg, Jy/sr, one can just use the ratio of the beam areas
+   in the above equation:
+
+   .. math::
+
+        S = (RMS^{highres}_{Jy/beam}/RMS^{lowres}_{Jy/beam} * b^{lowres}/b^{highres})^2
+
+   where the RMSes are in units of Jy/beam and :math:`b` denotes the beam area
+   for the specified image. The two beam areas should have the same units
+   (eg sr or :math:`arcsec^2`).
 
    In the case where the single dish image has multiple beams, *w* must be
    computed for each frequency/polarization (:math:`\nu`, p) pair. In the case
