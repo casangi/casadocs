@@ -29,14 +29,14 @@ Description
      responsibility to convert pixel values to Jy/beam and to set
      the brightness unit to Jy/beam in the image metadata. Image
      pixel values can be manipulated using task immath. The
-     brightness unit can be set using task imhead or via the
-     setbrightnessunit() method of the image tool.
-   * each image must have a global beam of per-plane beams defined
+     brightness unit can be set via task **imhead** or the
+     **setbrightnessunit()** method of the image tool.
+   * each image must have a global beam or per-plane beams defined
      in its metadata. Both images may have global beams, per-plane 
      beams, or one image may havee a global beam and the other
      can have per-plane beams. Note that the user can add or 
-     modify beam information by using imhead or the
-     setrestoringbeam() method of the image tool.
+     modify beam information by using **imhead** or the
+     **setrestoringbeam()** method of the image tool.
 
    In general, it is the responsibility of the user to regrid the
    low resolution image to coincide with the coordinate system of
@@ -134,9 +134,9 @@ Description
 
    .. math::
 
-        S = (RMS^{highres}_{Jy/beam}/RMS^{lowres}_{Jy/beam} * b^{lowres}/b^{highres})^2
+        S = (RMS^{highres}_{Jy/beam}/RMS^{lowres}_{Jy/beam} \times \Omega^{lowres}_{beam}/\Omega^{highres}_{beam})^2
 
-   where the RMSes are in units of Jy/beam and :math:`b` denotes the beam area
+   where the RMSes are in units of Jy/beam and :math:`\Omega_{beam}` denotes the beam area
    for the specified image. The two beam areas should have the same units
    (eg sr or :math:`arcsec^2`).
 
@@ -162,15 +162,17 @@ Description
 
    The output image will have an identical resolution to the high resolution image.
 
-   The application requires that beam information be present in the image
-   metadata. Should the beam information be known but absent from the metadata,
-   it can be added via task **imhead** using mode='put' or via tool method
-   **image.setrestoringbeam()**.
-
    Should absolute scaling be necessary for the flux densities of the two images to
    be equal, this should be addressed prior to running **feather2**. One can use task
    **immath** or tool method **image.imagecalc()** to scale the pixel values in an
    image.
+
+   The return value is a dictionary that contains information on various image
+   combinations. For each image combination, there is an array representation of
+   the histogram which has bin values equal to the azimuthal average of the
+   amplitude of that image. The bin limits are regularly spaced radial values.
+   These data allow the user to make plots to analyze eg, how the amplitude
+   scales compare in the region of overlap in the *uv* plane. MORE TBD.
 
    ..
         If *lowpassfiltersd* is set to True, then spatial frequencies not sampled by
