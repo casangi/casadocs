@@ -51,7 +51,7 @@ Description
       image dimensions on the relevant axes are the same.
 
    
-   .. rubric:: NOTES ON MODES OF OPERATION (`MODE’)
+   .. rubric:: NOTES ON MODES OF OPERATION ('MODE')
 
    The supported modes of operation are *mode=‘evalexpr'* (evaluate
    an LEL expression), *'spix'* (spectral index computation, although

@@ -1722,7 +1722,7 @@ Development
    parameters and allowed values are defined in
    **gcwrap/tasks/plotms.xml**, and the starting point to process the
    parameters and launch the casaplotms process (with or without the
-   GUI) is **gcwrap/python/scripts/task_plotms.py. ** It is important
+   GUI) is **gcwrap/python/scripts/task_plotms.py.** It is important
    to keep the GUI and the task arguments in sync, so that all
    functionality is available in either case.  Unfortunately, the
    result is a very long list of plotms parameters.
@@ -1762,7 +1762,7 @@ Development
    .. rubric:: Debugging
    
    Whether you run a plotms command in a casa session or run
-   *casaplotms * from the command line, a casaplotms process is
+   *casaplotms* from the command line, a casaplotms process is
    started and continues to run until you exit the casa session (for
    plotms) or the plotms GUI (for casaplotms).  This makes debugging
    with gdb/ddd very easy, as you can run plotms (with arguments

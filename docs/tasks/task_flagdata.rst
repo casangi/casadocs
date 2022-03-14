@@ -126,7 +126,7 @@ Description
    to be a field index otherwise, it is assumed to be a field name.
    Examples: *field='0~2'*, field ids 0,1,2; *field='0,4,5~7'*, field
    ids 0,4,5,6,7; *field='3C286,3C295'*, field named 3C286 and 3C295;
-   *field = '3,4C*'*, field id 3 and all names starting with 4C.
+   *field = '3,4C\*'*, field id 3 and all names starting with 4C.
    
    *spw*
 
@@ -154,7 +154,7 @@ Description
    DV06 and all other available antennas; *antenna='DV04,DV06'* all
    baselines with antennas DV04 and DV06; *antenna='DV06&&DV06'* only
    the auto-correlation baselines for antenna DV06;
-   *antenna='DV04&&*'* cross and auto-correlation baselines between
+   *antenna='DV04&&\*'* cross and auto-correlation baselines between
    antenna DV04 and all other available antennas; *antenna='0~2&&&'*
    only the auto-correlation baselines for antennas in range 0~2   
    
@@ -329,7 +329,7 @@ Description
    *reason=['FOCUS_ERROR', 'SUBREFLECTOR_ERROR']*   
    
    .. note:: **NOTE**: what is within the string is literally matched, e.g.
-      reason='' matches only blank reasons, and r *eason =
+      reason='' matches only blank reasons, and *reason =
       'FOCUS_ERROR, SUBREFLECTOR_ERROR'* matches this compound reason
       string only. See the syntax for writing flag commands at the
       end of this help. 
@@ -362,7 +362,7 @@ Description
    .. note:: The most common use-case for tbuff is to apply the
       online flags that are created by importasdm when savecmds=True.
       The value of a regular time buffer should be
-      *tbuff=0.5*max* (integration time).
+      *tbuff=0.5\*max* (integration time).
 
 
    .. rubric:: *mode='clip'* expandable parameters
@@ -601,7 +601,7 @@ Description
    where one or both antennas were pointing at a strictly higher
    elevation (as function of time), will be flagged. Default: 90.0
    
-   .. rubric:: *mode='tfcrop', 'rflag',* or *'extend'* expandable parameters
+   .. rubric:: *mode='tfcrop', 'rflag',\* or *'extend'* expandable parameters
 
    *ntime*
    
@@ -628,7 +628,7 @@ Description
    Flag using the TFCrop autoflag algorithm. For each field, spw,
    timerange (specified by ntime), and baseline:
    
-   #.  Average visibility amplitudes along time dimension to form an
+   #. Average visibility amplitudes along time dimension to form an
       average spectrum
    #. Calculate a robust piece-wise polynomial fit for the band-shape
       at the base of RFI spikes. Calculate 'stddev' of (data - fit).
@@ -1360,7 +1360,7 @@ Examples
    
    ::
    
-      flagdata('my.ms', mode='manual', antenna='*&amp;&amp;&amp;')
+      flagdata('my.ms', mode='manual', antenna='\*&amp;&amp;&amp;')
    
    Flag based on selected reasons from a file.
    

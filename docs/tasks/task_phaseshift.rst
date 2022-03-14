@@ -69,15 +69,16 @@ Examples
 .. _Development:
 
 Development
-   * Support for time-dependent coordinate frames and ephemeris objects
+
+   - Support for time-dependent coordinate frames and ephemeris objects
      is planned for ngCASA only. However, if greatly desired, requests for
      such support will be considered prior to that. Please send us a request
      via the Help Desk should you have such a need.
-   * Specifying the new phase center in terms of an offset from
+   - Specifying the new phase center in terms of an offset from
      the original phase center is currently not supported. However, if
      there is a need for such support, it can be added. Please send us a request
      via the Help Desk should you have such a need.
-   * There is currently no support for the possible use case of updating only
+   - There is currently no support for the possible use case of updating only
      the *UVW* values (eg, based on antenna position updates), but not the associated
      data values. The deprecated task **fixvis** has this functionality, so it may
      be used for this purpose. If such support will be needed after **fixvis** is
