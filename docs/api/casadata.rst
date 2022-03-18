@@ -9,7 +9,7 @@ necessary for proper CASA operation.
 update-data
 ^^^^^^^^^^^
 
-.. data:: update~data
+.. data:: update-data
 
    Command line application bundled in monolitic CASA.  Takes no inputs.  Updates default casadata package installation to latest.
    Callable from within the CASA shell via:
@@ -22,7 +22,7 @@ update-data
 update-user-data
 ^^^^^^^^^^^^^^^^
 
-.. data:: update~user~data
+.. data:: update-user-data
 
    runtime argument passed to Python when calling casatools module directly.  Updates the casadata contents from specified location
    to match current contents of casadata repository.  If no location is specified, defaults to the location pointed to by the rundata
@@ -46,5 +46,5 @@ rsync
 
    ::
 
-      rsync -avz rsync://casa-rsync.nrao.edu/casa-data-repository <location of casadata tables>
+      rsync -avz rsync://casa-rsync.nrao.edu/casa-data <location of casadata tables>
 

@@ -174,19 +174,27 @@ Description
    
       -  scan number from the *SCAN_NUMBER* column, as shown in
          `listobs <../../api/casatasks.rst>`__.
-   
+      -  When averaging over scans is enabled, the scan value for
+         each bin is the first scan number in the averaged data,
+         independent of unflagged/flagged data.
+
    -  *‘field’*
    
       -  index from the *FIELD_ID* column which references a row in
          the *FIELD* subtable, as shown in
          `listobs <../../api/casatasks.rst>`__.
-   
+      -  When averaging over fields is enabled, the field value for
+         each bin is the first field id in the averaged data,
+         independent of unflagged/flagged data.
+
    -  *‘time’*
    
       -  timestamps from the *TIME* column, converted for display to
          time format HH:MM:SS.S (precision depends on the interval
          between tick marks).
-   
+      -  When time averaging is enabled, the average of the timestamps
+         in each bin is used for the time values.
+
    -  *‘interval’* (*‘timeint’, ‘timeinterval’, ‘time_interval’*)
    
       -  integration time values from the *INTERVAL* column, in
@@ -210,13 +218,18 @@ Description
    
       -  index into the number of channels in the selected spws,
          ranging 0~nChan.
+      -  When channel averaging is enabled, the channel numbers
+         are re-indexed starting at 0 to reflect the bin
+         number, not the averaged channel number.
    
    -  ‘ *freq’* (*‘frequency’*)
    
       -  the *CHAN_FREQ* column in the *SPECTRAL_WINDOW* subtable, in
          GHz.  This is an array of frequencies, one per channel.
       -  The frame can be set with the *freqframe* parameter.
-   
+      -  When channel averaging is enabled, the average of the
+         frequencies in each bin is used.
+
    -  *‘vel’* (*‘velocity’*)
    
       -  velocity in km/s, as defined by the *freqframe*, *veldef*,
@@ -225,6 +238,8 @@ Description
          `measures <../../api/casatools.rst>`__
          (me) tool.
       -  Not supported for CalTables.
+      -  When channel averaging is enabled, the average of the
+         velocities in each bin is used.
    
    -  *‘corr’* (*‘correlation’*)
    
@@ -932,10 +947,6 @@ Description
    -  *spw*
    
       -  select spectral windows/channels.
-      -  For CalTables, spw selection may be used with averaging,
-         but channel selection with averaging is not implemented
-         yet and will result in an error.  Channel selection may
-         be used without averaging.
    
    -  *timerange*
    
@@ -1022,25 +1033,86 @@ Description
       plotted.  To compute the average of the amplitude or phase
       values instead, set *scalar=True*.
    -  Averaging is supported for calibration tables except BPOLY and
-      GSPLINE, which have an older table format.  Most selection may
-      be used with averaging, but averaging with channel selection
-      is not yet implemented; spw selection is allowed.
+      GSPLINE, which have an older table format.
    
    -  *avgchannel*
 
       -  Average data across the channel axis; value is number of
          channels to average together to form one output channel.
-      -  see
-         `mstransform <../../api/casatasks.rst>`__
-         description for channel averaging.
       -  When plotting the *‘channel’* axis, output channel numbers
          are reindexed 0~nAvgChan, rather than using the average of
-         the channel numbers (channels are integer values). The axis
-         label is changed to “Average Channel”.
+         the channel numbers in each bin, and the axis label is
+         changed to “Average Channel”. When plotting the *‘frequency‘*
+         or *‘velocity‘* axis, the average of the frequency or
+         velocity values in each bin is used.
       -  The plotms Locate tool indicates which channels were
          averaged together for a point in the plot, e.g.
          “Chan=<7~13>” which may be shown as channel 1 on the plot.
+         The frequency of the point is labelled "Avg Freq" in the
+         Locate output.
+      -  see
+         `mstransform <../../api/casatasks.rst>`__
+         description for channel averaging.
+      -  Combining channel averaging with channel selection is handled
+         differently for MeasurementSets and calibration tables.
+
+         -  *‘MeasurementSet’*
    
+            -  Each selected channel range is averaged separately.
+            -  When the avgchannel value is less than the number of
+               channels selected in a range, the channels in each
+               range are binned together and extra channels are 
+               dropped. For example, (spw='0:10~20; 30~40',
+               avgchannel='8') will average channel bins [10~17] and
+               [30~37] but drop channels [18~20] and [38~40]. Since
+               each range is treated separately, the order of the
+               channel ranges does not matter; (spw='0:30~40; 10~20',
+               avgchannel='8') will have the same result.
+            -  When the avgchannel value is greater than the
+               number of channels selected in a range, if a single
+               range is selected, all selected channels are binned;
+               if multiple ranges are selected and the binning fails
+               for both ranges, an error is issued: "Channel selection
+               does not allow to produce any output channel with the
+               requested width."  For example, (spw='0:10~20',
+               avgchannel='15') will average channels [10~20].
+               (spw='0:10~20; 30~40', avgchannel='15') will produce
+               the error. (spw='0:10~20; 30~50', avgchannel='15') will
+               average [30~44] only.
+
+         -  *‘Calibration Table’*
+   
+            -  Selected channel ranges are treated as contiguous to
+               increase SNR.
+            -  When the avgchannel value is less than the number of
+               channels selected, the channels are binned as if there
+               were no gaps and extra channels are dropped. For
+               example, (spw='0:10~20; 30~40', avgchannel='8') will
+               average channel bins [10~17], [18~20, 30~34] to
+               complete the bin, and drop [35~40]. The Locate tool
+               will show the output channels as <10~17> and <18~34>.
+               The order of the channel ranges does matter:
+               (spw='0:30~40; 10~20', avgchannel='8') will bin
+               [30~37], [38~40, 10~14] and drop [15~20].  The Locate
+               tool will show the output channels as <30~37> and
+               <38~14>.
+            -  When the avgchannel value is greater than the
+               number of channels selected in a range, if a single
+               range is selected, all selected channels are binned;
+               if multiple ranges are selected, the channels are
+               binned as if there were no gaps.  For example,
+               (spw='0:10~20', avgchannel='15') will average channels
+               [10~20].  (spw='0:10~20; 30~40', avgchannel='15') will
+               bin [10~20, 30~33] and drop [34~40].  The Locate tool
+               will show the output channel as <10~33>.
+               (spw='0:10~20; 30~50', avgchannel='15') will bin
+               [10~20, 30~33], [34~48] and drop [49~50].  The Locate
+               tool will show the output channels as <10~33> and
+               <34~48>.  Changing the selection order changes the
+               averaging: (spw='0:30~40; 10~20', avgchannel='15') will
+               bin [30~40, 10~13] and drop [14~20].  The Locate tool
+               will show the output channel as <30~13>.
+    
    -  *avgtime*
 
       -  Average data across the time axis; value string is number of
@@ -1048,25 +1120,25 @@ Description
       -  "" (default): do not time-average data.
       -  The “bins” of averaged data have the same scan number and
          field ID unless avgscan or avgfield are True.
-   
+      -  The time value of each bin is the average of the timestamps
+         in that bin.
+
    -  *avgscan*
 
       -  Ignore scan boundaries when time-averaging data; parameter
          ignored when *avgtime* is not set.
       -  False (default): time-average data within individual scans.
-      -  When scan number is used in plotting or locate, the first
-         scan number of scans averaged together is used for the
-         value, independent of unflagged/flagged data.
-   
+      -  The scan value of each bin is the first scan number in the
+         bin, independent of unflagged/flagged data.
+
    -  *avgfield*
 
       -  Ignore field boundaries when time-averaging data; parameter
          ignored when *avgtime* is not set.
       -  False (default): time-average data within individual fields.
-      -  When field number is used in plotting or locate, the first
-         field number of fields averaged together is used for the
-         value, independent of unflagged/flagged data.
-   
+      -  The field value of each bin is the first field id in the
+         bin, independent of unflagged/flagged data.
+
    -  *avgbaseline*
 
       -  Average data for all baselines together in each "chunk"
@@ -1127,10 +1199,10 @@ Description
       -  "*RADIO*" (default)
       -  Options: *“RADIO”, “OPTICAL”, “TRUE”* (Relativistic)
    
-   -  *shift*
+   -  *phasecenter*
 
-      -  phase center shift, in arcseconds. Format is [dx, dy].
-      -  [0.0, 0.0] (default) : no shift.
+      -  Direction coordinates of the desired phase center.
+      -  "" (default) : use phase center in MeasurementSet.
    
    .. rubric:: Interactive Flagging Extensions
    
@@ -1234,7 +1306,7 @@ Description
       Unflagged points are not connected to flagged points, even when
       not displayed.
    
-   -  Supported for calibration tables only at present.  When enabled
+   -  Supported for calibration tables *only* at present.  When enabled
       for a MeasurementSet, a warning will be issued and the plot
       will complete without connection.
    

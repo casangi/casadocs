@@ -33,7 +33,7 @@ Description
    #. Compute v :math:`_{eq}` :math:`=` (v :math:`_{r}` :math:`+`
       v :math:`_{i}`) :math:`/` 2.
    #. The associated weight of visibility V :math:`_i`  is 
-      e :math:`_i` / V (see`Knowledgebase
+      e :math:`_i` / V (see `Knowledgebase
       Article) <../../notebooks/memo-series.ipynb#Calculation-of-Weights-for-Data-with-Varying-Integration-Time>`__.
       The weight will have unit of (data unit), e.g., Jy. The
       visibility weights are what this application computes and

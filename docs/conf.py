@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = u'CASAdocs'
-copyright = u'2020, National Radio Astronomy Observatory'
+copyright = u'2021, Associated Universities, Inc'
 author = u'National Radio Astronomy Observatory'
 
 # The short X.Y version
@@ -93,7 +93,7 @@ language = None
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['build', 'tasks', 'tools', 'examples/README.md', 'examples/cngi', 'examples/casa6',
-                    'examples/community/_template.ipynb', 'Thumbs.db', '.DS_Store']
+                    '../casasource','examples/community/_template.ipynb', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'

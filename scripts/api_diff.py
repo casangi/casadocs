@@ -3,15 +3,22 @@ import requests
 import re
 #import difflib
 
-baseline_version = 'v6.2.0'
+baseline_version = 'v6.3.0'
 
 stable = requests.get('https://casadocs.readthedocs.io/en/%s/genindex.html' % baseline_version).text
 stable_soup = BeautifulSoup(stable, 'html.parser')
 stable_set = stable_soup.find_all('a')
 
-tasklist, toollist, shelllist = [], [], []
+tasklist, toollist, shelllist, datalist, lithlist, conflist = [], [], [], [], [], []
 for ll in stable_set:
     page = ll.get('href')
+    if 'casadata' in page:
+        datalist += [re.sub('.*?\#(casadata\..+?)+', r'\1', page, flags=re.DOTALL).replace('/', '.')]
+    if 'casalith' in page:
+        lithlist += [re.sub('.*?\#(casalith\..+?)?', r'\1', page, flags=re.DOTALL).replace('/', '.')]
+    if 'configuration' in page:
+        conflist += [re.sub('.*?\#(configuration\..+?)?', r'\1', page, flags=re.DOTALL).replace('/', '.')]
+
     if not '.html' in page: continue
     task = re.sub('.*?(casatasks\..+?\..+?)?\.html.*', r'\1', page, flags=re.DOTALL)
     tool = re.sub('.*?(casatools\..+?)?\.html.*', r'\1', page, flags=re.DOTALL)
@@ -29,7 +36,8 @@ for task in sorted(tasklist):
     stable_spec = stable_soup.find(id=task.split('.')[-1]).get_text().strip()
     stable_spec = re.sub('\[docs\]def\s|\:\s*.*', '', stable_spec, flags=re.DOTALL).replace('\n','')
     ostr += '.'.join(task.split('.')[:2]) + '.' + stable_spec + '\n'
-    
+
+
 for tool in set(toollist):
     print(tool)
     stable = requests.get('https://casadocs.readthedocs.io/en/%s/_modules/%s.html' % (baseline_version, tool.replace('.', '/'))).text
@@ -40,6 +48,7 @@ for tool in set(toollist):
         stable_spec = re.sub('\[docs\]\s*def\s|\)\:\s+.*', '', stable_spec, flags=re.DOTALL).replace('\n', '') + ')'
         ostr += tool + '.' + stable_spec + '\n'
 
+
 for shell in set(shelllist):
     print(shell)
     stable = requests.get('https://casadocs.readthedocs.io/en/%s/_sources/api/%s.rst.txt' % (baseline_version, shell.replace('.', '/'))).text
@@ -48,8 +57,31 @@ for shell in set(shelllist):
     ostr += 'casashell.' + stable_spec + '\n'
 
 
+stable = requests.get('https://casadocs.readthedocs.io/en/%s/api/casalith.html' % (baseline_version)).text
+stable_soup = BeautifulSoup(stable, 'html.parser')
+for lith in set(lithlist):
+    print(lith)
+    stable_spec = stable_soup.find(id=lith).get_text().strip()[:-2] #.replace('Â','')
+    ostr += 'casalith.' + stable_spec + '\n'
 
-with open('docs/api_baseline.txt', 'w') as fid:
+
+stable = requests.get('https://casadocs.readthedocs.io/en/%s/api/casadata.html' % (baseline_version)).text
+stable_soup = BeautifulSoup(stable, 'html.parser')
+for data in set(datalist):
+    print(data)
+    stable_spec = stable_soup.find(id=data).get_text().strip()[:-2] #.replace('Â','')
+    ostr += 'casadata.' + stable_spec + '\n'
+
+
+stable = requests.get('https://casadocs.readthedocs.io/en/%s/api/configuration.html' % (baseline_version)).text
+stable_soup = BeautifulSoup(stable, 'html.parser')
+for conf in set(conflist):
+    print(conf)
+    stable_spec = stable_soup.find(id=conf).get_text().strip()[:-2] #.replace('Â','')
+    ostr += 'configuration.' + stable_spec + '\n'
+
+
+with open('api_baseline.txt', 'w') as fid:
     fid.write(baseline_version + '\n\n' + ostr)
 
 

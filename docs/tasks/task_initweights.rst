@@ -126,7 +126,7 @@ Examples
    
    ::
    
-      initweights(vis='myMS.ms', wrtmode='delwtsp')
+      initweights(vis='myMS.ms', wtmode='delwtsp')
    
 
 .. _Development:

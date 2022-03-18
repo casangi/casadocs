@@ -9,8 +9,8 @@ Jansky Very Large Array
 (`VLA <https://public.nrao.edu/venue/the-very-large-array/>`__),
 and is often used also for other radio telescopes.
 
-6.3.0 Development Build
-   You are viewing the latest build of master, currently in the 6.3.0 development cycle
+6.4 Development Build
+   You are viewing the latest build of master, currently in the 6.4 development cycle
    
 CASA is developed by an international consortium of scientists
 based at the National Radio Astronomical Observatory (NRAO), the
@@ -25,7 +25,9 @@ Astronomy (ASTRON), under the guidance of NRAO.
    :maxdepth: 3
 
    notebooks/introduction
+   genindex
    api
+   Task List <api/casatasks>
    notebooks/usingcasa
    notebooks/casa-fundamentals
    notebooks/external-data
