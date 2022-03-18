@@ -50,7 +50,7 @@ Description
    -  Currently there is no facility to calculate patterns of
       observing, such as mosaicing, since it is easy to do this via
       sequences of calls of **sm.observe**, or
-      **simutil.calcpointings,** or the **simobserve** task
+      **simutil.calcpointings**, or the **simobserve** task
    -  The heavy duty columns (*DATA, FLAG*, *IMAGING_WEIGHT*, etc.
       are tiled. New tiles are generated for each scan. Thus the TSM
       files will not get very large.

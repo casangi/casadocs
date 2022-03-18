@@ -97,7 +97,7 @@ Examples
    
       fixvis(vis='NGC3256.ms',outputvis='NGC3256-fixed.ms')
    
-   **Example 2: **
+   **Example 2:**
    
    Set the phase center for field 'Moon' to the given direction and
    recalculate the UVW coordinates.

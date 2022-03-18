@@ -150,7 +150,7 @@ Description
    
    1.7. If the input image has a stokes axis, if the *template*
    parameter is an image name, if the template image has a
-   nondegenerate stokes axis, and if *axes * parameter is not
+   nondegenerate stokes axis, and if *axes* parameter is not
    specified or if it is, it contains the input stokes axis number,
    then only the stokes parameters common to both the input image and
    the template image will be present in the output image. If the
