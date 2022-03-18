@@ -18,12 +18,16 @@ Description
 
    * The images must have identical shapes and number of dimensions
    * The images must have 2, 3, or 4 dimensions
+   * The images must each have a Direction coordinate, and the Direction
+     axes must be the first two ([0, 1]) in the coordinate system.
+     The order of axes in a coordinate system may be changed via task
+     **imtrans** or the **transpose** method of the image tool.
    * The image coordinate systems must have identical axis names in
      the same order
    * The image coordinate systems must have identical coordinate
      types in the same order
-   * image coordinate systems must have coincident world and pixel
-     coordinates at all pixels,
+   * image coordinate systems must have coincident pixel to world
+     coordinate mappings at all pixels,
    * the brightness units of both images should be Jy/beam. If
      an image has another brightness unit (eg K), it is the user's
      responsibility to convert pixel values to Jy/beam and to set
