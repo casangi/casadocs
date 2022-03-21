@@ -216,4 +216,4 @@ for dirname, prefix, postfix, group in [('api/tt/', 'casatools.', '.rst', 'tools
         exclude_patterns += [f"{dirname}{name}" for name in exclusions]
 
 # uncomment this line to prevent the examples from being built
-exclude_patterns += ['examples']
+#exclude_patterns += ['examples']
