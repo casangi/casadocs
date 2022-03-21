@@ -12,14 +12,16 @@ Description
    major cycle, which gets run before and after its minor cycles. Also, because the iteration controller isn't persistent
    between evaluations of **deconvolve**, the iteration parameters won't behave exactly like they do for **tclean**. If
    you require finer control over iteration, it is suggested that you use the “iterrec” and “retrec” return values with
-   parameter interactive=0.
+   parameter interactive=0. Also, because the iteration controller isn't persistent between evaluations of **deconvolve**,
+   the iteration parameters won't behave exactly like they do for **tclean**. If you require finer control over iteration,
+   it is suggested that you use the “iterrec” and “retrec” return values with parameter interactive=0.
 
    This task gathers many of its runtime requirements from the meta information on input images. It also doesn't have a
    need for data selection. It therefore requires much fewer input parameters than the **tclean** task. At the end of a
    successful **deconvolve** run, the history of the output images is updated. This is done in the same way as for the
    **tclean** task. For every **deconvolve** command a series of entries is recorded, including the task name (**tclean**),
-   the CASA version used, and every parameter-value pair of the task, which can then be inspected with the task imhistory
-   (`see API <../casatasks.information.imhistory.html#casatasks.information.imhistory>`__).
+   the CASA version used, and every parameter-value pair of the task, which can then be inspected with the task
+   `imhistory <../casatasks.information.imhistory.html#casatasks.information.imhistory>`__.
 
    .. rubric:: Images
    
@@ -42,7 +44,20 @@ Description
    The `niter parameter <niter_>`_ for **deconvolve** is equivelent to **tclean**'s cycleniter parameter. Note that because
    of the non-persistant state of the iteration controller, iteration counts start over at 0 with each execution of
    **deconvolve**. Therefore, any cumulative niter limits across multiple executions of **deconvolve** must be handled by
-   the calling code.
+   the calling code. See the `iteration control documentation <../../notebooks/synthesis_imaging.html#Iteration-Control>`__
+   for more information on how niter and other iteration control parameters affect the minor cycle.
+
+   If you require finer control over iteration, it is suggested that you use the “iterrec” and “retrec” values,
+   which are available when setting the `interactive parameter <interactive_>`_ to 0. This can be used to, for
+   example, run **deconvolve** over several sets of 200 iterations with increasing gain.
+
+   .. code-block:: python
+
+       for gain in [0.5, 1.0, 1.2]:
+           niter = 200
+           while niter > 0:
+             rec = deconvolve(imagename='try', gain=gain, niter=niter, restoration=False, interactive=0)
+             niter -= rec['retrec']['iterdone']
    
    .. rubric:: Interactive Mask
 
@@ -183,7 +198,7 @@ Examples
       # Use tclean to generate our taylor term images. This should produce the images:
       # tst.psf.tt0...tst.psf.tt4, tst.residual.tt0...tst.residual.tt2, tst.pb.tt0
       tclean(vis=refim_path + 'refim_point.ms', imagename='try', imsize=10, cell='8.0arcsec',
-             deconvolver='mtmfs', niter=0, restoration=False, calcres=True, pbcore=True, nterms=3)
+             deconvolver='mtmfs', niter=0, restoration=False, calcres=True, nterms=3)
 
       # Deconvolve with the same deconvolver and nterms. This should produce the images:
       # tst.model.tt0...tst.model.tt2, tst.image.tt0...tst.image.tt2, tst.residual.tt0...tst.residual.tt2
