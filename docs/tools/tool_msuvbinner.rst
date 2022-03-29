@@ -1,7 +1,7 @@
 
 
 Description
-    tool sdm description
+    tool msuvbinner description
 
 Examples
     None
