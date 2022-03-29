@@ -135,7 +135,7 @@ Examples
    
    ::
    
-      split(vis='example.ms',outputvis='test.ms',field='3,4C*')
+      split(vis='example.ms',outputvis='test.ms',field='3,4C\*')
    
    .. rubric:: Split with spectral window and channel selections
    
@@ -143,7 +143,7 @@ Examples
    
    ::
    
-      split(vis='example.ms', outputvis='test.ms', spw='*:3~64')
+      split(vis='example.ms', outputvis='test.ms', spw='\*:3~64')
    
    Split with multiple channel selection. The following example will
    select channels 4 through 13 and 10 through 59 inclusive from spw

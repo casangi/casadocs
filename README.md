@@ -182,6 +182,32 @@ https://github.com/casangi/casadocs/tree/master/docs/tasks
 - Then edit the .rst file to fill in the appropriate description and other relevant info (see *Editing API Content*).
 
 
+### Caveats
+
+There are a few syntax/compilation things to keep in mind when editing the documentation.
+
+#### Task Parameter Descriptions
+
+The .xml files for task parameters only support a small number of html escape codes, which
+get interpretted by the xml interpretter before ever getting to the restructuredtext
+interpretter (following the [xml definition|https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references#Predefined_entities_in_XML]).
+The list of unescaped characters is: <>&'"
+
+#### Notebooks
+
+Each line of text in a notebook must end with a newline and comma. The exception is the last line, which should not have a comma. For example:
+
+    "source": [
+        "line of text 1\\n",
+        "\\n",
+        "line of text 2\\n",
+        "\\n"
+    ]
+
+The text will also go through one layer of interpretation before getting to the restructured text format. So things like backslashes need to be escaped. For example:
+
+    "This will let me use \\"\\\\*\\" characters without RestructuredText interpretting the \\\\* as an emphasis marking.\\n"
+
 ## Branching CASAdocs
 
 Updates made to master ('latest') are immediately public. This can be useful for minor or urgent updates to the documentation 
@@ -248,6 +274,16 @@ $: source docvenv/bin/activate
 (docvenv) $: sphinx-build -a -E -b html . ./build
 ```
 The **Pandoc** library must be installed or the build will error out. The build script attempts to install it through Python commands. If that doesn't work, then it will need to be manually installed by finding the appropriate distro for the OS being used.
+
+The build script **buildme.sh** includes the above commands, as well as a few other options to decrease the build time. The build time can be further decreased by adding *"examples"* to *docs/conf.py::exclude_patterns*. These are some examples of using the **buildme.sh** script:
+
+```
+$: ./buildme.sh --installpypkgs                 # runs pip install
+$: ./buildme.sh --sphinx                        # compiles the docs with sphinx-build
+$: ./buildme.sh --sphinx --copyxml ~/dev/master # copies the xml for tools/tasks instead of downloading it
+$: ./buildme.sh --sphinx --tools calanalysis --tasks visualization.plotprofilemap --notebooks uv_manipulation # the only tools/tasks/notebooks docs built are calanalysis, plotprofilemap, and uv_manipulation
+$: ./buildme.sh --sphinx --tools none --notebooks none --tasks none # don't build any of the tools/tasks/notebooks
+```
 
 After building the documentation, it can be viewed in a web browser by pasting the full file path to the **index.html** in the URL field. The **index.html** file is in the `build` directory created under `docs` (i.e. */home/user/test_docs/casadocs/docs/build/index.html*). 
 

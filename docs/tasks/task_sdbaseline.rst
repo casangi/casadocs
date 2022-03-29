@@ -113,11 +113,11 @@ Examples
    .. rubric::   Example 1
 
    This is one of the simplest examples. To fit and remove a
-   Chebyshev polynomial function (default is 5th order) from the data
-   'sd_data.ms', using only spectral window 0, and fitting channels
-   100-800 and 1200-2000 (to avoid, for example, band-pass roll off
-   at the edges, and perhaps an emission line that might occur over
-   channels 800-1200).
+   Chebyshev polynomial function (default is of 5th order) from the
+   data 'sd_data.ms', using only spectral window 0, and fitting
+   channels 100-800 and 1200-2000 (to avoid, for example, band-pass
+   roll off at the edges, and perhaps an emission line that might
+   occur over channels 800-1200).
 
    ::
 
@@ -170,10 +170,10 @@ Examples
 
    .. rubric::  Example 5
 
-   This example shows fitting a polynomial baseline but not subtracting it,
-   instead, saving the fitting results as a text file 'sd_data_blparam.txt'
-   and a baseline table 'sd_data_blparam.bltable' which can be used to actually
-   subtract baseline afterwards (see Example 6 also).
+   This example shows a polynomial baseline fitting, but without subtraction;
+   instead, the fitting results are saved as a text file 'sd_data_blparam.txt'
+   and a baseline table 'sd_data_blparam.bltable', which can be used for
+   actual baseline subtraction afterwards (see also Example 6).
 
    ::
 
@@ -181,8 +181,8 @@ Examples
 
    .. rubric::  Example 6
 
-   This example shows applying a baseline table to a MS to actually execute
-   baseline-subtraction. 
+   This example shows applying a baseline table to a MS to actually subtract
+   the best-fit baseline.
 
    ::
 

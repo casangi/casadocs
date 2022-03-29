@@ -31,5 +31,5 @@ for ii, raw_line in enumerate(raw_prs):
 # write out log of tool API diffs
 with open('changelog.rst', 'w') as fid:
     fid.write('Change Log\n==========\n\nSummary of differences from ' + diffversion + '\n\nPull Requests\n+++++++++++++\n\n')
-    fid.write('.. raw:: html\n\n   <ul>\n' + difflog + '   </ul>\n\n|\n')
+    fid.write('.. raw:: html\n\n   <ul>\n' + difflog + '   </ul>\n\n|\n\n')
 

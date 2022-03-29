@@ -3,6 +3,7 @@ import re
 import os
 import pypandoc
 import difflib
+import copy
 
 ########################################################
 # this is meant to be run from the docs folder
@@ -11,11 +12,9 @@ import difflib
 
 pypandoc.pandoc_download.download_pandoc(version='2.10.1')
 
-# clean out old data
-if os.path.exists('../casatools'): os.system('rm -fr ../casatools')
-os.system('mkdir ../casatools')
-
 tools = os.listdir('../casasource/casa6/casatools/xml')
+# these tools have had their main descriptions updated to rst
+rst_tools = ['agentflagger','calanalysis']
 
 # loop through each tool
 tooldict = {}
@@ -107,6 +106,25 @@ for tool in tools:
         td['methods'][method.attrib['name']] = md
     tooldict[troot.attrib['name']] = td
 
+# limit the tools to the ones we want to process
+tools_to_exclude = []
+if os.path.exists('tools_selection.csv'):
+    with open('tools_selection.csv', 'r') as fin:
+        tools_selection = fin.readlines()[0].strip().split(',')
+    tools_to_exclude = [name for name in tooldict.keys() if name not in tools_selection]
+
+# clean out old data
+if os.path.exists('../casatools'):
+    if len(tools_to_exclude) == 0:
+        os.system('rm -fr ../casatools')
+    else:
+        files_to_keep = [f"{name}.py" for name in tools_to_exclude]
+        for f in os.listdir('../casatools'):
+            if f not in files_to_keep:
+                os.system(f"rm -rf ../casatools/{f}")
+if not os.path.exists('../casatools'):
+    os.system('mkdir ../casatools')
+
 ####################################################################
 # now we have all the tasks in an array of dictionaries
 # for each one, create a python function stub,
@@ -152,28 +170,34 @@ def cleanxml(text, block=False):
     text = re.sub('(\n   )   (\+|\|)', r'\1\2', text, flags=re.DOTALL)
     return text.strip()
 
+def tool_rst_exists(name):
+    return os.path.exists('tools/tool_' + name + '.rst')
+
+# include tools in the __init__.py
+tools_to_init  = [name for name in tooldict.keys()  if tool_rst_exists(name)]
+tools_to_init += [name for name in tools_to_exclude if tool_rst_exists(name)]
+with open('../casatools/' + '__init__.py', 'a') as fid:
+    for name in tools_to_init:
+        fid.write('from .' + name + ' import *\n')
 
 toolnames = []
 for name in tooldict.keys():
+    if name in tools_to_exclude:
+        print(f"({name})")
+        continue
     print(name)
 
     # grab rst description page if it exists, otherwise skip this task
-    rst = ''
-    if os.path.exists('tools/tool_' + name + '.rst'):
-        with open('tools/tool_' + name + '.rst', 'r') as fid:
-            rst = fid.read()
-    else:
+    if not tool_rst_exists(name):
         continue
+    with open('tools/tool_' + name + '.rst', 'r') as fid:
+        rst = fid.read()
 
     tool = tooldict[name]
 
     # change image links
     rst = re.sub('(\.\. \|.*?\| image:: )_apimedia/(\S*)\s*?\n', r'\1../../tools/_apimedia/\2\n', rst, flags=re.DOTALL)
     rst = re.sub('(\.\. figure:: )_apimedia/(\S*)\s*?\n', r'\1../../tools/_apimedia/\2\n', rst, flags=re.DOTALL)
-
-    # add this tool to the __init__.py
-    with open('../casatools/' + '__init__.py', 'a') as fid:
-        fid.write('from .' + name + ' import *\n')
 
     # start output string to write new stub class
     ostr = '#\n# stub class definition file for docstring parsing\n#\n\n'
@@ -188,7 +212,8 @@ for name in tooldict.keys():
     if ('description' in tool.keys()) and (tool['description'] is not None) and (len(tool['description'].strip()) > 0):
         #desc = pypandoc.convert_text(tool['description'].replace('_', '\_').replace(r'\\_', '\_'), 'rst', format='latex', extra_args=['--wrap=none'])
         try:
-            desc = pypandoc.convert_text(re.sub('(\s\w*?)\_(\w*?)', r'\1\_\2', tool['description'], flags=re.DOTALL), 'rst', format='latex', extra_args=['--wrap=none'])
+            fromformat = 'latex' if name not in rst_tools else 'rst'
+            desc = pypandoc.convert_text(re.sub('(\s\w*?)\_(\w*?)', r'\1\_\2', tool['description'], flags=re.DOTALL), 'rst', format=fromformat, extra_args=['--wrap=none'])
         except:
             desc = tool['description']
         #desc = re.sub('(\s\\\\w*?)\_(\w*?)', r'\1_\2', tool['description'].replace('_', '\_'), flags=re.DOTALL)
@@ -282,4 +307,4 @@ for stable_tool in stable_tools:
 # write out log of tool API diffs
 with open('changelog.rst', 'a') as fid:
     fid.write('\n\n.. rubric:: casatools\n\n')
-    fid.write('.. raw:: html\n\n   <ul>' + difflog + '   </ul>\n\n|\n')
+    fid.write('.. raw:: html\n\n   <ul>' + difflog + '   </ul>\n\n|\n\n')

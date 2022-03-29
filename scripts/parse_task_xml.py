@@ -187,7 +187,7 @@ def render_rst(component, category, text, task, diffsource, difflog):
 
         # build the function prototype, start with params that have no default
         proto = [pp for pp in task['params'] if ('mustexist' in task['params'][pp]) and (task['params'][pp]['mustexist'] == 'true')]
-        proto = ', '.join(proto) + ', ' if len(proto) > 0 else ''
+        proto = (', '.join(proto) + ', ') if len(proto) > 0 else ''
         for param in task['params'].keys():
             # must exist params don't have default values
             if ('mustexist' not in task['params'][param]) or (task['params'][param]['mustexist'] == 'false'):
@@ -238,14 +238,18 @@ def render_rst(component, category, text, task, diffsource, difflog):
         # marry up the Plone content to the bottom Notes section
         fid.write('\n\n' + text + '\n\n')
 
-        # add long descriptions of each parameter as footnotes at the bottom
+        # Add long descriptions of each parameter as footnotes at the bottom. For example:
+        # .. _paramname:
+        # 
+        # | ``paramname (paramtype=defaultvalue)`` - description line 1
+        # |    description line 2...
         fid.write('.. _Details:\n\n')
         fid.write('\nParameter Details\n   Detailed descriptions of each function parameter\n\n')
-        for param in task['params'].keys():
-            if ('description' in task['params'][param].keys()) and (task['params'][param]['description'] is not None):
-                fid.write('.. _%s:\n\n' % param)
-                fid.write('| ``%s`` - ' % ParamSpec(param).replace('_ ', ' '))
-                fid.write('%s\n\n' % re.sub('\n+', '\n|    ', task['params'][param]['description'].strip(), flags=re.DOTALL))
+        for pname,pval in task['params'].items():
+            if ('description' in pval.keys()) and (pval['description'] is not None):
+                fid.write('.. _%s:\n\n' % pname)
+                fid.write('| ``%s`` - ' % ParamSpec(pname).replace('_ ', ' '))
+                fid.write('%s\n\n' % re.sub('\n+', '\n|    ', pval['description'].strip(), flags=re.DOTALL))
 
         # close docstring stub
         fid.write('\n    """\n    pass\n')
@@ -286,7 +290,7 @@ for mname, mlist, mstable in [('casatasks', tasklist, stable_tasks), ('almatasks
     for stable_task in mstable:
         if stable_task not in tasknames:
             difflog += '   <li><p><b>' + stable_task + '</b> - Deleted Task</p></li>\n\n'
-    difflog += '   </ul>\n\n|\n'
+    difflog += '   </ul>\n\n|\n\n'
 
 
 
@@ -322,7 +326,7 @@ for proto in protos:
 for st in stable_lith:
     if (st not in tasknames) and (st not in [pp.split('(')[0] for pp in protos]):
         difflog += '   <li><p><b>' + st + '</b> - Deleted Function</p></li>\n\n'
-difflog += '   </ul>\n\n|\n'
+difflog += '   </ul>\n\n|\n\n'
 
 
 
