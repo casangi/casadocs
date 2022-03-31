@@ -21,7 +21,7 @@ Description
    * The images must each have a Direction coordinate, and the Direction
      axes must be the first two ([0, 1]) in the coordinate system.
      The order of axes in a coordinate system may be changed via task
-     **imtrans** or the **transpose** method of the image tool.
+     **imtrans** or the **transpose()** method of the image tool.
    * The image coordinate systems must have identical axis names in
      the same order
    * The image coordinate systems must have identical coordinate
@@ -47,7 +47,7 @@ Description
    the high resolution image and to ensure that the resulting
    regridded image is of reasonable quality to use in **feather2**.
    This can be achieved via the **imregrid** task or the
-   **image.regrid()** tool method.
+   **regrid()** method of the image tool.
    
    The feathered image, :math:`I^{feather}`, is given by (cf. Rao,
    Naik, & Braun 2019 AJ, 158, 3)
