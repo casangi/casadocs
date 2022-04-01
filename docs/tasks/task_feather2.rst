@@ -90,13 +90,14 @@ Description
    (:math:`\phi`, measured from north to east). In this case,
 
    .. math::
-
+        
         I^{lowres, psf} = exp\left\{
             -4ln(2)\left[
-                \left(\frac{x\sin\phi}{\alpha}\right)^2
-                + \left(\frac{y\cos\phi}{\beta}\right)^2
+                \left(\frac{y\sin\phi - x\cos\phi}{\alpha}\right)^2
+                + \left(\frac{x\sin\phi + y\cos\phi}{\beta}\right)^2
             \right]
         \right\}
+
 
    and so if :math:`x, y, \alpha`, and :math:`\beta` are measured in radians,
    then, if *u* and *v* are measured in wavelengths
@@ -107,8 +108,8 @@ Description
             \frac{\mathcal{F}(I^{lowres, psf})}{max|\mathcal{F}(I^{lowres, psf})|}
             = exp\left\{
                 -\pi\left[
-                    \left(u\alpha\cos\phi\right)^2
-                    + \left(v\beta\sin\phi\right)^2
+                    \alpha^2\left(v\cos\phi - u\sin\phi\right)^2
+                    + \beta^2\left(u\cos\phi + v\sin\phi\right)^2
                 \right]
             \right\}
 
