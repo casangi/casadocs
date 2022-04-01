@@ -93,8 +93,8 @@ Description
 
         I^{lowres, psf} = exp\left\{
             -4ln(2)\left[
-                \left(\frac{x\sin(\phi)}{\alpha}\right)^2
-                + \left(\frac{y\cos(\phi)}{\beta}\right)^2
+                \left(\frac{x\sin\phi}{\alpha}\right)^2
+                + \left(\frac{y\cos\phi}{\beta}\right)^2
             \right]
         \right\}
 
@@ -107,8 +107,8 @@ Description
             \frac{\mathcal{F}(I^{lowres, psf})}{max|\mathcal{F}(I^{lowres, psf})|}
             = exp\left\{
                 -\pi\left[
-                    \left(u\alpha\cos(\phi)\right)^2
-                    + \left(v\beta\sin(\phi)\right)^2
+                    \left(u\alpha\cos\phi\right)^2
+                    + \left(v\beta\sin\phi\right)^2
                 \right]
             \right\}
 
