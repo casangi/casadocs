@@ -108,8 +108,8 @@ Description
             \frac{\mathcal{F}(I^{lowres, psf})}{max|\mathcal{F}(I^{lowres, psf})|}
             = exp\left\{
                 -\pi\left[
-                    \alpha^2\left(v\cos\phi - u\sin\phi\right)^2
-                    + \beta^2\left(u\cos\phi + v\sin\phi\right)^2
+                    \alpha^2\left(v\sin\phi - u\cos\phi\right)^2
+                    + \beta^2\left(u\sin\phi + v\cos\phi\right)^2
                 \right]
             \right\}
 
