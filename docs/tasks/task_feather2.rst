@@ -94,7 +94,7 @@ Description
         I^{lowres, psf} = exp\left\{
             -4ln(2)\left[
                 \left(\frac{x\sin\phi - y\cos\phi}{\alpha}\right)^2
-                + \left(\frac{x\cos\phi - y\sin\phi}{\beta}\right)^2
+                + \left(\frac{x\cos\phi + y\sin\phi}{\beta}\right)^2
             \right]
         \right\}
 
@@ -102,16 +102,14 @@ Description
    and so if :math:`x, y, \alpha`, and :math:`\beta` are measured in radians,
    then, if *u* and *v* are measured in wavelengths
 
-   FIXME THE FOLLOWING EQUATION IS PROBABLY WRONG
-
    .. math::
 
         w \equiv
             \frac{\mathcal{F}(I^{lowres, psf})}{max|\mathcal{F}(I^{lowres, psf})|}
             = exp\left\{
                 -\pi\left[
-                    \alpha^2\left(v\sin\phi - u\cos\phi\right)^2
-                    + \beta^2\left(u\sin\phi + v\cos\phi\right)^2
+                    \alpha^2\left(u\sin\phi - v\cos\phi\right)^2
+                    + \beta^2\left(u\cos\phi + v\sin\phi\right)^2
                 \right]
             \right\}
 
