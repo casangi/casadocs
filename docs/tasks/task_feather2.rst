@@ -107,7 +107,7 @@ Description
         w \equiv
             \frac{\mathcal{F}(I^{lowres, psf})}{max|\mathcal{F}(I^{lowres, psf})|}
             = exp\left\{
-                -\pi\left[
+                -\frac{\pi^2}{4ln(2)}\left[
                     \alpha^2\left(u\sin\phi - v\cos\phi\right)^2
                     + \beta^2\left(u\cos\phi + v\sin\phi\right)^2
                 \right]
