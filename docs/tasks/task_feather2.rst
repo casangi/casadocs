@@ -18,28 +18,30 @@ Description
 
    * The images must have identical shapes and number of dimensions
    * The images must have 2, 3, or 4 dimensions
-   * The images must each have a Direction coordinate, and the Direction
-     axes must be the first two ([0, 1]) in the coordinate system.
-     The order of axes in a coordinate system may be changed via task
-     **imtrans** or the **transpose()** method of the image tool.
-   * The image coordinate systems must have identical axis names in
-     the same order
-   * The image coordinate systems must have identical coordinate
-     types in the same order
-   * image coordinate systems must have coincident pixel to world
-     coordinate mappings at all pixels,
-   * the brightness units of both images should be Jy/beam. If
-     an image has another brightness unit (eg K), it is the user's
-     responsibility to convert pixel values to Jy/beam and to set
-     the brightness unit to Jy/beam in the image metadata. Image
-     pixel values can be manipulated using task immath. The
-     brightness unit can be set via task **imhead** or the
+   * The images must each have a Direction coordinate, and the Direction axes
+     must be the first two ([0, 1]) in the coordinate system. The order of axes
+     in a coordinate system may be changed via task **imtrans** or the
+     **transpose()** method of the image tool.
+   * The two dimensions of the Direction coordinate must have the same number
+     of pixels, and the pixels must be square; that is the angular size (world
+     coordinate increment) of a pixel in the vertical direction must be the same
+     as that in the horizontal direction. 
+   * The image coordinate systems must have identical axis names in the same
+     order.
+   * The image coordinate systems must have identical coordinate types in the
+     same order.
+   * The coordinate systems of the two images must have coincident pixel to
+     world coordinate mappings at all pixels.
+   * The brightness units of both images should be Jy/beam. If an image has
+     another brightness unit (eg K), it is the user's responsibility to convert
+     pixel values to Jy/beam and to set the brightness unit to Jy/beam in the
+     image metadata. Image pixel values can be manipulated using task immath.
+     The brightness unit can be set via task **imhead** or the
      **setbrightnessunit()** method of the image tool.
-   * each image must have a global beam or per-plane beams defined
-     in its metadata. Both images may have global beams, per-plane 
-     beams, or one image may havee a global beam and the other
-     can have per-plane beams. Note that the user can add or 
-     modify beam information by using **imhead** or the
+   * Each image must have a global beam or per-plane beams defined in its
+     metadata. Both images may have global beams, per-plane beams, or one image
+     may havee a global beam and the other can have per-plane beams. Note that
+     the user can add or modify beam information by using **imhead** or the
      **setrestoringbeam()** method of the image tool.
 
    In general, it is the responsibility of the user to regrid the
