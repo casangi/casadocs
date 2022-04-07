@@ -178,7 +178,6 @@ os.system("python ../scripts/download_xml.py")
 os.system("python ../scripts/parse_pull_requests.py")
 os.system("python ../scripts/parse_task_xml.py")
 os.system("python ../scripts/parse_tool_xml.py")
-os.system("python ../scripts/parse_api_functions.py")
 
 if not os.path.exists('examples'):
     os.system("git clone https://github.com/casangi/examples.git")

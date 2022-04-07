@@ -2,8 +2,6 @@ import xml.etree.ElementTree as ET
 import re
 import os
 import pypandoc
-import difflib
-import copy
 
 ########################################################
 # this is meant to be run from the docs folder
@@ -130,14 +128,6 @@ if not os.path.exists('../casatools'):
 # for each one, create a python function stub,
 # write the parameters to docstring format
 # and marry up the Plone description page to the bottom
-
-# read in old baseline task specs for comparison change log
-with open('api_baseline.txt', 'r') as fid:
-    lines = fid.readlines()
-    stable_tools = dict([(line.split('(')[0][10:], line.strip()[10:]) for line in lines[2:] if line.startswith('casatools')])
-    difflog = ''
-    dd = difflib.Differ()
-
 
 # helper function to return a string of type and default value for a given parameter
 def ParamSpec(method, param):
@@ -281,30 +271,9 @@ for name in tooldict.keys():
         # close docstring stub
         ostr += '\n' + ' ' * 8 + '"""\n\n' + ' ' * 8 + 'pass\n\n\n'
 
-        # populate the global changelog if necessary
-        proto = name + '.' + method + '(self, ' + proto[:-2] + ')'
-        if name + '.' + method not in stable_tools:
-            difflog += '   <li><p>' + name + '.<b>' + method + '</b> - New Tool Method</p></li>\n\n'
-        elif stable_tools[name + '.' + method] != proto:
-            stable_params = re.sub('.+?\((.*?)\)$', r'\1', stable_tools[name + '.' + method], flags=re.DOTALL).split(', ')
-            new_params = re.sub('.+?\((.*?)\)$', r'\1', proto.replace('\n', ''), flags=re.DOTALL).split(', ')
-            diff_params = ['<b><del>' + pp.replace('- ', '') + '</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
-            diff_params = ['<b><ins>' + pp.replace('+ ', '') + '</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
-            difflog += '   <li><p>' + name + '.<b>' + method + '</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p></li>\n\n'
-
     # marry up the Plone content to the bottom Notes section
     # fid.write('\n\n    """' + rst + '\n\n    """')
 
     # write the python stub class
     with open('../casatools/' + name + '.py', 'w') as fid:
         fid.write(ostr)
-
-# look for deleted tool methods
-for stable_tool in stable_tools:
-    if stable_tool not in toolnames:
-        difflog += '   <li><p><b>' + stable_tool + '</b> - Deleted Tool</p></li>\n\n'
-
-# write out log of tool API diffs
-with open('changelog.rst', 'a') as fid:
-    fid.write('\n\n.. rubric:: casatools\n\n')
-    fid.write('.. raw:: html\n\n   <ul>' + difflog + '   </ul>\n\n|\n\n')
