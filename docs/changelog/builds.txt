@@ -1,4 +1,4 @@
-e1110014e14b0b666224369fdd3df9c2a8024028 (HEAD, tag: 6.5.0.7, origin/master, origin/HEAD, master)
+e1110014e14b0b666224369fdd3df9c2a8024028 (tag: 6.5.0.7)
 4f17dac11b3b15524e78b0347f54b2df0cfd1c37 (tag: 6.5.0.6)
 77a6570e9294ff755c6f75ec4ab005102d393063 (tag: CAS-12561-3, tag: 6.5.0.5)
 67b9df573b493d040eb4a7a21cf75a312a4ba6cd (tag: CAS-12561-2, tag: 6.5.0.4)
