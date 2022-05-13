@@ -1,7 +1,6 @@
 import xml.etree.ElementTree as ET
 import re
 import os
-import difflib
 
 ########################################################
 # this is meant to be run from the docs folder
@@ -137,17 +136,6 @@ for task in ['browsetable.xml', 'msuvbin.xml']:
 # write the parameters to docstring format
 # and marry up the Plone description page to the bottom
 
-# read in old baseline task specs for comparison change log
-with open('api_baseline.txt', 'r') as fid:
-    lines = fid.readlines()
-    stable_tasks = dict([(line.split('(')[0].split('.')[-1], line.strip().replace('.'.join(line.split('.')[:2]) + '.', '')) for line in lines[2:] if line.startswith('casatasks')])
-    stable_alma = dict([(line.split('(')[0].split('.')[-1], line.strip().replace('.'.join(line.split('.')[:2]) + '.', '')) for line in lines[2:] if line.startswith('almatasks')])
-    stable_plotms = dict([(line.split('(')[0].split('.')[-1], line.strip().replace('.'.join(line.split('.')[:2]) + '.', '')) for line in lines[2:] if line.startswith('casaplotms')])
-    stable_viewer = dict([(line.split('(')[0].split('.')[-1], line.strip().replace('.'.join(line.split('.')[:2]) + '.', '')) for line in lines[2:] if line.startswith('casaviewer')])
-    stable_lith = dict([(ll.split('(')[0].split('.')[-1].strip(), ll[ll.index('.')+1:].strip()) for ll in lines[2:] if ll.startswith('casalith')])
-    difflog = ''
-    dd = difflib.Differ()
-
 
 ########################################################
 # helper function to return a string of type and default value for a given parameter
@@ -169,7 +157,7 @@ def ParamSpec(param):
 
 
 ########################################################
-def render_rst(component, category, text, task, diffsource, difflog):
+def render_rst(component, category, text, task):
     if not os.path.exists('../'+component+'/' + category):
         os.system('mkdir ../'+component+'/' + category)
 
@@ -254,25 +242,14 @@ def render_rst(component, category, text, task, diffsource, difflog):
         # close docstring stub
         fid.write('\n    """\n    pass\n')
 
-        # populate changelog by diffing this task to the last release
-        if task['name'] not in diffsource:
-            difflog += '   <li><p><b>' + task['name'] + '</b> - New Task</p></li>\n\n'
-        elif not (diffsource[task['name']] == proto.replace('\n', '')):
-            stable_params = re.sub('.+?\((.*?)\)', r'\1', diffsource[task['name']], flags=re.DOTALL).split(', ')
-            new_params = re.sub('.+?\((.*?)\)', r'\1', proto.replace('\n', ''), flags=re.DOTALL).split(', ')
-            diff_params = ['<b><del>' + pp.replace('- ', '') + '</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
-            diff_params = ['<b><ins>' + pp.replace('+ ', '') + '</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
-            difflog += '   <li><p><b>' + task['name'] + '</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p></li>\n\n'
-
-    return difflog
+    return
 
 
 ##################################################################################
 
 # render casatasks, almatasks, casaplotms, and casaviewer
-for mname, mlist, mstable in [('casatasks', tasklist, stable_tasks), ('almatasks', almalist, stable_alma), ('casaplotms', plotmslist, stable_plotms), ('casaviewer', viewerlist, stable_viewer)]:
+for mname, mlist in [('casatasks', tasklist), ('almatasks', almalist), ('casaplotms', plotmslist), ('casaviewer', viewerlist)]:
     tasknames = []
-    difflog += '.. rubric:: %s\n\n' % mname + '.. raw:: html\n\n   <ul>\n'
     for task in mlist:
         # grab rst description page if it exists, otherwise skip this task
         rst = ''
@@ -284,20 +261,13 @@ for mname, mlist, mstable in [('casatasks', tasklist, stable_tasks), ('almatasks
             continue
 
         category = task['category']+'/' if mname == 'casatasks' else ''
-        difflog = render_rst(mname, category, rst, task, mstable, difflog)
-
-    # look for deleted tasks
-    for stable_task in mstable:
-        if stable_task not in tasknames:
-            difflog += '   <li><p><b>' + stable_task + '</b> - Deleted Task</p></li>\n\n'
-    difflog += '   </ul>\n\n|\n\n'
+        render_rst(mname, category, rst, task)
 
 
 
 ##############################
 # render casalith
 tasknames = []
-difflog += '.. rubric:: casalith\n\n'+'.. raw:: html\n\n   <ul>\n'
 for task in lithlist:
     rst = ''
     if os.path.exists('tasks/task_' + task['name'] + '.rst'):
@@ -306,32 +276,4 @@ for task in lithlist:
             rst = fid.read()
     else:
         continue
-    difflog = render_rst('casalith', '', rst, task, stable_lith, difflog)
-
-with open('api/casalith.rst') as fid:
-    rst = fid.read()
-
-protos = re.findall('\.\. data:: (.+?)\n', rst, flags=re.DOTALL)
-for proto in protos:
-    fname = proto.split('(')[0]
-    if fname not in stable_lith:
-        difflog += '   <li><p><b>' + fname.split('.')[0] + '</b> - New Function</p></li>\n\n'
-    elif not (stable_lith[fname] == proto.replace('\n', '')):
-        stable_params = re.sub('.+?\((.*?)\)', r'\1', stable_lith[fname], flags=re.DOTALL).split(', ')
-        new_params = re.sub('.+?\((.*?)\)', r'\1', proto.replace('\n', ''), flags=re.DOTALL).split(', ')
-        diff_params = ['<b><del>' + pp.replace('- ', '') + '</del></b>' if pp.startswith('- ') else pp.strip() for pp in dd.compare(stable_params, new_params)]
-        diff_params = ['<b><ins>' + pp.replace('+ ', '') + '</ins></b>' if pp.startswith('+ ') else pp for pp in diff_params]
-        difflog += '   <li><p><b>' + fname + '</b>' + '(<i>' + ', '.join(diff_params) + '</i>)</p></li>\n\n'
-
-for st in stable_lith:
-    if (st not in tasknames) and (st not in [pp.split('(')[0] for pp in protos]):
-        difflog += '   <li><p><b>' + st + '</b> - Deleted Function</p></li>\n\n'
-difflog += '   </ul>\n\n|\n\n'
-
-
-
-#######################################
-# write out log of task API diffs
-with open('changelog.rst', 'a') as fid:
-    fid.write('\n\nAPI Changes\n+++++++++++\n\n')
-    fid.write(difflog)
+    render_rst('casalith', '', rst, task)
