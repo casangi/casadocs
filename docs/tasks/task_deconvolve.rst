@@ -29,7 +29,7 @@ Description
    the .psf and .residual images are always required. See the `parameter description <imagename_>`_ for a full list of
    expected images.
 
-   Input/output images may be 4D CASA Image Cubes with the axis ordering set to [ra,dec,chan,pol] as is the default for
+   Input/output images may be 4D CASA Image Cubes with the axis ordering set to [ra,dec,pol,chan] as is the default for
    **tclean** (`see the Correcting Axes example <Correcting_Axes_>`_). All input 2D and 3D images must be regridded to a
    4D CASA image prior to being supplied as input.
 
@@ -175,7 +175,7 @@ Examples
    This works for all of the common cases, including:
 
    - All the deconvolvers (hogbom, clark, clarkstokes, multiscale, mtmfs)
-   - 2D, 3D, and 4D images/cubes and multi-term (for mtmfs), regridded as appropriate to have axes [ra,dec,chan,pol]
+   - 2D, 3D, and 4D images/cubes and multi-term (for mtmfs), regridded as appropriate to have axes [ra,dec,pol,chan]
    - Restoration with a common beam or restoringbeam
    - Masking (user, pbmask, automask)
    - With a different start model
