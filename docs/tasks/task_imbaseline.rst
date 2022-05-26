@@ -8,12 +8,12 @@ Description
    
    **Direction plane smoothing** performs a Fourier-based convolution to smooth the spacial plane of input data using a user-specified smoothing kernel. The parameter *dirkernel* can be specified *gaussian*, *boxcar*, and *image*, they are same parameters *kernel* of the task `imsmooth <./casatasks.analysis.imsmooth.html>`__. Usage of parameters related *dirkernel* is the same as in `imsmooth <./casatasks.analysis.imsmooth.html>`__.
    
-   **Spectral axis smoothing** performs smoothing along the spectral axis using a user-specified smoothing kernel. The parameter *spkernel* can be specified *gaussian*, *boxcar*, they are same parameters *kernel* of the task `sdsmooth <./casatasks.single.sdsmooth.html>`__. Usage of parameters related *spkernel* is same as those in `sdsmooth <./casatasks.single.sdsmooth.html>`__.
+   **Spectral axis smoothing** can be performed using a user-specified smoothing kernel. The parameter *spkernel* can be specified *gaussian*, *boxcar*, they are same parameters *kernel* of the task `sdsmooth <./casatasks.single.sdsmooth.html>`__. Usage of parameters related *spkernel* is same as those used in `sdsmooth <./casatasks.single.sdsmooth.html>`__.
 
-   **Baseline fitting/subtraction** does fitting and subtracting a baseline from single-dish spectra in input data. The parameter *blfunc* can be specified *poly*, *chebyshev*, *cspline*, *sinusoid*, *variable*, and the parameter *maskmode* can be specified *auto*, *list*. Usage of parameters related *blfunc* and *maskmode* is same as in `sdbaseline <casatasks.single.sdbaseline.html>`__.
+   **Baseline fitting and subtraction** are performed with specifying parameter *blfunc* either *poly*, *chebyshev*, *cspline*, *sinusoid*, or *variable*. The parameter *maskmode* can be specified as *list* or *auto*. Usage of parameters related *blfunc* and *maskmode* are same as those used in `sdbaseline <casatasks.single.sdbaseline.html>`__.
    
 Note 
-   * The format of the file specified by *bloutput* is CSV format. It cannot be specified format type.
+   * The format of the file specified by *bloutput* should be CSV format when using *imbaseline*.
    * If the parameter *output_cont* set *True*, the output continuum image is saved by subtracting an output image from an input image. The file name of it will be named as the input file name *imagename* + "*.cont*".
 
 .. _Examples:
