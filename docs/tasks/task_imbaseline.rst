@@ -2,13 +2,13 @@
 .. _Description:
 
 Description
-   *imbaseline* is a task to do image-based baseline subtraction for single-dish data. This task is based on `sdbaseline <casatasks.single.sdbaseline.html>`__. *sdbaseline* is fitting and subtracting a baseline in data of Measurement Set format, but *imbaseline* does in CASA Image format. The computing processes of fitting and subtracting are common in both tasks, and the options of *imbaseline* consist of the subset of *sdbaseline*.
+   *imbaseline* is a task to do image-based baseline subtraction for single-dish data. This task is based on `sdbaseline <casatasks.single.sdbaseline.html>`__. *sdbaseline* is fitting and subtracting baselines in data of Measurement Set format, but *imbaseline* does in CASA Image format. The computing processes of fitting and subtracting are common in both tasks, and the options of *imbaseline* consist of the subset of *sdbaseline*.
    
-   If a user needs to reduce the noise in input data before baseline subtraction, the task can smooth the spacial plane and/or spectral plane setting a parameter of dirkernel and spkernel, respectively. These features are based on `imsmooth <./casatasks.analysis.imsmooth.html>`__ and `sdsmooth <./casatasks.single.sdsmooth.html>`__.
+   If a user needs to reduce the noise in input data before baseline subtraction, the task can smooth the spacial plane and/or spectral plane setting a parameter of *dirkernel* and *spkernel*, respectively. These features are based on `imsmooth <./casatasks.analysis.imsmooth.html>`__ and `sdsmooth <./casatasks.single.sdsmooth.html>`__.
    
-   **Direction plane smoothing** performs a Fourier-based convolution to smooth the spacial plane of input data using a user-specified smoothing kernel. The parameter *dirkernel* can be specified *gaussian*, *boxcar*, and *image*, they are the same as parameter *kernel* of the task `imsmooth <./casatasks.analysis.imsmooth.html>`__. Also the usage of parameters related *dirkernel* is the same as in `imsmooth <./casatasks.analysis.imsmooth.html>`__.
+   **Direction plane smoothing** performs a Fourier-based convolution to smooth the spacial plane of input data using a user-specified smoothing kernel. The parameter *dirkernel* can be specified *gaussian*, *boxcar*, and *image*, they are same parameters *kernel* of the task `imsmooth <./casatasks.analysis.imsmooth.html>`__. Usage of parameters related *dirkernel* is the same as in `imsmooth <./casatasks.analysis.imsmooth.html>`__.
    
-   **Spectral axis smoothing** performs smoothing along the spectral axis using a user-specified smoothing kernel. The parameter *spkernel* could be specified *gaussian*, *boxcar*, they are the same as parameter *kernel* of the task `sdsmooth <./casatasks.single.sdsmooth.html>`__. Usage of parameters related *spkernel* is same as in `sdsmooth <./casatasks.single.sdsmooth.html>`__.
+   **Spectral axis smoothing** performs smoothing along the spectral axis using a user-specified smoothing kernel. The parameter *spkernel* can be specified *gaussian*, *boxcar*, they are same parameters *kernel* of the task `sdsmooth <./casatasks.single.sdsmooth.html>`__. Usage of parameters related *spkernel* is same as those in `sdsmooth <./casatasks.single.sdsmooth.html>`__.
 
    **Baseline fitting/subtraction** does fitting and subtracting a baseline from single-dish spectra in input data. The parameter *blfunc* can be specified *poly*, *chebyshev*, *cspline*, *sinusoid*, *variable*, and the parameter *maskmode* can be specified *auto*, *list*. Usage of parameters related *blfunc* and *maskmode* is same as in `sdbaseline <casatasks.single.sdbaseline.html>`__.
    
@@ -30,7 +30,7 @@ Example
    
    **Example 2**
    
-   Following example shows baseline fitting and subtracting smoothing with the spatial domain. Parameters such as *major*, *minor*, *pa*, should be specified when *dirkernel='gaussian'* is specified. 
+   Following example shows baseline fitting and subtracting smoothing with the spatial plane. Parameters such as *major*, *minor*, *pa*, should be specified when *dirkernel='gaussian'* is specified. 
    ::
    
       imbaseline( imagename='my_image.im',
@@ -43,7 +43,7 @@ Example
    
    **Example 3**
    
-   Following examples shows baseline fitting and subtracting smoothing with spectral domain. 
+   Following examples shows baseline fitting and subtracting smoothing with spectral plane. 
    ::
    
       imbaseline( imagename='my_image.im',
