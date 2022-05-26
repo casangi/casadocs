@@ -4,7 +4,7 @@
 Description
    This is the task to do image-based baseline subtraction for single-dish data. *imbaseline* is based on `sdbaseline <casatasks.single.sdbaseline.html>`__. *sdbaseline* fits/subtracts a baseline in data of Measurement Set format, but *imbaseline* does in CASA Image format. The computing processes of fitting/subtracting are common in both tasks, and the options of *imbaseline* are the subset of them of *sdbaseline*.
    
-   If a user needs to reduce the noise in input data before baseline subtraction, the task can smooth the direction plane and/or spectral axis of input data.
+   If a user needs to reduce the noise in input data before baseline subtraction, the task can smooth the direction plane and/or spectral axis of input data. These features are based on `imsmooth <./casatasks.analysis.imsmooth.html>`__ and `sdsmooth <./casatasks.single.sdsmooth.html>`__.
    
    **Direction plane smoothing** performs a Fourier-based convolution to smooth the direction plane of input data using a user-specified smoothing kernel. The parameter *dirkernel* could be specified *gaussian*, *boxcar*, and *image*, they are the same as parameter *kernel* of the task `imsmooth <./casatasks.analysis.imsmooth.html>`__. Also the usage of parameters related *dirkernel* is the same as in `imsmooth <./casatasks.analysis.imsmooth.html>`__.
    
