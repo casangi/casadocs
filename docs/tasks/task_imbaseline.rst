@@ -14,7 +14,7 @@ Description
    
 Note 
    * The format of the file specified by *bloutput* is CSV format. It cannot be specified format type.
-   * If the parameter *output_cont* set *True*, the output continuum image is saved by subtracting an output image from an input image. The file name of it will be named as the input file name "*imagename*" + "*.cont*".
+   * If the parameter *output_cont* set *True*, the output continuum image is saved by subtracting an output image from an input image. The file name of it will be named as the input file name *imagename* + "*.cont*".
 
 .. _Examples:
 
