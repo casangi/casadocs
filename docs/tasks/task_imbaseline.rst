@@ -2,24 +2,26 @@
 .. _Description:
 
 Description
-   This is the task to do image-based baseline subtraction for single-dish data. *imbaseline* is based on `sdbaseline <casatasks.single.sdbaseline.html>`__. *sdbaseline* fits/subtracts a baseline in data of Measurement Set format, but *imbaseline* does in CASA Image format. The computing processes of fitting/subtracting are common in both tasks, and the options of *imbaseline* are the subset of them of *sdbaseline*.
+   *imbaseline* is a task to do image-based baseline subtraction for single-dish data. This task is based on `sdbaseline <casatasks.single.sdbaseline.html>`__. *sdbaseline* is fitting and subtracting a baseline in data of Measurement Set format, but *imbaseline* does in CASA Image format. The computing processes of fitting and subtracting are common in both tasks, and the options of *imbaseline* consist of the subset of *sdbaseline*.
    
-   If a user needs to reduce the noise in input data before baseline subtraction, the task can smooth the direction plane and/or spectral axis of input data. These features are based on `imsmooth <./casatasks.analysis.imsmooth.html>`__ and `sdsmooth <./casatasks.single.sdsmooth.html>`__.
+   If a user needs to reduce the noise in input data before baseline subtraction, the task can smooth the spacial plane and/or spectral plane setting a parameter of dirkernel and spkernel, respectively. These features are based on `imsmooth <./casatasks.analysis.imsmooth.html>`__ and `sdsmooth <./casatasks.single.sdsmooth.html>`__.
    
-   **Direction plane smoothing** performs a Fourier-based convolution to smooth the direction plane of input data using a user-specified smoothing kernel. The parameter *dirkernel* could be specified *gaussian*, *boxcar*, and *image*, they are the same as parameter *kernel* of the task `imsmooth <./casatasks.analysis.imsmooth.html>`__. Also the usage of parameters related *dirkernel* is the same as in `imsmooth <./casatasks.analysis.imsmooth.html>`__.
+   **Direction plane smoothing** performs a Fourier-based convolution to smooth the spacial plane of input data using a user-specified smoothing kernel. The parameter *dirkernel* can be specified *gaussian*, *boxcar*, and *image*, they are the same as parameter *kernel* of the task `imsmooth <./casatasks.analysis.imsmooth.html>`__. Also the usage of parameters related *dirkernel* is the same as in `imsmooth <./casatasks.analysis.imsmooth.html>`__.
    
-   **Spectral axis smoothing** performs smoothing along the spectral axis using a user-specified smoothing kernel. The parameter *spkernel* could be specified *gaussian*, *boxcar*, they are the same as parameter *kernel* of the task `sdsmooth <./casatasks.single.sdsmooth.html>`__. Also the usage of parameters related *spkernel* is the same as in `sdsmooth <./casatasks.single.sdsmooth.html>`__.
+   **Spectral axis smoothing** performs smoothing along the spectral axis using a user-specified smoothing kernel. The parameter *spkernel* could be specified *gaussian*, *boxcar*, they are the same as parameter *kernel* of the task `sdsmooth <./casatasks.single.sdsmooth.html>`__. Usage of parameters related *spkernel* is same as in `sdsmooth <./casatasks.single.sdsmooth.html>`__.
 
-   **Baseline fitting/subtraction** does fitting and/or subtracting a baseline from single-dish spectra in input data. The parameter *blfunc* could be specified *poly*, *chebyshev*, *cspline*, *sinusoid*, *variable*, and it is the same role as the parameter *blfunc* of the task `sdbaseline <casatasks.single.sdbaseline.html>`__. Also the usage of parameters related *blfunc* is the same as in `sdbaseline <casatasks.single.sdbaseline.html>`__.
+   **Baseline fitting/subtraction** does fitting and subtracting a baseline from single-dish spectra in input data. The parameter *blfunc* can be specified *poly*, *chebyshev*, *cspline*, *sinusoid*, *variable*, and the parameter *maskmode* can be specified *auto*, *list*. Usage of parameters related *blfunc* and *maskmode* is same as in `sdbaseline <casatasks.single.sdbaseline.html>`__.
    
-   Note: The format of the file specified by 'bloutput' is CSV format.
+Note 
+   * The format of the file specified by *bloutput* is CSV format. It cannot be specified format type.
+   * If the parameter *output_cont* set *True*, the output continuum image is saved by subtracting an output image from an input image. The file name of it will be named as the input file name "*imagename*" + "*.cont*".
 
 .. _Examples:
 
 Example
    **Example 1**
    
-   This is one of the simplest example. It is fitting and subtracting a sinusoidal baseline. There are no parameters about smoothing, so any smoothing processes don't run.
+   This is one of the simplest examples fitting the baseline using the sinusoidal function and subtracting. No smoothing processes are applied.
    ::
    
       imbaseline( imagename='my_image.im',
@@ -28,7 +30,7 @@ Example
    
    **Example 2**
    
-   This example shows the direction plane smoothing and fitting/subtracting. The parameters *major*, *minor*, *pa* must be specified when the value *dirkernel* is *gaussian*.
+   Following example shows baseline fitting and subtracting smoothing with the spatial domain. Parameters such as *major*, *minor*, *pa*, should be specified when *dirkernel='gaussian'* is specified. 
    ::
    
       imbaseline( imagename='my_image.im',
@@ -41,7 +43,7 @@ Example
    
    **Example 3**
    
-   This is an example of the spectral plane smoothing and fitting/subtracting.
+   Following examples shows baseline fitting and subtracting smoothing with spectral domain. 
    ::
    
       imbaseline( imagename='my_image.im',
