@@ -30,7 +30,7 @@ Example
    
    **Example 2**
    
-   Following example shows baseline fitting and subtracting smoothing with the spatial plane. Parameters such as *major*, *minor*, and *pa*, should be specified when *dirkernel='gaussian'* is selected. 
+   Following example shows baseline fitting and subtracting smoothing with the spatial plane. Parameters such as *major*, *minor*, and *pa*, should be specified when *dirkernel='gaussian'*. 
    ::
    
       imbaseline(imagename='my_image.im',
