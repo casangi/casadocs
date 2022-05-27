@@ -21,7 +21,7 @@ Note
 Example
    **Example 1**
    
-   This is one of the simplest examples fitting the baseline using the sinusoidal function and subtracting. No smoothing processes are applied.
+   This is one of the simplest examples fitting baselines using the sinusoidal function and subtracting. No smoothing processes are applied.
    ::
    
       imbaseline(imagename='my_image.im',
@@ -30,7 +30,7 @@ Example
    
    **Example 2**
    
-   Following example shows baseline fitting and subtracting smoothing with the spatial plane. Parameters such as *major*, *minor*, *pa*, should be specified when *dirkernel='gaussian'*. 
+   Following example shows baseline fitting and subtracting smoothing with the spatial plane. Parameters such as *major*, *minor*, and *pa*, should be specified when *dirkernel='gaussian'* is selected. 
    ::
    
       imbaseline(imagename='my_image.im',
