@@ -4,7 +4,7 @@
 Description
    `imbaseline <./casatasks.analysis.imbaseline.html>`__ is a task to do image-based baseline subtraction for single-dish data. This task is based on `sdbaseline <casatasks.single.sdbaseline.html>`__. Input file format of `sdbaseline <casatasks.single.sdbaseline.html>`__ is Measurement Set, while CASA Image format is used for the input of `imbaseline <./casatasks.analysis.imbaseline.html>`__. The computing processes of fitting and subtracting are common in both tasks, and the options of `imbaseline <./casatasks.analysis.imbaseline.html>`__ consist of the subset of `sdbaseline <casatasks.single.sdbaseline.html>`__.
    
-   If a user needs to reduce the noise in input data before baseline subtraction, the task can smooth the spacial plane and/or spectral plane setting a parameter of *dirkernel* and *spkernel*, respectively. These features are based on `imsmooth <./casatasks.analysis.imsmooth.html>`__ and `sdsmooth <./casatasks.single.sdsmooth.html>`__.
+   If a user needs to reduce the noise in input data before baseline subtraction, the task can smooth the spatial plane and/or spectral axis setting a parameter of *dirkernel* and *spkernel*, respectively. These features are based on `imsmooth <./casatasks.analysis.imsmooth.html>`__ and `sdsmooth <./casatasks.single.sdsmooth.html>`__.
    
    **Spatial plane smoothing** performs a Fourier-based convolution to smooth the spatial plane of input data using a user-specified smoothing kernel. The parameter *dirkernel* can be specified *gaussian*, *boxcar*, and *image*, they are same parameters *kernel* of the task `imsmooth <./casatasks.analysis.imsmooth.html>`__. Usage of parameters related *dirkernel* is the same as in `imsmooth <./casatasks.analysis.imsmooth.html>`__.
    
