@@ -2,7 +2,7 @@
 .. _Description:
 
 Description
-   *imbaseline* is a task to do image-based baseline subtraction for single-dish data. This task is based on `sdbaseline <casatasks.single.sdbaseline.html>`__. Input file format of *sdbaseline* is Measurement Set, while CASA Image format is used for the input of *imbaseline*. The computing processes of fitting and subtracting are common in both tasks, and the options of *imbaseline* consist of the subset of *sdbaseline*.
+   *imbaseline* is a task to do image-based baseline subtraction for single-dish data. This task is based on `sdbaseline <casatasks.single.sdbaseline.html>`__. Input file format of `sdbaseline <casatasks.single.sdbaseline.html>`__ is Measurement Set, while CASA Image format is used for the input of *imbaseline*. The computing processes of fitting and subtracting are common in both tasks, and the options of *imbaseline* consist of the subset of `sdbaseline <casatasks.single.sdbaseline.html>`__.
    
    If a user needs to reduce the noise in input data before baseline subtraction, the task can smooth the spacial plane and/or spectral plane setting a parameter of *dirkernel* and *spkernel*, respectively. These features are based on `imsmooth <./casatasks.analysis.imsmooth.html>`__ and `sdsmooth <./casatasks.single.sdsmooth.html>`__.
    
