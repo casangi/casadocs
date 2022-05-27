@@ -24,32 +24,32 @@ Example
    This is one of the simplest examples fitting the baseline using the sinusoidal function and subtracting. No smoothing processes are applied.
    ::
    
-      imbaseline( imagename='my_image.im',
-                  linefile='output.im',
-                  blfunc='sinusoid' )
+      imbaseline(imagename='my_image.im',
+                 linefile='output.im',
+                 blfunc='sinusoid')
    
    **Example 2**
    
    Following example shows baseline fitting and subtracting smoothing with the spatial plane. Parameters such as *major*, *minor*, *pa*, should be specified when *dirkernel='gaussian'* is specified. 
    ::
    
-      imbaseline( imagename='my_image.im',
-                  linefile='output.im',
-                  blfunc='sinusoid',
-                  dirkernel='gaussian',
-                  major='20arcsec',
-                  minor='10arcsec',
-                  pa='0deg' ) 
+      imbaseline(imagename='my_image.im',
+                 linefile='output.im',
+                 blfunc='sinusoid',
+                 dirkernel='gaussian',
+                 major='20arcsec',
+                 minor='10arcsec',
+                 pa='0deg') 
    
    **Example 3**
    
    Following examples shows baseline fitting and subtracting smoothing with spectral plane. 
    ::
    
-      imbaseline( imagename='my_image.im',
-                  linefile='output.im',
-                  spkernel='boxcar',
-                  kwidth=5 )
+      imbaseline(imagename='my_image.im',
+                 linefile='output.im',
+                 spkernel='boxcar',
+                 kwidth=5)
    
    
 .. _Development:
