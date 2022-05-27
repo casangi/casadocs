@@ -10,7 +10,7 @@ Description
    
    **Spectral axis smoothing** can be performed using a user-specified smoothing kernel. The parameter *spkernel* can be specified as *gaussian* or *boxcar*. They are same parameters *kernel* of the task `sdsmooth <./casatasks.single.sdsmooth.html>`__. Usage of parameters related *spkernel* is same as those used in `sdsmooth <./casatasks.single.sdsmooth.html>`__.
 
-   **Baseline fitting and subtraction** are performed with specifying a parameter *blfunc* either *poly*, *chebyshev*, *cspline*, *sinusoid*, or *variable*. The parameter *maskmode* can be specified as *list* or *auto*. Usage of parameters related *blfunc* and *maskmode* are same as those used in `sdbaseline <casatasks.single.sdbaseline.html>`__.
+   **Baseline fitting and subtraction** can be performed with specifying a parameter *blfunc* either *poly*, *chebyshev*, *cspline*, *sinusoid*, or *variable*. The parameter *maskmode* can be specified as *list* or *auto*. Usage of parameters related *blfunc* and *maskmode* are same as those used in `sdbaseline <casatasks.single.sdbaseline.html>`__.
    
 Note 
    * The format of the file specified by *bloutput* should be CSV format when using `imbaseline <./casatasks.analysis.imbaseline.html>`__.
