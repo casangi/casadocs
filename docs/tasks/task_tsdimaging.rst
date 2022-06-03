@@ -115,6 +115,11 @@ Description
    projection is applied. The default is SIN (slant orthographic)
    projection. The task also supports CAR (plate carrée), TAN
    (gnomonic), and SFL (Sanson-Flamsteed).
+   
+   The *restfreq* parameter assign rest frequency to image. When
+   the default value '' is used, the task currently internally uses
+   REST_FREQUENCY of SOURCE table or mean frequency of given
+   spectral window as a default value.
 
    .. rubric:: Image Definition (specmode)
 
