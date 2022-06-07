@@ -549,7 +549,11 @@ Description
    tolerance. The value of 'w' is used to determine which antenna is
    behind the other. The phase-reference center is used for
    antenna-pointing direction.
-   
+
+   Shadow mode does not flag rows where the two antennas of the
+   baseline are the same, or in other words, antennas do not shadow
+   themselves.
+
    *tolerance*
    
    Amount of shadowing allowed (or tolerated), in meters. A positive
