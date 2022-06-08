@@ -43,6 +43,11 @@ Description
      may havee a global beam and the other can have per-plane beams. Note that
      the user can add or modify beam information by using **imhead** or the
      **setrestoringbeam()** method of the image tool.
+   * Image masks will be ignored and all image pixel values will be used. It
+     is suggested that the **replacemaskedpixels()** method of the image tool
+     be run on the input images if they have masks prior to running feather2,
+     setting all masked pixel values to 0.
+
 
    In general, it is the responsibility of the user to regrid the
    low resolution image to coincide with the coordinate system of
@@ -174,12 +179,58 @@ Description
    **immath** or tool method **image.imagecalc()** to scale the pixel values in an
    image.
 
-   The return value is a dictionary that contains information on various image
-   combinations. For each image combination, there is an array representation of
-   the histogram which has bin values equal to the azimuthal average of the
-   amplitude of that image. The bin limits are regularly spaced radial values.
-   These data allow the user to make plots to analyze eg, how the amplitude
-   scales compare in the region of overlap in the *uv* plane. MORE TBD.
+   The return value is a dictionary that contains information on various
+   quantities. These quantities are presented as annular averages. The annuli
+   have widths of five pixels, centered on the origin of the *uv* plane. A pixel
+   is considered to be a member of a particular annulus if the distance from the
+   uv plane origin and its center is greater than or equal to the inner radius
+   of the annulus and less than the outer radius of the annulus. Thus a pixel
+   can be a member of no more than one annulus. The largest annulus has an
+   outer radius of no larger than half the number of pixels on one side of the
+   image, so that there will be pixels in the uv plane that are not included in
+   an annulus. The key names and associated values of the return dictionary are
+   described belwo.
+
+   * uvdist radii pixels This value is a list of two element tuples. The
+     first element is the inner radius measured in pixels of the annulus
+     represented and the second element is the outer radius. The list has a
+     length equal to the number of annuli represented.
+
+   * uvdist radii wavelengths This value is a list of two element tuples. It
+     is the product of the uvdist radii pixels with all values multiplied by
+     the uv distance per pixel scale factor, so that the radii it represents
+     are measured in number of wavelengths.
+
+   * n pixels This value is a numpy array of the number of pixels in each
+     annulus.
+
+   * high res fft amp per pix avg This value is a numpy array of the average
+     (per pixel) value of the amplitudes of the fourier transform of the high
+     resolution image in each annulus. Each channel/polarization pair is
+     represented, so the array will have dimensions of [numer of annuli, m, n]
+     where m is the number of channels or stokes planes, whichever is first in
+     the image, and n is the other of these quantities.
+
+   * sdweight*(beam area ratio)*(low res fft amp per pix avg) This value is a
+     numpy array of the average (per pixel) of the product of sdweight, the
+     beam area ratio and the amplitude of the fourier transform of the low
+     resolution image, or, equivalently, the second factor in the numerator of
+     the quantity for which the inverse fourier transform is taken in the first
+     equation above. The array has the same shape as the high res fft amp per
+     pix avg array.
+
+   * 1-w per pix avg This value is a numpy array of the average (per pixel)
+     of the 1-w quantity. The array has the same shape of the high res fft
+     amp per pix avg array.
+ 
+   * sdweight*w per pix avg This value is a numpy array of the average (per
+     pixel) of the sdweight*w quantity. The array has the same shape of the
+     high res fft amp per pix avg array.
+
+   * amp fourier term per pix avg This value is a numpy array of the average
+     (per pixel) of the amplitude of the entire term in brackets for which 
+     the nverse fourier transform is taken in the first equation above. The
+     array has the same shape of the high res fft amp per pix avg array.
 
    ..
         If *lowpassfiltersd* is set to True, then spatial frequencies not sampled by
