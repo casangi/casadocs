@@ -191,46 +191,47 @@ Description
    an annulus. The key names and associated values of the return dictionary are
    described belwo.
 
-   * uvdist radii pixels This value is a list of two element tuples. The
+   * **uvdist radii pixels** This value is a list of two element tuples. The
      first element is the inner radius measured in pixels of the annulus
      represented and the second element is the outer radius. The list has a
      length equal to the number of annuli represented.
 
-   * uvdist radii wavelengths This value is a list of two element tuples. It
-     is the product of the uvdist radii pixels with all values multiplied by
-     the uv distance per pixel scale factor, so that the radii it represents
-     are measured in number of wavelengths.
+   * **uvdist radii wavelengths** This value is a list of two element tuples.
+     It is the product of the **uvdist radii pixels** values all values and
+     the *uv* distance per pixel scale factor, so that the radii the values
+     represent are measured in units of number of wavelengths.
 
-   * n pixels This value is a numpy array of the number of pixels in each
+   * **n pixels** This value is a numpy array of the number of pixels in each
      annulus.
 
-   * high res fft amp per pix avg This value is a numpy array of the average
-     (per pixel) value of the amplitudes of the fourier transform of the high
-     resolution image in each annulus. Each channel/polarization pair is
-     represented, so the array will have dimensions of [numer of annuli, m, n]
-     where m is the number of channels or stokes planes, whichever is first in
-     the image, and n is the other of these quantities.
+   * **high res fft amp per pix avg** This value is a numpy array of the
+     average (per pixel) value of the amplitudes of the fourier transform of
+     the high resolution image in each annulus. Each channel/polarization pair
+     is represented, so the array will have dimensions of
+     [*numer of annuli, m, n*] where *m* is the number of channels or stokes
+     planes, whichever is first in the image, and *n* is the other of these
+     quantities.
 
-   * sdweight*(beam area ratio)*(low res fft amp per pix avg) This value is a
-     numpy array of the average (per pixel) of the product of sdweight, the
-     beam area ratio and the amplitude of the fourier transform of the low
-     resolution image, or, equivalently, the second factor in the numerator of
-     the quantity for which the inverse fourier transform is taken in the first
-     equation above. The array has the same shape as the high res fft amp per
-     pix avg array.
+   * **sdweight*(beam area ratio)*(low res fft amp per pix avg)** This value
+     is a numpy array of the average (per pixel) of the product of *sdweight*,
+     the beam area ratio (*B*) and the amplitude of the fourier transform of
+     the low resolution image, or, equivalently, the second term in the sum of
+     the numerator of the quantity for which the inverse fourier transform is
+     taken in the first equation above. The array has the same shape as the
+     **high res fft amp per pix avg** array.
 
-   * 1-w per pix avg This value is a numpy array of the average (per pixel)
-     of the 1-w quantity. The array has the same shape of the high res fft
-     amp per pix avg array.
+   * **1-w per pix avg** This value is a numpy array of the average (per pixel)
+     of the *1-w* quantity. The array has the same shape of the **high res fft
+     amp per pix avg array**.
  
-   * sdweight*w per pix avg This value is a numpy array of the average (per
-     pixel) of the sdweight*w quantity. The array has the same shape of the
-     high res fft amp per pix avg array.
+   * **sdweight*w per pix avg** This value is a numpy array of the average (per
+     pixel) of the *sdweight*w* quantity. The array has the same shape of the
+     **high res fft amp per pix avg array**.
 
-   * amp fourier term per pix avg This value is a numpy array of the average
+   * **amp fourier term per pix avg** This value is a numpy array of the average
      (per pixel) of the amplitude of the entire term in brackets for which 
      the nverse fourier transform is taken in the first equation above. The
-     array has the same shape of the high res fft amp per pix avg array.
+     array has the same shape of the **high res fft amp per pix avg** array.
 
    ..
         If *lowpassfiltersd* is set to True, then spatial frequencies not sampled by
