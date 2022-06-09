@@ -435,8 +435,16 @@ Description
       and wideband primary beam corrections (to be used with
       nterms>1).
    -  'mem': Maximum Entropy Method (Cornwell and Evans, 1985). Note:
-      The MEM implementation in CASA is not very robust, improvements
-      will be made in the future.
+      This algorithm is **experimental** and not very robust, 
+      improvements will be made in the future.
+   -  'asp': Adaptive Scale Pixel Clean. The Adaptive Scale Pixel (ASP) 
+      decomposition algorithm is designed to reconstruct the sky 
+      brightness by adaptively determining the optimal scales. The 
+      implementation of ASP algorithm is aimed to improve both image 
+      resolution and computation efficiency. Note: This algorithm is 
+      **experimental**, please see the `Known Issues 
+      <../../notebooks/introduction.ipynb#Known-Issues>`__ 
+      in CASA Docs.
    
    If as input to tclean the stokes parameter includes polarization
    planes other than I, then choosing deconvolver='hogbom' or
@@ -619,17 +627,17 @@ Description
    current run, identified by the image base name given in the
    imagename parameter. This feature searches for all the images with
    names starting with that basename and followed by a dot-separated
-   extension (imagename.*). In addition it also searches for
-   imagename[INTEGERS]_[INTEGERS].*, to cover auto-incremented image
+   extension (imagename.\*). In addition it also searches for
+   imagename[INTEGERS]_[INTEGERS].\*, to cover auto-incremented image
    names (see the table of possible image names above).
 
    The image history entries added by tclean can be inspected using
-   the task imhistory (`see API <../casatasks.rst>`_), similarly as
+   the task imhistory (`see tasks API`_), similarly as
    with the history entries added by other image analysis tasks.
 
    As a lower level interface, the image history can be also inspected
    and manipulated using CASA tools such as the image analysis tool
-   and the table tool (`see API <../casatools.rst>`_). The history
+   and the table tool (`see tools API`_). The history
    entries are written into the 'logtable' subtable of the images.
 
    .. note:: Because history is written into all the images found with
@@ -673,7 +681,7 @@ Description
    Similarly as with other parameters included in the miscinfo record,
    these are exported to FITS images by the exportfits task, if the
    parameter history is True.  The miscinfo record can be inspected
-   using the image tool (`see API <../casatools.rst>`_).
+   using the image tool (`see tools API`_).
 
    The same values are written to the CASA log at the beginning of
    every major cycle. The `memreq` estimate should not be interpreted
@@ -692,6 +700,9 @@ Description
    partitioning done in the minor cycles. The `memreq` estimate grows
    proportionally to the data dimensions, type of gridder, and number
    of processes in parallel mode.
+
+   .. _see tasks API: ../casatasks.rst
+   .. _see tools API: ../casatools.rst
 
 .. _Examples:
 

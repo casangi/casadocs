@@ -4,8 +4,8 @@
 
 Description
    **plotms** is a task for plotting and interacting with visibility
-   data. A variety of axes choices (including data column) along with
-   MS selection and averaging options are provided.  All of the
+   and calibration data. A variety of axes choices (including data column)
+   along with selection and averaging options are provided.  All of the
    provided parameters can also be set using the GUI once the
    application has been launched.  Additional operations are
    available through the GUI such as marking a region then using the
@@ -26,13 +26,7 @@ Description
    are not hidden when interacting with a calibration table, and such
    settings will be ignored (when benign) or cause an error message.
    
-   In CASA5, the return value of **plotms** is a Boolean *True* or *False*,
-   where *True* indicates that the supplied parameters were processed
-   successfully with no errors; however, a plot may or may not have
-   been produced.  For example, a null selection returns *True* with
-   no plot, but an invalid argument or combination of arguments
-   returns *False*.  In CASA6, **plotms** has no return value but
-   may throw an exception.
+   In CASA6, **plotms** has no return value but may throw an exception.
    
    For a detailed explanation of the **plotms** GUI and its
    corresponding task parameters, see the `documentation on using
@@ -174,19 +168,27 @@ Description
    
       -  scan number from the *SCAN_NUMBER* column, as shown in
          `listobs <../../api/casatasks.rst>`__.
-   
+      -  When averaging over scans is enabled, the scan value for
+         each bin is the first scan number in the averaged data,
+         independent of unflagged/flagged data.
+
    -  *‘field’*
    
       -  index from the *FIELD_ID* column which references a row in
          the *FIELD* subtable, as shown in
          `listobs <../../api/casatasks.rst>`__.
-   
+      -  When averaging over fields is enabled, the field value for
+         each bin is the first field id in the averaged data,
+         independent of unflagged/flagged data.
+
    -  *‘time’*
    
       -  timestamps from the *TIME* column, converted for display to
          time format HH:MM:SS.S (precision depends on the interval
          between tick marks).
-   
+      -  When time averaging is enabled, the average of the timestamps
+         in each bin is used for the time values.
+
    -  *‘interval’* (*‘timeint’, ‘timeinterval’, ‘time_interval’*)
    
       -  integration time values from the *INTERVAL* column, in
@@ -210,13 +212,18 @@ Description
    
       -  index into the number of channels in the selected spws,
          ranging 0~nChan.
+      -  When channel averaging is enabled, the channel numbers
+         are re-indexed starting at 0 to reflect the bin
+         number, not the averaged channel number.
    
    -  ‘ *freq’* (*‘frequency’*)
    
       -  the *CHAN_FREQ* column in the *SPECTRAL_WINDOW* subtable, in
          GHz.  This is an array of frequencies, one per channel.
       -  The frame can be set with the *freqframe* parameter.
-   
+      -  When channel averaging is enabled, the average of the
+         frequencies in each bin is used.
+
    -  *‘vel’* (*‘velocity’*)
    
       -  velocity in km/s, as defined by the *freqframe*, *veldef*,
@@ -225,6 +232,8 @@ Description
          `measures <../../api/casatools.rst>`__
          (me) tool.
       -  Not supported for CalTables.
+      -  When channel averaging is enabled, the average of the
+         velocities in each bin is used.
    
    -  *‘corr’* (*‘correlation’*)
    
@@ -440,44 +449,52 @@ Description
    
       -  uv distance (baseline separations), in meters. Calculated as
          sqrt(u*u+v*v), where u and v are values from the *UVW*
-         column
-         Not supported for CalTables.
+         column.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘uvwave’* (*’uvdistl’, ’uvdist_l’*)
    
       -  uv distance (baseline separations) as a function of
          frequency, in units of the observing wavelength λ (lambda).
-      -  Not supported for CalTables.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘u’*
    
       -  u in meters, from the *UVW* column.
-      -  Not supported for CalTables.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘v’*
    
       -  v in meters, from the *UVW* column.
-      -  Not supported for CalTables.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘w’*
    
       -  w in meters, from the *UVW* column.
-      -  Not supported for CalTables.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘uwave’*
    
       -  u in units of wavelength λ (lambda).
-      -  Not supported for CalTables.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘vwave’*
    
       -  v in units of wavelength λ (lambda).
-      -  Not supported for CalTables.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘wwave’*
    
       -  w in units of wavelength λ (lambda).
-      -  Not supported for CalTables.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘azimuth’*
    
@@ -486,7 +503,7 @@ Description
          position, using the
          `measures <../../api/casatools.rst>`__
          (me) tool.
-      -  Not supported for CalTables.
+      -  Supported for CalTables where possible.
    
    -  *‘elevation* ’
    
@@ -495,7 +512,7 @@ Description
          position, using the
          `measures <../../api/casatools.rst>`__
          (me) tool.
-      -  Not supported for CalTables.
+      -  Supported for CalTables where possible.
    
    -  *‘hourang’* (*‘hourangle’*)
    
@@ -504,7 +521,7 @@ Description
          observatory position, using
          the `measures <../../api/casatools.rst>`__
          (me) tool.
-      -  Not supported for CalTables.
+      -  Supported for CalTables where possible.
    
    -  *‘parang’* (*‘parangle’, ‘parallacticangle’*)
    
@@ -513,7 +530,7 @@ Description
          observatory position, using
          the `measures <../../api/casatools.rst>`__
          (me) tool .
-      -  Not supported for CalTables.
+      -  Supported for CalTables where possible.
    
    -  *‘antenna’* (*‘ant’*)
    
@@ -1026,11 +1043,15 @@ Description
          channels to average together to form one output channel.
       -  When plotting the *‘channel’* axis, output channel numbers
          are reindexed 0~nAvgChan, rather than using the average of
-         the channel numbers (channels are integer values). The axis
-         label is changed to “Average Channel”.
+         the channel numbers in each bin, and the axis label is
+         changed to “Average Channel”. When plotting the *‘frequency‘*
+         or *‘velocity‘* axis, the average of the frequency or
+         velocity values in each bin is used.
       -  The plotms Locate tool indicates which channels were
          averaged together for a point in the plot, e.g.
          “Chan=<7~13>” which may be shown as channel 1 on the plot.
+         The frequency of the point is labelled "Avg Freq" in the
+         Locate output.
       -  see
          `mstransform <../../api/casatasks.rst>`__
          description for channel averaging.
@@ -1101,25 +1122,25 @@ Description
       -  "" (default): do not time-average data.
       -  The “bins” of averaged data have the same scan number and
          field ID unless avgscan or avgfield are True.
-   
+      -  The time value of each bin is the average of the timestamps
+         in that bin.
+
    -  *avgscan*
 
       -  Ignore scan boundaries when time-averaging data; parameter
          ignored when *avgtime* is not set.
       -  False (default): time-average data within individual scans.
-      -  When scan number is used in plotting or locate, the first
-         scan number of scans averaged together is used for the
-         value, independent of unflagged/flagged data.
-   
+      -  The scan value of each bin is the first scan number in the
+         bin, independent of unflagged/flagged data.
+
    -  *avgfield*
 
       -  Ignore field boundaries when time-averaging data; parameter
          ignored when *avgtime* is not set.
       -  False (default): time-average data within individual fields.
-      -  When field number is used in plotting or locate, the first
-         field number of fields averaged together is used for the
-         value, independent of unflagged/flagged data.
-   
+      -  The field value of each bin is the first field id in the
+         bin, independent of unflagged/flagged data.
+
    -  *avgbaseline*
 
       -  Average data for all baselines together in each "chunk"
@@ -1180,10 +1201,10 @@ Description
       -  "*RADIO*" (default)
       -  Options: *“RADIO”, “OPTICAL”, “TRUE”* (Relativistic)
    
-   -  *shift*
+   -  *phasecenter*
 
-      -  phase center shift, in arcseconds. Format is [dx, dy].
-      -  [0.0, 0.0] (default) : no shift.
+      -  Direction coordinates of the desired phase center.
+      -  "" (default) : use phase center in MeasurementSet.
    
    .. rubric:: Interactive Flagging Extensions
    
@@ -1287,7 +1308,7 @@ Description
       Unflagged points are not connected to flagged points, even when
       not displayed.
    
-   -  Supported for calibration tables only at present.  When enabled
+   -  Supported for calibration tables *only* at present.  When enabled
       for a MeasurementSet, a warning will be issued and the plot
       will complete without connection.
    
@@ -1703,7 +1724,7 @@ Development
    parameters and allowed values are defined in
    **gcwrap/tasks/plotms.xml**, and the starting point to process the
    parameters and launch the casaplotms process (with or without the
-   GUI) is **gcwrap/python/scripts/task_plotms.py. ** It is important
+   GUI) is **gcwrap/python/scripts/task_plotms.py.** It is important
    to keep the GUI and the task arguments in sync, so that all
    functionality is available in either case.  Unfortunately, the
    result is a very long list of plotms parameters.
@@ -1743,7 +1764,7 @@ Development
    .. rubric:: Debugging
    
    Whether you run a plotms command in a casa session or run
-   *casaplotms * from the command line, a casaplotms process is
+   *casaplotms* from the command line, a casaplotms process is
    started and continues to run until you exit the casa session (for
    plotms) or the plotms GUI (for casaplotms).  This makes debugging
    with gdb/ddd very easy, as you can run plotms (with arguments

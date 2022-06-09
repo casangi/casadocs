@@ -95,7 +95,7 @@ Examples
    sub-MS name, scan, spw list, list of number of channels per spw,
    number of rows for each scan and the size on disk.
    
-   **listpartition ** task example:
+   **listpartition** task example:
    
    ::
    

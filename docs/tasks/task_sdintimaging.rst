@@ -270,7 +270,7 @@ Description
    deconvolution options are *specmode, gridder, deconvolver* (and
    associated sub-parameters similar to **tclean**).
    
-   -  **Specmode** : Supported modes include  *specmode='cube' * with
+   -  **Specmode** : Supported modes include  *specmode='cube'* with
       any single-term deconvolver, and  *specmode='mfs'* with any
       deconvolver (including multi-term). These options represent
       different conversion routines between the feathered cubes and

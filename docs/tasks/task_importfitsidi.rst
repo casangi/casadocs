@@ -67,8 +67,8 @@ Description
 
    Set the spectral reference frame for all spectral windows in the
    MS.  Default = *'GEO'*.   Other options:  *'TOPO', 'LSRK',
-   'BARY'*.  NOTE: If *specframe='TOPO',
-   * the reference location will be taken from the Observatories
+   'BARY'*.  NOTE: If *specframe='TOPO',*
+   the reference location will be taken from the Observatories
    table in the CASA data repository for the given name of the
    observatory.
    

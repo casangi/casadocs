@@ -19,7 +19,7 @@ Description
    supports multi-term images (see **tclean** help). Other gridders,
    like *mosaic* or *widefield*, are currently not supported. If you
    need one of the non-standard gridders, attach the model to the
-   MS with the task **tclean, ** setting ** ** *savemodel=True,*
+   MS with the task **tclean**, setting *savemodel=True*,
    and *gridder* to the requested algorithm. 
    
    The default is to replace any current MODEL in the MS by the model
@@ -29,7 +29,7 @@ Description
    sources are identified that need to be added to the model in the
    MS. 
    
-   When both, a *model* and a component list (in *complist)* are
+   When both, a *model* and a component list (in *complist*) are
    specified, **ft** will only use the model image in the *model*
    parameter.
    

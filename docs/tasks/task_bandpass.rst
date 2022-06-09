@@ -93,7 +93,7 @@ Description
    calibrator visibilities as a function of frequency. Use of
    *combine='spw'* will cause a single common BPOLY solution to be
    determined in frequency space for all selected spectral windows in
-   aggregate (plots of such solutions with plotcal will only show the
+   aggregate (plots of such solutions with plotms will only show the
    evaluated polynomial for the first spw used in the solve). It is
    usually most meaningful to do per-spw solutions, unless groups of
    adjacent spectral windows are known *a priori* to share a single

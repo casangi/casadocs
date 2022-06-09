@@ -82,9 +82,25 @@ Description
    A progress report line and a partial flagging summary is produced
    in the CASA logger every approximate 10% of the input data (since
    CASA 6.2), when the logger priority level is INFO (default).
-   Additional messages are visible when setting a more detailed
-   `level of logging <../../notebooks/usingcasa.ipynb#Setting-priority-levels-in-the-logger>`_.
-    
+   Additional messages are visible when setting a more detailed `level
+   of logging
+   <../../notebooks/usingcasa.ipynb#Setting-priority-levels-in-the-logger>`_.
+
+   .. tip::
+
+      The partial or on-the-fly summaries are calculated from the
+      flags as they are processed, and, as a consequence, they can
+      report misleading counts under certain circumstances, for
+      example when using the extend mode (see explanations
+      below). Also, when using channel or time averaging the
+      on-the-fly summaries can be difficult to interpret as they
+      report flag counts for the on-the-fly binned data (see `Flags
+      and data averaging
+      <../../notebooks/uv_manipulation.ipynb#Flags-and-data-averaging>`_
+      for an explanation of how this can distort the counts or
+      percentages of flags). Accurate flag counts for the flags once
+      written back to the MeasurementSet can be obtained afterwards
+      via the 'summary' mode.
    
    .. rubric:: Parameter descriptions
 
@@ -110,7 +126,7 @@ Description
    to be a field index otherwise, it is assumed to be a field name.
    Examples: *field='0~2'*, field ids 0,1,2; *field='0,4,5~7'*, field
    ids 0,4,5,6,7; *field='3C286,3C295'*, field named 3C286 and 3C295;
-   *field = '3,4C*'*, field id 3 and all names starting with 4C.
+   *field = '3,4C\*'*, field id 3 and all names starting with 4C.
    
    *spw*
 
@@ -138,7 +154,7 @@ Description
    DV06 and all other available antennas; *antenna='DV04,DV06'* all
    baselines with antennas DV04 and DV06; *antenna='DV06&&DV06'* only
    the auto-correlation baselines for antenna DV06;
-   *antenna='DV04&&*'* cross and auto-correlation baselines between
+   *antenna='DV04&&\*'* cross and auto-correlation baselines between
    antenna DV04 and all other available antennas; *antenna='0~2&&&'*
    only the auto-correlation baselines for antennas in range 0~2   
    
@@ -313,7 +329,7 @@ Description
    *reason=['FOCUS_ERROR', 'SUBREFLECTOR_ERROR']*   
    
    .. note:: **NOTE**: what is within the string is literally matched, e.g.
-      reason='' matches only blank reasons, and r *eason =
+      reason='' matches only blank reasons, and *reason =
       'FOCUS_ERROR, SUBREFLECTOR_ERROR'* matches this compound reason
       string only. See the syntax for writing flag commands at the
       end of this help. 
@@ -346,7 +362,7 @@ Description
    .. note:: The most common use-case for tbuff is to apply the
       online flags that are created by importasdm when savecmds=True.
       The value of a regular time buffer should be
-      *tbuff=0.5*max* (integration time).
+      *tbuff=0.5\*max* (integration time).
 
 
    .. rubric:: *mode='clip'* expandable parameters
@@ -417,10 +433,10 @@ Description
 
    Bin width for channel average in number of input channels. If a
    list is given, each bin applies to one of the selected SPWs. When
-   chanbin is set to 1 all input channels are used considered for the
-   average to produce a single output channel, this behaviour aims to
-   be preserve backwards compatibility with the previous
-   pre-averaging feature of clip mode. Default: 1    
+   chanbin is set to 1 all input channels are used for the average to
+   produce a single output channel, this behaviour aims to preserve
+   backwards compatibility with the previous pre-averaging feature of
+   clip mode. Default: 1
    
    *timeavg*
    
@@ -444,21 +460,27 @@ Description
 
       **NOTE2**: Pre-average across time is not supported for
       calibration tables
-   
+
    *timebin*
-   
+
    Bin width for time average in seconds. Default: '0s'
-   
-   [NOTE ADDED FROM CAS-12294 for CASA 6.3:] The auto-flagging methods (clip,
-   tfcrop, rflag) can be used together with timeavg and channelavg,
-   and other modes or agents. But when timeavg, channelavg (or both)
-   are enabled the set of other modes or agents that can be used
-   simultaneously is limited to the following ones: extendflags,
-   antint, and the display='data' GUI. display='data' and extendflags
-   can be added either in the flagdata command line or in list mode.
-   antint can only be added in list mode, as there is no subparameter
-   of clip, rflag, or tfcrop for this.
-   
+
+   .. note::
+
+      The auto-flagging methods (clip, tfcrop, rflag) can be used
+      together with timeavg and channelavg, and other methods. But
+      when one of the auto-flagging methods are employed and timeavg,
+      channelavg (or both) are enabled the set of other methods or
+      agents that can be used simultaneously is limited to the
+      following ones: extendflags, antint, and the display='data' GUI.
+
+      display=’data’ can be added as a parameter in the flagdata call.
+      extendflags can be added either in the flagdata call (as a
+      subparameter of *tfcrop* or *rflag*) or in the list of commands
+      in list mode. antint can only be added in the list of commands
+      in list mode, as there is no subparameter of clip, rflag, or
+      tfcrop for this.
+
    .. rubric:: *mode='quack'* expandable parameters
    
    Option to remove specified part of scan beginning/end.
@@ -579,7 +601,7 @@ Description
    where one or both antennas were pointing at a strictly higher
    elevation (as function of time), will be flagged. Default: 90.0
    
-   .. rubric:: *mode='tfcrop', 'rflag',* or *'extend'* expandable parameters
+   .. rubric:: *mode='tfcrop', 'rflag',\* or *'extend'* expandable parameters
 
    *ntime*
    
@@ -606,7 +628,7 @@ Description
    Flag using the TFCrop autoflag algorithm. For each field, spw,
    timerange (specified by ntime), and baseline:
    
-   #.  Average visibility amplitudes along time dimension to form an
+   #. Average visibility amplitudes along time dimension to form an
       average spectrum
    #. Calculate a robust piece-wise polynomial fit for the band-shape
       at the base of RFI spikes. Calculate 'stddev' of (data - fit).
@@ -1338,7 +1360,7 @@ Examples
    
    ::
    
-      flagdata('my.ms', mode='manual', antenna='*&amp;&amp;&amp;')
+      flagdata('my.ms', mode='manual', antenna='\*&amp;&amp;&amp;')
    
    Flag based on selected reasons from a file.
    

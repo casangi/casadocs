@@ -544,13 +544,13 @@ Examples
    
    ::
    
-      imstat('myImage', box='2,3,14,15;30,31,42,43')
+      imstat('myImage', box='2,3,14,15,30,31,42,43')
    
    Select the same two box regions but only channels 4 and 5
    
    ::
    
-      imstat('myImage', box='2,3,14,15;30,31,42,43', chan='4~5')
+      imstat('myImage', box='2,3,14,15,30,31,42,43', chan='4~5')
    
    Select all channels greater than 20 as well as channel 0, then the
    mean and standard deviation are printed
