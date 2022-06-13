@@ -11,7 +11,7 @@ Description
    The function estimates the continuum emission by fitting
    polynomials to the real and imaginary parts of the data. The
    spectral windows and channels on which the fitting is calculated
-   can be specified using the parameter *fitspw*. The resulting fit
+   can be specified using the parameter *fitspec*. The resulting fit
    represents a model of the continuum in all channels. The fitted
    continuum spectrum is subtracted from all channels selected in
    *spw*, and the result (intended as line emission only) is produced
@@ -35,21 +35,24 @@ Description
    via those selection parameters.
 
    The fitting method and polynomial order are chosen via the
-   parameters *fitmethod* and *fitorder*. The line-free channels are
-   given in the *fitspw* parameter. In it simplest form, it is a
-   line-free channel specification string that applies to all
-   fields. It can also be a list of line-free channel specifications,
-   with an item per field or group or fields. This is to be able to
-   produce an output MeasurementSet with multiple sources and/or
-   fields in one single call. The per-SPW line-free channels are
-   specified using the spw:channel notation, see the `MS selection
-   syntax <../../notebooks/visibility_data_selection.ipynb>`__.
+   parameters *fitmethod* and *fitorder*. It is also possible to use
+   different polynomial orders for different fields and SPWs when
+   *fitspec* takes the form of a dictionary. The line-free channels
+   are given in the *fitspec* parameter. In it simplest form, it is a
+   single line-free channel specification string that applies to all
+   fields. It can also be a dictionary, with different line-free
+   channel specifications and polynomial order for different fields
+   and SPWs. This is to be able to produce an output MeasurementSet
+   with multiple sources and/or fields in one single call. The per-SPW
+   line-free channels are specified using the spw:channel notation,
+   see the `MS selection syntax
+   <../../notebooks/visibility_data_selection.ipynb>`__.
 
-   In addition to the *fitspw* parameter, the channelized data flags
+   In addition to the *fitspec* parameter, the channelized data flags
    and data weights also influence how the channels will be used for
    the purpose of fitting the continuum. Channels that are flagged are
    effectively excluded for the purpose of fitting (equivalent to
-   excluding them from fitspw). The channel weights, adjusted for
+   excluding them from fitspec). The channel weights, adjusted for
    example using the statwt task, also influence how relevant
    different channels will be for the fitting, in a more gradual
    way.
@@ -70,7 +73,7 @@ Description
    .. note:: values of *fitorder* > 1 should be used with care. Higher
       order polynomials are more flexible, and may overfit and absorb
       line emission. They also tend to go wild at the edges of
-      *fitspw*,
+      *fitspec*,
 
    .. note:: Because the continuum model is necessarily a smoothed
       fit, images made with it are liable to have their field of view
@@ -90,7 +93,7 @@ Examples
 
    .. code-block:: python
 
-      result = uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', fitspw='0:10~100;300~350')
+      result = uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', fitspec='0:10~100;300~350')
       # result has contents as in the following example (excerpt):
       result
       {'description': 'summary of data fitting results in uv-continuum subtraction',
@@ -120,29 +123,29 @@ Examples
 
    .. code-block:: python
 
-      uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', fitorder=1, fitspw='0:10~100;300~350')
+      uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', fitorder=1, fitspec='0:10~100;300~350')
 
    **Example 3:**
 
    Our input MS has two fields. We use one call to uvcontsub to make a
    1 field MS for the first field, and a second call to make a 1 field
    MS for the second field of the input MS: to make the second field
-   MS. The *fitspw* is not specified which implies that all channels
+   MS. The *fitspec* is not specified which implies that all channels
    are used for fitting purposes in all the SPWs:
 
    .. code-block:: python
 
-      uvcontsub2021(vis='input_ms.ms', outputvis='field0_line.ms', field=0)
-      uvcontsub2021(vis='input_ms.ms', outputvis='field1_line.ms', field=1)
+      uvcontsub2021(vis='input_ms.ms', outputvis='field0_line.ms', field=0, fitspec='0:10~100;300~350', fitorder=0)
+      uvcontsub2021(vis='input_ms.ms', outputvis='field1_line.ms', field=1, fitspec='0:20~90;200~350', fitorder=1)
 
    **Example 4:**
 
-   Alternative to previous example, give fitspw as array and produce
+   Alternative to previous example, give fitspec as dictionary and produce
    an output MS with 2 fields:
 
    .. code-block:: python
    
-      uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', fitspw=[['0', '0:10~100;300~350'], ['1', '0:20~90;200~350']])
+      uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', fitspec={{'0': {'0': {'chan': '10~100;300~350', 'fitorder': 0}}}, {'1': {'0': {'chan': '20~90;200~350', 'fitorder': 1'}}}})
 
    **Example 5:**
 
@@ -184,7 +187,7 @@ Development
    identified throughout 2021. Additional features (or use modes) can
    be considered:
 
-   - Channel specifications in *fitspw* are supported in the native
+   - Channel specifications in *fitspec* are supported in the native
      frame of the input MeasurementSet. The suggestion is that frame
      conversions, when needed, be handled in separate (helper)
      functions rather than embedded in the task.
@@ -196,7 +199,7 @@ Development
      **phaseshift**).
 
    - Some CASA tasks have a parameter **excludechans** that inverts
-     the channel specification of fitspw (the channels given in fitswp
+     the channel specification of fitspec (the channels given in fitswp
      are excluded from the fitting instead of included). This
      functionality would be provided separately in a helper function.
 
