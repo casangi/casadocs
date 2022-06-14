@@ -3,10 +3,11 @@
 .. _Description:
 
 Description
-   .. warning:: **ALERT: uvcontsub3** is an experimental task and will
-      eventually replace the current **uvcontsub** code with the
-      goal of taking less time and temporary disk space.
-   
+   .. warning:: **ALERT: uvcontsub3** was an experimental task.  It is
+                now deprecated and will be removed in an upcoming
+                release. The tasks **uvcontsub** and **uvcontsub2021**
+                can be used as alternatives.
+
    **uvcontsub3** is a task to perform continuum fitting and
    subtraction in the uv plane
    
