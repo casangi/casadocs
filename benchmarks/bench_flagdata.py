@@ -23,7 +23,7 @@ number = 2
 
 class BaseFlagSetup():
     # Test datasets; root directory is read from config.py
-    datapath = ctsys.resolve("unittest/taskname/")
+    datapath = ctsys.resolve("unittest/flagdata/")
 
     def setUp_data4tfcrop(self):
         """EVLA MS, 4 ants, scan=30,31 spw=0~15, 64 chans, RR,RL,LR,LL"""
