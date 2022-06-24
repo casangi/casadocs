@@ -16,7 +16,11 @@ Description
    continuum spectrum is subtracted from all channels selected in
    *spw*, and the result (intended as line emission only) is produced
    in an output MeasurementSet. Polynomial models are fitted and
-   subtracted per integration, per baseline, per correlation.
+   subtracted per integration, per baseline, per correlation. Note
+   that because the real and imaginary parts are fitted separately,
+   the fitted model amplitude has the functional form of
+   sqrt(<polynomial of order fitorder*2>) which, in general, is not a
+   polynomial.
 
    The function returns a dictionary with goodness of fit metrics,
    grouped by field, scan, SPW, polarization, and real and imaginary
