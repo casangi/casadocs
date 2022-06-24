@@ -16,13 +16,22 @@ Description
    continuum spectrum is subtracted from all channels selected in
    *spw*, and the result (intended as line emission only) is produced
    in an output MeasurementSet. Polynomial models are fitted and
-   subtracted per integration, per baseline, per correlation.
+   subtracted per integration, per baseline, per correlation. Note
+   that because the real and imaginary parts are fitted separately,
+   the fitted model amplitude has the functional form of
+   sqrt(<*polynomial of order fitorder*\*2>) which, in general, is not a
+   polynomial.
 
    The function returns a dictionary with goodness of fit metrics,
    grouped by field, scan, SPW, polarization, and real and imaginary
    part. The goodness of fit metric included in the dictionary is the
    chi-squared values as calculated and minimized by the fitting
-   algorithms.
+   algorithms. The fields *count* found in the dictionary give the
+   number of polynomials fitted for every group (one individual
+   polynomial fit for every data row and polarization, and real and
+   imaginary parts). Simple statistics (average, minimum, and maximum)
+   of the goodness of fit values for every field/scan/SPW/polarization
+   group are given in the dictionary, see examples section.
 
    The input MeasurementSet is not modified (is only read). The data
    column from the input MeasurementSet that is read can be selected

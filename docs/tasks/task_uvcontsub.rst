@@ -3,14 +3,17 @@
 .. _Description:
 
 Description
-   This task estimates the continuum emission by fitting
-   polynomials to the real and imaginary parts of the spectral
-   windows and channels selected by *fitspw*. This fit represents
-   a model of the continuum in all channels. The fitted continuum
-   spectrum is subtracted from all channels selected in *spw*, and
-   the result (presumably only line emission) is stored in a new
-   MS that is always called vis + ".contsub". If an MS with the
-   output name already exists, it will be overwritten.
+   This task estimates the continuum emission by fitting polynomials
+   to the real and imaginary parts of the spectral windows and
+   channels selected by *fitspw*. This fit represents a model of the
+   continuum in all channels. The fitted continuum spectrum is
+   subtracted from all channels selected in *spw*, and the result
+   (presumably only line emission) is stored in a new MS that is
+   always called vis + ".contsub". If an MS with the output name
+   already exists, it will be overwritten. Note that because the real
+   and imaginary parts are fitted separately, the fitted model
+   amplitude has the functional form of sqrt(<*polynomial of order
+   fitorder*\*2>) which, in general, is not a polynomial.
 
    **uvcontsub** will read from the CORRECTED_DATA column of *vis*
    if it is present, or DATA if it is not. Whichever column is
