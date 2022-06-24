@@ -22,7 +22,12 @@ Description
    grouped by field, scan, SPW, polarization, and real and imaginary
    part. The goodness of fit metric included in the dictionary is the
    chi-squared values as calculated and minimized by the fitting
-   algorithms.
+   algorithms. The fields *count* found in the dictionary give the
+   number of integrations fitted for every group (one individual
+   polynomial fit for every data row and polarization, and real and
+   imaginary parts). Simple statistics (average, minimum, and maximum)
+   of the goodness of fit values for every field/scan/SPW/polarization
+   group are given in the dictionary, see examples section.
 
    The input MeasurementSet is not modified (is only read). The data
    column from the input MeasurementSet that is read can be selected
