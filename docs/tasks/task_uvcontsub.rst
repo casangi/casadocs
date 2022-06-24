@@ -13,7 +13,7 @@ Description
    already exists, it will be overwritten. Note that because the real
    and imaginary parts are fitted separately, the fitted model
    amplitude has the functional form of sqrt(<*polynomial of order
-   fitorder* *2>) which, in general, is not a polynomial.
+   fitorder*\*2>) which, in general, is not a polynomial.
 
    **uvcontsub** will read from the CORRECTED_DATA column of *vis*
    if it is present, or DATA if it is not. Whichever column is
