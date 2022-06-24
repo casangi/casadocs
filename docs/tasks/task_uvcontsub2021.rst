@@ -19,7 +19,7 @@ Description
    subtracted per integration, per baseline, per correlation. Note
    that because the real and imaginary parts are fitted separately,
    the fitted model amplitude has the functional form of
-   sqrt(<polynomial of order fitorder*2>) which, in general, is not a
+   sqrt(<*polynomial of order fitorder* *2>) which, in general, is not a
    polynomial.
 
    The function returns a dictionary with goodness of fit metrics,
@@ -27,7 +27,7 @@ Description
    part. The goodness of fit metric included in the dictionary is the
    chi-squared values as calculated and minimized by the fitting
    algorithms. The fields *count* found in the dictionary give the
-   number of integrations fitted for every group (one individual
+   number of polynomials fitted for every group (one individual
    polynomial fit for every data row and polarization, and real and
    imaginary parts). Simple statistics (average, minimum, and maximum)
    of the goodness of fit values for every field/scan/SPW/polarization
