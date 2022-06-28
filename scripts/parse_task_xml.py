@@ -112,8 +112,8 @@ for task in os.listdir('../casasource/casaplotms'):
 
 if os.path.exists('../casaviewer'): os.system('rm -fr ../casaviewer')
 os.system('mkdir ../casaviewer')
-for task in os.listdir('../casasource/casaviewer/src/xml'):
-    with open('../casasource/casaviewer/src/xml/' + task, 'r') as fid:
+for task in os.listdir('../casasource/casaviewer'):
+    with open('../casasource/casaviewer/' + task, 'r') as fid:
         xmlstring = fid.read()
     td = parse_xml(xmlstring)
     if td is not None: viewerlist += [td]
