@@ -63,13 +63,11 @@ for name in set(re.findall("\w+\.xml", xmlstring)):
 print('Downloading CASAviewer...')
 os.system('mkdir ../casasource/casaviewer')
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaviewer/browse/src/xml?at=refs/heads/%s"%branch_name).text
-print(f'>>>>>>>>>>>>>>>>>>>>>>> {xmlstring}')
 package_branch_name = 'master' if len(set(re.findall("\w+\.xml", xmlstring))) == 0 else branch_name
-print(f'>>>>>>>>>>>>>>>>>>>>>>> {package_branch_name}')
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaviewer/browse/src/xml?at=refs/heads/%s"%package_branch_name).text
-print(f'>>>>>>>>>>>>>>>>>>>>>>> {xmlstring}')
 for name in set(re.findall("\w+\.xml", xmlstring)):
     xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casaviewer/raw/src/xml/%s"%name + '?at=refs/heads/%s'%package_branch_name).text
+    print(f'>>>>>>>>>>>>>>>>>>>>\t{xmlstring}')
     with open('../casasource/casaviewer/'+name, 'w') as fid:
         fid.write(xmlstring + '\n')
 
