@@ -3,13 +3,15 @@ from casatools import ctsys
 from casatasks import casalog
 from casatasks import tclean
 
+# ASV attributes
+timeout = 10000
+number = 2
 
 class tclean_time_suite:
     """
     An example benchmark that adapts test_perf_tclean_mem_setweighting.py to asv
     """
 
-    timeout = 10000
 
     dataroot = ctsys.resolve(
         os.path.join(
