@@ -4,7 +4,7 @@
 
 Description
    tablerow is the tool for accessing the rows of a table
-   
+
 
 .. _Examples:
 
