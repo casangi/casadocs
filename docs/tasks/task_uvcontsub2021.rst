@@ -41,7 +41,11 @@ Description
    can be written into the MODEL column of the output MS, using the
    parameter *writemodel*. When selectionn parameters (field, spw,
    scan, etc.) are used, the output MS includes only the data selected
-   via those selection parameters.
+   via those selection parameters. Note that uvcontsub2021 takes as
+   input the DATA column by default unless the user sets a different
+   value for *datacolumn*. This behavior is different from older
+   uvcontsub tasks where the CORRECTED data column is taken as input
+   if available, otherwise falling back to DATA.
 
    The fitting method and polynomial order are chosen via the
    parameters *fitmethod* and *fitorder*. The line-free channels are
