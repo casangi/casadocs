@@ -28,7 +28,7 @@ Description
    Galactic latitude/longitude) reference pixel to be returned in the
    selected frequency and stokes planes, while box="-1" will result
    in details for all pixels in the selected frequency and stokes
-   planes being returned.
+   planes being returned. Choosing a single pixel as box parameter will not work, unless the header keyword is specified as 'FREQ'.
    
    Note that if only the pixel and/or mask values are required,
    ia.getchunk() and ia.getregion() also will provide these values.
