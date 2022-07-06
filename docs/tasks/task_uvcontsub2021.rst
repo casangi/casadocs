@@ -5,6 +5,11 @@ Description
       replace the tasks **uvcontsub** and **uvcontsub3**, as well as
       the **douvcontsub** feature of **mstransform**.
    
+   .. note:: Strictly speaking, the continuum fitted produced by this
+      task is only a good representation of the continuum at the phase
+      center. Residuals may be visible for sources far away and one
+      may try **imcontsub** in the image domain for improved results.
+
    This task can perform continuum fitting and subtraction in the uv
    domain.
 
@@ -72,24 +77,6 @@ Description
    fit, etc. see `UV Continuum Subtraction
    <../../notebooks/uv_manipulation.ipynb#UV-Continuum-Subtraction>`__.
 
-..
-    Notes taken from the pages of uvcontsub(1) and uvcontsub3:
-
-   .. note:: Strictly speaking, the continuum fitted produced by this
-      task is only a good representation of the continuum at the phase
-      center. Residuals may be visible for sources far away and one
-      may try **imcontsub** in the image domain for improved results.
-
-   .. note:: values of *fitorder* > 1 should be used with care. Higher
-      order polynomials are more flexible, and may overfit and absorb
-      line emission. They also tend to go wild at the edges of
-      *fitspw*,
-
-   .. note:: Because the continuum model is necessarily a smoothed
-      fit, images made with it are liable to have their field of view
-      reduced in some strange way. Images of the continuum should be
-      made by simply excluding the line channels (and probably
-      averaging the remaining ones) in **tclean**.
 
 .. _Examples:
 
