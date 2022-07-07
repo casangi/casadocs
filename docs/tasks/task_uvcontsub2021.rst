@@ -8,7 +8,10 @@ Description
    .. note:: Strictly speaking, the continuum fitted produced by this
       task is only a good representation of the continuum at the phase
       center. Residuals may be visible for sources far away and one
-      may try **imcontsub** in the image domain for improved results.
+      may wish to try the following for improved results: a) shifting
+      the phase center of the data to the location of the continuum
+      source, uv continuum subtracting, and then shifting the data
+      back or b) try **imcontsub** in the image domain.
 
    This task can perform continuum fitting and subtraction in the uv
    domain.
@@ -44,7 +47,7 @@ Description
    written into the DATA column of the output MS. Optionally, and to
    support inspection of results and debugging, the fitted model data
    can be written into the MODEL column of the output MS, using the
-   parameter *writemodel*. When selectionn parameters (field, spw,
+   parameter *writemodel*. When selection parameters (field, spw,
    scan, etc.) are used, the output MS includes only the data selected
    via those selection parameters. Note that uvcontsub2021 takes as
    input the DATA column by default unless the user sets a different
