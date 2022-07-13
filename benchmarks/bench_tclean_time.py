@@ -71,16 +71,16 @@ class TcleanSingleField(BaseTcleanSetup):
      def test_mfs_standard_mask_file(self):
           """tclean: Input mask as file and string using mode mfs - test_mask_1"""
           mstr = 'circle[[50pix,80pix],10pix]'
-          self.th.write_file(self.img + '.mask.txt', '#CRTFv0 CASA Region Text Format version 0\n' + mstr + '\n')
+          th.write_file(self.img + '.mask.txt', '#CRTFv0 CASA Region Text Format version 0\n' + mstr + '\n')
           ret = tclean(vis=self.msfile,imagename=self.img+'1',imsize=100,cell='8.0arcsec',niter=10,
                         deconvolver='hogbom',interactive=0,usemask='user',
                         mask=self.img+'.mask.txt',parallel=False)
 
     def time_mfs_standard_automask(self):
-      """tclean: multi-threshold Autobox (minbeamfrac=0.3) - test_mask_autobox_multithresh_with_prune"""
-      ret = tclean(vis=self.msfile,imagename=self.img,imsize=1000,cell='8.0arcsec',niter=10,
-                   deconvolver='hogbom',interactive=0,usemask='auto-multithresh',
-      minbeamfrac=0.3,parallel=self.parallel)
+        """tclean: multi-threshold Autobox (minbeamfrac=0.3) - test_mask_autobox_multithresh_with_prune"""
+        ret = tclean(vis=self.msfile,imagename=self.img,imsize=1000,cell='8.0arcsec',niter=10,
+                     deconvolver='hogbom',interactive=0,usemask='auto-multithresh',
+                     minbeamfrac=0.3,parallel=self.parallel)
 
     def time_cube_standard_pcwdT(self):
         """tclean: cube with perchanweightdensity True and briggs weighting - test_onefield_pcwdT_and_pcwdF"""
@@ -110,7 +110,7 @@ class TcleanMultiField(BaseTcleanSetup):
 
     def time_multifield_mfs_mtmfs(self):
         """ tclean: Two fields, both mt-mfs - test_multifield_both_mtmfs"""
-        self.th.write_file(self.img + '.out.txt',
+        th.write_file(self.img + '.out.txt',
                            'imagename=' + self.img + '1\n\nimsize=[80,80]\ncell=[8.0arcsec,8.0arcsec]\nphasecenter=J2000 19:58:40.895 +40.55.58.543\nusemask=user\nmask=circle[[40pix,40pix],10pix]')
 
         ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',
@@ -119,7 +119,7 @@ class TcleanMultiField(BaseTcleanSetup):
 
     def time_multifield_cube_hogbom(self):
         """tclean: Two fields, both cube - test_multifield_both_cube"""
-        self.th.write_file(self.img + '.out.txt',
+        th.write_file(self.img + '.out.txt',
                            'imagename=' + self.img + '1\nimsize=[80,80]\ncell=[8.0arcsec,8.0arcsec]\nphasecenter=J2000 19:58:40.895 +40.55.58.543\nimagename=' + self.img + '2\nimsize=[80,80]\ncell=[8.0arcsec,8.0arcsec]\nphasecenter=J2000 19:58:48.895 +40.55.58.543\n')
 
         retpar = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',
@@ -127,61 +127,8 @@ class TcleanMultiField(BaseTcleanSetup):
                         deconvolver='hogbom', interactive=0, specmode='cube', nchan=2, interpolation='nearest',
                         parallel=False)
 
-class TcleanCube(BaseTcleanSetup):
-    """Runtime benchmarking tests of tclean cube"""
-    def setup(self):
-        self.prepData('refim_point.ms')
-
-    def teardown(self):
-        os.system('rm -rf ' + self.img_subdir)
-        os.system('rm -rf ' + self.img + '*')
-        if (os.path.exists(self.msfile)):
-            os.system('rm -rf ' + self.msfile)
-
-    def time_cube_standard_hogbom(self):
-        """tclean: mosaic cube with Hogbom deconvolver -  test_cube_0"""
-        ret = tclean(vis=self.msfile, field='0', imsize=100, cell='8.0arcsec', niter=10,
-                     specmode='cube', nchan=10, restfreq=['1.25GHz'],
-                     phasecenter="J2000 19:59:28.500 +40.44.01.50", deconvolver='hogbom',
-                     spw=0, imagename=self.img + 'Cubetest_chandefstdefwidth',
-                     start=0, width=1, veltype='radio', outframe='LSRK', interpolation='linear', parallel=False)
-
-    def time_cube_standard_channel_gap(self):
-        """tclean" mosaic cube with gap in channel selection - test_cube_21"""
-        ret = tclean(vis=self.msfile, field='0', imsize=100, cell='8.0arcsec', niter=10,
-                     specmode='cube', nchan=10, restfreq=['1.25GHz'],
-                     phasecenter="J2000 19:59:28.500 +40.44.01.50", deconvolver='hogbom',
-                     spw='0:4~9;12~14', imagename=self.img + 'Cubetest_st4gap', start=4,
-                     width='', veltype='radio', outframe='LSRK', interpolation='nearest', parallel=False)
-
-class TcleanStokes(BaseTcleanSetup):
-    """Runtime benchmarking tests of tclean with Stokes imaging"""
-    def setup(self):
-        self.prepData('refim_point_linRL.ms')
-
-    def teardown(self):
-        os.system('rm -rf ' + self.img_subdir)
-        os.system('rm -rf ' + self.img + '*')
-        if (os.path.exists(self.msfile)):
-            os.system('rm -rf ' + self.msfile)
-
-    def time_mfs_stokes_IV(self):
-      """tclean: mfs with stokes IV - test_stokes_mfs_IV"""
-      tclean(vis=self.msfile,imagename=self.img,imsize=100,cell='8.0arcsec',niter=10, stokes='IV',
-             parallel=False)
-
-    def time_mtmfs_stokes_IQUV(self):
-        """tclean: mtmfs with stokes IQUV - test_stokes_mtmfs_IQUV"""
-        tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec', niter=10, stokes='IQUV',
-               deconvolver='mtmfs', nterms=2, parallel=False)
-
-    def time_cube_stokes_IV(self):
-      """tclean: cube with stokes V - test_stokes_cube_IV"""
-      ret = tclean(vis=self.msfile,imagename=self.img,imsize=100,cell='8.0arcsec',niter=10,
-                   stokes='IV',interactive=0,specmode='cube',interpolation='nearest',parallel=False)
-
 class TestWideField(BaseTcleanSetup):
-    """Runtime benchmarking tests of tclean cube imaging"""
+    """Runtime benchmarking tests of tclean on widefield using cube mode"""
     def setup(self):
         self.prepData('refim_oneshiftpoint.mosaic.ms')
 
@@ -217,7 +164,7 @@ class TestWideField(BaseTcleanSetup):
                mosweight=False, parallel=self.parallel)
 
 class TcleanWideFieldAWP(BaseTcleanSetup):
-    """Runtime benchmarking tests of tclean widefield awproject"""
+    """Runtime benchmarking tests of tclean on widefield using awproject"""
     def setup(self):
         self.prepData("refim_mawproject.ms")
 
@@ -227,27 +174,54 @@ class TcleanWideFieldAWP(BaseTcleanSetup):
         if (os.path.exists(self.msfile)):
             os.system('rm -rf ' + self.msfile)
 
-    def time_awproject_mfs_hogbom(self):
+    def time_mfs_awproject_hogbom(self):
         """tclean: MFS with narrowband AWProjection - test_widefield_aproj_mfs"""
         ret = tclean(vis=self.msfile, spw='1', field='*', imagename=self.img, imsize=512, cell='10.0arcsec',
                      phasecenter="J2000 19:59:28.500 +40.44.01.50",niter=30, gridder='awproject', cfcache='',
                      wbawp=False, conjbeams=True, psterm=False,computepastep=360.0,rotatepastep=360.0,
                      deconvolver='hogbom', savemodel='modelcolumn', parallel=False)
 
-    def time_awproject_mfs_mtmfs(self):
+    def time_mfs_awproject_mtmfs(self):
         """tclean: MFS with AWProjection and nt=2 stokes I - test_widefield_aproj_mtmfs  """
         ret = tclean(vis=self.msfile, spw='*', field='*', imagename=self.img, imsize=512, cell='10.0arcsec',
                      phasecenter="J2000 19:59:28.500 +40.44.01.50",niter=0, gridder='awproject',
                      cfcache=self.img + '.cfcache', wbawp=True, conjbeams=False, psterm=False,
                      computepastep=360.0,rotatepastep=360.0, deconvolver='mtmfs', parallel=False)
 
-    def time_awproject_cube_hogbom(self):
+    def time_cube_awproject_hogbom(self):
         """tclean: Cube with AW-Projection  and rotation off - test_widefield_aproj_cube"""
         ret = tclean(vis=self.msfile, field='*', imagename=self.img, imsize=512, cell='10.0arcsec',
                      phasecenter="J2000 19:59:28.500 +40.44.01.50",specmode='cube', niter=1, gain=1.0,
                      gridder='awproject', cfcache=self.img + '.cfcache',wbawp=True,conjbeams=False,
                      psterm=False, computepastep=360.0, rotatepastep=360.0, deconvolver='hogbom',
                      parallel=False)
+
+class TcleanCube(BaseTcleanSetup):
+    """Runtime benchmarking tests of tclean cube"""
+    def setup(self):
+        self.prepData('refim_point.ms')
+
+    def teardown(self):
+        os.system('rm -rf ' + self.img_subdir)
+        os.system('rm -rf ' + self.img + '*')
+        if (os.path.exists(self.msfile)):
+            os.system('rm -rf ' + self.msfile)
+
+    def time_cube_standard_hogbom(self):
+        """tclean: mosaic cube with Hogbom deconvolver -  test_cube_0"""
+        ret = tclean(vis=self.msfile, field='0', imsize=100, cell='8.0arcsec', niter=10,
+                     specmode='cube', nchan=10, restfreq=['1.25GHz'],
+                     phasecenter="J2000 19:59:28.500 +40.44.01.50", deconvolver='hogbom',
+                     spw=0, imagename=self.img + 'Cubetest_chandefstdefwidth',
+                     start=0, width=1, veltype='radio', outframe='LSRK', interpolation='linear', parallel=False)
+
+    def time_cube_standard_channel_gap(self):
+        """tclean" mosaic cube with gap in channel selection - test_cube_21"""
+        ret = tclean(vis=self.msfile, field='0', imsize=100, cell='8.0arcsec', niter=10,
+                     specmode='cube', nchan=10, restfreq=['1.25GHz'],
+                     phasecenter="J2000 19:59:28.500 +40.44.01.50", deconvolver='hogbom',
+                     spw='0:4~9;12~14', imagename=self.img + 'Cubetest_st4gap', start=4,
+                     width='', veltype='radio', outframe='LSRK', interpolation='nearest', parallel=False)
 
 class TcleanEphemeris(BaseTcleanSetup):
     """Runtime benchmarking tests of tclean ephemeris object imaging"""
@@ -285,7 +259,7 @@ class TcleanEphemeris(BaseTcleanSetup):
                      parallel=False)
 
 class TcleanMoldelVis(BaseTcleanSetup):
-    """Runtime benchmarking tests of task_tclean with model column"""
+    """Runtime benchmarking tests of tclean with saving model column"""
     def setup(self):
         self.prepData("refim_twochan.ms")
         delmod(self.msfile)
@@ -297,16 +271,43 @@ class TcleanMoldelVis(BaseTcleanSetup):
         if (os.path.exists(self.msfile)):
             os.system('rm -rf ' + self.msfile)
 
-     def test_modelvis_2(self):
+    def time_mfs_modelcolumn(self):
+        """tclean: mfs mode saving a model column - test_modelvis_2"""
         ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec', niter=10,
-                     savemodel='modelcolumn',parallel=self.parallel)
+                     savemodel='modelcolumn',parallel=False)
 
-     def test_modelvis_3(self):
-          """ [modelpredict] Test_modelvis_3 : mfs with save virtual model """
-          ret = tclean(vis=self.msfile,imagename=self.img,imsize=100,cell='8.0arcsec',niter=10,
-                       savemodel='virtual',parallel=self.parallel)
-    def test_modelvis_12(self):
-          """ [modelpredict] Test_modelvis_12 : (CAS-12618) mfs with automask and save model column (single tclean call, internally a separate predit model step)"""
-          ret = tclean(vis=self.msfile,imagename=self.img,imsize=100,cell='8.0arcsec',niter=10,
-                       savemodel='modelcolumn',usemask='auto-multithresh', parallel=self.parallel)
+    def time_mfs_virtual_modelcolumn(self):
+        """tclean: mfs saving a virtual model column - test_modelvis_3"""
+        ret = tclean(vis=self.msfile,imagename=self.img,imsize=100,cell='8.0arcsec',niter=10,
+                     savemodel='virtual',parallel=False)
 
+    def time_mfs_automask_modelcolumn(self):
+        """tclean: mfs with automask and save model column, internally a separate predit model step - test_modelvis_12"""
+        ret = tclean(vis=self.msfile,imagename=self.img,imsize=100,cell='8.0arcsec',niter=10,
+                     savemodel='modelcolumn',usemask='auto-multithresh', parallel=False)
+
+class TcleanStokes(BaseTcleanSetup):
+    """Runtime benchmarking tests of tclean with Stokes imaging"""
+    def setup(self):
+        self.prepData('refim_point_linRL.ms')
+
+    def teardown(self):
+        os.system('rm -rf ' + self.img_subdir)
+        os.system('rm -rf ' + self.img + '*')
+        if (os.path.exists(self.msfile)):
+            os.system('rm -rf ' + self.msfile)
+
+    def time_mfs_stokes_IV(self):
+      """tclean: mfs with stokes IV - test_stokes_mfs_IV"""
+      tclean(vis=self.msfile,imagename=self.img,imsize=100,cell='8.0arcsec',niter=10, stokes='IV',
+             parallel=False)
+
+    def time_mtmfs_stokes_IQUV(self):
+        """tclean: mtmfs with stokes IQUV - test_stokes_mtmfs_IQUV"""
+        tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec', niter=10, stokes='IQUV',
+               deconvolver='mtmfs', nterms=2, parallel=False)
+
+    def time_cube_stokes_IV(self):
+      """tclean: cube with stokes V - test_stokes_cube_IV"""
+      ret = tclean(vis=self.msfile,imagename=self.img,imsize=100,cell='8.0arcsec',niter=10,
+                   stokes='IV',interactive=0,specmode='cube',interpolation='nearest',parallel=False)
