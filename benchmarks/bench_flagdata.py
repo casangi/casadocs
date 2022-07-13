@@ -82,7 +82,6 @@ class AntintMode(BaseFlagSetup):
     def time_antint_low_threshold_spw(self):
         """flagdata: mode antint, with low threshold; (original test_antint_spw3_low_threshold)"""
         flagdata(vis=self.vis, mode='antint', spw='3', antint_ref_antenna='ea01', minchanfrac=-.1)
-        res = flagdata(vis=self.vis, mode='summary', spw='3')
 
 class CalibrationBandpass(BaseFlagSetup):
     """
