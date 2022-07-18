@@ -63,24 +63,24 @@ class TcleanSingleField(BaseTcleanSetup):
         ret = tclean(vis=self.msfile, imagename=tricky_imagename, imsize=100, cell='8.0arcsec', niter=10,
                      deconvolver='hogbom', interactive=0,parallel=False)
 
-    def time_msf_standard_mtmfs(self):
+    def time_mfs_standard_mtmfs(self):
         """tclean: mt-mfs with minor cycle iterations - test_onefield_mtmfs"""
         ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec', niter=10,
                      deconvolver='mtmfs',interactive=0, parallel=False)
 
-     def test_mfs_standard_mask_file(self):
-          """tclean: Input mask as file and string using mode mfs - test_mask_1"""
-          mstr = 'circle[[50pix,80pix],10pix]'
-          th.write_file(self.img + '.mask.txt', '#CRTFv0 CASA Region Text Format version 0\n' + mstr + '\n')
-          ret = tclean(vis=self.msfile,imagename=self.img+'1',imsize=100,cell='8.0arcsec',niter=10,
-                        deconvolver='hogbom',interactive=0,usemask='user',
-                        mask=self.img+'.mask.txt',parallel=False)
+    def test_mfs_standard_hogbom_mask_file(self):
+        """tclean: Input mask as file and string using mode mfs - test_mask_1"""
+        mstr = 'circle[[50pix,80pix],10pix]'
+        th.write_file(self.img + '.mask.txt', '#CRTFv0 CASA Region Text Format version 0\n' + mstr + '\n')
+        ret = tclean(vis=self.msfile,imagename=self.img+'1',imsize=100,cell='8.0arcsec',niter=10,
+                     deconvolver='hogbom',interactive=0,usemask='user',
+                     mask=self.img+'.mask.txt',parallel=False)
 
-    def time_mfs_standard_automask(self):
+    def time_mfs_standard_hogbom_automask(self):
         """tclean: multi-threshold Autobox (minbeamfrac=0.3) - test_mask_autobox_multithresh_with_prune"""
         ret = tclean(vis=self.msfile,imagename=self.img,imsize=1000,cell='8.0arcsec',niter=10,
                      deconvolver='hogbom',interactive=0,usemask='auto-multithresh',
-                     minbeamfrac=0.3,parallel=self.parallel)
+                     minbeamfrac=0.3,parallel=False)
 
     def time_cube_standard_pcwdT(self):
         """tclean: cube with perchanweightdensity True and briggs weighting - test_onefield_pcwdT_and_pcwdF"""
@@ -128,40 +128,23 @@ class TcleanMultiField(BaseTcleanSetup):
                         parallel=False)
 
 class TestWideField(BaseTcleanSetup):
-    """Runtime benchmarking tests of tclean on widefield using cube mode"""
+    """Runtime benchmarking tests of tclean on widefield using mosaic gridder with cube mode"""
     def setup(self):
         self.prepData('refim_oneshiftpoint.mosaic.ms')
 
-    def time_cube_standard_onefield(self):
-      """tclean: Mosaic with one field, standard gridder - test_cube_standard_onefield"""
-      tclean(vis=self.msfile, imagename=self.img,niter=0,specmode='cube',spw='*',imsize=1024,
-             phasecenter='',cell='10.0arcsec', gridder='standard',field='0',
-             pblimit=0.1,reffreq='1.5GHz',pbcor=True,parallel=False)
+    def time_cube_mosaic_cbFalse_mwFalse_twofield(self):
+        """tclean: - cube mosaic using conjbeams=False - test_cube_mosaic_cbFalse_mwFalse_twofield"""
+tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter=phasecenter,cell='10.0arcsec',gridder='mosaic',field=field, conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=False,parallel=False)
 
-    def time_cube_standard_twofields(self):
-      """tclean: Mosaic with two fields, cube imaging with standard gridder - test_cube_standard_twofield"""
-      tclean(vis=self.msfile, imagename=self.img,niter=0,specmode='cube',spw='*',imsize=1024,
-             phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec', gridder='standard',field='0,1',
-             pblimit=0.1,reffreq='1.5GHz',pbcor=True,parallel=False)
 
-    def time_cube_mosaic_cbFalse_mwTrue_onefield(self):
-        """tclean: - cube mosaic using conjbeams=False - test_cube_mosaic_cbFalse_mwTrue_onefield"""
-        tclean(vis=self.msfile, imagename=self.img, niter=0, specmode='cube', spw='*', imsize=1024,
-               phasecenter='', cell='10.0arcsec', gridder='mosaic', field=0, conjbeams=False,
-               wbawp=True, psterm=False, pblimit=0.1, reffreq='1.5GHz', pbcor=True, mosweight=True,
-               parallel=False)
+    def time_cube_mosaic_cbFalse_mwTrue_twofield(self):
+        """tclean: - cube mosaic using conjbeams=False - test_cube_mosaic_cbFalse_mwTrue_twofield"""
+        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter=phasecenter,cell='10.0arcsec',gridder='mosaic',field=field, conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=True,parallel=False)
 
-    def time_cube_awproject_cbFalse_mwFalse_onefield_upTrue(self):
-        """tclean: Cube mosaic with awproject gridder of single field - test_cube_awproject_cbFalse_mwFalse_onefield_upTrue"""
-        self.prepData('refim_oneshiftpoint.mosaic.ms')
-        self.prepCfcache("cfcache_oneshiftpoint_mosaic_cbFalse")
-        phasecenter = ''
-        field = '0'
+    def time_cube_mosaic_cbFalse_mwFalse_twofield_upTrue(self):
+        """tclean: Cube mosaic with conjbeams=F, mosaicweight=F, usepointing=T, of two fields -  test_cube_mosaic_cbFalse_mwFalse_twofield_upTrue"""
+        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter=phasecenter,cell='10.0arcsec',gridder='mosaic',field=field,  usepointing = True, conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=False,parallel=False)
 
-        tclean(vis=self.msfile, imagename=self.img, niter=0, specmode='cube', spw='*', imsize=1024,
-               phasecenter=phasecenter, cell='10.0arcsec', gridder='awproject', field=field, cfcache=self.cfcache,
-               usepointing=True, conjbeams=False, wbawp=True, psterm=False, pblimit=0.1, reffreq='1.5GHz', pbcor=True,
-               mosweight=False, parallel=self.parallel)
 
 class TcleanWideFieldAWP(BaseTcleanSetup):
     """Runtime benchmarking tests of tclean on widefield using awproject"""
