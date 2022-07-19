@@ -167,7 +167,7 @@ Examples
    uvcontsub are included in this `Jupyter notebook
    <../../notebooks/simulations_uvcontsub_ALMA_WIP.ipynb>`__ with demo
    scripts. The notebook is available on `Google Colab
-   <https://colab.research.google.com/github/casangi/casadocs/blob/CAS-13631/docs/notebooks/simulations_uvcontsub_ALMA_WIP.ipynb>`_,
+   <https://colab.research.google.com/github/casangi/casadocs/blob/CAS-13631/docs/notebooks/simulations_uvcontsub_ALMA.ipynb>`_,
    where the demo scripts can be run from the browser (or retrieved to
    be run locally). The verification tests of this task include
    numerical tests based on simulated data from the notebook. These
