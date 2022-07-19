@@ -148,7 +148,7 @@ Examples
 
    .. code-block:: python
 
-      spec = {{'0': {'0': {'chan': '10~100;300~350', 'fitorder': 0}}}, {'1': {'0': {'chan': '20~90;200~350', 'fitorder': 1'}}}}
+      spec = {'0': {'19': {'chan': '10~100;300~350', 'fitorder': 0}}}, {'1': {'19': {'chan': '20~90;200~350', 'fitorder': 1}}}
       uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', fitspec=spec)
 
    **Example 5:**
