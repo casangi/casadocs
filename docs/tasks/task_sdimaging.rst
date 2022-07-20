@@ -84,16 +84,25 @@ Description
    greater than the number of beams (in area) encompassed by the
    expected image.
 
+   In addition to the image described above, sdimaging produces 
+   weight image (outfile.weight). The weight image is calculated 
+   based on the WEIGHT or WEIGHT_SPECTRUM in the MS file. 
+   In each pixel in the grid (e.g., in RAD-Dec space), the gridding process 
+   searches through the data for measurements taken within some cutoff radius 
+   (specified by *convsupport*). Depending on their distance from the grid 
+   coordinate, the observation is weighted according to the kernel type 
+   and added together in each pixel. Sum of the weight is produced as 
+   the weight image. The weight image has same dimensions that image has.
+
    The *minweight* parameter defines a threshold of weight values to
    mask. The pixels in *outfile* whose weight is smaller than
-   *minweight* \*median (*weight*) are masked out. The task also
-   creates a weight image with the name outfile.weight.
+   *minweight* \*median (*weight*) are masked out. 
 
    The *projection* parameter allows to specify what kind of map
    projection is applied. The default is SIN (slant orthographic)
    projection. Besides that, the task supports CAR (plate carrée),
    TAN (gnomonic), and SFL (Sanson-Flamsteed).
-
+   
    .. rubric:: Bibliography
 
    .. [1] Mangum, et al. 2007, A&A, 474, 679 `ADS <https://ui.adsabs.harvard.edu/abs/2007A%26A...474..679M/abstract>`__
