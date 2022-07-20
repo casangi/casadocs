@@ -84,7 +84,7 @@ Description
    greater than the number of beams (in area) encompassed by the
    expected image.
 
-   In addition to the image described above, sdimaging produces 
+   In addition to the image described above, **sdimaging** produces 
    weight image (outfile.weight). The weight image is calculated 
    based on the WEIGHT or WEIGHT_SPECTRUM in the MS file. 
    In each pixel in the grid (e.g., in RAD-Dec space), the gridding process 
