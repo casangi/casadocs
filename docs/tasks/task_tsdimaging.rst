@@ -118,8 +118,7 @@ Description
 
    The *minweight* parameter defines a threshold of weight values to
    mask. The pixels in *outfile* whose weight is smaller than
-   *minweight* \*median (*weight*) are masked out. The task also
-   creates a weight image with the name outfile.weight.
+   *minweight* \*median (*weight*) are masked out. 
 
    The *projection* parameter allows to specify what kind of map
    projection is applied. The default is SIN (slant orthographic)
