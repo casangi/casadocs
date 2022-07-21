@@ -90,7 +90,7 @@ Description
    In each pixel in the grid (e.g., in RAD-Dec space), the gridding process 
    searches through the data for measurements taken within some cutoff radius 
    (specified by *convsupport*). Depending on their distance from the grid 
-   coordinate, the observation is weighted according to the kernel type 
+   coordinate, the observation is weighted according to the *gridfunction* 
    and added together in each pixel. Sum of the weight is produced as 
    the weight image. The weight image has same dimensions that image has.
 
