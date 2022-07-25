@@ -134,16 +134,16 @@ class TestWideField(BaseTcleanSetup):
 
     def time_cube_mosaic_cbFalse_mwFalse_twofield(self):
         """tclean: - cube mosaic using conjbeams=False - test_cube_mosaic_cbFalse_mwFalse_twofield"""
-tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter=phasecenter,cell='10.0arcsec',gridder='mosaic',field=field, conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=False,parallel=False)
+        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1', conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=False,parallel=False)
 
 
     def time_cube_mosaic_cbFalse_mwTrue_twofield(self):
         """tclean: - cube mosaic using conjbeams=False - test_cube_mosaic_cbFalse_mwTrue_twofield"""
-        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter=phasecenter,cell='10.0arcsec',gridder='mosaic',field=field, conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=True,parallel=False)
+        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1', conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=True,parallel=False)
 
     def time_cube_mosaic_cbFalse_mwFalse_twofield_upTrue(self):
         """tclean: Cube mosaic with conjbeams=F, mosaicweight=F, usepointing=T, of two fields -  test_cube_mosaic_cbFalse_mwFalse_twofield_upTrue"""
-        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter=phasecenter,cell='10.0arcsec',gridder='mosaic',field=field,  usepointing = True, conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=False,parallel=False)
+        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1',  usepointing = True, conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=False,parallel=False)
 
 
 class TcleanWideFieldAWP(BaseTcleanSetup):
@@ -195,7 +195,7 @@ class TcleanCube(BaseTcleanSetup):
         ret = tclean(vis=self.msfile, field='0', imsize=100, cell='8.0arcsec', niter=10,
                      specmode='cube', nchan=10, restfreq=['1.25GHz'],
                      phasecenter="J2000 19:59:28.500 +40.44.01.50", deconvolver='hogbom',
-                     spw=0, imagename=self.img + 'Cubetest_chandefstdefwidth',
+                     spw='0', imagename=self.img + 'Cubetest_chandefstdefwidth',
                      start=0, width=1, veltype='radio', outframe='LSRK', interpolation='linear', parallel=False)
 
     def time_cube_standard_channel_gap(self):
