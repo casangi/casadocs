@@ -131,10 +131,8 @@ Examples
    **Example 3:**
 
    Our input MS has two fields. We use one call to uvcontsub to make a
-   1 field MS for the first field, and a second call to make a 1 field
-   MS for the second field of the input MS: to make the second field
-   MS. The *fitspec* is not specified which implies that all channels
-   are used for fitting purposes in all the SPWs:
+   single field MS for the first field, and then a second call to make
+   a single field MS for the second field of the input MS:
 
    .. code-block:: python
 
@@ -155,7 +153,9 @@ Examples
 
    To ease analysis of the fitted model, we produce an output MS with
    the continuum subtracted data in the DATA column, and the fitted
-   model in the MODEL column:
+   model in the MODEL column. In contrast to the examples above,
+   *fitspec* is not specified which implies that all channels are used
+   for fitting purposes in all the SPWs:
 
    .. code-block:: python
    
