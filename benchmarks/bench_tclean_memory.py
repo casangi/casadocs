@@ -12,12 +12,7 @@ class tclean_memory_suite:
 
     timeout = 10000
 
-    dataroot = ctsys.resolve(
-        os.path.join(
-            os.environ.get("ASV_CONF_DIR"),
-            "casatestdata/performance/tclean_mem_setweighting/",
-        )
-    )
+    dataroot = ctsys.resolve("performance/tclean_mem_setweighting/")
     input_ms = "uid___A002_Xb9dfa4_X4724_target_spw16.ms"
 
     # assign our test dataset
