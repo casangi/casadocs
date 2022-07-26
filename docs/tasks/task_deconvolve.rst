@@ -161,7 +161,7 @@ Examples
    .. code-block:: python
 
       from casatools import ctsys
-      refim_path = ctsys.resolve('regression/unittest/clean/refimager/')
+      refim_path = ctsys.resolve('unittest/deconvolve/')
 
       # remove the old run, as necessary
       os.system("rm -rf try.*")
@@ -190,7 +190,7 @@ Examples
    .. code-block:: python
 
       from casatools import ctsys
-      refim_path = ctsys.resolve('regression/unittest/clean/refimager/')
+      refim_path = ctsys.resolve('unittest/deconvolve/')
 
       # remove the old run, as necessary
       os.system("rm -rf try.*")
@@ -214,7 +214,7 @@ Examples
    .. code-block:: python
 
       from casatools import ctsys
-      refim_path = ctsys.resolve('regression/unittest/clean/refimager/')
+      refim_path = ctsys.resolve('unittest/deconvolve/')
 
       # remove the old run, as necessary
       os.system("rm -rf try.*")
@@ -244,7 +244,7 @@ Examples
           '''Get the ms and evaluate tclean'''
           os.system('rm -rf try.* *.ms bak')
           os.system('mkdir bak')
-          refdatapath = ctsys.resolve('regression/unittest/clean/refimager/')
+          refdatapath = ctsys.resolve('unittest/deconvolve/')
           shutil.copytree(refdatapath+'refim_twochan.ms', 'refim_twochan.ms')
 
           tclean(vis='refim_twochan.ms', imagename='try', niter=0, imsize=100, cell='8.0arcsec', \
@@ -259,7 +259,7 @@ Examples
       ### Try out different automasking parameters with deconvolve.
       ### Parameters to play with: sidelobethreshold, noisethreshold, lownoisethreshold, negativethreshold, smoothfactor, minbeamfrac, cutthreshold, growiterations, dogrowprune, fastnoise
       ### To be run with "casa -c autotest_script.py":
-      # setup() # only need to do this the first time running the script
+      setup() # only need to do this the first time running the script
       restore_files()
       # Evaluate some number of times with a for loop to watch how the automask evolves.
       for n in range(10):
@@ -280,7 +280,7 @@ Examples
           '''
           Run tclean's major cycle to get mtmfs RHS images.
           Run deconvolve separately on this.
-          ''''''
+          '''
           if (init):
               print("Initializing!!!")
 
