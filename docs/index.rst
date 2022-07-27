@@ -9,8 +9,13 @@ Jansky Very Large Array
 (`VLA <https://public.nrao.edu/venue/the-very-large-array/>`__),
 and is often used also for other radio telescopes.
 
-6.5 Development Build
-   You are viewing the latest build of master, currently in the 6.5 development cycle
+**6.5.1 Release**
+
+CASA 6.5.1 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.5.1 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
+
+CASA 6.5.1 includes bug fixes and updates to a few tool methods. Noteworthy is a fix to a bug in tclean, which prevented a proper use of the UV taper parameter with natural weighting in CASA 6.2 - 6.5.0.
+
+For details on these and other new features, see the CASA 6.5.1 `Release Notes <https://casadocs.readthedocs.io/en/v6.5.1/notebooks/introduction.html>`__.
    
 CASA is developed by an international consortium of scientists
 based at the National Radio Astronomical Observatory (NRAO), the
@@ -19,6 +24,7 @@ Observatory of Japan (NAOJ), the Academia Sinica Institute of
 Astronomy and Astrophysics (ASIAA), CSIRO Astronomy and Space
 Science (CSIRO/CASS), and the Netherlands Institute for Radio
 Astronomy (ASTRON), under the guidance of NRAO.
+
    
 .. toctree::
    :hidden:
