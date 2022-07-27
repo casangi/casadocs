@@ -549,11 +549,17 @@ Description
    tolerance. The value of 'w' is used to determine which antenna is
    behind the other.
 
-   For the baselines present in the data, the uvw values are taken
-   from the UVW column of the corresponding data rows. If one or more
-   baselines are not present in the data for a given timestep, the
-   baseline uv-distances are additionally calculated using the
-   phase-reference center for antenna-pointing direction.
+   The uvw values of the baselines are defined as follows:
+
+   #. For the baselines present in the data, the uvw values are taken
+      from the UVW column of the corresponding data rows.
+   #. If one or more baselines are not present in the data for a given
+      timestep, the baseline uvw are additionally calculated using the
+      phase-reference center for antenna-pointing direction. In this
+      second case, both the antenna positions (expected in ITRF
+      spatial coordinate frame) and the phase-reference center are
+      converted to J2000 coordinate frame, and the UVW are calculated
+      using that frame.
 
    Shadow mode does not flag rows where the two antennas of the
    baseline are the same, or in other words, antennas do not shadow
