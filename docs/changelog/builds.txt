@@ -1,5 +1,3 @@
-81f4d680d024f834a1977df9c0fb966338fa8287 (HEAD, tag: 6.5.2.2, origin/master, origin/HEAD, master)
-d2d1bf2d3d81b864e8b9ebdf68e4bd4a9e156b4a (tag: 6.5.2.1)
 1a6d9c692ae877b128ec91902f9006c2b5fed448 (tag: 6.5.2.0, tag: 6.5.1.22)
 4ff8049d27dbdc5dd092d10ca6dabbcb86d5cf89
 f4153ec5e743233262a4b68fa5d929afa99924f9 (tag: 6.5.1.21)
@@ -30,4 +28,3 @@ cffd9dc77f74b2827bf7d3d22a8937e471cd40b3 (tag: 6.5.1.4)
 7ce121bf1164f85f0e64d48a4e8da916a3add1b4 (tag: 6.5.1.2)
 08d63374fd0cb5279356ebcd3c4614173043c9c1 (tag: 6.5.1.1)
 6bcb5eab7b1251b5fe227fb9ad9fd785c83d2972 (tag: 6.5.1.0, tag: 6.5.0.14)
-3f9346fa4b8ebef97ec2b70cce3224f0fd14a69d
