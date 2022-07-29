@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+   .. warning:: **uvcontsub_old** is deprecated and will be removed in
+                an upcoming release.
+
    This task estimates the continuum emission by fitting polynomials
    to the real and imaginary parts of the spectral windows and
    channels selected by *fitspw*. This fit represents a model of the
@@ -15,11 +18,11 @@ Description
    amplitude has the functional form of sqrt(<*polynomial of order
    fitorder* * 2>) which, in general, is not a polynomial.
 
-   **uvcontsub** will read from the CORRECTED_DATA column of *vis*
-   if it is present, or DATA if it is not. Whichever column is
-   read is presumed to have already been calibrated.
+   **uvcontsub_old** will read from the CORRECTED_DATA column of *vis*
+   if it is present, or DATA if it is not. Whichever column is read is
+   presumed to have already been calibrated.
    
-   .. warning:: Strictly speaking, the **uvcontsub** model
+   .. warning:: Strictly speaking, the uvcontsub model
       is only a good representation of the continuum at the
       phase center. Residuals may be visible for sources far
       away and one may try **imcontsub** in the image domain
@@ -127,7 +130,7 @@ Examples
    
    ::
    
-      uvcontsub(vis='myMS.ms',fitspw='0:10~100;300~350')
+      uvcontsub_old(vis='myMS.ms',fitspw='0:10~100;300~350')
 
    
    **Example 2:**
@@ -138,7 +141,7 @@ Examples
    
    ::
    
-      uvcontsub(vis='myMS.ms', fitspw='23.684~23.704GHz', excludechans=True, combine='spw', fitorder=1)
+      uvcontsub_old(vis='myMS.ms', fitspw='23.684~23.704GHz', excludechans=True, combine='spw', fitorder=1)
    
 
 .. _Development:
