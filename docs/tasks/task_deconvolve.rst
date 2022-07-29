@@ -89,64 +89,67 @@ Description
 
    Example Return Value:
 
-   .. code-block:: python
+   +--------------------------------------------------------+-----------------------------------------------------------+
+   |                                                        |                                                           |
+   | .. code-block:: python                                 | .. code-block:: python                                    |
+   |                                                        |                                                           |
+   |   {                                                    |           ...                                             |
+   |       'iterrec': {                                     |           'interactivethreshold': 0.0,                    |
+   |           'initrecs': [{                               |           'iterdone': 4,                                  |
+   |               'madrms': 0.0,                           |           'loopgain': 0.10000000149011612,                |
+   |               'masksum': -1.0,                         |           'maxpsffraction': 0.800000011920929,            |
+   |               'maxpsfsidelobe': 0.1375914365053177,    |           'maxpsfsidelobe': 0.1375914365053177,           |
+   |               'nsigma': 0.0,                           |           'minpsffraction': 0.10000000149011612,          |
+   |               'nsigmathreshold': 0.0,                  |           'niter': 2,                                     |
+   |               'peakresidual': 1.2150154113769531,      |           'nmajordone': 0,                                |
+   |               'peakresidualnomask': 1.2150154113769531 |           'nsigma': 0.0,                                  |
+   |           }],                                          |           'stopcode': 1,                                  |
+   |           'exrecs': [{                                 |           'summarymajor': array([], dtype=int64),         |
+   |               'iterdone': 4,                           |           'summaryminor': { 0: {                          |
+   |               'maxcycleiterdone': 2,                   |               0: { 0: {                                   |
+   |               'peakresidual': 1.2150154113769531,      |                   'startIterDone': [0.0],                 |
+   |               'summaryminor': array([                  |                   'iterDone': [2.0],                      |
+   |                   [2.00000000e+00, 4.00000000e+00],    |                   'startPeakRes': [1.5000190734863281],   |
+   |                   [1.21501541e+00, 6.07508719e-01],    |                   'peakRes': [1.2150154113769531],        |
+   |                   [2.85003632e-01, 1.42502040e-01],    |                   'startModelFlux': [0.0],                |
+   |                   [0.00000000e+00, 0.00000000e+00],    |                   'modelFlux': [0.2850036323070526],      |
+   |                   [0.00000000e+00, 0.00000000e+00],    |                   'startPeakResNM': [1.5000190734863281], |
+   |                   [0.00000000e+00, 1.00000000e+00],    |                   'peakResNM': [1.2150154113769531],      |
+   |                   [0.00000000e+00, 0.00000000e+00],    |                   'cycleThresh': [0.0],                   |
+   |                   [0.00000000e+00, 0.00000000e+00],    |                   'cycleStartIters': [0.0],               |
+   |                   [0.00000000e+00, 2.00000000e+00],    |                   'masksum': [10000.0],                   |
+   |                   [1.50001907e+00, 7.50010729e-01],    |                   'mpiServer': [0.0],                     |
+   |                   [0.00000000e+00, 0.00000000e+00],    |                   'peakMem': [11.02233600616455],         |
+   |                   [1.50001907e+00, 7.50010729e-01],    |                   'runtime': [0.10000000149011612],       |
+   |                   [1.21501541e+00, 6.07508659e-01],    |                   'stopCode': [1.0]}},                    |
+   |                   [1.00000000e+04, 1.00000000e+04],    |               1: { 0: {                                   |
+   |                   [0.00000000e+00, 0.00000000e+00],    |                   'startIterDone': [2.0],                 |
+   |                   [1.10223360e+01, 1.10223360e+01],    |                   'iterDone': [2.0],                      |
+   |                   [1.00000001e-01, 1.00000001e-01],    |                   'startPeakRes': [0.7500107288360596],   |
+   |                   [0.00000000e+00, 0.00000000e+00],    |                   'peakRes': [0.6075087189674377],        |
+   |                   [1.00000000e+00, 1.00000000e+00]     |                   'startModelFlux': [0.0],                |
+   |               ]),                                      |                   'modelFlux': [0.1425020396709442],      |
+   |               'updatedmodelflag': True                 |                   'startPeakResNM': [0.7500107288360596], |
+   |           }]                                           |                   'peakResNM': [0.607508659362793],       |
+   |       },                                               |                   'cycleThresh': [0.0],                   |
+   |       'isit': True,                                    |                   'cycleStartIters': [0.0],               |
+   |       'retrec': {                                      |                   'masksum': [10000.0],                   |
+   |           'cleanstate': 'running',                     |                   'mpiServer': [0.0],                     |
+   |           'cyclefactor': 1.0,                          |                   'peakMem': [11.02233600616455],         |
+   |           'cycleiterdone': 0,                          |                   'runtime': [0.10000000149011612],       |
+   |           'cycleniter': 2,                             |                   'stopCode': [1.0]                       |
+   |           'cyclethreshold': 0.0,                       |               } }                                         |
+   |           'interactiveiterdone': 0,                    |           } },                                            |
+   |           'interactivemode': False,                    |           'threshold': 0.0                                |
+   |           'interactiveniter': 0,                       |       }                                                   |
+   |           ...                                          |   }                                                       |
+   |                                                        |                                                           |
+   +--------------------------------------------------------+-----------------------------------------------------------+
 
-      {
-          'iterrec': {
-              'initrecs': [{
-                  'madrms': 2.9422905441029728e+26,
-                  'masksum': -1.0,
-                  'maxpsfsidelobe': 0.13999810814857483,
-                  'nsigma': 0.0,
-                  'nsigmathreshold': 0.0,
-                  'peakresidual': 0.01007403340190649,
-                  'peakresidualnomask': 0.01007403340190649
-              }],
-              'exrecs': [{
-                  'iterdone': 10,
-                  'maxcycleiterdone': 10,
-                  'peakresidual': 0.01007403340190649,
-                  'peakresidualnomask': 0.010650888085365295,
-                  'summaryminor': array([[0.00000000e+00, 1.00000000e+01],
-                                         [1.06508881e-02, 1.00740334e-02],
-                                         [1.28629196e+00, 1.28717983e+00],
-                                         [1.49110414e-03, 1.49110414e-03],
-                                         [0.00000000e+00, 0.00000000e+00],
-                                         [0.00000000e+00, 0.00000000e+00]]),
-                  'updatedmodelflag': True
-              }]
-          },
-          'isit': True,
-          'retrec': {
-              'cleanstate': 'running',
-              'cyclefactor': 1.0,
-              'cycleiterdone': 0,
-              'cycleniter': 10,
-              'cyclethreshold': 0.0014103456633165479,
-              'interactiveiterdone': 0,
-              'interactivemode': False,
-              'interactiveniter': 0,
-              'interactivethreshold': 0.0,
-              'iterdone': 10,
-              'loopgain': 0.10000000149011612,
-              'maxpsffraction': 0.800000011920929,
-              'maxpsfsidelobe': 0.13999810814857483,
-              'minpsffraction': 0.05000000074505806,
-              'niter': 10,
-              'nmajordone': 0,
-              'nsigma': 0.0,
-              'stopcode': 1,
-              'summarymajor': array([], dtype=int32),
-              'summaryminor': array([[0.00000000e+00, 1.00000000e+01],
-                                     [1.06508881e-02, 1.00740334e-02],
-                                     [1.28629196e+00, 1.28717983e+00],
-                                     [1.49110414e-03, 1.49110414e-03],
-                                     [0.00000000e+00, 0.00000000e+00],
-                                     [0.00000000e+00, 0.00000000e+00]]),
-              'threshold': 0.0
-          }
-      }
+   .. |nbsp| unicode:: 0xA0 
+      :trim:
 
+   For more information on the return value from **tclean** and **deconvolve**, please refer to the notebook "`Synthesis Imaging <../../notebooks/synthesis_imaging.html#Returned-Dictionary>`__".
 
 
 
@@ -170,7 +173,7 @@ Examples
       tclean(vis=refim_path+'refim_point.ms', imagename='try', imsize=100, cell='8.0arcsec', niter=0)
 
       # run deconvolve to generate the .image image
-      results1=deconvolve(imagename='try', deconvolver='clark', niter=20) # “restoration” defaults to True
+      ret=deconvolve(imagename='try', deconvolver='clark', niter=20) # “restoration” defaults to True
 
    This works for all of the common cases, including:
 
@@ -196,13 +199,13 @@ Examples
       os.system("rm -rf try.*")
 
       # Use tclean to generate our taylor term images. This should produce the images:
-      # tst.psf.tt0...tst.psf.tt4, tst.residual.tt0...tst.residual.tt2, tst.pb.tt0
+      # try.psf.tt0...try.psf.tt4, try.residual.tt0...try.residual.tt2, try.pb.tt0
       tclean(vis=refim_path + 'refim_point.ms', imagename='try', imsize=10, cell='8.0arcsec',
              deconvolver='mtmfs', niter=0, restoration=False, calcres=True, nterms=3)
 
       # Deconvolve with the same deconvolver and nterms. This should produce the images:
-      # tst.model.tt0...tst.model.tt2, tst.image.tt0...tst.image.tt2, tst.residual.tt0...tst.residual.tt2
-      deconvolve(imagename='try', niter=10, deconvolver='mtmfs', nterms=3)
+      # try.model.tt0...try.model.tt2, try.image.tt0...try.image.tt2, try.residual.tt0...try.residual.tt2
+      ret=deconvolve(imagename='try', niter=10, deconvolver='mtmfs', nterms=3)
 
    .. _Multiple_Runs:
    .. rubric:: Multiple Runs
@@ -223,8 +226,8 @@ Examples
       tclean(vis=refim_path+'refim_point.ms', imagename='try', imsize=100, cell='8.0arcsec', niter=0)
 
       # run deconvolve for 20 total iterations (10x2)
-      results1=deconvolve(imagename='try', deconvolver='clark', niter=10, interactive=0)
-      results2=deconvolve(imagename='try', deconvolver='clark', niter=10, interactive=0)
+      ret1=deconvolve(imagename='try', deconvolver='clark', niter=10, interactive=0)
+      ret2=deconvolve(imagename='try', deconvolver='clark', niter=10, interactive=0)
 
    .. _Automasking_Experimentation:
    .. rubric:: Automasking Experimentation
@@ -263,7 +266,7 @@ Examples
       restore_files()
       # Evaluate some number of times with a for loop to watch how the automask evolves.
       for n in range(10):
-          deconvolve(imagename='try', niter=10, deconvolver='hogbom', interactive=True, usemask='auto-multithresh', verbose=True)
+          ret=deconvolve(imagename='try', niter=10, deconvolver='hogbom', interactive=True, usemask='auto-multithresh', verbose=True)
 
    .. _Multiple_Clean_Methods:
    .. rubric:: Multiple Clean Methods
@@ -340,13 +343,14 @@ Examples
       # Note: the image.adddegaxes tool can also be used to add new axes
       imhead('try_orig.psf')
       # in terminal: 'axisnames':...['Right Ascension', 'Declination']...
-      importfits('tst_psf.fits', imagename='tst_orig.psf',
+      importfits('try_psf.fits', imagename='try_orig.psf',
                  defaultaxes=True, defaultaxesvalues=['','','1.5GHz','I'], overwrite=True)
       imtrans('try_orig.psf', outfile='try_slast.psf', order='0132')
+      imhead('try_slast.psf')
       # in terminal, psf: 'axisnames':...['Right Ascension', 'Declination', 'Frequency', 'Stokes']...
 
       # perform deconvolution
-      deconvolve('try_slast')
+      ret=deconvolve('try_slast')
 
    .. _Working_with_SD_Images:
    .. rubric:: Working with SD Images
@@ -358,16 +362,16 @@ Examples
    .. code-block:: python
 
       # Use the SDINT_helper class to create the PSF.
-      if sys.version_info > (3,): # special import needed for CASA6
-          # The SDINT_helper utility class is in the "private" directory of the wrapped python sdintimaging 
-          # task code. To access the sdint_helper file, we need to tell python EXACTLY where
-          # sdint_helper.py is.
-          sys.path.append(casatasks.__path__[0] + "/private/")
+      # The SDINT_helper utility class is in the "private" directory of the wrapped python sdintimaging 
+      # task code. To access the sdint_helper file, we need to tell python EXACTLY where
+      # sdint_helper.py is.
+      sys.path.append(casatasks.__path__[0] + "/private/")
       from sdint_helper import *
       sdintlib = SDINT_helper()
 
       # get/rename the residual image
-      os.system("cp -rp M100_TP M100_SD.residual")
+      M100_TP_path = ctsys.resolve("M100_TP")
+      os.system("cp -rp "+M100_TP_path+" M100_SD.residual")
 
       # get/rename, or create, the psf image
       # os.system("cp -rp psf_for_m100_tp M100_SD.psf")
@@ -376,8 +380,8 @@ Examples
 
       # deconvolve input: .residual .psf
       # output: .image .mask .model .residual
-      deconvolve(imagename="M100_SD", deconvolver="multiscale", scales=[0,5,15], nterms=2, 
-                 minpsffraction=0.05, niter=100, threshold='0.0mJ')
+      ret=deconvolve(imagename="M100_SD", deconvolver="multiscale", scales=[0,5,15], nterms=2, 
+                     niter=100, threshold='0.0mJ')
 
    Note: the creation of PSFs this way only works for 2D/3D SD images/cubes. It does not work for Taylor-term images, such as
    those generated by tclean(deconvolver='mtmfs'). The conversion from cube to Taylor-term inputs for use with deconvolve will
