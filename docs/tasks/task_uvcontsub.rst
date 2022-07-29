@@ -1,9 +1,9 @@
 .. _Description:
 
 Description
-   .. note:: **uvcontsub2021** is a new task expected to eventually
-      replace the tasks **uvcontsub** and **uvcontsub3**, as well as
-      the **douvcontsub** feature of **mstransform**.
+   .. note:: The task **uvcontsub** has been updated. It does not yet
+      support combining spws for fitting. If you need this
+      functionality please use uvcontsub_old.
    
    .. note:: Strictly speaking, the continuum fitted produced by this
       task is only a good representation of the continuum at the phase
@@ -49,11 +49,11 @@ Description
    can be written into the MODEL column of the output MS, using the
    parameter *writemodel*. When selection parameters (field, spw,
    scan, etc.) are used, the output MS includes only the data selected
-   via those selection parameters. Note that uvcontsub2021 takes as
-   input the DATA column by default unless the user sets a different
-   value for *datacolumn*. This behavior is different from older
-   uvcontsub tasks where the CORRECTED data column is taken as input
-   if available, otherwise falling back to DATA.
+   via those selection parameters. Note that uvcontsub takes as input
+   the DATA column by default unless the user sets a different value
+   for *datacolumn*. This behavior is different from older uvcontsub
+   tasks where the CORRECTED data column is taken as input if
+   available, otherwise falling back to DATA.
 
    The fitting method and polynomial order are chosen via the
    parameters *fitmethod* and *fitorder*. It is also possible to use
@@ -96,7 +96,7 @@ Examples
 
    .. code-block:: python
 
-      result = uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', fitspec='0:10~100;300~350')
+      result = uvcontsub(vis='input_ms.ms', outputvis='vis_line.ms', fitspec='0:10~100;300~350')
       # result has contents as in the following example (excerpt):
       result
       {'description': 'summary of data fitting results in uv-continuum subtraction',
@@ -126,7 +126,7 @@ Examples
 
    .. code-block:: python
 
-      uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', fitorder=1, fitspec='0:10~100;300~350')
+      uvcontsub(vis='input_ms.ms', outputvis='vis_line.ms', fitorder=1, fitspec='0:10~100;300~350')
 
    **Example 3:**
 
@@ -136,8 +136,8 @@ Examples
 
    .. code-block:: python
 
-      uvcontsub2021(vis='input_ms.ms', outputvis='field0_line.ms', field=0, fitspec='0:10~100;300~350', fitorder=0)
-      uvcontsub2021(vis='input_ms.ms', outputvis='field1_line.ms', field=1, fitspec='0:20~90;200~350', fitorder=1)
+      uvcontsub(vis='input_ms.ms', outputvis='field0_line.ms', field=0, fitspec='0:10~100;300~350', fitorder=0)
+      uvcontsub(vis='input_ms.ms', outputvis='field1_line.ms', field=1, fitspec='0:20~90;200~350', fitorder=1)
 
    **Example 4:**
 
@@ -147,7 +147,7 @@ Examples
    .. code-block:: python
 
       spec = {'0': {'19': {'chan': '10~100;300~350', 'fitorder': 0}}}, {'1': {'19': {'chan': '20~90;200~350', 'fitorder': 1}}}
-      uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', fitspec=spec)
+      uvcontsub(vis='input_ms.ms', outputvis='vis_line.ms', fitspec=spec)
 
    **Example 5:**
 
@@ -159,7 +159,7 @@ Examples
 
    .. code-block:: python
    
-      uvcontsub2021(vis='input_ms.ms', outputvis='vis_line.ms', writemodel=True)
+      uvcontsub(vis='input_ms.ms', outputvis='vis_line.ms', writemodel=True)
 
    **Example notebook**
 
@@ -172,7 +172,7 @@ Examples
    be run locally). The verification tests of this task include
    numerical tests based on simulated data from the notebook. These
    numerical verification tests check the accuracy of the continuum
-   fits produced by uvcontsub2021. For example, for polynomials of
+   fits produced by uvcontsub. For example, for polynomials of
    known coefficients, for order 0, 1, and 2, added artificially to
    the visibilities, the accuracy of the fitted polynomials is better
    than 10e-5 (measured as relative residual values through all
@@ -196,8 +196,8 @@ Development
      conversions, when needed, be handled in separate (helper)
      functions rather than embedded in the task.
 
-   - SPW combination, related to the *combine* parameter of the tasks
-     **uvcontsub(1)** and **uvcontsub3**.
+   - SPW combination, related to the *combine* parameter of the task
+     **uvcontsub_old**.
 
    - Phase shifting related features and parameters (see task
      **phaseshift**).
