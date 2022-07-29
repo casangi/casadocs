@@ -153,7 +153,7 @@ class ListMode(BaseFlagSetup):
     def setup(self):
         self.setUp_WRay_perf()
 
-    def time_flagdata_list(self):
+    def time_list_tbuff(self):
         """Flagdata list mode from pipeline hifa_flagdata"""
         flagdata(
             vis=self.vis,
