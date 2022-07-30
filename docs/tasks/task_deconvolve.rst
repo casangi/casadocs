@@ -285,7 +285,7 @@ Examples
 
       def run_G55(cycle, init=False, deconvolver='hogbom', niter=200):
           '''
-          Run tclean's major cycle to get mtmfs RHS images.
+          Run tclean's major cycle to get multiscale RHS images.
           Run deconvolve separately on this.
           '''
           if (init):
@@ -365,6 +365,9 @@ Examples
 
    .. code-block:: python
 
+      from casatools import ctsys
+      m100path = ctsys.resolve('M100_TP')
+
       # Use the SDINT_helper class to create the PSF.
       # The SDINT_helper utility class is in the "private" directory of the wrapped python sdintimaging 
       # task code. To access the sdint_helper file, we need to tell python EXACTLY where
@@ -374,8 +377,7 @@ Examples
       sdintlib = SDINT_helper()
 
       # get/rename the residual image
-      M100_TP_path = ctsys.resolve("M100_TP")
-      os.system("cp -rp "+M100_TP_path+" M100_SD.residual")
+      os.system("cp -rp "+m100path+" M100_SD.residual")
 
       # get/rename, or create, the psf image
       # os.system("cp -rp psf_for_m100_tp M100_SD.psf")
@@ -384,8 +386,8 @@ Examples
 
       # deconvolve input: .residual .psf
       # output: .image .mask .model .residual
-      ret=deconvolve(imagename="M100_SD", deconvolver="multiscale", scales=[0,5,15], nterms=2, 
-                     niter=100, threshold='0.0mJ')
+      ret=deconvolve(imagename="M100_SD", deconvolver="multiscale", scales=[0,5,15], niter=100,
+                     threshold='0.0mJ')
 
    .. TODO uncomment in CAS-13570 once test_multirun_mtmfs3x passes
    .. Note: the creation of PSFs this way only works for 2D/3D SD images/cubes. It does not work for Taylor-term images, such as
