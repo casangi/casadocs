@@ -23,9 +23,9 @@
   ],
   "include": [
     {
-	"python": "3.6",
-	"pip+casatasks": "6.5.1.17",
-	"pip+casatestutils": "6.5.1.17",
+      "python": "3.6",
+      "pip+casatasks": "6.5.2.1",
+      "pip+casatestutils": "6.5.2.1"
     }
   ],
   "benchmark_dir": "benchmarks",
