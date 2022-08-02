@@ -232,10 +232,6 @@ class ListFileMode(BaseFlagSetup):
     def setup(self):
         self.setUp_ngc5921()
 
-    def teardown(self):
-        if os.path.exists(self.inpfile1):
-            os.system("rm -rf listcmd*.txt")
-
     def time_list_from_3files(self):
         """Flagdata list mode reading commands from three files; (original test_file_CAS4819)"""
         flagdata(vis=self.vis, mode='list', inpfile=[self.inpfile1, self.inpfile2, self.inpfile3],
