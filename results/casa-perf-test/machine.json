@@ -1,0 +1,9 @@
+{
+    "arch": "x86_64",
+    "cpu": "Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz",
+    "machine": "casa-perf-test",
+    "num_cpu": "16",
+    "os": "Linux 3.10.0-1160.71.1.el7.x86_64",
+    "ram": "263925792",
+    "version": 1
+}
