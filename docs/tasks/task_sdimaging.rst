@@ -85,14 +85,14 @@ Description
    expected image.
 
    In addition to the image described above, **sdimaging** produces 
-   weight image (outfile.weight). The weight image is calculated 
-   based on the WEIGHT or WEIGHT_SPECTRUM in the MS file. 
-   In each pixel in the grid (e.g., in RAD-Dec space), the gridding process 
+   a weight image (outfile.weight). The weight image is calculated 
+   from data stored in the WEIGHT or WEIGHT_SPECTRUM column of the MS file. 
+   For each pixel in the grid (e.g., in RA-Dec space), the gridding process 
    searches through the data for measurements taken within some cutoff radius 
    (specified by *convsupport*). Depending on their distance from the grid 
-   coordinate, the observation is weighted according to the *gridfunction* 
-   and added together in each pixel. Sum of the weight is produced as 
-   the weight image. The weight image has same dimensions that image has.
+   coordinate, the observations are weighted according to the *gridfunction* 
+   and the result is added to the pixel value. 
+   The weight image and the image have the same shape.
 
    The *minweight* parameter defines a threshold of weight values to
    mask. The pixels in *outfile* whose weight is smaller than
