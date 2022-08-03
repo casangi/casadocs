@@ -94,7 +94,7 @@ class GaincalSelections(DataSetUp):
                 smodel=[1, 0, 0, 0], scan='2')
 
     def time_gaincal_spwSelect(self):
-        gaincal(vis=datacopy, caltable=self.cal, solint='inf',
+        gaincal(vis=self.vis, caltable=self.cal, solint='inf',
                 smodel=[1, 0, 0, 0], spw='2')
 
     def time_gaincal_uvRangeSelect(self):
