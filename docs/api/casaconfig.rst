@@ -15,7 +15,7 @@ necessary for proper CASA operation.
 config.py
 ^^^^^^^^^
 
-.. data:: config.py
+.. data:: config_defaults_static.py
 
 Each modular CASA 6 package as well as the full monolithic installation reads a single **config.py** configuration file
 to setup the CASA runtime options. A default config.py is included within the casaconfig package.
@@ -26,5 +26,5 @@ This file will be loaded unless the user places their own version in
 their home area .casa folder (**\~/.casa**) prior to starting the casa installation or importing the packages into a standard
 python environment for the first time.
 
-.. include:: ../config.py
+.. include:: ../private/config_defaults_static.py
    :literal:
