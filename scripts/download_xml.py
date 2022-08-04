@@ -51,7 +51,8 @@ os.system('tar -xf ../casaconfig/casaconfig* --directory ../casaconfig/')
 os.system('mv ../casaconfig/casaconfig*/casaconfig/*.py ../casaconfig/.')
 os.system('mv ../casaconfig/casaconfig*/casaconfig/private ../casaconfig/.')
 os.system('rm -fr ../casaconfig/casaconfig*')
-os.system('cp ../casaconfig/config.py .')
+# copy file to be used showing the defaults
+os.system('cp ../casaconfig/private/config_defaults_static.py .')
 
 
 ##################################################################################
