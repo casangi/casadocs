@@ -9,22 +9,31 @@ necessary for proper CASA operation.
    :nosignatures:
    :functions-only:
 
-.. warning:: Users must ensure they have an up-to-date config.py in their ~/.casa directory (or delete it to utilize the default). Use write_default_config() to update.
-
-
 config.py
 ^^^^^^^^^
 
-.. data:: config_defaults_static.py
+.. data:: configuration values
 
-Each modular CASA 6 package as well as the full monolithic installation reads a single **config.py** configuration file
-to setup the CASA runtime options. A default config.py is included within the casaconfig package.
-This default config.py provides automatic initial population and daily maintenance of casaconfig data tables,
-and defines the allowable configuration settings for the CASA runtime.
+Each modular CASA 6 package as well as the full monolithic installation reads a set of configuration files
+to setup the CASA runtime options. The configuration is applied when config is imported from casaconfig (**from casaconfig import config**). The
+configuraiton files include the defaults, an optional site configuration file, and an optional user configuration file.
 
-This file will be loaded unless the user places their own version in
-their home area .casa folder (**\~/.casa**) prior to starting the casa installation or importing the packages into a standard
-python environment for the first time.
+The optional user configuration file is found in their home .casa folder as config.py (**\_/.casa/config.py**).
 
-.. include:: ../private/config_defaults_static.py
+The optional site configuration file is named **casasiteconfig.py** and is found anywhere within **sys.path** following the usual pyhthon import rules.
+
+All optional configuration files will be ignored if **\-\-noconfig** is used on the command line.
+
+An alternative path to the user configuration file can be given using the **--configfile <path_to_file>** option on the command line.
+
+The configuration files are used in order of defaults, site configuration, user configuration. The optional configuration files need
+only set parameters that differ from the defaults. The resulting configuration will always include all of the recognized
+configuration values. The configuration files are evaluated python files so any valid python can be used. **Note**: configuration
+happens before any parts of CASA are loaded so no CASA modules should be used within the configuration steps.
+
+Use the get_config() function to get a list of strings showing the configuration parameters with values.
+
+The defaults are shown below. 
+
+.. include:: ../config_defaults_static.py
    :literal:
