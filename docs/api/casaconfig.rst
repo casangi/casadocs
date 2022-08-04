@@ -15,7 +15,8 @@ config.py
 .. data:: configuration values
 
 ::
-   from casaconfig import config
+
+    from casaconfig import config
 
 Each modular CASA 6 package as well as the full monolithic installation reads a set of configuration files
 to setup the CASA runtime options. The configuration is applied when config is imported from casaconfig. The
