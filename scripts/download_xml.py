@@ -52,6 +52,8 @@ os.system('mv ../casaconfig/casaconfig*/casaconfig/*.py ../casaconfig/.')
 os.system('mv ../casaconfig/casaconfig*/casaconfig/private ../casaconfig/.')
 os.system('rm -fr ../casaconfig/casaconfig*')
 # copy file to be used showing the defaults
+print("Debug print : ls of ../casaconfig/*")
+os.system('ls ../casaconfig/*')
 os.system('cp ../casaconfig/private/config_defaults_static.py .')
 
 
