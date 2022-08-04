@@ -14,9 +14,12 @@ config.py
 
 .. data:: configuration values
 
+::
+   from casaconfig import config
+
 Each modular CASA 6 package as well as the full monolithic installation reads a set of configuration files
-to setup the CASA runtime options. The configuration is applied when config is imported from casaconfig (**from casaconfig import config**). The
-configuraiton files include the defaults, an optional site configuration file, and an optional user configuration file.
+to setup the CASA runtime options. The configuration is applied when config is imported from casaconfig. The
+configuration files include the defaults, an optional site configuration file, and an optional user configuration file.
 
 The optional user configuration file is found in their home .casa folder as config.py (**\_/.casa/config.py**).
 
