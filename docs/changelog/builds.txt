@@ -1,4 +1,4 @@
-474227876334fff1e4b09e7012916d4249f7e81f (HEAD, origin/master, origin/HEAD, master)
+474227876334fff1e4b09e7012916d4249f7e81f (HEAD, tag: 6.5.2.6, origin/master, origin/HEAD, master)
 03d3e0c159927e8e2f69c4b21ec116c4fb9d99c1 (tag: 6.5.2.5)
 6d8765c6a8fd885fab6ffe117a3cd45805905968 (tag: 6.5.2.4)
 cc15ea9cb4335ba42101903e6988c557c75f8b93
