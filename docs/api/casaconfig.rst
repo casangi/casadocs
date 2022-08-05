@@ -37,7 +37,9 @@ happens before any parts of CASA are loaded so no CASA modules should be used wi
 
 Use the get_config() function to get a list of strings showing the configuration parameters with values.
 
-The defaults are shown below. 
+The defaults are shown below. **Note** that the default *logfile* uses the time module to set the value to a string that depends on when 
+the config file is evaluated. **Note** that in the monolithic casa case, *datapath* and *measurespath* will default to the data directory 
+in the casaconfig package (returned by *get_data_dir()*).
 
 .. include:: ../config_defaults_static.py
    :literal:
