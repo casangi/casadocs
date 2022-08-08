@@ -92,7 +92,7 @@ Description
    (specified by *convsupport*). Depending on their distance from the grid 
    coordinate, the observations are weighted according to the *gridfunction* 
    and the result is added to the pixel value. 
-   The weight image and the image have the same shape.
+   The weight image has the same dimensions as the image.
 
    The *minweight* parameter defines a threshold of weight values to
    mask. The pixels in *outfile* whose weight is smaller than
