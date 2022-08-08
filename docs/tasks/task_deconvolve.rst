@@ -179,8 +179,9 @@ Examples
    This works for all of the common cases, including:
 
    .. TODO add mtmfs and asp
+   .. TODO "2D, 3D, and 4D images/cubes" => "2D, 3D, and 4D images/cubes and multi-term (for mtmfs)"
+
    - All the deconvolvers (hogbom, clark, clarkstokes, multiscale)
-   .. TODO ...images/cubes and multi-term (for mtmfs),...
    - 2D, 3D, and 4D images/cubes, regridded as appropriate to have axes [ra,dec,pol,chan]
    - Restoration with a common beam or restoringbeam
    - Masking (user, pbmask, automask)
