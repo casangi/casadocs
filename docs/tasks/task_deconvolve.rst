@@ -60,8 +60,8 @@ Description
 
    Task **deconvolve** returns a dictionary with the following values:
 
-   - isit : The stop flag from the iterator. 1 if one or more of the stopping criteria have been met, or 0 if an exception
-     was encountered during the execution of deconvolve.
+   - isit : The stop flag from the iterator. True if one or more of the stopping criteria have been met, or False if an
+     exception was encountered during the execution of deconvolve.
    
    - retrec : The summary of the execution, in the case that the `interactive parameter <interactive_>`_ is not a boolean
      type (eg interactive=0). More information about the similar return value for **tclean** can be found in the
