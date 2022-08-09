@@ -8,18 +8,16 @@ Description
    it introduces is the ability to just run the deconvolution step alone.
 
    The **deconvolve** task uses the same minor cycle as tclean. Therefore, the two tasks will evaluate the minor cycle in
-   the exact same way. However, using deconvolve on its own will produce different results than tclean due to the lack of a
-   major cycle.
-
-   .. note:: Each execution of deconvolve starts with 0 iterations. This means that the niter parameter caps the number of
-             iterations per call. For example, two back-to-back calls "deconvolve(niter=50); deconvolve(niter=100)" could
-             potentially evaluate a total of 50+100=150 iterations.
+   the exact same way. However, deconvolve operates purely in the image domain and the final residual images are saved to
+   disk at the end of the minor cycle iterations whereas in tclean the residual images are saved to disk after an
+   additional major cycle. The results between deconvolve and tclean may therefore differ at a level that varies per
+   dataset and algorithm setup.
 
    This task gathers many of its runtime requirements from the meta information on input images. It also doesn't have a
    need for data selection or a measurement set, and therefore requires much fewer input parameters than the **tclean**
    task. At the end of a successful **deconvolve** run, the history of the output images is updated. This is done in the
    same way as for the **tclean** task. For every **deconvolve** command a series of entries is recorded, including the
-   task name (**tclean**), the CASA version used, and every parameter-value pair of the task, which can then be inspected
+   task name "deconvolve", the CASA version used, and every parameter-value pair of the task, which can then be inspected
    with the task `imhistory <../casatasks.information.imhistory.html#casatasks.information.imhistory>`__.
 
    .. rubric:: Images
@@ -45,6 +43,10 @@ Description
    `iteration control documentation <../../notebooks/synthesis_imaging.html#Iteration-Control>`__ for more information on
    how niter and other iteration control parameters affect the minor cycle.
 
+   .. note:: Each execution of deconvolve starts with 0 iterations. This means that the niter parameter caps the number of
+             iterations per call. For example, two back-to-back calls "deconvolve(niter=50); deconvolve(niter=100)" could
+             potentially evaluate a total of 50+100=150 iterations.
+
    More information on the per-call iteration control results can be found in the "retrec" Return Value.
    
    .. rubric:: Interactive Mask
@@ -58,18 +60,8 @@ Description
 
    Task **deconvolve** returns a dictionary with the following values:
 
-   - isit : The stop flag from the iterator. 0 if iteration stopping criteria have not been met, otherwise one or more of
-     the criteria have been met. The exact reason for stopping will be written to the log at the “info” level. At the time
-     of writing this, possible stopping criteria are:
-
-      + reached the iteration limit
-      + peak residual is below the threshold
-      + received a stop signal from the interactive gui
-      + the peak residual increased by more than 3 times from the minimum reached
-      + the mask is all zeroes
-      + and any combination of n-sigma and other valid exit criterion
-
-     More simply, unless an exception was encountered during the execution of deconvolve, isit will be 1 (true).
+   - isit : The stop flag from the iterator. 1 if one or more of the stopping criteria have been met, or 0 if an exception
+     was encountered during the execution of deconvolve.
    
    - retrec : The summary of the execution, in the case that the `interactive parameter <interactive_>`_ is not a boolean
      type (eg interactive=0). More information about the similar return value for **tclean** can be found in the
