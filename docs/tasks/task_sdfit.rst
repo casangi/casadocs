@@ -1,5 +1,11 @@
 
 
+.. _Returns:
+
+   stats (dict) - line statistics including peak, center, FWHM, and
+   number of lines, all with error estimates
+
+
 .. _Description:
 
 Description

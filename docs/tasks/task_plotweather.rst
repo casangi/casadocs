@@ -1,5 +1,11 @@
 
 
+.. _Returns:
+
+   tau (float) - opacity as a mean of the estimates based on weather
+   data and a seasonal model
+
+
 .. _Description:
 
 Description
@@ -7,11 +13,11 @@ Description
    weather table; estimates opacity.
    
    Generates opacity estimates from both the weather data and a
-   seasonal model.By default the returned opacity is the mean of
+   seasonal model. By default the returned opacity is the mean of
    these predictions, but this can be adjusted with seasonal_weight.
    Please note that the opacity determined in this manner is only a
-   rough estimate which could propagate to an error when
-   bootstrapping the flux density.
+   rough estimate which could propagate to an error when bootstrapping
+   the flux density.
    
    These methods and models are described in detail in `EVLA Memo
    143 <https://library.nrao.edu/public/memos/evla/EVLAM_143.pdf>`__ , `VLA

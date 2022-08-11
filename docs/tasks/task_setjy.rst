@@ -1,5 +1,10 @@
 
 
+.. _Returns:
+
+   fluxd (dict) - flux densities indexed by field and SPW
+
+
 .. _Description:
 
 Description

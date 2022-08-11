@@ -1,5 +1,12 @@
 
 
+.. _Returns:
+
+   out (dict) - fitting information including list of fitted
+   components, per-channel convergence, and direction coordinate pixel
+   increments, when dooff=False
+
+
 .. _Description:
 
 Description

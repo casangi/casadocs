@@ -1,5 +1,11 @@
 
 
+.. _Returns:
+
+   frac_stokes (dict) - fractional Stokes results, indexed by field
+   and SPW, when poltype='Xfparang+QU'
+
+
 .. _Description:
 
 Description

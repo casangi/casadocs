@@ -1,5 +1,10 @@
 
 
+.. _Returns:
+
+   history (list) - list history entries from the image
+
+
 .. _Description:
 
 Description

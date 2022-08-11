@@ -1,5 +1,11 @@
 
 
+.. _Returns:
+
+   out (tuple) - tuple with the value of the requested keyword, and
+   associated metainformation if available, when mode='get'
+
+
 .. _Description:
 
 Description

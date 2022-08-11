@@ -1,5 +1,11 @@
 
 
+.. _Returns:
+
+   summary (dict) - convergence history of the run, when
+   interactive=1/0 instead of True/False
+
+
 .. _Description:
 
 Description

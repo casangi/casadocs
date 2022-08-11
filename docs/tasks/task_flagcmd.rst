@@ -1,5 +1,11 @@
 
 
+.. _Returns:
+
+   out (dict) - names of plot files for action='plot', internal
+   flagging dictionary for action='extract'
+
+
 .. _Description:
 
 Description
