@@ -2,10 +2,12 @@ import os, shutil
 from casatools import ctsys
 from casatasks import gaincal
 
-# ASV attributes
-timeout = 10000
-number = 2
-
+# ASV attributes (https://asv.readthedocs.io/en/stable/benchmarks.html?highlight=number#benchmark-attributes)
+number=1
+repeat = (1, 3, 60.0)
+rounds=1
+min_run_count=1
+timeout = 600
 
 class DataSetUp():
 
