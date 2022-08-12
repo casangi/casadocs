@@ -2,6 +2,7 @@
 
 .. _Returns:
 
+Returns
    stats (dict) - statistics from a given MeasurementSet column or
    column-derived value, grouped by ddi, field or integration
 

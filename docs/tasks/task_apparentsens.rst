@@ -2,6 +2,7 @@
 
 .. _Returns:
 
+Returns
    sens (dict) - estimate of apparent sensitivity for a given
    weighting scheme and its ratio to the estimate obtained with pure
    ’natural’ weighting

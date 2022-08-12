@@ -2,6 +2,7 @@
 
 .. _Returns:
 
+Returns
    versions (dict) - names and comments of all flag versions, when
    mode='list'
 

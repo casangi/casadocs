@@ -2,6 +2,7 @@
 
 .. _Returns:
 
+Returns
    gof (dict) - goodness of fit statistics grouped by field, scan,
    SPW, polarization and real/imaginary part
 

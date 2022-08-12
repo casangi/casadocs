@@ -2,6 +2,7 @@
 
 .. _Returns:
 
+Returns
    antenna_info (tuple) - tuple with telescope name, list of antenna
    names, list of antenna IDs used, list of antenna x coordinates,
    list of antenna y coordinates, and list of station names  

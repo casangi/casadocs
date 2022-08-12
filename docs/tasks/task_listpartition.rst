@@ -2,6 +2,7 @@
 
 .. _Returns:
 
+Returns
    partition (dict) - description of how the contents of a Multi-MS
    have been partitioned, with sub-MS names, scans, spws, size, etc.
 

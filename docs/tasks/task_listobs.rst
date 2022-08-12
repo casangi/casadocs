@@ -2,6 +2,7 @@
 
 .. _Returns:
 
+Returns
    obs (dict) - MeasurementSet metainformation, including per field
    and per scan information
 
