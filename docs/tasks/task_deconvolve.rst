@@ -3,17 +3,17 @@
 .. _Description:
 
 Description
-   The **deconvolve** task executes image-domain deconvolution with options for automasking and restoration. It can be
+   The **deconvolve** task performs image-domain deconvolution with options for automasking and restoration. It can be
    viewed as the minor cycle of the iterative image reconstruction offered by the **tclean** task. The functionality that
    it introduces is the ability to just run the deconvolution step alone.
 
    The **deconvolve** task uses the same minor cycle as tclean. Therefore, the two tasks will evaluate the minor cycle in
-   the exact same way. However, deconvolve operates purely in the image domain and the final residual images are saved to
-   disk at the end of the minor cycle iterations whereas in tclean the residual images are saved to disk after an
-   additional major cycle. The results between deconvolve and tclean may therefore differ at a level that varies per
+   the exact same way. However, **deconvolve** operates purely in the image domain and the final residual images are saved to
+   disk at the end of the minor cycle iterations. In **tclean**, the residual images are saved to disk after an
+   additional major cycle. The results between **deconvolve** and **tclean** may therefore differ at a level that varies per
    dataset and algorithm setup.
 
-   This task gathers many of its runtime requirements from the meta information on input images. It also doesn't have a
+   This task gathers many of its runtime parameters from the meta data stored within the input images. It also doesn't have a
    need for data selection or a measurement set, and therefore requires much fewer input parameters than the **tclean**
    task. At the end of a successful **deconvolve** run, the history of the output images is updated. This is done in the
    same way as for the **tclean** task. For every **deconvolve** command a series of entries is recorded, including the
@@ -39,15 +39,24 @@ Description
 
    .. rubric:: Iteration Control
 
-   The `niter parameter <niter_>`_ for **deconvolve** is equivelent to **tclean**'s cycleniter parameter. See the
-   `iteration control documentation <../../notebooks/synthesis_imaging.html#Iteration-Control>`__ for more information on
-   how niter and other iteration control parameters affect the minor cycle.
+   The `niter parameter <niter_>`_ for **deconvolve** sets the maximum number of iterations possible per channel/stokes plane
+   being deconvolved. It is equivalent to **tclean**'s cycleniter parameter. 
 
-   .. note:: Each execution of deconvolve starts with 0 iterations. This means that the niter parameter caps the number of
-             iterations per call. For example, two back-to-back calls "deconvolve(niter=50); deconvolve(niter=100)" could
-             potentially evaluate a total of 50+100=150 iterations.
+   .. note:: Each call to deconvolve starts at an iteration count of 0. Multiple successive calls to deconvolve (with the same
+             image names) will start from the model image found on disk, but the iteration counts will always start from zero. 
+             Therefore, for a single plane image, deconvolve(niter=10);deconvolve(niter=10) will each report doing 10 iterations, 
+             but the image that results from the two successive calls will be equivalent to the result from deconvolve(niter=20).
+             
+   .. note:: Niter is the maximum possible per channel/stokes plane, and for cube imaging iterations are counted across all planes
+             of the image. Therefore, the total number of iterations for a cube imaging run can reach a maximum of nchan x niter. 
+             This behaviour is similar to that in the **tclean** task. 
+             
 
-   More information on the per-call iteration control results can be found in the "retrec" Return Value.
+   More information on the per-call iteration control results can be found in the return dictionary triggered via the 
+   `interactive parameter <interactive_>`_ .
+   
+   For more details about minor cycle stopping criteria, please refer to the **tclean** 
+   `iteration control documentation <../../notebooks/synthesis_imaging.html#Iteration-Control>`__ .
    
    .. rubric:: Interactive Mask
 
@@ -58,81 +67,69 @@ Description
    
    .. rubric:: Return Value:
 
-   Task **deconvolve** returns a dictionary with the following values:
+   If the `interactive parameter <interactive_>`_ is set to 0 or 1 (instead of False or True) and niter>0, the **deconvolve**
+   task returns a dictionary containing a summary of the run. 
 
-   - isit : The stop flag from the iterator. True if one or more of the stopping criteria have been met, or False if an
-     exception was encountered during the execution of deconvolve.
-   
-   - retrec : The summary of the execution, in the case that the `interactive parameter <interactive_>`_ is not a boolean
-     type (eg interactive=0). More information about the similar return value for **tclean** can be found in the
-     `synthesis imaging notebook <../../notebooks/synthesis_imaging.html#Returned-Dictionary>`__.
-
-   - iterrec : The iteration records, as a dictionary ``{'initrecs':[], 'exrecs':[]}``. This value is provided for
-     backwards compatibility and consistency with tclean, and is recommended that the retrec value is used instead.
-
-   Example Return Value:
+    Example Return Value:
 
    .. code-block:: python
 
-       {
-           'isit': True,
-           'retrec': {
-               'cleanstate': 'running',
-               'cyclefactor': 1.0,
-               'cycleiterdone': 0,
-               'cycleniter': 2,
-               'cyclethreshold': 0.0,
-               'interactiveiterdone': 0,
-               'interactivemode': False,
-               'interactiveniter': 0,
-               'interactivethreshold': 0.0,
-               'iterdone': 4,
-               'loopgain': 0.10000000149011612,
-               'maxpsffraction': 0.800000011920929,
-               'maxpsfsidelobe': 0.1375914365053177,
-               'minpsffraction': 0.10000000149011612,
-               'niter': 2,
-               'nmajordone': 0,
-               'nsigma': 0.0,
-               'stopcode': 1,
-               'summarymajor': array([], dtype=int64),
-               'summaryminor': { 0: {
-                   0: { 0: {
-                       'startIterDone': [0.0],
-                       'iterDone': [2.0],
-                       'startPeakRes': [1.5000190734863281],
-                       'peakRes': [1.2150154113769531],
-                       'startModelFlux': [0.0],
-                       'modelFlux': [0.2850036323070526],
-                       'startPeakResNM': [1.5000190734863281],
-                       'peakResNM': [1.2150154113769531],
-                       'cycleThresh': [0.0],
-                       'cycleStartIters': [0.0],
-                       'masksum': [10000.0],
-                       'mpiServer': [0.0],
-                       'peakMem': [11.02233600616455],
-                       'runtime': [0.10000000149011612],
-                       'stopCode': [1.0]}},
-                   1: { 0: {
-                       'startIterDone': [2.0],
-                       'iterDone': [2.0],
-                       'startPeakRes': [0.7500107288360596],
-                       'peakRes': [0.6075087189674377],
-                       'startModelFlux': [0.0],
-                       'modelFlux': [0.1425020396709442],
-                       'startPeakResNM': [0.7500107288360596],
-                       'peakResNM': [0.607508659362793],
-                       'cycleThresh': [0.0],
-                       'cycleStartIters': [0.0],
-                       'masksum': [10000.0],
-                       'mpiServer': [0.0],
-                       'peakMem': [11.02233600616455],
-                       'runtime': [0.10000000149011612],
-                       'stopCode': [1.0]
-                   } }
-               } },
-               'threshold': 0.0
-           }
+    {
+            'cleanstate': 'running',
+            'cyclefactor': 1.0,
+            'cycleiterdone': 0,
+            'cycleniter': 2,
+            'cyclethreshold': 0.0,
+            'interactiveiterdone': 0,
+            'interactivemode': False,
+            'interactiveniter': 0,
+            'interactivethreshold': 0.0,
+            'iterdone': 4,
+            'loopgain': 0.1,
+            'maxpsffraction': 0.800,
+            'maxpsfsidelobe': 0.137,
+            'minpsffraction': 0.100,
+            'niter': 2,
+            'nmajordone': 0,
+            'nsigma': 0.0,
+            'stopcode': 1,
+            'summarymajor': array([], dtype=int64),
+            'summaryminor': { 0: {
+                0: { 0: {
+                    'startIterDone': [0.0],
+                    'iterDone': [2.0],
+                    'startPeakRes': [1.500],
+                    'peakRes': [1.215],
+                    'startModelFlux': [0.0],
+                    'modelFlux': [0.285],
+                    'startPeakResNM': [1.500],
+                    'peakResNM': [1.215],
+                    'cycleThresh': [0.0],
+                    'cycleStartIters': [0.0],
+                    'masksum': [10000.0],
+                    'mpiServer': [0.0],
+                    'peakMem': [11.022],
+                    'runtime': [0.100],
+                    'stopCode': [1.0]}},
+                1: { 0: {
+                    'startIterDone': [2.0],
+                    'iterDone': [2.0],
+                    'startPeakRes': [0.750],
+                    'peakRes': [0.607],
+                    'startModelFlux': [0.0],
+                    'modelFlux': [0.142],
+                    'startPeakResNM': [0.750],
+                    'peakResNM': [0.607],
+                    'cycleThresh': [0.0],
+                    'cycleStartIters': [0.0],
+                    'masksum': [10000.0],
+                    'mpiServer': [0.0],
+                    'peakMem': [11.022],
+                    'runtime': [0.100],
+                    'stopCode': [1.0]
+                } }
+            } },
+            'threshold': 0.0
        }
 
    .. |nbsp| unicode:: 0xA0 
@@ -299,9 +296,6 @@ Examples
               else:
                   print("unrecognized deconvolver \""+deconvolver+"\"")
                   return
-              if (type(ret) == type({})):
-                  print("iterations: {}, peakres: {}".format(\
-                        ret['retrec']['iterdone'], ret['iterrec']['exrecs'][0]['peakresidual']))
 
           else:
               print("Unrecognized cycle argument value \""+cycle+"\"")
