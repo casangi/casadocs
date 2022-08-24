@@ -65,6 +65,13 @@ Description
    parameters are set, the mask is first evaluated and then displayed in the interactive Clean GUI for additional
    interactive changes.
    
+   .. note:: If a mask already exists on disk, with a name that matches imagename.mask, it will automatically load that mask 
+             when the interactive clean window opens.  Prior to running **deconvolve**, if **tclean** is run with niter=0 
+             (with no mask supplied) to generate the initial images, please note that a mask filled with ones will be generated
+             on disk and this will get loaded when the **deconvolve** task interactive clean window opens. Please check the 
+             cursor tab on the GUI for the mask image values.
+
+   
    .. rubric:: Return Value:
 
    If the `interactive parameter <interactive_>`_ is set to 0 or 1 (instead of False or True) and niter>0, the **deconvolve**
