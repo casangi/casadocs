@@ -6,8 +6,11 @@ from casatestutils.imagerhelpers import TestHelpers
 th = TestHelpers()
 
 # ASV attributes
-timeout = 10000
-number = 2
+number = 1            # i.e., always run the setup and teardown methods
+repeat = (3, 6, 60.0) # 3-6 iterations per round w/ soft cutoff (start no new repeats) past 1m
+rounds = 1            # only a single "repeat block" is run to collect samples
+min_run_count = 3     # enforce the min_repeat * rounds setting is met
+timeout = 3600        # conservative 1hr hard cap for duration of a single test execution
 
 # Test datasets; root directory is read from config.py
 datapath = ctsys.resolve("unittest/tclean/")
