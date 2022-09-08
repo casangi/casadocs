@@ -5,9 +5,9 @@ from casatasks import uvcontsub
 
 # ASV iteration control (https://asv.readthedocs.io/en/stable/benchmarks.html#benchmark-attributes)
 number = 1            # i.e., always run the setup and teardown methods
-repeat = (1, 5, 60.0) # between 1 and 5 iterations per round w/ soft cutoff (start no new repeats) past 1m
-rounds = 3            # amount of instances a "repeat block" is run to collect samples
-min_run_count = 3     # enforce the min_repeat * rounds setting is met
+repeat = 5            # fixed at 5 iterations per round, no range or soft cutoff
+rounds = 1            # single instance of a "repeat block" is run to collect samples
+min_run_count = 5     # enforce the min_repeat * rounds setting is met, plus some extra
 timeout = 1800        # conservative 0.5hr hard cap for duration of a single test execution
 
 # Input data sets
@@ -41,7 +41,7 @@ class BaseClassSetup():
         shutil.copytree(datapath_papersky, ms_papersky)
         shutil.copytree(datapath_mixed_pols, ms_mixed_pols)
 
-class Uvcontsub_Basic():
+class Basic():
     """
     Runtime benchmark tests for uvcontsub basic functionality
     """
@@ -222,18 +222,19 @@ class Uvcontsub_Basic():
         uvcontsub(vis=ms_mixed_pols, outputvis=self.output)
 
 
-class UVContsub_Numerical():
+class Numerical():
     """
-    Benchmar Tests of numerical behavior based on simulated datasets
+    Benchmark Tests of numerical behavior based on simulated datasets
     """
-    def setup_cache(self):
-        self.ms_cont_nonoise_order_0 = 'sim_alma_cont_poly_order_0_nonoise.ms'
-        self.ms_cont_noise_order_0 = 'sim_alma_cont_poly_order_0_noise.ms'
-        self.ms_cont_nonoise_order_1 = 'sim_alma_cont_poly_order_1_nonoise.ms'
-        self.ms_cont_noise_order_1 = 'sim_alma_cont_poly_order_1_noise.ms'
-        self.sim_mss = [self.ms_cont_nonoise_order_0, self.ms_cont_noise_order_0,
-                       self.ms_cont_nonoise_order_1, self.ms_cont_noise_order_1]
 
+    ms_cont_nonoise_order_0 = 'sim_alma_cont_poly_order_0_nonoise.ms'
+    ms_cont_noise_order_0 = 'sim_alma_cont_poly_order_0_noise.ms'
+    ms_cont_nonoise_order_1 = 'sim_alma_cont_poly_order_1_nonoise.ms'
+    ms_cont_noise_order_1 = 'sim_alma_cont_poly_order_1_noise.ms'
+    sim_mss = [ms_cont_nonoise_order_0, ms_cont_noise_order_0,
+               ms_cont_nonoise_order_1, ms_cont_noise_order_1]
+
+    def setup_cache(self):
         for sim in self.sim_mss:
             datapath_sim = ctsys.resolve(os.path.join(datapath, sim))
             shutil.copytree(datapath_sim, sim)
