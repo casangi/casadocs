@@ -2,12 +2,12 @@ import os, shutil, glob
 from casatools import ctsys
 from casatasks import sdimaging
 
-# ASV attributes (https://asv.readthedocs.io/en/stable/benchmarks.html?highlight=number#benchmark-attributes)
-number=1
-repeat = (1, 3, 60.0)
-rounds=1
-min_run_count=1
-timeout = 600
+# ASV iteration control (https://asv.readthedocs.io/en/stable/benchmarks.html#benchmark-attributes)
+number = 1            # i.e., always run the setup and teardown methods
+repeat = (3, 6, 60.0) # between 3 and 6 iterations per round w/ soft cutoff (start no new repeats) past 1m
+rounds = 1            # amount of instances a "repeat block" is run to collect samples
+min_run_count = 3     # enforce the min_repeat * rounds setting is met
+timeout = 3600        # conservative 1hr hard cap should never be met for these test cases
 
 class DataSetUp():
 
