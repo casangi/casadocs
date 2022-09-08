@@ -3,6 +3,14 @@ import numpy
 from casatools import ctsys
 from casatasks import flagdata
 
+# ASV iteration control (https://asv.readthedocs.io/en/stable/benchmarks.html#benchmark-attributes)
+number = 1            # i.e., always run the setup and teardown methods
+repeat = (3, 6, 60.0) # between 3 and 6 iterations per round w/ soft cutoff (start no new repeats) past 1m
+rounds = 1            # amount of instances a "repeat block" is run to collect samples
+min_run_count = 3     # enforce the min_repeat * rounds setting is met
+timeout = 3600        # conservative 1hr hard cap should never be met for these test cases
+
+
 # Helper functions for tests
 def create_input(str_text, filename):
     """Save the string in a text file"""
@@ -16,10 +24,6 @@ def create_input(str_text, filename):
         f.write(cmd)
     f.close()
     return
-
-# ASV attributes
-timeout = 10000
-number = 2
 
 class BaseFlagSetup():
     # Test datasets; root directory is read from config.py
