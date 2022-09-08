@@ -9,7 +9,6 @@ rounds = 1            # amount of instances a "repeat block" is run to collect s
 min_run_count = 3     # enforce the min_repeat * rounds setting is met, plus extra
 timeout = 3600        # conservative 1hr hard cap should never be met for these test cases
 
-
 class DataSetUp():
 
     datapath = ctsys.resolve('unittest/applycal/')

@@ -10,7 +10,6 @@ rounds = 1            # amount of instances a "repeat block" is run to collect s
 min_run_count = 3     # enforce the min_repeat * rounds setting is met
 timeout = 3600        # conservative 1hr hard cap should never be met for these test cases
 
-
 # Helper functions for tests
 def create_input(str_text, filename):
     """Save the string in a text file"""

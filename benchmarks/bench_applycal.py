@@ -2,13 +2,12 @@ import os, shutil
 from casatools import ctsys
 from casatasks import applycal
 
-# ASV attributes
+# ASV iteration control (https://asv.readthedocs.io/en/stable/benchmarks.html#benchmark-attributes)
 number = 1            # i.e., always run the setup and teardown methods
 repeat = 5            # fixed at 5 iterations per round, no range or soft cutoff
 rounds = 1            # amount of instances a "repeat block" is run to collect samples
 min_run_count = 5     # enforce the min_repeat * rounds setting is met
 timeout = 3600        # conservative 1hr hard cap should never be met for these test cases
-
 
 class DataSetUp():
 
