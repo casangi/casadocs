@@ -23,32 +23,15 @@ Description
    .. rubric:: Baseline Model Functions
 
    The user can specify the function to be used for the baseline with
-   the *blfunc* keyword (e.g. *blfunc = 'poly'*). In general,
+   the *blfunc* parameter (e.g. *blfunc = 'poly'*). In general,
    polynomial fitting is stable. Sinusoid fitting is a special mode
    that could be useful for data that clearly shows a standing wave
    in the spectral baseline.
 
-   The **sdbaseline** procedure gives the user the opportunity to
-   specify unique baseline fitting parameters for each spectrum,
-   using the setting *blfunc='variable'*. Note this is an expert
-   mode! The fitting parameters should be defined in a text file for
-   each spectrum in the input MS. The text file should store comma
-   separated values in the following order: row ID, polarization,
-   mask, clipniter, clipthresh, use_linefinder,  thresh, left edge,
-   right edge, avg_limit, blfunc, order, npiece, nwave. Each row in
-   the text file must contain the following keywords and values:
-
-   -  'row': row number after selection
-   -  'pol': polarization index in the row
-   -  'clipniter': maximum iteration number for iterative fitting
-   -  'blfunc': function name.  available options are 'poly',
-      'chebyshev', 'cspline',and 'sinusoid'
-   -  'order': maximum order of the polynomial. Needed when
-      blfunc='poly' or 'chebyshev'
-   -  'npiece': number of piecewise polynomials. Needed when
-      blfunc='cspline'
-   -  'nwave': a list of sinusoidal wave numbers. Needed when
-      blfunc='sinusoid'
+   In addition to fitting with a single function type, users can also
+   specify unique baseline fitting parameters for each spectrum by
+   setting *blfunc='variable'*. See 'Per-spectrum Fit Parameters'
+   section below for details.
 
 
    .. rubric:: Output Files
@@ -105,6 +88,90 @@ Description
    standard deviation of the output MS data, she or he needs to
    compute it using WEIGHT column values as :math:`1/\sqrt{WEIGHT}`
    - the SIGMA column should not be refered to.
+
+
+   .. rubric:: Per-spectrum Fit Parameters
+
+   Per-spectrum baseline fitting parameters can be applied when
+   *blfunc = 'variable'*.
+
+   The fitting parameters can be defined in a text file and
+   specified in the *blparam* parameter. Each line of the text file
+   should store baseline fitting parameters for its corresponding
+   spectrum in the input MS. It must be a comma-separated text and
+   contain values in the following order:
+
+   (1) 'row': row index
+   (2) 'pol': polarization index in the specified row
+   (3) 'mask': channel range(s) used for the fitting (see examples below).
+   (4) 'clipniter': maximum number of times of iterative fitting (identical to the task parameter *clipniter*)
+   (5) 'clipthresh': clipping threshold for iterative fitting (identical to the task parameter *clipthresh*)
+   (6) 'use_linefinder': "true" or "false". Note that linefinder does not run with per-spectrum fitting now even if setting "true", due to a bug which will be fixed in the future
+   (7) 'thresh': S/N threshold for linefinder (identical to the task parameter *thresh*). Blank is accepted when you don't use linefinder
+   (8) 'left_edge': channels to drop at beginning of spectrum (identical to the first element of the task parameter *edge*)
+   (9) 'right_edge': channels to drop at end of spectrum (identical to the second element of the task parameter *edge*)
+   (10) 'avg_limit': channel averaging for broad lines (identical to the task parameter *avg_limit*)
+   (11) 'blfunc': baseline model function (identical to the task parameter *blfunc*)
+   (12) 'order': order of polynomial function (identical to the task parameter *order*). Needed when (11) is "poly" or "chebyshev". It will be ignored when other values are set for blfunc
+   (13) 'npiece': number of the element polynomials of cubic spline curve (identical to the task parameter *npiece*). Needed when (11) is "cspline"
+   (14) 'nwave': a list of sinusoidal wave numbers. Needed when (11) is "sinusoid" though, actually, sinusoidal fitting is yet to be available with per-spectrum fitting
+
+   Note that the following task parameters will be ignored/overwritten
+   when *blfunc = 'variable'* is specified (i.e., when per-spectrum
+   fitting is executed):
+
+   - for iterative clipping: *clipniter*, *clipthresh*
+   - for linefinder: *thresh*, *edge*, *avg_limit*
+   - for baseline model function: *blfunc*, *order*, *npiece*, *applyfft*, *fftmethod*, *fftthresh*, *addwn*, *rejwn*
+
+   Note also that:
+
+   (1) lines starting with '#' will be ignored and can be used as
+       comments
+   (2) for MS spectra which have no corresponding line in the text
+       file, baseline fitting is not executed
+
+   Examples of text file:
+
+   (1) a simple one:
+
+   ::
+
+      0,0,,2,3,false,,,,,poly,5,,[]
+      0,1,1500~7500,0,3.,false,0.,0,0,0,chebyshev,10,0,[]
+      1,0,,4,2.5,true,5.,70,80,3,cspline,,6,[]
+      1,1,0~4000;6000~8000,0,,false,,,,,sinusoid,,,[0,1,2,3,4,5,6,7]
+      #2,0,,0,,false,,,,,poly,10,,[]
+
+   (2) same setting as (1), but with detailed comments:
+
+   ::
+
+      # for row 0, pol 0: no channel mask,
+      #                   iterative (twice at maximum) clipping at 3 sigma,
+      #                   no linefinder,
+      #                   fitting with polynomial of order 5
+      0,0,,2,3,false,,,,,poly,5,,[]
+      # for row 0, pol 1: use channel range 1500 to 7500,
+      #                   no iterative clipping (clipniter=0),
+      #                   no linefinder,
+      #                   fitting with Chebyshev polynomial of order 10
+      0,1,1500~7500,0,3.,false,0.,0,0,0,chebyshev,10,0,[]
+      # for row 1, pol 0: no channel mask,
+      #                   iterative (4 times at maximum) clipping at 2.5 sigma,
+      #                   using linefinder (thresh: 5.0 sigma,
+      #                                     left_edge: 70 channels,
+      #                                     right_edge: 80 channels,
+      #                                     avg_limit: 3),
+      #                   fitting with cubic spline with 6 elements
+      1,0,,4,2.5,true,5.,70,80,3,cspline,,6,[]
+      # for row 1, pol 1: use channel ranges (0 to 4000) and (6000 to 8000),
+      #                   no iterative clipping,
+      #                   no linefinder,
+      #                   fitting with sinusoids with wave numbers up to 7
+      1,1,0~4000;6000~8000,0,,false,,,,,sinusoid,,,[0,1,2,3,4,5,6,7]
+      # for row 2, pol 0: no baseline fitting as the line is commented out
+      #2,0,,0,,false,,,,,poly,10,,[]
 
 
 .. _Examples:
