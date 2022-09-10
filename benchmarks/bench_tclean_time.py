@@ -7,7 +7,7 @@ th = TestHelpers()
 
 # ASV iteration control (https://asv.readthedocs.io/en/stable/benchmarks.html#benchmark-attributes)
 number = 1            # i.e., always run the setup and teardown methods
-repeat = (1, 5, 60.0) # between 1 and 5 iterations per round w/ soft cutoff (start no new repeats) past 1m
+repeat = (3, 6, 60.0) # 3-6 iterations per round w/ soft cutoff (start no new repeats) past 1m
 rounds = 3            # amount of instances a "repeat block" is run to collect samples
 min_run_count = 3     # enforce the min_repeat * rounds setting is met
 timeout = 3600        # conservative 1hr hard cap for duration of a single test execution
