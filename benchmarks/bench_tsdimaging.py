@@ -27,10 +27,25 @@ class DataSetUp():
         # working with a copy of the input MS in all cases to avoid column writes
         shutil.copytree(os.path.join(self.datapath, 'sdimaging.ms'), self.vis)
 
+    def setup_ephemeris(self):
+        self.vis = 'ephemtest.spw18_copy.ms'
+        self.ephtab = self.vis + '/FIELD/EPHEM0_Sol_58327.6.tab'
+        self.out = 'sdimagingTest_eph.im'
+
+        if os.path.exists(self.vis):
+            shutil.rmtree(self.vis, ignore_errors=True)
+
+        existing_images = [ff for ff in glob.glob(self.out+"*")]
+        for fname in existing_images:
+            os.system(f"rm -rf {fname}")
+
+        # working with a copy of the input MS in all cases to avoid column writes
+        shutil.copytree(os.path.join(self.datapath, 'ephemtest.spw18.ms'), self.vis)
+
 class Basic(DataSetUp):
     """
-    Benchmark runtime of sdimaging with basic input and mostly default parameter settings
-    Adapted from test_task_sdimaging.py; test100 - test405
+    Benchmark runtime of tsdimaging with basic input and mostly default parameter settings
+    Adapted from test_task_tsdimaging.py; test100 - test405
     (most of the tests with meaningful output that use sdimaging.ms)
     """
     def setup(self):
@@ -86,6 +101,55 @@ class Basic(DataSetUp):
 
     def time_sdimaging_gridfunction_BOX_imsize_40x35_phasecenter_detect(self):
         sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode="channel", nchan=1, width=1024, gridfunction='BOX', imsize=[40, 35], cell=['320arcsec', '320arcsec'], phasecenter="", minweight=0.0 )
+
+class Ephemeris(DataSetUp):
+    """Benchmark runtime of tsdimaging on tracking moving objects (ephemeris data)
+    Adapted from test_task_tsdimaging.py; test_ephemeris_notset, test_ephemeris_sun,
+    test_ephemeris_trackf, test_ephemeris_table
+    """
+    def setup(self):
+        self.setup_ephemeris()
+
+    def time_ephemeris_notset(self):
+        sdimaging(infiles=[self.vis], outfile=self.out, overwrite=False, field='Sol',
+                   spw='18', mode='channel', nchan=1, start=0, width=1,
+                   veltype='radio', specmode='cube', outframe='', gridfunction='BOX', convsupport=-1, truncate=-1,
+                   gwidth=-1, jwidth=-1, imsize=[1000], cell='4arcsec', phasecenter='', projection='SIN',
+                   pointingcolumn='direction', restfreq='', stokes='I', minweight=0.1, brightnessunit='',
+                   clipminmax=False)
+
+    def time_ephemeris_sun(self):
+        sdimaging(infiles=[self.vis], outfile=self.out, overwrite=False, field='Sol',
+                   spw='18', mode='channel', nchan=1, start=0, width=1,
+                   veltype='radio', specmode='cube', outframe='', gridfunction='BOX', convsupport=-1, truncate=-1,
+                   gwidth=-1, jwidth=-1, imsize=[1000], cell='4arcsec', phasecenter='SUN', projection='SIN',
+                   pointingcolumn='direction', restfreq='', stokes='I', minweight=0.1, brightnessunit='',
+                   clipminmax=False)
+
+    def time_ephemeris_trackf(self):
+        sdimaging(infiles=[self.vis], outfile=self.out, overwrite=False, field='Sol',
+                  spw='18', mode='channel', nchan=1, start=0, width=1,
+                  veltype='radio', specmode='cube', outframe='', gridfunction='BOX', convsupport=-1, truncate=-1,
+                  gwidth=-1, jwidth=-1, imsize=[1000], cell='4arcsec', phasecenter='TRACKFIELD', projection='SIN',
+                  pointingcolumn='direction', restfreq='', stokes='I', minweight=0.1, brightnessunit='',
+                  clipminmax=False)
+
+    def time_ephemeris_table(self):
+        sdimaging(infiles=[self.vis], outfile=self.out, overwrite=False, field='Sol',
+                  spw='18', mode='channel', nchan=1, start=0, width=1,veltype='radio', specmode='cube',
+                  outframe='', gridfunction='BOX', convsupport=-1, truncate=-1,gwidth=-1, jwidth=-1,
+                  imsize=[1000], cell='4arcsec',phasecenter=self.ephtab,
+                  projection='SIN',pointingcolumn='direction', restfreq='', stokes='I', minweight=0.1,
+                  brightnessunit='',clipminmax=False)
+
+    def time_ephemeris_cubesource(self):
+        sdimaging(infiles=[self.vis], outfile=self.out, overwrite=False, field='Sol',
+                  spw='18', mode='channel', nchan=1, start=0, width=1,veltype='radio', specmode='cubesource', outframe='',
+                  gridfunction='BOX', convsupport=-1, truncate=-1,gwidth=-1, jwidth=-1, imsize=[1000], cell='4arcsec',
+                   phasecenter='TRACKFIELD', projection='SIN',pointingcolumn='direction', restfreq='', stokes='I',
+                   minweight=0.1, brightnessunit='',clipminmax=False)
+
+
 
 class SelectionTypes(DataSetUp):
     """
