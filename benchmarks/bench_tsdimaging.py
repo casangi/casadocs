@@ -11,7 +11,7 @@ timeout = 3600        # conservative 1hr hard cap should never be met for these 
 
 class DataSetUp():
 
-    datapath = ctsys.resolve("unittest/sdimaging/")
+    datapath = ctsys.resolve("unittest/tsdimaging/")
 
     def setup_basic(self):
         self.vis = "sdimaging_copy.ms"
