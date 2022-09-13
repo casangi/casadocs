@@ -834,10 +834,10 @@
         "version": "c524f53702087f79992918ad289b5b863018b412527f507e27589ac99e0574b9",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_BOX_imsize_40x35": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_BOX_imsize_40x35(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"channel\", nchan=1, width=1024, gridfunction='BOX', imsize=[40, 35], cell=['320arcsec', '320arcsec'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_BOX_imsize_40x35": {
+        "code": "class Basic:\n    def time_gridfunction_BOX_imsize_40x35(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"channel\", nchan=1, width=1024, gridfunction='BOX', imsize=[40, 35], cell=['320arcsec', '320arcsec'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_BOX_imsize_40x35",
+        "name": "bench_sdimaging.Basic.time_gridfunction_BOX_imsize_40x35",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -849,10 +849,10 @@
         "version": "a46d584504d04935a5d2c7bf8ecffccc28f7c281e93ee3cb4b0075f02c960fce",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_BOX_imsize_40x35_phasecenter_detect": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_BOX_imsize_40x35_phasecenter_detect(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"channel\", nchan=1, width=1024, gridfunction='BOX', imsize=[40, 35], cell=['320arcsec', '320arcsec'], phasecenter=\"\", minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_BOX_imsize_40x35_phasecenter_detect": {
+        "code": "class Basic:\n    def time_gridfunction_BOX_imsize_40x35_phasecenter_detect(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"channel\", nchan=1, width=1024, gridfunction='BOX', imsize=[40, 35], cell=['320arcsec', '320arcsec'], phasecenter=\"\", minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_BOX_imsize_40x35_phasecenter_detect",
+        "name": "bench_sdimaging.Basic.time_gridfunction_BOX_imsize_40x35_phasecenter_detect",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -864,10 +864,10 @@
         "version": "4bdaa3793a957dceb69696e6ceb88653d139d3c21b80298edb7fba60aee84a55",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_BOX_imsize_detect_cell_default_phasecenter_detect": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_BOX_imsize_detect_cell_default_phasecenter_detect(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"channel\", nchan=1, width=1024, gridfunction='BOX', imsize=[], minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_BOX_imsize_detect_cell_default_phasecenter_detect": {
+        "code": "class Basic:\n    def time_gridfunction_BOX_imsize_detect_cell_default_phasecenter_detect(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"channel\", nchan=1, width=1024, gridfunction='BOX', imsize=[], minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_BOX_imsize_detect_cell_default_phasecenter_detect",
+        "name": "bench_sdimaging.Basic.time_gridfunction_BOX_imsize_detect_cell_default_phasecenter_detect",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -879,10 +879,10 @@
         "version": "38cafd0191b2d668944f14f756039380bea7cd37be298f601c8bc45d71244b35",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_BOX_start_400": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_BOX_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='BOX', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_BOX_start_400": {
+        "code": "class Basic:\n    def time_gridfunction_BOX_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='BOX', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_BOX_start_400",
+        "name": "bench_sdimaging.Basic.time_gridfunction_BOX_start_400",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -894,10 +894,10 @@
         "version": "c6a6a94fd44171a17adae9472bb459be7f08f2741d365c431a607b3f78651d8c",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_BOX_start_400_phasecenter_null": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_BOX_start_400_phasecenter_null(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='BOX', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_BOX_start_400_phasecenter_null": {
+        "code": "class Basic:\n    def time_gridfunction_BOX_start_400_phasecenter_null(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='BOX', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_BOX_start_400_phasecenter_null",
+        "name": "bench_sdimaging.Basic.time_gridfunction_BOX_start_400_phasecenter_null",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -909,10 +909,10 @@
         "version": "8da249c3bfee24f64441a5a51cb8c334bf4e3b83a39040d457165861c814b1be",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_GAUSS_start_400": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_GAUSS_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='GAUSS', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_GAUSS_start_400": {
+        "code": "class Basic:\n    def time_gridfunction_GAUSS_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='GAUSS', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_GAUSS_start_400",
+        "name": "bench_sdimaging.Basic.time_gridfunction_GAUSS_start_400",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -924,10 +924,10 @@
         "version": "c541558f2b8447d88cac403e6addf4b6ab85b02d9feb2892517a21692eb94877",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_GJINC_start_400": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_GJINC_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='GJINC', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_GJINC_start_400": {
+        "code": "class Basic:\n    def time_gridfunction_GJINC_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='GJINC', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_GJINC_start_400",
+        "name": "bench_sdimaging.Basic.time_gridfunction_GJINC_start_400",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -939,10 +939,10 @@
         "version": "918e7727a377f54edd0d5c0e1dfe23f1830cd67c6e694d1e9fc0161e064c7a78",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_GJINC_start_400_minweight_70": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_GJINC_start_400_minweight_70(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='GJINC', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=70.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_GJINC_start_400_minweight_70": {
+        "code": "class Basic:\n    def time_gridfunction_GJINC_start_400_minweight_70(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='GJINC', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=70.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_GJINC_start_400_minweight_70",
+        "name": "bench_sdimaging.Basic.time_gridfunction_GJINC_start_400_minweight_70",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -954,10 +954,10 @@
         "version": "90fcb4ec60abab30f600991133ada5dd86f1a68af033125515ff2dd260b7d584",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_PB": {
+        "code": "class Basic:\n    def time_gridfunction_PB(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB",
+        "name": "bench_sdimaging.Basic.time_gridfunction_PB",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -969,10 +969,10 @@
         "version": "107b89888eeee79fa4a7b1a0e742d765fbdf7ac4cc3f9643a82b8fe23e36a3af",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB_mode_frequency": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB_mode_frequency(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"frequency\", nchan=100, start=\"1420.200000MHz\", width=\"0.010000MHz\", gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_PB_mode_frequency": {
+        "code": "class Basic:\n    def time_gridfunction_PB_mode_frequency(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"frequency\", nchan=100, start=\"1420.200000MHz\", width=\"0.010000MHz\", gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB_mode_frequency",
+        "name": "bench_sdimaging.Basic.time_gridfunction_PB_mode_frequency",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -984,10 +984,10 @@
         "version": "fa7fa43a389d5c427be156eb6b33ff893886277cb3b04b0986374b1559f5e048",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB_mode_velocity_nchan_1": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB_mode_velocity_nchan_1(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"velocity\", nchan=1, start=\"-50256.681248364m/s\", width=\"527652.833436753m/s\", gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', restfreq=\"1420405800.0Hz\", minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_PB_mode_velocity_nchan_1": {
+        "code": "class Basic:\n    def time_gridfunction_PB_mode_velocity_nchan_1(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"velocity\", nchan=1, start=\"-50256.681248364m/s\", width=\"527652.833436753m/s\", gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', restfreq=\"1420405800.0Hz\", minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB_mode_velocity_nchan_1",
+        "name": "bench_sdimaging.Basic.time_gridfunction_PB_mode_velocity_nchan_1",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -999,10 +999,10 @@
         "version": "db98a150362212ac57a878c59ec9e44e8dfdfb375d1ff323a7abd91af80757ff",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB_mode_velocity_nchan_100": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB_mode_velocity_nchan_100(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"velocity\", nchan=100, start=\"-200.000000km/s\", width=\"2.000000km/s\", gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_PB_mode_velocity_nchan_100": {
+        "code": "class Basic:\n    def time_gridfunction_PB_mode_velocity_nchan_100(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"velocity\", nchan=100, start=\"-200.000000km/s\", width=\"2.000000km/s\", gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB_mode_velocity_nchan_100",
+        "name": "bench_sdimaging.Basic.time_gridfunction_PB_mode_velocity_nchan_100",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1014,10 +1014,10 @@
         "version": "d14421b631926137f0c9f93020f7b849abe3f5354a6a2262463a31031594d1b8",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB_nchan_1024": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB_nchan_1024(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=1024, width=1, gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_PB_nchan_1024": {
+        "code": "class Basic:\n    def time_gridfunction_PB_nchan_1024(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=1024, width=1, gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB_nchan_1024",
+        "name": "bench_sdimaging.Basic.time_gridfunction_PB_nchan_1024",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1029,10 +1029,10 @@
         "version": "0c134f17c00c1ef765ae2c7f502665bb35bd69622501d9370100e019d98b8008",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB_start_400": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, outframe='', gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_PB_start_400": {
+        "code": "class Basic:\n    def time_gridfunction_PB_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, outframe='', gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB_start_400",
+        "name": "bench_sdimaging.Basic.time_gridfunction_PB_start_400",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1044,10 +1044,10 @@
         "version": "d8cbe7e06cd376284473f7358ec882de6af722d240d21913a4f444710bcf91b3",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB_start_400_stokes_XXYY": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB_start_400_stokes_XXYY(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, outframe='', gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', stokes=\"XXYY\", minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_PB_start_400_stokes_XXYY": {
+        "code": "class Basic:\n    def time_gridfunction_PB_start_400_stokes_XXYY(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, outframe='', gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', stokes=\"XXYY\", minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB_start_400_stokes_XXYY",
+        "name": "bench_sdimaging.Basic.time_gridfunction_PB_start_400_stokes_XXYY",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1059,10 +1059,10 @@
         "version": "612703f9baa43b9e8765fc2fe708d967ea3ed4b02fde971f0f262712014ac424",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB_width_1024": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB_width_1024(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=1, width=1024, gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_PB_width_1024": {
+        "code": "class Basic:\n    def time_gridfunction_PB_width_1024(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=1, width=1024, gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_PB_width_1024",
+        "name": "bench_sdimaging.Basic.time_gridfunction_PB_width_1024",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1074,10 +1074,10 @@
         "version": "aadc55b7ef5cd99029ec4e1176571cd2cb53db6cbbad9b2d8dd6a870df6c0638",
         "warmup_time": -1
     },
-    "bench_sdimaging.Basic.time_sdimaging_gridfunction_SF_start_400": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_SF_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='SF', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_sdimaging.Basic.time_gridfunction_SF_start_400": {
+        "code": "class Basic:\n    def time_gridfunction_SF_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='SF', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_sdimaging.Basic.time_sdimaging_gridfunction_SF_start_400",
+        "name": "bench_sdimaging.Basic.time_gridfunction_SF_start_400",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1501,10 +1501,10 @@
         "version": "07231c08248b92ddb7748a3d53cb53e2061c50e9ba90ad8d3f629ffefa382aed",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_BOX_imsize_40x35": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_BOX_imsize_40x35(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"channel\", nchan=1, width=1024, gridfunction='BOX', imsize=[40, 35], cell=['320arcsec', '320arcsec'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_BOX_imsize_40x35": {
+        "code": "class Basic:\n    def time_gridfunction_BOX_imsize_40x35(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"channel\", nchan=1, width=1024, gridfunction='BOX', imsize=[40, 35], cell=['320arcsec', '320arcsec'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_BOX_imsize_40x35",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_BOX_imsize_40x35",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1516,10 +1516,10 @@
         "version": "a46d584504d04935a5d2c7bf8ecffccc28f7c281e93ee3cb4b0075f02c960fce",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_BOX_imsize_40x35_phasecenter_detect": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_BOX_imsize_40x35_phasecenter_detect(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"channel\", nchan=1, width=1024, gridfunction='BOX', imsize=[40, 35], cell=['320arcsec', '320arcsec'], phasecenter=\"\", minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_BOX_imsize_40x35_phasecenter_detect": {
+        "code": "class Basic:\n    def time_gridfunction_BOX_imsize_40x35_phasecenter_detect(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"channel\", nchan=1, width=1024, gridfunction='BOX', imsize=[40, 35], cell=['320arcsec', '320arcsec'], phasecenter=\"\", minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_BOX_imsize_40x35_phasecenter_detect",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_BOX_imsize_40x35_phasecenter_detect",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1531,10 +1531,10 @@
         "version": "4bdaa3793a957dceb69696e6ceb88653d139d3c21b80298edb7fba60aee84a55",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_BOX_imsize_detect_cell_default_phasecenter_detect": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_BOX_imsize_detect_cell_default_phasecenter_detect(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"channel\", nchan=1, width=1024, gridfunction='BOX', imsize=[], minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_BOX_imsize_detect_cell_default_phasecenter_detect": {
+        "code": "class Basic:\n    def time_gridfunction_BOX_imsize_detect_cell_default_phasecenter_detect(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"channel\", nchan=1, width=1024, gridfunction='BOX', imsize=[], minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_BOX_imsize_detect_cell_default_phasecenter_detect",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_BOX_imsize_detect_cell_default_phasecenter_detect",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1546,10 +1546,10 @@
         "version": "38cafd0191b2d668944f14f756039380bea7cd37be298f601c8bc45d71244b35",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_BOX_start_400": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_BOX_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='BOX', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_BOX_start_400": {
+        "code": "class Basic:\n    def time_gridfunction_BOX_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='BOX', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_BOX_start_400",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_BOX_start_400",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1561,10 +1561,10 @@
         "version": "c6a6a94fd44171a17adae9472bb459be7f08f2741d365c431a607b3f78651d8c",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_BOX_start_400_phasecenter_null": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_BOX_start_400_phasecenter_null(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='BOX', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_BOX_start_400_phasecenter_null": {
+        "code": "class Basic:\n    def time_gridfunction_BOX_start_400_phasecenter_null(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='BOX', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_BOX_start_400_phasecenter_null",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_BOX_start_400_phasecenter_null",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1576,10 +1576,10 @@
         "version": "8da249c3bfee24f64441a5a51cb8c334bf4e3b83a39040d457165861c814b1be",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_GAUSS_start_400": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_GAUSS_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='GAUSS', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_GAUSS_start_400": {
+        "code": "class Basic:\n    def time_gridfunction_GAUSS_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='GAUSS', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_GAUSS_start_400",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_GAUSS_start_400",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1591,10 +1591,10 @@
         "version": "c541558f2b8447d88cac403e6addf4b6ab85b02d9feb2892517a21692eb94877",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_GJINC_start_400": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_GJINC_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='GJINC', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_GJINC_start_400": {
+        "code": "class Basic:\n    def time_gridfunction_GJINC_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='GJINC', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_GJINC_start_400",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_GJINC_start_400",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1606,10 +1606,10 @@
         "version": "918e7727a377f54edd0d5c0e1dfe23f1830cd67c6e694d1e9fc0161e064c7a78",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_GJINC_start_400_minweight_70": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_GJINC_start_400_minweight_70(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='GJINC', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=70.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_GJINC_start_400_minweight_70": {
+        "code": "class Basic:\n    def time_gridfunction_GJINC_start_400_minweight_70(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='GJINC', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=70.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_GJINC_start_400_minweight_70",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_GJINC_start_400_minweight_70",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1621,10 +1621,10 @@
         "version": "90fcb4ec60abab30f600991133ada5dd86f1a68af033125515ff2dd260b7d584",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_PB": {
+        "code": "class Basic:\n    def time_gridfunction_PB(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_PB",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1636,10 +1636,10 @@
         "version": "107b89888eeee79fa4a7b1a0e742d765fbdf7ac4cc3f9643a82b8fe23e36a3af",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB_mode_frequency": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB_mode_frequency(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"frequency\", nchan=100, start=\"1420.200000MHz\", width=\"0.010000MHz\", gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_PB_mode_frequency": {
+        "code": "class Basic:\n    def time_gridfunction_PB_mode_frequency(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"frequency\", nchan=100, start=\"1420.200000MHz\", width=\"0.010000MHz\", gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB_mode_frequency",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_PB_mode_frequency",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1651,10 +1651,10 @@
         "version": "fa7fa43a389d5c427be156eb6b33ff893886277cb3b04b0986374b1559f5e048",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB_mode_velocity_nchan_1": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB_mode_velocity_nchan_1(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"velocity\", nchan=1, start=\"-50256.681248364m/s\", width=\"527652.833436753m/s\", gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', restfreq=\"1420405800.0Hz\", minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_PB_mode_velocity_nchan_1": {
+        "code": "class Basic:\n    def time_gridfunction_PB_mode_velocity_nchan_1(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"velocity\", nchan=1, start=\"-50256.681248364m/s\", width=\"527652.833436753m/s\", gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', restfreq=\"1420405800.0Hz\", minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB_mode_velocity_nchan_1",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_PB_mode_velocity_nchan_1",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1666,10 +1666,10 @@
         "version": "db98a150362212ac57a878c59ec9e44e8dfdfb375d1ff323a7abd91af80757ff",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB_mode_velocity_nchan_100": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB_mode_velocity_nchan_100(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"velocity\", nchan=100, start=\"-200.000000km/s\", width=\"2.000000km/s\", gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_PB_mode_velocity_nchan_100": {
+        "code": "class Basic:\n    def time_gridfunction_PB_mode_velocity_nchan_100(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', mode=\"velocity\", nchan=100, start=\"-200.000000km/s\", width=\"2.000000km/s\", gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB_mode_velocity_nchan_100",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_PB_mode_velocity_nchan_100",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1681,10 +1681,10 @@
         "version": "d14421b631926137f0c9f93020f7b849abe3f5354a6a2262463a31031594d1b8",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB_nchan_1024": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB_nchan_1024(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=1024, width=1, gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_PB_nchan_1024": {
+        "code": "class Basic:\n    def time_gridfunction_PB_nchan_1024(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=1024, width=1, gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB_nchan_1024",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_PB_nchan_1024",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1696,10 +1696,10 @@
         "version": "0c134f17c00c1ef765ae2c7f502665bb35bd69622501d9370100e019d98b8008",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB_start_400": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, outframe='', gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_PB_start_400": {
+        "code": "class Basic:\n    def time_gridfunction_PB_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, outframe='', gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB_start_400",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_PB_start_400",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1711,10 +1711,10 @@
         "version": "d8cbe7e06cd376284473f7358ec882de6af722d240d21913a4f444710bcf91b3",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB_start_400_stokes_XXYY": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB_start_400_stokes_XXYY(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, outframe='', gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', stokes=\"XXYY\", minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_PB_start_400_stokes_XXYY": {
+        "code": "class Basic:\n    def time_gridfunction_PB_start_400_stokes_XXYY(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, outframe='', gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', stokes=\"XXYY\", minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB_start_400_stokes_XXYY",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_PB_start_400_stokes_XXYY",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1726,10 +1726,10 @@
         "version": "612703f9baa43b9e8765fc2fe708d967ea3ed4b02fde971f0f262712014ac424",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB_width_1024": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_PB_width_1024(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=1, width=1024, gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_PB_width_1024": {
+        "code": "class Basic:\n    def time_gridfunction_PB_width_1024(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=1, width=1024, gridfunction='PB', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_PB_width_1024",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_PB_width_1024",
         "number": 1,
         "param_names": [],
         "params": [],
@@ -1741,10 +1741,10 @@
         "version": "aadc55b7ef5cd99029ec4e1176571cd2cb53db6cbbad9b2d8dd6a870df6c0638",
         "warmup_time": -1
     },
-    "bench_tsdimaging.Basic.time_sdimaging_gridfunction_SF_start_400": {
-        "code": "class Basic:\n    def time_sdimaging_gridfunction_SF_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='SF', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
+    "bench_tsdimaging.Basic.time_gridfunction_SF_start_400": {
+        "code": "class Basic:\n    def time_gridfunction_SF_start_400(self):\n        sdimaging( infiles=[self.vis], outfile=self.out, intent='', nchan=40, start=400, width=10, gridfunction='SF', imsize=[75, 75], cell=['3.0arcmin', '3.0arcmin'], phasecenter='J2000 17:18:29 +59.31.23', minweight=0.0 )\n\n    def setup(self):\n        self.setup_basic()",
         "min_run_count": 3,
-        "name": "bench_tsdimaging.Basic.time_sdimaging_gridfunction_SF_start_400",
+        "name": "bench_tsdimaging.Basic.time_gridfunction_SF_start_400",
         "number": 1,
         "param_names": [],
         "params": [],
