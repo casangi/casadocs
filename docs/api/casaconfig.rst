@@ -19,21 +19,25 @@ config.py
     from casaconfig import config
 
 Each modular CASA 6 package as well as the full monolithic installation reads a set of configuration files
-to setup the CASA runtime options. The configuration is applied when config is imported from casaconfig. The
-configuration files include the defaults, an optional site configuration file, and an optional user configuration file.
+to setup the CASA runtime options. The configuration is set when config is imported from casaconfig. The
+configuration files include the default values (always provided by casaconfig), an optional site configuration file, 
+and an optional user configuration file.
 
 The optional user configuration file is found in their home .casa folder as config.py (**\_/.casa/config.py**).
 
 The optional site configuration file is named **casasiteconfig.py** and is found anywhere within **sys.path** following the usual pyhthon import rules.
 
-All optional configuration files will be ignored if **\-\-noconfig** is used on the command line.
+The user configuration files is ignored when **\-\-noconfig** is used on the command line. The site configuration file is 
+ignored when **\-\-nositeconfig** is used on the command line.
 
 An alternative path to the user configuration file can be given using the **--configfile <path_to_file>** option on the command line.
 
 The configuration files are used in order of defaults, site configuration, user configuration. The optional configuration files need
 only set parameters that differ from the defaults. The resulting configuration will always include all of the recognized
-configuration values. The configuration files are evaluated python files so any valid python can be used. **Note**: configuration
-happens before any parts of CASA are loaded so no CASA modules should be used within the configuration steps.
+configuration values. The configuration files are evaluated python files so any valid python can be used. **Note:**, configuration h
+appens before any parts of CASA are loaded so no CASA modules except casaconfig should be used within the configuration steps
+(the casaconfig functions do not depened on config.py and can be used within a configuration file). **Note:** during regular 
+use of the configuration process all print output is suppressed so that it does not interfere with module initialization. 
 
 Use the get_config() function to get a list of strings showing the configuration parameters with values.
 
