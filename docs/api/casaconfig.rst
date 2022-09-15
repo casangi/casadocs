@@ -68,9 +68,96 @@ parameters can be set or ignored through the casashell command line options.
 - *crashreporter_enabled* : allow anonymous crash reporting, default True
 - *user_site*             : include the user's local site-packages in the python path if True. Normally these are excluded to avoid potential conflicts with CASA modules (when False, the default).
 
+A typical config.py file might look something like this:
+
+::
+
+   datapath=["/home/casa/data/casa-data", "~/.casa/my_additional_data"]
+   log2term=True
+   nologger=True
+
 The defaults are shown below. **Note** that the default *logfile* uses the time module to set the value to a string that depends on when 
 the config file is evaluated. **Note** that in the monolithic casa case, *datapath* and *measurespath* will default to the data directory 
 in the casaconfig package (returned by *get_data_dir()*).
 
 .. include:: ../config_defaults_static.py
    :literal:
+   
+ startup.py
+ ^^^^^^^^^^
+ 
+ .. data:: startup.py
+
+*This section only applies to the monolithic/tar-file CASA distribution*
+
+The \'*startup.py*\' file found at the *startupfile* configuration value (defaults to *\~/.casa/startup.py*) is evaluated 
+by the CASA shell just before the CASA prompt is presented to the user. This allows users to customize their CASA shell 
+environment beyond the standard settings in \'*config.py*\', by importing packages, setting variables or modifying 
+the python system path. The startup file is optional. It can be ignored setting startupfile in configuration file to 
+indicate a path that does not exist or by using the *\-\-nostartupfile* casashell command line option.
+
+One case where this is useful is for configuring CASA for ALMA data reduction. A package called \'analysisUtils\' is often used as part
+of ALMA analysis. It is typically imported and instantiated in startup.py:
+
+::
+
+   $ cat ~/.casa/startup.py
+
+   import sys, os
+   sys.path.append("/home/casa/contrib/AIV/science/analysis_scripts/")
+   import analysisUtils as aUes = aU.stuffForScienceDataReduction()
+
+
+In this example, the standard python modules *os* and *sys* are made available in the CASA shell. The path where the *analysisUtils*
+module can be found is added to the Python system path, and finally the package is imported and an object is created. These modules
+and objects will then be available for the user within the CASA shell environment.
+
+terminal
+^^^^^^^^
+
+.. data:: terminal(-h, --help, --logfile, --log2term, --nologger, --nologfile, --nogui, --rcdir, --norc, --colors, --pipeline, --agg, --iplog, --notelemetry, --nocrashreport, --datapath, --user-site, -v, --version, -c)
+
+With the full installation of CASA  (monolithic CASA), the python environment itself is included and started through ./bin/casa.
+This ./bin/casa executable can be provided the following options to change configuration values at run time:
+
+::
+
+   -h, --help               show this help message and exit
+   --configfile CONFIGFILE  location of the user configuration file
+   --noconfig               do not load user configuration file
+   --nositeconfig           do not load site configuration file
+   --startupfile            path to user's startup file
+   --nostartupfile          do not use any startup file
+   --logfile LOGFILE        path to log file
+   --log2term               direct output to terminal
+   --nologger               do not start CASA logger
+   --nologfile              do not create a log file
+   --nogui                  avoid starting GUI tools
+   --cachedirr CACHEDIR     location for internal working files
+   --colors {Neutral,NoColor,Linux,LightBG} prompt color
+   --pipeline               start CASA pipeline run
+   --agg                    startup without graphical backend
+   --iplog                  create ipython log
+   --notelemetry            disable telemetry collection
+   --nocrashreport          do not submit an online report when CASA crashes
+   --datapath DATAPATH      data path(s) [colon separated]
+   --user-site              include user's local site-packages lib in path
+   -v, --version            show CASA version
+   -c ...                   python eval string or python script to execute
+
+
+These options **take precedence over the configuration files.** 
+
+THe \-\-configfile option is used to provide an alternative path to the user's configuration file. When that
+option is used the file at that location is used insteead of the default user configuration file (~/.casa/config.py).
+The \-\-noconfig option turns off all use of aany user's configuration file. If \-\-configfile and \-\-noconfig file
+are used at the same time, the user's configuration file is ignored and a warning message is printed.
+
+Tthe \-\-nostartupfile option is provided as a way to turn off loading of the startup file, That can also be
+done by setting startupfile to a non-existant file or empty string in a configuration file. If \-\-startupfile
+and \-\-nostartupfile are used at the same time no startup file is used and a warning message is printed.
+
+\-\-notelemetry sets the telemetry_enabled configuration parameter to False.
+
+\-\-nocrashreport sets the crashreporter_enabled configuration parameter to False.
+
