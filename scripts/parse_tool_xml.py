@@ -54,8 +54,13 @@ for tool in tools:
                 pd['shortdescription'] = '' if param.find(nps + 'shortdescription') is None else param.find(nps + 'shortdescription').text
                 pd['description'] = '' if param.find(nps + 'description') is None else param.find(nps + 'description').text
 
-                # overwrite param type with limittype if present
-                if (param.find(nps + 'any') is not None) and ('limittypes' in param.find(nps + 'any').attrib):
+                # Usse <type> tags if present (top precedence in CASA6 XML)
+                casa6_type_tags = param.findall(nps + 'type')
+
+                if casa6_type_tags:
+                    pd['type'] = ', '.join(type_tag.text.replace('path', 'string') for type_tag in casa6_type_tags)
+                    # these 2 elif are for pre-casa6 xml (limittypes or type attribute)
+                elif (param.find(nps + 'any') is not None) and ('limittypes' in param.find(nps + 'any').attrib):
                     pd['type'] = ', '.join(param.find(nps + 'any').attrib['limittypes'].split(' '))
                 elif (param.find(nps + 'any') is not None) and ('type' in param.find(nps + 'any').attrib):
                     pd['type'] = ', '.join(param.find(nps + 'any').attrib['type'].split(' '))
