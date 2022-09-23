@@ -9,7 +9,7 @@ import difflib
 # if running manually, cd docs first
 ########################################################
 
-pypandoc.pandoc_download.download_pandoc(version='2.10.1')
+pypandoc.pandoc_download.download_pandoc(url='https://github.com/jgm/pandoc/releases/download/2.10.1/pandoc-2.10.1-1-amd64.deb')
 
 # clean out old data
 if os.path.exists('../casatools'): os.system('rm -fr ../casatools')
