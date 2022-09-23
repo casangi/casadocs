@@ -9,22 +9,18 @@ Jansky Very Large Array
 (`VLA <https://public.nrao.edu/venue/the-very-large-array/>`__),
 and is often used also for other radio telescopes.
 
-**6.4.0 Release**
+**6.4.1 Release**
 
-CASA 6.4.0 can now be (`downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__) for general use. CASA 6.4.0 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
+CASA 6.4.1 can now be (`downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__) for general use. CASA 6.4.1 is based on CASA 6.4.0, and the downloadable tar-file includes the pipelines for ALMA Cycle 9. 
 
 **Highlights:**
 
-- OS Support: CASA now supports RedHat 8, and Mac OS with Python 3.8, for both monolithic and modular versions. Note the Linux tarballs with different Python versions will extract to the same directory name.
-- plotcal/plotms: Funtionality for plotcal has been migrated to plotms, and plotcal was deprecated.
-- plotms: calibration table averaging with channel selection is now supported.
-- fringefit: memory usage of fringefit has been reduced, allowing larger datasets to be processed.
-- imhead: updated to display microsecond precision.
-- caltables: the storage of frequency meta information in caltables improved, making certain frequency-dependent calibration solutions more accurate.
-- sdintimaging: now adds information to the history of produced images
-- T+dT timerange selection improved in accuracy.
+- simulator: for ALMA Band 1, parameters were updated in simulation tasks and tools
+- tclean: handling of mixed correlation setups was added to tclean
+- bug fixes
 
-For more details on these and other new features, see the CASA 6.4.0 (`Release Notes <https://casadocs.readthedocs.io/en/v6.4.0/notebooks/introduction.html>`__).
+
+For more details on these and other new features, see the CASA 6.4.1 (`Release Notes <https://casadocs.readthedocs.io/en/v6.4.1/notebooks/introduction.html>`__).
    
 CASA is developed by an international consortium of scientists
 based at the National Radio Astronomical Observatory (NRAO), the
