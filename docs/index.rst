@@ -15,8 +15,8 @@ CASA 6.4.1 can now be (`downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`
 
 **Highlights:**
 
-- simulator: for ALMA Band 1, parameters were updated in simulation tasks and tools
-- tclean: handling of mixed correlation setups was added to tclean
+- simulator: ALMA Band 1 parameters were updated in simulation tasks and tools
+- tclean: handling of mixed polarization setups was added
 - bug fixes
 
 
