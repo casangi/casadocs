@@ -1,4 +1,5 @@
-1624100c831bf216a298d5ca87f2d59917c91cc0 (HEAD, origin/master, origin/HEAD, master)
+5aa69611b219ce3f149ccd9b1e29ab2d148cbb8a (HEAD, tag: 6.5.2.25, origin/master, origin/HEAD, master)
+1624100c831bf216a298d5ca87f2d59917c91cc0 (tag: 6.5.2.24)
 977bdad3bd951b815e2ca326f4a1e13df052fc80 (tag: 6.5.2.23)
 43fa490b17680c01c67e37d3aabbbea631c1b23f (tag: CAS-13927-1, tag: 6.5.2.22)
 03ba04cb248ba934c0e4e50988c13d9b5708f61d (tag: 6.5.2.21)
