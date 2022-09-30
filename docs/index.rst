@@ -9,8 +9,26 @@ Jansky Very Large Array
 (`VLA <https://public.nrao.edu/venue/the-very-large-array/>`__),
 and is often used also for other radio telescopes.
 
-6.5 Development Build
-   You are viewing the latest build of master, currently in the 6.5 development cycle
+**6.5.2 Release**
+
+CASA 6.5.2 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.5.2 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
+
+**Highlights:**
+
+- deconvolve: new task for image-domain deconvolution.
+- uvcontsub: new implementation, old uvcontsub task deprecated.
+- fringefit: support added for 'uvrange' parameter.
+- tclean: new iteration control parameter 'nmajor'.
+- sdimaging: new parameter 'enablecache' for improved performance.
+- mstransform: parameter 'douvcontsub' deprecated.
+- flagdata: mode='shadow' now uses the uvw values from the UVW column.
+- tclean/tsdimaging: improved runtime performance of ephemeris imaging.
+- simulator tool: new parameter 'simint' in sm.settrop() to control time granularity, down to 0.1s.
+- ImageAnalysis tool: new string 'mbret' parameter added to 'image.restoringbeam()'.
+- casalog tool: new method 'getOrigin()' implemented to retrieve origin of messages.
+
+For more details on these and other new features, see the CASA 6.5.2 `Release Notes <https://casadocs.readthedocs.io/en/v6.5.2/notebooks/introduction.html>`__.
+
    
 CASA is developed by an international consortium of scientists
 based at the National Radio Astronomical Observatory (NRAO), the
