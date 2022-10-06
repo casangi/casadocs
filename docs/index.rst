@@ -40,4 +40,4 @@ Astronomy (ASTRON), under the guidance of NRAO.
    notebooks/memo-series
    examples/index
    changelog
-   Performance <https://casangi.github.io/casabench/>
+   notebooks/citing-casa
