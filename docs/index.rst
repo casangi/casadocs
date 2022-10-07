@@ -58,3 +58,4 @@ Astronomy (ASTRON), under the guidance of NRAO.
    notebooks/memo-series
    examples/index
    changelog
+   notebooks/citing-casa
