@@ -57,14 +57,52 @@ Warning: it is possible to run asv using a CASA6 git tag that does not match the
 ## Saving results
 Once test results have been generated, they can be saved by those with repository write access. The results database (a collection of JSON files) is tracked in the repository and published on a dedicated branch. Results files are categorized by machine, so tests run from a fresh clone of the repository will build their own entry in the database. The HTML is generated from the files stored in the results database. In order to force `asv` to write HTML that treats the results as contiguous tests of the same package instead of separate entries in a dependency matrix, it is necessary to strip the build number from the casatools/casatasks specifications in the `params` and `requirements` dictionaries contained in the file corresponding to a given test configuration. For example,
 ```
-{"commit_hash": "3024d7185f18b56ed8bc709d823ac56cb311c66e", "env_name": "virtualenv-py3.6-pip+casatasks-pip+casatasks6.5.0.1-pip+casatestutils6.5.0.1", "date": 1648490240000, "params": {"arch": "x86_64", "cpu": "Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz", "machine": "casa-perf-test", "num_cpu": "16", "os": "Linux 3.10.0-1160.71.1.el7.x86_64", "ram": "263925792", "python": "3.6", "pip+casatasks": "6.5.0.1", "pip+casatestutils": "6.5.0.1"}, "python": "3.6", "requirements": {"pip+casatasks": "trunk", "pip+casatestutils": "6.5.0.1"}, 
-...
+{
+  "commit_hash": "3024d7185f18b56ed8bc709d823ac56cb311c66e",
+  "env_name": "virtualenv-py3.6-pip+casatasks-pip+casatasks6.5.0.1-pip+casatestutils6.5.0.1",
+  "date": 1648490240000,
+  "params": {
+    "arch": "x86_64",
+    "cpu": "Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz",
+    "machine": "casa-perf-test",
+    "num_cpu": "16",
+    "os": "Linux 3.10.0-1160.71.1.el7.x86_64",
+    "ram": "263925792",
+    "python": "3.6",
+    "pip+casatasks": "6.5.0.1",
+    "pip+casatestutils": "6.5.0.1"
+  },
+  "python": "3.6",
+  "requirements": {
+    "pip+casatasks": "trunk",
+    "pip+casatestutils": "6.5.0.1"
+  },
+  ...
+}
 ```
 is changed to
 ```
-{"commit_hash": "3024d7185f18b56ed8bc709d823ac56cb311c66e", "env_name": "virtualenv-py3.6-pip+casatasks-trunk", "date": 1648490240000, "params": {"arch": "x86_64", "cpu": "Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz", "machine": "casa-perf-test", "num_cpu": "16", "os": "Linux 3.10.0-1160.71.1.el7.x86_64", "ram": "263925792", "python": "3.6", "pip+casatasks": "trunk"}, "python": "3.6", "requirements": {"pip+casatasks": "trunk"},
-...
+{
+  "commit_hash": "3024d7185f18b56ed8bc709d823ac56cb311c66e",
+  "env_name": "virtualenv-py3.6-pip+casatasks-trunk",
+  "date": 1648490240000,
+  "params": {
+    "arch": "x86_64",
+    "cpu": "Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz",
+    "machine": "casa-perf-test",
+    "num_cpu": "16",
+    "os": "Linux 3.10.0-1160.71.1.el7.x86_64",
+    "ram": "263925792",
+    "python": "3.6",
+    "pip+casatasks": "trunk"
+  },
+  "python": "3.6",
+  "requirements": {
+    "pip+casatasks": "trunk"
+  },
+  ...
+}
 ```
-This ensures that all entries in the results database are treated as a single dependency: "casatasks" with version "trunk". Also note that the casatools and casatestutils dependencies are removed from the results files for the sake of brevity.
+This ensures that all entries in the results database are treated as a single dependency: "casatasks" with version "trunk". Also note that the casatools dependency is implicit and the casatestutils dependency is removed from the results files for the sake of concision. Should it be necessary to add library dependencies to help run tests (e.g., [`psutil`](https://pypi.org/project/psutil/) or another such infrastructure tool), it would probably be best to strip it from the results JSON files in a similar way to avoid exploding the legend in the output plots. Note that a series of bash commands are used to parse and strip newly-generated results files during automated execution of these tests in Bamboo.
 
 For now, updating results in the repository will only be supported for those with repository write access. Contribution of results via pull request and command line interface will be considered in the future.
