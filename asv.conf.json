@@ -8,12 +8,11 @@
   "uninstall_command": [],
   "branches": [
     "4f5295c7309e931c62f928a03eeadbbb4984cf00",
-    "f8ff1d6a95a336f64873ed453e0c58248b2fd402",
     "a73a44ba2df3c3b824e866ed60bf0d538e532f76",
     "85a2546777121b18bd5c0e9137b9b8e55f08cb7c",
     "ee69dc1e48962bc3300198d59345eca3624057dd",
     "40f5717bec049678804b23a5fac6b83ef62e8ad7",
-    "master",
+    "master"
   ],
   "environment_type": "virtualenv",
   "show_commit_url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/commits/",
