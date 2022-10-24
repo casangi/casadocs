@@ -148,6 +148,9 @@ Description
 
         S = (RMS^{highres}_{Jy/beam}/RMS^{lowres}_{Jy/beam} \times \Omega^{lowres}_{beam}/\Omega^{highres}_{beam})^2
 
+
+        S = \frac{(RMS^{highres}_{Jy/beam}}{B \times RMS^{lowres}_{Jy/beam}}^2
+
    where the RMSes are in units of Jy/beam and :math:`\Omega_{beam}` denotes the beam area
    for the specified image. The two beam areas should have the same units
    (eg sr or :math:`arcsec^2`).
