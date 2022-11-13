@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for tclean 
+
    tclean handles continuum images and spectral line cubes, full
    Stokes polarization imaging, supports outlier fields, contains
    point-source CLEAN
