@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for plotprofilemap. 
+   
    The **plotprofilemap** makes a spectral profile map from a
    specified image. The task accepts both a CASA image or a FITS cube
    as an input. Output is to the screen, or to image file (specified
