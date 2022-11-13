@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for imstat.
+   
    Many parameters are determined from the specified region of an
    image. The region can be specified by a set of rectangular pixel
    coordinates, the channel ranges and the
