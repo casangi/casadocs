@@ -56,14 +56,6 @@ class Apply():
         spwmap = {1: [1], 3: [3], 5: [5], 7: [7]}
         sdcal(infile=self.infile, calmode='apply', spwmap=spwmap, applytable=self.tsystable)
 
-    def time_spwmap_dict_correct_data2(self):
-        """Test04: Validation of CORRECTED_DATA = DATA X FPARAM.
-        (spwmap={1:[9], 3:[11], 5:[13], 7:[15]})
-        antanna1=0, DATA_DISC_ID=9, FPARAM_average
-        """
-        spwmap = {1: [9], 3: [11], 5: [13], 7: [15]}
-        sdcal(infile=self.infile, calmode='apply', spwmap=spwmap, applytable=self.tsystable)
-
     def time_test05(self):
         """Test05: Validation of CORRECTED_DATA = DATA X FPARAM.
         (spwmap={1:[9], 3:[11], 5:[13], 7:[15]})
@@ -212,7 +204,7 @@ class OTF():
 
 
 class OTF_Ephemeris():
-    """Runtime benchmar tests for task sdcal, sky calibration mode = 'otf' : On-The-Fly (OTF) *non-raster*
+    """Runtime benchmark tests for task sdcal, sky calibration mode = 'otf' : On-The-Fly (OTF) *non-raster*
         test cases for ephemeris objects
     """
     # Input data
@@ -343,6 +335,7 @@ class Apply_Modified_Tsys():
             sdcal(infile=self.infile, calmode='tsys', outfile=self.tsystable)
         except:
             print("Error generating tsys table")
+            
 
     def teardown(self):
         shutil.rmtree(self.infile, ignore_errors=True)
@@ -396,7 +389,7 @@ class Apply_Modified_Tsys():
         return wrapper
 
     #@normal_case()
-    def time_apply_sky(self):
+    def time_apply_sky_normal(self):
         """test_apply_composite00 --- on-the-fly application of sky table ('ps,apply')."""
         sdcal(infile=self.infile, calmode='ps,apply')
 
