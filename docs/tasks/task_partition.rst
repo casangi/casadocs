@@ -10,10 +10,11 @@ Description
    FLOAT_DATA, and possibly MODEL_DATA and/or CORRECTED_DATA) can be
    selected.
    
-   The partition task creates a Multi-MS in parallel using the
-   Message Passing Interface ( `MPI <http://mpi-forum.org/>`__ ),
-   enabled via
-   the `mpi4casa <../../notebooks/parallel-processing.ipynb#Advanced:-Interface-Framework>`__ framework.
+   The partition task creates a Multi-MS in parallel using the Message
+   Passing Interface ( `MPI <http://mpi-forum.org/>`__ ), enabled via
+   the `casampi
+   <../../notebooks/parallel-processing.ipynb#Advanced:-Interface-Framework>`__
+   framework.
    
    .. note:: When partition or any other task processes an MMS in parallel,
       each Sub-MS is processed independently in a parallel

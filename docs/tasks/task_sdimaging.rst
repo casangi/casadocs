@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for sdimaging.
+   
    This task grids/images total power and spectral data according
    to a specified gridding kernel. The input data should be
    calibrated and bandpass corrected (where necessary), and the

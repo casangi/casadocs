@@ -9,7 +9,7 @@ Returns
 .. _Description:
 
 Description
-   .. warning:: WARNING: If not run in preview mode, this application can
+   .. warning:: There is a `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for statwt: If not run in preview mode, this application can
       modify the WEIGHT, WEIGHT_SPECTRUM, SIGMA, SIGMA_SPECTRUM,
       FLAG, and FLAG_ROW columns of the input MS. If you want a
       pristine copy of the input MS to be preserved, you should make

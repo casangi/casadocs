@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for imregrid.
+   
    This task will regrid an input image onto a new coordinate system
    from a template image or to a new directional and spectral
    reference frame. If a template image is used, then the input and

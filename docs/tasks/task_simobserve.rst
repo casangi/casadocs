@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for simobserve.
+   
    This task simulates interferometric or total power
    MeasurementSets. The general steps for simulation in CASA are
    described on the top

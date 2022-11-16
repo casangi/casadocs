@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for plotms. 
+   
    **plotms** is a task for plotting and interacting with visibility
    and calibration data. A variety of axes choices (including data column)
    along with selection and averaging options are provided.  All of the

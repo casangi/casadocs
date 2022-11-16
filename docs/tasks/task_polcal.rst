@@ -10,6 +10,9 @@ Returns
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for polcal.
+   
    The **polcal** task supports solving for systematic calibration
    relating to the linear and circular polarization sensitivity of
    synthesis observations, namely, the instrumental polarization and

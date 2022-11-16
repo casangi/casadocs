@@ -176,21 +176,21 @@ Examples
    uvcontsub are included in this `Jupyter notebook
    <../../notebooks/simulations_uvcontsub_ALMA.ipynb>`__ with demo
    scripts. The notebook is available on `Google Colab
-   <https://colab.research.google.com/github/casangi/casadocs/blob/latest/docs/notebooks/simulations_uvcontsub_ALMA.ipynb>`_,
+   <https://colab.research.google.com/github/casangi/casadocs/blob/master/docs/notebooks/simulations_uvcontsub_ALMA.ipynb>`_,
    where the demo scripts can be run from the browser (or retrieved to
    be run locally). The verification tests of this task include
    numerical tests based on simulated data from the notebook. These
    numerical verification tests check the accuracy of the continuum
-   fits produced by uvcontsub. For example, for polynomials of
-   known coefficients, for order 0, 1, and 2, added artificially to
-   the visibilities, the accuracy of the fitted polynomials is better
-   than 10e-5 (measured as relative residual values through all
-   channels and rows). For a polynomial of order 0, with added
-   Gaussian random noise and continuum SNR of ~3.5, the relative
-   residuals are of the order of 1% (~3% for the 75th percentile). The
-   scripts included in the notebook can also be used to further
-   characterize the behavior of the task for different data
-   properties, and to run other experiments with the task.
+   fits produced by uvcontsub. For example, for polynomials of known
+   coefficients, for order 0, 1, and 2, added artificially to the
+   visibilities, the accuracy of the fitted polynomials is better than
+   10e-5 (measured as relative residual values through all channels
+   and rows). For a polynomial of order 0, with added Gaussian random
+   noise and continuum SNR of ~3.5, the relative residuals are of the
+   order of 1% (~3% for the 75th percentile). The scripts included in
+   the notebook can also be used to further characterize the behavior
+   of the task for different data properties, and to run other
+   experiments with the task.
 
 .. _Development:
 

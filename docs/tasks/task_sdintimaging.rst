@@ -10,6 +10,7 @@ Returns
 .. _Description:
 
 Description
+
    The sdintimaging task allows joint reconstruction of wideband single dish
    and interferometer data.
 
@@ -22,6 +23,8 @@ Description
       be found on the CASA Docs chapter page on  `Joint Single Dish
       and Interferometer Image Reconstruction <../../notebooks/image_combination.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`_
 
+      .. warning:: There is a `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for sdintimaging: gridder=’awproject’ is not yet available. It will be enabled in a subsequent release.
+   
    Interferometer data are gridded into an image cube (and
    corresponding PSF). The single dish image and PSF cubes are
    combined with the interferometer cubes in a feathering step. The

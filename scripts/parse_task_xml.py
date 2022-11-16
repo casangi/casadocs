@@ -9,6 +9,7 @@ import os
 
 
 ################################################################
+# Parse the XML of a CASA task and produce a task description dict
 def parse_xml(xmlstring):
     xmlroot = ET.fromstring(xmlstring)
 
@@ -39,8 +40,13 @@ def parse_xml(xmlstring):
                 nps + 'shortdescription').text
             pd['description'] = '' if param.find(nps + 'description') is None else param.find(nps + 'description').text
 
-            # overwrite param type with limittype if present
-            if (param.find(nps + 'any') is not None) and ('limittypes' in param.find(nps + 'any').attrib):
+            # overwrite param type with <type> tags if present
+            casa6_type_tags = param.findall(nps + 'type')
+
+            if casa6_type_tags:
+                pd['type'] = ', '.join(type_tag.text.replace('path', 'string') for type_tag in casa6_type_tags)
+                # these 2 elif are for pre-casa6 xml (limittypes or type attribute)
+            elif (param.find(nps + 'any') is not None) and ('limittypes' in param.find(nps + 'any').attrib):
                 pd['type'] = ', '.join(param.find(nps + 'any').attrib['limittypes'].split(' '))
             elif (param.find(nps + 'any') is not None) and ('type' in param.find(nps + 'any').attrib):
                 pd['type'] = ', '.join(param.find(nps + 'any').attrib['type'].split(' '))
