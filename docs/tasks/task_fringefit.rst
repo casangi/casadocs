@@ -7,7 +7,7 @@ Description
    
    .. warning:: **WARNING: fringefit** is currently an experimental task. Use
       with care and report issues back to the CASA team via the `NRAO
-      helpdesk <http://help.nrao.edu/>`__. Note that calibration
+      helpdesk <http://help.nrao.edu/>`__. There is also a `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for fringefit: calibration
       tables made with fringefit in CASA 5.5 will not work in CASA
       5.6 and later.
    

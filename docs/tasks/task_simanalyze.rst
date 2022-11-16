@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for simanalyze.
+   
    This task is for imaging and analyzing MeasurementSets (MSs)
    simulated with **simobserve** or **simalma**.
    

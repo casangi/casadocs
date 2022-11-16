@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for bandpass.
+   
    Determines the amplitude and phase as a function of frequency for
    each spectral window containing more than one channel. Strong
    sources (or many observations of moderately strong sources) are
