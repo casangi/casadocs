@@ -59,9 +59,9 @@ issues
 All of the project's GitHub `issues <https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues>`_
 which do not have an **epic** or **story** label are assumed to be *not user facing*, i.e. they do not affect
 the public API. These can be labeled  with other labels to assist with release planning and sorting and
-searching by developers. These issues which are not tagged as an epic or a story have a code review, but
-they are not validated, except to the extent that they are validated by an **epic owner** when they are a
-constituent part of an epic. The typical verification that is done for these is the standard, automatic
-verification, but additional verification can be done when needed.
+searching by developers. These issues which are not tagged as an epic or a story have a code review and standard
+verification (with extra verification when needed), but they are not validated, except to the extent that they
+are validated by an **epic owner** when they are a constituent part of an epic. The typical verification that
+is done for these is the standard, automatic verification, but additional verification can be done when needed.
 
 
