@@ -56,7 +56,7 @@ is required based on the validation completed as part of the epic's development.
 issues
 ------
 
-All of the projects GitHub `issues <https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues>`_
+All of the project's GitHub `issues <https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues>`_
 which do not have an **epic** or **story** label are assumed to be *not user facing*, i.e. they do not affect
 the public API. These can be labeled  with other labels to assist with release planning and sorting and
 searching by developers. These issues which are not tagged as an epic or a story have a code review, but
