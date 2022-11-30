@@ -45,7 +45,7 @@ Description
    It may be useful to simulate observations of an idealized model
    image consisting, for example, of point sources and Gaussians. The
    CASA component list tool (**cl**) allows the user to specify a set
-   of point sources, Gaussians, disks, and limb-darkened disks. One
+   of point sources, Gaussians, and disks. One
    can then either use that component list directly
    in **simobserve**, or create a CASA image from the components, or
    both. Details can be found in `this CASA
