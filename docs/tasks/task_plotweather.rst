@@ -3,8 +3,8 @@
 .. _Returns:
 
 Returns
-   tau (float) - opacity as a mean of the estimates based on weather
-   data and a seasonal model
+   tau (list[float]) - opacity per SPW, as a mean of the estimates
+   based on weather data and a seasonal model
 
 
 .. _Description:

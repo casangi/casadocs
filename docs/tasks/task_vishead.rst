@@ -3,8 +3,10 @@
 .. _Returns:
 
 Returns
-   out (tuple) - tuple with the value of the requested keyword, and
-   associated metainformation if available, when mode='get'
+   out (tuple or dict) - when mode='get', tuple with the value of the
+   requested keyword, and associated metainformation if
+   available. When mode='list', a dictionary containing the values of
+   each keyword given in the listitems parameter
 
 
 .. _Description:
