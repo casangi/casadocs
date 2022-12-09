@@ -1,5 +1,15 @@
 
 
+.. _Returns:
+
+Returns
+
+   out (dict) - statistics of the solutions found, grouped by SPW and
+   antenna, including solutions expected, above *minblperant*, and
+   above *minsnr*, as well as what antennas were used as reference.
+   Also gives information on data selection and calibration tables used.
+
+
 .. _Description:
 
 Description
