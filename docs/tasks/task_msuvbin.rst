@@ -48,7 +48,7 @@ Description
    Language <https://casacore.github.io/casacore-notes/199.html>`__  for
    more information)
    
-   *outvis*
+   *outputvis*
    
    Name of output grid
    
@@ -58,13 +58,9 @@ Description
    selected field is not the desired output phase center.
    Example: phasecenter='J2000 18h03m04 -20d00m45.1'
    
-   *nx*
+   *imsize*
    
-   Number of pixels along the x axis of the grid. Default: 1000
-   
-   *ny*
-   
-   Number of pixels along the y axis of the grid. Default: 1000
+   Number of pixels along the x and y axes of the grid. Default: [100, 100]
    
    *cell*
    
@@ -82,14 +78,14 @@ Description
    
    Number of spectral channels in the output uv grid. Default: 1
    
-   *fstart*
+   *start*
    
-   Frequency of the first channel. Default: '1GHz' (the user needs to
-   give a useful input here)
+   Frequency of the first channel. Default: '' (the user needs to
+   give a useful input here e.g '1GHz'or the default will pick the 1st channel frequency of the spw selection)
    
-   *fstep*
+   *width*
    
-   Width of spectral channel. Default: '1kHz'
+   Width of spectral channel. Default: '' (e.g '1kHz' or the default will be the width of the spw selection divided by nchan selected)
    
    *wproject*
    
@@ -117,15 +113,14 @@ Examples
        field = '0'
       spw = ''
       taql = ''
-      outvis = "uvgrid.ms'
+      outputvis = "uvgrid.ms'
       phasecenter = ''
-      nx = 2048
-      ny = 2048
+      imsize=[2048, 2048]
       cell = '2.0arcsec'
       ncorr = 2
       nchan = 320
-      fstart = "1025.00MHz"
-      fstep = "62.5kHz"
+      start = "1025.00MHz"
+      width = "62.5kHz"
       wproject = False
       memfrac = 0.9
    
@@ -136,7 +131,7 @@ Examples
       position is desired for the phase center, then the parameter
       *phasecenter* needs to be specified.
    
-   -  *nx* and *ny* define the number of the pixels along the x and y
+   -  *imsize* defines the number of the pixels along the x and y
       axes of the grid, respectively. The size of each pixel is
       defined by the parameter *cell*. These would be the same values
       that one would use in the task **clean**/**tclean** for
@@ -152,8 +147,8 @@ Examples
    
    -  *nchan* determines the number of channels in the output uv grid
       with a frequency width per channel set by the parameter
-      *fstep*. The lowest frequency of the output data is set by the
-      parameter *fstart*. Note that **msuvbin** will perform on the
+      *width*. The lowest frequency of the output data is set by the
+      parameter *start*. Note that **msuvbin** will perform on the
       fly Doppler correction; the resulting grid will be in the LSRK
       frame. The *fstart* value is the starting frequency in the LSRK
       frame. The above example will produce a uv grid with 320
