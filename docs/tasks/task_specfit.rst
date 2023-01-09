@@ -1,5 +1,12 @@
 
 
+.. _Returns:
+
+Returns
+   results (dict) - fitted parameters and information on fit quality
+   and units of the axes, if wantreturn=True
+
+
 .. _Description:
 
 Description

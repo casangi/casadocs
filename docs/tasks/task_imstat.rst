@@ -1,5 +1,11 @@
 
 
+.. _Returns:
+
+Returns
+   stats (dict) - image statistics computed over given axes
+
+
 .. _Description:
 
 Description

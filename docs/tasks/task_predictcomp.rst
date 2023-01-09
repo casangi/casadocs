@@ -1,5 +1,13 @@
 
 
+.. _Returns:
+
+Returns
+   components (dict) - list of components and additional information
+   including object name, standard, epoch, frequencies and antennas
+   configuration file
+
+
 .. _Description:
 
 Description

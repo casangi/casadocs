@@ -1,5 +1,11 @@
 
 
+.. _Returns:
+
+Returns
+   stats (dict) - mean and variance of the weights computed
+
+
 .. _Description:
 
 Description
