@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for uvmodelfit.
+   
    Fit a single component source model to the uv-data. Three
    models are available: P=point; G=Gaussian; D=Disk. Fitting
    parameters can be held fixed. The results are given in the CASA

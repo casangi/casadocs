@@ -1,10 +1,17 @@
 
 
+.. _Returns:
+
+Returns
+   partition (dict) - description of how the contents of a Multi-MS
+   have been partitioned, with sub-MS names, scans, spws, size, etc.
+
+
 .. _Description:
 
 Description
-   Lists the contents of a
-   `Multi-MS <../../notebooks/parallel-processing.ipynb#The-Multi-MS>`__
+   Returns and lists to the logger the contents of a `Multi-MS
+   <../../notebooks/parallel-processing.ipynb#The-Multi-MS>`__
    according to the way it has been partitioned. The list will show
    the following properties: Sub-MS name, scans, spws, number of
    channels per spw, number of rows of each scan within a Sub-MS and

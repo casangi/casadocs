@@ -1,5 +1,13 @@
 
 
+.. _Returns:
+
+Returns
+   stats (dict) - flag counts, grouped by multiple axes, for
+   mode='summary'. RFlag frequency and time thresholds for
+   mode='rflag' and action='calculate'
+
+
 .. _Description:
 
 Description

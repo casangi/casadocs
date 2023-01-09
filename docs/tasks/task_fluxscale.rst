@@ -1,5 +1,13 @@
 
 
+.. _Returns:
+
+Returns
+   flux (dict) - fitted flux density and error estimates, for every
+   field and SPW, together with a list of SPW IDs, names and center
+   frequencies
+
+
 .. _Description:
 
 Description
