@@ -1,4 +1,4 @@
-9269a52fbbc124a0aacecff2605258a02bfaeb55 (HEAD, origin/master, origin/HEAD, master)
+9269a52fbbc124a0aacecff2605258a02bfaeb55 (HEAD, tag: 6.5.3.25, origin/master, origin/HEAD, master)
 65f273d62f8dc05a13111e68bd36504b0f7fc48d (tag: CAS-14021-1, tag: 6.5.3.24)
 ff74e35341b47741bd66e48752619bbb728a0101 (tag: 6.5.3.23)
 7c23ac9e50fd07217da37579ea2bc62976b0b3ca (tag: CAS-13997-1, tag: 6.5.3.22)
