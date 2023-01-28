@@ -1614,27 +1614,117 @@
         "version": "ad4195f91c64c959d4a9da8efd6e024b0ac662770633e565c781f603fc6d2ab0",
         "warmup_time": -1
     },
-    "bench_tclean_memory.tclean_memory_suite.peakmem_tclean_setweighting": {
-        "code": "class tclean_memory_suite:\n    def peakmem_tclean_setweighting(self):\n        \"\"\"Adapted from CAS-13026\"\"\"\n        tclean(\n            vis=self.datapath,\n            imagename=self.imagename,\n            phasecenter=self.phasecenter,\n            scan=[\"17,11,13\"],\n            restoration=False,\n            datacolumn=\"data\",\n            pbcor=False,\n            spw=\"0\",\n            weighting=\"briggs\",\n            intent=\"OBSERVE_TARGET#ON_SOURCE\",\n            threshold=\"0mJy\",\n            robust=0.5,\n            savemodel=\"none\",\n            imsize=self.imsize,\n            stokes=\"I\",\n            nchan=self.nchan,\n            deconvolver=\"hogbom\",\n            field=\"Pillar_3\",\n            npixels=0,\n            niter=0,\n            pblimit=0.2,\n            restoringbeam=[],\n            cell=[\"0.94arcsec\"],\n            start=\"230.490186515GHz\",\n            outframe=\"LSRK\",\n            specmode=\"cube\",\n            width=\"0.0610478663509MHz\",\n            gridder=\"mosaic\",\n            interactive=False,\n            parallel=False,\n        )\n\n    def setup(self):\n        ## fresh copy of the test MS to the tmp directory where tests are run ?\n        # shutil.copytree(os.path.join(self.dataroot, self.input_ms),os.path.join(os.getcwd(), self.input_ms))\n        pass\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass",
-        "name": "bench_tclean_memory.tclean_memory_suite.peakmem_tclean_setweighting",
+    "bench_tclean_memory.MemoryMultiField.peakmem_multifield_cube_hogbom": {
+        "code": "class MemoryMultiField:\n    def peakmem_multifield_cube_hogbom(self):\n        \"\"\"tclean: Two fields, both cube - test_multifield_both_cube\"\"\"\n        th.write_file(self.img + '.out.txt',\n                           'imagename=' + self.img + '1\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:40.895 +40.55.58.543\\nimagename=' + self.img + '2\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:48.895 +40.55.58.543\\n')\n    \n        retpar = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',\n                        phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", outlierfile=self.img + '.out.txt', niter=10,\n                        deconvolver='hogbom', interactive=0, specmode='cube', nchan=2, interpolation='nearest',\n                        parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_twopoints_twochan.ms\")",
+        "name": "bench_tclean_memory.MemoryMultiField.peakmem_multifield_cube_hogbom",
         "param_names": [],
         "params": [],
-        "setup_cache_key": "bench_tclean_memory:34",
+        "timeout": 3600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "893e7e151a1f8754f1fb96f7d3519d6514a48281a1caa73b83aeeee1e722599f"
+    },
+    "bench_tclean_memory.MemoryMultiField.peakmem_multifield_mfs_hogbom": {
+        "code": "class MemoryMultiField:\n    def peakmem_multifield_mfs_hogbom(self):\n        \"\"\"tclean : Two fields, both mfs - test_multifield_both_mfs\"\"\"\n        th.write_file(self.img + '.out.txt',\n                           'imagename=' + self.img + '1\\nnchan=1\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:40.895 +40.55.58.543\\nusemask=user\\nmask=circle[[40pix,40pix],10pix]')\n    \n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',\n                     phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", outlierfile=self.img + '.out.txt', niter=10,\n                     deconvolver='hogbom', interactive=0, parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_twopoints_twochan.ms\")",
+        "name": "bench_tclean_memory.MemoryMultiField.peakmem_multifield_mfs_hogbom",
+        "param_names": [],
+        "params": [],
+        "timeout": 3600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "72402512d3572957a20b2ea0f6daf4d73fb60f675818a482590164425db3ccc3"
+    },
+    "bench_tclean_memory.MemoryMultiField.peakmem_multifield_mfs_mtmfs": {
+        "code": "class MemoryMultiField:\n    def peakmem_multifield_mfs_mtmfs(self):\n        \"\"\" tclean: Two fields, both mt-mfs - test_multifield_both_mtmfs\"\"\"\n        th.write_file(self.img + '.out.txt',\n                           'imagename=' + self.img + '1\\n\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:40.895 +40.55.58.543\\nusemask=user\\nmask=circle[[40pix,40pix],10pix]')\n    \n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',\n                     phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", outlierfile=self.img + '.out.txt', niter=10,\n                     deconvolver='mtmfs', interactive=0, parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_twopoints_twochan.ms\")",
+        "name": "bench_tclean_memory.MemoryMultiField.peakmem_multifield_mfs_mtmfs",
+        "param_names": [],
+        "params": [],
+        "timeout": 3600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "7d529a06e266a2ff5d0a9bc2ac4db2f37de76c696eb2a2d16a63af2051dcacb4"
+    },
+    "bench_tclean_memory.MemorySetWeighting.peakmem_tclean_setweighting": {
+        "code": "class MemorySetWeighting:\n    def peakmem_tclean_setweighting(self):\n        \"\"\"Adapted from CAS-13026\"\"\"\n        tclean(\n            vis=self.datapath,\n            imagename=self.imagename,\n            phasecenter=self.phasecenter,\n            scan=[\"17,11,13\"],\n            restoration=False,\n            datacolumn=\"data\",\n            pbcor=False,\n            spw=\"0\",\n            weighting=\"briggs\",\n            intent=\"OBSERVE_TARGET#ON_SOURCE\",\n            threshold=\"0mJy\",\n            robust=0.5,\n            savemodel=\"none\",\n            imsize=self.imsize,\n            stokes=\"I\",\n            nchan=self.nchan,\n            deconvolver=\"hogbom\",\n            field=\"Pillar_3\",\n            npixels=0,\n            niter=0,\n            pblimit=0.2,\n            restoringbeam=[],\n            cell=[\"0.94arcsec\"],\n            start=\"230.490186515GHz\",\n            outframe=\"LSRK\",\n            specmode=\"cube\",\n            width=\"0.0610478663509MHz\",\n            gridder=\"mosaic\",\n            interactive=False,\n            parallel=False,\n        )\n\n    def setup(self):\n        ## fresh copy of the test MS to the tmp directory where tests are run ?\n        # shutil.copytree(os.path.join(self.dataroot, self.input_ms),os.path.join(os.getcwd(), self.input_ms))\n        pass\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass",
+        "name": "bench_tclean_memory.MemorySetWeighting.peakmem_tclean_setweighting",
+        "param_names": [],
+        "params": [],
+        "setup_cache_key": "bench_tclean_memory:147",
         "timeout": 10000,
         "type": "peakmemory",
         "unit": "bytes",
-        "version": "c89589301c2c884b40375d00ec2f343d5ebdc195afbfc70ae2f149be692e8187"
+        "version": "6ad99f28088bd459d518baf00c58aeae5c359990913b33e3e208a3a55889bf35"
     },
-    "bench_tclean_memory.tclean_memory_suite.track_tclean_file_descriptors_cubemode_mosaic_briggs": {
-        "code": "class tclean_memory_suite:\n    def track_tclean_file_descriptors_cubemode_mosaic_briggs(self):\n        \"\"\"Adapted from CAS-8755\n    \n        https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/browse/casatests/performance/test_perf_tclean_mem_setweighting.py?at=refs%2Fheads%2FCAS-13026#166-225\n    \n        Requires user configuration ~/.casa/rc to contain `synthesis.imager.memprofile.enable: 1`\n        Expected output is casa.synthesis.imager.memprofile.PID.HOSTNAME.DATE_TIME_when_test_started.txt\n        \"\"\"\n        # attribute for tracking metric\n        self.unit = \"file descriptors\"\n    \n        casalog.setlogfile(self.templogfile)\n        tclean(\n            vis=self.datapath,\n            imagename=self.imagename,\n            phasecenter=self.phasecenter,\n            scan=[\"17,11,13\"],\n            restoration=False,\n            datacolumn=\"data\",\n            pbcor=False,\n            spw=\"0\",\n            weighting=\"briggs\",\n            intent=\"OBSERVE_TARGET#ON_SOURCE\",\n            threshold=\"0mJy\",\n            robust=0.5,\n            savemodel=\"none\",\n            imsize=self.imsize,\n            stokes=\"I\",\n            nchan=self.nchan,\n            deconvolver=\"hogbom\",\n            field=\"Pillar_3\",\n            npixels=0,\n            niter=0,\n            pblimit=0.2,\n            restoringbeam=[],\n            cell=[\"0.94arcsec\"],\n            start=\"230.490186515GHz\",\n            outframe=\"LSRK\",\n            specmode=\"cube\",\n            width=\"0.0610478663509MHz\",\n            gridder=\"mosaic\",\n            interactive=False,\n            parallel=False,\n        )\n    \n        with open(self.templogfile) as mylog:\n            for line in mylog:\n                a_match = re.search(\"casa.synthesis.imager.memprofile\", line)\n                if a_match:\n                    str_match = a_match.string\n                    break\n    \n        # Get name of memprofile created by tclean\n        (start, middle, end) = str_match.partition(\"casa.synthesis.imager.memprofile\")\n        mem_profile = middle + end.rstrip()\n    \n        # Get the memory values of the second column named MemRSS_(VmRSS)_MB, for each row\n        with open(mem_profile, \"r\") as mfile:\n            memdict = OrderedDict()\n            maxFDSize = 0\n            for myrow in mfile:\n                linelist = []\n                print(myrow.rstrip())\n                if myrow.startswith(\"#\"):\n                    continue\n    \n                linelist = myrow.split(\",\")\n                tclean_step = str(linelist[-1].rstrip())\n                memdict[tclean_step.strip(\"[]\")] = int(linelist[1])\n                maxFDSize = max(maxFDSize, int(linelist[7]))\n    \n        return maxFDSize\n\n    def setup(self):\n        ## fresh copy of the test MS to the tmp directory where tests are run ?\n        # shutil.copytree(os.path.join(self.dataroot, self.input_ms),os.path.join(os.getcwd(), self.input_ms))\n        pass\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass",
-        "name": "bench_tclean_memory.tclean_memory_suite.track_tclean_file_descriptors_cubemode_mosaic_briggs",
+    "bench_tclean_memory.MemorySetWeighting.track_file_descriptors_cubemode_mosaic_briggs": {
+        "code": "class MemorySetWeighting:\n    def track_file_descriptors_cubemode_mosaic_briggs(self):\n        \"\"\"Adapted from CAS-8755\n        https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/browse/casatests/performance/test_perf_tclean_mem_setweighting.py?at=refs%2Fheads%2FCAS-13026#166-225\n    \n        Requires user configuration ~/.casa/rc to contain `synthesis.imager.memprofile.enable: 1`\n        Expected output is casa.synthesis.imager.memprofile.PID.HOSTNAME.DATE_TIME_when_test_started.txt\n        \"\"\"\n        # attribute for tracking metric\n        self.unit = \"file descriptors\"\n    \n        casalog.setlogfile(self.templogfile)\n        tclean(\n            vis=self.datapath,\n            imagename=self.imagename,\n            phasecenter=self.phasecenter,\n            scan=[\"17,11,13\"],\n            restoration=False,\n            datacolumn=\"data\",\n            pbcor=False,\n            spw=\"0\",\n            weighting=\"briggs\",\n            intent=\"OBSERVE_TARGET#ON_SOURCE\",\n            threshold=\"0mJy\",\n            robust=0.5,\n            savemodel=\"none\",\n            imsize=self.imsize,\n            stokes=\"I\",\n            nchan=self.nchan,\n            deconvolver=\"hogbom\",\n            field=\"Pillar_3\",\n            npixels=0,\n            niter=0,\n            pblimit=0.2,\n            restoringbeam=[],\n            cell=[\"0.94arcsec\"],\n            start=\"230.490186515GHz\",\n            outframe=\"LSRK\",\n            specmode=\"cube\",\n            width=\"0.0610478663509MHz\",\n            gridder=\"mosaic\",\n            interactive=False,\n            parallel=False,\n        )\n    \n        with open(self.templogfile) as mylog:\n            for line in mylog:\n                a_match = re.search(\"casa.synthesis.imager.memprofile\", line)\n                if a_match:\n                    str_match = a_match.string\n                    break\n    \n        # Get name of memprofile created by tclean\n        (start, middle, end) = str_match.partition(\"casa.synthesis.imager.memprofile\")\n        mem_profile = middle + end.rstrip()\n    \n        # Get the memory values of the second column named MemRSS_(VmRSS)_MB, for each row\n        with open(mem_profile, \"r\") as mfile:\n            memdict = OrderedDict()\n            maxFDSize = 0\n            for myrow in mfile:\n                linelist = []\n                print(myrow.rstrip())\n                if myrow.startswith(\"#\"):\n                    continue\n    \n                linelist = myrow.split(\",\")\n                tclean_step = str(linelist[-1].rstrip())\n                memdict[tclean_step.strip(\"[]\")] = int(linelist[1])\n                maxFDSize = max(maxFDSize, int(linelist[7]))\n    \n        return maxFDSize\n\n    def setup(self):\n        ## fresh copy of the test MS to the tmp directory where tests are run ?\n        # shutil.copytree(os.path.join(self.dataroot, self.input_ms),os.path.join(os.getcwd(), self.input_ms))\n        pass\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass",
+        "name": "bench_tclean_memory.MemorySetWeighting.track_file_descriptors_cubemode_mosaic_briggs",
         "param_names": [],
         "params": [],
-        "setup_cache_key": "bench_tclean_memory:34",
+        "setup_cache_key": "bench_tclean_memory:147",
         "timeout": 10000,
         "type": "track",
         "unit": "unit",
-        "version": "db6863cedbdc6e74efd8d2289e02d163d4d5d0711636a4003dd924edda273708"
+        "version": "f3fc8767f48770d2492971659441244098f79a773586aaaffbc0a2ef6a49d3a4"
+    },
+    "bench_tclean_memory.MemoryWideField.peakmem_cube_mosaic_cbFalse_mwFalse_twofield": {
+        "code": "class MemoryWideField:\n    def peakmem_cube_mosaic_cbFalse_mwFalse_twofield(self):\n        \"\"\"tclean: - cube mosaic using conjbeams=False - test_cube_mosaic_cbFalse_mwFalse_twofield\"\"\"\n        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1', conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=False,parallel=False)\n\n    def setup(self):\n        self.prepData('refim_oneshiftpoint.mosaic.ms')",
+        "name": "bench_tclean_memory.MemoryWideField.peakmem_cube_mosaic_cbFalse_mwFalse_twofield",
+        "param_names": [],
+        "params": [],
+        "timeout": 3600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "213736aba4861d6ada012c27b036d0eefbe891ce27250b0867d8354eeafb9ecb"
+    },
+    "bench_tclean_memory.MemoryWideField.peakmem_cube_mosaic_cbFalse_mwFalse_twofield_upTrue": {
+        "code": "class MemoryWideField:\n    def peakmem_cube_mosaic_cbFalse_mwFalse_twofield_upTrue(self):\n        \"\"\"tclean: Cube mosaic with conjbeams=F, mosaicweight=F, usepointing=T, of two fields -  test_cube_mosaic_cbFalse_mwFalse_twofield_upTrue\"\"\"\n        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1',  usepointing = True, conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=False,parallel=False)\n\n    def setup(self):\n        self.prepData('refim_oneshiftpoint.mosaic.ms')",
+        "name": "bench_tclean_memory.MemoryWideField.peakmem_cube_mosaic_cbFalse_mwFalse_twofield_upTrue",
+        "param_names": [],
+        "params": [],
+        "timeout": 3600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "8e2ae00738c0ed705cbc3b1df59069743febbe8c160b1dd759a6537097168c0d"
+    },
+    "bench_tclean_memory.MemoryWideField.peakmem_cube_mosaic_cbFalse_mwTrue_twofield": {
+        "code": "class MemoryWideField:\n    def peakmem_cube_mosaic_cbFalse_mwTrue_twofield(self):\n        \"\"\"tclean: - cube mosaic using conjbeams=False - test_cube_mosaic_cbFalse_mwTrue_twofield\"\"\"\n        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1', conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=True,parallel=False)\n\n    def setup(self):\n        self.prepData('refim_oneshiftpoint.mosaic.ms')",
+        "name": "bench_tclean_memory.MemoryWideField.peakmem_cube_mosaic_cbFalse_mwTrue_twofield",
+        "param_names": [],
+        "params": [],
+        "timeout": 3600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "ae1661113bf2b4e2383bbc84b618de00882e9df2d34c706fc6182d5ee88ea29c"
+    },
+    "bench_tclean_memory.MemoryWideFieldAWP.peakmem_cube_awproject_hogbom": {
+        "code": "class MemoryWideFieldAWP:\n    def peakmem_cube_awproject_hogbom(self):\n        \"\"\"tclean: Cube with AW-Projection  and rotation off - test_widefield_aproj_cube\"\"\"\n        ret = tclean(vis=self.msfile, field='*', imagename=self.img, imsize=512, cell='10.0arcsec',\n                     phasecenter=\"J2000 19:59:28.500 +40.44.01.50\",specmode='cube', niter=1, gain=1.0,\n                     gridder='awproject', cfcache=self.img + '.cfcache',wbawp=True,conjbeams=False,\n                     psterm=False, computepastep=360.0, rotatepastep=360.0, deconvolver='hogbom',\n                     parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_mawproject.ms\")",
+        "name": "bench_tclean_memory.MemoryWideFieldAWP.peakmem_cube_awproject_hogbom",
+        "param_names": [],
+        "params": [],
+        "timeout": 3600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "535d7210070d64a24f08ced41f22af7c7ff735b2c653c074297c175a08e8cb0d"
+    },
+    "bench_tclean_memory.MemoryWideFieldAWP.peakmem_mfs_awproject_hogbom": {
+        "code": "class MemoryWideFieldAWP:\n    def peakmem_mfs_awproject_hogbom(self):\n        \"\"\"tclean: MFS with narrowband AWProjection - test_widefield_aproj_mfs\"\"\"\n        ret = tclean(vis=self.msfile, spw='1', field='*', imagename=self.img, imsize=512, cell='10.0arcsec',\n                     phasecenter=\"J2000 19:59:28.500 +40.44.01.50\",niter=30, gridder='awproject', cfcache='',\n                     wbawp=False, conjbeams=True, psterm=False,computepastep=360.0,rotatepastep=360.0,\n                     deconvolver='hogbom', savemodel='modelcolumn', parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_mawproject.ms\")",
+        "name": "bench_tclean_memory.MemoryWideFieldAWP.peakmem_mfs_awproject_hogbom",
+        "param_names": [],
+        "params": [],
+        "timeout": 3600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "b7a2bc60edebed77059280a26d38d60297776207e13bca67e77066c2383a48b1"
+    },
+    "bench_tclean_memory.MemoryWideFieldAWP.peakmem_mfs_awproject_mtmfs": {
+        "code": "class MemoryWideFieldAWP:\n    def peakmem_mfs_awproject_mtmfs(self):\n        \"\"\"tclean: MFS with AWProjection and nt=2 stokes I - test_widefield_aproj_mtmfs  \"\"\"\n        ret = tclean(vis=self.msfile, spw='*', field='*', imagename=self.img, imsize=512, cell='10.0arcsec',\n                     phasecenter=\"J2000 19:59:28.500 +40.44.01.50\",niter=0, gridder='awproject',\n                     cfcache=self.img + '.cfcache', wbawp=True, conjbeams=False, psterm=False,\n                     computepastep=360.0,rotatepastep=360.0, deconvolver='mtmfs', parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_mawproject.ms\")",
+        "name": "bench_tclean_memory.MemoryWideFieldAWP.peakmem_mfs_awproject_mtmfs",
+        "param_names": [],
+        "params": [],
+        "timeout": 3600,
+        "type": "peakmemory",
+        "unit": "bytes",
+        "version": "d58b12d0e026ea8c921dacf72de9d8f859c6305623fbd66ade64637f8950312d"
     },
     "bench_tclean_time.TcleanCube.time_cube_standard_channel_gap": {
         "code": "class TcleanCube:\n    def time_cube_standard_channel_gap(self):\n        \"\"\"tclean\" mosaic cube with gap in channel selection - test_cube_21\"\"\"\n        ret = tclean(vis=self.msfile, field='0', imsize=100, cell='8.0arcsec', niter=10,\n                     specmode='cube', nchan=10, restfreq=['1.25GHz'],\n                     phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", deconvolver='hogbom',\n                     spw='0:4~9;12~14', imagename=self.img + 'Cubetest_st4gap', start=4,\n                     width='', veltype='radio', outframe='LSRK', interpolation='nearest', parallel=False)\n\n    def setup(self):\n        self.prepData('refim_point.ms')",
