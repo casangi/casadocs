@@ -3,9 +3,12 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for plotms. 
+   
    **plotms** is a task for plotting and interacting with visibility
-   data. A variety of axes choices (including data column) along with
-   MS selection and averaging options are provided.  All of the
+   and calibration data. A variety of axes choices (including data column)
+   along with selection and averaging options are provided.  All of the
    provided parameters can also be set using the GUI once the
    application has been launched.  Additional operations are
    available through the GUI such as marking a region then using the
@@ -26,13 +29,7 @@ Description
    are not hidden when interacting with a calibration table, and such
    settings will be ignored (when benign) or cause an error message.
    
-   In CASA5, the return value of **plotms** is a Boolean *True* or *False*,
-   where *True* indicates that the supplied parameters were processed
-   successfully with no errors; however, a plot may or may not have
-   been produced.  For example, a null selection returns *True* with
-   no plot, but an invalid argument or combination of arguments
-   returns *False*.  In CASA6, **plotms** has no return value but
-   may throw an exception.
+   In CASA6, **plotms** has no return value but may throw an exception.
    
    For a detailed explanation of the **plotms** GUI and its
    corresponding task parameters, see the `documentation on using
@@ -455,44 +452,52 @@ Description
    
       -  uv distance (baseline separations), in meters. Calculated as
          sqrt(u*u+v*v), where u and v are values from the *UVW*
-         column
-         Not supported for CalTables.
+         column.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘uvwave’* (*’uvdistl’, ’uvdist_l’*)
    
       -  uv distance (baseline separations) as a function of
          frequency, in units of the observing wavelength λ (lambda).
-      -  Not supported for CalTables.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘u’*
    
       -  u in meters, from the *UVW* column.
-      -  Not supported for CalTables.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘v’*
    
       -  v in meters, from the *UVW* column.
-      -  Not supported for CalTables.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘w’*
    
       -  w in meters, from the *UVW* column.
-      -  Not supported for CalTables.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘uwave’*
    
       -  u in units of wavelength λ (lambda).
-      -  Not supported for CalTables.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘vwave’*
    
       -  v in units of wavelength λ (lambda).
-      -  Not supported for CalTables.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘wwave’*
    
       -  w in units of wavelength λ (lambda).
-      -  Not supported for CalTables.
+      -  For CalTables, *UVW* is calculated from the Antenna subtable
+         when it exists and antenna2 is defined.
    
    -  *‘azimuth’*
    
@@ -501,7 +506,7 @@ Description
          position, using the
          `measures <../../api/casatools.rst>`__
          (me) tool.
-      -  Not supported for CalTables.
+      -  Supported for CalTables where possible.
    
    -  *‘elevation* ’
    
@@ -510,7 +515,7 @@ Description
          position, using the
          `measures <../../api/casatools.rst>`__
          (me) tool.
-      -  Not supported for CalTables.
+      -  Supported for CalTables where possible.
    
    -  *‘hourang’* (*‘hourangle’*)
    
@@ -519,7 +524,7 @@ Description
          observatory position, using
          the `measures <../../api/casatools.rst>`__
          (me) tool.
-      -  Not supported for CalTables.
+      -  Supported for CalTables where possible.
    
    -  *‘parang’* (*‘parangle’, ‘parallacticangle’*)
    
@@ -528,7 +533,7 @@ Description
          observatory position, using
          the `measures <../../api/casatools.rst>`__
          (me) tool .
-      -  Not supported for CalTables.
+      -  Supported for CalTables where possible.
    
    -  *‘antenna’* (*‘ant’*)
    

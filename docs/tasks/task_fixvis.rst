@@ -2,7 +2,9 @@
 
 Description
 
-   .. danger:: **ALERT:** **fixvis** is deprecated in CASA 6.3. Please use task **phaseshift** instead.
+   .. warning:: **ALERT:** **fixvis** is deprecated in CASA 6.3. Please use task **phaseshift** instead.
+   
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for fixvis.
 
    **fixvis** recalculates (u, v, w) in an MS based on antenna
    positions, time and source position. **fixvis** can also change

@@ -135,7 +135,7 @@ and objects will then be available for the user within the CASA shell environmen
 terminal
 ^^^^^^^^
 
-.. data:: terminal(-h, --help, --logfile, --log2term, --nologger, --nologfile, --nogui, --rcdir, --norc, --colors, --pipeline, --agg, --iplog, --notelemetry, --nocrashreport, --datapath, --user-site, -c)
+.. data:: terminal(-h, --help, --logfile, --log2term, --nologger, --nologfile, --nogui, --rcdir, --norc, --colors, --pipeline, --agg, --iplog, --notelemetry, --nocrashreport, --datapath, --user-site, -v, --version, -c)
 
 With the full installation of CASA from a tar file, the python environment itself is included and started through ./bin/casa.
 This ./bin/casa executable can be provided the following options to change configuration values at run time:
@@ -159,6 +159,7 @@ This ./bin/casa executable can be provided the following options to change confi
    --datapath DATAPATH   data path(s) [colon separated]
    --user-site           include user's local site-packages lib in path
    (toggling this option turns it on; use startup.py to append to the path)
+   -v, --version         show CASA version
    -c ...                python eval string or python script to execute
 
 

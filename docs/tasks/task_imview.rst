@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for imview. 
+   
    Executing the imview task will bring up a display panel window,
    which can be resized. If no data file was specified, a Load Data
    window will also appear. Click on the desired data file and choose

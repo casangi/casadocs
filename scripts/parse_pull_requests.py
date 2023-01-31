@@ -1,9 +1,6 @@
 import re
 from datetime import datetime
 
-with open('api_baseline.txt', 'r') as fid:
-    diffversion = fid.readlines()[0].strip()
-
 with open('changelog/pullrequests.txt', 'r') as fid:
     raw_prs = fid.read().split('\n')[1:]
 
@@ -30,6 +27,6 @@ for ii, raw_line in enumerate(raw_prs):
 
 # write out log of tool API diffs
 with open('changelog.rst', 'w') as fid:
-    fid.write('Change Log\n==========\n\nSummary of differences from ' + diffversion + '\n\nPull Requests\n+++++++++++++\n\n')
+    fid.write('Change Log\n==========\n\n')
     fid.write('.. raw:: html\n\n   <ul>\n' + difflog + '   </ul>\n\n|\n\n')
 

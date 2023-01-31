@@ -1,8 +1,17 @@
 
 
+.. _Returns:
+
+Returns
+   fluxd (dict) - flux densities indexed by field and SPW
+
+
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for setjy.
+   
    The **setjy** task sets the model visibility amplitude and phase
    associated with a flux density scale and a specified clean
    components image into the model column of the MS data set. The
@@ -431,7 +440,7 @@ Examples
       scalebychan         =       True        #  scale the flux density on a per channel basis or else on a per spw basis
       standard            = 'Perley-Butler 2017' #  Flux density standard
            model          =         ''        #  File location for field model
-           listmodels     =      False        #  List the available modimages for VLA calibrators or Tb models for Solar System objects
+           listmodels     =      False        #  List the available models for VLA calibrators or Tb models for Solar System objects
            interpolation  =  'nearest'        #  method to be used to interpolate in time
       usescratch          =      False        #  Will create if necessary and use the MODEL_DATA
    
@@ -454,7 +463,7 @@ Examples
    
    ::
    
-      setjy(vis='ngc7538_XBAND.ms', field='0', modimage='3C48_X.im')
+      setjy(vis='ngc7538_XBAND.ms', field='0', model='3C48_X.im')
    
    Note that if there is no 3C48_X.im in the current directory, setjy
    looks for it in the default model data image directory.
@@ -479,8 +488,8 @@ Examples
    
    ::
    
-      No candidate modimages matching '*.im\* \*.mod*' found in .
-      Candidate modimages (*) in
+      No candidate models matching '*.im\* \*.mod*' found in .
+      Candidate models (*) in
       /users/ttsutsum/casabuilds/data/nrao/VLA/CalModels:
       3C138_A.im 3C138_L.im 3C138_U.im 3C147_C.im 3C147_Q.im
       3C147_X.im 3C286_K.im 3C286_S.im 3C48_A.im  3C48_L.im
