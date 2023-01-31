@@ -89,7 +89,7 @@ Description
    
    *wproject*
    
-   Do wprojection correction while gridding. Default: False
+   Do wprojection correction while gridding (avoid using for now). Default: False
    
    *memfrac*
    
