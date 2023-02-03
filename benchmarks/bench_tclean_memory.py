@@ -53,7 +53,7 @@ class MemoryMultiField(BaseTcleanSetup):
 
         ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',
                      phasecenter="J2000 19:59:28.500 +40.44.01.50", outlierfile=self.img + '.out.txt', niter=10,
-                     deconvolver='hogbom', interactive=0, parallel=False)
+                     deconvolver='hogbom', interactive=False, parallel=False)
 
     def peakmem_multifield_mfs_mtmfs(self):
         """ tclean: Two fields, both mt-mfs - test_multifield_both_mtmfs"""
@@ -62,7 +62,7 @@ class MemoryMultiField(BaseTcleanSetup):
 
         ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',
                      phasecenter="J2000 19:59:28.500 +40.44.01.50", outlierfile=self.img + '.out.txt', niter=10,
-                     deconvolver='mtmfs', interactive=0, parallel=False)
+                     deconvolver='mtmfs', interactive=False, parallel=False)
 
     def peakmem_multifield_cube_hogbom(self):
         """tclean: Two fields, both cube - test_multifield_both_cube"""
@@ -71,7 +71,7 @@ class MemoryMultiField(BaseTcleanSetup):
 
         retpar = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',
                         phasecenter="J2000 19:59:28.500 +40.44.01.50", outlierfile=self.img + '.out.txt', niter=10,
-                        deconvolver='hogbom', interactive=0, specmode='cube', nchan=2, interpolation='nearest',
+                        deconvolver='hogbom', interactive=False, specmode='cube', nchan=2, interpolation='nearest',
                         parallel=False)
 
 class MemoryWideField(BaseTcleanSetup):
