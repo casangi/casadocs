@@ -55,7 +55,7 @@ class TcleanSingleField(BaseTcleanSetup):
         if (os.path.exists(self.msfile)):
             os.system('rm -rf ' + self.msfile)
 
-    def time_mfs_standard_clark (self):
+    def time_mfs_standard_clark(self):
         """tclean: mfs with clark minor cycle - test_onefield_clark"""
         ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec', niter=10,
                      deconvolver='clark', interactive=False, parallel=False)
@@ -137,17 +137,25 @@ class TestWideField(BaseTcleanSetup):
 
     def time_cube_mosaic_cbFalse_mwFalse_twofield(self):
         """tclean: - cube mosaic using conjbeams=False - test_cube_mosaic_cbFalse_mwFalse_twofield"""
-        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1', conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=False,parallel=False)
+        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, 
+               phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1', 
+               conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz', 
+               pbcor=True, mosweight=False, parallel=False)
 
 
     def time_cube_mosaic_cbFalse_mwTrue_twofield(self):
         """tclean: - cube mosaic using conjbeams=False - test_cube_mosaic_cbFalse_mwTrue_twofield"""
-        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1', conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=True,parallel=False)
+        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024,
+               phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1',
+               conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',
+               pbcor=True, mosweight=True, parallel=False)
 
     def time_cube_mosaic_cbFalse_mwFalse_twofield_upTrue(self):
         """tclean: Cube mosaic with conjbeams=F, mosaicweight=F, usepointing=T, of two fields -  test_cube_mosaic_cbFalse_mwFalse_twofield_upTrue"""
-        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1',  usepointing = True, conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=False,parallel=False)
-
+        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, 
+               phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1', 
+               usepointing = True, conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz', 
+               pbcor=True, mosweight=False, parallel=False)
 
 class TcleanWideFieldAWP(BaseTcleanSetup):
     """Runtime benchmarking tests of tclean on widefield using awproject"""
@@ -208,6 +216,14 @@ class TcleanCube(BaseTcleanSetup):
                      phasecenter="J2000 19:59:28.500 +40.44.01.50", deconvolver='hogbom',
                      spw='0:4~9;12~14', imagename=self.img + 'Cubetest_st4gap', start=4,
                      width='', veltype='radio', outframe='LSRK', interpolation='nearest', parallel=False)
+
+    def time_cube_standard_fullsummary(self):
+        """tclean: mosaic cube with Hogbom deconvolver -  test_cube_0"""
+        ret = tclean(vis=self.msfile, field='0', imsize=100, cell='8.0arcsec', niter=200,
+                     specmode='cube', nchan=2048, restfreq=['1.25GHz'],
+                     phasecenter="J2000 19:59:28.500 +40.44.01.50", deconvolver='hogbom',
+                     spw='0', imagename=self.img + 'Cubetest_manychan', fullsummary=True,
+                     start=0, width=1, veltype='radio', outframe='LSRK', interpolation='linear', parallel=False)
 
 class TcleanEphemeris(BaseTcleanSetup):
     """Runtime benchmarking tests of tclean ephemeris object imaging"""
