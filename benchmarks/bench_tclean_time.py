@@ -58,37 +58,37 @@ class TcleanSingleField(BaseTcleanSetup):
     def time_mfs_standard_clark(self):
         """tclean: mfs with clark minor cycle - test_onefield_clark"""
         ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec', niter=10,
-                     deconvolver='clark', interactive=False, parallel=False)
+                     deconvolver='clark', parallel=False)
 
     def time_mfs_standard_hogbom(self):
         """tclean: mfs with hogbom minor cycle - test_onefield_hogbom"""
         tricky_imagename = self.img + '_uid___A001_X1234a_X56cb.s19_0.J2253+1608_bp.more-dash.virtspw19.mfs.I.iter0.hoghbom'
         ret = tclean(vis=self.msfile, imagename=tricky_imagename, imsize=100, cell='8.0arcsec', niter=10,
-                     deconvolver='hogbom', interactive=False,parallel=False)
+                     deconvolver='hogbom', parallel=False)
 
     def time_mfs_standard_mtmfs(self):
         """tclean: mt-mfs with minor cycle iterations - test_onefield_mtmfs"""
         ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec', niter=10,
-                     deconvolver='mtmfs',interactive=False, parallel=False)
+                     deconvolver='mtmfs', parallel=False)
 
     def test_mfs_standard_hogbom_mask_file(self):
         """tclean: Input mask as file and string using mode mfs - test_mask_1"""
         mstr = 'circle[[50pix,80pix],10pix]'
         th.write_file(self.img + '.mask.txt', '#CRTFv0 CASA Region Text Format version 0\n' + mstr + '\n')
         ret = tclean(vis=self.msfile,imagename=self.img+'1',imsize=100,cell='8.0arcsec',niter=10,
-                     deconvolver='hogbom',interactive=False,usemask='user',
+                     deconvolver='hogbom', ,usemask='user',
                      mask=self.img+'.mask.txt',parallel=False)
 
     def time_mfs_standard_hogbom_automask(self):
         """tclean: multi-threshold Autobox (minbeamfrac=0.3) - test_mask_autobox_multithresh_with_prune"""
         ret = tclean(vis=self.msfile,imagename=self.img,imsize=1000,cell='8.0arcsec',niter=10,
-                     deconvolver='hogbom',interactive=False,usemask='auto-multithresh',
+                     deconvolver='hogbom', usemask='auto-multithresh',
                      minbeamfrac=0.3,parallel=False)
 
     def time_cube_standard_pcwdT(self):
         """tclean: cube with perchanweightdensity True and briggs weighting - test_onefield_pcwdT_and_pcwdF"""
         ret = tclean(self.msfile, imagename=self.img + '1', imsize=20, cell='8.0arcsec', niter=0, nchan=1,
-                     spw='0:1', interactive=False, gridder='standard', perchanweightdensity=True, specmode='cube',
+                     spw='0:1', gridder='standard', perchanweightdensity=True, specmode='cube',
                      weighting='briggs', robust=0.5)
 
 class TcleanMultiField(BaseTcleanSetup):
@@ -109,7 +109,7 @@ class TcleanMultiField(BaseTcleanSetup):
 
         ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',
                      phasecenter="J2000 19:59:28.500 +40.44.01.50", outlierfile=self.img + '.out.txt', niter=10,
-                     deconvolver='hogbom', interactive=False, parallel=False)
+                     deconvolver='hogbom', parallel=False)
 
     def time_multifield_mfs_mtmfs(self):
         """ tclean: Two fields, both mt-mfs - test_multifield_both_mtmfs"""
@@ -118,7 +118,7 @@ class TcleanMultiField(BaseTcleanSetup):
 
         ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',
                      phasecenter="J2000 19:59:28.500 +40.44.01.50", outlierfile=self.img + '.out.txt', niter=10,
-                     deconvolver='mtmfs', interactive=False, parallel=False)
+                     deconvolver='mtmfs', parallel=False)
 
     def time_multifield_cube_hogbom(self):
         """tclean: Two fields, both cube - test_multifield_both_cube"""
@@ -127,7 +127,7 @@ class TcleanMultiField(BaseTcleanSetup):
 
         retpar = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',
                         phasecenter="J2000 19:59:28.500 +40.44.01.50", outlierfile=self.img + '.out.txt', niter=10,
-                        deconvolver='hogbom', interactive=False, specmode='cube', nchan=2, interpolation='nearest',
+                        deconvolver='hogbom', specmode='cube', nchan=2, interpolation='nearest',
                         parallel=False)
 
 class TestWideField(BaseTcleanSetup):
@@ -239,26 +239,22 @@ class TcleanEphemeris(BaseTcleanSetup):
     def time_eph_singlefield_standard_mfs(self):
         """single field (standard gridder), mfs mode - test_onefield_mfs_eph"""
         ret = tclean(vis=self.msfile, field='0', imagename=self.img, imsize=[288, 288], cell=['0.14arcsec'],
-                     phasecenter='TRACKFIELD', specmode='mfs', gridder='standard', niter=0, interactive=False,
-                     parallel=False)
+                     phasecenter='TRACKFIELD', specmode='mfs', gridder='standard', niter=0, parallel=False)
 
     def time_eph_singlefield_standard_cubesource(self):
         """tclean: single field (standard gridder), cubesource mode - test_onefield_cube_eph"""
         ret = tclean(vis=self.msfile, field='0', imagename=self.img, imsize=[288, 288], cell=['0.14arcsec'],
-                   phasecenter='TRACKFIELD', specmode='cubesource', gridder='standard', niter=0,
-                   interactive=False, parallel=False)
+                   phasecenter='TRACKFIELD', specmode='cubesource', gridder='standard', niter=0, parallel=False)
 
     def time_eph_multifield_mosaic_mfs(self):
         """tclean: multifield (mosaic gridder), mfs mode - test_multifield_mfs_eph"""
         ret = tclean(vis=self.msfile, imagename=self.img, imsize=[480, 420], cell=['0.14arcsec'],
-                     phasecenter='TRACKFIELD', specmode='mfs', gridder='mosaic', niter=0, interactive=False,
-                     parallel=False)
+                     phasecenter='TRACKFIELD', specmode='mfs', gridder='mosaic', niter=0, parallel=False)
 
     def time_eph_multifield_mosaic_cubesource(self):
         """tclean: multifield (mosaic gridder), cubesource mode - test_multifield_cube_eph"""
         ret = tclean(vis=self.msfile, imagename=self.img, imsize=[480, 420], cell=['0.14arcsec'],
-                     phasecenter='TRACKFIELD', specmode='cubesource', gridder='mosaic', niter=0, interactive=False,
-                     parallel=False)
+                     phasecenter='TRACKFIELD', specmode='cubesource', gridder='mosaic', niter=0, parallel=False)
 
 class TcleanMoldelVis(BaseTcleanSetup):
     """Runtime benchmarking tests of tclean with saving model column"""
@@ -312,4 +308,4 @@ class TcleanStokes(BaseTcleanSetup):
     def time_cube_stokes_IV(self):
       """tclean: cube with stokes V - test_stokes_cube_IV"""
       ret = tclean(vis=self.msfile,imagename=self.img,imsize=100,cell='8.0arcsec',niter=10,
-                   stokes='IV',interactive=False,specmode='cube',interpolation='nearest',parallel=False)
+                   stokes='IV', specmode='cube', interpolation='nearest', parallel=False)
