@@ -79,7 +79,7 @@ class TcleanSingleField(BaseTcleanSetup):
         mstr = 'circle[[50pix,80pix],10pix]'
         th.write_file(self.img + '.mask.txt', '#CRTFv0 CASA Region Text Format version 0\n' + mstr + '\n')
         ret = tclean(vis=self.msfile,imagename=self.img+'1',imsize=100,cell='8.0arcsec',niter=10,
-                     deconvolver='hogbom', ,usemask='user',
+                     deconvolver='hogbom', usemask='user',
                      mask=self.img+'.mask.txt',parallel=False)
     test_mfs_standard_hogbom_mask_file.version = "CAS-13924"
 
