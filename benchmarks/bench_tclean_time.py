@@ -149,7 +149,7 @@ class TestWideField(BaseTcleanSetup):
                phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1', 
                conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz', 
                pbcor=True, mosweight=False, parallel=False)
-
+    time_cube_mosaic_cbFalse_mwFalse_twofield.version = "CAS-13924"
 
     def time_cube_mosaic_cbFalse_mwTrue_twofield(self):
         """tclean: - cube mosaic using conjbeams=False - test_cube_mosaic_cbFalse_mwTrue_twofield"""
@@ -157,6 +157,7 @@ class TestWideField(BaseTcleanSetup):
                phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1',
                conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',
                pbcor=True, mosweight=True, parallel=False)
+    time_cube_mosaic_cbFalse_mwFalse_twofield.version = "CAS-13924"
 
     def time_cube_mosaic_cbFalse_mwFalse_twofield_upTrue(self):
         """tclean: Cube mosaic with conjbeams=F, mosaicweight=F, usepointing=T, of two fields -  test_cube_mosaic_cbFalse_mwFalse_twofield_upTrue"""
@@ -164,6 +165,7 @@ class TestWideField(BaseTcleanSetup):
                phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1', 
                usepointing = True, conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz', 
                pbcor=True, mosweight=False, parallel=False)
+    time_cube_mosaic_cbFalse_mwFalse_twofield.version = "CAS-13924"
 
 class TcleanWideFieldAWP(BaseTcleanSetup):
     """Runtime benchmarking tests of tclean on widefield using awproject"""
@@ -229,6 +231,7 @@ class TcleanCube(BaseTcleanSetup):
         """tclean: single field cube with fullsummary parameter - test_iterbot_cube_fullsummary_true"""
         retpar = tclean(vis=self.msfile, imagename=self.img + "Cubetest_fullsummary", imsize=100, cell='8.0arcsec',
                         specmode='cube', deconvolver='clark', niter=10, threshold='0.75Jy', fullsummary=True, parallel=False)
+    time_cube_standard_fullsummary.version = "CAS-13924"
 
 class TcleanEphemeris(BaseTcleanSetup):
     """Runtime benchmarking tests of tclean ephemeris object imaging"""

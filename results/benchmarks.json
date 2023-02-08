@@ -1615,7 +1615,7 @@
         "warmup_time": -1
     },
     "bench_tclean_memory.MemoryMultiField.peakmem_multifield_cube_hogbom": {
-        "code": "class MemoryMultiField:\n    def peakmem_multifield_cube_hogbom(self):\n        \"\"\"tclean: Two fields, both cube - test_multifield_both_cube\"\"\"\n        th.write_file(self.img + '.out.txt',\n                           'imagename=' + self.img + '1\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:40.895 +40.55.58.543\\nimagename=' + self.img + '2\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:48.895 +40.55.58.543\\n')\n    \n        retpar = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',\n                        phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", outlierfile=self.img + '.out.txt', niter=10,\n                        deconvolver='hogbom', interactive=0, specmode='cube', nchan=2, interpolation='nearest',\n                        parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_twopoints_twochan.ms\")",
+        "code": "class MemoryMultiField:\n    def peakmem_multifield_cube_hogbom(self):\n        \"\"\"tclean: Two fields, both cube - test_multifield_both_cube\"\"\"\n        th.write_file(self.img + '.out.txt',\n                           'imagename=' + self.img + '1\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:40.895 +40.55.58.543\\nimagename=' + self.img + '2\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:48.895 +40.55.58.543\\n')\n    \n        retpar = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',\n                        phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", outlierfile=self.img + '.out.txt', niter=10,\n                        deconvolver='hogbom', specmode='cube', nchan=2, interpolation='nearest',parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_twopoints_twochan.ms\")",
         "name": "bench_tclean_memory.MemoryMultiField.peakmem_multifield_cube_hogbom",
         "param_names": [],
         "params": [],
@@ -1625,7 +1625,7 @@
         "version": "CAS-13924"
     },
     "bench_tclean_memory.MemoryMultiField.peakmem_multifield_mfs_hogbom": {
-        "code": "class MemoryMultiField:\n    def peakmem_multifield_mfs_hogbom(self):\n        \"\"\"tclean : Two fields, both mfs - test_multifield_both_mfs\"\"\"\n        th.write_file(self.img + '.out.txt',\n                           'imagename=' + self.img + '1\\nnchan=1\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:40.895 +40.55.58.543\\nusemask=user\\nmask=circle[[40pix,40pix],10pix]')\n    \n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',\n                     phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", outlierfile=self.img + '.out.txt', niter=10,\n                     deconvolver='hogbom', interactive=0, parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_twopoints_twochan.ms\")",
+        "code": "class MemoryMultiField:\n    def peakmem_multifield_mfs_hogbom(self):\n        \"\"\"tclean : Two fields, both mfs - test_multifield_both_mfs\"\"\"\n        th.write_file(self.img + '.out.txt',\n                           'imagename=' + self.img + '1\\nnchan=1\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:40.895 +40.55.58.543\\nusemask=user\\nmask=circle[[40pix,40pix],10pix]')\n    \n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',\n                     phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", outlierfile=self.img + '.out.txt', niter=10,\n                     deconvolver='hogbom', parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_twopoints_twochan.ms\")",
         "name": "bench_tclean_memory.MemoryMultiField.peakmem_multifield_mfs_hogbom",
         "param_names": [],
         "params": [],
@@ -1635,7 +1635,7 @@
         "version": "CAS-13924"
     },
     "bench_tclean_memory.MemoryMultiField.peakmem_multifield_mfs_mtmfs": {
-        "code": "class MemoryMultiField:\n    def peakmem_multifield_mfs_mtmfs(self):\n        \"\"\" tclean: Two fields, both mt-mfs - test_multifield_both_mtmfs\"\"\"\n        th.write_file(self.img + '.out.txt',\n                           'imagename=' + self.img + '1\\n\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:40.895 +40.55.58.543\\nusemask=user\\nmask=circle[[40pix,40pix],10pix]')\n    \n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',\n                     phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", outlierfile=self.img + '.out.txt', niter=10,\n                     deconvolver='mtmfs', interactive=0, parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_twopoints_twochan.ms\")",
+        "code": "class MemoryMultiField:\n    def peakmem_multifield_mfs_mtmfs(self):\n        \"\"\" tclean: Two fields, both mt-mfs - test_multifield_both_mtmfs\"\"\"\n        th.write_file(self.img + '.out.txt',\n                           'imagename=' + self.img + '1\\n\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:40.895 +40.55.58.543\\nusemask=user\\nmask=circle[[40pix,40pix],10pix]')\n    \n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',\n                     phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", outlierfile=self.img + '.out.txt', niter=10,\n                     deconvolver='mtmfs', parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_twopoints_twochan.ms\")",
         "name": "bench_tclean_memory.MemoryMultiField.peakmem_multifield_mfs_mtmfs",
         "param_names": [],
         "params": [],
@@ -1645,25 +1645,35 @@
         "version": "CAS-13924"
     },
     "bench_tclean_memory.MemorySetWeighting.peakmem_tclean_setweighting": {
-        "code": "class MemorySetWeighting:\n    def peakmem_tclean_setweighting(self):\n        \"\"\"Adapted from CAS-13026\"\"\"\n        tclean(\n            vis=self.datapath,\n            imagename=self.imagename,\n            phasecenter=self.phasecenter,\n            scan=[\"17,11,13\"],\n            restoration=False,\n            datacolumn=\"data\",\n            pbcor=False,\n            spw=\"0\",\n            weighting=\"briggs\",\n            intent=\"OBSERVE_TARGET#ON_SOURCE\",\n            threshold=\"0mJy\",\n            robust=0.5,\n            savemodel=\"none\",\n            imsize=self.imsize,\n            stokes=\"I\",\n            nchan=self.nchan,\n            deconvolver=\"hogbom\",\n            field=\"Pillar_3\",\n            npixels=0,\n            niter=0,\n            pblimit=0.2,\n            restoringbeam=[],\n            cell=[\"0.94arcsec\"],\n            start=\"230.490186515GHz\",\n            outframe=\"LSRK\",\n            specmode=\"cube\",\n            width=\"0.0610478663509MHz\",\n            gridder=\"mosaic\",\n            interactive=False,\n            parallel=False,\n        )\n\n    def setup(self):\n        ## fresh copy of the test MS to the tmp directory where tests are run ?\n        # shutil.copytree(os.path.join(self.dataroot, self.input_ms),os.path.join(os.getcwd(), self.input_ms))\n        pass\n        # note: creating objects in setup method confounds memory benchmarks\n        # (https://asv.readthedocs.io/en/stable/writing_benchmarks.html#memory)\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass\n        # TODO: consider paramterizing here instead of setup/test methods for more accurate measurement",
+        "code": "class MemorySetWeighting:\n    def peakmem_tclean_setweighting(self):\n        \"\"\"Adapted from CAS-13026\"\"\"\n        tclean(\n            vis=self.datapath,\n            imagename=self.imagename,\n            phasecenter=self.phasecenter,\n            scan=[\"17,11,13\"],\n            restoration=False,\n            datacolumn=\"data\",\n            pbcor=False,\n            spw=\"0\",\n            weighting=\"briggs\",\n            intent=\"OBSERVE_TARGET#ON_SOURCE\",\n            threshold=\"0mJy\",\n            robust=0.5,\n            savemodel=\"none\",\n            imsize=self.imsize,\n            stokes=\"I\",\n            nchan=self.nchan,\n            deconvolver=\"hogbom\",\n            field=\"Pillar_3\",\n            npixels=0,\n            niter=0,\n            pblimit=0.2,\n            restoringbeam=[],\n            cell=[\"0.94arcsec\"],\n            start=\"230.490186515GHz\",\n            outframe=\"LSRK\",\n            specmode=\"cube\",\n            width=\"0.0610478663509MHz\",\n            gridder=\"mosaic\",\n            parallel=False,\n        )\n\n    def setup(self):\n        ## fresh copy of the test MS to the tmp directory where tests are run ?\n        # shutil.copytree(os.path.join(self.dataroot, self.input_ms),os.path.join(os.getcwd(), self.input_ms))\n        pass\n        # note: creating objects in setup method confounds memory benchmarks\n        # (https://asv.readthedocs.io/en/stable/writing_benchmarks.html#memory)\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass\n        # TODO: consider paramterizing here instead of setup/test methods for more accurate measurement",
         "name": "bench_tclean_memory.MemorySetWeighting.peakmem_tclean_setweighting",
         "param_names": [],
         "params": [],
-        "setup_cache_key": "bench_tclean_memory:147",
+        "setup_cache_key": "bench_tclean_memory:166",
         "timeout": 10000,
         "type": "peakmemory",
         "unit": "bytes",
         "version": "CAS-13924"
     },
     "bench_tclean_memory.MemorySetWeighting.track_file_descriptors_cubemode_mosaic_briggs": {
-        "code": "class MemorySetWeighting:\n    def track_file_descriptors_cubemode_mosaic_briggs(self):\n        \"\"\"Adapted from CAS-8755\n        https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/browse/casatests/performance/test_perf_tclean_mem_setweighting.py?at=refs%2Fheads%2FCAS-13026#166-225\n    \n        Requires user configuration ~/.casa/rc to contain `synthesis.imager.memprofile.enable: 1`\n        Expected output is casa.synthesis.imager.memprofile.PID.HOSTNAME.DATE_TIME_when_test_started.txt\n        \"\"\"\n        # attribute for tracking metric\n        self.unit = \"file descriptors\"\n    \n        casalog.setlogfile(self.templogfile)\n        tclean(\n            vis=self.datapath,\n            imagename=self.imagename,\n            phasecenter=self.phasecenter,\n            scan=[\"17,11,13\"],\n            restoration=False,\n            datacolumn=\"data\",\n            pbcor=False,\n            spw=\"0\",\n            weighting=\"briggs\",\n            intent=\"OBSERVE_TARGET#ON_SOURCE\",\n            threshold=\"0mJy\",\n            robust=0.5,\n            savemodel=\"none\",\n            imsize=self.imsize,\n            stokes=\"I\",\n            nchan=self.nchan,\n            deconvolver=\"hogbom\",\n            field=\"Pillar_3\",\n            npixels=0,\n            niter=0,\n            pblimit=0.2,\n            restoringbeam=[],\n            cell=[\"0.94arcsec\"],\n            start=\"230.490186515GHz\",\n            outframe=\"LSRK\",\n            specmode=\"cube\",\n            width=\"0.0610478663509MHz\",\n            gridder=\"mosaic\",\n            interactive=False,\n            parallel=False,\n        )\n    \n        with open(self.templogfile) as mylog:\n            for line in mylog:\n                a_match = re.search(\"casa.synthesis.imager.memprofile\", line)\n                if a_match:\n                    str_match = a_match.string\n                    break\n    \n        # Get name of memprofile created by tclean\n        (start, middle, end) = str_match.partition(\"casa.synthesis.imager.memprofile\")\n        mem_profile = middle + end.rstrip()\n    \n        # Get the memory values of the second column named MemRSS_(VmRSS)_MB, for each row\n        with open(mem_profile, \"r\") as mfile:\n            memdict = OrderedDict()\n            maxFDSize = 0\n            for myrow in mfile:\n                linelist = []\n                print(myrow.rstrip())\n                if myrow.startswith(\"#\"):\n                    continue\n    \n                linelist = myrow.split(\",\")\n                tclean_step = str(linelist[-1].rstrip())\n                memdict[tclean_step.strip(\"[]\")] = int(linelist[1])\n                maxFDSize = max(maxFDSize, int(linelist[7]))\n    \n        return maxFDSize\n\n    def setup(self):\n        ## fresh copy of the test MS to the tmp directory where tests are run ?\n        # shutil.copytree(os.path.join(self.dataroot, self.input_ms),os.path.join(os.getcwd(), self.input_ms))\n        pass\n        # note: creating objects in setup method confounds memory benchmarks\n        # (https://asv.readthedocs.io/en/stable/writing_benchmarks.html#memory)\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass\n        # TODO: consider paramterizing here instead of setup/test methods for more accurate measurement",
+        "code": "class MemorySetWeighting:\n    def track_file_descriptors_cubemode_mosaic_briggs(self):\n        \"\"\"Adapted from CAS-8755\n        https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/browse/casatests/performance/test_perf_tclean_mem_setweighting.py?at=refs%2Fheads%2FCAS-13026#166-225\n    \n        Requires user configuration ~/.casa/rc to contain `synthesis.imager.memprofile.enable: 1`\n        Expected output is casa.synthesis.imager.memprofile.PID.HOSTNAME.DATE_TIME_when_test_started.txt\n        \"\"\"\n        casalog.setlogfile(self.templogfile)\n        tclean(\n            vis=self.datapath,\n            imagename=self.imagename,\n            phasecenter=self.phasecenter,\n            scan=[\"17,11,13\"],\n            restoration=False,\n            datacolumn=\"data\",\n            pbcor=False,\n            spw=\"0\",\n            weighting=\"briggs\",\n            intent=\"OBSERVE_TARGET#ON_SOURCE\",\n            threshold=\"0mJy\",\n            robust=0.5,\n            savemodel=\"none\",\n            imsize=self.imsize,\n            stokes=\"I\",\n            nchan=self.nchan,\n            deconvolver=\"hogbom\",\n            field=\"Pillar_3\",\n            npixels=0,\n            niter=0,\n            pblimit=0.2,\n            restoringbeam=[],\n            cell=[\"0.94arcsec\"],\n            start=\"230.490186515GHz\",\n            outframe=\"LSRK\",\n            specmode=\"cube\",\n            width=\"0.0610478663509MHz\",\n            gridder=\"mosaic\",\n            parallel=False,\n        )\n    \n        with open(self.templogfile) as mylog:\n            for line in mylog:\n                a_match = re.search(\"casa.synthesis.imager.memprofile\", line)\n                if a_match:\n                    str_match = a_match.string\n                    break\n    \n        # Get name of memprofile created by tclean\n        (start, middle, end) = str_match.partition(\"casa.synthesis.imager.memprofile\")\n        mem_profile = middle + end.rstrip()\n    \n        # Get the memory values of the second column named MemRSS_(VmRSS)_MB, for each row\n        with open(mem_profile, \"r\") as mfile:\n            memdict = OrderedDict()\n            maxFDSize = 0\n            for myrow in mfile:\n                linelist = []\n                print(myrow.rstrip())\n                if myrow.startswith(\"#\"):\n                    continue\n    \n                linelist = myrow.split(\",\")\n                tclean_step = str(linelist[-1].rstrip())\n                memdict[tclean_step.strip(\"[]\")] = int(linelist[1])\n                maxFDSize = max(maxFDSize, int(linelist[7]))\n    \n        return maxFDSize\n\n    def setup(self):\n        ## fresh copy of the test MS to the tmp directory where tests are run ?\n        # shutil.copytree(os.path.join(self.dataroot, self.input_ms),os.path.join(os.getcwd(), self.input_ms))\n        pass\n        # note: creating objects in setup method confounds memory benchmarks\n        # (https://asv.readthedocs.io/en/stable/writing_benchmarks.html#memory)\n\n    def setup_cache(self):\n        # only run once for repeated tests\n        pass\n        # TODO: consider paramterizing here instead of setup/test methods for more accurate measurement",
         "name": "bench_tclean_memory.MemorySetWeighting.track_file_descriptors_cubemode_mosaic_briggs",
         "param_names": [],
         "params": [],
-        "setup_cache_key": "bench_tclean_memory:147",
+        "setup_cache_key": "bench_tclean_memory:166",
         "timeout": 10000,
         "type": "track",
-        "unit": "unit",
+        "unit": "file descriptors",
+        "version": "CAS-13924"
+    },
+    "bench_tclean_memory.MemorySingleField.peakmem_cube_standard_fullsummary": {
+        "code": "class MemorySingleField:\n    def peakmem_cube_standard_fullsummary(self):\n        \"\"\"tclean: single field cube with fullsummary parameter - test_iterbot_cube_fullsummary_true\"\"\"\n        retpar = tclean(vis=self.msfile, imagename=self.img + \"Cubetest_fullsummary\", imsize=100, cell='8.0arcsec',\n                        specmode='cube', deconvolver='clark', niter=10, threshold='0.75Jy', fullsummary=True, parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_point_withline.ms\")",
+        "name": "bench_tclean_memory.MemorySingleField.peakmem_cube_standard_fullsummary",
+        "param_names": [],
+        "params": [],
+        "timeout": 3600,
+        "type": "peakmemory",
+        "unit": "bytes",
         "version": "CAS-13924"
     },
     "bench_tclean_memory.MemoryWideField.peakmem_cube_mosaic_cbFalse_mwFalse_twofield": {
@@ -1741,6 +1751,21 @@
         "version": "955f38acfd52f97ee9d29fc749cb59a1cc43e4aba8a57c2cdf36b817208f65a1",
         "warmup_time": -1
     },
+    "bench_tclean_time.TcleanCube.time_cube_standard_fullsummary": {
+        "code": "class TcleanCube:\n    def time_cube_standard_fullsummary(self):\n        \"\"\"tclean: single field cube with fullsummary parameter - test_iterbot_cube_fullsummary_true\"\"\"\n        retpar = tclean(vis=self.msfile, imagename=self.img + \"Cubetest_fullsummary\", imsize=100, cell='8.0arcsec',\n                        specmode='cube', deconvolver='clark', niter=10, threshold='0.75Jy', fullsummary=True, parallel=False)\n\n    def setup(self):\n        self.prepData('refim_point.ms')",
+        "min_run_count": 3,
+        "name": "bench_tclean_time.TcleanCube.time_cube_standard_fullsummary",
+        "number": 1,
+        "param_names": [],
+        "params": [],
+        "rounds": 3,
+        "sample_time": 0.01,
+        "timeout": 3600,
+        "type": "time",
+        "unit": "seconds",
+        "version": "CAS-13924",
+        "warmup_time": -1
+    },
     "bench_tclean_time.TcleanCube.time_cube_standard_hogbom": {
         "code": "class TcleanCube:\n    def time_cube_standard_hogbom(self):\n        \"\"\"tclean: mosaic cube with Hogbom deconvolver -  test_cube_0\"\"\"\n        ret = tclean(vis=self.msfile, field='0', imsize=100, cell='8.0arcsec', niter=10,\n                     specmode='cube', nchan=10, restfreq=['1.25GHz'],\n                     phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", deconvolver='hogbom',\n                     spw='0', imagename=self.img + 'Cubetest_chandefstdefwidth',\n                     start=0, width=1, veltype='radio', outframe='LSRK', interpolation='linear', parallel=False)\n\n    def setup(self):\n        self.prepData('refim_point.ms')",
         "min_run_count": 3,
@@ -1757,7 +1782,7 @@
         "warmup_time": -1
     },
     "bench_tclean_time.TcleanEphemeris.time_eph_multifield_mosaic_cubesource": {
-        "code": "class TcleanEphemeris:\n    def time_eph_multifield_mosaic_cubesource(self):\n        \"\"\"tclean: multifield (mosaic gridder), cubesource mode - test_multifield_cube_eph\"\"\"\n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=[480, 420], cell=['0.14arcsec'],\n                     phasecenter='TRACKFIELD', specmode='cubesource', gridder='mosaic', niter=0, interactive=0,\n                     parallel=False)\n\n    def setup(self):\n        self.prepData('venus_ephem_test.ms')",
+        "code": "class TcleanEphemeris:\n    def time_eph_multifield_mosaic_cubesource(self):\n        \"\"\"tclean: multifield (mosaic gridder), cubesource mode - test_multifield_cube_eph\"\"\"\n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=[480, 420], cell=['0.14arcsec'],\n                     phasecenter='TRACKFIELD', specmode='cubesource', gridder='mosaic', niter=0, parallel=False)\n\n    def setup(self):\n        self.prepData('venus_ephem_test.ms')",
         "min_run_count": 3,
         "name": "bench_tclean_time.TcleanEphemeris.time_eph_multifield_mosaic_cubesource",
         "number": 1,
@@ -1772,7 +1797,7 @@
         "warmup_time": -1
     },
     "bench_tclean_time.TcleanEphemeris.time_eph_multifield_mosaic_mfs": {
-        "code": "class TcleanEphemeris:\n    def time_eph_multifield_mosaic_mfs(self):\n        \"\"\"tclean: multifield (mosaic gridder), mfs mode - test_multifield_mfs_eph\"\"\"\n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=[480, 420], cell=['0.14arcsec'],\n                     phasecenter='TRACKFIELD', specmode='mfs', gridder='mosaic', niter=0, interactive=0,\n                     parallel=False)\n\n    def setup(self):\n        self.prepData('venus_ephem_test.ms')",
+        "code": "class TcleanEphemeris:\n    def time_eph_multifield_mosaic_mfs(self):\n        \"\"\"tclean: multifield (mosaic gridder), mfs mode - test_multifield_mfs_eph\"\"\"\n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=[480, 420], cell=['0.14arcsec'],\n                     phasecenter='TRACKFIELD', specmode='mfs', gridder='mosaic', niter=0, parallel=False)\n\n    def setup(self):\n        self.prepData('venus_ephem_test.ms')",
         "min_run_count": 3,
         "name": "bench_tclean_time.TcleanEphemeris.time_eph_multifield_mosaic_mfs",
         "number": 1,
@@ -1787,7 +1812,7 @@
         "warmup_time": -1
     },
     "bench_tclean_time.TcleanEphemeris.time_eph_singlefield_standard_cubesource": {
-        "code": "class TcleanEphemeris:\n    def time_eph_singlefield_standard_cubesource(self):\n        \"\"\"tclean: single field (standard gridder), cubesource mode - test_onefield_cube_eph\"\"\"\n        ret = tclean(vis=self.msfile, field='0', imagename=self.img, imsize=[288, 288], cell=['0.14arcsec'],\n                   phasecenter='TRACKFIELD', specmode='cubesource', gridder='standard', niter=0,\n                   interactive=0, parallel=False)\n\n    def setup(self):\n        self.prepData('venus_ephem_test.ms')",
+        "code": "class TcleanEphemeris:\n    def time_eph_singlefield_standard_cubesource(self):\n        \"\"\"tclean: single field (standard gridder), cubesource mode - test_onefield_cube_eph\"\"\"\n        ret = tclean(vis=self.msfile, field='0', imagename=self.img, imsize=[288, 288], cell=['0.14arcsec'],\n                   phasecenter='TRACKFIELD', specmode='cubesource', gridder='standard', niter=0, parallel=False)\n\n    def setup(self):\n        self.prepData('venus_ephem_test.ms')",
         "min_run_count": 3,
         "name": "bench_tclean_time.TcleanEphemeris.time_eph_singlefield_standard_cubesource",
         "number": 1,
@@ -1802,7 +1827,7 @@
         "warmup_time": -1
     },
     "bench_tclean_time.TcleanEphemeris.time_eph_singlefield_standard_mfs": {
-        "code": "class TcleanEphemeris:\n    def time_eph_singlefield_standard_mfs(self):\n        \"\"\"single field (standard gridder), mfs mode - test_onefield_mfs_eph\"\"\"\n        ret = tclean(vis=self.msfile, field='0', imagename=self.img, imsize=[288, 288], cell=['0.14arcsec'],\n                     phasecenter='TRACKFIELD', specmode='mfs', gridder='standard', niter=0, interactive=0,\n                     parallel=False)\n\n    def setup(self):\n        self.prepData('venus_ephem_test.ms')",
+        "code": "class TcleanEphemeris:\n    def time_eph_singlefield_standard_mfs(self):\n        \"\"\"single field (standard gridder), mfs mode - test_onefield_mfs_eph\"\"\"\n        ret = tclean(vis=self.msfile, field='0', imagename=self.img, imsize=[288, 288], cell=['0.14arcsec'],\n                     phasecenter='TRACKFIELD', specmode='mfs', gridder='standard', niter=0, parallel=False)\n\n    def setup(self):\n        self.prepData('venus_ephem_test.ms')",
         "min_run_count": 3,
         "name": "bench_tclean_time.TcleanEphemeris.time_eph_singlefield_standard_mfs",
         "number": 1,
@@ -1862,7 +1887,7 @@
         "warmup_time": -1
     },
     "bench_tclean_time.TcleanMultiField.time_multifield_cube_hogbom": {
-        "code": "class TcleanMultiField:\n    def time_multifield_cube_hogbom(self):\n        \"\"\"tclean: Two fields, both cube - test_multifield_both_cube\"\"\"\n        th.write_file(self.img + '.out.txt',\n                           'imagename=' + self.img + '1\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:40.895 +40.55.58.543\\nimagename=' + self.img + '2\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:48.895 +40.55.58.543\\n')\n    \n        retpar = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',\n                        phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", outlierfile=self.img + '.out.txt', niter=10,\n                        deconvolver='hogbom', interactive=0, specmode='cube', nchan=2, interpolation='nearest',\n                        parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_twopoints_twochan.ms\")",
+        "code": "class TcleanMultiField:\n    def time_multifield_cube_hogbom(self):\n        \"\"\"tclean: Two fields, both cube - test_multifield_both_cube\"\"\"\n        th.write_file(self.img + '.out.txt',\n                           'imagename=' + self.img + '1\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:40.895 +40.55.58.543\\nimagename=' + self.img + '2\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:48.895 +40.55.58.543\\n')\n    \n        retpar = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',\n                        phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", outlierfile=self.img + '.out.txt', niter=10,\n                        deconvolver='hogbom', specmode='cube', nchan=2, interpolation='nearest', parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_twopoints_twochan.ms\")",
         "min_run_count": 3,
         "name": "bench_tclean_time.TcleanMultiField.time_multifield_cube_hogbom",
         "number": 1,
@@ -1877,7 +1902,7 @@
         "warmup_time": -1
     },
     "bench_tclean_time.TcleanMultiField.time_multifield_mfs_hogbom": {
-        "code": "class TcleanMultiField:\n    def time_multifield_mfs_hogbom(self):\n        \"\"\"tclean : Two fields, both mfs - test_multifield_both_mfs\"\"\"\n        th.write_file(self.img + '.out.txt',\n                           'imagename=' + self.img + '1\\nnchan=1\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:40.895 +40.55.58.543\\nusemask=user\\nmask=circle[[40pix,40pix],10pix]')\n    \n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',\n                     phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", outlierfile=self.img + '.out.txt', niter=10,\n                     deconvolver='hogbom', interactive=0, parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_twopoints_twochan.ms\")",
+        "code": "class TcleanMultiField:\n    def time_multifield_mfs_hogbom(self):\n        \"\"\"tclean : Two fields, both mfs - test_multifield_both_mfs\"\"\"\n        th.write_file(self.img + '.out.txt',\n                           'imagename=' + self.img + '1\\nnchan=1\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:40.895 +40.55.58.543\\nusemask=user\\nmask=circle[[40pix,40pix],10pix]')\n    \n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',\n                     phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", outlierfile=self.img + '.out.txt', niter=10,\n                     deconvolver='hogbom', parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_twopoints_twochan.ms\")",
         "min_run_count": 3,
         "name": "bench_tclean_time.TcleanMultiField.time_multifield_mfs_hogbom",
         "number": 1,
@@ -1892,7 +1917,7 @@
         "warmup_time": -1
     },
     "bench_tclean_time.TcleanMultiField.time_multifield_mfs_mtmfs": {
-        "code": "class TcleanMultiField:\n    def time_multifield_mfs_mtmfs(self):\n        \"\"\" tclean: Two fields, both mt-mfs - test_multifield_both_mtmfs\"\"\"\n        th.write_file(self.img + '.out.txt',\n                           'imagename=' + self.img + '1\\n\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:40.895 +40.55.58.543\\nusemask=user\\nmask=circle[[40pix,40pix],10pix]')\n    \n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',\n                     phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", outlierfile=self.img + '.out.txt', niter=10,\n                     deconvolver='mtmfs', interactive=0, parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_twopoints_twochan.ms\")",
+        "code": "class TcleanMultiField:\n    def time_multifield_mfs_mtmfs(self):\n        \"\"\" tclean: Two fields, both mt-mfs - test_multifield_both_mtmfs\"\"\"\n        th.write_file(self.img + '.out.txt',\n                           'imagename=' + self.img + '1\\n\\nimsize=[80,80]\\ncell=[8.0arcsec,8.0arcsec]\\nphasecenter=J2000 19:58:40.895 +40.55.58.543\\nusemask=user\\nmask=circle[[40pix,40pix],10pix]')\n    \n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec',\n                     phasecenter=\"J2000 19:59:28.500 +40.44.01.50\", outlierfile=self.img + '.out.txt', niter=10,\n                     deconvolver='mtmfs', parallel=False)\n\n    def setup(self):\n        self.prepData(\"refim_twopoints_twochan.ms\")",
         "min_run_count": 3,
         "name": "bench_tclean_time.TcleanMultiField.time_multifield_mfs_mtmfs",
         "number": 1,
@@ -1907,7 +1932,7 @@
         "warmup_time": -1
     },
     "bench_tclean_time.TcleanSingleField.time_cube_standard_pcwdT": {
-        "code": "class TcleanSingleField:\n    def time_cube_standard_pcwdT(self):\n        \"\"\"tclean: cube with perchanweightdensity True and briggs weighting - test_onefield_pcwdT_and_pcwdF\"\"\"\n        ret = tclean(self.msfile, imagename=self.img + '1', imsize=20, cell='8.0arcsec', niter=0, nchan=1,\n                     spw='0:1', interactive=0, gridder='standard', perchanweightdensity=True, specmode='cube',\n                     weighting='briggs', robust=0.5)\n\n    def setup(self):\n        self.prepData('refim_twochan.ms')",
+        "code": "class TcleanSingleField:\n    def time_cube_standard_pcwdT(self):\n        \"\"\"tclean: cube with perchanweightdensity True and briggs weighting - test_onefield_pcwdT_and_pcwdF\"\"\"\n        ret = tclean(self.msfile, imagename=self.img + '1', imsize=20, cell='8.0arcsec', niter=0, nchan=1,\n                     spw='0:1', gridder='standard', perchanweightdensity=True, specmode='cube',\n                     weighting='briggs', robust=0.5)\n\n    def setup(self):\n        self.prepData('refim_twochan.ms')",
         "min_run_count": 3,
         "name": "bench_tclean_time.TcleanSingleField.time_cube_standard_pcwdT",
         "number": 1,
@@ -1922,7 +1947,7 @@
         "warmup_time": -1
     },
     "bench_tclean_time.TcleanSingleField.time_mfs_standard_clark": {
-        "code": "class TcleanSingleField:\n    def time_mfs_standard_clark (self):\n        \"\"\"tclean: mfs with clark minor cycle - test_onefield_clark\"\"\"\n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec', niter=10,\n                     deconvolver='clark', interactive=0, parallel=False)\n\n    def setup(self):\n        self.prepData('refim_twochan.ms')",
+        "code": "class TcleanSingleField:\n    def time_mfs_standard_clark(self):\n        \"\"\"tclean: mfs with clark minor cycle - test_onefield_clark\"\"\"\n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec', niter=10,\n                     deconvolver='clark', parallel=False)\n\n    def setup(self):\n        self.prepData('refim_twochan.ms')",
         "min_run_count": 3,
         "name": "bench_tclean_time.TcleanSingleField.time_mfs_standard_clark",
         "number": 1,
@@ -1937,7 +1962,7 @@
         "warmup_time": -1
     },
     "bench_tclean_time.TcleanSingleField.time_mfs_standard_hogbom": {
-        "code": "class TcleanSingleField:\n    def time_mfs_standard_hogbom(self):\n        \"\"\"tclean: mfs with hogbom minor cycle - test_onefield_hogbom\"\"\"\n        tricky_imagename = self.img + '_uid___A001_X1234a_X56cb.s19_0.J2253+1608_bp.more-dash.virtspw19.mfs.I.iter0.hoghbom'\n        ret = tclean(vis=self.msfile, imagename=tricky_imagename, imsize=100, cell='8.0arcsec', niter=10,\n                     deconvolver='hogbom', interactive=0,parallel=False)\n\n    def setup(self):\n        self.prepData('refim_twochan.ms')",
+        "code": "class TcleanSingleField:\n    def time_mfs_standard_hogbom(self):\n        \"\"\"tclean: mfs with hogbom minor cycle - test_onefield_hogbom\"\"\"\n        tricky_imagename = self.img + '_uid___A001_X1234a_X56cb.s19_0.J2253+1608_bp.more-dash.virtspw19.mfs.I.iter0.hoghbom'\n        ret = tclean(vis=self.msfile, imagename=tricky_imagename, imsize=100, cell='8.0arcsec', niter=10,\n                     deconvolver='hogbom', parallel=False)\n\n    def setup(self):\n        self.prepData('refim_twochan.ms')",
         "min_run_count": 3,
         "name": "bench_tclean_time.TcleanSingleField.time_mfs_standard_hogbom",
         "number": 1,
@@ -1952,7 +1977,7 @@
         "warmup_time": -1
     },
     "bench_tclean_time.TcleanSingleField.time_mfs_standard_hogbom_automask": {
-        "code": "class TcleanSingleField:\n    def time_mfs_standard_hogbom_automask(self):\n        \"\"\"tclean: multi-threshold Autobox (minbeamfrac=0.3) - test_mask_autobox_multithresh_with_prune\"\"\"\n        ret = tclean(vis=self.msfile,imagename=self.img,imsize=1000,cell='8.0arcsec',niter=10,\n                     deconvolver='hogbom',interactive=0,usemask='auto-multithresh',\n                     minbeamfrac=0.3,parallel=False)\n\n    def setup(self):\n        self.prepData('refim_twochan.ms')",
+        "code": "class TcleanSingleField:\n    def time_mfs_standard_hogbom_automask(self):\n        \"\"\"tclean: multi-threshold Autobox (minbeamfrac=0.3) - test_mask_autobox_multithresh_with_prune\"\"\"\n        ret = tclean(vis=self.msfile,imagename=self.img,imsize=1000,cell='8.0arcsec',niter=10,\n                     deconvolver='hogbom', usemask='auto-multithresh',\n                     minbeamfrac=0.3,parallel=False)\n\n    def setup(self):\n        self.prepData('refim_twochan.ms')",
         "min_run_count": 3,
         "name": "bench_tclean_time.TcleanSingleField.time_mfs_standard_hogbom_automask",
         "number": 1,
@@ -1967,7 +1992,7 @@
         "warmup_time": -1
     },
     "bench_tclean_time.TcleanSingleField.time_mfs_standard_mtmfs": {
-        "code": "class TcleanSingleField:\n    def time_mfs_standard_mtmfs(self):\n        \"\"\"tclean: mt-mfs with minor cycle iterations - test_onefield_mtmfs\"\"\"\n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec', niter=10,\n                     deconvolver='mtmfs',interactive=0, parallel=False)\n\n    def setup(self):\n        self.prepData('refim_twochan.ms')",
+        "code": "class TcleanSingleField:\n    def time_mfs_standard_mtmfs(self):\n        \"\"\"tclean: mt-mfs with minor cycle iterations - test_onefield_mtmfs\"\"\"\n        ret = tclean(vis=self.msfile, imagename=self.img, imsize=100, cell='8.0arcsec', niter=10,\n                     deconvolver='mtmfs', parallel=False)\n\n    def setup(self):\n        self.prepData('refim_twochan.ms')",
         "min_run_count": 3,
         "name": "bench_tclean_time.TcleanSingleField.time_mfs_standard_mtmfs",
         "number": 1,
@@ -1982,7 +2007,7 @@
         "warmup_time": -1
     },
     "bench_tclean_time.TcleanStokes.time_cube_stokes_IV": {
-        "code": "class TcleanStokes:\n    def time_cube_stokes_IV(self):\n      \"\"\"tclean: cube with stokes V - test_stokes_cube_IV\"\"\"\n      ret = tclean(vis=self.msfile,imagename=self.img,imsize=100,cell='8.0arcsec',niter=10,\n                   stokes='IV',interactive=0,specmode='cube',interpolation='nearest',parallel=False)\n\n    def setup(self):\n        self.prepData('refim_point_linRL.ms')",
+        "code": "class TcleanStokes:\n    def time_cube_stokes_IV(self):\n      \"\"\"tclean: cube with stokes V - test_stokes_cube_IV\"\"\"\n      ret = tclean(vis=self.msfile,imagename=self.img,imsize=100,cell='8.0arcsec',niter=10,\n                   stokes='IV', specmode='cube', interpolation='nearest', parallel=False)\n\n    def setup(self):\n        self.prepData('refim_point_linRL.ms')",
         "min_run_count": 3,
         "name": "bench_tclean_time.TcleanStokes.time_cube_stokes_IV",
         "number": 1,
@@ -2072,7 +2097,7 @@
         "warmup_time": -1
     },
     "bench_tclean_time.TestWideField.time_cube_mosaic_cbFalse_mwFalse_twofield": {
-        "code": "class TestWideField:\n    def time_cube_mosaic_cbFalse_mwFalse_twofield(self):\n        \"\"\"tclean: - cube mosaic using conjbeams=False - test_cube_mosaic_cbFalse_mwFalse_twofield\"\"\"\n        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1', conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=False,parallel=False)\n\n    def setup(self):\n        self.prepData('refim_oneshiftpoint.mosaic.ms')",
+        "code": "class TestWideField:\n    def time_cube_mosaic_cbFalse_mwFalse_twofield(self):\n        \"\"\"tclean: - cube mosaic using conjbeams=False - test_cube_mosaic_cbFalse_mwFalse_twofield\"\"\"\n        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024,\n               phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1',\n               conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',\n               pbcor=True, mosweight=False, parallel=False)\n\n    def setup(self):\n        self.prepData('refim_oneshiftpoint.mosaic.ms')",
         "min_run_count": 3,
         "name": "bench_tclean_time.TestWideField.time_cube_mosaic_cbFalse_mwFalse_twofield",
         "number": 1,
@@ -2083,11 +2108,11 @@
         "timeout": 3600,
         "type": "time",
         "unit": "seconds",
-        "version": "63bcf68d13bddb55416a312bda1b664785d60b12dca3d7fffdae8b3b1d1a5fe6",
+        "version": "CAS-13924",
         "warmup_time": -1
     },
     "bench_tclean_time.TestWideField.time_cube_mosaic_cbFalse_mwFalse_twofield_upTrue": {
-        "code": "class TestWideField:\n    def time_cube_mosaic_cbFalse_mwFalse_twofield_upTrue(self):\n        \"\"\"tclean: Cube mosaic with conjbeams=F, mosaicweight=F, usepointing=T, of two fields -  test_cube_mosaic_cbFalse_mwFalse_twofield_upTrue\"\"\"\n        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1',  usepointing = True, conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=False,parallel=False)\n\n    def setup(self):\n        self.prepData('refim_oneshiftpoint.mosaic.ms')",
+        "code": "class TestWideField:\n    def time_cube_mosaic_cbFalse_mwFalse_twofield_upTrue(self):\n        \"\"\"tclean: Cube mosaic with conjbeams=F, mosaicweight=F, usepointing=T, of two fields -  test_cube_mosaic_cbFalse_mwFalse_twofield_upTrue\"\"\"\n        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024,\n               phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1',\n               usepointing = True, conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',\n               pbcor=True, mosweight=False, parallel=False)\n\n    def setup(self):\n        self.prepData('refim_oneshiftpoint.mosaic.ms')",
         "min_run_count": 3,
         "name": "bench_tclean_time.TestWideField.time_cube_mosaic_cbFalse_mwFalse_twofield_upTrue",
         "number": 1,
@@ -2098,11 +2123,11 @@
         "timeout": 3600,
         "type": "time",
         "unit": "seconds",
-        "version": "b19877202bcf5b8d17a9f8e6d2c73eab158bf9aa2ec22cdee6d2317fe09d2a1b",
+        "version": "CAS-13924",
         "warmup_time": -1
     },
     "bench_tclean_time.TestWideField.time_cube_mosaic_cbFalse_mwTrue_twofield": {
-        "code": "class TestWideField:\n    def time_cube_mosaic_cbFalse_mwTrue_twofield(self):\n        \"\"\"tclean: - cube mosaic using conjbeams=False - test_cube_mosaic_cbFalse_mwTrue_twofield\"\"\"\n        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024, phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1', conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',pbcor=True,mosweight=True,parallel=False)\n\n    def setup(self):\n        self.prepData('refim_oneshiftpoint.mosaic.ms')",
+        "code": "class TestWideField:\n    def time_cube_mosaic_cbFalse_mwTrue_twofield(self):\n        \"\"\"tclean: - cube mosaic using conjbeams=False - test_cube_mosaic_cbFalse_mwTrue_twofield\"\"\"\n        tclean(vis=self.msfile, imagename=self.img,niter=10,specmode='cube',spw='*',imsize=1024,\n               phasecenter='J2000 19h59m28.5 +40d40m01.5',cell='10.0arcsec',gridder='mosaic',field='0,1',\n               conjbeams=False, wbawp=True, psterm=False,pblimit=0.1,reffreq='1.5GHz',\n               pbcor=True, mosweight=True, parallel=False)\n\n    def setup(self):\n        self.prepData('refim_oneshiftpoint.mosaic.ms')",
         "min_run_count": 3,
         "name": "bench_tclean_time.TestWideField.time_cube_mosaic_cbFalse_mwTrue_twofield",
         "number": 1,
@@ -2113,7 +2138,7 @@
         "timeout": 3600,
         "type": "time",
         "unit": "seconds",
-        "version": "07231c08248b92ddb7748a3d53cb53e2061c50e9ba90ad8d3f629ffefa382aed",
+        "version": "CAS-13924",
         "warmup_time": -1
     },
     "bench_tsdimaging.Basic.time_gridfunction_BOX_imsize_40x35": {
@@ -3230,7 +3255,7 @@
         "setup_cache_key": "casademo:37",
         "timeout": 10000,
         "type": "track",
-        "unit": "file_descriptors",
+        "unit": "unit",
         "version": "f9c40e4b16d7caf92b2d5a831995e197fae67947f0ec9bdad00b852f28656239"
     },
     "version": 2

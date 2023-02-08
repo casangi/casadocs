@@ -51,6 +51,7 @@ class MemorySingleField(BaseTcleanSetup):
         """tclean: single field cube with fullsummary parameter - test_iterbot_cube_fullsummary_true"""
         retpar = tclean(vis=self.msfile, imagename=self.img + "Cubetest_fullsummary", imsize=100, cell='8.0arcsec',
                         specmode='cube', deconvolver='clark', niter=10, threshold='0.75Jy', fullsummary=True, parallel=False)
+    peakmem_cube_standard_fullsummary.version = "CAS-13924"
 
 class MemoryMultiField(BaseTcleanSetup):
     """Peak memory benchmarking tests for tclean on multiple fields"""
