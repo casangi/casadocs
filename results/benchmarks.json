@@ -1649,7 +1649,7 @@
         "name": "bench_tclean_memory.MemorySetWeighting.peakmem_tclean_setweighting",
         "param_names": [],
         "params": [],
-        "setup_cache_key": "bench_tclean_memory:166",
+        "setup_cache_key": "bench_tclean_memory:167",
         "timeout": 10000,
         "type": "peakmemory",
         "unit": "bytes",
@@ -1660,7 +1660,7 @@
         "name": "bench_tclean_memory.MemorySetWeighting.track_file_descriptors_cubemode_mosaic_briggs",
         "param_names": [],
         "params": [],
-        "setup_cache_key": "bench_tclean_memory:166",
+        "setup_cache_key": "bench_tclean_memory:167",
         "timeout": 10000,
         "type": "track",
         "unit": "file descriptors",
@@ -2123,7 +2123,7 @@
         "timeout": 3600,
         "type": "time",
         "unit": "seconds",
-        "version": "CAS-13924",
+        "version": "6692e661298a1a5355c1201359883748b54bbd123c50dd2b2ea3ec5b412ec827",
         "warmup_time": -1
     },
     "bench_tclean_time.TestWideField.time_cube_mosaic_cbFalse_mwTrue_twofield": {
@@ -2138,7 +2138,7 @@
         "timeout": 3600,
         "type": "time",
         "unit": "seconds",
-        "version": "CAS-13924",
+        "version": "ad3861f21889712e38ffbf6ef492929807086c6012d61b230a740229d1d6b7c5",
         "warmup_time": -1
     },
     "bench_tsdimaging.Basic.time_gridfunction_BOX_imsize_40x35": {
