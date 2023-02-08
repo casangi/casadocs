@@ -1,1 +1,214 @@
-{"commit_hash": "4fcaf90243c9241e5a0b7f96f0e13b306e122933", "env_name": "virtualenv-py3.6-pip+casatasks-trunk", "date": 1674849227000, "params": {"arch": "x86_64", "cpu": "Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz", "machine": "casa-perf-test", "num_cpu": "16", "os": "Linux 3.10.0-1160.71.1.el7.x86_64", "ram": "263925792", "python": "3.6", "pip+casatasks": "trunk"}, "python": "3.6", "requirements": {"pip+casatasks": "trunk"}, "env_vars": {}, "result_columns": ["result", "params", "version", "started_at", "duration", "stats_ci_99_a", "stats_ci_99_b", "stats_q_25", "stats_q_75", "stats_number", "stats_repeat", "samples", "profile"], "results": {"bench_tclean_memory.MemoryMultiField.peakmem_multifield_cube_hogbom": [null, [], "893e7e151a1f8754f1fb96f7d3519d6514a48281a1caa73b83aeeee1e722599f", 1675086137563, 0.3083], "bench_tclean_memory.MemoryMultiField.peakmem_multifield_mfs_hogbom": [null, [], "72402512d3572957a20b2ea0f6daf4d73fb60f675818a482590164425db3ccc3", 1675086137872, 0.30701], "bench_tclean_memory.MemoryMultiField.peakmem_multifield_mfs_mtmfs": [null, [], "7d529a06e266a2ff5d0a9bc2ac4db2f37de76c696eb2a2d16a63af2051dcacb4", 1675086138180, 0.30749], "bench_tclean_memory.MemoryWideField.peakmem_cube_mosaic_cbFalse_mwFalse_twofield": [[350490624], [], "213736aba4861d6ada012c27b036d0eefbe891ce27250b0867d8354eeafb9ecb", 1675086138489, 11.688], "bench_tclean_memory.MemoryWideField.peakmem_cube_mosaic_cbFalse_mwFalse_twofield_upTrue": [[350797824], [], "8e2ae00738c0ed705cbc3b1df59069743febbe8c160b1dd759a6537097168c0d", 1675086150178, 11.898], "bench_tclean_memory.MemoryWideField.peakmem_cube_mosaic_cbFalse_mwTrue_twofield": [[350588928], [], "ae1661113bf2b4e2383bbc84b618de00882e9df2d34c706fc6182d5ee88ea29c", 1675086162077, 11.089], "bench_tclean_memory.MemoryWideFieldAWP.peakmem_cube_awproject_hogbom": [[1577611264], [], "535d7210070d64a24f08ced41f22af7c7ff735b2c653c074297c175a08e8cb0d", 1675086173166, 99.359], "bench_tclean_memory.MemoryWideFieldAWP.peakmem_mfs_awproject_hogbom": [[1519464448], [], "b7a2bc60edebed77059280a26d38d60297776207e13bca67e77066c2383a48b1", 1675086272527, 37.636], "bench_tclean_memory.MemoryWideFieldAWP.peakmem_mfs_awproject_mtmfs": [[1584836608], [], "d58b12d0e026ea8c921dacf72de9d8f859c6305623fbd66ade64637f8950312d", 1675086310164, 96.754], "bench_tclean_memory.MemorySetWeighting.peakmem_tclean_setweighting": [[1964048384], [], "6ad99f28088bd459d518baf00c58aeae5c359990913b33e3e208a3a55889bf35", 1675086408431, 156.01], "bench_tclean_memory.MemorySetWeighting.track_file_descriptors_cubemode_mosaic_briggs": [[128], [], "f3fc8767f48770d2492971659441244098f79a773586aaaffbc0a2ef6a49d3a4", 1675086564447, 153.49]}, "durations": {"<setup_cache bench_tclean_memory:147>": 1.510443}, "version": 2}
+{
+  "commit_hash": "4fcaf90243c9241e5a0b7f96f0e13b306e122933",
+  "env_name": "virtualenv-py3.6-pip+casatasks-trunk",
+  "date": 1674849227000,
+  "params": {
+    "arch": "x86_64",
+    "cpu": "Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz",
+    "machine": "casa-perf-test",
+    "num_cpu": "16",
+    "os": "Linux 3.10.0-1160.71.1.el7.x86_64",
+    "ram": "263925792",
+    "python": "3.6",
+    "pip+casatasks": "trunk"
+  },
+  "python": "3.6",
+  "requirements": {
+    "pip+casatasks": "trunk"
+  },
+  "env_vars": {},
+  "result_columns": [
+    "result",
+    "params",
+    "version",
+    "started_at",
+    "duration",
+    "stats_ci_99_a",
+    "stats_ci_99_b",
+    "stats_q_25",
+    "stats_q_75",
+    "stats_number",
+    "stats_repeat",
+    "samples",
+    "profile"
+  ],
+  "results": {
+    "bench_tclean_memory.MemoryMultiField.peakmem_multifield_cube_hogbom": [
+      null,
+      [],
+      "CAS-13924",
+      1675086137563,
+      0.3083
+    ],
+    "bench_tclean_memory.MemoryMultiField.peakmem_multifield_mfs_hogbom": [
+      null,
+      [],
+      "CAS-13924",
+      1675086137872,
+      0.30701
+    ],
+    "bench_tclean_memory.MemoryMultiField.peakmem_multifield_mfs_mtmfs": [
+      null,
+      [],
+      "CAS-13924",
+      1675086138180,
+      0.30749
+    ],
+    "bench_tclean_memory.MemoryWideField.peakmem_cube_mosaic_cbFalse_mwFalse_twofield": [
+      [
+        350490624
+      ],
+      [],
+      "213736aba4861d6ada012c27b036d0eefbe891ce27250b0867d8354eeafb9ecb",
+      1675086138489,
+      11.688
+    ],
+    "bench_tclean_memory.MemoryWideField.peakmem_cube_mosaic_cbFalse_mwFalse_twofield_upTrue": [
+      [
+        350797824
+      ],
+      [],
+      "8e2ae00738c0ed705cbc3b1df59069743febbe8c160b1dd759a6537097168c0d",
+      1675086150178,
+      11.898
+    ],
+    "bench_tclean_memory.MemoryWideField.peakmem_cube_mosaic_cbFalse_mwTrue_twofield": [
+      [
+        350588928
+      ],
+      [],
+      "ae1661113bf2b4e2383bbc84b618de00882e9df2d34c706fc6182d5ee88ea29c",
+      1675086162077,
+      11.089
+    ],
+    "bench_tclean_memory.MemoryWideFieldAWP.peakmem_cube_awproject_hogbom": [
+      [
+        1577611264
+      ],
+      [],
+      "535d7210070d64a24f08ced41f22af7c7ff735b2c653c074297c175a08e8cb0d",
+      1675086173166,
+      99.359
+    ],
+    "bench_tclean_memory.MemoryWideFieldAWP.peakmem_mfs_awproject_hogbom": [
+      [
+        1519464448
+      ],
+      [],
+      "b7a2bc60edebed77059280a26d38d60297776207e13bca67e77066c2383a48b1",
+      1675086272527,
+      37.636
+    ],
+    "bench_tclean_memory.MemoryWideFieldAWP.peakmem_mfs_awproject_mtmfs": [
+      [
+        1584836608
+      ],
+      [],
+      "d58b12d0e026ea8c921dacf72de9d8f859c6305623fbd66ade64637f8950312d",
+      1675086310164,
+      96.754
+    ],
+    "bench_tclean_memory.MemorySetWeighting.peakmem_tclean_setweighting": [
+      [
+        1964048384
+      ],
+      [],
+      "CAS-13924",
+      1675086408431,
+      156.01
+    ],
+    "bench_tclean_memory.MemorySetWeighting.track_file_descriptors_cubemode_mosaic_briggs": [
+      [
+        128
+      ],
+      [],
+      "CAS-13924",
+      1675086564447,
+      153.49
+    ],
+    "bench_tclean_time.TcleanStokes.time_cube_stokes_IV": [
+      null,
+      null,
+      "CAS-13924"
+    ],
+    "bench_tclean_time.TcleanEphemeris.time_eph_multifield_mosaic_cubesource": [
+      null,
+      null,
+      "CAS-13924"
+    ],
+    "bench_tclean_time.TcleanEphemeris.time_eph_multifield_mosaic_mfs": [
+      null,
+      null,
+      "CAS-13924"
+    ],
+    "bench_tclean_time.TcleanEphemeris.time_eph_singlefield_standard_cubesource": [
+      null,
+      null,
+      "CAS-13924"
+    ],
+    "bench_tclean_time.TcleanEphemeris.time_eph_singlefield_standard_mfs": [
+      null,
+      null,
+      "CAS-13924"
+    ],
+    "bench_tclean_time.TcleanMoldelVis.time_mfs_automask_modelcolumn": [
+      null,
+      null,
+      "CAS-13924"
+    ],
+    "bench_tclean_time.TcleanMultiField.time_multifield_mfs_hogbom": [
+      null,
+      null,
+      "CAS-13924"
+    ],
+    "bench_tclean_time.TcleanMultiField.time_multifield_mfs_mtmfs": [
+      null,
+      null,
+      "CAS-13924"
+    ],
+    "bench_tclean_time.TcleanSingleField.time_cube_standard_pcwdT": [
+      null,
+      null,
+      "CAS-13924"
+    ],
+    "bench_tclean_time.TcleanSingleField.time_mfs_standard_clark": [
+      null,
+      null,
+      "CAS-13924"
+    ],
+    "bench_tclean_time.TcleanSingleField.time_mfs_standard_hogbom": [
+      null,
+      null,
+      "CAS-13924"
+    ],
+    "bench_tclean_time.TcleanSingleField.time_mfs_standard_hogbom_automask": [
+      null,
+      null,
+      "CAS-13924"
+    ],
+    "bench_tclean_time.TcleanSingleField.time_mfs_standard_mtmfs": [
+      null,
+      null,
+      "CAS-13924"
+    ],
+    "bench_tclean_time.TestWideField.time_cube_mosaic_cbFalse_mwFalse_twofield": [
+      null,
+      null,
+      "CAS-13924"
+    ],
+    "bench_tclean_time.TestWideField.time_cube_mosaic_cbFalse_mwTrue_twofield": [
+      null,
+      null,
+      "CAS-13924"
+    ],
+    "bench_tclean_time.TestWideField.time_cube_mosaic_cbFalse_mwFalse_twofield_upTrue": [
+      null,
+      null,
+      "CAS-13924"
+    ]
+  },
+  "durations": {
+    "<setup_cache bench_tclean_memory:147>": 1.510443
+  },
+  "version": 2
+}
