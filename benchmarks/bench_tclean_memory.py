@@ -35,6 +35,23 @@ class BaseTcleanSetup():
             os.system('rm -rf ' + self.msfile)
         shutil.copytree(os.path.join(datapath, self.msfile), self.msfile)
 
+
+class MemorySingleField(BaseTcleanSetup):
+    """Peak memory benchmarking tests for tclean on single field"""
+    def setup(self):
+        self.prepData("refim_point_withline.ms")
+
+    def teardown(self):
+        os.system('rm -rf ' + self.img_subdir)
+        os.system('rm -rf ' + self.img + '*')
+        if (os.path.exists(self.msfile)):
+            os.system('rm -rf ' + self.msfile)
+
+    def peakmem_cube_standard_fullsummary(self):
+        """tclean: single field cube with fullsummary parameter - test_iterbot_cube_fullsummary_true"""
+        retpar = tclean(vis=self.msfile, imagename=self.img + "Cubetest_fullsummary", imsize=100, cell='8.0arcsec',
+                        specmode='cube', deconvolver='clark', niter=10, threshold='0.75Jy', fullsummary=True, parallel=False)
+
 class MemoryMultiField(BaseTcleanSetup):
     """Peak memory benchmarking tests for tclean on multiple fields"""
     def setup(self):

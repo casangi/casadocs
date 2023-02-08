@@ -226,12 +226,9 @@ class TcleanCube(BaseTcleanSetup):
                      width='', veltype='radio', outframe='LSRK', interpolation='nearest', parallel=False)
 
     def time_cube_standard_fullsummary(self):
-        """tclean: mosaic cube with Hogbom deconvolver -  test_cube_0"""
-        ret = tclean(vis=self.msfile, field='0', imsize=100, cell='8.0arcsec', niter=200,
-                     specmode='cube', nchan=2048, restfreq=['1.25GHz'],
-                     phasecenter="J2000 19:59:28.500 +40.44.01.50", deconvolver='hogbom',
-                     spw='0', imagename=self.img + 'Cubetest_manychan', fullsummary=True,
-                     start=0, width=1, veltype='radio', outframe='LSRK', interpolation='linear', parallel=False)
+        """tclean: single field cube with fullsummary parameter - test_iterbot_cube_fullsummary_true"""
+        retpar = tclean(vis=self.msfile, imagename=self.img + "Cubetest_fullsummary", imsize=100, cell='8.0arcsec',
+                        specmode='cube', deconvolver='clark', niter=10, threshold='0.75Jy', fullsummary=True, parallel=False)
 
 class TcleanEphemeris(BaseTcleanSetup):
     """Runtime benchmarking tests of tclean ephemeris object imaging"""
