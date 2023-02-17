@@ -2,10 +2,10 @@
 import contextlib
 import filecmp
 import glob
-import numpy as np
+#import numpy as np
 import os
 import shutil
-import unittest
+#import unittest
 
 from casatools import ctsys, table
 from casatasks import sdbaseline
@@ -23,41 +23,6 @@ repeat = (1, 2, 30.0) # between 1 and 2 iterations per round w/ soft cutoff (sta
 rounds = 3            # amount of instances a "repeat block" is run to collect samples
 min_run_count = 5     # enforce the min_repeat * rounds setting is met
 timeout = 3600        # conservative 1hr hard cap for duration of a single test execution
-
-### Utilities for reading blparam file
-class FileReader(object):
-    def __init__(self, filename):
-        self.__filename = filename
-        self.__data = None
-        self.__nline = None
-
-    def read(self):
-        if self.__data is None:
-            f = open(self.__filename, 'r')
-            self.__data = f.readlines()
-            f.close()
-            self.__nline = len(self.__data)
-        return
-
-    def nline(self):
-        self.read()
-        return self.__nline
-
-    def index(self, txt, start):
-        return self.__data[start:].index(txt) + 1 + start
-
-    def getline(self, idx):
-        return self.__data[idx]
-
-
-class BlparamFileParser(FileReader):
-    def __init__(self, blfile):
-        FileReader.__init__(self, blfile)
-        #self.__nrow = None
-        #self.__coeff = None
-        #self.__rms = None
-        self.__ctxt = 'Baseline parameters\n'
-        self.__rtxt = 'Results of baseline fit\n'
 
 def remove_single_file_dir(filename):
     """
@@ -91,11 +56,11 @@ def remove_files_dirs(filename):
     for filename in filenames:
         remove_single_file_dir(filename)
 
-def _get_num_files_by_keyword(cmpresult, keyword):
-    return len(sum([eval(s[s.index(':')+1:]) for s in cmpresult if s.startswith(keyword)], []))
+#def _get_num_files_by_keyword(cmpresult, keyword):
+#    return len(sum([eval(s[s.index(':')+1:]) for s in cmpresult if s.startswith(keyword)], []))
 
 
-class sdbaseline_unittest_base(unittest.TestCase):
+class BaseSetup():
     """
     Base class for sdbaseline unit test
     """
@@ -195,7 +160,7 @@ class sdbaseline_unittest_base(unittest.TestCase):
                 casalog.post("Could not find '%s'...skipping copy" % from_name, 'WARN')
     
 
-class sdbaseline_basicTest(sdbaseline_unittest_base):
+class Basic(BaseSetup):
     """
     Basic unit tests for task sdbaseline. No interactive testing.
 
@@ -226,8 +191,8 @@ class sdbaseline_basicTest(sdbaseline_unittest_base):
     # Input and output names
     
     infile = 'OrionS_rawACSmod_calave.ms'
-    outroot = sdbaseline_unittest_base.taskname+'_basictest'
-    blrefroot = os.path.join(sdbaseline_unittest_base.datapath,'refblparam')
+    outroot = BaseSetup.taskname+'_basictest'
+    blrefroot = os.path.join(BaseSetup.datapath,'refblparam')
     tid = None
 
     def setUp(self):
@@ -247,8 +212,8 @@ class sdbaseline_basicTest(sdbaseline_unittest_base):
         remove_files_dirs(self.outroot)
     
 
-    def time_test000(self):
-        """Basic Test 000: default values for all parameters"""
+    def time_default(self):
+        """sdbaseline: default values for all parameters - test000"""
         tid = '000'
         infile = self.infile
         outfile = self.outroot+tid+'.ms'
@@ -256,8 +221,8 @@ class sdbaseline_basicTest(sdbaseline_unittest_base):
         
         result = sdbaseline(infile=infile, datacolumn=datacolumn, outfile=outfile)
 
-    def time_test001(self):
-        """Basic Test 001: simple successful case: blfunc = 'poly', maskmode = 'list' and masklist=[] (no mask)"""
+    def time_poly_blfunc_no_mask(self):
+        """sdbaseline: simple successful case: blfunc = 'poly', maskmode = 'list' and masklist=[] (no mask) - test001"""
         tid = '001'
         infile = self.infile
         outfile = self.outroot+tid+'.ms'
@@ -271,25 +236,9 @@ class sdbaseline_basicTest(sdbaseline_unittest_base):
                              maskmode=maskmode, blfunc=blfunc,
                              spw=spw, pol=pol, outfile=outfile,
                              overwrite=overwrite)
-
-    def time_test001_uppercase_params(self):
-        """Basic Test 001: simple successful case: blfunc = 'poly', maskmode = 'list' and masklist=[] (no mask)"""
-        tid = '001'
-        infile = self.infile
-        outfile = self.outroot+tid+'.ms'
-        datacolumn = 'FLOAT_DATA'
-        maskmode = 'LIST'
-        blfunc = 'POLY'
-        spw = '3'
-        pol = 'LL'
-        overwrite = True
-        result = sdbaseline(infile=infile, datacolumn=datacolumn,
-                             maskmode=maskmode, blfunc=blfunc,
-                             spw=spw, pol=pol, outfile=outfile,
-                             overwrite=overwrite)
     
-    def time_test002(self):
-        """Basic Test 002: simple successful case: blfunc = 'chebyshev', maskmode = 'list' and masklist=[] (no mask)"""
+    def time_chebyshev_blfunc_no_mask(self):
+        """sdbaseline: simple successful case: blfunc = 'chebyshev', maskmode = 'list' and masklist=[] (no mask) - test002"""
         tid = '002'
         infile = self.infile
         outfile = self.outroot+tid+'.ms'
@@ -305,8 +254,8 @@ class sdbaseline_basicTest(sdbaseline_unittest_base):
                              overwrite=overwrite)
     
     
-    def time_test003(self):
-        """Basic Test 003: simple successful case: blfunc = 'cspline', maskmode = 'list' and masklist=[] (no mask)"""
+    def time_cspline_blfunc_no_mask(self):
+        """sdbaseline: simple successful case: blfunc = 'cspline', maskmode = 'list' and masklist=[] (no mask) - test003"""
         print("")
 
         tid = '003'
@@ -325,36 +274,8 @@ class sdbaseline_basicTest(sdbaseline_unittest_base):
                              pol=pol,
                              outfile=outfile,overwrite=overwrite)
 
-    def time_test050(self):
-        """Basic Test 050: failure case: existing file as outfile with overwrite=False"""
-        infile = self.infile
-        outfile = 'Dummy_Empty.ms'
-        mode = 'list'
-        os.mkdir(outfile)
-        try:
-            result = sdbaseline(infile=infile, outfile=outfile, overwrite=False, maskmode=mode)
-        except Exception as e:
-            pos = str(e).find("outfile='" + outfile + "' exists, and cannot overwrite it.")
-        finally:
-            shutil.rmtree(outfile)
-
-    def time_test051(self):
-        """Basic Test 051: failure case: no data after selection"""
-        tid = '051'
-        infile = self.infile
-        outfile = self.outroot+tid+'.ms'
-        spw = '10' # non-existent IF value
-        mode = 'list'
-        #sdbaseline(infile=infile, outfile=outfile, spw=spw, maskmode=mode)
-        
-        try:
-            sdbaseline(infile=infile, outfile=outfile, spw=spw, maskmode=mode)
-        except Exception as e:
-            print('error')
-            #self.assertIn('Spw Expression: No match found for 10,', str(e))
-
-    def time_test060(self):
-        """Basic Test 060: blparam file(s) should be overwritten when overwrite=True in fit mode"""
+    def time_blparam_overwrite(self):
+        """sdbaseline: blparam file(s) should be overwritten when overwrite=True in fit mode - test060"""
         tid = '060'
         infile = self.infile
         outfile = self.outroot+tid+'.ms'
@@ -369,26 +290,8 @@ class sdbaseline_basicTest(sdbaseline_unittest_base):
         overwrite = True
         sdbaseline(infile=infile, outfile=outfile, overwrite=overwrite, datacolumn=datacolumn)
 
-    def time_test061(self):
-        """Basic Test 061: blparam file(s) should not exist when overwrite=False in fit mode """
-        tid = '061'
-        infile = self.infile
-        outfile = self.outroot+tid+'.ms'
-        overwrite = False
-        datacolumn = 'float_data'
-
-        # First run
-        sdbaseline(infile=infile, outfile=outfile, overwrite=overwrite, datacolumn=datacolumn)
-
-        # Keep blparam.txt, and remove outfile only
-        shutil.rmtree(outfile)
-
-        # Second run (in fit mode, overwrite=False), which must emit ValueError
-        with self.assertRaises(ValueError, msg='{}_blparam.txt exists.'.format(infile)):
-            sdbaseline(infile=infile, outfile=outfile, overwrite=overwrite, datacolumn=datacolumn)
-
-    def time_test062(self):
-        """Basic Test 062: blparam file(s) should not be removed in apply mode"""
+    def time_blparam_apply_no_remove(self):
+        """sdbaseline: blparam file(s) should not be removed in apply mode - test062"""
         tid = '062'
         infile = self.infile
         outfile = self.outroot+tid+'.ms'
@@ -409,48 +312,8 @@ class sdbaseline_basicTest(sdbaseline_unittest_base):
         overwrite = True
         sdbaseline(infile=infile, outfile=outfile, overwrite=overwrite, datacolumn=datacolumn, blmode=blmode, bltable=bltable)
 
-    def time_test070(self):
-        """Basic Test 070: no output MS when dosubtract=False"""
-        tid = '070'
-        infile = self.infile
-        outfile = self.outroot + tid + '.ms'
-        datacolumn = 'float_data'
-        dosubtract = False
-        blformats = ['text', 'csv', 'table', ['text', 'table'], ['text', ''], ['text', 'csv', 'table']]
 
-        for blformat in blformats:
-            remove_files_dirs(infile+'_blparam.')
-            remove_single_file_dir(outfile)
-            sdbaseline(infile=infile, datacolumn=datacolumn, outfile=outfile, dosubtract=dosubtract, blformat=blformat)
-
-    def time_test071(self):
-        """Basic Test 071: dosubtract=False and blformat is empty (raises an exception)"""
-        tid = '071'
-        infile = self.infile
-        outfile = self.outroot + tid + '.ms'
-        datacolumn = 'float_data'
-        dosubtract = False
-        blformats = ['', [], ['', '', '']]
-
-        for blformat in blformats:
-            with self.assertRaises(ValueError, msg="blformat must be specified when dosubtract is False"):
-                sdbaseline(infile=infile, datacolumn=datacolumn, outfile=outfile, dosubtract=dosubtract, blformat=blformat)
-
-    def time_test080(self):
-        """Basic Test 080: existent outfile is not overwritten if dosubtract=False"""
-        tid = '080'
-        infile = self.infile
-        outfile = self.outroot+tid+'.ms'
-        dosubtract = False
-        overwrite = False
-        datacolumn = 'float_data'
-
-        shutil.copytree(infile, outfile)
-
-        # Run sdbaseline with dosubtract=False
-        sdbaseline(infile=infile, outfile=outfile, dosubtract=dosubtract, overwrite=overwrite, datacolumn=datacolumn)
-
-class sdbaseline_maskTest(sdbaseline_unittest_base):
+class Mask(BaseSetup):
     """
     Tests for various mask selections. No interactive testing.
 
@@ -469,8 +332,8 @@ class sdbaseline_maskTest(sdbaseline_unittest_base):
     """
     # Input and output names
     infile = 'OrionS_rawACSmod_calave.ms'
-    outroot = sdbaseline_unittest_base.taskname+'_masktest'
-    blrefroot = os.path.join(sdbaseline_unittest_base.datapath,'refblparam_mask')
+    outroot = BaseSetup.taskname+'_masktest'
+    blrefroot = os.path.join(BaseSetup.datapath,'refblparam_mask')
     tid = None
 
     # Channel range excluding bad edge
@@ -490,15 +353,12 @@ class sdbaseline_maskTest(sdbaseline_unittest_base):
         if os.path.exists(self.infile+'_blparam.btable'):
             shutil.rmtree(self.infile+ '_blparam.btable')
 
-
-
-
     def tearDown(self):
         remove_files_dirs(self.infile)
         remove_files_dirs(self.outroot)
 
-    def time_test100(self):
-        """Mask Test 100: with masked ranges at the edges of spectrum. blfunc must be cspline."""
+    def time_cspline_blfunc_masked_range_spectrum_edge(self):
+        """sdbaseline: with masked ranges at the edges of spectrum. blfunc must be cspline. - test100"""
         self.tid='100'
         infile = self.infile
         outfile = self.outroot+self.tid+'.ms'
@@ -513,8 +373,8 @@ class sdbaseline_maskTest(sdbaseline_unittest_base):
                              spw=spw,pol=pol,blfunc=blfunc,npiece=npiece,
                              outfile=outfile)
 
-    def time_test101(self):
-        """Mask Test 101: with masked ranges not touching spectrum edge"""
+    def time_masked_ranges_no_edge_spectrum(self):
+        """sdbaaseline: with masked ranges not touching spectrum edge - test101"""
         self.tid='101'
         infile = self.infile
         outfile = self.outroot+self.tid+'.ms'
@@ -533,7 +393,7 @@ class sdbaseline_maskTest(sdbaseline_unittest_base):
         else:
             return False
 
-class sdbaseline_outbltableTest(sdbaseline_unittest_base):
+class OutBlTable(BaseSetup):
     """
     Tests for outputting baseline table
 
@@ -557,7 +417,7 @@ class sdbaseline_outbltableTest(sdbaseline_unittest_base):
     """
     # Input and output names
     infile = 'OrionS_rawACSmod_calave.ms'
-    outroot = sdbaseline_unittest_base.taskname+'_bltabletest'
+    outroot = BaseSetup.taskname+'_bltabletest'
     tid = None
     ftype = {'poly': 0, 'chebyshev': 1, 'cspline': 2, 'sinusoid': 3}
 
@@ -572,15 +432,20 @@ class sdbaseline_outbltableTest(sdbaseline_unittest_base):
             os.remove(self.infile+ '_blparam.csv')
         if os.path.exists(self.infile+'_blparam.btable'):
             shutil.rmtree(self.infile+ '_blparam.btable')
-
+            
+        blparam = self.outroot+'.blparam'
+        self._createBlparamFile(blparam, self.blparam_order, self.blparam_dic, '')
 
     def tearDown(self):
         remove_single_file_dir(self.infile)
         remove_files_dirs(self.outroot)
+        if (os.path.exists(self.infile)):
+            shutil.rmtree(self.infile)
+        os.system('rm -rf ' + self.outroot + '*')
 
-    def time_test302(self):
-        """test302: per-spectrum baselining, output bltable"""
-        self.tid='302'
+    def time_fit_variable_r2p1less(self):
+        """sdbaseline: per-spectrum baselining, output bltable - test302"""
+        self.tid='302a'
         infile = self.infile
         datacolumn='float_data'
         blmode='fit'
@@ -588,20 +453,38 @@ class sdbaseline_outbltableTest(sdbaseline_unittest_base):
         blfunc='variable'
         dosubtract=True
 
-        for option in ['', 'r2p1less', 'r2p1cout']:
-            bloutput= self.outroot+self.tid+option+'.bltable'
-            outfile = self.outroot+self.tid+option+'.ms'
-            blparam = self.outroot+self.tid+option+'.blparam'
-            self._createBlparamFile(blparam, self.blparam_order, self.blparam_dic, option)
-            result = sdbaseline(infile=infile,datacolumn=datacolumn,
-                                 blmode=blmode,blformat=blformat,bloutput=bloutput,
-                                 blfunc=blfunc,blparam=blparam,
-                                 dosubtract=dosubtract,outfile=outfile)
+        bloutput= self.outroot+self.tid+'r2p1less'+'.bltable'
+        outfile = self.outroot+self.tid+'r2p1less'+'.ms'
+        blparam = self.outroot+self.tid+'r2p1less'+'.blparam'
+        self._createBlparamFile(blparam, self.blparam_order, self.blparam_dic, 'r2p1less')
+        result = sdbaseline(infile=infile,datacolumn=datacolumn,
+                             blmode=blmode,blformat=blformat,bloutput=bloutput,
+                             blfunc=blfunc,blparam=blparam,
+                             dosubtract=dosubtract,outfile=outfile)
+                                 
+    def time_fit_variable_r2p1cout(self):
+        """sdbaseline: per-spectrum baselining, output bltable - test302"""
+        self.tid='302b'
+        infile = self.infile
+        datacolumn='float_data'
+        blmode='fit'
+        blformat='table'
+        blfunc='variable'
+        dosubtract=True
+
+        bloutput= self.outroot+self.tid+'r2p1cout'+'.bltable'
+        outfile = self.outroot+self.tid+'r2p1cout'+'.ms'
+        blparam = self.outroot+self.tid+'r2p1cout'+'.blparam'
+        self._createBlparamFile(blparam, self.blparam_order, self.blparam_dic, 'r2p1cout')
+        result = sdbaseline(infile=infile,datacolumn=datacolumn,
+                             blmode=blmode,blformat=blformat,bloutput=bloutput,
+                             blfunc=blfunc,blparam=blparam,
+                             dosubtract=dosubtract,outfile=outfile)
 
     
-    def time_test304(self):
-        """test304: testing shortening baseline table for blfunc=variable"""
-        self.tid = '304'
+    def time_fit_variable_masked_masked(self):
+        """sdbaseline: testing shortening baseline table for blfunc=variable - test304"""
+        self.tid = '304a'
         infile = self.infile
         datacolumn='float_data'
         spw=''
@@ -611,41 +494,89 @@ class sdbaseline_outbltableTest(sdbaseline_unittest_base):
         dosubtract=True
         with table_manager(infile) as tb:
             nrow_data = tb.nrows()
-            
-        testmode = ['masked_masked', 'masked_unselect', 'unselect_masked']
-        prange = [[0,1], [0], [1]]
-        polval = ['', 'RR', 'LL']
-        for j in range(len(testmode)):
-            print('testing blfunc='+blfunc+', testmode='+testmode[j]+'...')
-            # prepare input data
-            if os.path.exists(self.infile):
-                shutil.rmtree(self.infile)
-            shutil.copytree(os.path.join(self.datapath,self.infile), self.infile)
 
-            blparam = self.outroot+'.blparam'
-            self._createBlparamFile(blparam, self.blparam_order, self.blparam_dic, '')
+        blparam = self.outroot+'.blparam'
 
-            tb.open(tablename=infile, nomodify=False)
-            r2msk = tb.getcell('FLAG', 2)
-            for ipol in prange[j]:
-                for ichan in range(len(r2msk[0])):
-                    r2msk[ipol][ichan] = True
-            tb.putcell('FLAG', 2, r2msk)
-            tb.close()
-            pol = polval[j]
+        tb.open(tablename=infile, nomodify=False)
+        r2msk = tb.getcell('FLAG', 2)
+        for ipol in [0,1]:
+            for ichan in range(len(r2msk[0])):
+                r2msk[ipol][ichan] = True
+        tb.putcell('FLAG', 2, r2msk)
+        tb.close()
+        pol = ''
 
-            outfile = self.outroot+self.tid+blfunc+'.ms'
-            bloutput= self.outroot+self.tid+blfunc+'.bltable'
-            sdbaseline(infile=infile,datacolumn=datacolumn,
-                                blmode=blmode,blformat=blformat,bloutput=bloutput,
-                                spw=spw,pol=pol,blfunc=blfunc,blparam=blparam,
-                                dosubtract=dosubtract,outfile=outfile)
-            if (os.path.exists(self.infile)):
-                shutil.rmtree(self.infile)
-            os.system('rm -rf ' + self.outroot + '*')
+        outfile = self.outroot+self.tid+blfunc+'.ms'
+        bloutput= self.outroot+self.tid+blfunc+'.bltable'
+        sdbaseline(infile=infile,datacolumn=datacolumn,
+                            blmode=blmode,blformat=blformat,bloutput=bloutput,
+                            spw=spw,pol=pol,blfunc=blfunc,blparam=blparam,
+                            dosubtract=dosubtract,outfile=outfile)
+                                 
+    def time_fit_variable_masked_unselect(self):
+        """sdbaseline: testing shortening baseline table for blfunc=variable - test304"""
+        self.tid = '304b'
+        infile = self.infile
+        datacolumn='float_data'
+        spw=''
+        blmode='fit'
+        blformat='table'
+        blfunc='variable'
+        dosubtract=True
+        with table_manager(infile) as tb:
+            nrow_data = tb.nrows()
+    
+        blparam = self.outroot+'.blparam'
+
+        tb.open(tablename=infile, nomodify=False)
+        r2msk = tb.getcell('FLAG', 2)
+        for ipol in [0]:
+            for ichan in range(len(r2msk[0])):
+                r2msk[ipol][ichan] = True
+        tb.putcell('FLAG', 2, r2msk)
+        tb.close()
+        pol = 'RR'
+
+        outfile = self.outroot+self.tid+blfunc+'.ms'
+        bloutput= self.outroot+self.tid+blfunc+'.bltable'
+        sdbaseline(infile=infile,datacolumn=datacolumn,
+                            blmode=blmode,blformat=blformat,bloutput=bloutput,
+                            spw=spw,pol=pol,blfunc=blfunc,blparam=blparam,
+                            dosubtract=dosubtract,outfile=outfile)
+        
+    def time_fit_variable_unselect_masked(self):
+        """sdbaseline: testing shortening baseline table for blfunc=variable - test304"""
+        self.tid = '304c'
+        infile = self.infile
+        datacolumn='float_data'
+        spw=''
+        blmode='fit'
+        blformat='table'
+        blfunc='variable'
+        dosubtract=True
+        with table_manager(infile) as tb:
+            nrow_data = tb.nrows()
+    
+        blparam = self.outroot+'.blparam'
+
+        tb.open(tablename=infile, nomodify=False)
+        r2msk = tb.getcell('FLAG', 2)
+        for ipol in [1]:
+            for ichan in range(len(r2msk[0])):
+                r2msk[ipol][ichan] = True
+        tb.putcell('FLAG', 2, r2msk)
+        tb.close()
+        pol = 'LL'
+
+        outfile = self.outroot+self.tid+blfunc+'.ms'
+        bloutput= self.outroot+self.tid+blfunc+'.bltable'
+        sdbaseline(infile=infile,datacolumn=datacolumn,
+                            blmode=blmode,blformat=blformat,bloutput=bloutput,
+                            spw=spw,pol=pol,blfunc=blfunc,blparam=blparam,
+                            dosubtract=dosubtract,outfile=outfile)
                                  
 
-class sdbaseline_variableTest(sdbaseline_unittest_base):
+class BlFuncVariable(BaseSetup):
     """
     Tests for blfunc='variable'
     List of tests necessary
@@ -658,8 +589,6 @@ class sdbaseline_variableTest(sdbaseline_unittest_base):
     
     def setUp(self):
         pass
-        #if hasattr(self, 'infile'):
-            #self.__refetch_files(self.infile)
 
     def tearDown(self):
         remove_files_dirs(os.path.splitext(self.infile)[0])
@@ -671,8 +600,8 @@ class sdbaseline_variableTest(sdbaseline_unittest_base):
         self._remove(files)
         self._copy(files, from_dir)
     
-    def time_testVariable00(self):
-        """Test blfunc='variable' with variable baseline functions and orders"""
+    def time_variable_orders(self):
+        """sdbaseline: Test blfunc='variable' with variable baseline functions and orders - testVariable00"""
         print('why is this failing?')
         infile = 'analytic_variable.ms'
         self.paramfile = 'analytic_variable_blparam.txt'
@@ -680,51 +609,36 @@ class sdbaseline_variableTest(sdbaseline_unittest_base):
         sdbaseline(infile=infile, blfunc='variable', outfile=self.outfile, blparam=self.paramfile, datacolumn=self.column)
 
 
-class sdbaseline_updateweightTest(sdbaseline_unittest_base):
+class UpdateWeight(BaseSetup):
     """
     Tests for updateweight=True
     to confirm if WEIGHT_SPECTRUM column is removed
-    """
-
-    datapath = ctsys_resolve('unittest/sdbaseline/')
-    infile = 'uid___A002_X6218fb_X264.ms'
-    outroot = sdbaseline_unittest_base.taskname+'_updateweighttest'
-    outfile = outroot + '.ms'
-
-    def setUp(self):
-        remove_files_dirs(self.infile)
-        shutil.copytree(os.path.join(self.datapath, self.infile), self.infile)
-
-    def tearDown(self):
-        remove_files_dirs(self.infile)
-        remove_files_dirs(self.outroot)
-
-    def time_test000(self):
-        sdbaseline(infile=self.infile, outfile=self.outfile, intent='OBSERVE_TARGET#ON_SOURCE', spw='9', datacolumn='data', updateweight=True)
-
-
-class sdbaseline_updateweightTest2(sdbaseline_unittest_base):
-    """
-    Tests for updateweight=True cases
     test052 --- blmode='apply', spw to flag channels 4500-6499
     """
 
     datapath = ctsys_resolve('unittest/sdbaseline/')
-    infile = 'analytic_order3_withoffset.ms'
-    outroot = sdbaseline_unittest_base.taskname + '_updateweighttest'
+    infile = 'uid___A002_X6218fb_X264.ms'
+    infile2 = 'analytic_order3_withoffset.ms'
+    outroot = BaseSetup.taskname+'_updateweighttest'
     outfile = outroot + '.ms'
     spw = '*:0~4499;6500~8191'
 
     def setUp(self):
         remove_files_dirs(self.infile)
         shutil.copytree(os.path.join(self.datapath, self.infile), self.infile)
+        remove_files_dirs(self.infile2)
+        shutil.copytree(os.path.join(self.datapath, self.infile2), self.infile2)
 
     def tearDown(self):
         remove_files_dirs(self.infile)
+        remove_files_dirs(self.infile2)
         remove_files_dirs(self.outroot)
 
-    def time_test052(self):
-        sdbaseline(infile=self.infile, outfile=self.outfile, intent='OBSERVE_TARGET#ON_SOURCE', datacolumn='float_data', spw=self.spw)
+    def time_remove_weight_col(self):
+        sdbaseline(infile=self.infile, outfile=self.outfile, intent='OBSERVE_TARGET#ON_SOURCE', spw='9', datacolumn='data', updateweight=True)
+    
+    def time_blmode_apply_spw_to_flag(self):
+        sdbaseline(infile=self.infile2, outfile=self.outfile, intent='OBSERVE_TARGET#ON_SOURCE', datacolumn='float_data', spw=self.spw)
 
 if __name__ == '__main__':
     unittest.main()
