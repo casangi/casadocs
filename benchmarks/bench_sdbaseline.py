@@ -2,10 +2,8 @@
 import contextlib
 import filecmp
 import glob
-#import numpy as np
 import os
 import shutil
-#import unittest
 
 from casatools import ctsys, table
 from casatasks import sdbaseline
