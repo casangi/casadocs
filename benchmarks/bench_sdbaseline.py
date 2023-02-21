@@ -1,6 +1,3 @@
-
-import contextlib
-import filecmp
 import glob
 import os
 import shutil
@@ -8,9 +5,6 @@ import shutil
 from casatools import ctsys, table
 from casatasks import sdbaseline
 from casatasks.private.sdutil import table_manager
-from casatasks.private.task_sdbaseline import check_fftthresh, is_empty, parse_wavenumber_param
-from casatestutils import selection_syntax
-
 
 tb = table()
 ctsys_resolve = ctsys.resolve
@@ -53,10 +47,7 @@ def remove_files_dirs(filename):
 
     for filename in filenames:
         remove_single_file_dir(filename)
-
-#def _get_num_files_by_keyword(cmpresult, keyword):
-#    return len(sum([eval(s[s.index(':')+1:]) for s in cmpresult if s.startswith(keyword)], []))
-
+        
 
 class BaseSetup():
     """
@@ -189,9 +180,13 @@ class Basic(BaseSetup):
     # Input and output names
     
     infile = 'OrionS_rawACSmod_calave.ms'
+    infile_overwrite = 'OrionS_rawACSmod_calave_overwrite.ms'
+    infile_no_remove = 'OrionS_rawACSmod_calave_no_remove.ms'
     outroot = BaseSetup.taskname+'_basictest'
     blrefroot = os.path.join(BaseSetup.datapath,'refblparam')
     tid = None
+    outfile_overwrite = outroot+'060'+'.ms'
+    outfile_no_remove = outroot+'062'+'.ms'
 
     def setUp(self):
         if os.path.exists(self.infile):
@@ -204,10 +199,37 @@ class Basic(BaseSetup):
             os.remove(self.infile+ '_blparam.csv')
         if os.path.exists(self.infile+'_blparam.btable'):
             shutil.rmtree(self.infile+ '_blparam.btable')
+            
+        if os.path.exists(self.infile_no_remove):
+            shutil.rmtree(self.infile_no_remove)
+        if os.path.exists(self.infile_no_remove):
+            shutil.rmtree(self.infile_overwrite)
+            
+        shutil.copytree(os.path.join(self.datapath,self.infile), self.infile_overwrite)
+        
+        sdbaseline(infile=self.infile_overwrite, outfile=self.outfile_overwrite, overwrite=False, datacolumn='float_data')
+        shutil.rmtree(self.outfile_overwrite)
+        
+        shutil.copytree(os.path.join(self.datapath,self.infile), self.infile_no_remove)
+            
+        sdbaseline(infile=self.infile_no_remove, outfile=self.outfile_no_remove, overwrite=False, datacolumn='float_data', blmode='fit', blformat=['text', 'table'])
+        shutil.rmtree(self.outfile_no_remove)
 
     def tearDown(self):
         remove_files_dirs(self.infile)
         remove_files_dirs(self.outroot)
+        remove_files_dirs(self.infile_no_remove)
+        remove_files_dirs(self.infile_overwrite)
+        
+    def no_remove_deco(func):
+        def wrapper(self):
+            tid = '062'
+            infile = self.infile
+            outfile = self.outroot+tid+'.ms'
+            sdbaseline(infile=infile, outfile=outfile, overwrite=False, datacolumn='float_data', blmode='fit', blformat=['text', 'table'])
+            shutil.rmtree(outfile)
+            func()
+        return wrapper
     
 
     def time_default(self):
@@ -266,6 +288,7 @@ class Basic(BaseSetup):
         npiece = 3
         spw='3'
         pol='LL'
+        
         result = sdbaseline(infile=infile, datacolumn=datacolumn,
                              maskmode=maskmode, blfunc=blfunc,
                              npiece=npiece,spw=spw,
@@ -277,38 +300,23 @@ class Basic(BaseSetup):
         tid = '060'
         infile = self.infile
         outfile = self.outroot+tid+'.ms'
-        overwrite = False
         datacolumn = 'float_data'
-
-        # First run
-        sdbaseline(infile=infile, outfile=outfile, overwrite=overwrite, datacolumn=datacolumn)
-
-        shutil.rmtree(outfile)
-
         overwrite = True
-        sdbaseline(infile=infile, outfile=outfile, overwrite=overwrite, datacolumn=datacolumn)
+        
+        sdbaseline(infile=self.infile_overwrite, outfile=outfile, overwrite=overwrite, datacolumn=datacolumn)
 
     def time_blparam_apply_no_remove(self):
         """sdbaseline: blparam file(s) should not be removed in apply mode - test062"""
         tid = '062'
         infile = self.infile
         outfile = self.outroot+tid+'.ms'
-        overwrite = False
         datacolumn = 'float_data'
-        blmode = 'fit'
         blformat = ['text', 'table']
-
-        # First run
-        sdbaseline(infile=infile, outfile=outfile, overwrite=overwrite, datacolumn=datacolumn, blmode=blmode, blformat=blformat)
-
-        # Keep blparam files, and remove outfile only
-        shutil.rmtree(outfile)
-
-        # Second run (in apply mode), which must be successful
         blmode = 'apply'
-        bltable = infile + '_blparam.bltable'
+        bltable = self.infile_no_remove + '_blparam.bltable'
         overwrite = True
-        sdbaseline(infile=infile, outfile=outfile, overwrite=overwrite, datacolumn=datacolumn, blmode=blmode, bltable=bltable)
+        
+        sdbaseline(infile=self.infile_no_remove, outfile=outfile, overwrite=overwrite, datacolumn=datacolumn, blmode=blmode, bltable=bltable)
 
 
 class Mask(BaseSetup):
@@ -415,6 +423,9 @@ class OutBlTable(BaseSetup):
     """
     # Input and output names
     infile = 'OrionS_rawACSmod_calave.ms'
+    infile_variable_a = 'OrionS_rawACSmod_calave_a.ms'
+    infile_variable_b = 'OrionS_rawACSmod_calave_b.ms'
+    infile_variable_c = 'OrionS_rawACSmod_calave_c.ms'
     outroot = BaseSetup.taskname+'_bltabletest'
     tid = None
     ftype = {'poly': 0, 'chebyshev': 1, 'cspline': 2, 'sinusoid': 3}
@@ -423,6 +434,15 @@ class OutBlTable(BaseSetup):
         if os.path.exists(self.infile):
             shutil.rmtree(self.infile)
         shutil.copytree(os.path.join(self.datapath,self.infile), self.infile)
+        if os.path.exists(self.infile_variable_a):
+            shutil.rmtree(self.infile_variable_a)
+        shutil.copytree(os.path.join(self.datapath,self.infile), self.infile_variable_a)
+        if os.path.exists(self.infile_variable_b):
+            shutil.rmtree(self.infile_variable_b)
+        shutil.copytree(os.path.join(self.datapath,self.infile), self.infile_variable_b)
+        if os.path.exists(self.infile_variable_c):
+            shutil.rmtree(self.infile_variable_c)
+        shutil.copytree(os.path.join(self.datapath,self.infile), self.infile_variable_c)
 
         if os.path.exists(self.infile+'_blparam.txt'):
             os.remove(self.infile+ '_blparam.txt')
@@ -432,14 +452,31 @@ class OutBlTable(BaseSetup):
             shutil.rmtree(self.infile+ '_blparam.btable')
             
         blparam = self.outroot+'.blparam'
+        
         self._createBlparamFile(blparam, self.blparam_order, self.blparam_dic, '')
+        
+        self.modify_table(self.infile_variable_a, [0,1])
+        self.modify_table(self.infile_variable_b, [0])
+        self.modify_table(self.infile_variable_c, [1])
 
     def tearDown(self):
         remove_single_file_dir(self.infile)
         remove_files_dirs(self.outroot)
         if (os.path.exists(self.infile)):
             shutil.rmtree(self.infile)
+        if (os.path.exists(self.infile_variable_a)):
+            shutil.rmtree(self.infile_variable_a)
+            
         os.system('rm -rf ' + self.outroot + '*')
+        
+    def modify_table(self, file, ind):
+        tb.open(tablename=file, nomodify=False)
+        r2msk = tb.getcell('FLAG', 2)
+        for ipol in ind:
+            for ichan in range(len(r2msk[0])):
+                r2msk[ipol][ichan] = True
+        tb.putcell('FLAG', 2, r2msk)
+        tb.close()
 
     def time_fit_variable_r2p1less(self):
         """sdbaseline: per-spectrum baselining, output bltable - test302"""
@@ -483,30 +520,19 @@ class OutBlTable(BaseSetup):
     def time_fit_variable_masked_masked(self):
         """sdbaseline: testing shortening baseline table for blfunc=variable - test304"""
         self.tid = '304a'
-        infile = self.infile
+        infile = self.infile_variable_a
         datacolumn='float_data'
         spw=''
         blmode='fit'
         blformat='table'
         blfunc='variable'
         dosubtract=True
-        with table_manager(infile) as tb:
-            nrow_data = tb.nrows()
-
         blparam = self.outroot+'.blparam'
-
-        tb.open(tablename=infile, nomodify=False)
-        r2msk = tb.getcell('FLAG', 2)
-        for ipol in [0,1]:
-            for ichan in range(len(r2msk[0])):
-                r2msk[ipol][ichan] = True
-        tb.putcell('FLAG', 2, r2msk)
-        tb.close()
         pol = ''
 
         outfile = self.outroot+self.tid+blfunc+'.ms'
         bloutput= self.outroot+self.tid+blfunc+'.bltable'
-        sdbaseline(infile=infile,datacolumn=datacolumn,
+        sdbaseline(infile=self.infile,datacolumn=datacolumn,
                             blmode=blmode,blformat=blformat,bloutput=bloutput,
                             spw=spw,pol=pol,blfunc=blfunc,blparam=blparam,
                             dosubtract=dosubtract,outfile=outfile)
@@ -514,25 +540,14 @@ class OutBlTable(BaseSetup):
     def time_fit_variable_masked_unselect(self):
         """sdbaseline: testing shortening baseline table for blfunc=variable - test304"""
         self.tid = '304b'
-        infile = self.infile
+        infile = self.infile_variable_b
         datacolumn='float_data'
         spw=''
         blmode='fit'
         blformat='table'
         blfunc='variable'
         dosubtract=True
-        with table_manager(infile) as tb:
-            nrow_data = tb.nrows()
-    
         blparam = self.outroot+'.blparam'
-
-        tb.open(tablename=infile, nomodify=False)
-        r2msk = tb.getcell('FLAG', 2)
-        for ipol in [0]:
-            for ichan in range(len(r2msk[0])):
-                r2msk[ipol][ichan] = True
-        tb.putcell('FLAG', 2, r2msk)
-        tb.close()
         pol = 'RR'
 
         outfile = self.outroot+self.tid+blfunc+'.ms'
@@ -545,25 +560,14 @@ class OutBlTable(BaseSetup):
     def time_fit_variable_unselect_masked(self):
         """sdbaseline: testing shortening baseline table for blfunc=variable - test304"""
         self.tid = '304c'
-        infile = self.infile
+        infile = self.infile_variable_c
         datacolumn='float_data'
         spw=''
         blmode='fit'
         blformat='table'
         blfunc='variable'
         dosubtract=True
-        with table_manager(infile) as tb:
-            nrow_data = tb.nrows()
-    
         blparam = self.outroot+'.blparam'
-
-        tb.open(tablename=infile, nomodify=False)
-        r2msk = tb.getcell('FLAG', 2)
-        for ipol in [1]:
-            for ichan in range(len(r2msk[0])):
-                r2msk[ipol][ichan] = True
-        tb.putcell('FLAG', 2, r2msk)
-        tb.close()
         pol = 'LL'
 
         outfile = self.outroot+self.tid+blfunc+'.ms'
@@ -637,7 +641,3 @@ class UpdateWeight(BaseSetup):
     
     def time_blmode_apply_spw_to_flag(self):
         sdbaseline(infile=self.infile2, outfile=self.outfile, intent='OBSERVE_TARGET#ON_SOURCE', datacolumn='float_data', spw=self.spw)
-
-if __name__ == '__main__':
-    unittest.main()
-
