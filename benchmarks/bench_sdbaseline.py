@@ -187,19 +187,8 @@ class Basic(BaseSetup):
     tid = None
     outfile_overwrite = outroot+'060'+'.ms'
     outfile_no_remove = outroot+'062'+'.ms'
-
-    def setUp(self):
-        if os.path.exists(self.infile):
-            shutil.rmtree(self.infile)
-        shutil.copytree(os.path.join(self.datapath,self.infile), self.infile)
-
-        if os.path.exists(self.infile+'_blparam.txt'):
-            os.remove(self.infile+ '_blparam.txt')
-        if os.path.exists(self.infile+'_blparam.csv'):
-            os.remove(self.infile+ '_blparam.csv')
-        if os.path.exists(self.infile+'_blparam.btable'):
-            shutil.rmtree(self.infile+ '_blparam.btable')
-            
+    
+    def setup_cache(self):
         if os.path.exists(self.infile_no_remove):
             shutil.rmtree(self.infile_no_remove)
         if os.path.exists(self.infile_no_remove):
@@ -215,11 +204,21 @@ class Basic(BaseSetup):
         sdbaseline(infile=self.infile_no_remove, outfile=self.outfile_no_remove, overwrite=False, datacolumn='float_data', blmode='fit', blformat=['text', 'table'])
         shutil.rmtree(self.outfile_no_remove)
 
+    def setUp(self):
+        if os.path.exists(self.infile):
+            shutil.rmtree(self.infile)
+        shutil.copytree(os.path.join(self.datapath,self.infile), self.infile)
+
+        if os.path.exists(self.infile+'_blparam.txt'):
+            os.remove(self.infile+ '_blparam.txt')
+        if os.path.exists(self.infile+'_blparam.csv'):
+            os.remove(self.infile+ '_blparam.csv')
+        if os.path.exists(self.infile+'_blparam.btable'):
+            shutil.rmtree(self.infile+ '_blparam.btable')
+
     def tearDown(self):
         remove_files_dirs(self.infile)
         remove_files_dirs(self.outroot)
-        remove_files_dirs(self.infile_no_remove)
-        remove_files_dirs(self.infile_overwrite)
         
     def no_remove_deco(func):
         def wrapper(self):
@@ -240,6 +239,7 @@ class Basic(BaseSetup):
         datacolumn = 'float_data'
         
         result = sdbaseline(infile=infile, datacolumn=datacolumn, outfile=outfile)
+    time_default.version = "CAS-13981"
 
     def time_poly_blfunc_no_mask(self):
         """sdbaseline: simple successful case: blfunc = 'poly', maskmode = 'list' and masklist=[] (no mask) - test001"""
@@ -256,6 +256,7 @@ class Basic(BaseSetup):
                              maskmode=maskmode, blfunc=blfunc,
                              spw=spw, pol=pol, outfile=outfile,
                              overwrite=overwrite)
+    time_poly_blfunc_no_mask.version = "CAS-13981"
     
     def time_chebyshev_blfunc_no_mask(self):
         """sdbaseline: simple successful case: blfunc = 'chebyshev', maskmode = 'list' and masklist=[] (no mask) - test002"""
@@ -272,7 +273,7 @@ class Basic(BaseSetup):
                              maskmode=maskmode, blfunc=blfunc,
                              spw=spw, pol=pol, outfile=outfile,
                              overwrite=overwrite)
-    
+    time_chebyshev_blfunc_no_mask.version = "CAS-13981"
     
     def time_cspline_blfunc_no_mask(self):
         """sdbaseline: simple successful case: blfunc = 'cspline', maskmode = 'list' and masklist=[] (no mask) - test003"""
@@ -294,6 +295,7 @@ class Basic(BaseSetup):
                              npiece=npiece,spw=spw,
                              pol=pol,
                              outfile=outfile,overwrite=overwrite)
+    time_cspline_blfunc_no_mask.version = "CAS-13981"
 
     def time_blparam_overwrite(self):
         """sdbaseline: blparam file(s) should be overwritten when overwrite=True in fit mode - test060"""
@@ -304,6 +306,7 @@ class Basic(BaseSetup):
         overwrite = True
         
         sdbaseline(infile=self.infile_overwrite, outfile=outfile, overwrite=overwrite, datacolumn=datacolumn)
+    time_blparam_overwrite.version = "CAS-13981"
 
     def time_blparam_apply_no_remove(self):
         """sdbaseline: blparam file(s) should not be removed in apply mode - test062"""
@@ -317,6 +320,7 @@ class Basic(BaseSetup):
         overwrite = True
         
         sdbaseline(infile=self.infile_no_remove, outfile=outfile, overwrite=overwrite, datacolumn=datacolumn, blmode=blmode, bltable=bltable)
+    time_blparam_apply_no_remove.version = "CAS-13981"
 
 
 class Mask(BaseSetup):
@@ -378,6 +382,7 @@ class Mask(BaseSetup):
         result = sdbaseline(infile=infile,datacolumn=datacolumn,maskmode=mode,
                              spw=spw,pol=pol,blfunc=blfunc,npiece=npiece,
                              outfile=outfile)
+     time_cspline_blfunc_masked_range_spectrum_edge.version = "CAS-13981"
 
     def time_masked_ranges_no_edge_spectrum(self):
         """sdbaaseline: with masked ranges not touching spectrum edge - test101"""
@@ -391,7 +396,7 @@ class Mask(BaseSetup):
 
         result = sdbaseline(infile=infile,datacolumn=datacolumn,maskmode=mode,
                             outfile=outfile,spw=spw,pol=pol)
-
+    time_masked_ranges_no_edge_spectrum.version = "CAS-13981"
 
     def _get_range_in_string(self, valrange):
         if isinstance(valrange, list) or isinstance(valrange, tuple):
@@ -450,15 +455,6 @@ class OutBlTable(BaseSetup):
         if os.path.exists(self.infile):
             shutil.rmtree(self.infile)
         shutil.copytree(os.path.join(self.datapath,self.infile), self.infile)
-        #if os.path.exists(self.infile_variable_a):
-        #    shutil.rmtree(self.infile_variable_a)
-        #shutil.copytree(os.path.join(self.datapath,self.infile), self.infile_variable_a)
-        #if os.path.exists(self.infile_variable_b):
-        #    shutil.rmtree(self.infile_variable_b)
-        #shutil.copytree(os.path.join(self.datapath,self.infile), self.infile_variable_b)
-        #if os.path.exists(self.infile_variable_c):
-        #    shutil.rmtree(self.infile_variable_c)
-        #shutil.copytree(os.path.join(self.datapath,self.infile), self.infile_variable_c)
 
         if os.path.exists(self.infile+'_blparam.txt'):
             os.remove(self.infile+ '_blparam.txt')
@@ -470,18 +466,12 @@ class OutBlTable(BaseSetup):
         blparam = self.outroot+'.blparam'
         
         self._createBlparamFile(blparam, self.blparam_order, self.blparam_dic, '')
-        
-        #self.modify_table(self.infile_variable_a, [0,1])
-        #self.modify_table(self.infile_variable_b, [0])
-        #self.modify_table(self.infile_variable_c, [1])
 
     def tearDown(self):
         remove_single_file_dir(self.infile)
         remove_files_dirs(self.outroot)
         if (os.path.exists(self.infile)):
             shutil.rmtree(self.infile)
-        #if (os.path.exists(self.infile_variable_a)):
-        #    shutil.rmtree(self.infile_variable_a)
             
         os.system('rm -rf ' + self.outroot + '*')
         
@@ -512,6 +502,7 @@ class OutBlTable(BaseSetup):
                              blmode=blmode,blformat=blformat,bloutput=bloutput,
                              blfunc=blfunc,blparam=blparam,
                              dosubtract=dosubtract,outfile=outfile)
+    time_fit_variable_r2p1less.version = "CAS-13981"
                                  
     def time_fit_variable_r2p1cout(self):
         """sdbaseline: per-spectrum baselining, output bltable - test302"""
@@ -531,7 +522,7 @@ class OutBlTable(BaseSetup):
                              blmode=blmode,blformat=blformat,bloutput=bloutput,
                              blfunc=blfunc,blparam=blparam,
                              dosubtract=dosubtract,outfile=outfile)
-
+    time_fit_variable_r2p1cout.version = "CAS-13981"
     
     def time_fit_variable_masked_masked(self):
         """sdbaseline: testing shortening baseline table for blfunc=variable - test304"""
@@ -552,6 +543,7 @@ class OutBlTable(BaseSetup):
                             blmode=blmode,blformat=blformat,bloutput=bloutput,
                             spw=spw,pol=pol,blfunc=blfunc,blparam=blparam,
                             dosubtract=dosubtract,outfile=outfile)
+    time_fit_variable_masked_masked.version = "CAS-13981"
                                  
     def time_fit_variable_masked_unselect(self):
         """sdbaseline: testing shortening baseline table for blfunc=variable - test304"""
@@ -572,6 +564,7 @@ class OutBlTable(BaseSetup):
                             blmode=blmode,blformat=blformat,bloutput=bloutput,
                             spw=spw,pol=pol,blfunc=blfunc,blparam=blparam,
                             dosubtract=dosubtract,outfile=outfile)
+    time_fit_variable_masked_unselect.version = "CAS-13981"
         
     def time_fit_variable_unselect_masked(self):
         """sdbaseline: testing shortening baseline table for blfunc=variable - test304"""
@@ -592,27 +585,7 @@ class OutBlTable(BaseSetup):
                             blmode=blmode,blformat=blformat,bloutput=bloutput,
                             spw=spw,pol=pol,blfunc=blfunc,blparam=blparam,
                             dosubtract=dosubtract,outfile=outfile)
-                                 
-        
-    def time_fit_variable_masked_masked(self):
-        """sdbaseline: testing shortening baseline table for blfunc=variable - test304"""
-        self.tid = '304a'
-        infile = self.infile_variable_a
-        datacolumn='float_data'
-        spw=''
-        blmode='fit'
-        blformat='table'
-        blfunc='variable'
-        dosubtract=True
-        blparam = self.outroot+'.blparam'
-        pol = ''
-
-        outfile = self.outroot+self.tid+blfunc+'.ms'
-        bloutput= self.outroot+self.tid+blfunc+'.bltable'
-        sdbaseline(infile=self.infile,datacolumn=datacolumn,
-                            blmode=blmode,blformat=blformat,bloutput=bloutput,
-                            spw=spw,pol=pol,blfunc=blfunc,blparam=blparam,
-                            dosubtract=dosubtract,outfile=outfile)
+     time_fit_variable_unselect_masked.version = "CAS-13981"
 
 
 class BlFuncVariable(BaseSetup):
@@ -646,6 +619,7 @@ class BlFuncVariable(BaseSetup):
         self.paramfile = 'analytic_variable_blparam.txt'
         self._refetch_files([infile, self.paramfile], self.datapath)
         sdbaseline(infile=infile, blfunc='variable', outfile=self.outfile, blparam=self.paramfile, datacolumn=self.column)
+    time_variable_orders.version = "CAS-13981"
 
 
 class UpdateWeight(BaseSetup):
@@ -675,6 +649,8 @@ class UpdateWeight(BaseSetup):
 
     def time_remove_weight_col(self):
         sdbaseline(infile=self.infile, outfile=self.outfile, intent='OBSERVE_TARGET#ON_SOURCE', spw='9', datacolumn='data', updateweight=True)
+    time_remove_weight_col.version = "CAS-13981"
     
     def time_blmode_apply_spw_to_flag(self):
         sdbaseline(infile=self.infile2, outfile=self.outfile, intent='OBSERVE_TARGET#ON_SOURCE', datacolumn='float_data', spw=self.spw)
+    time_blmode_apply_spw_to_flag.version = "CAS-13981"
