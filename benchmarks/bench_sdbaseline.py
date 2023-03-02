@@ -398,6 +398,7 @@ class Mask(BaseSetup):
             return str(valrange[0])+'~'+str(valrange[1])
         else:
             return False
+            
 
 class OutBlTable(BaseSetup):
     """
@@ -429,11 +430,8 @@ class OutBlTable(BaseSetup):
     outroot = BaseSetup.taskname+'_bltabletest'
     tid = None
     ftype = {'poly': 0, 'chebyshev': 1, 'cspline': 2, 'sinusoid': 3}
-
-    def setUp(self):
-        if os.path.exists(self.infile):
-            shutil.rmtree(self.infile)
-        shutil.copytree(os.path.join(self.datapath,self.infile), self.infile)
+    
+    def setup_cache(self):
         if os.path.exists(self.infile_variable_a):
             shutil.rmtree(self.infile_variable_a)
         shutil.copytree(os.path.join(self.datapath,self.infile), self.infile_variable_a)
@@ -443,6 +441,24 @@ class OutBlTable(BaseSetup):
         if os.path.exists(self.infile_variable_c):
             shutil.rmtree(self.infile_variable_c)
         shutil.copytree(os.path.join(self.datapath,self.infile), self.infile_variable_c)
+        
+        self.modify_table(self.infile_variable_a, [0,1])
+        self.modify_table(self.infile_variable_b, [0])
+        self.modify_table(self.infile_variable_c, [1])
+
+    def setUp(self):
+        if os.path.exists(self.infile):
+            shutil.rmtree(self.infile)
+        shutil.copytree(os.path.join(self.datapath,self.infile), self.infile)
+        #if os.path.exists(self.infile_variable_a):
+        #    shutil.rmtree(self.infile_variable_a)
+        #shutil.copytree(os.path.join(self.datapath,self.infile), self.infile_variable_a)
+        #if os.path.exists(self.infile_variable_b):
+        #    shutil.rmtree(self.infile_variable_b)
+        #shutil.copytree(os.path.join(self.datapath,self.infile), self.infile_variable_b)
+        #if os.path.exists(self.infile_variable_c):
+        #    shutil.rmtree(self.infile_variable_c)
+        #shutil.copytree(os.path.join(self.datapath,self.infile), self.infile_variable_c)
 
         if os.path.exists(self.infile+'_blparam.txt'):
             os.remove(self.infile+ '_blparam.txt')
@@ -455,17 +471,17 @@ class OutBlTable(BaseSetup):
         
         self._createBlparamFile(blparam, self.blparam_order, self.blparam_dic, '')
         
-        self.modify_table(self.infile_variable_a, [0,1])
-        self.modify_table(self.infile_variable_b, [0])
-        self.modify_table(self.infile_variable_c, [1])
+        #self.modify_table(self.infile_variable_a, [0,1])
+        #self.modify_table(self.infile_variable_b, [0])
+        #self.modify_table(self.infile_variable_c, [1])
 
     def tearDown(self):
         remove_single_file_dir(self.infile)
         remove_files_dirs(self.outroot)
         if (os.path.exists(self.infile)):
             shutil.rmtree(self.infile)
-        if (os.path.exists(self.infile_variable_a)):
-            shutil.rmtree(self.infile_variable_a)
+        #if (os.path.exists(self.infile_variable_a)):
+        #    shutil.rmtree(self.infile_variable_a)
             
         os.system('rm -rf ' + self.outroot + '*')
         
@@ -577,6 +593,27 @@ class OutBlTable(BaseSetup):
                             spw=spw,pol=pol,blfunc=blfunc,blparam=blparam,
                             dosubtract=dosubtract,outfile=outfile)
                                  
+        
+    def time_fit_variable_masked_masked(self):
+        """sdbaseline: testing shortening baseline table for blfunc=variable - test304"""
+        self.tid = '304a'
+        infile = self.infile_variable_a
+        datacolumn='float_data'
+        spw=''
+        blmode='fit'
+        blformat='table'
+        blfunc='variable'
+        dosubtract=True
+        blparam = self.outroot+'.blparam'
+        pol = ''
+
+        outfile = self.outroot+self.tid+blfunc+'.ms'
+        bloutput= self.outroot+self.tid+blfunc+'.bltable'
+        sdbaseline(infile=self.infile,datacolumn=datacolumn,
+                            blmode=blmode,blformat=blformat,bloutput=bloutput,
+                            spw=spw,pol=pol,blfunc=blfunc,blparam=blparam,
+                            dosubtract=dosubtract,outfile=outfile)
+
 
 class BlFuncVariable(BaseSetup):
     """
