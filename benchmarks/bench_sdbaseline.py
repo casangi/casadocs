@@ -382,7 +382,7 @@ class Mask(BaseSetup):
         result = sdbaseline(infile=infile,datacolumn=datacolumn,maskmode=mode,
                              spw=spw,pol=pol,blfunc=blfunc,npiece=npiece,
                              outfile=outfile)
-     time_cspline_blfunc_masked_range_spectrum_edge.version = "CAS-13981"
+    time_cspline_blfunc_masked_range_spectrum_edge.version = "CAS-13981"
 
     def time_masked_ranges_no_edge_spectrum(self):
         """sdbaaseline: with masked ranges not touching spectrum edge - test101"""
@@ -585,7 +585,7 @@ class OutBlTable(BaseSetup):
                             blmode=blmode,blformat=blformat,bloutput=bloutput,
                             spw=spw,pol=pol,blfunc=blfunc,blparam=blparam,
                             dosubtract=dosubtract,outfile=outfile)
-     time_fit_variable_unselect_masked.version = "CAS-13981"
+    time_fit_variable_unselect_masked.version = "CAS-13981"
 
 
 class BlFuncVariable(BaseSetup):
