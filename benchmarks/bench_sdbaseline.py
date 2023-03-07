@@ -648,9 +648,11 @@ class UpdateWeight(BaseSetup):
         remove_files_dirs(self.outroot)
 
     def time_remove_weight_col(self):
+        """sdbaseline: confirm if WEIGHT_SPECTRUM column is removed - test00"""
         sdbaseline(infile=self.infile, outfile=self.outfile, intent='OBSERVE_TARGET#ON_SOURCE', spw='9', datacolumn='data', updateweight=True)
     time_remove_weight_col.version = "CAS-13981"
     
     def time_blmode_apply_spw_to_flag(self):
+        """sdbaseline: blmode='apply', spw to flag channels 4500-6499 - test052"""
         sdbaseline(infile=self.infile2, outfile=self.outfile, intent='OBSERVE_TARGET#ON_SOURCE', datacolumn='float_data', spw=self.spw)
     time_blmode_apply_spw_to_flag.version = "CAS-13981"
