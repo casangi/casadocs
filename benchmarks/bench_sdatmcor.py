@@ -68,10 +68,12 @@ class test_sdatmcor():
     def time_sdatmcor_normal(self):
         """Test normal usage of sdatmcor."""
         sdatmcor(infile=self.infile, outfile=self.outfile, datacolumn='data')
+    time_sdatmcor_normal.version = "CAS-13982"
 
     def time_sdatmcor_explicit_atmtype(self):
         """Test specifying atmtype explicitly."""
         sdatmcor(infile=self.infile, outfile=self.outfile, datacolumn='data', atmtype=2)
+    time_sdatmcor_explicit_atmtype.version = "CAS-13982"
 
     def time_sdatmcor_gainfactor_dict(self):
         """Test gainfactor: dict input."""
@@ -79,6 +81,7 @@ class test_sdatmcor():
         apply_gainfactor(self.infile, 19, gainfactor['19'])
         apply_gainfactor(self.infile, 23, gainfactor['23'])
         sdatmcor(infile=self.infile, outfile=self.outfile, datacolumn='data', gainfactor=gainfactor)
+    time_sdatmcor_gainfactor_dict.version = "CAS-13982"
 
     def time_custom_atm_params(self):
         """Test customized ATM parameters."""
@@ -90,3 +93,4 @@ class test_sdatmcor():
             humidity=30, pwv='0.1cm', dp='10hPa', dpm=1.2,
             layerboundaries='800m,1.5km', layertemperature='250K,200K'
         )
+    time_custom_atm_params.version = "CAS-13982"
