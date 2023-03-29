@@ -8,6 +8,13 @@ from casatools import ms as mstool
 
 ctsys_resolve = ctsys.resolve
 
+# ASV iteration control (https://asv.readthedocs.io/en/stable/benchmarks.html#benchmark-attributes)
+number = 1            # i.e., always run the setup and teardown methods
+repeat = (1, 2, 30.0) # between 1 and 2 iterations per round w/ soft cutoff (start no new repeats) past 1m
+rounds = 3            # amount of instances a "repeat block" is run to collect samples
+min_run_count = 5     # enforce the min_repeat * rounds setting is met
+timeout = 3600        # conservative 1hr hard cap for duration of a single test execution
+
 def smart_remove(name):
     if os.path.exists(name):
         if os.path.isdir(name):
@@ -36,34 +43,30 @@ def apply_gainfactor(name, spw, factor):
 class test_sdatmcor():
     datapath = ctsys_resolve('unittest/sdatmcor')
     infile = 'X320b_sel2.ms'
+    infile2 = 'X320b_sel2_gainfactor.ms'
     outfile = infile + '.atmcor'
     caltable = infile + '.k2jycal'
 
     local_unit_test = False
 
     def setUp(self):
-        # default Args
-        self.args = {
-            'infile': self.infile,
-            'datacolumn': 'data',
-            'outfile': self.outfile,
-        }
 
         smart_remove(self.infile)
+        smart_remove(self.infile2)
         smart_remove(self.outfile)
         smart_remove(self.caltable)
         shutil.copytree(os.path.join(self.datapath, self.infile), self.infile)
+        shutil.copytree(os.path.join(self.datapath, self.infile), self.infile2)
+        # Gainfactor test set up
+        gainfactor = {'19': 10.0, '23': 45.0}
+        apply_gainfactor(self.infile2, 19, gainfactor['19'])
+        apply_gainfactor(self.infile2, 23, gainfactor['23'])
 
     def tearDown(self):
         smart_remove(self.infile)
+        smart_remove(self.infile2)
         smart_remove(self.outfile)
         smart_remove(self.caltable)
-
-    def skip_omp_test_if_darwin(self):
-        sysname = os.uname()[0]
-        if sysname == 'Darwin':
-            self.skipTest('Skip OpenMP tests on macOS')
-            return
 
     def time_sdatmcor_normal(self):
         """Test normal usage of sdatmcor."""
@@ -78,9 +81,7 @@ class test_sdatmcor():
     def time_sdatmcor_gainfactor_dict(self):
         """Test gainfactor: dict input."""
         gainfactor = {'19': 10.0, '23': 45.0}
-        apply_gainfactor(self.infile, 19, gainfactor['19'])
-        apply_gainfactor(self.infile, 23, gainfactor['23'])
-        sdatmcor(infile=self.infile, outfile=self.outfile, datacolumn='data', gainfactor=gainfactor)
+        sdatmcor(infile=self.infile2, outfile=self.outfile, datacolumn='data', gainfactor=gainfactor)
     time_sdatmcor_gainfactor_dict.version = "CAS-13982"
 
     def time_custom_atm_params(self):
