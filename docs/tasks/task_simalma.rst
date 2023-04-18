@@ -34,7 +34,7 @@ Description
       process by modifying the calls to the other CASA tasks.
 
 
-   .. note:: **NOTE**: The simalma/simanalyze tasks do not support
+   .. warning:: **WARNING**: The simalma/simanalyze tasks do not support
       wideband multi-term imaging. Please use tclean (with other image
       analysis tasks) if your simulated MS from simobserve requires
       wideband continuum image reconstruction.
