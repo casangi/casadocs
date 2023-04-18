@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for fixplanets.
+   
    The main purpose of this task is to correct observations which
    were performed with correct pointing and correlation but for which
    incorrect direction information was entered in the FIELD and

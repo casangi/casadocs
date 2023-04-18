@@ -1,8 +1,17 @@
 
 
+.. _Returns:
+
+Returns
+   fluxd (dict) - flux densities indexed by field and SPW
+
+
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for setjy.
+   
    The **setjy** task sets the model visibility amplitude and phase
    associated with a flux density scale and a specified clean
    components image into the model column of the MS data set. The

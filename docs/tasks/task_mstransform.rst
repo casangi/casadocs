@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for mstransform.
+
    **mstransform** is a multipurpose task that provides all the
    functionality of
    `split, partition, cvel, hanningsmooth, uvcontsub and applycal <../../api/casatasks.rst>`__
