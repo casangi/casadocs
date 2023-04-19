@@ -33,7 +33,7 @@ Description
       and input, and the fidelity image. Different diagnostic images
       can be chosen to plot on a multi-panel figure, with the
       different show parameters. That figure can be saved as a .png
-      file if *graphics='both'* or *graphics='file'*.
+      file if *graphics='both'* or *graphics='file'*. 
    
    The output is a synthesized image, a difference image between the
    synthesized image and your sky model convolved with the output
