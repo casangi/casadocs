@@ -49,7 +49,7 @@ Description
    can then either use that component list directly
    in **simobserve**, or create a CASA image from the components, or
    both. Details can be found in `this CASA
-   guide <http://casaguides.nrao.edu/index.php?title=Simulation_Guide_Component_Lists_%28CASA_4.1%29>`__.
+   guide <http://casaguides.nrao.edu/index.php?title=Simulation_Guide_Component_Lists_%28CASA_6.5.3%29>`__.
    
    .. rubric:: Starting from a GIF or JPG image
    
@@ -113,7 +113,7 @@ Description
       Corruption with an atmospheric phase screen, or adding gain
       fluctuations or drift, can be added subsequently using the
       **simulator** tool **sm** as described in `this CASA
-      guide. <https://casaguides.nrao.edu/index.php/Corrupt>`__
+      guide <https://casaguides.nrao.edu/index.php?title=Corrupting_Simulated_Data_%28Simulator_Tool%29>`__.
    
    For details, please see the descriptions of the individual
    parameters below.
