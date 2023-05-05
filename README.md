@@ -261,6 +261,8 @@ After all reviewers have completed their reviews, press *“merge pull request�
 
 Once approved, the pull request can be merged to master (either by the reviewer or yourself) by pressing *“merge pull request”*. As instructed on github, the pull request can then be safely deleted by clicking *“delete branch”*. 
 
+The current process is to request a review (optional but highly recommended, Bjorn is a common doc reviewer), and upon approval the individual who submitted the PR should then merge it.
+
 
 ## Building Documentation Locally
 This documentation repository can be edited and built locally by users with access to Python3. First clone the repo (git clone `https://github.com/casangi/casadocs.git`), then navigate to the root of the cloned directory in a terminal and use the following commands:
