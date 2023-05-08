@@ -33,7 +33,7 @@ Description
       and input, and the fidelity image. Different diagnostic images
       can be chosen to plot on a multi-panel figure, with the
       different show parameters. That figure can be saved as a .png
-      file if *graphics='both'* or *graphics='file'*.
+      file if *graphics='both'* or *graphics='file'*. 
    
    The output is a synthesized image, a difference image between the
    synthesized image and your sky model convolved with the output
@@ -92,7 +92,7 @@ Description
       -  [project].[cfg].simanalyze.last = saved input parameters for
          **simanalyze** task, available in CASAshell
 
-   .. note:: **NOTE**: The simalma/simanalyze tasks do not support
+   .. warning:: **WARNING**: The simalma/simanalyze tasks do not support
       wideband multi-term imaging. Please use tclean (with other image
       analysis tasks) if your simulated MS from simobserve requires
       wideband continuum image reconstruction.
