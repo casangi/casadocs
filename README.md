@@ -266,7 +266,7 @@ The current process is to request a review (optional but highly recommended, Bjo
 
 ## Building Documentation Locally
 
-### Independently of casa6
+### Not Using a Local casa6 Sandbox
 This documentation repository can be edited and built locally by users with access to Python3. First clone the repo (git clone `https://github.com/casangi/casadocs.git`), then navigate to the root of the cloned directory in a terminal and use the following commands:
 
 ```
@@ -291,7 +291,7 @@ $: ./buildme.sh --sphinx --tools none --notebooks none --tasks none # don't buil
 
 After building the documentation, it can be viewed in a web browser by pasting the full file path to the **index.html** in the URL field. The **index.html** file is in the `build` directory created under `docs` (i.e. */home/user/test_docs/casadocs/docs/build/index.html*). 
 
-### Integrated with casa6
+### In Conjunction with a Local casa6 Sandbox
 The casadocs build can be somewhat integrated with casa6. The main benefit here is that casa6 xml doc changes (parameters in casa task xml files and parameters and descriptions in casatools xml files) do not have to be pushed to the casa6 repo in order for the casadocs builds to access them. The steps are as follows:
 
 ```
