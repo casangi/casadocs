@@ -292,7 +292,7 @@ $: ./buildme.sh --sphinx --tools none --notebooks none --tasks none # don't buil
 After building the documentation, it can be viewed in a web browser by pasting the full file path to the **index.html** in the URL field. The **index.html** file is in the `build` directory created under `docs` (i.e. */home/user/test_docs/casadocs/docs/build/index.html*). 
 
 ### In Conjunction with a Local casa6 Sandbox
-The casadocs build can be somewhat integrated with casa6. The main benefit here is that casa6 xml doc changes (parameters in casa task xml files and parameters and descriptions in casatools xml files) do not have to be pushed to the casa6 repo in order for the casadocs builds to access them. The steps are as follows:
+The casadocs local build can be somewhat integrated with a local casa6 sandbox. The main benefit here is that casa6 xml doc changes (parameters in casa task xml files and parameters and descriptions in casatools xml files) do not have to be pushed to the casa6 repo in order for the casadocs builds to access them. The steps are as follows:
 
 ```
 # clone the casadocs and casa6 repos. Each can be anywhere on your system, so long as both can "see" each other, eg, you can
