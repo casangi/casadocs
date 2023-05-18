@@ -1,4 +1,4 @@
-7344e8b6cc3fd951b0a80d03b3c7daaca6761252 (HEAD, origin/master, origin/HEAD, master)
+7344e8b6cc3fd951b0a80d03b3c7daaca6761252 (HEAD, tag: 6.5.6.12, origin/master, origin/HEAD, master)
 0e7e2e674cc2eb2319f948936387a8a1ab224a69 (tag: 6.5.6.11)
 a0e44b204c74831e10658c2c6b635d7fcda15bbe (tag: 6.5.6.10)
 2044e1b9c9823ac8bc9593526c4e3b960f7149f3 (tag: CAS-14134-1, tag: 6.5.6.9)
