@@ -26,7 +26,9 @@ Description
    sum of the absolute values of the associated WEIGHT_SPECTRUM
    values. 
    
-   .. note:: **NOTE**: Remember to flag the autocorrelations if you do not want them, using the
+   .. warning:: Importing of MSs with Nant>255 via **importuvfits** should be considered experimental and datasets transported this way may not behave as expected in other packages (e.g., AIPS).  
+   
+   .. note:: Remember to flag the autocorrelations if you do not want them, using the
       task **flagdata** with parameter *autocorr = true*
    
 
