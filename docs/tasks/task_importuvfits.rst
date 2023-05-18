@@ -6,8 +6,7 @@ Description
    This is primarily designed for importing AIPS data into CASA, but
    also works for other UVFITS data (e.g., MIRIAD).
    
-   The current UVFITS specification can be found in `AIPS Memo
-   117 <ftp://ftp.aoc.nrao.edu/pub/software/aips/TEXT/PUBL/AIPSMEM117.PS>`__.
+   The current UVFITS specification can be found in `AIPS Memo 117 <https://library.nrao.edu/public/memos/aips/memos/AIPSM_117.pdf>`__.
    
    The *antnamescheme* parameter specifies the naming scheme for
    VLA/JVLA/CARMA antennas. The default is "old". For "old", antnnea
