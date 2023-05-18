@@ -15,7 +15,10 @@ Description
    what is written out (see e.g. the *spw*, *multisource*,
    *combinespw* parameter descriptions).
    
-   .. warning:: **WARNING:** Some external software packages (e.g., GILDAS)
+   .. warning:: Exporting of MSs with Nant>255 via **exportuvfits** is implemented according to `AIPS Memo
+   117 <ftp://ftp.aoc.nrao.edu/pub/software/aips/TEXT/PUBL/AIPSMEM117.PS>`__, but should be considered experimental and datasets transported this way may not behave as expected in other packages (e.g., AIPS). 
+   
+   .. warning:: Some external software packages (e.g., GILDAS)
       cannot easily read CASA UVFITS files when more than one
       spectral window are exported in exportuvfits. In those cases,
       please export a single spectral window at a time by setting the
