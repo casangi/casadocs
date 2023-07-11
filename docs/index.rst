@@ -20,7 +20,7 @@ CASA 6.5.6 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`_
 - simobserve: support for component lists having higher order spectral terms. 
 - table tool: new table tool method tb.getcoliter(), for iterator access to casacore tables.
 - applycal: handles calibration tables with fewer SPWs than the MS they are being applied to. 
-- infrastructure: the CASA6 build system has been refactored to improve modularity within the code base, to better streamline dependency management, and to support future development and deployment requirements. The 6.5.6 release marks the start of production packages with the new build system. Both the old and new build systems will be supported in parallel until the end of the corresponding pipeline release cycle.
+- infrastructure: the CASA6 build system has been refactored to improve modularity within the code base, to better streamline dependency management, and to support future development and deployment requirements. The 6.5.6 release marks the start of production packages with the new build system.
 
 In addition, a number of bugs were fixed, including (but not limited to):
 
