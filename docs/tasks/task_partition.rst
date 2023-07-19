@@ -10,10 +10,11 @@ Description
    FLOAT_DATA, and possibly MODEL_DATA and/or CORRECTED_DATA) can be
    selected.
    
-   The partition task creates a Multi-MS in parallel using the
-   Message Passing Interface ( `MPI <http://mpi-forum.org/>`__ ),
-   enabled via
-   the `mpi4casa <../../notebooks/parallel-processing.ipynb#Advanced:-Interface-Framework>`__ framework.
+   The partition task creates a Multi-MS in parallel using the Message
+   Passing Interface ( `MPI <http://mpi-forum.org/>`__ ), enabled via
+   the `casampi
+   <../../notebooks/parallel-processing.ipynb#Advanced:-Interface-Framework>`__
+   framework.
    
    .. note:: When partition or any other task processes an MMS in parallel,
       each Sub-MS is processed independently in a parallel
@@ -70,7 +71,7 @@ Description
    -  The 'baseline' axis is mostly useful for Single-Dish data. This
       axis will partition the MS based on the available baselines. If
       the user wants only auto-correlations, use the antenna
-      selection such as antenna='*&&&' together with this separation
+      selection such as antenna='\*&&&' together with this separation
       axis. Note thatif numsubms='auto', partition will try to create
       as many sub-MSs as the number of available servers in the
       cluster. If the user wants to have one sub-MS for each
@@ -164,7 +165,7 @@ Examples
    
    ::
    
-      partition('uid0001.ms', outputvis='fewchans.mms', spw='*:1~10',
+      partition('uid0001.ms', outputvis='fewchans.mms', spw='\*:1~10',
                 flagbackup=False)
 
    
@@ -173,7 +174,7 @@ Examples
    ::
    
       partition('uid0001.ms', outputvis='myuid.ms', createmms=True,
-                separationaxis='baseline', antenna='*&&&')
+                separationaxis='baseline', antenna='\*&&&')
 
    
    .. note:: NOTE: If CASA is started without mpicasa, it is still possible to create an MMS, but the processing will be done in serial.

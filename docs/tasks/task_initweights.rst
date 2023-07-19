@@ -121,12 +121,12 @@ Examples
    
       initweights(vis='myMS.ms', wtmode='weight') 
    
-    and here's a call that will remove the WEIGHT_SPECTRUM column,
+   and here's a call that will remove the WEIGHT_SPECTRUM column,
    but keep WEIGHT
    
    ::
    
-      initweights(vis='myMS.ms', wrtmode='delwtsp')
+      initweights(vis='myMS.ms', wtmode='delwtsp')
    
 
 .. _Development:

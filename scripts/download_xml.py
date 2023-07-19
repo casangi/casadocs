@@ -60,31 +60,31 @@ os.system('cp ../casaconfig/private/config_defaults_static.py .')
 ##################################################################################
 print('Downloading ALMAtasks...')
 os.system('mkdir ../casasource/almatasks')
-#xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/almatasks/browse/xml?at=refs/heads/%s"%branch_name).text
-xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/almatasks/browse/xml?at=refs/heads/master").text
+xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/almatasks/browse/xml?at=refs/heads/%s"%branch_name).text
+package_branch_name = 'master' if len(set(re.findall("\w+\.xml", xmlstring))) == 0 else branch_name
+xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/almatasks/browse/xml?at=refs/heads/%s"%package_branch_name).text
 for name in set(re.findall("\w+\.xml", xmlstring)):
-    #xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/almatasks/raw/xml/%s"%name+'?at=refs/heads/%s'%branch_name).text
-    xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/almatasks/raw/xml/%s"%name+'?at=refs/heads/master').text
+    xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/almatasks/raw/xml/%s"%name+'?at=refs/heads/%s'%package_branch_name).text
     with open('../casasource/almatasks/'+name, 'w') as fid:
         fid.write(xmlstring + '\n')
 
 print('Downloading CASAplotms...')
 os.system('mkdir ../casasource/casaplotms')
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaplotms/browse/src/xml?at=refs/heads/%s"%branch_name).text
-xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaplotms/browse/src/xml?at=refs/heads/master").text
+package_branch_name = 'master' if len(set(re.findall("\w+\.xml", xmlstring))) == 0 else branch_name
+xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaplotms/browse/src/xml?at=refs/heads/%s"%package_branch_name).text
 for name in set(re.findall("\w+\.xml", xmlstring)):
-    #xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casaplotms/raw/src/xml/%s"%name + '?at=refs/heads/%s'%branch_name).text
-    xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casaplotms/raw/src/xml/%s"%name + '?at=refs/heads/master').text
+    xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casaplotms/raw/src/xml/%s"%name + '?at=refs/heads/%s'%package_branch_name).text
     with open('../casasource/casaplotms/'+name, 'w') as fid:
         fid.write(xmlstring + '\n')
 
 print('Downloading CASAviewer...')
 os.system('mkdir ../casasource/casaviewer')
-#xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaviewer/browse/src/xml?at=refs/heads/%s"%branch_name).text
-xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaviewer/browse/src/xml?at=refs/heads/master").text
+xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaviewer/browse/src/xml?at=refs/heads/%s"%branch_name).text
+package_branch_name = 'master' if len(set(re.findall("\w+\.xml", xmlstring))) == 0 else branch_name
+xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaviewer/browse/src/xml?at=refs/heads/%s"%package_branch_name).text
 for name in set(re.findall("\w+\.xml", xmlstring)):
-    #xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casaviewer/raw/src/xml/%s"%name + '?at=refs/heads/%s'%branch_name).text
-    xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casaviewer/raw/src/xml/%s"%name + '?at=refs/heads/master').text
+    xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casaviewer/raw/src/xml/%s"%name + '?at=refs/heads/%s'%package_branch_name).text
     with open('../casasource/casaviewer/'+name, 'w') as fid:
         fid.write(xmlstring + '\n')
 

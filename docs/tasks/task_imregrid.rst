@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for imregrid.
+   
    This task will regrid an input image onto a new coordinate system
    from a template image or to a new directional and spectral
    reference frame. If a template image is used, then the input and
@@ -150,7 +153,7 @@ Description
    
    1.7. If the input image has a stokes axis, if the *template*
    parameter is an image name, if the template image has a
-   nondegenerate stokes axis, and if *axes * parameter is not
+   nondegenerate stokes axis, and if *axes* parameter is not
    specified or if it is, it contains the input stokes axis number,
    then only the stokes parameters common to both the input image and
    the template image will be present in the output image. If the

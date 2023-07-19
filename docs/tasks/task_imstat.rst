@@ -1,8 +1,17 @@
 
 
+.. _Returns:
+
+Returns
+   stats (dict) - image statistics computed over given axes
+
+
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for imstat.
+   
    Many parameters are determined from the specified region of an
    image. The region can be specified by a set of rectangular pixel
    coordinates, the channel ranges and the
@@ -544,13 +553,13 @@ Examples
    
    ::
    
-      imstat('myImage', box='2,3,14,15;30,31,42,43')
+      imstat('myImage', box='2,3,14,15,30,31,42,43')
    
    Select the same two box regions but only channels 4 and 5
    
    ::
    
-      imstat('myImage', box='2,3,14,15;30,31,42,43', chan='4~5')
+      imstat('myImage', box='2,3,14,15,30,31,42,43', chan='4~5')
    
    Select all channels greater than 20 as well as channel 0, then the
    mean and standard deviation are printed

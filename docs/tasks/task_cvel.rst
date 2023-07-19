@@ -10,6 +10,8 @@ Description
       validation of all modes in the near future. See below and also
       the discussion on the **cvel2** task page for differences
       between **cvel** and **cvel2**.
+      
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for cvel.
    
    VLA and ALMA datasets are observed in TOPOcentric velocity frames
    with fixed sky frequencies that are calculated from the
@@ -28,7 +30,7 @@ Description
    **cvel** is in fact a more general tasks that
    transforms visibilities between spectral frames for
    visibilities. Doppler correction is also applied during imaging
-   with **tclean,** which is recommended for most cases. **cvel** is
+   with **tclean**, which is recommended for most cases. **cvel** is
    still useful if the MS itself needs to be stored in a specific
    frame, e.g. for self-calibration on fixed velocity channels. An MS
    that was regridded using **cvel** can be imaged in *channel* mode
@@ -105,7 +107,7 @@ Description
 .. _Examples:
 
 Examples
-   **Example 1: **
+   **Example 1:**
    
    Regrid 'myMS.ms' to a new 'myMSregridded.ms' using veolicty mode
    and a LSRK radio velocity definition.  The output data has a
@@ -119,7 +121,7 @@ Examples
       restfreq='1.420405752GHz', nchan=10, start='123km/s',
       width='0.1km/s')
    
-   **Example 2: **
+   **Example 2:**
    
    Regrid the same MS, but this time using channel mode. We start at
    channel 5, and create 10 new output channels, grouping 7 channels

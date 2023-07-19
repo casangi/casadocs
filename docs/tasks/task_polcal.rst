@@ -1,8 +1,18 @@
 
 
+.. _Returns:
+
+Returns
+   frac_stokes (dict) - fractional Stokes results, indexed by field
+   and SPW, when poltype='Xfparang+QU'
+
+
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for polcal.
+   
    The **polcal** task supports solving for systematic calibration
    relating to the linear and circular polarization sensitivity of
    synthesis observations, namely, the instrumental polarization and

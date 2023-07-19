@@ -7,7 +7,7 @@ Description
    also works for other UVFITS data (e.g., MIRIAD).
    
    The current UVFITS specification can be found in `AIPS Memo
-   117 <ftp://ftp.aoc.nrao.edu/pub/software/aips/TEXT/PUBL/AIPSMEM117.PS>`__.
+   117 <https://library.nrao.edu/public/memos/aips/memos/AIPSM_117.pdf>`__.
    
    The *antnamescheme* parameter specifies the naming scheme for
    VLA/JVLA/CARMA antennas. The default is "old". For "old", antnnea
@@ -26,7 +26,9 @@ Description
    sum of the absolute values of the associated WEIGHT_SPECTRUM
    values. 
    
-   .. note:: **NOTE**: Remember to flag the autocorrelations if you do not want them, using the
+   .. warning:: Importing of MSs with Nant>255 via **importuvfits** should be considered experimental and datasets transported this way may not behave as expected in other packages (e.g., AIPS).  
+   
+   .. note:: Remember to flag the autocorrelations if you do not want them, using the
       task **flagdata** with parameter *autocorr = true*
    
 

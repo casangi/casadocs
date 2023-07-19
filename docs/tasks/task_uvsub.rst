@@ -27,7 +27,7 @@ Description
       model visibilities are 1 for parallel hand and 0 for cross
       hand).\\
    
-   .. warning:: **WARNING: ** Currently, **uvsub** will not work if the
+   .. warning:: **WARNING:** Currently, **uvsub** will not work if the
       frequency axis is different between the MS file the model is
       derived from and the MS file you are subtracting from. Please
       use **cvel2** to regrid the frequency axis of the MS to match

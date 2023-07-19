@@ -182,11 +182,37 @@ https://github.com/casangi/casadocs/tree/master/docs/tasks
 - Then edit the .rst file to fill in the appropriate description and other relevant info (see *Editing API Content*).
 
 
+### Caveats
+
+There are a few syntax/compilation things to keep in mind when editing the documentation.
+
+#### Task Parameter Descriptions
+
+The .xml files for task parameters only support a small number of html escape codes, which
+get interpretted by the xml interpretter before ever getting to the restructuredtext
+interpretter (following the [xml definition|https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references#Predefined_entities_in_XML]).
+The list of unescaped characters is: <>&'"
+
+#### Notebooks
+
+Each line of text in a notebook must end with a newline and comma. The exception is the last line, which should not have a comma. For example:
+
+    "source": [
+        "line of text 1\\n",
+        "\\n",
+        "line of text 2\\n",
+        "\\n"
+    ]
+
+The text will also go through one layer of interpretation before getting to the restructured text format. So things like backslashes need to be escaped. For example:
+
+    "This will let me use \\"\\\\*\\" characters without RestructuredText interpretting the \\\\* as an emphasis marking.\\n"
+
 ## Branching CASAdocs
 
 Updates made to master ('latest') are immediately public. This can be useful for minor or urgent updates to the documentation 
 that do not require a review. Making a documentation *branch* is useful for larger documentation updates, updates that require 
-a review, or updates that should be merged at a later stage (e.g., simulateneously with the code).
+a review, or updates that should be merged at a later stage (e.g., simultaneously with the code).
 
 To make a branch, go to: https://github.com/casangi/casadocs/tree/master/docs
 
@@ -235,8 +261,12 @@ After all reviewers have completed their reviews, press *“merge pull request�
 
 Once approved, the pull request can be merged to master (either by the reviewer or yourself) by pressing *“merge pull request”*. As instructed on github, the pull request can then be safely deleted by clicking *“delete branch”*. 
 
+The current process is to request a review (optional but highly recommended, Bjorn is a common doc reviewer), and upon approval the individual who submitted the PR should then merge it.
+
 
 ## Building Documentation Locally
+
+### Not Using a Local casa6 Sandbox
 This documentation repository can be edited and built locally by users with access to Python3. First clone the repo (git clone `https://github.com/casangi/casadocs.git`), then navigate to the root of the cloned directory in a terminal and use the following commands:
 
 ```
@@ -249,8 +279,75 @@ $: source docvenv/bin/activate
 ```
 The **Pandoc** library must be installed or the build will error out. The build script attempts to install it through Python commands. If that doesn't work, then it will need to be manually installed by finding the appropriate distro for the OS being used.
 
+The build script **buildme.sh** includes the above commands, as well as a few other options to decrease the build time. The build time can be further decreased by adding *"examples"* to *docs/conf.py::exclude_patterns*. These are some examples of using the **buildme.sh** script:
+
+```
+$: ./buildme.sh --installpypkgs                 # runs pip install
+$: ./buildme.sh --sphinx                        # compiles the docs with sphinx-build
+$: ./buildme.sh --sphinx --copyxml ~/dev/master # copies the xml for tools/tasks instead of downloading it
+$: ./buildme.sh --sphinx --tools calanalysis --tasks visualization.plotprofilemap --notebooks uv_manipulation # the only tools/tasks/notebooks docs built are calanalysis, plotprofilemap, and uv_manipulation
+$: ./buildme.sh --sphinx --tools none --notebooks none --tasks none # don't build any of the tools/tasks/notebooks
+```
+
 After building the documentation, it can be viewed in a web browser by pasting the full file path to the **index.html** in the URL field. The **index.html** file is in the `build` directory created under `docs` (i.e. */home/user/test_docs/casadocs/docs/build/index.html*). 
 
+### In Conjunction with a Local casa6 Sandbox
+The casadocs local build can be somewhat integrated with a local casa6 sandbox. The main benefit here is that casa6 xml doc changes (parameters in casa task xml files and parameters and descriptions in casatools xml files) do not have to be pushed to the casa6 repo in order for the casadocs builds to access them. The steps are as follows:
+
+```
+# clone the casadocs and casa6 repos. Each can be anywhere on your system, so long as both can "see" each other, eg, you can
+# be in one and do an ls on the other. casadocs can even be in the subdirectory casa6 subdirectory, and this configuration
+# would be useful if casadocs is ever added as a submodule to casa6.
+
+# set up some useful shell variables. You will need to do this for every new interactive shell, or you can just add them to
+# your shell start up file
+# $CASASRC points to the casa6 snadbox
+CASASRC=my_modular_build_area/casa6
+
+# $CASADOCS points to the casadocs sandbox
+CASADOCS=somewhere_else/casadocs
+
+# create a branch in casadocs with the same name as your casa6 branch. You can do this in the shell or using the github
+# instructions above, although in the latter case you will have to git fetch and checkout the branch in your sandbox.
+# Obviously you will need to do this each time you create a new branch
+cd $CASADOCS
+git branch -b CAS-xxxxxx
+
+# create and configure a casadocs virtual environment. You should only need to do this once per sandbox, unless requirements
+# are updated in which case you will need to pip update those. Note venv *must* be the name of the virtual environment, as
+# that is hard coded in casadocs scripts. You will need to activate this environment each time you want to interact with the
+# casadocs environment
+cd $CASADOCS
+python3 -m venv venv
+source venv/bin/activate
+pip install --upgrade pip wheel
+pip install -r requirements.txt
+
+# create a symlink to your casa6 tree. The actual location of the symlink does not matter, as long as it is consistent with
+# the buildme.sh command below. I usually put it in the subdirectory that contains casadocs. Note however, that it must be
+# named src as this is hardcoded in casadocs scripts
+ln -s $CASASRC/.. $CASADOCS/../src
+
+# sphinx-build clones various repos and sets up the build environment. It should only need to be run once for each sandbox
+cd $CASADOCS/docs
+sphinx-build -a -E -b html . ./build
+
+# Now whenever you make a change to a casatools or casatasks xml files in your casa6 sandbox, run the buildme.sh command to
+# regenerate your casadocs sandbox build. You will be able to see your changes in your casadocs sandbox in the build tree.
+# This command copies the tool and task xml files from the local casa6 repo, so no need to push anything to the casa6 repo
+# first to see the changes in your casadocs sandbox
+$CASADOCS/buildme.sh --sphinx --copyxml $CASADOCS/..
+
+# When you are more or less happy, commit and push your changes first to the casa6 branch and then to casadocs branch. This
+# order allows the automated casadocs build to retrieve the most recent version of the docs from your branch in the casa6
+# repo. If your doc changes are tool xml file changes or task xml file parameter changes, you will need to somehow trigger
+# the automated doc build on readthedocs if you've pushed the # branch previously, assuming you want your changes to be
+# visible in the automated branch build on readthedocs. I don't know a good way to to that, so I'd just commit a dummy file
+# and push that and when I was ready to issue the casadocs PR I'd remember to remove any dummy files I created.
+
+# When you're done interacting with your casadocs build environment, deactivate it.
+deactivate 
+```
 
 ## Re-generating Plone content from Scratch
 This should not be necessary and is here only for reference on how

@@ -55,7 +55,7 @@ Description
 
    *skipcols*
 
-   Columns to NOT display. For example: *skipcols='feed1, feed2'
+   Columns to NOT display. For example: skipcols='feed1, feed2'
 
    .. figure:: _apimedia/e7b82ce6a699178fe6f43360bef6c38bb9c431bb.png
 

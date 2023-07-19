@@ -1,4 +1,12 @@
 
+
+.. _Returns:
+
+Returns
+   frac_stokes (dict) - fractional Stokes results, indexed by field
+   and SPW
+
+
 .. _Description:
 
 Description

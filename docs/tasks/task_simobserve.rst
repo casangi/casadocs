@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for simobserve.
+   
    This task simulates interferometric or total power
    MeasurementSets. The general steps for simulation in CASA are
    described on the top
@@ -42,11 +45,11 @@ Description
    It may be useful to simulate observations of an idealized model
    image consisting, for example, of point sources and Gaussians. The
    CASA component list tool (**cl**) allows the user to specify a set
-   of point sources, Gaussians, disks, and limb-darkened disks. One
+   of point sources, Gaussians, and disks. One
    can then either use that component list directly
    in **simobserve**, or create a CASA image from the components, or
    both. Details can be found in `this CASA
-   guide <http://casaguides.nrao.edu/index.php?title=Simulation_Guide_Component_Lists_%28CASA_4.1%29>`__.
+   guide <http://casaguides.nrao.edu/index.php?title=Simulation_Guide_Component_Lists_%28CASA_6.5.3%29>`__.
    
    .. rubric:: Starting from a GIF or JPG image
    
@@ -110,7 +113,7 @@ Description
       Corruption with an atmospheric phase screen, or adding gain
       fluctuations or drift, can be added subsequently using the
       **simulator** tool **sm** as described in `this CASA
-      guide. <https://casaguides.nrao.edu/index.php/Corrupt>`__
+      guide <https://casaguides.nrao.edu/index.php?title=Corrupting_Simulated_Data_%28Simulator_Tool%29>`__.
    
    For details, please see the descriptions of the individual
    parameters below.
@@ -228,7 +231,7 @@ Description
    
    The frequency to use for the center channel (or only channel, if
    the skymodel is 2D). Examples: *incenter='89GHz'*, or '' to use
-   what is in the header.
+   what is in the header. This will also become the default rest frequency, e.g. when imaging with tclean.
    
    *inwidth*
    
@@ -561,7 +564,14 @@ Examples
                  antennalist="antennalist.cfg2",
                  sdantlist="aca.tp.cfg",
                  thermalnoise="")
+                 
+   This example shows how to assign a central rest-frequency and channel width to a simulated image cube.
    
+   ::
+   
+      imobserve(project=‘model_cube’, skymodel=‘skymodel.image', inwidth='0.4MHz', antennalist='alma.cycle6.1.cfg', direction="J2000 16h59m41.63s -40d03m43.61s", obsmode="int", mapsize="2arcmin", totaltime="1800s", thermalnoise='', incenter='86.6425GHz')
+      
+   This produces a data cube with a central rest-frequency of 86.6425 GHz and a channel width of 0.4 MHz. Note the `Known Issue for simobserve <../../notebooks/introduction.ipynb#Known-Issues>`__ that inwidth should not be specified in km/s.
 
 .. _Development:
 

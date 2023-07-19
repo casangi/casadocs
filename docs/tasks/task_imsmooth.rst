@@ -15,10 +15,12 @@ Description
    :math:`\bf{B}_{\rm cor}` can be calculated so that
 
    .. math:: \begin{align} \bf{B}_{\rm tar} * \bf{I} = \bf{B}_{\rm cor} * (\bf{B}_{\rm cur} * \bf{I}),  \end{align}
+
    where :math:`*` is the convolution operator.  The Fourier
    transform of the above equation is
 
    .. math:: \begin{align} \bf{B}_{\rm tar}^f  \bf{I}^f = \bf{B}_{\rm cor}^f  (\bf{B}_{\rm cur}^f  \bf{I}^f), \end{align}
+   
    where the superscript :math:`f` indicates the Fourier transform.
    The correcting beam can then be obtained by
 
