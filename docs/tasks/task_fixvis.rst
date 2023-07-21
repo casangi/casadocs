@@ -2,7 +2,9 @@
 
 Description
 
-   .. danger:: **ALERT:** **fixvis** is deprecated in CASA 6.3. Please use task **phaseshift** instead.
+   .. warning:: **ALERT:** **fixvis** is deprecated in CASA 6.3. Please use task **phaseshift** instead.
+   
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for fixvis.
 
    **fixvis** recalculates (u, v, w) in an MS based on antenna
    positions, time and source position. **fixvis** can also change
@@ -97,7 +99,7 @@ Examples
    
       fixvis(vis='NGC3256.ms',outputvis='NGC3256-fixed.ms')
    
-   **Example 2: **
+   **Example 2:**
    
    Set the phase center for field 'Moon' to the given direction and
    recalculate the UVW coordinates.

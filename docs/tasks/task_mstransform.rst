@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for mstransform.
+
    **mstransform** is a multipurpose task that provides all the
    functionality of
    `split, partition, cvel, hanningsmooth, uvcontsub and applycal <../../api/casatasks.rst>`__
@@ -67,7 +70,7 @@ Description
    #. When WEIGHT_SPECTRUM/SIGMA_SPECTRUM are present:
 
    
-   .. math:: Average = \sum(Chan_i*Flag_i*WeightSpectrum_i) \sum(Flag_i*WeightSpectrum_i)
+   .. math:: Average = \frac{\sum(Chan_i*Flag_i*WeightSpectrum_i)}{\sum(Flag_i*WeightSpectrum_i)}
 
    
    .. rubric:: Hanning smoothing: *hanning*

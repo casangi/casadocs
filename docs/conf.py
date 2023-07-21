@@ -14,6 +14,8 @@
 #
 import os
 import sys
+import re
+import glob
 sys.path.insert(0, os.path.abspath('..'))
 
 
@@ -176,7 +178,6 @@ os.system("python ../scripts/download_xml.py")
 os.system("python ../scripts/parse_pull_requests.py")
 os.system("python ../scripts/parse_task_xml.py")
 os.system("python ../scripts/parse_tool_xml.py")
-os.system("python ../scripts/parse_api_functions.py")
 
 if not os.path.exists('examples'):
     os.system("git clone https://github.com/casangi/examples.git")
@@ -187,3 +188,31 @@ if not os.path.exists('examples'):
 # tweak the default readthedocs theme
 def setup(app):
     app.add_css_file('customization.css')
+
+#############################################################################################################
+##
+## Include/exclude files from the build, to decrease build time.
+##
+#############################################################################################################
+
+# limit the tools and tasks to the ones we want to process
+for dirname, prefix, postfix, group in [('api/tt/', 'casatools.', '.rst', 'tools'), ('api/tt/', 'casatasks.', '.rst', 'tasks'), ('notebooks/', '', '.ipynb', 'notebooks')]:
+    if os.path.exists(f"{group}_selection.csv"):
+        fnames = []
+        if group == 'tools':
+            fnames = ['casatools.'+fn for fn in os.listdir('../casatools') if fn != '__init__.py']
+        elif group == 'tasks':
+            files = glob.glob('../casatasks/**/*.py', recursive=True)
+            fnames = map(lambda fn: re.match(r".*?([^/]*/[^/]*\.py)", fn)[1].replace('/','.'), files)
+            fnames = ['casatasks.'+fn for fn in fnames if '__init__' not in fn]
+        elif group == 'notebooks':
+            files = glob.glob('notebooks/*.ipynb')
+            fnames = [os.path.basename(fn) for fn in files]
+        fnames = [fn.replace('.py',postfix) for fn in fnames]
+        with open(f"{group}_selection.csv", 'r') as fin:
+            selection = [f"{prefix}{name}{postfix}" for name in fin.readlines()[0].strip().split(',')]
+        exclusions = [name for name in fnames if (name not in selection)]
+        exclude_patterns += [f"{dirname}{name}" for name in exclusions]
+
+# uncomment this line to prevent the examples from being built
+#exclude_patterns += ['examples']

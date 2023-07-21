@@ -14,7 +14,7 @@ Description
    time of their earliest integration and then concatenated.
    
    For example, *vis =
-   ['src2.ms','ngc5921.ms','ngc315.ms'], concatvis = 'src2.ms'. *
+   ['src2.ms','ngc5921.ms','ngc315.ms'], concatvis = 'src2.ms'.*
    
    If *concatvis* already exists (e.g., it is the same as the first
    input data set), then the other input data sets will be appended
@@ -58,7 +58,7 @@ Description
    unless their phase centers differ by less than 1 arcsec. If the
    field names are different in the input data sets, the name in the
    output data set will be the first relevant data set in the list.
-   Use the parameter *respectname = True * to indicate that fields
+   Use the parameter *respectname = True* to indicate that fields
    with a different name should not be merged even if their direction
    agrees (within *dirtol*). 
    

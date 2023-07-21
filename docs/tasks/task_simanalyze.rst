@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for simanalyze.
+   
    This task is for imaging and analyzing MeasurementSets (MSs)
    simulated with **simobserve** or **simalma**.
    
@@ -30,7 +33,7 @@ Description
       and input, and the fidelity image. Different diagnostic images
       can be chosen to plot on a multi-panel figure, with the
       different show parameters. That figure can be saved as a .png
-      file if *graphics='both'* or *graphics='file'*.
+      file if *graphics='both'* or *graphics='file'*. 
    
    The output is a synthesized image, a difference image between the
    synthesized image and your sky model convolved with the output
@@ -89,6 +92,10 @@ Description
       -  [project].[cfg].simanalyze.last = saved input parameters for
          **simanalyze** task, available in CASAshell
 
+   .. warning:: **WARNING**: The simalma/simanalyze tasks do not support
+      wideband multi-term imaging. Please use tclean (with other image
+      analysis tasks) if your simulated MS from simobserve requires
+      wideband continuum image reconstruction.
    
    .. rubric:: Parameter descriptions
    
@@ -226,7 +233,7 @@ Description
    extended emission that may be resolved out. Examples:
    *outertaper=[ ]* no outer taper applied; *outertaper=[’5klambda’]*
    circular uv taper FWHM at 5 kilo-lambda;
-   *outertaper=[’5klambda’,’3klambda’,’45.0deg’*] elliptical
+   *outertaper=[’5klambda’,’3klambda’,’45.0deg’]* elliptical
    Gaussian; *outertaper=[’10arcsec’]* on-sky FWHM of 10 arcsecs;
    *outertaper=[’300.0’]* 300m in aperture plane
    
@@ -330,7 +337,7 @@ Description
    Displays the fidelity image. The fidelity image is defined by the
    following equation:
    
-   :math:`fidelity = \frac{|input|}{max[|input-output|,0.7*rms(output)]}`
+   :math:`fidelity = \frac{|input|}{max[|input-output|,0.7\*rms(output)]}`
    
    .. note:: **NOTE**: The RMS is calculated in the lower quarter of the
       image which is likely not the best choice. It is encouraged to

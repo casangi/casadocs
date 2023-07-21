@@ -40,7 +40,7 @@ Description
    
    The following *caltype* options automatically generate caltables
    from ancilliary information found in the MS or elsewhere. The
-   *pol, antenna, spw,* and *parameter* options are ignored for
+   *pol*, *antenna*, *spw*, and *parameter* options are ignored for
    these.
    
    -  'tsys' = Tsys from the MS.SYSCAL table (ALMA, VLBI)
@@ -54,6 +54,8 @@ Description
       subparameter
    -  'antpos' = For VLA datasets, automatic lookup of antenna
       position corrections if *antenna=''*
+   -  'jyperk' = Jy/K factors via Jy/K database Web API if infile=''
+      (ALMA only)
       
    For the VLA, *caltype='gc'* will do auto-lookup the gain curve information.
    For VLBI, gain curve information will be taken from MS.GAIN_CURVE when present
@@ -80,7 +82,7 @@ Description
    value list should match the number of spws specified, and these
    values will be duplicated for all polarizations and antennas. If
    more than one of *pol*, *spw*, and *antenna* is non-trivially
-   specified, the number of *parameter * values specified should
+   specified, the number of *parameter* values specified should
    match the product of the number specified selection elements. The
    *parameter* values should be sorted by *pol* (fastest), *antenna*,
    and *spw* (slowest). Un-specified elements on non-trivially
@@ -128,7 +130,7 @@ Description
       'swpow' (formerly 'evlagain', a syntax which has been
       deprecated) yields the formal VLA switched power calibration
       which describes voltage gain as sqrt(Pdif/Tcal) (used to
-      correct the visibility data) and Tsys as Psum*Tcal/Pdif/2 (used
+      correct the visibility data) and Tsys as Psum\*Tcal/Pdif/2 (used
       to correct the weights). 'swpow' implicitly includes any
       requantizer gain scale and adjustments. 'rq' yields only the
       requantizer voltage gains (Tsys is set to 1.0 to avoid weight
@@ -144,7 +146,13 @@ Description
       according to the observing frequencies. These caltypes are currently
       only supported for VLA (including pre-upgrade VLA) and VLBI processing.
       (Appropriate factors for ALMA are TBD.)
-   
+   -  'jyperk'  For ALMA Total Power (Single Dish), the task without
+      'infile' sub-parameter queries Jy/K DB
+      (https://asa.alma.cl/science/jy-kelvins) via internet to obtain
+      factors and generate a caltable. Or factors are taken from a 
+      file in the local storage specified by the 'infile' sub-parameter
+      to generate a caltable.
+
 
 .. _Examples:
 
@@ -152,7 +160,7 @@ Examples
    In the following example, antenna-based gain amplitude corrections
    for all spws, antennas, and polarizations will be multiplied by 3.
    When applied to visibility data, this correction will produce a
-   corrected visibility that is (1/3*1/3) less than the uncorrected
+   corrected visibility that is (1/3\*1/3) less than the uncorrected
    visibility.
    
    ::

@@ -1,8 +1,18 @@
 
 
+.. _Returns:
+
+Returns
+   summary (dict) - convergence history of the run, when
+   interactive=1/0 instead of True/False
+
+
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for tclean 
+
    tclean handles continuum images and spectral line cubes, full
    Stokes polarization imaging, supports outlier fields, contains
    point-source CLEAN
@@ -435,8 +445,16 @@ Description
       and wideband primary beam corrections (to be used with
       nterms>1).
    -  'mem': Maximum Entropy Method (Cornwell and Evans, 1985). Note:
-      The MEM implementation in CASA is not very robust, improvements
-      will be made in the future.
+      This algorithm is **experimental** and not very robust, 
+      improvements will be made in the future.
+   -  'asp': Adaptive Scale Pixel Clean. The Adaptive Scale Pixel (ASP) 
+      decomposition algorithm is designed to reconstruct the sky 
+      brightness by adaptively determining the optimal scales. The 
+      implementation of ASP algorithm is aimed to improve both image 
+      resolution and computation efficiency. Note: This algorithm is 
+      **experimental**, please see the `Known Issues 
+      <../../notebooks/introduction.ipynb#Known-Issues>`__ 
+      in CASA Docs.
    
    If as input to tclean the stokes parameter includes polarization
    planes other than I, then choosing deconvolver='hogbom' or
@@ -619,17 +637,17 @@ Description
    current run, identified by the image base name given in the
    imagename parameter. This feature searches for all the images with
    names starting with that basename and followed by a dot-separated
-   extension (imagename.*). In addition it also searches for
-   imagename[INTEGERS]_[INTEGERS].*, to cover auto-incremented image
+   extension (imagename.\*). In addition it also searches for
+   imagename[INTEGERS]_[INTEGERS].\*, to cover auto-incremented image
    names (see the table of possible image names above).
 
    The image history entries added by tclean can be inspected using
-   the task imhistory (`see API <../casatasks.rst>`_), similarly as
+   the task imhistory (`see tasks API`_), similarly as
    with the history entries added by other image analysis tasks.
 
    As a lower level interface, the image history can be also inspected
    and manipulated using CASA tools such as the image analysis tool
-   and the table tool (`see API <../casatools.rst>`_). The history
+   and the table tool (`see tools API`_). The history
    entries are written into the 'logtable' subtable of the images.
 
    .. note:: Because history is written into all the images found with
@@ -673,7 +691,7 @@ Description
    Similarly as with other parameters included in the miscinfo record,
    these are exported to FITS images by the exportfits task, if the
    parameter history is True.  The miscinfo record can be inspected
-   using the image tool (`see API <../casatools.rst>`_).
+   using the image tool (`see tools API`_).
 
    The same values are written to the CASA log at the beginning of
    every major cycle. The `memreq` estimate should not be interpreted
@@ -692,6 +710,9 @@ Description
    partitioning done in the minor cycles. The `memreq` estimate grows
    proportionally to the data dimensions, type of gridder, and number
    of processes in parallel mode.
+
+   .. _see tasks API: ../casatasks.rst
+   .. _see tools API: ../casatools.rst
 
 .. _Examples:
 
@@ -922,230 +943,4 @@ Examples
 .. _Development:
 
 Development
-   task_tclean.py  contains only calls to various steps and the
-   controls for different Operating Modes (LINK).  No other logic is
-   present in the top level task script.    task_tclean.py uses
-   classes defined in refimagerhelper.py ( PySynthesisImager and its
-   parallel derivatives ).
-
-   Script writers aiming to replicate tclean in an external script
-   and be able to insert their own methods or connect their own
-   modules, will be able to simply copy and paste the task tclean
-   code (the lines containing  " imager.xxxx " )
-   
-   The tclean task interface is meant to show (and use) subparameters
-   only when their parent options are turned on. This way, at any
-   given time, the only parameters a user should see via inp() are
-   those that are relevant to the current set of algorithm and
-   operational choices.
-   
-   Additional examples to be added to the Examples tab (from testing
-   suite at
-   https://svn.cv.nrao.edu/svn/casa/branches/release-4_7/gcwrap/python/scripts/tests/test_refimager.py):
-   
-   Examples are meant to have a consistent set of values for vis,
-   imagename, imsize,cell, with a limited number of parameters per
-   line, to ensure readability. Note that each multiline command has
-   to be edited outside of plone and copied in here, such that the
-   spacing is preserved and the reader can copy/paste at the casa
-   prompt.
-   
-   .. rubric:: Make PSF and PB
-   
-   Make only the PSF, Weight images, and the PB.
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec, niter=0)
-
-
-   .. rubric:: Make a residual/dirty image
-      
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-   .. rubric:: Model Prediction
-
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-
-   
-   .. rubric:: PB-correction
-      
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-
-   .. rubric:: Restoration
-
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-
-   
-   .. rubric:: Restarts
-
-   ( deconv only,  autonaming, etc )
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-
-   .. rubric:: Data Selection
-   
-   one MS, a list of MSs.
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-
-   
-   .. rubric:: Single-Field Image Shapes
-
-   Single Field (mfs, cube (basics), phasecenter, stokes planes ? )
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-
-   
-   .. rubric:: Defining Spectral Coordinate Systems
-   
-   LINK to Synthesis Imaging / Spectral Line Imaging
-   
-   (examples of all the complicated ways you can do this)
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-
-
-   .. rubric:: Examples of Multi-Field Imaging
-   
-   ( 2 single, multiterm, mfs and cube, etc )
-   
-   ::
-
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-
-   
-   .. rubric:: Examples of Iteration Control
-   
-   niter=0,  using cycleniter,  cyclefactor...
-
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-
-   
-   .. rubric:: Using a Starting model
-
-   single term, multi-term, with restarts, a single-dish model
-   (units, etc).
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-
-   
-   .. rubric:: Saving model visibilities in preparation for self-calibration
-   
-   use savemodel of various types.
-   
-   ::
-
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-
-   .. rubric:: Making masks for deconvolution
-   
-   LINK to Synthesis Imaging / Masks For Deconvolution
-   
-   making masks....
-   
-   ::
-
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-
-
-   .. rubric:: Primary Beam correction
-   
-   LINK to Synthesis Imaging / Primary Beams
-   
-   single term, wideband (connect to wb)
-   
-   ::
-
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-
-   .. rubric:: Returned dictionary
-   
-   example of what is in it...
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-
-   .. rubric:: Examples of Wide-Band Imaging
-
-   LINK to Synthesis Imaging / Wide Band Imaging
-   
-   Choose nterms, ref-freq.  Re-restore outputs. Apply widebandpbcor
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-
-   .. rubric:: Examples of Mosaicking
-   
-   LINK to Synthesis Imaging / Mosaicking
-   
-   Setting up mosaic imaging, setup vpmanager to supply external PB.
-   
-   ::
-
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-
-   .. rubric:: Examples of Wide-field and Full-Beam Imaging
-   
-   facets, wprojection (and wprojplanes),  A-Projection
-   
-   ::
-   
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-   
-    
-   
-   .. rubric:: Parallelization for Continuum/MFS and Cube
-
-   ::
-
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec'
-   
-
-   .. rubric:: Channel chunking for very large Spectral Cubes
-
-   ::
-
-      tclean(vis='test.ms', imagename='try1', imsize=100, cell='10.0arcsec')
-
-   
-   .. rubric:: Changes to tclean
-
-   10/19/2019:
-   
-   In the MTMFS deconvolver, the expression used to compute D-Chisq
-   can be algebraically reduced. This means that the runtime of the
-   minor cycle has been improved ror deconvolver=‘MTMFS’,
-   particularly for large imsize, niter, and number of scales for
-   multi-scale deconvolution. This `technical memo <https://drive.google.com/file/d/1U1zRrmBJ4vYfsi-7IE5orOYHIIRmiFSL/view?usp=sharing>`_
-   briefly describes the algorithmic changes and provides examples of
-   the speed-up in runtime.
+   In future releases of CASA6, the tclean task will include an option for MFS and MTMFS deconvolution along with cube major cycles, and GPU gridding options for the VLASS observing program. 

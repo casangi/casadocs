@@ -54,9 +54,7 @@ Examples
           phasecenter='J2000 04:52:16 -02.04.55'
       )
 
-  There is a Jupyter notebook in Google Colab
-  (https://colab.research.google.com/github/casangi/casadocs/blob/master/docs/notebooks/phaseshift.ipynb#scrollTo=HjQnMfcFrqM-)
-  describing in detail the numerical characterization of
+  There is a  `Community Examples Notebook <https://casadocs.readthedocs.io/en/stable/examples/community/phaseshift.html>`__ in CASA Docs describing in detail the numerical characterization of
   phaseshift, which provides a complete script and detailed results regarding the correctness
   of the results produced by phaseshift. In summary, in a 1.0 GHz VLA simulation in which the
   phase center and a source were initially separated by 2.7 degrees, using phaseshift to shift
@@ -69,15 +67,16 @@ Examples
 .. _Development:
 
 Development
-   * Support for time-dependent coordinate frames and ephemeris objects
+
+   - Support for time-dependent coordinate frames and ephemeris objects
      is planned for ngCASA only. However, if greatly desired, requests for
      such support will be considered prior to that. Please send us a request
      via the Help Desk should you have such a need.
-   * Specifying the new phase center in terms of an offset from
+   - Specifying the new phase center in terms of an offset from
      the original phase center is currently not supported. However, if
      there is a need for such support, it can be added. Please send us a request
      via the Help Desk should you have such a need.
-   * There is currently no support for the possible use case of updating only
+   - There is currently no support for the possible use case of updating only
      the *UVW* values (eg, based on antenna position updates), but not the associated
      data values. The deprecated task **fixvis** has this functionality, so it may
      be used for this purpose. If such support will be needed after **fixvis** is
