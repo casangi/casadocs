@@ -496,7 +496,7 @@ Description
    *quackinterval*
 
    Time in seconds from scan beginning or end to flag. Make time
-   slightly smaller than the desired time. Default: 0.0. Type: int or
+   slightly smaller than the desired time. Default: 1.0. Type: int or
    float.
    
    *quackmode*
