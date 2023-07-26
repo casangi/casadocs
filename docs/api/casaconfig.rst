@@ -18,39 +18,51 @@ config.py
 
     from casaconfig import config
 
-Each modular CASA 6 package as well as the full monolithic installation reads a set of configuration files
-to setup the CASA runtime options. The configuration is set when config is imported from casaconfig. The
-configuration files include the default values (always provided by casaconfig), an optional site configuration file, 
+Each modular CASA package as well as the full monolithic installation reads a set of configuration files
+to set the CASA runtime options. The configuration is set when config is imported from casaconfig. The
+configuration files include the default values (provided by casaconfig), an optional site configuration file, 
 and an optional user configuration file.
 
 The optional user configuration file is found in their home .casa folder as config.py (**\_/.casa/config.py**).
 
-The optional site configuration file is named **casasiteconfig.py** and is found anywhere within **sys.path** following the usual pyhthon import rules.
+The optional site configuration file is named **casasiteconfig.py** and is found anywhere within **sys.path** 
+following the usual python import rules.
 
-The user configuration files is ignored when **\-\-noconfig** is used on the command line. The site configuration file is 
-ignored when **\-\-nositeconfig** is used on the command line.
+The user configuration file is ignored when **\-\-noconfig** is used on the command line. 
 
-An alternative path to the user configuration file can be given using the **--configfile <path_to_file>** option on the command line.
+The site configuration file is ignored when **\-\-nositeconfig** is used on the command line.
 
-The configuration files are used in order of defaults, site configuration, user configuration. The optional configuration files need
-only set parameters that differ from the defaults. The resulting configuration will always include all of the recognized
-configuration values. The configuration files are evaluated python files so any valid python can be used. **Note:**, configuration h
-appens before any parts of CASA are loaded so no CASA modules except casaconfig should be used within the configuration steps
-(the casaconfig functions do not depened on config.py and can be used within a configuration file). **Note:** during regular 
-use of the configuration process all print output is suppressed so that it does not interfere with module initialization. 
+An alternative path to the user configuration file can be given using the **--configfile <path_to_file>** option 
+on the command line.
 
-Use the get_config() function to get a list of strings showing the configuration parameters with values.
+The configuration files are used in order of defaults, site configuration, user configuration. The optional 
+configuration files need only set parameters that differ from the defaults. The resulting configuration 
+will always include the full of configuration parameters recognized by CASA. The configuration files are 
+evaluated python files so any valid python can be used. 
+
+**Note:**, configuration happens before any parts of CASA are loaded so no CASA modules except 
+casaconfig should be used within the configuration steps (the casaconfig functions do not depened on config.py 
+and can be used within a configuration file). 
+
+**Note:** during regular use of the configuration process all print output is suppressed so that it 
+does not interfere with module initialization. 
+
+Use the **get_config()** function to get a list of strings showing the configuration parameters with values.
+
+**Note:** all path configuration values are expanded using expanduser and abspath; **get_config()** returns the 
+unexpanded values unless the *expanded* argument is *True*.
 
 The following parameters can be set in a configuration file. Additional details related to the
-telemetry parameters are descrbed `here <../notebooks/usingcasa.ipynb#Information-Collection>`__. Many of these
-parameters can be set or ignored through the casashell command line options.
+telemetry parameters are described `here <../notebooks/usingcasa.ipynb#Information-Collection>`__. Many of these
+parameters can be set or ignored through the casashell command line options. The default values are also shown here.
 
-- *datapath*              : list of paths where CASA should search for data subdirectories
-- *measurespath*          : location of required measures data, takes precedence over any measures data also present in datapath
-- *measures_update*       : when True, casatools uses *measures_update()* to update the measures data as necessary when casatools starts. See *measures_update()* for additional details.
-- *startupfile*           : path to a python script used at startup by casashell when present
-- *cachedir*              : location of the directory where ipython writes information (history, etc), also the location of the rc file used by the casaviewer.
-- *logfile*               : log file path/name
+- *datapath*              : list of paths where CASA should search for data subdirectories. Default [*measurespath*].
+- *measurespath*          : location of required measures data, takes precedence over any measures data also present in datapath. Default ["~/.casa/casarundata"].
+- *measures_auto_update*  : when True, casatools uses *measures_update()* to update the measures data as necessary when casatools starts. See *measures_update()* for additional details. Default True.
+- *data_auto_update*      : when True, casatools uses *data_update()* followed by *measures_update()* to update the reference *AND* measures data. See *data_update()* for additional details. Default True.
+- *startupfile*           : path to a python script used at startup by casashell when present. Default "~/.casa/startup.py" when present, else "".
+- *cachedir*              : location of the directory where ipython writes information (history, etc), also the location of the rc file used by the casaviewer. Default "~/.casa".
+- *logfile*               : log file path/name. Default "casa-yyyymmdd-hhmmss.log". Note that this default value is set using the time module gmtime().
 - *nologfile*             : do not create a log file when True, default False. If *nologfile* is true, then any *logfile* value is ignored and there is no log file.
 - *log2term*              : print log output to terminal when True (in addition to any logfile and CASA logger), default False
 - *nologger*              : do not start the CASA logger GUI when True, default False
@@ -59,26 +71,34 @@ parameters can be set or ignored through the casashell command line options.
 - *agg*                   : startup without a graphical backend if True, default False
 - *pipeline*              : attempt to load the pipeline modules and set other options appropriate for pipeline use if True, default False. When *pipeline* is True then *agg* will be assumed to be true even if *agg* is set to False here or on the command line.
 - *iplog*                 : create and use an IPython log if True, default False.
-- *iplogfile*             : IPython log file path/name, used only when iplog is True.
+- *iplogfile*             : IPython log file path/name, used only when iplog is True. Default "ipython-yyyymmdd-hhmmss.log". Note that this default value is set using the time module gmtime().
 - *telemetry_enabled*     : allow anonymous usage reporting, default True
-- *telemetry_log_directory* : path to location where telemetry log is recorded
-- *telemetry_log_limit*   : maximum telemetry log usage in kilobytes
-- *telemetry_log_size_interval* : the interval between checks on the telemetry log size in seconds
-- *telemetry_submit_interval* : the interval between submissions of telemetry data on CASA startup in seconds
+- *telemetry_log_directory* : path to location where telemetry log is recorded. Default "~/.casa/telemetry"
+- *telemetry_log_limit*   : maximum telemetry log usage in kilobytes. Default 20480.
+- *telemetry_log_size_interval* : the interval between checks on the telemetry log size in seconds. Default 60.
+- *telemetry_submit_interval* : the interval between submissions of telemetry data on CASA startup in seconds. Default 604800.
 - *crashreporter_enabled* : allow anonymous crash reporting, default True
-- *user_site*             : include the user's local site-packages in the python path if True. Normally these are excluded to avoid potential conflicts with CASA modules (when False, the default).
+- *user_site*             : include the user's local site-packages in the python path if True, default False. When False these are excluded to avoid potential conflicts with CASA modules.
+
+**Note:** It is an error for *measures_auto_update* to be False when *data_auto_update* is True. In that case no auto updates will happen and CASA will continue after printing out an error message.
 
 A typical config.py file might look something like this:
 
 ::
 
+   measurespath="/home/casa/data/casa-data"
    datapath=["/home/casa/data/casa-data", "~/.casa/my_additional_data"]
+   measures_auto_update=False
    log2term=True
    nologger=True
 
-The defaults are shown below. **Note** that the default *logfile* uses the time module to set the value to a string that depends on when 
-the config file is evaluated. **Note** that in the monolithic casa case, *datapath* and *measurespath* will default to the data directory 
-in the casaconfig package (returned by *get_data_dir()*).
+**Note** that the default *logfile* and the default *iplogfile* use the time module to set the value to a string that depends on when 
+the config file is evaluated. 
+
+**Note** that in the monolithic CASA case the casasiteconfig.py will typically set *measurespath* to a shared data location and set *data_auto_update* and *measures_auto_update* to False.
+This example config.py might be appropriate for a shared *measurespath* location with an additional user-controlled data location added at the end of *datapath*.
+Auto updates are turned off to prevent the user from accidentally updating that shared location (they are likely also turned off in casasiteconfig.py and setting 
+that to False in the user config.py would be unnecessary in that case).
 
 .. include:: ../config_defaults_static.py
    :literal:
