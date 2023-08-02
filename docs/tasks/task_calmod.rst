@@ -1,5 +1,3 @@
-.. include:: <isogrk1.txt>
-
 .. _Description:
 
 Description
