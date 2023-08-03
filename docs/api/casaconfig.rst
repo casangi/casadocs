@@ -134,8 +134,8 @@ Auto updates are then on by default and each subsequent use of CASA would check 
 and casarundata when new versions are found.
 
    
- startup.py
- ^^^^^^^^^^
+startup.py
+^^^^^^^^^^
  
  .. data:: startup.py
 
@@ -163,10 +163,10 @@ In this example, the standard python modules *os* and *sys* are made available i
 module can be found is added to the Python system path, and finally the package is imported and an object is created. These modules
 and objects will then be available for the user within the CASA shell environment.
 
-terminal
-^^^^^^^^
+casa command line
+^^^^^^^^^^^^^^^^^
 
-.. data:: terminal(-h, --help, --configfile, ---noconfig, --nositeconfig, --startupfile, --nostartupfile, --logfile, --log2term, --nologger, --nologfile, --nogui, --cachedir, --colors, --pipeline, --agg, --iplog, --notelemetry, --nocrashreport, --datapath, --reference-testing, --no-auto-update, --user-site, -v, --version, -c)
+.. data:: casa(-h, --help, --configfile, ---noconfig, --nositeconfig, --startupfile, --nostartupfile, --logfile, --log2term, --nologger, --nologfile, --nogui, --cachedir, --colors, --pipeline, --agg, --iplog, --notelemetry, --nocrashreport, --datapath, --reference-testing, --no-auto-update, --user-site, -v, --version, -c)
 
 With the full installation of CASA  (monolithic CASA), the python environment itself is included and started through ./bin/casa.
 This ./bin/casa executable can be provided the following options to change configuration values at run time:
@@ -220,3 +220,51 @@ are True.
 
 \-\-nocrashreport sets the crashreporter_enabled configuration parameter to False.
 
+casaconfig command line
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. data:: casaconfig(-h, --help, --configfile, ---noconfig, --nositeconfig, --measurespath, --pull-data, --data-update, --measures-update, --update-all, --reference-testing, --current-data)
+
+The casaconfig module may be used by itself with these options. The full set of config files are first used (except as omitted by the options) then the 
+options are used and then python exits. 
+
+For all of the update options the most recent version is assumed and the *force* argument is False. These are **NOT** auto updates so the auto update
+rules do not apply. If the user has permission to update that data then that data will be updated if a new version is found.
+
+::
+   python -m casaconfig .. options ...
+
+::
+
+   -h, --help                  show this help message and exit
+   --configfile CONFIGFILE     location of the user configuration file
+   --noconfig                  do not load user configuration file
+   --nositeconfig              do not load site configuration file
+   --measurespath MEASUREPATH  the path to the data for data-related options
+   --pull-data                 invokes **pull_data()**
+   --data-update               invokes **data_update()**
+   --measures-update           invokes **measures_update()**
+   --update-all                invokes **data_update()** then **measures_update**
+   --reference-testing          force *measurespath* to contain the casarundata when this version was produced, used for testing purposes
+   --current-data              summarize the current data status files (readme.txt, versions and dates) and exit.
+
+The \-\-configfile option is used to provide an alternative path to the user's configuration file. When that
+option is used the file at that location is used instead of the default user configuration file (~/.casa/config.py).
+
+The \-\-noconfig option turns off all use of any user's configuration file. If --configfile and --noconfig file
+are both used then the user's configuration file is ignored and a warning message is printed.
+
+The \-\-nositeconfig option turns off all use of any site configuration file.
+
+The \-\-measurespath option allows the user to specify the path to the data for use by the data related options.
+This overrides the value of *measurespath* in the configuration files.
+
+The data related options (\-\-pull-data,\-\-data-update, \-\-measures-update, and \-\-update-all) use *measurespath*
+without explicitly setting the version string. The *force* parameter rmemains False as does the *auto_update_rules*
+parameter. This means that if a new version exists and the user has read and write permissions in *measurespath* then
+an update will happen as if those functions were used from a python session.
+
+When the \-\-current-data option is used no updates happen even if those options are also used.
+
+The \-\-reference-testing option can not be used with \-\-pull-data, \-\-data-update, \-\-measures-update, 
+and \-\-update-all.
