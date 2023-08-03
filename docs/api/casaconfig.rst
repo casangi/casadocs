@@ -105,7 +105,7 @@ accidentally updating a shared data location.
 casasiteconfig.py
 ^^^^^^^^^^^^^^^^^
 
-.. data:: casasiteconfig.py
+ .. data:: casasiteconfig.py
 
 Monolithic CASA is distributed with a casasiteconfig.py. A casasiteconfig.py can also be placed anywhere in the PYTHON path (sys.path). When present,
 this file is evaluated after the default configuration values are set and before any user's config.py is used. The casasiteconfig.py is ignored when
@@ -166,7 +166,7 @@ and objects will then be available for the user within the CASA shell environmen
 casa command line
 ^^^^^^^^^^^^^^^^^
 
-.. data:: casa(-h, --help, --configfile, ---noconfig, --nositeconfig, --startupfile, --nostartupfile, --logfile, --log2term, --nologger, --nologfile, --nogui, --cachedir, --colors, --pipeline, --agg, --iplog, --notelemetry, --nocrashreport, --datapath, --reference-testing, --no-auto-update, --user-site, -v, --version, -c)
+ .. data:: casa(-h, --help, --configfile, ---noconfig, --nositeconfig, --startupfile, --nostartupfile, --logfile, --log2term, --nologger, --nologfile, --nogui, --cachedir, --colors, --pipeline, --agg, --iplog, --notelemetry, --nocrashreport, --datapath, --reference-testing, --no-auto-update, --user-site, -v, --version, -c)
 
 With the full installation of CASA  (monolithic CASA), the python environment itself is included and started through ./bin/casa.
 This ./bin/casa executable can be provided the following options to change configuration values at run time:
@@ -223,7 +223,7 @@ are True.
 casaconfig command line
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-.. data:: casaconfig(-h, --help, --configfile, ---noconfig, --nositeconfig, --measurespath, --pull-data, --data-update, --measures-update, --update-all, --reference-testing, --current-data)
+ .. data:: casaconfig(-h, --help, --configfile, ---noconfig, --nositeconfig, --measurespath, --pull-data, --data-update, --measures-update, --update-all, --reference-testing, --current-data)
 
 The casaconfig module may be used by itself with these options. The full set of config files are first used (except as omitted by the options) then the 
 options are used and then python exits. 
