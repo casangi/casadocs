@@ -427,8 +427,5 @@ Development
              10x2 iterations as in these examples
              (i.e. deconvolve(niter=19) = deconvolve(9)+deconvolve(9) to get 20 iterations in total).
 
-   .. warning:: The mtmfs deconvolver currently has incorrect end-of-minor-cycle residual
-                calculations and is therefore disabled. Please use a different deconvolver.
-
    .. warning:: The asp deconvolver is not currently considered reliable when used with task
                 deconvolve and is therefore disabled. Please use a different deconvolver.
