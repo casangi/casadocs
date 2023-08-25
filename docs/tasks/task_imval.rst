@@ -1,5 +1,12 @@
 
 
+.. _Returns:
+
+Returns
+   values (dict) - data and/or mask values in a given region, with
+   their units, associated coordinates, bounding box corners, and axes
+
+
 .. _Description:
 
 Description
