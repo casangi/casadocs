@@ -22,8 +22,7 @@ Description
    
 *mode*
    
-   mode 'set' will replace the add a new intent selection and replace the selected data with the provided intents value
-   mode 'append' will add the new intent selection to the existing selected data
+   mode ‘set’ will replace the selected data with the provided intents; mode ‘append’ will add the new intent selection to the existing selected data intents
    
 *outputvis*
    
