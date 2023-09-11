@@ -1,36 +1,33 @@
 .. _Description:
 
 Description
-   This task retrieves the ephemeris data of a specific ephemeris object by sending
-a query to JPL's Horizons system and creates the ephemeris data stored in a CASA table
-format.
+   This task retrieves the ephemeris data of a specific ephemeris object by sendingna query to JPL's Horizons system and creates the ephemeris data stored in a CASA table format.
 
 This task is intended to be used as a standalone function for a user who needs to use 
 an updated ephemeris table for data processing such as imaging.
 
-The task calls a query driver function, get_horizonsephem, which does input object name checking to translate into the NAIF ID before calling query_horizons. The query_horizons does an actual query to the database. The resultant raw text file is converted to a CASA table by get_horizonsephem.
+The task calls a query driver function, get_horizonsephem, which does input object name checking to translate into the NAIF ID before calling query_horizons. The query_horizons does an actual query to the database. The query results in json is further converted to a CASA table by get_horizonsephem.
 
 The query code is based on the JPL-Horizons API ver.1.2 (https://ssd.jpl.nasa.gov/api/horizons.api). The JPL-Horizons System provides a large number of the query parameters and we only use a subset of them. The following are the list of the parameters that is used by query_horizons function. For detailed descriptions of the parameters, please refer to the JPL-Horizons documentation (https://ssd-api.jpl.nasa.gov/doc/horizons.html). The italic parameters represent user-defined values. Some of the requested quantities are specifically used for setjy task and for other use cases may not  be needed. But the fixed quantity selection is used for uniformity within CASA for generated ephemeris tables.
 The query parameters used in this task are the following.
 
-
-format json
-EPHEM_TYPE OBSERVER
-OBJ_DATA YES
-COMMAND Objectname
-START_TIME Start time
-STOP_TIME Stop time
-STEP_SIZE Step size
-CENTER 500@399 (= geocentric)
-ANG_FORMAT DEG
-QUANTITIES 1,14,15,17,19,20,24
-   1. Astrometric RA, Dec
-  14. Observer sub-longitude & sub-latitude
-  15. Sun sub-longitude & sub-latitude
-  17. North pole PA and distance from disc center
-  19. Heliocentric range and range rate
-  20. Observer range and range rate
-  24. Sun-Target-Observer phase angle
+- format json
+- EPHEM_TYPE OBSERVER
+- OBJ_DATA YES
+- COMMAND Objectname
+- START_TIME Start time
+- STOP_TIME Stop time
+- STEP_SIZE Step size
+- CENTER 500@399 (= geocentric)
+- ANG_FORMAT DEG
+- QUANTITIES 1,14,15,17,19,20,24
+    1. Astrometric RA, Dec,
+    14. Observer sub-longitude & sub-latitude,
+    15. Sun sub-longitude & sub-latitude,
+    17. North pole PA and distance from disc center,
+    19. Heliocentric range and range rate,
+    20. Observer range and range rate,
+    24. Sun-Target-Observer phase angle
 
 
 .. _Examples:
@@ -38,19 +35,36 @@ QUANTITIES 1,14,15,17,19,20,24
 Examples
    Get Titan's ephemeris data from September 01, 2023 (20UT) to September 04, 2023 (20UT)
    with time interval of 1 hour
-   
+
    ::
    
-      getephemtable(objectname='Titan', timerange='2023/09/01/20:00~2023/09/04/20:00', interval='1h', outfile='Titan_20230901_20230904ephem.tab'
+      getephemtable(objectname='Titan', timerange='2023/09/01/20:00~2023/09/04/20:00', interval='1h', outfile='Titan_20230901_20230904ephem.tab')
    
    Same as above but specifying timerange in JD,
 
-      getephemtable(objectname='Titan', timerange='JD 2460189.416667~2460192.333333', interval='1h', outfile='Titan_20230901_20230904ephem.tab'
+   ::
 
-   Or in MJD,
+      getephemtable(objectname='Titan', timerange='JD 2460189.416667~2460192.333333', interval='1h', outfile='Titan_20230901_20230904ephem.tab')
 
-      getephemtable(objectname='Titan', timerange='MJD 60188.916667~60191.833333', interval='1h', outfile='Titan_20230901_20230904ephem.tab'
- 
+   Or in MJD with interval of 15 minutes,
+
+   ::
+
+      getephemtable(objectname='Titan', timerange='MJD 60188.916667~60191.833333', interval='15m', outfile='Titan_20230901_20230904ephem.tab')
+
+
+   Same as above but also save the raw query results,
+
+   ::
+
+     getephemtable(objectname='Titan', timerange='MJD 60188.916667~60191.833333', interval='15m', outfile='Titan_20230901_20230904ephem.tab', rawdatafile='Titan_raw_query_results.txt')
+
+   Get Comet Nishimura, C/2023 P1 data, 
+
+   ::
+
+      getephemtable(objectname='C/2023 P1', asis=True, timerange='MJD 60188.916667~60191.833333', interval='1h', outfile='CometNishimura_20230901_20230904ephem.tab'
+
 
 .. _Development:
 
