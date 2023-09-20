@@ -73,7 +73,7 @@ Description
    
    .. rubric:: Return Value:
 
-   For niter>0, the **deconvolve** task returns a dictionary containing a summary of the run. The `fullsummary parameter <fullsummary_>`_ controls the amount of the information returned in the dictionary. The **deconvolve** task returns a shorten version of the summary dictionary by omittiong some 'summaryminor' inforamation when this parameter is set to False.
+   For niter >= 0, the **deconvolve** task returns a dictionary containing a summary of the run. The `fullsummary parameter <fullsummary_>`_ controls the amount of the information returned in the dictionary. The **deconvolve** task returns a shorten version of the summary dictionary by omittiong some 'summaryminor' inforamation when this parameter is set to False.
 
     Example Return Value:
 
