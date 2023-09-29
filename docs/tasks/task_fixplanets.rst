@@ -4,6 +4,8 @@
 
 Description
 
+   editor comment: the following warning seems to be outdated. There is no current KI issues listed for fixplanets
+
    .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for fixplanets.
    
    The main purpose of this task is to correct observations which
@@ -18,6 +20,12 @@ Description
    
    If you actually want to change the phase center of the visibilties
    in an MS, you should use task **fixvis**.
+
+   ..warning:: In cases the MS already has ephemeris table(s) which are used by the correlator attached,
+   running fixplanets with a new ephemeris table specified will replace the internal link for ephemeris data to be
+   used for the specified field to the new one. Unless the new ephemeris table is the one used in phase tracking by the correlator
+   at the time of the observation, subsequent procesing such as imaging may leads to wrong results. In tclean, one can specify
+   an external ephemeris table for 'de-blur' the image.
 
    .. rubric:: Parameter descriptions
 
@@ -45,94 +53,6 @@ Description
    JPL Horizons ephemeris text file (for an example of the format,
    see directory data/ephemerides/JPL-Horizons/).
    
-   Alternatively, for most sources, the ephemeris file can also be
-   provided as mime format file, i.e., a saved email as obtained via
-   the following commands:
-   
-   ::
-   
-      # for CASA5  
-      import recipes.ephemerides.request as jplreq
-      # for CASA6
-      import casatasks.private.request as jplreq
-      jplreq.request_from_JPL(objnam='Mars', startdate='2012-01-01', enddate='2013-12-31',
-                              date_incr='0.1d', get_axis_orientation=False,
-                              get_axis_ang_orientation=True, get_sub_long=True,
-                              use_apparent=False, get_sep=False,
-                              return_address='YOUR_EMAIL_ADDESS',
-                              mailserver='YOUR_MAIL_SERVER_ADDRESS')
-   
-   .. note:: Some mail clients may not save the JPL mail properly.
-      Confirmed to work in Thunderbird.
-   
-   In cases where the source is not included in
-   recipes.ephemerides.request, use the following set of commands to
-   get the file in mime format for all sources:
-   
-   -  go to the `JPL ephemerides
-      webpage <http://ssd.jpl.nasa.gov/horizons.cgi>`__ 
-   -  change the target body entry to the desired object
-   -  click on 'batch-file' data in the special options section
-   -  retrieve the command parameter, which is the 'code' for the
-      object (i.e., DES=C/2011 L4')
-   -  send an email to horizons@ssd.jpl.nasa.gov, with JOB as
-      subject, and in the body:
-   
-   ::
-   
-      !$$SOF
-   
-      COMMAND= 'DES=C/2011 L4'
-   
-      CENTER= '500@399'
-   
-      MAKE_EPHEM= 'YES'
-   
-      TABLE_TYPE= 'OBSERVER'
-   
-      START_TIME= '2014-06-28'
-   
-      STOP_TIME= '2014-07-01'
-   
-      STEP_SIZE= '1 m'
-   
-      CAL_FORMAT= 'CAL'
-   
-      TIME_DIGITS= 'MINUTES'
-   
-      ANG_FORMAT= 'DEG'
-   
-      OUT_UNITS= 'KM-S'
-   
-      RANGE_UNITS= 'AU'
-   
-      APPARENT= 'AIRLESS'
-   
-      SOLAR_ELONG= '0,180'
-   
-      SUPPRESS_RANGE_RATE= 'NO'
-   
-      SKIP_DAYLT= 'NO'
-   
-      EXTRA_PREC= 'NO'
-   
-      R_T_S_ONLY= 'NO'
-   
-      REF_SYSTEM= 'J2000'
-   
-      CSV_FORMAT= 'NO'
-   
-      OBJ_DATA= 'YES'
-   
-      EMAIL_ADDR = 'amoullet@nrao.edu'
-   
-      QUANTITIES= '1,17,19,20,24,14,15'
-   
-      !$$EOF
-   
-   where COMMAND, START_TIME, STOP_TIME, STEP_SIZE and EMAIL_ADDR
-   must be adapted to the case. See the Examples tab for how to use
-   the returned ephemeris. 
    
    *refant*
    
@@ -181,17 +101,7 @@ Examples
       fixplanets(vis='uid___A002_X1c6e54_X223.ms', field='Titan',
                  fixuvw=False, direction='J2000 12h30m15 -02d12m00')
    
-   To use an ephemeris file returned from JPL via the email query
-   described in the Description tab in the case where the source is
-   unavailable via recipes.ephemerides.request, first copy the entire
-   email received from JPL into a file with a .eph extension (for
-   example, "target.eph"), and then attach the ephemeris using
-   **fixplanets**: 
    
-   ::
-   
-      fixplanets(vis='uid___A002_X1c6e54_X223.ms', fixuvw=True,
-                 direction='target.eph')
    
 
 .. _Development:
