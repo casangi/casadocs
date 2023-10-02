@@ -9,21 +9,20 @@ Jansky Very Large Array
 (`VLA <https://public.nrao.edu/venue/the-very-large-array/>`__),
 and is often used also for other radio telescopes.
 
-**6.5.3 Release**
+**6.5.4 Release**
 
-CASA 6.5.3 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.5.3 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
+CASA 6.5.4 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.5.4 is based on CASA 6.5.3, and the downloadable tar-file includes the pipelines for ALMA Cycle 10. 
 
 **Highlights:**
 
-- modular CASA: separate python wheels for casafeather, casabrowser and casalogger GUIs.
-- setjy: updated VLA flux calibrator model images at C, X and Ka bands.
-- tclean: corrected the math implemented for the uvtaper weighting scheme.
-- tclean: increased MPI records, and new parameter fullsummary to avoid issues with large cubes.
-- tclean/tsdimaging: performance improvement of ~10-16%.
-- simulator: now works with primary beams and a component list with spectral structure.
-- gaincal/bandpass: return a dictionary reporting on results.
-   
-For more details on these and other new features, see the CASA 6.5.3 `Release Notes <https://casadocs.readthedocs.io/en/v6.5.3/notebooks/introduction.html>`__.
+- applycal: handles calibration tables that have fewer SPWs than the MS they are being applied to 
+- simobserve: edited the lower frequency edge of ALMA Band 1 to be 50 GHz.
+- casadata: added alma cycle 10 configuration files.
+- gencal: a bug was fixed where VLA antenna position offsets were not taken into account.
+- plotbandpass: a bug was fixed to display missing information when plotting single dish caltables.
+- plotms: a bug was fixed for autoscaling point size with colorization.
+
+For more details on these and other new features, see the CASA 6.5.4 `Release Notes <https://casadocs.readthedocs.io/en/v6.5.4/notebooks/introduction.html>`__.
 
 CASA is being developed by an international consortium of scientists and software engineers based at the National Radio Astronomical Observatory (NRAO), the European Southern Observatory (ESO), the National Astronomical Observatory of Japan (NAOJ), and the Joint Institute for VLBI European Research Infrastructure Consortium (JIV-ERIC), under the guidance of NRAO.
    
