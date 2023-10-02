@@ -11,7 +11,7 @@ and is often used also for other radio telescopes.
 
 **6.4.1 Release**
 
-CASA 6.4.1 can now be (`downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__) for general use. CASA 6.4.1 is based on CASA 6.4.0, and the downloadable tar-file includes the pipelines for ALMA Cycle 9. 
+CASA 6.4.1 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.4.1 is based on CASA 6.4.0, and the downloadable tar-file includes the pipelines for ALMA Cycle 9. 
 
 **Highlights:**
 
@@ -20,7 +20,7 @@ CASA 6.4.1 can now be (`downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`
 - bug fixes
 
 
-For more details on these and other new features, see the CASA 6.4.1 (`Release Notes <https://casadocs.readthedocs.io/en/v6.4.1/notebooks/introduction.html>`__).
+For more details on these and other new features, see the CASA 6.4.1 `Release Notes <https://casadocs.readthedocs.io/en/v6.4.1/notebooks/introduction.html>`__.
    
 CASA is developed by an international consortium of scientists
 based at the National Radio Astronomical Observatory (NRAO), the
