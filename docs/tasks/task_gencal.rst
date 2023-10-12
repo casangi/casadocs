@@ -137,8 +137,8 @@ Description
       requantizer voltage gains (Tsys is set to 1.0 to avoid weight
       adjustments). 'swp/rq' yields the ordinary switched power
       voltage gains divided by the requantizer voltage gain (Tsys is
-      calculated normally). 'swpwts' yields only Tsys as Pdif/2 to correct the weights
-      without converting to a temperature scale (gain is set to 1.0 to avoid adjustments).
+      calculated normally). 'swpwts' yields only Tsys as Pdif/2 for correcting the weights
+      without converting to a temperature scale (the gain is set to 1.0 to avoid adjustments).
       The 'rq' and 'swp/rq' modes are are
       mainly intended for testing and evaluating the VLA switched
       power systems.
