@@ -985,10 +985,15 @@ Description
    
    -  *correlation*
 
-      -  select correlations for MeasurementSet.
+      -  select correlations for MeasurementSet including "RR", "RL",
+         "LR", "LL", "XX", "XY", "YX", and "YY".
+      -  select standard Stokes parameters and polarization quantities,
+         which will be computed if the MeasurementSet does not have the
+         requested quantities. Options include "I", "Q", "U", "V",
+         "Plinear", "Ptotal", "PFlinear", "PFtotal", and "Pangle".
       -  select polarizations for CalTable, including ratio plots. 
          Options include "RL", "R", "L", "XY", "X", "Y", and "/".
-   
+
    -  *array*
 
       -  select array ID.
