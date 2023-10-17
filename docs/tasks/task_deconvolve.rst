@@ -73,7 +73,7 @@ Description
    
    .. rubric:: Return Value:
 
-   For niter>0, the **deconvolve** task returns a dictionary containing a summary of the run. The `fullsummary parameter <fullsummary_>`_ controls the amount of the information returned in the dictionary. The **deconvolve** task returns a shorten version of the summary dictionary by omittiong some 'summaryminor' inforamation when this parameter is set to False.
+   For niter >= 0, the **deconvolve** task returns a dictionary containing a summary of the run. The `fullsummary parameter <fullsummary_>`_ controls the amount of the information returned in the dictionary. The **deconvolve** task returns a shorten version of the summary dictionary by omittiong some 'summaryminor' inforamation when this parameter is set to False.
 
     Example Return Value:
 
@@ -426,9 +426,6 @@ Development
              results for hogbom, evaluate deconvolve with 19 and 9x2 iterations, instead of 20 and
              10x2 iterations as in these examples
              (i.e. deconvolve(niter=19) = deconvolve(9)+deconvolve(9) to get 20 iterations in total).
-
-   .. warning:: The mtmfs deconvolver currently has incorrect end-of-minor-cycle residual
-                calculations and is therefore disabled. Please use a different deconvolver.
 
    .. warning:: The asp deconvolver is not currently considered reliable when used with task
                 deconvolve and is therefore disabled. Please use a different deconvolver.
