@@ -83,7 +83,7 @@ when the task is imported from casatasks and called outside of casashell. This w
 be the case regardless if the task is executed as a function call or by using :code:`go()`. Users
 may prefer to limit the length of these traceback messages, for which we recommend setting::
 
-  ys.tracebacklimit=0
+  sys.tracebacklimit=0
 
 or by executing::
 
