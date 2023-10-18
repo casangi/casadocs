@@ -76,6 +76,28 @@ followed by a kill.
 
 You may have to quit and restart CASA after an abort, as the internal state can get mixed up.
 
+.. rubric:: Task Exceptions
+
+If a task encounters an error casashell will raise an exception with the same traceback message as
+when the task is imported from casatasks and called outside of casashell. This will
+be the case regardless if the task is executed as a function call or by using :code:`go()`. Users
+may prefer to limit the length of these traceback messages, for which we recommend setting::
+
+  ys.tracebacklimit=0
+
+or by executing::
+
+  %xmode minimal
+
+from within either casashell or IPython. This will greatly limit the size of the
+traceback while preserving the text of the exception. The above commands can be typed into the
+casashell terminal after CASA starts, or added to :code:`startup.py` to run automatically each
+time CASA starts. Note that to use the IPython magic command :code:`xmode` in :code:`startup.py`
+it would need to be formatted as::
+
+  get_ipython().run_line_magic('xmode','minimal')
+
+
 .. rubric:: Getting Return Values
 
 Some tasks and tools return a record (usually a Python dictionary) to the interface. For example, the **imstat** task returns a
