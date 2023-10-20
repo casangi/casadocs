@@ -23,7 +23,7 @@ to set the CASA runtime options. The configuration is set when config is importe
 configuration files include the default values (provided by casaconfig), an optional site configuration file, 
 and an optional user configuration file.
 
-The optional user configuration file is found in their home .casa folder as config.py (**\_/.casa/config.py**).
+The optional user configuration file is found in their home .casa folder as config.py (**\~/.casa/config.py**).
 
 The optional site configuration file is named **casasiteconfig.py** and is found anywhere within **sys.path** 
 following the usual python import rules.
@@ -32,37 +32,39 @@ The user configuration file is ignored when **\-\-noconfig** is used on the comm
 
 The site configuration file is ignored when **\-\-nositeconfig** is used on the command line.
 
-An alternative path to the user configuration file can be given using the **--configfile <path_to_file>** option 
+An alternative path to the user configuration file can be given using the **\-\-configfile <path_to_file>** option 
 on the command line.
 
 The configuration files are used in order of defaults, site configuration, user configuration. The optional 
 configuration files need only set parameters that differ from the defaults. The resulting configuration 
 will always include the full set of configuration parameters recognized by CASA. The configuration files are 
-evaluated python files so any valid python can be used. 
+evaluated python files so any valid python can be used.
 
-**Note:**, configuration happens before any parts of CASA are loaded so no CASA modules except 
-casaconfig should be used within the configuration steps (the casaconfig functions do not depened on config.py 
-and can be used within a configuration file). 
+On import, the dict of config values also contains 2 functions: **load_success** and **load_failure**. **load_success**
+returns a list of config file paths used when config was imported, in the order they were used. **load_failure** 
+returns a dictionary of exceptions encountered by config file when loading that config file (and then that config file
+is not found in the list returned by **load_success**).
+
+**Note:**, configuration happens before any parts of CASA are loaded so no CASA modules should be used within the 
+configuration steps.
 
 **Note:** during regular use of the configuration process all print output is suppressed so that it 
 does not interfere with module initialization. 
 
 Use the **get_config()** function to get a list of strings showing the configuration parameters with values.
 
-**Note:** all path configuration values are expanded using expanduser and abspath; **get_config()** returns the 
-unexpanded values unless the *expanded* argument is *True*.
+**Note:** all path configuration values are expanded using expanduser and abspath.
 
-The following parameters can be set in a configuration file. Additional details related to the
-telemetry parameters are described `here <../notebooks/usingcasa.ipynb#Information-Collection>`__. Many of these
+The following parameters can be set in a configuration file. Many of these
 parameters can be set or ignored through the casashell command line options. The default values are also shown here.
 
 - *datapath*              : list of paths where CASA should search for data subdirectories. Default [*measurespath*].
 - *measurespath*          : location of required measures data, takes precedence over any measures data also present in datapath. Default "~/.casa/data".
 - *measures_auto_update*  : when True, casatools uses **measures_update()** to update the measures data as necessary when casatools starts. See **measures_update()** for additional details. Default True.
 - *data_auto_update*      : when True, casatools uses **data_update()* followed by **measures_update()** to update the reference **AND** measures data. See **data_update()** and **measures_update()** for additional details. Default True.
-- *startupfile*           : path to a python script used at startup by casashell when present. Default "~/.casa/startup.py" when present, else "".
+- *startupfile*           : path to a python script used at startup by casashell when present. Default "~/.casa/startup.py".
 - *cachedir*              : location of the directory where ipython writes information (history, etc), also the location of the rc file used by the casaviewer. Default "~/.casa".
-- *logfile*               : log file path/name. Default "casa-yyyymmdd-hhmmss.log". Note that this default value is set using the time module gmtime().
+- *logfile*               : log file path/name. Default "casa-yyyymmdd-hhmmss.log". Note that this default value is set using gmtime() from the time module on import of config.
 - *nologfile*             : do not create a log file when True, default False. If *nologfile* is True, then any *logfile* value is ignored and there is no log file.
 - *log2term*              : print log output to terminal when True (in addition to any logfile and CASA logger), default False.
 - *nologger*              : do not start the CASA logger GUI when True, default False.
@@ -71,36 +73,31 @@ parameters can be set or ignored through the casashell command line options. The
 - *agg*                   : startup without a graphical backend if True, default False.
 - *pipeline*              : attempt to load the pipeline modules and set other options appropriate for pipeline use if True, default False. When *pipeline* is True then *agg* will be assumed to be True even if *agg* is set to False here or on the command line.
 - *iplog*                 : create and use an IPython log if True, default False.
-- *iplogfile*             : IPython log file path/name, used only when iplog is True. Default "ipython-yyyymmdd-hhmmss.log". Note that this default value is set using the time module gmtime().
-- *telemetry_enabled*     : allow anonymous usage reporting, default True.
-- *telemetry_log_directory* : path to location where telemetry log is recorded. Default "~/.casa/telemetry".
-- *telemetry_log_limit*   : maximum telemetry log usage in kilobytes. Default 20480.
-- *telemetry_log_size_interval* : the interval between checks on the telemetry log size in seconds. Default 60.
-- *telemetry_submit_interval* : the interval between submissions of telemetry data on CASA startup in seconds. Default 604800.
-- *crashreporter_enabled* : allow anonymous crash reporting, default True.
+- *iplogfile*             : IPython log file path/name, used only when iplog is True. Default "ipython-yyyymmdd-hhmmss.log". Note that this default value is set using gmtime() from the time module on import of config.
 - *user_site*             : include the user's local site-packages in the python path if True. Normally these should be excluded to avoid potential conflicts with CASA modules. Default False.
 
+**Note:** The auto update parameters are used during casatools initialization. 
 **Note:** It is an error for *measures_auto_update* to be False when *data_auto_update* is True. In that case no auto updates will happen and CASA will continue after printing out an error message.
 
 A typical config.py file might look something like this:
 
 ::
 
-   measurespath="/home/casa/data/casa-data"
-   datapath=["/home/casa/data/casa-data", "~/.casa/my_additional_data"]
-   measures_auto_update=False
-   data_auto_update=False
+   datapath=[measurespath, "~/.casa/my_additional_data"]
+   data_auto_update = False
+   measures_auto_update = False
    log2term=True
    nologger=True
 
-**Note** that the default *logfile* and the default *iplogfile* use the time module to set the value to a string that depends on when 
-the config file is evaluated. 
 
 **Note** that in a monolithic CASA case the casasiteconfig.py will typically set *measurespath* to a shared data location and set *data_auto_update* and *measures_auto_update* to False.
 This example config.py might be appropriate for a shared *measurespath* location with an additional user-controlled data location added at the end of *datapath*.
 Auto updates are turned off to prevent the user from accidentally updating that shared location (they are likely also False in casasiteconfig.py and setting 
-that to False in the user config.py is unnecessary). Auto updates require that the user own *measurespath*, providing additional protection against 
+that to False in the user config.py here is unnecessary). Auto updates require that the user own *measurespath*, providing additional protection against 
 accidentally updating a shared data location.
+
+**Note** that the default *logfile* and the default *iplogfile* use the time module to set the value to a string that depends on when 
+the config file is evaluated. 
 
 casasiteconfig.py
 ^^^^^^^^^^^^^^^^^
@@ -115,15 +112,26 @@ The casasiteconfig.py found in the monolithic CASA initially looks like this:
 
 ::
 
-   measurespath=None   # set this to the site data location
-   measures_auto_update=False
-   data_auto_update=False
+   # The default site config file. This may be placed at any location in the PYTHONPATH used by CASA
+
+   # This file should be edited to set measurespath as appropriate
+
+   # Set this to point to the location where the site maintained casarundata can be found
+   # by default datapath will include measurespath
+
+   measurespath = None
+
+   # turn off all auto updates of data
+
+   measures_auto_update = False
+   data_auto_update = False
+
 
 These settings are appropriate for site installations where the CASA data is maintained for all site users. The *measurespath*
 value should be set to the location of the site data. Site data can be shared across multiple CASA installations. The site
 administrators are responsible for installing the CASA data and keeping it up to date. Methods provided by casaconfig should be used to
-populate that location (**pull_data()**) and keep it up to date (**data_update()** or **measures_update()** or the *update-data* script
-found in the CASA installation.
+populate that location (**update_all()** or **pull_data()**) and keep it up to date (**data_update()** or **measures_update()** or the *update-data* script
+found in the CASA installation or the ** -\-update_all** casaconfig module command-line option.
 
 Auto updates are turned off in casasiteconfig.py because the site data location should not be updated by individual users (auto updates
 also require that the user own *meausurespath*, which is not typical for a site installation). 
@@ -144,7 +152,7 @@ startup.py
 The \'*startup.py*\' file found at the *startupfile* configuration value (defaults to *\~/.casa/startup.py*) is evaluated 
 by the CASA shell just before the CASA prompt is presented to the user. This allows users to customize their CASA shell 
 environment beyond the standard settings in \'*config.py*\', by importing packages, setting variables or modifying 
-the python system path. The startup file is optional. It can be ignored setting startupfile in configuration file to 
+the python system path. The startup file is optional. It can be ignored by setting *startupfile* in their configuration file to 
 indicate a path that does not exist or by using the *\-\-nostartupfile* casashell command line option.
 
 One case where this is useful is for configuring CASA for ALMA data reduction. A package called \'analysisUtils\' is often used as part
@@ -166,10 +174,10 @@ and objects will then be available for the user within the CASA shell environmen
 casa command line
 ^^^^^^^^^^^^^^^^^
  
- .. data:: casa(-h, --help, --configfile, ---noconfig, --nositeconfig, --startupfile, --nostartupfile, --logfile, --log2term, --nologger, --nologfile, --nogui, --cachedir, --colors, --pipeline, --agg, --iplog, --notelemetry, --nocrashreport, --datapath, --reference-testing, --no-auto-update, --user-site, -v, --version, -c)
+ .. data:: casa(-h, --help, --configfile, ---noconfig, --nositeconfig, --startupfile, --nostartupfile, --logfile, --log2term, --nologger, --nologfile, --nogui, --cachedir, --colors, --pipeline, --agg, --iplog, --datapath, --reference-testing, --no-auto-update, --user-site, -v, --version, -c)
 
-With the full installation of CASA  (monolithic CASA), the python environment itself is included and started through ./bin/casa.
-This ./bin/casa executable can be provided the following options to change configuration values at run time:
+With the full installation of CASA  (monolithic CASA), the python environment itself is included and started through <CASA_installation_Path>/bin/casa.
+This <CASA_installation_path>/bin/casa executable can be provided the following options to change configuration values at run time:
 
 ::
 
@@ -189,8 +197,6 @@ This ./bin/casa executable can be provided the following options to change confi
    --pipeline               start CASA pipeline run
    --agg                    startup without graphical backend
    --iplog                  create ipython log
-   --notelemetry            disable telemetry collection
-   --nocrashreport          do not submit an online report when CASA crashes
    --datapath DATAPATH      data path(s) [colon separated]
    --reference-testing      force *measurespath* to contain the casarundata when this version was produced, used for testing purposes
    --no-auto-update         turn off all auto aupdates that may be True
@@ -216,10 +222,6 @@ The \-\-reference-testing option is provided to help testers ensure that a known
 The \-\-no-auto-update option turns off any automatic data updates even if *data_auto_update* or *measures_auto_update* 
 are True.
 
-\-\-notelemetry sets the telemetry_enabled configuration parameter to False.
-
-\-\-nocrashreport sets the crashreporter_enabled configuration parameter to False.
-
 casaconfig command line
 ^^^^^^^^^^^^^^^^^^^^^^^
  
@@ -240,13 +242,13 @@ rules do not apply. If the user has permission to update that data then that dat
    --configfile CONFIGFILE     location of the user configuration file
    --noconfig                  do not load user configuration file
    --nositeconfig              do not load site configuration file
-   --measurespath MEASUREPATH  the path to the data for data-related options
-   --pull-data                 invokes **pull_data()**
-   --data-update               invokes **data_update()**
-   --measures-update           invokes **measures_update()**
-   --update-all                invokes **data_update()** then **measures_update**
-   --reference-testing          force *measurespath* to contain the casarundata when this version was produced, used for testing purposes
-   --current-data              summarize the current data status files (readme.txt, versions and dates) and exit.
+   --measurespath MEASUREPATH  location of casarundata
+   --pull-data                 invoke **pull_data()** to populate *measurespath* with the latest casarundata
+   --data-update               invoke **data_update()** to update *measurespath* to the latest casarundata
+   --measures-update           invoke **measures_update()** to update *measurespath* to the latest measures data
+   --update-all                invoke **update_all()** to populate (update) *measurespath* with the latest casarundata and measures data.
+   --reference-testing         set *measurespath* to contain the casarundata when this version was produced, used for testing purposes
+   --current-data              print out a summary of the current casarundata and measures data installed in *measurespath* and then exit.
 
 The \-\-configfile option is used to provide an alternative path to the user's configuration file. When that
 option is used the file at that location is used instead of the default user configuration file (~/.casa/config.py).
@@ -268,3 +270,6 @@ When the \-\-current-data option is used no updates happen even if those options
 
 The \-\-reference-testing option can not be used with \-\-pull-data, \-\-data-update, \-\-measures-update, 
 and \-\-update-all.
+
+**Note** that if *measurespath* does not exist then \-\-pull-data, \-\-update-all, and \-\-reference-testing 
+will create it before populating it.
