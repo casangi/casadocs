@@ -91,7 +91,7 @@ A typical config.py file might look something like this:
    nologger=True
 
 
-**Note** that in a monolithic CASA case the casasiteconfig.py will typically set *measurespath* to a shared data location and set *data_auto_update* and *measures_auto_update* to False.
+**Note** that in a monolithic CASA installation the casasiteconfig.py will typically set *measurespath* to a shared data location and set *data_auto_update* and *measures_auto_update* to False.
 This example config.py might be appropriate for a shared *measurespath* location with an additional user-controlled data location added at the end of *datapath*.
 Auto updates are turned off to prevent the user from accidentally updating that shared location (they are likely also False in casasiteconfig.py and setting 
 that to False in the user config.py here is unnecessary). Auto updates require that the user own *measurespath*, providing additional protection against 
@@ -193,7 +193,7 @@ This <CASA_installation_path>/bin/casa executable can be provided the following 
    --nologger               do not start CASA logger
    --nologfile              do not create a log file
    --nogui                  avoid starting GUI tools
-   --cachedir CACHEDIR     location for internal working files
+   --cachedir CACHEDIR      location for internal working files
    --colors {Neutral,NoColor,Linux,LightBG} prompt color
    --pipeline               start CASA pipeline run
    --agg                    startup without graphical backend
@@ -201,7 +201,7 @@ This <CASA_installation_path>/bin/casa executable can be provided the following 
    --datapath DATAPATH      data path(s) [colon separated]
    --reference-testing      force *measurespath* to contain the casarundata when this version was produced, used for testing purposes
    --no-auto-update         turn off all auto aupdates that may be True
-   --user-site              include user's local site-packages lib in path
+   --user-site              include user\'s local site-packages lib in path
    -v, --version            show CASA version
    -c ...                   python eval string or python script to execute
 
@@ -244,12 +244,12 @@ rules do not apply. If the user has permission to update that data then that dat
    --noconfig                  do not load user configuration file
    --nositeconfig              do not load site configuration file
    --measurespath MEASUREPATH  location of casarundata
-   --pull-data                 invoke **pull_data()** to populate *measurespath* with the latest casarundata
-   --data-update               invoke **data_update()** to update *measurespath* to the latest casarundata
-   --measures-update           invoke **measures_update()** to update *measurespath* to the latest measures data
-   --update-all                invoke **update_all()** to populate (update) *measurespath* with the latest casarundata and measures data.
-   --reference-testing         set *measurespath* to contain the casarundata when this version was produced, used for testing purposes
-   --current-data              print out a summary of the current casarundata and measures data installed in *measurespath* and then exit.
+   --pull-data                 invoke pull_data() to populate measurespath with the latest casarundata
+   --data-update               invoke data_update() to update measurespath to the latest casarundata
+   --measures-update           invoke measures_update() to update measurespath to the latest measures data
+   --update-all                invoke update_all() to populate (update) measurespath with the latest casarundata and measures data.
+   --reference-testing         set measurespath to contain the casarundata when this version was produced, used for testing purposes
+   --current-data              print out a summary of the current casarundata and measures data installed in measurespath and then exit.
 
 The \-\-configfile option is used to provide an alternative path to the user's configuration file. When that
 option is used the file at that location is used instead of the default user configuration file (~/.casa/config.py).
