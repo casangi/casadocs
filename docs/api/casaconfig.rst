@@ -201,7 +201,7 @@ This <CASA_installation_path>/bin/casa executable can be provided the following 
    --datapath DATAPATH      data path(s) [colon separated]
    --reference-testing      force *measurespath* to contain the casarundata when this version was produced, used for testing purposes
    --no-auto-update         turn off all auto aupdates that may be True
-   --user-site              include user\'s local site-packages lib in path
+   --user-site              include user's local site-packages lib in path
    -v, --version            show CASA version
    -c ...                   python eval string or python script to execute
 
