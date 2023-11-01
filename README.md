@@ -265,6 +265,8 @@ The current process is to request a review (optional but highly recommended, Bjo
 
 
 ## Building Documentation Locally
+
+### Not Using a Local casa6 Sandbox
 This documentation repository can be edited and built locally by users with access to Python3. First clone the repo (git clone `https://github.com/casangi/casadocs.git`), then navigate to the root of the cloned directory in a terminal and use the following commands:
 
 ```
@@ -289,6 +291,63 @@ $: ./buildme.sh --sphinx --tools none --notebooks none --tasks none # don't buil
 
 After building the documentation, it can be viewed in a web browser by pasting the full file path to the **index.html** in the URL field. The **index.html** file is in the `build` directory created under `docs` (i.e. */home/user/test_docs/casadocs/docs/build/index.html*). 
 
+### In Conjunction with a Local casa6 Sandbox
+The casadocs local build can be somewhat integrated with a local casa6 sandbox. The main benefit here is that casa6 xml doc changes (parameters in casa task xml files and parameters and descriptions in casatools xml files) do not have to be pushed to the casa6 repo in order for the casadocs builds to access them. The steps are as follows:
+
+```
+# clone the casadocs and casa6 repos. Each can be anywhere on your system, so long as both can "see" each other, eg, you can
+# be in one and do an ls on the other. casadocs can even be in the subdirectory casa6 subdirectory, and this configuration
+# would be useful if casadocs is ever added as a submodule to casa6.
+
+# set up some useful shell variables. You will need to do this for every new interactive shell, or you can just add them to
+# your shell start up file
+# $CASASRC points to the casa6 snadbox
+CASASRC=my_modular_build_area/casa6
+
+# $CASADOCS points to the casadocs sandbox
+CASADOCS=somewhere_else/casadocs
+
+# create a branch in casadocs with the same name as your casa6 branch. You can do this in the shell or using the github
+# instructions above, although in the latter case you will have to git fetch and checkout the branch in your sandbox.
+# Obviously you will need to do this each time you create a new branch
+cd $CASADOCS
+git branch -b CAS-xxxxxx
+
+# create and configure a casadocs virtual environment. You should only need to do this once per sandbox, unless requirements
+# are updated in which case you will need to pip update those. Note venv *must* be the name of the virtual environment, as
+# that is hard coded in casadocs scripts. You will need to activate this environment each time you want to interact with the
+# casadocs environment
+cd $CASADOCS
+python3 -m venv venv
+source venv/bin/activate
+pip install --upgrade pip wheel
+pip install -r requirements.txt
+
+# create a symlink to your casa6 tree. The actual location of the symlink does not matter, as long as it is consistent with
+# the buildme.sh command below. I usually put it in the subdirectory that contains casadocs. Note however, that it must be
+# named src as this is hardcoded in casadocs scripts
+ln -s $CASASRC/.. $CASADOCS/../src
+
+# sphinx-build clones various repos and sets up the build environment. It should only need to be run once for each sandbox
+cd $CASADOCS/docs
+sphinx-build -a -E -b html . ./build
+
+# Now whenever you make a change to a casatools or casatasks xml files in your casa6 sandbox, run the buildme.sh command to
+# regenerate your casadocs sandbox build. You will be able to see your changes in your casadocs sandbox in the build tree.
+# This command copies the tool and task xml files from the local casa6 repo, so no need to push anything to the casa6 repo
+# first to see the changes in your casadocs sandbox
+$CASADOCS/buildme.sh --sphinx --copyxml $CASADOCS/..
+
+# When you are more or less happy, commit and push your changes first to the casa6 branch and then to casadocs branch. This
+# order allows the automated casadocs build to retrieve the most recent version of the docs from your branch in the casa6
+# repo. If your doc changes are tool xml file changes or task xml file parameter changes, you will need to somehow trigger
+# the automated doc build on readthedocs if you've pushed the # branch previously, assuming you want your changes to be
+# visible in the automated branch build on readthedocs. I don't know a good way to to that, so I'd just commit a dummy file
+# and push that and when I was ready to issue the casadocs PR I'd remember to remove any dummy files I created.
+
+# When you're done interacting with your casadocs build environment, deactivate it.
+deactivate 
+```
 
 ## Re-generating Plone content from Scratch
 This should not be necessary and is here only for reference on how
