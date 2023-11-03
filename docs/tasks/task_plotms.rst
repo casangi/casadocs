@@ -930,7 +930,15 @@ Description
          a calibration table) cannot be split and must have an
          ASDM_RECEIVER table, or a warning is issued and the atm/tsky
          curve is plotted without the sideband curve.
-   
+
+   -  *colorizeoverlay*
+
+      -  colorize the curve overlays when a curve (*showatm* or *showtsky*)
+         is enabled and *coloraxis* is set.
+      -  False (default): use default solid color.
+      -  *coloraxis* will be applied to the curve overlays in a lighter
+         tint of the color used in the plot.
+
    .. rubric:: Data Selection
    
    .. *selectdata*
@@ -977,10 +985,15 @@ Description
    
    -  *correlation*
 
-      -  select correlations for MeasurementSet.
+      -  select correlations for MeasurementSet including "RR", "RL",
+         "LR", "LL", "XX", "XY", "YX", and "YY".
+      -  select standard Stokes parameters and polarization quantities,
+         which will be computed if the MeasurementSet does not have the
+         requested quantities. Options include "I", "Q", "U", "V",
+         "Plinear", "Ptotal", "PFlinear", "PFtotal", and "Pangle".
       -  select polarizations for CalTable, including ratio plots. 
          Options include "RL", "R", "L", "XY", "X", "Y", and "/".
-   
+
    -  *array*
 
       -  select array ID.
@@ -1252,6 +1265,11 @@ Description
       polarization.  For an antenna position (KAntPos Jones) table,
       the first axis contains the x, y, and z offsets so
       *coloraxis="corr"* may be used to distinguish these values.
+   -  When *showlegend=True*, the colorized colors and values will be shown
+      in the legend.
+   -  When *colorizeoverlay=True* and *showatm=True* or *showtsky=True*,
+      the coloraxis will be applied to the curve overlays in a lighter tint
+      of the color used in the plot.
    
    *customsymbol*
 
@@ -1400,6 +1418,8 @@ Description
    -  False (default) : do not show legend.
    -  Legend is shown at upper right unless subparameter
       *legendposition* is set.
+   -  When *coloraxis* is set, the colorized colors and values will be shown
+      in the legend.
    
    *legendposition*
 
