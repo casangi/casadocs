@@ -1140,7 +1140,11 @@ Description
    
    *basecnt*
    
-   List the number of flags per baseline. Default: False
+   Count the number of flags per baseline. The counts are added to the
+   return result dictionary (in the 'baseline'' key) and also printed
+   to the log. In addition, counts per antenna/scan are also reported
+   and added to the result dictionary (key 'antenna:scan'). Default:
+   False
    
    *fieldcnt*
    
