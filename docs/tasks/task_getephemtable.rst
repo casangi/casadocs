@@ -1,24 +1,24 @@
 .. _Description:
 
 Description
-   This task retrieves the ephemeris data of a specific ephemeris object by sendingna query to JPL's Horizons system and creates the ephemeris data stored in a CASA table format.
+   This task retrieves the ephemeris data of a specific ephemeris object by sending a query to JPL's Horizons system and creates the ephemeris data stored in a CASA table format.
 
 This task is intended to be used as a standalone function for a user who needs to use 
 an updated ephemeris table for data processing such as imaging.
 
 The task calls a query driver function, get_horizonsephem, which does input object name checking to translate into the NAIF ID before calling query_horizons. The query_horizons does an actual query to the database. The query results in json is further converted to a CASA table by get_horizonsephem.
 
-The query code is based on the JPL-Horizons API ver.1.2 (https://ssd.jpl.nasa.gov/api/horizons.api). The JPL-Horizons System provides a large number of the query parameters and we only use a subset of them. The following are the list of the parameters that is used by query_horizons function. For detailed descriptions of the parameters, please refer to the JPL-Horizons documentation (https://ssd-api.jpl.nasa.gov/doc/horizons.html). The italic parameters represent user-defined values. Some of the requested quantities are specifically used for setjy task and for other use cases may not  be needed. But the fixed quantity selection is used for uniformity within CASA for generated ephemeris tables.
+The query code is based on the JPL-Horizons API ver.1.2 (https://ssd.jpl.nasa.gov/api/horizons.api). The JPL-Horizons System provides a large number of the query parameters and we only use a subset of them. The following are the list of the parameters that is used by query_horizons function. For detailed descriptions of the parameters, please refer to the JPL-Horizons documentation (https://ssd-api.jpl.nasa.gov/doc/horizons.html). The italic parameters represent user-defined values. Some of the requested quantities are specifically used for setjy task and for other use cases may not be needed. But the fixed quantity selection is used for uniformity within CASA for generated ephemeris tables.
 The query parameters used in this task are the following.
 
 - format json
 - EPHEM_TYPE OBSERVER
 - OBJ_DATA YES
-- COMMAND Objectname
-- START_TIME Start time
-- STOP_TIME Stop time
-- STEP_SIZE Step size
-- CENTER 500@399 (= geocentric)
+- COMMAND *Objectname*
+- START_TIME *Start time*
+- STOP_TIME *Stop time*
+- STEP_SIZE *Step size*
+- CENTER 500\@399 (= geocentric)
 - ANG_FORMAT DEG
 - QUANTITIES 1,14,15,17,19,20,24
     1. Astrometric RA, Dec,
