@@ -18,10 +18,13 @@ Description
   The observing band must be specified. For the VLA, supported bands are 'P'. 'L', 'S',
   'C', 'X', 'U', 'K', 'A', and 'Q'.
 
-  The observation date as an MJD must be specified. Specifying an MJD before or around 1980
-  will result in an exception being thrown as there are no data for such dates.
+  The observation date must be specified as either an MJD (assumed if the value is a number)
+  or a date of the form 'YYYY-MM-DD' (assumed if the value is specified as a string).
+  Specifying a time before or around 1980 will result in an exception being thrown as there
+  are no data for such dates.
 
-  A reference date as an MJD may be specified. It allows older versions of the data
+  A reference date may be specified. If so, the specification rules for the observation
+  date also hold for this parameter, Specifying this parameter allows older versions of the data
   and/or algorithms should be retrieved, thus allowing historical reproducibility even
   after data and algorithms may have been updated. This input represents the latest date
   for which versioned data and algorithms should be used.
