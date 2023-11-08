@@ -6,6 +6,12 @@ Description
 This task is intended to be used as a standalone function for a user who needs to use 
 an updated ephemeris table for data processing such as imaging.
 
+Parameter, **asis**:
+By setting asis=False, the task checks objectname for the known object names in CASA and if it matches, it converts to an object ID before sending a query to the JPL-Horizons system. The known objects are a list of the supported ephemeris objects in the setjy task plus a few others as listed below.
+Sun, Mercury, Venus, Moon, Mars, Jupiter, Io, Europa, Ganymede, Callisto, Saturn, Titan, Uranus, Neptune, Pluto,
+Ceres, Pallas, Juno, Vesta, and Lutetia
+By setting asis=True, objectname will be unmodified before sending the query.
+
 The task calls a query driver function, get_horizonsephem, which does input object name checking to translate into the NAIF ID before calling query_horizons. The query_horizons does an actual query to the database. The query results in json is further converted to a CASA table by get_horizonsephem.
 
 The query code is based on the JPL-Horizons API ver.1.2 (https://ssd.jpl.nasa.gov/api/horizons.api). The JPL-Horizons System provides a large number of the query parameters and we only use a subset of them. The following are the list of the parameters that is used by query_horizons function. For detailed descriptions of the parameters, please refer to the JPL-Horizons documentation (https://ssd-api.jpl.nasa.gov/doc/horizons.html). The italic parameters represent user-defined values. Some of the requested quantities are specifically used for setjy task and for other use cases may not be needed. But the fixed quantity selection is used for uniformity within CASA for generated ephemeris tables.
