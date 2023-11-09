@@ -4,7 +4,7 @@ Description
    This task retrieves the ephemeris data of a specific ephemeris object by sending a query to JPL's Horizons system and creates the ephemeris data stored in a CASA table format.
 
 This task is intended to be used as a standalone function for a user who needs to use 
-an updated ephemeris table for data processing such as imaging. More informiaton on how one can use the CASA epehemeris table generated with this task is available at [Manupilate Ephemeris Ojbect](ephemeris_data.ipynb#Manipulate-Ephemeris-Objects)
+an updated ephemeris table for data processing such as imaging. More informiaton on how one can use the CASA epehemeris table generated with this task is available in `Manipulate Ephemeris Ojbect <../../notebooks/ephemeris_data.ipynb#Manipulate-Ephemeris-Objects>`__ section.
 
 Parameter, **asis**:
 By setting asis=False, the task checks objectname for the known object names in CASA and if it matches, it converts to an object ID before sending a query to the JPL-Horizons system. The known objects are a list of the supported ephemeris objects in the setjy task plus a few others as listed below.
