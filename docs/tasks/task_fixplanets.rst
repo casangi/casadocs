@@ -95,19 +95,7 @@ Examples
 
     THIS NO LONGER WORKS
 
-   To use an ephemeris file returned from JPL via the email query
-   described in the Description tab in the case where the source is
-   unavailable via recipes.ephemerides.request, first copy the entire
-   email received from JPL into a file with a .eph extension (for
-   example, "target.eph"), and then attach the ephemeris using
-   **fixplanets**: 
-   
-   ::
-   
-      fixplanets(vis='uid___A002_X1c6e54_X223.ms', fixuvw=True,
-                 direction='target.eph')
-   
-
+  
 .. _Development:
 
 Development
