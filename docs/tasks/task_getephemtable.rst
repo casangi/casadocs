@@ -4,13 +4,8 @@ Description
    This task retrieves the ephemeris data of a specific ephemeris object by sending a query to JPL's Horizons system and creates the ephemeris data stored in a CASA table format.
 
 This task is intended to be used as a standalone function for a user who needs to use 
-an updated ephemeris table for data processing such as imaging. More informiaton on how one can use the CASA epehemeris table generated with this task is available in `Manipulate Ephemeris Ojbect <../../notebooks/ephemeris_data.ipynb#Manipulate-Ephemeris-Objects>`__ section.
+an updated ephemeris data in CASA table format for data processing such as imaging. More informiaton on how one can use the CASA epehemeris table generated with this task is available in `Manipulate Ephemeris Ojbect <../../notebooks/ephemeris_data.ipynb#Manipulate-Ephemeris-Objects>`__ section.
 
-Parameter, **asis**:
-By setting asis=False, the task checks objectname for the known object names in CASA and if it matches, it converts to an object ID before sending a query to the JPL-Horizons system. The known objects are a list of the supported ephemeris objects in the setjy task plus a few others as listed below.
-Sun, Mercury, Venus, Moon, Mars, Jupiter, Io, Europa, Ganymede, Callisto, Saturn, Titan, Uranus, Neptune, Pluto,
-Ceres, Pallas, Juno, Vesta, and Lutetia
-By setting asis=True, objectname will be unmodified before sending the query.
 
 The task calls a query driver function, get_horizonsephem, which does input object name checking to translate into the NAIF ID before calling query_horizons. The query_horizons does an actual query to the database. The query results in json is further converted to a CASA table by get_horizonsephem.
 
@@ -35,6 +30,14 @@ The query parameters used in this task are the following.
     20. Observer range and range rate,
     24. Sun-Target-Observer phase angle
 
+asis 
+  By setting asis=False, the task checks objectname for the known object names in CASA and if it matches, it converts to an object ID before sending a query to the JPL-Horizons system. The known objects are a list of the supported ephemeris objects in the setjy task plus a few others as listed below.  Sun, Mercury, Venus, Moon, Mars, Jupiter, Io, Europa, Ganymede, Callisto, Saturn, Titan, Uranus, Neptune, Pluto, Ceres, Pallas, Juno, Vesta, and Lutetia. By setting asis=True, objectname will be unmodified before sending the query.
+
+timerange
+  For a small time interval (e.g. interval='1min'), specifying timernage by the calendar date and time is recommanded rather than using MJD, which may lead to precision error in converting to the calendar dates and times in the returned ephemeris data from the JPL-Horizons system. 
+
+rawdatafile
+  This parameter is useful to set whenever errors occur in the query result content and in consequence, CASA ephemeris table is not generated. While some of the common errors during query are parsed to the logger, the full description of the issues in the query that are reported by the JPL-Horizons system can be found in the raw query data file.
 
 .. _Examples:
 
