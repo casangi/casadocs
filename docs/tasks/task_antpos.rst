@@ -26,16 +26,23 @@ snr is an optional parameter. It is the signal-to-noise ratio. Antenna
 positions which have corrections less than this value will not be written.
 If not specified, positions of all antennas will be written.
 
-search is an optional parameter, It is the search algorithm to use.
-Supported values are 'both_latest' and 'both_closest'. For 'both_latest',
-the last updated position for each antenna within 30 days after the
-observation will be returned, taking into account snr if specified. If provided,
+tw and search are optional parameters and are coupled as follows. search
+indicates the search algorithm to use to find the desired antenna positions.
+Suppored values are 'both_latest' and 'both_closest'. The default algorithm
+used is 'both_latest'.
+In general, the search is limited in time to the specified value of tw
+(time wondow). However, in the case that tw is not specified, the following
+rules apply. 
 
-tw will override the 30 day default value. For 'both_closest', the position
+For 'both_latest',
+the last updated position for each antenna within the specified time window,
+or, if tw is not specified, within 30 days after the observation will be
+returned, taking into account snr if specified, if provided.
+
+For 'both_closest', if tw is not specified, the position
 of each antenna closest in time to the observation, within 30 days (before
-or after the observation will be returned, subject to the value of snr if it
-is specified. If specified, the value of tw will override the default 30 days.
-The default algorithm used is 'both_latest'.
+or after the observation) will be returned, subject to the value of snr if it
+is specified. 
 
 servers is a required parameter. It is a list of servers to query, in order of
 priority, to obtain positions. The first server to respond with a valid result is
