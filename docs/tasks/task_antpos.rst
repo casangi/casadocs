@@ -44,10 +44,10 @@ of each antenna closest in time to the observation, within 30 days (before
 or after the observation) will be returned, subject to the value of snr if it
 is specified. 
 
-servers is a required parameter. It is a list of servers to query, in order of
+hosts is a required parameter. It is a list of hosts to query, in order of
 priority, to obtain positions. The first server to respond with a valid result is
 the only one that is used. That response will be written and no additional
-servers will be queried.
+hosts will be queried.
 
 
 .. _Examples:
@@ -60,7 +60,7 @@ Examples
    
       antpos(
           outfile='my_ant_pos.json', asdm='valid ASDM name here', snr=5,
-          servers=['tbd1.alma.cl', 'tbd2.alma.cl']
+          hosts=['tbd1.alma.cl', 'tbd2.alma.cl']
      )
    
 
