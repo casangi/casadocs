@@ -31,7 +31,10 @@ The query parameters used in this task are the following.
     24. Sun-Target-Observer phase angle
 
 asis 
-  By setting asis=False, the task checks objectname for the known object names in CASA and if it matches, it converts to an object ID before sending a query to the JPL-Horizons system. The known objects are a list of the supported ephemeris objects in the setjy task plus a few others as listed below.  Sun, Mercury, Venus, Moon, Mars, Jupiter, Io, Europa, Ganymede, Callisto, Saturn, Titan, Uranus, Neptune, Pluto, Ceres, Pallas, Juno, Vesta, and Lutetia. By setting asis=True, objectname will be unmodified before sending the query.
+  By setting asis=False, the task checks objectname for the known object names in CASA and if it matches, it converts to an object ID before sending a query to the JPL-Horizons system. The known objects are a list of the supported ephemeris objects in the setjy task plus a few others as listed below.  
+
+  Sun, Mercury, Venus, Moon, Mars, Jupiter, Io, Europa, Ganymede, Callisto, Saturn, Titan, Uranus, Neptune, Pluto, Ceres, Pallas, Juno, Vesta, and Lutetia. 
+  By setting asis=True, objectname will be unmodified before sending the query.
 
 timerange
   For a small time interval (e.g. interval='1min'), specifying timernage by the calendar date and time is recommanded rather than using MJD, which may lead to precision error in converting to the calendar dates and times in the returned ephemeris data from the JPL-Horizons system. 
