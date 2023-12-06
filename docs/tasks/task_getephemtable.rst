@@ -55,24 +55,24 @@ Examples
 
       getephemtable(objectname='Titan', timerange='JD 2460189.416667~2460192.333333', interval='1h', outfile='Titan_20230901_20230904ephem.tab')
 
-   Or in MJD with interval of 15 minutes,
+   Or in MJD with interval of 5 minutes,
 
    ::
 
-      getephemtable(objectname='Titan', timerange='MJD 60188.916667~60191.833333', interval='15m', outfile='Titan_20230901_20230904ephem.tab')
+      getephemtable(objectname='Titan', timerange='MJD 60188.916667~60191.833333', interval='5m', outfile='Titan_20230901_20230904ephem.tab')
 
 
    Same as above but also save the raw query results,
 
    ::
 
-     getephemtable(objectname='Titan', timerange='MJD 60188.916667~60191.833333', interval='15m', outfile='Titan_20230901_20230904ephem.tab', rawdatafile='Titan_raw_query_results.txt')
+     getephemtable(objectname='Titan', timerange='MJD 60188.916667~60191.833333', interval='5m', outfile='Titan_20230901_20230904ephem.tab', rawdatafile='Titan_raw_query_results.txt')
 
-   Get Comet Nishimura, C/2023 P1 data, 
+   Get Comet Nishimura, C/2023 P1 data with 5 min interval (interval parameter is omitted since 5 minutes is default), 
 
    ::
 
-      getephemtable(objectname='C/2023 P1', asis=True, timerange='MJD 60188.916667~60191.833333', interval='1h', outfile='CometNishimura_20230901_20230904ephem.tab'
+      getephemtable(objectname='C/2023 P1', asis=True, timerange='MJD 60188.916667~60191.833333', outfile='CometNishimura_20230901_20230904ephem.tab'
 
 
 .. _Development:
