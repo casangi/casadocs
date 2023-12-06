@@ -8,32 +8,34 @@ Description
 
   The task currently supports only the VLA (since it is the only telescope that has
   such a web service). One of either a calibrator name or direction may be specified.
-  The names '3C48', '3C138', '3C147', and '3C286' are supported. A direction is specified
-  as 'FRAME LONGITUDE LATITUDE', so for example 'J2000 01:37:41.1 33.09.32' for 3C48. 
-  Latitude and longitude may be specified in their familiar sexigesimal forms, or as
-  angular quantities which must include units (eg '33.15deg'). If a direction is specified,
-  the web service will attempt to find a supported calibrator near that position. If one
-  cannot be found, an exception will be thrown.
+  The names '3C48', '3C138', '3C147', and '3C286' are currently supported by the web
+  service. A direction is specified as 'FRAME LONGITUDE LATITUDE', so for example
+  "J2000 01:37:41.1 33.09.32" for 3C48. Latitude and longitude may be specified in
+  their familiar sexigesimal forms, or as angular quantities which must include
+  units (eg '33.15deg'). If a direction is specified, the web service will attempt to
+  find a supported calibrator near (as defined by the web service) that position. If
+  one cannot be found, the web server will return an error code and the task will
+  throw an exception.
 
   The observing band must be specified. For the VLA, supported bands are 'P'. 'L', 'S',
   'C', 'X', 'U', 'K', 'A', and 'Q'.
 
   The observation date must be specified as either an MJD (assumed if the value is a number)
-  or a date of the form 'YYYY-MM-DD' (assumed if the value is specified as a string).
+  or a date of the form "YYYY-MM-DD" (assumed if the value is specified as a string).
   Specifying a time before or around 1980 will result in an exception being thrown as there
   are no data for such dates.
 
   A reference date may be specified. If so, the specification rules for the observation
   date also hold for this parameter, Specifying this parameter allows older versions of the data
-  and/or algorithms should be retrieved, thus allowing historical reproducibility even
+  and/or algorithms to be retrieved, thus allowing historical reproducibility even
   after data and algorithms may have been updated. This input represents the latest date
   for which versioned data and algorithms should be used.
 
   If successful, the task will write a component list generated from the data returned
   by the web service which represents the brightness distribution for the specified 
   calibrator for the specified band at the specified date (with the reference date applied
-  if one is specified). This component list, being a CASA table, will have the table
-  keyword 'web_service'. The value of this keyword is a dictionary containing the inputs
+  if one is specified). This component list, being a CASA table, will include the table
+  keyword "web_service". The value of this keyword is a dictionary containing the inputs
   specified in the task, the response of the web service (usually a very long JSON string),
   the URL that was used to make the query, and other possibly useful metadata.  
 
