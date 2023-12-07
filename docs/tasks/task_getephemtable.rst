@@ -34,6 +34,7 @@ asis
   By setting asis=False, the task checks objectname for the known object names in CASA and if it matches, it converts to an object ID before sending a query to the JPL-Horizons system. The known objects are a list of the supported ephemeris objects in the setjy task plus a few others as listed below.  
 
   Sun, Mercury, Venus, Moon, Mars, Jupiter, Io, Europa, Ganymede, Callisto, Saturn, Titan, Uranus, Neptune, Pluto, Ceres, Pallas, Juno, Vesta, and Lutetia. 
+
   By setting asis=True, objectname will be unmodified before sending the query.
 
 timerange
