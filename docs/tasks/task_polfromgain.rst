@@ -44,6 +44,7 @@ Example
    The dictionary returned contains the fractional Stokes polarization information estimated by polfromgain:
 
    ::
+
       S = {'Field1' : {'Spw0': [1.0, 0.033, 0.015, 0.0],
                        'Spw1': [1.0, 0.035, 0.013, 0.0],
                        'SpwAve' : [1.0, 0.034, 0.014, 0.0]}}
