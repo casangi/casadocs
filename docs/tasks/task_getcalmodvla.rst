@@ -28,6 +28,18 @@ Description
   after data and algorithms may have been updated. This input represents the latest date
   for which versioned data and algorithms should be used.
 
+  A prioritized list of servers may be specified in the hosts parameter. Each server is
+  queried in turn until a successful response is received, in which case no more servers
+  are queried, or the list is exhausted, in which case an exception is thrown. Note that
+  this list is not strictly limited to domain names but can include paths as well. The
+  portion of the URL constructed by the task from the input parameters is just the query
+  string, so if a path precedes the query string, that can (and should) be included in the
+  hosts parameter. For example, the default value is ['http://obs.vla.nrao.edu/calmodvla'],
+  which includes the 'calmodvla' path that precedes the query string. The task constructs
+  the query string and appends it to the host string, separating the two with a '?'. So, in
+  this case, the URL that is queried is
+  http://obs.vla.nrao.edu/calmodvla?[task-constructed-query-string].
+
   If successful, the task will write a component list generated from the data returned
   by the web service which represents the brightness distribution for the specified 
   calibrator for the specified band at the specified date (with the reference date applied
