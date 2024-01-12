@@ -3,5 +3,5 @@ antpos
 
 .. currentmodule:: casatasks.calibration
 
-.. autofunction:: antpos
+.. autofunction:: getantposalma
 

@@ -3,12 +3,15 @@
 .. _Description:
 
 Description
-Antpos retrieves ALMA antenna positions via a web service which runs on an
-ALMA-hosted server. The antenna positions are with respect to ITRF. The
-user must specify the value of the outfile parameter. This parameter is
-the name of the file to which the antenna positions will be written. This
-file can then be read by gencal so that it can use the most up to date
-antenna positions for the observation.
+This task retrieves ALMA antenna positions via a web service which runs
+on an ALMA-hosted server. The antenna positions are with respect to ITRF.
+The user must specify the value of the outfile parameter. This parameter
+is the name of the file to which the antenna positions will be written.
+This file can then be read by gencal so that it can use the most up to
+date antenna positions for the observation.
+
+The web service is described by the server development team and can be
+found `at this location <https://asw.alma.cl/groups/ASW/-/packages/843>`__. 
 
 The input parameters are discussed in detail below.
 
@@ -28,11 +31,13 @@ If not specified, positions of all antennas will be written.
 
 tw and search are optional parameters and are coupled as follows. search
 indicates the search algorithm to use to find the desired antenna positions.
-Suppored values are 'both_latest' and 'both_closest'. The default algorithm
-used is 'both_latest'.
+Suppored values of this parameter at the time of writing are 'both_latest'
+and 'both_closest'. The default algorithm used is 'both_latest'.
 In general, the search is limited in time to the specified value of tw
 (time wondow). However, in the case that tw is not specified, the following
-rules apply. 
+rules apply. The task passes the value of the search parameter verbatim to
+the web service, meaning that users can take advantage of new search algorithms
+as the web service team brings them online. 
 
 For 'both_latest',
 the last updated position for each antenna within the specified time window,
@@ -58,7 +63,7 @@ Examples
    
    ::
    
-      antpos(
+      getantposalma(
           outfile='my_ant_pos.json', asdm='valid ASDM name here', snr=5,
           hosts=['tbd1.alma.cl', 'tbd2.alma.cl']
      )
