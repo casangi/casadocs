@@ -93,7 +93,7 @@ Examples
                  fixuvw=False, direction='J2000 12h30m15 -02d12m00')
 
 
-    THIS NO LONGER WORKS
+
 
   
 .. _Development:
