@@ -54,6 +54,21 @@ priority, to obtain positions. The first server to respond with a valid result i
 the only one that is used. That response will be written and no additional
 hosts will be queried.
 
+The format of the returned file is a two element list encoded in json. The first
+element is a stringfied dictionary that contains antenna names as keys, with each
+value being a three element list of x, y, and z coordinates in ITRF. The second
+element is a dictiony containing various (possibly helpful) metadata that were
+used when the task was run. The following code may be used to load these data
+structures into python variables.
+    
+    ::
+        
+        import ast, json
+        ...
+        with open("outfile.json", "r") as f:
+            antpos_str, md_dict = json.load(f)
+            antpos_dict = ast.literal_eval(antpos_str)
+
 
 .. _Examples:
 
