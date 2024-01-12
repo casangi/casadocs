@@ -869,7 +869,9 @@ Description
    'fdevfile.txt'). In this second pass, with *action='apply'*, the
    parameters freqdevscale and timedevscale can be used to re-scale
    the thresholds calculated in the first pass.
-   
+
+   .. note:: flagdata is not an interactive plotting tool. If the display parameter is set, the GUI will always show the full data set. Selection parameters only apply to the flags.
+
    .. note::
 
       **NOTE1**: The RFlag algorithm was originally developed by
@@ -1140,7 +1142,11 @@ Description
    
    *basecnt*
    
-   List the number of flags per baseline. Default: False
+   Count the number of flags per baseline. The counts are added to the
+   return result dictionary (in the 'baseline'' key) and also printed
+   to the log. In addition, counts per antenna/scan are also reported
+   and added to the result dictionary (key 'antenna:scan'). Default:
+   False
    
    *fieldcnt*
    
