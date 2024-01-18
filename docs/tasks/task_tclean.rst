@@ -632,7 +632,7 @@ Description
    For the input visivility data, tclean can accept multiple MSes. The 
    details on conformance checks that performed on the list of MSes 
    are summarized in the `CASA Docs page on Combining Datasets 
-   <../../notebooks/casa-fundamentals.ipynb#CombiningDatasets>`__.
+   <../../notebooks/casa-fundamentals.ipynb#Combining-Datasets>`__.
 
    .. rubric:: History
 
