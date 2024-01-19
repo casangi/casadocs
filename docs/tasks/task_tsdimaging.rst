@@ -9,7 +9,7 @@ Description
    output is a CASA image format dataset, either 2-D, 3-D, or 4-D
    depending on the input parameters. The details of conformance checks that are performed 
    on the list of MSes are summarized in the `CASA Docs page on 
-   Combining Datasets <../../notebooks/casa-fundamentals.ipynb#Combinging-Datasets>`__.
+   Combining Datasets <../../notebooks/casa-fundamentals.ipynb#Combining-Datasets>`__.
 
    The output image contains up to four axes: two spatial axes,
    frequency, and polarization. By default, the spatial coordinates
