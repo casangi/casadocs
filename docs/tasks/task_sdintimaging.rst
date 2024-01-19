@@ -66,7 +66,7 @@ Description
 
    -  Multiple MSes given as a list in vis is supported as in **tclean**. 
       The details on the conformance checks that are performed on the list of the MSes 
-      are summarized in the `CASA Docs on Combining Datasets <../../notebooks.casa-fundamentals.ipynb#Combining-Datasets>`__.
+      are summarized in the `CASA Docs on Combining Datasets <../../notebooks/casa-fundamentals.ipynb#Combining-Datasets>`__.
 
 
 .. rubric:: Data Selection
