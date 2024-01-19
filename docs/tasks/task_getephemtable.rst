@@ -4,12 +4,12 @@ Description
    This task retrieves the ephemeris data of a specific ephemeris object by sending a query to JPL's Horizons system and creates the ephemeris data stored in a CASA table format.
 
 This task is intended to be used as a standalone function for a user who needs to use 
-an updated ephemeris data in CASA table format for data processing such as imaging. More informiaton on how one can use the CASA epehemeris table generated with this task is available in `Manipulate Ephemeris Ojbect <../../notebooks/ephemeris_data.ipynb#Manipulate-Ephemeris-Objects>`__ section.
+an updated ephemeris data in CASA table format for data processing such as imaging. More information on how one can use the CASA epehemeris table generated with this task is available in `Manipulate Ephemeris Object <../../notebooks/ephemeris_data.ipynb#Manipulate-Ephemeris-Objects>`__ section.
 
 
 The task calls a query driver function, get_horizonsephem, which does input object name checking to translate into the NAIF ID before calling query_horizons. The query_horizons does an actual query to the database. The query results in json is further converted to a CASA table by get_horizonsephem.
 
-The query code is based on the JPL-Horizons API ver.1.2 (https://ssd.jpl.nasa.gov/api/horizons.api). The JPL-Horizons System provides a large number of the query parameters and we only use a subset of them. The following are the list of the parameters that is used by query_horizons function. For detailed descriptions of the parameters, please refer to the JPL-Horizons documentation (https://ssd-api.jpl.nasa.gov/doc/horizons.html). The italic parameters represent user-defined values. Some of the requested quantities are specifically used for setjy task and for other use cases may not be needed. But the fixed quantity selection is used for uniformity within CASA for generated ephemeris tables.
+The query code is based on the JPL-Horizons API ver.1.2 (https://ssd.jpl.nasa.gov/api/horizons.api). The JPL-Horizons System provides a large number of the query parameters and we only use a subset of them. The following is the list of the parameters that is used by query_horizons function. For detailed descriptions of the parameters, please refer to the JPL-Horizons documentation (https://ssd-api.jpl.nasa.gov/doc/horizons.html). The italic parameters represent user-defined values. Some of the requested quantities are specifically used for setjy task and for other use cases may not be needed. But the fixed quantity selection is used for uniformity within CASA for generated ephemeris tables.
 The query parameters used in this task are the following.
 
 - format json
@@ -38,7 +38,7 @@ asis
   By setting asis=True, objectname will be unmodified before sending the query.
 
 timerange
-  For a small time interval (e.g. interval='1min'), specifying timernage by the calendar date and time is recommanded rather than using MJD, which may lead to precision error in converting to the calendar dates and times in the returned ephemeris data from the JPL-Horizons system. 
+  For a small time interval (e.g. interval='1min'), specifying timernage by the calendar date and time is recommended rather than using MJD, which may lead to precision error in converting to the calendar dates and times in the returned ephemeris data from the JPL-Horizons system. 
 
 rawdatafile
   This parameter is useful to set whenever errors occur in the query result content and in consequence, CASA ephemeris table is not generated. While some of the common errors during query are parsed to the logger, the full description of the issues in the query that are reported by the JPL-Horizons system can be found in the raw query data file.
