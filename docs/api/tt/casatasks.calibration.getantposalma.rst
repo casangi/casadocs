@@ -1,5 +1,5 @@
-antpos
-======
+getantposalma
+=============
 
 .. currentmodule:: casatasks.calibration
 
