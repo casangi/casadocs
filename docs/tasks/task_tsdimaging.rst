@@ -7,7 +7,9 @@ Description
    according to a specified gridding kernel. The input data should be
    calibrated and bandpass corrected (where necessary), and the
    output is a CASA image format dataset, either 2-D, 3-D, or 4-D
-   depending on the input parameters.
+   depending on the input parameters. The details of conformance checks that are performed 
+   on the list of MSes are summarized in the `CASA Docs page on 
+   Combining Datasets <../../notebooks/casa-fundamentals.ipynb#Combinging-Datasets>`__.
 
    The output image contains up to four axes: two spatial axes,
    frequency, and polarization. By default, the spatial coordinates
