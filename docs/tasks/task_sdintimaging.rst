@@ -59,8 +59,14 @@ Description
    are specific to sdintimaging are listed with full details, but all
    others will reference the existing tclean parameter documentation.
 
-   
-   .. rubric:: Data Selection
+   .. rubric:: Multiple MSes
+
+   -  Multiple MSes given as a list in vis is supported as in **tclean**. 
+      The details on the conformance checks that are performed on the list of the MSes 
+      are summarized in the `CASA Docs on Combining Datasets <../../notebooks/casa-fundamentals.ipynb#Combining-Datasets>`__.
+
+
+.. rubric:: Data Selection
    
    -  All data selection options allowed for interferometer data.
       This set of parameters is identical to those in task
