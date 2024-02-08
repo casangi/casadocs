@@ -45,7 +45,7 @@ returns a list of config file paths used when config was imported, in the order 
 returns a dictionary of exceptions encountered by config file when loading that config file (and then that config file
 is not found in the list returned by **load_success**).
 
-**Note:**, configuration happens before any parts of CASA are loaded so no CASA modules should be used within the 
+**Note:** configuration happens before any parts of CASA are loaded so no CASA modules should be used within the 
 configuration steps.
 
 **Note:** during regular use of the configuration process all print output is suppressed so that it 
@@ -142,6 +142,10 @@ In that case, *measurespath* defaults to ~/.casa/data and the user would need to
 Auto updates are then on by default and each subsequent use of CASA would check for updates (once a day) and update the measures
 and casarundata when new versions are found.
 
+**Note** measurespath must be set to some valid location when CASA starts. For monolithic CASA, when measurespath is None it will exit
+with a message that it needs to be set. It should be set in the casasiteconfig.py for monolithic casa by the site administrator or the user may set it in
+their personal config.py, but it must be set somewhere.
+
    
 startup.py
 ^^^^^^^^^^
@@ -200,7 +204,7 @@ This <CASA_installation_path>/bin/casa executable can be provided the following 
    --iplog                  create ipython log
    --datapath DATAPATH      data path(s) [colon separated]
    --reference-testing      force *measurespath* to contain the casarundata when this version was produced, used for testing purposes
-   --no-auto-update         turn off all auto aupdates that may be True
+   --no-auto-update         turn off all auto updates
    --user-site              include user's local site-packages lib in path
    -v, --version            show CASA version
    -c ...                   python eval string or python script to execute
@@ -234,7 +238,11 @@ options are used and then python exits.
 For all of the update options the most recent version is assumed and the *force* argument is False. These are **NOT** auto updates so the auto update
 rules do not apply. If the user has permission to update that data then that data will be updated if a new version is found.
 
+The casaconfig module can be used to initially populate a measurespath location with data or to update it or to check on the status of a measurespath.
+Note that unlike the auto update rules, measurespath need not already exist before it's used here. 
+
 ::
+
    python -m casaconfig .. options ...
 
 ::
@@ -250,6 +258,11 @@ rules do not apply. If the user has permission to update that data then that dat
    --update-all                invoke update_all() to populate (update) measurespath with the latest casarundata and measures data.
    --reference-testing         set measurespath to contain the casarundata when this version was produced, used for testing purposes
    --current-data              print out a summary of the current casarundata and measures data installed in measurespath and then exit.
+   --force                     force an update using the force=True option to update_all, data_update, and measures_update
+
+For a monolithic CASA installation the python to use on the command line is the one that is packaged in the bin directory with
+the casa script and is typically *python3*. For modular casa the python should be the one with the environment containing the 
+installed casaconfig module.
 
 The \-\-configfile option is used to provide an alternative path to the user's configuration file. When that
 option is used the file at that location is used instead of the default user configuration file (~/.casa/config.py).
@@ -271,6 +284,9 @@ When the \-\-current-data option is used no updates happen even if those options
 
 The \-\-reference-testing option can not be used with \-\-pull-data, \-\-data-update, \-\-measures-update, 
 and \-\-update-all.
+
+The \-\-force option can be used to force casaconfig to check for updates (and install any that are available)
+when the normal once-a-day checking rules might have caused it to not update measurespath. 
 
 **Note** that if *measurespath* does not exist then \-\-pull-data, \-\-update-all, and \-\-reference-testing 
 will create it before populating it.
