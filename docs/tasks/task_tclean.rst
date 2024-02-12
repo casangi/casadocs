@@ -625,7 +625,15 @@ Description
    
    More information can be found in the `CASA Docs chapter on
    Ephemeris Data <../../notebooks/ephemeris_data.ipynb>`__.
-   
+
+
+   .. rubric:: Multiple MSes
+
+   For the input visivility data, tclean can accept multiple MSes. The 
+   details on conformance checks that are performed on the list of MSes 
+   are summarized in the `CASA Docs page on Combining Datasets 
+   <../../notebooks/casa-fundamentals.ipynb#Combining-Datasets>`__.
+
    .. rubric:: History
 
    At the end of a successful tclean run, the history of the output

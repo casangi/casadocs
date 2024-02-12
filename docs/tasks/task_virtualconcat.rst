@@ -21,7 +21,9 @@ Description
    columns), none are created in the *concatvis* dataset. Otherwise
    these columns are created on output and initialized to their
    default value (1 in MODEL column, data in CORRECTED column) for
-   those data with no input columns.
+   those data with no input columns. More information on the conformance 
+   requirements and checks that are performed on the input list of MSes 
+   is available in the `CASA Docs page on Combining Datasets <../../notebooks/casa-fundamentals.ipynb#Combining-Datasets>`__.
    
    Spectral windows for each data set with the same channelization,
    and within a specified frequency tolerance of another data set,
