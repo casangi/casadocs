@@ -46,13 +46,10 @@ and 'both_closest'. The task passes the value of the search parameter verbatim t
 the web service, meaning that users can take advantage of new search algorithms
 as the web service team brings them online. The default algorithm used is
 'both_latest'. In general, the search is limited in time to the specified
-value of tw (time window). However, in the case that tw is not specified, the
-following rules apply. For 'both_latest', the last updated position for each
+value of tw (time window). For 'both_latest', the last updated position for each
 antenna within the specified time window, or, if tw is not specified, within
 30 days after the observation will be returned, taking into account snr if
-specified, if provided.
-
-For 'both_closest', if tw is not specified, the position
+specified, if provided. For 'both_closest', if tw is not specified, the position
 of each antenna closest in time to the observation, within 30 days (before
 or after the observation) will be returned, subject to the value of snr if it
 is specified. 
