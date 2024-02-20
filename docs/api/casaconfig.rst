@@ -25,8 +25,18 @@ and an optional user configuration file.
 
 The optional user configuration file is found in their home .casa folder as config.py (**\~/.casa/config.py**).
 
-The optional site configuration file is named **casasiteconfig.py** and is found anywhere within **sys.path** 
-following the usual python import rules.
+The optional site configuration file is found in a number of different ways (the first found is the one
+used):
+
+- as given by the CASASITECONFIG environment variable
+- /opt/casa/casasiteconfig.py
+- /home/casa/casasiteconfig.py
+- casasiteconfig.py found  anywhere within **sys.path** following the usual python import rules.
+
+**Note:** when CASASITECONFIG is set then that is the only location used for the site configuration
+file. If that path does not exist then a warning message is printed and no attempt is made to find a 
+site configuration file at any other location. Execution then continues without using any site configuration
+file.
 
 The user configuration file is ignored when **\-\-noconfig** is used on the command line. 
 
@@ -48,8 +58,9 @@ is not found in the list returned by **load_success**).
 **Note:** configuration happens before any parts of CASA are loaded so no CASA modules should be used within the 
 configuration steps.
 
-**Note:** during regular use of the configuration process all print output is suppressed so that it 
-does not interfere with module initialization. 
+**Note:** during use of the configuration process in module execution (the "-m" python option, used by "casa" startup and 
+the casaconfig command line for example) all print output is suppressed so that it does not interfere with module 
+initialization. 
 
 Use the **get_config()** function to get a list of strings showing the configuration parameters with values.
 
@@ -80,71 +91,96 @@ parameters can be set or ignored through the casashell command line options. The
 
 **Note:** It is an error for *measures_auto_update* to be False when *data_auto_update* is True. In that case no auto updates will happen and CASA will continue after printing out an error message.
 
-A typical config.py file might look something like this:
+This example user configuration has a measurespath that is different from the default of "~/.casa/data", turned off auto updates, turned off the GUI logger, and print logger output to the terminal.
 
 ::
 
-   datapath=[measurespath, "~/.casa/my_additional_data"]
+   measurespath="/home/pollux/mydata/casarundata"
    data_auto_update = False
    measures_auto_update = False
    log2term=True
    nologger=True
 
+Distribtions of casa do not come with the required casarundata, expected at *measurespath*. The casaconfig module provides functions to install
+and maintain that data. 
 
-**Note** that in a monolithic CASA installation the casasiteconfig.py will typically set *measurespath* to a shared data location and set *data_auto_update* and *measures_auto_update* to False.
-This example config.py might be appropriate for a shared *measurespath* location with an additional user-controlled data location added at the end of *datapath*.
-Auto updates are turned off to prevent the user from accidentally updating that shared location (they are likely also False in casasiteconfig.py and setting 
-that to False in the user config.py here is unnecessary). Auto updates require that the user own *measurespath*, providing additional protection against 
-accidentally updating a shared data location.
+A monolithic CASA site installation will typically provide a casasiteconfig.py that sets *measurespath* to a shared data location and 
+sets *data_auto_update* and *measures_auto_update* to False (the site is then responsible for regularly updating that data and individual users
+will not be able to do that). 
+
+Individual users may chose to install and maintain their own copy of the casarundata installed at *measurespath*. The installed size of casarundata
+is about 830MB. If that location exists and is empty when casa starts (the casatools module is initialized) and the auto update config values are
+True (the default) then the casarundata will be installed at *measurespath* automatically. Future use of casa (the casatools module) will keep that
+location up to date as new measures data becomes available (daily) or new data is available (a few times a year). Users of a site installation of
+casa may chose to install and maintain their own copy of the casarundata because they may want to control exactly when that data is updated/
 
 **Note** that the default *logfile* and the default *iplogfile* use the time module to set the value to a string that depends on when 
-the config file is evaluated. 
+the config file is evaluated.
+
+See "ExternalData_" for additional details.
+
+.. _ExternalData: ../../../notebooks/external-data.html
 
 casasiteconfig.py
 ^^^^^^^^^^^^^^^^^
  
  .. data:: casasiteconfig.py
 
-Monolithic CASA is distributed with a casasiteconfig.py. A casasiteconfig.py can also be placed anywhere in the PYTHON path (sys.path). When present,
-this file is evaluated after the default configuration values are set and before any user's config.py is used. The casasiteconfig.py is ignored when
-the *\-\-nositeconfig* command line option is used.
+Site installations may choose to maintain a site configuration file. The usual name for that file is *casasiteconfig.py* although any name is
+possible when using the CASASITECONFIG environment variable. 
 
-The casasiteconfig.py found in the monolithic CASA initially looks like this:
+When present, this file is evaluated after the default configuration values are set and before any user's config.py is used. The site configuration file
+is ignored when the *\-\-nositeconfig* command line option is used.
+
+A site installation may provide a site configuration file that sets *measurespath* to the location of casarundata that can be shared by
+multiple users. The site would then turn off auto updates for that installation and regular updates of the data is then done by the site
+administrators. An example site configuration file, found at *private/casasiteconfig_example.py* in the casaconfig module, is shown below.
+The *measurespath* value in this example should be edited to be the path where the site has installed casarundata.
 
 ::
 
-   # The default site config file. This may be placed at any location in the PYTHONPATH used by CASA
+   # An example site config file.
+   # Place this in a location checked by casaconfig:
+   #  /opt/casa/casasiteconfig.py
+   #  /home/casa/casasiteconfig.py
+   #  the environment value CASASITECONFIG - use the fully qualified path
+   #  anywhere in the python path, e.g. the site-packages directory in the CASA being used
 
    # This file should be edited to set measurespath as appropriate
 
    # Set this to point to the location where the site maintained casarundata can be found
    # by default datapath will include measurespath
 
-   measurespath = None
+   measurespath = "/path/to/installed/casarundata"
 
    # turn off all auto updates of data
 
    measures_auto_update = False
    data_auto_update = False
 
+When *config* is imported from the casaconfig module it will search for a site configuration file by first checking to
+see if the CASASITECONFIG environment value is set. If that value is set then it will use that value as the location of
+the site configuration file. If that value is not set then it looks for a *casasiteconfig.py* at "/opt/casa", "/home/casa"
+or anywhere in the python path. It uses the first site configuration file found.
 
-These settings are appropriate for site installations where the CASA data is maintained for all site users. The *measurespath*
-value should be set to the location of the site data. Site data can be shared across multiple CASA installations. The site
-administrators are responsible for installing the CASA data and keeping it up to date. Methods provided by casaconfig should be used to
-populate that location (**update_all()** or **pull_data()**) and keep it up to date (**data_update()** or **measures_update()** or the *update-data* script
-found in the CASA installation or the **\-\-update_all** casaconfig module command-line option.
+**Note:** If CASASITECONFIG is set and that value is not a path to an existing file then a warning message is printed and
+the configuration continues **without** using any site configuration file (none of the other possible locations are checked
+if CASASITECONFIG is set).
 
-Auto updates are turned off in casasiteconfig.py because the site data location should not be updated by individual users (auto updates
-also require that the user own *meausurespath*, which is not typical for a site installation). 
+Site data can be shared across multiple CASA installations. The site administrators are responsible for installing the CASA 
+data and keeping it up to date. Methods provided by casaconfig should be used to populate that location (**update_all()** or 
+**pull_data()**) and keep it up to date (**data_update()** or **measures_update()** or **\-\-update_all** casaconfig 
+module command-line option.
 
-Individual users who install monolithic CASA for their personal use may remove casasiteconfig.py from their installation. 
-In that case, *measurespath* defaults to ~/.casa/data and the user would need to populate that location before using CASA. 
-Auto updates are then on by default and each subsequent use of CASA would check for updates (once a day) and update the measures
-and casarundata when new versions are found.
+Auto updates are turned off in a site configuration file because the site data location should not be updated by 
+individual users (auto updates also require that the user own *meausurespath*, which is not typical for a site installation).
 
-**Note** measurespath must be set to some valid location when CASA starts. For monolithic CASA, when measurespath is None it will exit
-with a message that it needs to be set. It should be set in the casasiteconfig.py for monolithic casa by the site administrator or the user may set it in
-their personal config.py, but it must be set somewhere.
+**Note** measurespath must be set to some valid location when CASA starts. For monolithic CASA, when measurespath is set to a location
+that does not exist it will exit with a message that it needs to be set. 
+
+Individual users using a site installation may choose to have their own casarundata installed (e.g. they may wish to control when
+the data upates happen or they may wish to use an older version of the casarundata). Users can do that by setting *measurespath*
+to a personally controlled location in their persoanl configuration file (typically at ~/.casa/config.py).
 
    
 startup.py
@@ -239,7 +275,7 @@ For all of the update options the most recent version is assumed and the *force*
 rules do not apply. If the user has permission to update that data then that data will be updated if a new version is found.
 
 The casaconfig module can be used to initially populate a measurespath location with data or to update it or to check on the status of a measurespath.
-Note that unlike the auto update rules, measurespath need not already exist before it's used here. 
+Note that unlike the auto update rules, measurespath need not already exist before it's used here.
 
 ::
 
