@@ -119,7 +119,7 @@ the config file is evaluated.
 
 See "ExternalData_" for additional details.
 
-.. _ExternalData: ../../notebooks/external-data.html
+.. _ExternalData: ../notebooks/external-data.html
 
 casasiteconfig.py
 ^^^^^^^^^^^^^^^^^
