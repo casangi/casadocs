@@ -33,5 +33,6 @@ CASA is being developed by an international consortium of scientists and softwar
    notebooks/parallel-processing
    notebooks/memo-series
    examples/index
+   notebooks/frequently-asked-questions
    notebooks/citing-casa
    changelog
