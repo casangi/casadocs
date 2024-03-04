@@ -266,7 +266,7 @@ are True.
 casaconfig command line
 ^^^^^^^^^^^^^^^^^^^^^^^
  
- .. data:: casaconfig(-h, --help, --configfile, ---noconfig, --nositeconfig, --measurespath, --pull-data, --data-update, --measures-update, --update-all, --reference-testing, --current-data)
+ .. data:: casaconfig(-h, --help, --configfile, ---noconfig, --nositeconfig, --measurespath, --pull-data, --data-update, --measures-update, --update-all, --reference-testing, --current-data, --summary, --force)
 
 The casaconfig module may be used by itself with these options. The full set of config files are first used (except as omitted by the options) then the 
 options are used and then python exits. 
@@ -325,8 +325,8 @@ and \-\-update-all.
 The \-\-summary option summarizes the configuration steps. It shows the paths to the loaded config
 files (default first, then any optional site configuration file, and finally any user configuration
 file). Any errors when loading each configuration file are then shownn (files with errors are not
-loaded and will not show up in the list of loaded files). The measureespath set by those configure
-steps (including any command line option) is shown. Finally the versions strings for casarundata and 
+loaded and will not show up in the list of loaded files). The measurespath set by those configure
+steps is shown. Finally the version strings for casarundata and 
 measures are shown as are the release version strings if available (these are only available for 
 monolithic casa installations). This option can be useful when debugging and testing configuration files.
 
