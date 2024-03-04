@@ -294,6 +294,7 @@ Note that unlike the auto update rules, measurespath need not already exist befo
    --update-all                invoke update_all() to populate (update) measurespath with the latest casarundata and measures data.
    --reference-testing         set measurespath to contain the casarundata when this version was produced, used for testing purposes
    --current-data              print out a summary of the current casarundata and measures data installed in measurespath and then exit.
+   --summary                   print out a summary of casaconfig data handling and exit
    --force                     force an update using the force=True option to update_all, data_update, and measures_update
 
 For a monolithic CASA installation the python to use on the command line is the one that is packaged in the bin directory with
@@ -320,6 +321,14 @@ When the \-\-current-data option is used no updates happen even if those options
 
 The \-\-reference-testing option can not be used with \-\-pull-data, \-\-data-update, \-\-measures-update, 
 and \-\-update-all.
+
+The \-\-summary option summarizes the configuration steps. It shows the paths to the loaded config
+files (default first, then any optional user configuration file, and finally any user configuration
+file). Any errors when loading each configuration file are then shownn (files will errors are not
+loaded and will not show up in the list of loaded files). The measureespath set by those configure
+steps (including any command line option) is shown. The versions strings for casarundata and measures are
+shown as are the release version strings if available (these are only available for monolithic casa
+installations). This option can be useful when debugging and testing configuration files.
 
 The \-\-force option can be used to force casaconfig to check for updates (and install any that are available)
 when the normal once-a-day checking rules might have caused it to not update measurespath. 
