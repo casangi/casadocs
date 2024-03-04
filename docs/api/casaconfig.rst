@@ -324,7 +324,7 @@ and \-\-update-all.
 
 The \-\-summary option summarizes the configuration steps. It shows the paths to the loaded config
 files (default first, then any optional site configuration file, and finally any user configuration
-file). Any errors when loading each configuration file are then shownn (files with errors are not
+file). Any errors when loading each configuration file are then shown (files with errors are not
 loaded and will not show up in the list of loaded files). The measurespath set by those configure
 steps is shown. Finally the version strings for casarundata and 
 measures are shown as are the release version strings if available (these are only available for 
