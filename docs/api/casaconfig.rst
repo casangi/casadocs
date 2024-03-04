@@ -323,12 +323,12 @@ The \-\-reference-testing option can not be used with \-\-pull-data, \-\-data-up
 and \-\-update-all.
 
 The \-\-summary option summarizes the configuration steps. It shows the paths to the loaded config
-files (default first, then any optional user configuration file, and finally any user configuration
-file). Any errors when loading each configuration file are then shownn (files will errors are not
+files (default first, then any optional site configuration file, and finally any user configuration
+file). Any errors when loading each configuration file are then shownn (files with errors are not
 loaded and will not show up in the list of loaded files). The measureespath set by those configure
-steps (including any command line option) is shown. The versions strings for casarundata and measures are
-shown as are the release version strings if available (these are only available for monolithic casa
-installations). This option can be useful when debugging and testing configuration files.
+steps (including any command line option) is shown. Finally the versions strings for casarundata and 
+measures are shown as are the release version strings if available (these are only available for 
+monolithic casa installations). This option can be useful when debugging and testing configuration files.
 
 The \-\-force option can be used to force casaconfig to check for updates (and install any that are available)
 when the normal once-a-day checking rules might have caused it to not update measurespath. 
