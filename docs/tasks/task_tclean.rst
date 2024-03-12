@@ -605,7 +605,12 @@ Description
    'NEPTUNE', 'PLUTO', 'SUN', 'MOON') or is an ephemerides table,
    then that source is tracked and the background sources get smeared
    (which is useful especially for long observations or multi epoch
-   data). There is a special case, when phasecenter='TRACKFIELD',
+   data). The ephemeris table can be either the one attached to the MS 
+   in FIELD table or an externally provided one such as one generated 
+   by getephemtable. The table name should include a proper (relative/absolute) 
+   path in order to tclean to find the correct one.  
+   There is a special case, when phasecenter='TRACKFIELD' (it should
+   be in all caps),
    which will use the ephemerides or polynomial phasecenter in the
    FIELD table of the MeasurementSets as the source center to track.
    When in tracking mode,  the image center will be the direction of
@@ -894,8 +899,7 @@ Examples
    
    .. rubric:: Using tclean with ephemerides tables in CASA format
 
-   When you have an ephermeris table that covers the whole
-   observation:
+   When you have an ephemeris table called, des_deedee_ephem.tab that covers the whole observations
    
    ::
    
@@ -912,7 +916,7 @@ Examples
 
    ::
    
-      me.framecomet('des_deedee.tab')
+      me.framecomet('des_deedee_ephem.tab')
    
    If this tool accepts the input without complaint, then the same
    should work in tclean.
