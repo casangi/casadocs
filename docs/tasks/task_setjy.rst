@@ -468,9 +468,7 @@ Examples
    Note that if there is no 3C48_X.im in the current directory, setjy
    looks for it in the default model data image directory.
    
-   An example for a Solar System object as a flux calibrator using
-   using data from `the M99 tutorial <http://casaguides.nrao.edu/index.php?title=CARMA_spectral_line_mosaic_M99>`_
-   in CASA Guides:
+   An example for a Solar System object as a flux calibrator:
    
    ::
    

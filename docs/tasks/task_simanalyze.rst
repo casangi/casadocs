@@ -375,8 +375,7 @@ Description
 .. _Examples:
 
 Examples
-   This example was taken from the simulation CASAguide located
-   `here <https://casaguides.nrao.edu/index.php/Simulation_Guide_Component_Lists_(CASA_5.1)>`__.
+   This example was taken from the Simulation `CASA Guide <https://casaguides.nrao.edu>`__ entitled 'Simulation Guide Component Lists'.
    
    ::
    
