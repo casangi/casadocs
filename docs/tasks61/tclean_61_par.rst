@@ -6,7 +6,9 @@ Parameter descriptions
 
 
 
+-------------------------
 vis
+:code:`vis=''`
 
 Name(s) of input visibility file(s)
                default: none;
@@ -15,13 +17,17 @@ Name(s) of input visibility file(s)
 
 
 
+-------------------------
 selectdata
+:code:`selectdata=True`
 
 Enable data selection parameters.
 
 
 
+-------------------------
 field
+:code:`field=''`
 
  Select fields to image or mosaic.  Use field id(s) or name(s).
                   ['go listobs' to obtain the list id's or names]
@@ -41,7 +47,9 @@ field
 
 
 
+-------------------------
 spw
+:code:`spw=''`
 
  Select spectral window/channels
                NOTE: channels de-selected here will contain all zeros if
@@ -65,7 +73,9 @@ spw
 
 
 
+-------------------------
 timerange
+:code:`timerange=''`
 
 Range of time to select from data
 
@@ -88,7 +98,9 @@ Range of time to select from data
 
 
 
+-------------------------
 uvrange
+:code:`uvrange=''`
 
 Select data within uvrange (default unit is meters)
                    default: '' (all); example:
@@ -102,7 +114,9 @@ Select data within uvrange (default unit is meters)
  
 
 
+-------------------------
 antenna
+:code:`antenna=''`
 
 Select data based on antenna/baseline
 
@@ -129,7 +143,9 @@ Select data based on antenna/baseline
 
 
 
+-------------------------
 scan
+:code:`scan=''`
 
 Scan number range
 
@@ -142,7 +158,9 @@ Scan number range
 
 
 
+-------------------------
 observation
+:code:`observation=''`
 
 Observation ID range
                    default: '' (all)
@@ -150,7 +168,9 @@ Observation ID range
 
 
 
+-------------------------
 intent
+:code:`intent=''`
 
 Scan Intent(s)
 
@@ -161,7 +181,9 @@ Scan Intent(s)
 
 
 
+-------------------------
 datacolumn
+:code:`datacolumn='corrected'`
 
 Data column to image (data or observed, corrected)
                      default:'corrected'
@@ -170,7 +192,9 @@ Data column to image (data or observed, corrected)
 
 
 
+-------------------------
 imagename
+:code:`imagename=''`
 
 Pre-name of output images
 
@@ -221,7 +245,9 @@ Pre-name of output images
 
 
 
+-------------------------
 imsize
+:code:`imsize=numpy.array( [  ] )`
 
 Number of pixels
          example :  imsize = [350,250]
@@ -231,7 +257,9 @@ Number of pixels
 
 
 
+-------------------------
 cell
+:code:`cell=numpy.array( [  ] )`
 
 Cell size
                example: cell=['0.5arcsec,'0.5arcsec'] or
@@ -240,7 +268,9 @@ Cell size
 
 
 
+-------------------------
 phasecenter
+:code:`phasecenter=''`
 
 Phase center of the image (string or field id); if the phasecenter is the name known major solar system object ('MERCURY', 'VENUS', 'MARS', 'JUPITER', 'SATURN', 'URANUS', 'NEPTUNE', 'PLUTO', 'SUN', 'MOON') or is an ephemerides table then that source is tracked and the background sources get smeared. There is a special case, when phasecenter='TRACKFIELD', which will use the ephemerides or polynomial phasecenter in the FIELD table of the MS's as the source center to track.
                example: phasecenter=6
@@ -254,7 +284,9 @@ Phase center of the image (string or field id); if the phasecenter is the name k
 
 
 
+-------------------------
 stokes
+:code:`stokes='I'`
 
 Stokes Planes to make
                default='I'; example: stokes='IQUV';
@@ -275,7 +307,9 @@ Stokes Planes to make
 
 
 
+-------------------------
 projection
+:code:`projection='SIN'`
 
 Coordinate projection
                      Examples : SIN,   NCP
@@ -287,7 +321,9 @@ Coordinate projection
 
 
 
+-------------------------
 startmodel
+:code:`startmodel=''`
 
 Name of starting model image
 
@@ -319,7 +355,9 @@ Name of starting model image
  
 
 
+-------------------------
 specmode
+:code:`specmode='mfs'`
 
 Spectral definition mode (mfs,cube,cubedata, cubesource)
 
@@ -371,7 +409,9 @@ Spectral definition mode (mfs,cube,cubedata, cubesource)
 
 
 
+-------------------------
 reffreq
+:code:`reffreq=''`
 
 Reference frequency of the output image coordinate system
 
@@ -385,7 +425,9 @@ Reference frequency of the output image coordinate system
 
 
 
+-------------------------
 nchan
+:code:`nchan=int(-1)`
 
 Number of channels in the output image
                        For default (=-1), the number of channels will be automatically determined
@@ -396,7 +438,9 @@ Number of channels in the output image
 
 
 
+-------------------------
 start
+:code:`start=''`
 
 First channel (e.g. start=3,start=\'1.1GHz\',start=\'15343km/s\')
                        of output cube images specified by data channel number (integer),
@@ -418,7 +462,9 @@ First channel (e.g. start=3,start=\'1.1GHz\',start=\'15343km/s\')
 
 
 
+-------------------------
 width
+:code:`width=''`
 
 Channel width (e.g. width=2,width=\'0.1MHz\',width=\'10km/s\') of output cube images
                       specified by data channel number (integer), velocity (string with a unit), or
@@ -438,7 +484,9 @@ Channel width (e.g. width=2,width=\'0.1MHz\',width=\'10km/s\') of output cube im
 
 
 
+-------------------------
 outframe
+:code:`outframe='LSRK'`
 
 Spectral reference frame in which to interpret \'start\' and \'width\'
                       Options: '','LSRK','LSRD','BARY','GEO','TOPO','GALACTO','LGROUP','CMB'
@@ -460,7 +508,9 @@ Spectral reference frame in which to interpret \'start\' and \'width\'
 
 
 
+-------------------------
 veltype
+:code:`veltype='radio'`
 
 Velocity type (radio, z, ratio, beta, gamma, optical)
                       For start and/or width specified in velocity, specifies the velocity definition
@@ -484,7 +534,9 @@ Velocity type (radio, z, ratio, beta, gamma, optical)
 
 
 
+-------------------------
 restfreq
+:code:`restfreq=numpy.array( [  ] )`
 
 List of rest frequencies or a rest frequency in a string.
                       Specify rest frequency to use for output image.
@@ -498,7 +550,9 @@ List of rest frequencies or a rest frequency in a string.
 
 
 
+-------------------------
 interpolation
+:code:`interpolation='linear'`
 
 Spectral interpolation (nearest,linear,cubic)
 
@@ -515,7 +569,9 @@ Spectral interpolation (nearest,linear,cubic)
 
 
 
+-------------------------
 perchanweightdensity
+:code:`perchanweightdensity=True`
 
 
                          When calculating weight density for Briggs
@@ -570,7 +626,9 @@ perchanweightdensity
 
 
 
+-------------------------
 gridder
+:code:`gridder='standard'`
 
 Gridding options (standard, wproject, widefield, mosaic, awproject)
 
@@ -705,7 +763,9 @@ Gridding options (standard, wproject, widefield, mosaic, awproject)
 
 
 
+-------------------------
 facets
+:code:`facets=int(1)`
 
 Number of facets on a side
 
@@ -717,7 +777,9 @@ Number of facets on a side
 
 
 
+-------------------------
 psfphasecenter
+:code:`psfphasecenter=''`
 
 For mosaic use psf centered on this
                              optional direction. You may need to use
@@ -738,7 +800,9 @@ For mosaic use psf centered on this
 
 
 
+-------------------------
 chanchunks
+:code:`chanchunks=int(1)`
 
 Number of channel chunks to grid separately
 
@@ -758,7 +822,9 @@ Number of channel chunks to grid separately
 
 
 
+-------------------------
 wprojplanes
+:code:`wprojplanes=int(1)`
 
 Number of distinct w-values at which to compute and use different
                        gridding convolution functions for W-Projection
@@ -788,7 +854,9 @@ Number of distinct w-values at which to compute and use different
 
 
 
+-------------------------
 vptable
+:code:`vptable=''`
 
  VP table saved via the vpmanager
 
@@ -819,13 +887,17 @@ vptable
 
 
 
+-------------------------
 mosweight
+:code:`mosweight=True`
 
 When doing Brigg's style weighting (including uniform) to perform the weight density calculation for each field indepedently if True. If False the weight density is calculated from the average uv distribution of all the fields.
 
 
 
+-------------------------
 aterm
+:code:`aterm=True`
 
 Use aperture illumination functions during gridding
 
@@ -836,7 +908,9 @@ Use aperture illumination functions during gridding
 
 
 
+-------------------------
 psterm
+:code:`psterm=False`
 
 Include the Prolate Spheroidal (PS) funtion as the anti-aliasing 
                         operator in the gridding convolution functions used for gridding.
@@ -866,7 +940,9 @@ Include the Prolate Spheroidal (PS) funtion as the anti-aliasing
 
 
 
+-------------------------
 wbawp
+:code:`wbawp=True`
 
 Use frequency dependent A-terms
                        Scale aperture illumination functions appropriately with frequency
@@ -874,7 +950,9 @@ Use frequency dependent A-terms
  
 
 
+-------------------------
 conjbeams
+:code:`conjbeams=False`
 
 Use conjugate frequency for wideband A-terms
 
@@ -896,7 +974,9 @@ Use conjugate frequency for wideband A-terms
 
 
 
+-------------------------
 cfcache
+:code:`cfcache=''`
 
 Convolution function cache directory name
 
@@ -920,13 +1000,17 @@ Convolution function cache directory name
 
 
 
+-------------------------
 usepointing
+:code:`usepointing=False`
 
 The usepointing flag informs the gridder that it should utilize the pointing table
 to use the correct direction in which the antenna is pointing with respect to the pointing phasecenter. 
 
 
+-------------------------
 computepastep
+:code:`computepastep=float(360.0)`
 
 Parallactic angle interval after the AIFs are recomputed (deg)
 
@@ -942,7 +1026,9 @@ Parallactic angle interval after the AIFs are recomputed (deg)
 
 
 
+-------------------------
 rotatepastep
+:code:`rotatepastep=float(360.0)`
 
 Parallactic angle interval after which the nearest AIF is rotated (deg) 
 
@@ -959,7 +1045,9 @@ Parallactic angle interval after which the nearest AIF is rotated (deg)
 
 
 
+-------------------------
 pointingoffsetsigdev
+:code:`pointingoffsetsigdev=numpy.array( [  ] )`
 
  
                          Corrections for heterogenous and time-dependent pointing 
@@ -1021,7 +1109,9 @@ pointingoffsetsigdev
 
 
 
+-------------------------
 pblimit
+:code:`pblimit=float(0.2)`
 
 PB gain level at which to cut off normalizations
 
@@ -1044,7 +1134,9 @@ PB gain level at which to cut off normalizations
   
 
 
+-------------------------
 normtype
+:code:`normtype='flatnoise'`
 
 Normalization type (flatnoise, flatsky, pbsquare)
 
@@ -1073,7 +1165,9 @@ Normalization type (flatnoise, flatsky, pbsquare)
 
 
 
+-------------------------
 deconvolver
+:code:`deconvolver='hogbom'`
 
 Name of minor cycle algorithm (hogbom,clark,multiscale,mtmfs,mem,clarkstokes)
 
@@ -1145,7 +1239,9 @@ Name of minor cycle algorithm (hogbom,clark,multiscale,mtmfs,mem,clarkstokes)
 
 
 
+-------------------------
 scales
+:code:`scales=numpy.array( [  ] )`
 
 List of scale sizes (in pixels) for multi-scale and mtmfs algorithms.
                                   -->  scales=[0,6,20]
@@ -1167,7 +1263,9 @@ List of scale sizes (in pixels) for multi-scale and mtmfs algorithms.
      
 
 
+-------------------------
 nterms
+:code:`nterms=int(2)`
 
 Number of Taylor coefficients in the spectral model
 
@@ -1215,7 +1313,9 @@ Number of Taylor coefficients in the spectral model
 
 
 
+-------------------------
 smallscalebias
+:code:`smallscalebias=float(0.0)`
 
 A numerical control to bias the scales when using multi-scale or mtmfs algorithms.
                       The peak from each scale's smoothed residual is
@@ -1230,7 +1330,9 @@ A numerical control to bias the scales when using multi-scale or mtmfs algorithm
 
 
 
+-------------------------
 restoration
+:code:`restoration=True`
 
  Restore the model image.
 
@@ -1247,7 +1349,9 @@ restoration
 
 
 
+-------------------------
 restoringbeam
+:code:`restoringbeam=numpy.array( [  ] )`
 
  Restoring beam shape/size to use.
 
@@ -1271,7 +1375,9 @@ restoringbeam
 
 
 
+-------------------------
 pbcor
+:code:`pbcor=False`
 
  Apply PB correction on the output restored image
 
@@ -1296,7 +1402,9 @@ pbcor
 
 
 
+-------------------------
 outlierfile
+:code:`outlierfile=''`
 
 Name of outlier-field image definitions
 
@@ -1350,7 +1458,9 @@ Name of outlier-field image definitions
 
 
 
+-------------------------
 weighting
+:code:`weighting='natural'`
 
 Weighting scheme (natural,uniform,briggs,superuniform,radial, briggsabs)
 
@@ -1423,7 +1533,9 @@ Weighting scheme (natural,uniform,briggs,superuniform,radial, briggsabs)
 
 
 
+-------------------------
 robust
+:code:`robust=float(0.5)`
 
 Robustness parameter for Briggs weighting.
 
@@ -1434,12 +1546,16 @@ Robustness parameter for Briggs weighting.
 
 
 
+-------------------------
 noise
+:code:`noise='1.0Jy'`
 
 noise parameter for briggs abs mode weighting
 
 
+-------------------------
 npixels
+:code:`npixels=int(0)`
 
 Number of pixels to determine uv-cell size for super-uniform weighting
                       (0 defaults to -/+ 3 pixels)
@@ -1458,7 +1574,9 @@ Number of pixels to determine uv-cell size for super-uniform weighting
 
 
 
+-------------------------
 uvtaper
+:code:`uvtaper=numpy.array( [ '' ] )`
 
 uv-taper on outer baselines in uv-plane
 
@@ -1484,7 +1602,9 @@ uv-taper on outer baselines in uv-plane
 
 
 
+-------------------------
 niter
+:code:`niter=int(0)`
 
 Maximum number of iterations
 
@@ -1534,7 +1654,9 @@ Maximum number of iterations
 
 
 
+-------------------------
 gain
+:code:`gain=float(0.1)`
 
 Loop gain
 
@@ -1554,7 +1676,9 @@ Loop gain
 
 
 
+-------------------------
 threshold
+:code:`threshold=float(0.0)`
 
 Stopping threshold (number in units of Jy, or string)
 
@@ -1590,7 +1714,9 @@ Stopping threshold (number in units of Jy, or string)
 
 
 
+-------------------------
 nsigma
+:code:`nsigma=float(0.0)`
 
 Multiplicative factor for rms-based threshold stopping
 
@@ -1605,7 +1731,9 @@ Multiplicative factor for rms-based threshold stopping
 
 
 
+-------------------------
 cycleniter
+:code:`cycleniter=int(-1)`
 
 Maximum number of minor-cycle iterations (per plane) before triggering
                        a major cycle
@@ -1624,7 +1752,9 @@ Maximum number of minor-cycle iterations (per plane) before triggering
 
 
 
+-------------------------
 cyclefactor
+:code:`cyclefactor=float(1.0)`
 
 Scaling on PSF sidelobe level to compute the minor-cycle stopping threshold.
 
@@ -1640,7 +1770,9 @@ Scaling on PSF sidelobe level to compute the minor-cycle stopping threshold.
 
 
 
+-------------------------
 minpsffraction
+:code:`minpsffraction=float(0.05)`
 
 PSF fraction that marks the max depth of cleaning in the minor cycle
 
@@ -1653,7 +1785,9 @@ PSF fraction that marks the max depth of cleaning in the minor cycle
 
 
 
+-------------------------
 maxpsffraction
+:code:`maxpsffraction=float(0.8)`
 
 PSF fraction that marks the minimum depth of cleaning in the minor cycle
 
@@ -1668,7 +1802,9 @@ PSF fraction that marks the minimum depth of cleaning in the minor cycle
 
 
 
+-------------------------
 interactive
+:code:`interactive=False`
 
 Modify masks and parameters at runtime
 
@@ -1726,7 +1862,9 @@ Modify masks and parameters at runtime
 
 
 
+-------------------------
 usemask
+:code:`usemask='user'`
 
 Type of mask(s) to be used for deconvolution
 
@@ -1762,7 +1900,9 @@ Type of mask(s) to be used for deconvolution
 
 
 
+-------------------------
 mask
+:code:`mask=''`
 
 Mask (a list of image name(s) or region file(s) or region string(s)
 
@@ -1817,7 +1957,9 @@ Mask (a list of image name(s) or region file(s) or region string(s)
 
 
 
+-------------------------
 pbmask
+:code:`pbmask=float(0.0)`
 
 Sub-parameter for usemask='auto-multithresh': primary beam mask
 
@@ -1827,14 +1969,18 @@ Sub-parameter for usemask='auto-multithresh': primary beam mask
 
 
 
+-------------------------
 sidelobethreshold
+:code:`sidelobethreshold=float(3.0)`
 
 Sub-parameter for "auto-multithresh":  mask threshold based on sidelobe levels:  sidelobethreshold * max_sidelobe_level * peak residual
 
 
 
 
+-------------------------
 noisethreshold
+:code:`noisethreshold=float(5.0)`
 
 Sub-parameter for "auto-multithresh":  mask threshold based on the noise level: noisethreshold * rms + location (=median)
 
@@ -1842,7 +1988,9 @@ Sub-parameter for "auto-multithresh":  mask threshold based on the noise level: 
 
 
 
+-------------------------
 lownoisethreshold
+:code:`lownoisethreshold=float(1.5)`
 
 Sub-parameter for "auto-multithresh":  mask threshold to grow previously masked regions via binary dilation:   lownoisethreshold * rms in residual image + location (=median)
 
@@ -1850,7 +1998,9 @@ Sub-parameter for "auto-multithresh":  mask threshold to grow previously masked 
 
 
 
+-------------------------
 negativethreshold
+:code:`negativethreshold=float(0.0)`
 
 Sub-parameter for "auto-multithresh": mask threshold  for negative features: -1.0* negativethreshold * rms + location(=median)
 
@@ -1858,44 +2008,58 @@ Sub-parameter for "auto-multithresh": mask threshold  for negative features: -1.
 
 
 
+-------------------------
 smoothfactor
+:code:`smoothfactor=float(1.0)`
 
 Sub-parameter for "auto-multithresh":  smoothing factor in a unit of the beam
 
 
 
+-------------------------
 minbeamfrac
+:code:`minbeamfrac=float(0.3)`
 
 Sub-parameter for "auto-multithresh":  minimum beam fraction in size to prune masks smaller than mimbeamfrac * beam
                        <=0.0 : No pruning
 
 
 
+-------------------------
 cutthreshold
+:code:`cutthreshold=float(0.01)`
 
 Sub-parameter for "auto-multithresh": threshold to cut the smoothed mask to create a final mask: cutthreshold * peak of the smoothed mask
 
 
 
+-------------------------
 growiterations
+:code:`growiterations=int(75)`
 
 Sub-parameter for "auto-multithresh": Maximum number of iterations to perform using binary dilation for growing the mask
 
 
 
+-------------------------
 dogrowprune
+:code:`dogrowprune=True`
 
 Experimental sub-parameter for "auto-multithresh": Do pruning on the grow mask
 
 
 
+-------------------------
 minpercentchange
+:code:`minpercentchange=float(-1.0)`
 
 If the change in the mask size in a particular channel is less than minpercentchange, stop masking that channel in subsequent cycles. This check is only applied when noise based threshold is used and when the previous clean major cycle had a cyclethreshold value equal to the clean threshold. Values equal to -1.0 (or any value less than 0.0) will turn off this check (the default). Automask will still stop masking if the current channel mask is an empty mask and the noise threshold was used to determine the mask.
 
 
 
+-------------------------
 verbose
+:code:`verbose=False`
 
  If it is set to True, the summary of automasking at the end of each automasking process
                         is printed in the logger.  Following information per channel will be listed in the summary.
@@ -1916,7 +2080,9 @@ verbose
 
 
 
+-------------------------
 fastnoise
+:code:`fastnoise=True`
 
  Only relevant when automask (user='multi-autothresh') and/or n-sigma stopping threshold (nsigma>0.0) are/is used. If it is set to True,  a simpler but faster noise calucation is used. 
                         In this case, the threshold values are determined based on classic statistics (using all
@@ -1936,7 +2102,9 @@ fastnoise
 
 
 
+-------------------------
 restart
+:code:`restart=True`
 
  Restart using existing images (and start from an existing model image)
                         or automatically increment the image name and make a new image set.
@@ -1990,7 +2158,9 @@ restart
 
 
 
+-------------------------
 savemodel
+:code:`savemodel='none'`
 
 Options to save model visibilities (none, virtual, modelcolumn)
 
@@ -2041,7 +2211,9 @@ Options to save model visibilities (none, virtual, modelcolumn)
 
 
 
+-------------------------
 calcres
+:code:`calcres=True`
 
 Calculate initial residual image
 
@@ -2066,7 +2238,9 @@ Calculate initial residual image
 
 
 
+-------------------------
 calcpsf
+:code:`calcpsf=True`
 
 Calculate PSF
 
@@ -2077,7 +2251,9 @@ Calculate PSF
       
 
 
+-------------------------
 parallel
+:code:`parallel=False`
 
 Run major cycles in parallel (this feature is experimental)
 
