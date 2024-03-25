@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" ?>
+<casaxml xmlns="http://casa.nrao.edu/schema/psetTypes.html"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://casa.nrao.edu/schema/casa.xsd
+file:///opt/casa/code/xmlcasa/xml/casa.xsd">
+  
+<task type="function" name="simobserve" category="simulation">
+
+  <shortdescription>visibility simulation task</shortdescription>
+
+  <description>
+    This task simulates interferometric or total power measurment sets 
+    It is currently optimized for JVLA and ALMA, although many observatories
+    are included, and adding your own is simply a matter of providing an
+    antenna location file (see below). 
+    
+    simobserve is meant to work in conjunction with the simanalyze task - 
+    Calling simobserve one more times will produce simulated measurement
+    set(s), which are then gridded, inverted and deconvolved into output
+    simulated images using simanalyze. 
+    
+    ALMA users are encouraged to use the simalma task, which provides 
+    additional information on the multiple simobserve and simanalyze 
+    calls required to simulate an ALMA observation which may consist of 
+    12m interferometric, 7m interferometric, and 12m total power data.
+    
+    More information and examples are availible at 
+     http://casaguides.nrao.edu/index.php?title=Simulating_Observations_in_CASA
+    Please contact CASA experts with any questions.
+
+</description>
+<example>
+    -------------------------------
+    project -- the root filename for all output files.
+    -------------------------------
+    skymodel -- input image (used as a model of the sky)
+       * simalma requires a CASA or fits image. If you merely have a grid of 
+         numbers, you will need to write them out as fits or write a 
+         CASA script to read them in and use the ia tool to create an image 
+         and insert the data.
+       
+       * simalma does NOT require a coordinate system in the header. If the
+         coordinate information is incomplete, missing, or you would like to
+         override it, set the appropriate "in" parameters. NOTE that setting 
+         those parameters simply changes the header values, ignoring
+         any values already in the image. No regridding is performed.
+    
+       * If you have a proper Coordinate System, simalma will do its best to
+         generate visibilities from that, and then create a synthesis image
+         according to the specified user parameters. 
+    
+       * You can manipulate an image header manually with the "imhead" task.
+    
+    inbright -- peak brightness in Jy/pixel, or "" for unchanged
+       * NOTE: "unchanged" will take the numerical values in your image 
+         and assume they are in Jy/pixel, even if it says some other unit 
+         in the header. 
+    indirection -- central direction, or "" for unchanged
+    incell -- spatial pixel size, or "" for unchanged
+    incenter -- frequency of center channel e.g. "89GHz", or "" for unchanged
+    inwidth -- width of channels, or "" for unchanged - this should be a 
+         string representing a quantity with units e.g. "10MHz"
+       * NOTE: only works reliably with frequencies, not velocities
+       * NOTE: it is not possible to change the number of spectral planes
+         of the sky model, only to relabel them with different frequencies
+         That kind of regridding can be accomplished with the CASA toolkit.
+    -------------------------------
+    complist -- component list model of the sky, added to or instead of skymodel
+         see http://casaguides.nrao.edu/index.php?title=Simulation_Guide_Component_Lists_%28CASA_4.1%29
+    compwidth -- bandwidth of components; if simulating from components only, 
+         this defines the bandwidth of the MS and output images
+    -------------------------------
+    setpointings -- calculate a map of pointings, or if false, provide ptgfile
+       * if graphics are on, display the pointings shown on the model image
+    ptgfile -- a text file specifying directions in the following
+         format, with optional integration times, e.g.
+         #Epoch     RA          DEC      TIME(optional)
+         J2000 23h59m28.10 -019d52m12.35 10.0
+       * if the time column is not present in the file, it will use
+         "integration" for all pointings.
+       * NOTE: at this time the file should contain only science pointings:
+         simobserve will observe these, then optionally the calibrator, 
+         then the list of science pointings again, etc, until totaltime
+         is used up. 
+    integration --- Time interval for each integration e.g '10s'
+       * NOTE: to simulate a "scan" longer than one integration, use 
+         setpointings to generate a pointing file, and then edit the 
+         file to increase the time at each point to be larger than 
+         the parameter integration time.
+    direction -- mosaic center direction e.g 'J2000 19h00m00 -40d00m00'
+       * can optionally be a list of pointings
+       * otherwise simobserve will pack mapsize according to maptype
+    mapsize -- angular size of map 
+       * set to "" to span the model image
+    maptype -- hexagonal, square (rectangular raster), 
+         "ALMA" for the same hex algorithm as the ALMA Cycle 1 OT 
+         or "ALMA2012" for the algorithm used in the Cycle 0 OT
+    pointingspacing -- spacing in between beams e.g '1arcsec'
+         "0.25PB" to use 1/4 of the primary beam FWHM, 
+         "nyquist" will use lambda/d/2,
+         "" will use lambda/d/sqrt(3) for INT, lambda/d/3 for SD
+    -------------------------------
+    obsmode -- observation mode to calculate visibilities from a skymodel image
+         (which may have been modified above), an optional component list, 
+         and a pointing file (which also may have been generated above)
+       * this parameter takes two possible values:
+         - interferometer (or i)
+         - singledish (or s)
+       * if graphics are on, this observe step will display the array 
+         (similar to plotants), the uv coverage, the synthesized (dirty) beam, 
+         and ephemeris information
+       * if simulating from component list, you should specify "compwidth", 
+         the desired bandwidth.  There is not currently a way to specify the 
+         spectrum of a component, so simulations from a componentlist only 
+         will be continuum (1 chan)
+    refdate -- date of simulated observation eg: '2014/05/21'
+    hourangle -- hour angle of observation e.g. '-3h'
+       * note that if you don't add a unit, it will assume hours
+    totaltime --- total time of observation e.g '7200s' or if a number without
+         units, interpreted as the number of times to repeat the map
+    antennalist -- ascii file containing antenna positions.
+         each row has x y z coordinates and antenna diameter; 
+         header lines are required to specify the observatory name
+         and coordinate system e.g. 
+           # observatory=ALMA
+           # coordsys=UTM
+           # datum=WGS84
+           # zone=19
+       * standard arrays are found in your CASA data repository, 
+         os.getenv("CASAPATH").split()[0]+"/data/alma/simmos/"        
+       * if "", simobserve will not not produce an interferometric MS
+       * a string of the form "alma;0.5arcsec" will be parsed into a full 
+         12m ALMA configuration.  This only works for full ALMA and may fail 
+         to find the standard configuration files on some systems 
+         - see casaguides.nrao.edu for more information.
+    caldirection -- an unresolved calibrator can be observed 
+         interleaved with the science pointings.  
+       * The calibrator is implemented as a point source clean component 
+         with this specified direction and flux=calflux
+    sdant -- the index of the antenna in the list to use for total 
+         power.  defaults to the first antenna on the list. 
+    -------------------------------
+    thermalnoise -- add thermal noise 
+       * this parameter takes two possible values:
+       - tsys-atm: J. Pardo's ATM library will be used to construct an
+           atmospheric profile for the ALMA site:
+           altitude 5000m, ground pressure 650mbar, relhum=20%, 
+           a water layer of user_pwv at altitude of 2km,
+           the sky brightness temperature returned by ATM, 
+           and internally tabulated receiver temperatures
+       - tsys-manual: instead of using the ATM model, specify the zenith 
+           sky brightness and opacity manually.  Noise is added and then
+           the visibility flux scale is referenced above the atmosphere. 
+       * In either mode, noise is calculated using an antenna spillover 
+           efficiency of 0.96, taper of 0.86, 
+           surface accuracy of 25 and 300 microns for ALMA and EVLA
+           respectively (using the Ruze formula for surface efficiency),
+           correlator efficiencies of 0.95 and 0.91 for ALMA and EVLA, 
+           receiver temperatures for ALMA of 
+               17, 30, 37, 51, 65, 83,147,196,175,230 K interpolated between
+               35, 75,110,145,185,230,345,409,675,867 GHz,
+           for EVLA of 
+               500, 70,  60,  55,  100, 130, 350 K interpolated between
+               0.33,1.47,4.89,8.44,22.5,33.5,43.3 GHz,
+           for SMA of
+               67,  116, 134, 500 K interpolated between
+               212.,310.,383.,660. GHz
+       * These are only approximate numbers and do not take into account 
+         performance at edges of receiver bands, neither are they guaranteed
+         to reflect the most recent measurements.  Caveat emptor and use the 
+         sm tool to add noise if you want more precise control.
+    t_ground -- ground/spillover temperature in K 
+    user_pwv -- precipitable water vapor if constructing an atmospheric model
+    t_sky -- atmospheric temperature in K [for tsys-manual]
+    tau0 -- zenith opacity at observing frequency [for tsys-manual]
+       * see casaguides.nrao.edu for more information on noise, 
+         in particular how to add a phase screen using the toolkit
+    seed -- random number seed for noise generation
+    -------------------------------
+    leakage -- add cross polarization corruption of this fractional magnitude
+    
+    graphics -- view plots on the screen, saved to file, both, or neither
+    verbose -- print extra information to the logger and terminal
+    overwrite -- overwrite existing files in the project subdirectory
+    
+    
+    -------------------------------
+    -------------------------------
+    Output produced: (not all will always exist, depending on input parameters)
+    To support different runs with different arrays, the names have the
+    configuration name from antennalist appended.
+    -------------------------------
+    
+    project.[cfg].skymodel = 4d input sky model image (optionally) scaled
+    project.[cfg].skymodel.flat.regrid.conv = input sky regridded to match the
+        output image, and convolved with the output clean beam
+    project.[cfg].skymodel.png = diagnostic figure of sky model with pointings
+    
+    project.[cfg].ptg.txt = list of mosaic pointings
+    project.[cfg].quick.psf = psf calculated from uv coverage
+    project.[cfg].ms = noise-free measurement set
+    project.[cfg].noisy.ms = corrupted measurement set 
+    project.[cfg].observe.png = diagnostic figure of uv coverage and 
+         visibilities
+    	    
+    project.[cfg].simobserve.last = saved input parameters for simobserve task
+
+  </example>
+  
+  <input>
+    
+    <param type="string" name="project">
+      <description>root prefix for output file names</description>
+      <value>sim</value>
+    </param>
+    
+
+
+
+    <!-- all parms default to keep what's in the image, if the param=="" -->
+
+    <param type="string" name="skymodel">
+      <description>model image to observe</description>
+      <value type="string"></value>
+    </param>
+
+    <param type="string" name="inbright" subparam='true'>
+       <description>scale surface brightness of brightest pixel e.g. "1.2Jy/pixel"</description>
+       <value type="string"></value>
+    </param>
+    <!-- TODO parse Jy/pixel, MJy/Sr, eventually K, etc -->
+    <!-- TODO document permitted units in online help -->
+
+    <param type="string" name="indirection" subparam="true">
+      <description>set new direction e.g. "J2000 19h00m00 -40d00m00"</description>
+      <value type="string"></value>
+    </param>
+
+    <param type="string" name="incell" subparam='true'>
+      <description>set new cell/pixel size e.g. "0.1arcsec"</description>
+      <value type="string"></value>
+    </param>
+    
+    <param type="string" name="incenter" subparam="true">
+      <description>set new frequency of center channel e.g. "89GHz" (required even for 2D model)</description>
+      <value type="string"></value>
+    </param>    
+
+    <param type="string" name="inwidth" subparam="true">
+      <description>set new channel width e.g. "10MHz" (required even for 2D model)</description>
+      <value type="string"></value>
+    </param>
+
+
+
+    <param type="string" name="complist">
+      <description>componentlist to observe</description>
+      <value></value>
+    </param>
+
+    <param type="string" name="compwidth" subparam="true">
+      <description>bandwidth of components</description>
+      <value>"8GHz"</value>
+    </param>
+
+
+
+<!--*************************************************************-->
+<!--*************************************************************-->
+
+
+    <param type="bool" name="setpointings">
+      <description></description>
+      <value>True</value>
+    </param>
+
+    <param type="string" name="ptgfile" subparam="true">
+      <description>list of pointing positions</description>
+      <value type="string">$project.ptg.txt</value>
+    </param>
+
+    <param type="string" name="integration" subparam="true">
+      <description>integration (sampling) time</description>
+      <value>10s</value>
+    </param>
+
+<!--  The user can edit the ptg file to repeat ptgs if they wish a scan length
+      Longer than the integration time
+    <param type="variant" name="scanlength" subparam="true">
+      <description>number of integrations or time per pointing</description>
+      <value type="int">5</value>
+    </param>
+-->
+
+    <param type="stringArray" name="direction" subparam="true">
+      <description>"J2000 19h00m00 -40d00m00" or "" to center on model</description>
+      <value type="string"></value>
+    </param>
+
+    <param type="stringArray" name="mapsize" subparam="true">
+      <description>angular size of map or "" to cover model</description>
+      <value type="vector">
+	<value type="string"></value>
+	<value type="string"></value>
+      </value>
+    </param>
+
+    <param type="string" name="maptype" subparam="true">
+      <description>hexagonal, square (raster), ALMA, etc</description>
+      <value type="string">hexagonal</value>
+      <allowed kind="enum">
+	<value type="string">hexagonal</value>
+	<value type="string">square</value>
+	<value type="string">hex</value>
+	<value type="string">ALMA</value>
+	<value type="string">ALMA2012</value>
+	<value type="string">alma</value>
+	<value type="string">ALMA-OT</value>
+      </allowed>
+    </param>
+
+    <param type="string" name="pointingspacing" subparam="true">
+      <description>spacing in between pointings or "0.25PB" or "" for ALMA default INT=lambda/D/sqrt(3), SD=lambda/D/3 </description>
+      <value></value>
+    </param>
+
+<!--
+    <param type="any" name="relmargin">
+      <any type="variant" limittypes="double int"/>
+      <description>space btw. pointings and edge, relative to pointingspacing</description>
+      <value type="double">1.0</value>
+    </param>
+-->
+    <param type="string" name="caldirection" subparam="true">
+      <description>pt source calibrator [experimental]</description>
+      <value type="string"></value>
+    </param>
+
+    <param type="string" name="calflux" subparam="true">
+      <description></description>
+      <value>1Jy</value>
+    </param>
+
+
+
+
+
+
+
+<!--*************************************************************-->
+<!--  observe always reads from $project.skymodel file now -->
+
+    <param type="string" name="obsmode">
+      <description>observation mode to simulate [int(interferometer)|sd(singledish)|""(none)]</description>
+      <value>int</value>
+      <allowed kind="enum">
+	<value type="string"></value>
+	<value type="string">int</value>
+	<value type="string">sd</value>
+      </allowed>
+    </param>
+
+    <param type="string" name="refdate" subparam="true">
+      <description>date of observation - not critical unless concatting simulations</description>
+      <value>2014/01/01</value>
+    </param>
+
+    <param type="string" name="hourangle" subparam="true">
+      <description>hour angle of observation center e.g. "-3:00:00", "5h", "-4.5" (a number without units will be interpreted as hours), or "transit" </description>
+      <value>transit</value>
+    </param>
+    
+    <param type="string" name="totaltime" subparam="true">
+      <description>total time of observation or number of repetitions</description>
+      <value>7200s</value>
+    </param>
+
+    <param type="string" name="antennalist" subparam="true">
+      <description>interferometer antenna position file</description>
+      <value></value>
+    </param>
+
+<!-- TODO put in more than one synth_antfile to do ALMA and ACA config - 
+it'll do them for the same amount of time -->
+
+    <param type="string" name="sdantlist" subparam="true">
+      <description>single dish antenna position file</description>
+      <value>aca.tp.cfg</value>
+    </param>
+
+    <param type="int" name="sdant" subparam="true">
+      <description>single dish antenna index in file</description>
+      <value>0</value>
+    </param>
+
+
+
+
+
+<!--  NOISE  -->
+
+    <param type="string" name="thermalnoise">
+      <description>add thermal noise: [tsys-atm|tsys-manual|""]</description>
+      <value type="string">tsys-atm</value>
+      <allowed kind="enum">
+	<value type="string"></value>
+	<value type="string">tsys-atm</value>
+	<value type="string">tsys-manual</value>
+	<value type="string">False</value>
+	<value type="string">F</value>
+      </allowed>
+    </param>    
+    <param type="double" name="user_pwv" subparam="true">
+      <description>Precipitable Water Vapor in mm</description>
+      <value>0.5</value>
+      <allowed kind="range"><value range="min">0</value></allowed>
+    </param>
+
+    <param type="double" name="t_ground" subparam="true">
+      <description>ambient temperature</description><value>270.</value>
+      <allowed kind="range"><value range="min">0</value></allowed>
+    </param>
+    <param type="double" name="t_sky" subparam="true">
+       <description>atmospheric temperature</description>
+       <value>260.</value>
+      <allowed kind="range"><value range="min">0</value></allowed>
+    </param>	
+    <param type="double" name="tau0" subparam="true">
+      <description>zenith opacity</description><value>0.1</value>
+      <allowed kind="range"><value range="min">0</value></allowed>
+    </param>
+    <param type="int" name="seed" subparam="true">
+      <description>random number seed</description><value>11111</value>
+    </param>
+    
+    <param type="double" name="leakage">
+      <description>cross polarization (interferometer only)</description>
+      <value>0.0</value>
+      <allowed kind="range"><value range="min">0</value></allowed>
+    </param>    
+
+    
+
+
+
+
+    <param type="string" name="graphics">
+      <description>display graphics at each stage to [screen|file|both|none]</description>
+      <value type="string">both</value>
+      <allowed kind="enum">
+	<value>screen</value>
+	<value>file</value>
+	<value>both</value>
+	<value>none</value>
+	<value></value>
+      </allowed>
+    </param>
+
+    <param type="bool" name="verbose">
+      <description></description>
+      <value>False</value>
+    </param>
+
+    <param type="bool" name="overwrite">
+      <description>overwrite files starting with $project</description>
+      <value>True</value>
+    </param>
+
+
+
+        
+    
+<!--  CONSTRAINTS  -->    
+    
+    <constraints>
+      <when param="skymodel">
+	<notequals value="">
+	  <default param="inbright"><value type="string"></value></default>
+	  <default param="indirection">
+	    <value type="string"></value>
+	  </default>
+	  <default param="incell"><value type="string"></value></default>
+	  <default param="incenter">
+	    <description>set central frequency (required even for 2D image)</description>
+	    <value type="string"></value>
+	  </default>
+	  <default param="inwidth">
+	    <description>set channel width or bandwidth of 2D / continuum image</description>
+	    <value type="string"></value>
+	  </default>
+	</notequals>
+      </when>
+      <!-- **********************************************************  -->
+      <when param="complist">
+	<notequals value="">
+	  <default param="compwidth"><value type="string">8GHz</value></default>
+	</notequals>
+      </when>
+      <!-- **********************************************************  -->
+      <when param="setpointings">
+	<equals type="bool" value="True">	  
+	  <default param="integration"><value type="string">10s</value></default>
+	  <default param="direction">
+	    <description>center of map or "" to center on the model</description>
+	    <value type="string"></value>
+	  </default>
+	  <default param="mapsize" type="stringArray">
+	    <value type="vector">
+	      <value type="string">''</value>
+	      <value type="string">''</value>
+	    </value>
+	  </default>
+	  <default param="maptype" type="string">
+	    <value type="string">ALMA</value>
+	  </default>
+	  <default param="pointingspacing"><value type="string"></value></default>
+	</equals>
+	<equals type="bool" value="False">
+	  <default param="ptgfile"><value type="string">$project.ptg.txt</value></default>
+	  <default param="integration"><value type="string">10s</value>
+	  <description>integration time (see below)</description></default>
+	</equals>
+      </when>
+      <!-- **********************************************************  -->
+      <when param="obsmode">
+	<equals type="string" value="int">
+	  <default param="antennalist"><value type="string">alma.out10.cfg</value></default>
+	  <default param="refdate"><value type="string">2014/05/21</value></default>
+	  <default param="hourangle"><value type="string">transit</value></default>
+	  <default param="totaltime"><value>"7200s"</value></default>
+	  <default param="caldirection"><value type="string"></value></default>
+	  <default param="calflux"><value type="string">1Jy</value></default>
+	</equals>
+	<equals type="string" value="sd">
+	  <default param="sdantlist"><value type="string">aca.tp.cfg</value></default>
+	  <default param="sdant"><value type="int">0</value></default>
+	  <default param="refdate"><value type="string">2014/05/21</value></default>
+	  <default param="hourangle"><value type="string">transit</value></default>
+	  <default param="totaltime"><value>"7200s"</value></default>
+	</equals>
+	<equals type="string" value="">
+	  <default param="antennalist"><value type="string"></value>
+	  <description>antenna info can be used to calculate the primary beam</description></default>
+	  <default param="sdantlist"><value type="string"></value>
+	  <description>antenna info can be used to calculate the primary beam</description></default>
+	  <default param="sdant"><value type="int">0</value></default>
+	</equals>
+      </when>
+      <!-- **********************************************************  -->
+      <when param="thermalnoise">
+	<equals type="string" value="tsys-atm">
+	  <default param="user_pwv"><value>0.5</value></default>
+	  <default param="t_ground"><value>269.</value></default>
+	  <default param="seed"><value>11111</value></default>
+	</equals>	
+	<equals type="string" value=""/>
+	<equals type="string" value="False"/>
+	<equals type="string" value="F"/>
+	<equals type="string" value="tsys-manual">
+	  <default param="t_ground"><value>269.</value></default>
+	  <default param="t_sky"><value>263.</value></default>
+	  <default param="tau0"><value>0.1</value></default>
+	  <default param="seed"><value>11111</value></default>
+	</equals>
+	<equals type="string" value=""/>
+	<equals type="string" value="False"/>
+	<equals type="string" value="F"/>
+      </when>
+      <!-- **********************************************************  -->
+    </constraints>
+    
+    
+    
+  </input>
+  <returns type="bool"/>
+  
+<returns type="void"/>
+</task>
+</casaxml>
