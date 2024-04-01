@@ -114,7 +114,7 @@ Description
    (11) 'blfunc': baseline model function (identical to the task parameter *blfunc*)
    (12) 'order': order of polynomial function (identical to the task parameter *order*). Needed when (11) is "poly" or "chebyshev". It will be ignored when other values are set for blfunc
    (13) 'npiece': number of the element polynomials of cubic spline curve (identical to the task parameter *npiece*). Needed when (11) is "cspline"
-   (14) 'nwave': a list of sinusoidal wave numbers. Needed when (11) is "sinusoid" though, actually, sinusoidal fitting is yet to be available with per-spectrum fitting
+   (14) 'nwave': a list of sinusoidal wave numbers. Needed when (11) is "sinusoid"ю
 
    Note that the following task parameters will be ignored/overwritten
    when *blfunc = 'variable'* is specified (i.e., when per-spectrum
