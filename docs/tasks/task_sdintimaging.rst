@@ -16,14 +16,11 @@ Description
 
    .. warning::
 
-      Joint reconstruction of wideband single dish and interferometer data in
-      CASA is experimental. Please use at own discretion.
-   
-      A description of tested usage modes can
-      be found on the CASA Docs chapter page on  `Joint Single Dish
+      The experience with joint reconstruction of wideband single dish and interferometer data with sdintimaging in
+      CASA is limited. Please pay close attention to the description of tested usage modes in the CASA Docs chapter page on  `Joint Single Dish
       and Interferometer Image Reconstruction <../../notebooks/image_combination.ipynb#Joint-Single-Dish-and-Interferometer-Image-Reconstruction>`_
 
-      .. warning:: There is a `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for sdintimaging: gridder=’awproject’ is not yet available. It will be enabled in a subsequent release.
+      .. warning:: There is a `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for sdintimaging: gridder=’awproject’ is not yet available. It will be enabled in a future release.
    
    Interferometer data are gridded into an image cube (and
    corresponding PSF). The single dish image and PSF cubes are
@@ -62,8 +59,14 @@ Description
    are specific to sdintimaging are listed with full details, but all
    others will reference the existing tclean parameter documentation.
 
-   
-   .. rubric:: Data Selection
+   .. rubric:: Multiple MSes
+
+   -  Multiple MSes given as a list in vis is supported as in **tclean**. 
+      The details on the conformance checks that are performed on the list of the MSes 
+      are summarized in the `CASA Docs on Combining Datasets <../../notebooks/casa-fundamentals.ipynb#Combining-Datasets>`__.
+
+
+.. rubric:: Data Selection
    
    -  All data selection options allowed for interferometer data.
       This set of parameters is identical to those in task
@@ -172,6 +175,7 @@ Description
    for sample code and task calls that illustrates the simplest way
    of setting up these inputs.
    
+   You can either provide the dishdia parameter or an actual PSF image. 
    To use SD PSFs that represent actual SD beam patterns, please read
    the following details.
    
@@ -315,8 +319,11 @@ Description
       *specmode=’cube’* and *'mfs(nterms=1)’* and the *‘mtmfs’*
       deconvolver applies to the *specmode=’mfs(nterms>1)’*. In all
       cases, the *‘scales’* parameter is also relevant as it sets the
-      list of scale sizes to use during deconvolution.The *‘hogbom’*
-      deconvolver is relevant only when used with *usedata=’sdonly’*
+      list of scale sizes to use during deconvolution. Beware of choosing
+      a too large maximum scale size! This may lead to random flux offsets
+      between different channels of the combined cube! Choose the maximum
+      scale size smaller than the typical entend of the emission in the image.
+      The *‘hogbom’* deconvolver is relevant only when used with *usedata=’sdonly’*
       to deconvolve unresolved sources.
    
    -  **Gridders** :  All gridders supported by task tclean may be
@@ -345,7 +352,7 @@ Description
    
    .. rubric:: Output Images
    
-   The initial version of the sdintimaging task produces many
+   The sdintimaging task presently produces many
    intermediate images which persist after the end of the task.  The
    naming convention of the images is more complex than the tclean
    task.
@@ -503,8 +510,6 @@ Development
    The following is a list of features that are either not available
    yet or currently untested with the sdintimaging task (or known
    bugs):
-
-   -  Single Plane Imaging. The internal code assumes cubes, and the ability to work with single channel images needs more testing and debugging. 
    
    -  Use of task_deconvolve for sd only.
 	
@@ -516,7 +521,7 @@ Development
 	
    -  Understand why the feather step results in NaNs if the pblimit is set to a negative value for joint mosaic imaging of the INT data.
 	
-   -  Understand why feather produces ‘imageregrid’ warnings for every single run, even if the SD cell size and beam are compatible.
+   -  Stop the ‘imageregrid’ warnings for every single run, which are given even if the SD cell size and beam are compatible.
 	
    -  Add tools to check the relative flux densities of single-dish and interferometer visibility data to verify the results of joint deconvolution and other combination techniques.
 	
@@ -524,14 +529,10 @@ Development
 	
    -  Use sdint_helper:: setup_cube_params() to autogenerate nchan/start/width and then remove some parameters from the sdintimaging task interface, and check for validity of the input Single Dish image and PSF cubes
 	
-   -  For cases where the SD PSF is not available, allow the user to specify a dish diameter and ask the task to generate an Airy Disk SD PSF cube that may be used along with the supplied SD image cube.
-	
    -  If it is not possible to run ‘imregrid’, provide guidance to users on what to do.
 	
    -  Connect to tsdimaging internally for ALMA data.
    
    
    
-
-
 
