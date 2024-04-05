@@ -192,8 +192,11 @@ Description
    'IMAG', 'NORM' followed by any of 'ALL', 'I', 'XX', 'YY', 'RR',
    'LL', 'WVR'. 'WVR' refers to the water vapour radiometer of ALMA
    data. For calibration tables, the solutions are: 'Sol1', 'Sol2',
-   Sol3, Sol4. Correlation selection is not supported for modes other
-   than 'clip', 'tfcrop', or 'rflag' in cal tables.
+   Sol3, Sol4. When using the 'ARG' option, the values of parameters
+   such as clipmin are expected in units of radians.
+
+   .. note:: Correlation selection is not supported for modes other
+      than 'clip', 'tfcrop', or 'rflag' in cal tables.
    
    .. note:: The operators ABS, ARG, REAL, etc. are written only
       once as the first value. If more than one correlation is given,
