@@ -69,6 +69,12 @@ Description
       not have any meaning when selecting antenna/baselines in
       antenna-based cal tables.
 
+   .. warning:: When flagging calibration tables the following
+      combinations of parameters are not supported:
+
+      - Modes 'elevation' and 'shadow'
+      - Mode 'manual' with *correlation* parameter
+
    The task will flag a subset of data based on the following modes
    of operation:
    
