@@ -36,8 +36,8 @@ CASA is being developed by an international consortium of scientists and softwar
 
    notebooks/introduction
    genindex
-   api
-   Task List <api/casatasks>
+   API (tasks, tools, GUIs, etc.) <api>
+   Task List (shortcut) <api/casatasks>
    notebooks/usingcasa
    notebooks/casa-fundamentals
    notebooks/external-data
