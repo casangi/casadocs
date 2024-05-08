@@ -180,7 +180,7 @@ that does not exist it will exit with a message that it needs to be set.
 
 Individual users using a site installation may choose to have their own casarundata installed (e.g. they may wish to control when
 the data upates happen or they may wish to use an older version of the casarundata). Users can do that by setting *measurespath*
-to a personally controlled location in their persoanl configuration file (typically at ~/.casa/config.py).
+to a personally controlled location in their personal configuration file (typically at ~/.casa/config.py).
 
    
 startup.py
@@ -313,7 +313,7 @@ The \-\-measurespath option allows the user to specify the path to the data for 
 This overrides the value of *measurespath* in the configuration files.
 
 The data related options (\-\-pull-data,\-\-data-update, \-\-measures-update, and \-\-update-all) use *measurespath*
-without explicitly setting the version string. The *force* parameter rmemains False as does the *auto_update_rules*
+without explicitly setting the version string. The *force* parameter remains False as does the *auto_update_rules*
 parameter. This means that if a new version exists and the user has read and write permissions in *measurespath* then
 an update will happen as if those functions were used from a python session.
 
