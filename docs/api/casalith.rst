@@ -23,8 +23,6 @@ The following executable applications are located in the <casa release>/bin dire
 
 .. data:: casaviewer
 
-.. data:: buildmytasks
-
 
 
 startup options
