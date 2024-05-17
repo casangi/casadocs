@@ -749,9 +749,8 @@ Examples
    restored version of the image.
 
    
-   For examples running tclean on ALMA data, see also the CASA
-   Guide `"Tclean and
-   ALMA" <https://casaguides.nrao.edu/index.php?title=TCLEAN_and_ALMA>`__.
+   For examples running tclean on ALMA data, see also the ALMA `CASA Guide <https://casaguides.nrao.edu>`__ 'Tclean and
+   ALMA', which can be found under the General Imaging Tutorial 'Examples for using the tclean CASA task for ALMA Imaging'.
    
    .. rubric:: Imaging and Deconvolution Iterations
    

@@ -42,11 +42,13 @@ Description
       *mode='manual'*. It can only flag using the auto-flagging
       algorithms ('clip', 'tfcrop', or 'rflag'), the cal tables
       that have the following data columns: CPARAM, FPARAM or SNR.
-      The solution elements of the data columns are given in the
-      *correlation* parameter using the names 'Sol1', 'Sol2',
-      'Sol3', or 'Sol4'. See examples at the end of this help on
-      how to flag different cal tables.
-   
+      For these three modes, the solution elements of the data
+      columns are given in the *correlation* parameter using the
+      names 'Sol1', 'Sol2', 'Sol3', or 'Sol4'. Note that this is
+      an implicit change of the meaning of the *correlation*
+      parameter, specific to these three modes. See examples at
+      the end of this help on how to flag different cal tables.
+
       When the input is a calibration table, the modes 'elevation'
       and 'shadow' will be disabled. Data selection for calibration
       tables is limited to *field*, *scan*, *timerange*, *antenna*,
@@ -66,7 +68,13 @@ Description
       this type of calibration tables. Those values with ampersand do
       not have any meaning when selecting antenna/baselines in
       antenna-based cal tables.
-   
+
+   .. warning:: When flagging calibration tables the following
+      combinations of parameters are not supported:
+
+      - Modes 'elevation' and 'shadow'
+      - Mode 'manual' with *correlation* parameter
+
    The task will flag a subset of data based on the following modes
    of operation:
    
@@ -192,8 +200,11 @@ Description
    'IMAG', 'NORM' followed by any of 'ALL', 'I', 'XX', 'YY', 'RR',
    'LL', 'WVR'. 'WVR' refers to the water vapour radiometer of ALMA
    data. For calibration tables, the solutions are: 'Sol1', 'Sol2',
-   Sol3, Sol4. Correlation selection is not supported for modes other
-   than 'clip', 'tfcrop', or 'rflag' in cal tables.
+   Sol3, Sol4. When using the 'ARG' option, the values of parameters
+   such as clipmin are expected in units of radians.
+
+   .. note:: Correlation selection is not supported for modes other
+      than 'clip', 'tfcrop', or 'rflag' in cal tables.
    
    .. note:: The operators ABS, ARG, REAL, etc. are written only
       once as the first value. If more than one correlation is given,

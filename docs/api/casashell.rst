@@ -6,7 +6,6 @@ CASA shell environment for interactive Python-based analysis using CASA tasks.
 .. toctree::
    :maxdepth: 3
 
-   casashell/buildmytasks
    casashell/default
    casashell/doc
    casashell/execfile
