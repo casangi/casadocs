@@ -56,7 +56,8 @@ Description
       position corrections if *antenna=''*
    -  'jyperk' = Jy/K factors via Jy/K database Web API if infile=''
       (ALMA only)
-      
+   -  'eop' = Earth Orientation Parameter (EOP) correction (VLBI)
+
    For the VLA, *caltype='gc'* will do auto-lookup the gain curve information.
    For VLBI, gain curve information will be taken from MS.GAIN_CURVE when present
    or from an external table specified by the *infile* subparameter.
@@ -152,7 +153,23 @@ Description
       factors and generate a caltable. Or factors are taken from a 
       file in the local storage specified by the 'infile' sub-parameter
       to generate a caltable.
+   -  'eop'  For EOP corrections, updated EOPs can be provided using an
+      external file by using the 'infile' sub-parameter. The recommended
+      EOP source is NASA's CDDIS. The required file can be downloaded using
 
+      ::
+      
+        curl -u anonymous:daip@nrao.edu --ftp-ssl \
+          ftp://gdc.cddis.eosdis.nasa.gov/vlbi/gsfc/ancillary/solve_apriori/usno_finals.erp \
+          > usno_finals.erp
+
+      Alternatively EOP data from IERS in EOP 14 C04 (IAU2000A, dX, dY) 0hUTC
+      format can be used. If the 'infile' sub-parameter is not provided EOPs
+      are taken from the **casadata** repository. Care should be taken that this
+      repository is [kept up to date](external-data.ipynb#Updating-the-Data-Tables).
+      This is a differential correction with respect to the original EOPs used
+      during correlation. These original EOPs are taken from the MS.EARTH_ORIENTATION
+      table, which is required.
 
 .. _Examples:
 
@@ -258,6 +275,13 @@ Examples
    
       gencal(vis='test.ms',caltable='test.G',caltype='antposvla',antenna='ea09,ea10',
              parameter=[0.01,0.02,0.03, -0.03,-0.01,-0.02])
+
+
+   EOP corrections will be introduced based on updated EOPs from NASA's CDDIS archive.
+
+   ::
+
+      gencal(vis='test.ms',caltable='test.eop',caltype='eop',infile='usno_finals.erp')
 
 
 .. _Development:
