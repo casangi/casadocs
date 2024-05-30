@@ -166,7 +166,7 @@ Description
       Alternatively EOP data from IERS in EOP 14 C04 (IAU2000A, dX, dY) 0hUTC
       format can be used. If the 'infile' sub-parameter is not provided EOPs
       are taken from the **casadata** repository. Care should be taken that this
-      repository is `kept up to date <../../notebooks/external-data.ipynb#pdating-the-Data-Tables>`__ . This is a differential correction with respect to the original EOPs used
+      repository is `kept up to date <../../notebooks/external-data.ipynb#Updating-the-Data-Tables>`__. This is a differential correction with respect to the original EOPs used
       during correlation. These original EOPs are taken from the MS.EARTH_ORIENTATION
       table, which is required.
 
