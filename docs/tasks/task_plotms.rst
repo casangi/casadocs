@@ -1026,14 +1026,16 @@ Description
          Options include "X", "Y", and "Z".
 
    -  *polarization*
+
       -  select polarizations for CalTable, including ratio plots.
-         Ignored for MeasurementSets.
-         Options include "RL", "R", "L", "XY", "X", "Y", and "/".
+      -  Options include "RL", "R", "L", "XY", "X", "Y", and "/".
+      -  Ignored for MeasurementSets.
 
    -  *antpos*
+
       -  select antenna positions for KAntPos Jones CalTable.
-         Ignored for MeasurementSets and other CalTable types.
-         Options include "X", "Y", and "Z".
+      -  Options include "X", "Y", "Z", "XY", "XZ", "YZ".
+      -  Ignored for MeasurementSets and other CalTable types.
 
    -  *array*
 
