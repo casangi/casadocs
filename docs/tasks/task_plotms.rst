@@ -272,6 +272,7 @@ Description
          *FPARAM* column.
    
    -  *‘poln’* (*‘polarization’*)
+
       -  polarization IDs for CalTables.
       -  This is the index into the number of polarizations in the
          first axis of the array in the *CPARAM/FPARAM* column. If set,
@@ -280,6 +281,7 @@ Description
          If PolBasis is not set, the index 0 or 1 is used.
    
    -  *‘antpos’* (*‘Antenna Position’*)
+
       -  antenna positions for KAntPos Jones CalTables.
          The antenna positions are 0=X, 1=Y, 2=Z.
 
