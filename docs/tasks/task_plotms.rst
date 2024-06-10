@@ -262,29 +262,16 @@ Description
          *CORR_TYPE* column. These IDs correspond to values RR (5),
          RL (6), LR (7), LL (8), XX (9), XY (10), YX (11), and
          YY (12).
-      -  For CalTables, this is the index into the number of
+      -  For CalTables, *'corr'* is the index into the number of
          polarizations in the first axis of the array in the
          *CPARAM/FPARAM* column. The CalTable’s PolBasis keyword may
          indicate whether the polarizations are linear (0=X, 1=Y) or
          circular (0=R, 1=L).  If not, the index 0 or 1 is used.
          For antenna position (KAntPos Jones) tables, *'corr'* refers
          to the x, y, and z position offsets in the first axis of the
-         *FPARAM* column.
+         *FPARAM* column. See also: calibration axes *'poln'* and
+         *'antpos'*.
    
-   -  *‘poln’* (*‘polarization’*)
-
-      -  polarization IDs for CalTables.
-      -  This is the index into the number of polarizations in the
-         first axis of the array in the *CPARAM/FPARAM* column. If set,
-         the CalTable’s PolBasis keyword indicates whether the
-         polarizations are linear (0=X, 1=Y) or circular (0=R, 1=L).
-         If PolBasis is not set, the index 0 or 1 is used.
-   
-   -  *‘antpos’* (*‘Antenna Position’*)
-
-      -  antenna positions for KAntPos Jones CalTables.
-         The antenna positions are 0=X, 1=Y, 2=Z.
-
    -  *‘ant1’* (*‘antenna1’*)
    
       -  the ID of the first antenna in a baseline pair, as shown in
@@ -713,6 +700,21 @@ Description
       -  Invalid for MeasurementSets.
       -  total electron content of an ionosphere correction CalTable,
          from the *FPARAM* column. Invalid for other CalTable types.
+
+   -  *‘poln’* (*‘polarization’*)
+
+      -  polarization IDs for CalTables.
+      -  This is the index into the number of polarizations in the
+         first axis of the array in the *CPARAM/FPARAM* column. If set,
+         the CalTable’s PolBasis keyword indicates whether the
+         polarizations are linear (0=X, 1=Y) or circular (0=R, 1=L).
+         If PolBasis is not set, the index 0 or 1 is used.
+   
+   -  *‘antpos’* (*‘Antenna Position’*)
+
+      -  antenna positions for KAntPos Jones CalTables.
+      -  The antenna positions are 0=X, 1=Y, 2=Z.
+
    
    .. rubric:: Ephemeris Axes
    
