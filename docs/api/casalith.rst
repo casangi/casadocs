@@ -6,19 +6,6 @@ CASA monolithic environment bundling Python and library dependencies into a sing
 .. currentmodule:: casalith
 
 
-
-tasks
-^^^^^
-
-A few remaining tasks are found only in the monolithic environment
-
-.. automodsumm:: casalith
-   :toctree: tt
-   :nosignatures:
-   :functions-only:
-
-
-
 executables
 ^^^^^^^^^^^
 
@@ -35,6 +22,50 @@ The following executable applications are located in the <casa release>/bin dire
 .. data:: mpicasa
 
 .. data:: casaviewer
+
+
+
+startup options
+^^^^^^^^^^^^^^^
+
+.. data:: terminal(-h, --help, --logfile, --log2term, --nologger, --nologfile, --nogui, --rcdir, --norc, --colors, --pipeline, --agg, --iplog, --notelemetry, --nocrashreport, --datapath, --user-site, -c)
+
+With the full installation of CASA from a tar file, the python environment itself is included and started through ./bin/casa.
+This ./bin/casa executable can be provided the following options to change configuration values at run time:
+
+::
+
+   -h, --help            show this help message and exit
+   --logfile LOGFILE     path to log file
+   --log2term            direct output to terminal
+   --nologger            do not start CASA logger
+   --nologfile           do not create a log file
+   --nogui               avoid starting GUI tools
+   --rcdir RCDIR         location for startup files, internal working files and config.py
+   --norc                do not load user config.py (startup.py is unaffected)
+   --colors {Neutral,NoColor,Linux,LightBG} prompt color
+   --pipeline            load CASA pipeline modules on startup
+   --agg                 startup without graphical backend
+   --iplog               create ipython log
+   --notelemetry         disable telemetry collection
+   --nocrashreport       do not submit an online report when CASA crashes
+   --datapath DATAPATH   data path(s) [colon separated]
+   --user-site           include user's local site-packages lib in path
+   (toggling this option turns it on; use startup.py to append to the path)
+   -c ...                python eval string or python script to execute
+
+
+
+tasks
+^^^^^
+
+A few remaining tasks are found only in the monolithic environment
+
+.. automodsumm:: casalith
+   :toctree: tt
+   :nosignatures:
+   :functions-only:
+
 
 
 python libraries
@@ -55,3 +86,34 @@ recreate using:
    pip install -r list.txt
 
 
+
+startup.py
+^^^^^^^^^^
+
+.. data:: startup.py
+
+*This section only applies to the monolithic/tar-file CASA distribution, and it only applies to CASA 6.*
+
+For CASA 5, please see `an earlier version of CASA Docs <https://casadocs.readthedocs.io/en/v6.2.0/api/configuration.html#startup-py>`__.
+
+The \'*startup.py*\' file found in *\$HOME/.casa* (i.e. *\~/.casa/startup.py*) is evaluated by the CASA shell just before the CASA
+prompt is presented to the user. This allows users to customize their CASA shell environment beyond the standard settings in
+\'*config.py*\', by importing packages, setting variables or modifying the python system path.
+
+One case where this is useful is for configuring CASA for ALMA data reduction. A package called \'analysisUtils\' is often used as part
+of ALMA analysis. It is typically imported and instantiated in startup.py:
+
+::
+
+   $ cat ~/.casa/startup.py
+
+   import sys, os
+   import analysisUtils as aU
+   
+   sys.path.append("/home/casa/contrib/AIV/science/analysis_scripts/")
+   es = aU.stuffForScienceDataReduction()
+
+
+In this example, the standard python modules *os* and *sys* are made available in the CASA shell. The path where the *analysisUtils*
+module can be found is added to the Python system path, and finally the package is imported and an object is created. These modules
+and objects will then be available for the user within the CASA shell environment.
