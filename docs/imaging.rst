@@ -12,6 +12,7 @@ and subsequent image manipulation and analysis routines.
    notebooks/image_combination
    notebooks/image_analysis
    notebooks/image_visualization
+   notebooks/viewer_end_of_life
 
 
 
