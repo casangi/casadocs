@@ -263,8 +263,6 @@ The \-\-reference-testing option is provided to help testers ensure that a known
 The \-\-no-auto-update option turns off any automatic data updates even if *data_auto_update* or *measures_auto_update* 
 are True.
 
-**Note:** The casaviewer instance launched from within interactive tclean will not inherit these casa command line arguments.  Consequently, interactive tclean in CASA 6.6.4 requires either ~/.casa/config.py, ~/.casa/data or a locatable casasiteconfig.py in order to run properly. 
-
 
 casaconfig command line
 ^^^^^^^^^^^^^^^^^^^^^^^
