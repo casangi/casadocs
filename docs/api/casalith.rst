@@ -22,8 +22,13 @@ The following executable applications are located in the <casa release>/bin dire
 .. data:: mpicasa
 
 .. data:: casaviewer
-
-
+.. _viewer: casaviewer.html#casaviewer
+All of the casaviewer functionality is available through Python (see the "viewer_" API). The Python viewer API makes full
+use of the casaconfig module to find the appropriate data directory. The command line "casaviewer" found in the
+<casa_release>/bin directory does not use casaconfig. It may be nececssary to use the "--datapath" argument when starting
+the command line casaviewer so that the viewer knows where to find the data it needs (e.g. measures tables for frame conversions). 
+That path is then used by that instance of the viewer. ::
+   <casa_release>/bin/casaviewer --datapath <path_to_installed_casa_data>
 
 startup options
 ^^^^^^^^^^^^^^^
