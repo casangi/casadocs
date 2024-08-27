@@ -7,7 +7,6 @@ This section is verified prior to each release
 .. toctree::
    :maxdepth: 1
 
-   api/almatasks
    api/casaconfig
    api/casalith
    api/casaplotms
