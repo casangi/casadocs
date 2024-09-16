@@ -451,10 +451,7 @@ Description
       decomposition algorithm is designed to reconstruct the sky 
       brightness by adaptively determining the optimal scales. The 
       implementation of ASP algorithm is aimed to improve both image 
-      resolution and computation efficiency. Note: This algorithm is 
-      **experimental**, please see the `Known Issues 
-      <../../notebooks/introduction.ipynb#Known-Issues>`__ 
-      in CASA Docs.
+      resolution and computation efficiency. 
    
    If as input to tclean the stokes parameter includes polarization
    planes other than I, then choosing deconvolver='hogbom' or
