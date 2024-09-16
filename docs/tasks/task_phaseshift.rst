@@ -31,7 +31,7 @@ Description
    dependent are not supported, such as topocentric or geodetic systems
    (*e.g.* azimuth-elevation). Ephemeris objects are likewise not supported.
 
-   The **phacecenter** parameter can be of string type (one single phase center)
+   The **phasecenter** parameter can be of string type (one single phase center)
    or of dictionary type (multiple phase centers, with up to one entry for every
    field present in the input MS). When using a dictionary it is possible to
    specify a different phase center for every field of the input MeasurementSet.
