@@ -9,24 +9,9 @@ Jansky Very Large Array
 (`VLA <https://public.nrao.edu/venue/the-very-large-array/>`__),
 and is often used also for other radio telescopes.
 
-**6.6.5 Release**
+**6.6.6 Development Build for Pipeline**
 
-CASA 6.6.5 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.6.5 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
-
-**Highlights:**
-
-- Mac OS: the CASA Viewer is no longer packaged with Mac OS.
-- wvrgcal: re-written to be compatible with python3.10.
-- gencal: new caltype=’eop’ for creating EOP (Earth Orientation Parameter) correction tables.
-- gencal: new caltype=‘swpwts’ to use ‘swpow’ mode without temperature conversion factors.
-- sdbaseline: per spectrum sinusoid fitting for baseline subtraction.
-- sdimaging/tsdimaging: new parameter ‘interpolation’ to specify spectral interpolation rules.
-- setjy: will now exclusively use casaconfig to find the required data tables.
-- plotms: calibration table interface added in parameters and GUI.
-- CASA Docs: new CASA Memo 13 - a guide towards achieving scalable parallelization for imaging large cubes.
-- CASA Docs: updated Community Examples on wideband primary beam corrections and custom primary beam models.
-
-In addition, a large number of bugs were fixed.
+You are viewing the latest build of the CASA 6.6.6 development branch for the next pipeline, based on CASA 6.6.5
 
 CASA is being developed by an international consortium of scientists and software engineers based at the National Radio Astronomical Observatory (NRAO), the European Southern Observatory (ESO), the National Astronomical Observatory of Japan (NAOJ), and the Joint Institute for VLBI European Research Infrastructure Consortium (JIV-ERIC), under the guidance of NRAO.
    
