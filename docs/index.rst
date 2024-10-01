@@ -18,7 +18,6 @@ CASA 6.6.1 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`_
 - getantposalma: new task to query ALMA antenna position web service and return list of antenna ITRF positions.
 - simalma: ALMA Cycle-11 configurations files were added.
 - polfromgain: new parameter minpacov to specify a minimum parallactic coverage threshold.
-- sdimaging: new parameter convertfirst, to reduce the number of direction conversions.
 - tec_maps: now consistent with new file-naming convention on remote CDDIS server.
 - Cal tables: most Cal tables are now written in binary form to comply with ALMA code.
 - plotms: correlation selection supports standard Stokes parameters and polarization quantities.
