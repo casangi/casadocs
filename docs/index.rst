@@ -9,9 +9,21 @@ Jansky Very Large Array
 (`VLA <https://public.nrao.edu/venue/the-very-large-array/>`__),
 and is often used also for other radio telescopes.
 
-**6.6.1 Development Build**
+**6.6.1 Release**
 
-    You are the long-term pipeline development branch, currently v.6.6.1 
+CASA 6.6.1 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.6.1 is based on CASA 6.6.0, and the downloadable tar-file includes the pipelines for ALMA Cycle 11. 
+
+**Highlights:**
+
+- getantposalma: new task to query ALMA antenna position web service and return list of antenna ITRF positions.
+- simalma: ALMA Cycle-11 configurations files were added.
+- polfromgain: new parameter minpacov to specify a minimum parallactic coverage threshold.
+- sdimaging: new parameter convertfirst, to reduce the number of direction conversions.
+- tec_maps: now consistent with new file-naming convention on remote CDDIS server.
+- Cal tables: most Cal tables are now written in binary form to comply with ALMA code.
+- plotms: correlation selection supports standard Stokes parameters and polarization quantities.
+
+In addition, a number of bugs were fixed.
 
 CASA is being developed by an international consortium of scientists and software engineers based at the National Radio Astronomical Observatory (NRAO), the European Southern Observatory (ESO), the National Astronomical Observatory of Japan (NAOJ), and the Joint Institute for VLBI European Research Infrastructure Consortium (JIV-ERIC), under the guidance of NRAO.
    
