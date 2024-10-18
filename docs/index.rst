@@ -11,7 +11,7 @@ and is often used also for other radio telescopes.
 
 **6.6.1 Release**
 
-CASA 6.6.1 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.6.1 is based on CASA 6.6.0, and the downloadable tar-file includes the pipelines for ALMA Cycle 11. 
+CASA 6.6.1 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.6.1 is based on CASA 6.6.0, and the downloadable tar-file includes the pipeline for ALMA Cycle 11 and the VLA. 
 
 **Highlights:**
 
