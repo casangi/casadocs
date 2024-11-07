@@ -6,6 +6,7 @@ to the ms.
 
 
 .. warning:: **WARNING**: The parser for the antab files can be quite strict which may effect some instruments disproportionately. If you had success with the vlbi tools version this parser is the same. This task also MUST be used with importfitsidi filled data.
+It is also recommended that, if using an ms generated from multiple fitsidi files, constobsid should be set to True if the resulting ms will be used in conjunction with this task.
 
 
 
