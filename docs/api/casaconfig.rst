@@ -332,7 +332,8 @@ measures are shown as are the release version strings if available (these are on
 monolithic casa installations). This option can be useful when debugging and testing configuration files.
 
 The \-\-force option can be used to force casaconfig to check for updates (and install any that are available)
-when the normal once-a-day checking rules might have caused it to not update measurespath. 
+when the normal once-a-day checking rules might have caused it to not update measurespath. The \-\-force option has
+no effect unless used with one of the update options.
 
 **Note** that if *measurespath* does not exist then \-\-pull-data, \-\-update-all, and \-\-reference-testing 
 will create it before populating it.

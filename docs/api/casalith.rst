@@ -33,7 +33,7 @@ That path is then used by that instance of the viewer. ::
 startup options
 ^^^^^^^^^^^^^^^
 
-.. data:: terminal(-h, --help, --logfile, --log2term, --nologger, --nologfile, --nogui, --rcdir, --norc, --colors, --pipeline, --agg, --iplog, --notelemetry, --nocrashreport, --datapath, --user-site, -c)
+.. data:: terminal(-h, --help, --logfile, --log2term, --nologger, --nologfile, --nogui, --cachedir, --norc, --colors, --pipeline, --agg, --iplog, --notelemetry, --nocrashreport, --datapath, --user-site, -c)
 
 With the full installation of CASA from a tar file, the python environment itself is included and started through ./bin/casa.
 This ./bin/casa executable can be provided the following options to change configuration values at run time:
@@ -46,7 +46,7 @@ This ./bin/casa executable can be provided the following options to change confi
    --nologger            do not start CASA logger
    --nologfile           do not create a log file
    --nogui               avoid starting GUI tools
-   --rcdir RCDIR         location for startup files, internal working files and config.py
+   --cachedir CACHEDIR   location for internal working files
    --norc                do not load user config.py (startup.py is unaffected)
    --colors {Neutral,NoColor,Linux,LightBG} prompt color
    --pipeline            load CASA pipeline modules on startup
