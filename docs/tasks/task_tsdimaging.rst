@@ -171,6 +171,7 @@ Examples
 
       spw='0'
       pol='XX'
+      src='Moon'
       
       tsdimaging(infiles='mydata.ms',
                  spw=spw,
@@ -182,7 +183,8 @@ Examples
                  imsize=[80,80],
                  gridfunction='GAUSS',
                  gwidth='4arcsec',
-                 stokes=pol)
+                 stokes=pol,
+                 phasecenter=src)
 
 
    The *start* parameter can be specified in different units:
