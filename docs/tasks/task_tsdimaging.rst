@@ -140,7 +140,7 @@ Description
 
    .. rubric:: Technical Note: sdimaging and tsdimaging
 
-   The **tsdimaging** task replacing **sdimaging**. The
+   The **tsdimaging** task replaced **sdimaging**. The
    initial version of this task was intended to be fully compatible
    with **sdimaging**. Technically speaking, those tasks share
    underlying framework with interferometry imaging
