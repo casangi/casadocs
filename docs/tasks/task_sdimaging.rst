@@ -3,6 +3,8 @@
 .. _Description:
 
 Description
+   .. warning:: **sdimaging** is deprecated and will be removed in
+                an upcoming release. Please switch to task **tsdimaging**.
 
    .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for sdimaging.
    
