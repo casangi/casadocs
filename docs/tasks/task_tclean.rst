@@ -9,7 +9,7 @@ Returns
 .. _Description:
 
 Description
-The tclean task forms images from visibilities and reconstructs a sky model. 
+   The tclean task forms images from visibilities and reconstructs a sky model. 
 
    .. warning:: There are `Known Issues <../../notebooks/introduction.ipynb#Known-Issues>`__ for tclean 
 
@@ -967,4 +967,6 @@ Examples
 .. _Development:
 
 Development
-   In future releases of CASA6, the tclean task will include an option for MFS and MTMFS deconvolution along with cube major cycles, and GPU gridding options for the VLASS observing program. 
+   In future releases of CASA6, the tclean task will include an option for MFS and
+   MTMFS deconvolution along with cube major cycles, and GPU gridding options for
+   the VLASS observing program. 
