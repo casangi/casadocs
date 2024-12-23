@@ -24,6 +24,10 @@ Description
    *concatvis*. Otherwise these columns are created on output and
    initialized to their default value (1 in model column, data in
    corrected column) for those data with no input scratch columns. 
+
+   More information on the conformance requirements and checks that are
+   performed on the input list of MSes is available in the `CASA Docs page
+   on Combining Datasets <../../notebooks/casa-fundamentals.ipynb#Combining-Datasets>`__.
    
    .. note:: **NOTE**: If the *concatvis* output file exits on disk then the
       input files are added to this file. Otherwise the new file

@@ -451,10 +451,7 @@ Description
       decomposition algorithm is designed to reconstruct the sky 
       brightness by adaptively determining the optimal scales. The 
       implementation of ASP algorithm is aimed to improve both image 
-      resolution and computation efficiency. Note: This algorithm is 
-      **experimental**, please see the `Known Issues 
-      <../../notebooks/introduction.ipynb#Known-Issues>`__ 
-      in CASA Docs.
+      resolution and computation efficiency. 
    
    If as input to tclean the stokes parameter includes polarization
    planes other than I, then choosing deconvolver='hogbom' or
@@ -605,7 +602,12 @@ Description
    'NEPTUNE', 'PLUTO', 'SUN', 'MOON') or is an ephemerides table,
    then that source is tracked and the background sources get smeared
    (which is useful especially for long observations or multi epoch
-   data). There is a special case, when phasecenter='TRACKFIELD',
+   data). The ephemeris table can be either the one attached to the MS 
+   in FIELD table or an externally provided one such as one generated 
+   by getephemtable. The table name should include a proper (relative/absolute) 
+   path in order to tclean to find the correct one.  
+   There is a special case, when phasecenter='TRACKFIELD' (it should
+   be in all caps),
    which will use the ephemerides or polynomial phasecenter in the
    FIELD table of the MeasurementSets as the source center to track.
    When in tracking mode,  the image center will be the direction of
@@ -625,7 +627,15 @@ Description
    
    More information can be found in the `CASA Docs chapter on
    Ephemeris Data <../../notebooks/ephemeris_data.ipynb>`__.
-   
+
+
+   .. rubric:: Multiple MSes
+
+   For the input visivility data, tclean can accept multiple MSes. The 
+   details on conformance checks that are performed on the list of MSes 
+   are summarized in the `CASA Docs page on Combining Datasets 
+   <../../notebooks/casa-fundamentals.ipynb#Combining-Datasets>`__.
+
    .. rubric:: History
 
    At the end of a successful tclean run, the history of the output
@@ -736,9 +746,8 @@ Examples
    restored version of the image.
 
    
-   For examples running tclean on ALMA data, see also the CASA
-   Guide `"Tclean and
-   ALMA" <https://casaguides.nrao.edu/index.php?title=TCLEAN_and_ALMA>`__.
+   For examples running tclean on ALMA data, see also the ALMA `CASA Guide <https://casaguides.nrao.edu>`__ 'Tclean and
+   ALMA', which can be found under the General Imaging Tutorial 'Examples for using the tclean CASA task for ALMA Imaging'.
    
    .. rubric:: Imaging and Deconvolution Iterations
    
@@ -886,8 +895,7 @@ Examples
    
    .. rubric:: Using tclean with ephemerides tables in CASA format
 
-   When you have an ephermeris table that covers the whole
-   observation:
+   When you have an ephemeris table called, des_deedee_ephem.tab that covers the whole observations
    
    ::
    
@@ -904,7 +912,7 @@ Examples
 
    ::
    
-      me.framecomet('des_deedee.tab')
+      me.framecomet('des_deedee_ephem.tab')
    
    If this tool accepts the input without complaint, then the same
    should work in tclean.
