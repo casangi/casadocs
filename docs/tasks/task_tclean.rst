@@ -645,10 +645,10 @@ Description
    Ephemeris Data <../../notebooks/ephemeris_data.ipynb>`__.
 
 
-   .. rubric:: Multiple MSes
+   .. rubric:: Multiple MSs
 
-   For the input visivility data, tclean can accept multiple MSes. The 
-   details on conformance checks that are performed on the list of MSes 
+   For the input visivility data, tclean can accept multiple MSs. The 
+   details on conformance checks that are performed on the list of MSs 
    are summarized in the `CASA Docs page on Combining Datasets 
    <../../notebooks/casa-fundamentals.ipynb#Combining-Datasets>`__.
 
