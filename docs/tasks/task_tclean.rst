@@ -798,8 +798,8 @@ Examples
    
    .. rubric:: Scripting using PySynthesisImager
 
-   PySynthesisImager (LINK) is a python application built on top
-   of the synthesis tools (LINK). The operations of the tclean
+   PySynthesisImager is a python application built on top
+   of the synthesis tools. The operations of the tclean
    task can be replicated using the following python script.
    Subsets of the script can thus be chosen, and extra external
    methods can be inserted in between as desired.  After each
