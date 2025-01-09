@@ -262,7 +262,7 @@ Description
    *featherimage*
    
    Sometimes it is preferable to grid the single dish MS using the
-   **sdimaging** task for more control. In that case, the user can
+   **tsdimaging** task for more control. In that case, the user can
    input the resulting single dish imaging under *featherimage*, only
    put interferometric MSs in *vis*, and **simanalyze** will clean
    the interferometric and feather with the *featherimage*.
