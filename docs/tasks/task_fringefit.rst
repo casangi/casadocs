@@ -245,6 +245,8 @@ Description
    The default, *corrcomb='none'*, means that the parallel-hand correlations will not
    be combined for *fringefit* solving, and per-polarization solutions will be obtained.
 
+   XXXX
+
 .. _Examples:
 
 Examples
