@@ -209,7 +209,7 @@ Description
 
    .. rubric:: Control correlation-dependent flagging: *corrdepflags*
 
-   Traditionally, CASA adopts a conservative approach to interpretting
+   Traditionally, CASA adopts a conservative approach to interpreting
    correlation-dependent flags, wherein all correlations in a single 
    visibility vector are assumed flagged if any one of them is 
    (*corrdepflags=False*).  In some cases, it is desirable to relax 
