@@ -410,6 +410,21 @@ Description
       with azimuthally asymmetric beams, including beam rotation,
       squint correction, conjugate frequency beams and W-projection
       (Bhatnagar et.al, 2008).
+   -  'awp2': A-Projection from aperture illumination models with
+      azimuthally asymmetric beams, including squint correction,
+      beam rotation, and W-projection. 
+
+   .. note:: The awp2 gridder will eventually replace the existing
+             awproject gridder in a future CASA release. While they both
+             implement the same algorithm, there are a few key differences in
+             the implementation details:
+
+             - awp2 has improved runtime performance as compared with the awproject gridder
+             - awp2 does not write a persistent CFCache. The CFs are generated on the fly
+               during the gridding process.
+             - awp2 does **not** implement the "conjbeams" functionality, so in order to
+               obtain the correct broadband spectral indices please use the "mvc" specmode
+               rather than "mfs" with the "mt-mfs" deconvolver.
    
    Combinations of these options are also available. See the `CASA
    Docs pages on Widefield
