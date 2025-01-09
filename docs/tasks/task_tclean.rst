@@ -423,8 +423,8 @@ Description
              - awp2 does not write a persistent CFCache. The CFs are generated on the fly
                during the gridding process.
              - awp2 does **not** implement the "conjbeams" functionality, so in order to
-               obtain the correct broadband spectral indices please use the "mvc" specmode
-               rather than "mfs" with the "mt-mfs" deconvolver.
+               obtain the correct broadband spectral indices please use `specmode='mvc'`
+               rather than `specmode='mfs'` with the `deconvolver=mtmfs`.
    
    Combinations of these options are also available. See the `CASA
    Docs pages on Widefield
