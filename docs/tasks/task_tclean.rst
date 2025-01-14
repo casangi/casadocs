@@ -409,17 +409,20 @@ Description
    -  'awproject': A-Projection from aperture illumination models
       with azimuthally asymmetric beams, including beam rotation,
       squint correction, conjugate frequency beams and W-projection
-      (Bhatnagar et.al, 2008).
+      (Bhatnagar et.al, 2008). 
    -  'awp2': A-Projection from aperture illumination models with
       azimuthally asymmetric beams, including squint correction,
       beam rotation, and W-projection. 
 
    .. note:: The awp2 gridder will eventually replace the existing
-             awproject gridder in a future CASA release. While they both
-             implement the same algorithm, there are a few key differences in
-             the implementation details:
+             awproject gridder in a future CASA release. At the moment both
+             gridders only support A-projection with the EVLA primary beam.
+             While they both implement the same algorithm, there are a few key
+             differences in the implementation details:
 
-             - awp2 has improved runtime performance as compared with the awproject gridder
+             - awp2 has several bugfixes and feature improvements, and improved
+               runtime performance compared with the 'awproject' gridder
+             - awp2 is the recommended gridder for widefield polarization mosaics (W-Term + polarization).
              - awp2 does not write a persistent CFCache. The CFs are generated on the fly
                during the gridding process.
              - awp2 does **not** implement the "conjbeams" functionality, so in order to
