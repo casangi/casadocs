@@ -37,6 +37,13 @@ Description
    specified *smoothtype* and *smoothtime*. Currently, it is not
    possible to smooth amplitude and phase with different values
    of *smoothtype* or *smoothtime.*
+
+   Experimental rate smoothing parameter: *ratesmooth*
+
+   When smoothing on fringefit solutions setting this to True
+   will use the rates to assist in detecting phase cycles.
+   The rates present will be smoothed with the specified smooth time.
+   This is currently an experimental feature.
    
 
 .. _Examples:
