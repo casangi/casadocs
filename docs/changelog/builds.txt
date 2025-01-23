@@ -1,4 +1,6 @@
-b57a321e7f4825a609a46a35dfc565c62826ca05 (HEAD, tag: 6.7.0.24, origin/master, origin/HEAD, master)
+c6b1833e8296d5e002e2e0c40a71f5ae46b25915 (HEAD, origin/master, origin/HEAD, master)
+a4fa95886577c09ca16da23e78c9d7b8dcd055df
+b57a321e7f4825a609a46a35dfc565c62826ca05 (tag: 6.7.0.24)
 09b794f051b816ac8fbe4f7896502efb8d31f758
     Pull request #904: Update casacore to 1f3a55af2fde7b0dd1f36af31a65e0d4d67ee283
 ad91baf98072cb41a5e5dfd92d30dcd9079bbf92 (tag: 6.7.0.23)
