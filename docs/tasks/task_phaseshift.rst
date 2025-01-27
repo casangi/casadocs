@@ -36,6 +36,14 @@ Description
    field present in the input MS). When using a dictionary it is possible to
    specify a different phase center for every field of the input MeasurementSet.
 
+   The new phase center(s) are written in the output MeasurementSet (subtable FIELD,
+   column PHASE_DIR) using the same reference frame(s) as in the input
+   MeasurementSet. This follows the general rules of propagation of metadata
+   in mstransform whereby the output MeasurementSet preserves the reference frames
+   from the input MeasurementSet. If the center(s) given in the input
+   **phasecenter** parameter use different reference frame(s), these will be
+   converted to the reference frame(s) used in the input (and output) MeasurementSet
+
    The **phaseshift** application uses a similar algorithm as **tclean** (via its 
    **phasecenter** parameter) for phase center shifting. However, these two
    applications use a signficantly different algorithm than **plotms** does for phase
