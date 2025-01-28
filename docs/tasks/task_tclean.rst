@@ -428,6 +428,10 @@ Description
              - awp2 does **not** implement the "conjbeams" functionality, so in order to
                obtain the correct broadband spectral indices please use `specmode='mvc'`
                rather than `specmode='mfs'` with the `deconvolver=mtmfs`.
+
+   .. warning:: The awp2 gridder has only been validated within the main lobe of the primary beam.
+                Using a primary beam threshold that includes the sidelobes will yield incorrect results
+                at this time. We expect this to be fixed in a future release.
    
    Combinations of these options are also available. See the `CASA
    Docs pages on Widefield
