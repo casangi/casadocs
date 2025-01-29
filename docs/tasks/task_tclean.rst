@@ -137,7 +137,7 @@ Description
    
    The pblimit is a parameter used to define the value of the
    antenna primary beam gain, below which wide-field gridding
-   algorithms such as *'mosaic'* and *'awproject'* will not apply
+   algorithms such as *'mosaic'*, *'awproject'* and *'awp2'* will not apply
    normalization (and will therefore set to zero).  For
    *gridder='standard'*, *'wproject'* , *'widefield'* there is no pb-based 
    normalization during gridding and so the absolute value of 
@@ -146,8 +146,8 @@ Description
    The sign of the pblimit parameter is used for a different
    purpose. If positive, it defines a T/F pixel mask that is
    attached to the output residual and restored images.  If
-   negative, this T/F pixel mask is not included. For the *'mosaic'* and 
-   *'awproject'* gridders, the zeros in the regions outside the 
+   negative, this T/F pixel mask is not included. For the *'mosaic'*, 
+   *'awproject'*, and *'awp2'* gridders, the zeros in the regions outside the 
    absolute pblimit level will be visible without the T/F mask, and 
    for other gridders that do not do any pblimit-based normalizations
    (*'standard'*, *'wproject'*, *'widefield'*) those regions will 
