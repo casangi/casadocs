@@ -24,7 +24,7 @@ Description
    should yield a reasonably accurate theoretical imaging sensitivity
    for data at any stage of the calibration (though data at early and
    intermediate stages of calibration may not be sufficiently
-   coherent for imaging at high–or even modest–fidelity). master-test1.
+   coherent for imaging at high–or even modest–fidelity). master-test3.
    
    Two values are returned in a dictionary and reported in the
    logger. First, the apparent sensitivity (in the units implied by
@@ -36,7 +36,7 @@ Description
    weighting is selected, this ratio factor will be precisely 1.0;
    all other weighting choices will yield an apparent sensitivity
    ratio greater than 1.0.  I.e., all non-natural weighting schemes
-   are *less* sensitive (higher rms) than natural. master-test1..
+   are *less* sensitive (higher rms) than master-test3 natural. blablabla
    
    Currently, **apparentsens** reports only the continuum sensitivity
    for the selected data, and in particular, for the aggregate
@@ -49,7 +49,7 @@ Description
    over-estimated if the data have been smoothed (i.e., Hanning
    smoothed channels individually have sensitivity a factor 8/3 times
    their apparent bandwidth, and this factor is not yet accounted for
-   when forming the continuum sensitivity estimate).  
+   when forming the continuum sensitivity estimate). master-test2... 
    
    A future version of **apparentsens** will support reporting a
    sensitivity spectrum for the spectral line case. For now, spectral
