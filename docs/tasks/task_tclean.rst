@@ -148,7 +148,7 @@ Description
    
    The pblimit is a parameter used to define the value of the
    antenna primary beam gain, below which wide-field gridding
-   algorithms such as *'mosaic'* and *'awproject'* will not apply
+   algorithms such as *'mosaic'*, *'awproject'* and *'awp2'* will not apply
    normalization (and will therefore set to zero).  For
    *gridder='standard'*, *'wproject'* , *'widefield'* there is no pb-based 
    normalization during gridding and so the absolute value of 
@@ -157,8 +157,8 @@ Description
    The sign of the pblimit parameter is used for a different
    purpose. If positive, it defines a T/F pixel mask that is
    attached to the output residual and restored images.  If
-   negative, this T/F pixel mask is not included. For the *'mosaic'* and 
-   *'awproject'* gridders, the zeros in the regions outside the 
+   negative, this T/F pixel mask is not included. For the *'mosaic'*, 
+   *'awproject'*, and *'awp2'* gridders, the zeros in the regions outside the 
    absolute pblimit level will be visible without the T/F mask, and 
    for other gridders that do not do any pblimit-based normalizations
    (*'standard'*, *'wproject'*, *'widefield'*) those regions will 
@@ -421,7 +421,29 @@ Description
    -  'awproject': A-Projection from aperture illumination models
       with azimuthally asymmetric beams, including beam rotation,
       squint correction, conjugate frequency beams and W-projection
-      (Bhatnagar et.al, 2008).
+      (Bhatnagar et.al, 2008). 
+   -  'awp2': A-Projection from aperture illumination models with
+      azimuthally asymmetric beams, including squint correction,
+      beam rotation, and W-projection. 
+
+   .. note:: The awp2 gridder will eventually replace the existing
+             awproject gridder in a future CASA release. At the moment both
+             gridders only support A-projection with the EVLA primary beam.
+             While they both implement the same algorithm, there are a few key
+             differences in the implementation details:
+
+             - awp2 has several bugfixes and feature improvements, and improved
+               runtime performance compared with the 'awproject' gridder
+             - awp2 is the recommended gridder for widefield polarization mosaics (W-Term + polarization).
+             - awp2 does not write a persistent CFCache. The CFs are generated on the fly
+               during the gridding process.
+             - awp2 does **not** implement the "conjbeams" functionality, so in order to
+               obtain the correct broadband spectral indices please use `specmode='mvc'`
+               rather than `specmode='mfs'` with the `deconvolver=mtmfs`.
+
+   .. warning:: The awp2 gridder has only been validated within the main lobe of the primary beam.
+                Using a primary beam threshold that includes the sidelobes will yield incorrect results
+                at this time. We expect this to be fixed in a future release.
    
    Combinations of these options are also available. For more information,
    see the parameter description below, or the `CASA Docs pages on Widefield
