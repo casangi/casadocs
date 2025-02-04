@@ -29,10 +29,13 @@ Editing CASA Docs can be done on branches, where pull requests can be triggered 
 
 Most of the casadocs content is written in markdown format using the Google Colab web service to edit Jupyter notebooks of text cells. 
 Go to the chapter page, and click the *“Open in Colab”* link at the top to update documentation within the Notebook environment. 
-To save updates, select as default ```File -> Save a copy in Github```. This will save the updated notebook to the master (‘latest’) build of CASA Docs. 
-A new documentation build is triggered for every commit to the repository. 
+To save updates, select as default ```File -> Save a copy in Github``` or ```Save in Github to keep changes``` at the top of the Notebook (only one of these may be visible). 
 
-It can take 5 to 10 minutes to complete and for changes to propagate to master.
+*Warning:* the default is likely to save updates to the *"casangi/.github"* respository *“master”* branch. This has to be changed manually to repository "casangi:casadocs".
+
+When working on master, this will save the updated notebook to the master (‘latest’) build of CASA Docs. A new documentation build is triggered for every commit to the repository. 
+
+*Warning:* It can take 5 minutes to complete and for changes to propagate to master. Do not make additional changes until the build is complete, as the original updates might be cancelled.
 
 **Note: API pages (e.g., casatasks and casatools) are handled differently, as will be explained later in this document.**
 
@@ -145,7 +148,7 @@ API (Application Programming Interface) content is generally created by combinin
 repository with ReStructuredText (rst) files held in the casadocs repository.
 The xml can only be updated through development branches of the source code,
 while the rst files can be edited directly in the GitHub repository browser
-window.
+window https://github.com/casangi/casadocs
 
 - Task descriptions can be found under ```docs/tasks```
 - Tool descriptions can be found under ```docs/tools```
@@ -227,7 +230,7 @@ Open the “test_branch” that you have just created, then edit the Notebook. T
 
 Once updates are complete, save them by clicking the "Save in Github to keep changes" button at the very top of the notebook. Save changes back to the branch, by choosing *“Repository: casangi/casadocs”* and  *“Branch: test_branch_instructions”*. This can now go through review and pull request, as explained below.
 
-*Warning:* the default is to save updates to the *"casango/.github"* respository *“master”* branch. This has to be changed manually to repository "casangi:casadocs"!  When doing so, *“test_branch_instructions”* should be listed as the default branch.
+*Warning:* the default is likely to save updates to the *"casangi/.github"* respository *“master”* branch. This has to be changed manually to repository "casangi:casadocs"!  When doing so, *“test_branch_instructions”* should be listed as the default branch.
 
 ### Corresponding code branches
 
@@ -236,9 +239,8 @@ casadocs branch of the **same name** should be made. The casadocs build script a
 same name. If found, it will use the XML from that Bitbucket branch when building the API casatools and casatasks pages. If no corresponding branch 
 is found, casadocs will default to the Bitbucket master.
 
-This allows developers to see the effects of their tool/task parameter changes.
+*Warning:* Use "CAS-xxxxx" with capital letters to create the branch. Within readthedocs, this will render as "cas-xxxxx" with lower-case letters.
 
-*Warning:* Use "CAS-xxxxx" with capital letters to create the branch! Within readthedocs, this will render as "cas-xxxxx" with lower-case letters.
 
 ### Viewing a branch on Readthedocs
 
@@ -251,6 +253,9 @@ However, they can be found (by anyone) by navigating directly to the Readthedocs
 
 [https://readthedocs.org/projects/casadocs/versions/](https://readthedocs.org/projects/casadocs/versions/)
 
+*Note:* Creating a CASA Docs branch with the same name as the JIRA ticket will automatically show XML updates on the branch in readthedocs. This allows developers to see the effects of their tool/task parameter changes. However, if the XML file is changed *after* the CASA Docs branch was made, one has to trigger a new build of the docs branch in order to see the XML changes. This can be done my making a trivial change in a Notebook followed by a "Save a Github, which then triggers a new build on readthedocs.
+
+
 ### Review and pull request
 
 After saving the updates, one automatically is reverted back to GitHub. When clicking *“pull requests”* on the top bar of the GitHub page, the updated notebook now appears as *“test_branch had recent pushes 1 minute ago”*.
@@ -261,7 +266,7 @@ After all reviewers have completed their reviews, press *“merge pull request�
 
 Once approved, the pull request can be merged to master (either by the reviewer or yourself) by pressing *“merge pull request”*. As instructed on GitHub, the pull request can then be safely deleted by clicking *“delete branch”*. 
 
-The current process is to request a review (optional but highly recommended; Bjorn is a common doc reviewer), and upon approval the individual who submitted the PR should then merge it.
+The current process is to assign a review to Bjorn and optionally others that need to give their approval. Upon approval of all assigned reviewers, either Bjorn or the individual who submitted the pull request will merge it.
 
 
 ## Building Documentation Locally
