@@ -212,7 +212,7 @@ The text will also go through one layer of interpretation before getting to the 
 
 Updates made to master ('latest') are immediately public. This can be useful for minor or urgent updates to the documentation 
 that do not require a review. Making a documentation *branch* is useful for larger documentation updates, updates that require 
-a review, or updates that should be merged at a later stage (e.g., simultaneously with the code).
+a review, or updates that should be merged at a later stage (e.g., simultaneously with the code). *Branching is the preferred way of making changes in CASA Docs.*
 
 To make a branch, go to: https://github.com/casangi/casadocs/tree/master/docs
 
@@ -221,15 +221,13 @@ press *“create branch: test_branch” from “master”*.
 
 To view the documentation for this branch, navigate to: https://casadocs.readthedocs.io/en/test_branch (example only, not a real link)
 
-One can then update the text on the branch. This is easiest to do through Colab:
+One can then update the text on the branch. For most pages, this is easiest to do through Colab:
 https://colab.research.google.com/github/casangi/casadocs/ <br>
-Open the “test_branch” that you have just created, then edit the Notebook.
+Open the “test_branch” that you have just created, then edit the Notebook. The task and tool pages need to be updated by changing the .rst files, which is explained later in this document.
 
-There are two ways to save the updates:
-- Direct save to “master”, by choosing *“Branch: master”*. This will surpass any reviews and trigger an automatic new build. 
-- Save back to the branch, by choosing *“Branch:  test_branch_instructions”*. This can now go through review and pull request, as explained below.
+Once updates are complete, save them by clicking the "Save in Github to keep changes" button at the very top of the notebook. Save changes back to the branch, by choosing *“Repository: casangi/casadocs”* and  *“Branch: test_branch_instructions”*. This can now go through review and pull request, as explained below.
 
-*Warning:* the default is to save updated straight to “master”, so be careful to save material that needs to pass review back to the branch first!
+*Warning:* the default is to save updates to the *"casango/.github"* respository *“master”* branch. This has to be changed manually to repository "casangi:casadocs"!  When doing so, *“test_branch_instructions”* should be listed as the default branch.
 
 ### Corresponding code branches
 
@@ -240,11 +238,13 @@ is found, casadocs will default to the Bitbucket master.
 
 This allows developers to see the effects of their tool/task parameter changes.
 
+*Warning:* Use "CAS-xxxxx" with capital letters to create the branch! Within readthedocs, this will render as "cas-xxxxx" with lower-case letters.
+
 ### Viewing a branch on Readthedocs
 
 When a new branch is created, readthedocs will automatically activate it, build it, and then hide it from public display. This 
 prevents developer branches from appearing on the casadocs website. But they can still be viewed by directly navigating to the 
-URL of the same name as the branch that was created.
+URL of the same name as the branch that was created. Note that a branch named "CAS-xxxxx" (capital letters) will have the name "cas-xxxxx" (lower-case letters) on readthedocs.
 
 Branches will NOT appear in the version list flyout box on the bottom left corner of Readthedocs, nor will they be indexed by search engines.
 However, they can be found (by anyone) by navigating directly to the Readthedocs CASADocs project dashboard:
