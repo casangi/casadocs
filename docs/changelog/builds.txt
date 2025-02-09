@@ -1,4 +1,4 @@
-dda86582c3ac9903572c6550b3cb40a6768fd4ba (HEAD, origin/master, origin/HEAD, master)
+dda86582c3ac9903572c6550b3cb40a6768fd4ba (HEAD, tag: 6.7.0.28, origin/master, origin/HEAD, master)
 bc006521a5862f892dc93fd78d8377336d24ff12 (tag: 6.7.0.27)
 b073d6bbcc5d6de968c4bc67948360683f9dd125 (tag: CAS-14494-1, tag: 6.7.0.26)
 601dacfebeeac5bc2c7f55f66232a9b4c52c5655
