@@ -115,6 +115,7 @@ html_logo = 'casa_logo-small.png'
 # documentation.
 #
 html_theme_options = {
+    'flyout_display': 'attached',    
     'collapse_navigation': True,
     'navigation_depth': 5,
     'style_nav_header_background': 'white',
