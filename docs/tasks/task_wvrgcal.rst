@@ -143,7 +143,7 @@ Description
    *rseed*
 
    Set random seed (integer) for the wvrgcal fitting routine to this specific value.
-   Deafult: 0 (use internal default value). Examples: *rseed=54321*
+   Default: 0 (use internal default value). Examples: *rseed=54321*
 
 .. _Examples:
 
