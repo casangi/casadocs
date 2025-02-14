@@ -7,7 +7,7 @@ Description
    
    .. warning:: **WARNING: fringefit** is currently an experimental task. Use
       with care and report issues back to the CASA team via the `NRAO
-      helpdesk <http://help.nrao.edu/>`__. Note that calibration
+      helpdesk <http://help.nrao.edu/>`__. There is also a `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for fringefit: calibration
       tables made with fringefit in CASA 5.5 will not work in CASA
       5.6 and later.
    
@@ -205,7 +205,46 @@ Description
    default, which is also expected to be the most common future
    use-case. Note that we do not offer users an opportunity not to
    solve for phase offset (also known as "secular phase").
-   
+
+   .. rubric:: Control correlation-dependent flagging: *corrdepflags*
+
+   Traditionally, CASA adopts a conservative approach to interpreting
+   correlation-dependent flags, wherein all correlations in a single 
+   visibility vector are assumed flagged if any one of them is 
+   (*corrdepflags=False*).  In some cases, it is desirable to relax 
+   this stricture, by setting *corrdepflags=True*.   This is necessary, 
+   for example, to prevent single-polarization antennas in VLBI arrays
+   from being completely flagged when observing with dual-polarization
+   antennas.   
+
+   .. rubric:: Control correlation combination for solving:  *corrcomb*
+
+   When the parallel-hand correlations have been made coherent (e.g., by 
+   "manual phase-cal" on a strong calibrator), sensitivity can be improved
+   on weak sources by combining the parallel-hand correlations for 
+   *fringefit* solving.  This can be achieved in two modes:
+
+   - *corrcomb='stokes'* => combine the parallel hand correlations to formally
+     form Stokes I visibilities, respecting the (possibly different) relative 
+     per-correlation weights and properly propagating then to the result.  
+     This ensures that any source polarization contribution to the parallel hands 
+     is formally cancelled.  When the weights are not equal, the net sensitivity 
+     gain will be less than sqrt(2).  In the limit that one correlation is flagged 
+     (i.e., its weight it effectively zero), Stokes I cannot formally be formed, 
+     and the visibility will be flagged.
+
+   - *corrcomb='parallel'* => combine the parallel-hand correlations in a simple
+     weighted average.   This will optimize the combined sensitivity (as much as sqrt(2)
+     improvement when the weights are equal), but assumes that there is no source 
+     polarization contribution to either correlation that will fail to cancel in the 
+     combination.   It is usually desirable to use *corrdepflags=True* when using
+     *corrcomb='parallel'*, to avoid excessive flagging of solutions.  This is critical
+     when fringe-fitting VLBI arrays which include a subset of single-polarization
+     antennas.
+
+   The default, *corrcomb='none'*, means that the parallel-hand correlations will not
+   be combined for *fringefit* solving, and per-polarization solutions will be obtained.
+
 
 .. _Examples:
 

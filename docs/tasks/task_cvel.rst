@@ -10,6 +10,8 @@ Description
       validation of all modes in the near future. See below and also
       the discussion on the **cvel2** task page for differences
       between **cvel** and **cvel2**.
+      
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for cvel.
    
    VLA and ALMA datasets are observed in TOPOcentric velocity frames
    with fixed sky frequencies that are calculated from the

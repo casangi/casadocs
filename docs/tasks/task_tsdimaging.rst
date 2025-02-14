@@ -7,7 +7,9 @@ Description
    according to a specified gridding kernel. The input data should be
    calibrated and bandpass corrected (where necessary), and the
    output is a CASA image format dataset, either 2-D, 3-D, or 4-D
-   depending on the input parameters.
+   depending on the input parameters. The details of conformance checks that are performed 
+   on the list of MSes are summarized in the `CASA Docs page on 
+   Combining Datasets <../../notebooks/casa-fundamentals.ipynb#Combining-Datasets>`__.
 
    The output image contains up to four axes: two spatial axes,
    frequency, and polarization. By default, the spatial coordinates
@@ -143,25 +145,21 @@ Description
 
    .. rubric:: Technical Note: sdimaging and tsdimaging
 
-   The **tsdimaging** task is supposed to replace **sdimaging**. The
+   The **tsdimaging** task replaced **sdimaging**. The
    initial version of this task was intended to be fully compatible
    with **sdimaging**. Technically speaking, those tasks share
    underlying framework with interferometry imaging
    tasks: **sdimaging** shares with **clean**, while **tsdimaging**
    is based on the framework for **tclean**. As **clean** (and the
-   underlying framework) will be deprecated and replaced with
-   **tclean** in the future, **sdimaging** will also be made
-   obsolete in favor of migrating to **tsdimaging**. This transition
-   will have several benefits from the user's point of view in
-   future. In terms of functionality, new features implemented in
+   underlying framework) has been deprecated and replaced with
+   **tclean**, **sdimaging** has been deprecated in favor of migrating to **tsdimaging**. This transition
+   has several benefits from the user's point of view. In terms of functionality, new features implemented in
    **tclean** will also apply to **tsdimaging** if the features are
    useful for single dish imaging. Another possible benefit is a
    performance. Since the framework for **tclean** is designed to
    support parallel processing, it can also be used to speed up
    **tsdimaging**. This should be effective for large datasets, but
-   these examples represent future work. Currently, effort is
-   underway to make **tsdimaging** compatible with **sdimaging** and
-   convert it to a "regular" (non-experimental) task.
+   these examples represent future work. 
 
    .. rubric:: Bibliography
 
@@ -179,7 +177,7 @@ Examples
       spw='0'
       pol='XX'
       src='Moon'
-
+      
       tsdimaging(infiles='mydata.ms',
                  spw=spw,
                  nchan=500,
@@ -191,7 +189,7 @@ Examples
                  gridfunction='GAUSS',
                  gwidth='4arcsec',
                  stokes=pol,
-                 ephemsrcname=src)
+                 phasecenter=src)
 
 
    The *start* parameter can be specified in different units:

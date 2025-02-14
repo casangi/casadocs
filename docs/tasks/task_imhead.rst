@@ -1,5 +1,12 @@
 
 
+.. _Returns:
+
+Returns
+   out (dict) - keyword value, when mode='get'. Image metainformation
+   when mode='summary'. Supported keywords when mode='list'
+
+
 .. _Description:
 
 Description

@@ -1,8 +1,20 @@
 
 
+.. _Returns:
+
+Returns
+   out (dict) - statistics of the solutions found, grouped by SPW and
+   antenna, including solutions expected, above *minblperant*, and
+   above *minsnr*, as well as what antennas were used as reference.
+   Also gives information on data selection and calibration tables used.
+
+
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for bandpass.
+   
    Determines the amplitude and phase as a function of frequency for
    each spectral window containing more than one channel. Strong
    sources (or many observations of moderately strong sources) are
