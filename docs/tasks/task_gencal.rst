@@ -141,7 +141,11 @@ Description
       for this *caltype*. Note that this requires internet connection to
       access the VLA antenna position correction site. This option might
       be deprecated in the future in favour of a using a specific task
-      to retrieve the VLA positions similar to the one from ALMA.
+      to retrieve the VLA positions similar to the one from ALMA. Additionally a value can be given in the 
+      ant_pos_time_limit parameter that specifies the maximum number of days after the 
+      observation for which a correction should be included in the final offset.
+      By default there is no time limit (*ant_pos_time_limit=0*).
+
    -  'antposvla'  For (old) pre-upgrade VLA position corrections,
       specify the values in the VLA-centric frame and **gencal** will
       rotate them to ITRF before storing them in the output caltable.
