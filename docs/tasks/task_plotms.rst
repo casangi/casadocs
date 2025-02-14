@@ -51,16 +51,27 @@ Description
          GUI is shown or not.
    
    .. rubric:: Input Dataset
-   
+
    -  *vis*
    
       -  The directory name of the input MeasurementSet or CalTable.
          The path is needed if this directory is not in the current
          working directory.
-      -  “” (default) : launch casaplotms without plotting.
+      -  “” (default) : launch casaplotms without plotting unless
+         caltable is set.
       -  If input file not found: plotms issues a warning and does
          not launch or, if already launched, does not update.
    
+   -  *caltable*
+   
+      -  The directory name of the input CalTable.
+         The path is needed if this directory is not in the current
+         working directory.
+      -  “” (default) : launch casaplotms without plotting unless
+         vis is set.
+      -  If input file not found: plotms issues a warning and does
+         not launch or, if already launched, does not update.
+
    .. rubric:: Page and Subplot Settings
    
    -  *gridrows*
@@ -112,7 +123,8 @@ Description
       location.
    -  “” (default) : no iteration.
    -  Options: *'scan', 'field', 'spw', 'baseline', 'antenna',
-      'time', 'corr'*.
+      'time', 'corr'*. For cal tables, *'poln'*. For KAntPos Jones
+      tables, *'antpos'*.
    -  Each plot shows all of the points in the cache associated with
       the current iteration value.  This means that when iterating
       over '*antenna'* for a CalTable, the plot for the reference
@@ -250,14 +262,15 @@ Description
          *CORR_TYPE* column. These IDs correspond to values RR (5),
          RL (6), LR (7), LL (8), XX (9), XY (10), YX (11), and
          YY (12).
-      -  For CalTables, this is the index into the number of
+      -  For CalTables, *'corr'* is the index into the number of
          polarizations in the first axis of the array in the
          *CPARAM/FPARAM* column. The CalTable’s PolBasis keyword may
          indicate whether the polarizations are linear (0=X, 1=Y) or
          circular (0=R, 1=L).  If not, the index 0 or 1 is used.
          For antenna position (KAntPos Jones) tables, *'corr'* refers
          to the x, y, and z position offsets in the first axis of the
-         *FPARAM* column.
+         *FPARAM* column. See also: calibration axes *'poln'* and
+         *'antpos'*.
    
    -  *‘ant1’* (*‘antenna1’*)
    
@@ -444,7 +457,7 @@ Description
          row, 1=flags in row).
       -  This can be inconsistent with *FLAG*, as it is not always
          updated as flags are changed.
-   
+
    .. rubric:: Observational Geometry Axes
       
    
@@ -535,13 +548,14 @@ Description
          (me) tool .
       -  Supported for CalTables where possible.
    
+   .. rubric:: Antenna-based Axes
+      
+   
    -  *‘antenna’* (*‘ant’*)
    
-      -  antenna IDs in range 0~nAnt, for plotting antenna-based
-         quantities.
-      -  For CalTables with no antenna2 IDs, ‘antenna’ is the same as
-         ‘antenna1’.
-   
+      -  antenna IDs in range 0~nAnt, for plotting the antenna-based
+         quantities below.
+
    -  *‘ant-azimuth’*
    
       -  azimuth for each antenna, in degrees. Calculated from the
@@ -686,6 +700,21 @@ Description
       -  Invalid for MeasurementSets.
       -  total electron content of an ionosphere correction CalTable,
          from the *FPARAM* column. Invalid for other CalTable types.
+
+   -  *‘poln’* (*‘polarization’*)
+
+      -  polarization IDs for CalTables.
+      -  This is the index into the number of polarizations in the
+         first axis of the array in the *CPARAM/FPARAM* column. If set,
+         the CalTable’s PolBasis keyword indicates whether the
+         polarizations are linear (0=X, 1=Y) or circular (0=R, 1=L).
+         If PolBasis is not set, the index 0 or 1 is used.
+   
+   -  *‘antpos’* (*‘Antenna Position’*)
+
+      -  antenna positions for KAntPos Jones CalTables.
+      -  The antenna positions are 0=X, 1=Y, 2=Z.
+
    
    .. rubric:: Ephemeris Axes
    
@@ -985,10 +1014,29 @@ Description
    
    -  *correlation*
 
-      -  select correlations for MeasurementSet.
+      -  select correlations for MeasurementSet including "RR", "RL",
+         "LR", "LL", "XX", "XY", "YX", and "YY".
+      -  select standard Stokes parameters and polarization quantities,
+         which will be computed if the MeasurementSet does not have the
+         requested quantities. Options include "I", "Q", "U", "V",
+         "Plinear", "Ptotal", "PFlinear", "PFtotal", and "Pangle".
       -  select polarizations for CalTable, including ratio plots. 
          Options include "RL", "R", "L", "XY", "X", "Y", and "/".
-   
+      -  select antenna positions for KAntPos Jones CalTable.
+         Options include "X", "Y", and "Z".
+
+   -  *polarization*
+
+      -  select polarizations for CalTable, including ratio plots.
+      -  Options include "RL", "R", "L", "XY", "X", "Y", and "/".
+      -  Ignored for MeasurementSets.
+
+   -  *antpos*
+
+      -  select antenna positions for KAntPos Jones CalTable.
+      -  Options include "X", "Y", "Z", "XY", "XZ", "YZ".
+      -  Ignored for MeasurementSets and other CalTable types.
+
    -  *array*
 
       -  select array ID.
@@ -1252,14 +1300,16 @@ Description
    -  “” (default) : do not colorize.
    -  Options: *“scan”, “field”, “spw”, “antenna1”* (*“ant1”*),
       *“antenna2”* (*“ant2”*), *“baseline”, “channel”* (*“chan”*),
-      *“corr”, “time”, “observation”, “intent”*
+      *“corr”, “time”, “observation”, “intent”*. For cal tables,
+      *'poln'*. For KAntPos Jones tables, *'antpos'*.
    -  Overrides custom symbol settings below and xconnector
       colorization.  Flagged points will be colorized according to
       the *coloraxis*.
    -  For CalTables, colorization by *"corr"* usually refers to 
-      polarization.  For an antenna position (KAntPos Jones) table,
-      the first axis contains the x, y, and z offsets so
-      *coloraxis="corr"* may be used to distinguish these values.
+      polarization, or you may select the *"poln"* coloraxis. For an antenna
+      position (KAntPos Jones) table, the first axis contains the x, y, and z
+      offsets so *coloraxis="corr"* may be used to distinguish these values,
+      or you may select the *"antpos"* coloraxis.
    -  When *showlegend=True*, the colorized colors and values will be shown
       in the legend.
    -  When *colorizeoverlay=True* and *showatm=True* or *showtsky=True*,

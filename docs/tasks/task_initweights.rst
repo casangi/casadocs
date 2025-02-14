@@ -6,8 +6,7 @@ Description
    This task provides for initialization of the weight information in
    the MS. An overview on weights in CASA is provided in the `Data
    Weights <../../notebooks/data_weights.ipynb>`__
-   section of CASAdocs. For ALMA interferometry and EVLA data, it
-   should not generally be necessary to use this task, as the
+   section of CASAdocs. For ALMA interferometry and EVLA data, the
    per-spectral window weight information should have been
    initialized properly at fill time (v4.2.2 and later). To set
    per-channel weights, use

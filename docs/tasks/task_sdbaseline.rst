@@ -114,7 +114,7 @@ Description
    (11) 'blfunc': baseline model function (identical to the task parameter *blfunc*)
    (12) 'order': order of polynomial function (identical to the task parameter *order*). Needed when (11) is "poly" or "chebyshev". It will be ignored when other values are set for blfunc
    (13) 'npiece': number of the element polynomials of cubic spline curve (identical to the task parameter *npiece*). Needed when (11) is "cspline"
-   (14) 'nwave': a list of sinusoidal wave numbers. Needed when (11) is "sinusoid" though, actually, sinusoidal fitting is yet to be available with per-spectrum fitting
+   (14) 'nwave': a list of sinusoidal wave numbers. Needed when (11) is "sinusoid". The maximum wave numbers should not exceed the ((number of channels/2)-1) limit. If the offset is present in the data, add 0 to the number of waves. That is, nwave=[0] is a constant term, nwave=[0,1,2] fits with a maximum of 2 sinusoids, and so on.
 
    Note that the following task parameters will be ignored/overwritten
    when *blfunc = 'variable'* is specified (i.e., when per-spectrum
@@ -223,6 +223,16 @@ Examples
       0,0,100~750;1250~1900,0,3.,false,0.,0,0,0,chebyshev,2,0,[]
       0,1,,0,3.,false,0.,0,0,0,chebyshev,0,0,[]
       1,0,0~500;1500~2000,0,3.,false,0.,0,0,0,poly,1,0,[]
+
+   Here is the text file "blparam.txt" used as a sinusoid fitting example.
+
+   ::
+
+      #row,pol,mask,clipniter,clipthresh,use_linefinder,thresh,Ledge,Redge,avg_limit,blfunc,order,npiece,nwave
+      0,0,100~750;1250~1900,0,3.,false,0.,0,0,0,sinusoid,,,[0,1,3,5,12]
+      0,1,,0,3.,false,0.,0,0,0,sinusoid,,,[1,5,6]
+      1,0,0~500;1500~2000,0,3.,false,0.,0,0,0,sinusoid,,,[0,1,2,3,4,5,7,12]
+
 
    .. rubric::   Example 4
 
