@@ -58,6 +58,7 @@ Description
    
    -  'tsys' = Tsys from the MS.SYSCAL table (ALMA, VLBI)
    -  'swpow' = VLA switched-power gains from MS.SYSPOWER, CALDEVICE
+   -  'swpwts' = VLA switched-power for weights only, no temperature rescaling
    -  'rq' = VLA requantizer gains \_only\_
    -  'swp/rq' = VLA switched-power gains divided by requantizer gain
    -  'gc' = Gain curve (zenith-angle-dependent gain) (VLA, VLBI)
@@ -145,7 +146,7 @@ Description
    -  'antposvla'  For (old) pre-upgrade VLA position corrections,
       specify the values in the VLA-centric frame and **gencal** will
       rotate them to ITRF before storing them in the output caltable.
-   -  VLA switched power calibration is supported in three modes:
+   -  VLA switched power calibration is supported in four modes:
       'swpow' (formerly 'evlagain', a syntax which has been
       deprecated) yields the formal VLA switched power calibration
       which describes voltage gain as sqrt(Pdif/Tcal) (used to
@@ -155,7 +156,9 @@ Description
       requantizer voltage gains (Tsys is set to 1.0 to avoid weight
       adjustments). 'swp/rq' yields the ordinary switched power
       voltage gains divided by the requantizer voltage gain (Tsys is
-      calculated normally). The 'rq' and 'swp/rq' modes are are
+      calculated normally). 'swpwts' yields only Tsys as Pdif/2 for correcting the weights
+      without converting to a temperature scale (the gain is set to 1.0 to avoid adjustments).
+      The 'rq' and 'swp/rq' modes are are
       mainly intended for testing and evaluating the VLA switched
       power systems.
    -  For *caltype='opac'*, only constant (in time) opacities are
