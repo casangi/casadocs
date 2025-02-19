@@ -48,17 +48,14 @@ Description
    of point sources, Gaussians, and disks. One
    can then either use that component list directly
    in **simobserve**, or create a CASA image from the components, or
-   both. Details can be found in `this CASA
-   guide <http://casaguides.nrao.edu/index.php?title=Simulation_Guide_Component_Lists_%28CASA_4.1%29>`__.
+   both. Details can be found in the Simulations `CASA
+   guide <http://casaguides.nrao.edu>`__ entitled 'Simulation Guide Component Lists'.
    
    .. rubric:: Starting from a GIF or JPG image
    
    A user may wish to convert a GIF or JPG image to a FITS file for
    simulation in CASA. The image should be converted to a 32-bit FITS
-   image for use with the CASA sim tools. See `this
-   page <http://casaguides.nrao.edu/index.php?title=Convert_jpg_to_fits>`__
-   for an example of using gimp to convert a JPG image to a FITS
-   file. Alternatively, you could use ImageMagik from the command
+   image for use with the CASA sim tools. Alternatively, you could use ImageMagik from the command
    line, like so:
    
    ::
@@ -112,8 +109,8 @@ Description
       the data with thermal noise and atmospheric attenuation.
       Corruption with an atmospheric phase screen, or adding gain
       fluctuations or drift, can be added subsequently using the
-      **simulator** tool **sm** as described in `this CASA
-      guide. <https://casaguides.nrao.edu/index.php/Corrupt>`__
+      **simulator** tool **sm** as described in the Simulations `CASA
+      Guide <https://casaguides.nrao.edu>`__ entitled 'Corrupting Simulated Data (Simulator Tool)'.
    
    For details, please see the descriptions of the individual
    parameters below.
@@ -528,8 +525,7 @@ Description
 .. _Examples:
 
 Examples
-   This example was taken from the simulation CASAguide located
-   `here <https://casaguides.nrao.edu/index.php/Simulation_Guide_Component_Lists_(CASA_5.1)>`__.
+   This example was taken from the Simulations `CASA Guide <https://casaguides.nrao.edu/index.php/Simulation_Guide_Component_Lists_(CASA_5.1)>`__ entitled 'Simulations Guide Component List'.
    
    ::
    
@@ -541,7 +537,7 @@ Examples
       compwidth = '1GHz'
       direction = "J2000 10h00m00.0s -30d00m00.0s"
       obsmode = "int"
-      antennalist = 'alma.cycle5.1.cfg'
+      antennalist = 'alma.cycle9.1.cfg'
       totaltime = "28800s"
       mapsize = "10arcsec"
       thermalnoise = ''
@@ -561,7 +557,7 @@ Examples
                  mapsize=['11.51arcsec'],
                  hourangle="1.5h",
                  totaltime="677.6s",
-                 antennalist="antennalist.cfg2",
+                 antennalist="antennalist.cfg",
                  sdantlist="aca.tp.cfg",
                  thermalnoise="")
                  
@@ -569,7 +565,15 @@ Examples
    
    ::
    
-      imobserve(project=‘model_cube’, skymodel=‘skymodel.image', inwidth='0.4MHz', antennalist='alma.cycle6.1.cfg', direction="J2000 16h59m41.63s -40d03m43.61s", obsmode="int", mapsize="2arcmin", totaltime="1800s", thermalnoise='', incenter='86.6425GHz')
+      simobserve(project=‘model_cube’, 
+                 skymodel=‘skymodel.image', 
+                 inwidth='0.4MHz', 
+                 antennalist='alma.cycle6.1.cfg', 
+                 direction="J2000 16h59m41.63s -40d03m43.61s", 
+                 obsmode="int", mapsize="2arcmin", 
+                 totaltime="1800s", 
+                 thermalnoise='', 
+                 incenter='86.6425GHz')
       
    This produces a data cube with a central rest-frequency of 86.6425 GHz and a channel width of 0.4 MHz. Note the `Known Issue for simobserve <../../notebooks/introduction.ipynb#Known-Issues>`__ that inwidth should not be specified in km/s.
 

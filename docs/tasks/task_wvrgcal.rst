@@ -135,11 +135,15 @@ Description
    *offsetstable*
    
    Subtract the temperature offsets in this table from the WVR
-   measurements before using them to calculate the phase corrections
-   (experimental). Default: '' (do not apply any offsets). Examples:
+   measurements before using them to calculate the phase corrections. 
+   Default: '' (do not apply any offsets). Examples:
    *offsetstable='uid___A002_Xabd867_X2277.cloud_offsets'* use the
    given table.
-   
+
+   *rseed*
+
+   Set random seed (integer) for the wvrgcal fitting routine to this specific value.
+   Default: 0 (use internal default value). Examples: *rseed=54321*
 
 .. _Examples:
 

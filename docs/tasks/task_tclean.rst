@@ -6,12 +6,12 @@ Returns
    summary (dict) - convergence history of the run, when
    interactive=1/0 instead of True/False
 
-
 .. _Description:
 
 Description
+   The tclean task forms images from visibilities and reconstructs a sky model. 
 
-   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for tclean 
+   .. warning:: There are `Known Issues <../../notebooks/introduction.ipynb#Known-Issues>`__ for tclean 
 
    tclean handles continuum images and spectral line cubes, full
    Stokes polarization imaging, supports outlier fields, contains
@@ -39,12 +39,20 @@ Description
    that `solves the measurement
    equation <../../notebooks/synthesis_imaging.ipynb#Introduction>`__.
    Minor cycle algorithms can have their own (different) optimization
-   schemes and the imaging framework and task interface allow for
+   schemes, and the imaging framework and task interface allow for
    considerable freedom in choosing options separately for each step
    of the process.
    
    .. figure:: _apimedia/26ad14d4f63ff633dbd5d9e92d40a5059ab46a67.png
 
+      Schematic overview of the iterative image reconstruction in the CASA task 
+      tclean. The input 'DATA' are the calibrated visibilities. The left (red) and
+      right (green) boxes show the major and minor cycle, respectively. 
+      After gridding the visibilities and applying an inverse fast
+      Fourier transform (iFFT), deconvolution on the (residual) image is done in the
+      minor cycle. At the end of the minor cycle, the model image is translated back
+      into the (u, v)-domain with a fast Fourier transform (FFT), where it is
+      subtracted from the visibility data at the start of the next major cycle.
 
    .. rubric:: Operating Modes
 
@@ -60,18 +68,20 @@ Description
    
    -  .. rubric:: Imaging and Deconvolution Iterations:
    
-   Construct the PSF and Dirty image and apply a deconvolution
-   algorithm to reconstruct a Sky model. A series of major and minor
-   cycle iterations are usually performed. The output sky model is
-   then restored and optionally PB-corrected. The Sky model can
-   optionally be saved in the MS during the last major cycle.
+   Construct the Point Spread Function (PSF) and Dirty image and apply a
+   deconvolution algorithm to reconstruct a Sky model. A series of major 
+   and minor cycle iterations are usually performed. The output sky model 
+   is then restored and optionally corrected for the standard primary beam 
+   response (optional wideband primary beam correction has to be applied 
+   using the task widebandpbcor). The Sky model can optionally be saved 
+   in the MS during the last major cycle.
    
    -  .. rubric:: Make PSF and PB:
    
    Make only the Point Spread Function and the Primary Beam, along
-   with auxiliary weight images (a single pixel image containing
+   with auxiliary weight images; a single pixel image containing
    sum-of-weight per plane, and (for mosaic and aprojection) a weight
-   image containing the weighted sum of PB square).
+   image containing the weighted sum of PB square.
    
    -  .. rubric:: Make a Residual/Dirty Image:
    
@@ -83,8 +93,9 @@ Description
    -  .. rubric:: Model Prediction:
    
    Save a sky model in the MeasurementSet for later use in
-   calibration (virtual model or by actual prediction into a model
-   column).
+   calibration. This may be through a virtual model 
+   `virtual model <../../notebooks/synthesis_calibration.ipynb#Virtual-Model-Visibilities>`__, 
+   or by  placing the actual prediction into the model column.
    
    When savemodel=’modelcolumn’ is chosen, the message, “Saving model column” will appear in the logger
    during the last major cycle. The model will be written to MODEL_DATA column of the main table of the MS
@@ -137,7 +148,7 @@ Description
    
    The pblimit is a parameter used to define the value of the
    antenna primary beam gain, below which wide-field gridding
-   algorithms such as *'mosaic'* and *'awproject'* will not apply
+   algorithms such as *'mosaic'*, *'awproject'* and *'awp2'* will not apply
    normalization (and will therefore set to zero).  For
    *gridder='standard'*, *'wproject'* , *'widefield'* there is no pb-based 
    normalization during gridding and so the absolute value of 
@@ -146,8 +157,8 @@ Description
    The sign of the pblimit parameter is used for a different
    purpose. If positive, it defines a T/F pixel mask that is
    attached to the output residual and restored images.  If
-   negative, this T/F pixel mask is not included. For the *'mosaic'* and 
-   *'awproject'* gridders, the zeros in the regions outside the 
+   negative, this T/F pixel mask is not included. For the *'mosaic'*, 
+   *'awproject'*, and *'awp2'* gridders, the zeros in the regions outside the 
    absolute pblimit level will be visible without the T/F mask, and 
    for other gridders that do not do any pblimit-based normalizations
    (*'standard'*, *'wproject'*, *'widefield'*) those regions will 
@@ -207,18 +218,19 @@ Description
    imagename = 'try'
    
    +-----------------------------------+-----------------------------------+
-   | try.psf                           | Point Spread Function             |
+   | try.psf                           | Point Spread Function (PSF)       |
    +-----------------------------------+-----------------------------------+
-   | try.pb                            | Primary Beam                      |
+   | try.pb                            | Primary Beam (PB)                 |
    +-----------------------------------+-----------------------------------+
    | try.residual                      | Residual Image (or initial Dirty  |
-   |                                   | Image)                            |
+   |                                   | Image if niter=0)                 |
    +-----------------------------------+-----------------------------------+
    | try.model                         | Model Image after deconvolution   |
    +-----------------------------------+-----------------------------------+
    | try.image                         | Restored output image             |
    +-----------------------------------+-----------------------------------+
    | try.image.pbcor                   | Primary Beam corrected image      |
+   |                                   | (non wide-band)                   |
    +-----------------------------------+-----------------------------------+
    | try.mask                          | Deconvolution mask                |
    +-----------------------------------+-----------------------------------+
@@ -339,10 +351,10 @@ Description
    when a parent parameter has a specific value. This means that for
    a given set of choices (e.g. deconvolution or gridding algorithm)
    only parameters that are relevant to that choice will be visible
-   to the user when " inp() " is invoked. It is advised that this
-   task interface be used even when constructing tclean scripts that
-   call the task as a python call " tclean(....) " to understand
-   which parameters are relevant to the run and which are not.
+   to the user when " inp() " is invoked. Care should be taken when
+   constructing tclean scripts that call the task as a python call 
+   " tclean(....) ", to make sure that parameters and sub-parameters  
+   that are relevant to the run are included.
 
    
    .. rubric:: Data Selection (selectdata)
@@ -409,12 +421,33 @@ Description
    -  'awproject': A-Projection from aperture illumination models
       with azimuthally asymmetric beams, including beam rotation,
       squint correction, conjugate frequency beams and W-projection
-      (Bhatnagar et.al, 2008).
+      (Bhatnagar et.al, 2008). 
+   -  'awp2': A-Projection from aperture illumination models with
+      azimuthally asymmetric beams, including squint correction,
+      beam rotation, and W-projection. 
+
+   .. note:: The awp2 gridder will eventually replace the existing
+             awproject gridder in a future CASA release. At the moment both
+             gridders only support A-projection with the EVLA primary beam.
+             While they both implement the same algorithm, there are a few key
+             differences in the implementation details:
+
+             - awp2 has several bugfixes and feature improvements, and improved
+               runtime performance compared with the 'awproject' gridder
+             - awp2 is the recommended gridder for widefield polarization mosaics (W-Term + polarization).
+             - awp2 does not write a persistent CFCache. The CFs are generated on the fly
+               during the gridding process.
+             - awp2 does **not** implement the "conjbeams" functionality, so in order to
+               obtain the correct broadband spectral indices please use `specmode='mvc'`
+               rather than `specmode='mfs'` with the `deconvolver=mtmfs`.
+
+   .. warning:: The awp2 gridder has only been validated within the main lobe of the primary beam.
+                Using a primary beam threshold that includes the sidelobes will yield incorrect results
+                at this time. We expect this to be fixed in a future release.
    
-   Combinations of these options are also available. See the `CASA
-   Docs pages on Widefield
-   Imaging <../../notebooks/synthesis_imaging.ipynb#Wide-Field-Imaging>`__ for
-   more information.
+   Combinations of these options are also available. For more information,
+   see the parameter description below, or the `CASA Docs pages on Widefield
+   Imaging <../../notebooks/synthesis_imaging.ipynb#Wide-Field-Imaging>`__.
    
    For mosaicing and AW-projection, the frequency dependence of the
    primary beam within the data being imaged is included in the
@@ -426,7 +459,7 @@ Description
    
    .. rubric:: Deconvolution Options (deconvolver)
    
-   All our algorithms follow the Cotton-Schwab CLEAN style of major
+   All the algorithms follow the Cotton-Schwab CLEAN style of major
    and minor cycles with the details of the deconvolution algorithm
    usually contained within the minor cycle and operating in the
    image domain. Options include:
@@ -451,10 +484,7 @@ Description
       decomposition algorithm is designed to reconstruct the sky 
       brightness by adaptively determining the optimal scales. The 
       implementation of ASP algorithm is aimed to improve both image 
-      resolution and computation efficiency. Note: This algorithm is 
-      **experimental**, please see the `Known Issues 
-      <../../notebooks/introduction.ipynb#Known-Issues>`__ 
-      in CASA Docs.
+      resolution and computation efficiency. 
    
    If as input to tclean the stokes parameter includes polarization
    planes other than I, then choosing deconvolver='hogbom' or
@@ -498,7 +528,7 @@ Description
       resolution, noise, and sidelobe levels. The key parameter for
       briggs weighting is the robust sub-parameter, which takes
       value between -2.0 (close to uniform weighting) to 2.0 (close
-      to natural). The scaling of Ris such that robust=0 gives a good
+      to natural). The scaling of R is such that robust=0 gives a good
       trade-off between resolution and sensitivity.
    
    In addition to the weighting scheme specified via the 'weighting'
@@ -576,14 +606,19 @@ Description
    the cube into.
    
    .. rubric:: User Interaction
-   
+
+   .. warning:: Interactive use of tclean is based on the CASA Viewer, which is deprecated. 
+   A stand-alone interactive tclean widget is currently under development. See this
+   `Viewer-end-of-Life <../../notebooks/viewer_end_of_life.ipynb>`__ page for details. 
+
    Options for user interaction include `interactive
    masking <../../notebooks/synthesis_imaging.ipynb#Masks-for-Deconvolution>`__
    and editing of iteration control parameters. The `output log
    files <../../notebooks/usingcasa.ipynb#Logging>`__ can
-   also be used to diagnose some problems.
+   also be used to diagnose issues that may arise.
    
-   Several convenience features are also available, such as operating
+   Several convenience features are also available in the interactive mode, 
+   such as operating
    on the MS in read-only mode (which does not require write
    permissions), the ability to restart and continue imaging runs
    without incuring the unnecessary cost of an initial major cycle or
@@ -593,9 +628,9 @@ Description
    .. rubric:: Scripting Controls
    
    Finer control can be achieved using the PySynthesisImager tools to
-   run (for example) only image domain deconvolution or to insert
-   methods for automatic mask generation (for example) in between the
-   existing major/minor cycle loops or to connect external methods or
+   run, e.g., only image domain deconvolution, to insert
+   methods for automatic mask generation in between the
+   existing major/minor cycle loops, or to connect external methods or
    algorithms for either the minor or major cycles.
    
    .. rubric:: Tracking moving sources or sources with ephemeris tables
@@ -605,7 +640,12 @@ Description
    'NEPTUNE', 'PLUTO', 'SUN', 'MOON') or is an ephemerides table,
    then that source is tracked and the background sources get smeared
    (which is useful especially for long observations or multi epoch
-   data). There is a special case, when phasecenter='TRACKFIELD',
+   data). The ephemeris table can be either the one attached to the MS 
+   in FIELD table or an externally provided one such as one generated 
+   by getephemtable. The table name should include a proper (relative/absolute) 
+   path in order to tclean to find the correct one.  
+   There is a special case, when phasecenter='TRACKFIELD' (it should
+   be in all caps),
    which will use the ephemerides or polynomial phasecenter in the
    FIELD table of the MeasurementSets as the source center to track.
    When in tracking mode,  the image center will be the direction of
@@ -625,7 +665,15 @@ Description
    
    More information can be found in the `CASA Docs chapter on
    Ephemeris Data <../../notebooks/ephemeris_data.ipynb>`__.
-   
+
+
+   .. rubric:: Multiple MSs
+
+   For the input visivility data, tclean can accept multiple MSs. The 
+   details on conformance checks that are performed on the list of MSs 
+   are summarized in the `CASA Docs page on Combining Datasets 
+   <../../notebooks/casa-fundamentals.ipynb#Combining-Datasets>`__.
+
    .. rubric:: History
 
    At the end of a successful tclean run, the history of the output
@@ -736,9 +784,8 @@ Examples
    restored version of the image.
 
    
-   For examples running tclean on ALMA data, see also the CASA
-   Guide `"Tclean and
-   ALMA" <https://casaguides.nrao.edu/index.php?title=TCLEAN_and_ALMA>`__.
+   For examples running tclean on ALMA data, see also the ALMA `CASA Guide <https://casaguides.nrao.edu>`__ 'Tclean and
+   ALMA', which can be found under the General Imaging Tutorial 'Examples for using the tclean CASA task for ALMA Imaging'.
    
    .. rubric:: Imaging and Deconvolution Iterations
    
@@ -773,8 +820,8 @@ Examples
    
    .. rubric:: Scripting using PySynthesisImager
 
-   PySynthesisImager (LINK) is a python application built on top
-   of the synthesis tools (LINK). The operations of the tclean
+   PySynthesisImager is a python application built on top
+   of the synthesis tools. The operations of the tclean
    task can be replicated using the following python script.
    Subsets of the script can thus be chosen, and extra external
    methods can be inserted in between as desired.  After each
@@ -886,8 +933,7 @@ Examples
    
    .. rubric:: Using tclean with ephemerides tables in CASA format
 
-   When you have an ephermeris table that covers the whole
-   observation:
+   When you have an ephemeris table called, des_deedee_ephem.tab that covers the whole observations
    
    ::
    
@@ -904,7 +950,7 @@ Examples
 
    ::
    
-      me.framecomet('des_deedee.tab')
+      me.framecomet('des_deedee_ephem.tab')
    
    If this tool accepts the input without complaint, then the same
    should work in tclean.
@@ -943,4 +989,6 @@ Examples
 .. _Development:
 
 Development
-   In future releases of CASA6, the tclean task will include an option for MFS and MTMFS deconvolution along with cube major cycles, and GPU gridding options for the VLASS observing program. 
+   In future releases of CASA6, the tclean task will include an option for MFS and
+   MTMFS deconvolution along with cube major cycles, and GPU gridding options for
+   the VLASS observing program. 

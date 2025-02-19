@@ -37,12 +37,12 @@ Description
    and any residual bandpass structure and continuum must be
    subtracted from the spectral line emmission using **sdbaseline**.
    Then an image must be created for each LO offset (e.g.,
-   **sdimaging**). The spatial and stokes coordinates must coincide
+   **tsdimaging**). The spatial and stokes coordinates must coincide
    with each other in the input images. It is recommended to use the
    frequency setting native to the observation when creating images
    to avoid adding complexity in the definition of the parameters,
    *signalshift* and *imageshift*. The default frequency parameters
-   in **sdimaging** (*nchan=-1*, *start=0*, and *width=1*) help to
+   in **tsdimaging** (*nchan=-1*, *start=0*, and *width=1*) help to
    avoid in adding this complexity.
 
    .. rubric:: Definition of *signalshift* and *imageshift*
