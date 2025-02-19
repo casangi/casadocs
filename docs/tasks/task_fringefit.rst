@@ -75,6 +75,12 @@ Description
       **applycal** step, use the *spwmap* parameter to ensure that
       the solutions are correctly applied to all spectral windows
       (see the Examples tab for details).
+      
+   .. note:: **NOTE**: Application of fringefit solutions may be optimized by 
+      considering use of per-scan interpolation, e.g., via *interp='linearperscan'* 
+      or *interp='nearestperscan'*, or in callibrary files, via including a *scanmap* 
+      expression. This will force the phase, delay and rate solution 
+      interpolation to respect scan boundaries.
    
    .. rubric:: Common calibration solve parameters
 
@@ -110,7 +116,8 @@ Description
    
    As in other calibration solve tasks, data can be combined over
    different axes. To derive multi-band delay corrections, set
-   *combine='spw'.*
+   *combine='spw'.*  See *concatspws* below for additional 
+   control of the manner of spw combinations.
    
    .. rubric:: SNR control: *minsnr*
    
@@ -176,23 +183,38 @@ Description
    same constraint is applied to all baselines in the FFT search
    step.
    
-   .. rubric:: Select a weighting strategy for the least squares solver: *weightfactor*
-   
-   It is common in VLBI practice for the user to choose how weights
-   of visiblities should be used in the global stage of
-   fringe-fitting. In any array such as the EVN with a very sensitive
-   antenna (in the EVN's case Effelsberg), the use of measurement set
-   weights can mean that baselines to the sensitive antenna dominate
-   and other baselines have neglibible impact. Choosing the square
-   root of those weights gives, many users feel, a more balanced
-   interpretation of the data.
-   
-   The *weightfactor* parameter allows the user to chose between
-   strategies:
-   
-   -  0 => use a weight of 1 (i.e., ignore measurement set weights);
-   -  1 => use the square-root of measurement set weights;
-   -  2 => use the measurement set weights as they are (the default)
+   .. rubric:: Spectral window combination modes: *concatspws*
+
+   For *combine='spw'*, the multi-band FFT solution can be done in two 
+   different ways. For *concatspws=True* (the default, and the 
+   traditional behavior), spws are combined onto a wider frequency 
+   grid. This may not be optimal for spws that do not naturally fall 
+   on the same global frequency grid, or which vary in their channel widths. 
+   In a new experimental mode, *concatspws=False*, each spw is separately 
+   FFT'd, and the results are combined using the shift theorem. This 
+   enables support for more flexibility in the variety of spws to be 
+   combined. This mode remains experimental because some fine-tuning 
+   of the net delay resolution in the spw aggregation is under further 
+   study. In either case, it is important to ensure the nominal 
+   coherence of the spectral windows by applying a 'manual phase cal' 
+   solution from a strong source scan; electronic stability among spws 
+   is also required.
+
+   .. rubric:: Correlation combination: *corrcomb*
+
+   To improve fringefit sensitivity when the observed correlations are 
+   coherent, *corrcomb='all'* may be specified to trigger a single 
+   solution shared by both polarizations. If the residual calibration 
+   phase is dominated by unpolarized atmospheric path-length changes, 
+   this is a viable approach (cf *gaintype='T'* in **gaincal**). The default, 
+   *corrcomb='none'*, triggers separate solutions for each polarization. 
+   Polarization coherence should be ensured by (a) applying a 'manual 
+   phase cal' solution from a strong source scan, and (b) using 
+   *parang=True* (for VLBI arrays with time-dependent differential 
+   parallactic angle variation among antennas) in **fringefit** and all 
+   prior calibration solves. NB: If *corrdepflags=True*, *corrcomb='all'* 
+   will currently flag data to any antennas which have only one 
+   polarization available.
    
    .. rubric:: Select active parameters for least square solver: *paramactive*
    
