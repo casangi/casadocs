@@ -15,6 +15,8 @@ CASA 6.7.0 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`_
 
 **Highlights:**
 
+- Intel Macs: CASA 6.7.0 no longer runs on Mac OS Intel x86 machines.
+- CASA Viewer: the CASA Viewer is no longer packaged with Mac OS.
 - tclean: new (experimental) gridder option ‘awp2’ (refactor of awproject).
 - gencal: added support for the output of task getantposalma.
 - fringefit: updated support of corrcomb=’stokes’ (formerly ‘all’) and corrcomb=’parallel’.
