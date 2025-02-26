@@ -17,6 +17,7 @@ CASA 6.7.0 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`_
 
 - Intel Macs: CASA 6.7.0 no longer runs on Mac OS Intel x86 machines.
 - CASA Viewer: the CASA Viewer is no longer packaged with Mac OS.
+- sdimaging: task sdimaging is deprecated (use tsdimaging instead).
 - tclean: new (experimental) gridder option ‘awp2’ (refactor of awproject).
 - gencal: added support for the output of task getantposalma.
 - fringefit: updated support of corrcomb=’stokes’ (formerly ‘all’) and corrcomb=’parallel’.
@@ -27,7 +28,6 @@ CASA 6.7.0 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`_
 - plotbandpass: more robust identification of unique solution timestamps.
 - smoothcal: improvements to smoothing of fringefit solutions.
 - msmd.almaspws: identifies ALMA FDM spectral windows with heavy online channel averaging.
-- sdimaging: task sdimaging is deprecated
 - tclean: GPU-enabled gridding option has been added for the VLASS project (this is not yet supported for general-purpose use).
 
 In addition, a large number of bugs were fixed.
