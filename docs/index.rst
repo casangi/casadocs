@@ -9,9 +9,27 @@ Jansky Very Large Array
 (`VLA <https://public.nrao.edu/venue/the-very-large-array/>`__),
 and is often used also for other radio telescopes.
 
-6.7 Development Build
-   You are viewing the latest build of master, currently in the 6.7 development cycle
-   
+**6.7.0 Release**
+
+CASA 6.7.0 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.7.0 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
+
+**Highlights:**
+
+- tclean: new (experimental) gridder option ‘awp2’ (refactor of awproject).
+- gencal: added support for the output of task getantposalma.
+- fringefit: updated support of corrcomb=’stokes’ (formerly ‘all’) and corrcomb=’parallel’.
+- phaseshift: added multi-field specification of the phasecenter parameter.
+- sdimaging/tsdimaging: proper derivation of weight values for Stokes I. 
+- plotbandpass: upgraded to support band-to-band calibration.
+- plotbandpass: plotting of hsd_skycal solutions.
+- plotbandpass: more robust identification of unique solution timestamps.
+- smoothcal: improvements to smoothing of fringefit solutions.
+- msmd.almaspws: identifies ALMA FDM spectral windows with heavy online channel averaging.
+- sdimaging: task sdimaging is deprecated
+- tclean: GPU-enabled gridding option has been added for the VLASS project (this is not yet supported for general-purpose use).
+
+In addition, a large number of bugs were fixed.
+
 CASA is being developed by an international consortium of scientists and software engineers based at the National Radio Astronomical Observatory (NRAO), the European Southern Observatory (ESO), the National Astronomical Observatory of Japan (NAOJ), and the Joint Institute for VLBI European Research Infrastructure Consortium (JIV-ERIC), under the guidance of NRAO.
    
 .. toctree::
