@@ -56,21 +56,21 @@ Examples
     ::
 
        # get the intensity distribution of 3C48 at Q band on MJD 55000
-       getcalmodevla(
+       getcalmodvla(
            outfile='3C48.cl', source='3C48', band='Q', obsdate=55000,
            hosts=['http://some-host-that-works.nrao.edu']
        )   
 
        # the same thing, but do not use any data or algorithms that were
        # created after MJD 56000
-       getcalmodevla(
+       getcalmodvla(
            outfile='3C48.cl', source='3C48', band='Q', obsdate=55000,
            refdate=56000, hosts=['http://some-host-that-works.nrao.edu']
        )   
 
        # get the same information as the first query based on 3C48's direction,
        # not its name
-       getcalmodevla(
+       getcalmodvla(
            outfile='3C48.cl', direction='J2000 01h37m41.1s 33.155deg', band='Q',
            obsdate=55000, hosts=['http://some-host-that-works.nrao.edu']
        )   
