@@ -24,7 +24,7 @@ to the ms.
 
 *overwrite*
 
-   If True the outvis will overwrite a file that exists with the same name
+   If True then the task will overwrite existing values with the corresponding values if they are present in the antab
 
 *append_tsys*
 
