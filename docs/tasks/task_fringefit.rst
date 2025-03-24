@@ -75,6 +75,12 @@ Description
       **applycal** step, use the *spwmap* parameter to ensure that
       the solutions are correctly applied to all spectral windows
       (see the Examples tab for details).
+      
+   .. note:: **NOTE**: Application of fringefit solutions may be optimized by 
+      considering use of per-scan interpolation, e.g., via *interp='linearperscan'* 
+      or *interp='nearestperscan'*, or in callibrary files, via including a *scanmap* 
+      expression. This will force the phase, delay and rate solution 
+      interpolation to respect scan boundaries.
    
    .. rubric:: Common calibration solve parameters
 
@@ -110,7 +116,8 @@ Description
    
    As in other calibration solve tasks, data can be combined over
    different axes. To derive multi-band delay corrections, set
-   *combine='spw'.*
+   *combine='spw'.*  See *concatspws* below for additional 
+   control of the manner of spw combinations.
    
    .. rubric:: SNR control: *minsnr*
    
@@ -176,23 +183,38 @@ Description
    same constraint is applied to all baselines in the FFT search
    step.
    
-   .. rubric:: Select a weighting strategy for the least squares solver: *weightfactor*
-   
-   It is common in VLBI practice for the user to choose how weights
-   of visiblities should be used in the global stage of
-   fringe-fitting. In any array such as the EVN with a very sensitive
-   antenna (in the EVN's case Effelsberg), the use of measurement set
-   weights can mean that baselines to the sensitive antenna dominate
-   and other baselines have neglibible impact. Choosing the square
-   root of those weights gives, many users feel, a more balanced
-   interpretation of the data.
-   
-   The *weightfactor* parameter allows the user to chose between
-   strategies:
-   
-   -  0 => use a weight of 1 (i.e., ignore measurement set weights);
-   -  1 => use the square-root of measurement set weights;
-   -  2 => use the measurement set weights as they are (the default)
+   .. rubric:: Spectral window combination modes: *concatspws*
+
+   For *combine='spw'*, the multi-band FFT solution can be done in two 
+   different ways. For *concatspws=True* (the default, and the 
+   traditional behavior), spws are combined onto a wider frequency 
+   grid. This may not be optimal for spws that do not naturally fall 
+   on the same global frequency grid, or which vary in their channel widths. 
+   In a new experimental mode, *concatspws=False*, each spw is separately 
+   FFT'd, and the results are combined using the shift theorem. This 
+   enables support for more flexibility in the variety of spws to be 
+   combined. This mode remains experimental because some fine-tuning 
+   of the net delay resolution in the spw aggregation is under further 
+   study. In either case, it is important to ensure the nominal 
+   coherence of the spectral windows by applying a 'manual phase cal' 
+   solution from a strong source scan; electronic stability among spws 
+   is also required.
+
+   .. rubric:: Correlation combination: *corrcomb*
+
+   To improve fringefit sensitivity when the observed correlations are 
+   coherent, *corrcomb='all'* may be specified to trigger a single 
+   solution shared by both polarizations. If the residual calibration 
+   phase is dominated by unpolarized atmospheric path-length changes, 
+   this is a viable approach (cf *gaintype='T'* in **gaincal**). The default, 
+   *corrcomb='none'*, triggers separate solutions for each polarization. 
+   Polarization coherence should be ensured by (a) applying a 'manual 
+   phase cal' solution from a strong source scan, and (b) using 
+   *parang=True* (for VLBI arrays with time-dependent differential 
+   parallactic angle variation among antennas) in **fringefit** and all 
+   prior calibration solves. NB: If *corrdepflags=True*, *corrcomb='all'* 
+   will currently flag data to any antennas which have only one 
+   polarization available.
    
    .. rubric:: Select active parameters for least square solver: *paramactive*
    
@@ -205,7 +227,46 @@ Description
    default, which is also expected to be the most common future
    use-case. Note that we do not offer users an opportunity not to
    solve for phase offset (also known as "secular phase").
-   
+
+   .. rubric:: Control correlation-dependent flagging: *corrdepflags*
+
+   Traditionally, CASA adopts a conservative approach to interpreting
+   correlation-dependent flags, wherein all correlations in a single 
+   visibility vector are assumed flagged if any one of them is 
+   (*corrdepflags=False*).  In some cases, it is desirable to relax 
+   this stricture, by setting *corrdepflags=True*.   This is necessary, 
+   for example, to prevent single-polarization antennas in VLBI arrays
+   from being completely flagged when observing with dual-polarization
+   antennas.   
+
+   .. rubric:: Control correlation combination for solving:  *corrcomb*
+
+   When the parallel-hand correlations have been made coherent (e.g., by 
+   "manual phase-cal" on a strong calibrator), sensitivity can be improved
+   on weak sources by combining the parallel-hand correlations for 
+   *fringefit* solving.  This can be achieved in two modes:
+
+   - *corrcomb='stokes'* => combine the parallel hand correlations to formally
+     form Stokes I visibilities, respecting the (possibly different) relative 
+     per-correlation weights and properly propagating then to the result.  
+     This ensures that any source polarization contribution to the parallel hands 
+     is formally cancelled.  When the weights are not equal, the net sensitivity 
+     gain will be less than sqrt(2).  In the limit that one correlation is flagged 
+     (i.e., its weight it effectively zero), Stokes I cannot formally be formed, 
+     and the visibility will be flagged.
+
+   - *corrcomb='parallel'* => combine the parallel-hand correlations in a simple
+     weighted average.   This will optimize the combined sensitivity (as much as sqrt(2)
+     improvement when the weights are equal), but assumes that there is no source 
+     polarization contribution to either correlation that will fail to cancel in the 
+     combination.   It is usually desirable to use *corrdepflags=True* when using
+     *corrcomb='parallel'*, to avoid excessive flagging of solutions.  This is critical
+     when fringe-fitting VLBI arrays which include a subset of single-polarization
+     antennas.
+
+   The default, *corrcomb='none'*, means that the parallel-hand correlations will not
+   be combined for *fringefit* solving, and per-polarization solutions will be obtained.
+
 
 .. _Examples:
 

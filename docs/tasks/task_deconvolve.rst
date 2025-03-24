@@ -426,6 +426,3 @@ Development
              results for hogbom, evaluate deconvolve with 19 and 9x2 iterations, instead of 20 and
              10x2 iterations as in these examples
              (i.e. deconvolve(niter=19) = deconvolve(9)+deconvolve(9) to get 20 iterations in total).
-
-   .. warning:: The asp deconvolver is not currently considered reliable when used with task
-                deconvolve and is therefore disabled. Please use a different deconvolver.
