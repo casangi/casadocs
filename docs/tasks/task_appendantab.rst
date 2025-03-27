@@ -24,7 +24,7 @@ to the ms.
 
 *overwrite*
 
-   If True then the task will overwrite existing values with the corresponding values if they are present in the antab
+   If True then the task will overwrite existing values in the GAIN_CURVE and SYSCAL tables if overlapping data is present in the antab file. Data in the antab file that does not overlap with a value in existing tables will be appended as normal.
 
 *append_tsys*
 
