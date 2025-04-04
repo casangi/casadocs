@@ -20,7 +20,7 @@ Description
    .. warning:: **Alert:** When both the *region* parameter and any of
       *box*/*chans*/*stokes* are specified simultaneously, the task
       may perform unwanted selections, so this should be avoided. See
-      this chapter on region files
+      `this chapter <../../notebooks/image_analysis.html#Region-Files>`__ on region files
       for more information.
    
    For directed output, run as:
