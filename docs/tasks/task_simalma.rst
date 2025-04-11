@@ -4,7 +4,7 @@
 
 Description
    This task simulates ALMA observation including 12-m, ACA 7-m and
-   total power arrays, and images and analyzes simulated data.
+   total power arrays, and images and analyzes simulated data. 
    
    This task makes multiple calls to **simobserve** (to calculate
    visibilities and total power spectra), followed by gridding of
@@ -32,6 +32,12 @@ Description
       combining the three types of data. If that best practice is
       changed after this release of CASA, the user can control the
       process by modifying the calls to the other CASA tasks.
+
+
+   .. warning:: **WARNING**: The simalma/simanalyze tasks do not support
+      wideband multi-term imaging. Please use tclean (with other image
+      analysis tasks) if your simulated MS from simobserve requires
+      wideband continuum image reconstruction.
 
    .. rubric:: Parameter descriptions
    

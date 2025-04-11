@@ -1,8 +1,17 @@
 
 
+.. _Returns:
+
+Returns
+   fluxd (dict) - flux densities indexed by field and SPW
+
+
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for setjy.
+   
    The **setjy** task sets the model visibility amplitude and phase
    associated with a flux density scale and a specified clean
    components image into the model column of the MS data set. The
@@ -459,9 +468,7 @@ Examples
    Note that if there is no 3C48_X.im in the current directory, setjy
    looks for it in the default model data image directory.
    
-   An example for a Solar System object as a flux calibrator using
-   using data from `the M99 tutorial <http://casaguides.nrao.edu/index.php?title=CARMA_spectral_line_mosaic_M99>`_
-   in CASA Guides:
+   An example for a Solar System object as a flux calibrator:
    
    ::
    

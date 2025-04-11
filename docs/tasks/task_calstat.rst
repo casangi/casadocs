@@ -1,5 +1,12 @@
 
 
+.. _Returns:
+
+Returns
+   stats (dict) - statistics from a given column in a calibration
+   table
+
+
 .. _Description:
 
 Description

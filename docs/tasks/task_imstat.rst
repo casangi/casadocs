@@ -1,8 +1,17 @@
 
 
+.. _Returns:
+
+Returns
+   stats (dict) - image statistics computed over given axes
+
+
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for imstat.
+   
    Many parameters are determined from the specified region of an
    image. The region can be specified by a set of rectangular pixel
    coordinates, the channel ranges and the
@@ -11,7 +20,7 @@ Description
    .. warning:: **Alert:** When both the *region* parameter and any of
       *box*/*chans*/*stokes* are specified simultaneously, the task
       may perform unwanted selections, so this should be avoided. See
-      this chapter on region files
+      `this chapter <../../notebooks/image_analysis.html#Region-Files>`__ on region files
       for more information.
    
    For directed output, run as:

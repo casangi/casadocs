@@ -3,6 +3,9 @@
 .. _Description:
 
 Description
+
+   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for simanalyze.
+   
    This task is for imaging and analyzing MeasurementSets (MSs)
    simulated with **simobserve** or **simalma**.
    
@@ -30,7 +33,7 @@ Description
       and input, and the fidelity image. Different diagnostic images
       can be chosen to plot on a multi-panel figure, with the
       different show parameters. That figure can be saved as a .png
-      file if *graphics='both'* or *graphics='file'*.
+      file if *graphics='both'* or *graphics='file'*. 
    
    The output is a synthesized image, a difference image between the
    synthesized image and your sky model convolved with the output
@@ -89,6 +92,10 @@ Description
       -  [project].[cfg].simanalyze.last = saved input parameters for
          **simanalyze** task, available in CASAshell
 
+   .. warning:: **WARNING**: The simalma/simanalyze tasks do not support
+      wideband multi-term imaging. Please use tclean (with other image
+      analysis tasks) if your simulated MS from simobserve requires
+      wideband continuum image reconstruction.
    
    .. rubric:: Parameter descriptions
    
@@ -255,7 +262,7 @@ Description
    *featherimage*
    
    Sometimes it is preferable to grid the single dish MS using the
-   **sdimaging** task for more control. In that case, the user can
+   **tsdimaging** task for more control. In that case, the user can
    input the resulting single dish imaging under *featherimage*, only
    put interferometric MSs in *vis*, and **simanalyze** will clean
    the interferometric and feather with the *featherimage*.
@@ -368,8 +375,7 @@ Description
 .. _Examples:
 
 Examples
-   This example was taken from the simulation CASAguide located
-   `here <https://casaguides.nrao.edu/index.php/Simulation_Guide_Component_Lists_(CASA_5.1)>`__.
+   This example was taken from the Simulation `CASA Guide <https://casaguides.nrao.edu>`__ entitled 'Simulation Guide Component Lists'.
    
    ::
    

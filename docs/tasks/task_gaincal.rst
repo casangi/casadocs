@@ -1,5 +1,14 @@
 
 
+.. _Returns:
+
+Returns
+   out (dict) - statistics of the solutions found, grouped by SPW and
+   antenna, including solutions expected, above *minblperant*, and
+   above *minsnr*, as well as what antennas were used as reference.
+   Also gives information on data selection and calibration tables used.
+
+
 .. _Description:
 
 Description
@@ -163,7 +172,7 @@ Description
    
    With *gaintype='KCROSS',* **gaincal** solves for a global
    cross-hand delay. This is used only when doing polarimetry. Use
-   *parang=T* to apply prior gain and bandpass solutions. This mode
+   *parang=True* to apply prior gain and bandpass solutions (only works when all four polarization products are available in the data). This mode
    assumes that all cross-hand data (per spw) share the same
    cross-hand delay residual, which should be the case for a proper
    gain/bandpass calibration. See sections on polarimetry for more
