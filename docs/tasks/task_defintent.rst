@@ -22,7 +22,9 @@ Description
    
 *mode*
    
-   mode ‘set’ will replace the selected data with the provided intents; mode ‘append’ will add the new intent selection to the existing selected data intents
+   mode ‘set’ will replace the selected data with the provided intents. A new intent will be added that matches the input intent parameter name
+   
+   mode ‘append’ will replace the intent of the selected data with a new intent that is the provided intent parameter appended to the old intents for that data selection. i.e. if the data previously had the intent 'OBSERVE_TARGET#ON_SOURCE' and mode append was used with intent='NEW_INTENT' the new intent for the data selection would be: 'OBSERVE_TARGET#ON_SOURCE,NEW_INTENT'
    
 *outputvis*
    
@@ -49,6 +51,15 @@ Examples
    
       defintent(vis='gaincaltest2.ms', intent='AMPLI', mode='set',
        outputvis='outputcopy.ms', scan='0~3', field='0', obsid='0')
+
+   An append case with a string of multiple intents would look like this:
+
+   ::
+
+      defintent(vis='twhya.short.ms',intent='OBSERVE_TARGET#ON_SOURCE,AMPLI,PHASE',mode='append',
+         outputvis='twhya_out_append.ms',scan='',field='0',obsid='' )
+
+   The expected format of the intent string with multiple intents is a string with the seperate intents deliniated only by a comma
 
 .. _Development:
 
