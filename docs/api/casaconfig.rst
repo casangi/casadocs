@@ -4,6 +4,17 @@ casaconfig
 Routines for handling the runtime configuration and external data dependencies in CASA. These functions are needed to manipulate the runtime data
 necessary for proper CASA operation.
 
+**Note:** The ftp server for measures tarballs at Astron is deprecated. A patched version of casaconfig is available that uses the preferred URL
+to retrieve the same tarballs (also hosted by Astron). This API is for that version of casaconfig (1.1.1), not the casaconfig distributed with
+this version of CASA. To install casaconfig 1.1.1 in an existing installation of CASA use the pip3 distributed with that installation of CASA:
+
+::
+
+    <path_to_casa_installation>/bin/pip3 install casaconfig==1.1.1
+
+This casaconfig patch can be used with all CASA versions that use casaconfig before CASA 6.7.2 (from CASA 6.6.4 through 6.7.1).
+
+
 .. automodsumm:: casaconfig
    :toctree: tt
    :nosignatures:
