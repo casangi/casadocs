@@ -15,7 +15,6 @@ this version of CASA. To install casaconfig 1.1.1 in an existing installation of
 This casaconfig patch can be used with CASA versions 6.6.4, 6.6.5, and 6.7.0. CASA versions before 6.6.4 did not use casaconfig and all other
 versions not mentioned here are built with an appropriate casaconfig that does not use the Astron ftp server.
 
-
 .. automodsumm:: casaconfig
    :toctree: tt
    :nosignatures:
