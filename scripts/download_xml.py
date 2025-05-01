@@ -46,7 +46,7 @@ if os.path.exists('../casaconfig'): os.system('rm -fr ../casaconfig')
 os.system('mkdir ../casaconfig')
 
 print('Downloading casaconfig package')
-os.system('pip download --no-dependencies -d ../casaconfig casaconfig')
+os.system('pip download --no-dependencies --no-binary :all: -d ../casaconfig casaconfig==1.1.1')
 os.system('tar -xf ../casaconfig/casaconfig* --directory ../casaconfig/')
 os.system('mv ../casaconfig/casaconfig*/casaconfig/*.py ../casaconfig/.')
 os.system('mv ../casaconfig/casaconfig*/casaconfig/private ../casaconfig/.')
