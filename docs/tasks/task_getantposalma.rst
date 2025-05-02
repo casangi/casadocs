@@ -35,9 +35,17 @@ are required, specified as a comma separated pair. Times are UTC and are
 expressed in YY-MM-DDThh:mm:ss.sss format. The end time must be later than
 the begin time.
 
-snr is an optional parameter. It is the signal-to-noise ratio. Antenna
+snr is an optional parameter. If changed from the default value "default", 
+it must be a nonnegative number representing the signal-to-noise ratio. Antenna
 positions which have corrections less than this value will not be written.
-If not specified, positions of all antennas will be written.
+Setting to 0 will result in all antenna positions being returned. If not
+specified (ie if the parameter is set to the default value of "default"),
+the default snr as defined by the web service will be used.
+The server side default value may change over time as determined by the server
+side (non-CASA) team. As of this writing (March 2025), the web service team has
+not provided publicly facing documentation on the details of how the default
+value is chosen. The most recent information they have provided to us is that
+the default value is 5.0.
 
 tw and search are optional parameters and are coupled as follows. search
 indicates the search algorithm to use to find the desired antenna positions.
