@@ -128,7 +128,7 @@ terminado==0.18.1
 testpath==0.6.0
 tinycss2==1.2.1
 tomli==2.2.1
-tornado==6.4.2
+tornado==6.5.1
 traitlets==5.14.3
 typed-ast==1.5.5
 types-python-dateutil==2.9.0.20241206
