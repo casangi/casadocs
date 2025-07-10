@@ -173,24 +173,33 @@ Description
    There are two feathering implementations from which users can choose. The CASA
    implementation is the default implementation used. It was implemented many years
    ago. The newer method is implmeneted in the astroviper python package. It supports
-   multithreading and is faster than the CASA implementation, in some cases at least 
+   multithreading via the dask package and is normally faster than the CASA
+   implementation, in some cases at least 
    (the details of CASA to astroviper performance comparisons are not yet well
-   determine eg, using various image sizes, various hardware configurations, etc).
+   determined eg, using various image sizes, various hardware configurations, etc).
    While qualitative agreement between output images from the two implementations
    can be expected, the two implementations are not identical, and so quantitative
    results will likely differ.
+   Which implementation is used is determined by the *method* parameter. If set to
+   "casa" (the default), the CASA implementation is used. If set to "astroviper",
+   the astroviper implementation is used.
 
    The astroviper package is not included as part of the standard CASA distribution,
-   so users must install it and its dependencies separately. Running
+   so users must install it and its dependencies separately if they wish to run
+   this version of feather. Running
 
    ``pip install astroviper``
 
-   should suffice. Additional information on astroviper can be found at 
+   should suffice. This package and its dependencies require version 3.11, 3.12,
+   3.13, or 3.14 of
+   python. Additional information on astroviper can be found at 
    https://github.com/casangi/astroviper. In order for astroviper to be used, the
    package and its requirments must be included, implicitly or explicitly, in the
    user environment's python path. This can be done by setting the
-   *PYTHONPATH* environment explicitly before starting the python shell. It is most
-   commonly done by setting this variable on the command line that starts the python
+   *PYTHONPATH* environment explicitly before starting the python shell, or by using
+   a virtual python environment, either via venv or conda. If the environment variable
+   route is chosen, the most
+   common process is to set this variable on the command line that starts the python
    shell. For example, if the astroviper package is installed in the directory
    /home/user/astroviper, then the following command can be used to start the python
    shell:
@@ -203,10 +212,18 @@ Description
 
    ``PYTHONPATH=/home/user/astroviper:/home/user/casa python``
 
+   Note that because of an unresolved issue, which may result from the collision
+   beteween CASA and astroviper libraries, feather will launch a subprocess in
+   which to run feather. In general this shouldn't be noticed by most users.
+   However, this constaint means that, if the user launches a dask client prior
+   to calling feather (e.g. via toolviper.dask.local_client()), this client
+   will not be used by the subprocess that launches astroviper feather because
+   a dask client is tied to the process in which it was started. The launched
+   subprocess in which astroviper feather is run will always create its own
+   client, configured via the ncores and maxmem feather input parameters.
 
-   Which implementation is used is determined by the *method* parameter. If set to
-   "casa", the CASA implementation is used. If set to "astroviper", the astroviper
-   implementation is used. The default is "casa". Some other input parameters, such
+
+   Some other input parameters, such
    as *imagename* (the output image name), *highres* (the high
    resolution/interferometer image name), *lowres* (the low resolution/single dish
    image name), and *sdfactor* (the factor by which to scale the single dish image
