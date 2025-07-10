@@ -2,6 +2,7 @@
 # download the xml and/or source code for all the various casa packages
 ##########################################################################
 import requests
+import subprocess
 import re
 import os
 import git
@@ -13,6 +14,8 @@ with open('branch_name.txt', 'r') as fid:
 # if this is a release branch, we need to look in the release folder
 if len(re.findall('v\d\.', branch_name)) > 0:
     branch_name = 'release/' + branch_name[1:]
+
+casadocs_branch_name = branch_name
 
 # see if this branch_name exists in the code repo
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casatasks/xml?at=refs/heads/%s"%branch_name).text
@@ -40,17 +43,24 @@ repo = git.Repo.clone_from('https://open-bitbucket.nrao.edu/scm/casa/casa6.git',
 
 
 ##################################################################################
-# for casaconfig, download the pip package instead of cloning
+# for casaconfig, using a limited clone with blob:none to avoid large
+# sizes due to long-deleted data directory
 ##################################################################################
 if os.path.exists('../casaconfig'): os.system('rm -fr ../casaconfig')
 os.system('mkdir ../casaconfig')
-
-print('Downloading casaconfig package')
-os.system('pip download --no-dependencies -d ../casaconfig casaconfig')
-os.system('tar -xf ../casaconfig/casaconfig* --directory ../casaconfig/')
-os.system('mv ../casaconfig/casaconfig*/casaconfig/*.py ../casaconfig/.')
-os.system('mv ../casaconfig/casaconfig*/casaconfig/private ../casaconfig/.')
-os.system('rm -fr ../casaconfig/casaconfig*')
+# see if this casadocs branch exists for casaconfig, else use master
+print("looking for casaconfig branch %s" % casadocs_branch_name)
+cmd = 'git ls-remote --heads https://github.com/casangi/casaconfig.git %s | wc -l' % casadocs_branch_name
+proc = subprocess.Popen(cmd,stdout=subprocess.PIPE, shell=True)
+out = proc.stdout.read()
+print("cmd out is %s" % out)
+casaconfig_branch_name = casadocs_branch_name if (int(out)==1) else 'master'
+print('Limited clone of casaconfig for %s branch' % casaconfig_branch_name)
+repo = git.Repo.clone_from('https://github.com/casangi/casaconfig.git', '../casaconfig/casaconfig-%s' % casaconfig_branch_name, filter='blob:none', branch=casaconfig_branch_name)
+# rearrange things to where the rest of the the casadocs build expects to find them
+os.system('mv ../casaconfig/casaconfig-*/casaconfig/*.py ../casaconfig/.')
+os.system('mv ../casaconfig/casaconfig-*/casaconfig/private ../casaconfig/.')
+os.system('rm -fr ../casaconfig/casaconfig-*')
 # copy file to be used showing the defaults
 os.system('cp ../casaconfig/private/config_defaults_static.py .')
 

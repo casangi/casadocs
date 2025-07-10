@@ -35,4 +35,5 @@ CASA is being developed by an international consortium of scientists and softwar
    examples/index
    notebooks/frequently-asked-questions
    notebooks/citing-casa
+   notebooks/contact
    changelog
