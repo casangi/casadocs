@@ -67,25 +67,30 @@ Use the **get_config()** function to get a list of strings showing the configura
 **Note:** all path configuration values are expanded using expanduser and abspath.
 
 The following parameters can be set in a configuration file. Many of these
-parameters can be set or ignored through the casashell command line options. The default values are also shown here.
+parameters can be set or ignored through the casashell command line options. The default values are also shown here. 
 
-- *datapath*              : list of paths where CASA should search for data subdirectories. Default [*measurespath*].
-- *measurespath*          : location of required measures data, takes precedence over any measures data also present in datapath. Default "~/.casa/data".
-- *measures_auto_update*  : when True, casatools uses **measures_update()** to update the measures data as necessary when casatools starts. See **measures_update()** for additional details. Default True.
-- *data_auto_update*      : when True, casatools uses **data_update()** followed by **measures_update()** to update the reference **AND** measures data. See **data_update()** and **measures_update()** for additional details. Default True.
-- *startupfile*           : path to a python script used at startup by casashell when present. Default "~/.casa/startup.py".
-- *cachedir*              : location of the directory where ipython writes information (history, etc), also the location of the rc file used by the casaviewer. Default "~/.casa".
-- *logfile*               : log file path/name. Default "casa-yyyymmdd-hhmmss.log". Note that this default value is set using gmtime() from the time module on import of config.
-- *nologfile*             : do not create a log file when True, default False. If *nologfile* is True, then any *logfile* value is ignored and there is no log file.
-- *log2term*              : print log output to terminal when True (in addition to any logfile and CASA logger), default False.
-- *nologger*              : do not start the CASA logger GUI when True, default False.
-- *nogui*                 : avoid starting GUI tools when True, default False. If *nogui* is True then the CASA logger is not started even if *nologger* is False.
-- *colors*                : the IPython prompt color scheme. Must be one of "Neutral", "NoColor", "Linux" or "LightBG", default "Neutral". If an invalid color is given a warning message is shown but CASA continues using the default color.
-- *agg*                   : startup without a graphical backend if True, default False.
-- *pipeline*              : attempt to load the pipeline modules and set other options appropriate for pipeline use if True, default False. When *pipeline* is True then *agg* will be assumed to be True even if *agg* is set to False here or on the command line.
-- *iplog*                 : create and use an IPython log if True, default False.
-- *iplogfile*             : IPython log file path/name, used only when iplog is True. Default "ipython-yyyymmdd-hhmmss.log". Note that this default value is set using gmtime() from the time module on import of config.
-- *user_site*             : include the user's local site-packages in the python path if True. Normally these should be excluded to avoid potential conflicts with CASA modules. Default False.
+- *datapath*                 : list of paths where CASA should search for data subdirectories. Default [*measurespath*].
+- *measurespath*             : location of required measures data, takes precedence over any measures data also present in datapath. Default "~/.casa/data".
+- "measures_site"            : a URL or list of URLs to use for measures tar files. See measures_available for more detail. Default ["https://www.astron.nl/iers/", "https://go.nrao.edu/iers/"]
+- *measures_auto_update*     : when True, casatools uses **measures_update()** to update the measures data as necessary when casatools starts. See **measures_update()** for additional details. Default True.
+- *data_auto_update*         : when True, casatools uses **data_update()** followed by **measures_update()** to update the reference **AND** measures data. See **data_update()** and **measures_update()** for additional details. Default True.
+- "measures_update_interval" : the interval, in days, that an installed measures data is considered to be recent and not updated. Default 1.
+- "data_update_interval"     : the interval, in days, that an installed casarundata is considered to be recent and not updated. Default 1.
+- "measures_site_interval"   : a measures site is considered out of date if the newest tar file is older than this value, in days. Default 2.
+- *startupfile*              : path to a python script used at startup by casashell when present. Default "~/.casa/startup.py".
+- *cachedir*                 : location of the directory where ipython writes information (history, etc), also the location of the rc file used by the casaviewer. Default "~/.casa".
+- *logfile*                  : log file path/name. Default "casa-yyyymmdd-hhmmss.log". Note that this default value is set using gmtime() from the time module on import of config.
+- *nologfile*                : do not create a log file when True, default False. If *nologfile* is True, then any *logfile* value is ignored and there is no log file.
+- *log2term*                 : print log output to terminal when True (in addition to any logfile and CASA logger), default False.
+- *nologger*                 : do not start the CASA logger GUI when True, default False.
+- *nogui*                    : avoid starting GUI tools when True, default False. If *nogui* is True then the CASA logger is not started even if *nologger* is False.
+- *colors*                   : the IPython prompt color scheme. Must be one of "Neutral", "NoColor", "Linux" or "LightBG", default "Neutral". If an invalid color is given a warning message is shown but CASA continues using the default color.
+- *agg*                      : startup without a graphical backend if True, default False.
+- *pipeline*                 : attempt to load the pipeline modules and set other options appropriate for pipeline use if True, default False. When *pipeline* is True then *agg* will be assumed to be True even if *agg* is set to False here or on the command line.
+- *iplog*                    : create and use an IPython log if True, default False.
+- *iplogfile*                : IPython log file path/name, used only when iplog is True. Default "ipython-yyyymmdd-hhmmss.log". Note that this default value is set using gmtime() from the time module on import of config.
+- *user_site*                : include the user's local site-packages in the python path if True. Normally these should be excluded to avoid potential conflicts with CASA modules. Default False.
+- "casaconfig_verbose"       : verbosity level for casaconfig, 0 is None, 1 is logger, 2 is logger and print. error messages are always logged and printed. Default 1.
 
 **Note:** The auto update parameters are used during casatools initialization. 
 
@@ -223,7 +228,7 @@ This <CASA_installation_path>/bin/casa executable can be provided the following 
 ::
 
    -h, --help               show this help message and exit
-   --configfile CONFIGFILE  location of the user configuration file
+   --configfile CONFIGFILE  path to the user configuration file
    --noconfig               do not load user configuration file
    --nositeconfig           do not load site configuration file
    --startupfile STARTFILE  path to user's startup file
@@ -234,7 +239,8 @@ This <CASA_installation_path>/bin/casa executable can be provided the following 
    --nologfile              do not create a log file
    --nogui                  avoid starting GUI tools
    --cachedir CACHEDIR      location for internal working files
-   --colors {Neutral,NoColor,Linux,LightBG} prompt color
+   --colors {Neutral,NoColor,Linux,LightBG} 
+                            prompt color
    --pipeline               start CASA pipeline run
    --agg                    startup without graphical backend
    --iplog                  create ipython log
@@ -285,7 +291,7 @@ Note that unlike the auto update rules, measurespath need not already exist befo
 ::
 
    -h, --help                  show this help message and exit
-   --configfile CONFIGFILE     location of the user configuration file
+   --configfile CONFIGFILE     path to the user configuration file
    --noconfig                  do not load user configuration file
    --nositeconfig              do not load site configuration file
    --measurespath MEASUREPATH  location of casarundata
