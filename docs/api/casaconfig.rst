@@ -74,9 +74,9 @@ parameters can be set or ignored through the casashell command line options. The
 - *measures_site*            : a URL or list of URLs to use for measures tar files. See measures_available for more detail. Default ["https://www.astron.nl/iers/", "https://go.nrao.edu/iers/"]
 - *measures_auto_update*     : when True, casatools uses **measures_update()** to update the measures data as necessary when casatools starts. See **measures_update()** for additional details. Default True.
 - *data_auto_update*         : when True, casatools uses **data_update()** followed by **measures_update()** to update the reference **AND** measures data. See **data_update()** and **measures_update()** for additional details. Default True.
-- "measures_update_interval" : the interval, in days, that an installed measures data is considered to be recent and not updated. Default 1.
-- "data_update_interval"     : the interval, in days, that an installed casarundata is considered to be recent and not updated. Default 1.
-- "measures_site_interval"   : a measures site is considered out of date if the newest tar file is older than this value, in days. Default 2.
+- *measures_update_interval* : the interval, in days, that an installed measures data is considered to be recent and not updated. Default 1.
+- *data_update_interval*     : the interval, in days, that an installed casarundata is considered to be recent and not updated. Default 1.
+- *measures_site_interval*   : a measures site is considered out of date if the newest tar file is older than this value, in days. Default 2.
 - *startupfile*              : path to a python script used at startup by casashell when present. Default "~/.casa/startup.py".
 - *cachedir*                 : location of the directory where ipython writes information (history, etc), also the location of the rc file used by the casaviewer. Default "~/.casa".
 - *logfile*                  : log file path/name. Default "casa-yyyymmdd-hhmmss.log". Note that this default value is set using gmtime() from the time module on import of config.
