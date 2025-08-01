@@ -214,13 +214,13 @@ Description
 
    Note that because of an unresolved issue, which may result from the collision
    beteween CASA and astroviper libraries, feather will launch a subprocess in
-   which to run feather. In general this shouldn't be noticed by most users.
-   However, this constaint means that, if the user launches a dask client prior
-   to calling feather (e.g. via toolviper.dask.local_client()), this client
-   will not be used by the subprocess that launches astroviper feather because
-   a dask client is tied to the process in which it was started. The launched
-   subprocess in which astroviper feather is run will always create its own
-   client, configured via the ncores and maxmem feather input parameters.
+   which to run the astroviper version. In general this shouldn't be noticed by
+   most users. However, this constaint means that, if the user launches a dask
+   client prior to calling feather (e.g. via toolviper.dask.local_client()),
+   this client will not be used by the subprocess that launches astroviper
+   feather because a dask client is tied to the process in which it was started.
+   The launched subprocess in which astroviper feather is run will always create
+   its own client, configured via the ncores and maxmem feather input parameters.
 
 
    Some other input parameters, such
