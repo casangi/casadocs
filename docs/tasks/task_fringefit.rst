@@ -199,22 +199,6 @@ Description
    coherence of the spectral windows by applying a 'manual phase cal' 
    solution from a strong source scan; electronic stability among spws 
    is also required.
-
-   .. rubric:: Correlation combination: *corrcomb*
-
-   To improve fringefit sensitivity when the observed correlations are 
-   coherent, *corrcomb='all'* may be specified to trigger a single 
-   solution shared by both polarizations. If the residual calibration 
-   phase is dominated by unpolarized atmospheric path-length changes, 
-   this is a viable approach (cf *gaintype='T'* in **gaincal**). The default, 
-   *corrcomb='none'*, triggers separate solutions for each polarization. 
-   Polarization coherence should be ensured by (a) applying a 'manual 
-   phase cal' solution from a strong source scan, and (b) using 
-   *parang=True* (for VLBI arrays with time-dependent differential 
-   parallactic angle variation among antennas) in **fringefit** and all 
-   prior calibration solves. NB: If *corrdepflags=True*, *corrcomb='all'* 
-   will currently flag data to any antennas which have only one 
-   polarization available.
    
    .. rubric:: Select active parameters for least square solver: *paramactive*
    
