@@ -222,6 +222,10 @@ Description
 
    ``PYTHONPATH=/home/user/astroviper:/home/user/casa python``
 
+   The 0.0.18 version of astroviper was used for casa6 development. Previous versions
+   will likely not work. Later versions of astroviper are expected to work. Users
+   who come across issues should please contact the CASA team through normal channels.
+
    Note that because of an unresolved issue, which may result from the collision
    beteween CASA and astroviper libraries, feather will launch a subprocess in
    which to run the astroviper version. In general this shouldn't be noticed by
@@ -231,6 +235,9 @@ Description
    feather because a dask client is tied to the process in which it was started.
    The launched subprocess in which astroviper feather is run will always create
    its own client, configured via the ncores and maxmem feather input parameters.
+   Also note that importing parts of astroviper and parts of casatasks/casatools
+   in the same python process may result in the python process crashing. So, the
+   user should take care if trying to do this.
 
 
    Some other input parameters, such
