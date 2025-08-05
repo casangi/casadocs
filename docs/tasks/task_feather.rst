@@ -130,7 +130,17 @@ Description
                 {(1-w_{\nu, p}) + Sw_{\nu, p}}
         \right]
 
-   The output image will have an identical resolution to the high resolution image.
+   The restoring beam for the output image will match that of the high resolution
+   image. Note that the high resolution beam may not be truly representative of
+   the output image. A more accurate beam size may be obtained by running feather
+   on the high resolution image PSF with a gaussian representing the resolution of
+   the low resolution image and fit a gaussian to the resulting image. For fitting
+   one may use
+
+   .. code-block:: python
+
+        synu = synthesisutils()
+        synu.fitPsfBeam(feathered_psf_imagename)
 
    More information about **feather** can be found in the `Image
    Combination <../../notebooks/image_combination.ipynb#Feather-&-CASAfeather>`__
