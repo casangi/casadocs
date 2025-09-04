@@ -193,8 +193,8 @@ There are a few syntax/compilation things to keep in mind when editing the docum
 
 The .xml files for task parameters only support a small number of HTML escape codes, which
 get interpreted by the xml interpreter before ever getting to the restructuredtext
-interpreter (following the [xml definition|https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references#Predefined_entities_in_XML]).
-The list of unescaped characters is: <>&'"
+interpreter (following the [xml definition](https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references#Predefined_entities_in_XML)).
+The list of unescaped characters is: `<`, `>`, `&`, `'`, `"`
 
 #### Notebooks
 
