@@ -22,7 +22,7 @@ CASA 6.6.6 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`_
 - getantposalma: default value of snr changed to the one used by the web service.
 - plotbandpass: support of band-to-band calibration.
 - plotbandpass: plotting of hsd_skycal solutions.
-- plotbandpass: added features similar of the corresponding analysisUtils version.
+- plotbandpass: added features similar to the corresponding analysisUtils version.
 
 In addition, a number of bugs were fixed.
 
