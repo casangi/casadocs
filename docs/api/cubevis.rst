@@ -18,7 +18,7 @@ For all other API parameters please reference the `tclean API`_.
 
 .. _tclean API: ../api/tt/casatasks.imaging.tclean.html
 
-For a detailed description of the interactive clean GUI please reference the `Interactive Clean` page.
+For a detailed description of the interactive clean GUI please reference the `Interactive Clean`_ page.
 
 .. _Interactive Clean: ../notebooks/interactive_clean.html
 
