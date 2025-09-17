@@ -1,7 +1,7 @@
 cubevis
 ====================
 
-Cubevis is a casangi package containing visualization tools for CASA images.
+Cubevis is a casangi package containing visualization tools for CASA images and image cubes.
 This package relies on the CASA data processing system as the processing backend while providing control and visualization using Bokeh.
 
 
@@ -14,8 +14,13 @@ The iclean task is designed to use the same API parameters as tclean, with only 
 interactive : this parameter does not exist in iclean and interactive mode is always on
 fullsummary :  this parameter does not exist in iclean and fullsummary is always set to True when iclean makes calls to tclean and deconvolve
 
-For all other API parameters please reference the [tclean API](../api/tt/casatasks.imaging.tclean.html).
+For all other API parameters please reference the `tclean API`_.
 
-For a detailed description of the interactive clean GUI please reference the [Interactive Clean page](../notebooks/interactive_clean.html).
+.. _tclean API: ../api/tt/casatasks.imaging.tclean.html
+
+For a detailed description of the interactive clean GUI please reference the `Interactive Clean` page.
+
+.. _Interactive Clean: ../notebooks/interactive_clean.html
+
 
 **Note** notes here
