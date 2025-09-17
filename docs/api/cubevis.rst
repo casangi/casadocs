@@ -4,10 +4,6 @@ cubevis
 Cubevis is a casangi package containing visualization tools for CASA images.
 This package relies on the CASA data processing system as the processing backend while providing control and visualization using Bokeh.
 
-.. automodsumm:: cubevis
-   :toctree: tt
-   :nosignatures:
-   :functions-only:
 
 iclean
 ^^^^^^^^^
