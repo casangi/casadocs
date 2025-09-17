@@ -14,3 +14,4 @@ This section is verified prior to each release
    api/casatasks
    api/casatools
    api/casaviewer
+   api/cubevis
