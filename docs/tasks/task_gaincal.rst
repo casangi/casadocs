@@ -208,8 +208,7 @@ Description
    
    .. rubric:: Robust solving:  *solmode, rmsthresh*
    
-   .. warning:: Robust solving modes in gaincal are considered experimental in
-      CASA 5.5.  With more experience and testing in the coming
+   .. warning:: Robust solving modes in gaincal are considered experimental.  With more experience and testing in the coming
       development cycles, we will provide more refined advice for use
       of these options.
    
