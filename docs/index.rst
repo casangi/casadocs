@@ -6,7 +6,7 @@ Software Applications*, is the primary data processing software
 for the Atacama Large Millimeter/submillimeter Array
 (`ALMA <https://public.nrao.edu/telescopes/alma/>`__) and Karl G.
 Jansky Very Large Array
-(`VLA <https://public.nrao.edu/venue/the-very-large-array/>`__),
+(`VLA <https://public.nrao.edu/telescopes/vla/>`__),
 and is often used also for other radio telescopes.
 
 6.7 Development Build
