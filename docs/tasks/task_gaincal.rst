@@ -214,7 +214,7 @@ Description
    
    Nominally (*solmode=''*), gaincal performs an iterative,
    steepest-descent chi-squared minimization for its antenna-based
-   gain solution, i.e., minimizaiton of the L2 norm.  Visibility
+   gain solution, i.e., minimization of the L2 norm.  Visibility
    outliers (i.e., data not strictly consistent with the assumption
    of antenna-based gains and the supplied visibility model within
    the available SNR) can significantly distort the chi-squared
