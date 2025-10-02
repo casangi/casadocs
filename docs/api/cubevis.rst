@@ -34,4 +34,3 @@ For a detailed description of the interactive clean GUI please reference the `In
 .. _Interactive Clean: ../notebooks/interactive_clean.html
 
 
-**Note** notes here
