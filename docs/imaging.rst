@@ -13,6 +13,7 @@ and subsequent image manipulation and analysis routines.
    notebooks/image_analysis
    notebooks/image_visualization
    notebooks/viewer_end_of_life
+   notebooks/interactive_clean
 
 
 
