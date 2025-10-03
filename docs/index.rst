@@ -24,8 +24,9 @@ CASA 6.7.2 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`_
 - feather/sdintimaging: support added for per-plane beams in feather. 
 - importfitsidi: now labels source positions in the ICRS reference frame (VLBI).
 - atmosphere: ATM (atmosphere) library updated to ALMA Cycle 12. 
-= casaconfig: new options and updates available. 
+- casaconfig: new options and updates available. 
 - import/export: “Beam Waveguide” antennas (ALT-AZ+BWG-R / ALT-AZ+BWG-L mount types) now experimentally supported.
+- config files: the configuration files for ngVLA version Rev.F and ALMA Cycle 12 have been added.
 
 In addition, a large number of bugs were fixed.
 
