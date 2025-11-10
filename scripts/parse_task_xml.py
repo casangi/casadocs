@@ -124,14 +124,12 @@ for task in os.listdir('../casasource/casaviewer'):
     td = parse_xml(xmlstring)
     if td is not None: viewerlist += [td]
 
-### Temporary (I hope)
+# casa5 source tree removed by CAS-14179
+# casatablebrowser has its own wheel for which the casalith repository has a task wrapper:
+# casalith/build-casalith/src/module/private/task_browsetable.py
+# msuvbin is under casa6/casatasks and no longer a special case
 if os.path.exists('../casalith'): os.system('rm -fr ../casalith')
 os.system('mkdir ../casalith')
-for task in ['browsetable.xml', 'msuvbin.xml']:
-    with open('../casasource/casa6/casa5/gcwrap/tasks/' + task, 'r') as fid:
-        xmlstring = fid.read()
-    td = parse_xml(xmlstring)
-    if td is not None: lithlist += [td]
 
 
 
