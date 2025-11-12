@@ -100,14 +100,6 @@ for task in os.listdir('../casasource/casa6/casatasks/xml'):
     td = parse_xml(xmlstring)
     if td is not None: tasklist += [td]
 
-if os.path.exists('../almatasks'): os.system('rm -fr ../almatasks')
-os.system('mkdir ../almatasks')
-for task in os.listdir('../casasource/almatasks'):
-    with open('../casasource/almatasks/' + task, 'r') as fid:
-        xmlstring = fid.read()
-    td = parse_xml(xmlstring)
-    if td is not None: almalist += [td]
-
 if os.path.exists('../casaplotms'): os.system('rm -fr ../casaplotms')
 os.system('mkdir ../casaplotms')
 for task in os.listdir('../casasource/casaplotms'):
