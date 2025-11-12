@@ -12,14 +12,14 @@ with open('branch_name.txt', 'r') as fid:
     branch_name = [ll for ll in fid.readlines() if ll.startswith('*')][0].strip().split('/')[-1].split(' ')[-1].replace(')','')
 
 # if this is a release branch, we need to look in the release folder
-if len(re.findall('v\d\.', branch_name)) > 0:
+if len(re.findall(r'v\d\.', branch_name)) > 0:
     branch_name = 'release/' + branch_name[1:]
 
 casadocs_branch_name = branch_name
 
 # see if this branch_name exists in the code repo
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casatasks/xml?at=refs/heads/%s"%branch_name).text
-tasknames = list(set(re.findall("\w+.xml", xmlstring)))
+tasknames = list(set(re.findall(r"\w+.xml", xmlstring)))
 if len(tasknames) == 0:
     # this could be a tag (like a stable build) instead of a real branch, try to resolve the hash and see
     os.system('git name-rev %s > branch_tag.txt' % branch_name)
@@ -29,7 +29,7 @@ if len(tasknames) == 0:
             branch_name = 'release/' + tag.split('\n')[0].strip().split('/')[-1].split('-')[0][1:]
 
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa6/browse/casatasks/xml?at=refs/heads/%s" % branch_name).text
-tasknames = list(set(re.findall("\w+.xml", xmlstring)))
+tasknames = list(set(re.findall(r"\w+.xml", xmlstring)))
 if len(tasknames) == 0:
     print('Cant find corresponding code repository, defaulting to master')
     branch_name = 'master'
@@ -71,9 +71,9 @@ os.system('cp ../casaconfig/private/config_defaults_static.py .')
 print('Downloading ALMAtasks...')
 os.system('mkdir ../casasource/almatasks')
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/almatasks/browse/xml?at=refs/heads/%s"%branch_name).text
-package_branch_name = 'master' if len(set(re.findall("\w+\.xml", xmlstring))) == 0 else branch_name
+package_branch_name = 'master' if len(set(re.findall(r"\w+\.xml", xmlstring))) == 0 else branch_name
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/almatasks/browse/xml?at=refs/heads/%s"%package_branch_name).text
-for name in set(re.findall("\w+\.xml", xmlstring)):
+for name in set(re.findall(r"\w+\.xml", xmlstring)):
     xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/almatasks/raw/xml/%s"%name+'?at=refs/heads/%s'%package_branch_name).text
     with open('../casasource/almatasks/'+name, 'w') as fid:
         fid.write(xmlstring + '\n')
@@ -81,9 +81,9 @@ for name in set(re.findall("\w+\.xml", xmlstring)):
 print('Downloading CASAplotms...')
 os.system('mkdir ../casasource/casaplotms')
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaplotms/browse/src/xml?at=refs/heads/%s"%branch_name).text
-package_branch_name = 'master' if len(set(re.findall("\w+\.xml", xmlstring))) == 0 else branch_name
+package_branch_name = 'master' if len(set(re.findall(r"\w+\.xml", xmlstring))) == 0 else branch_name
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaplotms/browse/src/xml?at=refs/heads/%s"%package_branch_name).text
-for name in set(re.findall("\w+\.xml", xmlstring)):
+for name in set(re.findall(r"\w+\.xml", xmlstring)):
     xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casaplotms/raw/src/xml/%s"%name + '?at=refs/heads/%s'%package_branch_name).text
     with open('../casasource/casaplotms/'+name, 'w') as fid:
         fid.write(xmlstring + '\n')
@@ -91,9 +91,9 @@ for name in set(re.findall("\w+\.xml", xmlstring)):
 print('Downloading CASAviewer...')
 os.system('mkdir ../casasource/casaviewer')
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaviewer/browse/src/xml?at=refs/heads/%s"%branch_name).text
-package_branch_name = 'master' if len(set(re.findall("\w+\.xml", xmlstring))) == 0 else branch_name
+package_branch_name = 'master' if len(set(re.findall(r"\w+\.xml", xmlstring))) == 0 else branch_name
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaviewer/browse/src/xml?at=refs/heads/%s"%package_branch_name).text
-for name in set(re.findall("\w+\.xml", xmlstring)):
+for name in set(re.findall(r"\w+\.xml", xmlstring)):
     xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casaviewer/raw/src/xml/%s"%name + '?at=refs/heads/%s'%package_branch_name).text
     with open('../casasource/casaviewer/'+name, 'w') as fid:
         fid.write(xmlstring + '\n')

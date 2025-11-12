@@ -166,8 +166,8 @@ def render_rst(component, category, text, task):
         os.system('mkdir ../'+component+'/' + category)
 
     # change image links
-    text = re.sub('(\.\. \|.*?\| image:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', text, flags=re.DOTALL)
-    text = re.sub('(\.\. figure:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', text, flags=re.DOTALL)
+    text = re.sub(r'(\.\. \|.*?\| image:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', text, flags=re.DOTALL)
+    text = re.sub(r'(\.\. figure:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', text, flags=re.DOTALL)
 
     # add this task to the __init__.py
     with open('../'+component+'/' + category + '__init__.py', 'a') as fid:
@@ -191,7 +191,7 @@ def render_rst(component, category, text, task):
         if 'shortdescription' in task.keys():
             fid.write(task['shortdescription'] + '\n\n')
         elif 'description' in task.keys():
-            fid.write(re.sub('\s+', ' ', task['description'].strip(), flags=re.DOTALL) + '\n\n')
+            fid.write(re.sub(r'\s+', ' ', task['description'].strip(), flags=re.DOTALL) + '\n\n')
         else:
             fid.write(' \n\n')
 
