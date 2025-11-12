@@ -66,6 +66,10 @@ tasks
 
 A few remaining tasks are found only in the monolithic environment
 
+.. currentmodule:: api.casalith.tasks
+
+.. autofunction:: browsetable
+
 .. automodsumm:: casalith
    :toctree: tt
    :nosignatures:
