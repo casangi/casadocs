@@ -66,7 +66,7 @@ tasks
 
 A few remaining tasks are found only in the monolithic environment
 
-.. currentmodule:: api.casalith.tasks
+.. currentmodule:: casatablebrowser
 
 .. autofunction:: browsetable
 
