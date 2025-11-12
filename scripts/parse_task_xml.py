@@ -119,12 +119,13 @@ for task in os.listdir('../casasource/casaviewer'):
 ### Temporary (I hope)
 if os.path.exists('../casalith'): os.system('rm -fr ../casalith')
 os.system('mkdir ../casalith')
-for task in ['browsetable.xml', 'msuvbin.xml']:
+os.system("cd ../casasource/casa6; git checkout 6.7.3.3; cd -")
+for task in ['browsetable.xml']:
     with open('../casasource/casa6/casa5/gcwrap/tasks/' + task, 'r') as fid:
         xmlstring = fid.read()
     td = parse_xml(xmlstring)
     if td is not None: lithlist += [td]
-
+os.system("cd ../casasource/casa6; git checkout master; cd -")
 
 
 
@@ -226,7 +227,7 @@ def render_rst(component, category, text, task):
 
         # Add long descriptions of each parameter as footnotes at the bottom. For example:
         # .. _paramname:
-        # 
+        #
         # | ``paramname (paramtype=defaultvalue)`` - description line 1
         # |    description line 2...
         fid.write('.. _Details:\n\n')
