@@ -44,6 +44,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.githubpages',
     'sphinx_automodapi.automodapi',
+    'sphinx_automodapi.automodsumm',
     'recommonmark'
 ]
 nbsphinx_allow_errors = True
