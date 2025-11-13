@@ -66,9 +66,7 @@ tasks
 
 A few remaining tasks are found only in the monolithic environment
 
-.. currentmodule:: casatablebrowser
-
-.. autofunction:: browsetable
+.. currentmodule:: casalith
 
 .. automodsumm:: casalith
    :toctree: tt
