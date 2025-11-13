@@ -125,7 +125,7 @@ for task in ['browsetable.xml']:
         xmlstring = fid.read()
     td = parse_xml(xmlstring)
     if td is not None: lithlist += [td]
-os.system("cd ../casasource/casa6; git checkout master; cd -")
+os.system("cd ../casasource/casa6; git checkout -; cd -")
 
 
 
