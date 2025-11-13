@@ -66,8 +66,6 @@ tasks
 
 A few remaining tasks are found only in the monolithic environment
 
-.. currentmodule:: casalith
-
 .. automodsumm:: casalith
    :toctree: tt
    :nosignatures:

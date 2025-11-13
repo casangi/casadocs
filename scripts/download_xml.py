@@ -40,6 +40,8 @@ os.system('mkdir ../casasource')
 # cloning the repo is a bit faster than retrieving each xml file one at a time
 print('Cloning source for %s code branch' % branch_name)
 repo = git.Repo.clone_from('https://open-bitbucket.nrao.edu/scm/casa/casa6.git', '../casasource/casa6', branch=branch_name)
+# browsetable remains a special case, now without maintained XML data
+repo = git.Repo.clone_from("https://open-bitbucket.nrao.edu/scm/casa/casatablebrowser.git", "../casasource/casatablebrowser", branch=branch_name)
 
 
 ##################################################################################
@@ -97,7 +99,3 @@ for name in set(re.findall(r"\w+\.xml", xmlstring)):
     xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/casaviewer/raw/src/xml/%s"%name + '?at=refs/heads/%s'%package_branch_name).text
     with open('../casasource/casaviewer/'+name, 'w') as fid:
         fid.write(xmlstring + '\n')
-
-
-
-

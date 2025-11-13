@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import re
 import os
+import importlib.util
 
 ########################################################
 # this is meant to be run from the docs folder
@@ -125,13 +126,18 @@ for task in os.listdir('../casasource/casaviewer'):
     if td is not None: viewerlist += [td]
 
 # casa5 source tree removed by CAS-14179
-# casatablebrowser has its own wheel for which the casalith repository has a task wrapper:
-# casalith/build-casalith/src/module/private/task_browsetable.py
 # msuvbin is under casa6/casatasks and no longer a special case
 if os.path.exists('../casalith'): os.system('rm -fr ../casalith')
 os.system('mkdir ../casalith')
-
-
+# casatablebrowser has its own wheel for which the casalith repository has a task wrapper:
+# casalith/build-casalith/src/module/private/task_browsetable.py
+os.system("cp ../casasource/casatablebrowser/src/casatablebrowser/ casalith")
+os.system("cp casalith/__casatablebrowser.py casalith/browsetable.py")
+spec = importlib.util.spec_from_file_location("browsetable","../casasource/casatablebrowser/src/casatablebrowser/__casatablebrowser.py")
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+td = module.__doc__
+if td is not None: viewerlist += [td]
 
 
 ####################################################################
