@@ -131,7 +131,7 @@ if os.path.exists('../casalith'): os.system('rm -fr ../casalith')
 os.system('mkdir ../casalith')
 # casatablebrowser has its own wheel for which the casalith repository has a task wrapper:
 # casalith/build-casalith/src/module/private/task_browsetable.py
-os.system("cp ../casasource/casatablebrowser/src/casatablebrowser/ casalith")
+os.system("cp -r ../casasource/casatablebrowser/src/casatablebrowser/ casalith")
 os.system("cp casalith/__casatablebrowser.py casalith/browsetable.py")
 spec = importlib.util.spec_from_file_location("browsetable","../casasource/casatablebrowser/src/casatablebrowser/__casatablebrowser.py")
 module = importlib.util.module_from_spec(spec)
