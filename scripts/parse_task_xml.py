@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import re
 import os
+import importlib.util
 
 ########################################################
 # this is meant to be run from the docs folder
@@ -116,17 +117,19 @@ for task in os.listdir('../casasource/casaviewer'):
     td = parse_xml(xmlstring)
     if td is not None: viewerlist += [td]
 
-### Temporary (I hope)
+# casa5 source tree removed by CAS-14179
+# msuvbin is under casa6/casatasks and no longer a special case
 if os.path.exists('../casalith'): os.system('rm -fr ../casalith')
 os.system('mkdir ../casalith')
-os.system("cd ../casasource/casa6; git checkout 6.7.3.3; cd -")
-for task in ['browsetable.xml']:
-    with open('../casasource/casa6/casa5/gcwrap/tasks/' + task, 'r') as fid:
-        xmlstring = fid.read()
-    td = parse_xml(xmlstring)
-    if td is not None: lithlist += [td]
-os.system("cd ../casasource/casa6; git checkout -; cd -")
-
+# casatablebrowser has its own wheel for which the casalith repository has a task wrapper:
+# casalith/build-casalith/src/module/private/task_browsetable.py
+os.system("cp -r ../casasource/casatablebrowser/src/casatablebrowser/ casalith")
+os.system("cp casalith/__casatablebrowser.py casalith/browsetable.py")
+spec = importlib.util.spec_from_file_location("browsetable","../casasource/casatablebrowser/src/casatablebrowser/__casatablebrowser.py")
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+td = module.__doc__
+if td is not None: viewerlist += [td]
 
 
 ####################################################################
@@ -161,8 +164,8 @@ def render_rst(component, category, text, task):
         os.system('mkdir ../'+component+'/' + category)
 
     # change image links
-    text = re.sub('(\.\. \|.*?\| image:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', text, flags=re.DOTALL)
-    text = re.sub('(\.\. figure:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', text, flags=re.DOTALL)
+    text = re.sub(r'(\.\. \|.*?\| image:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', text, flags=re.DOTALL)
+    text = re.sub(r'(\.\. figure:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', text, flags=re.DOTALL)
 
     # add this task to the __init__.py
     with open('../'+component+'/' + category + '__init__.py', 'a') as fid:
@@ -186,7 +189,7 @@ def render_rst(component, category, text, task):
         if 'shortdescription' in task.keys():
             fid.write(task['shortdescription'] + '\n\n')
         elif 'description' in task.keys():
-            fid.write(re.sub('\s+', ' ', task['description'].strip(), flags=re.DOTALL) + '\n\n')
+            fid.write(re.sub(r'\s+', ' ', task['description'].strip(), flags=re.DOTALL) + '\n\n')
         else:
             fid.write(' \n\n')
 
