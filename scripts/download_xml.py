@@ -70,16 +70,6 @@ os.system('cp ../casaconfig/private/config_defaults_static.py .')
 ##################################################################################
 # get xml from other packages (formerly in casatasks) from their proper places
 ##################################################################################
-print('Downloading ALMAtasks...')
-os.system('mkdir ../casasource/almatasks')
-xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/almatasks/browse/xml?at=refs/heads/%s"%branch_name).text
-package_branch_name = 'master' if len(set(re.findall(r"\w+\.xml", xmlstring))) == 0 else branch_name
-xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/almatasks/browse/xml?at=refs/heads/%s"%package_branch_name).text
-for name in set(re.findall(r"\w+\.xml", xmlstring)):
-    xmlstring = requests.get("https://open-bitbucket.nrao.edu/projects/CASA/repos/almatasks/raw/xml/%s"%name+'?at=refs/heads/%s'%package_branch_name).text
-    with open('../casasource/almatasks/'+name, 'w') as fid:
-        fid.write(xmlstring + '\n')
-
 print('Downloading CASAplotms...')
 os.system('mkdir ../casasource/casaplotms')
 xmlstring = requests.get("https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casaplotms/browse/src/xml?at=refs/heads/%s"%branch_name).text

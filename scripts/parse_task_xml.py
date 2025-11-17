@@ -91,7 +91,7 @@ def parse_xml(xmlstring):
 
 ################################################################
 # loop through each task xml webpage and parse the xml to python dictionaries
-tasklist, almalist, plotmslist, viewerlist, lithlist = [], [], [], [], []
+tasklist, plotmslist, viewerlist, lithlist = [], [], [], []
 
 if os.path.exists('../casatasks'): os.system('rm -fr ../casatasks')
 os.system('mkdir ../casatasks')
@@ -101,15 +101,7 @@ for task in os.listdir('../casasource/casa6/casatasks/xml'):
     td = parse_xml(xmlstring)
     if td is not None: tasklist += [td]
 
-if os.path.exists('../almatasks'): os.system('rm -fr ../almatasks')
-os.system('mkdir ../almatasks')
-for task in os.listdir('../casasource/almatasks'):
-    with open('../casasource/almatasks/' + task, 'r') as fid:
-        xmlstring = fid.read()
-    td = parse_xml(xmlstring)
-    if td is not None: almalist += [td]
-
-if os.path.exists('../almatasks'): os.system('rm -fr ../casaplotms')
+if os.path.exists('../casaplotms'): os.system('rm -fr ../casaplotms')
 os.system('mkdir ../casaplotms')
 for task in os.listdir('../casasource/casaplotms'):
     with open('../casasource/casaplotms/' + task, 'r') as fid:
@@ -238,7 +230,7 @@ def render_rst(component, category, text, task):
 
         # Add long descriptions of each parameter as footnotes at the bottom. For example:
         # .. _paramname:
-        # 
+        #
         # | ``paramname (paramtype=defaultvalue)`` - description line 1
         # |    description line 2...
         fid.write('.. _Details:\n\n')
@@ -257,8 +249,8 @@ def render_rst(component, category, text, task):
 
 ##################################################################################
 
-# render casatasks, almatasks, casaplotms, and casaviewer
-for mname, mlist in [('casatasks', tasklist), ('almatasks', almalist), ('casaplotms', plotmslist), ('casaviewer', viewerlist)]:
+# render casatasks, casaplotms, and casaviewer
+for mname, mlist in [('casatasks', tasklist), ('casaplotms', plotmslist), ('casaviewer', viewerlist)]:
     tasknames = []
     for task in mlist:
         # grab rst description page if it exists, otherwise skip this task
