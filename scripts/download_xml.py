@@ -41,8 +41,14 @@ os.system('mkdir ../casasource')
 print('Cloning source for %s code branch' % branch_name)
 repo = git.Repo.clone_from('https://open-bitbucket.nrao.edu/scm/casa/casa6.git', '../casasource/casa6', branch=branch_name)
 # browsetable remains a special case, now without maintained XML data
-repo = git.Repo.clone_from("https://open-bitbucket.nrao.edu/scm/casa/casatablebrowser.git", "../casasource/casatablebrowser", branch=branch_name)
-
+repo = git.Repo.clone_from("https://open-bitbucket.nrao.edu/scm/casa/casatablebrowser.git", "../casasource/casatablebrowser", branch="master")
+if branch_name != "master":
+    git_cmd = repo.git
+    remote_branches = git_cmd.execute(["git", "branch", "--remote"]).split("\n")
+    matched = [b for b in remote_branches if b.strip() == f"origin/{branch_name}"]
+    if len(matched) == 1:
+        print("Checking out casatablebrowser branch %s" % branch_name)
+        git_cmd.execute(["git", "checkout", branch_name])
 
 ##################################################################################
 # for casaconfig, using a limited clone with blob:none to avoid large

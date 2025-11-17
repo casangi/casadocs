@@ -128,7 +128,7 @@ os.system("cp casalith/__casatablebrowser.py casalith/browsetable.py")
 spec = importlib.util.spec_from_file_location("browsetable","../casasource/casatablebrowser/src/casatablebrowser/__casatablebrowser.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
-td = module.__doc__
+td = {"name": "browsetable", "params": {}, "category": "visualization", "shortdescription": module.__doc__, "description": module.__doc__}
 if td is not None: viewerlist += [td]
 
 
