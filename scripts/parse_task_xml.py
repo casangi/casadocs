@@ -91,7 +91,7 @@ def parse_xml(xmlstring):
 
 ################################################################
 # loop through each task xml webpage and parse the xml to python dictionaries
-tasklist, almalist, plotmslist, viewerlist, lithlist = [], [], [], [], []
+tasklist, plotmslist, viewerlist, lithlist = [], [], [], []
 
 if os.path.exists('../casatasks'): os.system('rm -fr ../casatasks')
 os.system('mkdir ../casatasks')
@@ -249,8 +249,8 @@ def render_rst(component, category, text, task):
 
 ##################################################################################
 
-# render casatasks, almatasks, casaplotms, and casaviewer
-for mname, mlist in [('casatasks', tasklist), ('almatasks', almalist), ('casaplotms', plotmslist), ('casaviewer', viewerlist)]:
+# render casatasks, casaplotms, and casaviewer
+for mname, mlist in [('casatasks', tasklist), ('casaplotms', plotmslist), ('casaviewer', viewerlist)]:
     tasknames = []
     for task in mlist:
         # grab rst description page if it exists, otherwise skip this task
