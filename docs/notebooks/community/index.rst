@@ -11,4 +11,4 @@ Disclaimer: Community Examples are not maintained or periodically tested by the 
    :glob:
    :maxdepth: 1
    
-   community/*
+   notebooks/community/*
