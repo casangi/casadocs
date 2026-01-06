@@ -19,9 +19,9 @@ tooldict = {}
 for tool in tools:
     with open('../casasource/casa6/casatools/xml/' + tool, 'r') as fid:
         xmlstring = fid.read()
-        xmlstring = re.sub('\<link.*?\>(.+?)\<\/link>', r'\1', xmlstring, flags=re.DOTALL)
-        xmlstring = re.sub('\"\"\"', '', xmlstring, flags=re.DOTALL)
-        xmlstring = re.sub('&quot;&quot;&quot;', '', xmlstring, flags=re.DOTALL)
+        xmlstring = re.sub(r'\<link.*?\>(.+?)\<\/link>', r'\1', xmlstring, flags=re.DOTALL)
+        xmlstring = re.sub(r'\"\"\"', '', xmlstring, flags=re.DOTALL)
+        xmlstring = re.sub(r'&quot;&quot;&quot;', '', xmlstring, flags=re.DOTALL)
         xmlstring = xmlstring.replace('false', 'False').replace('true', 'True')
 
     xmlroot = ET.fromstring(xmlstring)
@@ -162,7 +162,7 @@ def cleanxml(text, block=False):
     #    text = '|   ' + re.sub('\n', '\n|   ', text.strip(), flags=re.DOTALL)
     # else:
     # text = re.sub('\s+', ' ', text.strip(), flags=re.DOTALL)
-    text = re.sub('(\n   )   (\+|\|)', r'\1\2', text, flags=re.DOTALL)
+    text = re.sub(r'(\n   )   (\+|\|)', r'\1\2', text, flags=re.DOTALL)
     return text.strip()
 
 def tool_rst_exists(name):
@@ -191,8 +191,8 @@ for name in tooldict.keys():
     tool = tooldict[name]
 
     # change image links
-    rst = re.sub('(\.\. \|.*?\| image:: )_apimedia/(\S*)\s*?\n', r'\1../../tools/_apimedia/\2\n', rst, flags=re.DOTALL)
-    rst = re.sub('(\.\. figure:: )_apimedia/(\S*)\s*?\n', r'\1../../tools/_apimedia/\2\n', rst, flags=re.DOTALL)
+    rst = re.sub(r'(\.\. \|.*?\| image:: )_apimedia/(\S*)\s*?\n', r'\1../../tools/_apimedia/\2\n', rst, flags=re.DOTALL)
+    rst = re.sub(r'(\.\. figure:: )_apimedia/(\S*)\s*?\n', r'\1../../tools/_apimedia/\2\n', rst, flags=re.DOTALL)
 
     # start output string to write new stub class
     ostr = '#\n# stub class definition file for docstring parsing\n#\n\n'
@@ -208,7 +208,7 @@ for name in tooldict.keys():
         #desc = pypandoc.convert_text(tool['description'].replace('_', '\_').replace(r'\\_', '\_'), 'rst', format='latex', extra_args=['--wrap=none'])
         try:
             fromformat = 'latex' if name not in rst_tools else 'rst'
-            desc = pypandoc.convert_text(re.sub('(\s\w*?)\_(\w*?)', r'\1\_\2', tool['description'], flags=re.DOTALL), 'rst', format=fromformat, extra_args=['--wrap=none'])
+            desc = pypandoc.convert_text(re.sub(r'(\s\w*?)\_(\w*?)', r'\1\_\2', tool['description'], flags=re.DOTALL), 'rst', format=fromformat, extra_args=['--wrap=none'])
         except:
             desc = tool['description']
         #desc = re.sub('(\s\\\\w*?)\_(\w*?)', r'\1_\2', tool['description'].replace('_', '\_'), flags=re.DOTALL)
@@ -227,7 +227,7 @@ for name in tooldict.keys():
         if ('description' in tm.keys()) and (tm['description'] is not None) and (len(tm['description'].strip()) > 0):
             try:
                 # desc = ' ' * 8 + pypandoc.convert_text(tm['description'].replace('_', '\_').replace(r'\\_', '\_'), 'rst', format='latex', extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 8) + '\n\n'
-                desc = ' ' * 8 + pypandoc.convert_text(re.sub('(\s\w*?)\_(\w*?)', r'\1\_\2', tm['description'], flags=re.DOTALL).replace('\\\\','\\'), 'rst', format='latex', extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 8) + '\n\n'
+                desc = ' ' * 8 + pypandoc.convert_text(re.sub(r'(\s\w*?)\_(\w*?)', r'\1\_\2', tm['description'], flags=re.DOTALL).replace('\\\\','\\'), 'rst', format='latex', extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 8) + '\n\n'
             except:
                 # desc = ' ' * 8 + pypandoc.convert_text(tm['description'], 'rst', format='markdown', extra_args=['--wrap=none']).replace('\n', '\n' + ' ' * 8) + '\n\n'
                 desc = ' ' * 8 + tm['description'].replace('\n', '\n' + ' ' * 8) + '\n\n'
