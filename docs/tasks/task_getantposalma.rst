@@ -67,6 +67,10 @@ priority, to obtain positions. The first server to respond with a valid result i
 the only one that is used. That response will be written and no additional
 hosts will be queried.
 
+firstintegratoin is an optional boolean parameter. If True, excludes measurements 
+flagged as “firstintegration”. If False, includes measurements flagged as
+“firstintegration”. The default value is True.
+
 The format of the returned file is a two element dictionary encoded in json. The
 two keys of this dictionary are "data" and "metadata". The value associated with
 the "data" key is a dictionary that contains antenna names as keys, with each
@@ -98,7 +102,7 @@ Examples
    
       getantposalma(
           outfile='my_ant_pos.json', asdm='valid ASDM name here', snr=5,
-          hosts=['tbd1.alma.cl', 'tbd2.alma.cl']
+          hosts=['tbd1.alma.cl', 'tbd2.alma.cl'], firstintegration=True
      )
    
 
@@ -106,4 +110,3 @@ Examples
 
 Development
    No additional development details
- 
