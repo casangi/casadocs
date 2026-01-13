@@ -67,6 +67,10 @@ priority, to obtain positions. The first server to respond with a valid result i
 the only one that is used. That response will be written and no additional
 hosts will be queried.
 
+firstintegratoin is an optional boolean parameter. If True, excludes measurements 
+flagged as “firstintegration”. If False, includes measurements flagged as
+“firstintegration”. The default value is True.
+
 nretry is an optional parameter. It is the number of times to retry a query. For
 each retry, all the hosts are retried. This continues until either a valid result
 is obtained or the number of retries is exhausted. The parameter must be nonnegative.
@@ -106,7 +110,7 @@ Examples
    
       getantposalma(
           outfile='my_ant_pos.json', asdm='valid ASDM name here', snr=5,
-          hosts=['tbd1.alma.cl', 'tbd2.alma.cl']
+          hosts=['tbd1.alma.cl', 'tbd2.alma.cl'], firstintegration=True
      )
    
 
@@ -114,4 +118,3 @@ Examples
 
 Development
    No additional development details
- 

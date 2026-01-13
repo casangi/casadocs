@@ -44,12 +44,6 @@ Description
    the 'pseudoI' option allows Stokes I images to include data for
    which either of the parallel hand data are unflagged.
 
-   .. note:: **NOTE**: Users should set *stokes='pseudoI'* if you want to
-      get the equivalent result to the one obtained by setting
-      *stokes='I'* for **sdimaging**. Setting *stokes='I'* in
-      **sdimaging** is implemented the same way as *stokes='pseudoI'*
-      in **tsdimaging**.
-
    The parameter *gridfunction* sets the gridding function
    (convolution kernel) for imaging. Currently, the task supports
    'BOX' (boxcar), 'SF' (Prolate Spheroidal Wave Function), 'GAUSS'
@@ -142,24 +136,6 @@ Description
       objects <../../notebooks/ephemeris_data.ipynb>`__).
       The velocity of the source is accounted and the frequency
       reported is in the source frame.
-
-   .. rubric:: Technical Note: sdimaging and tsdimaging
-
-   The **tsdimaging** task replaced **sdimaging**. The
-   initial version of this task was intended to be fully compatible
-   with **sdimaging**. Technically speaking, those tasks share
-   underlying framework with interferometry imaging
-   tasks: **sdimaging** shares with **clean**, while **tsdimaging**
-   is based on the framework for **tclean**. As **clean** (and the
-   underlying framework) has been deprecated and replaced with
-   **tclean**, **sdimaging** has been deprecated in favor of migrating to **tsdimaging**. This transition
-   has several benefits from the user's point of view. In terms of functionality, new features implemented in
-   **tclean** will also apply to **tsdimaging** if the features are
-   useful for single dish imaging. Another possible benefit is a
-   performance. Since the framework for **tclean** is designed to
-   support parallel processing, it can also be used to speed up
-   **tsdimaging**. This should be effective for large datasets, but
-   these examples represent future work. 
 
    .. rubric:: Bibliography
 
