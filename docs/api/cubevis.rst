@@ -9,6 +9,7 @@ The casangi package provides the following functionality for use in CASA:
 | task / function     |  description                         |
 +=====================+======================================+
 | iclean              |  Interactive Clean Task              |
++---------------------+--------------------------------------+
 | iclean.notebook     |  Interactive Clean Notebook GUI      |
 +---------------------+--------------------------------------+
 
