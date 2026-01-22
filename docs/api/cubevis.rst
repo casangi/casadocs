@@ -43,7 +43,7 @@ iclean.notebook
 
 The iclean task can be used within a notebook. When it is used from a notebook, it can either display the GUI in
 a separeate browser tab or it can display the GUI within the notebook. To display the GUI within a notebook, the
-:code:`iclean.notebook` function to create the GUI display of the iclean task. Once created, this GUI can be
+:code:`iclean.notebook` function is used to create the GUI display of the iclean task. Once created, this GUI can be
 displayed with the `Bokeh <https://bokeh.org/>`__ :code:`show` function, by using the :code:`show` **member function**
 of the GUI object or by having the created GUI be the last result of the cell.
 
