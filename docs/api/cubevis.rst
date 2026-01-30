@@ -52,6 +52,7 @@ of executing the GUI, as the :code:`iclean` tasks does, the :code:`notebook` fun
 display and execution within a notebook.
 
 For a detailed example of using the :code:`notebook` functionality of iclean within a notebook, please reference
-the `Interactive Clean Notebook`_ page.
+the `Interactive Clean Notebook`_ page. This page should execute correctly in a local classic Notebook or Jupyter
+Lab Notebook. Colab usage may fail because support for Colab is being finalized.
 
 .. _Interactive Clean Notebook: ../notebooks/interactive_clean_notebook.html
