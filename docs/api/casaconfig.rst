@@ -91,10 +91,15 @@ parameters can be set or ignored through the casashell command line options. The
 - *iplogfile*                : IPython log file path/name, used only when iplog is True. Default "ipython-yyyymmdd-hhmmss.log". Note that this default value is set using gmtime() from the time module on import of config.
 - *user_site*                : include the user's local site-packages in the python path if True. Normally these should be excluded to avoid potential conflicts with CASA modules. Default False.
 - *casaconfig_verbose*       : verbosity level for casaconfig, 0 is None, 1 is logger, 2 is logger and print. Error messages are always logged and printed. Default 1.
+- *skipnetworkcheck*         : skip the check on network availability when checking for available files and getting the data. Default False.
 
 **Note:** The auto update parameters are used during casatools initialization. 
 
 **Note:** It is an error for *measures_auto_update* to be False when *data_auto_update* is True. In that case no auto updates will happen and CASA will continue after printing out an error message.
+
+**Note:** The *skipnetworkcheck* parameter is intended for the rare case where all of the sites that casaconfig uses to determine network availability are blocked locally and the measures
+and casarundata locations are thought to be available. Set this parameter to True to skip that step. If the list of files or the requested data can not be retrieved those steps will eventually time
+out with an appropriate raised exception.
 
 This example user configuration has a measurespath that is different from the default of "~/.casa/data", turned off auto updates, turned off the GUI logger, and print logger output to the terminal.
 
