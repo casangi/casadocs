@@ -71,6 +71,14 @@ firstintegratoin is an optional boolean parameter. If True, excludes measurement
 flagged as “firstintegration”. If False, includes measurements flagged as
 “firstintegration”. The default value is True.
 
+nretry is an optional parameter. It is the number of times to retry a query. For
+each retry, all the hosts are retried. This continues until either a valid result
+is obtained or the number of retries is exhausted. The parameter must be nonnegative.
+
+rdelay is used only if nretry is greater than zero. It is the delay, in seconds,
+between retries. It must be a positive number. If it is less than 0.5, it is set
+to 0.5 internally to acoid DoS attacks on the servers.
+
 The format of the returned file is a two element dictionary encoded in json. The
 two keys of this dictionary are "data" and "metadata". The value associated with
 the "data" key is a dictionary that contains antenna names as keys, with each
