@@ -31,7 +31,7 @@
    A detailed description on how to use the table browser can be
    found in the Chapter pages on `"Browsing through MeasurementSets
    and Calibration
-   Tables" <https://casadocs.readthedocs.io/en/stable/notebooks/data_examination.html#Browse-MS/Calibration-Tables>`__.
+   Tables" <../../notebooks/data_examination.html#Browse-MS/Calibration-Tables>`__.
 
    :param tablename: Path to the table directory on disk (MS, cal. table, image)
                      default: none; example: tablename='ngc5921.ms'
