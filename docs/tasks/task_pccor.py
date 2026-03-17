@@ -1,11 +1,16 @@
 .. _Description:
 
-A description will come here
+Description
+   A descrition will come here
 
 .. _Examples:
 
-Examples will come here
-
+Examples
+   Examples will come here 
+     
 .. _Development:
 
-development comes here.
+Development
+   No additional development details
+
+
