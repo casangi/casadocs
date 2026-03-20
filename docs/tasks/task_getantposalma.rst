@@ -4,16 +4,16 @@
 
 Description
 
-This task retrieves ALMA antenna positions for an ALMA Execution Block
+This task retrieves the antenna positions for an ALMA Execution Block
 via the web service Antenna Position Endpoint in the Uncertainties
-database (https://asa.alma.cl/uncertainties-service/uncertainties/versions/last/measurements/casa/),
+database (\https://asa.alma.cl/uncertainties-service/uncertainties/versions/last/measurements/casa/),
 which runs on an ALMA JAO hosted server. For a basic
-run, the user must specify the outputfile and the asdm, using the default
+run, the user must specify the outfile and the asdm, using the default
 values for the other parameters. The antenna positions stored in the output
 file can then be read by gencal so that the data reduction of the observation
 can use the most up to date antenna positions. The web service is
 described
-`at this location <https://confluence.alma.cl/pages/viewpage.action?spaceKey=ICTDEVOPStitle=Antennas+Uncertainties++GENCAL+Endpoint+Implementation+2025>`__. 
+`at this location <https://confluence.alma.cl/pages/viewpage.action?spaceKey=ICTDEVOPS&title=Antennas+Uncertainties+-+GENCAL+Endpoint+Implementation+2025>`__.
 
 The input parameters are discussed in detail below.
 
