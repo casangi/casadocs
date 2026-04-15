@@ -3,9 +3,9 @@
 .. _Description:
 
 Description
-   Task for ALMA Total Power (Single Dish). It generates Jy/K calibration table.
-   The task without 'infile' sub-parameter queries Jy/K DB from the environmental variable JYPERKDB_URL (https://asa.alma.cl/science/jy-kelvins), if available, via the internet to obtain factors and generate a caltable.
-   Factors can also be taken from the backup hosts or from a file in the local storage specified by the 'infile' sub-parameter to generate a caltable.
+   This task generates Jy/K calibration table for ALMA Total Power data.
+   The task without 'infile' sub-parameter queries Jy/K DB from the environmental variable JYPERKDB_URL (https://asa.alma.cl/science/jy-kelvins), if available, via the internet to obtain Jy/K factors and generate a caltable.
+   Jy/K factors can also be taken from the backup hosts or from a file in the local storage specified by the 'infile' sub-parameter to generate a caltable.
       Task queries the information with the following priorities (if available), in order:
 
    - JYPERKDB_URL
