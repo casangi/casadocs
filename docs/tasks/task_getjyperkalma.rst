@@ -18,13 +18,11 @@ Description
 
 Examples
    getjyperkalma usage for an infile.
-   
    ::
    
       getjyperkalma(vis='test.ms', caltable='test.G', infile='jyperk_factor_csv')
    Retrieve the factors with backup URLs if JYPERKDB_URL is unavailable, and fall back on one from backup_hosts.
    If JYPERKDB_URL is accessible, the fallback does not occur.
-   
    ::
    
       getjyperkalma(vis='test.ms', caltable='test.G',backup_hosts=[https://backup1.url/jy-kelvins',"https://backup2.url/jy-kelvins"])
