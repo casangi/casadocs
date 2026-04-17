@@ -197,7 +197,7 @@ def render_rst(component, category, text, task):
         if len(text) > 0:  fid.write('[' + '] ['.join(['`%s`_' % section for section in ['Description', 'Examples', 'Development', 'Details']]) + ']\n\n')
 
         # populate function parameters
-        fid.write('\nParameters\n\n')
+        fid.write('\nParameters\n')
         for param in task['params'].keys():
             # skip subparameters for now, they are handled below for each regular parameter
             if ('subparam' in task['params'][param]) and (task['params'][param]['subparam'].lower() == 'true'):
