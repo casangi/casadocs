@@ -66,7 +66,7 @@ priority, to obtain positions. The first server to respond with a valid result i
 the only one that is used. That response will be written and no additional
 hosts will be queried.
 
-firstintegratoin is an optional boolean parameter. If True, excludes measurements
+firstintegration is an optional boolean parameter. If True, excludes measurements
 flagged as “firstintegration”. If False, includes measurements flagged as
 “firstintegration”. The default value is True.
 
