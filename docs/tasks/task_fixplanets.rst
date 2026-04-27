@@ -2,9 +2,7 @@
 
 .. _Description:
 
-Description
-   .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for fixplanets.
-
+Description   
    The main purpose of this task is to correct observations which
    were performed with correct pointing and correlation but for which
    incorrect direction information was entered in the FIELD and
@@ -17,6 +15,12 @@ Description
 
    If you actually want to change the phase center of the visibilties
    in an MS, you should use task **fixvis**.
+
+   ..warning:: In cases the MS already has ephemeris table(s) which are used by the correlator attached,
+   running fixplanets with a new ephemeris table specified will replace the internal link for ephemeris data to be
+   used for the specified field to the new one. Unless the new ephemeris table is the one used in phase tracking by the correlator
+   at the time of the observation, subsequent procesing such as imaging may leads to wrong results. In tclean, one can specify
+   an external ephemeris table for 'de-blur' the image.
 
    .. rubric:: Parameter descriptions
 
