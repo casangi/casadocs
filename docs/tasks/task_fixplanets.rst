@@ -16,7 +16,7 @@ Description
    If you actually want to change the phase center of the visibilties
    in an MS, you should use task **fixvis**.
 
-   ..warning:: In cases the MS already has ephemeris table(s) which are used by the correlator attached,
+   .. warning:: In cases the MS already has ephemeris table(s) which are used by the correlator attached,
    running fixplanets with a new ephemeris table specified will replace the internal link for ephemeris data to be
    used for the specified field to the new one. Unless the new ephemeris table is the one used in phase tracking by the correlator
    at the time of the observation, subsequent procesing such as imaging may leads to wrong results. In tclean, one can specify
