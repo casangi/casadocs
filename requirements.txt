@@ -51,6 +51,7 @@ psutil==7.2.2
 ptyprocess==0.7.0
 pure-eval==0.2.3
 pygments==2.20.0
+pypandoc==1.17
 python-dateutil==2.9.0.post0
 pyyaml==6.0.3
 pyzmq==27.1.0
