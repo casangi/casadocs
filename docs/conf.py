@@ -200,15 +200,15 @@ for dirname, prefix, postfix, group in [('api/tt/', 'casatools.', '.rst', 'tools
     if os.path.exists(f"{group}_selection.csv"):
         fnames = []
         if group == 'tools':
-            fnames = ['casatools.'+fn for fn in os.listdir('../casatools') if fn != '__init__.py']
+            fnames = ['casatools.' + str(fn) for fn in os.listdir('../casatools') if str(fn) != '__init__.py']
         elif group == 'tasks':
             files = glob.glob('../casatasks/**/*.py', recursive=True)
-            fnames = map(lambda fn: re.match(r".*?([^/]*/[^/]*\.py)", fn)[1].replace('/','.'), files)
-            fnames = ['casatasks.'+fn for fn in fnames if '__init__' not in fn]
+            fnames = map(lambda fn: re.match(r".*?([^/]*/[^/]*\.py)", str(fn))[1].replace('/','.'), files)
+            fnames = ['casatasks.' + str(fn) for fn in fnames if '__init__' not in str(fn)]
         elif group == 'notebooks':
             files = glob.glob('notebooks/*.ipynb')
-            fnames = [os.path.basename(fn) for fn in files]
-        fnames = [fn.replace('.py',postfix) for fn in fnames]
+            fnames = [os.path.basename(str(fn)) for fn in files]
+        fnames = [str(fn).replace('.py',postfix) for fn in fnames]
         with open(f"{group}_selection.csv", 'r') as fin:
             selection = [f"{prefix}{name}{postfix}" for name in fin.readlines()[0].strip().split(',')]
         exclusions = [name for name in fnames if (name not in selection)]
