@@ -44,7 +44,8 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.githubpages',
     'sphinx_automodapi.automodapi',
-    'recommonmark'
+    'autoapi.extension',
+    'myst_parser'
 ]
 nbsphinx_allow_errors = True
 nbsphinx_execute = 'never'
