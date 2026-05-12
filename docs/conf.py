@@ -67,8 +67,9 @@ with open('branch_name.txt', 'r') as fid:
 
 blob_url = f"casadocs/blob/{branch_name}/docs"
 nbsphinx_prolog = r"""
-{% set docpath = env.doc2path(env.docname, base=None)|string %}
-{% set colab_path = (blob_url ~ '/' ~ docpath).replace(blob_url ~ '/examples', 'examples/blob/master') %}
+{%% set blob_url = '%s' %%}
+{%% set docpath = env.doc2path(env.docname, base=None)|string %%}
+{%% set colab_path = (blob_url ~ '/' ~ docpath).replace(blob_url ~ '/examples', 'examples/blob/master') %%}
 
 Open in Colab: https://colab.research.google.com/github/casangi/{{ colab_path }}
 
