@@ -1,0 +1,12 @@
+gitpython
+ipykernel
+jinja2
+markupsafe
+myst-parser
+nbsphinx
+pypandoc
+sphinx
+sphinx-autoapi
+sphinx-automodapi
+sphinx-rtd-theme
+traitlets
