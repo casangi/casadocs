@@ -91,6 +91,10 @@ Description
       example, if you start with a model of M100 you might wish to
       scale the axes to simulate an observation of an M100-like
       galaxy that is 4X more distant.
+   -  If the model image has a Stokes axis and provides all four 
+      Stokes parameters (I,Q,U,V), then the simulation will be done 
+      including the cross-hands and the output image will also be full-Stokes.
+      See also the "leakage" parameter.
    -  Set Pointings: If the angular size of your model image is
       comparable or larger than the 12-m primary beam, you can
       simulate observing the target as a mosaic. In this step, the
