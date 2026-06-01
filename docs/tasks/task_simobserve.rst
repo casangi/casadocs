@@ -167,7 +167,8 @@ Description
    -  [project].[cfg].ptg.txt = list of mosaic pointings
    -  [project].[cfg].quick.psf = psf calculated from uv coverage
    -  [project].[cfg].ms = noise-free MeasurementSet
-   -  [project].[cfg].noisy.ms = corrupted MeasurementSet
+   -  [project].[cfg].fullpol.ms = corrupted MeasurementSet only with polarization leakage (produced in case the *leakage* input parameter was set to a value > 0.) 
+   -  [project].[cfg].noisy.ms = corrupted MeasurementSet with all selected corruptions
    -  [project].[cfg].observe.png = diagnostic figure of uv coverage
       and visibilities
    -  [project].[cfg].simobserve.last = saved input parameters for
@@ -505,6 +506,14 @@ Description
    *leakage*
 
    Adds cross polarization corruption of this fractional magnitude.
+   If larger than 0., cross polarization corruption of this fractional magnitude 
+   is added (interferometer only) and an MS with all four correlation products 
+   is created together with an image with all four Stokes parameters. 
+   The value specified for leakage is the standard deviation of the distribution 
+   from which the real and imag parts of the complex leakage gains are drawn.
+   Typical sensible values for this would be a few %, i.e., leakage in the range 0.02-0.05.
+   If one wants to specify a level corresponding to data already calibrated for instrumental 
+   polarization, sensible values would be at the level of a few 0.1% (leakage ~ 0.001).
 
    *graphics*
 
