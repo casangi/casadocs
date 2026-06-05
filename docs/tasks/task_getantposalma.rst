@@ -13,8 +13,8 @@ values for the other parameters. The antenna positions stored in the output
 file can then be read by gencal so that the data reduction of the observation
 can use the most up to date antenna positions. The web service is
 described in a document that can be found 
-`here <https://confluence.alma.cl/pages/viewpage.action?spaceKey=ICTDEVOPS&title=Antennas+Uncertainties+-+GENCAL+Endpoint+Implementation+2025>`__ 
-(Alma Antenna Positions Endpoint). That document gives the full set of available search options, including the meaning of "auto", as well
+`here <https://confluence.alma.cl/spaces/PD/pages/285805344/Antenna+Positions+Uncertainties+Public+Docs>`__ 
+(ALMA Antenna Positions Endpoint). That document gives the full set of available search options, including the meaning of "auto", as well
 as the current default "snr" value used when not explicitly given to this task.
 
 The input parameters are discussed in detail below.
