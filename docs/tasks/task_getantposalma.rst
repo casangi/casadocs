@@ -17,7 +17,9 @@ described in a document that can be found
 (ALMA Antenna Positions Endpoint). That document gives the full set of available search options, including the meaning of "auto", as well
 as the current default "snr" value used when not explicitly given to this task.
 
-The input parameters are discussed in detail below.
+The input parameters are discussed in detail below. Additional details on how each parameter is used 
+by the web service can be found in the ALMA Antenna Positions Endpoint document linked above. 
+Specific behavior is set by the web service and not implemented by this task.
 
 The format of the returned file is a two element dictionary encoded in json. The
 two keys of this dictionary are "data" and "metadata". The value associated with
