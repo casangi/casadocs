@@ -12,9 +12,8 @@ Returns
 .. _Description:
 
 Description
-
    .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for bandpass.
-   
+
    Determines the amplitude and phase as a function of frequency for
    each spectral window containing more than one channel. Strong
    sources (or many observations of moderately strong sources) are
@@ -34,7 +33,7 @@ Description
    timescales much longer than the time-dependent effects handled by
    **gaincal**. Thus, it makes sense to solve for them as a separate
    term, using the **bandpass** task.
-   
+
    It is usually best to solve for the bandpass in channelized data
    before solving for the gain as a function of time. However, if the
    gains during the bandpass calibrator observations are fluctuating
@@ -42,7 +41,7 @@ Description
    to first solve for those time-dependent gains of that source with
    **gaincal**, and input these to **bandpass** via *gaintable*. See
    the examples section for more on how to do this.
-   
+
    .. rubric:: Common calibration solve parameters
 
    See `"Solving for
@@ -52,7 +51,7 @@ Description
    properties and arrange prior calibration. Below we describe
    parameters unique to **bandpass**, and those common parameters
    with unique properties.
-   
+
    .. warning:: **WARNING:** the channelization of the bandpass solution spws
       is set by the nominal channelization of the input data, not the
       selected portion. Edge-channels should be flagged if they are
@@ -60,12 +59,12 @@ Description
       edge channels are excluded by the spw selection but not
       flagged, then solutions for those channels will be
       extrapolated.
-   
+
    .. rubric:: Bandpass types: *bandtype*
-   
+
    The *bandtype* parameter selects the type of solution used for the
    **bandpass**. The choices are 'B' and 'BPOLY'.
-   
+
    .. rubric:: *bandtype='B'*
 
    Use of *bandtype='B'* in **bandpass** differs from *gaintype='G'*
@@ -74,12 +73,12 @@ Description
    of time, but it is most efficient to keep the B solving timescale
    as long as possible, and use **gaincal** for frequency-independent
    rapid time-scale variations.
-   
+
    Do not use *combine='spw'* with *bandtype='B'*, as this will
    generate a solution for all spws overlaid in *channel*
    coordinates, and for which it is not yet possible to apply to all
    spws in *frequency* coordinates.
-   
+
    The B solutions are limited by the signal-to-noise ratio available
    per channel, which may be limited. It is therefore important that
    the data be optimally coherent over the time-range of the B
@@ -94,7 +93,7 @@ Description
    obscure actual systematic bandpass structure. If adequate SNR is
    unachievable by these means with the available data, use of
    *bandtype='BPOLY'* can be considered.
-   
+
    .. rubric:: *bandtype='BPOLY'*
 
    For some observations, it may be the case that the SNR per channel
@@ -111,19 +110,19 @@ Description
    adjacent spectral windows are known *a priori* to share a single
    continuous bandpass response over their combined frequency
    range.
-   
+
    The BPOLY solver requires a number of unique sub-parameters
    (default values are given below):
-   
+
    ::
-   
+
       bandtype        =    'BPOLY'   #   Type of bandpass solution (B or BPOLY)
            degamp     =          3   #   Polynomial degree for BPOLY amplitude solution
            degphase   =          3   #   Polynomial degree for BPOLY phase solution
            visnorm    =      False   #   Normalize data prior to BPOLY solution
            maskcenter =          0   #   Number of channels in BPOLY to avoid in center of band
            maskedge   =          0   #   Percent of channels in BPOLY to avoid at each band edge
-   
+
    The *degamp* and *degphase* parameters indicate the polynomial
    degree desired for the amplitude and phase solutions. The
    *maskcenter* parameter is used to indicate the number of
@@ -154,7 +153,7 @@ Description
    .. rubric:: Bandpass calibration considerations
 
    **Bandpass normalization (*solnorm*)**
-   
+
    The *solnorm* parameter requires more explanation in the context
    of the bandpass. Most users are used to seeing a normalized
    bandpass, where the mean amplitude is unity and fiducial phase is
@@ -164,11 +163,11 @@ Description
    if the bandpass calibration is the end of your calibration
    sequence (e.g. you have already done all the gain calibration you
    want to).
-   
+
    .. note:: **NOTE**: Setting *solnorm=True* will NOT rescale any previous
       calibration tables that the user may have supplied in
       gaintable.
-   
+
    You can safely use *solnorm=True* if you do the **bandpass** first
    (perhaps using a throw-away initial **gaincal** calibration) as we
    suggest above, as later **gaincal** calibration stages will deal
@@ -181,16 +180,16 @@ Description
    variation of bandpass among antennas could otherwise enter the
    gain solution and make (probably subtle) adjustments to the flux
    scale.
-   
+
    We finally note that *solnorm=False* at the bandpass step in the
    calibration chain will still in the end produce the correct
    results. It only means that there will be a part of what we
    usually think of the gain calibration inside the bandpass
    solution, particularly if **bandpass** is run as the first step.
-   
+
    .. rubric:: What if the bandpass calibrator has a significant
       spectral variation?
-   
+
    The bandpass calibrator may have a spectral slope that will change
    the spectral properties of the solutions if a flat-spectrum model
    is used. If the slope is significant, the best remedy is to
@@ -207,7 +206,7 @@ Description
    overall spectral slope for the bandpass calibrator. Finally, rerun
    **bandpass** and all other calibration steps again, making use of
    the newly created internal bandpass model.
-   
+
    .. rubric:: Combining spectral windows for bandpass calibration
 
    It may sometimes be desirable to combine spectral windows in
@@ -215,7 +214,7 @@ Description
    e.g., for calibrating the bandpass for HI observations (e.g.,
    at the VLA) when even the bandpass calibrator has its own HI
    lines or is absorbed by galactic HI.
-   
+
    When using *combine='spw'* in **bandpass**, all selected spws
    (which must all have the same number of selected channels, have
    the same net sideband, and should probably all have the same
@@ -235,16 +234,16 @@ Description
    Calibration <../../notebooks/synthesis_calibration.ipynb#Solve-for-Calibration>`__
    for more information about the mechanics of applying bandpass
    solutions of this sort.
-   
+
 
 .. _Examples:
 
 Examples
    To solve for a B-bandpass using a single short scan on the
    calibrator (with no prior gain calibration available):
-   
+
    ::
-   
+
       bandpass(vis = 'n5921.ms',
                caltable='n5921.bcal',
                gaintable='',                   # No gain tables yet
@@ -256,15 +255,15 @@ Examples
                bandtype='B',                   # standard time-binned B (rather than BPOLY)
                solint='inf',                   # set solution interval arbitrarily long
                refant='15')                    # ref antenna 15 (=VLA:N2) (ID 14)
-   
+
    On the other hand, we might have a number of scans on the bandpass
    calibrator spread over time, but we want a single bandpass
    solution. In this case, we could solve for and then pre-apply an
    initial gain calibration, and let the bandpass solution cross
    scans:
-   
+
    ::
-   
+
       bandpass(vis='n5921.ms',
                caltable='n5921.bcal',
                field='0',                      # Calibrator 1331+305 = 3C286 (FIELD_ID 0)
@@ -277,13 +276,13 @@ Examples
                gaintable='n5921.init.gcal',    # Our previously determined G table
                gainfield='0',
                interp='linear')                # Do linear interpolation
-   
+
    To solve for a single bandpass from two spectral windows (0 and 1)
    that is intended for a third (2), we add 'spw' to combine (also
    using a prior gain solution):
-   
+
    ::
-   
+
       bandpass(vis='n5921.ms',
                caltable='n5921.bcal2',
                field='0',                      # Calibrator 1331+305 = 3C286 (FIELD_ID 0)
@@ -296,20 +295,20 @@ Examples
                gaintable='n5921.init.gcal',    # Our previously determined G table
                gainfield='0',
                interp='linear')                # Do linear interpolation on gaintable
-   
+
    The resulting bandpass table will have average channels labeled
    with the average frequencies of the input spectral windows
    channels.  Applying this solution will require use of relative
    frequency interpolation.   See
    `here <../../notebooks/synthesis_calibration.ipynb#Solve-for-Calibration>`__,
    for more information.
-   
+
    To solve for a BPOLY (5th order in amplitude, 7th order in phase),
    using data from field 2, with prior **gaincal** corrections
    pre-applied:
-   
+
    ::
-   
+
       bandpass(vis='data.ms',          # input data set
                caltable='cal.BPOLY',   #
                spw='0:2~56',           # Use channels 3-57 (avoid end channels)

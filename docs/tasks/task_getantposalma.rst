@@ -28,9 +28,9 @@ value being a three element list of x, y, and z ITRF coordinates. The value
 associated with the "metadata" key is a dictionary containing various, possibly
 useful metadata that describe the task and/or were used when the task was run. The
 following code may be used to load these data structures into python variables.
-    
+
     ::
-        
+
         import ast, json
         ...
         with open("outfile.json", "r") as f:
@@ -47,14 +47,14 @@ value "antposalma" to indicate the type of data product contained in the file.
 Examples
    Get antenna positions which have positions with a signal-to-noise ratio
    greater than 5.
-   
+
    ::
-   
+
       getantposalma(
           outfile='my_ant_pos.json', asdm='valid ASDM name here', snr=5,
-          hosts=['tbd1.alma.cl', 'tbd2.alma.cl'], firstintegration=True
+          firstintegration=True
      )
-   
+
 
 .. _Development:
 
