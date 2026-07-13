@@ -172,7 +172,8 @@ Description
    -  [project].[cfg].quick.psf = psf calculated from uv coverage
    -  [project].[cfg].ms = noise-free MeasurementSet
    -  [project].[cfg].fullpol.ms = corrupted MeasurementSet only with polarization leakage (produced in case the *leakage* input parameter was set to a value > 0.) 
-   -  [project].[cfg].noisy.ms = corrupted MeasurementSet with all selected corruptions
+   -  [project].[cfg].noisy.ms = MeasurementSet with noise corruptions (in case leakage = 0)
+   -  [project].[cfg].noisier.ms = MeasurementSet with noise corruptions and polarization leakage (leakage > 0)
    -  [project].[cfg].observe.png = diagnostic figure of uv coverage
       and visibilities
    -  [project].[cfg].simobserve.last = saved input parameters for
