@@ -9,8 +9,17 @@ Jansky Very Large Array
 (`VLA <https://public.nrao.edu/telescopes/vla/>`__),
 and is often used also for other radio telescopes.
 
-6.7 Development Build
-   You are viewing the latest build of master, currently in the 6.7 development cycle
+**6.7.6 Release**
+
+CASA 6.7.6 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.7.6 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
+
+**Highlights:**
+
+- getjyperkalma: new task dedicated to Jy/K calibration.
+- getantposalma: documentation improved for new task getantposalma.
+- measures data: update to install data from new ASTRON ftp site. 
+
+In addition, a large number of bugs were fixed.
    
 CASA is being developed by an international consortium of scientists and software engineers based at the National Radio Astronomical Observatory (NRAO), the European Southern Observatory (ESO), the National Astronomical Observatory of Japan (NAOJ), and the Joint Institute for VLBI European Research Infrastructure Consortium (JIV-ERIC), under the guidance of NRAO.
    
