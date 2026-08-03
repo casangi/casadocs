@@ -200,6 +200,30 @@ Description
       the absolute path to the ASDM remains accessible, even across
       file systems.
    
+   .. rubric:: Import of ASDM data with option *use_durations=True*
+
+   .. warning:: **WARNING**: The *use_durations* parameter is experimental.
+      The default value of *False* is well tested (the behavior prior
+      to the introduction of this parameter).
+
+      When *use_durations=True* is used then importasdm uses the
+      actualDurations values found with the data to set the EXPOSURE
+      column in the filled MeasurementSet (otherwise it uses the 
+      same value it uses to fill the INTERVAL column). The actualDurations
+      take into account any time not spent collecting data (e.g.
+      blanking time). When *lazy=False* is also used (the default) then
+      the SIGMA and WEIGHT columns will also be set as appropriate for
+      the EXPOSURE values. When *lazy=True* then the SIGMA and WEIGHT
+      values are set using INTERVAL and are unaffected by the value
+      of the use_ddurations parameter.
+
+      This parameter has been recently added and is not well tested,
+      especially with the typical data processing, calibration, and
+      imaging steps that would follow filling a MeasuresmentSet.
+
+      The default value of *False* should be used unless you are 
+      experimenting with filling using the actualDurations values 
+      associated with the data.
 
 .. _Examples:
 
