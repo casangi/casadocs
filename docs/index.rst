@@ -11,13 +11,13 @@ and is often used also for other radio telescopes.
 
 **6.7.6 Release**
 
-CASA 6.7.6 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.7.6 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
+CASA 6.7.6 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.7.6 is available either as a downloadable tar-file (Linux), a downloadable DMG (MacOS) or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
 
 **Highlights:**
 
 - getjyperkalma: new task dedicated to Jy/K calibration.
 - getantposalma: documentation improved for new task getantposalma.
-- measures data: update to install data from new ASTRON ftp site. 
+- measures data: update to install data from new ASTRON http site. 
 
 In addition, a large number of bugs were fixed.
    
