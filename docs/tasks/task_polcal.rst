@@ -10,20 +10,19 @@ Returns
 .. _Description:
 
 Description
-
    .. warning:: There are `Known Issues <../../notebooks/introduction.html#Known-Issues>`__ for polcal.
-   
+
    The **polcal** task supports solving for systematic calibration
    relating to the linear and circular polarization sensitivity of
    synthesis observations, namely, the instrumental polarization and
-   cross-hand phase. 
-   
+   cross-hand phase.
+
    The heuristics of polarization calibration are described in more
    detail
    `here <../../notebooks/synthesis_calibration.ipynb#Polarization-Calibration>`__.
-   
+
    .. rubric:: Common calibration solve parameters
-   
+
    See `"Solving for
    Calibration" <../../notebooks/synthesis_calibration.ipynb#Solve-for-Calibration>`__
    for more information on the task parameters **polcal** shares with
@@ -34,13 +33,13 @@ Description
    part of instrumental polarization calibration, the **polcal** task
    will implicitly turn *parang=True*, and it is not a user-setable
    parameter.
-   
+
    .. rubric:: Polarization Calibration type: *poltype*
-   
+
    The *poltype* parameter supports a range of modes to accommodate a
    variety of situations. Except where noted, these options are not
    basis-specific.
-   
+
    -  *'Df' -* Solve for instrumental polarization (leakage D-terms),
       using the transform of a specified IQU model; requires no
       parallactic angle coverage, but if the source polarization is
@@ -61,7 +60,7 @@ Description
       polarization and source Q+iU; requires at least 3 distinct
       parallactic angles to separate the net instrumental
       polarization from the *apparent* source Q and U.  This will
-      produce a calibration table of type D. 
+      produce a calibration table of type D.
    -  'Xf' - Solve only for the cross-hand phase (same as position
       angle for the circular basis); best to use this after getting
       the D-terms from one of the above modes. Requires the
@@ -100,15 +99,15 @@ Description
       calibration (e.g., poltype='Xf', for which position angle is
       0.5 times the cross-hand phase). For the linear basis, this is
       the only way to directly calibrate the absolute position angle.
-   
+
    .. warning:: 'Xfparang+QU' and 'PosAng' are considered "experimental" in
       CASA 5.5.  As more experience is gained in their use,
       additional advice will be added here.
-   
+
    In each of these options, the *'f'* causes channelized solutions
    to be obtained, which is usually desirable for modern instruments.
    Omitting the *'f'* will generate strictly unchannelized solutions.
-   
+
 
 .. _Examples:
 
@@ -116,7 +115,7 @@ Examples
    Please click
    `here <../../notebooks/synthesis_calibration.ipynb#Polarization-Calibration>`__
    for some **polcal** examples.
-   
+
 
 .. _Development:
 

@@ -190,7 +190,7 @@ Examples
    
    ::
    
-      CASA <4>: predictcomp(objname="Titan",standard="Butler-JPL-Horizons2012",
+      CASA <4>: predictcomp(objname="Titan",standard="Butler-JPL-Horizons 2012",
                             epoch="2017/10/15/00:00",minfreq="100GHz",maxfreq="120GHz",
                             nfreqs=5,antennalist="alma.cycle5.1.cfg",showplot=True,
                             savefig="visplot.png")

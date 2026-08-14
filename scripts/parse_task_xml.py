@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import re
 import os
+import importlib.util
 
 ########################################################
 # this is meant to be run from the docs folder
@@ -90,7 +91,7 @@ def parse_xml(xmlstring):
 
 ################################################################
 # loop through each task xml webpage and parse the xml to python dictionaries
-tasklist, almalist, plotmslist, viewerlist, lithlist = [], [], [], [], []
+tasklist, plotmslist, viewerlist, lithlist = [], [], [], []
 
 if os.path.exists('../casatasks'): os.system('rm -fr ../casatasks')
 os.system('mkdir ../casatasks')
@@ -100,15 +101,7 @@ for task in os.listdir('../casasource/casa6/casatasks/xml'):
     td = parse_xml(xmlstring)
     if td is not None: tasklist += [td]
 
-if os.path.exists('../almatasks'): os.system('rm -fr ../almatasks')
-os.system('mkdir ../almatasks')
-for task in os.listdir('../casasource/almatasks'):
-    with open('../casasource/almatasks/' + task, 'r') as fid:
-        xmlstring = fid.read()
-    td = parse_xml(xmlstring)
-    if td is not None: almalist += [td]
-
-if os.path.exists('../almatasks'): os.system('rm -fr ../casaplotms')
+if os.path.exists('../casaplotms'): os.system('rm -fr ../casaplotms')
 os.system('mkdir ../casaplotms')
 for task in os.listdir('../casasource/casaplotms'):
     with open('../casasource/casaplotms/' + task, 'r') as fid:
@@ -124,16 +117,19 @@ for task in os.listdir('../casasource/casaviewer'):
     td = parse_xml(xmlstring)
     if td is not None: viewerlist += [td]
 
-### Temporary (I hope)
+# casa5 source tree removed by CAS-14179
+# msuvbin is under casa6/casatasks and no longer a special case
 if os.path.exists('../casalith'): os.system('rm -fr ../casalith')
 os.system('mkdir ../casalith')
-for task in ['browsetable.xml', 'msuvbin.xml']:
-    with open('../casasource/casa6/casa5/gcwrap/tasks/' + task, 'r') as fid:
-        xmlstring = fid.read()
-    td = parse_xml(xmlstring)
-    if td is not None: lithlist += [td]
-
-
+# casatablebrowser has its own wheel for which the casalith repository has a task wrapper:
+# casalith/build-casalith/src/module/private/task_browsetable.py
+os.system("cp -r ../casasource/casatablebrowser/src/casatablebrowser/ casalith")
+os.system("cp casalith/__casatablebrowser.py casalith/browsetable.py")
+spec = importlib.util.spec_from_file_location("browsetable","../casasource/casatablebrowser/src/casatablebrowser/__casatablebrowser.py")
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+td = {"name": "browsetable", "params": {}, "category": "visualization", "shortdescription": module.__doc__, "description": module.__doc__}
+if td is not None: viewerlist += [td]
 
 
 ####################################################################
@@ -168,8 +164,8 @@ def render_rst(component, category, text, task):
         os.system('mkdir ../'+component+'/' + category)
 
     # change image links
-    text = re.sub('(\.\. \|.*?\| image:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', text, flags=re.DOTALL)
-    text = re.sub('(\.\. figure:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', text, flags=re.DOTALL)
+    text = re.sub(r'(\.\. \|.*?\| image:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', text, flags=re.DOTALL)
+    text = re.sub(r'(\.\. figure:: )_apimedia/(\S*)\s*?\n', r'\1../../tasks/_apimedia/\2\n', text, flags=re.DOTALL)
 
     # add this task to the __init__.py
     with open('../'+component+'/' + category + '__init__.py', 'a') as fid:
@@ -193,7 +189,7 @@ def render_rst(component, category, text, task):
         if 'shortdescription' in task.keys():
             fid.write(task['shortdescription'] + '\n\n')
         elif 'description' in task.keys():
-            fid.write(re.sub('\s+', ' ', task['description'].strip(), flags=re.DOTALL) + '\n\n')
+            fid.write(re.sub(r'\s+', ' ', task['description'].strip(), flags=re.DOTALL) + '\n\n')
         else:
             fid.write(' \n\n')
 
@@ -234,7 +230,7 @@ def render_rst(component, category, text, task):
 
         # Add long descriptions of each parameter as footnotes at the bottom. For example:
         # .. _paramname:
-        # 
+        #
         # | ``paramname (paramtype=defaultvalue)`` - description line 1
         # |    description line 2...
         fid.write('.. _Details:\n\n')
@@ -253,8 +249,8 @@ def render_rst(component, category, text, task):
 
 ##################################################################################
 
-# render casatasks, almatasks, casaplotms, and casaviewer
-for mname, mlist in [('casatasks', tasklist), ('almatasks', almalist), ('casaplotms', plotmslist), ('casaviewer', viewerlist)]:
+# render casatasks, casaplotms, and casaviewer
+for mname, mlist in [('casatasks', tasklist), ('casaplotms', plotmslist), ('casaviewer', viewerlist)]:
     tasknames = []
     for task in mlist:
         # grab rst description page if it exists, otherwise skip this task

@@ -577,12 +577,6 @@ https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdgaincal/para
 https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdgaincal/changelog
 https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdgaincal/examples
 https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdgaincal/developer
-https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdimaging
-https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdimaging/about
-https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdimaging/parameters
-https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdimaging/changelog
-https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdimaging/examples
-https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdimaging/developer
 https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdintimaging
 https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdintimaging/about
 https://casa.nrao.edu/casadocs-devel/stable/global-task-list/task_sdintimaging/parameters

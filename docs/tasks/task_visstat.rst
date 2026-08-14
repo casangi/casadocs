@@ -26,10 +26,10 @@ Description
    
    Statistics may be computed on any of the following axes: flag,
    antenna1, antenna2, feed1, feed2, field_id, array_id,
-   data_desc_id, flag_row, interval, scan, scan_number, time, weight,
+   data_desc_id, flag_row, interval, scan, scan_number, time,
    weight_spectrum, amp, amplitude, phase, real, imag, imaginary, and
-   uvrange (weight, amp, imag and scan are aliases for
-   weight_spectrum, amplitude, imaginary and scan_number,
+   uvrange (amp, imag and scan are aliases for
+   amplitude, imaginary and scan_number,
    respectively) Note that the statistics are computed on scalar
    values only; for example, the average amplitude is computed as a
    scalar average.

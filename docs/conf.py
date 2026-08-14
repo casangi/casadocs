@@ -44,7 +44,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.githubpages',
     'sphinx_automodapi.automodapi',
-    'recommonmark'
+    'myst_parser'
 ]
 nbsphinx_allow_errors = True
 nbsphinx_execute = 'never'
@@ -65,9 +65,16 @@ os.system('git branch > branch_name.txt')
 with open('branch_name.txt', 'r') as fid:
     branch_name = [ll for ll in fid.readlines() if ll.startswith('*')][0].strip().split('/')[-1].split(' ')[-1].replace(')','')
 
-blob_url = 'casadocs/blob/%s/docs' % branch_name
-nbsphinx_prolog = "\nOpen in Colab: https://colab.research.google.com/github/casangi/{{ ('%s/'+env.doc2path(env.docname, base=None)).replace('%s/examples', 'examples/blob/master') }}\n\n----"%(blob_url, blob_url)
+blob_url = f"casadocs/blob/{branch_name}/docs"
+nbsphinx_prolog = r"""
+{%% set blob_url = '%s' %%}
+{%% set docpath = env.doc2path(env.docname, base=None)|string %%}
+{%% set colab_path = (blob_url ~ '/' ~ docpath).replace(blob_url ~ '/examples', 'examples/blob/master') %%}
 
+Open in Colab: https://colab.research.google.com/github/casangi/{{ colab_path }}
+
+----
+""" % (blob_url)
 
 #List of imports to mock (this ensures readthedocs works)
 autodoc_mock_imports = ['numcodecs','os','numpy','time','xarray','numba','itertools','zarr']
@@ -200,15 +207,15 @@ for dirname, prefix, postfix, group in [('api/tt/', 'casatools.', '.rst', 'tools
     if os.path.exists(f"{group}_selection.csv"):
         fnames = []
         if group == 'tools':
-            fnames = ['casatools.'+fn for fn in os.listdir('../casatools') if fn != '__init__.py']
+            fnames = ['casatools.' + str(fn) for fn in os.listdir('../casatools') if str(fn) != '__init__.py']
         elif group == 'tasks':
             files = glob.glob('../casatasks/**/*.py', recursive=True)
-            fnames = map(lambda fn: re.match(r".*?([^/]*/[^/]*\.py)", fn)[1].replace('/','.'), files)
-            fnames = ['casatasks.'+fn for fn in fnames if '__init__' not in fn]
+            fnames = map(lambda fn: re.match(r".*?([^/]*/[^/]*\.py)", str(fn))[1].replace('/','.'), files)
+            fnames = ['casatasks.' + str(fn) for fn in fnames if '__init__' not in str(fn)]
         elif group == 'notebooks':
             files = glob.glob('notebooks/*.ipynb')
-            fnames = [os.path.basename(fn) for fn in files]
-        fnames = [fn.replace('.py',postfix) for fn in fnames]
+            fnames = [os.path.basename(str(fn)) for fn in files]
+        fnames = [str(fn).replace('.py',postfix) for fn in fnames]
         with open(f"{group}_selection.csv", 'r') as fin:
             selection = [f"{prefix}{name}{postfix}" for name in fin.readlines()[0].strip().split(',')]
         exclusions = [name for name in fnames if (name not in selection)]
