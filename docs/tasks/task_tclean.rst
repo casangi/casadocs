@@ -459,10 +459,10 @@ Description
    
    .. rubric:: Deconvolution Options (deconvolver)
    
-   All the algorithms follow the Cotton-Schwab CLEAN style of major
-   and minor cycles with the details of the deconvolution algorithm
-   usually contained within the minor cycle and operating in the
-   image domain. Options include:
+   These deconvolution algorithms normally operate within CASA's
+   major/minor-cycle framework, with the details of the selected
+   deconvolver contained primarily in the image-domain minor cycle.
+   Options include:
    
    -  'hogbom': An adapted version of Hogbom Clean (Hogbom, 1974)
    -  'clark': An adapted version of Clark Clean (Clark, 1980)
@@ -497,6 +497,26 @@ Description
    Several options for `making masks, including
    automasking <../../notebooks/synthesis_imaging.ipynb#Masks-for-Deconvolution>`__,
    are also provided.
+
+
+   .. rubric:: Major-Cycle Algorithm (majorcycle)
+
+   By default, tclean uses Cotton-Schwab (CS) major cycles. Setting
+   ``majorcycle='CG'`` selects CG-CLEAN, which combines successive
+   minor-cycle model updates into conjugate search directions before
+   running the usual visibility-domain major cycle. This can reduce the
+   number of major cycles required to reach a given residual level while
+   retaining the selected deconvolver and CASA's existing prediction and
+   imaging machinery.
+
+   CG-CLEAN requires an explicitly positive ``cycleniter`` value. The
+   public default is ``cycleniter=-1``; if ``majorcycle='CG'`` is requested
+   with ``cycleniter<=0``, tclean falls back to Cotton-Schwab cycles.
+
+   For an overview, parameter guidance, and a reference to Müller, Hsieh,
+   and Bhatnagar (2026), see the `Major-Cycle Algorithms
+   <../../notebooks/synthesis_imaging.ipynb#Major-Cycle-Algorithms>`__
+   section of the Synthesis Imaging documentation.
 
    
    .. rubric:: Data Weighting (weighting)
