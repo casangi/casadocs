@@ -6,7 +6,7 @@ Description
 
 This task retrieves the antenna positions for an ALMA Execution Block
 via the web service Antenna Position Endpoint in the Uncertainties
-database (\https://asa.alma.cl/uncertainties-service/uncertainties/versions/last/measurements/casa/),
+database (\https://sps.alma.cl/uncertainties-service/uncertainties/versions/last/measurements/casa/),
 which runs on an ALMA JAO hosted server. For a basic
 run, the user must specify the outfile and the asdm, using the default
 values for the other parameters. The antenna positions stored in the output
