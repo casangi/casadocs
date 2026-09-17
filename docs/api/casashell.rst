@@ -1,7 +1,7 @@
 casashell
 ====================
 
-CASA shell environment for interactive Python-based analysis using CASA tasks. CASA shell provides a customized IPython shell, imports the CASA modules, imports each task 
+CASA shell environment for interactive Python-based analysis using CASA tasks. CASA shell provides a customized IPython shell, imports the CASA modules, imports each task
 and imports and instantiates each tool. CASA shell also adds the following functions:
 
 .. toctree::
@@ -20,15 +20,15 @@ and imports and instantiates each tool. CASA shell also adds the following funct
 
 
 .. rubric:: Starting CASA Shell
-   CASA shell is started automatically by monolithic CASA releases. CASA shell is also available as an optional modular package and can be installed by pip when using modular CASA 
-   ( see the `Modular Packages section <../notebooks/introduction.html#Modular-Packages>`_). To start CASA shell when using a modular installation, you can either
-   start CASA shell at the same time that you start Python::
-      python3 -m casashell
+CASA shell is started automatically by monolithic CASA releases. CASA shell is also available as an optional modular package and can be installed by pip when using modular CASA
+( see the `Modular Packages section <../notebooks/introduction.html#Modular-Packages>`_). To start CASA shell when using a modular installation, you can either
+start CASA shell at the same time that you start Python::
+   python3 -m casashell
 
-   or you can start CASA shell after starting Python::
-      $: python3
-      >>import casashell
-      >>casashell.start_casa([])
+or you can start CASA shell after starting Python::
+   $: python3
+   >>import casashell
+   >>casashell.start_casa([])
 
 
 .. rubric:: Running Tasks and Tools
@@ -69,7 +69,7 @@ One may also invoke the tasks as follows: ::
    ydatacolumn='data'
    plotms()
 
-Similar to the input as a function, the above invokation also calls the task with no arguments, and will thus use the global parameter values.
+Similar to the input as a function, the above invocation also calls the task with no arguments, and will thus use the global parameter values.
 
 Alternatively, one can use inp/go to manually execute a task using an interface format. For example, ::
 
@@ -80,26 +80,26 @@ Alternatively, one can use inp/go to manually execute a task using an interface 
    datacolumn='data'
    go()
 
-will execute **plotms** with the set values for the parameters, which will appear in the terminal when re-typing 'inp'. 
+will execute **plotms** with the set values for the parameters, which will appear in the terminal when re-typing 'inp'.
 
 
 .. rubric:: Default Values
 
-When working with CASA shell, it is important to note that the defaut values of some parameters may differ from 
-the default parameters described in the `casatasks API <../api/casatasks.html>`_. 
-This is because CASA shell uses a more sophisticated system of conditional defaults, where the value 
-of a default parameter can depend on the value of another parameter. The interactive inp/go system of running tasks 
-(described below) will always display the accurate parameter values that will be used before you run a task. 
+When working with CASA shell, it is important to note that the default values of some parameters may differ from
+the default parameters described in the `casatasks API <../api/casatasks.html>`_.
+This is because CASA shell uses a more sophisticated system of conditional defaults, where the value
+of a default parameter can depend on the value of another parameter. The interactive inp/go system of running tasks
+(described below) will always display the accurate parameter values that will be used before you run a task.
 
-Because of these differences in how defaults are handled, some care is required when omitting parameters from a task 
+Because of these differences in how defaults are handled, some care is required when omitting parameters from a task
 executed via a function call. You can inspect a task's '__module__ ' property to determine if the task was imported from casatasks
-or casashell and ascertain which default convention it will use. Typical use of CASA will most likely result in tasks being 
-imported from casashell and therefore follow the conditional default behavior unless you explicitly import your task 
-from casatasks (e.g. in a script, or when using modular CASA). 
+or casashell and ascertain which default convention it will use. Typical use of CASA will most likely result in tasks being
+imported from casashell and therefore follow the conditional default behavior unless you explicitly import your task
+from casatasks (e.g. in a script, or when using modular CASA).
 
-Users may select their preferred behavior by calling tasks directly from their chosen module, e.g. casashell.<taskname> or 
-casatasks.<taskname>, or by explicitly importing the task from their chosen module, e.g. 'from casashell import <taskname>'. 
-Alternitively, these differences in default behavior can be avoided by providing all parameters 
+Users may select their preferred behavior by calling tasks directly from their chosen module, e.g. casashell.<taskname> or
+casatasks.<taskname>, or by explicitly importing the task from their chosen module, e.g. 'from casashell import <taskname>'.
+Alternatively, these differences in default behavior can be avoided by providing all parameters
 in a task function call instead of allowing omitted parameters to take on default values.
 
 
@@ -294,7 +294,7 @@ For example, suppose we have been running CASA on a particular dataset, e.g.
 
 ::
 
-   CASA <26>: inp tclean                                                                                                                                                    
+   CASA <26>: inp tclean
    ---------> inp(tclean)
    ---------> inp(tclean)
    # tclean -- Radio Interferometric Image Reconstruction
@@ -319,9 +319,9 @@ and now we wish to switch to a different one. We can reset the parameter values 
 
 ::
 
-   CASA <27>: default()                                                                                                                                                     
+   CASA <27>: default()
 
-   CASA <28>: inp()                                                                                                                                                         
+   CASA <28>: inp()
    # tclean -- Radio Interferometric Image Reconstruction
    vis = '' # Name of input visibility file(s)
    selectdata = True # Enable data selection parameters
@@ -367,7 +367,7 @@ above, then ::
 You can restore the parameter values from the save file using ::
 
    CASA <18>: tget("listobs")
-   
+
 or (since the current active task is ``listobs``) ::
 
    CASA <19>: tget
