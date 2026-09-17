@@ -1,7 +1,7 @@
 casashell
 ====================
 
-CASA shell environment for interactive Python-based analysis using CASA tasks. CASA shell provides a customized IPython shell, imports the CASA modules, imports each task
+CASA shell environment for interactive Python-based analysis. CASA shell provides a customized IPython shell, imports the CASA modules, imports each task
 and imports and instantiates each tool. CASA shell also adds the following functions:
 
 .. toctree::
@@ -25,10 +25,13 @@ CASA shell is started automatically by monolithic CASA releases. CASA shell is a
 start CASA shell at the same time that you start Python::
    python3 -m casashell
 
-or you can start CASA shell after starting Python::
+or you can start CASA shell after starting Python:
+
+.. code-block:: bash
+
    $: python3
-   >>import casashell
-   >>casashell.start_casa([])
+   >> import casashell
+   >> casashell.start_casa([])
 
 
 .. rubric:: Running Tasks and Tools
@@ -86,19 +89,19 @@ will execute **plotms** with the set values for the parameters, which will appea
 .. rubric:: Default Values
 
 When working with CASA shell, it is important to note that the default values of some parameters may differ from
-the default parameters described in the `casatasks API <../api/casatasks.html>`_.
+the default values described in the `casatasks API <../api/casatasks.html>`_.
 This is because CASA shell uses a more sophisticated system of conditional defaults, where the value
 of a default parameter can depend on the value of another parameter. The interactive inp/go system of running tasks
 (described below) will always display the accurate parameter values that will be used before you run a task.
 
 Because of these differences in how defaults are handled, some care is required when omitting parameters from a task
-executed via a function call. You can inspect a task's '__module__ ' property to determine if the task was imported from casatasks
+executed via a function call. You can inspect a task's ``__module__`` property to determine if the task was imported from casatasks
 or casashell and ascertain which default convention it will use. Typical use of CASA will most likely result in tasks being
 imported from casashell and therefore follow the conditional default behavior unless you explicitly import your task
 from casatasks (e.g. in a script, or when using modular CASA).
 
-Users may select their preferred behavior by calling tasks directly from their chosen module, e.g. casashell.<taskname> or
-casatasks.<taskname>, or by explicitly importing the task from their chosen module, e.g. 'from casashell import <taskname>'.
+Users may select their preferred behavior by calling tasks directly from their chosen module, e.g. ``casashell.<taskname>`` or
+``casatasks.<taskname>``, or by explicitly importing the task from their chosen module, e.g. ``from casashell import <taskname>``.
 Alternatively, these differences in default behavior can be avoided by providing all parameters
 in a task function call instead of allowing omitted parameters to take on default values.
 
