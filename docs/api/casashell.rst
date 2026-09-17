@@ -1,7 +1,8 @@
 casashell
 ====================
 
-CASA shell environment for interactive Python-based analysis using CASA tasks.
+CASA shell environment for interactive Python-based analysis using CASA tasks. CASA shell provides a customized IPython shell, imports the CASA modules, imports each task 
+and imports and instantiates each tool. CASA shell also adds the following functions:
 
 .. toctree::
    :maxdepth: 3
@@ -18,6 +19,18 @@ CASA shell environment for interactive Python-based analysis using CASA tasks.
    casashell/tput
 
 
+.. rubric:: Starting CASA Shell
+   CASA shell is started automatically by monolithic CASA releases. CASA shell is also available as an optional modular package and can be installed by pip when using modular CASA 
+   ( see the `Modular Packages section <../notebooks/introduction.html#Modular-Packages>`_). To start CASA shell when using a modular installation, you can either
+   start CASA shell at the same time that you start Python::
+      python3 -m casashell
+
+   or you can start CASA shell after starting Python::
+      $: python3
+      >>import casashell
+      >>casashell.start_casa([])
+
+
 .. rubric:: Running Tasks and Tools
 
 Tools are functions linked to the Python interface which must be called by name with arguments. Tasks have higher-level
@@ -31,7 +44,7 @@ methods differ in whether the global parameter values are used or not.
 
 One may call tasks and tools by name with parameters set on the same line. Parameters may be set either as explicit
 ``<parameter>=<value>`` arguments, or as a series of comma delimited \<value\>s in the correct order for that task or tool.
-Note that missing parameters will use the default values for that task. For example, the following are equivalent: ::
+Note that missing parameters will use the CASA shell default values for that task. For example, the following are equivalent: ::
 
    #Specify parameter names for each keyword input:
    plotms(vis='ngc5921.ms',xaxis='channel',yaxis='amp',datacolumn='data')
@@ -44,7 +57,8 @@ Note that missing parameters will use the default values for that task. For exam
 
 This non-use of globals when calling as a function is so that robust scripts can be written. One need only cut-and-paste the
 calls and need not worry about the state of the global variables or what has been run previously. It is also more like the
-standard behavior of function calls in Python and other languages.
+standard behavior of function calls in Python and other languages. The ``go()`` method of running a task is only supported for
+interactive use and is not intended for use within a script.
 
 One may also invoke the tasks as follows: ::
 
@@ -67,6 +81,27 @@ Alternatively, one can use inp/go to manually execute a task using an interface 
    go()
 
 will execute **plotms** with the set values for the parameters, which will appear in the terminal when re-typing 'inp'. 
+
+
+.. rubric:: Default Values
+
+When working with CASA shell, it is important to note that the defaut values of some parameters may differ from 
+the default parameters described in the `casatasks API <../api/casatasks.html>`_. 
+This is because CASA shell uses a more sophisticated system of conditional defaults, where the value 
+of a default parameter can depend on the value of another parameter. The interactive inp/go system of running tasks 
+(described below) will always display the accurate parameter values that will be used before you run a task. 
+
+Because of these differences in how defaults are handled, some care is required when omitting parameters from a task 
+executed via a function call. You can inspect a task's '__module__ ' property to determine if the task was imported from casatasks
+or casashell and ascertain which default convention it will use. Typical use of CASA will most likely result in tasks being 
+imported from casashell and therefore follow the conditional default behavior unless you explicitly import your task 
+from casatasks (e.g. in a script, or when using modular CASA). 
+
+Users may select their preferred behavior by calling tasks directly from their chosen module, e.g. casashell.<taskname> or 
+casatasks.<taskname>, or by explicitly importing the task from their chosen module, e.g. 'from casashell import <taskname>'. 
+Alternitively, these differences in default behavior can be avoided by providing all parameters 
+in a task function call instead of allowing omitted parameters to take on default values.
+
 
 .. rubric:: Aborting Tasks
 
