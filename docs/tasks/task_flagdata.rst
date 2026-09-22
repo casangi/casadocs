@@ -172,7 +172,7 @@ Description
    the auto-correlation baselines for antenna DV06;
    *antenna='DV04&&\*'* cross and auto-correlation baselines between
    antenna DV04 and all other available antennas; *antenna='0~2&&&'*
-   only the auto-correlation baselines for antennas in range 0~2   
+   only the auto-correlation baselines for antennas in range 0~2. See this `page on parameter selection <../../notebooks/visibility_data_selection.ipynb#The-antenna-Parameter>`_ for more details. 
    
    .. note:: For some antenna-based calibration tables, selecting
       baselines with the & syntax do not apply.
