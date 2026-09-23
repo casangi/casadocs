@@ -40,24 +40,30 @@ This ./bin/casa executable can be provided the following options to change confi
 
 ::
 
-   -h, --help            show this help message and exit
-   --logfile LOGFILE     path to log file
-   --log2term            direct output to terminal
-   --nologger            do not start CASA logger
-   --nologfile           do not create a log file
-   --nogui               avoid starting GUI tools
-   --cachedir CACHEDIR   location for internal working files
-   --norc                do not load user config.py (startup.py is unaffected)
+   -h, --help                  show this help message and exit
+   --configfile CONFIGFILE     path to the user configuration file
+   --noconfig                  do not load user configuration file
+   --nositeconfig              do not load site configuration file
+   --startupfile STARTUPFILE   path to user's startup.py
+   --nostartupfile             do not use any startup file
+   --logfile LOGFILE           path to log file
+   --log2term                  direct output to terminal
+   --nologger                  do not start CASA logger
+   --nologfile                 do not create a log file
+   --nogui                     avoid starting GUI tools
+   --cachedir CACHEDIR         location for internal working files
    --colors {Neutral,NoColor,Linux,LightBG} prompt color
-   --pipeline            load CASA pipeline modules on startup
-   --agg                 startup without graphical backend
-   --iplog               create ipython log
-   --notelemetry         disable telemetry collection
-   --nocrashreport       do not submit an online report when CASA crashes
-   --datapath DATAPATH   data path(s) [colon separated]
-   --user-site           include user's local site-packages lib in path
-   (toggling this option turns it on; use startup.py to append to the path)
-   -c ...                python eval string or python script to execute
+   --pipeline                  start CASA pipeline run
+   --agg                       startup without graphical backend
+   --iplog                     create ipython log
+   --datapath DATAPATH         data path(s) [colon separated]
+   --reference-testing         force *measurespath* to contain the
+                               casarundata when this version was 
+                               produced, used for testing purposes
+   --no-auto-update            turn off all auto updates
+   --user-site                 include user's local site-packages lib in path
+   -v, --version               show CASA version
+   -c ...                      python eval string or python script to execute
 
 
 
