@@ -9,9 +9,9 @@ Jansky Very Large Array
 (`VLA <https://public.nrao.edu/telescopes/vla/>`__),
 and is often used also for other radio telescopes.
 
-**6.7.3 Release**
+**6.7.4 Release**
 
-CASA 6.7.3 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.7.3 is available either as a downloadable tar-file, or through pip-wheel installation, which gives flexibility to integrate CASA into a customized Python environment.
+CASA 6.7.4 can now be `downloaded <https://casa.nrao.edu/casa_obtaining.shtml>`__ for general use. CASA 6.7.4 is based on CASA 6.7.3, and the downloadable tar-file includes the pipeline for ALMA Cycle 13.
 
 **Highlights:**
 
