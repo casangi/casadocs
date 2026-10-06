@@ -1,4 +1,4 @@
-371d1a67d52c269ff1eaa8de61f77ae6da8e5116 (HEAD, origin/master, origin/HEAD, master)
+371d1a67d52c269ff1eaa8de61f77ae6da8e5116 (HEAD, tag: 6.7.7.12, origin/master, origin/HEAD, master)
 1c15161af4835b249f46b5067f9a4927f32ea461
 612f68aa4c4ac067af4a9ede0e5e6aa74dc5b64d (tag: 6.7.7.11)
 17a0b04d04c69a1f14ea8ac7e5e62f01f0eaec86
