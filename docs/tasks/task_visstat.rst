@@ -26,14 +26,14 @@ Description
    
    Statistics may be computed on any of the following axes: flag,
    antenna1, antenna2, feed1, feed2, field_id, array_id,
-   data_desc_id, flag_row, interval, scan, scan_number, time,
-   weight_spectrum, amp, amplitude, phase, real, imag, imaginary, and
-   uvrange (amp, imag and scan are aliases for
-   amplitude, imaginary and scan_number,
-   respectively) Note that the statistics are computed on scalar
-   values only; for example, the average amplitude is computed as a
-   scalar average.
-   
+   data_desc_id, flag_row, interval, scan, scan_number, time, data,
+   corrected, model, weight, weight_spectrum, sigma, sigma_spectrum,
+   and uvrange. For complex quantities (data, corrected and model),
+   the 'operator' argument indicates which scalar value to use:
+   'amp', 'phase', 'real' and 'imag'. Note that the final statistics
+   are computed on those scalar values only; for example, the average
+   amplitude is computed as a scalar average.
+
    Additionally, statistics for any axis may be computed on subsets
    of the MeasurementSet partitioned by values of data description
    id, field id or integration number. The 'reportingaxes' argument
@@ -78,7 +78,7 @@ Examples
    ::
    
       CASA <1>: mystat = visstat(vis='data/regression/unittest/setjy/ngc5921.ms',
-                                 axis='amp', datacolumn='data', useflags=False, spw='',
+                                 axis='data', operator='amp', useflags=False, spw='',
                                  field='', selectdata=True, correlation='RR', timeaverage=False,
                                  intent='', reportingaxes='ddid')
    
