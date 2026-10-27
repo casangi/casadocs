@@ -20,6 +20,7 @@ to the ms.
    Specify the name of the output vis that will have the antab information appended to it
 
 *antab*
+
     Specify the antab file to be appended to the vis as a string
 
 *overwrite*
@@ -38,7 +39,7 @@ to the ms.
 .. _Examples:
 
 Examples
-   This example will take a ms and output one with the name "appended_data.ms" by appending the tys and gc infromation from an antab file:
+   This example will take a ms and output one with the name "appended_data.ms" by appending the tsys and gain curve information from an antab file:
 
    ::
    
