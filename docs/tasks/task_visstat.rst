@@ -27,12 +27,14 @@ Description
    Statistics may be computed on any of the following axes: flag,
    antenna1, antenna2, feed1, feed2, field_id, array_id,
    data_desc_id, flag_row, interval, scan, scan_number, time, data,
-   corrected, model, weight, weight_spectrum, sigma, sigma_spectrum,
-   and uvrange. For complex quantities (data, corrected and model),
-   the 'operator' argument indicates which scalar value to use:
-   'amp', 'phase', 'real' and 'imag'. Note that the final statistics
-   are computed on those scalar values only; for example, the average
-   amplitude is computed as a scalar average.
+   float_data, corrected, model, weight, weight_spectrum, sigma,
+   sigma_spectrum, and uvrange.
+
+   For complex quantities (data, corrected and model), the 'operator'
+   argument indicates which scalar value to use: 'amp', 'phase',
+   'real' and 'imag'. Note that the final statistics are computed on
+   those scalar values only; for example, the average amplitude is
+   computed as a scalar average.
 
    Additionally, statistics for any axis may be computed on subsets
    of the MeasurementSet partitioned by values of data description
@@ -40,9 +42,10 @@ Description
    is used to partition the sample set along an axis. For example,
    setting its value to 'ddid' will result in the statistics of the
    chosen sample values partitioned by unique values of the data
-   description id. Thus setting 'axis' to 'amp' and 'reportingaxes'
-   to 'ddid' will report statistics of visibility amplitudes for each
-   unique value of data description id in the MeasurementSet.
+   description id. Thus setting 'axis' to any of 'data', 'corrected'
+   or 'model', 'operator' to 'amp' and 'reportingaxes' to 'ddid' will
+   report statistics of visibility amplitudes for each unique value
+   of data description id in the MeasurementSet.
    
    When the 'reportingaxes' argument is used to partition the data,
    if one of the partitions is completely flagged and useflags=True,
