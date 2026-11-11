@@ -4,7 +4,7 @@
 
 Returns
    stats (dict) - statistics from a given MeasurementSet column or
-   column-derived value, grouped by ddi, field or integration
+   column-derived value, grouped by ddid, field or integration
 
 
 .. _Description:
@@ -51,7 +51,7 @@ Description
    if one of the partitions is completely flagged and useflags=True,
    the returned report for that partition will have the number of
    points set to zero and the statistics set to 'NaN'. For example,
-   if partitionaxes ='field', a list of fields is given, and some of
+   if reportingaxes ='field', a list of fields is given, and some of
    the fields are completely flagged, the number of points reported
    for those fields will be 0 and their statistics 'NaN'.
    
