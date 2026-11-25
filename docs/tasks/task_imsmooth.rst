@@ -72,6 +72,19 @@ Description
    image will also have multiple beams that vary with spectral
    channel and/or polarization).
    
+  .. rubric:: Subpixel convolution
+   if *targetres=True* and the difference
+   Gaussian needed is less than 2 pixels on any of the axes, the it is highly
+   recommended that the user regrid the input image to a smaller pixel size.
+   Otherwise the flux density in the final image may not be accurate to the
+   close to subpixel difference requested. Now if that condition arise, imsmooth
+   will regrid the image to a finer pixel size to achieve convolution which is no
+   longer close to subpixel and then regrid back to original image size. If the
+   image is large it can be slow. The user may use ia.deconvolvefrombeam and
+   ia.convolveGaussianByFTMultiplication to achieve this faster. But the accuracy
+   of flux density such subpixel convolution is not guaranteed to be at the level of the
+   change requested.
+   
    If the units on the original image include Jy/beam, the units on
    the output image will be rescaled by the ratio of the input and
    output beams as well as rescaling by the area of convolution
